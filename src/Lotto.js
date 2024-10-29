@@ -18,13 +18,14 @@ class Lotto {
   }
   #validateNumber(number) {
     if (number === "") {
-      throw new Error("공백은 입력될 수 없습니다.");
+      Console.print("[ERROR] 공백은 입력될 수 없습니다.")
+      throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
     }
     if (isNaN(number)) {
-      throw new Error("숫자를 입력해주세요.");
+      throw new Error("[ERROR] 숫자를 입력해주세요.");
     }
     if (number > 45 || number < 1) {
-      throw new Error("1이상 45이하의 숫자를 입력해주세요.");
+      throw new Error("[ERROR] 1이상 45이하의 숫자를 입력해주세요.");
     }
   }
   #validateNumbers(numbers) {

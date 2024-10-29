@@ -16,15 +16,15 @@ class Bet {
   }
 
   #validateBlank(money) {
-    if (money === "") throw new Error("공백은 입력될 수 없습니다.");
+    if (money === "") throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
   }
 
   #validateNumber(money) {
-    if (isNaN(money)) throw new Error("숫자를 입력해주세요.");
+    if (isNaN(money)) throw new Error("[ERROR] 숫자를 입력해주세요.");
   }
 
   #validateUnit(money) {
-    if (money % 1000 !== 0) throw new Error("1000단위의 숫자를 입력해주세요.");
+    if (money % 1000 !== 0) throw new Error("[ERROR] 1000단위의 숫자를 입력해주세요.");
   }
   // TODO: 추가 기능 구현
   getMoney() {
@@ -32,7 +32,7 @@ class Bet {
   }
 
   getBetResults() {
-    Console.print(`\n${this.count}개를 구매했습니다.`);
+    Console.print(`${this.count}개를 구매했습니다.`);
     const betResults = [];
     for (let index = 0; index < this.count; index++) {
       const betResult = MissionUtils.Random.pickUniqueNumbersInRange(
@@ -42,7 +42,7 @@ class Bet {
       ).sort(function (a, b) {
         return a - b;
       });
-      Console.print(betResult);
+      Console.print(`[${betResult.join(", ")}]`);
       betResults.push(betResult);
     }
     return betResults;
