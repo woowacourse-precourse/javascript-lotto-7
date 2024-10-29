@@ -1,5 +1,8 @@
+import Main from './Main.js';
 class App {
-  async run() {}
+  async run() {
+    Main();
+  }
 }
 
 export default App;
