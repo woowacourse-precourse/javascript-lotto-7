@@ -1,5 +1,16 @@
 import { ERROR_MESSAGE, LOTTERY } from './constant';
 
+const notNumberRegex = /\D/;
+const invalidWinningNumbersRegex = /[^\d,]/;
+
+function validateOnlyDigit(string) {
+  if (notNumberRegex.test(string)) throw new Error(ERROR_MESSAGE.NOT_A_NUMBER);
+}
+
+function validatePositiveInteger(number) {
+  if (number <= 0 || number % 1 !== 0) throw new Error(ERROR_MESSAGE.NOT_POSITIVE_INTEGER);
+}
+
 function validateEmptyString(string) {
   if (!string) throw new Error(ERROR_MESSAGE.EMPTY_STRING);
 }
@@ -10,23 +21,17 @@ function validateLotteryNumberRange(number) {
   }
 }
 
-function isNumberString(string) {
-  const notNumberRegex = /\D/;
-  return !notNumberRegex.test(string);
-}
-
 function validateUserMoney(userMoneyString) {
   validateEmptyString(userMoneyString);
-  if (!isNumberString(userMoneyString)) throw new Error(ERROR_MESSAGE.NOT_A_NUMBER);
+  validateOnlyDigit(userMoneyString);
   const userMoney = Number(userMoneyString);
   if (userMoney % LOTTERY.PRICE !== 0) throw new Error(ERROR_MESSAGE.CAN_NOT_DIVIDE_BY_PRICE);
-  if (userMoney <= 0) throw new Error(ERROR_MESSAGE.NOT_POSITIVE_INTEGER);
+  validatePositiveInteger(userMoney);
 }
 
 function validateWinningNumbers(winningNumberString) {
   validateEmptyString(winningNumberString);
-  const notAllowedCharacterRegex = /[^\d,]/;
-  if (notAllowedCharacterRegex.test(winningNumberString)) {
+  if (invalidWinningNumbersRegex.test(winningNumberString)) {
     throw new Error(ERROR_MESSAGE.NOT_ALLOWED_WINNING_NUMBER);
   }
   const winningNumbers = new Set(winningNumberString
@@ -42,11 +47,9 @@ function validateWinningNumbers(winningNumberString) {
 
 function validateBonusNumber(winningNumbers, bonusNumberString) {
   validateEmptyString(bonusNumberString);
-  if (!isNumberString(bonusNumberString)) throw new Error(ERROR_MESSAGE.NOT_A_NUMBER);
+  validateOnlyDigit(bonusNumberString);
   const bonusNumber = Number(bonusNumberString);
-  if (bonusNumber % 1 !== 0 || bonusNumber <= 0) {
-    throw new Error(ERROR_MESSAGE.NOT_POSITIVE_INTEGER);
-  }
+  validatePositiveInteger(bonusNumber);
   validateLotteryNumberRange(bonusNumber);
   if (winningNumbers.includes(bonusNumber)) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_BONUS_NUMBER);

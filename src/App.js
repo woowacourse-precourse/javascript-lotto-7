@@ -8,21 +8,19 @@ class App {
   #bonusNumber;
 
   async run() {
-    let isSet = false;
-    while (!isSet) {
-      try {
-        await this.setUserInputs();
-        if (this.#userMoney && this.#bonusNumber && this.#userMoney) isSet = true;
-      } catch (error) {
-        Console.print(error.message);
-      }
-    }
+    await this.setUserInputs();
   }
 
   async setUserInputs() {
-    await this.setUserMoney();
-    await this.setWinningNumbers();
-    await this.setBonusNumber();
+    try {
+      await this.setUserMoney();
+      await this.setWinningNumbers();
+      await this.setBonusNumber();
+    } catch (error) {
+      // 에러 발생 시 메시지만 출력하고 입력 계속 받아야 함
+      Console.print(error.message);
+      await this.setUserInputs();
+    }
   }
 
   async setUserMoney() {
