@@ -6,7 +6,7 @@ class App {
   async run() {
     const bettedMoney = new BettedMoney(String(
       await Console.readLineAsync("구매할 금액을 입력해주세요.\n")
-    )).getMoney();
+    ));
   }
 }
 
