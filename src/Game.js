@@ -54,6 +54,21 @@ class Game {
         return lottoReult;
     }
 
+    calculateProfit ( lottoReult, paidMoney){
+        let totalPrize = 0;
+        let profit = 0;
+        const winnerPrice = [[0,0,5_000,50_000,1_500_000,2_000_000_000], [30_000_000]];
+
+        for (let i = 0 ; i < 6 ; i++){
+            totalPrize  += winnerPrice[0][i] * lottoReult[0][i] ;
+        }
+
+        // Add Bonus winner prize
+        totalPrize += winnerPrice[1][0] * lottoReult[1][0] ;
+
+        profit = (totalPrize/paidMoney)*100;
+        return parseFloat(profit.toFixed(2));
+    }
 }
 
 export default Game;
