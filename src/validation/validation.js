@@ -1,4 +1,4 @@
-const LOTTO_PRICE_UNIT = 1000;
+import { LOTTO_PRICE_UNIT } from '../constants/constants.js';
 
 const validator = {
   isNumericString(value) {
