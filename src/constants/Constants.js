@@ -8,5 +8,12 @@ export const PRIZE = {
 };
 
 export const MESSAGE = {
-    WINNING_NUMBER_INPUT="구입금액을 입력해 주세요."
-}
+  WINNING_NUMBER_INPUT: "구입금액을 입력해 주세요.",
+};
+
+export const LOTTO = {
+  TOTAL_NUMBERS: 6,
+  TOTAL_BONUS_NUMBER: 1,
+  ARRANGE_START: 1,
+  ARRANGE_END: 45,
+};
