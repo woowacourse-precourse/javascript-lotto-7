@@ -1,3 +1,5 @@
+import { Calculator } from "../src/utils/Calculator";
+
 describe("계산기 클래스 테스트", () => {
   test("당첨금 계산 테스트", () => {
     const RANKING = [
@@ -9,7 +11,7 @@ describe("계산기 클래스 테스트", () => {
     const RESULT = [6000000000, 30005000, 1500000, 2031555000];
 
     for (let i = 0; i < RANKING.length; i++) {
-      expect(calculator.prizeAmount(RANKING[i])).toBe(RESULT[i]);
+      expect(Calculator.prizeAmount(RANKING[i])).toBe(RESULT[i]);
     }
   });
 });
