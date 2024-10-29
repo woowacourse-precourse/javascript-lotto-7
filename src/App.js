@@ -29,9 +29,25 @@ class App {
     return count;
   }
 
+  async #getLottos(count) {
+    const lottos = [];
+    for (let i = 0; i < count; i++) {
+      const numbers = MissionUtils.Random.pickUniqueNumbersInRange(
+        1,
+        45,
+        6
+      ).sort((a, b) => a - b);
+      const lotto = new Lotto(numbers);
+      lottos.push(lotto);
+      MissionUtils.Console.print(lotto.getNumbers());
+    }
+    return lottos;
+  }
+
   async run() {
     const amount = await this.#getAmount();
     const count = await this.#getCount(amount);
+    const lottos = await this.#getLottos(count);
   }
 }
 
