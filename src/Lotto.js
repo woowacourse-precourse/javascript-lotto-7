@@ -12,7 +12,14 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  compareWinning(winningNumbers) {
+    let correct = 0;
+    this.#numbers.forEach((i) => {
+      if (winningNumbers.includes(i)) return correct++;
+    });
+
+    return correct;
+  }
 }
 
 export default Lotto;
