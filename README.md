@@ -17,9 +17,9 @@
 
 ### 입력
 
-- 구입 금액
-- [ ]  ‘구입금액을 입력해 주세요.\n’ 입력 값을 받는다.
-    - [ ]  변수 설정- perChaseAmountInput
+- 구입금액
+- [X]  ‘구입금액을 입력해 주세요.\n’ 입력 값을 받는다.
+    - [X]  변수 설정- perChaseAmountInput
 - 당첨 번호
 - [ ]  ‘당첨 번호를 입력해 주세요.\n’ 입력 값을 받는다.
     - [ ]  변수 설정: winningNumbersInput
