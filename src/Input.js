@@ -8,8 +8,13 @@ class UserInput {
     }
 
     async getWinningNumber() {
-      const winningNumbers = await MissionUtils.Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
-      return winningNumbers;
+      const winningNumber = await MissionUtils.Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+      return winningNumber;
+    }
+
+    async getBonusNumber() {
+      const bonusNumber = await MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+      return bonusNumber;
     }
 
 }
