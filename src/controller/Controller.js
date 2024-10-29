@@ -8,7 +8,7 @@ import {
 import { validatePurchasePrice } from '../validation/validation.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import Lotto from '../Lotto.js';
+import Lotto from '../models/Lotto.js';
 
 class Controller {
   #inputView;
@@ -26,6 +26,7 @@ class Controller {
     this.#outputView.printLottoCount(lottoCount);
 
     const lottos = this.getParsedLottos(lottoCount);
+    this.#outputView.printLottos(lottos);
   }
 
   async getParsedPurchasePrice() {
