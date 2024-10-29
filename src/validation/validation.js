@@ -1,3 +1,5 @@
+const LOTTO_PRICE_UNIT = 1000;
+
 const validator = {
   isNumericString(value) {
     // Number() 변환 시 NaN, 음수, 소수, 지수 표현 문제 사전 방지
@@ -18,4 +20,11 @@ export const validatePurchasePrice = (purchasePrice) => {
   const parsedPurchasePrice = Number(purchasePrice);
 
   validator.isSafeInteger(parsedPurchasePrice);
+
+  if (
+    parsedPurchasePrice % LOTTO_PRICE_UNIT !== 0 ||
+    parsedPurchasePrice === 0
+  ) {
+    throw new Error('[ERROR] 구입 금액이 1000원 단위가 아닙니다.');
+  }
 };
