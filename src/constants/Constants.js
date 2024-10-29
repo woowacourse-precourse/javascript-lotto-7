@@ -6,3 +6,7 @@ export const PRIZE = {
   5: 5000,
   false: 0,
 };
+
+export const MESSAGE = {
+    WINNING_NUMBER_INPUT="구입금액을 입력해 주세요."
+}
