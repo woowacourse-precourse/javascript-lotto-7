@@ -1,4 +1,5 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import UserInput from "./Input.js";
 
 class Game {
 
@@ -12,8 +13,14 @@ class Game {
 
         return lottos;
     }
+
+    splitWinningNumbers (winningNumber) {
+        return winningNumber.split(',').map(num => Number(num));
+    }
+
 }
 
 export default Game;
 
 const test = new Game();
+const userInput = new UserInput(); 
