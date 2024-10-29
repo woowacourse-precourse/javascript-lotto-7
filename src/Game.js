@@ -39,6 +39,21 @@ class Game {
 
     }
 
+    checkLottoResult ( lotto , winningNumber, bonusNumber) {
+        // First Array normal winners, second array bouns winners
+        const lottoReult = [Array(6).fill(0), [0]];
+        const orderedWinningNumber = winningNumber.sort((a,b) => a-b);
+
+        for ( const lottoNumbers of lotto ){
+            const orderedLottoNumber = lottoNumbers.sort((a,b) => a-b );
+            const bunusFlag = orderedLottoNumber.includes(bonusNumber);
+
+            const matchedCount = this.countMatchingNumber(orderedWinningNumber, orderedLottoNumber);
+            this.updateWinnerrReult(lottoReult, matchedCount, bunusFlag);
+        }
+        return lottoReult;
+    }
+
 }
 
 export default Game;
