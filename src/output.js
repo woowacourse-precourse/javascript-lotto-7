@@ -17,7 +17,5 @@ class DisplayOutput {
 }
 
 const test = new DisplayOutput();
-const game = new Game();
 
-const testLotto = game.generateLotto(8);
-test.displayLotto(testLotto);
+export default DisplayOutput;
