@@ -6,4 +6,8 @@ export class Calculator {
       return cumulative + PRIZE[ranking];
     }, 0);
   }
+
+  static returnRate(purchaseAmount, prizeAmount) {
+    return (prizeAmount / purchaseAmount) * 100;
+  }
 }
