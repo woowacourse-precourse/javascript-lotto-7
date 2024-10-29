@@ -1,10 +1,17 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class DisplayOutput {
-    
-    async displayPaidLotto(number) {
-        MissionUtils.Console.print(`${number}개를 구입했습니다.`)
-      }
+
+    displayPaidLotto(number) {
+        MissionUtils.Console.print(`${number}개를 구입했습니다.`);
+    }
+
+    displayLotto (lotto){
+
+        for (const lottoNumbers of lotto) {
+            MissionUtils.Console.print(`${lottoNumbers}`);
+        }
+    }
 
 }
 
