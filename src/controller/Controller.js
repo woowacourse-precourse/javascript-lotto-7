@@ -43,16 +43,19 @@ class Controller {
     const lottos = [];
 
     for (let i = 0; i < lottoCount; i++) {
-      const lotto = Random.pickUniqueNumbersInRange(
-        LOTTO_NUMBER_MIN,
-        LOTTO_NUMBER_MAX,
-        LOTTO_NUMBER_COUNT
-      );
-
-      lottos.push(lotto.sort((a, b) => a - b));
+      const lottoNumbers = this.generateLottoNumbers();
+      lottos.push(new Lotto(lottoNumbers));
     }
 
-    return lottos.map((numbers) => new Lotto(numbers));
+    return lottos;
+  }
+
+  generateLottoNumbers() {
+    return Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBER_MIN,
+      LOTTO_NUMBER_MAX,
+      LOTTO_NUMBER_COUNT
+    ).sort((a, b) => a - b);
   }
 }
 
