@@ -14,5 +14,7 @@ class Game {
     }
 }
 
+export default Game;
+
 const test = new Game();
 Console.print(test.generateLotto(8));
