@@ -5,8 +5,17 @@ const validator = {
       throw new Error('[ERROR] 숫자가 아닌 문자가 포함되었습니다.');
     }
   },
+  isSafeInteger(value) {
+    if (!Number.isSafeInteger(value)) {
+      throw new Error('[ERROR] 안전 범위를 벗어난 숫자 입니다.');
+    }
+  },
 };
 
 export const validatePurchasePrice = (purchasePrice) => {
   validator.isNumericString(purchasePrice);
+
+  const parsedPurchasePrice = Number(purchasePrice);
+
+  validator.isSafeInteger(parsedPurchasePrice);
 };
