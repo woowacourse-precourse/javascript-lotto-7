@@ -28,7 +28,7 @@ class BettedMoney {
     return this.#money;
   }
   getMoneyToCount() {
-    return this.#money / 10;
+    return this.#money / 1000;
   }
 }
 
