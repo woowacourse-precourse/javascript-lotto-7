@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Game from "./Game.js";
 
 class DisplayOutput {
 
@@ -9,11 +10,14 @@ class DisplayOutput {
     displayLotto (lotto){
 
         for (const lottoNumbers of lotto) {
-            MissionUtils.Console.print(`${lottoNumbers}`);
+            MissionUtils.Console.print(lottoNumbers);
         }
     }
 
 }
 
 const test = new DisplayOutput();
-test.displayPaidLotto(2)
+const game = new Game();
+
+const testLotto = game.generateLotto(8);
+test.displayLotto(testLotto);
