@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 const PROMPT_MESSAGES = {
   BUY_LOTTO: "구입금액을 입력해 주세요.",
