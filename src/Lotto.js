@@ -1,9 +1,11 @@
 class Lotto {
   #numbers;
+  #bonusNumber;
 
-  constructor(numbers) {
+  constructor(numbers, bonusNumber) {
     this.#validate(numbers);
     this.#numbers = numbers;
+    this.#bonusNumber = bonusNumber;
   }
 
   #validate(numbers) {
@@ -19,6 +21,10 @@ class Lotto {
     });
 
     return correct;
+  }
+
+  compareBonusWinning(winningBonusNumber) {
+    return winningBonusNumber === this.#bonusNumber;
   }
 }
 
