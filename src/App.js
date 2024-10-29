@@ -10,6 +10,21 @@ async function getPurchaseAmount() {
   return Number(input);
 }
 
+function generateLottos(amount) {
+  let array = [];
+  for (let i = 0; i < amount; i++) {
+    array.push(Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b));
+  }
+  return array;
+}
+
+function printLottos(lottos) {
+  Console.print(`\n${lottos.length}개를 구매했습니다.\n`);
+  lottos.forEach((el) => {
+    Console.print(el);
+  });
+}
+
 function validatePurchaseAmount(input) {
   const num = Number(input);
   if (!isNaN(num) && num % 1000 === 0 && num > 0) return true;
@@ -18,6 +33,9 @@ function validatePurchaseAmount(input) {
 class App {
   async run() {
     let seedMoney = await getPurchaseAmount();
+    let amountOfLottos = seedMoney / 1000;
+    let lottos = generateLottos(amountOfLottos);
+    printLottos(lottos);
   }
 }
 
