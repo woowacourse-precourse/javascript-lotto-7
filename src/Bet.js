@@ -1,9 +1,12 @@
-class BettedMoney {
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
+class Bet {
   #money;
+  count;
 
   constructor(money) {
     this.#validate(money);
     this.#money = money;
+    this.count = money / 1000;
   }
 
   #validate(money) {
@@ -24,12 +27,16 @@ class BettedMoney {
     if (money % 1000 !== 0) throw new Error("1000단위의 숫자를 입력해주세요.");
   }
   // TODO: 추가 기능 구현
-  getMoney() {
-    return this.#money;
-  }
-  getMoneyToCount() {
-    return this.#money / 1000;
+  getBetResults() {
+    Console.print(`\n${this.count}개를 구매했습니다.`);
+    const betResults = [];
+    for (let index = 0; index < this.count; index++) {
+      const betResult = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      Console.print(betResult);
+      betResults.push(betResult);
+    }
+    return betResults;
   }
 }
 
-export default BettedMoney;
+export default Bet;
