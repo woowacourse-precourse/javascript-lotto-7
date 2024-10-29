@@ -29,10 +29,9 @@ const runException = async (input) => {
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  mockQuestions([...input]);
 
   // when
   const app = new App();
@@ -66,16 +65,17 @@ describe("로또 테스트", () => {
 
   test('사용자 입력 테스트(보너스 번호)', async () => {
     const app = new App();
-    const input = ['1'];
+    const input = ['1,2,3,4,5,6', '7'];
     mockQuestions(input);
+    await app.setWinningNumbers();
     await app.setBonusNumber();
-    expect(app.getBonusNumber()).toBe(1);
+    expect(app.getBonusNumber()).toBe(7);
   })
 
   test('사용자 입력 테스트', async () => {
     const app = new App();
     const input = ['1000', '1,2,3,4,5,6', '7'];
-    const winningNumbers = [1,2,3,4,5,6];
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
     mockQuestions(input);
     await app.setUserInputs();
     expect(app.getUserMoney()).toBe(1000);
@@ -145,9 +145,8 @@ describe("로또 예외 테스트", () => {
     '1000👍',
     '1000 '
   ])('사용자 입력 테스트(구입 금액)', async (input) => {
-    const app = new App();
-    mockQuestions([input]);
-    await expect(app.setUserMoney()).rejects.toThrow('[ERROR]');
+    const data = [input, '1000','1,2,3,4,5,6', '7'];
+    await runException(data);
   });
 
   test.each([
@@ -164,9 +163,8 @@ describe("로또 예외 테스트", () => {
     '1,2,3,4,5,6 ',
     '1,2,3,4,5,5',
   ])('사용자 입력 테스트(당첨 번호)', async (input) => {
-    const app = new App();
-    mockQuestions([input]);
-    await expect(app.setWinningNumbers()).rejects.toThrow('[ERROR]');
+    const data = ['1000', input, '1,2,3,4,5,6', '7'];
+    await runException(data);
   });
 
   test.each([
@@ -182,19 +180,12 @@ describe("로또 예외 테스트", () => {
     '😊1',
     '1 ',
   ])('사용자 입력 테스트(보너스 번호)', async (input) => {
-    const app = new App();
-    mockQuestions([input]);
-    await expect(app.setBonusNumber()).rejects.toThrow('[ERROR]');
+    const data = ['1000', '1,2,3,4,5,6', input, '7'];
+    await runException(data);
   });
 
   test('중복 입력 테스트(보너스 번호)', async () => {
-    const app = new App();
-    const input = ['1000','1,2,3,4,5,6', '1'];
-    mockQuestions(input);
-    await expect(app.setUserInputs()).rejects.toThrow('[ERROR]');
+    const data = ['1000', '1,2,3,4,5,6', '1', '7'];
+    await runException(data);
   });
-
-  // test("기능 예외 테스트", async () => {
-  //   await runException("1000j");
-  // });
 });
