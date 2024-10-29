@@ -14,5 +14,5 @@ class UserInput {
 
 }
 
+export default UserInput;
 const test = new UserInput();
-test.getUserInput()
