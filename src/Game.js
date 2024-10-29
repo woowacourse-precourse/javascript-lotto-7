@@ -30,6 +30,15 @@ class Game {
         return count;
     }
 
+    updateWinnerrReult (lottoReult, matchedCount, bonusFlag ){
+        if ( matchedCount === 5 && bonusFlag ){
+            lottoReult[1][0]++;
+        }
+
+        lottoReult[0][matchedCount]++;
+
+    }
+
 }
 
 export default Game;
