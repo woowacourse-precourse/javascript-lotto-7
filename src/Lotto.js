@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 
 class Lotto {
   #numbers;
+  #bonus;
 
   constructor(input) {
     input = this.#str2Arr(input);
@@ -50,12 +51,62 @@ class Lotto {
       await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n")
     );
     this.#validateNumber(bonusNumber);
-    this.#numbers.push(Number(bonusNumber));
-    this.#validateIsUnique(this.#numbers);
+    if (this.#numbers.includes(Number(bonusNumber))) {
+      throw new Error("[ERROR] 중복되는 번호는 입력될 수 없습니다.");
+    }
+    this.#bonus = bonusNumber;
   }
 
   getLottoNumbers() {
     return this.#numbers;
+  }
+
+  compareLottoList(betLists) {
+    Console.print("\n당첨 통계");
+    Console.print("---");
+    const results = [];
+    for (const betList of betLists) {
+      const matchNumber = betList.filter((number) =>
+        this.#numbers.includes(number)
+      );
+      const isBonus = betList.includes(this.#bonus);
+      results.push({
+        score: matchNumber.length,
+        isBonus: isBonus,
+      });
+    }
+    let matchList = { "1등": 0, "2등": 0, "3등": 0, "4등": 0, "5등": 0 };
+    let reward = 0;
+    for (const result of results) {
+      if (result.score === 3) {
+        matchList["5등"] += 1;
+        reward += 5000;
+      }
+      if (result.score === 4) {
+        matchList["4등"] += 1;
+        reward += 50000;
+      }
+      if (result.score === 5) {
+        matchList["3등"] += 1;
+        reward += 1500000;
+      }
+      if (result.score === 5 && result.isBonus) {
+        matchList["2등"] += 1;
+        reward += 30000000;
+      }
+      if (result.score === 6) {
+        matchList["1등"] += 1;
+        reward += 2000000000;
+      }
+    }
+    Console.print(`3개 일치 (5,000원) - ${matchList["5등"]}개`);
+    Console.print(`4개 일치 (50,000원) - ${matchList["4등"]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${matchList["3등"]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchList["2등"]}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${matchList["1등"]}개`);
+    return reward;
   }
 }
 
