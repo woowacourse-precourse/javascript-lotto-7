@@ -20,3 +20,12 @@ export async function getWinningNumbers() {
     throw new Error(INPUT_ERROR_MESSAGE);
   }
 }
+
+export async function getBonusNumber() {
+  try {
+    const bonusNumber = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
+    return bonusNumber;
+  } catch (error) {
+    throw new Error(INPUT_ERROR_MESSAGE);
+  }
+}
