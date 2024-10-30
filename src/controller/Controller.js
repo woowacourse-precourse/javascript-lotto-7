@@ -18,18 +18,18 @@ class Controller {
   }
 
   async start() {
-    const purchasePrice = await this.getParsedPurchasePrice();
+    const purchasePrice = await this.parseValidatePurchasePriceInput();
 
     const lottoCount = purchasePrice / LOTTO_PRICE_UNIT;
     this.#outputView.displayLottoCount(lottoCount);
 
-    const lottos = this.getParsedLottos(lottoCount);
+    const lottos = this.getLottos(lottoCount);
     this.#outputView.displayLottos(lottos);
 
-    const winningLotto = await this.getParsedWinningLotto();
-    const bonusNumber = await this.getParsedBonusNumber(winningLotto);
+    const winningLotto = await this.parseValidateWinningLottoInput();
+    const bonusNumber = await this.parseValidateBonusNumberInput(winningLotto);
 
-    const lottoResult = this.calculateLottoResult(
+    const lottoResult = this.generateLottoResult(
       lottos,
       winningLotto,
       bonusNumber
@@ -43,7 +43,7 @@ class Controller {
     this.#outputView.displayLottoRateOfReturn(winningRateOfReturn);
   }
 
-  async getParsedPurchasePrice() {
+  async parseValidatePurchasePriceInput() {
     while (true) {
       try {
         const purchasePrice = await this.#inputView.promptUserInput(
@@ -59,11 +59,11 @@ class Controller {
     }
   }
 
-  getParsedLottos(lottoCount) {
+  getLottos(lottoCount) {
     return Array.from({ length: lottoCount }, () => Lotto.generate());
   }
 
-  async getParsedWinningLotto() {
+  async parseValidateWinningLottoInput() {
     while (true) {
       try {
         const winningNumbers = await this.#inputView.promptUserInput(
@@ -82,7 +82,7 @@ class Controller {
     }
   }
 
-  async getParsedBonusNumber(winningLotto) {
+  async parseValidateBonusNumberInput(winningLotto) {
     while (true) {
       try {
         this.#outputView.displayEmptyLine();
@@ -99,7 +99,7 @@ class Controller {
     }
   }
 
-  calculateLottoResult(lottos, winningLotto, bonusNumber) {
+  generateLottoResult(lottos, winningLotto, bonusNumber) {
     const lottoResult = {
       first: 0,
       second: 0,
