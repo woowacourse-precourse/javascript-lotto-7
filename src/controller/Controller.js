@@ -4,6 +4,7 @@ import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
   LOTTO_PRICE_UNIT,
+  WINNING_PRIZE,
 } from '../constants/constants.js';
 import {
   validateBonusNumber,
@@ -131,11 +132,11 @@ class Controller {
 
   calculateLottoRateOfReturn(lottoResult, purchasePrice) {
     const winningAmout =
-      lottoResult.first * 2000000000 +
-      lottoResult.second * 30000000 +
-      lottoResult.third * 1500000 +
-      lottoResult.fourth * 50000 +
-      lottoResult.fifth * 5000;
+      lottoResult.fifth * WINNING_PRIZE.fifth +
+      lottoResult.fourth * WINNING_PRIZE.fourth +
+      lottoResult.third * WINNING_PRIZE.third +
+      lottoResult.second * WINNING_PRIZE.second +
+      lottoResult.first * WINNING_PRIZE.first;
 
     return ((winningAmout / purchasePrice) * 100).toFixed(1);
   }
