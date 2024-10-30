@@ -1,4 +1,8 @@
-import { LOTTO_PRICE_UNIT } from '../constants/constants.js';
+import {
+  LOTTO_NUMBER_MAX,
+  LOTTO_NUMBER_MIN,
+  LOTTO_PRICE_UNIT,
+} from '../constants/constants.js';
 
 const validator = {
   isNumericString(value) {
@@ -35,4 +39,12 @@ export const validateWinningNumber = (winningNumber) => {
 
 export const validateBonusNumber = (bonusNumber) => {
   validator.isNumericString(bonusNumber);
+
+  const parsedBonusNumber = Number(bonusNumber);
+  if (
+    parsedBonusNumber < LOTTO_NUMBER_MIN ||
+    parsedBonusNumber > LOTTO_NUMBER_MAX
+  ) {
+    throw new Error('[ERROR] 로또 번호 범위(1 ~ 45)를 벗어난 숫자가 있습니다.');
+  }
 };
