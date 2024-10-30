@@ -68,6 +68,17 @@ class App {
     Console.print(`5개 일치 (1,500,000원) - ${winningStatistics[2]}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningStatistics[3]}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${winningStatistics[4]}개`);
+
+    const earningRate =
+      ((5000 * winningStatistics[0] +
+        50000 * winningStatistics[1] +
+        1500000 * winningStatistics[2] +
+        30000000 * winningStatistics[3] +
+        2000000000 * winningStatistics[4]) /
+        buyLottoCount) *
+      100;
+
+    Console.print(`총 수익률은 ${earningRate.toFixed(2).toLocaleString()}%입니다.`);
   }
 }
 
