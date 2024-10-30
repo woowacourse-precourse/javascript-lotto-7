@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import Purchase from "../Class/Purchase.js";
-import getPurchase from "../feature/UI/getUserInput.js";
+import { getPurchase } from "../feature/UI/getUserInput.js";
 
 async function processPurchase() {
   /** TODO: 
