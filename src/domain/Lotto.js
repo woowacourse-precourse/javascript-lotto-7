@@ -8,12 +8,12 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
-    LottoNumbersValidations(numbers);
-  }
-
   getLottoNumbers() {
     return this.#numbers;
+  }
+  
+  #validate(numbers) {
+    LottoNumbersValidations(numbers);
   }
 }
 

@@ -6,7 +6,8 @@ const OutputView = {
   },
 
   printLottoIssueDetails(lottos) {
-    Console.print('');
+    // TODO: 출력 포맷하기
+    Console.print(lottos);
   },
 
   printWinningDetails() {

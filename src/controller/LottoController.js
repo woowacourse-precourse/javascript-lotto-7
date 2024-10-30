@@ -4,21 +4,28 @@ import parser from '../utils/parser.js';
 import LottoCount from '../domain/LottoCount.js';
 import Lotto from '../domain/Lotto.js';
 import Bonus from '../domain/Bonus.js';
+import LottoIssuance from '../domain/LottoIssuance.js';
 
 class LottoController {
   #lottoCount;
   #winningNumbers;
   #bonusNumber;
+  #lottos;
 
-  constructor () {
+  constructor() {
     this.#lottoCount = null;
     this.#winningNumbers = null;
     this.#bonusNumber = null;
+    this.#lottos = null;
   }
 
   async start() {
     this.#lottoCount = await this.#inputLottoPurchasePrice();
     OutputView.printLottoPurchaseCount(this.#lottoCount);
+
+    const lottoIssuance = new LottoIssuance(this.#lottoCount);
+    this.#lottos = lottoIssuance.getIssuedLottos();
+    OutputView.printLottoIssueDetails(this.#lottos);
 
     this.#winningNumbers = await this.#inputWinningNumbers();
     this.#bonusNumber = await this.#inputBonusNumber();

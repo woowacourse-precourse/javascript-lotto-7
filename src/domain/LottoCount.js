@@ -8,13 +8,13 @@ class LottoCount {
     this.#lottoCount = this.#parseAndValidate(price);
   }
 
+  getLottoCount() {
+    return this.#lottoCount;
+  }
+
   #parseAndValidate(price) {
     LottoPurchasePriceValidations(price);
     return parser.parseMoneyToLottoCount(price);
-  }
-
-  getLottoCount() {
-    return this.#lottoCount;
   }
 }
 
