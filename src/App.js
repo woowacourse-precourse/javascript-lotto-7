@@ -15,6 +15,11 @@ class App {
 
     Console.print(`${buyLottoCount / 1000}개를 구매했습니다.`);
     randomLottoNumbers.forEach((lottoNumber) => Console.print(lottoNumber));
+
+    Console.print('');
+    Console.print('당첨 번호를 입력해 주세요.');
+    const pickLottoNumber = (await Console.readLineAsync('')).split(',');
+    pickLottoNumber.map((number) => parseInt(number, 10));
   }
 }
 
