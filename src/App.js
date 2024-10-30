@@ -1,4 +1,4 @@
-import Console from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
@@ -16,11 +16,12 @@ class App {
   }
 
   async getPurchaseAmount() {
-    return new Promise((resolve) => {
-      Console.readLineAsync("구입금액을 입력해 주세요.\n", (input) => {
-        resolve(Number(input));
-      });
-    });
+    try {
+      const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+      return Number(input);
+    } catch (error) {
+      console.error("Error reading input:", error);
+    }
   }
 
   validatePurchaseAmount(amount) {
