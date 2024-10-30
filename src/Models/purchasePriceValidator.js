@@ -18,4 +18,5 @@ const validatePurchasePrice = (purchasePriceInput) => {
     throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRICE);
   }
 };
+
 export { validatePurchasePrice };

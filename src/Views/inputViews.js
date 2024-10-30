@@ -5,4 +5,9 @@ const getPurchasePriceInput = async () => {
   return purchasePrice;
 };
 
-export { getPurchasePriceInput };
+const getWinningNumbersInput = async () => {
+  const winningNumbers = await Console.readLineAsync('당첨번호를 입력해 주세요.\n');
+  return winningNumbers;
+};
+
+export { getPurchasePriceInput, getWinningNumbersInput };
