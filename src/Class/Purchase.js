@@ -1,4 +1,4 @@
-import checkPurchase from "../feature/validate/checkPurchase";
+import checkPurchase from "../feature/validate/checkPurchase.js";
 
 class Purchase {
   /** TODO: 
