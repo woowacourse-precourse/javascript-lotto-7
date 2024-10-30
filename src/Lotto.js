@@ -1,9 +1,11 @@
+import { MissionUtils } from "@woowacourse/mission-utils"
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = this.#lottoSort(numbers);
+    this.#numbers = [...numbers];
   }
 
   #validate(numbers) {
@@ -30,6 +32,24 @@ class Lotto {
     }
 
     return true;
+  }
+
+  #printLotto(numbers) {
+    MissionUtils.Console.print(numbers);
+  }
+
+  #getBonusNum() {
+    const BONUS_NUMBER = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 1);
+    return BONUS_NUMBER;
+  }
+
+  #addBonusNum(numbers) {
+    numbers.push(this.#getBonusNum());
+  }
+
+  #makeFullLotto(numbers) {
+    this.#addBonusNum(numbers);
+    this.#lottoSort(numbers);
   }
 
 }
