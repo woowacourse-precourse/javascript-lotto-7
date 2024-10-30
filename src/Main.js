@@ -1,6 +1,7 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
-const MESSAGES = {
+const MESSAGES = Object.freeze({
   INFO: {
     PURCHASE_AMOUNT: '구입 금액을 입력해주세요.',
     WINNING_NUMBERS: '당첨 번호를 입력해주세요.',
@@ -16,7 +17,7 @@ const MESSAGES = {
     NOT_WINNING_LENGTH: '[ERROR] 당첨 번호는 6개를 입력해야합니다.',
     IS_SAME_NUMBER: '[ERROR] 당첨 번호 입력에 중복된 숫자가 있습니다.',
   },
-};
+});
 
 const InputValidator = {
   isEmpty: (input) => {
@@ -65,7 +66,7 @@ const Parser = {
   },
 };
 
-class LottoValidator {
+export class LottoValidator {
   static validatePurchaseAmount(input) {
     const purchaseAmount = Parser.parseNumber(input);
     InputValidator.isNaturalNumber(purchaseAmount);
@@ -75,7 +76,6 @@ class LottoValidator {
   static validateWinningNumbers(inputArray) {
     const winningNumber = inputArray.map((input) => {
       const number = Parser.parseNumber(input);
-      InputValidator.isLottoRangeNumber(number);
       InputValidator.isNaturalNumber(number);
       InputValidator.isLottoRangeNumber(number);
       return number;
@@ -90,6 +90,14 @@ class LottoValidator {
     InputValidator.isNaturalNumber(bonusNumber);
     InputValidator.isLottoRangeNumber(bonusNumber);
     return bonusNumber;
+  }
+  static validateGeneratedLottoNumber(inputArray) {
+    inputArray.forEach((number) => {
+      InputValidator.isLottoRangeNumber(number);
+      InputValidator.isNaturalNumber(number);
+    });
+    InputValidator.isWinningLength(inputArray);
+    InputValidator.isSameNumber(inputArray);
   }
 }
 
@@ -120,10 +128,18 @@ const Main = async () => {
 
   const bonusNumber = LottoValidator.validateBonusNumber(inputBonusNumber);
   winningNumbers.push(bonusNumber);
-
+  let lottoList = [];
+  const pushLotto = (n) => {
+    for (let i = 0; i < n; i++) {
+      const lotto = new Lotto();
+      lottoList.push(lotto.getLotto());
+    }
+  };
   const purchaseNumber = calculatePurchaseNumber(purchaseAmount);
   Console.print(`${purchaseNumber}개를 구매했습니다.`);
   Console.print(`당첨번호: ${winningNumbers}`);
+  pushLotto(purchaseNumber);
+  lottoList.forEach((item) => Console.print(item));
 };
 
 export default Main;
