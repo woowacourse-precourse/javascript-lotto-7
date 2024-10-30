@@ -1,3 +1,5 @@
+import LottoNumbersValidations from '../validations/LottoNumbersValidations.js';
+
 class Lotto {
   #numbers;
 
@@ -7,10 +9,9 @@ class Lotto {
   }
 
   #validate(numbers) {
-    
+    LottoNumbersValidations(numbers);
   }
 
-  
 }
 
 export default Lotto;
