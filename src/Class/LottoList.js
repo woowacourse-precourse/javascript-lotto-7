@@ -10,8 +10,9 @@ class LottoList {
  *    해당 값의 갯수 만큼 로또를 생성
  *    생성된 로또 배열로 lottoList를 초기화
  *  method :
- *    1. 하나의 로또를 생성하는 기능
- *    2. purchase 갯수 만큼 로또를 생성하는 기능
+ *    1. 배열을 오름 차순으로 정렬하는 기능
+ *    2. 하나의 로또를 생성하는 기능
+ *    3. purchase 갯수 만큼 로또를 생성하는 기능
  */
 
   purchase;
@@ -22,10 +23,17 @@ class LottoList {
     this.lottoList = this.#buyLottos(this.purchase);
   }
 
+  #sortAscending(lotto) {
+    const ORDERED_LOTTO = [...lotto].sort((a, b) => a - b);
+    return ORDERED_LOTTO;
+  }
+
+
   #createLotto() {
     const SINGLE_LOTTO = Random.pickUniqueNumbersInRange(1, 45, 6);
+    const ORDERED_LOTTO = this.#sortAscending(SINGLE_LOTTO);
 
-    return SINGLE_LOTTO;
+    return ORDERED_LOTTO;
   };
 
   #buyLottos(purchase) {
