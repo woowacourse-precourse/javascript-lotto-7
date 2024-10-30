@@ -5,7 +5,10 @@ import {
   LOTTO_NUMBER_MIN,
   LOTTO_PRICE_UNIT,
 } from '../constants/constants.js';
-import { validatePurchasePrice } from '../validation/validation.js';
+import {
+  validatePurchasePrice,
+  validateWinningNumber,
+} from '../validation/validation.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import Lotto from '../models/Lotto.js';
@@ -65,9 +68,10 @@ class Controller {
       '당첨 번호를 입력해 주세요.\n'
     );
 
-    const parsedWinningNumbers = winningNumbers
-      .split(',')
-      .map((number) => Number(number));
+    const parsedWinningNumbers = winningNumbers.split(',').map((number) => {
+      validateWinningNumber(number);
+      return Number(number);
+    });
 
     return new Lotto(parsedWinningNumbers);
   }
