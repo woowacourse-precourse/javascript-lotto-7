@@ -9,20 +9,8 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  static #validate(numbers) {
-    if (numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
-  }
-
-  #getWinningCount(winningNumberArray) {
-    return intersection(this.#numbers, winningNumberArray).length;
-  }
-
-  #getIsBonusMatch(bonusNumber) {
-    return intersection(this.#numbers, [bonusNumber]).length;
-  }
-
   getRankObject(winningNumberArray, bonusNumber) {
-    const winningCount = this.#getWinningCount(winningNumberArray);
+    const winningCount = this.#getWinningNumberCount(winningNumberArray);
     const isBonusMatch = Boolean(this.#getIsBonusMatch(bonusNumber));
 
     const currentRankObject = RANK_OBJECT_ARRAY.find(
@@ -34,7 +22,17 @@ class Lotto {
     return currentRankObject;
   }
 
-  // TODO: 추가 기능 구현
+  static #validate(numbers) {
+    if (numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
+  }
+
+  #getWinningNumberCount(winningNumberArray) {
+    return intersection(this.#numbers, winningNumberArray).length;
+  }
+
+  #getIsBonusMatch(bonusNumber) {
+    return intersection(this.#numbers, [bonusNumber]).length;
+  }
 }
 
 export default Lotto;
