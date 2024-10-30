@@ -1,10 +1,16 @@
 class Validator {
-  static validatePurchaseAmount(amount) {
-    const digitPattern = /^\d+$/;
+  static validatePurchaseAmount(input) {
+    const purchaseAmount = this.#convertToNumber(input);
+  }
 
-    if (!digitPattern.test(amount)) {
+  static #convertToNumber(input) {
+    const number = Number(input);
+
+    if (Number.isNaN(number)) {
       throw new Error('[ERROR] 구입 금액은 숫자여야 합니다.');
     }
+
+    return number;
   }
 }
 
