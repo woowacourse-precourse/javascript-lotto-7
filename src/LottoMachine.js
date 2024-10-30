@@ -20,19 +20,20 @@ class LottoMachine {
     return numbers;
   }
 
-  #issue(amount) {
-    const tickets = Array.from({ length: amount });
-    const issuedLottos = tickets.map(() => {
-      const lotteryNumbers = LottoMachine.#draw();
-      return this.#lotto(lotteryNumbers);
-    });
+  #issue() {
+    const lotteryNumbers = LottoMachine.#draw();
+    return this.#lotto(lotteryNumbers);
+  }
 
+  #issuePurchasedAmount(amount) {
+    const tickets = Array.from({ length: amount });
+    const issuedLottos = tickets.map(() => this.#issue());
     return issuedLottos;
   }
 
   getLottos() {
     const amount = this.#calculateAmount();
-    const issuedLottos = this.#issue(amount);
+    const issuedLottos = this.#issuePurchasedAmount(amount);
     return issuedLottos;
   }
 }
