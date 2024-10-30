@@ -1,13 +1,18 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-import Lotto from './Lotto';
+import Lotto from './Lotto.js';
+
+import { LOTTO_PRICE } from './constants/config.js';
 
 class App {
   constructor() {
     this.lottos = [];
   }
 
-  async run() {
+  async run() {}
+
+  createLottoQuantity(userMoney) {
+    return userMoney / LOTTO_PRICE;
   }
 
   generateLotto() {
