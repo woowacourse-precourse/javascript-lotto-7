@@ -16,6 +16,8 @@ class LottoGame {
     // 7. 결과 출력하기
     const purchasePrice = await this.#getPurchasePrice();
     const lottos = this.lottoManager.buyLottos(purchasePrice);
+
+    this.#printLottos(lottos);
   }
 
   async #getPurchasePrice() {
@@ -32,7 +34,9 @@ class LottoGame {
     }
   }
 
-  #printLottoCount() {}
+  #printLottos(lottos) {
+    Console.print(INPUT_MESSAGES.PURCHASE_COUNT(lottos.length));
+  }
 
   #getPurchaseLottos() {}
 
