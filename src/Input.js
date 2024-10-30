@@ -7,6 +7,12 @@ class Input {
 
     return input;
   }
+
+  static async getWinningNumbersInput() {
+    const input = await Console.readLineAsync(INPUT_MESSAGES.WINNING_NUMBERS);
+
+    return input;
+  }
 }
 
 export default Input;
