@@ -1,20 +1,20 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const PRIZE_MONEY = {
-  first: 2000000000, // 1등 상금
-  second: 30000000, // 2등 상금
-  third: 1500000, // 3등 상금
-  fourth: 50000, // 4등 상금
-  fifth: 5000, // 5등 상금
+  first: 2000000000,
+  second: 30000000,
+  third: 1500000,
+  fourth: 50000,
+  fifth: 5000,
 };
 
 export function calculateWinningStatistics(lottoTickets, winningNumbers, bonusNumber) {
   const result = {
-    first: 0, // 1등 (6개 일치)
-    second: 0, // 2등 (5개 일치 + 보너스 번호)
-    third: 0, // 3등 (5개 일치)
-    fourth: 0, // 4등 (4개 일치)
-    fifth: 0, // 5등 (3개 일치)
+    first: 0,
+    second: 0,
+    third: 0,
+    fourth: 0,
+    fifth: 0,
   };
 
   lottoTickets.forEach((ticket) => {
@@ -22,15 +22,15 @@ export function calculateWinningStatistics(lottoTickets, winningNumbers, bonusNu
     const hasBonus = ticket.includes(bonusNumber);
 
     if (matchCount === 6) {
-      result.first += 1; // 1등
+      result.first += 1;
     } else if (matchCount === 5 && hasBonus) {
-      result.second += 1; // 2등
+      result.second += 1;
     } else if (matchCount === 5) {
-      result.third += 1; // 3등
+      result.third += 1;
     } else if (matchCount === 4) {
-      result.fourth += 1; // 4등
+      result.fourth += 1;
     } else if (matchCount === 3) {
-      result.fifth += 1; // 5등
+      result.fifth += 1;
     }
   });
 
@@ -59,6 +59,6 @@ export function calculateTotalEarnings(result) {
 }
 
 export function calculateProfitRate(totalEarnings, purchaseAmount) {
-  const profitRate = ((totalEarnings / purchaseAmount) * 100).toFixed(1); // 소수점 둘째 자리까지 반올림
+  const profitRate = ((totalEarnings / purchaseAmount) * 100).toFixed(1);
   return profitRate;
 }
