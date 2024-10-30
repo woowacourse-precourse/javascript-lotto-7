@@ -1,5 +1,6 @@
 import Input from "./Input.js";
-import { LOTTO_MONEY } from "./constant.js";
+import { LOTTO_MONEY, PROMPT } from "./constant.js";
+import { printOutput } from "./missionUtils.js";
 
 class App {
 	#lottoMoney;
@@ -14,10 +15,15 @@ class App {
 	async run() {
 		this.#lottoMoney = await this.userInput.getLottoMoney();
 		this.#lottoCount = await this.#calculateLottoCount();
+		await this.#printLottoCount();
 	}
 
 	async #calculateLottoCount() {
 		return Math.floor(this.#lottoMoney / LOTTO_MONEY);
+	}
+
+	async #printLottoCount() {
+		printOutput(PROMPT.LOTTO_COUNT(this.#lottoCount));
 	}
 }
 

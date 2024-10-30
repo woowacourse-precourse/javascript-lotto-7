@@ -1,5 +1,9 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 
 export function userInput(input) {
-	return MissionUtils.Console.readLineAsync(input);
+	return Console.readLineAsync(input);
+}
+
+export function printOutput(output) {
+	return Console.print(output);
 }
