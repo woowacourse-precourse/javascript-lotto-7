@@ -1,4 +1,5 @@
 // Validator.test.js
+import Validator from '../utils/Validator.js';
 
 describe('Validator.validate', () => {
   test('로또 번호가 6개가 아니면 에러를 발생시킨다', () => {
