@@ -19,6 +19,6 @@ const consecutiveDelimiterPattern = /,{2,}/;
  * isNumber.test('0123'); // false
  * isNumber.test('abc'); // false
  */
-const isNumber = /^[0-9]\d*$/;
+const isNumber = /^\d+$/;
 
 export { consecutiveDelimiterPattern, isNumber };
