@@ -24,4 +24,3 @@ export default function validateLottoNumber(input) {
 
   return parsedInput;
 }
-// console.log(validateLottoNumber('1,2,3,4,5,6'));

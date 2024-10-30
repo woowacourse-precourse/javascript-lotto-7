@@ -7,13 +7,13 @@ const getLogSpy = () => {
 };
 const runExceptionTest =
   (func) =>
-  ({ description, input, expected, log }) => {
+  ({ description, input, expected, errorLog }) => {
     test(description, () => {
       const logSpy = getLogSpy();
       const result = func(input);
       if (expected !== undefined) expect(result).toBe(expected);
-      if (log)
-        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+      if (errorLog)
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorLog));
     });
   };
 
