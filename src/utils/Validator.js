@@ -1,3 +1,4 @@
+import { Console } from "@woowacourse/mission-utils";
 import { LOTTO } from "../constants/Constants.js";
 import { ERROR_MESSAGE } from "../constants/Constants.js";
 
@@ -10,7 +11,7 @@ export class Validator {
 
   static numberArrange(numbers) {
     numbers.forEach((number) => {
-      if (!number <= LOTTO.ARRANGE_END || !number >= LOTTO.ARRANGE_START) {
+      if (!(number <= LOTTO.ARRANGE_END) || !(number >= LOTTO.ARRANGE_START)) {
         throw new Error(ERROR_MESSAGE.get("NUMBER_ARRANGE"));
       }
     });
@@ -27,7 +28,7 @@ export class Validator {
   static sameNumber(numbers) {
     const set = new Set(numbers);
     if (set.size !== numbers.length) {
-      throw new Error(ERROR_MESSAGE.get("SAME_NUMBER"));
+      throw new Error(ERROR_MESSAGE.get("SAME"));
     }
   }
 }

@@ -1,5 +1,56 @@
+import { OutputView } from "./views/OutputView.js";
+import { InputView } from "./views/InputView.js";
+import { Validator } from "./utils/Validator.js";
+
 class App {
-  async run() {}
+  async run() {
+    const winningNumber = await this.inputWinningNumber();
+    await this.inputWinningBonusNumber(winningNumber);
+  }
+
+  async inputWinningNumber() {
+    const winningNumber = (await InputView.winningNumber())
+      .split(",")
+      .map((number) => Number(number));
+
+    this.validateWinningNumber(winningNumber);
+
+    return winningNumber;
+  }
+
+  async validateWinningNumber(numbers) {
+    try {
+      Validator.totalNumber(numbers);
+      Validator.numberArrange(numbers);
+      Validator.isInteger(numbers);
+      Validator.sameNumber(numbers);
+    } catch (error) {
+      OutputView.error(error.message);
+      await this.inputWinningNumber();
+    }
+  }
+
+  async inputWinningBonusNumber(winningNumber) {
+    const winningBonusNumber = Number(await InputView.winningBonusNumber());
+    this.validateWinningBonusNumber(winningBonusNumber, winningNumber);
+
+    return winningBonusNumber;
+  }
+
+  async validateWinningBonusNumber(number, winningNumber) {
+    let numberArr = [number];
+    try {
+      winningNumber.forEach((number) => {
+        numberArr.push(number);
+      });
+      Validator.numberArrange(numberArr);
+      Validator.isInteger(numberArr);
+      Validator.sameNumber(numberArr);
+    } catch (error) {
+      OutputView.error(error.message);
+      await this.inputWinningBonusNumber(winningNumber);
+    }
+  }
 
   rank(correctNumber, correctBonusNumber) {
     if (correctNumber === 6) return 1;
