@@ -8,6 +8,12 @@ const isWinningNumbersSixDigits = (winningNumbersInput) => {
   return onlyNumber.length === 6;
 };
 
+const isWinningNumbersFiveComma = (winningNumbersInput) => {
+  const arr = [...winningNumbersInput];
+  const onlyNumber = arr.filter((number) => number === ',');
+  return onlyNumber.length === 5;
+};
+
 const validateWinningNumbers = (winningNumbers) => {
   if (!isWinningNumbersEmptyInput(winningNumbers)) {
     throw new Error(ERROR_MESSAGE.EMPTY_INPUT_WINNING_NUMBERS);
@@ -15,6 +21,10 @@ const validateWinningNumbers = (winningNumbers) => {
 
   if (!isWinningNumbersSixDigits(winningNumbers)) {
     throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
+  }
+
+  if (!isWinningNumbersFiveComma(winningNumbers)) {
+    throw new Error(ERROR_MESSAGE.COMMA_COUNT);
   }
 };
 
