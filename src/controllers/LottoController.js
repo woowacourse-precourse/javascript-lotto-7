@@ -17,6 +17,9 @@ class LottoController {
 
     const generatedLottos = this.service.getGeneratedLottos(lottoAmount);
     this.outputView.showPurchasedLotto(generatedLottos);
+
+    const winningNumbers = await this.inputView.getWinningNumbers();
+    Console.print(`winningNumbers : ${winningNumbers}`);
   }
 }
 
