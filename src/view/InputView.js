@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class InputView {
-  async getInput(message) {
+  async promptUserInput(message) {
     try {
       return await Console.readLineAsync(message);
     } catch (error) {

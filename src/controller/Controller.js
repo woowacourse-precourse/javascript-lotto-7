@@ -52,7 +52,7 @@ class Controller {
   async getParsedPurchasePrice() {
     while (true) {
       try {
-        const purchasePrice = await this.#inputView.getInput(
+        const purchasePrice = await this.#inputView.promptUserInput(
           '구입금액을 입력해 주세요.\n'
         );
 
@@ -87,7 +87,7 @@ class Controller {
   async getParsedWinningLotto() {
     while (true) {
       try {
-        const winningNumbers = await this.#inputView.getInput(
+        const winningNumbers = await this.#inputView.promptUserInput(
           '당첨 번호를 입력해 주세요.\n'
         );
 
@@ -107,7 +107,7 @@ class Controller {
     while (true) {
       try {
         this.#outputView.printEmptyLine();
-        const bonusNumber = await this.#inputView.getInput(
+        const bonusNumber = await this.#inputView.promptUserInput(
           '보너스 번호를 입력해 주세요.\n'
         );
 
