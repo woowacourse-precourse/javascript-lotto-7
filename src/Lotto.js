@@ -12,11 +12,11 @@ class Lotto {
     }
   }
 
-  compareWinningLotto(winningNumbers, bonusNumber) {
-    const matchedNumbersLength = winningNumbers
+  getMatchResult(winningNumbers, bonusNumber) {
+    const matchedCount = winningNumbers
       .filter((winningNumber) => this.#numbers.includes(winningNumber)).length;
-    const isMatchedBonusNumber = this.#numbers.includes(bonusNumber);
-    return [matchedNumbersLength, isMatchedBonusNumber];
+    const isBonusMatched = this.#numbers.includes(bonusNumber);
+    return [matchedCount, isBonusMatched];
   }
 }
 

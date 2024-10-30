@@ -23,13 +23,13 @@ describe('로또 클래스 테스트', () => {
     });
 
     test('당첨 로또와 사용자 로또의 일치하는 숫자가 5개있으며 보너스 번호는 일치하지 않는다.', () => {
-      expect(lotto.compareWinningLotto([5, 4, 1, 2, 9, 3], 11)).toEqual([5, false]);
+      expect(lotto.getMatchResult([5, 4, 1, 2, 9, 3], 11)).toEqual([5, false]);
     });
     test('당첨 로또와 사용자 로또의 일치하는 숫자가 6개있으며 보너스 번호는 일치하지 않는다.', () => {
-      expect(lotto.compareWinningLotto([6, 5, 4, 1, 2, 3], 11)).toEqual([6, false]);
+      expect(lotto.getMatchResult([6, 5, 4, 1, 2, 3], 11)).toEqual([6, false]);
     });
     test('당첨 로또와 사용자 로또의 일치하는 숫자가 5개있으며 보너스 번호가 일치한다.', () => {
-      expect(lotto.compareWinningLotto([1, 3, 5, 2, 9, 4], 6)).toEqual([5, true]);
+      expect(lotto.getMatchResult([1, 3, 5, 2, 9, 4], 6)).toEqual([5, true]);
     });
   });
 });
