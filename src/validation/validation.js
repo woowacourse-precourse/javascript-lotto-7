@@ -37,7 +37,7 @@ export const validateWinningNumber = (winningNumber) => {
   validator.isNumericString(winningNumber);
 };
 
-export const validateBonusNumber = (bonusNumber) => {
+export const validateBonusNumber = (bonusNumber, winningLotto) => {
   validator.isNumericString(bonusNumber);
 
   const parsedBonusNumber = Number(bonusNumber);
@@ -46,5 +46,9 @@ export const validateBonusNumber = (bonusNumber) => {
     parsedBonusNumber > LOTTO_NUMBER_MAX
   ) {
     throw new Error('[ERROR] 로또 번호 범위(1 ~ 45)를 벗어난 숫자가 있습니다.');
+  }
+
+  if (winningLotto.numbers.includes(parsedBonusNumber)) {
+    throw new Error('[ERROR] 보너스 번호와 당첨 번호가 중복됩니다.');
   }
 };

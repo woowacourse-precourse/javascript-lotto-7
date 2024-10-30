@@ -33,7 +33,7 @@ class Controller {
     this.#outputView.printLottos(lottos);
 
     const winningLotto = await this.getParsedWinningLotto();
-    const bonusNumber = await this.getParsedBonusNumber();
+    const bonusNumber = await this.getParsedBonusNumber(winningLotto);
   }
 
   async getParsedPurchasePrice() {
@@ -78,13 +78,13 @@ class Controller {
     return new Lotto(parsedWinningNumbers);
   }
 
-  async getParsedBonusNumber() {
+  async getParsedBonusNumber(winningLotto) {
     this.#outputView.printEmptyLine();
     const bonusNumber = await this.#inputView.getInput(
       '보너스 번호를 입력해 주세요.\n'
     );
 
-    validateBonusNumber(bonusNumber);
+    validateBonusNumber(bonusNumber, winningLotto);
 
     return Number(bonusNumber);
   }
