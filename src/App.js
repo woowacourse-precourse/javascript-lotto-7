@@ -51,14 +51,17 @@ class App {
       }
     });
 
-    const rateOfReturn = (totalWinningPrice / this.#input.purchasePrice) * 100;
+    const rateOfReturn = (
+      (totalWinningPrice / this.#input.purchasePrice) *
+      100
+    ).toFixed(2);
 
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
 
     RANK_OBJECT_ARRAY.forEach((rankObject) => {
       MissionUtils.Console.print(
         `${rankObject.winningCount}개 일치 (${rankObject.winningPrice}원) - ${
-          rankMap[rankObject.rank]
+          rankMap[rankObject.rank] ?? 0
         }개`,
       );
     });
