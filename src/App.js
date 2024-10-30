@@ -12,11 +12,11 @@ class App {
     Console.print("");
 
     if (+purchaseAmount % 1000 !== 0) {
-      throw new Error("[ERROR] 1000원단위로 구매해주세요.");
+      throw new Error(ERRORS.NOT_1000_WON);
     }
 
     if (+purchaseAmount <= 0) {
-      throw new Error("[ERROR] 1000원 이상의 돈을 내주세요.");
+      throw new Error(ERRORS.NOT_ENOUGH_MONEY);
     }
 
     // ~개를 구매했습니다.
@@ -49,13 +49,13 @@ class App {
     const bonusNumber = +bonusNumberInput;
 
     if (winningNumberArr.includes(bonusNumber)) {
-      throw new Error("[ERROR] 보너스 번호는 당첨번호와 달라야 합니다.");
+      throw new Error(ERRORS.NOT_BONUS_NUMBER);
     }
 
     if (
       !(bonusNumber > 0 && bonusNumber < 46 && Number.isInteger(bonusNumber))
     ) {
-      throw new Error("[ERROR] 보너스 번호는 1~45 사이 정수여야 합니다.");
+      throw new Error(ERRORS.NOT_1_TO_45);
     }
 
     const howManyMatch = [0, 0, 0, 0, 0];
