@@ -34,6 +34,11 @@ class Controller {
 
     const winningLotto = await this.getParsedWinningLotto();
     const bonusNumber = await this.getParsedBonusNumber(winningLotto);
+    const lottoResult = this.calculateLottoResult(
+      lottos,
+      winningLotto,
+      bonusNumber
+    );
   }
 
   async getParsedPurchasePrice() {
@@ -87,6 +92,41 @@ class Controller {
     validateBonusNumber(bonusNumber, winningLotto);
 
     return Number(bonusNumber);
+  }
+
+  calculateLottoResult(lottos, winningLotto, bonusNumber) {
+    const lottoResult = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+
+    lottos.forEach((lotto) => {
+      const lottoRank = this.calculateLottoRank(
+        lotto,
+        winningLotto,
+        bonusNumber
+      );
+
+      if (lottoRank) lottoResult[lottoRank] += 1;
+    });
+
+    return lottoResult;
+  }
+
+  calculateLottoRank(lotto, winningLotto, bonusNumber) {
+    const winningNumberCount = lotto.numbers.filter((number) =>
+      winningLotto.numbers.includes(number)
+    ).length;
+    const isBonusNumberCollect = winningLotto.numbers.includes(bonusNumber);
+
+    if (winningNumberCount === 6) return 'first';
+    if (winningNumberCount === 5 && isBonusNumberCollect) return 'second';
+    if (winningNumberCount === 5) return 'third';
+    if (winningNumberCount === 4) return 'fourth';
+    if (winningNumberCount === 3) return 'fifth';
   }
 }
 
