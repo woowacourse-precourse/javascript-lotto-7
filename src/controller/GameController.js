@@ -9,7 +9,9 @@ class GameController {
 
   async prepareGame() {
     const price = await this.inputView.askPurchasePrice();
-    this.outputView.printLottoQuantity(price);
+    const lottoQuantity = this.outputView.printLottoQuantity(price);
+
+    this.outputView.printPurchasedLotteries(lottoQuantity);
   }
 }
 
