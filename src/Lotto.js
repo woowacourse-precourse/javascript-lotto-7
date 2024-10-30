@@ -16,7 +16,7 @@ class Lotto {
     this.#numbers.sort((a, b) => a - b);
   }
 
-  lottoResult() {
+  getlottoList() {
     this.sortLottoNumbers();
     return this.#numbers;
   }
