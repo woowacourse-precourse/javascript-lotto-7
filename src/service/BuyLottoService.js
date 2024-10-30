@@ -12,8 +12,8 @@ class BuyLottoService {
   }
 
   checkLottoAmount(price) {
-    const LottoQuantitiy = price / 1000;
-    return LottoQuantitiy;
+    const LottoQuantity = price / 1000;
+    return LottoQuantity;
   }
 }
 export default BuyLottoService;

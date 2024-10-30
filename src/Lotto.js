@@ -20,6 +20,15 @@ class Lotto {
     lottoNumber.sort((a, b) => a - b);
     return lottoNumber;
   }
+
+  static createLotto(quantity) {
+    let lotteries = [];
+    for (let count = 0; count < quantity; count++) {
+      let oneLotto = this.createLottoNumber();
+      lotteries.push(oneLotto);
+    }
+    return lotteries;
+  }
 }
 
 export default Lotto;
