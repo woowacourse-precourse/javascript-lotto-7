@@ -3,6 +3,7 @@ import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
 } from '../constants/constants.js';
+import { Random } from '@woowacourse/mission-utils';
 
 class Lotto {
   #numbers;
@@ -10,6 +11,16 @@ class Lotto {
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
+  }
+
+  static generate() {
+    const numbers = Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBER_MIN,
+      LOTTO_NUMBER_MAX,
+      LOTTO_NUMBER_COUNT
+    ).sort((a, b) => a - b);
+
+    return new Lotto(numbers);
   }
 
   #validate(numbers) {
