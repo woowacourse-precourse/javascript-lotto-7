@@ -59,6 +59,7 @@ class GameController {
 
   async startGame() {
     const new_lotto = await this.#getLotto();
+    this.#gameOutput.printNewLotto(new_lotto);
   }
 }
 

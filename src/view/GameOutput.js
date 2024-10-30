@@ -1,8 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class GameOutput {
-  printPurchaseLotto(purchase_lotto) {
-    Console.print(`\n${purchase_lotto}개를 구매했습니다.`);
+  printNewLotto(new_lotto) {
+    Console.print(`\n${new_lotto.length}개를 구매했습니다.`);
+    new_lotto.forEach((lotto) => {
+      Console.print(lotto);
+    });
   }
 
   printErrorMesssage(error) {
