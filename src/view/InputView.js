@@ -13,10 +13,10 @@ const InputView = {
     return await readInput('구입금액을 입력해 주세요.\n');
   },
   async readWinningNumbersAsync() {
-    return await readInput('당첨 번호를 입력해 주세요.\n');
+    return await readInput('\n당첨 번호를 입력해 주세요.\n');
   },
   async readBonusNumberAsnyc() {
-    return await readInput('보너스 번호를 입력해 주세요.\n');
+    return await readInput('\n보너스 번호를 입력해 주세요.\n');
   },
 };
 

@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 const OutputView = {
   printLottoPurchaseCount(lottoCount) {
-    Console.print(`\n${lottoCount}개를 구매했습니다.\n`);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
   },
 
   printLottoIssueDetails(lottos) {
