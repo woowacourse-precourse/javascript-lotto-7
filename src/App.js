@@ -59,22 +59,19 @@ class App {
 
     const howManyMatch = [0, 0, 0, 0, 0];
     for (let i = 0; i < numberOfLottoes; i++) {
-      let cnt = 0,
-        bonusCnt = 0;
+      let cnt = 0;
+      let hasBonusNumber = lottoes[i].includes(bonusNumber);
+
       for (let j = 0; j < 6; j++) {
         if (lottoes[i].includes(winningNumberArr[j])) {
           cnt++;
-        }
-
-        if (lottoes[i].includes(bonusNumber)) {
-          bonusCnt++;
         }
       }
 
       if (cnt === 3) howManyMatch[0]++;
       if (cnt === 4) howManyMatch[1]++;
-      if (cnt === 5) howManyMatch[2]++;
-      if (cnt === 5) howManyMatch[3]++;
+      if (cnt === 5 && !hasBonusNumber) howManyMatch[2]++;
+      if (cnt === 5 && hasBonusNumber) howManyMatch[3]++;
       if (cnt === 6) howManyMatch[4]++;
     }
 
