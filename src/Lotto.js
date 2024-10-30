@@ -10,14 +10,21 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    numbers.map((number) => {
+    numbers.forEach((number) => {
       if (number < 1 || number > 45) {
         throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
       }
     });
+    if (this.isDupulicate(numbers)) {
+      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
+    }
   }
 
-  // TODO: 추가 기능 구현
+  isDupulicate(numbers) {
+    return numbers.some(
+      (number) => numbers.indexOf(number) !== numbers.lastIndexOf(number)
+    );
+  }
 }
 
 export default Lotto;
