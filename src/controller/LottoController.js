@@ -21,10 +21,14 @@ class LottoController {
     }
   }
 
+  async #purchaseLotto(money) {
+    return money / 1000;
+  }
+
   async startGame() {
-    // 사용자에게 구입 금액을 입력받는다
     const purchase_money = await this.#purchaseMoneyInput();
-    console.log(purchase_money);
+    const purchase_lotto = await this.#purchaseLotto(purchase_money);
+    Console.print(purchase_lotto);
   }
 }
 
