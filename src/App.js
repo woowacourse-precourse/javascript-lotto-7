@@ -1,13 +1,12 @@
 import Lotto from "./Lotto.js";
+import MESSAGES from "./constants/Messages.js";
 import { Console } from "@woowacourse/mission-utils";
 import { Random } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
     // 구입금액을 입력해주세요.
-    const purchaseAmount = await Console.readLineAsync(
-      "구입 금액을 입력해주세요.\n"
-    );
+    const purchaseAmount = await Console.readLineAsync(MESSAGES.INPUT_MONEY);
     Console.print("");
 
     if (+purchaseAmount % 1000 !== 0) {
@@ -21,7 +20,7 @@ class App {
     // ~개를 구매했습니다.
 
     const numberOfLottoes = +purchaseAmount / 1000;
-    Console.print(`${numberOfLottoes}개를 구매했습니다.`);
+    Console.print(`${numberOfLottoes}${MESSAGES.BUY_LOTTO}`);
 
     const lottoes = [];
 
@@ -34,7 +33,7 @@ class App {
 
     // 당첨 번호를 입력해주세요.
     const winningNumbersInput = await Console.readLineAsync(
-      "당첨 번호를 입력해 주세요.\n"
+      MESSAGES.INPUT_WINNING_NUMBERS
     );
     Console.print("");
 
@@ -42,7 +41,7 @@ class App {
     const winningNumbers = new Lotto(winningNumberArr);
 
     const bonusNumberInput = await Console.readLineAsync(
-      "보너스 번호를 입력해 주세요.\n"
+      MESSAGES.INPUT_BONUS_NUMBER
     );
     Console.print("");
     const bonusNumber = +bonusNumberInput;
@@ -83,16 +82,24 @@ class App {
       howManyMatch[4] * 2000000000;
     const rateOfReturn = ((totalPrizeMoney / +purchaseAmount) * 100).toFixed(1);
 
-    Console.print("당첨 통계");
-    Console.print("---");
-    Console.print(`3개 일치 (5,000원) - ${howManyMatch[0]}개`);
-    Console.print(`4개 일치 (50,000원) - ${howManyMatch[1]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${howManyMatch[2]}개`);
+    Console.print(MESSAGES.WON_STATISTICS);
+    Console.print(MESSAGES.DIVIDING_LINE);
     Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${howManyMatch[3]}개`
+      `${MESSAGES.MATCHED_THREE}${howManyMatch[0]}${MESSAGES.COUNT}`
     );
-    Console.print(`6개 일치 (2,000,000,000원) - ${howManyMatch[4]}개`);
-    Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+    Console.print(
+      `${MESSAGES.MATCHED_FOUR}${howManyMatch[1]}${MESSAGES.COUNT}`
+    );
+    Console.print(
+      `${MESSAGES.MATCHED_FIVE}${howManyMatch[2]}${MESSAGES.COUNT}`
+    );
+    Console.print(
+      `${MESSAGES.MATCHED_FIVE_WITH_BONUS}${howManyMatch[3]}${MESSAGES.COUNT}`
+    );
+    Console.print(`${MESSAGES.MATCHED_SIX}${howManyMatch[4]}${MESSAGES.COUNT}`);
+    Console.print(
+      `${MESSAGES.TOTAL_RATE_OF_RETURN}${rateOfReturn}${MESSAGES.PERCENT}`
+    );
   }
 }
 
