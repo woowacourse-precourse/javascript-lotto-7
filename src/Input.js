@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { INPUT_MESSAGE } from './lib/constants.js';
+import { getIsNumeric, getIsPositive, getIsThousandUnit } from './lib/utils.js';
 
 class Input {
   #purchasePrice;
@@ -7,12 +8,24 @@ class Input {
   #bonusNumber;
 
   async getPurchasePrice() {
-    this.#purchasePrice = await MissionUtils.Console.readLineAsync(
+    const rawPurchasePrice = await MissionUtils.Console.readLineAsync(
       INPUT_MESSAGE.PURCHASE_PRICE,
     );
+    Input.#validatePurchasePrice(rawPurchasePrice);
+    this.#purchasePrice = Input.parsePurchasePrice(rawPurchasePrice);
   }
 
-  get purchacePrice() {
+  static #validatePurchasePrice(rawPurchasePrice) {
+    if (!getIsNumeric(rawPurchasePrice)) throw new Error();
+    if (!getIsThousandUnit(rawPurchasePrice)) throw new Error();
+    if (!getIsPositive(rawPurchasePrice)) throw new Error();
+  }
+
+  static parsePurchasePrice(rawPurchasePrice) {
+    return rawPurchasePrice;
+  }
+
+  get purchasePrice() {
     return this.#purchasePrice;
   }
 
