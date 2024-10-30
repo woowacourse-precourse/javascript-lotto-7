@@ -12,7 +12,7 @@ const InputView = {
   async readLottoPurchasePriceAsync() {
     return await readInput('구입금액을 입력해 주세요.\n');
   },
-  async readWinningNumberAsync() {
+  async readWinningNumbersAsync() {
     return await readInput('당첨 번호를 입력해 주세요.\n');
   },
   async readBonusNumberAsnyc() {

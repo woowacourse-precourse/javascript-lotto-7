@@ -6,12 +6,22 @@ import Lotto from '../domain/Lotto.js';
 import Bonus from '../domain/Bonus.js';
 
 class LottoController {
-  async start() {
-    const lottoCount = await this.#inputLottoPurchasePrice();
-    OutputView.printLottoPurchaseCount(lottoCount);
+  #lottoCount;
+  #winningNumbers;
+  #bonusNumber;
 
-    const winningNumber = await this.#inputWinningNumber();
-    const bonusNumber = await this.#inputBonusNumber();
+  constructor () {
+    this.#lottoCount = null;
+    this.#winningNumbers = null;
+    this.#bonusNumber = null;
+  }
+
+  async start() {
+    this.#lottoCount = await this.#inputLottoPurchasePrice();
+    OutputView.printLottoPurchaseCount(this.#lottoCount);
+
+    this.#winningNumbers = await this.#inputWinningNumbers();
+    this.#bonusNumber = await this.#inputBonusNumber();
   }
 
   async #inputLottoPurchasePrice() {
@@ -27,16 +37,16 @@ class LottoController {
     }
   }
 
-  async #inputWinningNumber() {
+  async #inputWinningNumbers() {
     try {
-      const winningNumber = await InputView.readWinningNumberAsync();
-      const parseNumbers = parser.parseExtractNumbers(winningNumber);
+      const winningNumbers = await InputView.readWinningNumbersAsync();
+      const parseNumbers = parser.parseExtractNumbers(winningNumbers);
 
       const lotto = new Lotto(parseNumbers);
       return lotto.getLottoNumbers();
     } catch (error) {
       OutputView.printErrorMessage(error.message);
-      return await this.#inputWinningNumber();
+      return await this.#inputWinningNumbers();
     }
   }
 
