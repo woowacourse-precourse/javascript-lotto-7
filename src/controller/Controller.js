@@ -8,13 +8,13 @@ class Controller {
     const lottoCount = await this.#inputLottoPurchasePrice();
     OutputView.printLottoIssueDetails(lottoCount);
 
-    // const winningNumber = await InputView.readWinningNumber();
-    // const bonusNumber = await InputView.readBonusNumber();
+    // const winningNumber = await InputView.readWinningNumberAsync();
+    // const bonusNumber = await InputView.readBonusNumberAsnyc();
   }
 
   async #inputLottoPurchasePrice() {
     try {
-      const lottoPurchasePrice = await InputView.readLottoPurchasePrice();
+      const lottoPurchasePrice = await InputView.readLottoPurchasePriceAsync();
       const parsePurchasePrice = parser.parseStringToNumber(lottoPurchasePrice);
 
       LottoPurchasePriceValidations(parsePurchasePrice);
