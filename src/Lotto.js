@@ -27,6 +27,20 @@ class Lotto {
   toString() {
     return `[${this.#numbers.join(", ")}]`;
   }
+
+  matchNumbers(winningNumbers, bonusNumber) {
+    const matchCount = this.#numbers.filter((number) =>
+      winningNumbers.includes(number)
+    ).length;
+
+    const hasBonus = matchCount === 5 && this.#numbers.includes(bonusNumber);
+
+    return {matchCount, hasBonus};
+  }
+
+  getNumbers() {
+    return [...this.#numbers];
+  }
 }
 
 export default Lotto;
