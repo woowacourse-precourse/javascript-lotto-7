@@ -122,29 +122,11 @@ class Controller {
     };
 
     lottos.forEach((lotto) => {
-      const lottoRank = this.calculateLottoRank(
-        lotto,
-        winningLotto,
-        bonusNumber
-      );
-
-      if (lottoRank) lottoResult[lottoRank] += 1;
+      const rank = lotto.calculateRank(winningLotto, bonusNumber);
+      if (rank) lottoResult[rank] += 1;
     });
 
     return lottoResult;
-  }
-
-  calculateLottoRank(lotto, winningLotto, bonusNumber) {
-    const winningNumberCount = lotto.numbers.filter((number) =>
-      winningLotto.numbers.includes(number)
-    ).length;
-    const isBonusNumberCollect = lotto.numbers.includes(bonusNumber);
-
-    if (winningNumberCount === 6) return 'first';
-    if (winningNumberCount === 5 && isBonusNumberCollect) return 'second';
-    if (winningNumberCount === 5) return 'third';
-    if (winningNumberCount === 4) return 'fourth';
-    if (winningNumberCount === 3) return 'fifth';
   }
 
   calculateLottoRateOfReturn(lottoResult, purchasePrice) {

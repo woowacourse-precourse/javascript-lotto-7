@@ -44,6 +44,19 @@ class Lotto {
   get numbers() {
     return this.#numbers;
   }
+
+  calculateRank(winningLotto, bonusNumber) {
+    const matchCount = this.#numbers.filter((number) =>
+      winningLotto.numbers.includes(number)
+    ).length;
+    const hasBonus = this.#numbers.includes(bonusNumber);
+
+    if (matchCount === 3) return 'fifth';
+    if (matchCount === 4) return 'fourth';
+    if (matchCount === 5) return 'third';
+    if (matchCount === 5 && hasBonus) return 'second';
+    if (matchCount === 6) return 'first';
+  }
 }
 
 export default Lotto;
