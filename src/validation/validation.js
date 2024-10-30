@@ -32,3 +32,7 @@ export const validatePurchasePrice = (purchasePrice) => {
 export const validateWinningNumber = (winningNumber) => {
   validator.isNumericString(winningNumber);
 };
+
+export const validateBonusNumber = (bonusNumber) => {
+  validator.isNumericString(bonusNumber);
+};

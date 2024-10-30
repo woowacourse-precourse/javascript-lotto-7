@@ -6,6 +6,7 @@ import {
   LOTTO_PRICE_UNIT,
 } from '../constants/constants.js';
 import {
+  validateBonusNumber,
   validatePurchasePrice,
   validateWinningNumber,
 } from '../validation/validation.js';
@@ -82,6 +83,8 @@ class Controller {
     const bonusNumber = await this.#inputView.getInput(
       '보너스 번호를 입력해 주세요.\n'
     );
+
+    validateBonusNumber();
 
     return Number(bonusNumber);
   }
