@@ -19,11 +19,15 @@ const validator = {
   },
 };
 
+const validateInteger = (value) => {
+  validator.checkNumericString(value);
+  validator.checkSafeInteger(Number(value));
+};
+
 export const validatePurchasePrice = (purchasePrice) => {
-  validator.checkNumericString(purchasePrice);
+  validateInteger(purchasePrice);
 
   const parsedPurchasePrice = Number(purchasePrice);
-  validator.checkSafeInteger(parsedPurchasePrice);
 
   if (parsedPurchasePrice % LOTTO_PRICE !== 0 || parsedPurchasePrice === 0) {
     throw new Error(ERROR_MESSAGES.INVALID_PRICE);
@@ -36,6 +40,7 @@ export const validateWinningNumber = (winningNumber) => {
 
 export const validateBonusNumber = (bonusNumber, winningLotto) => {
   validator.checkNumericString(bonusNumber);
+
   const parsedBonusNumber = Number(bonusNumber);
 
   if (
