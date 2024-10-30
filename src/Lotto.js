@@ -1,4 +1,4 @@
-import MissionUtils from "@woowacourse/mission-utils";
+const MissionUtils = require("@woowacourse/mission-utils");
 
 class Lotto {
   constructor(ticketPrice = 1000) {
