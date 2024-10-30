@@ -1,7 +1,11 @@
+import LottoManager from './LottoManager.js';
 import { Console } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGES } from './constants/gameMessages.js';
+import { INPUT_MESSAGES } from './constants/index.js';
 
 class LottoGame {
+  constructor() {
+    this.lottoManager = new LottoManager();
+  }
   async start() {
     // 1. 구입 금액 입력 받기
     // 2. 구입한 로또 개수 출력
@@ -10,11 +14,22 @@ class LottoGame {
     // 5. 보너스 번호 입력 받기
     // 6. 결과를 가져오기
     // 7. 결과 출력하기
-    const lottoCount = await this.#getPurchasePrice();
+    const purchasePrice = await this.#getPurchasePrice();
+    console.log(purchasePrice);
   }
 
   async #getPurchasePrice() {
-    return await Console.readLineAsync(INPUT_MESSAGES.PURCHASE_AMOUNT);
+    while (true) {
+      try {
+        const price = await Console.readLineAsync(
+          INPUT_MESSAGES.PURCHASE_AMOUNT,
+        );
+        this.lottoManager.validatePrice(Number(price));
+        return Number(price);
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
 
   #printLottoCount() {}
