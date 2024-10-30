@@ -48,6 +48,29 @@ class App {
       if (hasOutOfRange) {
         throw new Error("1 - 45 범위 밖의 숫자가 입력되었습니다.");
       }
+
+      // bonus number input
+      const bonusNumber = await MissionUtils.Console.readLineAsync(
+        "보너스 번호를 입력해 주세요.\n"
+      );
+
+      // 1. 숫자가 아닌 문자가 입력된 경우
+      if (!NUMBER_REGEX.test(bonusNumber)) {
+        throw new Error("숫자가 아닌 문자가 입력되었습니다.");
+      }
+
+      // 2. 1 - 45 범위 밖의 숫자가 입력된 경우
+      const bonusNumberOutOfRange =
+        Number(bonusNumber) > 45 || Number(bonusNumber) < 1;
+
+      if (bonusNumberOutOfRange) {
+        throw new Error("1 - 45 범위 밖의 숫자가 입력되었습니다.");
+      }
+
+      // 3. 기존 로또 번호와 중복되는 경우
+      if (lottoArray.has(Number(bonusNumber))) {
+        throw new Error("기존 번호와 중복됩니다.");
+      }
     } catch (error) {
       console.log(`[ERROR] ${error.message}`);
     }
