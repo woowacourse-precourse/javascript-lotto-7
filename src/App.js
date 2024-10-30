@@ -1,6 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Input from './Input.js';
-import { INPUT_MESSAGE, OUTPUT_MESSAGE } from './lib/constants.js';
+import {
+  INPUT_MESSAGE,
+  OUTPUT_MESSAGE,
+  WINNING_PRICE_OBJECT,
+} from './lib/constants.js';
 import { intersection } from './lib/utils.js';
 
 class App {
@@ -35,7 +39,7 @@ class App {
     );
     const bonusNumber = +rawBonusNumber;
 
-    const winningNumberMap = new Map([
+    const winningCountMap = new Map([
       [3, 0],
       [4, 0],
       [5, 0],
@@ -45,11 +49,17 @@ class App {
       const winningCount = intersection(winnerNumberArray, [
         ...randomNumber,
         bonusNumber,
-      ]);
-      winningNumberMap.set(
-        winningCount,
-        winningNumberMap.get(winningCount) + 1,
-      );
+      ]).length;
+
+      const previousWinningCount = winningCountMap.get(winningCount);
+      if (previousWinningCount !== undefined)
+        winningCountMap.set(winningCount, previousWinningCount + 1);
+    });
+
+    let winningPrice = 0;
+
+    winningCountMap.forEach((value, winningCount) => {
+      winningPrice += WINNING_PRICE_OBJECT[winningCount] * value;
     });
   }
 }

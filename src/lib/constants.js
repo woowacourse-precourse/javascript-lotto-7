@@ -7,3 +7,10 @@ export const OUTPUT_MESSAGE = {
   PURCHASE_COUNT: '개를 구매했습니다.\n',
   WINNING_STATICS: '당첨 통계\n---\n',
 };
+export const WINNING_PRICE_OBJECT = {
+  3: 5_000,
+  4: 50_000,
+  5: 1_500_000,
+  5_1: 30_000_000,
+  6: 2_000_000_000,
+};
