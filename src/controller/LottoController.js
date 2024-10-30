@@ -12,13 +12,6 @@ class LottoController {
   #bonusNumber;
   #lottos;
 
-  constructor() {
-    this.#lottoCount = null;
-    this.#winningNumbers = null;
-    this.#bonusNumber = null;
-    this.#lottos = null;
-  }
-
   async start() {
     this.#lottoCount = await this.#inputLottoPurchasePrice();
     OutputView.printLottoPurchaseCount(this.#lottoCount);
