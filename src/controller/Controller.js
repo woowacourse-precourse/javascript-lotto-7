@@ -46,6 +46,7 @@ class Controller {
       lottoResult,
       purchasePrice
     );
+    this.#outputView.printLottoRateOfReturn(winningRateOfReturn);
   }
 
   async getParsedPurchasePrice() {

@@ -29,6 +29,10 @@ class OutputView {
         `6개 일치 (2,000,000,000원) ${lottoResult.first}개\n`
     );
   }
+
+  printLottoRateOfReturn(lottoRateOfReturn) {
+    Console.print(`총 수익률은 ${lottoRateOfReturn}%입니다.`);
+  }
 }
 
 export default OutputView;
