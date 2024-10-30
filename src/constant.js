@@ -4,6 +4,13 @@ const LOTTERY = Object.freeze({
   MAX_NUMBER: 45,
   WINNING_NUMBER_SIZE: 6,
   WINNING_NUMBER_SPLITTER: ',',
+  PRIZE: Object.freeze({
+    FIRST: 2000000000,
+    SECOND: 30000000,
+    THIRD: 1500000,
+    FOURTH: 50000,
+    FIFTH: 5000,
+  }),
 });
 
 const IO_MESSAGE = Object.freeze({
@@ -21,6 +28,8 @@ const ERROR_MESSAGE = Object.freeze({
   NOT_ALLOWED_LOTTERY_NUMBER_RANGE: `[ERROR] 번호가 범위를 벗어났습니다. (${LOTTERY.MIN_NUMBER} ~ ${LOTTERY.MAX_NUMBER})`,
   INVALID_WINNING_NUMBER_SIZE: `[ERROR] 당첨 번호는 중복이 아닌 ${LOTTERY.WINNING_NUMBER_SIZE}개여야 합니다.`,
   DUPLICATED_BONUS_NUMBER: '[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.',
+  INVALID_LOTTERY_NUMBER_SIZE: '[ERROR] 로또 번호는 6개여야 합니다.',
+  DUPLICATED_LOTTERY_NUMBER: '[ERROR] 로또 번호가 중복됩니다.',
 });
 
 export { LOTTERY, IO_MESSAGE, ERROR_MESSAGE };

@@ -1,14 +1,18 @@
 import { Console } from '@woowacourse/mission-utils';
 import { IO_MESSAGE, LOTTERY } from './constant';
 import { validateBonusNumber, validateUserMoney, validateWinningNumbers } from './inputValidation';
+import Lotto from './Lotto';
 
 class App {
   #userMoney;
   #winningNumbers;
   #bonusNumber;
+  #userLotteries = [];
 
   async run() {
     await this.setUserInputs();
+    this.setUserLotteries(this.publishUserLotteries());
+    this.printUserLotteries();
   }
 
   async setUserInputs() {
@@ -55,6 +59,26 @@ class App {
 
   getBonusNumber() {
     return this.#bonusNumber;
+  }
+
+  publishUserLotteries() {
+    const publishCount = this.#userMoney / LOTTERY.PRICE;
+    const userLotteries = [...this.#userLotteries];
+    for (let i = 0; i < publishCount; i += 1) {
+      userLotteries.push(new Lotto(Lotto.getRandomUniqueLotteryNumbers()));
+    }
+    return userLotteries;
+  }
+
+  setUserLotteries(lotteries) {
+    this.#userLotteries = lotteries;
+  }
+
+  printUserLotteries() {
+    Console.print(`${this.#userLotteries.length}개를 구매했습니다.`);
+    this.#userLotteries.forEach((lottery) => {
+      Console.print(lottery.toString());
+    });
   }
 }
 
