@@ -1,6 +1,6 @@
 import {
   INITIAL_LOTTO_RESULT,
-  LOTTO_PRICE_UNIT,
+  LOTTO_PRICE,
   WINNING_PRIZE,
 } from '../constants/constants.js';
 import {
@@ -24,7 +24,7 @@ class Controller {
   async start() {
     const purchasePrice = await this.parseValidatePurchasePriceInput();
 
-    const lottoCount = purchasePrice / LOTTO_PRICE_UNIT;
+    const lottoCount = purchasePrice / LOTTO_PRICE;
     this.#outputView.displayLottoCount(lottoCount);
 
     const lottos = Lotto.generateMultiple(lottoCount);

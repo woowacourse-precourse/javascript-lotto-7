@@ -1,7 +1,7 @@
 import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
-  LOTTO_PRICE_UNIT,
+  LOTTO_PRICE,
 } from '../constants/constants.js';
 
 const validator = {
@@ -24,10 +24,7 @@ export const validatePurchasePrice = (purchasePrice) => {
   const parsedPurchasePrice = Number(purchasePrice);
   validator.checkSafeInteger(parsedPurchasePrice);
 
-  if (
-    parsedPurchasePrice % LOTTO_PRICE_UNIT !== 0 ||
-    parsedPurchasePrice === 0
-  ) {
+  if (parsedPurchasePrice % LOTTO_PRICE !== 0 || parsedPurchasePrice === 0) {
     throw new Error('[ERROR] 구입 금액이 1000원 단위가 아닙니다.');
   }
 };
