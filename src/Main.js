@@ -3,9 +3,9 @@ import Lotto from './Lotto.js';
 
 const MESSAGES = Object.freeze({
   INFO: {
-    PURCHASE_AMOUNT: '구입 금액을 입력해주세요.',
-    WINNING_NUMBERS: '당첨 번호를 입력해주세요.',
-    BONUS_NUMBER: '보너스 번호를 입력해주세요.',
+    PURCHASE_AMOUNT: '구입 금액을 입력해주세요.\n',
+    WINNING_NUMBERS: '당첨 번호를 입력해주세요.\n',
+    BONUS_NUMBER: '보너스 번호를 입력해주세요.\n',
   },
   ERROR: {
     IS_EMPTY: '[ERROR] 입력값이 비었습니다.',
@@ -113,21 +113,10 @@ const Main = async () => {
   );
   const purchaseAmount =
     LottoValidator.validatePurchaseAmount(inputPurchaseAmount);
+  Console.print('');
+  const purchaseNumber = calculatePurchaseNumber(purchaseAmount);
+  Console.print(`${purchaseNumber}개를 구매했습니다.`);
 
-  const inputWinningNumbers = await Console.readLineAsync(
-    MESSAGES.INFO.WINNING_NUMBERS,
-  );
-
-  const arrayWinningNumbers = inputWinningNumbers.trim().split(',');
-  const winningNumbers =
-    LottoValidator.validateWinningNumbers(arrayWinningNumbers);
-
-  const inputBonusNumber = await Console.readLineAsync(
-    MESSAGES.INFO.BONUS_NUMBER,
-  );
-
-  const bonusNumber = LottoValidator.validateBonusNumber(inputBonusNumber);
-  winningNumbers.push(bonusNumber);
   let lottoList = [];
   const pushLotto = (n) => {
     for (let i = 0; i < n; i++) {
@@ -135,11 +124,51 @@ const Main = async () => {
       lottoList.push(lotto.getLotto());
     }
   };
-  const purchaseNumber = calculatePurchaseNumber(purchaseAmount);
-  Console.print(`${purchaseNumber}개를 구매했습니다.`);
-  Console.print(`당첨번호: ${winningNumbers}`);
   pushLotto(purchaseNumber);
   lottoList.forEach((item) => Console.print(item));
+  Console.print('');
+
+  const inputWinningNumbers = await Console.readLineAsync(
+    MESSAGES.INFO.WINNING_NUMBERS,
+  );
+  const arrayWinningNumbers = inputWinningNumbers.trim().split(',');
+  const winningNumbers =
+    LottoValidator.validateWinningNumbers(arrayWinningNumbers);
+  Console.print('');
+  const inputBonusNumber = await Console.readLineAsync(
+    MESSAGES.INFO.BONUS_NUMBER,
+  );
+  Console.print('');
+  Console.print('당첨 통계');
+  Console.print('---');
+
+  const bonusNumber = LottoValidator.validateBonusNumber(inputBonusNumber);
+  winningNumbers.push(bonusNumber);
+
+  let winningLottoNumber = [0, 0, 0, 0, 0];
+  lottoList.forEach((lotto) => {
+    const distinctLotto = winningNumbers.filter((x) => lotto.includes(x));
+    if (lotto.length - distinctLotto.length === 3) {
+      winningLottoNumber[0] += 1;
+    } else if (lotto.length - distinctLotto.length === 2) {
+      winningLottoNumber[1] += 1;
+    } else if (lotto.length - distinctLotto.length === 1) {
+      winningLottoNumber[2] += 1;
+    } else if (lotto.length - distinctLotto.length === 0) {
+      if (lotto.includes(bonusNumber)) {
+        winningLottoNumber[3] += 1;
+      } else if (!lotto.includes(bonusNumber)) {
+        winningLottoNumber[4] += 1;
+      }
+    }
+  });
+  Console.print(`3개 일치 (5,000원) - ${winningLottoNumber[0]}개`);
+  Console.print(`4개 일치 (50,000원) - ${winningLottoNumber[1]}개`);
+  Console.print(`5개 일치 (1,500,000원원) - ${winningLottoNumber[2]}개`);
+  Console.print(
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningLottoNumber[3]}개`,
+  );
+  Console.print(`6개 일치 (2,000,000,000원) - ${winningLottoNumber[4]}개`);
 };
 
 export default Main;
