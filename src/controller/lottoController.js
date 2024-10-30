@@ -21,13 +21,12 @@ class LottoController{
   }
 
   validateUserPrice(price) {
-    try {
-      this.error.priceInputValidate(price);
-      return true;
-    } catch(error) {
-      Console.print(error);
+    const validationMessage = this.error.priceInputValidate(price);
+    if(validationMessage){
+      Console.print(validationMessage);
       return false;
-    }
+    } 
+    return true;
   }
 }
 

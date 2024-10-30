@@ -63,10 +63,16 @@ class InputValidate{
   }
 
   priceInputValidate(input) {
-    this.inputExist(input);
-    this.inputType(input);
-    this.inputUnit(input);
-    this.inputRange(input);
+    try{
+      this.inputExist(input);
+      this.inputType(input);
+      this.inputUnit(input);
+      this.inputRange(input);
+      return null;
+    } catch(error) {
+      return error.message;
+    }
+
   }
 
   lottoNumberValidate(input) {
