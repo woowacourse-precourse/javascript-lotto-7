@@ -1,8 +1,15 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 
 const MESSAGES = Object.freeze({
   INFO: {
+    START_PROGRAM: '프로그램이 시작되었습니다.\n',
+    PURCHASE_QUANTITY: '{count}개를 구매했습니다.',
+    WINNING_STATISTICS: '당첨 통계',
+    DASH_SYMBOL: '---',
+    LINE_BREAK: '',
+  },
+  INPUT: {
     PURCHASE_AMOUNT: '구입 금액을 입력해주세요.\n',
     WINNING_NUMBERS: '당첨 번호를 입력해주세요.\n',
     BONUS_NUMBER: '보너스 번호를 입력해주세요.\n',
@@ -17,6 +24,14 @@ const MESSAGES = Object.freeze({
     NOT_WINNING_LENGTH: '[ERROR] 당첨 번호는 6개를 입력해야합니다.',
     IS_SAME_NUMBER: '[ERROR] 당첨 번호 입력에 중복된 숫자가 있습니다.',
   },
+  PRIZE: {
+    MATCH_3: '3개 일치 (5,000원) - {count}개',
+    MATCH_4: '4개 일치 (50,000원) - {count}개',
+    MATCH_5: '5개 일치 (1,500,000원) - {count}개',
+    MATCH_5_WITH_BONUS: '5개 일치, 보너스 볼 일치 (30,000,000원) - {count}개',
+    MATCH_6: '6개 일치 (2,000,000,000원) - {count}개',
+  },
+  RATE_OF_RETURN: '총 수익률은 {rate}%입니다.',
 });
 
 const InputValidator = {
@@ -118,16 +133,18 @@ const calculateRateOfReturn = (purchaseAmount, winningLottoNumber) => {
 };
 
 const Main = async () => {
-  Console.print('프로그램 시작!');
+  Console.print(MESSAGES.INFO.START_PROGRAM);
 
   const inputPurchaseAmount = await Console.readLineAsync(
-    MESSAGES.INFO.PURCHASE_AMOUNT,
+    MESSAGES.INPUT.PURCHASE_AMOUNT,
   );
   const purchaseAmount =
     LottoValidator.validatePurchaseAmount(inputPurchaseAmount);
-  Console.print('');
+  Console.print(MESSAGES.INFO.LINE_BREAK);
   const purchaseNumber = calculatePurchaseNumber(purchaseAmount);
-  Console.print(`${purchaseNumber}개를 구매했습니다.`);
+  Console.print(
+    MESSAGES.INFO.PURCHASE_QUANTITY.replace('{count}', purchaseNumber),
+  );
 
   let lottoList = [];
   const pushLotto = (n) => {
@@ -138,21 +155,22 @@ const Main = async () => {
   };
   pushLotto(purchaseNumber);
   lottoList.forEach((item) => Console.print(item));
-  Console.print('');
+
+  Console.print(MESSAGES.INFO.LINE_BREAK);
 
   const inputWinningNumbers = await Console.readLineAsync(
-    MESSAGES.INFO.WINNING_NUMBERS,
+    MESSAGES.INPUT.WINNING_NUMBERS,
   );
   const arrayWinningNumbers = inputWinningNumbers.trim().split(',');
   const winningNumbers =
     LottoValidator.validateWinningNumbers(arrayWinningNumbers);
-  Console.print('');
+  Console.print(MESSAGES.INFO.LINE_BREAK);
   const inputBonusNumber = await Console.readLineAsync(
-    MESSAGES.INFO.BONUS_NUMBER,
+    MESSAGES.INPUT.BONUS_NUMBER,
   );
-  Console.print('');
-  Console.print('당첨 통계');
-  Console.print('---');
+  Console.print(MESSAGES.INFO.LINE_BREAK);
+  Console.print(MESSAGES.INFO.WINNING_STATISTICS);
+  Console.print(MESSAGES.INFO.DASH_SYMBOL);
 
   const bonusNumber = LottoValidator.validateBonusNumber(inputBonusNumber);
   winningNumbers.push(bonusNumber);
@@ -174,19 +192,27 @@ const Main = async () => {
       }
     }
   });
-  Console.print(`3개 일치 (5,000원) - ${winningLottoNumber[0]}개`);
-  Console.print(`4개 일치 (50,000원) - ${winningLottoNumber[1]}개`);
-  Console.print(`5개 일치 (1,500,000원) - ${winningLottoNumber[2]}개`);
   Console.print(
-    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningLottoNumber[3]}개`,
+    MESSAGES.PRIZE.MATCH_3.replace('{count}', winningLottoNumber[0]),
   );
-  Console.print(`6개 일치 (2,000,000,000원) - ${winningLottoNumber[4]}개`);
+  Console.print(
+    MESSAGES.PRIZE.MATCH_4.replace('{count}', winningLottoNumber[1]),
+  );
+  Console.print(
+    MESSAGES.PRIZE.MATCH_5.replace('{count}', winningLottoNumber[2]),
+  );
+  Console.print(
+    MESSAGES.PRIZE.MATCH_5_WITH_BONUS.replace('{count}', winningLottoNumber[3]),
+  );
+  Console.print(
+    MESSAGES.PRIZE.MATCH_6.replace('{count}', winningLottoNumber[4]),
+  );
 
   const rateOfReturn = calculateRateOfReturn(
     purchaseAmount,
     winningLottoNumber,
   );
-  Console.print(`총 수익률은 ${rateOfReturn}%입니다. `);
+  Console.print(MESSAGES.RATE_OF_RETURN.replace('{rate}', rateOfReturn));
 };
 
 export default Main;
