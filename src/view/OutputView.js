@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_RESULTS } from '../constants/lottoResults.js';
 import { formatLottoResult } from '../utils/lottoResultFormattor.js';
 
 class OutputView {
