@@ -6,9 +6,10 @@ class InputView {
       "구입 금액을 입력해 주세요.\n"
     );
     this.isPriceValidate(lottoPrice);
+    return lottoPrice;
   }
   isPriceValidate(lottoPrice) {
-    const isNumber = !Number.isNaN(parseInt(lottoPrice, 10));
+    const isNumber = !Number.isNaN(Number(lottoPrice, 10));
     const isDivisible = lottoPrice % 1000 == 0;
     if (!isNumber) {
       throw new Error("[ERROR] 숫자만 입력할 수 있습니다.");
