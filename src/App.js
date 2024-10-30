@@ -1,9 +1,14 @@
 import { OutputView } from "./views/OutputView.js";
 import { InputView } from "./views/InputView.js";
 import { Validator } from "./utils/Validator.js";
+import User from "./User.js";
 
 class App {
-  async run() {}
+  async run() {
+    new User(await this.inputPurchaseAmount());
+    // await this.inputWinningBonusNumber(await this.inputWinningNumber());
+  }
+
   async inputPurchaseAmount() {
     const purchaseAmount = Number(await InputView.purchaseAmount());
     this.validatePurchaseAmount(purchaseAmount);
