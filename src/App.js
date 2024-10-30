@@ -1,10 +1,11 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
     try {
       const count = await this.getLottoCount();
+      
       const lottoNumbers = this.generateLottoNumbers(count);
       const lottos = lottoNumbers.map(numbers => new Lotto(numbers));
       
@@ -28,7 +29,7 @@ class App {
       throw new Error("[ERROR] 구입금액은 1,000원 단위로 입력해 주세요.");
     }
     const count = Math.floor(purchaseCost / 1000);
-    Console.print(`${count}개를 구매했습니다.`);
+    Console.print(`\n${count}개를 구매했습니다.`);
     return count;
   }
 
@@ -42,12 +43,12 @@ class App {
   }
 
   async getWinningNumbers() {
-    const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
     return input.split(',').map(Number);
   }
 
   async getBonusNumber() {
-    const input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    const input = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
     return Number(input);
   }
 
@@ -77,7 +78,7 @@ class App {
       }
     });
 
-    Console.print("당첨 통계\n---");
+    Console.print("\n당첨 통계\n---");
     Console.print(`3개 일치 (5,000원) - ${statistics.fifth}개`);
     Console.print(`4개 일치 (50,000원) - ${statistics.fourth}개`);
     Console.print(`5개 일치 (1,500,000원) - ${statistics.third}개`);
