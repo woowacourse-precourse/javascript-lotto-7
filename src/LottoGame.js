@@ -15,7 +15,7 @@ class LottoGame {
     // 6. 결과를 가져오기
     // 7. 결과 출력하기
     const purchasePrice = await this.#getPurchasePrice();
-    console.log(purchasePrice);
+    const lottos = this.lottoManager.buyLottos(purchasePrice);
   }
 
   async #getPurchasePrice() {

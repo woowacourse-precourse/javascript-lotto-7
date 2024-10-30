@@ -12,5 +12,9 @@ class LottoManager {
       throw new Error(ERROR_MESSAGE.INVALID_PURCHASE_AMOUNT(RULE.LOTTO_PRICE));
     }
   }
+
+  buyLottos(price) {
+    const lottoCount = price / RULE.LOTTO_PRICE;
+  }
 }
 export default LottoManager;
