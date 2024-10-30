@@ -1,6 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Input from './Input.js';
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from './lib/constants.js';
+import { intersection } from './lib/utils.js';
 
 class App {
   async run() {
@@ -28,11 +29,28 @@ class App {
     const rawWinnierNumbers = await MissionUtils.Console.readLineAsync(
       INPUT_MESSAGE.WINNING_NUMBER,
     );
-    const winnierNumberArray = rawWinnierNumbers.split(',');
+    const winnerNumberArray = rawWinnierNumbers.split(',').map(Number);
     const rawBonusNumber = await MissionUtils.Console.readLineAsync(
       INPUT_MESSAGE.BONUS_NUMBER,
     );
     const bonusNumber = +rawBonusNumber;
+
+    const winningNumberMap = new Map([
+      [3, 0],
+      [4, 0],
+      [5, 0],
+      [6, 0],
+    ]);
+    randomNumberArray.forEach((randomNumber) => {
+      const winningCount = intersection(winnerNumberArray, [
+        ...randomNumber,
+        bonusNumber,
+      ]);
+      winningNumberMap.set(
+        winningCount,
+        winningNumberMap.get(winningCount) + 1,
+      );
+    });
   }
 }
 
