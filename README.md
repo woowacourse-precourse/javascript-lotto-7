@@ -25,8 +25,8 @@
     - [X]  변수 설정: winningNumbersInput
     - [X]  쉼표 (,) 기준으로 구분한다.
 - 보너스 번호
-- [ ]  ‘보너스번호를 입력해 주세요.\n’ 입력값을 받는다.
-    - [ ]  변수 설정: bonusNumberInput
+- [X]  ‘보너스번호를 입력해 주세요.\n’ 입력값을 받는다.
+    - [X]  변수 설정: bonusNumberInput
 
 ### 출력
 

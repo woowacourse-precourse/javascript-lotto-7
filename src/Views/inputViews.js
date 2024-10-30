@@ -10,4 +10,9 @@ const getWinningNumbersInput = async () => {
   return winningNumbers;
 };
 
-export { getPurchasePriceInput, getWinningNumbersInput };
+const getBonusNumberInput = async () => {
+  const bonusNumber = await Console.readLineAsync('보너스번호를 입력해 주세요.\n');
+  return bonusNumber;
+};
+
+export { getPurchasePriceInput, getWinningNumbersInput, getBonusNumberInput };
