@@ -36,6 +36,10 @@ class LottoMachine {
     const issuedLottos = this.#issuePurchasedAmount(amount);
     return issuedLottos;
   }
+
+  getAmount() {
+    return this.#calculateAmount();
+  }
 }
 
 export default LottoMachine;
