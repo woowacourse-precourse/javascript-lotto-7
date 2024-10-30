@@ -27,10 +27,10 @@ class Controller {
     const purchasePrice = await this.getParsedPurchasePrice();
 
     const lottoCount = purchasePrice / LOTTO_PRICE_UNIT;
-    this.#outputView.printLottoCount(lottoCount);
+    this.#outputView.displayLottoCount(lottoCount);
 
     const lottos = this.getParsedLottos(lottoCount);
-    this.#outputView.printLottos(lottos);
+    this.#outputView.displayLottos(lottos);
 
     const winningLotto = await this.getParsedWinningLotto();
     const bonusNumber = await this.getParsedBonusNumber(winningLotto);
@@ -40,13 +40,13 @@ class Controller {
       winningLotto,
       bonusNumber
     );
-    this.#outputView.printLottoResult(lottoResult, purchasePrice);
+    this.#outputView.displayLottoResult(lottoResult, purchasePrice);
 
     const winningRateOfReturn = this.calculateLottoRateOfReturn(
       lottoResult,
       purchasePrice
     );
-    this.#outputView.printLottoRateOfReturn(winningRateOfReturn);
+    this.#outputView.displayLottoRateOfReturn(winningRateOfReturn);
   }
 
   async getParsedPurchasePrice() {
@@ -60,7 +60,7 @@ class Controller {
 
         return Number(purchasePrice);
       } catch (error) {
-        this.#outputView.printErrorMessage(error.message);
+        this.#outputView.displayErrorMessage(error.message);
       }
     }
   }
@@ -98,7 +98,7 @@ class Controller {
 
         return new Lotto(parsedWinningNumbers);
       } catch (error) {
-        this.#outputView.printErrorMessage(error.message);
+        this.#outputView.displayErrorMessage(error.message);
       }
     }
   }
@@ -106,7 +106,7 @@ class Controller {
   async getParsedBonusNumber(winningLotto) {
     while (true) {
       try {
-        this.#outputView.printEmptyLine();
+        this.#outputView.displayEmptyLine();
         const bonusNumber = await this.#inputView.promptUserInput(
           '보너스 번호를 입력해 주세요.\n'
         );
@@ -115,7 +115,7 @@ class Controller {
 
         return Number(bonusNumber);
       } catch (error) {
-        this.#outputView.printErrorMessage(error.message);
+        this.#outputView.displayErrorMessage(error.message);
       }
     }
   }

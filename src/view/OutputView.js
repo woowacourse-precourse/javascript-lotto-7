@@ -1,24 +1,25 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class OutputView {
-  printEmptyLine() {
+  displayEmptyLine() {
     Console.print('');
   }
-  printLottoCount(lottoCount) {
-    this.printEmptyLine();
+
+  displayLottoCount(lottoCount) {
+    this.displayEmptyLine();
     Console.print(`${lottoCount}개를 구매했습니다.`);
   }
 
-  printLottos(lottos) {
+  displayLottos(lottos) {
     lottos.forEach((lotto) => {
       Console.print(`[${lotto.numbers.join(', ')}]`);
     });
 
-    this.printEmptyLine();
+    this.displayEmptyLine();
   }
 
-  printLottoResult(lottoResult) {
-    this.printEmptyLine();
+  displayLottoResult(lottoResult) {
+    this.displayEmptyLine();
     Console.print('당첨 통계\n---');
 
     Console.print(
@@ -30,11 +31,11 @@ class OutputView {
     );
   }
 
-  printLottoRateOfReturn(lottoRateOfReturn) {
+  displayLottoRateOfReturn(lottoRateOfReturn) {
     Console.print(`총 수익률은 ${lottoRateOfReturn}%입니다.`);
   }
 
-  printErrorMessage(errorMessage) {
+  displayErrorMessage(errorMessage) {
     Console.print(errorMessage);
   }
 }
