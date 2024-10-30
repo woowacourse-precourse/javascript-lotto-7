@@ -20,6 +20,10 @@ class App {
     Console.print('당첨 번호를 입력해 주세요.');
     const pickLottoNumber = (await Console.readLineAsync('')).split(',');
     pickLottoNumber.map((number) => parseInt(number, 10));
+
+    Console.print('');
+    Console.print('보너스 번호를 입력해 주세요.');
+    const pickBonusNumber = parseInt(await Console.readLineAsync(''), 10);
   }
 }
 
