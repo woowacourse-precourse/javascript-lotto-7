@@ -1,5 +1,6 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import { printLotteries } from './View/OutputView.js';
 
 class App {
   async run() {
@@ -14,14 +15,12 @@ class App {
     for (let i = 0; i < lottery; i++) {
       const numbers = Random.pickUniqueNumbersInRange(1, 12, 6);
 
-      const lotto = new Lotto(numbers);
+      const lotto = new Lotto(numbers.sort((a, b) => a - b));
       lotteries.push(lotto);
     }
 
     Console.print(`${lottery}개를 구매했습니다.`);
-    lotteries.forEach((lotto) => {
-      Console.print(toString(lotto.getNumbers().sort((a, b) => a - b)));
-    });
+    printLotteries(lotteries);
 
     const lotteryNumbers =
       await Console.readLineAsync('당첨 번호를 입력해 주세요.');

@@ -23,7 +23,9 @@ export function printMessage(message) {
  * // car1과 car2의 위치가  형태로 출력됩니다.
  */
 export function printLotteries(lotteries) {
-  lotteries.forEach((lotto) => printMessage(lotto.toString()));
+  lotteries.forEach((lotto) =>
+    printMessage(lotto.toString(lotto.getNumbers())),
+  );
 }
 
 /**
@@ -35,7 +37,7 @@ export function printLotteries(lotteries) {
  * printWinners(['pobi', 'woni']);
  * // "최종 우승자 : pobi, woni"가 콘솔에 출력됩니다.
  */
-export function printWinners(winners) {
+export function printResult(winners) {
   const winnerMessage = `최종 우승자 : ${winners.join(', ')}`;
   printMessage(winnerMessage);
 }
