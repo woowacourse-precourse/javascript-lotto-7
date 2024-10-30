@@ -1,19 +1,20 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Input from './Input.js';
-import {
-  INPUT_MESSAGE,
-  OUTPUT_MESSAGE,
-  WINNING_PRICE_OBJECT,
-} from './lib/constants.js';
+import { OUTPUT_MESSAGE, WINNING_PRICE_OBJECT } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
 
 class App {
+  #input;
+
+  constructor() {
+    this.#input = new Input();
+  }
+
   async run() {
-    const input = new Input();
-    await input.getPurchasePrice();
+    await this.#input.getPurchasePrice();
 
     const randomNumberArray = [];
-    for (let round = 0; round < input.lottoCount; round += 1) {
+    for (let round = 0; round < this.#input.lottoCount; round += 1) {
       const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(
         1,
         45,
@@ -24,20 +25,14 @@ class App {
     }
 
     MissionUtils.Console.print(
-      `${input.lottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
+      `${this.#input.lottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
     );
     randomNumberArray.forEach((randomNumber) =>
       MissionUtils.Console.print(randomNumber),
     );
 
-    const rawWinnierNumbers = await MissionUtils.Console.readLineAsync(
-      INPUT_MESSAGE.WINNING_NUMBER,
-    );
-    const winnerNumberArray = rawWinnierNumbers.split(',').map(Number);
-    const rawBonusNumber = await MissionUtils.Console.readLineAsync(
-      INPUT_MESSAGE.BONUS_NUMBER,
-    );
-    const bonusNumber = +rawBonusNumber;
+    await this.#input.getWinningNumbers();
+    await this.#input.getBonusNumber();
 
     const winningCountMap = new Map([
       [3, 0],
@@ -45,10 +40,11 @@ class App {
       [5, 0],
       [6, 0],
     ]);
+
     randomNumberArray.forEach((randomNumber) => {
-      const winningCount = intersection(winnerNumberArray, [
+      const winningCount = intersection(this.#input.winnerNumberArray, [
         ...randomNumber,
-        bonusNumber,
+        this.#input.bonusNumber,
       ]).length;
 
       const previousWinningCount = winningCountMap.get(winningCount);
@@ -62,7 +58,7 @@ class App {
       winningPrice += WINNING_PRICE_OBJECT[winningCount] * value;
     });
 
-    const rateOfReturn = (winningPrice / input.purchacePrice) * 100;
+    const rateOfReturn = (winningPrice / this.#input.purchacePrice) * 100;
 
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
     winningCountMap.forEach((value, winningCount) => {
