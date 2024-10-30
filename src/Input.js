@@ -81,6 +81,7 @@ class Input {
         MissionUtils.Console.print(errorMessage);
         continue;
       }
+
       this.bonusNumber = Input.#parseBonusNumber(rawBonusNumber);
       this.#isGetBonusNumber = true;
     }
@@ -94,6 +95,7 @@ class Input {
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_THOUSAND_UNIT };
     if (!getIsPositive(rawPurchasePrice))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_POSITIVE };
+
     return { isError: false, errorMessage: null };
   }
 
@@ -119,6 +121,7 @@ class Input {
         isError: true,
         errorMessage: ERROR_MESSAGE.NOT_UNIQUE,
       };
+
     return { isError: false, errorMessage: null };
   }
 
@@ -132,6 +135,7 @@ class Input {
         isError: true,
         errorMessage: ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
       };
+
     return { isError: false, errorMessage: null };
   }
 
