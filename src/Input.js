@@ -14,6 +14,12 @@ class Input {
 
     return input;
   }
+
+  static async getBonusNumberInput() {
+    const input = await Console.readLineAsync(INPUT_MESSAGES.BONUS_NUMBER);
+
+    return input;
+  }
 }
 
 export default Input;
