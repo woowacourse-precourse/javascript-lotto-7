@@ -24,11 +24,15 @@ LotteryFactory 클래스
 - [] lotteries의 길이를 확인한다.
 - [] lottoFactory의 unit Test를 작성한다.
 
-lotteryNumbers 클래스 -[x] lotteryNumber가 중복된 수가 있는지 확인한다.
--[] 정확한 값이 입력되었는지 확인한다.
--[] 트림 기능을 넣는것을 고민해본다.
--[] 중복자를 검출하는것을 고민해본다.
--[] 보너스가 중복되는 것을 방지한다.
+lotteryNumbers 클래스
+
+- [x] lotteryNumber가 중복된 수가 있는지 확인한다.
+- [x] 정확한 값이 입력되었는지 확인한다.
+- [x] 트림 기능을 넣는것을 고민해본다.
+- [x] 중복자를 검출하는것을 고민해본다.
+- [x] lotteryNumbers의 unitTest를 작성한다
+- [ ] lotteryNumbers의 unitTest를 보충한다.
+- [] 보너스가 중복되는 것을 방지한다.
 
 prizeCaluationService 클래스
 -[] 클래스를 생성한다.
