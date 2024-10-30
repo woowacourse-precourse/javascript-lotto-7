@@ -1,20 +1,10 @@
+import LottoRule from './model/LottoRule.js';
+
 class LottoGameExecutor {
-  #lottoPurchaseAmount;
-
-  #maxlottoPurchaseAmount;
-
-  #lottoNumberCount;
-
-  #lottoNumberScope;
+  #lottoRule
 
   constructor(lottoConfig) {
-    this.#lottoPurchaseAmount = lottoConfig.PURCHASE_AMOUNT;
-    this.#maxlottoPurchaseAmount = lottoConfig.MAX_PURCHASE_AMOUNT;
-    this.#lottoNumberCount = lottoConfig.NUMBER_COUNT;
-    this.#lottoNumberScope = {
-      minNumber: lottoConfig.NUMBER_MIN_VALUE,
-      maxNumber: lottoConfig.NUMBER_MAX_VALUE,
-    }
+    this.#lottoRule = new LottoRule(lottoConfig);
   }
 
   startGame() {
