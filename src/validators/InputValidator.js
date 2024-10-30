@@ -1,6 +1,6 @@
 import { INVALID_USER_MONEY_ERROR_MESSAGE } from '../constants/message';
 
-const LOTTO_PRICE = 1000;
+import { LOTTO_PRICE } from '../constants/config';
 
 export function validateUserMoney(userMoney) {
   if (userMoney % LOTTO_PRICE === 0) {
