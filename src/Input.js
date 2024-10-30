@@ -4,7 +4,7 @@ import { getIsNumeric, getIsPositive, getIsThousandUnit } from './lib/utils.js';
 
 class Input {
   #purchasePrice;
-  #winnerNumberArray;
+  #winningNumberArray;
   #bonusNumber;
 
   async getPurchasePrice() {
@@ -36,15 +36,15 @@ class Input {
     const rawWinningNumbers = await MissionUtils.Console.readLineAsync(
       INPUT_MESSAGE.WINNING_NUMBER,
     );
-    this.#winnerNumberArray = Input.#parseWinningNumbers(rawWinningNumbers);
+    this.#winningNumberArray = Input.#parseWinningNumbers(rawWinningNumbers);
   }
 
   static #parseWinningNumbers(rawWinningNumbers) {
     return rawWinningNumbers.split(',').map(Number);
   }
 
-  get winnerNumberArray() {
-    return this.#winnerNumberArray;
+  get winningNumberArray() {
+    return this.#winningNumberArray;
   }
 
   async getBonusNumber() {

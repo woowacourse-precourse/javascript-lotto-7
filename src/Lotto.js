@@ -17,18 +17,18 @@ class Lotto {
     return intersection(this.#numbers, winningNumberArray).length;
   }
 
-  #getIsWinningBonus(bonusNumber) {
+  #getIsBonusMatch(bonusNumber) {
     return intersection(this.#numbers, [bonusNumber]).length;
   }
 
-  getRankObject(winningNumberCount, bonusNumber) {
-    const winningCount = this.#getWinningCount(winningNumberCount);
-    const isWinningBonus = Boolean(this.#getIsWinningBonus(bonusNumber));
+  getRankObject(winningNumberArray, bonusNumber) {
+    const winningCount = this.#getWinningCount(winningNumberArray);
+    const isBonusMatch = Boolean(this.#getIsBonusMatch(bonusNumber));
 
     const currentRankObject = RANK_OBJECT_ARRAY.find(
       (rankObject) =>
         rankObject.winningCount === winningCount &&
-        rankObject.isBonusMatch === isWinningBonus,
+        rankObject.isBonusMatch === isBonusMatch,
     );
 
     return currentRankObject;

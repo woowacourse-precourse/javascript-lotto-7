@@ -43,7 +43,7 @@ class App {
     let totalWinningPrice = 0;
     this.#lottoArray.forEach((lotto) => {
       const rankObject = lotto.getRankObject(
-        this.#input.winnerNumberArray,
+        this.#input.winningNumberArray,
         this.#input.bonusNumber,
       );
 
