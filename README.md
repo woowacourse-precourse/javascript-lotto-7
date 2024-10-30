@@ -49,3 +49,5 @@
 - [] print result of lotto
 - [] round result
 
+## 고전한 내용
+이전에 script 상 명령어는 yarn start 또는 yarn test였다. 하지만 이번엔 디렉토리를 제대로 적용하기 위해선 yarn run start 또는 yarn run test로 진행해야한다. 그리고 import시 상대경로는 js확장자를 붙여야한다.
