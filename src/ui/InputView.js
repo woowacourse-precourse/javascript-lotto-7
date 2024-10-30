@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-const USER_MONEY_PROMPT = '구입금액을 입력해 주세요.';
-const USER_MONEY_INPUT_ERROR_MESSAGE = '[ERROR] 구입금액을 받는 도중에 에러가 발생했습니다.';
+import { USER_MONEY_PROMPT } from '../constants/prompts';
+import { USER_MONEY_INPUT_ERROR_MESSAGE } from '../constants/message';
 
 export async function getUserMoney() {
   try {
