@@ -22,6 +22,9 @@ class App {
     const count = await this.getLottoCount();
     const lottoNumbers = this.generateLottoNumbers(count);
     this.printLottoNumbers(lottoNumbers);
+
+    const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber();
   }
 
   async getLottoCount() {
@@ -40,6 +43,16 @@ class App {
       lottoNumbers.push(randomLottoNumber.sort((a, b) => a - b));
     }
     return lottoNumbers;
+  }
+
+  async getWinningNumbers() {
+    const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    return input.split(',').map(Number);
+  }
+
+  async getBonusNumber() {
+    const input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    return Number(input);
   }
 
   printLottoNumbers(lottoNumbers) {
