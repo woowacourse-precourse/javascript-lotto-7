@@ -1,1 +1,2 @@
 # javascript-lotto-precourse
+init
