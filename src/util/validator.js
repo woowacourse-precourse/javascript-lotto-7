@@ -32,6 +32,8 @@ const isInRange = (value, mode) => {
 };
 
 export const validatePurchaseAmount = (value) => {
+  isEmpty(value);
+
   const purchaseAmount = Number(value);
 
   isNumber(purchaseAmount);
@@ -81,6 +83,7 @@ export const validateWinningNumbers = (value) => {
   winningNumbers.forEach((number) => {
     isNumber(number);
     isInRange(number, MODE.LOTTO_NUMBER);
+    isDecimal(number);
   });
 };
 

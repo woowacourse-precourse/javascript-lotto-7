@@ -7,7 +7,7 @@ import {
 describe('validatorTest', () => {
   describe('validatePurchaseAmount', () => {
     test('should throw error when input is wrong', () => {
-      const inputs = ['100', '100k', '1100', '200000'];
+      const inputs = ['100', '100k', '1100', '200000', '', '1000.5'];
 
       inputs.forEach((input) => {
         expect(() => validatePurchaseAmount(input)).toThrow();
@@ -34,6 +34,7 @@ describe('validatorTest', () => {
         '1,2,3,4,5,5',
         '123456',
         '1,2.3,4,5,6',
+        '1,2.5,3,4,5,6',
       ];
 
       inputs.forEach((input) => {
