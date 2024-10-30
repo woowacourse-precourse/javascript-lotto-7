@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { MESSAGE } from "../constants/Constants";
+import { MESSAGE } from "../constants/Constants.js";
 
 export class InputView {
   static winningNumber() {

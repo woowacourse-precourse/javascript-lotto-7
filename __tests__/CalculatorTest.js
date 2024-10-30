@@ -1,4 +1,4 @@
-import { Calculator } from "../src/utils/Calculator";
+import { Calculator } from "../src/utils/Calculator.js";
 
 describe("계산기 클래스 테스트", () => {
   test("당첨금 계산 테스트", () => {
