@@ -28,6 +28,16 @@ class App {
       myLottoList[i].sort(asc)
       printList(myLottoList[i])
     }
+
+    // 당첨 번호 입력
+    const winningString = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n')
+    const winningNumber = winningString.split(',').map((element) => {
+      return Number(element);
+    });
+
+    // 보너스 번호 입력
+    const bonusString = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n')
+    const bonusNumber = Number(bonusString)
   }
 }
 
