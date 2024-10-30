@@ -1,4 +1,5 @@
 export const ERROR_MESSAGE = Object.freeze({
-  ERROR_NON_NUMBER: "[ERROR] 정수를 입력해야 합니다.",
-  ERROR_DIVIDE_THOUSAND: "[ERROR] 정수는 1000으로 나누어 떨어져야 합니다.",
+  ERROR_NON_NUMBER: "[ERROR] 숫자만 입력이 가능합니다.",
+  ERROR_SMALL_NUMBER: "[ERROR] 1000보다 작은 값은 입력할 수 없습니다.",
+  ERROR_DIVIDE_THOUSAND: "[ERROR] 입력한 값이 1000으로 나누어 떨어져야 합니다.",
 });
