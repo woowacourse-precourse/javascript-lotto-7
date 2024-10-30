@@ -8,7 +8,7 @@ import { formattedError } from './error.js';
 
 export class Validator {
 	isValidCost(str) {
-		this.#generalValidation();
+		this.#generalValidation(str);
 		const strToNumber = Number(str);
 
 		if (this.#isNaN(str)) {
@@ -27,7 +27,7 @@ export class Validator {
 	}
 
 	isValidWinningNumber(str) {
-		this.#generalValidation();
+		this.#generalValidation(str);
 		if (this.#isNotNumberOrComma(str)) {
 			formattedError(ERROR_MESSAGE.INVALID_WINNING_FORMAT);
 		}
@@ -77,8 +77,8 @@ export class Validator {
 	}
 
 	#isNotNumberOrComma(str) {
-		const REGEX = /[^0-9,]/;
-		return !str.test(REGEX);
+		const REGEX = /^[0-9,]+$/;
+		return !REGEX.test(str);
 	}
 
 	#isMatchLottoCount(lottoNumber) {
@@ -98,11 +98,6 @@ export class Validator {
 	}
 
 	#isOverRangeNumbers(lottoNumber) {
-		lottoNumber.forEach((n, _) => {
-			if (this.#isOverRangeNumber(n)) {
-				return true;
-			}
-		});
-		return false;
+		return lottoNumber.some((n) => this.#isOverRangeNumber(n));
 	}
 }
