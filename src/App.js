@@ -6,22 +6,36 @@ class Lotto {
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
+    this.printNumbers();
   }
 
   #validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+    if (new Set(numbers).size !== 6) {
+      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
+    }
+    if (!numbers.every(num => num >= 1 && num <= 45)) {
+      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    }
   }
 
   // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
+
+  printNumbers() {
+    Console.print(`[${this.#numbers.join(', ')}]`);
+  }
 }
 
 class App {
   async run() {
     const count = await this.getLottoCount();
     const lottoNumbers = this.generateLottoNumbers(count);
-    this.printLottoNumbers(lottoNumbers);
+    const lottos = lottoNumbers.map(numbers => new Lotto(numbers));
 
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber();
@@ -53,11 +67,6 @@ class App {
   async getBonusNumber() {
     const input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
     return Number(input);
-  }
-
-  printLottoNumbers(lottoNumbers) {
-    Console.print(`${lottoNumbers.length}개를 구매했습니다.`);
-    lottoNumbers.forEach(numbers => Console.print(`[${numbers.join(', ')}]`));
   }
 }
 
