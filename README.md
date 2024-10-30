@@ -21,7 +21,25 @@
     - [x] "개"
     - [x] "%입니다."
 
-  - [ ] Errors.js
+  - [x] Errors.js
+
+    1. 구입 금액에서 에러
+
+    - [x] "[ERROR] 1000원단위로 구매해주세요." NOT_1000_WON
+    - [x] "[ERROR] 1000원 이상의 돈을 내주세요." NOT_ENOUGH_MONEY
+    - [x] "[ERROR] 숫자를 입력해주세요." NOT_MONEY_BUT_NUMBER
+
+    2. 당첨 번호 에러
+
+    - [x] "[ERROR] 로또 번호는 6개여야 합니다." NOT_6_NUMBERS
+    - [x] "[ERROR] 1~45 사이 정수여야 합니다." NOT_1_TO_45
+    - [x] "[ERROR] 로또 번호는 중복이 없어야 합니다." NO_REPEATED_NUMBER
+
+    3. 보너스 번호 에러
+
+    - [x] "[ERROR] 보너스 번호는 당첨번호와 달라야 합니다." NOT_BONUS_NUMBER
+    - [x] "[ERROR] 1~45 사이 정수여야 합니다." NOT_1_TO_45
+
   - [ ] Conditions.js
 
 구입금액을 입력해 주세요.

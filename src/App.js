@@ -13,8 +13,8 @@ class App {
       throw new Error("[ERROR] 1000원단위로 구매해주세요.");
     }
 
-    if (+purchaseAmount === 0) {
-      throw new Error("[ERROR] 0원 이상의 돈을 내주세요.");
+    if (+purchaseAmount <= 0) {
+      throw new Error("[ERROR] 1000원 이상의 돈을 내주세요.");
     }
 
     // ~개를 구매했습니다.
