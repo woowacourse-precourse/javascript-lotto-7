@@ -1,8 +1,8 @@
-import Controller from './controller/Controller.js';
+import LottoController from './controller/LottoController.js';
 
 class App {
   run() {
-    new Controller().start();
+    new LottoController().start();
   }
 }
 

@@ -5,7 +5,7 @@ import parser from '../utils/parser.js';
 import OutputView from '../view/OutputView.js';
 import Lotto from '../domain/Lotto.js';
 
-class Controller {
+class LottoController {
   async start() {
     const lottoCount = await this.#inputLottoPurchasePrice();
     OutputView.printLottoPurchaseCount(lottoCount);
@@ -53,4 +53,4 @@ class Controller {
   }
 }
 
-export default Controller;
+export default LottoController;
