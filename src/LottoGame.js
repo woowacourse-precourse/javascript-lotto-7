@@ -36,6 +36,9 @@ class LottoGame {
 
   #printLottos(lottos) {
     Console.print(INPUT_MESSAGES.PURCHASE_COUNT(lottos.length));
+    lottos.forEach((lotto) => {
+      Console.print(`[${lotto.numbers.join(', ')}]`);
+    });
   }
 
   #getPurchaseLottos() {}
