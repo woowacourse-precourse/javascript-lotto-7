@@ -8,7 +8,8 @@ class App {
   }
   async run() {
     const lottoPrice = await this.inputView.getLottoPrice();
-    const lottoNumbers = this.lottoNumbersModel.generate(lottoPrice);
+    const lottoCount = this.lottoNumbersModel.getCount(lottoPrice);
+    const lottoNumbers = this.lottoNumbersModel.generate(lottoCount);
   }
 }
 
