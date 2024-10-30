@@ -17,6 +17,7 @@ export const LOTTO = {
   TOTAL_BONUS_NUMBER: 1,
   ARRANGE_START: 1,
   ARRANGE_END: 45,
+  PRICE: 1000,
 };
 
 export const ERROR_TAG = "[ERROR]";

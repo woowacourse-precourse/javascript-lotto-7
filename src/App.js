@@ -3,10 +3,7 @@ import { InputView } from "./views/InputView.js";
 import { Validator } from "./utils/Validator.js";
 
 class App {
-  async run() {
-    const winningNumber = await this.inputWinningNumber();
-    await this.inputWinningBonusNumber(winningNumber);
-  }
+  async run() {}
 
   async inputWinningNumber() {
     const winningNumber = (await InputView.winningNumber())

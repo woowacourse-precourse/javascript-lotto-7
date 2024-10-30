@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import { LOTTO } from "../constants/Constants.js";
 import { ERROR_MESSAGE } from "../constants/Constants.js";
 
