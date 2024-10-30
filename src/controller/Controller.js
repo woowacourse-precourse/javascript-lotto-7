@@ -23,7 +23,7 @@ class Controller {
     const lottoCount = purchasePrice / LOTTO_PRICE_UNIT;
     this.#outputView.displayLottoCount(lottoCount);
 
-    const lottos = this.getLottos(lottoCount);
+    const lottos = Lotto.generateMultiple(lottoCount);
     this.#outputView.displayLottos(lottos);
 
     const winningLotto = await this.parseValidateWinningLottoInput();
@@ -57,10 +57,6 @@ class Controller {
         this.#outputView.displayErrorMessage(error.message);
       }
     }
-  }
-
-  getLottos(lottoCount) {
-    return Array.from({ length: lottoCount }, () => Lotto.generate());
   }
 
   async parseValidateWinningLottoInput() {

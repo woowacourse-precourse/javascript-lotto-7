@@ -23,6 +23,10 @@ class Lotto {
     return new Lotto(numbers);
   }
 
+  static generateMultiple(lottoCount) {
+    return Array.from({ length: lottoCount }, () => Lotto.generate());
+  }
+
   #validate(numbers) {
     if (numbers.length !== LOTTO_NUMBER_COUNT) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
