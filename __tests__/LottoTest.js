@@ -40,4 +40,11 @@ describe('로또 클래스 테스트', () => {
       expect(lotto.compareWinningLotto([1, 3, 5, 2, 9, 4], 6)).toEqual([5, true]);
     });
   });
+
+  describe('N개의 사용자 로또 발행하기', () => {
+    const app = new App();
+    test('N개의 로또는 각각 독립적이다.', () => {
+      expect(app.generateLottos(10)).toHaveLength(10);
+    });
+  });
 });
