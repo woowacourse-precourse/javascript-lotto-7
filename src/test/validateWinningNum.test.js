@@ -1,4 +1,3 @@
-// Validator.test.js
 import Validator from '../utils/Validator.js';
 
 describe('Validator.validateWinningNumbers', () => {
