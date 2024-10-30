@@ -9,6 +9,11 @@
  *   console.log(input);
  * });
  */
-export async function getInput(promptMessage) {
-  return Console.readLineAsync(promptMessage);
+export async function getInputWhileValid(validator, promptMessage) {
+  let isValid = false;
+  while (isValid) {
+    const input = Console.readLineAsync(promptMessage);
+    isValid = validator(input);
+    return input;
+  }
 }

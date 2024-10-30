@@ -8,7 +8,9 @@ class App {
       await Console.readLineAsync('구입금액을 입력해 주세요.');
 
     const lottery = Number.parseInt(lotteryCash / 1000, 10);
-    if (!Number.isInteger(lottery)) Console.print('[ERROR]: 숫자가 이상해요!');
+    if (!Number.isInteger(lottery)) {
+      Console.print('[ERROR]: 숫자가 이상해요!');
+    }
 
     const lotteries = [];
 
