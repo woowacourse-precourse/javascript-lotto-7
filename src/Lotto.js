@@ -25,6 +25,10 @@ class Lotto {
       (number) => numbers.indexOf(number) !== numbers.lastIndexOf(number)
     );
   }
+
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
