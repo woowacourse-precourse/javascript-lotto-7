@@ -24,6 +24,14 @@ class App {
     Console.print('');
     Console.print('보너스 번호를 입력해 주세요.');
     const pickBonusNumber = parseInt(await Console.readLineAsync(''), 10);
+    pickLottoNumber.push(pickBonusNumber);
+
+    const lottoNumberMatchCount = [];
+
+    randomLottoNumbers.forEach((lottoNumber) => {
+      const result = lottoNumber.filter((number) => pickLottoNumber.includes(number)).length;
+      lottoNumberMatchCount.push(result);
+    });
   }
 }
 
