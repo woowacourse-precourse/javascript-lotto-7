@@ -1,6 +1,9 @@
 import GameInput from "../view/GameInput.js";
 import GameOutput from "../view/GameOutput.js";
 import Validate from "../validate/Validate.js";
+import Lotto from "../model/Lotto.js";
+import { LOTTO_DATA } from "../constant/Data.js";
+import { Random } from "@woowacourse/mission-utils";
 
 class GameController {
   #gameInput;
@@ -11,11 +14,18 @@ class GameController {
     this.#gameOutput = new GameOutput();
   }
 
+  async #getLotto() {
+    const purchase_money = await this.#purchaseMoneyInput();
+    const purchase_lotto = this.#purchaseLotto(purchase_money);
+    const new_lotto = this.#newLotto(purchase_lotto);
+    return new_lotto;
+  }
+
   async #purchaseMoneyInput() {
     while (true) {
       try {
         const purchase_money = await this.#gameInput.readPurchaseMoney();
-        await this.#purchaseMoneyValidate(purchase_money);
+        this.#purchaseMoneyValidate(purchase_money);
         return purchase_money;
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
@@ -23,23 +33,32 @@ class GameController {
     }
   }
 
-  async #purchaseMoneyValidate(purchase_money) {
+  #purchaseMoneyValidate(purchase_money) {
     Validate.validateNonNumber(purchase_money);
     Validate.validateSmallNumber(purchase_money);
     Validate.validateDivideThousand(purchase_money);
   }
 
-  async #purchaseLotto(money) {
-    return money / 1000;
+  #purchaseLotto(purchase_money) {
+    return parseInt(purchase_money / LOTTO_DATA.lottoPrice);
+  }
+
+  #getNumber() {
+    return new Lotto(
+      Random.pickUniqueNumbersInRange(
+        LOTTO_DATA.minNum,
+        LOTTO_DATA.minMax,
+        LOTTO_DATA.lottoLength
+      )
+    ).getNumber();
+  }
+
+  #newLotto(purchase_lotto) {
+    return Array.from({ length: purchase_lotto }, () => this.#getNumber());
   }
 
   async startGame() {
-    // 사용자에게 구입할 금액을 입력받는다.
-    const purchase_money = await this.#purchaseMoneyInput();
-
-    // 입력한 금액만큼 로또를 구입하고 로또 번호를 출력한다.
-    const purchase_lotto = await this.#purchaseLotto(purchase_money);
-    this.#gameOutput.printPurchaseLotto(purchase_lotto);
+    const new_lotto = await this.#getLotto();
   }
 }
 
