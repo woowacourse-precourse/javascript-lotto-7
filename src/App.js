@@ -15,7 +15,14 @@ function isPaymentValid(input) {
 }
 
 class App {
-  async run() {}
+  async run() {
+    let payment;
+    do {
+      payment = Number(
+        await Console.readLineAsync("구입금액을 입력해 주세요.\n")
+      );
+    } while (!isPaymentValid(payment));
+  }
 }
 
 export default App;
