@@ -3,17 +3,18 @@ import {
   LOTTO_NUMBER_MIN,
   LOTTO_PRICE,
 } from '../constants/constants.js';
+import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
 const validator = {
   checkNumericString(value) {
     // Number() 변환 시 NaN, 음수, 소수, 지수 표현 문제 사전 방지
     if (!/^[0-9]+$/.test(value)) {
-      throw new Error('[ERROR] 숫자가 아닌 문자가 포함되었습니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
     }
   },
   checkSafeInteger(value) {
     if (!Number.isSafeInteger(value)) {
-      throw new Error('[ERROR] 안전 범위를 벗어난 숫자 입니다.');
+      throw new Error(ERROR_MESSAGES.SAFE_INTEGER);
     }
   },
 };
@@ -25,7 +26,7 @@ export const validatePurchasePrice = (purchasePrice) => {
   validator.checkSafeInteger(parsedPurchasePrice);
 
   if (parsedPurchasePrice % LOTTO_PRICE !== 0 || parsedPurchasePrice === 0) {
-    throw new Error('[ERROR] 구입 금액이 1000원 단위가 아닙니다.');
+    throw new Error(ERROR_MESSAGES.INVALID_PRICE);
   }
 };
 
@@ -41,10 +42,10 @@ export const validateBonusNumber = (bonusNumber, winningLotto) => {
     parsedBonusNumber < LOTTO_NUMBER_MIN ||
     parsedBonusNumber > LOTTO_NUMBER_MAX
   ) {
-    throw new Error('[ERROR] 로또 번호 범위(1 ~ 45)를 벗어난 숫자가 있습니다.');
+    throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
   }
 
   if (winningLotto.numbers.includes(parsedBonusNumber)) {
-    throw new Error('[ERROR] 보너스 번호와 당첨 번호가 중복됩니다.');
+    throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
   }
 };

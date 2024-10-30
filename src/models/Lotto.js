@@ -4,6 +4,7 @@ import {
   LOTTO_NUMBER_MIN,
 } from '../constants/constants.js';
 import { Random } from '@woowacourse/mission-utils';
+import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
 class Lotto {
   #numbers;
@@ -29,19 +30,17 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== LOTTO_NUMBER_COUNT) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_COUNT);
     }
 
     numbers.forEach((number) => {
       if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
-        throw new Error(
-          '[ERROR] 로또 번호 범위(1 ~ 45)를 벗어난 숫자가 있습니다.'
-        );
+        throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
       }
     });
 
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error('[ERROR] 중복된 숫자가 있습니다.');
+      throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER);
     }
   }
 
