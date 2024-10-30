@@ -68,7 +68,6 @@ class App {
 
     lotteries.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers();
-      console.log(Array.isArray(lotteryNumbers));
 
       const matchingCount = lotteryNumbers.filter((num) =>
         lottoNumbers.includes(num),

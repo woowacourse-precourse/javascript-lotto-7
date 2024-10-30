@@ -21,7 +21,7 @@ export default function validateLottoNumber(input) {
     printMessage(lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     return false;
   }
-  console.log(parsedInput);
+
   return parsedInput;
 }
 // console.log(validateLottoNumber('1,2,3,4,5,6'));
