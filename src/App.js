@@ -1,4 +1,5 @@
 import InputProcessor from './InputProcessor.js';
+import Validator from './Validator.js';
 import MESSAGES from './constants/messages.js';
 
 class App {
@@ -6,6 +7,7 @@ class App {
 
   async run() {
     this.#purchasePrice = await this.#getPurchasePrice();
+    Validator.price(this.#purchasePrice);
   }
 
   async #getPurchasePrice() {
