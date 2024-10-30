@@ -31,7 +31,7 @@ class Controller {
 
     const winningLotto = await this.parseValidateWinningLottoInput();
     const bonusNumber = await this.parseValidateBonusNumberInput(winningLotto);
-    const lottoResult = this.generateLottoResult(
+    const lottoResult = this.calculateLottoResult(
       lottos,
       winningLotto,
       bonusNumber
@@ -97,7 +97,7 @@ class Controller {
     }
   }
 
-  generateLottoResult(lottos, winningLotto, bonusNumber) {
+  calculateLottoResult(lottos, winningLotto, bonusNumber) {
     const lottoResult = { ...INITIAL_LOTTO_RESULT };
 
     lottos.forEach((lotto) => {
