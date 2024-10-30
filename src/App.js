@@ -2,18 +2,16 @@ import { Random, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import { printLotteries } from './View/OutputView.js';
 import { getInputWhileValid } from './View/InputView.js';
+import { validateMoney } from './Validation/Validation.js';
 
 class App {
   async run() {
-    const lotteryCash = getInputWhileValid(
-      validate,
+    const lotteryCash = await getInputWhileValid(
+      validateMoney,
       '구입금액을 입력해 주세요.',
     );
 
     const lottery = Number.parseInt(lotteryCash / 1000, 10);
-    if (!Number.isInteger(lottery)) {
-      Console.print('[ERROR]: 숫자가 이상해요!');
-    }
 
     const lotteries = [];
 

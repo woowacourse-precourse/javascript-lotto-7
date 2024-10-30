@@ -1,3 +1,5 @@
+import { Console } from '@woowacourse/mission-utils';
+
 /**
  * 사용자로부터 입력을 비동기적으로 받습니다.
  *
@@ -10,10 +12,9 @@
  * });
  */
 export async function getInputWhileValid(validator, promptMessage) {
-  let isValid = false;
-  while (isValid) {
-    const input = Console.readLineAsync(promptMessage);
-    isValid = validator(input);
+  while (true) {
+    const input = await Console.readLineAsync(promptMessage);
+    const isValid = validator(input);
+    if (isValid) return input;
   }
-  return input;
 }
