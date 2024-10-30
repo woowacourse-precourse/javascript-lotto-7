@@ -1,9 +1,9 @@
 import InputView from '../view/InputView.js';
-import LottoPurchasePriceValidations from '../validations/LottoPurchasePriceValidations.js';
-import BonusNumberValidations from '../validations/BonusNumberValidations.js';
-import parser from '../utils/parser.js';
 import OutputView from '../view/OutputView.js';
+import parser from '../utils/parser.js';
+import LottoCount from '../domain/LottoCount.js';
 import Lotto from '../domain/Lotto.js';
+import Bonus from '../domain/Bonus.js';
 
 class LottoController {
   async start() {
@@ -19,8 +19,8 @@ class LottoController {
       const lottoPurchasePrice = await InputView.readLottoPurchasePriceAsync();
       const parsePurchasePrice = parser.parseStringToNumber(lottoPurchasePrice);
 
-      LottoPurchasePriceValidations(parsePurchasePrice);
-      return parser.parseMoneyToLottoCount(parsePurchasePrice);
+      const lottoCount = new LottoCount(parsePurchasePrice);
+      return lottoCount.getLottoCount();
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return await this.#inputLottoPurchasePrice();
@@ -32,7 +32,8 @@ class LottoController {
       const winningNumber = await InputView.readWinningNumberAsync();
       const parseNumbers = parser.parseExtractNumbers(winningNumber);
 
-      return new Lotto(parseNumbers);
+      const lotto = new Lotto(parseNumbers);
+      return lotto.getLottoNumbers();
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return await this.#inputWinningNumber();
@@ -44,13 +45,15 @@ class LottoController {
       const bonusNumber = await InputView.readBonusNumberAsnyc();
       const parseBonusNumber = parser.parseStringToNumber(bonusNumber);
 
-      BonusNumberValidations(parseBonusNumber);
-      return bonusNumber;
+      const bonus = new Bonus(parseBonusNumber);
+      return bonus.getBonusNumber();
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return await this.#inputBonusNumber();
     }
   }
+
+
 }
 
 export default LottoController;
