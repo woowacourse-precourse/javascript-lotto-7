@@ -8,6 +8,7 @@
 
 - [] View, Model, Controller를 구분한다.
 - [x] View에서 Input, Output을 구분한다.
+- [x] Validation logic을 만들고 분리한다.
 - [] View에서 Error를 발생하고, 메시지를 재시작하는 로직을 구현해본다.
 - [] Validation logic을 구분하고, 어디에 붙일지 생각해본다
 

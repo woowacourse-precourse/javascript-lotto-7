@@ -1,11 +1,14 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import { printLotteries } from './View/OutputView.js';
+import { getInputWhileValid } from './View/InputView.js';
 
 class App {
   async run() {
-    const lotteryCash =
-      await Console.readLineAsync('구입금액을 입력해 주세요.');
+    const lotteryCash = getInputWhileValid(
+      validate,
+      '구입금액을 입력해 주세요.',
+    );
 
     const lottery = Number.parseInt(lotteryCash / 1000, 10);
     if (!Number.isInteger(lottery)) {

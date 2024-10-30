@@ -14,6 +14,6 @@ export async function getInputWhileValid(validator, promptMessage) {
   while (isValid) {
     const input = Console.readLineAsync(promptMessage);
     isValid = validator(input);
-    return input;
   }
+  return input;
 }
