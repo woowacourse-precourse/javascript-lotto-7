@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { purchaseError } from "./utils/validator.js";
 import Lotto from "./Lotto.js";
+import { calculateWinningStatistics, printWinningStatistics } from "./utils/lotto-result.js";
 class App {
   async run() {
     try {
@@ -9,11 +10,11 @@ class App {
       const lottoQuantity = lottoPurchaseInput / 1000;
       MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.\n`);
 
-      const lottoTickets = {};
+      const lottoTickets = [];
 
       for (let i = 0; i < lottoQuantity; i++) {
         const lotto = Lotto.generate();
-        lottoTickets[i] = lotto.getNumbers();
+        lottoTickets.push(lotto.getNumbers());
         MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
       }
 
@@ -24,6 +25,9 @@ class App {
       // 3. 보너스 번호 입력
       const bonusNumberInput = await MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
       const bonusNumber = Lotto.validateBonusNumber(bonusNumberInput, winningNumbers);
+
+      const result = calculateWinningStatistics(lottoTickets, winningNumbers, bonusNumber);
+      printWinningStatistics(result);
     } catch (error) {
       MissionUtils.Console.print(`[ERROR] ${error.message}`);
       throw error;
