@@ -5,17 +5,20 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  compareWinning(winningNumbers) {
+  matchingWinning(winningNumbers) {
     let correct = 0;
-    this.#numbers.forEach((i) => {
-      if (winningNumbers.includes(i)) return correct++;
+    this.#numbers.forEach((number) => {
+      if (winningNumbers.includes(number)) return correct++;
     });
 
     return correct;
   }
 
-  compareBonusWinning(winningBonusNumber) {
-    return winningBonusNumber === this.#bonusNumber;
+  matchingBonus(bonusNumber) {
+    this.#numbers.forEach((number) => {
+      if (number === bonusNumber) return true;
+    });
+    return false;
   }
 }
 

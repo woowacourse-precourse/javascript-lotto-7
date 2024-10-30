@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import { LOTTO } from "../constants/Constants";
+import { LOTTO } from "../constants/Constants.js";
 
 export const RandomNumberGenerator = async () =>
   await Random.pickUniqueNumbersInRange(
