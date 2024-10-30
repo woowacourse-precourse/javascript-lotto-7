@@ -29,6 +29,10 @@ class Lotto {
   getNumbers() {
     return this.#numbers;
   }
+
+  getValidate() {
+    return this.#validate(this.#numbers);
+  }
 }
 
 export default Lotto;
