@@ -14,6 +14,11 @@ class Lotto {
     if (setNumbers.size !== 6) {
       throw new Error(ERROR_MESSAGE.LOTTO_LENGTH_ERROR);
     }
+    this.#validateNumberRange(numbers);
+    return numbers;
+  }
+
+  #validateNumberRange(numbers) {
     numbers.forEach((number) => {
       if (
         number < CONSTANT.LOTTO_MIN_NUMBER ||
@@ -22,10 +27,12 @@ class Lotto {
         throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_RANGE_ERROR);
       }
     });
-    return numbers;
   }
 
   // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;

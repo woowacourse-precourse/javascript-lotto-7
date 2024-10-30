@@ -23,7 +23,7 @@ class RandomLotto {
     oneLotto.sort((a, b) => a - b);
 
     const lottoInstance = new Lotto(oneLotto);
-    return oneLotto;
+    return lottoInstance.getNumbers();
   }
 
   createLotto(quantity) {
