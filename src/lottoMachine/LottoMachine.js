@@ -5,5 +5,6 @@ export class LottoMachine {
     const input = new Input();
     const purchasePrice = await input.getPurchasePrice();
     const winningNumbers = await input.getWinningNumbers();
+    const bonusNumber = await input.getBonusNumber();
   }
 }
