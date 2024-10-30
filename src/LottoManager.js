@@ -1,4 +1,5 @@
 import { RULE, ERROR_MESSAGE } from './constants/index.js';
+import { Random } from '@woowacourse/mission-utils';
 
 class LottoManager {
   validatePrice(price) {
@@ -15,6 +16,16 @@ class LottoManager {
 
   buyLottos(price) {
     const lottoCount = price / RULE.LOTTO_PRICE;
+    return this.generateLotto();
+  }
+
+  generateLotto() {
+    const lottoNumbers = Random.pickUniqueNumbersInRange(
+      RULE.LOTTO_MIN_NUMBER,
+      RULE.LOTTO_MAX_NUMBER,
+      RULE.LOTTO_BALL_NUMBER,
+    );
+    return lottoNumbers.sort((a, b) => a - b);
   }
 }
 export default LottoManager;
