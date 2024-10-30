@@ -1,9 +1,11 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import {
 	LOTTO_COUNT,
+	LOTTO_PRICE,
 	MAX_LOTTO_NUMBER,
 	MIN_LOTTO_NUMBER,
-} from '../constants/numbers';
+} from '../constants/numbers.js';
+import Lotto from './Lotto';
 
 export class LottoMachine {
 	#lottos;
@@ -23,5 +25,18 @@ export class LottoMachine {
 
 	#sortLottoNumber(lottoNumber) {
 		return lottoNumber.sort((a, b) => a - b);
+	}
+
+	buyLotto(money) {
+		const buyCount = money / LOTTO_PRICE;
+		for (let i = 0; i < buyCount; i++) {
+			const generatedLottoNumber = this.#generateLottoNumber();
+			const sortedLottoNumber = this.#sortLottoNumber(generatedLottoNumber);
+			this.#lottos.push(new Lotto(sortedLottoNumber));
+		}
+	}
+
+	get lottos() {
+		return this.#lottos;
 	}
 }
