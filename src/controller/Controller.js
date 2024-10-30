@@ -1,8 +1,4 @@
-import {
-  INITIAL_LOTTO_RESULT,
-  LOTTO_PRICE,
-  WINNING_PRIZE,
-} from '../constants/constants.js';
+import { LOTTO_PRICE, WINNING_PRIZE } from '../constants/constants.js';
 import {
   validateBonusNumber,
   validatePurchasePrice,
@@ -98,11 +94,11 @@ class Controller {
   }
 
   calculateLottoResult(lottos, winningLotto, bonusNumber) {
-    const lottoResult = { ...INITIAL_LOTTO_RESULT };
+    const lottoResult = { ...WINNING_PRIZE };
 
     lottos.forEach((lotto) => {
       const rank = lotto.calculateRank(winningLotto, bonusNumber);
-      if (rank) lottoResult[rank] += 1;
+      if (rank) lottoResult[rank].count += 1;
     });
 
     return lottoResult;
@@ -110,11 +106,11 @@ class Controller {
 
   calculateLottoRateOfReturn(lottoResult, purchasePrice) {
     const winningAmount =
-      lottoResult.fifth * WINNING_PRIZE.fifth +
-      lottoResult.fourth * WINNING_PRIZE.fourth +
-      lottoResult.third * WINNING_PRIZE.third +
-      lottoResult.second * WINNING_PRIZE.second +
-      lottoResult.first * WINNING_PRIZE.first;
+      lottoResult.fifth.count * lottoResult.fifth.amount +
+      lottoResult.fourth.count * lottoResult.fourth.amount +
+      lottoResult.third.count * lottoResult.third.amount +
+      lottoResult.second.count * lottoResult.second.amount +
+      lottoResult.first.count * lottoResult.first.amount;
 
     return ((winningAmount / purchasePrice) * 100).toFixed(1);
   }
