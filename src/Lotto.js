@@ -1,4 +1,4 @@
-const MissionUtils = require("@woowacourse/mission-utils");
+import { Random } from "@woowacourse/mission-utils";
 
 class Lotto {
   constructor(ticketPrice = 1000) {
@@ -12,10 +12,10 @@ class Lotto {
     }
     const numOfTickets = amount / this.ticketPrice;
     this.lottoTickets = Array.from({ length: numOfTickets }, () =>
-      MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)
+      new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b))
     );
     return this.lottoTickets;
   }
 }
 
-module.exports = Lotto;
+export default Lotto;
