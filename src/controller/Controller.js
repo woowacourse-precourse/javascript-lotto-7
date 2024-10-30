@@ -32,6 +32,7 @@ class Controller {
     this.#outputView.printLottos(lottos);
 
     const winningNumbers = await this.getParsedWinningNumbers();
+    const bonusNumber = await this.getParsedBonusNumber();
   }
 
   async getParsedPurchasePrice() {
@@ -74,6 +75,15 @@ class Controller {
     });
 
     return new Lotto(parsedWinningNumbers);
+  }
+
+  async getParsedBonusNumber() {
+    this.#outputView.printEmptyLine();
+    const bonusNumber = await this.#inputView.getInput(
+      '보너스 번호를 입력해 주세요.\n'
+    );
+
+    return Number(bonusNumber);
   }
 }
 
