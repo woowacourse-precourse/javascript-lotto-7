@@ -1,20 +1,21 @@
 import { printMessage } from '../View/OutputView.js';
 import { isNumber } from '../Util/Regex.js';
+import { ERROR_MESSAGES } from '../Error.js';
 
 export function validateMoney(input) {
   if (!isNumber.test(input)) {
-    printMessage('[ERROR]: 정수가 아닙니다.');
+    printMessage(ERROR_MESSAGES.money.INVALID_INPUT_MONEY);
     return false;
   }
 
   const rounds = BigInt(input);
   // 유효성 검사
   if (rounds <= 0n) {
-    printMessage('[ERROR]: 음수는 입력할수 없습니다.');
+    printMessage(ERROR_MESSAGES.money.ONLY_POSITIVE_ALLOWED);
     return false;
   }
   if (rounds % 1000n !== 0n) {
-    printMessage('[ERROR]: 천원단위로 입력하셔야합니다.');
+    printMessage(ERROR_MESSAGES.money.ONLY_NOTE_ALLOWED);
     return false;
   }
 
