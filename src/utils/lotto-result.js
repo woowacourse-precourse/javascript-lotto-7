@@ -1,3 +1,11 @@
+const PRIZE_MONEY = {
+  first: 2000000000, // 1등 상금
+  second: 30000000, // 2등 상금
+  third: 1500000, // 3등 상금
+  fourth: 50000, // 4등 상금
+  fifth: 5000, // 5등 상금
+};
+
 export function calculateWinningStatistics(lottoTickets, winningNumbers, bonusNumber) {
   const result = {
     first: 0, // 1등 (6개 일치)
@@ -36,6 +44,20 @@ export function printWinningStatistics(result) {
 4개 일치 (50,000원) - ${result.fourth}개
 5개 일치 (1,500,000원) - ${result.third}개
 5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.second}개
-6개 일치 (2,000,000,000원) - ${result.first}개
-`);
+6개 일치 (2,000,000,000원) - ${result.first}개`);
+}
+
+export function calculateTotalEarnings(result) {
+  return (
+    result.first * PRIZE_MONEY.first +
+    result.second * PRIZE_MONEY.second +
+    result.third * PRIZE_MONEY.third +
+    result.fourth * PRIZE_MONEY.fourth +
+    result.fifth * PRIZE_MONEY.fifth
+  );
+}
+
+export function calculateProfitRate(totalEarnings, purchaseAmount) {
+  const profitRate = ((totalEarnings / purchaseAmount) * 100).toFixed(1); // 소수점 둘째 자리까지 반올림
+  return profitRate;
 }

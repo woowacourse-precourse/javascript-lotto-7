@@ -1,14 +1,19 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { purchaseError } from "./utils/validator.js";
 import Lotto from "./Lotto.js";
-import { calculateWinningStatistics, printWinningStatistics } from "./utils/lotto-result.js";
+import {
+  calculateProfitRate,
+  calculateTotalEarnings,
+  calculateWinningStatistics,
+  printWinningStatistics,
+} from "./utils/lotto-result.js";
 class App {
   async run() {
     try {
       const lottoPurchaseInput = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
       purchaseError(lottoPurchaseInput);
       const lottoQuantity = lottoPurchaseInput / 1000;
-      MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.\n`);
+      MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
 
       const lottoTickets = [];
 
@@ -28,8 +33,12 @@ class App {
 
       const result = calculateWinningStatistics(lottoTickets, winningNumbers, bonusNumber);
       printWinningStatistics(result);
+
+      const totalEarnings = calculateTotalEarnings(result);
+      const profitRate = calculateProfitRate(totalEarnings, Number(lottoPurchaseInput));
+      MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
     } catch (error) {
-      MissionUtils.Console.print(`[ERROR] ${error.message}`);
+      MissionUtils.Console.print(`${error.message}`);
       throw error;
     }
   }
