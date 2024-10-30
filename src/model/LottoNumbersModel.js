@@ -10,6 +10,7 @@ class LottoNumbersModel {
     let lottoNumbers = [];
     for (let count = 0; count < lottoCount; count++) {
       const tempNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      tempNumber.sort((a, b) => a - b);
       lottoNumbers.push(tempNumber);
     }
     return lottoNumbers;
