@@ -46,18 +46,6 @@ describe("당첨 번호 입력 유효성 검사 테스트", () => {
   });
 });
 
-function purchaseAmountunit(number) {
-  if (number % LOTTO.PRICE !== 0) {
-    throw new Error();
-  }
-}
-
-function minPurchase(number) {
-  if (number < LOTTO.PRICE) {
-    throw new Error();
-  }
-}
-
 describe("구입 금액 유효성 검사 테스트", () => {
   test(`${LOTTO.PRICE}으로 나누어 떨어지지 않는 경우`, () => {
     const NUMBERS = [1200, 500, "hello"];

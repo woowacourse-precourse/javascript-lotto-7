@@ -9,4 +9,8 @@ export class InputView {
   static winningBonusNumber() {
     return Console.readLineAsync(MESSAGE.WINNING_BONUS_NUMBER_INPUT);
   }
+
+  static purchaseAmount() {
+    return Console.readLineAsync(MESSAGE.PURCHASE_AMOUNT_INPUT);
+  }
 }

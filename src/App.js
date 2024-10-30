@@ -4,6 +4,22 @@ import { Validator } from "./utils/Validator.js";
 
 class App {
   async run() {}
+  async inputPurchaseAmount() {
+    const purchaseAmount = Number(await InputView.purchaseAmount());
+    this.validatePurchaseAmount(purchaseAmount);
+
+    return purchaseAmount;
+  }
+
+  async validatePurchaseAmount(number) {
+    try {
+      Validator.purchaseAmountunit(number);
+      Validator.minPurchase(number);
+    } catch (error) {
+      OutputView.error(error.message);
+      await this.inputPurchaseAmount();
+    }
+  }
 
   async inputWinningNumber() {
     const winningNumber = (await InputView.winningNumber())
