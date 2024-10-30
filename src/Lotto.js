@@ -1,3 +1,4 @@
+import { RANK_OBJECT_ARRAY } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
 
 class Lotto {
@@ -14,11 +15,26 @@ class Lotto {
     }
   }
 
-  getWinningCount(winningNumberArray) {
-    return intersection(winningNumberArray, this.#numbers).length;
+  #getWinningCount(winningNumberArray) {
+    return intersection(this.#numbers, winningNumberArray).length;
   }
 
-  // getIsWinningBonus()
+  #getIsWinningBonus(bonusNumber) {
+    return intersection(this.#numbers, [bonusNumber]).length;
+  }
+
+  getRankObject(winningNumberCount, bonusNumber) {
+    const winningCount = this.#getWinningCount(winningNumberCount);
+    const isWinningBonus = Boolean(this.#getIsWinningBonus(bonusNumber));
+
+    const currentRankObject = RANK_OBJECT_ARRAY.find(
+      (rankObject) =>
+        rankObject.winningCount === winningCount &&
+        rankObject.isBonusMatch === isWinningBonus,
+    );
+
+    return currentRankObject;
+  }
 
   // TODO: 추가 기능 구현
 }

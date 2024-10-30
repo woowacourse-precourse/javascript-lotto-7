@@ -1,7 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Input from './Input.js';
-import { OUTPUT_MESSAGE, WINNING_PRICE_OBJECT } from './lib/constants.js';
-import { intersection } from './lib/utils.js';
+import { OUTPUT_MESSAGE } from './lib/constants.js';
 import Lotto from './Lotto.js';
 
 class App {
@@ -37,32 +36,29 @@ class App {
     await this.#input.getWinningNumbers();
     await this.#input.getBonusNumber();
 
-    const winningCountMap = new Map([
-      [3, 0],
-      [4, 0],
-      [5, 0],
-      [6, 0],
-    ]);
-
-    this.#lottoArray.forEach((lotto) => {
-      const winningCount = lotto.getWinningCount(this.#input.winnerNumberArray);
-
-      const previousWinningCount = winningCountMap.get(winningCount);
-      if (previousWinningCount !== undefined)
-        winningCountMap.set(winningCount, previousWinningCount + 1);
-    });
+    const rankMap = new Map(
+      new Array(5).fill().map((_, index) => [index + 1, 0]),
+    );
 
     let totalWinningPrice = 0;
-    winningCountMap.forEach((value, winningCount) => {
-      totalWinningPrice += WINNING_PRICE_OBJECT[winningCount] * value;
+    this.#lottoArray.forEach((lotto) => {
+      const rankObject = lotto.getRankObject(
+        this.#input.winnerNumberArray,
+        this.#input.bonusNumber,
+      );
+
+      if (rankObject) {
+        rankMap.set(rankMap.get(rankObject.rank) + 1);
+        totalWinningPrice += rankObject.winningPrice;
+      }
     });
 
     const rateOfReturn = (totalWinningPrice / this.#input.purchasePrice) * 100;
 
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
-    winningCountMap.forEach((value, winningCount) => {
+    rankMap.forEach((value, rank) => {
       MissionUtils.Console.print(
-        `${winningCount}개 일치 (${WINNING_PRICE_OBJECT[winningCount]}원) - ${value}개`,
+        `${rank}개 일치 (${WINNING_PRICE_OBJECT[rank]}원) - ${value}개`,
       );
     });
 
