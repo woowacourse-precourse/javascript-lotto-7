@@ -23,12 +23,9 @@ class LottoList {
   }
 
   #createLotto() {
-    const LOTTO = [];
-
     const SINGLE_LOTTO = Random.pickUniqueNumbersInRange(1, 45, 6);
-    LOTTO.push(SINGLE_LOTTO);
 
-    return LOTTO;
+    return SINGLE_LOTTO;
   };
 
   #buyLottos(purchase) {
@@ -38,5 +35,9 @@ class LottoList {
       const LOTTO = this.#createLotto();
       LOTTO_LIST.push(LOTTO);
     };
+    
+    return LOTTO_LIST;
   }
 }
+
+export default LottoList;
