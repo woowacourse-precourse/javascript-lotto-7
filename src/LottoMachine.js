@@ -1,3 +1,5 @@
+import { Random } from '@woowacourse/mission-utils';
+
 class LottoMachine {
   #payment;
 
@@ -8,6 +10,11 @@ class LottoMachine {
   #calculateAmount() {
     const payment = this.#payment;
     return payment / 1000;
+  }
+
+  static #draw() {
+    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    return numbers;
   }
 }
 
