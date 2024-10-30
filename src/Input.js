@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGE } from './lib/constants.js';
+import { ERROR_MESSAGE, INPUT_MESSAGE } from './lib/constants.js';
 import { getIsNumeric, getIsPositive, getIsThousandUnit } from './lib/utils.js';
 
 class Input {
@@ -16,9 +16,12 @@ class Input {
   }
 
   static #validatePurchasePrice(rawPurchasePrice) {
-    if (!getIsNumeric(rawPurchasePrice)) throw new Error();
-    if (!getIsThousandUnit(rawPurchasePrice)) throw new Error();
-    if (!getIsPositive(rawPurchasePrice)) throw new Error();
+    if (!getIsNumeric(rawPurchasePrice))
+      throw new Error(ERROR_MESSAGE.NOT_NUMERIC);
+    if (!getIsThousandUnit(rawPurchasePrice))
+      throw new Error(ERROR_MESSAGE.NOT_THOUSAND_UNIT);
+    if (!getIsPositive(rawPurchasePrice))
+      throw new Error(ERROR_MESSAGE.NOT_POSITIVE);
   }
 
   static parsePurchasePrice(rawPurchasePrice) {
@@ -53,7 +56,8 @@ class Input {
   }
 
   static #validateBonusNumber(rawBonusNumber) {
-    if (!getIsNumeric(rawBonusNumber)) throw new Error();
+    if (!getIsNumeric(rawBonusNumber))
+      throw new Error(ERROR_MESSAGE.NOT_NUMERIC);
   }
 
   static #parseBonusNumber(rawBonusNumber) {

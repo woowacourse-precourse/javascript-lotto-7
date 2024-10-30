@@ -14,3 +14,9 @@ export const WINNING_PRICE_OBJECT = {
   5_1: 30_000_000,
   6: 2_000_000_000,
 };
+export const ERROR_MESSAGE_DEFAULT = '[ERROR]';
+export const ERROR_MESSAGE = {
+  NOT_NUMERIC: `${ERROR_MESSAGE_DEFAULT} 숫자를 입력해주세요.`,
+  NOT_THOUSAND_UNIT: `${ERROR_MESSAGE_DEFAULT} 1,000 단위의 숫자를 입력해주세요.`,
+  NOT_POSITIVE: `${ERROR_MESSAGE_DEFAULT} 양수를 입력해주세요.`,
+};
