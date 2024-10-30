@@ -11,7 +11,7 @@ export function checkWinNumbers(input) {
     if (!input.every(a => a >= 1 && a <= 45)) {
         throw new Error('[ERROR] 로또 번호는 1~45여야 합니다.');
     }
-    if (new Set([... input]).length !== 6) {
+    if ([...new Set(input)].length !== 6) {
         throw new Error('[ERROR] 로또 번호는 중복되지 않아야 합니다.');
     }
 }

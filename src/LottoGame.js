@@ -10,12 +10,14 @@ class LottoGame {
     createLottoList() {
         for (let i = 0; i < this.quantity; i++) {
             const lottoNumber = new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6));
-            this.lottoList.push(lottoNumber);
+            this.lottoList.push(lottoNumber.lottoResult());
         }
         return this.lottoList;
     }
 
-    LottoQuantity() {
+    lottoQuantity() {
         return this.quantity;
     }
 }
+
+export default LottoGame;
