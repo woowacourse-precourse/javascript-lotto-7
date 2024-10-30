@@ -20,9 +20,16 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
   getNumbers() {
     return this.#numbers;
+  }
+
+  getMatchedCount(winningNumbers) {
+    return this.#numbers.filter(number => winningNumbers.includes(number)).length;
+  }
+
+  hasBonusNumber(bonusNumber) {
+    return this.#numbers.includes(bonusNumber);
   }
 }
 

@@ -73,8 +73,8 @@ class App {
     };
 
     lottos.forEach(lotto => {
-      const matchedCount = lotto.getNumbers().filter(number => winningNumbers.includes(number)).length;
-      const hasBonus = lotto.getNumbers().includes(bonusNumber);
+      const matchedCount = lotto.getMatchedCount(winningNumbers);
+      const hasBonus = lotto.hasBonusNumber(bonusNumber);
 
       if (matchedCount === 6) {
         statistics.first += 1;
