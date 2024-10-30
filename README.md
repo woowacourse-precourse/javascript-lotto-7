@@ -10,7 +10,11 @@
 - [x] View에서 Input, Output을 구분한다.
 - [x] Validation logic을 만들고 분리한다.
 - [] View에서 Error를 발생하고, 메시지를 재시작하는 로직을 구현해본다.
+
+발리데이션
+
 - [] Validation logic을 구분하고, 어디에 붙일지 생각해본다
+- [] validateRounds의 유닛테스트 작성
 
 간단한 로또 발매기를 구현 확인한다.
 
