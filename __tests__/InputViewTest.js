@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-import { getUserMoney } from '../src/ui/InputView';
+import { getUserMoney } from '../src/views/InputView.js';
 
 import { validateUserMoney } from '../src/validators/InputValidator.js';
 
