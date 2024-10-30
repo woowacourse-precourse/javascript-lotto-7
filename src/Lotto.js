@@ -11,7 +11,7 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
     numbers.forEach((number) => {
-      if (number < 1 || number > 45) {
+      if (Number(number) < 1 || Number(number) > 45) {
         throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
       }
     });
