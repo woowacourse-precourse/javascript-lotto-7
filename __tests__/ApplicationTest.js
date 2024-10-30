@@ -93,5 +93,28 @@ describe("로또 테스트", () => {
 
   test("예외 테스트", async () => {
     await runException("1000j");
+
+describe('구입 금액에 해당하는 만큼 중복되지 않는 6개의 로또 번호를 생성하는 기능 테스트', () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test('정확한 개수의 로또를 생성한다.', async () => {
+    const expectedCount = 3;
+
+    const mockLottoNumbers = [
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+    ];
+
+    mockRandoms(mockLottoNumbers);
+
+    const app = new App();
+
+    const lottos = app.generatorLottos(expectedCount);
+
+    expect(lottos).toHaveLength(expectedCount);
+    expect(lottos).toEqual(mockLottoNumbers);
   });
 });
