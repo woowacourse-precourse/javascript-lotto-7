@@ -1,5 +1,7 @@
 import LottoGameService from '../src/service/LottoGameService';
 
+import Lotto from '../src/Lotto';
+
 describe('로또 비즈니스 로직 클래스 테스트', () => {
   let lottoGameService;
   beforeEach(() => {
