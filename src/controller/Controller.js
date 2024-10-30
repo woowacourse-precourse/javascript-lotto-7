@@ -27,6 +27,8 @@ class Controller {
 
     const lottos = this.getParsedLottos(lottoCount);
     this.#outputView.printLottos(lottos);
+
+    const winningNumbers = await this.getParsedWinningNumbers();
   }
 
   async getParsedPurchasePrice() {
@@ -56,6 +58,18 @@ class Controller {
       LOTTO_NUMBER_MAX,
       LOTTO_NUMBER_COUNT
     ).sort((a, b) => a - b);
+  }
+
+  async getParsedWinningNumbers() {
+    const winningNumbers = await this.#inputView.getInput(
+      '당첨 번호를 입력해 주세요.\n'
+    );
+
+    const parsedWinningNumbers = winningNumbers
+      .split(',')
+      .map((number) => Number(number));
+
+    return new Lotto(parsedWinningNumbers);
   }
 }
 
