@@ -22,7 +22,6 @@ export const validatePurchasePrice = (purchasePrice) => {
   validator.checkNumericString(purchasePrice);
 
   const parsedPurchasePrice = Number(purchasePrice);
-
   validator.checkSafeInteger(parsedPurchasePrice);
 
   if (
@@ -39,8 +38,8 @@ export const validateWinningNumber = (winningNumber) => {
 
 export const validateBonusNumber = (bonusNumber, winningLotto) => {
   validator.checkNumericString(bonusNumber);
-
   const parsedBonusNumber = Number(bonusNumber);
+
   if (
     parsedBonusNumber < LOTTO_NUMBER_MIN ||
     parsedBonusNumber > LOTTO_NUMBER_MAX
