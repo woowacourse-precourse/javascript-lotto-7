@@ -11,6 +11,10 @@ class Input {
     return this.#purchasePrice;
   }
 
+  get purchacePrice() {
+    return this.#purchasePrice;
+  }
+
   get lottoCount() {
     return this.#purchasePrice / 1000;
   }

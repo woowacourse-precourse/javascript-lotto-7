@@ -61,6 +61,17 @@ class App {
     winningCountMap.forEach((value, winningCount) => {
       winningPrice += WINNING_PRICE_OBJECT[winningCount] * value;
     });
+
+    const rateOfReturn = (winningPrice / input.purchacePrice) * 100;
+
+    MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
+    winningCountMap.forEach((value, winningCount) => {
+      MissionUtils.Console.print(
+        `${winningCount}개 일치 (${WINNING_PRICE_OBJECT[winningCount]}원) - ${value}개`,
+      );
+    });
+
+    MissionUtils.Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
   }
 }
 
