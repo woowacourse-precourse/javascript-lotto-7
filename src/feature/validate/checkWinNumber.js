@@ -3,7 +3,7 @@ function checkNumber(number) {
     throw new Error('[ERROR] 입력 번호는 숫자여야 합니다.')
   }
 
-  if (number <= 0 && number >= 46) {
+  if (number < 1 || number > 45) {
     throw new Error('[ERROR] 번호는 1 ~ 45 사이의 숫자여야 합니다.')
   }
 
@@ -14,6 +14,6 @@ function checkNumber(number) {
 
 function checkWinNumbers(numbers) {
   numbers.forEach(number => checkNumber(number));
-}
+};
 
-export {checkNumber, checkWinNumbers};
+export { checkNumber, checkWinNumbers };
