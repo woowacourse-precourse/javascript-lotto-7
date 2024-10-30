@@ -50,13 +50,19 @@ class Controller {
   }
 
   async getParsedPurchasePrice() {
-    const purchasePrice = await this.#inputView.getInput(
-      '구입금액을 입력해 주세요.\n'
-    );
+    while (true) {
+      try {
+        const purchasePrice = await this.#inputView.getInput(
+          '구입금액을 입력해 주세요.\n'
+        );
 
-    validatePurchasePrice(purchasePrice);
+        validatePurchasePrice(purchasePrice);
 
-    return Number(purchasePrice);
+        return Number(purchasePrice);
+      } catch (error) {
+        this.#outputView.printErrorMessage(error.message);
+      }
+    }
   }
 
   getParsedLottos(lottoCount) {
@@ -79,27 +85,39 @@ class Controller {
   }
 
   async getParsedWinningLotto() {
-    const winningNumbers = await this.#inputView.getInput(
-      '당첨 번호를 입력해 주세요.\n'
-    );
+    while (true) {
+      try {
+        const winningNumbers = await this.#inputView.getInput(
+          '당첨 번호를 입력해 주세요.\n'
+        );
 
-    const parsedWinningNumbers = winningNumbers.split(',').map((number) => {
-      validateWinningNumber(number);
-      return Number(number);
-    });
+        const parsedWinningNumbers = winningNumbers.split(',').map((number) => {
+          validateWinningNumber(number);
+          return Number(number);
+        });
 
-    return new Lotto(parsedWinningNumbers);
+        return new Lotto(parsedWinningNumbers);
+      } catch (error) {
+        this.#outputView.printErrorMessage(error.message);
+      }
+    }
   }
 
   async getParsedBonusNumber(winningLotto) {
-    this.#outputView.printEmptyLine();
-    const bonusNumber = await this.#inputView.getInput(
-      '보너스 번호를 입력해 주세요.\n'
-    );
+    while (true) {
+      try {
+        this.#outputView.printEmptyLine();
+        const bonusNumber = await this.#inputView.getInput(
+          '보너스 번호를 입력해 주세요.\n'
+        );
 
-    validateBonusNumber(bonusNumber, winningLotto);
+        validateBonusNumber(bonusNumber, winningLotto);
 
-    return Number(bonusNumber);
+        return Number(bonusNumber);
+      } catch (error) {
+        this.#outputView.printErrorMessage(error.message);
+      }
+    }
   }
 
   calculateLottoResult(lottos, winningLotto, bonusNumber) {
