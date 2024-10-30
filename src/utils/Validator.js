@@ -13,12 +13,12 @@ class Validator {
     }
   }
 
-  static validatePurchaseAmount(amount) {
-    const parsedAmount = parseInt(amount, 10);
+  static validateMoney(money) {
+    const parsedMoney = parseInt(money, 10);
     if (
-      typeof parsedAmount !== 'number' ||
-      parsedAmount <= 0 ||
-      parsedAmount % 1000 !== 0
+      typeof parsedMoney !== 'number' ||
+      parsedMoney <= 0 ||
+      parsedMoney % 1000 !== 0
     ) {
       throw new Error(
         '[ERROR] 구입 금액은 1000원 단위의 양의 정수여야 합니다.',
