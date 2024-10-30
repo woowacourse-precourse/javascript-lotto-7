@@ -48,7 +48,12 @@ class Input {
     const rawBonusNumber = await MissionUtils.Console.readLineAsync(
       INPUT_MESSAGE.BONUS_NUMBER,
     );
+    Input.#validateBonusNumber(rawBonusNumber);
     this.#bonusNumber = Input.#parseBonusNumber(rawBonusNumber);
+  }
+
+  static #validateBonusNumber(rawBonusNumber) {
+    if (!getIsNumeric(rawBonusNumber)) throw new Error();
   }
 
   static #parseBonusNumber(rawBonusNumber) {
