@@ -14,6 +14,10 @@ class GameController {
     const lottoQuantity = this.outputView.printLottoQuantity(price);
     this.outputView.printPurchasedLotteries(lottoQuantity);
   }
+
+  async runGame() {
+    await this.inputView.askUserLotto();
+  }
 }
 
 export default GameController;

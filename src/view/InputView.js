@@ -21,5 +21,18 @@ class InputView {
       }
     }
   }
+
+  async askUserLotto() {
+    while (true) {
+      try {
+        const userLotto = await Console.readLineAsync(
+          MESSAGE.USER_LOTTO_NUMBER_PROMPT,
+        );
+        return userLotto;
+      } catch (error) {
+        Console.print(ERROR_MESSAGE.LOTTO_INPUT_ERROR);
+      }
+    }
+  }
 }
 export default InputView;

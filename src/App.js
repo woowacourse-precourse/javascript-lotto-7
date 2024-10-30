@@ -7,6 +7,7 @@ class App {
 
   async run() {
     await this.gameController.prepareGame();
+    await this.gameController.runGame();
   }
 }
 
