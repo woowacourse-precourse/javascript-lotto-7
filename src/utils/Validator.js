@@ -12,6 +12,19 @@ class Validator {
       throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
     }
   }
+
+  static validatePurchaseAmount(amount) {
+    const parsedAmount = parseInt(amount, 10);
+    if (
+      typeof parsedAmount !== 'number' ||
+      parsedAmount <= 0 ||
+      parsedAmount % 1000 !== 0
+    ) {
+      throw new Error(
+        '[ERROR] 구입 금액은 1000원 단위의 양의 정수여야 합니다.',
+      );
+    }
+  }
 }
 
 export default Validator;
