@@ -3,4 +3,4 @@ const INPUT_MESSAGES = Object.freeze({
   WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
 });
 
-export { INPUT_MESSAGES };
+export default INPUT_MESSAGES;
