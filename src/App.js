@@ -1,5 +1,12 @@
+import InputView from "./view/InputView.js";
+
 class App {
-  async run() {}
+  constructor() {
+    this.inputView = new InputView();
+  }
+  async run() {
+    this.inputView.getLottoPrice();
+  }
 }
 
 export default App;
