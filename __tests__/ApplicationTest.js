@@ -94,4 +94,16 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("당첨 번호가 6개가 아니면 예외가 발생한다.", async () => {
+    await runException("1000", "1,2,3,4,5");
+  });
+
+  test("당첨 번호에 중복된 숫자가 있으면 예외가 발생한다.", async () => {
+    await runException("1000", "1,2,3,4,5,5");
+  });
+
+  test("보너스 번호가 당첨 번호와 중복되면 예외가 발생한다.", async () => {
+    await runException("1000", "1,2,3,4,5,6", "6");
+  });
 });

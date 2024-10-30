@@ -12,7 +12,7 @@ class App {
       lottoNumbers.forEach(numbers => Console.print(`[${numbers.join(', ')}]`));
 
       const winningNumbers = await this.getWinningNumbers();
-      const bonusNumber = await this.getBonusNumber();
+      const bonusNumber = await this.getBonusNumber(winningNumbers);
 
       this.calculateStatistics(lottos, winningNumbers, bonusNumber);
     } catch (error) {
@@ -44,12 +44,23 @@ class App {
 
   async getWinningNumbers() {
     const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-    return input.split(',').map(Number);
+    const numbers = input.split(',').map(Number);
+    if (numbers.length !== 6) {
+      throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
+    }
+    if (new Set(numbers).size !== 6) {
+      throw new Error("[ERROR] 당첨 번호는 중복될 수 없습니다.");
+    }
+    return numbers;
   }
 
-  async getBonusNumber() {
+  async getBonusNumber(winningNumbers) {
     const input = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
-    return Number(input);
+    const bonusNumber = Number(input);
+    if (winningNumbers.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+    }
+    return bonusNumber;
   }
 
   calculateStatistics(lottos, winningNumbers, bonusNumber) {
