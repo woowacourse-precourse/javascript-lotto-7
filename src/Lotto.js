@@ -1,4 +1,5 @@
 import ERRORS from "./constants/Errors.js";
+import CONDITIONS from "./constants/Conditions.js";
 
 class Lotto {
   #numbers;
@@ -9,7 +10,7 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== CONDITIONS.LOTTO_NUMBER_DRAWN) {
       throw new Error(ERRORS.NOT_6_NUMBERS);
     }
   }

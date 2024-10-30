@@ -11,7 +11,7 @@ class App {
     const purchaseAmount = await Console.readLineAsync(MESSAGES.INPUT_MONEY);
     Console.print("");
 
-    if (+purchaseAmount % 1000 !== 0) {
+    if (+purchaseAmount % CONDITIONS.ONE_LOTTO_PRICE !== 0) {
       throw new Error(ERRORS.NOT_1000_WON);
     }
 
@@ -21,13 +21,19 @@ class App {
 
     // ~개를 구매했습니다.
 
-    const numberOfLottoes = +purchaseAmount / 1000;
+    const numberOfLottoes = +purchaseAmount / CONDITIONS.ONE_LOTTO_PRICE;
     Console.print(`${numberOfLottoes}${MESSAGES.BUY_LOTTO}`);
 
     const lottoes = [];
 
     for (let i = 0; i < numberOfLottoes; i++) {
-      lottoes.push(Random.pickUniqueNumbersInRange(1, 45, 6));
+      lottoes.push(
+        Random.pickUniqueNumbersInRange(
+          CONDITIONS.START_NUM,
+          CONDITIONS.END_NUM,
+          CONDITIONS.LOTTO_NUMBER_DRAWN
+        )
+      );
       lottoes[i].sort((a, b) => a - b);
       Console.print(`[${lottoes[i].join(", ")}]`);
     }
@@ -53,7 +59,11 @@ class App {
     }
 
     if (
-      !(bonusNumber > 0 && bonusNumber < 46 && Number.isInteger(bonusNumber))
+      !(
+        bonusNumber >= CONDITIONS.START_NUM &&
+        bonusNumber <= CONDITIONS.END_NUM &&
+        Number.isInteger(bonusNumber)
+      )
     ) {
       throw new Error(ERRORS.NOT_1_TO_45);
     }
@@ -77,11 +87,11 @@ class App {
     }
 
     const totalPrizeMoney =
-      howManyMatch[0] * 5000 +
-      howManyMatch[1] * 50000 +
-      howManyMatch[2] * 1500000 +
-      howManyMatch[3] * 30000000 +
-      howManyMatch[4] * 2000000000;
+      howManyMatch[0] * CONDITIONS.THREE_MATCHING_PRIZES +
+      howManyMatch[1] * CONDITIONS.FOUR_MATCHING_PRIZES +
+      howManyMatch[2] * CONDITIONS.FIVE_MATCHING_PRIZES +
+      howManyMatch[3] * CONDITIONS.FIVE_WITH_BONUS_MATCHING_PRIZES +
+      howManyMatch[4] * CONDITIONS.SIX_MATCHING_PRIZES;
     const rateOfReturn = ((totalPrizeMoney / +purchaseAmount) * 100).toFixed(1);
 
     Console.print(MESSAGES.WON_STATISTICS);
