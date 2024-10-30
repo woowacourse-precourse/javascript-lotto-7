@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { LOTTO_RESULT_TEMPLATE } from '../constants/constants.js';
 
 class OutputView {
   displayEmptyLine() {
@@ -22,13 +23,11 @@ class OutputView {
     this.displayEmptyLine();
     Console.print('당첨 통계\n---');
 
-    Console.print(
-      `3개 일치 (5,000원) - ${lottoResult.fifth.count}개\n` +
-        `4개 일치 (50,000원) - ${lottoResult.fourth.count}개\n` +
-        `5개 일치 (1,500,000원) - ${lottoResult.third.count}개\n` +
-        `5개 일치, 보너스 볼 일치 (30,000,000원) - ${lottoResult.second.count}개\n` +
-        `6개 일치 (2,000,000,000원) - ${lottoResult.first.count}개\n`
-    );
+    Object.keys(LOTTO_RESULT_TEMPLATE).forEach((rank) => {
+      Console.print(
+        LOTTO_RESULT_TEMPLATE[rank].replace('{count}', lottoResult[rank].count)
+      );
+    });
   }
 
   displayLottoRateOfReturn(lottoRateOfReturn) {
