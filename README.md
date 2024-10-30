@@ -24,8 +24,7 @@ LotteryFactory 클래스
 - [] lotteries의 길이를 확인한다.
 - [] lottoFactory의 unit Test를 작성한다.
 
-lotteryNumbers 클래스
--[] lotteryNumber가 중복된 수가 있는지 확인한다.
+lotteryNumbers 클래스 -[x] lotteryNumber가 중복된 수가 있는지 확인한다.
 -[] 정확한 값이 입력되었는지 확인한다.
 -[] 트림 기능을 넣는것을 고민해본다.
 -[] 중복자를 검출하는것을 고민해본다.

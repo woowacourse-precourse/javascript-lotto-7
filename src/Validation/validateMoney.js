@@ -8,17 +8,17 @@ export function validateMoney(input) {
     return false;
   }
 
-  const rounds = BigInt(input);
+  const rounds = Number(input);
   // 유효성 검사
-  if (rounds === 0n) {
+  if (rounds === 0) {
     printMessage(ERROR_MESSAGES.money.ZERO_MONEY_NOT_ALLOWED);
     return false;
   }
-  if (rounds < 0n) {
+  if (rounds < 0) {
     printMessage(ERROR_MESSAGES.money.ONLY_POSITIVE_ALLOWED);
     return false;
   }
-  if (rounds % 1000n !== 0n) {
+  if (rounds % 1000 !== 0) {
     printMessage(ERROR_MESSAGES.money.ONLY_NOTE_ALLOWED);
     return false;
   }

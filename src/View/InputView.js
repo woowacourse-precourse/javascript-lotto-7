@@ -14,7 +14,7 @@ import { Console } from '@woowacourse/mission-utils';
 export async function getInputWhileValid(validator, promptMessage) {
   while (true) {
     const input = await Console.readLineAsync(promptMessage);
-    const isValid = validator(input);
-    if (isValid) return input;
+    const validInput = validator(input);
+    if (validInput) return validInput;
   }
 }

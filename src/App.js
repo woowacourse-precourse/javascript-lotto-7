@@ -5,6 +5,7 @@ import { getInputWhileValid } from './View/InputView.js';
 import { validateMoney } from './Validation/validateMoney.js';
 import { defaultSettings } from './DefaultSettings.js';
 import LotteryFactory from './LotteryFactory.js';
+import validateLottoNumber from './Validation/validateLottoNumber.js';
 
 class App {
   async run() {
@@ -23,10 +24,11 @@ class App {
     Console.print(`${lotteryNotes}개를 구매했습니다. \n`);
     printLotteries(lotteries);
 
-    const lotteryNumbers =
-      await Console.readLineAsync('당첨 번호를 입력해 주세요.');
+    const lotteryNumbers = await getInputWhileValid(
+      validateLottoNumber,
+      '로또 번호를 입력해주세요',
+    );
 
-    const realLotteryNumbers = lotteryNumbers.split(',').map((n) => Number(n));
     const bonusNumber =
       await Console.readLineAsync('보너스 번호를 입력해주세요');
 
@@ -65,9 +67,10 @@ class App {
     };
 
     lotteries.forEach((lotto) => {
-      const lottoNumbers = lotto.getNumbers(); // getNumbers 메서드 호출
-      // getNumbers 메서드 호출
-      const matchingCount = realLotteryNumbers.filter((num) =>
+      const lottoNumbers = lotto.getNumbers();
+      console.log(Array.isArray(lotteryNumbers));
+
+      const matchingCount = lotteryNumbers.filter((num) =>
         lottoNumbers.includes(num),
       ).length;
 
@@ -101,7 +104,7 @@ class App {
     );
 
     // toFix 사용
-    Console.print(`총 수익률은 ${(total / Number(paidAmount)) * 100}%입니다.`);
+    Console.print(`총 수익률은 ${(total / paidAmount) * 100}%입니다.`);
   }
 }
 

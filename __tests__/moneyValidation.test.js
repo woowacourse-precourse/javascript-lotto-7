@@ -9,9 +9,9 @@ const getLogSpy = () => {
 };
 const validateMoneyTestCases = [
   {
-    description: '1000을 입력하면 올바르게 1000n을 반환해야 한다.',
+    description: '1000을 입력하면 올바르게 1000을 반환해야 한다.',
     input: '1000',
-    expected: 1000n,
+    expected: 1000,
   },
   {
     description: `'three' 문자열을 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
@@ -72,20 +72,20 @@ const validateMoneyTestCases = [
   },
 
   {
-    description: '2000을 입력하면 올바르게 2000n을 반환해야 한다.',
+    description: '2000을 입력하면 올바르게 2000을 반환해야 한다.',
     input: '2000',
-    expected: 2000n,
+    expected: 2000,
   },
   {
-    description: '10000을 입력하면 올바르게 10000n을 반환해야 한다.',
+    description: '10000을 입력하면 올바르게 10000을 반환해야 한다.',
     input: '10000',
-    expected: 10000n,
+    expected: 10000,
   },
   {
     description:
-      '10000000000000000000을 입력하면 올바르게 10000000000000000000n을 반환해야 한다.',
+      '10000000000000000000을 입력하면 올바르게 10000000000000000000을 반환해야 한다.',
     input: '10000000000000000000',
-    expected: 10000000000000000000n,
+    expected: 10000000000000000000,
   },
 ];
 

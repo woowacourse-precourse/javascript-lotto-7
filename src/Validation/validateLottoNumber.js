@@ -4,7 +4,7 @@ import { isNumber } from '../Util/Regex.js';
 
 export default function validateLottoNumber(input) {
   const { lotteryNumber } = ERROR_MESSAGES;
-  const parsedInput = input.split(',').map(Number);
+  const parsedInput = input.replaceAll(' ', '').split(',').map(Number);
   if (parsedInput.length !== 6) {
     printMessage(lotteryNumber.NOT_ENOUGH_ELEMENT);
     return false;
@@ -21,6 +21,7 @@ export default function validateLottoNumber(input) {
     printMessage(lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     return false;
   }
-
+  console.log(parsedInput);
   return parsedInput;
 }
+// console.log(validateLottoNumber('1,2,3,4,5,6'));
