@@ -1,4 +1,3 @@
-// Validator.js
 class Validator {
   static validateWinningNumbers(numbers) {
     if (numbers.length !== 6) {
