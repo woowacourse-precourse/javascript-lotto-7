@@ -23,7 +23,6 @@ class Controller {
 
   async start() {
     const purchasePrice = await this.parseValidatePurchasePriceInput();
-
     const lottoCount = purchasePrice / LOTTO_PRICE;
     this.#outputView.displayLottoCount(lottoCount);
 
@@ -32,7 +31,6 @@ class Controller {
 
     const winningLotto = await this.parseValidateWinningLottoInput();
     const bonusNumber = await this.parseValidateBonusNumberInput(winningLotto);
-
     const lottoResult = this.generateLottoResult(
       lottos,
       winningLotto,
