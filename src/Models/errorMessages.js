@@ -8,6 +8,7 @@ const ERROR_MESSAGE = {
 
   // winningNumbersError
   EMPTY_INPUT_WINNING_NUMBERS: `${ERROR} 빈값입니다. \n ${WINNING_NUMBERS_MESSAGE}`,
+  NUMBERS_LENGTH: `${ERROR} 입력하신 당첨번호의 개수가 6개가 아닙닙다. \n ${WINNING_NUMBERS_MESSAGE}`,
 };
 
 export { ERROR_MESSAGE };
