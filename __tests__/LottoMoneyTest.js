@@ -5,7 +5,7 @@ describe("로또 구입 금액 테스트", () => {
     test("로또 구입 금액이 1000의 배수가 아닌 경우", () => {
         const lottoMoneyValidator = new LottoMoneyValidator();
         expect(() => lottoMoneyValidator.validateLottoMoney(1500)).toThrow(
-            "[ERROR] 구입 금액은 1000원 단위여야 합니다."
+            "[ERROR] 로또 구입 금액은 1000원 단위여야 합니다."
         );
     });
 
@@ -18,7 +18,7 @@ describe("로또 구입 금액 테스트", () => {
 
     test("로또 구입 금액이 공백일 경우", () => {
         const lottoMoneyValidator = new LottoMoneyValidator();
-        expect(() => lottoMoneyValidator.validateLottoMoney("")).toThrow(
+        expect(() => lottoMoneyValidator.validateLottoMoney(" ")).toThrow(
             "[ERROR] 로또 구입 금액은 공백일 수 없습니다."
         );
     });
@@ -32,7 +32,8 @@ describe("로또 구입 금액 테스트", () => {
 
     test("로또 구입 금액이 정상인 경우", () => {
         const lottoMoneyValidator = new LottoMoneyValidator();
-        expect(() => lottoMoneyValidator.validateLottoMoney(5000)).not.toThrow();
+        const result = lottoMoneyValidator.validateLottoMoney(5000)
+        expect(result).toEqual(5000);
     });
 
 });
