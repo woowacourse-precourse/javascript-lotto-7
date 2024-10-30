@@ -1,4 +1,4 @@
-import { checkNumber } from "../../../src/feature/validate/checkWinNumber.js";
+import { checkNumber, checkWinNumbers } from "../../../src/feature/validate/checkWinNumber.js";
 
 describe('숫자의 유효성 테스트', () => {
   test.each([
@@ -6,7 +6,7 @@ describe('숫자의 유효성 테스트', () => {
     [46, '[ERROR] 번호는 1 ~ 45 사이의 숫자여야 합니다.'],
     [1.1, '[ERROR] 번호는 양의 정수여야 합니다.'],
     [NaN, '[ERROR] 입력 번호는 숫자여야 합니다.']
-  ])('변환된 입력값 ( %d ) 에 대한 예외처리 : %s', 
+  ])('변환된 입력값 ( %d ) 에 대한 예외 처리 : %s', 
     (input, errorMessage) => {
       // given
       const parsedInput = input;
@@ -14,4 +14,19 @@ describe('숫자의 유효성 테스트', () => {
       // then
       expect(() => checkNumber(parsedInput)).toThrow(new Error(errorMessage));
     });
+
+  test.each([
+    [[0, 1, 2, 3, 4, 5], '[ERROR] 번호는 1 ~ 45 사이의 숫자여야 합니다.'],
+    [[1, 2, 3, 4, 5, 46], '[ERROR] 번호는 1 ~ 45 사이의 숫자여야 합니다.'],
+    [[1.1, 2.1, 3.3, 4.4, 5.5, 6.6], '[ERROR] 번호는 양의 정수여야 합니다.'],
+    [[1, 2, 3, 4, 5, 44.999999999999], '[ERROR] 번호는 양의 정수여야 합니다.'],
+    [[NaN, 1, 2, 3, 4, 5], '[ERROR] 입력 번호는 숫자여야 합니다.']
+  ])('변환된 배열 %O 에 대한 예외 처리 : %s', 
+    (input, errorMessage) => {
+      // given
+      const parsedInput = input;
+
+      // then
+      expect(() => checkWinNumbers(parsedInput)).toThrow(new Error(errorMessage));
+  });
 })
