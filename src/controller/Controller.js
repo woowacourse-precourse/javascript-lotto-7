@@ -122,7 +122,7 @@ class Controller {
     const winningNumberCount = lotto.numbers.filter((number) =>
       winningLotto.numbers.includes(number)
     ).length;
-    const isBonusNumberCollect = winningLotto.numbers.includes(bonusNumber);
+    const isBonusNumberCollect = lotto.numbers.includes(bonusNumber);
 
     if (winningNumberCount === 6) return 'first';
     if (winningNumberCount === 5 && isBonusNumberCollect) return 'second';
