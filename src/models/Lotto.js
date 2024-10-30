@@ -24,6 +24,10 @@ class Lotto {
         );
       }
     });
+
+    if (new Set(numbers).size !== numbers.length) {
+      throw new Error('[ERROR] 중복된 숫자가 있습니다.');
+    }
   }
 
   get numbers() {
