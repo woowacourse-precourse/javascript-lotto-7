@@ -34,11 +34,13 @@ class Controller {
 
     const winningLotto = await this.getParsedWinningLotto();
     const bonusNumber = await this.getParsedBonusNumber(winningLotto);
+
     const lottoResult = this.calculateLottoResult(
       lottos,
       winningLotto,
       bonusNumber
     );
+    this.#outputView.printLottoResult(lottoResult);
   }
 
   async getParsedPurchasePrice() {
