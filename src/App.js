@@ -2,7 +2,7 @@ import { Random, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import { printLotteries } from './View/OutputView.js';
 import { getInputWhileValid } from './View/InputView.js';
-import { validateMoney } from './Validation/Validation.js';
+import { validateMoney } from './Validation/validateMoney.js';
 import { defaultSettings } from './DefaultSettings.js';
 import LotteryFactory from './LotteryFactory.js';
 
@@ -26,10 +26,10 @@ class App {
     const lotteryNumbers =
       await Console.readLineAsync('당첨 번호를 입력해 주세요.');
 
+    const realLotteryNumbers = lotteryNumbers.split(',').map((n) => Number(n));
     const bonusNumber =
       await Console.readLineAsync('보너스 번호를 입력해주세요');
 
-    const realLotteryNumbers = lotteryNumbers.split(',').map((e) => Number(e));
     const realBonusNumber = Number(bonusNumber);
     const RANKS = {
       SIX_MATCH: 'sixMatch',
@@ -66,9 +66,11 @@ class App {
 
     lotteries.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers(); // getNumbers 메서드 호출
+      // getNumbers 메서드 호출
       const matchingCount = realLotteryNumbers.filter((num) =>
         lottoNumbers.includes(num),
       ).length;
+
       const hasBonus = lottoNumbers.includes(realBonusNumber);
       const rank = pickRank(matchingCount, hasBonus);
 

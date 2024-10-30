@@ -3,14 +3,13 @@ const ERROR_MESSAGES = Object.freeze({
     INVALID_INPUT_MONEY: '[ERROR]: 돈은 숫자로 입력하셔야 합니다.',
     ONLY_NOTE_ALLOWED: '[ERROR]: 천원단위로 입력하셔야합니다.',
     ONLY_POSITIVE_ALLOWED: '[ERROR]: 음수는 입력할수 없습니다.',
+    ZERO_MONEY_NOT_ALLOWED: '[ERROR]: 0원은 입력할수 없습니다.',
   },
-  names: {
-    INVALID_NAME: '이름이 올바르지 않습니다',
-    NAME_TOO_LONG: '자동차 이름은 5자를 초과할 수 없습니다.',
-    DUPLICATED_NAMES: '중복된 이름은 사용할수 없습니다.',
-    EMPTY_NAME: '공백을 이름으로 사용할수 없습니다',
-    CONSECUTIVE_DELIMITERS: '구분자를 중복되서 사용할수 없습니다.',
-    WRONG_FORMAT: '포멧팅이 올바르지 않습니다.',
+  lotteryNumber: {
+    NOT_ENOUGH_ELEMENT: '[ERROR]: 숫자가 충분히 입력되지 않았습니다.',
+    ONLY_NUMBER_ALLOWED: '[ERROR]: 입력된 값이 숫자가 아닙니다.',
+    ONLY_NUMBER_IN_RANGE_ALLOWED: '[ERROR]: 입력된 숫자가 1-45 밖에 있습니다.',
+    DUPLICATED_NUMBER: '[ERROR]: 입력된 수중 중복이 존재합니다.',
   },
   cars: {
     ILLEGAL_CAR: '생성된 차량 객체가 정의되지 않았습니다.',

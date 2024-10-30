@@ -10,7 +10,11 @@ export function validateMoney(input) {
 
   const rounds = BigInt(input);
   // 유효성 검사
-  if (rounds <= 0n) {
+  if (rounds === 0n) {
+    printMessage(ERROR_MESSAGES.money.ZERO_MONEY_NOT_ALLOWED);
+    return false;
+  }
+  if (rounds < 0n) {
     printMessage(ERROR_MESSAGES.money.ONLY_POSITIVE_ALLOWED);
     return false;
   }

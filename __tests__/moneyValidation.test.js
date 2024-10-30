@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { validateMoney } from '../src/Validation/Validation.js';
+import { validateMoney } from '../src/Validation/validateMoney.js';
 import { ERROR_MESSAGES } from '../src/Error.js';
 
 const getLogSpy = () => {
@@ -19,9 +19,9 @@ const validateMoneyTestCases = [
     log: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
   {
-    description: `0을 입력하면, ${ERROR_MESSAGES.money.ONLY_POSITIVE_ALLOWED} 에러를 출력해야 한다.`,
+    description: `0을 입력하면, ${ERROR_MESSAGES.money.ZERO_MONEY_NOT_ALLOWED} 에러를 출력해야 한다.`,
     input: '0',
-    log: ERROR_MESSAGES.money.ONLY_POSITIVE_ALLOWED,
+    log: ERROR_MESSAGES.money.ZERO_MONEY_NOT_ALLOWED,
   },
   {
     description: `빈 문자열을 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
