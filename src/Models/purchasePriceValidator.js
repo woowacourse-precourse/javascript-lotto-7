@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from './errorMessages.js';
+import { ERROR_MESSAGE } from '../Constants/errorMessages.js';
 
 const isPurchasePriceEmptyInput = (purchasePriceInput) => purchasePriceInput !== '';
 
