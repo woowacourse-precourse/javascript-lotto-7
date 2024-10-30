@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Input from './Input.js';
-import { OUTPUT_MESSAGE } from './lib/constants.js';
+import { INPUT_MESSAGE, OUTPUT_MESSAGE } from './lib/constants.js';
 
 class App {
   async run() {
@@ -24,6 +24,15 @@ class App {
     randomNumberArray.forEach((randomNumber) =>
       MissionUtils.Console.print(randomNumber),
     );
+
+    const rawWinnierNumbers = await MissionUtils.Console.readLineAsync(
+      INPUT_MESSAGE.WINNING_NUMBER,
+    );
+    const winnierNumberArray = rawWinnierNumbers.split(',');
+    const rawBonusNumber = await MissionUtils.Console.readLineAsync(
+      INPUT_MESSAGE.BONUS_NUMBER,
+    );
+    const bonusNumber = +rawBonusNumber;
   }
 }
 
