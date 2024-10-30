@@ -15,11 +15,11 @@ class App {
     const lotto = new Lotto(lottoNumbers); // 사용자가 입력한 번호를 전달
 
     // 보너스 번호 생성
-    const bonusNumber = Lotto.genBonusNum(lotto.getNumbers()); // Lotto 클래스에서 생성된 보너스 번호 가져오기
+    const bonusNumber = Lotto.genBonusNum(lotto.getNum()); // Lotto 클래스에서 생성된 보너스 번호 가져오기
 
     // 로직 실행
     Console.print(`구입 금액: ${lottoPrice}`);
-    Console.print(`당첨 번호: ${lotto.getNumbers()}`);
+    Console.print(`당첨 번호: ${lotto.getNum()}`);
     Console.print(`보너스 번호: ${bonusNumber}`);
   }
 }
