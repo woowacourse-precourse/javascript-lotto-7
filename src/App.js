@@ -2,32 +2,35 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import Input from './Input.js';
 import { OUTPUT_MESSAGE, WINNING_PRICE_OBJECT } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
+import Lotto from './Lotto.js';
 
 class App {
   #input;
+  #lottoArray;
 
   constructor() {
     this.#input = new Input();
+    this.#lottoArray = [];
   }
 
   async run() {
     await this.#input.getPurchasePrice();
 
-    const randomNumberArray = [];
     for (let round = 0; round < this.#input.lottoCount; round += 1) {
-      const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(
+      const randomNumberArray = MissionUtils.Random.pickUniqueNumbersInRange(
         1,
         45,
         6,
       );
-      randomNumber.sort((a, b) => a - b);
-      randomNumberArray.push(randomNumber);
+      randomNumberArray.sort((a, b) => a - b);
+      const lotto = new Lotto(randomNumberArray);
+      this.#lottoArray.push(lotto);
     }
 
     MissionUtils.Console.print(
       `${this.#input.lottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
     );
-    randomNumberArray.forEach((randomNumber) =>
+    this.#lottoArray.forEach((randomNumber) =>
       MissionUtils.Console.print(randomNumber),
     );
 
@@ -41,7 +44,7 @@ class App {
       [6, 0],
     ]);
 
-    randomNumberArray.forEach((randomNumber) => {
+    this.#lottoArray.forEach((randomNumber) => {
       const winningCount = intersection(this.#input.winnerNumberArray, [
         ...randomNumber,
         this.#input.bonusNumber,
@@ -58,7 +61,7 @@ class App {
       winningPrice += WINNING_PRICE_OBJECT[winningCount] * value;
     });
 
-    const rateOfReturn = (winningPrice / this.#input.purchacePrice) * 100;
+    const rateOfReturn = (winningPrice / this.#input.purchasePrice) * 100;
 
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
     winningCountMap.forEach((value, winningCount) => {
