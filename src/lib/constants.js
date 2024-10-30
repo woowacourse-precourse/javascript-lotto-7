@@ -26,4 +26,5 @@ export const ERROR_MESSAGE = {
   NOT_NUMERIC: `${ERROR_MESSAGE_DEFAULT} 숫자를 입력해주세요.`,
   NOT_THOUSAND_UNIT: `${ERROR_MESSAGE_DEFAULT} 1,000 단위의 숫자를 입력해주세요.`,
   NOT_POSITIVE: `${ERROR_MESSAGE_DEFAULT} 양수를 입력해주세요.`,
+  NOT_SIX: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 6개여야 합니다.`,
 };

@@ -1,18 +1,16 @@
-import { RANK_OBJECT_ARRAY } from './lib/constants.js';
+import { ERROR_MESSAGE, RANK_OBJECT_ARRAY } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
+    Lotto.#validate(numbers);
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
-    }
+  static #validate(numbers) {
+    if (numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
   }
 
   #getWinningCount(winningNumberArray) {
