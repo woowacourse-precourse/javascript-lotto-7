@@ -14,8 +14,9 @@ const ERROR_MESSAGE = {
   NUMBERS_LENGTH: `${ERROR} 입력하신 당첨번호의 개수가 6개가 아닙닙다. \n ${WINNING_NUMBERS_MESSAGE}`,
   COMMA_COUNT: `${ERROR} 입력하신 모든 당첨번호의 구분이 쉼표(,) 로 되어있지 않습니다. \n ${WINNING_NUMBERS_MESSAGE}`,
 
-  // winningNumbersError
+  // bonusNumberError
   EMPTY_INPUT_BONUS_NUMBER: `${ERROR} 빈값입니다. \n ${BONUS_NUMBER_MESSAGE}`,
+  ONE_DIGIT_NUMBER: `${ERROR} 입력하신 보너스번호는 한 자리의 숫자가 아닙니다. \n ${BONUS_NUMBER_MESSAGE}`,
 };
 
 export { ERROR_MESSAGE };
