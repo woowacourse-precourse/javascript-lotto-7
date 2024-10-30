@@ -1,11 +1,4 @@
-import { Random } from '@woowacourse/mission-utils';
-import {
-  LOTTO_NUMBER_COUNT,
-  LOTTO_NUMBER_MAX,
-  LOTTO_NUMBER_MIN,
-  LOTTO_PRICE_UNIT,
-  WINNING_PRIZE,
-} from '../constants/constants.js';
+import { LOTTO_PRICE_UNIT, WINNING_PRIZE } from '../constants/constants.js';
 import {
   validateBonusNumber,
   validatePurchasePrice,
