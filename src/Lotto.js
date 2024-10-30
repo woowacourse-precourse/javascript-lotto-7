@@ -9,9 +9,17 @@ class Lotto {
   }
 
   #validate(numbers) {
+    this.#validateLength(numbers);
+    this.#validateOnlyUnique(numbers);
+  }
+
+  #validateLength(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+  }
+
+  #validateOnlyUnique(numbers) {
     if (!this.#isOnlyUnique(numbers)) {
       throw new Error("[ERROR] 중복된 숫자가 존재하지 않아야 합니다.");
     }
