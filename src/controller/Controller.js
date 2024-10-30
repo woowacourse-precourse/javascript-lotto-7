@@ -84,7 +84,7 @@ class Controller {
       '보너스 번호를 입력해 주세요.\n'
     );
 
-    validateBonusNumber();
+    validateBonusNumber(bonusNumber);
 
     return Number(bonusNumber);
   }
