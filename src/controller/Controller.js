@@ -60,14 +60,7 @@ class Controller {
   }
 
   getParsedLottos(lottoCount) {
-    const lottos = [];
-
-    for (let i = 0; i < lottoCount; i++) {
-      const lotto = Lotto.generate();
-      lottos.push(lotto);
-    }
-
-    return lottos;
+    return Array.from({ length: lottoCount }, () => Lotto.generate());
   }
 
   async getParsedWinningLotto() {
