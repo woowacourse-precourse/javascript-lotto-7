@@ -105,12 +105,10 @@ class Controller {
   }
 
   calculateLottoRateOfReturn(lottoResult, purchasePrice) {
-    const winningAmount =
-      lottoResult.fifth.count * lottoResult.fifth.amount +
-      lottoResult.fourth.count * lottoResult.fourth.amount +
-      lottoResult.third.count * lottoResult.third.amount +
-      lottoResult.second.count * lottoResult.second.amount +
-      lottoResult.first.count * lottoResult.first.amount;
+    const winningAmount = Object.values(lottoResult).reduce(
+      (sum, { amount, count }) => sum + amount * count,
+      0
+    );
 
     return ((winningAmount / purchasePrice) * 100).toFixed(1);
   }
