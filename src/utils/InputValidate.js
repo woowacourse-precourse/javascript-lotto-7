@@ -14,6 +14,11 @@ class InputValidate{
       throw new Error("[ERROR] 1000원 단위의 금액으로 입력하세요.");
     }
   }
+  inputRange(input) {
+    if(input<0) {
+      throw new Error("[ERROR] 양수를 입력하세요.");
+    }
+  }
   lottoNumberRange(input) {
     for (let number of input){
       if(number > 45 || number < 1){
@@ -61,6 +66,7 @@ class InputValidate{
     this.inputExist(input);
     this.inputType(input);
     this.inputUnit(input);
+    this.inputRange(input);
   }
 
   lottoNumberValidate(input) {
