@@ -7,7 +7,7 @@ import Lotto from '../domain/Lotto.js';
 class Controller {
   async start() {
     const lottoCount = await this.#inputLottoPurchasePrice();
-    OutputView.printLottoIssueDetails(lottoCount);
+    OutputView.printLottoPurchaseCount(lottoCount);
 
     const winningNumber = await this.#inputWinningNumber();
     // const bonusNumber = await InputView.readBonusNumberAsnyc();
