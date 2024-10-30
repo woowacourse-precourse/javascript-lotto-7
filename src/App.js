@@ -37,6 +37,7 @@ class App {
 	async #getLotto() {
 		return Array.from({ length: this.#lottoCount }, () => {
 			this.#lottoNumbers = this.getRandomNumbers();
+			this.#printLottoNumbers();
 		});
 	}
 
@@ -46,6 +47,10 @@ class App {
 			LOTTO_MAX_NUMBER,
 			LOTTO_LENGTH
 		).sort((a, b) => a - b);
+	}
+
+	#printLottoNumbers() {
+		printOutput(PROMPT.LOTTO_NUMBERS(this.#lottoNumbers));
 	}
 }
 
