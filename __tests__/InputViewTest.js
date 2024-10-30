@@ -55,6 +55,12 @@ describe('사용자 입력 테스트하기', () => {
         expect(bonusNumber).toBe('11');
       });
     });
+
+    test('보너스 번호를 입력받는 도중에 예외가 발생하면 에러 메시지를 반환한다.', async () => {
+      mockQuestions(new Error('error'));
+
+      await expect(getBonusNumber()).rejects.toThrow(INPUT_ERROR_MESSAGE);
+    });
   });
 
   describe('유효성 검사하기', () => {
