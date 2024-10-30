@@ -50,19 +50,42 @@ const validateMoneyTestCases = [
     log: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
   {
-    description: '2000을 입력하면 올바르게 2000n을 반환해야 한다.',
-    input: '2000',
-    expected: 2000n,
+    description: `1e2를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: '1e2',
+    log: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
+
+  {
+    description: `Infinity를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: 'Infinity',
+    log: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
+  },
+  {
+    description: `-Infinity를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: '-Infinity',
+    log: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
+  },
+  {
+    description: `1000n를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: '1000n',
+    log: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
+  },
+
   {
     description: '2000을 입력하면 올바르게 2000n을 반환해야 한다.',
     input: '2000',
     expected: 2000n,
   },
   {
-    description: '2000을 입력하면 올바르게 2000n을 반환해야 한다.',
-    input: '2000',
-    expected: 2000n,
+    description: '10000을 입력하면 올바르게 10000n을 반환해야 한다.',
+    input: '10000',
+    expected: 10000n,
+  },
+  {
+    description:
+      '10000000000000000000을 입력하면 올바르게 10000000000000000000n을 반환해야 한다.',
+    input: '10000000000000000000',
+    expected: 10000000000000000000n,
   },
 ];
 

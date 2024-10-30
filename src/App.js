@@ -3,26 +3,31 @@ import Lotto from './Lotto.js';
 import { printLotteries } from './View/OutputView.js';
 import { getInputWhileValid } from './View/InputView.js';
 import { validateMoney } from './Validation/Validation.js';
+import { defaultSettings } from './DefaultSettings.js';
 
 class App {
   async run() {
-    const lotteryCash = await getInputWhileValid(
+    const paidAmount = await getInputWhileValid(
       validateMoney,
       '구입금액을 입력해 주세요.',
     );
 
-    const lottery = Number.parseInt(lotteryCash / 1000, 10);
+    const lotteryNotes = Number.parseInt(paidAmount / 1000, 10);
 
     const lotteries = [];
 
-    for (let i = 0; i < lottery; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 12, 6);
+    for (let i = 0; i < lotteryNotes; i++) {
+      const numbers = Random.pickUniqueNumbersInRange(
+        defaultSettings.randomRangeValue.minimumRangeValue,
+        defaultSettings.randomRangeValue.maximumRangeValue,
+        defaultSettings.randomRangeValue.pickingNumber,
+      );
 
       const lotto = new Lotto(numbers.sort((a, b) => a - b));
       lotteries.push(lotto);
     }
 
-    Console.print(`${lottery}개를 구매했습니다.`);
+    Console.print(`${lotteryNotes}개를 구매했습니다.`);
     printLotteries(lotteries);
 
     const lotteryNumbers =
@@ -86,9 +91,8 @@ class App {
       (t, { ticket, prize }) => t + ticket * prize,
       0,
     );
-    Console.print(
-      `총 수익률은 ${((total / Number(lotteryCash)) * 100).toFixed(1)}%입니다.`,
-    );
+    // toFix 사용
+    Console.print(`총 수익률은 ${(total / Number(paidAmount)) * 100}%입니다.`);
   }
 }
 

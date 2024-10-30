@@ -24,7 +24,7 @@ export function printMessage(message) {
  */
 export function printLotteries(lotteries) {
   lotteries.forEach((lotto) =>
-    printMessage(lotto.toString(lotto.getNumbers())),
+    printMessage(`${lotto.toString(lotto.getNumbers())}\n`),
   );
 }
 

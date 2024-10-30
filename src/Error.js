@@ -17,4 +17,5 @@ const ERROR_MESSAGES = Object.freeze({
     ILLEGAL_CAR_ARRAY: '차량 배열이 올바르지 않습니다.',
   },
 });
+
 export { ERROR_MESSAGES };
