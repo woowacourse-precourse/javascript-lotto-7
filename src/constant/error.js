@@ -10,6 +10,7 @@ const ERROR_MESSAGES = Object.freeze({
   WRONG_LENGTH: '[ERROR] 로또 번호는 6개여야 합니다.',
   EMPTY_STRING: '[ERROR] 입력할 값은 빈 문자열이 될 수 없습니다.',
   WRONG_FORMAT: '[ERROR] 쉼표로 올바르게 구분되지 않았습니다.',
+  DECIMAL: '[ERROR] 소수점이 있는 값은 입력할 수 없습니다.',
 });
 
 export default ERROR_MESSAGES;

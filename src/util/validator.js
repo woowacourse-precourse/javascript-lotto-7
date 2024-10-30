@@ -83,3 +83,26 @@ export const validateWinningNumbers = (value) => {
     isInRange(number, MODE.LOTTO_NUMBER);
   });
 };
+
+const isDuplicateInBonusNumber = (value, winningNumbers) => {
+  if (winningNumbers.includes(value)) {
+    throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER);
+  }
+};
+
+const isDecimal = (value) => {
+  if (value % 1 !== 0) {
+    throw new Error(ERROR_MESSAGES.DECIMAL);
+  }
+};
+
+export const validateBonusNumber = (value, winningNumbers) => {
+  isEmpty(value);
+
+  const bonusNumber = Number(value);
+
+  isNumber(bonusNumber);
+  isInRange(bonusNumber, MODE.LOTTO_NUMBER);
+  isDecimal(bonusNumber);
+  isDuplicateInBonusNumber(bonusNumber, winningNumbers);
+};
