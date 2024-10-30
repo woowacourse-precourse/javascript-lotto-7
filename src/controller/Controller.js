@@ -1,4 +1,8 @@
-import { LOTTO_PRICE_UNIT, WINNING_PRIZE } from '../constants/constants.js';
+import {
+  INITIAL_LOTTO_RESULT,
+  LOTTO_PRICE_UNIT,
+  WINNING_PRIZE,
+} from '../constants/constants.js';
 import {
   validateBonusNumber,
   validatePurchasePrice,
@@ -96,13 +100,7 @@ class Controller {
   }
 
   generateLottoResult(lottos, winningLotto, bonusNumber) {
-    const lottoResult = {
-      first: 0,
-      second: 0,
-      third: 0,
-      fourth: 0,
-      fifth: 0,
-    };
+    const lottoResult = { ...INITIAL_LOTTO_RESULT };
 
     lottos.forEach((lotto) => {
       const rank = lotto.calculateRank(winningLotto, bonusNumber);

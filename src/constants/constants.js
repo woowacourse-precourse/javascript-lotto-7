@@ -9,3 +9,10 @@ export const WINNING_PRIZE = {
   second: 30000000,
   first: 2000000000,
 };
+export const INITIAL_LOTTO_RESULT = {
+  first: 0,
+  second: 0,
+  third: 0,
+  fourth: 0,
+  fifth: 0,
+};
