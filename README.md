@@ -14,7 +14,8 @@
 발리데이션
 
 - [] Validation logic을 구분하고, 어디에 붙일지 생각해본다
-- [] validateRounds의 유닛테스트 작성
+- [x] validateRounds의 유닛테스트 작성
+- [ ] trim을 도입할지 결정한다.
 
 간단한 로또 발매기를 구현 확인한다.
 
