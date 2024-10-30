@@ -5,13 +5,13 @@ import {
 } from '../constants/constants.js';
 
 const validator = {
-  isNumericString(value) {
+  checkNumericString(value) {
     // Number() 변환 시 NaN, 음수, 소수, 지수 표현 문제 사전 방지
     if (!/^[0-9]+$/.test(value)) {
       throw new Error('[ERROR] 숫자가 아닌 문자가 포함되었습니다.');
     }
   },
-  isSafeInteger(value) {
+  checkSafeInteger(value) {
     if (!Number.isSafeInteger(value)) {
       throw new Error('[ERROR] 안전 범위를 벗어난 숫자 입니다.');
     }
@@ -19,11 +19,11 @@ const validator = {
 };
 
 export const validatePurchasePrice = (purchasePrice) => {
-  validator.isNumericString(purchasePrice);
+  validator.checkNumericString(purchasePrice);
 
   const parsedPurchasePrice = Number(purchasePrice);
 
-  validator.isSafeInteger(parsedPurchasePrice);
+  validator.checkSafeInteger(parsedPurchasePrice);
 
   if (
     parsedPurchasePrice % LOTTO_PRICE_UNIT !== 0 ||
@@ -34,11 +34,11 @@ export const validatePurchasePrice = (purchasePrice) => {
 };
 
 export const validateWinningNumber = (winningNumber) => {
-  validator.isNumericString(winningNumber);
+  validator.checkNumericString(winningNumber);
 };
 
 export const validateBonusNumber = (bonusNumber, winningLotto) => {
-  validator.isNumericString(bonusNumber);
+  validator.checkNumericString(bonusNumber);
 
   const parsedBonusNumber = Number(bonusNumber);
   if (
