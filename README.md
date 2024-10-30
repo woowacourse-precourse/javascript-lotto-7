@@ -2,7 +2,7 @@
 
 ## MVC 패턴으로 분리시작
 
-- [ ] constants 폴더
+- [x] constants 폴더
 
   - [x] Messages.js
 
@@ -40,7 +40,10 @@
     - [x] "[ERROR] 보너스 번호는 당첨번호와 달라야 합니다." NOT_BONUS_NUMBER
     - [x] "[ERROR] 1~45 사이 정수여야 합니다." NOT_1_TO_45
 
-  - [ ] Conditions.js
+  - [x] Conditions.js
+    - [x] 1000원
+    - [x] 1,45,6
+    - [x] 당첨금
 
 구입금액을 입력해 주세요.
 8000
