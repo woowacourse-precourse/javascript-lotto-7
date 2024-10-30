@@ -19,6 +19,10 @@ class Lotto {
     }
   }
 
+  toString(numbers) {
+    return `[${numbers.join(', ')}]`;
+  }
+
   getNumbers() {
     return this.#numbers;
   }

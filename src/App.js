@@ -17,9 +17,7 @@ class App {
       const lotto = new Lotto(numbers);
       lotteries.push(lotto);
     }
-    function toString(numbers) {
-      return `[${numbers.join(', ')}]`;
-    }
+
     Console.print(`${lottery}개를 구매했습니다.`);
     lotteries.forEach((lotto) => {
       Console.print(toString(lotto.getNumbers().sort((a, b) => a - b)));
