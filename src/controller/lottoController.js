@@ -16,11 +16,11 @@ class LottoController{
     let isValid = false;
     do {
       const price = await Console.readLineAsync("구입금액을 입력해 주세요.");
-      isValid = this.validatePrice(price);
+      isValid = this.validateUserPrice(price);
     } while (!isValid);
   }
-  
-  validatePrice(price) {
+
+  validateUserPrice(price) {
     try {
       this.error.priceInputValidate(price);
       return true;
