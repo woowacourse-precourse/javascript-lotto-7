@@ -24,7 +24,9 @@ class GameController {
   }
 
   async #purchaseMoneyValidate(purchase_money) {
-    Validate.validatePurchaseMoney(purchase_money);
+    Validate.validateNonNumber(purchase_money);
+    Validate.validateSmallNumber(purchase_money);
+    Validate.validateDivideThousand(purchase_money);
   }
 
   async #purchaseLotto(money) {

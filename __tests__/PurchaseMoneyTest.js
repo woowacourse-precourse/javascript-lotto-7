@@ -1,13 +1,12 @@
 import Validate from "../src/validate/Validate.js";
-import { ERROR_MESSAGE } from "../src/constant/Error.js";
 
 describe("사용자 금액 테스트", () => {
   test.each([["1000a"], ["AAAAA"], ["로또당첨"], ["-1"], [""]])(
     "숫자 이외의 값을 입력한 경우",
     async (input) => {
       expect(() => {
-        Validate.validatePurchaseMoney(input);
-      }).toThrow(ERROR_MESSAGE.PURCHASE_MONEY.ERROR_NON_NUMBER);
+        Validate.validateNonNumber(input);
+      }).toThrow("[ERROR]");
     }
   );
 
@@ -15,8 +14,8 @@ describe("사용자 금액 테스트", () => {
     "1000보다 작은 값을 입력한 경우",
     async (input) => {
       expect(() => {
-        Validate.validatePurchaseMoney(input);
-      }).toThrow(ERROR_MESSAGE.PURCHASE_MONEY.ERROR_SMALL_NUMBER);
+        Validate.validateSmallNumber(input);
+      }).toThrow("[ERROR]");
     }
   );
 
@@ -24,8 +23,8 @@ describe("사용자 금액 테스트", () => {
     "1000으로 나누어 떨어지지 않는 경우",
     async (input) => {
       expect(() => {
-        Validate.validatePurchaseMoney(input);
-      }).toThrow(ERROR_MESSAGE.PURCHASE_MONEY.ERROR_DIVIDE_THOUSAND);
+        Validate.validateDivideThousand(input);
+      }).toThrow("[ERROR]");
     }
   );
 });
