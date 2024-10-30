@@ -14,7 +14,7 @@ class PurchaseAmount {
     }
 
     #validateIsNumber(amount) {
-        if (isNaN(amount)) {
+        if (isNaN(amount) || typeof amount !== 'number') {
             throw new Error("[ERROR] 구입금액을 숫자로 입력해주세요.")
         }
     }
