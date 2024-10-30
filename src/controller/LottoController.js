@@ -11,6 +11,8 @@ class LottoController {
     try {
       const amount = await this.#inputView.readLottoAmount();
       console.log(amount);
+      const winningNumbers = await this.#inputView.readWinningNumbers();
+      console.log(winningNumbers);
     } catch (error) {
       console.error(error.message);
     }
