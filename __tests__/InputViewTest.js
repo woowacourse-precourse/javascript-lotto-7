@@ -38,6 +38,12 @@ describe('사용자 입력 테스트하기', () => {
         const userMoney = await getWinningNumbers();
         expect(userMoney).toBe('1, 2, 3, 4, 5, 6');
       });
+
+      test('당첨 번호를 입력받는 도중에 예외가 발생하면 에러 메시지를 반환한다.', async () => {
+        mockQuestions(new Error('error'));
+
+        await expect(getWinningNumbers()).rejects.toThrow(INPUT_ERROR_MESSAGE);
+      });
     });
   });
 
