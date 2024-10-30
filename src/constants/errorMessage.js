@@ -6,4 +6,5 @@ export const ERROR_MESSAGES = {
   INVALID_LOTTO_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
   BONUS_NUMBER_DUPLICATE: '[ERROR] 보너스 번호와 당첨 번호가 중복됩니다.',
   SAFE_INTEGER: '[ERROR] 안전 범위를 벗어난 숫자 입니다.',
+  INPUT_ERROR: '[ERROR] 입력 중 오류가 발생했습니다.',
 };

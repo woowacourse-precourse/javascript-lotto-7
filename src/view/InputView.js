@@ -1,11 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
+import { ERROR_MESSAGES } from '../constants/errorMessage';
 
 class InputView {
   async promptUserInput(message) {
     try {
       return await Console.readLineAsync(message);
     } catch (error) {
-      throw new Error('[ERROR] 입력 중 오류가 발생했습니다.');
+      throw new Error(ERROR_MESSAGES.INPUT_ERROR);
     }
   }
 }
