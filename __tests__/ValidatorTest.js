@@ -1,4 +1,7 @@
-import { validatePurchaseAmount } from '../src/util/validator.js';
+import {
+  validatePurchaseAmount,
+  validateWinningNumbers,
+} from '../src/util/validator.js';
 
 describe('validatorTest', () => {
   describe('validatePurchaseAmount', () => {
@@ -15,6 +18,33 @@ describe('validatorTest', () => {
 
       inputs.forEach((input) => {
         expect(() => validatePurchaseAmount(input)).not.toThrow();
+      });
+    });
+  });
+
+  describe('validateWinningNumbers', () => {
+    test('should throw error when input is wrong', () => {
+      const inputs = [
+        '1,2,3,4,5,a',
+        '1,2,3,4,5,48',
+        '',
+        '1,2,3,4,5,6,7',
+        '1,2,3,4,5',
+        '1,2,3,4,5,5',
+        '123456',
+        '1,2.3,4,5,6',
+      ];
+
+      inputs.forEach((input) => {
+        expect(() => validateWinningNumbers(input)).toThrow();
+      });
+    });
+
+    test('should not throw error when input is correct', () => {
+      const inputs = ['1,2,3,4,5,6', '1,2,3,4,5,7', '1,2,3,4,5,8'];
+
+      inputs.forEach((input) => {
+        expect(() => validateWinningNumbers(input)).not.toThrow();
       });
     });
   });
