@@ -5,10 +5,24 @@ class App {
     try {
       const amount = await this.#getPurchaseAmount();
       const lottoCount = this.#calculateLottoCount(amount);
+      this.#generateLottos(lottoCount);
       Console.print(`\n${lottoCount}개를 구매했습니다.`);
+      this.#printLottos();
     } catch (error) {
       Console.print(error.message);
     }
+  }
+
+  #generateLottos(count) {
+    for (let i = 0; i < count; i++) {
+      this.#generateLottos.push(Lotto.generate());
+    }
+  }
+
+  #printLottos() {
+    this.#printLottos.forEach((lotto) => {
+      Console.print(lotto.toString());
+    });
   }
 
   async #getPurchaseAmount() {
