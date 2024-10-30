@@ -44,24 +44,20 @@ class App {
       [6, 0],
     ]);
 
-    this.#lottoArray.forEach((randomNumber) => {
-      const winningCount = intersection(this.#input.winnerNumberArray, [
-        ...randomNumber,
-        this.#input.bonusNumber,
-      ]).length;
+    this.#lottoArray.forEach((lotto) => {
+      const winningCount = lotto.getWinningCount(this.#input.winnerNumberArray);
 
       const previousWinningCount = winningCountMap.get(winningCount);
       if (previousWinningCount !== undefined)
         winningCountMap.set(winningCount, previousWinningCount + 1);
     });
 
-    let winningPrice = 0;
-
+    let totalWinningPrice = 0;
     winningCountMap.forEach((value, winningCount) => {
-      winningPrice += WINNING_PRICE_OBJECT[winningCount] * value;
+      totalWinningPrice += WINNING_PRICE_OBJECT[winningCount] * value;
     });
 
-    const rateOfReturn = (winningPrice / this.#input.purchasePrice) * 100;
+    const rateOfReturn = (totalWinningPrice / this.#input.purchasePrice) * 100;
 
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
     winningCountMap.forEach((value, winningCount) => {
