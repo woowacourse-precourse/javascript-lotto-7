@@ -11,7 +11,7 @@ const runExceptionTest =
     test(description, () => {
       const logSpy = getLogSpy();
       const result = func(input);
-      if (expected !== undefined) expect(result).toBe(expected);
+      if (expected !== undefined) expect(result).toEqual(expected);
       if (errorLog)
         expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorLog));
     });
