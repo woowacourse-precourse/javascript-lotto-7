@@ -6,14 +6,18 @@ import {
 import { validatePurchasePrice } from './Models/purchasePriceValidator.js';
 import { validateWinningNumbers } from './Models/winningNumbersValidator.js';
 import { validateBonusNumber } from './Models/bonusNumberValidator.js';
-import { printCountPurchaseAmount } from './Views/outputView.js';
+import { printCountPurchaseAmount, printLottoList } from './Views/outputView.js';
+import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
 
 class App {
   async run() {
     const purchasePrice = await getPurchasePriceInput();
     validatePurchasePrice(purchasePrice);
 
-    printCountPurchaseAmount(purchasePrice);
+    const purchaseCount = countPurchaseAmount(purchasePrice);
+
+    printCountPurchaseAmount(purchaseCount);
+    printLottoList(purchaseCount);
 
     const winningNumbers = await getWinningNumbersInput();
     validateWinningNumbers(winningNumbers);

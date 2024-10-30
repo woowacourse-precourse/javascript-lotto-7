@@ -1,9 +1,16 @@
 import { Console } from '@woowacourse/mission-utils';
-import { countPurchaseAmount } from '../Models/purchasePriceUtils.js';
+import { issueLottoList } from '../Models/issueLottoList.js';
 
-const printCountPurchaseAmount = (purchasePrice) => {
-  const purchaseCount = countPurchaseAmount(purchasePrice);
+const printCountPurchaseAmount = (purchaseCount) => {
   Console.print(`\n${purchaseCount}개를 구매했습니다.`);
 };
 
-export { printCountPurchaseAmount };
+const printLottoList = (lottoCount) => {
+  const lottoList = issueLottoList(lottoCount);
+  for (let i = 0; i < lottoCount; i += 1) {
+    Console.print(lottoList[i]);
+  }
+  Console.print('\n');
+};
+
+export { printCountPurchaseAmount, printLottoList };
