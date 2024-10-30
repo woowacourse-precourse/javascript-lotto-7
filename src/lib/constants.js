@@ -27,7 +27,7 @@ export const ERROR_MESSAGE = {
   NOT_THOUSAND_UNIT: `${ERROR_MESSAGE_DEFAULT} 1,000 단위의 숫자를 입력해주세요.`,
   NOT_POSITIVE: `${ERROR_MESSAGE_DEFAULT} 양수를 입력해주세요.`,
   NOT_SIX: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 6개여야 합니다.`,
-  NOT_ALL_ITEMS_NUMERIC: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 숫자여야 합니다.`,
-  NOT_ALL_ITEMS_BETWEEN_1_AND_45: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 1과 45사이어야 합니다.`,
-  NOT_ALL_ITEMS_UNIQUE: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 중복되면 안됩니다.`,
+  NOT_NUMERIC: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 숫자여야 합니다.`,
+  NOT_BETWEEN_1_AND_45: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 1과 45사이어야 합니다.`,
+  NOT_UNIQUE: `${ERROR_MESSAGE_DEFAULT} 로또 번호는 중복되면 안됩니다.`,
 };
