@@ -11,3 +11,12 @@ export async function getUserMoney() {
     throw new Error(INPUT_ERROR_MESSAGE);
   }
 }
+
+export async function getWinningNumbers() {
+  try {
+    const winningNumber = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
+    return winningNumber;
+  } catch (error) {
+    throw new Error(INPUT_ERROR_MESSAGE);
+  }
+}
