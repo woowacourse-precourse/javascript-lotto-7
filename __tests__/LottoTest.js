@@ -1,4 +1,5 @@
-import Lotto from '../src/Lotto';
+import Lotto from '../src/Lotto.js';
+import App from '../src/App.js';
 
 describe('로또 클래스 테스트', () => {
   // test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
@@ -15,6 +16,13 @@ describe('로또 클래스 테스트', () => {
   // });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+
+  describe('1개의 사용자 로또 발행하기', () => {
+    const app = new App();
+    test('1개의 로또를 생성한다.', () => {
+      expect(app.generateLotto()).toBeInstanceOf(Lotto);
+    });
+  });
 
   describe('당첨 로또와 사용자 로또 비교하기', () => {
     let lotto;
