@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
+import calculateLottoAmount from '../utils/LottoUtils.js';
 
 class LottoController {
   constructor() {
@@ -8,7 +9,8 @@ class LottoController {
 
   async startLotto() {
     const purchaseCost = await this.view.getPurchaseCost();
-    Console.print(`purchaseCost : ${purchaseCost}`);
+    const lottoAmount = calculateLottoAmount(purchaseCost);
+    Console.print(`lottoAmount : ${lottoAmount}`);
   }
 }
 export default LottoController;
