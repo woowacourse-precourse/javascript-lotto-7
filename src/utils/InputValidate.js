@@ -11,7 +11,7 @@ class InputValidate{
   }
   inputUnit(input) {
     if (input%1000 !== 0){
-      throw new Error("[ERROR] 1000원 단위의 금액으로 입력해세요.");
+      throw new Error("[ERROR] 1000원 단위의 금액으로 입력하세요.");
     }
   }
   lottoNumberRange(input) {
