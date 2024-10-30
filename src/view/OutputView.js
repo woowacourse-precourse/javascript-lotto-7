@@ -33,6 +33,10 @@ class OutputView {
   printLottoRateOfReturn(lottoRateOfReturn) {
     Console.print(`총 수익률은 ${lottoRateOfReturn}%입니다.`);
   }
+
+  printErrorMessage(errorMessage) {
+    Console.print(errorMessage);
+  }
 }
 
 export default OutputView;
