@@ -1,19 +1,10 @@
-class LottoIssue {
-  totalIssues;
-  currentIssue;
+import { Console } from "@woowacourse/mission-utils";
+import getRandomNumbers from "../utils/random.js";
 
-  constructor(issues) {
-    this.totalIssues = Number(issues);
-    this.currentIssue = 0;
+const lottoIssue = (count) => {
+  for (let i = 0; i < count; i++) {
+    Console.print(getRandomNumbers());
   }
+};
 
-  getTotalIssues() {
-    return this.totalIssues;
-  }
-
-  getCurrentIssue() {
-    return this.currentIssue;
-  }
-}
-
-export default LottoIssue;
+export default lottoIssue;
