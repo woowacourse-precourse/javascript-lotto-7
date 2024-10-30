@@ -40,7 +40,12 @@ class Controller {
       winningLotto,
       bonusNumber
     );
-    this.#outputView.printLottoResult(lottoResult);
+    this.#outputView.printLottoResult(lottoResult, purchasePrice);
+
+    const winningRateOfReturn = this.calculateLottoRateOfReturn(
+      lottoResult,
+      purchasePrice
+    );
   }
 
   async getParsedPurchasePrice() {
@@ -129,6 +134,17 @@ class Controller {
     if (winningNumberCount === 5) return 'third';
     if (winningNumberCount === 4) return 'fourth';
     if (winningNumberCount === 3) return 'fifth';
+  }
+
+  calculateLottoRateOfReturn(lottoResult, purchasePrice) {
+    const winningAmout =
+      lottoResult.first * 2000000000 +
+      lottoResult.second * 30000000 +
+      lottoResult.third * 1500000 +
+      lottoResult.fourth * 50000 +
+      lottoResult.fifth * 5000;
+
+    return ((winningAmout / purchasePrice) * 100).toFixed(1);
   }
 }
 
