@@ -16,15 +16,18 @@ const validateBonusNumberRange = (number) => {
   }
 }
 
-const validateDuplicate = (number) => {
-  // TODO: 당첨 번호에 있는 숫자들과 중복되는지 확인
+const validateDuplicate = (number, winningNumbers) => {
+  const isDuplicate = (winningNumber) => winningNumber === number;
+  if (winningNumbers.some(isDuplicate)) {
+    throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+  }
 }
 
-const BonusNumberValidations = (number) => {
+const BonusNumberValidations = (number, winningNumbers) => {
   validateNumber(number);
   validateInteger(number);
   validateBonusNumberRange(number);
-  validateDuplicate(number);
+  validateDuplicate(number, winningNumbers);
 };
 
 export default BonusNumberValidations;

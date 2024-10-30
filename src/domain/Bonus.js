@@ -3,13 +3,13 @@ import BonusNumberValidations from '../validations/BonusNumberValidations.js';
 class Bonus {
   #bonusNumber;
 
-  constructor (bonusNumber) {
-    this.#validate(bonusNumber);
+  constructor (bonusNumber, winningNumbers) {
+    this.#validate(bonusNumber, winningNumbers);
     this.#bonusNumber = bonusNumber;
   }
 
-  #validate(bonusNumber) {
-    BonusNumberValidations(bonusNumber);
+  #validate(bonusNumber, winningNumbers) {
+    BonusNumberValidations(bonusNumber, winningNumbers);
   }
 
   getBonusNumber() {

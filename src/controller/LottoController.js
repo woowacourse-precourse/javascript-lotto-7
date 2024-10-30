@@ -55,7 +55,7 @@ class LottoController {
       const bonusNumber = await InputView.readBonusNumberAsnyc();
       const parseBonusNumber = parser.parseStringToNumber(bonusNumber);
 
-      const bonus = new Bonus(parseBonusNumber);
+      const bonus = new Bonus(parseBonusNumber, this.#winningNumbers);
       return bonus.getBonusNumber();
     } catch (error) {
       OutputView.printErrorMessage(error.message);
