@@ -8,7 +8,14 @@ class InputView {
 
   async getWinningNumbers() {
     const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-    return input.split(',').map(Number);
+    return input.split(',').map((name) => name.trim());
+  }
+
+  async getBonusNumber() {
+    const input = await Console.readLineAsync(
+      '\n보너스 번호를 입력해 주세요.\n',
+    );
+    return input;
   }
 }
 export default InputView;

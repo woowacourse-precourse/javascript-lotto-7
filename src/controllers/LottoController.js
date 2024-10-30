@@ -19,7 +19,10 @@ class LottoController {
     this.outputView.showPurchasedLotto(generatedLottos);
 
     const winningNumbers = await this.inputView.getWinningNumbers();
-    Console.print(`winningNumbers : ${winningNumbers}`);
+    const bonusNumber = await this.inputView.getBonusNumber();
+    Console.print(
+      `winningNumbers : ${winningNumbers},  bonusNumber : ${bonusNumber}`,
+    );
   }
 }
 
