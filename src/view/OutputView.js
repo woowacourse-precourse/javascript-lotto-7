@@ -1,24 +1,23 @@
 import { Console } from '@woowacourse/mission-utils';
-import BuyLottoService from '../service/BuyLottoService.js';
+import RandomLotto from '../service/RandomLotto.js';
 import MESSAGE from '../utils/constants/message.js';
-import Lotto from '../Lotto.js';
 
 class OutputView {
   constructor() {
-    this.buyLottoService = new BuyLottoService();
+    this.randomLotto = new RandomLotto();
   }
 
   printLottoQuantity(price) {
-    const LottoQuantity = this.buyLottoService.checkLottoAmount(price);
-    Console.print(`${LottoQuantity}${MESSAGE.LOTTO_PURCHASE_MESSAGE}`);
+    const LottoQuantity = this.randomLotto.checkLottoAmount(price);
     Console.print('');
+    Console.print(`${LottoQuantity}${MESSAGE.LOTTO_PURCHASE_MESSAGE}`);
     return LottoQuantity;
   }
 
   printPurchasedLotteries(quantity) {
-    const lotteries = Lotto.createLotto(quantity);
-    lotteries.forEach((lotto) => Console.print(lotto));
+    const lotteries = this.randomLotto.createLotto(quantity);
 
+    lotteries.forEach((lotto) => Console.print(lotto));
     return lotteries;
   }
 }

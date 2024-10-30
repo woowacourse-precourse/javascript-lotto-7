@@ -1,4 +1,5 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import ERROR_MESSAGE from './utils/constants/errorMessage.js';
+import CONSTANT from './utils/constants/constant.js';
 
 class Lotto {
   #numbers;
@@ -9,26 +10,22 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    const setNumbers = new Set(numbers);
+    if (setNumbers.size !== 6) {
+      throw new Error(ERROR_MESSAGE.LOTTO_LENGTH_ERROR);
     }
+    numbers.forEach((number) => {
+      if (
+        number < CONSTANT.LOTTO_MIN_NUMBER ||
+        number > CONSTANT.LOTTO_MAX_NUMBER
+      ) {
+        throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_RANGE_ERROR);
+      }
+    });
+    return numbers;
   }
 
   // TODO: 추가 기능 구현
-  static createLottoNumber() {
-    const lottoNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    lottoNumber.sort((a, b) => a - b);
-    return lottoNumber;
-  }
-
-  static createLotto(quantity) {
-    let lotteries = [];
-    for (let count = 0; count < quantity; count++) {
-      let oneLotto = this.createLottoNumber();
-      lotteries.push(oneLotto);
-    }
-    return lotteries;
-  }
 }
 
 export default Lotto;
