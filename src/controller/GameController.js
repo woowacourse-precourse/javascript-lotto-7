@@ -2,7 +2,7 @@ import GameInput from "../view/GameInput.js";
 import GameOutput from "../view/GameOutput.js";
 import Validate from "../validate/Validate.js";
 
-class LottoController {
+class GameController {
   #gameInput;
   #gameOutput;
 
@@ -41,4 +41,4 @@ class LottoController {
   }
 }
 
-export default LottoController;
+export default GameController;
