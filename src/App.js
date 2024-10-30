@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
@@ -8,6 +8,10 @@ class App {
         amount = await this.getPurchaseAmount();
         this.validatePurchaseAmount(amount);
         Console.print(`구입 금액: ${amount}원`);
+
+        const lottoTickets = this.generateLottos(amount);
+        this.printLottos(lottoTickets);
+
         break;
       } catch (error) {
         Console.print(error.message);
@@ -28,6 +32,23 @@ class App {
     if (isNaN(amount) || amount % 1000 !== 0) {
       throw new Error("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
     }
+  }
+
+  generateLottos(amount) {
+    const lottoCount = amount / 1000;
+    const lottos = [];
+    for (let i = 0; i < lottoCount; i++) {
+      const lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+      lottos.push(lottoNumbers);
+    }
+    return lottos;
+  }
+
+  printLottos(lottos) {
+    Console.print(`${lottos.length}개를 구매했습니다.`);
+    lottos.forEach((lotto) => {
+      Console.print(`[${lotto.join(", ")}]`);
+    });
   }
 }
 
