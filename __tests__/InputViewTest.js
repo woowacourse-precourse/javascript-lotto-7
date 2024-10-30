@@ -2,7 +2,9 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 import { getUserMoney } from '../src/ui/InputView';
 
-import { USER_MONEY_INPUT_ERROR_MESSAGE } from '../src/constants/message';
+import { validateUserMoney } from '../src/validators/InputValidator.js';
+
+import { USER_MONEY_INPUT_ERROR_MESSAGE, INVALID_USER_MONEY_ERROR_MESSAGE } from '../src/constants/message.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -27,6 +29,13 @@ describe('사용자 입력 테스트하기', () => {
       mockQuestions(new Error('error'));
 
       await expect(getUserMoney()).rejects.toThrow(USER_MONEY_INPUT_ERROR_MESSAGE);
+    });
+  });
+
+  describe('유효성 검사하기', () => {
+    test('사용자의 구입금액이 1,000원으로 나누어 떨어지지 않는다면 예외 처리한다.', () => {
+      expect(() => validateUserMoney(100)).toThrow(INVALID_USER_MONEY_ERROR_MESSAGE);
+      expect(() => validateUserMoney(10005)).toThrow(INVALID_USER_MONEY_ERROR_MESSAGE);
     });
   });
 });
