@@ -13,15 +13,14 @@ const validator = {
       throw new Error(ERROR_MESSAGES.SAFE_INTEGER);
     }
   },
-};
-
-const validateInteger = (value) => {
-  validator.checkNumericString(value);
-  validator.checkSafeInteger(Number(value));
+  checkInteger(value) {
+    this.checkNumericString(value);
+    this.checkSafeInteger(Number(value));
+  },
 };
 
 export const validatePurchasePrice = (purchasePrice) => {
-  validateInteger(purchasePrice);
+  validator.checkInteger(purchasePrice);
 
   const parsedPurchasePrice = Number(purchasePrice);
 
@@ -34,11 +33,11 @@ export const validatePurchasePrice = (purchasePrice) => {
 };
 
 export const validateWinningNumber = (winningNumber) => {
-  validator.checkNumericString(winningNumber);
+  validator.checkInteger(winningNumber);
 };
 
 export const validateBonusNumber = (bonusNumber, winningLotto) => {
-  validator.checkNumericString(bonusNumber);
+  validator.checkInteger(bonusNumber);
 
   const parsedBonusNumber = Number(bonusNumber);
 
