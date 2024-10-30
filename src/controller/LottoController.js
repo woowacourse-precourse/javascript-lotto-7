@@ -18,7 +18,9 @@ class LottoController {
 
     const lottoIssuance = new LottoIssuance(this.#lottoCount);
     this.#lottos = lottoIssuance.getIssuedLottos();
-    OutputView.printLottoIssueDetails(this.#lottos);
+    this.#lottos.forEach((lotto) => {
+      OutputView.printLottoIssueDetails(lotto);
+    });
 
     this.#winningNumbers = await this.#inputWinningNumbers();
     this.#bonusNumber = await this.#inputBonusNumber();

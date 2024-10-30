@@ -1,5 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 import parser from '../utils/parser.js';
+
 class LottoIssuance {
   #lottoCount;
   #lottos = [];
