@@ -19,15 +19,15 @@ describe('로또 클래스 테스트', () => {
   describe('당첨 로또와 사용자 로또 비교하기', () => {
     test('당첨 로또와 사용자 로또의 일치하는 숫자가 5개있으며 보너스 번호는 일치하지 않는다.', () => {
       const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
-      expect(lotto.CompareWinningLotto([5, 4, 1, 2, 9, 3], 11)).toEqual([5, false]);
+      expect(lotto.compareWinningLotto([5, 4, 1, 2, 9, 3], 11)).toEqual([5, false]);
     });
     test('당첨 로또와 사용자 로또의 일치하는 숫자가 6개있으며 보너스 번호는 일치하지 않는다.', () => {
       const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
-      expect(lotto.CompareWinningLotto([6, 5, 4, 1, 2, 3], 11)).toEqual([6, false]);
+      expect(lotto.compareWinningLotto([6, 5, 4, 1, 2, 3], 11)).toEqual([6, false]);
     });
     test('당첨 로또와 사용자 로또의 일치하는 숫자가 5개있으며 보너스 번호가 일치한다.', () => {
       const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
-      expect(lotto.CompareWinningLotto([1, 3, 5, 2, 9, 4], 6)).toEqual([5, true]);
+      expect(lotto.compareWinningLotto([1, 3, 5, 2, 9, 4], 6)).toEqual([5, true]);
     });
   });
 });

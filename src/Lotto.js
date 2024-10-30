@@ -12,7 +12,7 @@ class Lotto {
     }
   }
 
-  CompareWinningLotto(winningNumbers, bonusNumber) {
+  compareWinningLotto(winningNumbers, bonusNumber) {
     const matchedNumbersLength = winningNumbers
       .filter((winningNumber) => this.#numbers.includes(winningNumber)).length;
     const isMatchedBonusNumber = this.#numbers.includes(bonusNumber);
