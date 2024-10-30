@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from "../constant/Error.js";
+import { LOTTO_DATA } from "../constant/Data.js";
 
 class Validate {
   static validateNonNumber(input) {
@@ -7,12 +8,12 @@ class Validate {
   }
 
   static validateSmallNumber(input) {
-    if (input < 1000)
+    if (input < LOTTO_DATA.lottoPrice)
       throw new Error(ERROR_MESSAGE.PURCHASE_MONEY.ERROR_SMALL_NUMBER);
   }
 
   static validateDivideThousand(input) {
-    if (input % 1000 !== 0)
+    if (input % LOTTO_DATA.lottoPrice !== 0)
       throw new Error(ERROR_MESSAGE.PURCHASE_MONEY.ERROR_DIVIDE_THOUSAND);
   }
 }
