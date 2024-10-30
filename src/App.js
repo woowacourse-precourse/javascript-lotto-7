@@ -3,23 +3,29 @@ import Lotto from "./Lotto";
 
 class App {
   async run() {
-    const count = await this.getLottoCount();
-    
-    const lottoNumbers = this.generateLottoNumbers(count);
-    const lottos = lottoNumbers.map(numbers => new Lotto(numbers));
-    
-    lottoNumbers.forEach(numbers => Console.print(`[${numbers.join(', ')}]`));
+    try {
+      const count = await this.getLottoCount();
+      const lottoNumbers = this.generateLottoNumbers(count);
+      const lottos = lottoNumbers.map(numbers => new Lotto(numbers));
+      
+      lottoNumbers.forEach(numbers => Console.print(`[${numbers.join(', ')}]`));
 
-    const winningNumbers = await this.getWinningNumbers();
-    const bonusNumber = await this.getBonusNumber();
+      const winningNumbers = await this.getWinningNumbers();
+      const bonusNumber = await this.getBonusNumber();
 
-    this.calculateStatistics(lottos, winningNumbers, bonusNumber);
+      this.calculateStatistics(lottos, winningNumbers, bonusNumber);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 
   async getLottoCount() {
     const purchaseCost = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
     if (isNaN(Number(purchaseCost))) {
       throw new Error("[ERROR] 구입금액은 숫자여야 합니다.");
+    }
+    if (purchaseCost % 1000 !== 0) {
+      throw new Error("[ERROR] 구입금액은 1,000원 단위로 입력해 주세요.");
     }
     const count = Math.floor(purchaseCost / 1000);
     Console.print(`${count}개를 구매했습니다.`);
