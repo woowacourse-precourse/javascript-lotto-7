@@ -1,8 +1,4 @@
-import {
-  LOTTO_NUMBER_COUNT,
-  LOTTO_NUMBER_MAX,
-  LOTTO_NUMBER_MIN,
-} from '../constants/constants.js';
+import { LOTTO_CONFIG } from '../constants/constants.js';
 import { Random } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
@@ -16,9 +12,9 @@ class Lotto {
 
   static generate() {
     const numbers = Random.pickUniqueNumbersInRange(
-      LOTTO_NUMBER_MIN,
-      LOTTO_NUMBER_MAX,
-      LOTTO_NUMBER_COUNT
+      LOTTO_CONFIG.NUMBER_MIN,
+      LOTTO_CONFIG.NUMBER_MAX,
+      LOTTO_CONFIG.NUMBER_COUNT
     ).sort((a, b) => a - b);
 
     return new Lotto(numbers);
@@ -29,12 +25,15 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== LOTTO_NUMBER_COUNT) {
+    if (numbers.length !== LOTTO_CONFIG.NUMBER_COUNT) {
       throw new Error(ERROR_MESSAGES.INVALID_LOTTO_COUNT);
     }
 
     numbers.forEach((number) => {
-      if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
+      if (
+        number < LOTTO_CONFIG.NUMBER_MIN ||
+        number > LOTTO_CONFIG.NUMBER_MAX
+      ) {
         throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
       }
     });

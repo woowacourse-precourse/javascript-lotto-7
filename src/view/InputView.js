@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGES } from '../constants/errorMessage';
+import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
 class InputView {
   async promptUserInput(message) {

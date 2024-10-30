@@ -1,4 +1,4 @@
-import { LOTTO_PRICE, WINNING_PRIZE } from '../constants/constants.js';
+import { LOTTO_CONFIG, LOTTO_RESULTS } from '../constants/constants.js';
 import {
   validateBonusNumber,
   validatePurchasePrice,
@@ -19,7 +19,7 @@ class Controller {
 
   async start() {
     const purchasePrice = await this.parseValidatePurchasePriceInput();
-    const lottoCount = purchasePrice / LOTTO_PRICE;
+    const lottoCount = purchasePrice / LOTTO_CONFIG.PRICE;
     this.#outputView.displayLottoCount(lottoCount);
 
     const lottos = Lotto.generateMultiple(lottoCount);
@@ -94,7 +94,7 @@ class Controller {
   }
 
   calculateLottoResult(lottos, winningLotto, bonusNumber) {
-    const lottoResult = { ...WINNING_PRIZE };
+    const lottoResult = { ...LOTTO_RESULTS.PRIZE };
 
     lottos.forEach((lotto) => {
       const rank = lotto.calculateRank(winningLotto, bonusNumber);

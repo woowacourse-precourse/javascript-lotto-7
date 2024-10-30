@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_RESULT_TEMPLATE } from '../constants/constants.js';
+import { LOTTO_RESULTS } from '../constants/constants.js';
 
 class OutputView {
   displayEmptyLine() {
@@ -23,9 +23,9 @@ class OutputView {
     this.displayEmptyLine();
     Console.print('당첨 통계\n---');
 
-    Object.keys(LOTTO_RESULT_TEMPLATE).forEach((rank) => {
+    Object.keys(LOTTO_RESULTS.TEMPLATE).forEach((rank) => {
       Console.print(
-        LOTTO_RESULT_TEMPLATE[rank].replace('{count}', lottoResult[rank].count)
+        LOTTO_RESULTS.TEMPLATE[rank].replace('{count}', lottoResult[rank].count)
       );
     });
   }

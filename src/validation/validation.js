@@ -1,8 +1,4 @@
-import {
-  LOTTO_NUMBER_MAX,
-  LOTTO_NUMBER_MIN,
-  LOTTO_PRICE,
-} from '../constants/constants.js';
+import { LOTTO_CONFIG } from '../constants/constants.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
 const validator = {
@@ -29,7 +25,10 @@ export const validatePurchasePrice = (purchasePrice) => {
 
   const parsedPurchasePrice = Number(purchasePrice);
 
-  if (parsedPurchasePrice % LOTTO_PRICE !== 0 || parsedPurchasePrice === 0) {
+  if (
+    parsedPurchasePrice % LOTTO_CONFIG.PRICE !== 0 ||
+    parsedPurchasePrice === 0
+  ) {
     throw new Error(ERROR_MESSAGES.INVALID_PRICE);
   }
 };
@@ -44,8 +43,8 @@ export const validateBonusNumber = (bonusNumber, winningLotto) => {
   const parsedBonusNumber = Number(bonusNumber);
 
   if (
-    parsedBonusNumber < LOTTO_NUMBER_MIN ||
-    parsedBonusNumber > LOTTO_NUMBER_MAX
+    parsedBonusNumber < LOTTO_CONFIG.NUMBER_MIN ||
+    parsedBonusNumber > LOTTO_CONFIG.NUMBER_MAX
   ) {
     throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
   }
