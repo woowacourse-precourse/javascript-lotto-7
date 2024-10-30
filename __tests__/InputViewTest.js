@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-import { getUserMoney, getWinningNumbers } from '../src/views/InputView.js';
+import { getUserMoney, getWinningNumbers, getBonusNumber } from '../src/views/InputView.js';
 
 import { validateUserMoney } from '../src/validators/InputValidator.js';
 
@@ -43,6 +43,16 @@ describe('사용자 입력 테스트하기', () => {
         mockQuestions(new Error('error'));
 
         await expect(getWinningNumbers()).rejects.toThrow(INPUT_ERROR_MESSAGE);
+      });
+    });
+
+    describe('보너스 번호 입력받기', () => {
+      test('정상적으로 보너스 번호를 입력받는다', async () => {
+        const inputs = ['11'];
+        mockQuestions(inputs);
+
+        const bonusNumber = await getBonusNumber();
+        expect(bonusNumber).toBe('11');
       });
     });
   });
