@@ -1,4 +1,4 @@
-import { LOTTO_RESULTS } from '../constants/constants.js';
+import { LOTTO_RESULTS } from '../constants/lottoResults.js';
 
 export const formatLottoResult = (lottoResult) => {
   return Object.keys(LOTTO_RESULTS.TEMPLATE).map((rank) => {

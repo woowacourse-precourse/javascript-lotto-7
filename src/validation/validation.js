@@ -1,4 +1,4 @@
-import { LOTTO_CONFIG } from '../constants/constants.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
 const validator = {

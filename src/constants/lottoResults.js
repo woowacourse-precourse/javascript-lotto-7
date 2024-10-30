@@ -1,10 +1,3 @@
-export const LOTTO_CONFIG = {
-  PRICE: 1000,
-  NUMBER_MIN: 1,
-  NUMBER_MAX: 45,
-  NUMBER_COUNT: 6,
-};
-
 export const LOTTO_RESULTS = {
   PRIZE: {
     fifth: { amount: 5000, count: 0 },

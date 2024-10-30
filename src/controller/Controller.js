@@ -1,4 +1,5 @@
-import { LOTTO_CONFIG, LOTTO_RESULTS } from '../constants/constants.js';
+import { LOTTO_RESULTS } from '../constants/lottoResults.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import {
   validateBonusNumber,
   validatePurchasePrice,
