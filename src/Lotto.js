@@ -12,7 +12,12 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  CompareWinningLotto(winningNumbers, bonusNumber) {
+    const matchedNumbersLength = winningNumbers
+      .filter((winningNumber) => this.#numbers.includes(winningNumber)).length;
+    const isMatchedBonusNumber = this.#numbers.includes(bonusNumber);
+    return [matchedNumbersLength, isMatchedBonusNumber];
+  }
 }
 
 export default Lotto;
