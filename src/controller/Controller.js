@@ -111,14 +111,14 @@ class Controller {
   }
 
   calculateLottoRateOfReturn(lottoResult, purchasePrice) {
-    const winningAmout =
+    const winningAmount =
       lottoResult.fifth * WINNING_PRIZE.fifth +
       lottoResult.fourth * WINNING_PRIZE.fourth +
       lottoResult.third * WINNING_PRIZE.third +
       lottoResult.second * WINNING_PRIZE.second +
       lottoResult.first * WINNING_PRIZE.first;
 
-    return ((winningAmout / purchasePrice) * 100).toFixed(1);
+    return ((winningAmount / purchasePrice) * 100).toFixed(1);
   }
 }
 
