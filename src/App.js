@@ -26,9 +26,15 @@ class App {
     pickLottoNumber.push(pickBonusNumber);
 
     const lottoNumberMatchCount = [];
+    let bonusNumberMatchCount = Array(buyLottoCount / 1000).fill(0);
 
-    randomLottoNumbers.forEach((lottoNumber) => {
+    randomLottoNumbers.forEach((lottoNumber, idx) => {
       const result = lottoNumber.filter((number) => pickLottoNumber.includes(number)).length;
+
+      if (lottoNumber.filter((number) => pickBonusNumber === number).length === 1) {
+        bonusNumberMatchCount[idx] = 1;
+      }
+
       lottoNumberMatchCount.push(result);
     });
   }
