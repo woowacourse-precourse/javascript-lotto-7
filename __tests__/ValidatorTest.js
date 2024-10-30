@@ -1,6 +1,7 @@
 import {
   validatePurchaseAmount,
   validateWinningNumbers,
+  validateBonusNumber,
 } from '../src/util/validator.js';
 
 describe('validatorTest', () => {
@@ -45,6 +46,26 @@ describe('validatorTest', () => {
 
       inputs.forEach((input) => {
         expect(() => validateWinningNumbers(input)).not.toThrow();
+      });
+    });
+  });
+
+  describe('validateBonusNumber', () => {
+    test('should throw error when input is wrong', () => {
+      const inputs = ['1', '46', '', 'a', '.', '1.5'];
+      const winningNumbers = [1, 2, 3, 4, 5, 6];
+
+      inputs.forEach((input) => {
+        expect(() => validateBonusNumber(input, winningNumbers)).toThrow();
+      });
+    });
+
+    test('should not throw error when input is correct', () => {
+      const inputs = ['7', '45', '10'];
+      const winningNumbers = [1, 2, 3, 4, 5, 6];
+
+      inputs.forEach((input) => {
+        expect(() => validateBonusNumber(input, winningNumbers)).not.toThrow();
       });
     });
   });
