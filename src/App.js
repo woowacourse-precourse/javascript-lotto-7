@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Input from './Input.js';
-import { OUTPUT_MESSAGE } from './lib/constants.js';
+import { OUTPUT_MESSAGE, RANK_OBJECT_ARRAY } from './lib/constants.js';
 import Lotto from './Lotto.js';
 
 class App {
@@ -29,9 +29,7 @@ class App {
     MissionUtils.Console.print(
       `${this.#input.lottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
     );
-    this.#lottoArray.forEach((randomNumber) =>
-      MissionUtils.Console.print(randomNumber),
-    );
+    this.#lottoArray.forEach((lotto) => lotto.printNumbers());
 
     await this.#input.getWinningNumbers();
     await this.#input.getBonusNumber();
@@ -56,9 +54,12 @@ class App {
     const rateOfReturn = (totalWinningPrice / this.#input.purchasePrice) * 100;
 
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
-    rankMap.forEach((value, rank) => {
+
+    RANK_OBJECT_ARRAY.forEach((rankObject) => {
       MissionUtils.Console.print(
-        `${rank}개 일치 (${WINNING_PRICE_OBJECT[rank]}원) - ${value}개`,
+        `${rankObject.winningCount}개 일치 (${rankObject.winningPrice}원) - ${
+          rankMap[rankObject.rank]
+        }개`,
       );
     });
 

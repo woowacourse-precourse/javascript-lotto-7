@@ -1,3 +1,4 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE, RANK_OBJECT_ARRAY } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
 
@@ -32,6 +33,10 @@ class Lotto {
 
   #getIsBonusMatch(bonusNumber) {
     return intersection(this.#numbers, [bonusNumber]).length;
+  }
+
+  printNumbers() {
+    MissionUtils.Console.print(this.#numbers);
   }
 }
 
