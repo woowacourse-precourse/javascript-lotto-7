@@ -77,18 +77,27 @@ class App {
       }
     });
 
-    Console.print('당첨 통계 \n ---');
-    Console.print(`3개 일치 (5,000원) - ${rank.threeMatch.ticket}개`);
-    Console.print(`4개 일치 (50,000원) - ${rank.fourMatch.ticket}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${rank.fiveMatch.ticket}개`);
+    Console.print('당첨 통계\n---');
     Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${rank.fiveMatchWithBonus.ticket}개`,
+      `3개 일치 (5,000원) - ${rankCounts[RANKS.THREE_MATCH].ticket}개`,
     );
-    Console.print(`6개 일치 (2,000,000,000원) - ${rank.sixMatch.ticket}개`);
-    const total = Object.values(rank).reduce(
+    Console.print(
+      `4개 일치 (50,000원) - ${rankCounts[RANKS.FOUR_MATCH].ticket}개`,
+    );
+    Console.print(
+      `5개 일치 (1,500,000원) - ${rankCounts[RANKS.FIVE_MATCH].ticket}개`,
+    );
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${rankCounts[RANKS.FIVE_MATCH_WITH_BONUS].ticket}개`,
+    );
+    Console.print(
+      `6개 일치 (2,000,000,000원) - ${rankCounts[RANKS.SIX_MATCH].ticket}개`,
+    );
+    const total = Object.values(rankCounts).reduce(
       (t, { ticket, prize }) => t + ticket * prize,
       0,
     );
+
     // toFix 사용
     Console.print(`총 수익률은 ${(total / Number(paidAmount)) * 100}%입니다.`);
   }
