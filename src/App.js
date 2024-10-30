@@ -4,6 +4,7 @@ import { printLotteries } from './View/OutputView.js';
 import { getInputWhileValid } from './View/InputView.js';
 import { validateMoney } from './Validation/Validation.js';
 import { defaultSettings } from './DefaultSettings.js';
+import LotteryFactory from './LotteryFactory.js';
 
 class App {
   async run() {
@@ -14,20 +15,12 @@ class App {
 
     const lotteryNotes = Number.parseInt(paidAmount / 1000, 10);
 
-    const lotteries = [];
+    const lotteries = new LotteryFactory(
+      Lotto,
+      defaultSettings,
+    ).createLotteries(lotteryNotes);
 
-    for (let i = 0; i < lotteryNotes; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(
-        defaultSettings.randomRangeValue.minimumRangeValue,
-        defaultSettings.randomRangeValue.maximumRangeValue,
-        defaultSettings.randomRangeValue.pickingNumber,
-      );
-
-      const lotto = new Lotto(numbers.sort((a, b) => a - b));
-      lotteries.push(lotto);
-    }
-
-    Console.print(`${lotteryNotes}개를 구매했습니다.`);
+    Console.print(`${lotteryNotes}개를 구매했습니다. \n`);
     printLotteries(lotteries);
 
     const lotteryNumbers =
@@ -38,47 +31,52 @@ class App {
 
     const realLotteryNumbers = lotteryNumbers.split(',').map((e) => Number(e));
     const realBonusNumber = Number(bonusNumber);
-    const rank = {
-      threeMatch: { ticket: 0, prize: 5_000 },
-      fourMatch: { ticket: 0, prize: 50_000 },
-      fiveMatch: { ticket: 0, prize: 1_500_000 },
-      fiveMatchWithBonus: { ticket: 0, prize: 3_000_000 },
-      sixMatch: { ticket: 0, prize: 2_000_000_000 },
+    const RANKS = {
+      SIX_MATCH: 'sixMatch',
+      FIVE_MATCH_WITH_BONUS: 'fiveMatchWithBonus',
+      FIVE_MATCH: 'fiveMatch',
+      FOUR_MATCH: 'fourMatch',
+      THREE_MATCH: 'threeMatch',
+      NO_MATCH: 'noMatch',
     };
-    function pickBonusPot(unionNumber) {
-      const isBonus = unionNumber.some((number) => number === realBonusNumber);
+    function pickRank(matchingCount, hasBonus) {
+      if (matchingCount === 6) {
+        return RANKS.SIX_MATCH;
+      }
+      if (matchingCount === 5) {
+        return hasBonus ? RANKS.FIVE_MATCH_WITH_BONUS : RANKS.FIVE_MATCH;
+      }
+      if (matchingCount === 4) {
+        return RANKS.FOUR_MATCH;
+      }
+      if (matchingCount === 3) {
+        return RANKS.THREE_MATCH;
+      }
+      return RANKS.NO_MATCH;
+    }
 
-      if (isBonus) {
-        rank.fiveMatchWithBonus.ticket += 1;
-      } else {
-        rank.fiveMatch.ticket += 1;
-      }
-    }
-    function pickRank(unionNumber) {
-      switch (unionNumber.length) {
-        case 9:
-          rank.threeMatch.ticket += 1;
-          break;
-        case 8:
-          rank.fourMatch.ticket += 1;
-          break;
-        case 7:
-          pickBonusPot(unionNumber);
-          break;
-        case 6:
-          rank.sixMatch.ticket += 1;
-          break;
-        default:
-          break;
-      }
-    }
+    const rankCounts = {
+      [RANKS.SIX_MATCH]: { ticket: 0, prize: 2_000_000_000 },
+      [RANKS.FIVE_MATCH_WITH_BONUS]: { ticket: 0, prize: 30_000_000 },
+      [RANKS.FIVE_MATCH]: { ticket: 0, prize: 1_500_000 },
+      [RANKS.FOUR_MATCH]: { ticket: 0, prize: 50_000 },
+      [RANKS.THREE_MATCH]: { ticket: 0, prize: 5_000 },
+      [RANKS.NO_MATCH]: { ticket: 0, prize: 0 },
+    };
+
     lotteries.forEach((lotto) => {
-      const pickedNumbers = new Set(realLotteryNumbers);
-      const lottoNumbers = new Set(lotto.getNumbers());
+      const lottoNumbers = lotto.getNumbers(); // getNumbers 메서드 호출
+      const matchingCount = realLotteryNumbers.filter((num) =>
+        lottoNumbers.includes(num),
+      ).length;
+      const hasBonus = lottoNumbers.includes(realBonusNumber);
+      const rank = pickRank(matchingCount, hasBonus);
 
-      const unionNumbers = [...new Set([...pickedNumbers, ...lottoNumbers])];
-      pickRank(unionNumbers);
+      if (rank !== RANKS.NO_MATCH) {
+        rankCounts[rank].ticket += 1;
+      }
     });
+
     Console.print('당첨 통계 \n ---');
     Console.print(`3개 일치 (5,000원) - ${rank.threeMatch.ticket}개`);
     Console.print(`4개 일치 (50,000원) - ${rank.fourMatch.ticket}개`);

@@ -10,6 +10,32 @@
 - [x] View에서 Input, Output을 구분한다.
 - [x] Validation logic을 만들고 분리한다.
 - [x] View에서 Error를 발생하고, 메시지를 재시작하는 로직을 구현해본다.
+- [ ] lotteryNumbers, bonusNumber, paidAmount를 어디에 보관할지 고민해본다.
+
+lotto 클래스
+
+- [] lotto class에 validation을 더 추가한다.
+- [] lotto가 정렬되어있는지 확인한다.
+- [] lotto 클래스의 unit Test를 작성한다.
+
+LotteryFactory 클래스
+
+- [] lotteryFactory의 validation 더 추가한다
+- [] lotteries의 길이를 확인한다.
+- [] lottoFactory의 unit Test를 작성한다.
+
+lotteryNumbers 클래스
+-[] lotteryNumber가 중복된 수가 있는지 확인한다.
+-[] 정확한 값이 입력되었는지 확인한다.
+-[] 트림 기능을 넣는것을 고민해본다.
+-[] 중복자를 검출하는것을 고민해본다.
+-[] 보너스가 중복되는 것을 방지한다.
+
+prizeCaluationService 클래스
+-[] 클래스를 생성한다.
+
+pickRank 클래스
+-[] unit Test를 통해서, 확실히 rank를 받는지 확인한다.
 
 발리데이션
 
