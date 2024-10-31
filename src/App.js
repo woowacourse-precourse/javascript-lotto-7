@@ -2,13 +2,10 @@ import Lotto from "./Lotto.js";
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { Console } from '@woowacourse/mission-utils';
 
-// this.stringFromConsole = await Console.readLineAsync(inputStringMessage);
-// this.testCount = await Console.readLineAsync(inputCountMessage);
-
 const message = {
-  price: "구매금액을 입력해 주세요.",
-  lottoNumber: "당첨 번호를 입력해 주세요.",
-  bonusNumber: "보너스 번호를 입력해 주세요.",
+  price: "구매금액을 입력해 주세요.\n",
+  lottoNumber: "당첨 번호를 입력해 주세요.\n",
+  bonusNumber: "보너스 번호를 입력해 주세요.\n",
 }
 
 const errorMassage = {
@@ -26,12 +23,21 @@ const errorMassage = {
 class App {
   constructor() {
     this.price = 0;
+    this.nLotto = 0;
     this.numbers = [];
     this.bonusNumber = 0;
+    this.generatedNumbers = [];
   }
 
   async run() {
     await this.inputPrice();
+    let nofLotto = this.nLotto;
+
+    while(nofLotto--) {
+      this.generatedNumbers.push(this.generateRandomNumber());
+    }
+    
+    await this.infoNLottoAndLottoNumbers();
     await this.inputNumberString();
     await this.inputBonusNumber();
     const lotto = new Lotto(this.numbers);
@@ -39,11 +45,14 @@ class App {
 
   async inputPrice() {
     this.price = await Console.readLineAsync(message.price);
+    Console.print('');
     this.isValidPrice(this.price);
+    this.nLotto = this.price / 1000;
   }
 
   async inputNumberString() { /// 유일하게 검증하지 않고 Lotto.js에서 검증코드를 작성한다.
     const input = await Console.readLineAsync(message.lottoNumber);
+    Console.print('');
     this.numbers = input.split(',');
   }
 
@@ -79,6 +88,19 @@ class App {
         throw new Error(errorMassage.bonusNumber.isNotUniqueNumber);
       }
     });
+  }
+
+  generateRandomNumber() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort();
+  }
+
+  async infoNLottoAndLottoNumbers() {
+    await Console.print(this.nLotto + "개를 구매했습니다.");
+    this.generatedNumbers.forEach(async (numbers) => {
+      const numberString = '[' + numbers.join(', ') + ']';
+      await Console.print(numberString);
+    });
+    await Console.print('');
   }
 }
 

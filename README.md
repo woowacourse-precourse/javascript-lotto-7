@@ -44,9 +44,9 @@
 
 ## 현재 개발 추이
 - [X] input price for lotto
-- [] seperated by seperator
-- [] input number of bonus
-- [] sorting lotto numbers generated randomly
+- [X] seperated by seperator
+- [X] input number of bonus
+- [X] sorting lotto numbers generated randomly
 - [] print result of lotto
 - [] round result
 
