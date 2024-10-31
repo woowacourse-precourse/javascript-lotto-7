@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO } from './constant.js';
+import Lotto from './Lotto.js';
+import LottoGenerator from './LottoGenerator.js';
 
 class App {
   async run() {
@@ -7,19 +8,23 @@ class App {
       '구입금액을 입력해주세요.\n'
     );
 
-    const lottoCount = Math.floor(purchasePrice / LOTTO.PRICE);
+    const purchasedLottos = new LottoGenerator(purchasePrice);
 
-    Console.print(`${lottoCount}개를 구매했습니다.`);
+    Console.print(`\n${purchasedLottos.lottoCount}개를 구매했습니다.`);
 
-    let lottoNumbers = await Console.readLineAsync(
+    purchasedLottos.createLotto();
+
+    purchasedLottos.getLottoNumbers();
+
+    const lottoWinningNumbers = await Console.readLineAsync(
       '당첨 번호를 입력해 주세요.\n'
     );
-    lottoNumbers = lottoNumbers
+    const lottoWinningNumbersArray = lottoWinningNumbers
       .split(',')
       .map((lottoNumber) => parseInt(lottoNumber));
 
     const bonusNumber = await Console.readLineAsync(
-      '보너스 번호를 입력해 주세요.\n'
+      '\n보너스 번호를 입력해 주세요.\n'
     );
   }
 }
