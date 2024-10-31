@@ -5,18 +5,12 @@ import { Random } from "@woowacourse/mission-utils";
 class GetNumber {
   purchaseLotto() {
     return new Lotto(
-      Random.pickUniqueNumbersInRange(
-        LOTTO_DATA.minNum,
-        LOTTO_DATA.maxNum,
-        LOTTO_DATA.lottoLength
-      )
+      Random.pickUniqueNumbersInRange(LOTTO_DATA.minNum, LOTTO_DATA.maxNum, LOTTO_DATA.lottoLength)
     ).getNumber();
   }
 
   winningLotto(lotto) {
-    return new Lotto(
-      lotto.split(",").map((number) => parseInt(number.replace(/ /g, "")))
-    ).getNumber();
+    return new Lotto(lotto.split(",").map((number) => parseInt(number.replace(/ /g, "")))).getNumber();
   }
 }
 
