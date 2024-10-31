@@ -1,4 +1,4 @@
-import { getWinningNumbers, getBonusNumber } from '../utils/getUserInput';
+import { getWinningNumbers, getBonusNumber } from '../utils/getUserInput.js';
 import { Console } from '@woowacourse/mission-utils';
 
 export default async function validateLottotNumbers() {

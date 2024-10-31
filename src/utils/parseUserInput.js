@@ -16,6 +16,4 @@ function parseWinningNumbersWithBonus() {
   return [...winningNumbers, Number(getBonusNumber())];
 }
 
-// TODO: [예외사항] 중간 띄어쓰기
-
 export { toPurchaseAmountNumber, parseWinningNumbersWithBonus };

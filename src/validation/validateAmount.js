@@ -1,4 +1,4 @@
-import { getPurchaseAmount } from '../utils/getUserInput';
+import { getPurchaseAmount } from '../utils/getUserInput.js';
 import { Console } from '@woowacourse/mission-utils';
 
 const NO_COMMA_NUMBER_REGEX = /^\d+$/;
@@ -25,8 +25,10 @@ function isNumber(purchaseAmount) {
   }
 }
 
+// TODO: 정상작동하지만 가독성을 위해 분기처리해야할까?
 function isDivisibleByThousand(purchaseAmount) {
-  if (Number(purchaseAmount) % DIVISIBILITY_UNIT !== 0) {
+  const cleanAmount = purchaseAmount.replace(/,/g, '');
+  if (Number(cleanAmount) % DIVISIBILITY_UNIT !== 0) {
     throw new Error(
       `[ERROR] 구입 금액은 ${DIVISIBILITY_UNIT} 단위로 나누어 떨어져야합니다.`
     );
