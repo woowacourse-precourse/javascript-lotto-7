@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import PROMPTS from "../constants.js";
+import { ERROR_MESSAGES, PROMPTS } from "../constants.js";
 import { printError } from "./printHandlers.js";
 
 const handlePurchaseInput = async () => {
@@ -11,10 +11,27 @@ const handlePurchaseInput = async () => {
   const ZERO_AMOUNT_TO_COMPARE = "000";
 
   if (purchaseInput.slice(INPUT_SLICE_RANGE_END) !== ZERO_AMOUNT_TO_COMPARE) {
-    return printError(PROMPTS.PURCHASE_ERROR_STRING);
+    return printError(ERROR_MESSAGES.PURCHASE_STRING);
   }
 
   return purchaseInput.slice(INPUT_SLICE_RANGE_START, INPUT_SLICE_RANGE_END);
 };
+
+const handleLotteryNumInput = async () => {
+  const lotteryNumInput = await Console.readLineAsync(PROMPTS.LOTTERY_NUM_PROMPT);
+
+}
+
+const isValidLotteryNumInput = arr => {
+  switch (true) {
+    case arr.length !== 6:
+      throw printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_COMMA)
+      break;
+
+    default:
+      break;
+  }
+}
+
 
 export { handlePurchaseInput };
