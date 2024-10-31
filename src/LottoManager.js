@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { SYSTEM_MESSAGES } from './constants.js';
+import { validator } from './validator.js';
 
 class LottoManager {
   #lottoAmount;
@@ -16,7 +17,9 @@ class LottoManager {
 
   async enterBudget() {
     const budget = await Console.readLineAsync(SYSTEM_MESSAGES.ENTER_BUDGET);
+    validator.budget(budget);
     this.#lottoAmount = budget / 1000;
+    Console.print(`\n${this.#lottoAmount}${SYSTEM_MESSAGES.BUY_AMOUNT}`);
   }
 }
 
