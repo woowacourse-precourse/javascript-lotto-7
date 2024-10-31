@@ -76,6 +76,7 @@ class GameController {
   #bonusNumberValidate(bonus_number, wining_lotto) {
     NumberValidate.validateNonNumber(bonus_number);
     NumberValidate.validateBonusDup(bonus_number, wining_lotto);
+    NumberValidate.validateBonusRange(bonus_number);
   }
 
   async startGame() {
@@ -84,7 +85,6 @@ class GameController {
 
     const wining_lotto = await this.#winningLotto();
     const bonus_number = await this.#bonusNumber(wining_lotto);
-    console.log(bonus_number);
   }
 }
 

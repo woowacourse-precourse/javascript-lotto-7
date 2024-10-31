@@ -19,8 +19,15 @@ class NumberValidate {
   }
 
   static validateBonusDup(input_number, input_lotto) {
-    if (input_lotto.some((lotto) => parseInt(input_number) === lotto))
+    const number = parseInt(input_number);
+    if (input_lotto.some((lotto) => number === lotto))
       throw new Error(ERROR_MESSAGE.NUMBER.ERROR_BONUS_DUP);
+  }
+
+  static validateBonusRange(input) {
+    const number = parseInt(input);
+    if (number < LOTTO_DATA.minNum || number > LOTTO_DATA.maxNum)
+      throw new Error(ERROR_MESSAGE.NUMBER.ERROR_BONUS_RANGE);
   }
 }
 
