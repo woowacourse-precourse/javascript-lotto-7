@@ -1,13 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
-import { INPUT_MESSAGES } from "./Constants.js";
+import { MESSAGES, DIVISORS } from "./Constants.js";
+import { validateMoney } from "./Validator.js";
 
 class InputHandler {
     async askUserMoney() {
-        return await Console.readLineAsync(INPUT_MESSAGES.ASK_USER_MONEY);
+        const userMoney = await Console.readLineAsync(MESSAGES.INPUT.ASK_USER_MONEY);
+        const validatedMoney =  validateMoney(userMoney);
+        return validatedMoney
     }
 }
 
 export default InputHandler;
-
-
-

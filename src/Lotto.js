@@ -1,5 +1,4 @@
 import { Console } from "@woowacourse/mission-utils";
-import { INPUT_MESSAGES } from "./Constants.js";
 
 class Lotto {
     #numbers;
