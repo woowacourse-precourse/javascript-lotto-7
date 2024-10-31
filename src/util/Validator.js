@@ -14,9 +14,9 @@ class Validator {
   isNumber(value, errorMessage) {
     const condition = !Number.isNaN(Number(value, 10));
     if (!condition) {
-      console.log(value);
       throw new Error(errorMessage);
     }
+    return Number(value);
   }
   isPriceNumber(lottoPrice) {
     this.isNumber(lottoPrice, this.PRICE_NUMBER_ERROR);
@@ -26,6 +26,8 @@ class Validator {
   }
   isAnswerNumber(numbers) {
     numbers.forEach((i) => this.isNumber(i, this.ANSWER_NUMBER_ERROR));
+    numbers = numbers.map((i) => Number(i));
+    return numbers;
   }
 
   isInRange(value, errorMessage) {
@@ -54,13 +56,11 @@ class Validator {
       throw new Error(this.PRICE_DIVISIBLE_ERROR);
     }
   }
-  isAnswerValidCount(numbers) {
-    const intNumbers = numbers.map((i) => Number(i));
-    const condition = numbers.length == 6;
+  isAnswerValidCount(intNumbers) {
+    const condition = intNumbers.length == 6;
     if (!condition) {
       throw new Error(this.ANSWER_COUNT_ERROR);
     }
-    return intNumbers;
   }
   isAnswerNotDuplicate(intNumbers) {
     const numberSet = new Set(intNumbers);

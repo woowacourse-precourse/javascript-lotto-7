@@ -10,8 +10,8 @@ class Lotto {
   }
 
   #validate(numbers) {
-    this.validator.isAnswerNumber(numbers);
-    const intNumbers = this.validator.isAnswerValidCount(numbers);
+    const intNumbers = this.validator.isAnswerNumber(numbers);
+    this.validator.isAnswerValidCount(intNumbers);
     this.validator.isAnswerNotDuplicate(intNumbers);
     this.validator.isAnswerInRange(intNumbers);
   }
