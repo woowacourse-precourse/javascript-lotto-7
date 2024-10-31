@@ -26,9 +26,9 @@ class Analyzer {
     const UNIT_COUNT = 1;
 
     matchedNumbers.forEach((matchedCount) => {
-      const currentCalculation =
+      const numbersOfLotto =
         this.#winningTable.get(matchedCount) ?? DEFAULT_COUNT;
-      this.#winningTable.set(matchedCount, currentCalculation + UNIT_COUNT);
+      this.#winningTable.set(matchedCount, numbersOfLotto + UNIT_COUNT);
     });
   }
 
