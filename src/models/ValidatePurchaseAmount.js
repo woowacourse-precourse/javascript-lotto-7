@@ -13,8 +13,17 @@ class ValidatePurchaseAmount {
     }
   }
 
+  #validateOverflow(input) {
+    if (input > Number.MAX_SAFE_INTEGER) {
+      throw new Error(
+        `[ERROR] ${Number.MAX_SAFE_INTEGER}원 이하의 금액을 작성해주셔야 됩니다. `,
+      );
+    }
+  }
+
   validatePurchaseAmount(input) {
     this.#validateIsNumber(input);
+    this.#validateOverflow(input);
     this.#validateThousandUnit(input);
   }
 }
