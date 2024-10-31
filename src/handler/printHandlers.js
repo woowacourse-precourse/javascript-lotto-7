@@ -5,4 +5,8 @@ const printError = (msg) => {
   throw new Error("[ERROR]");
 };
 
-export { printError };
+const printParam = (msg) => {
+  Console.print(msg)
+};
+
+export { printError, printParam };
