@@ -1,8 +1,8 @@
-import validationLotto from './validation/validationLotto.js';
-import OutputView from './view/OutputView.js';
-import InputView from './view/InputView.js';
-import Controller from './controller/Controller.js';
-import InputHandler from './handler/InputHandler.js';
+import validationLotto from './validations/validationLotto.js';
+import OutputView from './views/OutputView.js';
+import InputView from './views/InputView.js';
+import Controller from './controllers/Controller.js';
+import InputHandler from './handlers/InputHandler.js';
 
 class App {
   async run() {
