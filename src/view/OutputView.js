@@ -19,8 +19,8 @@ const OutputView = {
     });
   },
 
-  printRateOfReturn(rateOfReturn) {
-    Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+  printRevenue(revenue) {
+    Console.print(`총 수익률은 ${revenue}%입니다.`);
   },
 
   printErrorMessage(errorMessage) {

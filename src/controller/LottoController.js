@@ -6,6 +6,7 @@ import Lotto from '../domain/Lotto.js';
 import Bonus from '../domain/Bonus.js';
 import LottoIssuance from '../domain/LottoIssuance.js';
 import LottoStatistics from '../domain/LottoStatistics.js';
+import LottoRevenue from '../domain/LottoRevenue.js';
 
 class LottoController {
   async start() {
@@ -23,6 +24,9 @@ class LottoController {
     const matchResults = lottoStatistics.getMatchResults();
     OutputView.printWinningDetails(matchResults);
 
+    const lottoRevenue = new LottoRevenue(lottoCount, matchResults);
+    const revenue = lottoRevenue.getRevenue();
+    OutputView.printRevenue(revenue);
   }
 
   async #inputLottoPurchasePrice() {
@@ -32,6 +36,7 @@ class LottoController {
 
       const lottoCount = new LottoCount(parsePurchasePrice);
       return lottoCount.getLottoCount();
+      
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return await this.#inputLottoPurchasePrice();
@@ -45,6 +50,7 @@ class LottoController {
 
       const lotto = new Lotto(parseNumbers);
       return lotto.getLottoNumbers();
+
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return await this.#inputWinningNumbers();
@@ -58,6 +64,7 @@ class LottoController {
 
       const bonus = new Bonus(parseBonusNumber, winningNumbers);
       return bonus.getBonusNumber();
+      
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return await this.#inputBonusNumber();
