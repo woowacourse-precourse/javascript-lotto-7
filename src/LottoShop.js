@@ -41,27 +41,6 @@ class LottoShop {
 
     return lottoWinningMap;
   }
-
-  static calculateLottoPrizeMoney(lottoWinningMap) {
-    LOTTO_INFORMATION_ARRAY.reduce(
-      (prev, lottoInformation) =>
-        prev +
-        lottoWinningMap.get(lottoInformation.rank) *
-          lottoInformation.prizeMoney +
-        prev,
-      0,
-    );
-  }
-
-  static getLottoInformation(rank) {
-    LOTTO_INFORMATION_ARRAY.find((lotto) => lotto.rank === rank);
-  }
-
-  static calculateRateOfReturn(lottoPrizeMoney, purchasePrice) {
-    return parseFloat(
-      calculateRateOfReturn(lottoPrizeMoney, purchasePrice).toFixed(2),
-    );
-  }
 }
 
 export default LottoShop;

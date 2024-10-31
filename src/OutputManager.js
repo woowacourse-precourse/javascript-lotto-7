@@ -1,9 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import {
-  LOTTO_INFORMATION,
-  OUTPUT_MESSAGE,
-  LOTTO_INFORMATION_ARRAY,
-} from './lib/constants.js';
+import { OUTPUT_MESSAGE, LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
 
 class OutputManager {
   static printPurchaseHistory(lottoArray) {
