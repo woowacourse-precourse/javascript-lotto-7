@@ -1,3 +1,5 @@
+import { LOTTO_COUNT } from "./constants/lottoValue";
+
 class Lotto {
   #numbers;
 
@@ -11,10 +13,10 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO_COUNT) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    if (new Set(numbers).size !== 6) {
+    if (new Set(numbers).size !== LOTTO_COUNT) {
       throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
     }
 
