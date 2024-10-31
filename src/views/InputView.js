@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import Validator from '../validators/Validator';
 
 const INPUT_MESSAGE = {
   COST: '구입금액을 입력해 주세요.',
@@ -9,14 +10,17 @@ const INPUT_MESSAGE = {
 class InputView {
   async getInputCost() {
     const input = await Console.readlineAsync(INPUT_MESSAGE.COST);
+    validator.validateInputCost(input);
     return input;
   }
   async getSuccessNum() {
     const input = await Console.readlineAsync(INPUT_MESSAGE.SUCCESS_NUM);
+    validator.validateSuccessNum(input);
     return input;
   }
   async getBonusNum() {
     const input = await Console.readlineAsync(INPUT_MESSAGE.BONUS_NUM);
+    validator.validateBonusNum(input);
     return input;
   }
 }
