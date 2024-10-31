@@ -1,4 +1,4 @@
-import { RANKS } from "./Constants";
+import { RANKS } from "./Constants.js";
 
 class RankChecker {
   static checkMatch(purchasedLottos, winningAndBonusNumber) {
@@ -13,6 +13,7 @@ class RankChecker {
     return matchCounts;
   }
 
+  // 로또 1개에 대한 match 여부 확인하는 메서드
   static #countMatchingNumbers(lotto, winningAndBonusNumber) {
     const [winningNumber, bonusNumber] = winningAndBonusNumber;
     let bonusMatch = false;
