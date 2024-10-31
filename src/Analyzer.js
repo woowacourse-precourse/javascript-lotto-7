@@ -11,13 +11,13 @@ class Analyzer {
     this.#winningTable = new Map();
   }
 
-  #calculateMatchingLottos() {
+  #calculateMatchingCount() {
     const { numbers } = this.#winningNumbers;
-    const matchedNumbers = this.#lottos.map((lotto) =>
+    const matchingCount = this.#lottos.map((lotto) =>
       this.#calculateMatchingNumber(lotto, numbers),
     );
 
-    return matchedNumbers;
+    return matchingCount;
   }
 
   #calculateMatchingNumber(lotto, winningNumbers) {
@@ -57,7 +57,7 @@ class Analyzer {
   }
 
   getWinningTable() {
-    const matchedNumbers = this.#calculateMatchingLottos();
+    const matchedNumbers = this.#calculateMatchingCount();
     this.#makeWinningTable(matchedNumbers);
 
     return this.#winningTable;
