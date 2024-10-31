@@ -17,10 +17,15 @@ class LottoNumberGenerator {
     if (purchaseAmount % 1000 != 0) {
       throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_IS_NOT_DIVIDE_BY_THOUSAND);
     }
+    if (Number(purchaseAmount) <= 0) {
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_MORE_THAN_ZERO);
+    }
   }
 
   #randomGererateNumber() {
-    const randomNumberArray =  Random.pickUniqueNumbersInRange(1, 45, 6).map(Number).sort((a, b) => a - b);
+    const randomNumberArray = Random.pickUniqueNumbersInRange(1, 45, 6)
+      .map(Number)
+      .sort((a, b) => a - b);
     return randomNumberArray;
   }
 
