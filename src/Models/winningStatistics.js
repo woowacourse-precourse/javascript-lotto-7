@@ -6,6 +6,7 @@ let fiveMatches = 0;
 let fiveMatchesAndBonus = 0;
 let SixMatches = 0;
 
+// TODO: 리펙토링 - 출력하는건 outputView.js로 옮기기 -> 메게변수 3개 써도 되는지 확인
 const produceStatistics = (winningNumbers, bonusNumber, lottoList) => {
   const winningNumPlusBonusNum = winningNumbers;
   winningNumPlusBonusNum.push(Number(bonusNumber));
@@ -21,13 +22,13 @@ const produceStatistics = (winningNumbers, bonusNumber, lottoList) => {
       fiveMatches += 1;
     }
     if (element.filter((it) => winningNumPlusBonusNum.includes(it)).length === 5) {
-      // 5랑 보너스
       fiveMatchesAndBonus += 1;
     }
     if (element.filter((it) => winningNumbers.includes(it)).length === 6) {
       SixMatches += 1;
     }
   });
+  // TODO: 리펙토링 - 출력하는건 outputView.js로 옮기기
   Console.print(``);
   Console.print(`당첨 통계`);
   Console.print(`---`);
@@ -38,4 +39,15 @@ const produceStatistics = (winningNumbers, bonusNumber, lottoList) => {
   Console.print(`6개 일치 (2,000,000,000원) - ${SixMatches}개`);
 };
 
-export { produceStatistics };
+const calculateWinningAmount = () => {
+  const winningAmount =
+    threeMatches * 5000 +
+    fourMatches * 50000 +
+    fiveMatches * 1500000 +
+    fiveMatchesAndBonus * 30000000 +
+    SixMatches * 2000000000;
+
+  return winningAmount;
+};
+
+export { produceStatistics, calculateWinningAmount };

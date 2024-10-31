@@ -6,10 +6,11 @@ import {
 import { validatePurchasePrice } from './Models/purchasePriceValidator.js';
 import { validateWinningNumbers } from './Models/winningNumbersValidator.js';
 import { validateBonusNumber } from './Models/bonusNumberValidator.js';
-import { printCountPurchaseAmount, printLottoList } from './Views/outputView.js';
+import { printCountPurchaseAmount, printLottoList, printRateOfReturn } from './Views/outputView.js';
 import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
 import { issueLottoList } from './Models/issueLottoList.js';
 import { produceStatistics } from './Models/winningStatistics.js';
+import { produceRateOfReturn } from './Models/rateOfReturn.js';
 
 class App {
   async run() {
@@ -40,6 +41,9 @@ class App {
     validateBonusNumber(bonusNumber);
 
     const winningStatistics = produceStatistics(trimmedWinningNum, bonusNumber, lottoList);
+
+    const rateOfReturn = produceRateOfReturn(purchasePrice);
+    printRateOfReturn(rateOfReturn);
   }
 }
 
