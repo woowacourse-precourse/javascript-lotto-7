@@ -1,4 +1,4 @@
-import { calculateWinningAmount } from './winningStatistics.js';
+import { calculateWinningAmount } from './winningStatisticsUtils.js';
 
 const produceRateOfReturn = (purchasePrice) => {
   const winningAmount = calculateWinningAmount();

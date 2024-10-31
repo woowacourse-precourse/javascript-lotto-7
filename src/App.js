@@ -10,12 +10,12 @@ import {
   printLottoList,
   printRateOfReturn,
 } from './Views/outputViews.js';
-import { issueLottoList } from './Models/issueLottoList.js';
+import { issueLottoList } from './Models/lottoListIssueUtils.js';
 import { validateWinningNumbers } from './Models/winningNumbersValidator.js';
 import { validateBonusNumber } from './Models/bonusNumberValidator.js';
-import { produceStatistics } from './Models/winningStatistics.js';
-import { produceRateOfReturn } from './Models/rateOfReturn.js';
-import { trimWinningNumbers } from './Models/winningNumberUtils.js';
+import { produceStatistics } from './Models/winningStatisticsUtils.js';
+import { produceRateOfReturn } from './Models/rateOfReturnUtils.js';
+import { trimWinningNumbers } from './Models/winningNumbersUtils.js';
 
 class App {
   async run() {
