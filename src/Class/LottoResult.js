@@ -38,9 +38,9 @@ class LottoResult {
     return winningStatKey;
   };
 
-  #increaseCount(key) {
-    let currentValue = this.#winningStats.get(key);
-    currentValue++;
+  #increaseCount(winningStats, key) {
+    let currentValue = winningStats.get(key);
+    currentValue.count++;
   };
 
   #reflectResult(lottoList) {
