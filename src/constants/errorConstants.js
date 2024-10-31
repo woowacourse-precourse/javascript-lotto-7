@@ -12,6 +12,8 @@ const ERROR_MESSAGES = {
   BONUS_NUMBER_OUT_OF_BOUNDS:
     "[ERROR] 보너스 숫자의 범위는 1 ~ 45 사이여야 해요!",
   INVALID_LOTTO_NUMBER_COUNT: "[ERROR] 로또 번호는 6개여야 합니다.",
+  DUPLICATE_NUMBER_IN_LOTTO:
+    "[ERROR] 로또 번호에 중복된 숫자가 있어요!",
 };
 
 export default ERROR_MESSAGES;
