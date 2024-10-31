@@ -1,5 +1,5 @@
 import App from '../src/App.js';
-import { getLogSpy, mockQuestions } from './testUtils.js';
+import { getLogSpy, mockQuestions, mockRandoms } from './testUtils.js';
 
 describe('구입 금액 테스트', () => {
   test.each([
@@ -22,6 +22,41 @@ describe('구입 금액 테스트', () => {
     const app = new App();
     await app.run();
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('14개를 구매했습니다.'));
+  });
+
+  test('정확한 금액이 입력된 경우 통과하여, 랜덤 생성된 로또를 출력한다.', async () => {
+    const logSpy = getLogSpy();
+
+    mockRandoms([
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+      [1, 8, 11, 31, 41, 42],
+      [13, 14, 16, 38, 42, 45],
+      [7, 11, 30, 40, 42, 43],
+      [2, 13, 22, 32, 38, 45],
+      [1, 3, 5, 14, 22, 45],
+    ]);
+    mockQuestions(['8000']);
+
+    const app = new App();
+    await app.run();
+
+    const logs = [
+      '8개를 구매했습니다.',
+      '[8, 21, 23, 41, 42, 43]',
+      '[3, 5, 11, 16, 32, 38]',
+      '[7, 11, 16, 35, 36, 44]',
+      '[1, 8, 11, 31, 41, 42]',
+      '[13, 14, 16, 38, 42, 45]',
+      '[7, 11, 30, 40, 42, 43]',
+      '[2, 13, 22, 32, 38, 45]',
+      '[1, 3, 5, 14, 22, 45]',
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
   });
 });
 
