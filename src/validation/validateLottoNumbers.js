@@ -3,6 +3,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 export default async function validateLottotNumbers() {
   await getValidateWinningNumbers();
+  await getValidateBonusNumber();
 }
 
 async function getValidateWinningNumbers() {
@@ -14,6 +15,17 @@ async function getValidateWinningNumbers() {
   } catch (error) {
     Console.print(error.message);
     await getValidateWinningNumbers();
+  }
+}
+
+async function getValidateBonusNumber() {
+  try {
+    const bonusNumber = await getBonusNumber();
+    validateIsNumeric(bonusNumber);
+    validateInRange(bonusNumber);
+  } catch (error) {
+    Console.print(error.message);
+    await getValidateBonusNumber();
   }
 }
 
@@ -42,4 +54,16 @@ function validateAllInRange(winningNumbers) {
       throw new Error('[ERROR] 로또 번호는 1부터 45까지의 숫자입니다.');
     }
   });
+}
+
+function validateIsNumeric(bonusNumber) {
+  if (Number.isNaN(Number(bonusNumber))) {
+    throw new Error('[ERROR] 입력은 숫자와 구분자 ,만 허용됩니다.');
+  }
+}
+
+function validateInRange(bonusNumber) {
+  if (bonusNumber < 1 || bonusNumber > 45) {
+    throw new Error('[ERROR] 로또 번호는 1부터 45까지의 숫자입니다.');
+  }
 }
