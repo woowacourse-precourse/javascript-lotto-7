@@ -45,4 +45,30 @@ const isValidLotteryNumInput = (arr) => {
   }
 };
 
-export { handlePurchaseInput, handleLotteryNumInput };
+const handleBonusLotteryNum = async (userLotteryArr) => {
+  const bonusNum = await Console.readLineAsync(PROMPTS.LOTTERY_BONUS_PROMPT);
+
+  if (userLotteryArr.includes(bonusNum)) {
+    return printError(ERROR_MESSAGES.LOTTERY_BONUS_NUM);
+  }
+
+  isValidBonusNumInput(bonusNum);
+  return bonusNum;
+}
+
+const isValidBonusNumInput = (bonusNum) => {
+  switch (true) {
+    case !bonusNum.trim():
+    case isNaN(Number(bonusNum)):
+      return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_NaN);
+
+    case bonusNum > LOTTERY_NUM_RANGE.END:
+    case bonusNum < LOTTERY_NUM_RANGE.START:
+      return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_RANGE);
+
+    default:
+      break;
+  }
+}
+
+export { handlePurchaseInput, handleLotteryNumInput, handleBonusLotteryNum };
