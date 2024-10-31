@@ -14,7 +14,7 @@ class LottoBuyer {
     return this.#purchasePrice;
   }
 
-  async purchaseLotto() {
+  async purchaseLottos() {
     this.#purchasePrice = await InputManager.getPurchasePrice();
 
     this.#lottoArray = LottoShop.purchaseLottos(this.#purchasePrice);

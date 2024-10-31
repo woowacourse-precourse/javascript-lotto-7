@@ -20,11 +20,12 @@ class Lotto {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
-  draw(winningNumberArray, bonusNumber) {
+  checkWinning(winningNumberArray, bonusNumber) {
     const winningCount = this.#getWinningNumberCount(winningNumberArray);
     const isBonusMatch = this.#getIsBonusMatch(bonusNumber);
 
-    return this.#calculateRank(winningCount, isBonusMatch);
+    const rank = this.#calculateRank(winningCount, isBonusMatch);
+    return rank;
   }
 
   #calculateRank(winningCount, isBonusMatch) {

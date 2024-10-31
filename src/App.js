@@ -13,15 +13,16 @@ class App {
   }
 
   async run() {
-    await this.#lottoBuyer.purchaseLotto();
+    await this.#lottoBuyer.purchaseLottos();
     await this.#lottoShop.draw();
 
-    const rankCountMap = this.#lottoShop.checkWinning(
+    const lottoWinningMap = this.#lottoShop.checkWinningLottos(
       this.#lottoBuyer.lottoArray,
     );
-    OutputManager.printWinningStatics(rankCountMap);
 
-    const lottoPrizeMoney = LottoShop.calculateLottoPrizeMoney(rankCountMap);
+    OutputManager.printWinningStatics(lottoWinningMap);
+
+    const lottoPrizeMoney = LottoShop.calculateLottoPrizeMoney(lottoWinningMap);
 
     const rateOfReturn = LottoShop.calculateRateOfReturn(
       lottoPrizeMoney,
