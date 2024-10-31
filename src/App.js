@@ -6,7 +6,8 @@ class App {
     let price = new Input();
     let purchase = await price.inputPrice();
     Console.print("");
-    price.NumberOfPurchase(purchase);
+    let count = price.NumberOfPurchase(purchase);
+    price.printLottos(count);
   }
 }
 

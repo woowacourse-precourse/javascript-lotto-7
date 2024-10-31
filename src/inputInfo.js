@@ -1,9 +1,10 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Exception from "./exceptionHandling.js";
 
 class Input {
-  constructor(price) {
+  constructor(price, numberOfPurchase) {
     this.price = price;
+    this.numberOfPurchase = numberOfPurchase;
   }
 
   async inputPrice() {
@@ -17,6 +18,12 @@ class Input {
     let theNumberOfLotto = price / 1000;
     Console.print(theNumberOfLotto + "개를 구매했습니다.");
     return theNumberOfLotto;
+  }
+
+  printLottos(numberOfPurchase) {
+    for (let i = 0; i < numberOfPurchase; i++) {
+      Console.print(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6));
+    }
   }
 }
 export default Input;
