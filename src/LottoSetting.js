@@ -27,10 +27,19 @@ class LottoSetting {
     }
   }
 
+  #printLottoQuantityAndLottos() {
+    Console.print('\n');
+    Console.print(`${this.#numberOfLotto}개를 구매했습니다.`);
+    this.lottos.map((lotto) => {
+      Console.print(lotto);
+    });
+  }
+
   async settingLotto() {
     const amount = await this.#getPurchaseAmount();
     this.#countNumberOfLotto(amount);
     this.#createRandomLottos();
+    this.#printLottoQuantityAndLottos();
   }
 }
 
