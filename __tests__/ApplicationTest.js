@@ -36,10 +36,9 @@ const runException = async (input) => {
 
   // when
   const app = new App();
-  await app.run();
 
   // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  await expect(app.run()).rejects.toThrow("[ERROR]");
 };
 
 describe("로또 테스트", () => {

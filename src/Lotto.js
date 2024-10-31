@@ -12,7 +12,7 @@ class Lotto {
     }
     const numberSet = new Set(numbers);
     if (numbers.length !== numberSet.size) {
-      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.")
+      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
     }
   }
 
