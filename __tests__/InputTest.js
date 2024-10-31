@@ -1,5 +1,21 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
 import App from '../src/App.js';
-import { getLogSpy, mockQuestions } from './testUtils.js';
+
+const mockQuestions = (inputs) => {
+  MissionUtils.Console.readLineAsync = jest.fn();
+
+  MissionUtils.Console.readLineAsync.mockImplementation(() => {
+    const input = inputs.shift();
+
+    return Promise.resolve(input);
+  });
+};
+
+const getLogSpy = () => {
+  const logSpy = jest.spyOn(MissionUtils.Console, 'print');
+  logSpy.mockClear();
+  return logSpy;
+};
 
 describe('구입 금액 테스트', () => {
   test.each([
