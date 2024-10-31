@@ -2,11 +2,12 @@ import { printMessage } from '../View/OutputView.js';
 import { ERROR_MESSAGES } from '../Error.js';
 import { isNumber } from '../Util/Regex.js';
 import runValidators from './runValidators.js';
+import { defaultSettings } from '../DefaultSettings.js';
 
 const { lotteryNumber } = ERROR_MESSAGES;
-
+const { lotto } = defaultSettings;
 const validateLength = (input) => {
-  if (input.length !== 6) {
+  if (input.length !== lotto.pickingNumber) {
     printMessage(lotteryNumber.NOT_ENOUGH_ELEMENT);
     return false;
   }
@@ -14,7 +15,7 @@ const validateLength = (input) => {
 };
 
 const validateUniqueNumbers = (input) => {
-  if (new Set(input).size !== 6) {
+  if (new Set(input).size !== lotto.pickingNumber) {
     printMessage(lotteryNumber.DUPLICATED_NUMBER);
     return false;
   }
@@ -30,7 +31,12 @@ const validateIsNumber = (input) => {
 };
 
 const validateRange = (input) => {
-  if (!input.every((number) => number >= 1 && number <= 45)) {
+  if (
+    !input.every(
+      (number) =>
+        number >= lotto.minimumNumber && number <= lotto.maximumNumber,
+    )
+  ) {
     printMessage(lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     return false;
   }

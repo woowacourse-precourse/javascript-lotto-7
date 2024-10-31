@@ -36,7 +36,7 @@ lotteryNumbers 클래스
 validateBonusNumber
 
 - [x] 보너스가 중복되는 것을 방지한다.
-- [] 보너스 넘버 validation의 유닛 테스트를 작성한다.
+- [x] 보너스 넘버 validation의 유닛 테스트를 작성한다.
 
 prizeCaluationService 클래스
 

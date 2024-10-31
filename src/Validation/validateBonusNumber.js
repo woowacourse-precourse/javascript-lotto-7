@@ -2,8 +2,10 @@ import { printMessage } from '../View/OutputView.js';
 import { ERROR_MESSAGES } from '../Error.js';
 import { isNumber } from '../Util/Regex.js';
 import runValidators from './runValidators.js';
+import { defaultSettings } from '../DefaultSettings.js';
 
 const { lotteryNumber } = ERROR_MESSAGES;
+const { lotto } = defaultSettings;
 
 const validateIsNumber = (bonusNumber) => {
   if (!isNumber.test(bonusNumber)) {
@@ -14,7 +16,7 @@ const validateIsNumber = (bonusNumber) => {
 };
 
 const validateRange = (bonusNumber) => {
-  if (bonusNumber < 1 || bonusNumber > 45) {
+  if (bonusNumber < lotto.minimumNumber || bonusNumber > lotto.maximumNumber) {
     printMessage(lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     return false;
   }
