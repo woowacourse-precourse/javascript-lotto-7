@@ -1,25 +1,28 @@
 import LottoManager from './LottoManager.js';
 import { Console } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGES } from './constants/index.js';
+import {
+  INPUT_MESSAGES,
+  LOTTO_PRIZE,
+  OUTPUT_MESSAGES,
+} from './constants/index.js';
 
 class LottoGame {
   constructor() {
     this.lottoManager = new LottoManager();
   }
   async start() {
-    // 1. 구입 금액 입력 받기
-    // 2. 구입한 로또 개수 출력
-    // 3. 구입 금액으로 로또 사오기
-    // 4. 당첨 번호 입력 받기
-    // 5. 보너스 번호 입력 받기
-    // 6. 결과를 가져오기
-    // 7. 결과 출력하기
     const purchasePrice = await this.#getPurchasePrice();
     const lottos = this.lottoManager.buyLottos(purchasePrice);
 
     this.#printLottos(lottos);
     const winningNumber = await this.#getWinningNumber();
     const bonusNumber = await this.#getBonusNumber(winningNumber);
+    const result = this.lottoManager.getResult(
+      lottos,
+      winningNumber,
+      bonusNumber,
+    );
+    this.#printResult(result, purchasePrice);
   }
 
   async #getPurchasePrice() {
@@ -71,7 +74,28 @@ class LottoGame {
     }
   }
 
-  #printResult() {}
+  #printResult(result, purchasePrice) {
+    Console.print(OUTPUT_MESSAGES.WINNER_STATIC);
+
+    const prizeMapping = {
+      3: LOTTO_PRIZE.FIFTH,
+      4: LOTTO_PRIZE.FOURTH,
+      5: LOTTO_PRIZE.THIRD,
+      5.5: LOTTO_PRIZE.SECOND,
+      6: LOTTO_PRIZE.FIRST,
+    };
+
+    for (const key in result) {
+      if (result.hasOwnProperty(key)) {
+        Console.print(
+          `${key}개 일치${key === '5.5' ? ', 보너스 볼 일치' : ''} (${prizeMapping[key].toLocaleString()}원) - ${result[key]}개`,
+        );
+      }
+    }
+
+    const prize = this.lottoManager.calculatePrize(result, purchasePrice);
+    Console.print(OUTPUT_MESSAGES.TOTAL_PRIZE(prize));
+  }
 }
 
 export default LottoGame;
