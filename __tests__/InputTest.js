@@ -1,15 +1,27 @@
 import App from '../src/App.js';
-import { mockQuestions } from './testUtils.js';
+import { getLogSpy, mockQuestions } from './testUtils.js';
 
 describe('구입 금액 테스트', () => {
   test.each([
     ['구입 금액이 비어 있는 경우 예외가 발생한다.', ['']],
     ['구입 금액에 공백이 포함된 경우 예외가 발생한다.', ['14 000']],
     ['1000으로 나누어 떨어지지 않는 경우 예외가 발생한다.', ['14500']],
+    ['1000으로 나누어 떨어지지 않는 경우 예외가 발생한다.', ['14000.5']],
+    ['1000으로 나누어 떨어지지 않는 경우 예외가 발생한다.', ['ab']],
   ])('%s', async (_, inputs) => {
     mockQuestions(inputs);
     const app = new App();
     await expect(app.run()).rejects.toThrow('[ERROR]');
+  });
+
+  test('정확한 금액이 입력된 경우 통과한다.', async () => {
+    const logSpy = getLogSpy();
+
+    mockQuestions(['14000']);
+
+    const app = new App();
+    await app.run();
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('14개를 구매했습니다.'));
   });
 });
 
