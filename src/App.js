@@ -5,6 +5,15 @@ class App {
   // 1~45까지의 숫자를 인덱스로 사용하기 위해 46개의 배열 생성 (효율성)
   WinningLottoNumbersArray = Array(46).fill(0);
 
+  // 당첨 순위
+  winningRanks = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+  };
+
   async run() {
     const purchaseAmount = await Console.readLineAsync(
       "구입금액을 입력해 주세요.\n"
