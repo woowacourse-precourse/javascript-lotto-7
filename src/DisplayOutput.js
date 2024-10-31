@@ -42,6 +42,11 @@ class DisplayOutput {
 
     }
 
+    displayProfit (profit) {
+        MissionUtils.Console.print(`총 수익률은 ${profit}%입니다.`);
+
+    }
+
 }
 
 export default DisplayOutput;
