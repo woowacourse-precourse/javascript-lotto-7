@@ -23,8 +23,9 @@ class Input {
   }
 
   printLottos(numberOfPurchase) {
+    let random = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     for (let i = 0; i < numberOfPurchase; i++) {
-      Console.print(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6));
+      Console.print(random.sort((a, b) => a - b));
     }
   }
 }

@@ -5,8 +5,6 @@ class App {
   async run() {
     let price = new Input();
     let purchase = await price.inputPrice();
-    // price.numberOfPurchase(purchase);
-    // price.printLottos(count);
   }
 }
 
