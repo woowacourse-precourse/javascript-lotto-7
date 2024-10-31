@@ -6,13 +6,12 @@ import {
 } from './lib/constants.js';
 
 class OutputManager {
-  static printPurchaseCount(purchaseCount) {
-    MissionUtils.Console.print(
-      `${purchaseCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
-    );
-  }
+  static printPurchaseHistory(lottoArray) {
+    const purchaseLottoCount = lottoArray.length;
 
-  static printNumbers(lottoArray) {
+    MissionUtils.Console.print(
+      `${purchaseLottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
+    );
     lottoArray.forEach(({ numbers }) =>
       MissionUtils.Console.print(`[${numbers.join(', ')}]`),
     );
