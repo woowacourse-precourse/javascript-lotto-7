@@ -19,7 +19,7 @@ class Game {
 
         for (let i = 0; i < count; i++) {
             const lotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-            lottos.push(lotto);
+            lottos.push(lotto.sort((a,b) => a-b));
           }
 
         return lottos;
