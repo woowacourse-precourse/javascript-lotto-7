@@ -22,8 +22,8 @@ export default class Validator {
 
   static winningNumbers(winningNumbers) {
     checkLengthWinningNumbers(winningNumbers);
-    checkDuplicateWinningNumbers(winningNumbers);
     checkIntegerWinningNumbers(winningNumbers);
+    checkDuplicateWinningNumbers(winningNumbers);
     checkRangeWinningNumbers(winningNumbers);
   }
 
