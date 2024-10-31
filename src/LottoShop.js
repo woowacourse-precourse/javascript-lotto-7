@@ -1,15 +1,16 @@
-import { LOTTO_INFORMATION, LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
+import { LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
 import { calculateRateOfReturn } from './lib/utils.js';
 import Lotto from './Lotto.js';
 
-class LottoManager {
+class LottoShop {
   static #lottoPrice = 1_000;
 
-  static calculateLottoCount(purchasePrice) {
-    return purchasePrice / LottoManager.#lottoPrice;
+  static purchaseLottos(purchasePrice) {
+    const lottoCount = purchasePrice / LottoShop.#lottoPrice;
+    return this.#generateLottoArray(lottoCount);
   }
 
-  static generateLottoArray(lottoCount) {
+  static #generateLottoArray(lottoCount) {
     return new Array(lottoCount).fill().map(Lotto.generateLotto);
   }
 
@@ -51,4 +52,4 @@ class LottoManager {
   }
 }
 
-export default LottoManager;
+export default LottoShop;
