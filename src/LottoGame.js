@@ -45,10 +45,12 @@ class LottoGame {
   async #getWinningNumber() {
     while (true) {
       try {
-        const winningNumbers = await Console.readLineAsync(
+        const winningNumbersInput = await Console.readLineAsync(
           INPUT_MESSAGES.WINNING_NUMBERS,
         );
-        this.lottoManager.getWinningLotto(winningNumbers);
+        const winningNumbers =
+          this.lottoManager.getWinningLotto(winningNumbersInput);
+        return winningNumbers;
       } catch (error) {
         Console.print(error.message);
       }

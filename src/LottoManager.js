@@ -30,8 +30,10 @@ class LottoManager {
   }
 
   getWinningLotto(lottoInput) {
-    const lotto = lottoInput.split(RULE.SEPARATOR).map(Number);
-    return new Lotto(lotto);
+    const lotto = lottoInput
+      .split(RULE.SEPARATOR)
+      .map((number) => number.trim());
+    return new Lotto(lotto).numbers;
   }
 }
 export default LottoManager;
