@@ -19,7 +19,6 @@ class Exception {
       }
     } else {
       replayInputPrice.purchaseNumber(price);
-      Console.print("");
     }
   }
 }
