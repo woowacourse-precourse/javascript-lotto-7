@@ -12,6 +12,7 @@ class App {
   async run() {
     await this.setMoney();
     this.buyLotto();
+    this.displayLottoList();
   }
 
   async setMoney() {
@@ -21,13 +22,19 @@ class App {
       this.#money = Number(inputMoney);
     } catch (error) {
       OuputView.printMessage(error.message);
-      this.setMoney();
+      await this.setMoney();
     }
   }
 
   buyLotto() {
     const totalLottoCount = this.#money / LOTTO_INFO.PRICE;
     this.#lottoList = Array.from({ length: totalLottoCount }, () => Lotto.create());
+  }
+
+  displayLottoList() {
+    const lottoNumbers = this.#lottoList.map((lotto) => lotto.getNumbers());
+
+    OuputView.printLottoList(lottoNumbers);
   }
 }
 

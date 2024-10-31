@@ -12,6 +12,10 @@ class Lotto {
   static create() {
     return new Lotto(getRandomNumbersInRange(1, 45, 6));
   }
+
+  getNumbers() {
+    return this.#numbers.sort((a, b) => a - b);
+  }
 }
 
 export default Lotto;
