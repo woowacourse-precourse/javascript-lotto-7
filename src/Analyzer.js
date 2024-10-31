@@ -14,13 +14,13 @@ class Analyzer {
   #calculateMatchingCount() {
     const { numbers } = this.#winningNumbers;
     const matchingCount = this.#lottos.map((lotto) =>
-      this.#calculateMatchingNumber(lotto, numbers),
+      this.#calculateMatchingNumbers(lotto, numbers),
     );
 
     return matchingCount;
   }
 
-  #calculateMatchingNumber(lotto, winningNumbers) {
+  #calculateMatchingNumbers(lotto, winningNumbers) {
     const WINNING_BONUS_TAG = 'bonus';
     const numbersOfMatched = lotto.countMatchingNumbers(winningNumbers);
 
