@@ -1,6 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
-import calculateLottoAmount from '../utils/LottoUtils.js';
+import calculateLottoAmount, {
+  calculateEarningsRatio,
+} from '../utils/LottoUtils.js';
 import LottoService from '../services/LottoService.js';
 import OutputView from '../views/OutputView.js';
 
@@ -26,8 +28,8 @@ class LottoController {
       winningNumbers,
       bonusNumber,
     );
-    Console.print(`totalEarnings : ${totalEarnings}`);
-    this.outputView.printWinningStatistics(matchCounts, purchaseCost);
+    const earningsRatio = calculateEarningsRatio(totalEarnings, purchaseCost);
+    this.outputView.printWinningStatistics(matchCounts, earningsRatio);
   }
 }
 

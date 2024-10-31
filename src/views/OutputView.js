@@ -9,7 +9,7 @@ class OutputView {
     });
   }
 
-  printWinningStatistics(matchCounts, totalEarnings, purchaseCost) {
+  printWinningStatistics(matchCounts, earningsRatio) {
     Console.print('\n당첨 통계');
     Console.print('---');
     Console.print(`3개 일치 (5,000원) - ${matchCounts[3]}개`);
@@ -19,6 +19,7 @@ class OutputView {
       `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCounts.bonus}개`,
     );
     Console.print(`6개 일치 (2,000,000,000원) - ${matchCounts[6]}개`);
+    Console.print(`총 수익률은 ${earningsRatio}%입니다.`);
   }
 }
 export default OutputView;
