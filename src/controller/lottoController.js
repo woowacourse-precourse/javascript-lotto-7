@@ -13,6 +13,8 @@ class LottoController{
   async play() {
     const userPrice = await this.inputPrice();
     this.getLottoList(userPrice);
+    const winningNumber = await this.inputWinningNumber();
+    this.model.setWinningNumber(winningNumber);
   }
 
   async inputPrice() {
@@ -39,6 +41,25 @@ class LottoController{
     this.model.generateLottoNumber();
     const lottoList = this.model.getLottoList();
     this.view.printLottoList(lottoList);
+  }
+
+  async inputWinningNumber() {
+    let isValid = false;
+    let WinningNumber;
+    do {
+      WinningNumber = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+      isValid = this.validateWinningNumber(WinningNumber.split(','));
+    } while (!isValid)
+    return WinningNumber.split(',');
+  }
+
+  validateWinningNumber(numbers) {
+    const validateMesssage = this.error.lottoNumberValidate(numbers);
+    if(validateMesssage) {
+      Console.print(validateMesssage);
+      return false;
+    }
+    return true;
   }
 }
 

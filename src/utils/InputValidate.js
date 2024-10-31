@@ -76,11 +76,16 @@ class InputValidate{
   }
 
   lottoNumberValidate(input) {
-    this.inputExist(input);
-    this.lottoNumberRange(input);
-    this.lottoNumberLength(input);
-    this.DuplicateLottoNumber(input);
-    this.lottoNumberType(input);
+    try {
+      this.inputExist(input);
+      this.lottoNumberRange(input);
+      this.lottoNumberLength(input);
+      this.DuplicateLottoNumber(input);
+      this.lottoNumberType(input);    
+      return null;  
+    } catch(error) {
+      return error.message;
+    }
   }
 
   bonusNumberValidate(bonusNumber, lottoNumber) {

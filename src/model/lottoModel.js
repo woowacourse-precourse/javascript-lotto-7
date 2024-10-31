@@ -2,10 +2,12 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 class LottoModel{
   #userPrice
+  #winningNumber
 
   constructor() {
     this.#userPrice = 0;
     this.lottoList = [];
+    this.#winningNumber = [];
   }
   setPrice(price) {
     this.#userPrice = price;
@@ -20,6 +22,13 @@ class LottoModel{
   }
   getLottoList() {
     return this.lottoList;
+  }
+
+  setWinningNumber(numbers) {
+    this.#winningNumber = numbers;
+  }
+  getWinningNumber() {
+    return this.#winningNumber;
   }
 
 
