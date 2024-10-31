@@ -12,9 +12,8 @@ class Analyzer {
   }
 
   #calculateMatchingNumbers() {
-    const lottos = [...this.#lottos];
     const { numbers } = this.#winningNumbers;
-    const matchedNumbers = lottos.map((lotto) => {
+    const matchedNumbers = this.#lottos.map((lotto) => {
       const numbersOfMatched = lotto.countMatchingNumbers(numbers);
       if (this.#isBonusWinning(numbersOfMatched, lotto)) {
         return 'bonus';
