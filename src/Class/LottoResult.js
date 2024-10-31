@@ -5,15 +5,8 @@ class LottoResult {
   #winningStats;
 
   constructor(lottoList, winNumbers, bonusNumber) {
-    this.#lottoList = winNumberMatcher(lottoList, winNumbers, bonusNumber);
-    this.#winningStats = new Map([
-      ['3개 일치', { count : 0, winningAmount: 5000 }],
-      ['4개 일치', { count : 0, winningAmount: 50000 }],
-      ['5개 일치', { count : 0, winningAmount: 1500000 }],
-      ['5개 일치, 보너스 볼 일치', { count : 0, winningAmount: 30000000 }],
-      ['6개 일치', { count : 0, winningAmount: 2000000000 }],
-    ]);
-    this.#reflectResult(this.#lottoList);
+    this.#lottoList = getFilteredMatchList(lottoList, winNumbers, bonusNumber);
+    this.#winningStats = this.#getLottoResult(this.#lottoList);
   };
 
   #createWinningStats() {
