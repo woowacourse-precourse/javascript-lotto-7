@@ -43,11 +43,19 @@ class LottoResult {
     currentValue.count++;
   };
 
-  #reflectResult(lottoList) {
-    lottoList.forEach((lotto, isBonus) => {
-      const KEY = this.#getKey(lotto, isBonus);
-      this.#increaseCount(KEY);
+  #getLottoResult(lottoList) {
+    const WINNING_STATS = this.#createWinningStats();
+
+    lottoList.forEach((lottoResult) => {
+      const MATCH_COUNT = lottoResult[0];
+      const IS_BONUS = lottoResult[1];
+      const KEY = this.#getKey(MATCH_COUNT, IS_BONUS);
+      if (KEY) {
+      this.#increaseCount(WINNING_STATS, KEY);
+      }
     });
+
+    return WINNING_STATS;
   };
 
   get getResult() {
