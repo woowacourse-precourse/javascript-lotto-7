@@ -26,7 +26,8 @@ function winNumberMatcher(lottoList, winNumbers, bonuseNumber) {
       bonusNumberContaining = getBonusNumberMatch(lotto, bonuseNumber)
     }
 
-    return [MATCH_COUNT, bonusNumberContaining];
+    const RESULT = [ MATCH_COUNT, bonusNumberContaining ];
+    return RESULT;
   });
 
   return RESULT_LIST;
