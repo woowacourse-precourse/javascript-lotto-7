@@ -5,7 +5,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = this.#sortNumbers(numbers);
   }
 
   #validate(numbers) {
@@ -15,6 +15,11 @@ class Lotto {
 
     checkWinNumbers(numbers);
     checkDuplicate(numbers);
+  }
+
+  #sortNumbers(numbers) {
+    const SORTED_NUMBERS = [...numbers].sort((a, b) => a - b);
+    return SORTED_NUMBERS;
   }
 
   get getWinNumber() {
