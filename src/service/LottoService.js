@@ -14,7 +14,7 @@ export default class LottoService {
   createUserModel(price) {
     Validator.price(price);
 
-    this.userModel = new UserModel();
+    this.userModel = new UserModel(price);
     const lottoLength = price / PRICE_RANGE.MIN;
 
     for (let i = 0; i < lottoLength; i += 1) {
@@ -56,9 +56,9 @@ export default class LottoService {
     return rankMap;
   }
 
-  getRateOfReturn(rankMap, price) {
+  getRateOfReturn(rankMap) {
     const totalPrize = this.#calculateTotalPrize(rankMap);
-    return ((totalPrize / price) * 100).toFixed(1);
+    return ((totalPrize / this.userModel.getPrice()) * 100).toFixed(1);
   }
 
   #getRankMap() {

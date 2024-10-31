@@ -96,7 +96,7 @@ describe('LottoService 클래스 테스트', () => {
       ['5+', 0],
       [6, 0],
     ]);
-    const price = 6000;
+    const price = 5000;
 
     const rate = lottoService.getRateOfReturn(rankObject, price);
 
