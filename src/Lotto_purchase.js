@@ -20,7 +20,10 @@ class Lotto_purchase {
   randomLottoDraw(lottoQuantity) {
     let myLottoArray = [];
     for (let index = 0; index < lottoQuantity; index++) {
-      myLottoArray.push(Random.pickUniqueNumbersInRange(1, 45, 6));
+        let myLotto = Random.pickUniqueNumbersInRange(1, 45, 6).sort(function(a, b) {
+            return a - b;
+        });
+        myLottoArray.push(myLotto);
     }
     return myLottoArray;
   }
