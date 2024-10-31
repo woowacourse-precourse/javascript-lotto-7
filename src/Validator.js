@@ -20,12 +20,17 @@ class Validator {
     });
   }
 
-  static checkBonusNumber(bonuseNumber) {
+  static checkBonusNumber(bonuseNumber, lottoNumber) {
+    const lottoNumbers = lottoNumber.split(',').map(Number);
+
     if (isNaN(bonuseNumber) || bonuseNumber === '') {
       throw new Error('[ERROR] 보너스 번호가 숫자가 아닙니다.');
     }
     if (bonuseNumber < 1 || bonuseNumber > 45) {
       throw new Error('[ERROR] 보너스 번호가 1~45사이의 값이 아닙니다.');
+    }
+    if (lottoNumbers.includes(Number(bonuseNumber))) {
+      throw new Error('[ERROR] 로또 번호와 보너스 번호가 중복 됩니다.');
     }
   }
 }

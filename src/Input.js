@@ -24,11 +24,12 @@ class Input {
     }
   }
 
-  static async inputBonusNumber() {
+  static async inputBonusNumber(lottoNumber) {
     try {
       const bonusNumber = await Console.readLineAsync(
         '보너스 번호를 입력해 주세요.',
       );
+      Validator.checkBonusNumber(bonusNumber, lottoNumber);
       return bonusNumber;
     } catch (error) {
       throw error;

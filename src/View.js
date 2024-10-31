@@ -12,7 +12,7 @@ class View {
       const lottos = generator.createLotto(amount);
 
       const lottoNumber = await Input.inputLottoNumber();
-      const bonusNumber = await Input.inputBonusNumber();
+      const bonusNumber = await Input.inputBonusNumber(lottoNumber);
 
       const stats = new Stats(amount, lottos, lottoNumber, bonusNumber);
       const prizedCount = stats.prizeCount;
