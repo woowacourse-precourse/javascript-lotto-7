@@ -17,7 +17,8 @@ const PrintResult = (ranking, buyingPrice) => {
 }
 
 const roundToTwoDecimalPlaces = (num) => {
-    return Math.round(num * 100) / 100;
+    const profitRate = num * 100;
+    return Math.round(profitRate * 100) / 100;
 }
 
 export default PrintResult;
