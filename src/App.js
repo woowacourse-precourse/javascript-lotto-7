@@ -5,6 +5,7 @@ class App {
   async run() {
     const amountInput = await InputView.getLottoAmount();
     const amount = validateAmount(amountInput);
+    const lottoCount = amount / 1000;
   }
 }
 
