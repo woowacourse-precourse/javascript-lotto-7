@@ -16,9 +16,9 @@ class OutputView {
 
   printPurchasedLotteries(quantity) {
     const lotteries = this.randomLotto.createLotto(quantity);
-
     lotteries.forEach((lotto) => Console.print(lotto));
     Console.print('');
+
     return lotteries;
   }
 }

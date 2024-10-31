@@ -34,6 +34,7 @@ class UserLottoValidate {
     ) {
       throw Error(ERROR_MESSAGE.LOTTO_INPUT_ERROR);
     }
+    return number;
   }
 }
 export default UserLottoValidate;

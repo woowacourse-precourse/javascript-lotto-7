@@ -31,6 +31,7 @@ class InputView {
           MESSAGE.USER_LOTTO_NUMBER_PROMPT,
         );
         const userLotto = this.userLotto.setUserLotto(userInput);
+        Console.print('');
         return userLotto;
       } catch (error) {
         Console.print(ERROR_MESSAGE.LOTTO_INPUT_ERROR);
@@ -45,6 +46,7 @@ class InputView {
           MESSAGE.USER_BONUS_NUMBER_PROMPT,
         );
         const userBonus = this.userLotto.setUserBonusLotto(userInput);
+        Console.print('');
         return userBonus;
       } catch (error) {
         Console.print(ERROR_MESSAGE.LOTTO_INPUT_ERROR);
