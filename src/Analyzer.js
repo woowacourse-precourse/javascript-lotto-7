@@ -49,7 +49,12 @@ class Analyzer {
   }
 
   #isBonusWinning(numbersOfMatched, lotto) {
-    return numbersOfMatched === 5 && this.#checkIsBonusNumberMatched(lotto);
+    const BONUS_WINNING_STANDARD = 5;
+
+    return (
+      numbersOfMatched === BONUS_WINNING_STANDARD &&
+      this.#checkIsBonusNumberMatched(lotto)
+    );
   }
 }
 
