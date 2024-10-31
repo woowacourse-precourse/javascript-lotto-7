@@ -1,8 +1,11 @@
 import { Console } from "@woowacourse/mission-utils"
 import printAllLotto from "./AllLotto.js";
+<<<<<<< HEAD
 import PrintResult from "./LottoResult.js";
 import { ranking, checkRank } from "./CheckLotto.js";
 
+=======
+>>>>>>> b9f39fae3ffa067cd05ffa695bc0e42e4bd7f775
 class App {
   async run() {
     const inputPrice = await Console.readLineAsync("구입금액을 입력해 주세요.");
