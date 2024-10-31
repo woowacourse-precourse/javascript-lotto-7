@@ -1,4 +1,6 @@
+import { Console, Random } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
+import Lotto from '../Lotto.js';
 
 class LottoController {
   #inputView;
@@ -10,14 +12,26 @@ class LottoController {
   async play() {
     try {
       const amount = await this.#inputView.readLottoAmount();
-      console.log(amount);
+      const lottos = this.#generateLottos(amount);
+      Console.print(amount);
+      Console.print(lottos);
       const winningNumbers = await this.#inputView.readWinningNumbers();
-      console.log(winningNumbers);
+      Console.print(winningNumbers);
       const bonusNumber = await this.#inputView.readBonusNumber();
-      console.log(bonusNumber);
+      Console.print(bonusNumber);
     } catch (error) {
-      console.error(error.message);
+      Console.print(error);
     }
+  }
+
+  #generateLottos(amount) {
+    const lottoCount = Math.floor(amount / 1000);
+    return Array.from({ length: lottoCount }, () => this.#createLotto());
+  }
+
+  #createLotto() {
+    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    return new Lotto(numbers);
   }
 }
 
