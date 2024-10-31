@@ -8,6 +8,10 @@ export const getLottoCount = (strings) => {
 
   const amount = convertNumber(strings);
 
+  if (amount < 0) {
+    throw new Error(ERROR.INVALID_NUMBER);
+  }
+
   if (amount % 1000 !== 0) {
     throw new Error(ERROR.INVALID_NUMBER);
   }
