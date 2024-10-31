@@ -5,33 +5,30 @@ import Lotto from './Lotto.js';
 class LottoShop {
   static #lottoPrice = 1_000;
 
-  #winningNumberArray;
+  #winningNumbers;
   #bonusNumber;
 
   async draw() {
-    this.#winningNumberArray = await InputManager.getWinningNumbers();
+    this.#winningNumbers = await InputManager.getWinningNumbers();
     this.#bonusNumber = await InputManager.getBonusNumber();
   }
 
   static purchaseLottos(purchasePrice) {
     const lottoCount = purchasePrice / LottoShop.#lottoPrice;
-
-    return this.#generateLottoArray(lottoCount);
+    return this.#generateLottos(lottoCount);
   }
 
-  static #generateLottoArray(lottoCount) {
+  static #generateLottos(lottoCount) {
     return new Array(lottoCount).fill().map(() => new Lotto());
   }
 
   checkWinningLottos(lottos) {
     const lottoWinningMap = generateMapWithZeroValue([1, 2, 3, 4, 5]);
-
     lottos.forEach((lotto) => {
       const lottoRank = lotto.checkWinning(
-        this.#winningNumberArray,
+        this.#winningNumbers,
         this.#bonusNumber,
       );
-
       lottoWinningMap.set(lottoRank, lottoWinningMap.get(lottoRank) + 1);
     });
 

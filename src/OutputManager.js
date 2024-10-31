@@ -1,14 +1,14 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { OUTPUT_MESSAGE, LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
+import { OUTPUT_MESSAGE, LOTTO_INFORMATIONS } from './lib/constants.js';
 
 class OutputManager {
-  static printPurchaseHistory(lottoArray) {
-    const purchaseLottoCount = lottoArray.length;
+  static printPurchaseHistory(lottos) {
+    const purchaseLottoCount = lottos.length;
 
     MissionUtils.Console.print(
       `${purchaseLottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
     );
-    lottoArray.forEach(({ numbers }) =>
+    lottos.forEach(({ numbers }) =>
       MissionUtils.Console.print(`[${numbers.join(', ')}]`),
     );
   }
@@ -16,7 +16,7 @@ class OutputManager {
   static printWinningStatics(rankCountMap) {
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
 
-    LOTTO_INFORMATION_ARRAY.forEach(({ winningCount, prizeMoney, rank }) => {
+    LOTTO_INFORMATIONS.forEach(({ winningCount, prizeMoney, rank }) => {
       let bonusNumberString = '';
       if (rank === 2) bonusNumberString = ', 보너스 볼 일치';
 

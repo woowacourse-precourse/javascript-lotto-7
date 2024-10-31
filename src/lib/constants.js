@@ -8,7 +8,7 @@ export const OUTPUT_MESSAGE = {
   WINNING_STATICS: '당첨 통계\n---',
 };
 
-export const LOTTO_INFORMATION_ARRAY = [
+export const LOTTO_INFORMATIONS = [
   { rank: 5, winningCount: 3, isBonusMatch: false, prizeMoney: 5_000 },
   { rank: 4, winningCount: 4, isBonusMatch: false, prizeMoney: 50_000 },
   { rank: 3, winningCount: 5, isBonusMatch: false, prizeMoney: 1_500_000 },

@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
+import { ERROR_MESSAGE, LOTTO_INFORMATIONS } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
 
 class Lotto {
@@ -20,8 +20,8 @@ class Lotto {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
-  checkWinning(winningNumberArray, bonusNumber) {
-    const winningCount = this.#getWinningNumberCount(winningNumberArray);
+  checkWinning(winningNumbers, bonusNumber) {
+    const winningCount = this.#getWinningNumberCount(winningNumbers);
     const isBonusMatch = this.#getIsBonusMatch(bonusNumber);
 
     const rank = this.#calculateRank(winningCount, isBonusMatch);
@@ -30,7 +30,7 @@ class Lotto {
 
   #calculateRank(winningCount, isBonusMatch) {
     return (
-      LOTTO_INFORMATION_ARRAY.find(
+      LOTTO_INFORMATIONS.find(
         (rankObject) =>
           rankObject.winningCount === winningCount &&
           rankObject.isBonusMatch === isBonusMatch,
@@ -46,8 +46,8 @@ class Lotto {
     if (this.#numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
   }
 
-  #getWinningNumberCount(winningNumberArray) {
-    return intersection(this.#numbers, winningNumberArray).length;
+  #getWinningNumberCount(winningNumbers) {
+    return intersection(this.#numbers, winningNumbers).length;
   }
 
   #getIsBonusMatch(bonusNumber) {
