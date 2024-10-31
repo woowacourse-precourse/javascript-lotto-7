@@ -38,6 +38,11 @@ class Analyzer {
 
     return this.#winningTable;
   }
+
+  #checkIsBonusNumberMatched(lotto) {
+    const { bonusNumber } = this.#winningNumbers;
+    return lotto.isBonusNumberMatched(bonusNumber);
+  }
 }
 
 export default Analyzer;
