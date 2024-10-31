@@ -22,7 +22,9 @@ class LottoRevenue {
     const revenueRatio = totalPrice / lottoPurchasePrice;
     const revenuePercentage = revenueRatio * PERCENTAGE_FACTOR;
     const roundedRevenuePercentage = Math.round(revenuePercentage * 10) / 10;
-    this.#revenue = roundedRevenuePercentage.toFixed(REVENUE_DECIMAL_PLACE);
+
+    const localeStringOptions = { minimumFractionDigits: REVENUE_DECIMAL_PLACE, maximumFractionDigits: REVENUE_DECIMAL_PLACE };
+    this.#revenue = roundedRevenuePercentage.toLocaleString('ko-KR', localeStringOptions);
   }
 }
 
