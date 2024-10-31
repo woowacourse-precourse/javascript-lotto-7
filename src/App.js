@@ -16,7 +16,9 @@ class App {
     await this.#lottoBuyer.purchaseLotto();
     await this.#lottoShop.draw();
 
-    const rankCountMap = this.#lottoShop.drawAll(this.#lottoBuyer.lottoArray);
+    const rankCountMap = this.#lottoShop.checkWinning(
+      this.#lottoBuyer.lottoArray,
+    );
     OutputManager.printWinningStatics(rankCountMap);
 
     const lottoPrizeMoney = LottoShop.calculateLottoPrizeMoney(rankCountMap);

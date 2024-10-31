@@ -5,8 +5,8 @@ import { intersection } from './lib/utils.js';
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
-    this.#numbers = numbers;
+  constructor() {
+    this.#numbers = this.#generateLotto();
 
     this.#validate();
     this.#sortByAscending();
@@ -16,10 +16,8 @@ class Lotto {
     return this.#numbers;
   }
 
-  static generateLotto() {
-    const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    const lotto = new Lotto(lottoNumbers);
-    return lotto;
+  #generateLotto() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
   draw(winningNumberArray, bonusNumber) {

@@ -21,10 +21,10 @@ class LottoShop {
   }
 
   static #generateLottoArray(lottoCount) {
-    return new Array(lottoCount).fill().map(Lotto.generateLotto);
+    return new Array(lottoCount).fill().map(() => new Lotto());
   }
 
-  drawAll(purchasedLottoArray) {
+  checkWinning(lottoArray) {
     const rankCountMap = new Map([
       [1, 0],
       [2, 0],
@@ -33,11 +33,8 @@ class LottoShop {
       [5, 0],
     ]);
 
-    purchasedLottoArray.forEach((purchasedLotto) => {
-      const lottoRank = purchasedLotto.draw(
-        this.#winningNumberArray,
-        this.#bonusNumber,
-      );
+    lottoArray.forEach((lotto) => {
+      const lottoRank = lotto.draw(this.#winningNumberArray, this.#bonusNumber);
       rankCountMap.set(lottoRank, rankCountMap.get(lottoRank) + 1);
     });
 
