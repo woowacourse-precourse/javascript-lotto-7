@@ -25,6 +25,11 @@ class Lotto {
 
     return matchingNumbers.length;
   }
+
+  isBonusNumberMatched(bonusNumber) {
+    const lottoNumbers = [...this.#numbers];
+    return lottoNumbers.includes(bonusNumber);
+  }
 }
 
 export default Lotto;
