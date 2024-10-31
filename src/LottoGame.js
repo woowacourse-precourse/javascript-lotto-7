@@ -5,6 +5,7 @@ class LottoGame {
     constructor(amount) {
         this.quantity = amount / 1000;
         this.lottoList = [];
+        this.winRankList = [];
     }
 
     createLottoList() {
@@ -17,6 +18,14 @@ class LottoGame {
 
     lottoQuantity() {
         return this.quantity;
+    }
+
+    getWholeWinResult(winNumbers, bonusNumber) {
+        this.winRankList = this.lottoList.map(a => {
+            const lottoObj = new Lotto(a);
+            return lottoObj.getWinResult(winNumbers, bonusNumber);
+        });
+        return this.winRankList.filter(a => a <= 5);
     }
 }
 
