@@ -69,4 +69,6 @@ const validateBonusNumber = (bonusNumber, winningNumbers) => {
     if (isNaN(parsedBonusNumber)) throw new Error('[ERROR] 숫자를 입력해주세요.');
     if (parsedBonusNumber < 1 || parsedBonusNumber > 45) throw new Error('[ERROR] 보너스 번호는 1과 45 사이여야 합니다.');
     if (winningNumbers.includes(parsedBonusNumber)) throw new Error('[ERROR] 이미 당첨 번호에 있는 숫자예요! 중복되지 않는 다른 숫자를 입력해주세요.');
+
+    return parsedBonusNumber;
 }
