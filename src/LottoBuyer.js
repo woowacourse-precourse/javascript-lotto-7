@@ -25,25 +25,22 @@ class LottoBuyer {
   }
 
   calculateReturn() {
-    const lottoPrizeMoney = this.#calculateLottoWinningMoney(
-      this.#winningLottoMap,
-    );
+    const lottoWinningMoney = this.#calculateLottoWinningMoney();
 
     const rateOfReturn = parseFloat(
-      calculateRateOfReturn(lottoPrizeMoney, this.#purchasePrice).toFixed(2),
+      calculateRateOfReturn(lottoWinningMoney, this.#purchasePrice).toFixed(2),
     );
-    console.log(this.#purchasePrice, lottoPrizeMoney);
 
-    MissionUtils.Console.print(`총 수익률은 62.5%입니다.`);
+    OutputManager.printRateOfReturn(rateOfReturn);
   }
 
   #calculateLottoWinningMoney() {
-    LOTTO_INFORMATION_ARRAY.reduce(
-      (prev, lottoInformation) =>
-        prev +
+    return LOTTO_INFORMATION_ARRAY.reduce(
+      (cumulativeWinningMoney, lottoInformation) =>
+        cumulativeWinningMoney +
         this.#winningLottoMap.get(lottoInformation.rank) *
-          lottoInformation.prizeMoney +
-        prev,
+          lottoInformation.prizeMoney,
+
       0,
     );
   }

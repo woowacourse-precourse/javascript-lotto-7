@@ -1,4 +1,3 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoBuyer from './LottoBuyer.js';
 import LottoShop from './LottoShop.js';
 

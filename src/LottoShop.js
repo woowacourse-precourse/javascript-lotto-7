@@ -1,9 +1,5 @@
 import InputManager from './InputManager.js';
-import { LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
-import {
-  calculateRateOfReturn,
-  generateMapWithZeroValue,
-} from './lib/utils.js';
+import { generateMapWithZeroValue } from './lib/utils.js';
 import Lotto from './Lotto.js';
 
 class LottoShop {
