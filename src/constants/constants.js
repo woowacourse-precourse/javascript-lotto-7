@@ -26,12 +26,21 @@ export const MATCH_PRICE = Object.freeze({
   [MATCH_CODE.SIX]: 2_000_000_000,
 });
 
+const createWinningDetailMessage = (matchCode, winningCount) => {
+  const parsedPrice = MATCH_PRICE[matchCode].toLocaleString('ko-KR');
+
+  if (matchCode === MATCH_CODE.FIVE_WITH_BONUS) {
+    return `5개 일치, 보너스 볼 일치 (${parsedPrice}원) - ${winningCount}개`
+  }
+  return `${matchCode}개 일치 (${parsedPrice}원) - ${winningCount}개`;
+};
+
 export const MATCH_WINNING_DETAILS = Object.freeze({
-  [MATCH_CODE.THREE]: (winningCount) => `3개 일치 (5,000원) - ${winningCount}개`,
-  [MATCH_CODE.FOUR]: (winningCount) => `4개 일치 (50,000원) - ${winningCount}개`,
-  [MATCH_CODE.FIVE]: (winningCount) => `5개 일치 (1,500,000원) - ${winningCount}개`,
-  [MATCH_CODE.FIVE_WITH_BONUS]: (winningCount) => `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCount}개`,
-  [MATCH_CODE.SIX]: (winningCount) => `6개 일치 (2,000,000,000원) - ${winningCount}개`,
+  [MATCH_CODE.THREE]: (winningCount) => createWinningDetailMessage(MATCH_CODE.THREE, winningCount),
+  [MATCH_CODE.FOUR]: (winningCount) => createWinningDetailMessage(MATCH_CODE.FOUR, winningCount),
+  [MATCH_CODE.FIVE]: (winningCount) => createWinningDetailMessage(MATCH_CODE.FIVE, winningCount),
+  [MATCH_CODE.FIVE_WITH_BONUS]: (winningCount) => createWinningDetailMessage(MATCH_CODE.FIVE_WITH_BONUS, winningCount),
+  [MATCH_CODE.SIX]: (winningCount) => createWinningDetailMessage(MATCH_CODE.SIX, winningCount),
 });
 
 export const INPUT_MESSAGES = Object.freeze({
