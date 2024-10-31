@@ -11,18 +11,24 @@ class Analyzer {
     this.#winningTable = new Map();
   }
 
-  #calculateMatchingNumbers() {
+  #calculateMatchingLottos() {
     const { numbers } = this.#winningNumbers;
-    const matchedNumbers = this.#lottos.map((lotto) => {
-      const numbersOfMatched = lotto.countMatchingNumbers(numbers);
-      if (this.#isBonusWinning(numbersOfMatched, lotto)) {
-        return 'bonus';
-      }
-
-      return numbersOfMatched;
-    });
+    const matchedNumbers = this.#lottos.map((lotto) =>
+      this.#calculateMatchingNumber(lotto, numbers),
+    );
 
     return matchedNumbers;
+  }
+
+  #calculateMatchingNumber(lotto, winningNumbers) {
+    const WINNING_BONUS_TAG = 'bonus';
+    const numbersOfMatched = lotto.countMatchingNumbers(winningNumbers);
+
+    if (this.#isBonusWinning(numbersOfMatched, lotto)) {
+      return WINNING_BONUS_TAG;
+    }
+
+    return numbersOfMatched;
   }
 
   #makeWinningTable(matchedNumbers) {
@@ -37,7 +43,7 @@ class Analyzer {
   }
 
   getWinningTable() {
-    const matchedNumbers = this.#calculateMatchingNumbers();
+    const matchedNumbers = this.#calculateMatchingLottos();
     this.#makeWinningTable(matchedNumbers);
 
     return this.#winningTable;
