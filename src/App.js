@@ -24,11 +24,18 @@ class App {
     let bonusNumber = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
-    winningNumbers.push(Number(bonusNumber));
 
-    Console.print(winningNumbers);
+    bonusNumber = Number(bonusNumber);
 
-    let result = this.compareNumbers(lottoCount, winningNumbers);
+    let comparedList = this.compareNumbers(
+      lottoCount,
+      winningNumbers,
+      bonusNumber
+    );
+
+    let result = this.getResult(comparedList);
+
+    Console.print(result);
   }
 
   getLottoNumbers(num) {
@@ -40,17 +47,41 @@ class App {
     return lottoNumbers;
   }
 
-  compareNumbers(lottoNumbers, winningNumbers) {
+  compareNumbers(lottoNumbers, winningNumbers, bonusNumber) {
     let result = [];
     for (let i = 0; i < lottoNumbers.length; i++) {
       let count = 0;
+      let hasBonus = false;
       for (let j = 0; j < lottoNumbers[i].length; j++) {
         if (winningNumbers.includes(lottoNumbers[i][j])) {
           count++;
         }
+        if (lottoNumbers[i][j] === bonusNumber) {
+          hasBonus = true;
+        }
       }
-      result.push(count);
+
+      result.push(count === 4 && hasBonus ? "5(bonus)" : count);
     }
+    return result;
+  }
+
+  getResult(comparedList) {
+    const result = {
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      "5(bonus)": 0,
+    };
+
+    comparedList.forEach((item) => {
+      if (result[item] !== undefined) {
+        result[item]++;
+      }
+    });
+
+    return result;
   }
 }
 
