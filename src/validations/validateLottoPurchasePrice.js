@@ -1,4 +1,4 @@
-import { VALIDATE_MESSAGES } from '../constants/constants.js';
+import { VALIDATE_MESSAGES, LOTTO_PRICE_PER_TICKET, MATCH_PRICE, MATCH_CODE } from '../constants/constants.js';
 
 const validateNumber = (price) => {
   if (isNaN(price)) {
@@ -13,13 +13,13 @@ const validateInteger = (price) => {
 };
 
 const validateLottoAmountRange = (price) => {
-  if (price < 1_000 || price > 2_000_000_000) {
+  if (price < LOTTO_PRICE_PER_TICKET || price > MATCH_PRICE[MATCH_CODE.SIX]) {
     throw new Error(VALIDATE_MESSAGES.PURCHASE_PRICE.RANGE);
   }
 };
 
 const validateIsThousandUnit = (price) => {
-  if (price % 1_000 !== 0) {
+  if (price % LOTTO_PRICE_PER_TICKET !== 0) {
     throw new Error(VALIDATE_MESSAGES.PURCHASE_PRICE.THOUSAND);
   }
 };
