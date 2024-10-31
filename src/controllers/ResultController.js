@@ -91,6 +91,14 @@ class ResultController {
       0,
     );
   }
+
+  calculateROI() {
+    const purchaseAmount = this.#lottos.length * 1000;
+    const totalPrize = this.calculateTotalPrize();
+    const ROI = (totalPrize / purchaseAmount) * 100;
+
+    return ROI.toFixed(1);
+  }
 }
 
 export default ResultController;
