@@ -8,26 +8,38 @@ class App {
     const costManager = new CostManager();
     const lottoGenerator = new LottoGenerator();
     const getNumber = new GetNumber();
-    
+
+    await this.handlePurchaseLottos(costManager, lottoGenerator);
+
+    await this.handleGetWinNumber(getNumber);
+
+    await this.handleGetBonusNumber(getNumber);
+  }
+
+  async handlePurchaseLottos(costManager, lottoGenerator) {
     try {
       await this.purchaseLottos(costManager, lottoGenerator);
     } catch (error) {
       console.error(error.message);
-      this.run(); // 재귀 호출
+      await this.handlePurchaseLottos(costManager, lottoGenerator);
     }
+  }
 
-    try{
-      await getNumber.getWinNumber()
-    } catch(error){
-      console.error(error.message)
-      await getNumber.getWinNumber()
+  async handleGetWinNumber(getNumber) {
+    try {
+      await getNumber.getWinNumber();
+    } catch (error) {
+      console.error(error.message);
+      await this.handleGetWinNumber(getNumber);
     }
+  }
 
-    try{
-      await getNumber.getBonusNumber()
-    } catch(error){
-      console.error(error.message)
-      await getNumber.getBonusNumber()
+  async handleGetBonusNumber(getNumber) {
+    try {
+      await getNumber.getBonusNumber();
+    } catch (error) {
+      console.error(error.message);
+      await this.handleGetBonusNumber(getNumber);
     }
   }
 
@@ -36,8 +48,6 @@ class App {
     Console.print(`${lottoCount}개를 구매했습니다.`);
     lottoGenerator.generateLottos(lottoCount);
   }
-
-
 }
 
 export default App;

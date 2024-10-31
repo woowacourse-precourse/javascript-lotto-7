@@ -96,6 +96,10 @@ describe('Get Number 테스트', ()=>{
     await expect(getNumber.getBonusNumber()).rejects.toThrow('[Error] 당첨 번호와 보너스 번호가 중복되면 안 됩니다.')
   })
   
+  test('1~45에 해당하지 않는 번호가 있을 때', async ()=>{
+    Console.readLineAsync.mockResolvedValue('1,2,3,4,55,6');
+    await expect(getNumber.getWinNumber()).rejects.toThrow('[Error] 1~45까지만 허용 됩니다.');
+  })
 
   
 

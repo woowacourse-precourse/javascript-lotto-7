@@ -7,13 +7,17 @@ class GetNumber {
 
     async getWinNumber() {
         const WinNumber = await Console.readLineAsync('당첨 번호를 입력해주세요.(,로 구분)');
-        const WinNumberArray = WinNumber.split(',').map(number => number.trim());
+        const WinNumberArray = WinNumber.split(',').map(number => Number(number.trim()));
+        WinNumberArray.forEach(element => {
+          this.validateNumberRange(element)
+        });
         this.validateWinNumber(WinNumberArray);
     }
 
     async getBonusNumber() {
         const BonusNumber = await Console.readLineAsync('보너스 번호를 입력해주세요.');
-        const BonusNumberArray = [BonusNumber.trim()];
+        const BonusNumberArray = [Number(BonusNumber.trim())];
+        this.validateNumberRange(BonusNumberArray [0])
         this.validateBonusNumber(BonusNumberArray);
     }
 
@@ -30,8 +34,11 @@ class GetNumber {
           throw Error('[Error] 당첨 번호와 보너스 번호가 중복되면 안 됩니다.')
         }
         this.bonusAndWinnerNumbers.push(bonusNumber);
-        this.bonusAndWinnerNumbers = this.bonusAndWinnerNumbers.map(number => Number(number));
         return this.bonusAndWinnerNumbers;
+    }
+
+    validateNumberRange(number){
+      if(number>45||number<1){throw new Error('[Error] 1~45까지만 허용 됩니다.')}
     }
 }
 
