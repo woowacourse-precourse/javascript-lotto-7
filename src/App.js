@@ -1,5 +1,23 @@
+import { Console, MissionUtils } from '@woowacourse/mission-utils';
+
 class App {
-  async run() {}
+  async run() {
+    const buy_cost = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    const STANDARD_COST = 1000;
+    const buy_count = buy_cost / STANDARD_COST;
+
+    if (isNaN(buy_cost)) {
+      Console.print('숫자로 입력');
+    }
+    if (buy_cost < STANDARD_COST) {
+      Console.print('1000이상이여야 함');
+    }
+    if (!Number.isInteger(buy_count)) {
+      Console.print('1000원 단위로 떨어져야 함');
+    }
+
+    Console.print(`${buy_count}개를 구매했습니다.`)
+  }
 }
 
 export default App;
