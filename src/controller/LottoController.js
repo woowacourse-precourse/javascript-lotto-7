@@ -67,7 +67,7 @@ class LottoController {
       
     } catch (error) {
       OutputView.printErrorMessage(error.message);
-      return await this.#inputBonusNumber();
+      return await this.#inputBonusNumber(winningNumbers);
     }
   }
 }
