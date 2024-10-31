@@ -22,9 +22,9 @@ const ERROR_MESSAGES = Object.freeze({
   EMPTY_INPUT: `${ERROR_PREFIX} 빈 입력은 허용되지 않습니다.`,
   BLANK_INPUT: `${ERROR_PREFIX} 공백은 포함될 수 없습니다.`,
   INVAILD_BUDGET_UNIT: `${ERROR_PREFIX} 로또 구입 가격은 1,000원 단위로 입력해야 합니다.`,
-  LOTTO_NUMBERS_LENGTH: `${ERROR_PREFIX} 당첨 번호는 6개여야 합니다.`,
+  LOTTO_NUMBERS_LENGTH: `${ERROR_PREFIX} 로또 번호는 6개여야 합니다.`,
   LOTTO_NUMBERS_DUPLICATE: `${ERROR_PREFIX} 중복된 숫자를 가질 수 없습니다.`,
-  LOTTO_NUMBERS_RANGE: `${ERROR_PREFIX} 당첨 번호는 1과 45 사이의 정수여야 합니다.`,
+  LOTTO_NUMBERS_RANGE: `${ERROR_PREFIX} 로또 번호는 1과 45 사이의 정수여야 합니다.`,
   BONUS_NUMBER_RANGE: `${ERROR_PREFIX} 보너스 번호는 1과 45 사이의 정수여야 합니다.`,
   BONUS_NUMBER_DUPLICATE: `${ERROR_PREFIX} 보너스 번호는 당첨 번호와 중복될 수 없습니다.`,
 });

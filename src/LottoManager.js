@@ -1,6 +1,7 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 import { SYSTEM_MESSAGES } from './constants.js';
 import { validator } from './validator.js';
+import Lotto from './Lotto.js';
 
 class LottoManager {
   #lottoAmount;
@@ -19,7 +20,22 @@ class LottoManager {
     const budget = await Console.readLineAsync(SYSTEM_MESSAGES.ENTER_BUDGET);
     validator.budget(budget);
     this.#lottoAmount = budget / 1000;
+    this.generateRandomLottoList();
+    this.printLottoList();
+  }
+
+  generateRandomLottoList() {
+    this.#lottoList = Array.from(
+      { length: this.#lottoAmount },
+      () => new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)),
+    );
+  }
+
+  printLottoList() {
     Console.print(`\n${this.#lottoAmount}${SYSTEM_MESSAGES.BUY_AMOUNT}`);
+    this.#lottoList.forEach((lotto) => {
+      Console.print(`${lotto.toString()}`);
+    });
   }
 }
 
