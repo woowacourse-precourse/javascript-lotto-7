@@ -12,18 +12,23 @@ class App {
     let count = Math.floor(price / 1000);
 
     Console.print(`${count}개를 구매했습니다.`);
-    let lottoNumbers = this.getLottoNumbers(count);
-    Console.print(lottoNumbers);
+    let lottoCount = this.getLottoNumbers(count);
+    Console.print(lottoCount);
 
     let winningNumbers = await Console.readLineAsync(
       "당첨 번호를 입력해 주세요.\n"
     );
 
+    winningNumbers = winningNumbers.split(",").map((num) => parseInt(num));
+
     let bonusNumber = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
+    winningNumbers.push(Number(bonusNumber));
 
-    let result = this.compareNumbers(lottoNumbers, winningNumbers, bonusNumber);
+    Console.print(winningNumbers);
+
+    let result = this.compareNumbers(lottoCount, winningNumbers);
   }
 
   getLottoNumbers(num) {
@@ -35,7 +40,7 @@ class App {
     return lottoNumbers;
   }
 
-  compareNumbers(lottoNumbers, winningNumbers, bonusNumber) {
+  compareNumbers(lottoNumbers, winningNumbers) {
     let result = [];
     for (let i = 0; i < lottoNumbers.length; i++) {
       let count = 0;
