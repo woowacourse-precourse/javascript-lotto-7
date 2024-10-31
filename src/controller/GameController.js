@@ -1,17 +1,18 @@
 import GameInput from "../view/GameInput.js";
 import GameOutput from "../view/GameOutput.js";
 import Validate from "../validate/Validate.js";
-import Lotto from "../model/Lotto.js";
+import GetNumber from "../util/GetNumber.js";
 import { LOTTO_DATA } from "../constant/Data.js";
-import { Random } from "@woowacourse/mission-utils";
 
 class GameController {
   #gameInput;
   #gameOutput;
+  #getNumber;
 
   constructor() {
     this.#gameInput = new GameInput();
     this.#gameOutput = new GameOutput();
+    this.#getNumber = new GetNumber();
   }
 
   async #getLotto() {
@@ -43,23 +44,25 @@ class GameController {
     return parseInt(purchase_money / LOTTO_DATA.lottoPrice);
   }
 
-  #getNumber() {
-    return new Lotto(
-      Random.pickUniqueNumbersInRange(
-        LOTTO_DATA.minNum,
-        LOTTO_DATA.minMax,
-        LOTTO_DATA.lottoLength
-      )
-    ).getNumber();
+  #newLotto(purchase_lotto) {
+    return Array.from({ length: purchase_lotto }, () =>
+      this.#getNumber.purchaseLotto()
+    );
   }
 
-  #newLotto(purchase_lotto) {
-    return Array.from({ length: purchase_lotto }, () => this.#getNumber());
+  async #winningLotto() {
+    const wining_lotto = await this.#gameInput.readWinningLotto();
+    return wining_lotto;
   }
 
   async startGame() {
     const new_lotto = await this.#getLotto();
     this.#gameOutput.printNewLotto(new_lotto);
+
+    let wining_lotto = await this.#winningLotto();
+    wining_lotto = wining_lotto
+      .split(",")
+      .map((number) => parseInt(number.replace(/ /g, "")));
   }
 }
 
