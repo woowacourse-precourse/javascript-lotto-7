@@ -4,13 +4,14 @@ import { printLotteries } from './View/OutputView.js';
 import { getInputWhileValid } from './View/InputView.js';
 import validateMoney from './Validation/validateMoney.js';
 import { defaultSettings } from './DefaultSettings.js';
-import LotteryFactory from './LotteryFactory.js';
+
 import validateLottoNumber from './Validation/validateLottoNumber.js';
 import validateLotteryNotes from './Validation/validateLotteryNotes.js';
 import validateBonusNumber from './Validation/validateBonusNumber.js';
 import RankCalculationService from './RankCalculationService.js';
 import RANKS from './Rank.js';
 import StatisticsService from './StatisticsService.js';
+import LotteryService from './Service/LotteryService.js';
 
 class App {
   async run() {
@@ -18,13 +19,10 @@ class App {
       validateMoney,
       '구입금액을 입력해 주세요.',
     );
-
     const numberOfTickets = validateLotteryNotes(purchaseAmount);
-
-    const purchasedLotteries = new LotteryFactory(
-      Lotto,
-      defaultSettings,
-    ).createLotteries(numberOfTickets);
+    const lotteryService = new LotteryService(Lotto, defaultSettings);
+    const purchasedLotteries =
+      lotteryService.generateLotteries(numberOfTickets);
 
     Console.print(`${numberOfTickets}개를 구매했습니다.`);
     printLotteries(purchasedLotteries);
