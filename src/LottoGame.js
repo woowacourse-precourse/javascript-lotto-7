@@ -19,6 +19,7 @@ class LottoGame {
 
     this.#printLottos(lottos);
     const winningNumber = await this.#getWinningNumber();
+    const bonusNumber = await this.#getBonusNumber();
   }
 
   async #getPurchasePrice() {
@@ -57,7 +58,17 @@ class LottoGame {
     }
   }
 
-  #getBonusNumber() {}
+  async #getBonusNumber() {
+    while (true) {
+      try {
+        const bounusNumber = await Console.readLineAsync(
+          INPUT_MESSAGES.BOUNUS_NUMBER,
+        );
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
 
   #printResult() {}
 }
