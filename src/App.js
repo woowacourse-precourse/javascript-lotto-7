@@ -1,4 +1,5 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class App {
   async run() {
@@ -16,7 +17,20 @@ class App {
       Console.print('1000원 단위로 떨어져야 함');
     }
 
-    Console.print(`${buy_count}개를 구매했습니다.`)
+    Console.print(`\n${buy_count}개를 구매했습니다.`);
+    const my_loto_number = [];
+    for (let i = 0; i < buy_count; i++) {
+      const loto_number = this.generateNumber();
+      Console.print(loto_number);
+      my_loto_number.push(loto_number)
+    }
+    
+  }
+
+  generateNumber() {
+    const loto_number = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    loto_number.sort((a, b) => a - b);
+    return loto_number;
   }
 }
 
