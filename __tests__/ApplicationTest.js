@@ -106,8 +106,8 @@ describe('로또 테스트', () => {
     ['///', ERROR_MSG.notANumber],
     ['\\\\\\', ERROR_MSG.notANumber],
     ['>_<', ERROR_MSG.notANumber],
+    ['--1', ERROR_MSG.notANumber],
     // Range Check
-    ['-1', ERROR_MSG.outOfRange],
     ['0', ERROR_MSG.outOfRange],
     ['1', ERROR_MSG.outOfRange],
     ['123', ERROR_MSG.outOfRange],

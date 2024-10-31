@@ -12,6 +12,10 @@ class App {
 
   async run() {
     await this.getPuchaseAmount();
+    this.lottolService.drawLottos();
+
+    const lottos = this.lottolService.getLottos();
+    this.outputView.printLotto(lottos);
   }
 
   async getPuchaseAmount() {
