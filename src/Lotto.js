@@ -1,6 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE, RANK_OBJECT_ARRAY } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
+import Rank from './Rank.js';
 
 class Lotto {
   #numbers;
@@ -27,17 +28,11 @@ class Lotto {
     if (this.#numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
   }
 
-  getRankObject(winningNumberArray, bonusNumber) {
+  draw(winningNumberArray, bonusNumber) {
     const winningCount = this.#getWinningNumberCount(winningNumberArray);
     const isBonusMatch = Boolean(this.#getIsBonusMatch(bonusNumber));
 
-    const currentRankObject = RANK_OBJECT_ARRAY.find(
-      (rankObject) =>
-        rankObject.winningCount === winningCount &&
-        rankObject.isBonusMatch === isBonusMatch,
-    );
-
-    return currentRankObject;
+    return Rank.getRank(winningCount, isBonusMatch);
   }
 
   #getWinningNumberCount(winningNumberArray) {
