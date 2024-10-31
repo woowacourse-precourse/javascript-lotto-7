@@ -1,13 +1,13 @@
+import { Console } from '@woowacourse/mission-utils';
 import View from './View.js';
 
 class App {
   async run() {
     try {
       const view = new View();
-      view.startLotto();
+      await view.startLotto();
     } catch (error) {
-      console.log(error.message);
-      throw new Error('[Error]');
+      Console.print(error.message);
     }
   }
 }
