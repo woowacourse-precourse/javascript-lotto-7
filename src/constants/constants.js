@@ -56,26 +56,24 @@ export const OUTPUT_MESSAGES = Object.freeze({
   REVENUE_STATEMENT: '총 수익률은 {revenue}%입니다.',
 });
 
-export const VALIDATE_MESSAGES = Object.freeze({
+export const COMMON_ERRORS = Object.freeze({
+  NUMBER: '[ERROR] 입력 값이 숫자가 아닙니다. 다시 입력해주세요.',
+  INTEGER: '[ERROR] 입력 값이 정수가 아닙니다. 다시 입력해주세요.',
+  RANGE: `[ERROR] ${LOTTO_CONFIG.NUMBER_RANGE.MIN} 이상 ${LOTTO_CONFIG.NUMBER_RANGE.MAX} 이하의 숫자로 입력해 주세요.`,
+});
+
+export const VALIDATION_ERRORS = Object.freeze({
   PURCHASE_PRICE: {
-    NUMBER: '[ERROR] 로또 구입 금액이 숫자가 아닙니다. 다시 입력해주세요.',
-    INTEGER: '[ERROR] 로또 구입 금액이 정수가 아닙니다. 다시 입력해주세요.',
-    RANGE: `[ERROR] 로또 구입 금액은 ${parser.parseNumberWithCommas(LOTTO_PRICE_PER_TICKET)}원 이상 ${parser.parseNumberWithCommas(MATCH_PRICE[MATCH_CODE.SIX])}원 이하로 입력해 주세요.`,
-    THOUSAND: `[ERROR] 로또 구입 금액은 ${parser.parseNumberWithCommas(LOTTO_PRICE_PER_TICKET)}원 단위로 입력해 주세요.`,
+    RANGE: `[ERROR] ${parser.parseNumberWithCommas(LOTTO_PRICE_PER_TICKET)}원 이상 ${parser.parseNumberWithCommas(MATCH_PRICE[MATCH_CODE.SIX])}원 이하로 입력해 주세요.`,
+    THOUSAND: `[ERROR] ${parser.parseNumberWithCommas(LOTTO_PRICE_PER_TICKET)}원 단위로 입력해 주세요.`,
   },
 
   LOTTO_NUMBERS: {
     COUNT: `[ERROR] 로또 당첨 번호는 ${LOTTO_CONFIG.NUMBERS_COUNT}개여야 합니다. 다시 입력해주세요.`,
-    NUMBER: '[ERROR] 로또 당첨 번호가 숫자가 아닙니다. 다시 입력해주세요.',
-    INTEGER: '[ERROR] 로또 당첨 번호가 정수가 아닙니다. 다시 입력해주세요.',
-    RANGE: `[ERROR] 로또 당첨 번호는 ${LOTTO_CONFIG.NUMBER_RANGE.MIN} 이상 ${LOTTO_CONFIG.NUMBER_RANGE.MAX} 이하의 숫자로 입력해 주세요.`,
     DUPLICATE: '[ERROR] 로또 당첨 번호에 중복된 숫자가 있습니다. 다시 입력해주세요.',
   },
   
   BONUS_NUMBER: {
-    NUMBER: '[ERROR] 보너스 번호가 숫자가 아닙니다. 다시 입력해주세요.',
-    INTEGER: '[ERROR] 보너스 번호가 정수가 아닙니다. 다시 입력해주세요.',
-    RANGE: `[ERROR] 보너스 번호는 ${LOTTO_CONFIG.NUMBER_RANGE.MIN} 이상 ${LOTTO_CONFIG.NUMBER_RANGE.MAX} 이하의 숫자로 입력해 주세요.`,
-    DUPLICATE: '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
+    DUPLICATE: '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다. 다시 입력해주세요.',
   },
 });
