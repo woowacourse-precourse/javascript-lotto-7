@@ -1,5 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto';
+import Print from './Print';
 
 class Generator {
   times;
@@ -12,6 +13,8 @@ class Generator {
       for (let i = 0; i < times; i++) {
         const randomNumbers = this.createLottoNumbers();
         const sortedNumbers = this.sortNumbers(randomNumbers);
+        // !
+        Print.printLottosNumber(sortedNumbers);
 
         this.lottos.push(this.createRealLotto(sortedNumbers));
       }
