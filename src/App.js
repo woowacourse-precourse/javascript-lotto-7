@@ -19,18 +19,17 @@ class App {
   };
 
   async run() {
-    const buyCost = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-    this.validatePurchaseAmount(buyCost);
+    const buyCost = await this.getBuyAmount();
 
     const STANDARD_COST = 1000;
     const buyCount = buyCost / STANDARD_COST;
 
-    Console.print(`\n${buyCount}개를 구매했습니다.`);
+    Console.print(`${buyCount}개를 구매했습니다.`);
     const myLottoNumbers = [];
 
     for (let i = 0; i < buyCount; i++) {
       const lottoNumber = this.generateNumber();
-      Console.print(lottoNumber, '\n');
+      Console.print(`[${lottoNumber.join(', ')}]`);
       new Lotto(lottoNumber);
       myLottoNumbers.push(lottoNumber);
     }
@@ -59,13 +58,30 @@ class App {
     this.formatResult(results, buyCount);
   }
 
+  async getBuyAmount() {
+    try {
+        const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+        return this.validatePurchaseAmount(input);
+    } catch (error) {
+        Console.print(error.message);
+        return this.getBuyAmount(); // 에러 발생시 다시 입력 받기
+    }
+}
+
   validatePurchaseAmount(buyCost) {
     const STANDARD_COST = 1000;
-    if (isNaN(buyCost)) throw new Error('[ERROR] 숫자로 입력해야 합니다.');
-    if (buyCost < STANDARD_COST)
+    if (!buyCost.match(/^\d+$/)) {
+      throw new Error('[ERROR] 숫자로 입력해야 합니다.');
+    }
+
+    const amount = Number(buyCost);
+    
+    if (amount < STANDARD_COST)
       throw new Error('[ERROR] 구입금액은 1000원 이상이어야 합니다.');
-    if (buyCost % STANDARD_COST !== 0)
+    if (amount % STANDARD_COST !== 0)
       throw new Error('[ERROR] 구입금액은 1000원 단위로 입력해야 합니다.');
+
+    return amount;
   }
 
   generateNumber() {
@@ -126,7 +142,10 @@ class App {
   }
 
   calculateProfitRate(totalPrize, totalCost) {
-    return ((totalCost / totalPrize) * 100).toFixed(1);
+    if (totalPrize === 0) {
+      return 0;
+    }
+    return ((totalPrize / totalCost) * 100).toFixed(1);
   }
 }
 
