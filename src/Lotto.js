@@ -5,10 +5,10 @@ import { intersection } from './lib/utils.js';
 class Lotto {
   #numbers;
 
-  init() {
+  constructor() {
     this.#numbers = this.#generateNumbers();
-    this.#sortByAscending();
     this.#validate();
+    this.#sortByAscending();
   }
 
   get numbers() {
