@@ -22,7 +22,7 @@ class LottoMachine {
 
   #issue() {
     const lotteryNumbers = LottoMachine.#draw();
-    return this.#lotto(lotteryNumbers);
+    return new this.#lotto(lotteryNumbers);
   }
 
   #issuePurchasedAmount(amount) {
