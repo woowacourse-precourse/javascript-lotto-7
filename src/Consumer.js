@@ -3,11 +3,7 @@ import { Random } from "@woowacourse/mission-utils";
 class Consumer {
   #lottoTickets = [];
   constructor(price) {
-    for (i = 0; i < a; i++) {
-      randomNumber = Random.pickUniqueNumbersInRange(1, 45, 6);
-      lotto = new Lotto(randomNumber);
-      this.#lottoTickets.push(lotto);
-    }
+    getOrderLotto();
   }
 
   isPriceNumber(price) {
@@ -36,5 +32,13 @@ class Consumer {
 
   lottoCount() {
     lottoNumber = price / 1000;
+  }
+
+  getOrderLotto() {
+    for (i = 0; i < a; i++) {
+      randomNumber = Random.pickUniqueNumbersInRange(1, 45, 6);
+      lotto = new Lotto(randomNumber);
+      this.#lottoTickets.push(lotto);
+    }
   }
 }
