@@ -27,10 +27,15 @@ function createLottos(cash) {
 
 function printLottoPurchase(lottos) {
   const lottosNumber = Object.keys(lottos).length;
-  MissionUtils.Console.print(`${lottosNumber}개를 구매했습니다.`);
+  MissionUtils.Console.print(`\n${lottosNumber}개를 구매했습니다.`);
   for (let i = 0; i < lottosNumber; i += 1) {
     MissionUtils.Console.print(lottos[i]);
   }
+}
+
+async function getWinningNumber() {
+  const message = '당첨 번호를 입력해 주세요.\n';
+  const numbers = await MissionUtils.Console.readLineAsync(message);
 }
 
 class App {
@@ -39,6 +44,8 @@ class App {
     cashValidation(cash);
     const lottos = createLottos(cash);
     printLottoPurchase(lottos);
+
+    getWinningNumber();
   }
 }
 
