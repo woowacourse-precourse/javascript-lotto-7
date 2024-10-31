@@ -28,7 +28,9 @@ class App {
 
     this.displayOutput.displayLottoResult(lottoReult);
 
-
+    // 수익률 계산 후 표기
+    const profit = this.game.calculateProfit(lottoReult, paidMoney)
+    this.displayOutput.displayProfit(profit);
   }
 }
 
