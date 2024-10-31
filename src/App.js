@@ -1,8 +1,13 @@
+import { Console } from '@woowacourse/mission-utils';
 import Input from './View/Input.js';
 
 class App {
   async run() {
-    await Input.getPurchaseAmount();
+    const input = await Input.getPurchaseAmount();
+    const winningNumbers = await Input.getWinningNumbers();
+
+    Console.print(input);
+    Console.print(winningNumbers);
   }
 }
 
