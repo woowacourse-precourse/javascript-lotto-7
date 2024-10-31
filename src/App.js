@@ -1,32 +1,29 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import InputManager from './InputManager.js';
 import LottoShop from './LottoShop.js';
+import LottoBuyer from './LottoBuyer.js';
 import OutputManager from './OutputManager.js';
 
 class App {
+  #lottoBuyer;
+  #lottoShop;
+
+  constructor() {
+    this.#lottoBuyer = new LottoBuyer();
+    this.#lottoShop = new LottoShop();
+  }
+
   async run() {
-    const purchasePrice = await InputManager.getPurchasePrice();
+    await this.#lottoBuyer.purchaseLotto();
+    await this.#lottoShop.draw();
 
-    const lottoArray = LottoShop.purchaseLottos(purchasePrice);
-
-    OutputManager.printPurchaseHistory(lottoArray);
-
-    const winningLottoArray = await InputManager.getWinningNumbers();
-    const bonusNumber = await InputManager.getBonusNumber();
-
-    const rankCountMap = LottoShop.drawAll(
-      lottoArray,
-      winningLottoArray,
-      bonusNumber,
-    );
-
+    const rankCountMap = this.#lottoShop.drawAll(this.#lottoBuyer.lottoArray);
     OutputManager.printWinningStatics(rankCountMap);
 
     const lottoPrizeMoney = LottoShop.calculateLottoPrizeMoney(rankCountMap);
 
     const rateOfReturn = LottoShop.calculateRateOfReturn(
       lottoPrizeMoney,
-      purchasePrice,
+      this.#lottoBuyer.purchasePrice,
     );
 
     console.log(rateOfReturn);

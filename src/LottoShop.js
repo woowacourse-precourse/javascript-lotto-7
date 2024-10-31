@@ -1,3 +1,4 @@
+import InputManager from './InputManager.js';
 import { LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
 import { calculateRateOfReturn } from './lib/utils.js';
 import Lotto from './Lotto.js';
@@ -5,8 +6,17 @@ import Lotto from './Lotto.js';
 class LottoShop {
   static #lottoPrice = 1_000;
 
+  #winningNumberArray;
+  #bonusNumber;
+
+  async draw() {
+    this.#winningNumberArray = await InputManager.getWinningNumbers();
+    this.#bonusNumber = await InputManager.getBonusNumber();
+  }
+
   static purchaseLottos(purchasePrice) {
     const lottoCount = purchasePrice / LottoShop.#lottoPrice;
+
     return this.#generateLottoArray(lottoCount);
   }
 
@@ -14,7 +24,7 @@ class LottoShop {
     return new Array(lottoCount).fill().map(Lotto.generateLotto);
   }
 
-  static drawAll(lottoArray, winningLottoArray, bonusNumber) {
+  drawAll(purchasedLottoArray) {
     const rankCountMap = new Map([
       [1, 0],
       [2, 0],
@@ -23,8 +33,11 @@ class LottoShop {
       [5, 0],
     ]);
 
-    lottoArray.forEach((lotto) => {
-      const lottoRank = lotto.draw(winningLottoArray, bonusNumber);
+    purchasedLottoArray.forEach((purchasedLotto) => {
+      const lottoRank = purchasedLotto.draw(
+        this.#winningNumberArray,
+        this.#bonusNumber,
+      );
       rankCountMap.set(lottoRank, rankCountMap.get(lottoRank) + 1);
     });
 
