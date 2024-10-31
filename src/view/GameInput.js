@@ -5,6 +5,10 @@ class GameInput {
   async readPurchaseMoney() {
     return Console.readLineAsync(MESSAGE.INPUT.PURCHASE_MONEY);
   }
+
+  async readWinningLotto() {
+    return Console.readLineAsync(MESSAGE.INPUT.WINNING_LOTTO);
+  }
 }
 
 export default GameInput;
