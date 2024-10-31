@@ -32,7 +32,6 @@ describe('로또 당첨 번호 관련 통합 기능 테스트', () => {
       // when
       const lotto = await processWinNumber();
 
-      console.log('lotto : ', lotto);
       // then
       lotto.forEach((singleNumber, index) => {
         expect(singleNumber).toEqual(result[index]);
