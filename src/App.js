@@ -26,6 +26,7 @@ class App {
     const resultObj = RankChecker.getRank(matchCounts);
 
     output.printSortedLottoNumbers(resultObj);
+    output.printResult(resultObj);
     output.calculateROI(resultObj);
   }
 }

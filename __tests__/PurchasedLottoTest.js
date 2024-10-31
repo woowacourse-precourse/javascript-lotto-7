@@ -1,5 +1,6 @@
 import Output from "../src/Output.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import RankChecker from "../src/RankChecker.js";
 
 const getLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, "print");
@@ -9,6 +10,7 @@ const getLogSpy = () => {
 
 describe("Output 클래스 출력 테스트", () => {
   let output;
+  let resultObj;
 
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -27,6 +29,12 @@ describe("Output 클래스 출력 테스트", () => {
       totalLottoCount,
       purchasedLottos
     );
+
+    const matchCounts = RankChecker.checkMatch(
+      output.purchasedLottos,
+      output.winningAndBonusNumber
+    );
+    resultObj = RankChecker.getRank(matchCounts);
   });
 
   test("printSortedLottoNumbers는 올바른 로또 구매 개수와 정렬된 번호를 출력해야 한다", () => {
@@ -56,7 +64,7 @@ describe("Output 클래스 출력 테스트", () => {
     ];
 
     // when
-    output.printResult();
+    output.printResult(resultObj);
 
     // then
     logs.forEach((log) => {

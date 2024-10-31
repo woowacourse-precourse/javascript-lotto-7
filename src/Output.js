@@ -4,7 +4,7 @@ import {
   PURCHASE_MESSAGE,
   ROI_MESSAGES,
   WINNING_PRIZE,
-} from "./Constants";
+} from "./Constants.js";
 
 class Output {
   constructor(
