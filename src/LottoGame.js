@@ -18,6 +18,7 @@ class LottoGame {
     const lottos = this.lottoManager.buyLottos(purchasePrice);
 
     this.#printLottos(lottos);
+    const winningNumber = await this.#getWinningNumber();
   }
 
   async #getPurchasePrice() {
@@ -41,9 +42,17 @@ class LottoGame {
     });
   }
 
-  #getPurchaseLottos() {}
-
-  #getWinningNumber() {}
+  async #getWinningNumber() {
+    while (true) {
+      try {
+        const winningNumbers = await Console.readLineAsync(
+          INPUT_MESSAGES.WINNING_NUMBERS,
+        );
+      } catch (error) {
+        Console.pring(error.message);
+      }
+    }
+  }
 
   #getBonusNumber() {}
 
