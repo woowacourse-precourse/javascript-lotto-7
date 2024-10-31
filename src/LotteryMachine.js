@@ -1,0 +1,8 @@
+class LotteryMachine {
+
+    async start() {
+
+    }
+
+
+}
