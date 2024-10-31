@@ -1,4 +1,4 @@
-function checkLongDecimal(userInput) {
+function checkDecimal(userInput) {
   const SPLITED_INPUT = userInput.split('.');
 
   if(SPLITED_INPUT.length !== 1) {
@@ -6,4 +6,4 @@ function checkLongDecimal(userInput) {
   }
 };
 
-export default checkLongDecimal;
+export default checkDecimal;
