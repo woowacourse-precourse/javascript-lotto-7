@@ -13,6 +13,7 @@ describe("Output 클래스 출력 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
 
+    const userPurchaseAmount = 2000;
     const purchasedLottos = [
       [8, 21, 35, 10, 3, 15],
       [42, 19, 6, 33, 7, 23],
@@ -21,9 +22,10 @@ describe("Output 클래스 출력 테스트", () => {
     const totalLottoCount = 2;
 
     output = new Output(
-      purchasedLottos,
+      userPurchaseAmount,
       winningAndBonusNumber,
-      totalLottoCount
+      totalLottoCount,
+      purchasedLottos
     );
   });
 
