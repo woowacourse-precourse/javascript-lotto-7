@@ -27,7 +27,19 @@ export const validateLottoNumbers = (numbers) => {
     throw new Error(ERROR_MESSAGE.LOTTO_NUM_DUPLICATION);
   }
 
+  if (numbers.some((num) => num < LOTTO_INFO.MIN_RANGE_NUM || num > LOTTO_INFO.MAX_RANGE_NUM)) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_RANGE);
+  }
+
   if (numbers.some((num) => Number.isNaN(Number(num)))) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_TYPE);
+  }
+
+  if (numbers.some((num) => !Number.isInteger(Number(num)))) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_INTEGER);
+  }
+
+  if (numbers.some((num) => !/^[0-9]+$/.test(String(num)))) {
     throw new Error(ERROR_MESSAGE.LOTTO_NUM_TYPE);
   }
 };

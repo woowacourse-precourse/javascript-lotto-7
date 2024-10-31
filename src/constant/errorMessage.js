@@ -7,6 +7,8 @@ const ERROR_MESSAGE = Object.freeze({
   LOTTO_NUM_LENGTH: `[ERROR] 로또 번호는 ${LOTTO_INFO.LENGTH}개 여야 합니다.\n`,
   LOTTO_NUM_DUPLICATION: `[ERROR] 로또 번호는 중복될 수 없습니다.\n`,
   LOTTO_NUM_TYPE: `[ERROR] 로또 번호는 숫자만 가능합니다.\n`,
+  LOTTO_NUM_RANGE: `[ERROR] 로또 번호는 ${LOTTO_INFO.MIN_RANGE_NUM}~${LOTTO_INFO.MAX_RANGE_NUM} 사이 범위의 숫자여야 합니다. \n`,
+  LOTTO_NUM_INTEGER: `[ERROR] 로또 번호는 양의 정수 형태여야 합니다. \n`,
 });
 
 export default ERROR_MESSAGE;
