@@ -4,7 +4,7 @@ import { LOTTO_BOUNDARY } from './constants/magicNumber.js';
 class Validator {
   static validateLottoNumber(number) {
     this.#validateNumberEmpty(number);
-    this.#validateNumberContainString(number);
+    this.#validateNumberType(number);
     this.#validateNumberInBoundary(number);
   }
 
@@ -14,9 +14,13 @@ class Validator {
     }
   }
 
-  static #validateNumberContainString(number) {
-    if (Number.isNaN(Number(number)) === true) {
+  static #validateNumberType(number) {
+    if (Number.isNaN(Number(number))) {
       throw new Error(ERROR_MESSAGE.CONTAIN_STRING);
+    }
+
+    if (Number.isInteger(Number(number)) === false) {
+      throw new Error(ERROR_MESSAGE.CONTAIN_FLOAT);
     }
   }
 

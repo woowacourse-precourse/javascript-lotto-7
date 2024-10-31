@@ -24,7 +24,11 @@ class Money {
 
   #validateNumberType(money) {
     if (Number.isNaN(Number(money))) {
-      throw new Error(ERROR_MESSAGE.NOT_NUMBER_TYPE_MONEY);
+      throw new Error(ERROR_MESSAGE.STRING_MONEY);
+    }
+
+    if (Number.isInteger(Number(money)) === false) {
+      throw new Error(ERROR_MESSAGE.FLOAT_MONEY);
     }
   }
 
