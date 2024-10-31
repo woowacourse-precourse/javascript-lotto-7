@@ -1,19 +1,27 @@
-import { OUTPUT_MESSAGE } from './Constants/Message';
+import { INPUT_MESSAGE, OUTPUT_MESSAGE } from './Constants/Message.js';
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class LOTTO_MACHINE {
-  inputMoneyDevide(input) {
+  async inputMoney(input) {
+    await Console.readLineAsync(INPUT_MESSAGE.purchaseMoney);
+    return input;
+  }
+
+  inputMoneyDevide(number) {
     if (input % 1000 === 0) {
-      return input / 1000;
+      input / 1000;
+      return number;
     }
   }
 
-  purchaseQuntatityPrint() {
-    Console.print(`${this.inputMoneyDevide}${OUTPUT_MESSAGE.purchaseQuantity}`);
+  purchaseQuntatityPrint(quantity) {
+    Console.print(`${this.number}${OUTPUT_MESSAGE.purchaseQuantity}`);
+    return quantity;
   }
 
   drawLottoNumber() {
-    for (var i = 0; i === this.inputMoneyDevide; i++) {
+    for (var i = 0; i === this.number; i++) {
       MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     }
   }
