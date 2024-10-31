@@ -15,6 +15,9 @@ class DisplayOutput {
         }
     }
 
+    changeNumberStyle (number){
+        return number.toLocaleString();
+    }
 
     displayLottoResult (lottoResult){
         /**
@@ -40,7 +43,5 @@ class DisplayOutput {
     }
 
 }
-
-const test = new DisplayOutput();
 
 export default DisplayOutput;
