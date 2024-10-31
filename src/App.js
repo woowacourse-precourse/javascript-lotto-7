@@ -13,9 +13,15 @@ class App {
     const paidMoney = await this.userInput.getUserPaidMoney();
     const winngingNumber = await this.userInput.getWinningNumber();
     const bonusNumber = await this.userInput.getBonusNumber();
+    
+    const lottoTickets= this.game.purchaseLotto(paidMoney);
 
-    this.displayOutput.displayPaidLotto();
-    this.game.purchaseLotto(paidMoney);
+    this.displayOutput.displayPaidLotto(lottoTickets);
+    
+    const lotto = this.game.generateLotto(lottoTickets);
+
+    this.displayOutput.displayLotto(lotto);
+
 
   }
 }
