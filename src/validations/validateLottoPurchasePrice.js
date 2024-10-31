@@ -1,24 +1,26 @@
+import { VALIDATE_MESSAGES } from '../constants/constants.js';
+
 const validateNumber = (price) => {
   if (isNaN(price)) {
-    throw new Error('[ERROR] 로또 구입 금액이 숫자가 아닙니다. 다시 입력해주세요.');
+    throw new Error(VALIDATE_MESSAGES.PURCHASE_PRICE.NUMBER);
   }
 };
 
 const validateInteger = (price) => {
   if (!Number.isInteger(price)) {
-    throw new Error('[ERROR] 로또 구입 금액이 정수가 아닙니다. 다시 입력해주세요.');
+    throw new Error(VALIDATE_MESSAGES.PURCHASE_PRICE.INTEGER);
   }
 };
 
 const validateLottoAmountRange = (price) => {
   if (price < 1_000 || price > 2_000_000_000) {
-    throw new Error('[ERROR] 로또 구입 금액은 1,000원 이상 2,000,000,000원 이하로 입력해 주세요.');
+    throw new Error(VALIDATE_MESSAGES.PURCHASE_PRICE.RANGE);
   }
 };
 
 const validateIsThousandUnit = (price) => {
   if (price % 1_000 !== 0) {
-    throw new Error('[ERROR] 로또 구입 금액은 1,000원 단위로 입력해 주세요.');
+    throw new Error(VALIDATE_MESSAGES.PURCHASE_PRICE.THOUSAND);
   }
 };
 

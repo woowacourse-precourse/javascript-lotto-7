@@ -1,10 +1,11 @@
+import { LOTTO_PRICE_PER_TICKET } from '../constants/constants.js';
 
 const parseStringToNumber = (price) => {
   return Number(price);
 };
 
 const parseMoneyToLottoCount = (price) => {
-  return price / 1_000;
+  return price / LOTTO_PRICE_PER_TICKET;
 };
 
 const parseSortArray = (array) => {

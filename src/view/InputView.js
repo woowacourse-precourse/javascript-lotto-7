@@ -1,22 +1,23 @@
 import { Console } from '@woowacourse/mission-utils';
+import { INPUT_MESSAGES } from '../constants/constants.js';
 
 const readInput = (inputMessage) => {
   try {
     return Console.readLineAsync(inputMessage);
   } catch (error) {
-    Console.print('[ERROR] 입력을 처리하는 도중 문제가 발생했습니다. 다시 시도해주세요.');
+    Console.print(INPUT_MESSAGES.ERROR);
   }
 };
 
 const InputView = {
   async readLottoPurchasePriceAsync() {
-    return await readInput('구입금액을 입력해 주세요.\n');
+    return await readInput(INPUT_MESSAGES.PURCHASE_PRICE);
   },
   async readWinningNumbersAsync() {
-    return await readInput('\n당첨 번호를 입력해 주세요.\n');
+    return await readInput(INPUT_MESSAGES.WINNING_NUMBERS);
   },
   async readBonusNumberAsnyc() {
-    return await readInput('\n보너스 번호를 입력해 주세요.\n');
+    return await readInput(INPUT_MESSAGES.BONUS_NUMBER);
   },
 };
 
