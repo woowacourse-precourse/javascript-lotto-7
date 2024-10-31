@@ -1,5 +1,6 @@
 import LottoMachine from "./LottoMachine.js";
 import Output from "./Output.js";
+import RankChecker from "./RankChecker.js";
 
 class App {
   async run() {
@@ -17,8 +18,15 @@ class App {
       totalLottoCount,
       purchasedLottos
     );
-    output.printSortedLottoNumbers();
-    output.calculateROI();
+
+    const matchCounts = RankChecker.checkMatch(
+      output.purchasedLottos,
+      output.winningAndBonusNumber
+    );
+    const resultObj = RankChecker.getRank(matchCounts);
+
+    output.printSortedLottoNumbers(resultObj);
+    output.calculateROI(resultObj);
   }
 }
 
