@@ -1,3 +1,3 @@
 export const splitLottoNumber = (lottoString) => {
-  return lottoString.split(',');
+  return lottoString.split(',').map(Number);
 };
