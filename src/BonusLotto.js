@@ -6,7 +6,7 @@ class BonusLotto {
 
   constructor(winningNumbers, bonusNumber) {
     this.#validate(winningNumbers, bonusNumber);
-    this.#bonusNumber = bonusNumber;
+    this.#bonusNumber = Number(bonusNumber);
   }
 
   #validate(winningNumbers, bonusNumber) {

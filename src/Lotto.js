@@ -31,7 +31,8 @@ class Lotto {
   }
 
   #sortNumbers(numbers) {
-    return [...numbers].sort(
+    const translatedNumbers = numbers.map(Number);
+    return translatedNumbers.sort(
       (firstNumber, secondNumber) => firstNumber - secondNumber,
     );
   }
