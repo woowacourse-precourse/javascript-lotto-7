@@ -3,10 +3,9 @@ import { ERROR_MESSAGE } from '../Constants/errorMessages.js';
 const isWinningNumbersEmptyInput = (winningNumbersInput) => winningNumbersInput !== '';
 
 const isWinningNumbersSixDigits = (winningNumbersInput) => {
-  const arr = [...winningNumbersInput];
-  const onlyNumber = arr.filter((number) => !isNaN(number) === true);
+  const indexArr = winningNumbersInput.split(',').map((x) => x.trim());
 
-  return onlyNumber.length === 6;
+  return indexArr.length === 6;
 };
 
 const isWinningNumbersFiveComma = (winningNumbersInput) => {
@@ -18,8 +17,8 @@ const isWinningNumbersFiveComma = (winningNumbersInput) => {
 
 // 중복된 숫자 되면 안됨
 const isWinningNumberDuplicated = (winningNumbers) => {
-  const arr = [...winningNumbers];
-  const onlyNumber = arr.filter((number) => !isNaN(number) === true);
+  const indexArr = winningNumbers.split(',').map((x) => x.trim());
+  const onlyNumber = indexArr.filter((number) => !isNaN(number) === true);
   const uniqueWinningNumbers = new Set(onlyNumber);
 
   return onlyNumber.length === uniqueWinningNumbers.size;

@@ -13,7 +13,7 @@ const printLottoList = (lottoCount, lottoList) => {
 };
 
 const printRateOfReturn = (rateOfReturn) => {
-  Console.print(`총수익률은 ${rateOfReturn}%입니다.`);
+  Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
 };
 
 export { printCountPurchaseAmount, printLottoList, printRateOfReturn };

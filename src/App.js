@@ -18,19 +18,25 @@ class App {
     validatePurchasePrice(purchasePrice);
 
     const purchaseCount = countPurchaseAmount(purchasePrice);
-
     printCountPurchaseAmount(purchaseCount);
+
     const lottoList = issueLottoList(purchaseCount);
     printLottoList(purchaseCount, lottoList);
 
     const winningNumbers = await getWinningNumbersInput();
+
     validateWinningNumbers(winningNumbers);
+    // console.log('winningNumbers: ', winningNumbers);
 
     // 여기 컴마 뺀 winningNumbers
     const trimWinningNumbers = (winningNumbers) => {
+      // console.log('winningNumbers: ', winningNumbers);
       const arr = [...winningNumbers];
+      // console.log('arr111: ', arr);
       const filtered = arr.filter((element) => element !== ',');
+      // console.log('filtered: ', filtered);
       const numberedFiltered = filtered.map(Number);
+      // console.log('numberedFiltered: ', numberedFiltered);
 
       return numberedFiltered;
     };
@@ -40,7 +46,7 @@ class App {
     const bonusNumber = await getBonusNumberInput();
     validateBonusNumber(bonusNumber);
 
-    const winningStatistics = produceStatistics(trimmedWinningNum, bonusNumber, lottoList);
+    produceStatistics(trimmedWinningNum, bonusNumber, lottoList);
 
     const rateOfReturn = produceRateOfReturn(purchasePrice);
     printRateOfReturn(rateOfReturn);

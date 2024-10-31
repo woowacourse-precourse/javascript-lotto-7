@@ -6,15 +6,14 @@ const getPurchasePriceInput = async () => {
 };
 
 const getWinningNumbersInput = async () => {
-  const winningNumbers = await Console.readLineAsync('당첨번호를 입력해 주세요.\n');
+  const winningNumbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
 
   return winningNumbers;
 };
 
 const getBonusNumberInput = async () => {
-  const bonusNumber = await Console.readLineAsync('\n보너스번호를 입력해 주세요.\n');
+  const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
   return bonusNumber;
 };
 
 export { getPurchasePriceInput, getWinningNumbersInput, getBonusNumberInput };
-
