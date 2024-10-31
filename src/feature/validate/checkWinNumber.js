@@ -21,7 +21,7 @@ function checkDuplicate(numbers) {
   for(let index = 0; index < LOTTO_LENGTH; index++) {
     const SINGLE_NUMBER = numbers[index];
     const FILTERED_NUMBERS = numbers.filter((num) => {
-      num === SINGLE_NUMBER;
+      return num === SINGLE_NUMBER;
     });
 
     if (FILTERED_NUMBERS.length > 1) {
