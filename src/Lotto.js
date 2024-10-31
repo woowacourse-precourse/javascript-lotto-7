@@ -22,6 +22,8 @@ class Lotto {
 
     if (this.#numbers.includes(bonusNumber)) {
       matchedBonusNumber = 1;
+    } else {
+      matchedBonusNumber = 0;
     }
 
     return this.calculatePrize(matchingNumbers, matchedBonusNumber);
@@ -29,22 +31,22 @@ class Lotto {
 
   calculatePrize(matchedNumbers, matchedBonusNumber) {
     if (matchedNumbers < 3) {
-      return 0;
+      return '0';
     }
     if (matchedNumbers === 3) {
-      return 5;
+      return '5';
     }
     if (matchedNumbers === 4) {
-      return 4;
+      return '4';
     }
     if (matchedNumbers === 5 && matchedBonusNumber === 0) {
-      return 3;
+      return '3';
     }
     if (matchedNumbers === 5 && matchedBonusNumber === 1) {
-      return 2;
+      return '2';
     }
     if (matchedNumbers === 6) {
-      return 1;
+      return '1';
     }
   }
 }
