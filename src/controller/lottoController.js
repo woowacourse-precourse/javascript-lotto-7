@@ -15,6 +15,8 @@ class LottoController{
     this.getLottoList(userPrice);
     const winningNumber = await this.inputWinningNumber();
     this.model.setWinningNumber(winningNumber);
+    const bonusNumber = await this.inputBonusNumber();
+    this.model.setBonusNumber(bonusNumber);
   }
 
   async inputPrice() {
@@ -54,9 +56,28 @@ class LottoController{
   }
 
   validateWinningNumber(numbers) {
-    const validateMesssage = this.error.lottoNumberValidate(numbers);
-    if(validateMesssage) {
-      Console.print(validateMesssage);
+    const validationMesssage = this.error.lottoNumberValidate(numbers);
+    if(validationMesssage) {
+      Console.print(validationMesssage);
+      return false;
+    }
+    return true;
+  }
+
+  async inputBonusNumber() {
+    let bonusNumber;
+    let isValid = false;
+    do {
+      bonusNumber = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+      isValid = this.validateBonusNumber(bonusNumber);
+    } while (!isValid)
+    return bonusNumber;
+  }
+
+  validateBonusNumber(bonusNumber) {
+    const vlaidationMessage = this.error.bonusNumberValidate(bonusNumber, this.model.getWinningNumber());
+    if(vlaidationMessage) {
+      Console.print(vlaidationMessage);
       return false;
     }
     return true;

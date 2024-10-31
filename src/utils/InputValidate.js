@@ -89,12 +89,16 @@ class InputValidate{
   }
 
   bonusNumberValidate(bonusNumber, lottoNumber) {
-    this.inputExist(bonusNumber);
-    this.duplicateBonusNumber(bonusNumber, lottoNumber);
-    this.bonusNumberType(bonusNumber);
-    this.bonusNumberRange(bonusNumber);
+    try {
+      this.inputExist(bonusNumber);
+      this.duplicateBonusNumber(bonusNumber, lottoNumber);
+      this.bonusNumberType(bonusNumber);
+      this.bonusNumberRange(bonusNumber);
+      return null;
+    } catch(error) {
+      return error.message;
+    }
   }
-
 };
 
 export default InputValidate;

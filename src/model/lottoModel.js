@@ -3,11 +3,13 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 class LottoModel{
   #userPrice
   #winningNumber
+  #bonusNumber
 
   constructor() {
     this.#userPrice = 0;
     this.lottoList = [];
     this.#winningNumber = [];
+    this.#bonusNumber;
   }
   setPrice(price) {
     this.#userPrice = price;
@@ -29,6 +31,9 @@ class LottoModel{
   }
   getWinningNumber() {
     return this.#winningNumber;
+  }
+  setBonusNumber(bonusNumber) {
+    this.#bonusNumber = bonusNumber;
   }
 
 
