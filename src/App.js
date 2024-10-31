@@ -10,6 +10,13 @@ class App {
       "구입금액을 입력해 주세요.\n"
     );
     this.printLottoNumbers(this.processLottoCount(purchaseAmount));
+
+    const winningNumber = await Console.readLineAsync(
+      "\n당첨 번호를 입력해 주세요.\n"
+    );
+    this.processWinningNumber(winningNumber);
+
+    Console.print(this.WinningLottoNumbersArray);
   }
 
   //로또 갯수 가공
@@ -34,6 +41,23 @@ class App {
   // random 로또 번호 생성 + 오름차순 정렬
   generateLottoNumbers() {
     return Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+  }
+
+  // 당첨 번호 가공
+  processWinningNumber(winningNumber) {
+    const winningNumbers = winningNumber.split(",").map(Number);
+    if (winningNumbers.length !== 6)
+      return "[ERROR] 당첨 번호를 6개 입력해주세요.";
+    if (winningNumbers.some((number) => isNaN(number)))
+      return "[ERROR] 숫자만 입력해주세요.";
+    if (winningNumbers.some((number) => number < 1 || number > 45))
+      return "[ERROR] 1~45 사이의 숫자만 입력해주세요.";
+    if (winningNumbers.length !== new Set(winningNumbers).size)
+      return "[ERROR] 중복된 숫자가 있습니다.";
+
+    winningNumbers.forEach((number) => {
+      this.WinningLottoNumbersArray[number] = 1; // 해당 인덱스 === 당첨 번호를 1로 변경
+    });
   }
 }
 
