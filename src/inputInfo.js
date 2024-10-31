@@ -9,10 +9,10 @@ class Input {
   }
 
   async inputPrice() {
-    let price = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
+    this.price = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
     let checkPrice = new Exception();
-    checkPrice.validatePrice(price);
-    return price;
+    checkPrice.validatePrice(this.price);
+    return this.price;
   }
 
   purchaseNumber(price) {
