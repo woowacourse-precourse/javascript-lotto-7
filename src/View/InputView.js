@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { ERROR_MSG } from '../../Util/Constants.js';
 
 const INPUT_MSG = {
   purchaseAmount: '구입금액을 입력해 주세요.\n',
@@ -7,21 +8,24 @@ const INPUT_MSG = {
 };
 
 class InputView {
-  async getPuchaseAmount() {
-    return this.#getUserInput(INPUT_MSG.purchaseAmount);
+  async readPuchaseAmount() {
+    return await this.#getUserInput(INPUT_MSG.purchaseAmount);
   }
 
-  async getwinningNum() {
-    return this.#getUserInput(INPUT_MSG.winningNum);
-  }
+  getwinningNum = async () => this.#getUserInput(INPUT_MSG.winningNum);
 
-  async getbonusNum() {
-    return this.#getUserInput(INPUT_MSG.bonusNum);
-  }
+  getbonusNum = async () => this.#getUserInput(INPUT_MSG.bonusNum);
 
   async #getUserInput(inputMessage) {
     const userInput = await Console.readLineAsync(inputMessage);
+    this.#validate(userInput);
     return userInput;
+  }
+
+  #validate(userInput) {
+    if (!userInput || userInput.trim().length === 0) {
+      throw Error(ERROR_MSG.invalidInputData);
+    }
   }
 }
 
