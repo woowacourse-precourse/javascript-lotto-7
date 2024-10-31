@@ -19,6 +19,8 @@ class App {
     const is1st = hi.isEqual([1,2,3,4,5,6]);
     const boughtLottos = hi.generateLotto(lottoCount);
     boughtLottos.forEach((lotto) => Console.print(lotto));
+
+    const winNumber = await Console.readLineAsync(CONSOLE_MESSAGES.winNumber);
   }
 }
 
