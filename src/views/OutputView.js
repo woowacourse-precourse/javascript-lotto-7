@@ -19,6 +19,10 @@ class OutputView {
     );
     Console.print(`6개 일치 (2,000,000,000원) - ${statistics[6].count}개`);
   }
+
+  printProfitRate(profitRate) {
+    Console.print(`총 수익률은 ${profitRate}%입니다.\n`);
+  }
 }
 
 export default OutputView;

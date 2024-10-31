@@ -3,6 +3,10 @@ import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import Lotto from '../Lotto.js';
 import { calculateLottoStatistics } from '../utils/calculateLottoStatistics.js';
+import {
+  calculateProfitRate,
+  calculateTotalPrize,
+} from '../utils/calculateLottoPrizes.js';
 
 class LottoController {
   #inputView;
@@ -33,6 +37,10 @@ class LottoController {
       const matchResults = this.#getMatchResults();
       const statistics = calculateLottoStatistics(matchResults);
       this.#outputView.printMatchResults(statistics);
+
+      const totalPrize = calculateTotalPrize(statistics);
+      const profitRate = calculateProfitRate(totalPrize, amount);
+      this.#outputView.printProfitRate(profitRate);
     } catch (error) {
       Console.print(error);
     }
