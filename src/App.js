@@ -1,5 +1,8 @@
 import { Console } from "@woowacourse/mission-utils"
 import printAllLotto from "./AllLotto.js";
+import PrintResult from "./LottoResult.js";
+import { ranking, checkRank } from "./CheckLotto.js";
+
 class App {
   async run() {
     const inputPrice = await Console.readLineAsync("구입금액을 입력해 주세요.");
@@ -9,10 +12,14 @@ class App {
 
 
     const inputNumbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.");
-    const winningNumbers = inputNumbers.split(",").filter(item => item !== "");
-
+    const winningNumbers = inputNumbers.split(",").filter(item => item !== "").map(Number);
+    console.log(winningNumbers);
     const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해 주세요.");
-
+    console.log(bonusNumber);
+    for (let i = 0; i < lottoNum; i++) {
+      checkRank(winningNumbers, bonusNumber, lottoArray[i].getNumbers())
+    }
+    PrintResult(ranking, inputPrice);
   }
 }
 
