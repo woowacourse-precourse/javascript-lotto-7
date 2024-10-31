@@ -3,10 +3,18 @@ import { Console } from '@woowacourse/mission-utils';
 class View {
   static #sortAscending = (numbers) => numbers.sort((a, b) => a - b);
 
+  static async #readInput(message) {
+    const userInput = await Console.readLineAsync(message);
+    return userInput;
+  }
+
   static printResult(result) {
     Console.print(result);
   }
 
+  static async promptForMoney(message) {
+    return await View.#readInput(message);
+  }
 
   static displayLottos(lottos) {
     lottos.forEach((lotto) => {

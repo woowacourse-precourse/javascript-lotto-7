@@ -1,12 +1,11 @@
 import { INFO_MESSAGES, PROMPT_MESSAGES } from './constants.js';
 import Lotto from './Lotto.js';
 import Money from './Money.js';
-import { readInput } from './utils.js';
 import View from './View.js';
 
 class App {
   async run() {
-    const amount = await readInput(PROMPT_MESSAGES.INPUT_MONEY);
+    const amount = await View.promptForMoney(PROMPT_MESSAGES.INPUT_MONEY);
     const money = new Money(amount);
     const count = money.getCount();
     const lottos = this.generatorLottos(count);
