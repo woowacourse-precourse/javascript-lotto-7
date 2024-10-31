@@ -42,55 +42,39 @@ class Controller {
     this.#outputView.displayLottoRateOfReturn(winningRateOfReturn);
   }
 
-  async parseValidatePurchasePriceInput() {
+  async inputHandler(message, validator, parser = Number) {
     while (true) {
       try {
-        const purchasePrice = await this.#inputView.promptUserInput(
-          '구입금액을 입력해 주세요.\n'
-        );
+        const input = await this.#inputView.promptUserInput(message);
+        validator(input);
 
-        validatePurchasePrice(purchasePrice);
-
-        return Number(purchasePrice);
+        return parser(input);
       } catch (error) {
         this.#outputView.displayErrorMessage(error.message);
       }
     }
+  }
+
+  async parseValidatePurchasePriceInput() {
+    return await this.inputHandler(
+      '구입금액을 입력해 주세요.\n',
+      validatePurchasePrice
+    );
   }
 
   async parseValidateWinningLottoInput() {
-    while (true) {
-      try {
-        const winningNumbers = await this.#inputView.promptUserInput(
-          '당첨 번호를 입력해 주세요.\n'
-        );
-
-        validateWinningNumbers(winningNumbers);
-
-        return new Lotto(
-          winningNumbers.split(',').map((number) => Number(number))
-        );
-      } catch (error) {
-        this.#outputView.displayErrorMessage(error.message);
-      }
-    }
+    return await this.inputHandler(
+      '당첨 번호를 입력해 주세요.\n',
+      validateWinningNumbers,
+      (input) => new Lotto(input.split(',').map(Number))
+    );
   }
 
   async parseValidateBonusNumberInput(winningLotto) {
-    while (true) {
-      try {
-        this.#outputView.displayEmptyLine();
-        const bonusNumber = await this.#inputView.promptUserInput(
-          '보너스 번호를 입력해 주세요.\n'
-        );
-
-        validateBonusNumber(bonusNumber, winningLotto);
-
-        return Number(bonusNumber);
-      } catch (error) {
-        this.#outputView.displayErrorMessage(error.message);
-      }
-    }
+    return await this.inputHandler(
+      '보너스 번호를 입력해 주세요.\n',
+      (bonusNumber) => validateBonusNumber(bonusNumber, winningLotto)
+    );
   }
 
   calculateLottoResult(lottos, winningLotto, bonusNumber) {
