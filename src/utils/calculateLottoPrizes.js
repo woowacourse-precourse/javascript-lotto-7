@@ -11,3 +11,8 @@ export const calculateTotalPrize = (statistics) => {
 
   return totalPrize;
 };
+
+export const calculateProfitRate = (totalPrize, purchaseAmount) => {
+  const profitRate = (totalPrize / purchaseAmount) * 100;
+  return Math.round(profitRate * 10) / 10;
+};
