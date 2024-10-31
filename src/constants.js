@@ -1,4 +1,4 @@
-const CONSTANS = {
+const CONSTANTS = {
   1: '2,000,000,000',
   2: '30,000,000',
   3: '1,500,000',
@@ -6,4 +6,4 @@ const CONSTANS = {
   5: '5,000',
 };
 
-export default CONSTANS;
+export default CONSTANTS;
