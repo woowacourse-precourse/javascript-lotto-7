@@ -1,15 +1,16 @@
 import { Console } from "@woowacourse/mission-utils";
 import LottoMoneyValidator from "./validator/LottoMoneyValidator.js";
 import Lotto from "./Lotto.js";
+import InputHandler from "./handler/InputHandler.js"
 
 class App {
   constructor() {
     this.lottoMoneyValidator = new LottoMoneyValidator();
+    this.inputHandler = new InputHandler();
   }
   async run() {
     try {
-      const money = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
-      const lottoMoney = this.lottoMoneyValidator.validateLottoMoney(parseInt(money.trim(), 10))
+      const lottoMoney = await this.inputHandler.getLottoMoney();
       const lottoCount = lottoMoney / 1000;
       const lottos = this.generateLottos(lottoCount);
       this.printLottos(lottos);
