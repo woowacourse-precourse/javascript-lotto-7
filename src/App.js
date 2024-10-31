@@ -16,6 +16,11 @@ class App {
     );
     this.processWinningNumber(winningNumber);
 
+    const bonusNumber = await Console.readLineAsync(
+      "\n보너스 번호를 입력해 주세요.\n"
+    );
+    this.processBonusgNumber(bonusNumber);
+
     Console.print(this.WinningLottoNumbersArray);
   }
 
@@ -58,6 +63,18 @@ class App {
     winningNumbers.forEach((number) => {
       this.WinningLottoNumbersArray[number] = 1; // 해당 인덱스 === 당첨 번호를 1로 변경
     });
+  }
+
+  // 보너스 번호 가공
+  processBonusgNumber(bonusNumber) {
+    bonusNumber = Number(bonusNumber);
+    if (isNaN(bonusNumber)) return "[ERROR] 숫자만 입력해주세요.";
+    if (bonusNumber < 1 || bonusNumber > 45)
+      return "[ERROR] 1~45 사이의 숫자만 입력해주세요.";
+    if (this.WinningLottoNumbersArray[bonusNumber] === 1)
+      return "[ERROR] 당첨 번호와 중복됩니다.";
+
+    this.WinningLottoNumbersArray[bonusNumber] = 2; // 보너스 번호는 2로 표시
   }
 }
 
