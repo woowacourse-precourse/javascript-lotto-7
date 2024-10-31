@@ -15,7 +15,7 @@ class BonusLotto {
   }
 
   #validateContainWinningNumber(winningNumbers, bonusNumber) {
-    if (winningNumbers.includes(bonusNumber)) {
+    if (winningNumbers.includes(Number(bonusNumber))) {
       throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
     }
   }

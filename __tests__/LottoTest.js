@@ -33,6 +33,12 @@ describe('로또 클래스 테스트', () => {
     );
   });
 
+  test('로또 번호에 1미만 또는 45초과의 숫자가 있으면 예외가 발생한다.', () => {
+    expect(() => new Lotto([1, 2, 3, 4, 5, 6.6])).toThrow(
+      ERROR_MESSAGE.CONTAIN_FLOAT,
+    );
+  });
+
   test('로또 번호의 개수가 6개면 올바르게 작동한다.', () => {
     expect(() => new Lotto([1, 2, 3, 4, 5, 6])).not.toThrow();
   });
@@ -56,6 +62,7 @@ describe('보너스 번호 로또 클래스 테스트', () => {
     [[1, 2, 3, 4, 5, 6], 'n', ERROR_MESSAGE.CONTAIN_STRING],
     [[1, 2, 3, 4, 5, 6], 46, ERROR_MESSAGE.NOT_BETWEEN_1_TO_45_NUMBER],
     [[1, 2, 3, 4, 5, 6], 6, ERROR_MESSAGE.DUPLICATE_NUMBER],
+    [[1, 2, 3, 4, 5, 6], 6.6, ERROR_MESSAGE.CONTAIN_FLOAT],
   ])('보너스 번호 예외 테스트', (lottoNumbers, bonusNumber, errorMessage) => {
     expect(() => new BonusLotto(lottoNumbers, bonusNumber)).toThrow(
       errorMessage,
