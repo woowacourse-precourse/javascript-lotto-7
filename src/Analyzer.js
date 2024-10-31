@@ -20,6 +20,13 @@ class Analyzer {
 
     return matchedNumbers;
   }
+
+  #makeWinningTable(matchedNumbers) {
+    matchedNumbers.forEach((matchedCount) => {
+      const currentCalculation = this.#winningTable.get(matchedCount) ?? 0;
+      this.#winningTable.set(matchedCount, currentCalculation + 1);
+    });
+  }
 }
 
 export default Analyzer;
