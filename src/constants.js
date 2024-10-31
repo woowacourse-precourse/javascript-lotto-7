@@ -16,9 +16,13 @@ const OUTPUT_MESSAGES = {
   matchStatistics: '당첨 통계',
 };
 
+const AMOUNT = {
+  lottoAmount: 1000,
+};
+
 const SIGNS = {
   hyphen: '-',
   threeHyphen: '---',
 };
 
-export { ERROR_MESSAGES, INPUT_MESSAGES, OUTPUT_MESSAGES, SIGNS };
+export { ERROR_MESSAGES, INPUT_MESSAGES, OUTPUT_MESSAGES, SIGNS, AMOUNT };
