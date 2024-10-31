@@ -7,9 +7,9 @@ class OutputView {
   }
 
   static async printLottoNumbers(lottoRepository) {
-    const lottoArray = lottoRepository.getlotto();
+    const lottoArray = lottoRepository.getLottoArray();
     lottoArray.forEach((lotto) => {
-      Console.print(lotto);
+      Console.print(`[${lotto.getLotto().join(', ')}]`);
     });
   }
 
@@ -65,6 +65,10 @@ class OutputView {
     Console.print(
       `${OUTPUT_MESSAGES.TOTAL_RETURN}${totalReturn}${OUTPUT_MESSAGES.PERCENT_PRINT}`
     );
+  }
+
+  static async printNewLine() {
+    Console.print('');
   }
 }
 
