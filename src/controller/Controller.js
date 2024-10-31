@@ -32,11 +32,11 @@ class Controller {
     );
     this.#outputView.displayLottoResult(lottoResult, purchasePrice);
 
-    const winningRateOfReturn = calculation.lottoRateOfReturn(
+    const lottoRateOfReturn = calculation.lottoRateOfReturn(
       lottoResult,
       purchasePrice
     );
-    this.#outputView.displayLottoRateOfReturn(winningRateOfReturn);
+    this.#outputView.displayLottoRateOfReturn(lottoRateOfReturn);
   }
 }
 
