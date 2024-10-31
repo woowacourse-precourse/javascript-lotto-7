@@ -24,14 +24,14 @@ class InputHandler {
     }
   }
 
-  async parseValidatePurchasePriceInput() {
+  async getPurchasePrice() {
     return await this.handleInput(
       '구입금액을 입력해 주세요.\n',
       validation.purchasePrice
     );
   }
 
-  async parseValidateWinningLottoInput() {
+  async getWinningLotto() {
     return await this.handleInput(
       '당첨 번호를 입력해 주세요.\n',
       validation.winningNumbers,
@@ -39,7 +39,7 @@ class InputHandler {
     );
   }
 
-  async parseValidateBonusNumberInput(winningLotto) {
+  async getBonusNumber(winningLotto) {
     return await this.handleInput(
       '보너스 번호를 입력해 주세요.\n',
       (bonusNumber) => validation.bonusNumber(bonusNumber, winningLotto)

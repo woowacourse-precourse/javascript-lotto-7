@@ -15,21 +15,15 @@ class Controller {
   }
 
   async start() {
-    const purchasePrice =
-      await this.#inputHandler.parseValidatePurchasePriceInput();
-
+    const purchasePrice = await this.#inputHandler.getPurchasePrice();
     const lottoCount = purchasePrice / LOTTO_CONFIG.PRICE;
     this.#outputView.displayLottoCount(lottoCount);
 
     const lottos = Lotto.generateMultiple(lottoCount);
     this.#outputView.displayLottos(lottos);
 
-    const winningLotto =
-      await this.#inputHandler.parseValidateWinningLottoInput();
-
-    const bonusNumber = await this.#inputHandler.parseValidateBonusNumberInput(
-      winningLotto
-    );
+    const winningLotto = await this.#inputHandler.getWinningLotto();
+    const bonusNumber = await this.#inputHandler.getBonusNumber(winningLotto);
 
     const lottoResult = calculation.lottoResult(
       lottos,
