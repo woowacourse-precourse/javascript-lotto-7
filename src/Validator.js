@@ -61,7 +61,7 @@ class Validator {
 
   static #validateSingleNumberInRange(number) {
     if (number < 1 || number > 45) {
-      throw new Error('[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.');
+      throw new Error('[ERROR] 번호는 1부터 45 사이의 숫자여야 합니다.');
     }
   }
 
@@ -77,6 +77,20 @@ class Validator {
     if (winningNumbers.includes(bonusNumber)) {
       throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
     }
+  }
+
+  static validateLotto(numbers) {
+    if (numbers.length !== 6) {
+      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    }
+
+    if (new Set(numbers).size !== 6) {
+      throw new Error('[ERROR] 중복된 로또 번호가 있습니다.');
+    }
+
+    numbers.forEach((number) => {
+      this.#validateSingleNumberInRange(number);
+    });
   }
 }
 
