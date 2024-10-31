@@ -1,3 +1,4 @@
+import checkDecimal from "../feature/validate/checkDecimal.js";
 import { checkEmpty } from "../feature/validate/checkEmptyInput.js";
 import { checkNumber } from "../feature/validate/checkWinNumber.js";
 
@@ -8,12 +9,15 @@ class BonusNumber {
   constructor(userInput, winNumbers) {
     this.#winNumbers = winNumbers;
     this.#validate(userInput, this.#winNumbers);
+    this.#bonusNumber = Number(userInput);
   }
 
   #validate(number, winNumbers) {
     checkEmpty(number);
-    checkNumber(number);
-    this.#checkDuplicate(number, winNumbers);
+    checkDecimal(number);
+    const PASRED_NUMBER = Number(number);
+    checkNumber(PASRED_NUMBER);
+    this.#checkDuplicate(PASRED_NUMBER, winNumbers);
   }
 
   #checkDuplicate(number, winNumbers) {
