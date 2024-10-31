@@ -19,6 +19,25 @@ class Lotto {
     numbers = numbers.sort((a,b)=> a - b);
   }
 
+  isNumberWin(number, winNumbers){
+    winNumbers.map((winNum)=>{
+      if(number === winNum){
+        return true;
+      }
+    })
+    return false;
+  }
+
+  isWin(numbers, winNumbers){
+    let winNumCount = 0;
+    numbers.map((num)=>{
+      if(this.isNumberWin(num, winNumbers)){
+        winNumCount++;
+      }
+    });
+    return winNumCount;
+  }
+
   getNumber(){
     return this.#numbers;
   }
