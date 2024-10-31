@@ -24,8 +24,17 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
+
   toString() {
     return `[${this.#numbers.join(', ')}]`;
+  }
+
+  matchNumbersCount(lotto) {
+    const allNumbers = this.#numbers.concat(lotto.#numbers);
+    return allNumbers.length - new Set(allNumbers).size;
   }
 }
 

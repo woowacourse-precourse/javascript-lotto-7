@@ -2,13 +2,13 @@ import { Console } from '@woowacourse/mission-utils';
 import LottoManager from './LottoManager.js';
 
 class App {
-  async run() {
-    const lottoManager = new LottoManager();
+  #lottoManager = new LottoManager();
 
+  async run() {
     try {
-      await lottoManager.enterBudget();
-      await lottoManager.enterWinningNumbers();
-      await lottoManager.enterBonusNumber();
+      await this.#lottoManager.enterInputs();
+      this.#lottoManager.calculateResult();
+      this.#lottoManager.printStatistics();
     } catch (error) {
       Console.print(error.message);
     }
