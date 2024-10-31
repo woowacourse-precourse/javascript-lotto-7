@@ -7,7 +7,7 @@ export default class InputView {
   }
 
   static async winningNumbers() {
-    return Console.readLineAsync(INPUT_MESSAGE.WINNIG_NUMBER);
+    return Console.readLineAsync(INPUT_MESSAGE.WINNING_NUMBERS);
   }
 
   static async bonusNumber() {
