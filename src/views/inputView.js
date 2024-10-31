@@ -8,7 +8,7 @@ const InputView = {
   },
 
   async readWinningNumber() {
-    const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
 
     return this.parseWinningNumber(input);
   },
@@ -18,7 +18,7 @@ const InputView = {
   },
 
   async readBonusNumber() {
-    const input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    const input = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
 
     return input;
   },
