@@ -1,9 +1,5 @@
 import InputView from '../view/InputView.js';
-import {
-  validateBonusNumber,
-  validatePurchasePrice,
-  validateWinningNumbers,
-} from '../validation/validation.js';
+import validator from '../validation/validator.js';
 import Lotto from '../models/Lotto.js';
 
 class InputHandler {
@@ -15,11 +11,11 @@ class InputHandler {
     this.#outputView = outputView;
   }
 
-  async handleInput(message, validator, parser = Number) {
+  async handleInput(message, validateFunction, parser = Number) {
     while (true) {
       try {
         const input = await this.#inputView.promptUserInput(message);
-        validator(input);
+        validateFunction(input);
 
         return parser(input);
       } catch (error) {
@@ -31,14 +27,14 @@ class InputHandler {
   async parseValidatePurchasePriceInput() {
     return await this.handleInput(
       '구입금액을 입력해 주세요.\n',
-      validatePurchasePrice
+      validator.checkPurchasePrice
     );
   }
 
   async parseValidateWinningLottoInput() {
     return await this.handleInput(
       '당첨 번호를 입력해 주세요.\n',
-      validateWinningNumbers,
+      validator.checkWinningNumbers,
       (input) => new Lotto(input.split(',').map(Number))
     );
   }
@@ -46,7 +42,7 @@ class InputHandler {
   async parseValidateBonusNumberInput(winningLotto) {
     return await this.handleInput(
       '보너스 번호를 입력해 주세요.\n',
-      (bonusNumber) => validateBonusNumber(bonusNumber, winningLotto)
+      (bonusNumber) => validator.checkBonusNumber(bonusNumber, winningLotto)
     );
   }
 }

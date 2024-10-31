@@ -12,8 +12,9 @@ class Controller {
   #inputHandler;
 
   constructor() {
-    this.#outputView = new OutputView();
-    this.#inputHandler = new InputHandler(this.#outputView);
+    const outputView = new OutputView();
+    this.#outputView = outputView;
+    this.#inputHandler = new InputHandler(outputView);
   }
 
   async start() {
