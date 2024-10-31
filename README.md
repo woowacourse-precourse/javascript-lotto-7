@@ -26,6 +26,7 @@
    > 예시: 49
    - 입력받은 정수가 숫자가 아닌 경우에 대해 예외를 발생시킨 뒤 에러문구를 출력한다.
    > 예시: "abc"
+   - 입력받은 정수가 사용자로부터 입력받은 로또번호에 포함되면 안된다.
 4. 발행한 로또 수량 및 번호를 각각 오름차순으로 출력한다.
    - 제공된 랜덤숫자 생성 함수를 통해 랜덤 수를 생성한뒤 각각을 오름차순으로 정렬하여 배열에 담는다.
 5. 당첨내역을 추가한다.
@@ -42,7 +43,7 @@
 6. 계산된 수익률이 적절하게 두 번째 자리수에서 반올림되었는지 검증하는 단위테스트를 진행한다.
 
 ## 현재 개발 추이
-- [] input price for lotto
+- [X] input price for lotto
 - [] seperated by seperator
 - [] input number of bonus
 - [] sorting lotto numbers generated randomly
