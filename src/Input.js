@@ -22,6 +22,17 @@ class Input {
       throw new Error(error.message);
     }
   }
+
+  static async inputBonusNumber() {
+    try {
+      const bonusNumber = await Console.readLineAsync(
+        '보너스 번호를 입력해 주세요.',
+      );
+      return bonusNumber;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 export default Input;
