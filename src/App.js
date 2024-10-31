@@ -1,5 +1,11 @@
 import Lotto from "./Lotto.js";
 import { read, print, random } from "./lib/utils.js";
+import { PRICE_ERROR, ONLY_NUM_ERROR } from "./lib/error.js";
+import {
+  LOTTO_PRICE,
+  LOTTO_NUM_LENGTH,
+  RANDOM_RANGE,
+} from "./lib/constants.js";
 
 class App {
   async run() {
@@ -11,15 +17,15 @@ class App {
 
       while (true) {
         if (parsedInput < 1000) {
-          print("[ERROR] 금액이 부족합니다.");
+          print(PRICE_ERROR.less);
           return false;
         }
         if (parsedInput > 100000) {
-          print("[ERROR] 100000보다 큰 수는 입력할 수 없습니다.");
+          print(PRICE_ERROR.over);
           return false;
         }
         if (isNaN(parsedInput)) {
-          print("[ERROR] 숫자 이외의 문자는 입력할 수 없습니다.");
+          print(ONLY_NUM_ERROR);
           return false;
         }
 
@@ -29,13 +35,17 @@ class App {
 
     handlePrice(price);
 
-    const lottoCounts = Math.trunc(Number(price) / 1000);
+    const lottoCounts = Math.trunc(Number(price) / LOTTO_PRICE);
 
     print(lottoCounts + "개를 구매했습니다.");
 
     // 로또 랜덤 번호 발행
     for (let i = 0; i < lottoCounts; i += 1) {
-      const randomNumbers = random(1, 45, 6);
+      const randomNumbers = random(
+        RANDOM_RANGE.min,
+        RANDOM_RANGE.max,
+        LOTTO_NUM_LENGTH
+      );
       // 검증은 개별 로또 내부에서 함
       const lotto = new Lotto(randomNumbers);
       // 로또 용지 출력

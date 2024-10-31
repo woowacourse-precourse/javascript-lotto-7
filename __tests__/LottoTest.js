@@ -2,6 +2,18 @@ import App from "../src/App.js";
 import { read, print } from "../src/lib/utils.js";
 import Lotto from "../src/Lotto";
 import { mockQuestions, mockRandoms, getLogSpy } from "../src/lib/testUtils.js";
+import {
+  LOTTO_PRICE,
+  LOTTO_NUM_LENGTH,
+  RANDOM_RANGE,
+  PRICE_RANGE,
+} from "../src/lib/constants.js";
+import {
+  PRICE_ERROR,
+  LOTTO_NUM_ERROR,
+  BONUS_NUM_ERROR,
+  ONLY_NUM_ERROR,
+} from "../src/lib/error.js";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
@@ -35,16 +47,16 @@ const handlePrice = (input) => {
   const parsedInput = Number(input);
 
   while (true) {
-    if (parsedInput < 1000) {
-      print("[ERROR] 금액이 부족합니다.");
+    if (parsedInput < LOTTO_PRICE) {
+      print(PRICE_ERROR.less);
       return false;
     }
-    if (parsedInput > 100000) {
-      print("[ERROR] 100000보다 큰 수는 입력할 수 없습니다.");
+    if (parsedInput > PRICE_RANGE.max) {
+      print(PRICE_ERROR.over);
       return false;
     }
     if (isNaN(parsedInput)) {
-      print("[ERROR] 숫자 이외의 문자는 입력할 수 없습니다.");
+      print(ONLY_NUM_ERROR);
       return false;
     }
 
@@ -59,23 +71,27 @@ const handleLottoNumbers = (input) => {
     .map((num) => Number(num));
 
   while (true) {
-    if (parsedInputArray.length !== 6) {
-      print("[ERROR] 로또 번호는 6개만 입력할 수 있습니다.");
+    if (parsedInputArray.length !== LOTTO_NUM_LENGTH) {
+      print(LOTTO_NUM_ERROR.length);
       return false;
     }
 
     if (parsedInputArray.length !== new Set(parsedInputArray).size) {
-      print("[ERROR] 중복된 번호는 입력할 수 없습니다.");
+      print(LOTTO_NUM_ERROR.duplicated);
       return false;
     }
 
-    if (parsedInputArray.some((num) => num > 45 || num < 1)) {
-      print("[ERROR] 로또 번호는 1부터 45까지의 수만 입력할 수 있습니다.");
+    if (
+      parsedInputArray.some(
+        (num) => num > RANDOM_RANGE.max || num < RANDOM_RANGE.min
+      )
+    ) {
+      print(LOTTO_NUM_ERROR.range);
       return false;
     }
 
     if (parsedInputArray.some((num) => isNaN(num))) {
-      print("[ERROR] 숫자 이외의 문자는 입력할 수 없습니다.");
+      print(ONLY_NUM_ERROR);
       return false;
     }
     return true;
@@ -87,17 +103,17 @@ const handleBonusNumber = (lottoNumbers, input) => {
 
   while (true) {
     if (isNaN(parsedInput)) {
-      print("[ERROR] 숫자 이외의 문자는 입력할 수 없습니다.");
+      print(ONLY_NUM_ERROR);
       return false;
     }
 
-    if (parsedInput > 45 || parsedInput < 1) {
-      print("[ERROR] 보너스 번호는 1부터 45까지의 수만 입력할 수 있습니다.");
+    if (parsedInput > RANDOM_RANGE.max || parsedInput < RANDOM_RANGE.min) {
+      print(LOTTO_NUM_ERROR.range);
       return false;
     }
 
     if (lottoNumbers.includes(parsedInput)) {
-      print("[ERROR] 로또 번호에 이미 있는 번호는 입력할 수 없습니다.");
+      print(BONUS_NUM_ERROR.duplicated);
       return false;
     }
     return true;
@@ -111,9 +127,9 @@ describe("로또 구입 금액 입력 테스트", () => {
   ];
 
   const ERROR_CASE = [
-    [["300"], "[ERROR] 금액이 부족합니다."],
-    [["100001"], "[ERROR] 100000보다 큰 수는 입력할 수 없습니다."],
-    [["3000!"], "[ERROR] 숫자 이외의 문자는 입력할 수 없습니다."],
+    [["300"], PRICE_ERROR.less],
+    [["100001"], PRICE_ERROR.over],
+    [["3000!"], ONLY_NUM_ERROR],
   ];
 
   test.each(PASS_CASE)("로또 구입 금액 패스 테스트", async (input, message) => {
@@ -141,14 +157,11 @@ describe("로또 번호 입력 테스트", () => {
   ];
 
   const ERROR_CASE = [
-    [["1,2,3,4,5,6,7"], "[ERROR] 로또 번호는 6개만 입력할 수 있습니다."],
-    [["1,2,3,4,,,7"], "[ERROR] 로또 번호는 6개만 입력할 수 있습니다."],
-    [["1,13,15,27,33,33"], "[ERROR] 중복된 번호는 입력할 수 없습니다."],
-    [
-      ["1,13,15,27,33,47"],
-      "[ERROR] 로또 번호는 1부터 45까지의 수만 입력할 수 있습니다.",
-    ],
-    [["1,13,15,27,33,34!"], "[ERROR] 숫자 이외의 문자는 입력할 수 없습니다."],
+    [["1,2,3,4,5,6,7"], LOTTO_NUM_ERROR.length],
+    [["1,2,3,4,,,7"], LOTTO_NUM_ERROR.length],
+    [["1,13,15,27,33,33"], LOTTO_NUM_ERROR.duplicated],
+    [["1,13,15,27,33,47"], LOTTO_NUM_ERROR.range],
+    [["1,13,15,27,33,34!"], ONLY_NUM_ERROR],
   ];
 
   test.each(PASS_CASE)("로또 번호 입력 패스 테스트", async (input, message) => {
@@ -176,9 +189,9 @@ describe("보너스 번호 입력 테스트", () => {
   ];
 
   const ERROR_CASE = [
-    [["1,2"], "[ERROR] 숫자 이외의 문자는 입력할 수 없습니다."],
-    [["142"], "[ERROR] 보너스 번호는 1부터 45까지의 수만 입력할 수 있습니다."],
-    [["15"], "[ERROR] 로또 번호에 이미 있는 번호는 입력할 수 없습니다."],
+    [["1,2"], ONLY_NUM_ERROR],
+    [["142"], LOTTO_NUM_ERROR.range],
+    [["15"], BONUS_NUM_ERROR.duplicated],
   ];
 
   test.each(PASS_CASE)(

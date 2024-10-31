@@ -1,3 +1,6 @@
+import { LOTTO_NUM_ERROR, ONLY_NUM_ERROR } from "./lib/error.js";
+import { LOTTO_NUM_LENGTH } from "./lib/constants.js";
+
 class Lotto {
   #numbers;
 
@@ -7,18 +10,18 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== LOTTO_NUM_LENGTH) {
+      throw new Error(LOTTO_NUM_ERROR.length);
     }
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
+      throw new Error(LOTTO_NUM_ERROR.duplicated);
     }
     if (
       numbers.some(
         (num) => isNaN(Number(num)) || !Number.isInteger(Number(num))
       )
     ) {
-      throw new Error("[ERROR] 숫자 이외의 문자는 입력할 수 없습니다.");
+      throw new Error(ONLY_NUM_ERROR);
     }
   }
 
