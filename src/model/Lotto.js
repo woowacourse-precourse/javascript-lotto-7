@@ -39,8 +39,8 @@ class Lotto {
     //5+bonusnumber
     if (numberArray.includes(bonusNumber)) {
       winning = 7;
+      return winning;
     }
-    return winning;
   }
 }
 

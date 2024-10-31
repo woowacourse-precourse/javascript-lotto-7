@@ -19,6 +19,9 @@ class OutputView {
     Console.print(`5개 일치, 보너스볼 일치 - ${winningCount[4]}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${winningCount[3]}개`);
   }
+  printProfitRate(rate) {
+    Console.print(`총 수익률은 ${rate}% 입니다.`);
+  }
 }
 
 export default OutputView;

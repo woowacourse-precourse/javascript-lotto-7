@@ -2,12 +2,14 @@ import InputView from "./view/InputView.js";
 import LottoNumbersModel from "./model/LottoNumbersModel.js";
 import OutputView from "./view/OutputView.js";
 import Lotto from "./model/Lotto.js";
+import CalculateProfitModel from "./model/CalculateProfitModel.js";
 
 class App {
   constructor() {
     this.inputView = new InputView();
     this.outputView = new OutputView();
     this.lottoNumbersModel = new LottoNumbersModel();
+    this.calculateProfitModel = new CalculateProfitModel();
   }
   async run() {
     const lottoPrice = await this.inputView.getLottoPrice();
@@ -22,8 +24,10 @@ class App {
       lottoNumbers,
       bonusAnswer
     );
-
     this.outputView.printWinningCount(winningCount);
+
+    const rate = this.calculateProfitModel.getRate(winningCount, lottoPrice);
+    this.outputView.printProfitRate(rate);
   }
 }
 
