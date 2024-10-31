@@ -1,12 +1,55 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { isValidPayment, isValidLotto, isRepeat } from "./validator.js";
+
+async function askPayment() {
+  try {
+    const input = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    isValidPayment(input);
+    return Number(input);
+
+  } catch (err) {
+    MissionUtils.Console.print(err.message)
+    return await askPayment();
+  }
+}
+
+async function askWinningNumbers() {
+  try {
+    const input = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n')
+    let winningNumbers = input.split(',');
+    winningNumbers = winningNumbers.map((element) => {
+      isValidLotto(element);
+      isRepeat(winningNumbers, element);
+      return Number(element);
+    })
+    return winningNumbers;
+
+  } catch (err) {
+    MissionUtils.Console.print(err.message);
+    return await askWinningNumbers();
+  }
+}
+
+async function askBonusNumber(list) {
+  try {
+    const input = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n')
+    isValidLotto(input);
+    if (list.includes(Number(input))) throw Error('[ERROR] 보너스 번호가 중복됨')
+    return Number(input)
+
+  } catch (err) {
+    MissionUtils.Console.print(err.message)
+    return await askBonusNumber(list);
+  }
+}
 
 class App {
   async run() {
     // 구입 금액 입력
-    const payment = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    const payment = await askPayment();
 
     // 로또 수량 출력
-    const quantity = Number(payment) / 1000;
+    const quantity = payment / 1000;
     MissionUtils.Console.print(`\n${quantity}개를 구매했습니다.`);
 
     // 로또 번호 발행
@@ -30,15 +73,11 @@ class App {
     }
 
     // 당첨 번호 입력
-    const winningString = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n')
-    const winningNumber = winningString.split(',').map((element) => {
-      return Number(element);
-    });
+    const winningNumbers = await askWinningNumbers()
 
     // 보너스 번호 입력
-    const bonusString = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n')
-    const bonusNumber = Number(bonusString)
-
+    const bonusNumber = await askBonusNumber(winningNumbers)
+  
     // 당첨 내역 집계
     const score = {
       THREE_MATCHES: 0,
@@ -56,7 +95,7 @@ class App {
     }
 
     for (let i = 0; i < quantity; i++) {
-      const result = myLottoList[i].filter(list => winningNumber.includes(list))
+      const result = myLottoList[i].filter(list => winningNumbers.includes(list))
       const isBonus = myLottoList[i].some((element) => {
         return element == bonusNumber
       });
