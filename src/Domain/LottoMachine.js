@@ -15,7 +15,7 @@ class LOTTO_MACHINE {
     return quantity;
   }
 
-  drawLottoNumber() {
+  drawLottoNumber(number) {
     const quantity = this.inputMoneyDevide(number);
     const lottoNumbers = [];
 
