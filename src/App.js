@@ -1,9 +1,10 @@
-import Input from './utils/io/Input.js';
 import INPUT from './constants/InputMessage.js';
+import validatePrice from './utils/validation/validatePrice.js';
+import InputRepeat from './utils/io/InputRepeat.js';
 
 class App {
   async run() {
-    const cost = await Input.get(INPUT.LOTTO_PRICE);
+    const inputs = InputRepeat(INPUT.LOTTO_PRICE, validatePrice);
   }
 }
 
