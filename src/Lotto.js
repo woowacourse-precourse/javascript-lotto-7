@@ -13,22 +13,32 @@ class Lotto {
   }
 
   #validate(winningNumbers) {
+    this.#checkNumberCount(winningNumbers);
+    this.#checkNumberRange(winningNumbers);
+    this.#checkForDuplicates(winningNumbers);
+
+    return winningNumbers;
+  }
+
+  #checkNumberCount(winningNumbers) {
+    if (winningNumbers.length !== 6) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT);
+    }
+  }
+
+  #checkNumberRange(winningNumbers) {
     winningNumbers.forEach((number) => {
       const num = Number(number);
       if (num < 1 || num > 45 || !Number.isInteger(num)) {
         throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);
       }
     });
+  }
 
-    if (winningNumbers.length !== 6) {
-      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT);
-    }
-
+  #checkForDuplicates(winningNumbers) {
     if (winningNumbers.length !== new Set([...winningNumbers]).size) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_LOTTO_NUMBER);
     }
-
-    return winningNumbers;
   }
 
   get winningNumbers() {
