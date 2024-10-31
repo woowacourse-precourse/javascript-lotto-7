@@ -1,7 +1,7 @@
 import { OUTPUT_MESSAGE, BASIC_ERROR } from '../Constants/Message.js';
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
 
-class LOTTO_MACHINE {
+class LottoMachine {
   inputMoneyDevide(number) {
     if (number % 1000 === 0) {
       return number / 1000;
@@ -28,4 +28,4 @@ class LOTTO_MACHINE {
   }
 }
 
-export default LOTTO_MACHINE;
+export default LottoMachine;
