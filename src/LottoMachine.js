@@ -76,6 +76,21 @@ class LottoMachine {
 
     return winningAndBonusNumber;
   }
+
+  static getTotalLottoCount(userPurchaseAmount) {
+    return userPurchaseAmount / MINIMUM_PURCHASE_AMOUNT;
+  }
+
+  static async getLottoNumbers(totalLottoCount) {
+    const generatedLotto = [];
+
+    for (let count = 0; count < totalLottoCount; count++) {
+      const extractedLotto = Random.pickUniqueNumbersInRange(1, 45, 6);
+      generatedLotto.push(extractedLotto);
+    }
+
+    return generatedLotto;
+  }
 }
 
 export default LottoMachine;
