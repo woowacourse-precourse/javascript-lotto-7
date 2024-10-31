@@ -5,6 +5,7 @@ class App {
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
     const lottoGame = new LottoGame(purchaseAmount);
+    await lottoGame.start();
   }
   async getPurchaseAmount() {
      const purchaseAmount = await MissionUtils.Console.readLineAsync('로또 구입 금액을 입력해주세요.\n');
