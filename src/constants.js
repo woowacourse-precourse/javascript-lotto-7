@@ -4,6 +4,7 @@ const PRIZES = {
   3: '1,500,000',
   4: '50,000',
   5: '5,000',
+  0: '0',
 };
 
 export default PRIZES;
