@@ -1,27 +1,51 @@
 import { printMessage } from '../View/OutputView.js';
 import { isNumber } from '../Util/Regex.js';
 import { ERROR_MESSAGES } from '../Error.js';
+import runValidators from './runValidators.js';
 
-export function validateMoney(input) {
+const validateIsNumber = (input) => {
   if (!isNumber.test(input)) {
     printMessage(ERROR_MESSAGES.money.INVALID_INPUT_MONEY);
     return false;
   }
+  return true;
+};
 
-  const rounds = Number(input);
-  // 유효성 검사
-  if (rounds === 0) {
+const validateNonZero = (input) => {
+  if (Number(input) === 0) {
     printMessage(ERROR_MESSAGES.money.ZERO_MONEY_NOT_ALLOWED);
     return false;
   }
-  if (rounds < 0) {
+  return true;
+};
+
+const validatePositive = (input) => {
+  if (Number(input) < 0) {
     printMessage(ERROR_MESSAGES.money.ONLY_POSITIVE_ALLOWED);
     return false;
   }
-  if (rounds % 1000 !== 0) {
+  return true;
+};
+
+const validateDivisibleByThousand = (input) => {
+  if (Number(input) % 1000 !== 0) {
     printMessage(ERROR_MESSAGES.money.ONLY_NOTE_ALLOWED);
     return false;
   }
+  return true;
+};
+export default function validateMoney(input) {
+  const validators = [
+    validateIsNumber,
+    validateNonZero,
+    validatePositive,
+    validateDivisibleByThousand,
+  ];
 
-  return rounds;
+  const isValid = runValidators(input, validators);
+
+  if (isValid) {
+    return Number(input);
+  }
+  return false;
 }

@@ -2,7 +2,7 @@ import { Random, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import { printLotteries } from './View/OutputView.js';
 import { getInputWhileValid } from './View/InputView.js';
-import { validateMoney } from './Validation/validateMoney.js';
+import validateMoney from './Validation/validateMoney.js';
 import { defaultSettings } from './DefaultSettings.js';
 import LotteryFactory from './LotteryFactory.js';
 import validateLottoNumber from './Validation/validateLottoNumber.js';

@@ -1,4 +1,4 @@
-import { validateMoney } from '../src/Validation/validateMoney.js';
+import validateMoney from '../src/Validation/validateMoney.js';
 import { ERROR_MESSAGES } from '../src/Error.js';
 import { runExceptionTest } from '../src/Test/Test.js';
 
