@@ -14,7 +14,7 @@ class PurchaseAmount {
     }
 
     #validateIsNumber(amount) {
-        if (isNaN(amount) || typeof amount !== 'number') {
+        if (isNaN(amount)) {
             throw new Error("[ERROR] 구입금액을 숫자로 입력해주세요.")
         }
     }
@@ -33,7 +33,6 @@ class PurchaseAmount {
 
     getLottoCount() {
         const LOTTO_COUNT = this.#amount / 1000;
-        MissionUtils.Console.print(`\n${LOTTO_COUNT}개를 구매했습니다.`);
         return LOTTO_COUNT;
     }
 }

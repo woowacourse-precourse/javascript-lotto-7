@@ -9,18 +9,21 @@ class Lotto {
   }
 
   #validate(numbers) {
-    this.#validateIsChar(numbers);
+    if (!Array.isArray(numbers) || numbers === undefined) {
+      throw new Error("[ERROR] 유효한 번호 배열이 필요합니다.");
+    }
+    this.#validateIsNumber(numbers);
     this.#validateLength(numbers);
     this.#validateOnlyUnique(numbers);
     this.#validateNumRange(numbers);
   }
 
-  #validateIsChar(numbers) {
+  #validateIsNumber(numbers) {
     numbers.forEach((val) => {
-      if (isNaN(val) || typeof val !== 'number') {
-        throw new Error("[ERROR] 로또 번호는 숫자로 입력해야 합니다.")
+      if (typeof val !== 'number') {
+        throw new Error("[ERROR] 로또 번호는 숫자로 입력해야 합니다.");
       }
-    })
+    });
   }
 
   #validateLength(numbers) {
@@ -40,7 +43,7 @@ class Lotto {
       if (val < 1 || val > 45) {
         throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
       }
-    })
+    });
   }
 
   #isOnlyUnique(numbers) {
@@ -48,26 +51,22 @@ class Lotto {
   }
 
   #lottoSort(numbers) {
-    numbers.sort((a, b) => a - b);
+    return numbers.sort((a, b) => a - b);
   }
 
   makeLotto() {
-    this.#lottoSort(this.#numbers);
+    this.#numbers = this.#lottoSort(this.#numbers);
     this.#printLotto(this.#numbers);
   }
 
   makeWinningLotto() {
-    this.#addBonusNum();
-    this.#lottoSort(this.#numbers);
+    const bonusNum = this.#getBonusNum();
+    this.#numbers = this.#lottoSort([...this.#numbers, bonusNum]);
   }
 
   #getBonusNum() {
     const BONUS_NUMBER = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 1)[0];
     return BONUS_NUMBER;
-  }
-
-  #addBonusNum() {
-    this.#numbers.push(this.#getBonusNum());
   }
 
   #printLotto() {
@@ -78,6 +77,5 @@ class Lotto {
     return this.#numbers;
   }
 }
-
 
 export default Lotto;

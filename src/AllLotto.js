@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils"
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 const AMOUNT_PER_MATCH = {
@@ -9,8 +9,7 @@ const AMOUNT_PER_MATCH = {
     '6': 2000000000,
 }
 
-
-class AllLotto extends Lotto {
+class AllLotto {
     #inputLottos;
     #winningLotto;
     #bonusNumber;
@@ -19,7 +18,6 @@ class AllLotto extends Lotto {
     #totalAvenue;
 
     constructor() {
-        super();
         this.#inputLottos = [];
         this.#winningLotto = null;
         this.#bonusNumber = null;
@@ -29,26 +27,39 @@ class AllLotto extends Lotto {
             '5': 0,
             '5+': 0,
             '6': 0,
-        }
+        };
         this.#totalPurchaseAmount = 0;
         this.#totalAvenue = 0;
     }
-    addInputLotto(numbers) {
-        const lotto = new Lotto(numbers);
+
+    addInputLotto(lotto) {
         this.#inputLottos.push(lotto);
     }
+
     setWinningLotto(winningNumbers, bonusNumber) {
-        this.#winningLotto = new Lotto(winningNumbers);
-        this.#bonusNumber = bonusNumber;
+        this.#winningLotto = winningNumbers;
+        this.#validateBonusNumber(bonusNumber);
+        this.#bonusNumber = Number(bonusNumber);
     }
+
+    #validateBonusNumber(bonusNumber) {
+        const numBonus = Number(bonusNumber);
+
+        if (isNaN(numBonus)) {
+            throw new Error("[ERROR] 보너스 번호는 숫자로 입력해야 합니다.");
+        }
+        if (bonusNumber < 1 || bonusNumber > 45) {
+            throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+        }
+    }
+
     compareLottos() {
         this.#inputLottos.forEach((lotto) => {
             const userNumbers = lotto.getNumbers();
             const matchCount = this.#countMatches(userNumbers);
             const hasBonus = this.#hasBonusNumber(userNumbers);
-
             this.#updateWinningCount(matchCount, hasBonus);
-        })
+        });
     }
 
     #countMatches(userNumbers) {
@@ -82,15 +93,15 @@ class AllLotto extends Lotto {
         this.#totalPurchaseAmount = this.#inputLottos.length * 1000;
     }
 
-
     printAllLotto() {
         const length = this.#inputLottos.length;
-        MissionUtils.Console.print(`${length}개를 구매했습니다.`);
-        this.#inputLottos.forEach((lotto) => MissionUtils.Console.print(lotto));
+        MissionUtils.Console.print(`\n${length}개를 구매했습니다.`);
+        this.#inputLottos.forEach((lotto) => MissionUtils.Console.print(`[${lotto.join(', ')}]`));
     }
 
     printWinningResult() {
         this.#calculatePurchaseAmount();
+        this.compareLottos();
         this.#calculateTotalAvenue();
 
         this.#printHeader();
