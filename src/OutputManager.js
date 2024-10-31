@@ -13,7 +13,9 @@ class OutputManager {
   }
 
   static printNumbers(lottoArray) {
-    lottoArray.forEach((lotto) => MissionUtils.Console.print(lotto.numbers));
+    lottoArray.forEach(({ numbers }) =>
+      MissionUtils.Console.print(`[${numbers.join(', ')}]`),
+    );
   }
 
   static printAllLottos(lotoArray) {
