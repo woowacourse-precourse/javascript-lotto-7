@@ -1,16 +1,13 @@
 import calculationLotto from '../utils/calculationLotto.js';
 import Lotto from '../models/Lotto.js';
-import OutputView from '../view/OutputView.js';
-import InputHandler from '../handler/inputHandler.js';
 
 class Controller {
   #outputView;
   #inputHandler;
 
-  constructor() {
-    const outputView = new OutputView();
+  constructor(outputView, inputHandler) {
     this.#outputView = outputView;
-    this.#inputHandler = new InputHandler(outputView);
+    this.#inputHandler = inputHandler;
   }
 
   async start() {
