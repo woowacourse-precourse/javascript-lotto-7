@@ -5,7 +5,7 @@ import View from './View.js';
 
 class App {
   async run() {
-    const amount = await View.promptForMoney(PROMPT_MESSAGES.INPUT_MONEY);
+    const amount = await View.readInput(PROMPT_MESSAGES.INPUT_MONEY);
     const money = new Money(amount);
     const count = money.getCount();
     const lottos = LottoMachine.generateLottos(count);
