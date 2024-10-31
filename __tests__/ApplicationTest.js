@@ -94,10 +94,27 @@ describe('로또 테스트', () => {
     await runException('1000j');
   });
 
+  // 로또 구입 금액 입력 유효성 검사 TC (우선순위 높은 순으로 정렬)
   test.each([
+    // empty Check
     [null, ERROR_MSG.invalidInputData],
     [undefined, ERROR_MSG.invalidInputData],
     ['', ERROR_MSG.invalidInputData],
+    [' ', ERROR_MSG.invalidInputData],
+    // Number Only Check
+    ['abcd', ERROR_MSG.notANumber],
+    ['///', ERROR_MSG.notANumber],
+    ['\\\\\\', ERROR_MSG.notANumber],
+    ['>_<', ERROR_MSG.notANumber],
+    // Range Check
+    ['-1', ERROR_MSG.outOfRange],
+    ['0', ERROR_MSG.outOfRange],
+    ['1', ERROR_MSG.outOfRange],
+    ['123', ERROR_MSG.outOfRange],
+    ['1000000000', ERROR_MSG.outOfRange],
+    ['100000000001', ERROR_MSG.outOfRange],
+    // Price Align Check
+    ['1001', ERROR_MSG.priceMisalign],
   ])("[예외 테스트] 로또 구입 금액이 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
     await runException(input, errorMsg);
   });
