@@ -21,6 +21,7 @@ class App {
     boughtLottos.forEach((lotto) => Console.print(lotto));
 
     const winNumber = await Console.readLineAsync(CONSOLE_MESSAGES.winNumber);
+    const bonusNumber = await Console.readLineAsync(CONSOLE_MESSAGES.bonusNumber);
   }
 }
 
