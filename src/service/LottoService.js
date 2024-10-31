@@ -9,13 +9,12 @@ export default class LottoService {
   constructor() {
     this.userModel = null;
     this.winningLottoModel = null;
-    this.totalPrize = 0;
   }
 
   createUserModel(price) {
     Validator.price(price);
 
-    this.userModel = new UserModel(price);
+    this.userModel = new UserModel();
     const lottoLength = price / PRICE_RANGE.MIN;
 
     for (let i = 0; i < lottoLength; i += 1) {
@@ -28,7 +27,7 @@ export default class LottoService {
     const lottoLength = this.userModel.getLottos().length;
     const lottoNumbers = this.userModel
       .getLottos()
-      .map((lotto) => lotto.getNumbers());
+      .map((lotto) => lotto.getNumbers().sort((a, b) => a - b));
 
     return { lottoLength, lottoNumbers };
   }
@@ -48,30 +47,28 @@ export default class LottoService {
   }
 
   getStatistics() {
-    const rankObject = this.#getRankObject();
-
+    const rankMap = this.#getRankMap();
     this.userModel.getLottos().forEach((lotto) => {
       const rank = this.#calculateRank(lotto, this.winningLottoModel);
-      if (rank) rankObject[rank] += 1;
+      if (rank) rankMap.set(rank, rankMap.get(rank) + 1);
     });
 
-    return rankObject;
+    return rankMap;
   }
 
-  getRateOfReturn(rankObject, price) {
-    const totalPrize = this.#calculateTotalPrize(rankObject);
+  getRateOfReturn(rankMap, price) {
+    const totalPrize = this.#calculateTotalPrize(rankMap);
     return ((totalPrize / price) * 100).toFixed(1);
   }
 
-  #getRankObject() {
-    const rankObject = {
-      3: 0,
-      4: 0,
-      5: 0,
-      '5+': 0,
-      6: 0,
-    };
-    return rankObject;
+  #getRankMap() {
+    return new Map([
+      [3, 0],
+      [4, 0],
+      [5, 0],
+      ['5+', 0],
+      [6, 0],
+    ]);
   }
 
   #calculateRank(lotto, winningLotto) {
@@ -89,11 +86,11 @@ export default class LottoService {
     return null;
   }
 
-  #calculateTotalPrize(rankObject) {
+  #calculateTotalPrize(rankMap) {
     const prizes = Object.values(MATCH_PRICE);
     let totalPrize = 0;
 
-    Object.values(rankObject).forEach((count, index) => {
+    Array.from(rankMap.values()).forEach((count, index) => {
       totalPrize += prizes[index] * count;
     });
 

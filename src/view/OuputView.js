@@ -12,8 +12,8 @@ export default class OutputView {
     });
   }
 
-  static printWinningStatistics(lottoRanckObject) {
-    const lottoRanks = Object.values(lottoRanckObject);
+  static printWinningStatistics(lottoRanckMap) {
+    const lottoRanks = Array.from(lottoRanckMap.values());
 
     Console.print(OUTPUT_MESSAGE.WINNING_STATISTICS);
     Object.values(MATCH_OUTPUT_MESSAGE).forEach((message, index) => {
