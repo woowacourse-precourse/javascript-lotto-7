@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGES, MINIMUM_PURCHASE_AMOUNT } from "./Constants.js";
 import Input from "./Input.js";
 import Lotto from "./Lotto.js";

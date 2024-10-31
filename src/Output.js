@@ -8,10 +8,16 @@ import {
 import RankChecker from "./RankChecker";
 
 class Output {
-  constructor(purchasedLottos, winningAndBonusNumber, totalLottoCount) {
-    this.sortedPurchasedLottos = this.#sortLottoNumbers(purchasedLottos);
+  constructor(
+    userPurchaseAmount,
+    winningAndBonusNumber,
+    totalLottoCount,
+    purchasedLottos
+  ) {
+    this.userPurchaseAmount = userPurchaseAmount;
     this.winningAndBonusNumber = winningAndBonusNumber;
     this.totalLottoCount = totalLottoCount;
+    this.sortedPurchasedLottos = this.#sortLottoNumbers(purchasedLottos);
   }
 
   #sortLottoNumbers(purchasedLottos) {
@@ -52,8 +58,8 @@ class Output {
     );
   }
 
-  calculateROI(totalPrizeAmount, userPurchaseAmount) {
-    const profitRate = (totalPrizeAmount / userPurchaseAmount) * 100;
+  calculateROI() {
+    const profitRate = (this.printResult() / this.userPurchaseAmount) * 100;
     Console.print(
       ROI_MESSAGES.RESULT.replace("${value}", Number(profitRate.toFixed(2)))
     );
