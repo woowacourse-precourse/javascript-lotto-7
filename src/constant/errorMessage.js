@@ -1,4 +1,4 @@
-import { PRICE_RANGE, NUMBER_RANGE, LOTTO_NUMBER_LENGTH } from './system';
+import { PRICE_RANGE, NUMBER_RANGE, LOTTO_NUMBER_LENGTH } from './system.js';
 
 const ERROR_PREFIX = '[ERROR]';
 

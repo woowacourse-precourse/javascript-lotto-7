@@ -1,4 +1,4 @@
-import { MATCH_PRICE } from './system';
+import { MATCH_PRICE } from './system.js';
 
 export const OUTPUT_MESSAGE = Object.freeze({
   WINNING_STATISTICS: '\n당첨 통계\n---',
