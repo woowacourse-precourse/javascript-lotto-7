@@ -1,9 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 import LottoMoneyValidator from "../validator/LottoMoneyValidator.js";
+import WinningNumberValidator from "../validator/WinningNumberValidator.js";
 
 class InputHandler {
     constructor() {
         this.lottoMoneyValidator = new LottoMoneyValidator();
+        this.winningNumberValidator = new WinningNumberValidator();
     }
 
     async getLottoMoney() {
@@ -20,7 +22,8 @@ class InputHandler {
     async getWinningNumber() {
         try {
             const input = await Console.readLineAsync("당첨 번호를 입력해주세요.\n");
-            return input;
+            const winningNumber = this.winningNumberValidator.validateWinningNumber(input);
+            return winningNumber;
         } catch (error) {
             Console.print(error.message);
             return await this.getWinningNumber();

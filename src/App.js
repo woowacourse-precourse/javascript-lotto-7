@@ -13,8 +13,8 @@ class App {
       const lottoMoney = await this.inputHandler.getLottoMoney();
       const lottoCount = lottoMoney / 1000;
       const lottos = this.generateLottos(lottoCount);
-      const winningNumber = await this.inputHandler.getWinningNumber();
       this.printLottos(lottos);
+      const winningNumber = await this.inputHandler.getWinningNumber();
       Console.print(winningNumber)
     }
     catch (error) {
