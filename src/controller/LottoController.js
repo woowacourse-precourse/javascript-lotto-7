@@ -9,6 +9,8 @@ class LottoController {
 
   #winningNumbers;
 
+  #bonusNumber;
+
   constructor() {
     this.#inputView = new InputView();
     this.#lottos = [];
@@ -21,7 +23,7 @@ class LottoController {
       this.#printLottos(amount, this.#lottos);
 
       this.#winningNumbers = await this.#inputView.readWinningNumbers();
-      const bonusNumber = await this.#inputView.readBonusNumber();
+      this.#bonusNumber = await this.#inputView.readBonusNumber();
 
       const matchResults = this.#calculateMatchResults();
       this.#printMatchResults(matchResults);
@@ -49,13 +51,18 @@ class LottoController {
   }
 
   #calculateMatchResults() {
-    return this.#lottos.map((lotto) =>
-      lotto.countMatchingNumbers(this.#winningNumbers),
-    );
+    return this.#lottos.map((lotto) => ({
+      matchCount: lotto.countMatchingNumbers(this.#winningNumbers),
+      hasBonus: lotto.containsBonusNumber(this.#bonusNumber),
+    }));
   }
 
   #printMatchResults(results) {
-    Console.print(`결과 : ${results.length}`);
+    results.forEach((result) => {
+      Console.print(
+        `일치하는 번호 개수: ${result.matchCount}, 보너스 볼 일치: ${result.hasBonus}`,
+      );
+    });
   }
 }
 
