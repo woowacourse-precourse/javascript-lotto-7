@@ -33,6 +33,11 @@ class App {
     lottoNumbers.forEach((eachLotto) => {
       MissionUtils.Console.print(`[${eachLotto.join(", ")}]`);
     });
+
+    let userPickedNumbers = [];
+    userPickedNumbers = await MissionUtils.Console.readLineAsync(
+      "\n당첨 번호를 입력해 주세요.\n"
+    );
   }
 }
 
