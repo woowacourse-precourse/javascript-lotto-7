@@ -5,25 +5,24 @@ import LottoCount from '../domain/LottoCount.js';
 import Lotto from '../domain/Lotto.js';
 import Bonus from '../domain/Bonus.js';
 import LottoIssuance from '../domain/LottoIssuance.js';
+import LottoStatistics from '../domain/LottoStatistics.js';
 
 class LottoController {
-  #lottoCount;
-  #winningNumbers;
-  #bonusNumber;
-  #lottos;
-
   async start() {
-    this.#lottoCount = await this.#inputLottoPurchasePrice();
-    OutputView.printLottoPurchaseCount(this.#lottoCount);
+    const lottoCount = await this.#inputLottoPurchasePrice();
+    OutputView.printLottoPurchaseCount(lottoCount);
 
-    const lottoIssuance = new LottoIssuance(this.#lottoCount);
-    this.#lottos = lottoIssuance.getIssuedLottos();
-    this.#lottos.forEach((lotto) => {
-      OutputView.printLottoIssueDetails(lotto);
-    });
+    const lottoIssuance = new LottoIssuance(lottoCount);
+    const lottos = lottoIssuance.getIssuedLottos();
+    lottos.forEach((lotto) => OutputView.printLottoIssueDetails(lotto));
 
-    this.#winningNumbers = await this.#inputWinningNumbers();
-    this.#bonusNumber = await this.#inputBonusNumber();
+    const winningNumbers = await this.#inputWinningNumbers();
+    const bonusNumber = await this.#inputBonusNumber(winningNumbers);
+
+    const lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
+    const matchResults = lottoStatistics.getMatchResults();
+    OutputView.printWinningDetails(matchResults);
+
   }
 
   async #inputLottoPurchasePrice() {
@@ -52,20 +51,18 @@ class LottoController {
     }
   }
 
-  async #inputBonusNumber() {
+  async #inputBonusNumber(winningNumbers) {
     try {
       const bonusNumber = await InputView.readBonusNumberAsnyc();
       const parseBonusNumber = parser.parseStringToNumber(bonusNumber);
 
-      const bonus = new Bonus(parseBonusNumber, this.#winningNumbers);
+      const bonus = new Bonus(parseBonusNumber, winningNumbers);
       return bonus.getBonusNumber();
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return await this.#inputBonusNumber();
     }
   }
-
-
 }
 
 export default LottoController;
