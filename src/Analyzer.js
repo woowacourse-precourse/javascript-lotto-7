@@ -29,7 +29,7 @@ class Analyzer {
   }
 
   getWinningTable() {
-    const matchedNumbers = this.#getMatchingNumbers();
+    const matchedNumbers = this.#calculateMatchingNumbers();
     this.#makeWinningTable(matchedNumbers);
 
     return this.#winningTable;
