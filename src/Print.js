@@ -7,7 +7,7 @@ class Print {
   }
 
   static printLottosNumber(numbers) {
-    Console.print(numbers);
+    Console.print(`[${numbers.join(', ')}]`);
   }
 
   static printStats(prizedNum, earningRate) {
