@@ -90,7 +90,15 @@ class LottoManager {
     Console.print(`${RESULT_MESSAGES.PLACE_1ST} ${this.#place[4]}개`);
   }
 
-  
+  printReturns() {
+    const unitJackpot = [5000, 50000, 1500000, 30000000, 2000000000];
+    const total = unitJackpot.reduce(
+      (acc, jackpot, index) => acc + jackpot * this.#place[index],
+      0,
+    );
+    const rate = ((total / (this.#lottoAmount * 1000)) * 100).toFixed(1);
+    Console.print(`${RESULT_MESSAGES.RETURNS} ${rate}%입니다.`);
+  }
 }
 
 export default LottoManager;

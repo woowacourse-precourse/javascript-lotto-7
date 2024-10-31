@@ -9,6 +9,7 @@ class App {
       await this.#lottoManager.enterInputs();
       this.#lottoManager.calculateResult();
       this.#lottoManager.printStatistics();
+      this.#lottoManager.printReturns();
     } catch (error) {
       Console.print(error.message);
     }
