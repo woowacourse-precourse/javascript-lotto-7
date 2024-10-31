@@ -1,8 +1,8 @@
-import Lotto from './Lotto.js';
+import WinningLotto from './WinningLotto.js';
 
 class App {
   async run() {
-    console.log(new Lotto([-1, 12, 3, 24, 99, 5]).getNumbers());
+    // console.log(new WinningLotto([1, 2, 3, 4, 5, 6], 46));
   }
 }
 

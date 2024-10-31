@@ -1,5 +1,6 @@
 import ERROR_MESSAGE from '../src/constants/errorMessage.js';
 import Lotto from '../src/Lotto.js';
+import WinningLotto from '../src/WinningLotto.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
@@ -37,5 +38,29 @@ describe('로또 클래스 테스트', () => {
 
     // then
     expect(lotto.getNumbers()).toStrictEqual(EXPECTED_NUMBERS);
+  });
+});
+
+describe('당첨 로또 클래스 테스트', () => {
+  it.each([
+    [[1, 2, 3, 4, 5], 7],
+    [[1, 2, 3, 4, 5, ''], 7],
+    [[1, 2, 3, 4, 5, 'n'], 7],
+    [[1, 2, 3, 4, 5, 46], 7],
+  ])('당첨 번호 예외 테스트', (lottoNumbers, bonusNumber) => {
+    expect(() => new WinningLotto(lottoNumbers, bonusNumber)).toThrow(
+      '[ERROR]',
+    );
+  });
+
+  it.each([
+    [[1, 2, 3, 4, 5, 6], ''],
+    [[1, 2, 3, 4, 5, 6], 'n'],
+    [[1, 2, 3, 4, 5, 6], 46],
+    [[1, 2, 3, 4, 5, 6], 6],
+  ])('보너스 번호 예외 테스트', (lottoNumbers, bonusNumber) => {
+    expect(() => new WinningLotto(lottoNumbers, bonusNumber)).toThrow(
+      '[ERROR]',
+    );
   });
 });
