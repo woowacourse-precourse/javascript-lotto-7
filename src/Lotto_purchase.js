@@ -1,10 +1,11 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class Lotto_purchase {
   constructor(payment) {
     this.validate(payment);
     let lottoQuantity = this.countQuantity(payment);
     let myLottoArray = this.randomLottoDraw(lottoQuantity);
+    this.printMyLottoArray(lottoQuantity, myLottoArray);
   }
   validate(payment) {
     if (payment % 1000 !== 0) {
@@ -26,6 +27,15 @@ class Lotto_purchase {
         myLottoArray.push(myLotto);
     }
     return myLottoArray;
+  }
+
+  printMyLottoArray(lottoQuantity, myLottoArray){
+    Console.print(lottoQuantity + "개를 구매했습니다.")
+    myLottoArray.forEach(myLotto => {
+        let myLottoStr = myLotto.join(", ")
+        Console.print("[" + myLottoStr + "]")
+    });
+    Console.print("");
   }
 }
 export default Lotto_purchase;
