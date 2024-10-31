@@ -4,17 +4,18 @@ import Lotto from './Lotto';
 class LottoBundle {
   #lottoList;
   constructor(purchaseCount) {
-    this.#lottoList = this.createLottoList(purchaseCount);
+    this.#lottoList = this.createList(purchaseCount);
   }
 
-  createLottoList(purchaseCount) {
+  // number => Lotto[]
+  createList(purchaseCount) {
     return Array.from(
       { length: purchaseCount },
       () => new Lotto(getRandomNumbers())
     );
   }
 
-  getLottoList() {
+  getList() {
     return this.#lottoList;
   }
 }
