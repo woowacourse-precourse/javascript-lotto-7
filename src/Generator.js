@@ -10,7 +10,7 @@ class Generator {
     try {
       this.times = this.calculateTimes(amount);
 
-      for (let i = 0; i < times; i++) {
+      for (let i = 0; i < this.times; i++) {
         const randomNumbers = this.createLottoNumbers();
         const sortedNumbers = this.sortNumbers(randomNumbers);
         // !
@@ -19,7 +19,7 @@ class Generator {
         this.lottos.push(this.createRealLotto(sortedNumbers));
       }
 
-      return lottos;
+      return this.lottos;
     } catch (error) {
       throw new Error(error.message);
     }
