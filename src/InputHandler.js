@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { MESSAGES, DIVISORS } from "./Constants.js";
+import { MESSAGES, GENERALS } from "./Constants.js";
 import { validateMoney } from "./Validator.js";
 
 class InputHandler {

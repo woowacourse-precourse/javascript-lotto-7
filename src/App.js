@@ -6,6 +6,7 @@ class App {
         const inputHandler = new InputHandler();
             
         const userMoney =  await inputHandler.askUserMoney();
+        Lotto.issueLottos(userMoney);
     }
 }
 

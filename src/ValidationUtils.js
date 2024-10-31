@@ -1,4 +1,4 @@
-import { MESSAGES, DIVISORS, LIMITS } from "./Constants.js";
+import { MESSAGES, GENERALS } from "./Constants.js";
 
 const isNumber = (input) => {
     const inputAsNum = Number(input);
@@ -21,13 +21,13 @@ const isNegative = (input) => {
 };
 
 const isMoneyDivisible = (money) => {
-    if (money % DIVISORS.MONEY !== 0) {
+    if (money % GENERALS.LOTTO_PRICE !== 0) {
         throw new Error(MESSAGES.ERROR.MONEY_NOT_DIVISIBLE_BY_THOUSAND);
     }
 };
 
 const isOverLimit = (money) => {
-    if (money > LIMITS.BUY) {
+    if (money > GENERALS.LOTTO_BUY_LIMIT) {
         throw new Error(MESSAGES.ERROR.CANNOT_BUY_OVER_LIMIT);
     }
  }
