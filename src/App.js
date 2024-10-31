@@ -6,22 +6,23 @@ const ERROR_MESSAGE_INVALID_COST =
 
 class App {
   async run() {
+    let lottoCost;
     let isValid = false;
-    let lottoCost = 0;
 
     while (!isValid) {
-      try {
-        lottoCost = Number(
-          await MissionUtils.Console.readLineAsync(GUIDE_MESSAGE_INPUT_COST)
-        );
-        if (lottoCost % 1000 !== 0) {
-          throw new Error(ERROR_MESSAGE_INVALID_COST);
-        }
-
-        isValid = true;
-      } catch (error) {
-        console.error(error.message);
+      lottoCost = Number(
+        await MissionUtils.Console.readLineAsync(GUIDE_MESSAGE_INPUT_COST)
+      );
+      if (lottoCost % 1000 !== 0) {
+        throw new Error(ERROR_MESSAGE_INVALID_COST);
       }
+      isValid = true;
+    }
+
+    const lottoCnt = lottoCost / 1000;
+    let lottoNumbers = [];
+    for (let i = 0; i < lottoCnt; i++) {
+      lottoNumbers[i] = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     }
   }
 }
