@@ -7,23 +7,22 @@ class App {
     const view = new View();
 
     while (true) {
-      const amount = await view.promptPurchaseAmount();
+      try {
+        const amount = await view.promptPurchaseAmount();
+        this.validationAmount(amount);
 
-      const errorMessage = this.validationAmount(amount);
-
-      if (errorMessage) {
-        view.printErrorMessage(errorMessage);
-      } else break;
+        break;
+      } catch (error) {
+        view.printErrorMessage(error.message);
+      }
     }
   }
 
   validationAmount(amount) {
-    if (isNaN(amount)) return PURCHASE_AMOUNT_ERROR.NOT_NUMBER;
-    if (amount <= 0) return PURCHASE_AMOUNT_ERROR.NOT_POSITIVE;
+    if (isNaN(amount)) throw new Error(PURCHASE_AMOUNT_ERROR.NOT_NUMBER);
+    if (amount <= 0) throw new Error(PURCHASE_AMOUNT_ERROR.NOT_POSITIVE);
     if (amount % ONE_LOTTO_AMOUNT !== 0)
-      return PURCHASE_AMOUNT_ERROR.NOT_DIVIDE_ONE_THOUSAND;
-
-    return null;
+      throw new Error(PURCHASE_AMOUNT_ERROR.NOT_DIVIDE_ONE_THOUSAND);
   }
 }
 
