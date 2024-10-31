@@ -2,13 +2,14 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   PurchaseLottoNumbers = [];
+  // 1~45까지의 숫자를 인덱스로 사용하기 위해 46개의 배열 생성 (효율성)
+  WinningLottoNumbersArray = Array(46).fill(0);
 
   async run() {
     const purchaseAmount = await Console.readLineAsync(
       "구입금액을 입력해 주세요.\n"
     );
     this.printLottoNumbers(this.processLottoCount(purchaseAmount));
-    Console.print(this.PurchaseLottoNumbers);
   }
 
   //로또 갯수 가공
