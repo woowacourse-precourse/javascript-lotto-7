@@ -3,7 +3,7 @@
 
 import roundToOne from '../src/Utils/roundToOne';
 
-describe('랜덤숫자 생성기 함수 테스트', () => {
+describe('반올림 함수 테스트', () => {
   test('정수를 함수에 넣으면 소수점 첫 째자리까지 보여야 합니다.', () => {
     expect(roundToOne(100)).toStrictEqual('100.0');
   });
