@@ -18,7 +18,7 @@ class Statistic {
     this.winningResult[prizeName] += 1;
   }
 
-  getGainPrice() {
+  #getGainPrice() {
     return (
       this.winningResult.first * PrizeMoney.FIRST +
       this.winningResult.second * PrizeMoney.SECOND +
@@ -29,7 +29,9 @@ class Statistic {
   }
 
   getEarningRate() {
-    const rate = this.getGainPrice() / this.buyPrice;
+    const rate = (this.#getGainPrice() / this.buyPrice) * 100;
     return roundToOne(rate);
   }
 }
+
+export default Statistic;
