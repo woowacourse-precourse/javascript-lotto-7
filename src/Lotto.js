@@ -1,3 +1,5 @@
+import { checkDuplicate, checkWinNumbers } from "./feature/validate/checkWinNumber.js";
+
 class Lotto {
   #numbers;
 
@@ -10,9 +12,14 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+
+    checkWinNumbers(numbers);
+    checkDuplicate(numbers);
   }
 
-  // TODO: 추가 기능 구현
+  get getWinNumber() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
