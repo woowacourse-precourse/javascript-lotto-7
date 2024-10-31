@@ -1,5 +1,5 @@
 import LottoRule from './model/LottoRule.js';
-import LottoPaymentExecutor from './LottoPaymentExecutor.js';
+import LottoPayment from './LottoPayment.js';
 import LottoGenerator from './LottoGenerator.js';
 import { printEmptyLine, printPurchaseResult } from './view/OutputPrinter.js';
 
@@ -11,8 +11,8 @@ class LottoGameExecutor {
   }
 
   async startGame() {
-    const lottoPaymentExecutor = new LottoPaymentExecutor(this.#lottoRule);
-    const lottoCount = await lottoPaymentExecutor.executePaymentAndGetLottoCount(this.#lottoRule.lottoAmount, this.#lottoRule.maxlottoPurchaseAmount);
+    const lottoPayment = new LottoPayment(this.#lottoRule);
+    const lottoCount = await lottoPayment.executePaymentAndGetLottoCount(this.#lottoRule.lottoAmount, this.#lottoRule.maxlottoPurchaseAmount);
 
     printEmptyLine();
 

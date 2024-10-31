@@ -1,7 +1,7 @@
 import { getPurchaseAmount } from './view/InputReader.js';
 import { validatePurchaseAmount } from './LottoValidator.js';
 
-class LottoPaymentExecutor {
+class LottoPayment {
   #lottoAmount;
 
   #maxPurchaseAmount;
@@ -28,4 +28,4 @@ class LottoPaymentExecutor {
   }
 }
 
-export default LottoPaymentExecutor;
+export default LottoPayment;
