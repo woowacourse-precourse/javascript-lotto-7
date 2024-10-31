@@ -41,7 +41,15 @@ class LottoController {
     return this.#Lottos;
   }
 
-  calculateWinningLottos(winningLotto, bonusNumber) {}
+  calculateWinningLottos(winningLotto, bonusNumber) {
+    this.#Lottos.forEach((lotto) => {
+      const lottoNumbers = lotto.getNumbers();
+      const lottoMatchCount = lottoNumbers.filter((number) =>
+        winningLotto.includes(number)
+      );
+      const bonusMatch = lottoNumbers.includes(bonusNumber);
+    });
+  }
 }
 
 export default LottoController;
