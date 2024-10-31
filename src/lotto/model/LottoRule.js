@@ -4,7 +4,7 @@ import {
 } from '../LottoValidator.js';
 
 class LottoRule {
-  #lottoPurchaseAmount;
+  #lottoAmount;
 
   #maxlottoPurchaseAmount;
 
@@ -13,7 +13,7 @@ class LottoRule {
   #lottoNumberScope;
 
   constructor(lottoConfig) {
-    this.#lottoPurchaseAmount = lottoConfig.PURCHASE_AMOUNT;
+    this.#lottoAmount = lottoConfig.LOTTO_AMOUNT;
     this.#maxlottoPurchaseAmount = lottoConfig.MAX_PURCHASE_AMOUNT;
     this.#lottoNumberCount = lottoConfig.NUMBER_COUNT;
     this.#lottoNumberScope = {
@@ -25,7 +25,7 @@ class LottoRule {
   }
 
   #validateRuleValue() {
-    validateLottoAmountRule(this.#lottoPurchaseAmount, this.#maxlottoPurchaseAmount);
+    validateLottoAmountRule(this.#lottoAmount, this.#maxlottoPurchaseAmount);
 
     const { minNumber, maxNumber } = this.#lottoNumberScope;
     validateLottoNumberRule(this.#lottoNumberCount, minNumber, maxNumber);
