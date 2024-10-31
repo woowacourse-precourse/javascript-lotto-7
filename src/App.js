@@ -31,6 +31,8 @@ class App {
     this.processBonusgNumber(bonusNumber);
 
     this.compareLottoNumbers();
+
+    Console.print(this.winningRanks);
   }
 
   //로또 갯수 가공
@@ -90,8 +92,7 @@ class App {
   compareLottoNumbers() {
     this.PurchaseLottoNumbersArray.forEach((lottoNumber) => {
       let { count, isBonusMatched } = this.countWinningNumber(lottoNumber);
-      Console.print(count);
-      Console.print(isBonusMatched);
+      this.updateWinningRanks(count, isBonusMatched);
     });
   }
 
@@ -107,6 +108,26 @@ class App {
       }
     });
     return { count, isBonusMatched };
+  }
+  //winningRanks 업데이트
+  updateWinningRanks(count, isBonusMatched) {
+    switch (count) {
+      case 6:
+        this.winningRanks[1]++;
+        break;
+      case 5:
+        if (isBonusMatched) this.winningRanks[2]++;
+        else this.winningRanks[3]++;
+        break;
+      case 4:
+        this.winningRanks[4]++;
+        break;
+      case 3:
+        this.winningRanks[5]++;
+        break;
+      default:
+        break;
+    }
   }
 }
 
