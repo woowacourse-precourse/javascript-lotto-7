@@ -12,6 +12,14 @@ class Lotto {
     }
   }
 
+  #validateIsNumber(input) {
+    if (Number.isNaN(Number(input))) {
+      throw new Error('[ERROR] 숫자만 입력이 가능합니다.');
+    }
+
+    return Number(input);
+  }
+
   getNumbers() {
     return this.#numbers;
   }
