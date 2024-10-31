@@ -8,7 +8,7 @@ function getWinNumberMatchCount(lotto, winNumbers) {
       matchCount = matchCount + 1;
     }
   })
-
+  
   return matchCount;
 };
 
@@ -33,4 +33,13 @@ function winNumberMatcher(lottoList, winNumbers, bonusNumber) {
   return RESULT_LIST;
 };
 
-export default winNumberMatcher;
+function getFilteredMatchList(lottoList, winNumbers, bonusNumber) {
+  const RESULT_LIST = winNumberMatcher(lottoList, winNumbers, bonusNumber)
+  const FILTERED_LIST = RESULT_LIST.filter((result) => {
+    return result[0] >= 3;
+  });
+
+  return FILTERED_LIST;
+};
+
+export { winNumberMatcher, getFilteredMatchList };
