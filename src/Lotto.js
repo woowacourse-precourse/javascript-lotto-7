@@ -51,10 +51,14 @@ class Lotto {
     numbers.sort((a, b) => a - b);
   }
 
-  #makeFullLotto() {
-    this.#addBonusNum(this.#numbers);
+  makeLotto() {
     this.#lottoSort(this.#numbers);
-    this.#printLotto(this.#numbers)
+    this.#printLotto(this.#numbers);
+  }
+
+  makeWinningLotto() {
+    this.#addBonusNum();
+    this.#lottoSort(this.#numbers);
   }
 
   #getBonusNum() {
@@ -62,14 +66,18 @@ class Lotto {
     return BONUS_NUMBER;
   }
 
-  #addBonusNum(numbers) {
-    numbers.push(this.#getBonusNum());
+  #addBonusNum() {
+    this.#numbers.push(this.#getBonusNum());
   }
 
-  #printLotto(numbers) {
-    MissionUtils.Console.print(numbers);
+  #printLotto() {
+    MissionUtils.Console.print(this.#numbers);
   }
 
+  getNumbers() {
+    return this.#numbers;
+  }
 }
+
 
 export default Lotto;
