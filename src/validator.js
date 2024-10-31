@@ -8,4 +8,4 @@ const validator = Object.freeze({
   },
 });
 
-export { validator };
+export default validator;

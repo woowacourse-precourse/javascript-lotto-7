@@ -1,10 +1,16 @@
-import LottoManager from "./LottoManager.js";
+import { Console } from '@woowacourse/mission-utils';
+import LottoManager from './LottoManager.js';
 
 class App {
   async run() {
     const lottoManager = new LottoManager();
 
-    await lottoManager.enterBudget();
+    try {
+      await lottoManager.enterBudget();
+      await lottoManager.enterWinningNumbers();
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 

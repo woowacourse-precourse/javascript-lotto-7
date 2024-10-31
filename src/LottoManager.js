@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import { SYSTEM_MESSAGES } from './constants.js';
-import { validator } from './validator.js';
+import validator from './validator.js';
 import Lotto from './Lotto.js';
 
 class LottoManager {
@@ -16,10 +16,15 @@ class LottoManager {
     this.#bounsNumber = 0;
   }
 
+  getLottoAmount() {
+    return this.#lottoAmount;
+  }
+
   async enterBudget() {
     const budget = await Console.readLineAsync(SYSTEM_MESSAGES.ENTER_BUDGET);
     validator.budget(budget);
     this.#lottoAmount = budget / 1000;
+
     this.generateRandomLottoList();
     this.printLottoList();
   }
@@ -36,6 +41,13 @@ class LottoManager {
     this.#lottoList.forEach((lotto) => {
       Console.print(`${lotto.toString()}`);
     });
+    Console.print('');
+  }
+
+  async enterWinningNumbers() {
+    const rawWinningNumbers = await Console.readLineAsync(SYSTEM_MESSAGES.ENTER_WINNING_NUMBERS);
+    const winningNumbers = rawWinningNumbers.split(',').map((number) => Number(number));
+    this.#winningNumbers = new Lotto(winningNumbers);
   }
 }
 
