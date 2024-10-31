@@ -5,9 +5,26 @@ import { intersection } from './lib/utils.js';
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
-    Lotto.#validate(numbers);
-    this.#numbers = numbers;
+  init() {
+    this.#numbers = this.#generateNumbers();
+    this.#sortByAscending();
+    this.#validate();
+  }
+
+  get numbers() {
+    return this.#numbers;
+  }
+
+  #generateNumbers() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
+
+  #sortByAscending() {
+    this.#numbers.sort((a, b) => a - b);
+  }
+
+  #validate() {
+    if (this.#numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
   }
 
   getRankObject(winningNumberArray, bonusNumber) {
@@ -23,20 +40,12 @@ class Lotto {
     return currentRankObject;
   }
 
-  static #validate(numbers) {
-    if (numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
-  }
-
   #getWinningNumberCount(winningNumberArray) {
     return intersection(this.#numbers, winningNumberArray).length;
   }
 
   #getIsBonusMatch(bonusNumber) {
     return intersection(this.#numbers, [bonusNumber]).length;
-  }
-
-  printNumbers() {
-    MissionUtils.Console.print(this.#numbers);
   }
 }
 

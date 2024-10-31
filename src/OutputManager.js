@@ -12,6 +12,10 @@ class OutputManager {
     MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
   }
 
+  static printNumbers(lottoArray) {
+    lottoArray.forEach((lotto) => MissionUtils.Console.print(lotto.numbers));
+  }
+
   static printAllLottos(lotoArray) {
     MissionUtils.Console.print(`${lottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`);
     lottoArray.forEach((lotto) => lotto.printNumbers());

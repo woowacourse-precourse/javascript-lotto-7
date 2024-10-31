@@ -4,41 +4,31 @@ import { OUTPUT_MESSAGE, RANK_OBJECT_ARRAY } from './lib/constants.js';
 import Lotto from './Lotto.js';
 import { calculateRateOfReturn } from './lib/utils.js';
 import OutputManager from './OutputManager.js';
+import LottoManager from './LottoManager.js';
 
 class App {
-  #lottoArray;
   #rankMap;
 
   constructor() {
-    this.#lottoArray = [];
     this.#rankMap = App.#createRankMap();
   }
 
   async run() {
     const purchasePrice = await InputManager.getPurchasePrice();
-    const purchaseCount = purchasePrice / 1_000;
 
-    OutputManager.printPurchaseCount(purchaseCount);
+    const lottoManager = new LottoManager(purchasePrice);
 
-    for (let round = 0; round < purchaseCount; round += 1) {
-      const randomNumberArray = MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6,
-      );
-      randomNumberArray.sort((a, b) => a - b);
-      const lotto = new Lotto(randomNumberArray);
-      this.#lottoArray.push(lotto);
-    }
+    OutputManager.printPurchaseCount(lottoManager.lottoCount);
 
-    this.#lottoArray.forEach((lotto) => lotto.printNumbers());
+    OutputManager.printNumbers(lottoManager.lottoArray);
 
     const winningNumberArray = await InputManager.getWinningNumbers();
 
     const bonusNumber = await InputManager.getBonusNumber();
 
     let totalWinningPrice = 0;
-    this.#lottoArray.forEach((lotto) => {
+
+    lottoManager.lottoArray.forEach((lotto) => {
       const rankObject = lotto.getRankObject(winningNumberArray, bonusNumber);
 
       if (rankObject) {
