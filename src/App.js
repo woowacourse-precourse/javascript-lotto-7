@@ -14,49 +14,49 @@ import StatisticsService from './StatisticsService.js';
 
 class App {
   async run() {
-    const paidAmount = await getInputWhileValid(
+    const purchaseAmount = await getInputWhileValid(
       validateMoney,
       '구입금액을 입력해 주세요.',
     );
 
-    const lotteryNotes = validateLotteryNotes(paidAmount);
+    const numberOfTickets = validateLotteryNotes(purchaseAmount);
 
-    const lotteries = new LotteryFactory(
+    const purchasedLotteries = new LotteryFactory(
       Lotto,
       defaultSettings,
-    ).createLotteries(lotteryNotes);
+    ).createLotteries(numberOfTickets);
 
-    Console.print(`${lotteryNotes}개를 구매했습니다.`);
-    printLotteries(lotteries);
+    Console.print(`${numberOfTickets}개를 구매했습니다.`);
+    printLotteries(purchasedLotteries);
 
-    const lotteryNumbers = await getInputWhileValid(
+    const winningNumbers = await getInputWhileValid(
       validateLottoNumber,
       '로또 번호를 입력해주세요',
     );
 
     const bonusNumber = await getInputWhileValid(
-      (input) => validateBonusNumber(input, lotteryNumbers),
+      (input) => validateBonusNumber(input, winningNumbers),
       '보너스 번호를 입력해보세요: ',
     );
-    const rankCalculationService = new RankCalculationService(RANKS);
+    const rankCalculator = new RankCalculationService(RANKS);
 
-    lotteries.forEach((lotto) => {
+    purchasedLotteries.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers();
 
-      const matchingCount = lotteryNumbers.filter((num) =>
-        lottoNumbers.includes(num),
+      const matchingNumberCount = winningNumbers.filter((number) =>
+        lottoNumbers.includes(number),
       ).length;
-      const hasBonus = lottoNumbers.includes(bonusNumber);
+      const hasBonusNumber = lottoNumbers.includes(bonusNumber);
 
-      rankCalculationService.updateRankCount(matchingCount, hasBonus);
+      rankCalculator.updateRankCount(matchingNumberCount, hasBonusNumber);
     });
 
-    const statisticsService = new StatisticsService(
-      rankCalculationService.getRankCounts(),
-      paidAmount,
+    const statistics = new StatisticsService(
+      rankCalculator.getRankCounts(),
+      purchaseAmount,
     );
-    statisticsService.printStatistics();
-    statisticsService.printRevenueRate();
+    statistics.printStatistics();
+    statistics.printRevenueRate();
   }
 }
 
