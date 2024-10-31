@@ -1,4 +1,4 @@
-import Money from '../src/models/Money';
+import Money from '../src/models/Money.js';
 
 describe('Money 클래스 테스트', () => {
   test('입력한 구입 금액을 1000원 단위로 로또를 구매할 수 있다', () => {
