@@ -1,6 +1,5 @@
-import { INPUT_MESSAGE, OUTPUT_MESSAGE } from './Constants/Message.js';
+import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../Constants/Message.js';
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
 
 class LOTTO_MACHINE {
   async inputMoney(input) {
