@@ -3,16 +3,23 @@ import Lotto from "./Lotto.js";
 
 class App {
   async run() {
-    let input = await Console.readLineAsync('구입금액을 입력해 주세요\n');
-    const isValidNumber = /^\d+$/.test(input);
-    if (!isValidNumber) {
-      Console.print('[ERROR] 구입금액은 숫자만 입력해주세요.');
+    let input;
+    let isValidNumber;
+    
+    while (!isValidNumber) {
       input = await Console.readLineAsync('구입금액을 입력해 주세요\n');
+      isValidNumber = /^\d+$/.test(input);
+      if (isValidNumber){
+        break
+      }else{
+        Console.print('[ERROR] 구입금액은 숫자만 입력해주세요.');
+      }
     }
     const inputNumber = Number(input);
 
-    if (inputNumber < 0) throw new Error('[ERROR] 구입금액은 양수만 입력해주세요.');
-    if (inputNumber % 1000 !== 0) throw new Error('[ERROR] 구입금액은 1000원 단위입니다.');
+    if (isNaN(inputNumber)) Console.print('[ERROR] 구입 금액은 유효한 숫자여야 합니다.');
+    if (inputNumber < 0) Console.print('[ERROR] 구입금액은 양수만 입력해주세요.');
+    if (inputNumber % 1000 !== 0) Console.print('[ERROR] 구입금액은 1000원 단위입니다.');
 
     const countLotto = inputNumber / 1000;
     const lottos = [];
@@ -20,6 +27,7 @@ class App {
     Console.print(`${countLotto}개를 구매했습니다.`);
     for (let i = 0; i < countLotto; i++) {
       const random = Random.pickUniqueNumbersInRange(1, 45, 6);
+      random.sort((a,b) => a-b);
       const lotto = new Lotto(random);
       lottos.push(lotto);
       Console.print(`[${random.join(', ')}]`);
@@ -27,7 +35,29 @@ class App {
 
     const winInput = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
     const winNumber = winInput.split(',').map(Number);
-    const bonusNumber = Number(await Console.readLineAsync('보너스 번호를 입력해 주세요.\n'));
+    winNumber.forEach((number) => {
+      if (number === isNaN) {
+        Console.print('[ERROR] 당첨 번호는 유효한 숫자여야 합니다.');
+      }
+      if (!Number.isInteger(number)) {
+        Console.print('[ERROR] 당첨 번호는 정수만 가능합니다.');
+      }
+      if (number < 0 || number > 45) {
+        Console.print('[ERROR] 당첨 번호는 1 ~ 45 사이의 숫자만 가능합니다.');
+      }
+    })
+
+    const inputBonus = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const bonusNumber = Number(inputBonus);
+    if (bonusNumber === isNaN) {
+      Console.print('[ERROR] 당첨 번호는 유효한 숫자여야 합니다.');
+    }
+    if (!Number.isInteger(bonusNumber)) {
+      Console.print('[ERROR] 당첨 번호는 정수만 가능합니다.');
+    }
+    if (bonusNumber < 0 || bonusNumber > 45) {
+      Console.print('[ERROR] 당첨 번호는 1 ~ 45 사이의 숫자만 가능합니다.');
+    }
 
     Console.print('당첨통계\n---');
     const winRanking = Array(4).fill(0);
@@ -39,10 +69,15 @@ class App {
 
       if (matchCount === 6) {
         winRanking[3]++;
-      } else if (matchCount === 5 && hasBonus) {
+        return
+      }
+      if (matchCount === 5 && hasBonus) {
         fiveEqualWithBonusCount++;
-      } else if (matchCount >= 3) {
+        return
+      }
+      if (matchCount >= 3) {
         winRanking[matchCount - 3]++;
+        return
       }
     }
 
