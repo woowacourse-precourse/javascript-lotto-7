@@ -1,4 +1,4 @@
-import Input from './View/Input.js';
+import Input from '../View/Input.js';
 
 class App {
   async run() {
