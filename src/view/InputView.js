@@ -28,7 +28,7 @@ class InputView {
     const intBonus = this.validator.isBonusAsNumber(bonusInput);
     this.validator.isBonusInRange(intBonus);
     this.validator.isBonusNotInAnswer(intBonus, lottoAnswer);
-    return bonusInput;
+    return intBonus;
   }
 }
 

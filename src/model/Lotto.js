@@ -37,10 +37,11 @@ class Lotto {
   }
   isGetBonus(numberArray, bonusNumber) {
     //5+bonusnumber
+    let winning = 5;
     if (numberArray.includes(bonusNumber)) {
       winning = 7;
-      return winning;
     }
+    return winning;
   }
 }
 
