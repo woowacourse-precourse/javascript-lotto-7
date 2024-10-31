@@ -27,6 +27,13 @@ class Analyzer {
       this.#winningTable.set(matchedCount, currentCalculation + 1);
     });
   }
+
+  getWinningTable() {
+    const matchedNumbers = this.#getMatchingNumbers();
+    this.#makeWinningTable(matchedNumbers);
+
+    return this.#winningTable;
+  }
 }
 
 export default Analyzer;
