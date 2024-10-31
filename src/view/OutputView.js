@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { formatLottoResult } from '../utils/lottoResultFormattor.js';
+import { formatLottoResult } from '../utils/formatLottoResult.js';
 
 class OutputView {
   displayEmptyLine() {
