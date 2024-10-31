@@ -9,6 +9,7 @@ class Lotto {
   }
 
   #validate(numbers) {
+    LottoValidate.validateIsNumber(numbers);
     LottoValidate.validateLottoLength(numbers);
     LottoValidate.validateLottoDup(numbers);
   }

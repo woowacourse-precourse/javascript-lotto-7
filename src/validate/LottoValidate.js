@@ -2,6 +2,11 @@ import { ERROR_MESSAGE } from "../constant/Error.js";
 import { LOTTO_DATA } from "../constant/Data.js";
 
 class LottoValidate {
+  static validateIsNumber(lotto) {
+    if (lotto.some((number) => isNaN(number)))
+      throw new Error(ERROR_MESSAGE.LOTTO.ERROR_LOTTO_NON_NUMBER);
+  }
+
   static validateLottoLength(lotto) {
     if (lotto.length !== LOTTO_DATA.lottoLength)
       throw new Error(ERROR_MESSAGE.LOTTO.ERROR_LOTTO_LENGTH);
