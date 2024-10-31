@@ -84,7 +84,7 @@ describe('LottoService 클래스 테스트', () => {
     lottoService.createWinningLottoModel(numberString);
     lottoService.appendBonusNumber(bonusNumber);
 
-    expect(lottoService.calculateLottosRank()).toEqual(expected);
+    expect(lottoService.getStatistics()).toEqual(expected);
   });
 
   test('수익률 계산', () => {
@@ -97,7 +97,7 @@ describe('LottoService 클래스 테스트', () => {
     };
     const price = 6000;
 
-    const rate = lottoService.calculateRateOfReturn(rankObject, price);
+    const rate = lottoService.getRateOfReturn(rankObject, price);
 
     expect(rate).toEqual(
       (((MATCH_PRICE.FOUR + MATCH_PRICE.FIVE) / price) * 100).toFixed(1),

@@ -47,31 +47,31 @@ export default class LottoService {
     this.winningLottoModel.setBonusNumber(bonusNumber);
   }
 
-  calculateLottosRank() {
-    const lottoRankObject = this.#createRankObject();
+  getStatistics() {
+    const rankObject = this.#getRankObject();
 
     this.userModel.getLottos().forEach((lotto) => {
       const rank = this.#calculateRank(lotto, this.winningLottoModel);
-      if (rank) lottoRankObject[rank] += 1;
+      if (rank) rankObject[rank] += 1;
     });
 
-    return lottoRankObject;
+    return rankObject;
   }
 
-  calculateRateOfReturn(rankObject, price) {
+  getRateOfReturn(rankObject, price) {
     const totalPrize = this.#calculateTotalPrize(rankObject);
     return ((totalPrize / price) * 100).toFixed(1);
   }
 
-  #createRankObject() {
-    const lottoRankObject = {
+  #getRankObject() {
+    const rankObject = {
       3: 0,
       4: 0,
       5: 0,
       '5+': 0,
       6: 0,
     };
-    return lottoRankObject;
+    return rankObject;
   }
 
   #calculateRank(lotto, winningLotto) {
