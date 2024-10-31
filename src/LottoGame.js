@@ -1,4 +1,4 @@
-import { getPurchaseAmount, getWinningNumbers } from "./InputHandler.js";
+import { getPurchaseAmount, getWinningNumbers, getBonusNumber } from "./InputHandler.js";
 import { displayPurchasedLottoCount, displayGeneratedLottos } from "./OutputHandler.js";
 import { Console, Random } from "@woowacourse/mission-utils";
 
@@ -13,6 +13,7 @@ export const start = async () => {
     displayGeneratedLottos(generateLottos(quantity));
 
     const winningNumbers = await getWinningNumbers();
+    const bonusNumber = await getBonusNumber(winningNumbers);
 }
 
 const generateLottos = quantity => {
