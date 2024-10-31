@@ -4,8 +4,10 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES } from "../constant/messages.js";
 class LottoController {
   #inputView;
+  #totalProfit;
   constructor() {
     this.#inputView = new InputView();
+    this.#totalProfit = 0;
   }
   validateLottoAmount(amount) {
     if (isNaN(amount)) {
@@ -97,6 +99,17 @@ class LottoController {
     }
     return [cnt, bonusCnt];
   }
+
+  showTotalStatistic(TOTAL_STATISTIC) {
+    Console.print(MESSAGES.OUTPUT.WINNING_STATISTICS);
+    Console.print(MESSAGES.OUTPUT.matchingCount(3, false, TOTAL_STATISTIC[3]));
+    Console.print(MESSAGES.OUTPUT.matchingCount(4, false, TOTAL_STATISTIC[4]));
+    Console.print(MESSAGES.OUTPUT.matchingCount(5, false, TOTAL_STATISTIC[5]));
+    Console.print(
+      MESSAGES.OUTPUT.matchingCount(5, true, TOTAL_STATISTIC["bonus"])
+    );
+    Console.print(MESSAGES.OUTPUT.matchingCount(6, false, TOTAL_STATISTIC[6]));
+  }
   getWinningResult(lottoTickets, winningNumbers, bonusNumber) {
     const TOTAL_STATISTIC = {
       3: 0,
@@ -120,15 +133,7 @@ class LottoController {
         TOTAL_STATISTIC[matchingCount] += 1;
       }
     }
-
-    Console.print(MESSAGES.OUTPUT.WINNING_STATISTICS);
-    Console.print(MESSAGES.OUTPUT.matchingCount(3, false, TOTAL_STATISTIC[3]));
-    Console.print(MESSAGES.OUTPUT.matchingCount(4, false, TOTAL_STATISTIC[4]));
-    Console.print(MESSAGES.OUTPUT.matchingCount(5, false, TOTAL_STATISTIC[5]));
-    Console.print(
-      MESSAGES.OUTPUT.matchingCount(5, true, TOTAL_STATISTIC["bonus"])
-    );
-    Console.print(MESSAGES.OUTPUT.matchingCount(6, false, TOTAL_STATISTIC[6]));
+    return TOTAL_STATISTIC;
   }
   async run() {
     try {
@@ -152,11 +157,12 @@ class LottoController {
         winningLottoNumbers.getLottoNumbers()
       );
 
-      this.getWinningResult(
+      const totalStatistic = this.getWinningResult(
         lottoTickets,
         winningLottoNumbers.getLottoNumbers(),
         bonusNumber
       );
+      this.showTotalStatistic(totalStatistic);
     } catch (error) {
       console.log(error);
       this.run();
