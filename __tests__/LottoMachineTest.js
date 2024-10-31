@@ -2,13 +2,16 @@ import { Random } from '@woowacourse/mission-utils';
 import LottoMachine from '../src/LottoMachine';
 import Lotto from '../src/Lotto';
 
-describe('LottoMachine 클래스 테스트', () => {
-  const mockingRandomNumbers = (numbers) => {
-    Random.pickUniqueNumbersInRange = jest
-      .fn()
-      .mockImplementation(() => numbers);
-  };
+const mockingRandomNumbers = (numbersArray) => {
+  Random.pickUniqueNumbersInRange = jest.fn();
 
+  numbersArray.reduce(
+    (prevChain, numbers) => prevChain.mockReturnValueOnce(numbers),
+    Random.pickUniqueNumbersInRange,
+  );
+};
+
+describe('LottoMachine 클래스 테스트', () => {
   test.each([
     [1000, 1],
     [2000, 2],
@@ -22,18 +25,52 @@ describe('LottoMachine 클래스 테스트', () => {
     expect(amount).toBe(expected);
   });
 
-  test('로또를 발급하는지 테스트한다.', () => {
-    const PAYMENT = 1000;
-    const NUMBERS = [1, 2, 3, 4, 5, 6];
-    const lottoMachine = new LottoMachine(PAYMENT, Lotto);
+  test.each([
+    [{ payment: 1000, numbers: [[1, 2, 3, 4, 5, 6]] }],
+    [
+      {
+        payment: 3000,
+        numbers: [
+          [1, 2, 3, 4, 5, 6],
+          [2, 4, 6, 8, 10, 12],
+          [1, 4, 23, 25, 28, 41],
+        ],
+      },
+    ],
+    [
+      {
+        payment: 2000,
+        numbers: [
+          [1, 2, 3, 4, 5, 6],
+          [2, 4, 6, 8, 10, 12],
+        ],
+      },
+    ],
+    [
+      {
+        payment: 5000,
+        numbers: [
+          [1, 2, 3, 4, 5, 6],
+          [1, 4, 15, 16, 17, 24],
+          [2, 5, 6, 32, 41, 45],
+          [4, 12, 31, 34, 35, 40],
+          [11, 13, 21, 32, 35, 36],
+        ],
+      },
+    ],
+  ])('로또를 발급하는지 테스트', (inputs) => {
+    const { payment, numbers } = inputs;
+    const lottoMachine = new LottoMachine(payment, Lotto);
 
-    mockingRandomNumbers(NUMBERS);
+    mockingRandomNumbers(numbers);
 
     const lottos = lottoMachine.getLottos();
 
-    lottos.forEach((lotto) => {
+    lottos.forEach((lotto, index) => {
       expect(lotto).toBeInstanceOf(Lotto);
-      expect(lotto.getNumbers()).toEqual(expect.arrayContaining(NUMBERS));
+      expect(lotto.getNumbers()).toEqual(
+        expect.arrayContaining(numbers[index]),
+      );
     });
   });
 });
