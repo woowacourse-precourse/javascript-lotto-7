@@ -5,20 +5,26 @@ import Lotto from '../Lotto.js';
 class LottoController {
   #inputView;
 
+  #lottos;
+
+  #winningNumbers;
+
   constructor() {
     this.#inputView = new InputView();
+    this.#lottos = [];
   }
 
   async play() {
     try {
       const amount = await this.#inputView.readLottoAmount();
-      const lottos = this.#generateLottos(amount);
-      Console.print(amount);
-      this.#printLottos(amount, lottos);
-      const winningNumbers = await this.#inputView.readWinningNumbers();
-      Console.print(winningNumbers);
+      this.#lottos = this.#generateLottos(amount);
+      this.#printLottos(amount, this.#lottos);
+
+      this.#winningNumbers = await this.#inputView.readWinningNumbers();
       const bonusNumber = await this.#inputView.readBonusNumber();
-      Console.print(bonusNumber);
+
+      const matchResults = this.#calculateMatchResults();
+      this.#printMatchResults(matchResults);
     } catch (error) {
       Console.print(error);
     }
@@ -40,6 +46,16 @@ class LottoController {
     lottos.forEach((lotto) => {
       Console.print(`[${lotto.getNumbers().join(', ')}]`);
     });
+  }
+
+  #calculateMatchResults() {
+    return this.#lottos.map((lotto) =>
+      lotto.countMatchingNumbers(this.#winningNumbers),
+    );
+  }
+
+  #printMatchResults(results) {
+    Console.print(`결과 : ${results.length}`);
   }
 }
 
