@@ -1,4 +1,4 @@
-import calculationLotto from '../utils/calculationLotto.js';
+import calculationLotto from '../helpers/calculationLotto.js';
 import Lotto from '../models/Lotto.js';
 
 class Controller {
