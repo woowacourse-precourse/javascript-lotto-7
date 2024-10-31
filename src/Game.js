@@ -83,7 +83,4 @@ class Game {
 
 export default Game;
 
-const test = new Game();
-const userInput = new UserInput();
-const displayOutput = new DisplayOutput();
 
