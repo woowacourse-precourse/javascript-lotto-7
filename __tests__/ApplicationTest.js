@@ -3,10 +3,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
-
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
-
     return Promise.resolve(input);
   });
 };
@@ -23,6 +21,24 @@ const getLogSpy = () => {
   logSpy.mockClear();
   return logSpy;
 };
+
+// const runException = async (input) => {
+//   // given
+//   const logSpy = getLogSpy();
+  
+//   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+//   const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+
+//   mockRandoms([RANDOM_NUMBERS_TO_END]);
+//   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+
+//   try {
+//     const app = new App();
+//     await app.run();
+//   } catch (error) {
+//     expect(error.message).toContain("[ERROR] : 예외 테스트");
+//   }
+// };
 
 const runException = async (input) => {
   // given
@@ -48,9 +64,7 @@ describe("로또 테스트", () => {
   });
 
   test("기능 테스트", async () => {
-    // given
     const logSpy = getLogSpy();
-
     mockRandoms([
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
@@ -63,11 +77,9 @@ describe("로또 테스트", () => {
     ]);
     mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
-    // when
     const app = new App();
     await app.run();
 
-    // then
     const logs = [
       "8개를 구매했습니다.",
       "[8, 21, 23, 41, 42, 43]",
