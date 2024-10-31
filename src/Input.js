@@ -19,6 +19,15 @@ class Input {
 			console.log(error.message);
 		}
 	}
+
+	async getBonusNumber() {
+		try {
+			const BONUS_NUMBER = await userInput(PROMPT.LOTTO_BONUS_NUMBER);
+			return BONUS_NUMBER;
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
 }
 
 export default Input;
