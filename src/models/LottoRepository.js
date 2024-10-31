@@ -12,6 +12,10 @@ class LottoRepository {
   getLottoArray() {
     return this.#lottos;
   }
+
+  getLottoAmount(){
+    return this.#lottos.length;
+  }
 }
 
 export default LottoRepository;
