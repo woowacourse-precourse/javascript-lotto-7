@@ -16,13 +16,18 @@ class LottoController {
     const lottoAmount = calculateLottoAmount(purchaseCost);
 
     const generatedLottos = this.service.getGeneratedLottos(lottoAmount);
-    this.outputView.showPurchasedLotto(generatedLottos);
+    this.outputView.printPurchasedLotto(generatedLottos);
 
     const winningNumbers = await this.inputView.getWinningNumbers();
     const bonusNumber = await this.inputView.getBonusNumber();
-    Console.print(
-      `winningNumbers : ${winningNumbers},  bonusNumber : ${bonusNumber}`,
+
+    const { matchCounts, totalEarnings } = this.service.calculateLottoResults(
+      generatedLottos,
+      winningNumbers,
+      bonusNumber,
     );
+    Console.print(`totalEarnings : ${totalEarnings}`);
+    this.outputView.printWinningStatistics(matchCounts, purchaseCost);
   }
 }
 
