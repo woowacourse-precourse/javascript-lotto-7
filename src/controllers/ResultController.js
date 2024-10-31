@@ -15,6 +15,14 @@ class ResultController {
     6: 0,
   };
 
+  #prizeMoney = {
+    3: 5000,
+    4: 50000,
+    5: 1500000,
+    '5Bonus': 30000000,
+    6: 2000000000,
+  };
+
   constructor(lottos) {
     this.#lottos = lottos;
   }
@@ -52,9 +60,9 @@ class ResultController {
 
   calculateResult() {
     this.#lottos.forEach((lotto) => {
-      const rank = this.getMatchingCount(lotto);
+      const matchedCount = this.getMatchingCount(lotto);
 
-      if (rank) this.#prizeCounts[rank] += 1;
+      if (matchedCount) this.#prizeCounts[matchedCount] += 1;
     });
 
     return this.#prizeCounts;
@@ -75,6 +83,13 @@ class ResultController {
     if (matchingCount === 3) return 3;
 
     return null;
+  }
+
+  calculateTotalPrize() {
+    return Object.entries(this.#prizeCounts).reduce(
+      (totalPrize, [key, count]) => totalPrize + this.#prizeMoney[key] * count,
+      0,
+    );
   }
 }
 
