@@ -1,23 +1,28 @@
 import { Console } from "@woowacourse/mission-utils";
 import InputValidate from "../utils/InputValidate.js";
+import LottoModel from "../model/lottoModel.js";
+import LottoView from "../view/lottoView.js";
 
 class LottoController{
   constructor() {
     this.error = new InputValidate();
-    // model
-    // view
+    this.model = new LottoModel();
+    this.view = new LottoView();
   }
 
   async play() {
     const userPrice = await this.inputPrice();
+    this.getLottoList(userPrice);
   }
 
   async inputPrice() {
     let isValid = false;
+    let price;
     do {
-      const price = await Console.readLineAsync("구입금액을 입력해 주세요.");
+      price = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
       isValid = this.validateUserPrice(price);
     } while (!isValid);
+    return price;
   }
 
   validateUserPrice(price) {
@@ -27,6 +32,13 @@ class LottoController{
       return false;
     } 
     return true;
+  }
+
+  getLottoList(userPrice) {
+    this.model.setPrice(userPrice);
+    this.model.generateLottoNumber();
+    const lottoList = this.model.getLottoList();
+    this.view.printLottoList(lottoList);
   }
 }
 
