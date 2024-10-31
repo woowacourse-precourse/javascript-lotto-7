@@ -1,6 +1,10 @@
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import { LOTTO_PRIZE } from '../constants/lottoResults.js';
 
 const calculation = {
+  lottoCount(purchasePrice) {
+    return purchasePrice / LOTTO_CONFIG.PRICE;
+  },
   lottoResult(lottos, winningLotto, bonusNumber) {
     const lottoResult = { ...LOTTO_PRIZE };
 

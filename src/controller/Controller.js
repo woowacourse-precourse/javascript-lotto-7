@@ -1,4 +1,3 @@
-import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import calculation from '../utils/lottoCalculator.js';
 import Lotto from '../models/Lotto.js';
 import OutputView from '../view/OutputView.js';
@@ -16,7 +15,7 @@ class Controller {
 
   async start() {
     const purchasePrice = await this.#inputHandler.getPurchasePrice();
-    const lottoCount = purchasePrice / LOTTO_CONFIG.PRICE;
+    const lottoCount = calculation.lottoCount(purchasePrice);
     this.#outputView.displayLottoCount(lottoCount);
 
     const lottos = Lotto.generateMultiple(lottoCount);
