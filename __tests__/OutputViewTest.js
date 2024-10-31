@@ -27,15 +27,15 @@ describe('OuputView 클래스 테스트', () => {
   });
 
   test('당첨 통계 출력', () => {
-    const lottoRanckObject = {
-      3: 1,
-      4: 3,
-      5: 1,
-      '5+': 0,
-      6: 0,
-    };
-    const lottoRanks = Object.values(lottoRanckObject);
-    OutputView.printWinningStatistics(lottoRanckObject);
+    const lottoRankMap = new Map([
+      [3, 1],
+      [4, 3],
+      [5, 1],
+      ['5+', 0],
+    ]);
+
+    const lottoRanks = Array.from(lottoRankMap.values());
+    OutputView.printWinningStatistics(lottoRankMap);
 
     Object.values(MATCH_OUTPUT_MESSAGE).forEach((message, index) => {
       expect(spy).toHaveBeenCalledWith(
