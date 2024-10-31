@@ -10,6 +10,8 @@ class Validator {
     "[ERROR] 로또 번호는 중복된 숫자를 가질 수 없습니다.";
   BONUS_NUMBER_ERROR = "[ERROR] 보너스 번호는 숫자만 입력할 수 있습니다.";
   BONUS_RANGE_ERROR = "[ERROR] 보너스 번호는 1~45 사이 숫자만 가능합니다.";
+  BONUS_INANSWER_ERROR =
+    "[ERROR] 해당 보너스 번호는 이미 로또 번호에 존재합니다.";
 
   isNumber(value, errorMessage) {
     const condition = !Number.isNaN(Number(value, 10));
@@ -19,10 +21,10 @@ class Validator {
     return Number(value);
   }
   isPriceNumber(lottoPrice) {
-    this.isNumber(lottoPrice, this.PRICE_NUMBER_ERROR);
+    return this.isNumber(lottoPrice, this.PRICE_NUMBER_ERROR);
   }
   isBonusAsNumber(bonusInput) {
-    this.isNumber(bonusInput, this.BONUS_NUMBER_ERROR);
+    return this.isNumber(bonusInput, this.BONUS_NUMBER_ERROR);
   }
   isAnswerNumber(numbers) {
     numbers.forEach((i) => this.isNumber(i, this.ANSWER_NUMBER_ERROR));
@@ -31,8 +33,7 @@ class Validator {
   }
 
   isInRange(value, errorMessage) {
-    const valueNumber = Number(value);
-    const condition = valueNumber >= 1 && valueNumber <= 45;
+    const condition = value >= 1 && value <= 45;
     if (!condition) {
       throw new Error(errorMessage);
     }
@@ -40,8 +41,8 @@ class Validator {
   isAnswerInRange(intNumbers) {
     intNumbers.forEach((i) => this.isInRange(i, this.ANSWER_RANGE_ERROR));
   }
-  isBonusInRange(bonusInput) {
-    this.isInRange(bonusInput, this.BONUS_RANGE_ERROR);
+  isBonusInRange(intBonus) {
+    this.isInRange(intBonus, this.BONUS_RANGE_ERROR);
   }
 
   isPricePositive(lottoPrice) {
@@ -67,6 +68,13 @@ class Validator {
     const condition = numberSet.size == 6;
     if (!condition) {
       throw new Error(this.ANSWER_DUPLICATE_ERROR);
+    }
+  }
+  isBonusNotInAnswer(intBonus, lottoAnswer) {
+    lottoAnswer = lottoAnswer.map((i) => Number(i));
+    const condition = !lottoAnswer.includes(intBonus);
+    if (!condition) {
+      throw new Error(this.BONUS_INANSWER_ERROR);
     }
   }
 }

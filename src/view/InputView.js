@@ -21,12 +21,13 @@ class InputView {
     const lottoAnswer = answerInput.split(",");
     return lottoAnswer;
   }
-  async getBonusAnswer() {
+  async getBonusAnswer(lottoAnswer) {
     const bonusInput = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
-    this.validator.isBonusAsNumber(bonusInput);
-    this.validator.isBonusInRange(bonusInput);
+    const intBonus = this.validator.isBonusAsNumber(bonusInput);
+    this.validator.isBonusInRange(intBonus);
+    this.validator.isBonusNotInAnswer(intBonus, lottoAnswer);
     return bonusInput;
   }
 }
