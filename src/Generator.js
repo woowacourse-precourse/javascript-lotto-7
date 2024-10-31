@@ -2,16 +2,18 @@ import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto';
 
 class Generator {
+  times;
+  lottos = [];
+
   createLotto(amount) {
     try {
-      const times = this.calculateTimes(amount);
-      const lottos = [];
+      this.times = this.calculateTimes(amount);
 
       for (let i = 0; i < times; i++) {
         const randomNumbers = this.createLottoNumbers();
         const sortedNumbers = this.sortNumbers(randomNumbers);
 
-        lottos.push(this.createRealLotto(sortedNumbers));
+        this.lottos.push(this.createRealLotto(sortedNumbers));
       }
 
       return lottos;
