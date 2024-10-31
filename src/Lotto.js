@@ -17,7 +17,7 @@ class Lotto {
     let matchedBonusNumber = 0;
 
     const matchingNumbers = prizeNumbers.filter((element) =>
-      this.#numbers.includes(element),
+      this.#numbers.includes(Number(element)),
     );
 
     if (this.#numbers.includes(bonusNumber)) {
@@ -26,7 +26,7 @@ class Lotto {
       matchedBonusNumber = 0;
     }
 
-    return this.calculatePrize(matchingNumbers, matchedBonusNumber);
+    return this.calculatePrize(matchingNumbers.length, matchedBonusNumber);
   }
 
   calculatePrize(matchedNumbers, matchedBonusNumber) {
