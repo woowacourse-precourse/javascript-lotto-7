@@ -12,6 +12,7 @@ class App {
 	#lottoMoney;
 	#lottoCount;
 	#lottoNumbers;
+	#winningNumber;
 	#bonusNumber;
 
 	constructor() {
@@ -24,6 +25,8 @@ class App {
 
 		await this.#printLottoCount();
 		await this.#getLotto();
+
+		this.#winningNumber = await this.userInput.getWinningNumber();
 	}
 
 	async #calculateLottoCount() {
