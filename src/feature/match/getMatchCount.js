@@ -17,13 +17,13 @@ function getBonusNumberMatch(lotto, bonusNumber) {
   return IS_CONTAINING;
 };
 
-function winNumberMatcher(lottoList, winNumbers, bonuseNumber) {
+function winNumberMatcher(lottoList, winNumbers, bonusNumber) {
   const RESULT_LIST = lottoList.map((lotto) => {
     const MATCH_COUNT = getWinNumberMatchCount(lotto, winNumbers);
     let bonusNumberContaining = false;
 
     if (MATCH_COUNT === 5) {
-      bonusNumberContaining = getBonusNumberMatch(lotto, bonuseNumber)
+      bonusNumberContaining = getBonusNumberMatch(lotto, bonusNumber)
     }
 
     const RESULT = [ MATCH_COUNT, bonusNumberContaining ];
