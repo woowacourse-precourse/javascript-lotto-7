@@ -1,5 +1,6 @@
 export const LOTTO_PRICE_PER_TICKET = 1_000;
 export const PERCENTAGE_FACTOR = 100;
+export const REVENUE_DECIMAL_PLACE = 1;
 
 export const LOTTO_CONFIG = Object.freeze({
   NUMBERS_COUNT: 6,
@@ -7,6 +8,30 @@ export const LOTTO_CONFIG = Object.freeze({
     MIN: 1,
     MAX: 45,
   },
+});
+
+export const MATCH_CODE = Object.freeze({
+  THREE: 3,
+  FOUR: 4,
+  FIVE: 5,
+  FIVE_WITH_BONUS: 5.5,
+  SIX: 6,
+});
+
+export const MATCH_PRICE = Object.freeze({
+  [MATCH_CODE.THREE]: 5_000,
+  [MATCH_CODE.FOUR]: 50_000,
+  [MATCH_CODE.FIVE]: 1_500_000,
+  [MATCH_CODE.FIVE_WITH_BONUS]: 30_000_000,
+  [MATCH_CODE.SIX]: 2_000_000_000,
+});
+
+export const MATCH_WINNING_DETAILS = Object.freeze({
+  [MATCH_CODE.THREE]: (winningCount) => `3개 일치 (5,000원) - ${winningCount}개`,
+  [MATCH_CODE.FOUR]: (winningCount) => `4개 일치 (50,000원) - ${winningCount}개`,
+  [MATCH_CODE.FIVE]: (winningCount) => `5개 일치 (1,500,000원) - ${winningCount}개`,
+  [MATCH_CODE.FIVE_WITH_BONUS]: (winningCount) => `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCount}개`,
+  [MATCH_CODE.SIX]: (winningCount) => `6개 일치 (2,000,000,000원) - ${winningCount}개`,
 });
 
 export const INPUT_MESSAGES = Object.freeze({
@@ -44,28 +69,4 @@ export const VALIDATE_MESSAGES = Object.freeze({
     RANGE: '[ERROR] 보너스 번호는 1 이상 45 이하의 숫자로 입력해 주세요.',
     DUPLICATE: '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
   },
-});
-
-export const MATCH_CODE = Object.freeze({
-  THREE: 3,
-  FOUR: 4,
-  FIVE: 5,
-  FIVE_WITH_BONUS: 5.5,
-  SIX: 6,
-});
-
-export const MATCH_PRICE = Object.freeze({
-  [MATCH_CODE.THREE]: 5_000,
-  [MATCH_CODE.FOUR]: 50_000,
-  [MATCH_CODE.FIVE]: 1_500_000,
-  [MATCH_CODE.FIVE_WITH_BONUS]: 30_000_000,
-  [MATCH_CODE.SIX]: 2_000_000_000,
-});
-
-export const MATCH_WINNING_DETAILS = Object.freeze({
-  [MATCH_CODE.THREE]: (winningCount) => `3개 일치 (5,000원) - ${winningCount}개`,
-  [MATCH_CODE.FOUR]: (winningCount) => `4개 일치 (50,000원) - ${winningCount}개`,
-  [MATCH_CODE.FIVE]: (winningCount) => `5개 일치 (1,500,000원) - ${winningCount}개`,
-  [MATCH_CODE.FIVE_WITH_BONUS]: (winningCount) => `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCount}개`,
-  [MATCH_CODE.SIX]: (winningCount) => `6개 일치 (2,000,000,000원) - ${winningCount}개`,
 });

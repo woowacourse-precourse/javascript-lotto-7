@@ -1,4 +1,4 @@
-import { MATCH_PRICE, LOTTO_PRICE_PER_TICKET, PERCENTAGE_FACTOR } from '../constants/constants.js';
+import { MATCH_PRICE, LOTTO_PRICE_PER_TICKET, PERCENTAGE_FACTOR, REVENUE_DECIMAL_PLACE } from '../constants/constants.js';
 
 class LottoRevenue {
   #revenue;
@@ -17,7 +17,7 @@ class LottoRevenue {
     Object.entries(matchResults).forEach(([matchCode, winningCount]) => {
       totalPrice += MATCH_PRICE[matchCode] * winningCount;
     });
-    this.#revenue = Math.round((totalPrice / lottoPurchasePrice) * PERCENTAGE_FACTOR * 10) / 10;
+    this.#revenue = (Math.round((totalPrice / lottoPurchasePrice) * PERCENTAGE_FACTOR * 10) / 10).toFixed(REVENUE_DECIMAL_PLACE);
   }
 }
 
