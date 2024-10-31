@@ -16,6 +16,16 @@ class InputHandler {
             return await this.getLottoMoney();
         }
     }
+
+    async getWinningNumber() {
+        try {
+            const input = await Console.readLineAsync("당첨 번호를 입력해주세요.\n");
+            return input;
+        } catch (error) {
+            Console.print(error.message);
+            return await this.getWinningNumber();
+        }
+    }
 }
 
 export default InputHandler;
