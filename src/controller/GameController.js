@@ -1,7 +1,7 @@
 import GameInput from "../view/GameInput.js";
 import GameOutput from "../view/GameOutput.js";
 import Validate from "../validate/Validate.js";
-import GetNumber from "../util/GetNumber.js";
+import GetNumber from "../model/GetNumber.js";
 import { LOTTO_DATA } from "../constant/Data.js";
 
 class GameController {
@@ -52,7 +52,7 @@ class GameController {
 
   async #winningLotto() {
     const wining_lotto = await this.#gameInput.readWinningLotto();
-    return wining_lotto;
+    return this.#getNumber.winningLotto(wining_lotto);
   }
 
   async startGame() {
@@ -60,9 +60,7 @@ class GameController {
     this.#gameOutput.printNewLotto(new_lotto);
 
     let wining_lotto = await this.#winningLotto();
-    wining_lotto = wining_lotto
-      .split(",")
-      .map((number) => parseInt(number.replace(/ /g, "")));
+    console.log(wining_lotto);
   }
 }
 
