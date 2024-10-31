@@ -12,7 +12,14 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  isEqual(numbers)
+  {
+    if(JSON.stringify(numbers) === JSON.stringify(this.#numbers)){
+      return true;
+    }
+    return false;
+  }
 }
+
 
 export default Lotto;

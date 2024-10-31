@@ -11,6 +11,9 @@ class App {
     if ((divideInto1000) !== 0) {
       throw new Error('[ERROR]');
     }
+
+    const hi = new Lotto([1,2,3,4,5,6]);
+    const is1st = hi.isEqual([1,2,3,4,5,6]);
   }
 }
 
