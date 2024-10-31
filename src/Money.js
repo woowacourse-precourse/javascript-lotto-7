@@ -1,4 +1,4 @@
-import { BASIC_MONEY } from './constants/magicNumber.js';
+import { MONEY_UNIT } from './constants/magicNumber.js';
 
 class Money {
   #money;
@@ -38,7 +38,7 @@ class Money {
   }
 
   #validateDivideByBasicMoney(money) {
-    if (money % BASIC_MONEY !== 0) {
+    if (money % MONEY_UNIT !== 0) {
       throw new Error('[ERROR]');
     }
   }
