@@ -2,8 +2,13 @@ import View from './View.js';
 
 class App {
   async run() {
-    const view = new View();
-    view.startLotto();
+    try {
+      const view = new View();
+      view.startLotto();
+    } catch (error) {
+      console.log(error.message);
+      throw new Error('[Error]');
+    }
   }
 }
 

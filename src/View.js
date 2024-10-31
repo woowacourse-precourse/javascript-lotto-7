@@ -5,18 +5,22 @@ import Stats from './Stats.js';
 
 class View {
   async startLotto() {
-    const amount = await Input.inputAmount();
+    try {
+      const amount = await Input.inputAmount();
 
-    const generator = new Generator();
-    const lottos = generator.createLotto(amount);
+      const generator = new Generator();
+      const lottos = generator.createLotto(amount);
 
-    const lottoNumber = await Input.inputLottoNumber();
-    const bonusNumber = await Input.inputBonusNumber();
+      const lottoNumber = await Input.inputLottoNumber();
+      const bonusNumber = await Input.inputBonusNumber();
 
-    const stats = new Stats(amount, lottos, lottoNumber, bonusNumber);
-    const prizedCount = stats.prizeCount;
-    const earningRatio = stats.earningRatio;
-    Print.printStats(prizedCount, earningRatio);
+      const stats = new Stats(amount, lottos, lottoNumber, bonusNumber);
+      const prizedCount = stats.prizeCount;
+      const earningRatio = stats.earningRatio;
+      Print.printStats(prizedCount, earningRatio);
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
