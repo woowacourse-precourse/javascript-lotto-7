@@ -15,9 +15,14 @@ import {
 class App {
   async run() {
     const lottos = [];
-    const price = await read("구입금액을 입력해 주세요.\n");
 
-    handlePrice(price);
+    let price = 0;
+    let winningNumbers = 0;
+    let bonusNumber = 0;
+
+    do {
+      price = await read("구입금액을 입력해 주세요.\n");
+    } while (!handlePrice(price));
 
     const lottoCounts = Math.trunc(Number(price) / LOTTO_PRICE);
 
@@ -37,13 +42,13 @@ class App {
       lottos.push(lotto);
     }
 
-    const winningNumbers = await read("당첨 번호를 입력해 주세요.");
+    do {
+      winningNumbers = await read("당첨 번호를 입력해 주세요.\n");
+    } while (!handleLottoNumbers(winningNumbers));
 
-    handleLottoNumbers(winningNumbers);
-
-    const bonusNumber = await read("보너스 번호를 입력해 주세요.");
-
-    handleBonusNumber(bonusNumber);
+    do {
+      bonusNumber = await read("보너스 번호를 입력해 주세요.\n");
+    } while (!handleBonusNumber(winningNumbers.split(","), bonusNumber));
 
     const winningRanks = lottos.reduce(
       (obj, lotto) => {
