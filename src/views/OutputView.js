@@ -13,4 +13,8 @@ export class OutputView {
   static lottoNumber(numbers) {
     return Console.print("[" + numbers.join(", ") + "]");
   }
+
+  static statistics() {
+    return Console.print(MESSAGE.STATISTICS);
+  }
 }

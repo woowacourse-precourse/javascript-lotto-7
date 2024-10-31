@@ -1,4 +1,4 @@
-import { PRIZE } from "../constants/Constants";
+import { PRIZE } from "../constants/Constants.js";
 
 export class Calculator {
   static prizeAmount(rankings) {

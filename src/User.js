@@ -12,6 +12,16 @@ class User {
   async getLotto(number) {
     this.#lottos.push(new Lotto(number));
   }
+
+  matching(winning, bonus) {
+    let result = [];
+
+    this.#lottos.forEach((lotto) => {
+      result.push([lotto.matchingWinning(winning), lotto.matchingBonus(bonus)]);
+    });
+
+    return result;
+  }
 }
 
 export default User;

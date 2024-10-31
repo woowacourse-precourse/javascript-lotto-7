@@ -15,10 +15,7 @@ class Lotto {
   }
 
   matchingBonus(bonusNumber) {
-    this.#numbers.forEach((number) => {
-      if (number === bonusNumber) return true;
-    });
-    return false;
+    return this.#numbers.some((number) => number === bonusNumber);
   }
 }
 

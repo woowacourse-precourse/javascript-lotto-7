@@ -1,6 +1,8 @@
+import { Calculator } from "../utils/Calculator.js";
 import { Validator } from "../utils/Validator.js";
 import { InputView } from "../views/InputView.js";
 import { OutputView } from "../views/OutputView.js";
+import { RANKING_TOTAL } from "../constants/Constants.js";
 
 class LottoController {
   #user;
@@ -14,6 +16,8 @@ class LottoController {
   async start() {
     this.#winningNumbers = await this.inputWinningNumber();
     this.#bonusNumber = await this.inputBonusNumber();
+    this.rank(this.matching());
+    OutputView.statistics();
   }
 
   async inputWinningNumber() {
@@ -57,6 +61,23 @@ class LottoController {
       OutputView.error(error.message);
       await this.inputBonusNumber();
     }
+  }
+
+  matching() {
+    const result = this.#user.matching(this.#winningNumbers, this.#bonusNumber);
+    const rankings = result.map((result) =>
+      Calculator.ranking(result[0], result[1])
+    );
+
+    return rankings;
+  }
+
+  rank(rankings) {
+    rankings.forEach((ranking) => {
+      if (ranking !== false) {
+        RANKING_TOTAL[ranking]++;
+      }
+    });
   }
 }
 

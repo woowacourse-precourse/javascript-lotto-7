@@ -7,11 +7,20 @@ export const PRIZE = {
   false: 0,
 };
 
+export const RANKING_TOTAL = {
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+};
+
 export const MESSAGE = {
   WINNING_NUMBER_INPUT: "당첨 번호를 입력해 주세요.",
   BONUS_NUMBER_INPUT: "보너스 번호를 입력해 주세요.",
   PURCHASE_AMOUNT_INPUT: "구입금액을 입력해 주세요.",
   PURCHASE_RESULT: "개를 구매했습니다.",
+  STATISTICS: `당첨 통계\n---\n3개 일치 (5,000원) - ${RANKING_TOTAL[5]}개\n4개 일치 (50,000원) - ${RANKING_TOTAL[4]}개\n5개 일치 (1,500,000원) - ${RANKING_TOTAL[3]}개\n5개 일치, 보너스 볼 일치 (30,000,000원) - ${RANKING_TOTAL[2]}개\n6개 일치 (2,000,000,000원) - ${RANKING_TOTAL[1]}개`,
 };
 
 export const LOTTO = {
