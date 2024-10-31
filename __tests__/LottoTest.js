@@ -1,6 +1,9 @@
 import CostManager from '../src/CostManager.js';
 import { Console,Random } from '@woowacourse/mission-utils';
 import LottoGenerator from '../src/LottoGenerator.js';
+import GetNumber from '../src/GetNumber.js';
+
+
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
     readLineAsync: jest.fn(), // readLineAsync를 모킹
@@ -10,6 +13,7 @@ jest.mock('@woowacourse/mission-utils', () => ({
     pickUniqueNumbersInRange: jest.fn(),
   },
 }));
+
 
 describe("코스트 메니저 클래스 테스트", () => {
   let costManager;
@@ -52,11 +56,50 @@ describe("코스트 메니저 클래스 테스트", () => {
     expect(Console.print).toHaveBeenNthCalledWith(2, [2, 7, 15, 22, 30, 41]);
   });
   
-
-
-
-
 });
+
+
+describe('Get Number 테스트', ()=>{
+  let getNumber;
+  beforeEach(() => {
+    getNumber = new GetNumber();
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('중복된 번호 없을 때', async () => {
+    const mockValues = ['1,2,3,4,5,6', '7'];
+
+    Console.readLineAsync.mockResolvedValueOnce(mockValues[0]);
+    await getNumber.getWinNumber();
+
+    Console.readLineAsync.mockResolvedValueOnce(mockValues[1]);
+    await getNumber.getBonusNumber();
+
+    expect(getNumber.bonusAndWinnerNumbers).toEqual([1,2,3,4,5,6,7]);
+});
+  test('당첨 번호에 중복된 번호 있을 때', async ()=>{
+    const mockValues = ['1,2,3,4,5,6', '7']; 
+   
+    Console.readLineAsync.mockResolvedValue('1,2,3,4,5,1');
+    await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR]중복되는 번호 혹은 공백이 있습니다.');
+  })
+
+  test('보너스 번호에 중복된 번호 있을 때', async()=>{
+    Console.readLineAsync.mockResolvedValue('1,2,3,4,5,6')
+    await getNumber.getWinNumber();
+
+    Console.readLineAsync.mockResolvedValue('6')
+    await expect(getNumber.getBonusNumber()).rejects.toThrow('[Error] 당첨 번호와 보너스 번호가 중복되면 안 됩니다.')
+  })
+  
+
+  
+
+})
 
 
 
