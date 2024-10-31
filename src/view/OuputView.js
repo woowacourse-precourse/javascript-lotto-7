@@ -22,6 +22,10 @@ export default class OutputView {
   }
 
   static printRateOfReturn(rateOfReturn) {
-    Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+    Console.print(`총 수익률은 ${rateOfReturn.toLocaleString()}%입니다.`);
+  }
+
+  static printError(error) {
+    Console.print(error);
   }
 }

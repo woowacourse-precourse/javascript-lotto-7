@@ -6,9 +6,9 @@ export const OUTPUT_MESSAGE = Object.freeze({
 });
 
 export const MATCH_OUTPUT_MESSAGE = Object.freeze({
-  THREE: `3개 일치 (${MATCH_PRICE.THREE.toLocaleString('ko-KR')}원)`,
-  FOUR: `4개 일치 (${MATCH_PRICE.FOUR.toLocaleString('ko-KR')}원)`,
-  FIVE: `5개 일치 (${MATCH_PRICE.FIVE.toLocaleString('ko-KR')}원)`,
-  FIVE_BONUS: `5개 일치, 보너스 볼 일치 (${MATCH_PRICE.FIVE_BONUS.toLocaleString('ko-KR')}원)`,
-  SIX: `6개 일치 (${MATCH_PRICE.SIX.toLocaleString('ko-KR')}원)`,
+  THREE: `3개 일치 (${MATCH_PRICE.THREE.toLocaleString()}원)`,
+  FOUR: `4개 일치 (${MATCH_PRICE.FOUR.toLocaleString()}원)`,
+  FIVE: `5개 일치 (${MATCH_PRICE.FIVE.toLocaleString()}원)`,
+  FIVE_BONUS: `5개 일치, 보너스 볼 일치 (${MATCH_PRICE.FIVE_BONUS.toLocaleString()}원)`,
+  SIX: `6개 일치 (${MATCH_PRICE.SIX.toLocaleString()}원)`,
 });
