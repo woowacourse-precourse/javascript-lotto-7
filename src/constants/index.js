@@ -1,8 +1,8 @@
 import FrozenMap from "../FrozenMap.js";
 
 export const LOTTO_MESSAGES = Object.freeze({
-  INVALID_EMPTY: "빈 문자열은 입력할 수 없습니다.",
   INVALID_PRICE: "구입금액은 1000원 단위로 입력해 주세요.",
+  INVALID_MAX_PRICE: "구입금액은 10만원을 넘을 수 없습니다.",
   SIX_LENGTH_LOTTO_NUMBER: "쉼표를 기준으로 6개의 숫자만 입력 가능합니다.",
   INVALID_DUPLICATE_NUMBER: "중복된 숫자가 있습니다.",
   INPUT_DECIMAL_NUMBER: "양의 정수만 입력 가능합니다.",
