@@ -83,7 +83,53 @@ class LottoController {
       this.getBonusNumber(winningNumbers);
     }
   }
+  matchLotto(ticket, winningNumbers, bonusNumber) {
+    let cnt = 0;
+    let bonusCnt = 0;
 
+    winningNumbers.forEach((number) => {
+      if (ticket.includes(number)) {
+        cnt += 1;
+      }
+    });
+    if (ticket.includes(bonusNumber)) {
+      bonusCnt += 1;
+    }
+    return [cnt, bonusCnt];
+  }
+  getWinningResult(lottoTickets, winningNumbers, bonusNumber) {
+    const TOTAL_STATISTIC = {
+      3: 0,
+      4: 0,
+      5: 0,
+      bonus: 0,
+      6: 0,
+    };
+
+    for (const ticket of lottoTickets) {
+      const [matchingCount, bonusMatchingCount] = this.matchLotto(
+        ticket.getLottoNumbers(),
+        winningNumbers,
+        bonusNumber
+      );
+      if (matchingCount === 5 && bonusMatchingCount > 0) {
+        TOTAL_STATISTIC["bonus"] += 1;
+        continue;
+      }
+      if (matchingCount >= 3) {
+        TOTAL_STATISTIC[matchingCount] += 1;
+      }
+    }
+
+    Console.print(MESSAGES.OUTPUT.WINNING_STATISTICS);
+    Console.print(MESSAGES.OUTPUT.matchingCount(3, false, TOTAL_STATISTIC[3]));
+    Console.print(MESSAGES.OUTPUT.matchingCount(4, false, TOTAL_STATISTIC[4]));
+    Console.print(MESSAGES.OUTPUT.matchingCount(5, false, TOTAL_STATISTIC[5]));
+    Console.print(
+      MESSAGES.OUTPUT.matchingCount(5, true, TOTAL_STATISTIC["bonus"])
+    );
+    Console.print(MESSAGES.OUTPUT.matchingCount(6, false, TOTAL_STATISTIC[6]));
+  }
   async run() {
     try {
       const lottoAmountInput = await this.#inputView.readLottoAmount();
@@ -95,6 +141,7 @@ class LottoController {
       const lottoTickets = this.makeLottoTickets(numberOfLotto);
       // 로또 티켓 출력
       Console.print(MESSAGES.OUTPUT.lottoCount(numberOfLotto));
+
       for (const ticket of lottoTickets) {
         Console.print(ticket.getLottoNumbers());
       }
@@ -103,6 +150,12 @@ class LottoController {
 
       const bonusNumber = await this.getBonusNumber(
         winningLottoNumbers.getLottoNumbers()
+      );
+
+      this.getWinningResult(
+        lottoTickets,
+        winningLottoNumbers.getLottoNumbers(),
+        bonusNumber
       );
     } catch (error) {
       console.log(error);

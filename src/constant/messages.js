@@ -12,12 +12,12 @@ export const MESSAGES = {
     BONUS_NUMBER: `\n보너스 번호를 입력해 주세요.\n`,
   },
   OUTPUT: {
-    WINNING_STATISTICS: `당첨 통계\n---\n`,
+    WINNING_STATISTICS: `\n당첨 통계\n---`,
     lottoCount: (number) => {
       return `\n${number}개를 구매했습니다.\n`;
     },
-    matchingCount: (count, bonusCount, total) => {
-      if (bonusCount > 0) {
+    matchingCount: (count, isBonus, total) => {
+      if (isBonus) {
         return `${count}개 일치, 보너스 볼 일치 (${MONEY_PER_MATCHING.bonus}) - ${total}개`;
       }
       return `${count}개 일치 (${MONEY_PER_MATCHING[count]}) - ${total}개`;
