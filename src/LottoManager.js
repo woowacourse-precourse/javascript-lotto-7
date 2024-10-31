@@ -16,10 +16,6 @@ class LottoManager {
     this.#bounsNumber = 0;
   }
 
-  getLottoAmount() {
-    return this.#lottoAmount;
-  }
-
   async enterBudget() {
     const budget = await Console.readLineAsync(SYSTEM_MESSAGES.ENTER_BUDGET);
     validator.budget(budget);
@@ -38,9 +34,11 @@ class LottoManager {
 
   printLottoList() {
     Console.print(`\n${this.#lottoAmount}${SYSTEM_MESSAGES.BUY_AMOUNT}`);
+
     this.#lottoList.forEach((lotto) => {
       Console.print(`${lotto.toString()}`);
     });
+
     Console.print('');
   }
 
@@ -48,6 +46,12 @@ class LottoManager {
     const rawWinningNumbers = await Console.readLineAsync(SYSTEM_MESSAGES.ENTER_WINNING_NUMBERS);
     const winningNumbers = rawWinningNumbers.split(',').map((number) => Number(number));
     this.#winningNumbers = new Lotto(winningNumbers);
+  }
+
+  async enterBonusNumber() {
+    const bonusNumber = await Console.readLineAsync(SYSTEM_MESSAGES.ENTER_BONUS_NUMBER);
+    validator.bonusNumber(bonusNumber, this.#winningNumbers);
+    this.#bounsNumber = bonusNumber;
   }
 }
 

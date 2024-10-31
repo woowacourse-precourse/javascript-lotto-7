@@ -8,6 +8,7 @@ class App {
     try {
       await lottoManager.enterBudget();
       await lottoManager.enterWinningNumbers();
+      await lottoManager.enterBonusNumber();
     } catch (error) {
       Console.print(error.message);
     }
