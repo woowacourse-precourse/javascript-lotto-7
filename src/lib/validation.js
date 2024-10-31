@@ -67,7 +67,7 @@ export const handleLottoNumbers = (input) => {
 export const handleBonusNumber = (lottoNumbers, input) => {
   const parsedInput = Number(input);
 
-  if (isNaN(parsedInput)) {
+  if (isNaN(parsedInput) || !Number.isInteger(parsedInput)) {
     print(ONLY_NUM_ERROR);
     return false;
   }
@@ -77,7 +77,7 @@ export const handleBonusNumber = (lottoNumbers, input) => {
     return false;
   }
 
-  if (lottoNumbers.includes(parsedInput)) {
+  if (lottoNumbers.includes(input)) {
     print(BONUS_NUM_ERROR.duplicated);
     return false;
   }
