@@ -4,40 +4,37 @@ import BonusLotto from '../src/BonusLotto.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow(ERROR_MESSAGE.NOT_SIX_LENGTH);
+    expect(() => new Lotto([1, 2, 3, 4, 5, 6, 7])).toThrow(
+      ERROR_MESSAGE.NOT_SIX_LENGTH,
+    );
   });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
   test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow(ERROR_MESSAGE.DUPLICATE_NUMBER);
+    expect(() => new Lotto([1, 2, 3, 4, 5, 5])).toThrow(
+      ERROR_MESSAGE.DUPLICATE_NUMBER,
+    );
   });
 
   test('로또 번호에 빈 수가 있으면 예외가 발생한다.', () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, '']);
-    }).toThrow(ERROR_MESSAGE.EMPTY_NUMBER);
+    expect(() => new Lotto([1, 2, 3, 4, 5, ''])).toThrow(
+      ERROR_MESSAGE.EMPTY_NUMBER,
+    );
   });
 
   test('로또 번호에 문자가 있으면 예외가 발생한다.', () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 'n']);
-    }).toThrow(ERROR_MESSAGE.CONTAIN_STRING);
+    expect(() => new Lotto([1, 2, 3, 4, 5, 'n'])).toThrow(
+      ERROR_MESSAGE.CONTAIN_STRING,
+    );
   });
 
   test('로또 번호에 1미만 또는 45초과의 숫자가 있으면 예외가 발생한다.', () => {
-    expect(() => {
-      new Lotto([0, 2, 3, 4, 5, 99]);
-    }).toThrow(ERROR_MESSAGE.NOT_BETWEEN_1_TO_45_NUMBER);
+    expect(() => new Lotto([0, 2, 3, 4, 5, 99])).toThrow(
+      ERROR_MESSAGE.NOT_BETWEEN_1_TO_45_NUMBER,
+    );
   });
 
   test('로또 번호의 개수가 6개면 올바르게 작동한다.', () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6]);
-    }).not.toThrow();
+    expect(() => new Lotto([1, 2, 3, 4, 5, 6])).not.toThrow();
   });
 
   test('로또 번호가 오름차순으로 정렬되어 있다.', () => {

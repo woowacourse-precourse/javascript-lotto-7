@@ -1,3 +1,5 @@
+import { BASIC_MONEY } from './constants/magicNumber.js';
+
 class Money {
   #money;
 
@@ -10,7 +12,7 @@ class Money {
     this.#validateNotEmpty(money);
     this.#validateNumberType(money);
     this.#validateInBoundary(money);
-    this.#validateDivideBy1000(money);
+    this.#validateDivideByBasicMoney(money);
   }
 
   #validateNotEmpty(money) {
@@ -35,8 +37,8 @@ class Money {
     }
   }
 
-  #validateDivideBy1000(money) {
-    if (money % 1000 !== 0) {
+  #validateDivideByBasicMoney(money) {
+    if (money % BASIC_MONEY !== 0) {
       throw new Error('[ERROR]');
     }
   }

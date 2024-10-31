@@ -1,6 +1,21 @@
-const LOTTO_BOUNDARY = {
-  MIN: 1,
-  MAX: 45,
-};
+const LOTTO_BOUNDARY = Object.freeze({ MIN: 1, MAX: 45 });
 
-export default LOTTO_BOUNDARY;
+const BASIC_MONEY = 1000;
+
+const WINNING_COUNT = Object.freeze({
+  FIRST_RANK: 6,
+  SECOND_THIRD_RANK: 5,
+  FOURTH_RANK: 4,
+  FIFTH_RANK: 3,
+});
+
+const RANK = Object.freeze({
+  FIRST_RANK: 1,
+  SECOND_RANK: 2,
+  THIRD_RANK: 3,
+  FOURTH_RANK: 4,
+  FIFTH_RANK: 5,
+  SIXTH_RANK: 6,
+});
+
+export { LOTTO_BOUNDARY, BASIC_MONEY, WINNING_COUNT, RANK };

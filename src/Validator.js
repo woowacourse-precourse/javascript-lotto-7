@@ -1,5 +1,5 @@
 import ERROR_MESSAGE from './constants/errorMessage.js';
-import LOTTO_BOUNDARY from './constants/magicNumber.js';
+import { LOTTO_BOUNDARY } from './constants/magicNumber.js';
 
 class Validator {
   static validateLottoNumber(number) {
