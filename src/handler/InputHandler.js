@@ -1,6 +1,6 @@
-import InputView from '../view/InputView.js';
 import validation from '../validation/validation.js';
 import Lotto from '../models/Lotto.js';
+import InputView from '../view/InputView.js';
 
 class InputHandler {
   #inputView;

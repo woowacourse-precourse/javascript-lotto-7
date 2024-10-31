@@ -1,5 +1,5 @@
-import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 const validation = {
   numericString(value) {

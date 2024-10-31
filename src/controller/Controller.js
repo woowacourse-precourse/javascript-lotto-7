@@ -1,7 +1,7 @@
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import calculation from '../utils/lottoCalculator.js';
-import OutputView from '../view/OutputView.js';
 import Lotto from '../models/Lotto.js';
+import OutputView from '../view/OutputView.js';
 import InputHandler from '../handler/inputHandler.js';
 
 class Controller {

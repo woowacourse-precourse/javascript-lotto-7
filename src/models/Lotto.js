@@ -1,6 +1,6 @@
-import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import { Random } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 class Lotto {
   #numbers;
