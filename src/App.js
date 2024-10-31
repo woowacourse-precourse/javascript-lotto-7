@@ -8,6 +8,8 @@ import { validateWinningNumbers } from './Models/winningNumbersValidator.js';
 import { validateBonusNumber } from './Models/bonusNumberValidator.js';
 import { printCountPurchaseAmount, printLottoList } from './Views/outputView.js';
 import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
+import { issueLottoList } from './Models/issueLottoList.js';
+import { produceStatistics } from './Models/winningStatistics.js';
 
 class App {
   async run() {
@@ -17,13 +19,27 @@ class App {
     const purchaseCount = countPurchaseAmount(purchasePrice);
 
     printCountPurchaseAmount(purchaseCount);
-    printLottoList(purchaseCount);
+    const lottoList = issueLottoList(purchaseCount);
+    printLottoList(purchaseCount, lottoList);
 
     const winningNumbers = await getWinningNumbersInput();
     validateWinningNumbers(winningNumbers);
 
+    // 여기 컴마 뺀 winningNumbers
+    const trimWinningNumbers = (winningNumbers) => {
+      const arr = [...winningNumbers];
+      const filtered = arr.filter((element) => element !== ',');
+      const numberedFiltered = filtered.map(Number);
+
+      return numberedFiltered;
+    };
+
+    const trimmedWinningNum = trimWinningNumbers(winningNumbers);
+
     const bonusNumber = await getBonusNumberInput();
     validateBonusNumber(bonusNumber);
+
+    const winningStatistics = produceStatistics(trimmedWinningNum, bonusNumber, lottoList);
   }
 }
 
