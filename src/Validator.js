@@ -11,7 +11,7 @@ class Validator {
     }
   }
   static checkDuplicateNumber(numbers) {
-    if(numbers.length !== new Set(numbers)) {
+    if(numbers.length !== new Set(numbers).size) {
       throw new Error("[ERROR] : 번호들은 중복될 수 없습니다.");
     }
   }
