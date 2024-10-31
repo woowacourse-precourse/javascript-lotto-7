@@ -14,6 +14,7 @@ export class LottoMachine {
     validation.validatePurchasePrice(purchasePrice);
     const lottoTicketCount = calculation.getLottoTicketCount(purchasePrice);
     output.printLottoTicketCount(lottoTicketCount);
+    const lottoTicket = output.printLottoTicket(lottoTicketCount);
 
     const winningNumbers = await input.getWinningNumbers();
     const bonusNumber = await input.getBonusNumber();
