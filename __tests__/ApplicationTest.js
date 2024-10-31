@@ -1,5 +1,6 @@
 import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { ERROR_PREFIX } from '../src/Constants.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -39,7 +40,7 @@ const runException = async (input) => {
   await app.run();
 
   // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(ERROR_PREFIX));
 };
 
 describe('로또 테스트', () => {
