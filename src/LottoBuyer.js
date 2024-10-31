@@ -1,4 +1,3 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
 import InputManager from './InputManager';
 import LottoShop from './LottoShop';
 import OutputManager from './OutputManager';
@@ -13,8 +12,7 @@ class LottoBuyer {
   async purchaseLottos() {
     this.#purchasePrice = await InputManager.getPurchasePrice();
 
-    this.#lottos = LottoShop.purchaseLottos(this.#purchasePrice);
-
+    this.#lottos = LottoShop.orderLottos(this.#purchasePrice);
     OutputManager.printPurchaseHistory(this.#lottos);
   }
 

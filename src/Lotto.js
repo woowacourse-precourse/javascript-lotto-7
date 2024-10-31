@@ -1,12 +1,11 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE, LOTTO_INFORMATIONS } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
 
 class Lotto {
   #numbers;
 
-  constructor() {
-    this.#numbers = this.#generateLotto();
+  constructor(numbers) {
+    this.#numbers = numbers;
 
     this.#validate();
     this.#sortByAscending();
@@ -14,10 +13,6 @@ class Lotto {
 
   get numbers() {
     return this.#numbers;
-  }
-
-  #generateLotto() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
   checkWinning(winningNumbers, bonusNumber) {

@@ -12,9 +12,11 @@ class App {
 
   async run() {
     await this.#lottoBuyer.purchaseLottos();
+
     await this.#lottoShop.draw();
 
     this.#lottoBuyer.checkWinningLotto(this.#lottoShop);
+
     this.#lottoBuyer.calculateReturn();
   }
 }
