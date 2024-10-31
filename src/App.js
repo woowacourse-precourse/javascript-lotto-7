@@ -17,6 +17,10 @@ class App {
     const lottoAnswer = await this.inputView.getLottoAnswer();
     this.lotto = new Lotto(lottoAnswer);
     const bonusAnswer = await this.inputView.getBonusAnswer(lottoAnswer);
+    const winningCount = this.lotto.CountWinningStats(
+      lottoNumbers,
+      bonusAnswer
+    );
   }
 }
 
