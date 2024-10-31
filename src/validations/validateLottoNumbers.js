@@ -21,10 +21,7 @@ const validateInteger = (numbers) => {
 };
 
 const validateLottoRange = (numbers) => {
-  const checkRange = (number) => {
-    number < LOTTO_CONFIG.NUMBER_RANGE.MIN || 
-    number > LOTTO_CONFIG.NUMBER_RANGE.MAX
-  };
+  const checkRange = (number) => number < LOTTO_CONFIG.NUMBER_RANGE.MIN || number > LOTTO_CONFIG.NUMBER_RANGE.MAX;
   if (numbers.some(checkRange)) {
     throw new Error(VALIDATE_MESSAGES.LOTTO_NUMBERS.RANGE);
   }
