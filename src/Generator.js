@@ -1,4 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto';
 
 class Generator {
   createLotto(amount) {
@@ -9,7 +10,11 @@ class Generator {
       for (let i = 0; i < times; i++) {
         const randomNumbers = this.createLottoNumbers();
         const sortedNumbers = this.sortNumbers(randomNumbers);
+
+        lottos.push(this.createRealLotto(sortedNumbers));
       }
+
+      return lottos;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -25,6 +30,10 @@ class Generator {
 
   sortNumbers(numbers) {
     return numbers.sort((a, b) => a - b);
+  }
+
+  createRealLotto(numbers) {
+    return new Lotto(numbers);
   }
 }
 
