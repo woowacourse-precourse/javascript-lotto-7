@@ -28,17 +28,41 @@ export class Validator {
 
 	isValidWinningNumber(str) {
 		this.#generalValidation(str);
+
 		if (this.#isNotNumberOrComma(str)) {
 			formattedError(ERROR_MESSAGE.INVALID_WINNING_FORMAT);
 		}
+
 		const winningNumberArray = str.split(',').map((n) => Number(n));
+
 		if (!this.#isMatchLottoCount(winningNumberArray)) {
 			formattedError(ERROR_MESSAGE.INVALID_LOTTO_COUNT);
 		}
+
 		if (this.#isDuplicated(winningNumberArray)) {
 			formattedError(ERROR_MESSAGE.IS_DUPLICATED);
 		}
+
 		if (this.#isOverRangeNumbers(winningNumberArray)) {
+			formattedError(ERROR_MESSAGE.IS_OVER_NUMBER_RANGE);
+		}
+
+		return true;
+	}
+
+	isValidBonusNumber(str) {
+		this.#generalValidation(str);
+		const strToNumber = Number(str);
+
+		if (this.#isNaN(str)) {
+			formattedError(ERROR_MESSAGE.NOT_A_NUMBER);
+		}
+
+		if (this.#isNegative(strToNumber)) {
+			formattedError(ERROR_MESSAGE.IS_NEGATIVE);
+		}
+
+		if (this.#isOverRangeNumber(strToNumber)) {
 			formattedError(ERROR_MESSAGE.IS_OVER_NUMBER_RANGE);
 		}
 
