@@ -32,7 +32,7 @@ class App {
 
     this.compareLottoNumbers();
 
-    Console.print(this.calculateRateOfReturn());
+    this.printResult();
   }
 
   //로또 갯수 가공
@@ -148,6 +148,19 @@ class App {
       return rate.toFixed(1);
     }
     return rate.toFixed(2);
+  }
+
+  printResult() {
+    Console.print("\n당첨 통계");
+    Console.print("---");
+    Console.print(`3개 일치 (5,000원)- ${this.winningRanks[5]}개`);
+    Console.print(`4개 일치 (50,000원)- ${this.winningRanks[4]}개`);
+    Console.print(`5개 일치 (1,500,000원)- ${this.winningRanks[3]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원)- ${this.winningRanks[2]}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원)- ${this.winningRanks[1]}개`);
+    Console.print(`총 수익률은 ${this.calculateRateOfReturn()}%입니다.`);
   }
 }
 
