@@ -38,7 +38,9 @@ class Stats {
 
   calculateEarningRatio() {
     this.earningRatio =
-      Math.round((Number(this.totalPrize) / Number(this.amount)) * 10) / 10;
+      (Math.round((Number(this.totalPrize) / Number(this.amount)) * 10000) /
+        10000) *
+      100;
   }
 }
 
