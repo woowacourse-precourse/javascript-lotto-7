@@ -1,15 +1,23 @@
+import { MATCH_PRICE } from '../constants/constants.js';
+
 class LottoRevenue {
-  #lottoCount;
-  #matchResults = {};
+  #revenue;
 
   constructor(lottoCount, matchResults) {
-    this.#lottoCount = lottoCount;
-    this.#matchResults = matchResults;
+    this.#calculateRevenue(lottoCount, matchResults);
   }
 
   getRevenue() {
-    const revenue = 62.5;
-    return revenue;
+    return this.#revenue;
+  }
+
+  #calculateRevenue(lottoCount, matchResults) {
+    const lottoPurchasePrice = lottoCount * 1000;
+    let totalPrice = 0;
+    Object.entries(matchResults).forEach(([matchCode, winningCount]) => {
+      totalPrice += MATCH_PRICE[matchCode] * winningCount;
+    });
+    this.#revenue = Math.round((totalPrice / lottoPurchasePrice) * 1000) / 10;
   }
 }
 

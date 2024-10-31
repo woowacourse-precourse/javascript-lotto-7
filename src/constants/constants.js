@@ -6,6 +6,14 @@ export const MATCH_CODE = Object.freeze({
   SIX: 6,
 });
 
+export const MATCH_PRICE = Object.freeze({
+  [MATCH_CODE.THREE]: 5_000,
+  [MATCH_CODE.FOUR]: 50_000,
+  [MATCH_CODE.FIVE]: 1_500_000,
+  [MATCH_CODE.FIVE_WITH_BONUS]: 30_000_000,
+  [MATCH_CODE.SIX]: 2_000_000_000,
+});
+
 export const MATCH_WINNING_DETAILS = Object.freeze({
   [MATCH_CODE.THREE]: (winningCount) => `3개 일치 (5,000원) - ${winningCount}개`,
   [MATCH_CODE.FOUR]: (winningCount) => `4개 일치 (50,000원) - ${winningCount}개`,
