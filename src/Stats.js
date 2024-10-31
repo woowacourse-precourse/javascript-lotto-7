@@ -1,4 +1,4 @@
-import PRIZES from './constants';
+import PRIZES from './constants.js';
 
 class Stats {
   totalPrize;

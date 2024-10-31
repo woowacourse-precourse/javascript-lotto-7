@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import Validator from './validator';
+import Validator from './Validator.js';
 
 class Input {
   static async inputAmount() {

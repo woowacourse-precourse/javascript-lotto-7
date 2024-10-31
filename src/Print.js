@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import PRIZES from './constants';
+import PRIZES from './constants.js';
 
 class Print {
   static printTimes(times) {

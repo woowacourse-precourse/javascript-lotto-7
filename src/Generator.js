@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
-import Lotto from './Lotto';
-import Print from './Print';
+import Lotto from './Lotto.js';
+import Print from './Print.js';
 
 class Generator {
   times;

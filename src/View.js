@@ -1,7 +1,7 @@
-import Generator from './Generator';
-import Input from './input';
-import Print from './Print';
-import Stats from './Stats';
+import Generator from './Generator.js';
+import Input from './Input.js';
+import Print from './Print.js';
+import Stats from './Stats.js';
 
 class View {
   async startLotto() {
