@@ -15,13 +15,21 @@ describe('로또 클래스 테스트', () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
-  test('로또 번호가 1이상 45이하의 범위를 벗어나면 예외가 발생한다.', () => {
+  test('로또 번호가 1이상 45이하의 정수가 아닌 경우 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 46]);
     }).toThrow('[ERROR]');
 
     expect(() => {
       new Lotto([0, 2, 3, 4, 5, 6]);
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      new Lotto([1, 2, 3.3, 4, 5, 6]);
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      new Lotto([1, 2, -3, 4, 5, 6]);
     }).toThrow('[ERROR]');
   });
 });
