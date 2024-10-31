@@ -1,11 +1,11 @@
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import { LOTTO_PRIZE } from '../constants/lottoResults.js';
 
-const calculation = {
-  lottoCount(purchasePrice) {
+const calculationLotto = {
+  count(purchasePrice) {
     return purchasePrice / LOTTO_CONFIG.PRICE;
   },
-  lottoResult(lottos, winningLotto, bonusNumber) {
+  result(lottos, winningLotto, bonusNumber) {
     const lottoResult = { ...LOTTO_PRIZE };
 
     lottos.forEach((lotto) => {
@@ -15,7 +15,7 @@ const calculation = {
 
     return lottoResult;
   },
-  lottoRateOfReturn(lottoResult, purchasePrice) {
+  rateOfReturn(lottoResult, purchasePrice) {
     const winningAmount = Object.values(lottoResult).reduce(
       (sum, { amount, count }) => sum + amount * count,
       0
@@ -25,4 +25,4 @@ const calculation = {
   },
 };
 
-export default calculation;
+export default calculationLotto;

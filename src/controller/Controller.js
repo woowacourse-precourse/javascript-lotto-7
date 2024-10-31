@@ -1,4 +1,4 @@
-import calculation from '../utils/lottoCalculator.js';
+import calculationLotto from '../utils/calculationLotto.js';
 import Lotto from '../models/Lotto.js';
 import OutputView from '../view/OutputView.js';
 import InputHandler from '../handler/inputHandler.js';
@@ -15,7 +15,7 @@ class Controller {
 
   async start() {
     const purchasePrice = await this.#inputHandler.getPurchasePrice();
-    const lottoCount = calculation.lottoCount(purchasePrice);
+    const lottoCount = calculationLotto.count(purchasePrice);
     this.#outputView.displayLottoCount(lottoCount);
 
     const lottos = Lotto.generateMultiple(lottoCount);
@@ -24,14 +24,14 @@ class Controller {
     const winningLotto = await this.#inputHandler.getWinningLotto();
     const bonusNumber = await this.#inputHandler.getBonusNumber(winningLotto);
 
-    const lottoResult = calculation.lottoResult(
+    const lottoResult = calculationLotto.result(
       lottos,
       winningLotto,
       bonusNumber
     );
     this.#outputView.displayLottoResult(lottoResult, purchasePrice);
 
-    const lottoRateOfReturn = calculation.lottoRateOfReturn(
+    const lottoRateOfReturn = calculationLotto.rateOfReturn(
       lottoResult,
       purchasePrice
     );
