@@ -3,7 +3,7 @@ import OutputView from '../view/OutputView.js';
 import parser from '../utils/parser.js';
 import LottoCount from '../domain/LottoCount.js';
 import Lotto from '../domain/Lotto.js';
-import Bonus from '../domain/Bonus.js';
+import LottoBonus from '../domain/LottoBonus.js';
 import LottoIssuance from '../domain/LottoIssuance.js';
 import LottoStatistics from '../domain/LottoStatistics.js';
 import LottoRevenue from '../domain/LottoRevenue.js';
@@ -62,7 +62,7 @@ class LottoController {
       const bonusNumber = await InputView.readBonusNumberAsnyc();
       const parseBonusNumber = parser.parseStringToNumber(bonusNumber);
 
-      const bonus = new Bonus(parseBonusNumber, winningNumbers);
+      const bonus = new LottoBonus(parseBonusNumber, winningNumbers);
       return bonus.getBonusNumber();
       
     } catch (error) {

@@ -23,11 +23,11 @@ const validateDuplicate = (number, winningNumbers) => {
   }
 }
 
-const BonusNumberValidations = (number, winningNumbers) => {
+const validateBonusNumber = (number, winningNumbers) => {
   validateNumber(number);
   validateInteger(number);
   validateBonusNumberRange(number);
   validateDuplicate(number, winningNumbers);
 };
 
-export default BonusNumberValidations;
+export default validateBonusNumber;

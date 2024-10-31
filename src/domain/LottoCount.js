@@ -1,5 +1,5 @@
 import parser from '../utils/parser.js';
-import LottoPurchasePriceValidations from '../validations/LottoPurchasePriceValidations.js';
+import validateLottoPurchasePrice from '../validations/validateLottoPurchasePrice.js';
 
 class LottoCount {
   #lottoCount;
@@ -13,7 +13,7 @@ class LottoCount {
   }
 
   #parseAndValidate(price) {
-    LottoPurchasePriceValidations(price);
+    validateLottoPurchasePrice(price);
     return parser.parseMoneyToLottoCount(price);
   }
 }

@@ -32,7 +32,7 @@ const validateDuplicate = (numbers) => {
   }
 };
 
-const LottoNumbersValidations = (numbers) => {
+const validateLottoNumbers = (numbers) => {
   validateLottoNumberCount(numbers);
   validateNumber(numbers);
   validateInteger(numbers);
@@ -40,4 +40,4 @@ const LottoNumbersValidations = (numbers) => {
   validateDuplicate(numbers);
 };
 
-export default LottoNumbersValidations;
+export default validateLottoNumbers;

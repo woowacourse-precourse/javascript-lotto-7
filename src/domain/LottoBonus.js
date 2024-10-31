@@ -1,6 +1,6 @@
-import BonusNumberValidations from '../validations/BonusNumberValidations.js';
+import validateBonusNumber from '../validations/validateBonusNumber.js';
 
-class Bonus {
+class LottoBonus {
   #bonusNumber;
 
   constructor(bonusNumber, winningNumbers) {
@@ -13,8 +13,8 @@ class Bonus {
   }
 
   #validate(bonusNumber, winningNumbers) {
-    BonusNumberValidations(bonusNumber, winningNumbers);
+    validateBonusNumber(bonusNumber, winningNumbers);
   }
 }
 
-export default Bonus;
+export default LottoBonus;

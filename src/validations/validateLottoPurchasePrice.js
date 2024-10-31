@@ -22,11 +22,11 @@ const validateIsThousandUnit = (price) => {
   }
 };
 
-const LottoPurchasePriceValidations = (price) => {
+const validateLottoPurchasePrice = (price) => {
   validateNumber(price);
   validateInteger(price);
   validateLottoAmountRange(price);
   validateIsThousandUnit(price);
 };
 
-export default LottoPurchasePriceValidations;
+export default validateLottoPurchasePrice;
