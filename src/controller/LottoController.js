@@ -31,6 +31,34 @@ class LottoController {
       throw error;
     }
   }
+
+  validateBonusNumberType(bonusNumber) {
+    if (isNaN(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
+    }
+  }
+  validateBonusNumberUniqueness(winningNumbers, bonusNumber) {
+    if (winningNumbers.some((number) => bonusNumber === number)) {
+      throw new Error(
+        "[ERROR] 보너스 번호는 로또 당첨 번호 숫자와 겹치지 않아야 합니다."
+      );
+    }
+  }
+  validateBonusNumberRange(bonusNumber) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1에서 45 사이의 양수여야 합니다.");
+    }
+  }
+
+  validateBonusNumber(winningNumbers, bonusNumber) {
+    try {
+      this.validateBonusNumberType(bonusNumber);
+      this.validateBonusNumberUniqueness(winningNumbers, bonusNumber);
+      this.validateBonusNumberRange(bonusNumber);
+    } catch (error) {
+      throw error;
+    }
+  }
   async getWinningLottoNumbers() {
     try {
       const winningLottoNumbers =
@@ -42,6 +70,20 @@ class LottoController {
       this.getWinningLottoNumbers();
     }
   }
+
+  async getBonusNumber(winningNumbers) {
+    try {
+      const bonusNumber = await this.#inputView.readBonusNumbers();
+
+      this.validateBonusNumber(winningNumbers, Number(bonusNumber.trim()));
+
+      return Number(bonusNumber.trim());
+    } catch (error) {
+      console.log(error);
+      this.getBonusNumber(winningNumbers);
+    }
+  }
+
   async run() {
     try {
       const lottoAmountInput = await this.#inputView.readLottoAmount();
@@ -58,7 +100,10 @@ class LottoController {
       }
 
       const winningLottoNumbers = await this.getWinningLottoNumbers();
-      console.log(winningLottoNumbers.getLottoNumbers());
+
+      const bonusNumber = await this.getBonusNumber(
+        winningLottoNumbers.getLottoNumbers()
+      );
     } catch (error) {
       console.log(error);
       this.run();
