@@ -8,4 +8,6 @@ export const ERROR_MESSAGES = Object.freeze({
   INVALID_AMOUNT: '금액은 1000원 단위로 입력해주세요.',
 });
 
-export const INFO_MESSAGES = Object.freeze({});
+export const INFO_MESSAGES = Object.freeze({
+  PRINT_LOTTOS: '개를 구매했습니다.',
+});
