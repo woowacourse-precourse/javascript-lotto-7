@@ -50,6 +50,10 @@ class ResultCalculator {
     return null;
   }
 
+  getPrizeCounts() {
+    return this.#prizeCounts;
+  }
+
   calculateTotalPrize() {
     return Object.entries(this.#prizeCounts).reduce(
       (totalPrize, [key, count]) => totalPrize + this.#prizeMoney[key] * count,

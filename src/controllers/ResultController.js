@@ -1,4 +1,5 @@
 import WinningLotto from '../models/WinningLotto.js';
+import OutputView from '../views/OutputView.js';
 import InputController from './InputController.js';
 import ResultCalculator from './ResultCalculator.js';
 
@@ -25,7 +26,12 @@ class ResultController {
     );
 
     resultCalculator.calculateResults();
+
+    const prizeCounts = resultCalculator.getPrizeCounts();
     const ROI = resultCalculator.calculateROI();
+
+    OutputView.printResult(prizeCounts);
+    OutputView.printROI(ROI);
   }
 }
 
