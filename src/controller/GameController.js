@@ -61,12 +61,30 @@ class GameController {
     }
   }
 
+  async #bonusNumber(wining_lotto) {
+    while (true) {
+      try {
+        const bonus_number = await this.#gameInput.readBonusNumber();
+        this.#bonusNumberValidate(bonus_number, wining_lotto);
+        return bonus_number;
+      } catch (error) {
+        this.#gameOutput.printErrorMesssage(error);
+      }
+    }
+  }
+
+  #bonusNumberValidate(bonus_number, wining_lotto) {
+    NumberValidate.validateNonNumber(bonus_number);
+    NumberValidate.validateBonusDup(bonus_number, wining_lotto);
+  }
+
   async startGame() {
     const new_lotto = await this.#getLotto();
     this.#gameOutput.printNewLotto(new_lotto);
 
     const wining_lotto = await this.#winningLotto();
-    console.log(wining_lotto);
+    const bonus_number = await this.#bonusNumber(wining_lotto);
+    console.log(bonus_number);
   }
 }
 
