@@ -14,22 +14,22 @@ class Lotto {
   }
   isValidCount(numbers) {
     const intNumbers = numbers.map((i) => Number(i));
-    const isCountSatisfied = numbers.length == 6;
-    if (!isCountSatisfied) {
+    const condition = numbers.length == 6;
+    if (!condition) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
     return intNumbers;
   }
   isNotDuplicate(intNumbers) {
     const numberSet = new Set(intNumbers);
-    const isNotDuplicate = numberSet.size == 6;
-    if (!isNotDuplicate) {
+    const condition = numberSet.size == 6;
+    if (!condition) {
       throw new Error("[ERROR] 로또 번호는 중복된 숫자를 가질 수 없습니다.");
     }
   }
   isInRange(intNumbers) {
-    const isInRange = intNumbers.filter((i) => i > 45 || i < 1).length == 0;
-    if (!isInRange) {
+    const condition = intNumbers.filter((i) => i > 45 || i < 1).length == 0;
+    if (!condition) {
       throw new Error("[ERROR] 로또 번호는 1~45 사이 숫자만 가능합니다.");
     }
   }
