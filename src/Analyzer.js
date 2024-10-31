@@ -31,6 +31,20 @@ class Analyzer {
     return numbersOfMatched;
   }
 
+  #isBonusWinning(numbersOfMatched, lotto) {
+    const BONUS_WINNING_STANDARD = 5;
+
+    return (
+      numbersOfMatched === BONUS_WINNING_STANDARD &&
+      this.#checkIsBonusNumberMatched(lotto)
+    );
+  }
+
+  #checkIsBonusNumberMatched(lotto) {
+    const { bonusNumber } = this.#winningNumbers;
+    return lotto.isBonusNumberMatched(bonusNumber);
+  }
+
   #makeWinningTable(matchedNumbers) {
     const DEFAULT_COUNT = 0;
     const UNIT_COUNT = 1;
@@ -47,20 +61,6 @@ class Analyzer {
     this.#makeWinningTable(matchedNumbers);
 
     return this.#winningTable;
-  }
-
-  #checkIsBonusNumberMatched(lotto) {
-    const { bonusNumber } = this.#winningNumbers;
-    return lotto.isBonusNumberMatched(bonusNumber);
-  }
-
-  #isBonusWinning(numbersOfMatched, lotto) {
-    const BONUS_WINNING_STANDARD = 5;
-
-    return (
-      numbersOfMatched === BONUS_WINNING_STANDARD &&
-      this.#checkIsBonusNumberMatched(lotto)
-    );
   }
 }
 
