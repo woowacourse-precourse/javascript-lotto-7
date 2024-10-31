@@ -104,7 +104,13 @@ class InputManager {
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
     if (!getIsPositive(rawBonusNumber))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_POSITIVE };
-    if (!getIsBetweenNumbers(rawBonusNumber, 1, 45))
+    if (
+      !getIsBetweenNumbers(
+        rawBonusNumber,
+        this.#LOTTO_NUMBER_MIN,
+        this.#LOTTO_NUMBER_MAX,
+      )
+    )
       return {
         isError: true,
         errorMessage: ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,

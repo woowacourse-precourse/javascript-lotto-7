@@ -1,48 +1,53 @@
+import { LOTTO_INFORMATION, LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
 import { calculateRateOfReturn } from './lib/utils.js';
 import Lotto from './Lotto.js';
 
 class LottoManager {
   static #lottoPrice = 1_000;
 
-  #lottoArray;
-  #winningLottoArray;
-  #bonusNumber;
-
-  constructor(lottoArray, winningLottoArray, bonusNumber) {
-    this.#lottoArray = lottoArray;
-    this.#winningLottoArray = winningLottoArray;
-    this.#bonusNumber = bonusNumber;
-  }
-
-  static getLottoCount(purchasePrice) {
+  static calculateLottoCount(purchasePrice) {
     return purchasePrice / LottoManager.#lottoPrice;
   }
 
   static generateLottoArray(lottoCount) {
-    return new Array(lottoCount).fill().map(() => new Lotto());
+    return new Array(lottoCount).fill().map(Lotto.generateLotto);
   }
 
-  draw() {
-    const rankMap = this.#createRankMap();
-    let totalWinningPrice = 0;
+  static drawAll(lottoArray, winningLottoArray, bonusNumber) {
+    const rankCountMap = new Map([
+      [1, 0],
+      [2, 0],
+      [3, 0],
+      [4, 0],
+      [5, 0],
+    ]);
 
-    this.#lottoArray.forEach((lotto) => {
-      const rankObject = lotto.getRankObject(
-        this.#winningLottoArray,
-        this.#bonusNumber,
-      );
-
-      if (rankObject) {
-        rankMap.set(rankMap.get(rankObject.rank) + 1);
-        totalWinningPrice += rankObject.winningPrice;
-      }
+    lottoArray.forEach((lotto) => {
+      const lottoRank = lotto.draw(winningLottoArray, bonusNumber);
+      rankCountMap.set(lottoRank, rankCountMap.get(lottoRank) + 1);
     });
 
-    return { rankMap, totalWinningPrice };
+    return rankCountMap;
   }
 
-  #createRankMap() {
-    return new Map(new Array(5).fill().map((_, index) => [index + 1, 0]));
+  static calculateLottoPrizeMoney(rankCountMap) {
+    LOTTO_INFORMATION_ARRAY.reduce(
+      (prev, lottoInformation) =>
+        prev +
+        rankCountMap.get(lottoInformation.rank) * lottoInformation.prizeMoney +
+        prev,
+      0,
+    );
+  }
+
+  static getLottoInformation(rank) {
+    LOTTO_INFORMATION_ARRAY.find((lotto) => lotto.rank === rank);
+  }
+
+  static calculateRateOfReturn(lottoPrizeMoney, purchasePrice) {
+    return parseFloat(
+      calculateRateOfReturn(lottoPrizeMoney, purchasePrice).toFixed(2),
+    );
   }
 }
 

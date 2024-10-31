@@ -8,16 +8,16 @@ export const OUTPUT_MESSAGE = {
   WINNING_STATICS: '당첨 통계\n---',
 };
 
-export const RANK_OBJECT_ARRAY = [
-  { rank: 5, winningCount: 3, isBonusMatch: false, winningPrice: 5_000 },
-  { rank: 4, winningCount: 4, isBonusMatch: false, winningPrice: 50_000 },
-  { rank: 3, winningCount: 5, isBonusMatch: false, winningPrice: 1_500_000 },
-  { rank: 2, winningCount: 5, isBonusMatch: true, winningPrice: 30_000_000 },
+export const LOTTO_INFORMATION_ARRAY = [
+  { rank: 5, winningCount: 3, isBonusMatch: false, prizeMoney: 5_000 },
+  { rank: 4, winningCount: 4, isBonusMatch: false, prizeMoney: 50_000 },
+  { rank: 3, winningCount: 5, isBonusMatch: false, prizeMoney: 1_500_000 },
+  { rank: 2, winningCount: 5, isBonusMatch: true, prizeMoney: 30_000_000 },
   {
     rank: 1,
     winningCount: 6,
     isBonusMatch: false,
-    winningPrice: 2_000_000_000,
+    prizeMoney: 2_000_000_000,
   },
 ];
 

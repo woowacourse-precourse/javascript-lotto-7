@@ -1,13 +1,13 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, RANK_OBJECT_ARRAY } from './lib/constants.js';
+import { ERROR_MESSAGE, LOTTO_INFORMATION_ARRAY } from './lib/constants.js';
 import { intersection } from './lib/utils.js';
-import Rank from './Rank.js';
 
 class Lotto {
   #numbers;
 
-  constructor() {
-    this.#numbers = this.#generateNumbers();
+  constructor(numbers) {
+    this.#numbers = numbers;
+
     this.#validate();
     this.#sortByAscending();
   }
@@ -16,8 +16,27 @@ class Lotto {
     return this.#numbers;
   }
 
-  #generateNumbers() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+  static generateLotto() {
+    const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    const lotto = new Lotto(lottoNumbers);
+    return lotto;
+  }
+
+  draw(winningNumberArray, bonusNumber) {
+    const winningCount = this.#getWinningNumberCount(winningNumberArray);
+    const isBonusMatch = this.#getIsBonusMatch(bonusNumber);
+
+    return this.#calculateRank(winningCount, isBonusMatch);
+  }
+
+  #calculateRank(winningCount, isBonusMatch) {
+    return (
+      LOTTO_INFORMATION_ARRAY.find(
+        (rankObject) =>
+          rankObject.winningCount === winningCount &&
+          rankObject.isBonusMatch === isBonusMatch,
+      )?.rank ?? 0
+    );
   }
 
   #sortByAscending() {
@@ -28,19 +47,12 @@ class Lotto {
     if (this.#numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
   }
 
-  draw(winningNumberArray, bonusNumber) {
-    const winningCount = this.#getWinningNumberCount(winningNumberArray);
-    const isBonusMatch = Boolean(this.#getIsBonusMatch(bonusNumber));
-
-    return Rank.getRank(winningCount, isBonusMatch);
-  }
-
   #getWinningNumberCount(winningNumberArray) {
     return intersection(this.#numbers, winningNumberArray).length;
   }
 
   #getIsBonusMatch(bonusNumber) {
-    return intersection(this.#numbers, [bonusNumber]).length;
+    return intersection(this.#numbers, [bonusNumber]).length > 0;
   }
 }
 
