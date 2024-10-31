@@ -12,15 +12,13 @@ class Money {
 
   #validate(amount) {
     checkValidNumber(amount, ERROR_MESSAGES.INVALID_TYPE);
-    this.checkValidAmount(amount);
+    this.#checkValidAmount(amount);
   }
 
-  checkValidAmount(amount) {
-    if (!this.isValidAmount(amount)) handleError(ERROR_MESSAGES.INVALID_AMOUNT);
-  }
+  #checkValidAmount(amount) {
+    const isVlidAmount = amount % Money.BASE_AMOUNT === 0;
 
-  isValidAmount(amount) {
-    return amount % Money.BASE_AMOUNT === 0;
+    handleError(!isVlidAmount, ERROR_MESSAGES.INVALID_AMOUNT);
   }
 
   getCount() {

@@ -1,10 +1,9 @@
-export const handleError = (message) => {
+export const handleError = (boolean, message) => {
   const formattedMessage = `[ERROR] ${message}`;
-  throw Error(formattedMessage);
+  if (boolean) throw Error(formattedMessage);
 };
 
-export const checkValidNumber = (inputs, message) => {
-  if (isNaN(inputs)) handleError(message);
 
-  return inputs;
+export const checkValidNumber = (inputs, message) => {
+  handleError(isNaN(inputs), message);
 };
