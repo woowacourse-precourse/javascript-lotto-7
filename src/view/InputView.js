@@ -27,6 +27,13 @@ class InputView {
       );
     }
   }
+  async getLottoAnswer() {
+    const answerInput = await Console.readLineAsync(
+      "당첨 번호를 입력해 주세요.\n"
+    );
+    const lottoAnswer = answerInput.split(",");
+    return lottoAnswer;
+  }
 }
 
 export default InputView;

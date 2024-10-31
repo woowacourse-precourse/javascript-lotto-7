@@ -1,6 +1,7 @@
 import InputView from "./view/InputView.js";
 import LottoNumbersModel from "./model/LottoNumbersModel.js";
 import OutputView from "./view/OutputView.js";
+import Lotto from "./model/Lotto.js";
 
 class App {
   constructor() {
@@ -13,6 +14,8 @@ class App {
     const lottoCount = this.lottoNumbersModel.getCount(lottoPrice);
     const lottoNumbers = this.lottoNumbersModel.generate(lottoCount);
     this.outputView.printLottoNumber(lottoNumbers);
+    const lottoAnswer = await this.inputView.getLottoAnswer();
+    this.lotto = new Lotto(lottoAnswer);
   }
 }
 
