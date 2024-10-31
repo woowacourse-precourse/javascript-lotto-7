@@ -30,6 +30,19 @@ const handleLotteryNumInput = async () => {
   return lotteryNumArray;
 };
 
+const isValidLotteryNumInput = (arr) => {
+  const ARR_RANGE = 6;
 
+  switch (true) {
+    case arr.length !== ARR_RANGE:
+      return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_LENGTH);
+
+    case arr.some((num) => +num > LOTTERY_NUM_RANGE.END || +num < LOTTERY_NUM_RANGE.START):
+      return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_RANGE);
+
+    default:
+      break;
+  }
+};
 
 export { handlePurchaseInput, handleLotteryNumInput };
