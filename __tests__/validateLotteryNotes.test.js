@@ -27,6 +27,7 @@ const validateLotteryNotesTestCases = [
     expected: false,
     expectedError: ERROR_MESSAGES.note.INVALID_LOTTERY_NOTE_COUNT,
   },
+  // 앞의 로직에서 걸릴것이라... 설마..
   //   {
   //     description: `금액이 1,000원 단위가 아니면 "${ERROR_MESSAGES.note.INVALID_LOTTERY_NOTE_COUNT}" 에러를 발생시켜야 합니다. (예: 1500)`,
   //     input: 1500,

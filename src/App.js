@@ -7,6 +7,7 @@ import { defaultSettings } from './DefaultSettings.js';
 import LotteryFactory from './LotteryFactory.js';
 import validateLottoNumber from './Validation/validateLottoNumber.js';
 import validateLotteryNotes from './Validation/validateLotteryNotes.js';
+import validateBonusNumber from './Validation/validateBonusNumber.js';
 
 class App {
   async run() {
@@ -30,8 +31,10 @@ class App {
       '로또 번호를 입력해주세요',
     );
 
-    const bonusNumber =
-      await Console.readLineAsync('보너스 번호를 입력해주세요');
+    const bonusNumber = await getInputWhileValid(
+      (input) => validateBonusNumber(input, lotteryNumbers),
+      '보너스 번호를 입력해보세요: ',
+    );
 
     const realBonusNumber = Number(bonusNumber);
     const RANKS = {
