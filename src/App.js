@@ -14,6 +14,7 @@ class App {
     const lottoCount = this.lottoNumbersModel.getCount(lottoPrice);
     const lottoNumbers = this.lottoNumbersModel.generate(lottoCount);
     this.outputView.printLottoNumber(lottoNumbers);
+
     const lottoAnswer = await this.inputView.getLottoAnswer();
     this.lotto = new Lotto(lottoAnswer);
     const bonusAnswer = await this.inputView.getBonusAnswer(lottoAnswer);
@@ -21,6 +22,8 @@ class App {
       lottoNumbers,
       bonusAnswer
     );
+
+    this.outputView.printWinningCount(winningCount);
   }
 }
 
