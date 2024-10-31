@@ -9,6 +9,7 @@ import {
   printCountPurchaseAmount,
   printLottoList,
   printRateOfReturn,
+  printWinningAmount,
 } from './Views/outputViews.js';
 import { issueLottoList } from './Models/lottoListIssueUtils.js';
 import { validateWinningNumbers } from './Controllers/Validator/winningNumbersValidator.js';
@@ -38,6 +39,7 @@ class App {
     validateBonusNumber(bonusNumber);
 
     produceStatistics(trimWinningNum, bonusNumber, lottoList);
+    printWinningAmount();
 
     const rateOfReturn = produceRateOfReturn(purchasePrice);
     printRateOfReturn(rateOfReturn);
