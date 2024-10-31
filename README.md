@@ -2,7 +2,7 @@
 
 # [3주차 로또]
 
----
+## ![](./image/lotto_class_diagram.png)
 
 ## 🚀 목표
 
