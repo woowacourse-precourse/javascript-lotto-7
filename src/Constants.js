@@ -14,5 +14,3 @@ export const ERROR_MESSAGES = {
 };
 
 export const MINIMUM_PURCHASE_AMOUNT = 1000;
-
-export const PURCHASE_MESSAGE = "개를 구매했습니다.";
