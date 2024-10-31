@@ -22,9 +22,13 @@ class Analyzer {
   }
 
   #makeWinningTable(matchedNumbers) {
+    const DEFAULT_COUNT = 0;
+    const UNIT_COUNT = 1;
+
     matchedNumbers.forEach((matchedCount) => {
-      const currentCalculation = this.#winningTable.get(matchedCount) ?? 0;
-      this.#winningTable.set(matchedCount, currentCalculation + 1);
+      const currentCalculation =
+        this.#winningTable.get(matchedCount) ?? DEFAULT_COUNT;
+      this.#winningTable.set(matchedCount, currentCalculation + UNIT_COUNT);
     });
   }
 
