@@ -11,7 +11,7 @@ class Analyzer {
     this.#winningTable = new Map();
   }
 
-  #getMatchingNumbers() {
+  #calculateMatchingNumbers() {
     const lottos = [...this.#lottos];
     const { numbers } = this.#winningNumbers;
     const matchedNumbers = lottos.map((lotto) =>
