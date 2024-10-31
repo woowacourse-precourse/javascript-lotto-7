@@ -8,7 +8,7 @@ class Input {
       Validator.checkAmount(amount);
       return amount;
     } catch (error) {
-      throw new Error(error.message);
+      throw error;
     }
   }
 
@@ -17,9 +17,10 @@ class Input {
       const lottoNumber = await Console.readLineAsync(
         '당첨 번호를 입력해 주세요.',
       );
+      Validator.checkLottoNumber(lottoNumber);
       return lottoNumber;
     } catch (error) {
-      throw new Error(error.message);
+      throw error;
     }
   }
 
@@ -30,7 +31,7 @@ class Input {
       );
       return bonusNumber;
     } catch (error) {
-      throw new Error(error.message);
+      throw error;
     }
   }
 }
