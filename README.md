@@ -35,10 +35,16 @@ lotteryNumbers 클래스
 - [] 보너스가 중복되는 것을 방지한다.
 
 prizeCaluationService 클래스
--[] 클래스를 생성한다.
+
+- [] 클래스를 생성한다.
 
 pickRank 클래스
--[] unit Test를 통해서, 확실히 rank를 받는지 확인한다.
+
+- [] unit Test를 통해서, 확실히 rank를 받는지 확인한다.
+
+lotteryNotes
+
+- [] 발리데이션을 진행한다. parseInt가 잘 먹히는지 확인한다.
 
 발리데이션
 
