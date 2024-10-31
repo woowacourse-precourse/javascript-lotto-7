@@ -25,3 +25,25 @@ export const RANKS = {
   FIFTH: "FIFTH_PLACE",
   SIXTH: "SIXTH_PLACE",
 };
+
+export const PRIZE_MESSAGES = {
+  TITLE: "당첨 통계",
+  SEPARATOR: "---",
+  FIFTH: "3개 일치 (5,000원) -",
+  FOURTH: "4개 일치 (50,000원) -",
+  THIRD: "5개 일치 (1,500,000원) -",
+  SECOND: "5개 일치, 보너스 볼 일치 (30,000,000원) -",
+  FIRST: "6개 일치 (2,000,000,000원) -",
+};
+
+export const WINNING_PRIZE = {
+  FIRST_PLACE: 2_000_000_000,
+  SECOND_PLACE: 30_000_000,
+  THIRD_PLACE: 1_500_000,
+  FOURTH_PLACE: 50_000,
+  FIFTH_PLACE: 5_000,
+};
+
+export const ROI_MESSAGES = {
+  RESULT: "총 수익률은 ${value}%입니다.",
+};
