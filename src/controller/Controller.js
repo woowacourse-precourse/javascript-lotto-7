@@ -20,7 +20,6 @@ class Controller {
 
     const winningLotto = await this.#inputHandler.getWinningLotto();
     const bonusNumber = await this.#inputHandler.getBonusNumber(winningLotto);
-
     const lottoResult = calculationLotto.result(
       lottos,
       winningLotto,
