@@ -2,9 +2,10 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Exception from "./exceptionHandling.js";
 
 class Input {
-  constructor(price, numberOfPurchase) {
+  constructor(price, numberOfPurchase, lottosNumbers) {
     this.price = price;
     this.numberOfPurchase = numberOfPurchase;
+    this.lottosNumbers = lottosNumbers;
   }
 
   async inputPrice() {
@@ -23,10 +24,19 @@ class Input {
   }
 
   printLottos(numberOfPurchase) {
-    let random = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    this.lottosNumbers = [];
     for (let i = 0; i < numberOfPurchase; i++) {
-      Console.print(random.sort((a, b) => a - b));
+      let numbers = this.randomNumbers();
+      this.lottosNumbers.push(numbers);
+      Console.print(numbers);
     }
+    Console.print(this.lottosNumbers);
+  }
+
+  randomNumbers() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+      (a, b) => a - b
+    );
   }
 }
 export default Input;
