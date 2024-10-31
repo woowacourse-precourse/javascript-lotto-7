@@ -5,6 +5,9 @@ class InputView {
   async readLottoAmount() {
     return Console.readLineAsync(MESSAGES.INPUT.LOTTO_AMOUNT);
   }
+  async readWinningLottoNumbers() {
+    return Console.readLineAsync(MESSAGES.INPUT.WINNING_NUMBERS);
+  }
 }
 
 export default InputView;

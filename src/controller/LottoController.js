@@ -24,6 +24,24 @@ class LottoController {
     }
     return tickets;
   }
+  validateWinningLottoNumbers(numbers) {
+    try {
+      return new Lotto(numbers.split(",").map((e) => +e));
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getWinningLottoNumbers() {
+    try {
+      const winningLottoNumbers =
+        await this.#inputView.readWinningLottoNumbers();
+
+      return this.validateWinningLottoNumbers(winningLottoNumbers.trim());
+    } catch (error) {
+      console.log(error);
+      this.getWinningLottoNumbers();
+    }
+  }
   async run() {
     try {
       const lottoAmountInput = await this.#inputView.readLottoAmount();
@@ -38,6 +56,9 @@ class LottoController {
       for (const ticket of lottoTickets) {
         Console.print(ticket.getLottoNumbers());
       }
+
+      const winningLottoNumbers = await this.getWinningLottoNumbers();
+      console.log(winningLottoNumbers.getLottoNumbers());
     } catch (error) {
       console.log(error);
       this.run();
