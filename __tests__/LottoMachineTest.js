@@ -19,7 +19,6 @@ describe('LottoMachine 클래스 테스트', () => {
     [1000000, 1000],
   ])('구입한 로또 수량을 계산하는지 테스트', (payment, expected) => {
     const lottoMachine = new LottoMachine(payment, Lotto);
-
     const amount = lottoMachine.getAmount();
 
     expect(amount).toBe(expected);
