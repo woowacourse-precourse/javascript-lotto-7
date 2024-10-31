@@ -2,14 +2,14 @@ import Lotto from "./Lotto.js";
 import MESSAGES from "./constants/Messages.js";
 import ERRORS from "./constants/Errors.js";
 import CONDITIONS from "./constants/Conditions.js";
+import InputView from "./views/InputViews.js";
 import { Console } from "@woowacourse/mission-utils";
 import { Random } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
     // 구입금액을 입력해주세요.
-    const purchaseAmount = await Console.readLineAsync(MESSAGES.INPUT_MONEY);
-    Console.print("");
+    const purchaseAmount = await InputView.inputMoney();
 
     if (+purchaseAmount % CONDITIONS.ONE_LOTTO_PRICE !== 0) {
       throw new Error(ERRORS.NOT_1000_WON);
@@ -39,19 +39,14 @@ class App {
     }
     Console.print("");
 
-    // 당첨 번호를 입력해주세요.
-    const winningNumbersInput = await Console.readLineAsync(
-      MESSAGES.INPUT_WINNING_NUMBERS
-    );
-    Console.print("");
+    // 당첨 번호를 입력
+    const winningNumbersInput = await InputView.inputWinningNumbers();
 
     const winningNumberArr = winningNumbersInput.split(",").map(Number);
     const winningNumbers = new Lotto(winningNumberArr);
 
-    const bonusNumberInput = await Console.readLineAsync(
-      MESSAGES.INPUT_BONUS_NUMBER
-    );
-    Console.print("");
+    //보너스 번호 입력
+    const bonusNumberInput = await InputView.inputBonusNumber();
     const bonusNumber = +bonusNumberInput;
 
     if (winningNumberArr.includes(bonusNumber)) {
