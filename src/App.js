@@ -1,4 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto";
 
 class App {
   async run() {
@@ -10,29 +11,43 @@ class App {
     }
 
     let count = Math.floor(price / 1000);
-
     Console.print(`${count}개를 구매했습니다.`);
     let lottoCount = this.getLottoNumbers(count);
-    Console.print(lottoCount);
 
-    let winningNumbers = await Console.readLineAsync(
+    Console.print(lottoCount.map((nums) => `[${nums.join(", ")}]`).join("\n"));
+
+    let winningNumbersInput = await Console.readLineAsync(
       "당첨 번호를 입력해 주세요.\n"
     );
 
-    winningNumbers = winningNumbers.split(",").map((num) => parseInt(num));
+    let winningNumbers = winningNumbersInput
+      .split(",")
+      .map((num) => parseInt(num.trim()));
 
-    let bonusNumber = await Console.readLineAsync(
+    try {
+      new Lotto(winningNumbers);
+    } catch (error) {
+      Console.print(error.message);
+      return;
+    }
+
+    let bonusNumberInput = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
+    let bonusNumber = Number(bonusNumberInput);
 
-    bonusNumber = Number(bonusNumber);
+    try {
+      new Lotto(bonusNumber);
+    } catch (error) {
+      Console.print(error.message);
+      return;
+    }
 
     let comparedList = this.compareNumbers(
       lottoCount,
       winningNumbers,
       bonusNumber
     );
-
     let result = this.getResult(comparedList);
 
     Console.print(result);
@@ -60,8 +75,7 @@ class App {
           hasBonus = true;
         }
       }
-
-      result.push(count === 4 && hasBonus ? "5(bonus)" : count);
+      result.push(count === 5 && hasBonus ? "5(bonus)" : count);
     }
     return result;
   }
@@ -81,12 +95,11 @@ class App {
       }
     });
 
-    // return result;
-    return `3개 일치 (5,000원) - ${result[3]}개 \n
-    4개 일치 (50,000원) - ${result[4]}개 \n 
-    5개 일치 (1,500,000원) - ${result[5]}개 \n
-    5개 일치, 보너스 볼 일치 (30,000,000원) - ${result["5(bonus)"]}개 \n
-    6개 일치 (2,000,000,000원) - ${result[6]}개`;
+    return `3개 일치 (5,000원) - ${result[3]}개\n
+4개 일치 (50,000원) - ${result[4]}개\n 
+5개 일치 (1,500,000원) - ${result[5]}개\n
+5개 일치, 보너스 볼 일치 (30,000,000원) - ${result["5(bonus)"]}개\n
+6개 일치 (2,000,000,000원) - ${result[6]}개`;
   }
 }
 
