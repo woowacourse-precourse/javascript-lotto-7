@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import BonusLotto from './BonusLotto.js';
-import { MONEY_UNIT } from './constants/magicNumber.js';
+import MONEY_UNIT from './constants/lottoStandard.js';
 import Lotto from './Lotto.js';
 import Money from './Money.js';
 import Profit from './Profit.js';
@@ -29,9 +29,8 @@ class App {
     const lottoList = [];
     for (let i = 0; i < lottoCounter; i++) {
       const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
-      // const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
       lottoList.push(lotto.getNumbers());
-      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+      OutputView.printLottoNumbers(lotto);
     }
 
     // 당첨 로또 발행

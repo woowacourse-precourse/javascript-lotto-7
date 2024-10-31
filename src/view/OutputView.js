@@ -19,7 +19,11 @@ const OUTPUT_MESSAGE = Object.freeze({
 
 class OutputView {
   static printLottoCounter(counter) {
-    Console.print(`\n${counter}개를 구매했습니다.`);
+    Console.print(`\n${counter}${OUTPUT_MESSAGE.COUNTER}`);
+  }
+
+  static printLottoNumbers(lotto) {
+    Console.print(`[${lotto.getNumbers().join(', ')}]`);
   }
 
   static printLottoStatics(rankCounter, profit) {

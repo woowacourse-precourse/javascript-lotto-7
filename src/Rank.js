@@ -1,4 +1,18 @@
-import { RANK, WINNING_COUNT } from './constants/magicNumber.js';
+const WINNING_COUNT = Object.freeze({
+  FIRST_RANK: 6,
+  SECOND_THIRD_RANK: 5,
+  FOURTH_RANK: 4,
+  FIFTH_RANK: 3,
+});
+
+const RANK = Object.freeze({
+  FIRST_RANK: 1,
+  SECOND_RANK: 2,
+  THIRD_RANK: 3,
+  FOURTH_RANK: 4,
+  FIFTH_RANK: 5,
+  SIXTH_RANK: 6,
+});
 
 class Rank {
   #rank;

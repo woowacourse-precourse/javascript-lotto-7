@@ -1,5 +1,5 @@
 import ERROR_MESSAGE from './constants/errorMessage.js';
-import { MONEY_UNIT } from './constants/magicNumber.js';
+import MONEY_UNIT from './constants/lottoStandard.js';
 
 class Money {
   #money;

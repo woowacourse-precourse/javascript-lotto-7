@@ -1,4 +1,10 @@
-import { RANK_MONEY } from './constants/magicNumber.js';
+const RANK_MONEY = Object.freeze({
+  FIFTH_RANK: 5000,
+  FOURTH_RANK: 50000,
+  THIRD_RANK: 1500000,
+  SECOND_RANK: 30000000,
+  FIRST_RANK: 2000000000,
+});
 
 class Profit {
   #winningMoney;

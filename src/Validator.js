@@ -1,5 +1,6 @@
 import ERROR_MESSAGE from './constants/errorMessage.js';
-import { LOTTO_BOUNDARY } from './constants/magicNumber.js';
+
+const LOTTO_BOUNDARY = Object.freeze({ MIN: 1, MAX: 45 });
 
 class Validator {
   static validateLottoNumber(number) {
