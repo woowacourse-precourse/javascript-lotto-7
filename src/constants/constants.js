@@ -30,9 +30,9 @@ export const MATCH_PRICE = Object.freeze({
 
 const createWinningDetailMessage = (matchCode, winningCount) => {
   if (matchCode === MATCH_CODE.FIVE_WITH_BONUS) {
-    return `5개 일치, 보너스 볼 일치 (${parser.parsePrice(MATCH_PRICE[matchCode])}원) - ${winningCount}개`
+    return `5개 일치, 보너스 볼 일치 (${parser.parseNumberWithCommas(MATCH_PRICE[matchCode])}원) - ${winningCount}개`
   }
-  return `${matchCode}개 일치 (${parser.parsePrice(MATCH_PRICE[matchCode])}원) - ${winningCount}개`;
+  return `${matchCode}개 일치 (${parser.parseNumberWithCommas(MATCH_PRICE[matchCode])}원) - ${winningCount}개`;
 };
 
 export const MATCH_WINNING_DETAILS = Object.freeze({
@@ -60,8 +60,8 @@ export const VALIDATE_MESSAGES = Object.freeze({
   PURCHASE_PRICE: {
     NUMBER: '[ERROR] 로또 구입 금액이 숫자가 아닙니다. 다시 입력해주세요.',
     INTEGER: '[ERROR] 로또 구입 금액이 정수가 아닙니다. 다시 입력해주세요.',
-    RANGE: `[ERROR] 로또 구입 금액은 ${parser.parsePrice(LOTTO_PRICE_PER_TICKET)}원 이상 ${parser.parsePrice(MATCH_PRICE[MATCH_CODE.SIX])}원 이하로 입력해 주세요.`,
-    THOUSAND: `[ERROR] 로또 구입 금액은 ${parser.parsePrice(LOTTO_PRICE_PER_TICKET)}원 단위로 입력해 주세요.`,
+    RANGE: `[ERROR] 로또 구입 금액은 ${parser.parseNumberWithCommas(LOTTO_PRICE_PER_TICKET)}원 이상 ${parser.parseNumberWithCommas(MATCH_PRICE[MATCH_CODE.SIX])}원 이하로 입력해 주세요.`,
+    THOUSAND: `[ERROR] 로또 구입 금액은 ${parser.parseNumberWithCommas(LOTTO_PRICE_PER_TICKET)}원 단위로 입력해 주세요.`,
   },
 
   LOTTO_NUMBERS: {

@@ -1,4 +1,5 @@
 import { MATCH_PRICE, LOTTO_PRICE_PER_TICKET, PERCENTAGE_FACTOR, REVENUE_DECIMAL_PLACE } from '../constants/constants.js';
+import parser from '../utils/parser.js';
 
 class LottoRevenue {
   #revenue;
@@ -24,7 +25,7 @@ class LottoRevenue {
     const roundedRevenuePercentage = Math.round(revenuePercentage * 10) / 10;
 
     const localeStringOptions = { minimumFractionDigits: REVENUE_DECIMAL_PLACE, maximumFractionDigits: REVENUE_DECIMAL_PLACE };
-    this.#revenue = roundedRevenuePercentage.toLocaleString('ko-KR', localeStringOptions);
+    this.#revenue = parser.parseNumberWithCommas(roundedRevenuePercentage, localeStringOptions);
   }
 }
 
