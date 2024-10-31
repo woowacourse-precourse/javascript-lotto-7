@@ -3,7 +3,7 @@ import {
   getWinningNumbersInput,
   getBonusNumberInput,
 } from './Views/inputViews.js';
-import { validatePurchasePrice } from './Models/purchasePriceValidator.js';
+import { validatePurchasePrice } from './Controllers/Validator/purchasePriceValidator.js';
 import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
 import {
   printCountPurchaseAmount,
@@ -11,8 +11,9 @@ import {
   printRateOfReturn,
 } from './Views/outputViews.js';
 import { issueLottoList } from './Models/lottoListIssueUtils.js';
-import { validateWinningNumbers } from './Models/winningNumbersValidator.js';
-import { validateBonusNumber } from './Models/bonusNumberValidator.js';
+import { validateWinningNumbers } from './Controllers/Validator/winningNumbersValidator.js';
+import { validateBonusNumber } from './Controllers/Validator/bonusNumberValidator.js';
+
 import { produceStatistics } from './Models/winningStatisticsUtils.js';
 import { produceRateOfReturn } from './Models/rateOfReturnUtils.js';
 import { trimWinningNumbers } from './Models/winningNumbersUtils.js';

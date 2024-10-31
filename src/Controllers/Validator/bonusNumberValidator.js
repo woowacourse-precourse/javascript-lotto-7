@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../Constants/errorMessages.js';
+import { ERROR_MESSAGE } from '../../Constants/errorMessages.js';
 
 const isBonusNumberEmptyInput = (BonusNumber) => BonusNumber !== '';
 
