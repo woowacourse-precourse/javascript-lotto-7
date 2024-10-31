@@ -15,6 +15,27 @@ class LottoManager {
     }
   }
 
+  validateBonus(bonusNumber, winningNumber) {
+    bonusNumber = bonusNumber.trim();
+    if (isNaN(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.NOT_A_NUMBER);
+    }
+    if (
+      bonusNumber < RULE.LOTTO_MIN_NUMBER ||
+      bonusNumber > RULE.LOTTO_MAX_NUMBER
+    ) {
+      throw new Error(
+        ERROR_MESSAGE.OUT_OF_RANGE_NUMBER(
+          RULE.LOTTO_MIN_NUMBER,
+          RULE.LOTTO_MAX_NUMBER,
+        ),
+      );
+    }
+    if (winningNumber.includes(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.DUPLICATE_BONUS_NUMBER);
+    }
+  }
+
   buyLottos(price) {
     const lottoCount = price / RULE.LOTTO_PRICE;
     return Array.from({ length: lottoCount }, () => this.generateLotto());
