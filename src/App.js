@@ -1,5 +1,7 @@
 import LottoController from './controllers/LottoController.js';
 import PurchaseController from './controllers/PurchaseController.js';
+import ResultController from './controllers/ResultController.js';
+import OutputView from './views/OutputView.js';
 
 class App {
   async run() {
@@ -10,6 +12,10 @@ class App {
     lottoController.generateLottos(amount);
 
     const lottos = lottoController.getLottos();
+    OutputView.printPurchasedLottos(lottos);
+
+    const resultController = new ResultController(lottos);
+    await resultController.setWinningNumbers();
   }
 }
 

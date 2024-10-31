@@ -1,21 +1,35 @@
+import WinningLotto from '../models/WinningLotto.js';
 import Validator from '../Validator.js';
 import InputView from '../views/InputView.js';
 
 class ResultController {
   #winningNumbers;
 
-  async getWinningNumbers() {
-    const inputWinningNumbers = await InputView.getWinningNumbers();
-    const numbers = this.parseWinningNumbers(inputWinningNumbers);
+  #lottos;
 
-    Validator.validateWinningNumbers(numbers);
+  async setWinningNumbers() {
+    const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
 
-    return numbers;
+    this.#winningNumbers = new WinningLotto(winningNumbers, bonusNumber);
   }
 
-  async getBonusNumber() {
+  async getWinningNumbers() {
+    const inputWinningNumbers = await InputView.getWinningNumbers();
+    const winningNumbers = this.parseWinningNumbers(inputWinningNumbers);
+
+    Validator.validateWinningNumbers(winningNumbers);
+
+    return winningNumbers;
+  }
+
+  async getBonusNumber(winningNumbers) {
     const inputBonusNumber = await InputView.getBonusNumber();
-    return inputBonusNumber;
+    const bonusNumber = Number(inputBonusNumber);
+
+    Validator.validateBonusNumber(bonusNumber, winningNumbers);
+
+    return bonusNumber;
   }
 
   parseWinningNumbers(input) {
