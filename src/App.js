@@ -7,35 +7,24 @@ import OutputManager from './OutputManager.js';
 import LottoManager from './LottoManager.js';
 
 class App {
-  #rankMap;
-
-  constructor() {
-    this.#rankMap = App.#createRankMap();
-  }
-
   async run() {
     const purchasePrice = await InputManager.getPurchasePrice();
 
-    const lottoManager = new LottoManager(purchasePrice);
+    const lottoCount = LottoManager.getLottoCount(purchasePrice);
+    const lottoArray = LottoManager.generateLottoArray(lottoCount);
 
-    OutputManager.printPurchaseCount(lottoManager.lottoCount);
+    OutputManager.printPurchaseCount(lottoCount);
+    OutputManager.printNumbers(lottoArray);
 
-    OutputManager.printNumbers(lottoManager.lottoArray);
-
-    const winningNumberArray = await InputManager.getWinningNumbers();
-
+    const winningLottoArray = await InputManager.getWinningNumbers();
     const bonusNumber = await InputManager.getBonusNumber();
 
-    let totalWinningPrice = 0;
-
-    lottoManager.lottoArray.forEach((lotto) => {
-      const rankObject = lotto.getRankObject(winningNumberArray, bonusNumber);
-
-      if (rankObject) {
-        this.#rankMap.set(this.#rankMap.get(rankObject.rank) + 1);
-        totalWinningPrice += rankObject.winningPrice;
-      }
-    });
+    const lottoManager = new LottoManager(
+      lottoArray,
+      winningLottoArray,
+      bonusNumber,
+    );
+    const { rankMap, totalWinningPrice } = lottoManager.draw();
 
     const rateOfReturn = parseFloat(
       calculateRateOfReturn(totalWinningPrice, purchasePrice).toFixed(2),
@@ -52,15 +41,11 @@ class App {
           rankObject.winningCount
         }개 일치${bonusNumberString} (${rankObject.winningPrice.toLocaleString(
           'ko-KR',
-        )}원) - ${this.#rankMap[rankObject.rank] ?? 0}개`,
+        )}원) - ${rankMap[rankObject.rank] ?? 0}개`,
       );
     });
 
     MissionUtils.Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
-  }
-
-  static #createRankMap() {
-    return new Map(new Array(5).fill().map((_, index) => [index + 1, 0]));
   }
 }
 

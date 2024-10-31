@@ -1,30 +1,48 @@
+import { calculateRateOfReturn } from './lib/utils.js';
 import Lotto from './Lotto.js';
 
 class LottoManager {
   static #lottoPrice = 1_000;
 
-  #lottoCount;
   #lottoArray;
+  #winningLottoArray;
+  #bonusNumber;
 
-  constructor(purchasePrice) {
-    this.#lottoCount = purchasePrice / LottoManager.#lottoPrice;
-    this.#lottoArray = this.#generateLottoArray(this.#lottoCount);
+  constructor(lottoArray, winningLottoArray, bonusNumber) {
+    this.#lottoArray = lottoArray;
+    this.#winningLottoArray = winningLottoArray;
+    this.#bonusNumber = bonusNumber;
   }
 
-  get lottoArray() {
-    return this.#lottoArray;
+  static getLottoCount(purchasePrice) {
+    return purchasePrice / LottoManager.#lottoPrice;
   }
 
-  get lottoCount() {
-    return this.#lottoCount;
+  static generateLottoArray(lottoCount) {
+    return new Array(lottoCount).fill().map(() => new Lotto());
   }
 
-  #generateLottoArray() {
-    return new Array(this.#lottoCount).fill().map(() => {
-      const lotto = new Lotto();
-      lotto.init();
-      return lotto;
+  draw() {
+    const rankMap = this.#createRankMap();
+    let totalWinningPrice = 0;
+
+    this.#lottoArray.forEach((lotto) => {
+      const rankObject = lotto.getRankObject(
+        this.#winningLottoArray,
+        this.#bonusNumber,
+      );
+
+      if (rankObject) {
+        rankMap.set(rankMap.get(rankObject.rank) + 1);
+        totalWinningPrice += rankObject.winningPrice;
+      }
     });
+
+    return { rankMap, totalWinningPrice };
+  }
+
+  #createRankMap() {
+    return new Map(new Array(5).fill().map((_, index) => [index + 1, 0]));
   }
 }
 
