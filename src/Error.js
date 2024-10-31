@@ -15,6 +15,9 @@ const ERROR_MESSAGES = Object.freeze({
     ILLEGAL_CAR: '생성된 차량 객체가 정의되지 않았습니다.',
     ILLEGAL_CAR_ARRAY: '차량 배열이 올바르지 않습니다.',
   },
+  note: {
+    INVALID_LOTTERY_NOTE_COUNT:
+      '유효하지 않은 로또 구입 개수입니다. 1개 이상의 1,000원 단위로 입력해 주세요.',
+  },
 });
-
 export { ERROR_MESSAGES };

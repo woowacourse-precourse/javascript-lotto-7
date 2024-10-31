@@ -1,6 +1,6 @@
 import validateMoney from '../src/Validation/validateMoney.js';
 import { ERROR_MESSAGES } from '../src/Error.js';
-import { runExceptionTest } from '../src/Test/Test.js';
+import { runErrorLogTest } from '../src/Test/Test.js';
 
 const validateMoneyTestCases = [
   {
@@ -84,4 +84,4 @@ const validateMoneyTestCases = [
   },
 ];
 
-validateMoneyTestCases.forEach(runExceptionTest(validateMoney));
+validateMoneyTestCases.forEach(runErrorLogTest(validateMoney));

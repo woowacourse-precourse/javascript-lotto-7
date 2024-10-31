@@ -1,4 +1,4 @@
-import { Random, Console } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import { printLotteries } from './View/OutputView.js';
 import { getInputWhileValid } from './View/InputView.js';
@@ -6,6 +6,7 @@ import validateMoney from './Validation/validateMoney.js';
 import { defaultSettings } from './DefaultSettings.js';
 import LotteryFactory from './LotteryFactory.js';
 import validateLottoNumber from './Validation/validateLottoNumber.js';
+import validateLotteryNotes from './Validation/validateLotteryNotes.js';
 
 class App {
   async run() {
@@ -14,7 +15,7 @@ class App {
       '구입금액을 입력해 주세요.',
     );
 
-    const lotteryNotes = Number.parseInt(paidAmount / 1000, 10);
+    const lotteryNotes = validateLotteryNotes(paidAmount);
 
     const lotteries = new LotteryFactory(
       Lotto,

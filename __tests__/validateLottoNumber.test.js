@@ -1,4 +1,4 @@
-import { runExceptionTest } from '../src/Test/Test.js';
+import { runErrorLogTest } from '../src/Test/Test.js';
 import { ERROR_MESSAGES } from '../src/Error.js';
 import validateLottoNumber from '../src/Validation/validateLottoNumber.js';
 
@@ -53,4 +53,4 @@ const validateLottoNumberTestCases = [
   },
 ];
 
-validateLottoNumberTestCases.forEach(runExceptionTest(validateLottoNumber));
+validateLottoNumberTestCases.forEach(runErrorLogTest(validateLottoNumber));

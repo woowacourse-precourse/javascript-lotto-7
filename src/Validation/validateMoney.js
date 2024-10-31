@@ -26,14 +26,13 @@ const validatePositive = (input) => {
   }
   return true;
 };
-
 const validateDivisibleByThousand = (input) => {
   if (Number(input) % 1000 !== 0) {
     printMessage(ERROR_MESSAGES.money.ONLY_NOTE_ALLOWED);
-    return false;
   }
   return true;
 };
+
 export default function validateMoney(input) {
   const validators = [
     validateIsNumber,
