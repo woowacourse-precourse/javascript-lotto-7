@@ -1,4 +1,4 @@
-import { checkNumber, checkWinNumbers } from "../../../src/feature/validate/checkWinNumber.js";
+import { checkDuplicate, checkNumber, checkWinNumbers } from "../../../src/feature/validate/checkWinNumber.js";
 
 describe('숫자의 유효성 테스트', () => {
   test.each([
@@ -29,4 +29,17 @@ describe('숫자의 유효성 테스트', () => {
       // then
       expect(() => checkWinNumbers(parsedInput)).toThrow(new Error(errorMessage));
   });
+
+  test.each([
+    [[1, 2, 2, 3, 4, 5]],
+    [[1, 1, 2, 3, 4, 5]],
+    [[45, 45, 45, 45, 45, 20]]
+  ])('변환된 배열 %O 의 중복 존재에 대한 예외 처리', 
+    (input) => {
+      // given
+      const userInput = input;
+      const errorMessage = '[ERROR] 중복된 숫자가 존재합니다.';
+      // then
+      expect(() => checkDuplicate(userInput)).toThrow(new Error(errorMessage));
+    })
 })
