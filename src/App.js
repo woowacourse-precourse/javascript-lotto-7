@@ -24,7 +24,7 @@ class App {
 		this.#lottoCount = await this.#calculateLottoCount();
 
 		await this.#printLottoCount();
-		await this.#getLotto();
+		this.#lottoNumbers = await this.#getLotto();
 
 		this.#winningNumber = await this.userInput.getWinningNumber();
 		this.#bonusNumber = await this.userInput.getBonusNumber();
@@ -40,8 +40,9 @@ class App {
 
 	async #getLotto() {
 		return Array.from({ length: this.#lottoCount }, () => {
-			this.#lottoNumbers = this.getRandomNumbers();
-			this.#printLottoNumbers();
+			const lottos = this.getRandomNumbers();
+			this.#printLottoNumbers(lottos);
+			return lottos;
 		});
 	}
 
@@ -53,8 +54,8 @@ class App {
 		).sort((a, b) => a - b);
 	}
 
-	#printLottoNumbers() {
-		printOutput(PROMPT.LOTTO_NUMBERS(this.#lottoNumbers));
+	#printLottoNumbers(lottos) {
+		printOutput(PROMPT.LOTTO_NUMBERS(lottos));
 	}
 }
 
