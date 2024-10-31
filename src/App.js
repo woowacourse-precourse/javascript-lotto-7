@@ -29,6 +29,10 @@ class App {
     }
 
     MissionUtils.Console.print(`\n${lottoCnt}개를 구매했습니다.`);
+
+    lottoNumbers.forEach((eachLotto) => {
+      MissionUtils.Console.print(`[${eachLotto.join(", ")}]`);
+    });
   }
 }
 
