@@ -8,6 +8,7 @@ class Generator {
 
       for (let i = 0; i < times; i++) {
         const randomNumbers = this.createLottoNumbers();
+        const sortedNumbers = this.sortNumbers(randomNumbers);
       }
     } catch (error) {
       throw new Error(error.message);
@@ -20,6 +21,10 @@ class Generator {
 
   createLottoNumbers() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
+
+  sortNumbers(numbers) {
+    return numbers.sort((a, b) => a - b);
   }
 }
 
