@@ -9,6 +9,10 @@ class GameInput {
   async readWinningLotto() {
     return Console.readLineAsync(MESSAGE.INPUT.WINNING_LOTTO);
   }
+
+  async readBonusNumber() {
+    return Console.readLineAsync(MESSAGE.INPUT.BONUS_NUMBER);
+  }
 }
 
 export default GameInput;
