@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGES, MINIMUM_PURCHASE_AMOUNT } from "./Constants.js";
 import Input from "./Input.js";
+import Lotto from "./Lotto.js";
 
 class LottoMachine {
   static #validateUserPurchaseAmount(purchaseAmount) {
@@ -27,6 +28,53 @@ class LottoMachine {
         Console.print(error.message);
       }
     }
+  }
+
+  static async #getValidWinningNumber() {
+    while (true) {
+      const winningNumbers = await Input.getUserWinningNumber();
+      const splitedWinningNumber = winningNumbers
+        .split(",")
+        .map((number) => number.replace(/\s+/g, ""));
+      try {
+        return new Lotto(splitedWinningNumber).winningNumbers;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
+  static async #getValidBonusNumber(winningNumbers) {
+    while (true) {
+      const bonusNumber = await Input.getUserBonusNumber();
+      try {
+        this.#validateBonusNumber(winningNumbers, bonusNumber);
+        return Number(bonusNumber);
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
+  static #validateBonusNumber(winningNumbers, bonusNumber) {
+    const num = Number(bonusNumber);
+    if (winningNumbers.includes(num)) {
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER);
+    }
+    if (num < 1 || num > 45 || !Number.isInteger(num)) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);
+    }
+  }
+
+  static async getWinningAndBonusNumber() {
+    const winningAndBonusNumber = [];
+
+    const winningNumber = await this.#getValidWinningNumber();
+    const bonusNumber = await this.#getValidBonusNumber(winningNumber);
+
+    winningAndBonusNumber.push(winningNumber, bonusNumber);
+
+    return winningAndBonusNumber;
   }
 }
 
