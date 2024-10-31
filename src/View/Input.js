@@ -20,6 +20,16 @@ class Input {
       throw new Error();
     }
   }
+
+  static async bonusNumber() {
+    try {
+      const bonusNumber =
+        await Console.readlineAsync('보너스 번호를 입력해 주세요.');
+      return bonusNumber;
+    } catch {
+      throw new Error();
+    }
+  }
 }
 
 export default Input;
