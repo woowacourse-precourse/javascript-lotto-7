@@ -1,6 +1,14 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class OutputView {
+  printLottos(amount, lottos) {
+    const lottoCount = Math.floor(amount / 1000);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    lottos.forEach((lotto) => {
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
+  }
+
   printMatchResults(statistics) {
     Console.print('\n당첨 통계\n---');
     Console.print(`3개 일치 (5,000원) - ${statistics[3].count}개`);

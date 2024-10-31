@@ -25,7 +25,7 @@ class LottoController {
     try {
       const amount = await this.#inputView.readLottoAmount();
       this.#lottos = this.#generateLottos(amount);
-      this.#printLottos(amount, this.#lottos);
+      this.#outputView.printLottos(amount, this.#lottos);
 
       this.#winningNumbers = await this.#inputView.readWinningNumbers();
       this.#bonusNumber = await this.#inputView.readBonusNumber();
@@ -46,14 +46,6 @@ class LottoController {
   #createLotto() {
     const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
     return new Lotto(numbers);
-  }
-
-  #printLottos(amount, lottos) {
-    const lottoCount = Math.floor(amount / 1000);
-    Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    lottos.forEach((lotto) => {
-      Console.print(`[${lotto.getNumbers().join(', ')}]`);
-    });
   }
 
   #getMatchResults() {
