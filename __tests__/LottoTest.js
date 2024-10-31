@@ -134,7 +134,7 @@ describe("보너스 번호 입력 테스트", () => {
 
       mockQuestions(input);
       const consoleInput = await read();
-      handleBonusNumber([15, 16, 17, 18, 19, 20], consoleInput);
+      handleBonusNumber(["15", "16", "17", "18", "19", "20"], consoleInput);
 
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(error));
     }
