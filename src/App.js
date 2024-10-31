@@ -1,26 +1,26 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Input from './Input.js';
+import InputManager from './InputManager.js';
 import { OUTPUT_MESSAGE, RANK_OBJECT_ARRAY } from './lib/constants.js';
 import Lotto from './Lotto.js';
 import { calculateRateOfReturn } from './lib/utils.js';
-import Output from './Output.js';
+import OutputManager from './OutputManager.js';
 
 class App {
-  #input;
   #lottoArray;
   #rankMap;
 
   constructor() {
-    this.#input = new Input();
     this.#lottoArray = [];
     this.#rankMap = App.#createRankMap();
   }
 
   async run() {
-    await this.#input.getPurchasePrice();
-    const lottoCount = this.#input.purchasePrice / 1_000;
+    const purchasePrice = await InputManager.getPurchasePrice();
+    const purchaseCount = purchasePrice / 1_000;
 
-    for (let round = 0; round < lottoCount; round += 1) {
+    OutputManager.printPurchaseCount(purchaseCount);
+
+    for (let round = 0; round < purchaseCount; round += 1) {
       const randomNumberArray = MissionUtils.Random.pickUniqueNumbersInRange(
         1,
         45,
@@ -31,27 +31,15 @@ class App {
       this.#lottoArray.push(lotto);
     }
 
-    MissionUtils.Console.print('');
-
-    MissionUtils.Console.print(`${lottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`);
     this.#lottoArray.forEach((lotto) => lotto.printNumbers());
 
-    MissionUtils.Console.print('');
+    const winningNumberArray = await InputManager.getWinningNumbers();
 
-    await this.#input.getWinningNumbers();
-
-    MissionUtils.Console.print('');
-
-    await this.#input.getBonusNumber();
-
-    MissionUtils.Console.print('');
+    const bonusNumber = await InputManager.getBonusNumber();
 
     let totalWinningPrice = 0;
     this.#lottoArray.forEach((lotto) => {
-      const rankObject = lotto.getRankObject(
-        this.#input.winningNumberArray,
-        this.#input.bonusNumber,
-      );
+      const rankObject = lotto.getRankObject(winningNumberArray, bonusNumber);
 
       if (rankObject) {
         this.#rankMap.set(this.#rankMap.get(rankObject.rank) + 1);
@@ -60,13 +48,10 @@ class App {
     });
 
     const rateOfReturn = parseFloat(
-      calculateRateOfReturn(
-        totalWinningPrice,
-        this.#input.purchasePrice,
-      ).toFixed(2),
+      calculateRateOfReturn(totalWinningPrice, purchasePrice).toFixed(2),
     );
 
-    MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
+    OutputManager.printWinningStatics();
 
     RANK_OBJECT_ARRAY.forEach((rankObject) => {
       let bonusNumberString = '';

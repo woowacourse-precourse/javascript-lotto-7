@@ -11,28 +11,14 @@ import {
   getIsThousandUnit,
 } from './lib/utils.js';
 
-class Input {
-  #isGetPurchasePrice;
-  #isGetWinningNumberArray;
-  #isGetBonusNumber;
+class InputManager {
+  static #SPLIT_SEPARATOR = ',';
+  static #LOTTO_NUMBER_MIN = 1;
+  static #LOTTO_NUMBER_MAX = 45;
+  static #LOTTO_ARRAY_LENGTH = 6;
 
-  #SPLIT_SEPARATOR = ',';
-  #LOTTO_NUMBER_MIN = 1;
-  #LOTTO_NUMBER_MAX = 45;
-  #LOTTO_ARRAY_LENGTH = 6;
-
-  purchasePrice;
-  winningNumberArray;
-  bonusNumber;
-
-  constructor() {
-    this.#isGetPurchasePrice = false;
-    this.#isGetWinningNumberArray = false;
-    this.#isGetBonusNumber = false;
-  }
-
-  async getPurchasePrice() {
-    while (!this.#isGetPurchasePrice) {
+  static async getPurchasePrice() {
+    while (1) {
       const rawPurchasePrice = await MissionUtils.Console.readLineAsync(
         INPUT_MESSAGE.PURCHASE_PRICE,
       );
@@ -40,36 +26,28 @@ class Input {
       const { isError, errorMessage } =
         this.#getIsValidPurchasePrice(rawPurchasePrice);
 
-      if (isError) {
-        MissionUtils.Console.print(errorMessage);
-        continue;
-      }
+      if (!isError) return this.#parsePurchasePrice(rawPurchasePrice);
 
-      this.purchasePrice = Input.#parsePurchasePrice(rawPurchasePrice);
-      this.#isGetPurchasePrice = true;
+      MissionUtils.Console.print(errorMessage);
     }
   }
 
-  async getWinningNumbers() {
-    while (!this.#isGetWinningNumberArray) {
+  static async getWinningNumbers() {
+    while (1) {
       const rawWinningNumbers = await MissionUtils.Console.readLineAsync(
         INPUT_MESSAGE.WINNING_NUMBER,
       );
       const { errorMessage, isError } =
         this.#getIsValidWinningNumbers(rawWinningNumbers);
 
-      if (isError) {
-        MissionUtils.Console.print(errorMessage);
-        continue;
-      }
+      if (!isError) return this.#parseWinningNumbers(rawWinningNumbers);
 
-      this.winningNumberArray = Input.#parseWinningNumbers(rawWinningNumbers);
-      this.#isGetWinningNumberArray = true;
+      MissionUtils.Console.print(errorMessage);
     }
   }
 
-  async getBonusNumber() {
-    while (!this.#isGetBonusNumber) {
+  static async getBonusNumber() {
+    while (1) {
       const rawBonusNumber = await MissionUtils.Console.readLineAsync(
         INPUT_MESSAGE.BONUS_NUMBER,
       );
@@ -77,17 +55,13 @@ class Input {
       const { errorMessage, isError } =
         this.#getIsValidBonusNumber(rawBonusNumber);
 
-      if (isError) {
-        MissionUtils.Console.print(errorMessage);
-        continue;
-      }
+      if (!isError) return this.#parseBonusNumber(rawBonusNumber);
 
-      this.bonusNumber = Input.#parseBonusNumber(rawBonusNumber);
-      this.#isGetBonusNumber = true;
+      MissionUtils.Console.print(errorMessage);
     }
   }
 
-  #getIsValidPurchasePrice(rawPurchasePrice) {
+  static #getIsValidPurchasePrice(rawPurchasePrice) {
     if (!getIsNumeric(rawPurchasePrice)) {
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
     }
@@ -99,7 +73,7 @@ class Input {
     return { isError: false, errorMessage: null };
   }
 
-  #getIsValidWinningNumbers(rawWinningNumbers) {
+  static #getIsValidWinningNumbers(rawWinningNumbers) {
     const winningNumberArray = rawWinningNumbers.split(this.#SPLIT_SEPARATOR);
     if (!getIsArrayLengthMatch(winningNumberArray, this.#LOTTO_ARRAY_LENGTH))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_SIX };
@@ -125,7 +99,7 @@ class Input {
     return { isError: false, errorMessage: null };
   }
 
-  #getIsValidBonusNumber(rawBonusNumber) {
+  static #getIsValidBonusNumber(rawBonusNumber) {
     if (!getIsNumeric(rawBonusNumber))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
     if (!getIsPositive(rawBonusNumber))
@@ -152,4 +126,4 @@ class Input {
   }
 }
 
-export default Input;
+export default InputManager;
