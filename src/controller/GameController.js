@@ -1,6 +1,6 @@
 import GameInput from "../view/GameInput.js";
 import GameOutput from "../view/GameOutput.js";
-import Validate from "../validate/Validate.js";
+import NumberValidate from "../validate/NumberValidate.js";
 import GetNumber from "../model/GetNumber.js";
 import { LOTTO_DATA } from "../constant/Data.js";
 
@@ -35,9 +35,9 @@ class GameController {
   }
 
   #purchaseMoneyValidate(purchase_money) {
-    Validate.validateNonNumber(purchase_money);
-    Validate.validateSmallNumber(purchase_money);
-    Validate.validateDivideThousand(purchase_money);
+    NumberValidate.validateNonNumber(purchase_money);
+    NumberValidate.validateSmallNumber(purchase_money);
+    NumberValidate.validateDivideThousand(purchase_money);
   }
 
   #purchaseLotto(purchase_money) {
@@ -51,15 +51,21 @@ class GameController {
   }
 
   async #winningLotto() {
-    const wining_lotto = await this.#gameInput.readWinningLotto();
-    return this.#getNumber.winningLotto(wining_lotto);
+    while (true) {
+      try {
+        const wining_lotto = await this.#gameInput.readWinningLotto();
+        return this.#getNumber.winningLotto(wining_lotto);
+      } catch (error) {
+        this.#gameOutput.printErrorMesssage(error);
+      }
+    }
   }
 
   async startGame() {
     const new_lotto = await this.#getLotto();
     this.#gameOutput.printNewLotto(new_lotto);
 
-    let wining_lotto = await this.#winningLotto();
+    const wining_lotto = await this.#winningLotto();
     console.log(wining_lotto);
   }
 }
