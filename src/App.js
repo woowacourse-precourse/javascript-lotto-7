@@ -21,7 +21,7 @@ class App {
     );
     this.processBonusgNumber(bonusNumber);
 
-    Console.print(this.WinningLottoNumbersArray);
+    this.compareLottoNumbers();
   }
 
   //로또 갯수 가공
@@ -75,6 +75,29 @@ class App {
       return "[ERROR] 당첨 번호와 중복됩니다.";
 
     this.WinningLottoNumbersArray[bonusNumber] = 2; // 보너스 번호는 2로 표시
+  }
+
+  // 내가 산 로또 번호와 당첨 번호 비교
+  compareLottoNumbers() {
+    this.PurchaseLottoNumbersArray.forEach((lottoNumber) => {
+      let { count, isBonusMatched } = this.countWinningNumber(lottoNumber);
+      Console.print(count);
+      Console.print(isBonusMatched);
+    });
+  }
+
+  // 당첨 번호와 비교 후 맞는 갯수 리턴
+  countWinningNumber(lottoNumber) {
+    let count = 0;
+    let isBonusMatched = false;
+    lottoNumber.forEach((number) => {
+      if (this.WinningLottoNumbersArray[number] === 1) {
+        count++;
+      } else if (this.WinningLottoNumbersArray[number] === 2) {
+        isBonusMatched = true;
+      }
+    });
+    return { count, isBonusMatched };
   }
 }
 
