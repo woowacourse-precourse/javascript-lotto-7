@@ -9,11 +9,11 @@ class Generator {
   createLotto(amount) {
     try {
       this.times = this.calculateTimes(amount);
+      Print.printTimes(this.times);
 
       for (let i = 0; i < this.times; i++) {
         const randomNumbers = this.createLottoNumbers();
         const sortedNumbers = this.sortNumbers(randomNumbers);
-        // !
         Print.printLottosNumber(sortedNumbers);
 
         this.lottos.push(this.createRealLotto(sortedNumbers));

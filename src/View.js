@@ -10,8 +10,6 @@ class View {
     const generator = new Generator();
     const lottos = generator.createLotto(amount);
 
-    Print.printTimes(generator.times);
-
     const lottoNumber = await Input.inputLottoNumber();
     const bonusNumber = await Input.inputBonusNumber();
 
