@@ -2,6 +2,22 @@ import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 
 class App {
+  static PRIZE_TABLE = {
+    3: 5000,
+    4: 50000,
+    5: 1500000,
+    5.5: 30000000,
+    6: 2000000000,
+  };
+
+  static RANK_DESCRIPTIONS = {
+    3: '3개 일치',
+    4: '4개 일치',
+    5: '5개 일치',
+    5.5: '5개 일치, 보너스 볼 일치',
+    6: '6개 일치',
+  };
+
   async run() {
     const buyCost = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
     this.validatePurchaseAmount(buyCost);
@@ -15,7 +31,8 @@ class App {
     for (let i = 0; i < buyCount; i++) {
       const lottoNumber = this.generateNumber();
       Console.print(lottoNumber, '\n');
-      myLottoNumbers.push(new Lotto(lottoNumber));
+      new Lotto(lottoNumber);
+      myLottoNumbers.push(lottoNumber);
     }
 
     const winningNumberInput = await Console.readLineAsync(
@@ -25,12 +42,21 @@ class App {
       '\n보너스 번호를 입력해 주세요.\n'
     );
     const winningNumbers = this.validateWinningNumbers(winningNumberInput);
+
     const bonusNumber = this.validateBonusNumber(
       bonusNumberInput,
       winningNumbers
     );
 
-    Console.print('당첨 번호와 보너스 번호가 유효합니다.');
+    Console.print('\n당첨 통계');
+    Console.print('\n---');
+
+    const results = this.calculateWinningNumber(
+      myLottoNumbers,
+      winningNumbers,
+      bonusNumber
+    );
+    this.formatResult(results, buyCount);
   }
 
   validatePurchaseAmount(buyCost) {
@@ -55,13 +81,52 @@ class App {
         '[ERROR] 당첨 번호는 쉼표로 구분된 6개의 숫자여야 합니다.'
       );
     }
-    return new Lotto(numbers).numbers;
+    new Lotto(numbers);
+    return numbers;
   }
 
   validateBonusNumber(bonusInput, winningNumbers) {
     const bonusNumber = Number(bonusInput.trim());
     Lotto.validateBonusNumber(bonusNumber, winningNumbers);
     return bonusNumber;
+  }
+
+  calculateWinningNumber(myLottoNumbers, winningNumbers, bonusNumber) {
+    const results = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
+    myLottoNumbers.forEach((lotto) => {
+      const matchCount = lotto.filter((num) =>
+        winningNumbers.includes(num)
+      ).length;
+      const hasBonus = lotto.includes(bonusNumber);
+      const rankKey = matchCount === 5 && hasBonus ? 5.5 : matchCount;
+      if (App.PRIZE_TABLE[rankKey]) results[rankKey]++;
+    });
+
+    return results;
+  }
+
+  formatResult(results, totalTickets) {
+    let totalPrize = 0;
+    let resultMessage = '';
+
+    [3, 4, 5, '5.5', 6].forEach((rankKey) => {
+      const prize = App.PRIZE_TABLE[rankKey] || 0;
+      totalPrize += results[rankKey] * prize;
+      resultMessage += `${
+        App.RANK_DESCRIPTIONS[rankKey]
+      } (${prize.toLocaleString()}원) - ${results[rankKey]}개\n`;
+    });
+
+    const profitRate = this.calculateProfitRate(
+      totalPrize,
+      totalTickets * 1000
+    );
+    resultMessage += `총 수익률은 ${profitRate}%입니다.`;
+    Console.print(resultMessage);
+  }
+
+  calculateProfitRate(totalPrize, totalCost) {
+    return ((totalCost / totalPrize) * 100).toFixed(1);
   }
 }
 
