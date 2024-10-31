@@ -4,13 +4,11 @@ import {Console} from "@woowacourse/mission-utils";
 
 class App {
     async run() {
-        const input = await this.input(INPUT.PURCHASE)
-        try {
-            new LotteryMachine(input)
-        } catch (e) {
-            throw new Error("[Error]")
+        for (const prompt of INPUT) {
+            const input = await this.input(prompt)
         }
     }
+
 
     async input(message) {
         return await Console.readLineAsync(message)
