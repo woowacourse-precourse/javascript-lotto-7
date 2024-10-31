@@ -26,14 +26,18 @@ export const validateAllInteger = (numbers) => {
   }
 };
 
+const isOutOfRange = (number) => {
+  return number < LOTTO_CONFIG.NUMBER_RANGE.MIN || number > LOTTO_CONFIG.NUMBER_RANGE.MAX;
+}
+
 export const validateNumberRange = (number) => {
-  if (number < LOTTO_CONFIG.NUMBER_RANGE.MIN || number > LOTTO_CONFIG.NUMBER_RANGE.MAX) {
+  if (isOutOfRange(number)) {
     throw new Error(COMMON_ERRORS.RANGE);
   }
 }
 
 export const validateAllNumberRange = (numbers) => {
-  const checkRange = (number) => number < LOTTO_CONFIG.NUMBER_RANGE.MIN || number > LOTTO_CONFIG.NUMBER_RANGE.MAX;
+  const checkRange = (number) => isOutOfRange(number);
   if (numbers.some(checkRange)) {
     throw new Error(COMMON_ERRORS.RANGE);
   }
