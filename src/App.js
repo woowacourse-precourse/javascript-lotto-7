@@ -2,20 +2,21 @@ import { Console } from "@woowacourse/mission-utils";
 import LottoMoneyValidator from "./validator/LottoMoneyValidator.js";
 import Lotto from "./Lotto.js";
 import InputHandler from "./handler/InputHandler.js"
+import OutputHandler from "./handler/OutputHandler.js";
 
 class App {
   constructor() {
     this.lottoMoneyValidator = new LottoMoneyValidator();
     this.inputHandler = new InputHandler();
+    this.outputHandler = new OutputHandler();
   }
   async run() {
     try {
       const lottoMoney = await this.inputHandler.getLottoMoney();
-      const lottoCount = lottoMoney / 1000;
-      const lottos = this.generateLottos(lottoCount);
-      this.printLottos(lottos);
+      const lottos = this.generateLottos(lottoMoney / 1000);
+      this.outputHandler.printLottos(lottos);
       const winningNumber = await this.inputHandler.getWinningNumber();
-      Console.print(winningNumber)
+      this.outputHandler.printWinningNumber(winningNumber);
     }
     catch (error) {
       Console.print(error.message);
@@ -31,13 +32,6 @@ class App {
       lottos.push(lotto);
     }
     return lottos;
-  }
-
-  printLottos(lottos) {
-    Console.print(`\n${lottos.length}개를 구매했습니다.`);
-    lottos.forEach((lotto) => {
-      Console.print(`[${lotto.getNumbers().join(", ")}]`);
-    });
   }
 
 }
