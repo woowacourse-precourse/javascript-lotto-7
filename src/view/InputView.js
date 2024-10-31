@@ -1,6 +1,6 @@
 import { INPUT_MESSAGE } from '../Constants/Message.js';
 
-class inputView {
+class InputView {
   getMoney = async () => {
     const input = await Console.readLineAsync(INPUT_MESSAGE.purchaseMoney);
   };
@@ -14,4 +14,4 @@ class inputView {
   };
 }
 
-export { getMoney, getWinningNumber, getBonusNumber };
+export default InputView;
