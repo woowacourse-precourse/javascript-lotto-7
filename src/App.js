@@ -2,7 +2,6 @@ import { Console } from '@woowacourse/mission-utils'
 import { CONSOLE_MESSAGES } from "./constant.js";
 import Lotto from './Lotto.js';
 
-
 class App {
   async run() {
     const purchasePrice = await Console.readLineAsync(CONSOLE_MESSAGES.buyPrice);
@@ -18,6 +17,8 @@ class App {
 
     const hi = new Lotto([1,2,3,4,5,6]);
     const is1st = hi.isEqual([1,2,3,4,5,6]);
+    const boughtLottos = hi.generateLotto(lottoCount);
+    boughtLottos.forEach((lotto) => Console.print(lotto));
   }
 }
 
