@@ -3,8 +3,8 @@ class App {
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
     const lottoCount = purchaseAmount / 1000;
-    Console.print(`${lottoCount}개를 구입했습니다.`)
-
+    Console.print(`\n${lottoCount}개를 구입했습니다.`)
+    this.printLottoNumbers(lottoCount);
   }
 
   async getPurchaseAmount() {
@@ -12,6 +12,14 @@ class App {
     amount = parseInt(amount);
     validatePurchaseAmount(amount);
     return amount ;
+  }
+
+  async printLottoNumbers(lottoCount) {
+    for(let i = 0; i < lottoCount; i++){
+      let lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      lottoNumbers.sort((a,b) => a - b);
+      Console.print(`[${lottoNumbers.join(', ')}]`);
+    }
   }
 }
 
