@@ -17,6 +17,7 @@ class App {
       pickLottoNumber
     );
     const winningStatistics = this.getWinningStatistics(lottoNumberMatchCount, bonusNumberMatchCount);
+    this.printWinningStatistics(winningStatistics);
     this.printEarningRate(winningStatistics, buyLottoCount);
   }
 
@@ -101,6 +102,10 @@ class App {
           break;
       }
     });
+
+    return winningStatistics;
+  }
+  printWinningStatistics(winningStatistics) {
     Console.print('');
     Console.print('당첨 통계');
     Console.print('---');
