@@ -14,7 +14,7 @@ class Input {
     return price;
   }
 
-  NumberOfPurchase(price) {
+  purchaseNumber(price) {
     let theNumberOfLotto = price / 1000;
     Console.print(theNumberOfLotto + "개를 구매했습니다.");
     return theNumberOfLotto;
