@@ -23,6 +23,7 @@ class Output {
   }
 
   static printWinningStatistics(lottoResults, lottoProfitRate) {
+    this.print(this.#WINNING_STATISTICS_PRINT_MESSAGE);
     this.#printLottoResult(lottoResults);
     this.#printProfitRate(lottoProfitRate);
   }
