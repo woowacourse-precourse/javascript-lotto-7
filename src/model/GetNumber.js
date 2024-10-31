@@ -7,7 +7,7 @@ class GetNumber {
     return new Lotto(
       Random.pickUniqueNumbersInRange(
         LOTTO_DATA.minNum,
-        LOTTO_DATA.minMax,
+        LOTTO_DATA.maxNum,
         LOTTO_DATA.lottoLength
       )
     ).getNumber();

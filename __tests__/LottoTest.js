@@ -28,4 +28,14 @@ describe("로또 클래스 테스트", () => {
       }).toThrow("[ERROR]");
     }
   );
+
+  test.each([
+    [[0, 1, 2, 3, 4, 5]],
+    [[41, 42, 43, 44, 45, 46]],
+    [[-10, -444, 812, 2000, 10000, -7777]],
+  ])("로또 번호가 1~45 사이가 아닌 경우", async (lotto) => {
+    expect(() => {
+      LottoValidate.validateLottoRange(lotto);
+    }).toThrow("[ERROR]");
+  });
 });

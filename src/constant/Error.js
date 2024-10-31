@@ -8,5 +8,6 @@ export const ERROR_MESSAGE = Object.freeze({
     ERROR_LOTTO_NON_NUMBER: "[ERROR] 로또 번호는 숫자만 가능합니다.",
     ERROR_LOTTO_LENGTH: "[ERROR] 로또 번호는 6개여야 합니다.",
     ERROR_LOTTO_DUP: "[ERROR] 로또 번호는 중복이 없어야 합니다.",
+    ERROR_LOTTO_RANGE: "[ERROR] 로또 번호는 1~45 사이로 입력해야 합니다.",
   }),
 });

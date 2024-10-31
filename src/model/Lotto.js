@@ -12,6 +12,7 @@ class Lotto {
     LottoValidate.validateIsNumber(numbers);
     LottoValidate.validateLottoLength(numbers);
     LottoValidate.validateLottoDup(numbers);
+    LottoValidate.validateLottoRange(numbers);
   }
 
   getNumber() {
