@@ -6,32 +6,16 @@ import {
   LOTTO_NUM_LENGTH,
   RANDOM_RANGE,
 } from "./lib/constants.js";
+import {
+  handlePrice,
+  handleLottoNumbers,
+  handleBonusNumber,
+} from "./lib/validation.js";
 
 class App {
   async run() {
     const lottos = [];
     const price = await read("구입금액을 입력해 주세요.\n");
-
-    const handlePrice = (input) => {
-      const parsedInput = Number(input);
-
-      while (true) {
-        if (parsedInput < 1000) {
-          print(PRICE_ERROR.less);
-          return false;
-        }
-        if (parsedInput > 100000) {
-          print(PRICE_ERROR.over);
-          return false;
-        }
-        if (isNaN(parsedInput)) {
-          print(ONLY_NUM_ERROR);
-          return false;
-        }
-
-        return true;
-      }
-    };
 
     handlePrice(price);
 
@@ -54,7 +38,12 @@ class App {
     }
 
     const winningNumbers = await read("당첨 번호를 입력해 주세요.");
+
+    handleLottoNumbers(winningNumbers);
+
     const bonusNumber = await read("보너스 번호를 입력해 주세요.");
+
+    handleBonusNumber(bonusNumber);
 
     const winningRanks = lottos.reduce(
       (obj, lotto) => {

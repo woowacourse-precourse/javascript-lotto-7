@@ -1,19 +1,19 @@
 import App from "../src/App.js";
-import { read, print } from "../src/lib/utils.js";
+import { read } from "../src/lib/utils.js";
 import Lotto from "../src/Lotto";
 import { mockQuestions, mockRandoms, getLogSpy } from "../src/lib/testUtils.js";
-import {
-  LOTTO_PRICE,
-  LOTTO_NUM_LENGTH,
-  RANDOM_RANGE,
-  PRICE_RANGE,
-} from "../src/lib/constants.js";
 import {
   PRICE_ERROR,
   LOTTO_NUM_ERROR,
   BONUS_NUM_ERROR,
   ONLY_NUM_ERROR,
 } from "../src/lib/error.js";
+
+import {
+  handlePrice,
+  handleLottoNumbers,
+  handleBonusNumber,
+} from "../src/lib/validation.js";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
@@ -42,83 +42,6 @@ describe("로또 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 });
-
-const handlePrice = (input) => {
-  const parsedInput = Number(input);
-
-  while (true) {
-    if (parsedInput < LOTTO_PRICE) {
-      print(PRICE_ERROR.less);
-      return false;
-    }
-    if (parsedInput > PRICE_RANGE.max) {
-      print(PRICE_ERROR.over);
-      return false;
-    }
-    if (isNaN(parsedInput)) {
-      print(ONLY_NUM_ERROR);
-      return false;
-    }
-
-    return true;
-  }
-};
-
-const handleLottoNumbers = (input) => {
-  let parsedInputArray = input
-    .split(",")
-    .filter(Boolean)
-    .map((num) => Number(num));
-
-  while (true) {
-    if (parsedInputArray.length !== LOTTO_NUM_LENGTH) {
-      print(LOTTO_NUM_ERROR.length);
-      return false;
-    }
-
-    if (parsedInputArray.length !== new Set(parsedInputArray).size) {
-      print(LOTTO_NUM_ERROR.duplicated);
-      return false;
-    }
-
-    if (
-      parsedInputArray.some(
-        (num) => num > RANDOM_RANGE.max || num < RANDOM_RANGE.min
-      )
-    ) {
-      print(LOTTO_NUM_ERROR.range);
-      return false;
-    }
-
-    if (parsedInputArray.some((num) => isNaN(num))) {
-      print(ONLY_NUM_ERROR);
-      return false;
-    }
-    return true;
-  }
-};
-
-const handleBonusNumber = (lottoNumbers, input) => {
-  const parsedInput = Number(input);
-
-  while (true) {
-    if (isNaN(parsedInput)) {
-      print(ONLY_NUM_ERROR);
-      return false;
-    }
-
-    if (parsedInput > RANDOM_RANGE.max || parsedInput < RANDOM_RANGE.min) {
-      print(LOTTO_NUM_ERROR.range);
-      return false;
-    }
-
-    if (lottoNumbers.includes(parsedInput)) {
-      print(BONUS_NUM_ERROR.duplicated);
-      return false;
-    }
-    return true;
-  }
-};
 
 describe("로또 구입 금액 입력 테스트", () => {
   const PASS_CASE = [
