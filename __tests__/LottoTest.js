@@ -3,8 +3,8 @@ import LottoValidate from "../src/validate/LottoValidate.js";
 describe("로또 클래스 테스트", () => {
   test.each([
     [[1, 2, 3, 4, 5, "A"]],
-    [["최씨", "ABCDE"]],
-    [[null, undefined, "", "\n", "A", "B"]],
+    [["로또", "AB", "\\", "?", "*"]],
+    [[null, undefined, "", "\n", " ", "雷"]],
   ])("로또 번호가 숫자가 아닌 경우", async (lotto) => {
     expect(() => {
       LottoValidate.validateIsNumber(lotto);
