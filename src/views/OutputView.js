@@ -15,10 +15,10 @@ export class OutputView {
   }
 
   static statistics() {
-    return Console.print(MESSAGE.STATISTICS);
+    return Console.print(MESSAGE.STATISTICS());
   }
 
   static returnRate(returnRate) {
-    return Console.print(`총 수익률은 ${returnRate}입니다.`);
+    return Console.print(`총 수익률은 ${returnRate}%입니다.`);
   }
 }
