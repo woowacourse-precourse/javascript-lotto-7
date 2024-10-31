@@ -4,11 +4,12 @@ class Validator {
     this.checkSixNumbers(numbers);
     this.checkNumberRange(numbers);
     this.checkIsNumber(numbers);
+    this.checkIsInteger(numbers);
   };
 
   static checkSixNumbers(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error("[ERROR] : 로또 번호는 6개여야 합니다.");
     }
   }
   static checkDuplicateNumber(numbers) {
@@ -26,7 +27,14 @@ class Validator {
   static checkIsNumber(numbers) {
     numbers.forEach(number => {
       if(isNaN(number)) {
-        throw new Error("[ERROR] : 로또 번호는 1부터 45 사이의 숫자가 입력되어야 합니다.");
+        throw new Error("[ERROR] : 로또 번호는 숫자가 입력되어야 합니다.");
+      }
+    })
+  }
+  static checkIsInteger(numbers) {
+    numbers.forEach(number => {
+      if(Number.isInteger(number)) {
+        throw new Error("[ERROR] : 로또 번호는 정수이어야 합니다.");
       }
     })
   }
