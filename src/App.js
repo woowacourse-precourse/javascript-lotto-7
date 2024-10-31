@@ -15,7 +15,7 @@ class App {
     }
 
     // 로또 번호 정렬
-    const asc = (a, b) => { a - b; }
+    const asc = (a, b) => { return a - b; }
 
     // 로또 번호 출력
     const printList = (list) => {
