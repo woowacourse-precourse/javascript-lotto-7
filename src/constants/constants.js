@@ -1,3 +1,5 @@
+import parser from '../utils/parser.js';
+
 export const LOTTO_PRICE_PER_TICKET = 1_000;
 export const PERCENTAGE_FACTOR = 100;
 export const REVENUE_DECIMAL_PLACE = 1;
@@ -27,12 +29,10 @@ export const MATCH_PRICE = Object.freeze({
 });
 
 const createWinningDetailMessage = (matchCode, winningCount) => {
-  const parsedPrice = MATCH_PRICE[matchCode].toLocaleString('ko-KR');
-
   if (matchCode === MATCH_CODE.FIVE_WITH_BONUS) {
-    return `5개 일치, 보너스 볼 일치 (${parsedPrice}원) - ${winningCount}개`
+    return `5개 일치, 보너스 볼 일치 (${parser.parsePrice(MATCH_PRICE[matchCode])}원) - ${winningCount}개`
   }
-  return `${matchCode}개 일치 (${parsedPrice}원) - ${winningCount}개`;
+  return `${matchCode}개 일치 (${parser.parsePrice(MATCH_PRICE[matchCode])}원) - ${winningCount}개`;
 };
 
 export const MATCH_WINNING_DETAILS = Object.freeze({
@@ -60,22 +60,22 @@ export const VALIDATE_MESSAGES = Object.freeze({
   PURCHASE_PRICE: {
     NUMBER: '[ERROR] 로또 구입 금액이 숫자가 아닙니다. 다시 입력해주세요.',
     INTEGER: '[ERROR] 로또 구입 금액이 정수가 아닙니다. 다시 입력해주세요.',
-    RANGE: '[ERROR] 로또 구입 금액은 1,000원 이상 2,000,000,000원 이하로 입력해 주세요.',
-    THOUSAND: '[ERROR] 로또 구입 금액은 1,000원 단위로 입력해 주세요.',
+    RANGE: `[ERROR] 로또 구입 금액은 ${parser.parsePrice(LOTTO_PRICE_PER_TICKET)}원 이상 ${parser.parsePrice(MATCH_PRICE[MATCH_CODE.SIX])}원 이하로 입력해 주세요.`,
+    THOUSAND: `[ERROR] 로또 구입 금액은 ${parser.parsePrice(LOTTO_PRICE_PER_TICKET)}원 단위로 입력해 주세요.`,
   },
 
   LOTTO_NUMBERS: {
-    COUNT: '[ERROR] 로또 당첨 번호는 6개여야 합니다. 다시 입력해주세요.',
+    COUNT: `[ERROR] 로또 당첨 번호는 ${LOTTO_CONFIG.NUMBERS_COUNT}개여야 합니다. 다시 입력해주세요.`,
     NUMBER: '[ERROR] 로또 당첨 번호가 숫자가 아닙니다. 다시 입력해주세요.',
     INTEGER: '[ERROR] 로또 당첨 번호가 정수가 아닙니다. 다시 입력해주세요.',
-    RANGE: '[ERROR] 로또 당첨 번호는 1 이상 45 이하의 숫자로 입력해 주세요.',
+    RANGE: `[ERROR] 로또 당첨 번호는 ${LOTTO_CONFIG.NUMBER_RANGE.MIN} 이상 ${LOTTO_CONFIG.NUMBER_RANGE.MAX} 이하의 숫자로 입력해 주세요.`,
     DUPLICATE: '[ERROR] 로또 당첨 번호에 중복된 숫자가 있습니다. 다시 입력해주세요.',
   },
   
   BONUS_NUMBER: {
     NUMBER: '[ERROR] 보너스 번호가 숫자가 아닙니다. 다시 입력해주세요.',
     INTEGER: '[ERROR] 보너스 번호가 정수가 아닙니다. 다시 입력해주세요.',
-    RANGE: '[ERROR] 보너스 번호는 1 이상 45 이하의 숫자로 입력해 주세요.',
+    RANGE: `[ERROR] 보너스 번호는 ${LOTTO_CONFIG.NUMBER_RANGE.MIN} 이상 ${LOTTO_CONFIG.NUMBER_RANGE.MAX} 이하의 숫자로 입력해 주세요.`,
     DUPLICATE: '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
   },
 });

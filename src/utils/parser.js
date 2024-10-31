@@ -16,11 +16,16 @@ const parseExtractNumbers = (string) => {
   return string.split(',').map((number) => Number(number.trim()));
 };
 
+const parsePrice = (price) => {
+  return price.toLocaleString('ko-KR');
+}
+
 const parser = {
   parseStringToNumber,
   parseMoneyToLottoCount,
   parseSortArray,
   parseExtractNumbers,
+  parsePrice,
 };
 
 export default parser;
