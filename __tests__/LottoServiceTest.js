@@ -35,7 +35,7 @@ describe('LottoService 클래스 테스트', () => {
 
   test('로또 정보 가져오기', () => {
     const expected = {
-      lottoLenght: price / PRICE_RANGE.MIN,
+      lottoLength: price / PRICE_RANGE.MIN,
       lottoNumbers: Array.from({ length: price / PRICE_RANGE.MIN }, () => [
         1, 2, 3, 4, 5, 6,
       ]),

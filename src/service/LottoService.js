@@ -25,12 +25,12 @@ export default class LottoService {
   }
 
   getLottosInformation() {
-    const lottoLenght = this.userModel.getLottos().length;
+    const lottoLength = this.userModel.getLottos().length;
     const lottoNumbers = this.userModel
       .getLottos()
       .map((lotto) => lotto.getNumbers());
 
-    return { lottoLenght, lottoNumbers };
+    return { lottoLength, lottoNumbers };
   }
 
   createWinningLottoModel(numberString) {
