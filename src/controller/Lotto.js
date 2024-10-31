@@ -1,3 +1,4 @@
+import InputView from '../view/InputView.js';
 import Validator from './Validator.js';
 
 class Lotto {
