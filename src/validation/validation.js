@@ -32,8 +32,10 @@ export const validatePurchasePrice = (purchasePrice) => {
   }
 };
 
-export const validateWinningNumber = (winningNumber) => {
-  validator.checkInteger(winningNumber);
+export const validateWinningNumbers = (winningNumbers) => {
+  winningNumbers.split(',').forEach((number) => {
+    validator.checkInteger(number);
+  });
 };
 
 export const validateBonusNumber = (bonusNumber, winningLotto) => {

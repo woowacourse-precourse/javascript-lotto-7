@@ -3,7 +3,7 @@ import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import {
   validateBonusNumber,
   validatePurchasePrice,
-  validateWinningNumber,
+  validateWinningNumbers,
 } from '../validation/validation.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
@@ -65,12 +65,11 @@ class Controller {
           '당첨 번호를 입력해 주세요.\n'
         );
 
-        const parsedWinningNumbers = winningNumbers.split(',').map((number) => {
-          validateWinningNumber(number);
-          return Number(number);
-        });
+        validateWinningNumbers(winningNumbers);
 
-        return new Lotto(parsedWinningNumbers);
+        return new Lotto(
+          winningNumbers.split(',').map((number) => Number(number))
+        );
       } catch (error) {
         this.#outputView.displayErrorMessage(error.message);
       }
