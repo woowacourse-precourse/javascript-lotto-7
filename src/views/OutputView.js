@@ -7,8 +7,7 @@ class OutputView {
   }
 
   static async printLottoNumbers(lottoRepository) {
-    const lottoArray = lottoRepository.getLottoArray();
-    lottoArray.forEach((lotto) => {
+    lottoRepository.forEach((lotto) => {
       Console.print(`[${lotto.getLotto().join(', ')}]`);
     });
   }
