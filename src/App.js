@@ -32,7 +32,7 @@ class App {
 
     this.compareLottoNumbers();
 
-    Console.print(this.winningRanks);
+    Console.print(this.calculateRateOfReturn());
   }
 
   //로또 갯수 가공
@@ -128,6 +128,26 @@ class App {
       default:
         break;
     }
+  }
+
+  // 수익률 계산
+  calculateRateOfReturn() {
+    const totalPrize =
+      this.winningRanks[1] * 2000000000 +
+      this.winningRanks[2] * 30000000 +
+      this.winningRanks[3] * 1500000 +
+      this.winningRanks[4] * 50000 +
+      this.winningRanks[5] * 5000;
+
+    const rate =
+      (totalPrize / (this.PurchaseLottoNumbersArray.length * 1000)) * 100;
+
+    if (rate % 1 === 0) {
+      return rate;
+    } else if ((rate * 10) % 1 === 0) {
+      return rate.toFixed(1);
+    }
+    return rate.toFixed(2);
   }
 }
 
