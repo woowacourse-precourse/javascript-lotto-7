@@ -13,9 +13,9 @@ const OutputView = {
   printWinningDetails(matchResults) {
     Console.print(OUTPUT_MESSAGES.WINNING_STATISTICS_HEADER);
 
-    Object.keys(matchResults).forEach((matchCode) => {
+    matchResults.forEach((winningCount, matchCode) => {
       const winningDetails = MATCH_WINNING_DETAILS[matchCode];
-      Console.print(winningDetails(matchResults[matchCode]));
+      Console.print(winningDetails(winningCount));
     });
   },
 

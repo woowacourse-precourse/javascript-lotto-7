@@ -14,7 +14,7 @@ class LottoRevenue {
   #calculateRevenue(lottoCount, matchResults) {
     const lottoPurchasePrice = lottoCount * LOTTO_PRICE_PER_TICKET;
     let totalPrice = 0;
-    Object.entries(matchResults).forEach(([matchCode, winningCount]) => {
+    matchResults.forEach((winningCount, matchCode) => {
       totalPrice += MATCH_PRICE[matchCode] * winningCount;
     });
     this.#revenue = (Math.round((totalPrice / lottoPurchasePrice) * PERCENTAGE_FACTOR * 10) / 10).toFixed(REVENUE_DECIMAL_PLACE);

@@ -1,16 +1,16 @@
 import { MATCH_CODE } from '../constants/constants.js';
 
 class LottoStatistics {
-  #matchResults = {};
+  #matchResults;
 
   constructor(lottos, winningNumbers, bonusNumber) {
-    this.#matchResults = {
-      [MATCH_CODE.THREE]: 0,
-      [MATCH_CODE.FOUR]: 0,
-      [MATCH_CODE.FIVE]: 0,
-      [MATCH_CODE.FIVE_WITH_BONUS]: 0,
-      [MATCH_CODE.SIX]: 0,
-    };
+    this.#matchResults = new Map([
+      [MATCH_CODE.THREE, 0],
+      [MATCH_CODE.FOUR, 0],
+      [MATCH_CODE.FIVE, 0],
+      [MATCH_CODE.FIVE_WITH_BONUS, 0],
+      [MATCH_CODE.SIX, 0],
+    ]);
     this.#setMatchResults(lottos, winningNumbers, bonusNumber);
   }
 
@@ -38,8 +38,12 @@ class LottoStatistics {
   #setMatchResults(lottos, winningNumbers, bonusNumber) {
     lottos.forEach((lotto) => {
       let count = this.#countLottoMatches(lotto, winningNumbers);
-      if (count === MATCH_CODE.FIVE) count = this.#checkBonusMatch(lotto, bonusNumber);
-      if (count >= MATCH_CODE.THREE) this.#matchResults[count] += 1;
+      if (count === MATCH_CODE.FIVE) {
+        count = this.#checkBonusMatch(lotto, bonusNumber);
+      }
+      if (this.#matchResults.has(count)) {
+        this.#matchResults.set(count, this.#matchResults.get(count) + 1);
+      }
     });
   }
 }
