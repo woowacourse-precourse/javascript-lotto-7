@@ -5,5 +5,5 @@ export const RandomNumberGenerator = async () =>
   await Random.pickUniqueNumbersInRange(
     LOTTO.ARRANGE_START,
     LOTTO.ARRANGE_END,
-    LOTTO.TOTAL_BONUS_NUMBER
+    LOTTO.TOTAL_NUMBERS
   );
