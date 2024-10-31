@@ -1,9 +1,13 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
+import OutputView from '../views/OutputView.js';
 import Lotto from '../Lotto.js';
+import { calculateLottoStatistics } from '../utils/calculateLottoStatistics.js';
 
 class LottoController {
   #inputView;
+
+  #outputView;
 
   #lottos;
 
@@ -13,6 +17,7 @@ class LottoController {
 
   constructor() {
     this.#inputView = new InputView();
+    this.#outputView = new OutputView();
     this.#lottos = [];
   }
 
@@ -25,8 +30,9 @@ class LottoController {
       this.#winningNumbers = await this.#inputView.readWinningNumbers();
       this.#bonusNumber = await this.#inputView.readBonusNumber();
 
-      const matchResults = this.#calculateMatchResults();
-      this.#printMatchResults(matchResults);
+      const matchResults = this.#getMatchResults();
+      const statistics = calculateLottoStatistics(matchResults);
+      this.#outputView.printMatchResults(statistics);
     } catch (error) {
       Console.print(error);
     }
@@ -50,19 +56,11 @@ class LottoController {
     });
   }
 
-  #calculateMatchResults() {
+  #getMatchResults() {
     return this.#lottos.map((lotto) => ({
       matchCount: lotto.countMatchingNumbers(this.#winningNumbers),
       hasBonus: lotto.containsBonusNumber(this.#bonusNumber),
     }));
-  }
-
-  #printMatchResults(results) {
-    results.forEach((result) => {
-      Console.print(
-        `일치하는 번호 개수: ${result.matchCount}, 보너스 볼 일치: ${result.hasBonus}`,
-      );
-    });
   }
 }
 
