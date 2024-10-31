@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { MATCH_WINNING_DETAILS } from '../constants/constants.js';
 
 const OutputView = {
   printLottoPurchaseCount(lottoCount) {
@@ -9,12 +10,17 @@ const OutputView = {
     Console.print(`[${lotto.join(', ')}]`);
   },
 
-  printWinningDetails() {
-    Console.print('');
+  printWinningDetails(matchResults) {
+    Console.print('\n당첨 통계\n---');
+
+    Object.keys(matchResults).forEach((matchCode) => {
+      const winningDetails = MATCH_WINNING_DETAILS[matchCode];
+      Console.print(winningDetails(matchResults[matchCode]));
+    });
   },
 
-  printRateOfReturn() {
-    Console.print('');
+  printRateOfReturn(rateOfReturn) {
+    Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
   },
 
   printErrorMessage(errorMessage) {
