@@ -17,3 +17,17 @@ export const validateInputMoney = (money) => {
     throw new Error(ERROR_MESSAGE.NOT_DIVIDED_NUMBER);
   }
 };
+
+export const validateLottoNumbers = (numbers) => {
+  if (numbers.length !== LOTTO_INFO.LENGTH) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_LENGTH);
+  }
+
+  if (numbers.length !== new Set(numbers).size) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_DUPLICATION);
+  }
+
+  if (numbers.some((num) => Number.isNaN(Number(num)))) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_TYPE);
+  }
+};
