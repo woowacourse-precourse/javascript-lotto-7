@@ -37,5 +37,19 @@ class InputView {
       }
     }
   }
+
+  async askBonusLotto() {
+    while (true) {
+      try {
+        const userInput = await Console.readLineAsync(
+          MESSAGE.USER_BONUS_NUMBER_PROMPT,
+        );
+        const userBonus = this.userLotto.setUserBonusLotto(userInput);
+        return userBonus;
+      } catch (error) {
+        Console.print(ERROR_MESSAGE.LOTTO_INPUT_ERROR);
+      }
+    }
+  }
 }
 export default InputView;

@@ -16,7 +16,8 @@ class GameController {
   }
 
   async runGame() {
-    await this.inputView.askUserLotto();
+    const userLotto = await this.inputView.askUserLotto();
+    const userBonus = await this.inputView.askBonusLotto();
   }
 }
 

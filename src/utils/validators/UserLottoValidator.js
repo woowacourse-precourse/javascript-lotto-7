@@ -25,5 +25,15 @@ class UserLottoValidate {
       }
     });
   }
+
+  validateBonusNumber(number) {
+    if (
+      isNaN(number) ||
+      number < CONSTANT.LOTTO_MIN_NUMBER ||
+      number > CONSTANT.LOTTO_MAX_NUMBER
+    ) {
+      throw Error(ERROR_MESSAGE.LOTTO_INPUT_ERROR);
+    }
+  }
 }
 export default UserLottoValidate;
