@@ -8,16 +8,16 @@ class Stats {
     this.totalPrize = 0;
     this.amount = amount;
     this.lottos = [...lottos];
-    this.lottoNumber = lottoNumber;
+    this.lottoNumber = lottoNumber.split(',');
     this.bonusNumber = bonusNumber;
-    this.prizeCount = new Map(
+    this.prizeCount = new Map([
       ['1', 0],
       ['2', 0],
       ['3', 0],
       ['4', 0],
       ['5', 0],
       ['0', 0],
-    );
+    ]);
 
     this.countEachPrize();
     this.calculateEarningRatio();
@@ -26,10 +26,11 @@ class Stats {
   countEachPrize() {
     this.lottos.forEach((element) => {
       const prize = element.checkPrize(this.lottoNumber, this.bonusNumber);
-      const count = get(prize);
+      const count = this.prizeCount.get(prize);
       this.prizeCount.set(prize, count + 1);
 
       const prizeToNum = Number(prize);
+
       this.totalPrize =
         this.totalPrize + Number(PRIZES[prizeToNum].split(',').join(''));
     });
