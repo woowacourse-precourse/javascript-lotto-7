@@ -12,4 +12,20 @@ describe('로또 클래스 테스트', () => {
       new Lotto([1, 2, 3, 4, 5, 5]);
     }).toThrow('[ERROR]');
   });
+
+  test.each([
+    [[1, 3, 5, 7, 9, 11], 3],
+    [[1, 2, 3, 4, 5, 6], 6],
+    [[1, 7, 8, 9, 10, 11], 1],
+    [[7, 8, 11, 14, 18, 21], 0],
+  ])(
+    '당첨 번호와 일치하는 번호의 수를 계산하는 기능 테스트',
+    (numbers, expected) => {
+      const WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
+      const lotto = new Lotto(numbers);
+      const matchingCount = lotto.countMatchingNumbers(WINNING_NUMBERS);
+
+      expect(matchingCount).toBe(expected);
+    },
+  );
 });
