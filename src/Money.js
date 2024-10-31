@@ -3,8 +3,8 @@ import { Console } from "@woowacourse/mission-utils";
 class Money {
     static async inputMoney(){
         Console.print("구입금액을 입력해 주세요.");
-        const money = await Console.readLineAsync('');
-        this.validateMoney(Number(money));
+        const money = Number(await Console.readLineAsync(''));
+        this.validateMoney(money);
     }
 
     static validateMoney(money){
