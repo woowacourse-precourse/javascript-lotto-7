@@ -18,4 +18,13 @@ describe("보너스 번호 테스트", () => {
       }).toThrow("[ERROR]");
     }
   );
+
+  test.each([["-2"], ["0"], ["46"]])(
+    "보너스 번호가 1~45 사이가 아닌 경우",
+    async (input) => {
+      expect(() => {
+        NumberValidate.validateBonusRange(input);
+      }).toThrow("[ERROR]");
+    }
+  );
 });
