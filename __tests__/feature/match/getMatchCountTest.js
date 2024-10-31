@@ -57,7 +57,6 @@ describe('구매 내역, 당첨 번호, 보너스 번호 결과 리스트 생성
 
         // when
         const result = winNumberMatcher(lottoList, winNumbers, bonusNumber);
-        console.log(result.length);
         // then
         result.forEach((lotto, index) => {
           expect(lotto).toEqual(expectedResult[index])
