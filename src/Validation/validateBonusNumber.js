@@ -7,7 +7,6 @@ const { lotteryNumber } = ERROR_MESSAGES;
 
 const validateIsNumber = (bonusNumber) => {
   if (!isNumber.test(bonusNumber)) {
-    // 숫자가 아닌 경우
     printMessage(lotteryNumber.ONLY_NUMBER_ALLOWED);
     return false;
   }
@@ -16,7 +15,6 @@ const validateIsNumber = (bonusNumber) => {
 
 const validateRange = (bonusNumber) => {
   if (bonusNumber < 1 || bonusNumber > 45) {
-    // 범위를 벗어나는 경우
     printMessage(lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     return false;
   }

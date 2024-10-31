@@ -32,7 +32,11 @@ lotteryNumbers 클래스
 - [x] 중복자를 검출하는것을 고민해본다.
 - [x] lotteryNumbers의 unitTest를 작성한다
 - [ ] lotteryNumbers의 unitTest를 보충한다.
-- [] 보너스가 중복되는 것을 방지한다.
+
+validateBonusNumber
+
+- [x] 보너스가 중복되는 것을 방지한다.
+- [] 보너스 넘버 validation의 유닛 테스트를 작성한다.
 
 prizeCaluationService 클래스
 

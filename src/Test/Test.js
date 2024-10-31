@@ -5,17 +5,27 @@ const getLogSpy = () => {
   logSpy.mockClear();
   return logSpy;
 };
+// 후에 리펙토링 필요.
 const runErrorLogTest =
   (func) =>
-  ({ description, input, expected, errorLog }) => {
+  ({ description, input, lottoNumbers, expected, errorLog }) => {
     test(description, () => {
       const logSpy = getLogSpy();
-      const result = func(input);
+      let result;
+
+      if (lottoNumbers !== undefined) {
+        result = func(input, lottoNumbers);
+      } else {
+        result = func(input);
+      }
+
       if (expected !== undefined) expect(result).toEqual(expected);
-      if (errorLog)
+      if (errorLog) {
         expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorLog));
+      }
     });
   };
+
 const runExceptionTest =
   (func) =>
   ({ description, input, expected, expectedError }) => {
