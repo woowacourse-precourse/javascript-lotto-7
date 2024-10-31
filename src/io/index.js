@@ -1,3 +1,3 @@
-import ConsoleIO from './ConsoleIO';
+import ConsoleIO from './ConsoleIO.js';
 
 export { ConsoleIO };
