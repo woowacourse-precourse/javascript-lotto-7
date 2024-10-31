@@ -4,7 +4,7 @@ class Validator {
       throw new Error('[ERROR] 금액 입력 오류!');
     }
     if (amount % 1000 !== 0) {
-      throw new Error('[ERROR] 금액 단위 요류!');
+      throw new Error('[ERROR] 금액 단위 오류!');
     }
   }
 }
