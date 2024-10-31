@@ -4,7 +4,7 @@ import { config } from './config.js';
 class App {
   async run() {
     const lottoGameExecutor = new LottoGameExecutor(config.lottoConfig);
-    lottoGameExecutor.startGame();
+    await lottoGameExecutor.startGame();
   }
 }
 
