@@ -1,4 +1,4 @@
-import { PRIZE } from "../constants/Constants.js";
+import { PRIZE, RANKING_TOTAL } from "../constants/Constants.js";
 
 export class Calculator {
   static prizeAmount(rankings) {
@@ -18,5 +18,15 @@ export class Calculator {
     if (correctNumber === 4) return 4;
     if (correctNumber === 3) return 5;
     return false;
+  }
+
+  static totalPrize() {
+    let prize = 0;
+
+    Object.entries(RANKING_TOTAL).forEach(([ranking, count]) => {
+      prize += PRIZE[ranking] * count;
+    });
+
+    return prize;
   }
 }

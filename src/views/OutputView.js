@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { MESSAGE } from "../constants/Constants.js";
+import { MESSAGE, RANKING_TOTAL } from "../constants/Constants.js";
 
 export class OutputView {
   static error(message) {
@@ -16,5 +16,9 @@ export class OutputView {
 
   static statistics() {
     return Console.print(MESSAGE.STATISTICS);
+  }
+
+  static returnRate(returnRate) {
+    return Console.print(`총 수익률은 ${returnRate}입니다.`);
   }
 }

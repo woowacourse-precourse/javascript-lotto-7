@@ -1,4 +1,6 @@
+import { Console } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import { Calculator } from "./utils/Calculator.js";
 
 class User {
   #purchaseAmount;
@@ -21,6 +23,10 @@ class User {
     });
 
     return result;
+  }
+
+  returnRate(totalPrize) {
+    return Calculator.returnRate(this.#purchaseAmount, totalPrize);
   }
 }
 

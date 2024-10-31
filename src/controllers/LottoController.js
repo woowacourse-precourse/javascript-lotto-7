@@ -18,6 +18,7 @@ class LottoController {
     this.#bonusNumber = await this.inputBonusNumber();
     this.rank(this.matching());
     OutputView.statistics();
+    OutputView.returnRate(this.returnRate());
   }
 
   async inputWinningNumber() {
@@ -78,6 +79,10 @@ class LottoController {
         RANKING_TOTAL[ranking]++;
       }
     });
+  }
+
+  returnRate() {
+    return this.#user.returnRate(Calculator.totalPrize());
   }
 }
 
