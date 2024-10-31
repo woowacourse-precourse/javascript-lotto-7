@@ -1,7 +1,11 @@
-function parseToNumberArray(userInput) {
+function parseToArray(userInput) {
   const STRING_ARRAY = userInput.split(',');
-  const RESULT = STRING_ARRAY.map((strNumber) => Number(strNumber));
+  return STRING_ARRAY;
+}
+
+function parseToNumberArray(stringArray) {
+  const RESULT = stringArray.map((strNumber) => Number(strNumber));
   return RESULT;
 };
 
-export default parseToNumberArray;
+export { parseToArray, parseToNumberArray };
