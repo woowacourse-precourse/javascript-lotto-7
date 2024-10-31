@@ -19,4 +19,11 @@ export class InputView {
 			return input.split(',').map((n) => Number(n));
 		}
 	}
+
+	async getBonusNumber() {
+		const input = await Console.readLineAsync(MESSAGE.BONUS_NUMBER_MESSAGE);
+		if (this.validator.isValidBonusNumber(input)) {
+			return Number(input);
+		}
+	}
 }
