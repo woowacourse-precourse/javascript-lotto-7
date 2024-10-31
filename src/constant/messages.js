@@ -14,7 +14,7 @@ export const MESSAGES = {
   OUTPUT: {
     WINNING_STATISTICS: `당첨 통계\n---\n`,
     lottoCount: (number) => {
-      return `${number}개를 구매했습니다.\n`;
+      return `\n${number}개를 구매했습니다.\n`;
     },
     matchingCount: (count, bonusCount, total) => {
       if (bonusCount > 0) {

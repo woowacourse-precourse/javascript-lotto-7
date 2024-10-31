@@ -1,6 +1,7 @@
 import Lotto from "../model/Lotto.js";
 import InputView from "../view/InputView.js";
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
+import { MESSAGES } from "../constant/messages.js";
 class LottoController {
   #inputView;
   constructor() {
@@ -31,7 +32,12 @@ class LottoController {
       this.validateLottoAmount(lottoAmount);
 
       const numberOfLotto = lottoAmount / 1000;
-      this.makeLottoTickets(numberOfLotto);
+      const lottoTickets = this.makeLottoTickets(numberOfLotto);
+      // 로또 티켓 출력
+      Console.print(MESSAGES.OUTPUT.lottoCount(numberOfLotto));
+      for (const ticket of lottoTickets) {
+        Console.print(ticket.getLottoNumbers());
+      }
     } catch (error) {
       console.log(error);
       this.run();
