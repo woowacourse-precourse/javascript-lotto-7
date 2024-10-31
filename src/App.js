@@ -15,7 +15,7 @@ class App {
     OutputView.printPurchasedLottos(lottos);
 
     const resultController = new ResultController(lottos);
-    await resultController.setWinningNumbers();
+    await resultController.processResults();
   }
 }
 
