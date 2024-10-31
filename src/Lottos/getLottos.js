@@ -12,4 +12,5 @@ export const getLottos = (num) => {
     lottos.push(lotto);
     Console.print(lotto);
   }
+  return lottos;
 };
