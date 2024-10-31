@@ -1,6 +1,7 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import parser from '../utils/parser.js';
+import inputPipe from '../utils/inputPipe.js';
 import LottoCount from '../domain/LottoCount.js';
 import Lotto from '../domain/Lotto.js';
 import LottoBonus from '../domain/LottoBonus.js';
@@ -30,45 +31,31 @@ class LottoController {
   }
 
   async #inputLottoPurchasePrice() {
-    try {
-      const lottoPurchasePrice = await InputView.readLottoPurchasePriceAsync();
-      const parsePurchasePrice = parser.parseStringToNumber(lottoPurchasePrice);
-
-      const lottoCount = new LottoCount(parsePurchasePrice);
-      return lottoCount.getLottoCount();
-      
-    } catch (error) {
-      OutputView.printErrorMessage(error.message);
-      return await this.#inputLottoPurchasePrice();
-    }
+    return await inputPipe(
+      InputView.readLottoPurchasePriceAsync,
+      parser.parseStringToNumber,
+      LottoCount,
+      'getLottoCount',
+    );
   }
 
   async #inputWinningNumbers() {
-    try {
-      const winningNumbers = await InputView.readWinningNumbersAsync();
-      const parseNumbers = parser.parseExtractNumbers(winningNumbers);
-
-      const lotto = new Lotto(parseNumbers);
-      return lotto.getLottoNumbers();
-
-    } catch (error) {
-      OutputView.printErrorMessage(error.message);
-      return await this.#inputWinningNumbers();
-    }
+    return await inputPipe(
+      InputView.readWinningNumbersAsync,
+      parser.parseExtractNumbers,
+      Lotto,
+      'getLottoNumbers',
+    );
   }
 
   async #inputBonusNumber(winningNumbers) {
-    try {
-      const bonusNumber = await InputView.readBonusNumberAsnyc();
-      const parseBonusNumber = parser.parseStringToNumber(bonusNumber);
-
-      const bonus = new LottoBonus(parseBonusNumber, winningNumbers);
-      return bonus.getBonusNumber();
-      
-    } catch (error) {
-      OutputView.printErrorMessage(error.message);
-      return await this.#inputBonusNumber(winningNumbers);
-    }
+    return await inputPipe(
+      InputView.readBonusNumberAsnyc,
+      parser.parseStringToNumber,
+      LottoBonus,
+      'getBonusNumber',
+      [winningNumbers],
+    );
   }
 }
 
