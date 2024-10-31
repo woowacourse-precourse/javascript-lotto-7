@@ -57,7 +57,10 @@ export function checkRangeBonusNumber(bonusNumber) {
 }
 
 export function checkDuplicateBonusNumber(winningNumbers, bonusNumber) {
-  if (new Set([...winningNumbers, bonusNumber]) !== LOTTO_NUMBER_LENGTH + 1)
+  if (
+    new Set([...winningNumbers, bonusNumber]).size !==
+    LOTTO_NUMBER_LENGTH + 1
+  )
     throwError(ERROR_MESSAGE.DUPLICATE_BONUS_NUMBER);
 }
 
