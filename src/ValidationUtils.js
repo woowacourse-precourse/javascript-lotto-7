@@ -1,4 +1,4 @@
-import { MESSAGES, DIVISORS } from "./Constants.js";
+import { MESSAGES, DIVISORS, LIMITS } from "./Constants.js";
 
 const isNumber = (input) => {
     const inputAsNum = Number(input);
@@ -26,9 +26,16 @@ const isMoneyDivisible = (money) => {
     }
 };
 
+const isOverLimit = (money) => {
+    if (money > LIMITS.BUY) {
+        throw new Error(MESSAGES.ERROR.CANNOT_BUY_OVER_LIMIT);
+    }
+ }
+
 export {
     isNumber,
     isEmpty,
     isNegative,
     isMoneyDivisible,
+    isOverLimit,
 };

@@ -5,7 +5,7 @@ class App {
     async run() {
         const inputHandler = new InputHandler();
             
-        const userMoney =  inputHandler.askUserMoney();
+        const userMoney =  await inputHandler.askUserMoney();
     }
 }
 

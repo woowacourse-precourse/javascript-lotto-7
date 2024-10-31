@@ -2,7 +2,8 @@ import {
     isNumber,
     isEmpty,
     isNegative,
-    isMoneyDivisible
+    isMoneyDivisible,
+    isOverLimit,
 } from './ValidationUtils.js';
 
 const validateMoney = (userMoney) => {
@@ -10,6 +11,7 @@ const validateMoney = (userMoney) => {
     const money = isNumber(userMoney);
     isNegative(money);
     isMoneyDivisible(money);
+    isOverLimit(money)
     return money
 };
 
