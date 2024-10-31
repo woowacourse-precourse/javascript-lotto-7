@@ -1,6 +1,9 @@
 import { PROMPTS } from "./constants.js";
-import { handlePurchaseInput } from "./handler/inputHandlers.js";
 import { printParam } from "./handler/printHandlers.js";
+import {
+  handlePurchaseInput,
+  handleLotteryNumInput,
+} from "./handler/inputHandlers.js";
 
 class App {
   async run() {

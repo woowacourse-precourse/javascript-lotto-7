@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGES, PROMPTS } from "../constants.js";
+import { ERROR_MESSAGES, LOTTERY_NUM_RANGE, PROMPTS } from "../constants.js";
 import { printError } from "./printHandlers.js";
 
 const handlePurchaseInput = async () => {
@@ -18,20 +18,18 @@ const handlePurchaseInput = async () => {
 };
 
 const handleLotteryNumInput = async () => {
+  const COMMA = ",";
   const lotteryNumInput = await Console.readLineAsync(PROMPTS.LOTTERY_NUM_PROMPT);
 
-}
-
-const isValidLotteryNumInput = arr => {
-  switch (true) {
-    case arr.length !== 6:
-      throw printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_COMMA)
-      break;
-
-    default:
-      break;
+  if (!lotteryNumInput.includes(COMMA)) {
+    return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_COMMA);
   }
-}
+
+  const lotteryNumArray = lotteryNumInput.split(COMMA);
+  isValidLotteryNumInput(lotteryNumArray);
+  return lotteryNumArray;
+};
 
 
-export { handlePurchaseInput };
+
+export { handlePurchaseInput, handleLotteryNumInput };
