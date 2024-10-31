@@ -23,6 +23,9 @@ class App {
     let lottoNumbers = [];
     for (let i = 0; i < lottoCnt; i++) {
       lottoNumbers[i] = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      lottoNumbers[i].sort((a, b) => {
+        return a - b;
+      });
     }
   }
 }
