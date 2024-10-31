@@ -14,6 +14,10 @@ export function isZero(input) {
   return input === 0;
 }
 
+export function isNumeric(input) {
+  return /^[0-9]+$/.test(input);
+}
+
 export function isGreaterThan(number, compareNumber) {
   return number > compareNumber;
 }
@@ -24,4 +28,8 @@ export function isLessThan(number, compareNumber) {
 
 export function isEqualTo(number, compareNumber) {
   return number === compareNumber;
+}
+
+export function isDivisibleByDivisor(number, divisor) {
+  return number % divisor === 0;
 }

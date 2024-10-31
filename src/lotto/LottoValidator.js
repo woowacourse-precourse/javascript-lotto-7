@@ -26,13 +26,19 @@ const checkValidInput = (inputValue) => {
   validateZeroInput(inputValue);
 }
 
+const validateNumericInput = (inputValue) => {
+  if (!Validator.isNumeric(inputValue)) {
+    throw new Error(ERROR_MESSAGE.ERROR_INPUT_ONLY_NUMERIC(inputValue));
+  }
+}
+
 const validateAmountRule = (amount, maxAmount, amountUnit) => {
-  if (Validator.isGreaterThanMaxNumber(amount, maxAmount)) {
-    throw new Error(ERROR_MESSAGE.ERROR_PURCHASE_AMOUNT_EXCEEDED);
+  if (Validator.isGreaterThan(amount, maxAmount)) {
+    throw new Error(ERROR_MESSAGE.ERROR_PURCHASE_AMOUNT_EXCEEDED(maxAmount, amount));
   }
 
-  if (Validator.isNotDivisibleByDivisor(amount, amountUnit)) {
-    throw new Error(ERROR_MESSAGE.ERROR_INCORRECT_AMOUNT_UNIT);
+  if (!Validator.isDivisibleByDivisor(amount, amountUnit)) {
+    throw new Error(ERROR_MESSAGE.ERROR_INCORRECT_AMOUNT_UNIT(amount, amountUnit));
   }
 }
 
@@ -74,6 +80,8 @@ export function validateLottoNumberRule(count, minNumber, maxNumber) {
 
 export function validatePurchaseAmount(amount, maxAmount, amountUnit) {
   checkValidInput(amount);
+  validateNumericInput(amount);
+
   validateAmountRule(amount, maxAmount, amountUnit);
 }
 

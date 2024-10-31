@@ -31,6 +31,13 @@ class LottoRule {
     validateLottoNumberRule(this.#lottoNumberCount, minNumber, maxNumber);
   }
 
+  get lottoAmount() {
+    return this.#lottoAmount;
+  }
+
+  get maxlottoPurchaseAmount() {
+    return this.#maxlottoPurchaseAmount;
+  }
 }
 
 export default LottoRule;
