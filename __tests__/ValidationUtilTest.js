@@ -1,9 +1,9 @@
+import { ERROR_MESSAGE } from '../src/constant/errorMessage.js';
 import {
-  ERROR_MESSAGE,
   LOTTO_NUMBER_LENGTH,
   PRICE_RANGE,
-  RANGE,
-} from '../src/constant/constants.js';
+  NUMBER_RANGE,
+} from '../src/constant/system.js';
 import {
   checkDuplicateBonusNumber,
   checkDuplicateWinningNumbers,
@@ -75,7 +75,7 @@ describe('당첨 번호 유효성 검사 단위 테스트', () => {
   });
 
   errorTest({
-    title: `당첨 번호 숫자가 ${RANGE.MIN}~${RANGE.MAX} 사이 숫자가 아닌 경우`,
+    title: `당첨 번호 숫자가 ${NUMBER_RANGE.MIN}~${NUMBER_RANGE.MAX} 사이 숫자가 아닌 경우`,
     callback: checkRangeWinningNumbers,
     input1: [1, 2, 3, 4, 5, 1000],
     message: ERROR_MESSAGE.RANGE_WINNING_NUMBERS,
@@ -99,7 +99,7 @@ describe('보너스 번호 유효성 검사 단위 테스트', () => {
   });
 
   errorTest({
-    title: `보너스 번호가 ${RANGE.MIN}~${RANGE.MAX} 사이 숫자가 아닌 경우`,
+    title: `보너스 번호가 ${NUMBER_RANGE.MIN}~${NUMBER_RANGE.MAX} 사이 숫자가 아닌 경우`,
     callback: checkRangeWinningNumbers,
     input1: 1000,
     message: ERROR_MESSAGE.RANGE_BONUS_NUMBERS,

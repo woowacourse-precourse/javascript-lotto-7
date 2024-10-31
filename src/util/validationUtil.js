@@ -1,9 +1,9 @@
+import { ERROR_MESSAGE } from '../constant/errorMessage.js';
 import {
-  ERROR_MESSAGE,
   LOTTO_NUMBER_LENGTH,
   PRICE_RANGE,
-  RANGE,
-} from '../constant/constants.js';
+  NUMBER_RANGE,
+} from '../constant/system.js';
 
 // 구입 금액 검증 함수
 export function checkNumberPrice(number) {
@@ -73,5 +73,5 @@ function isInteger(number) {
 }
 
 function isInRange(number) {
-  return number >= RANGE.MIN && number <= RANGE.MAX;
+  return number >= NUMBER_RANGE.MIN && number <= NUMBER_RANGE.MAX;
 }

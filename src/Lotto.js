@@ -1,4 +1,4 @@
-import { LOTTO_NUMBER_LENGTH } from './constant/constants.js';
+import { LOTTO_NUMBER_LENGTH } from './constant/system';
 
 class Lotto {
   #numbers;

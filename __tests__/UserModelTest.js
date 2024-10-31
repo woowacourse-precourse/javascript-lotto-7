@@ -1,4 +1,4 @@
-import { PRICE_RANGE } from '../src/constant/constants.js';
+import { PRICE_RANGE } from '../src/constant/system.js';
 import UserModel from '../src/model/UserModel.js';
 
 describe('UserModel 클래스 테스트', () => {
