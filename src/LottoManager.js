@@ -28,5 +28,10 @@ class LottoManager {
     );
     return new Lotto(lottoNumbers.sort((a, b) => a - b));
   }
+
+  getWinningLotto(lottoInput) {
+    const lotto = lottoInput.split(RULE.SEPARATOR).map(Number);
+    return new Lotto(lotto);
+  }
 }
 export default LottoManager;

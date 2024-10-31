@@ -48,8 +48,9 @@ class LottoGame {
         const winningNumbers = await Console.readLineAsync(
           INPUT_MESSAGES.WINNING_NUMBERS,
         );
+        this.lottoManager.getWinningLotto(winningNumbers);
       } catch (error) {
-        Console.pring(error.message);
+        Console.print(error.message);
       }
     }
   }
