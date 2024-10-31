@@ -1,7 +1,7 @@
 import { LOTTO_PRIZE } from '../constants/lottoResults.js';
 
-const lottoCalculator = {
-  result(lottos, winningLotto, bonusNumber) {
+const calculation = {
+  lottoResult(lottos, winningLotto, bonusNumber) {
     const lottoResult = { ...LOTTO_PRIZE };
 
     lottos.forEach((lotto) => {
@@ -11,7 +11,7 @@ const lottoCalculator = {
 
     return lottoResult;
   },
-  rateOfReturn(lottoResult, purchasePrice) {
+  lottoRateOfReturn(lottoResult, purchasePrice) {
     const winningAmount = Object.values(lottoResult).reduce(
       (sum, { amount, count }) => sum + amount * count,
       0
@@ -21,4 +21,4 @@ const lottoCalculator = {
   },
 };
 
-export default lottoCalculator;
+export default calculation;

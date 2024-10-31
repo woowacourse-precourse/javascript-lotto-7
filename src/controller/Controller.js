@@ -1,5 +1,5 @@
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
-import lottoCalculator from '../utils/lottoCalculator.js';
+import calculation from '../utils/lottoCalculator.js';
 import OutputView from '../view/OutputView.js';
 import Lotto from '../models/Lotto.js';
 import InputHandler from '../handler/inputHandler.js';
@@ -31,14 +31,14 @@ class Controller {
       winningLotto
     );
 
-    const lottoResult = lottoCalculator.result(
+    const lottoResult = calculation.lottoResult(
       lottos,
       winningLotto,
       bonusNumber
     );
     this.#outputView.displayLottoResult(lottoResult, purchasePrice);
 
-    const winningRateOfReturn = lottoCalculator.rateOfReturn(
+    const winningRateOfReturn = calculation.lottoRateOfReturn(
       lottoResult,
       purchasePrice
     );
