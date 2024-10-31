@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import App from '../src/Controller/App.js';
+import InputHandler from '../src/Model/InputHandler.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -98,8 +99,10 @@ describe('로또 테스트', () => {
 
   test('입력 검증 테스트', () => {
     const INPUT_LOTTO_NUMBER = '1,2,3,4,5,6';
+    const EXPECTED_RESULT = [1, 2, 3, 4, 5, 6];
 
     const lottoArray = InputHandler.lottoArray(INPUT_LOTTO_NUMBER);
-    expect(lottoArray).toBe([1, 2, 3, 4, 5, 6]);
+
+    expect(lottoArray).toEqual(EXPECTED_RESULT);
   });
 });
