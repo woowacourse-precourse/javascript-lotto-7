@@ -4,10 +4,10 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES } from "../constant/messages.js";
 class LottoController {
   #inputView;
-  #totalProfit;
+  #totalProfitRatio;
   constructor() {
     this.#inputView = new InputView();
-    this.#totalProfit = 0;
+    this.#totalProfitRatio = 0;
   }
   validateLottoAmount(amount) {
     if (isNaN(amount)) {
@@ -135,6 +135,28 @@ class LottoController {
     }
     return TOTAL_STATISTIC;
   }
+
+  calculateTotalProfit(totalStatistic) {
+    const MONEY_PER_MATCHING = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      bonus: 30000000,
+      6: 2000000000,
+    };
+    let profit = 0;
+    for (const matchingCount of Object.keys(totalStatistic)) {
+      profit +=
+        totalStatistic[matchingCount] * MONEY_PER_MATCHING[matchingCount];
+    }
+
+    return profit;
+  }
+
+  showTotalProfitRatio() {
+    Console.print(MESSAGES.OUTPUT.ratioOfProfit(this.#totalProfitRatio));
+  }
+
   async run() {
     try {
       const lottoAmountInput = await this.#inputView.readLottoAmount();
@@ -163,6 +185,13 @@ class LottoController {
         bonusNumber
       );
       this.showTotalStatistic(totalStatistic);
+
+      this.#totalProfitRatio = (
+        (this.calculateTotalProfit(totalStatistic) / lottoAmount) *
+        100
+      ).toFixed(1);
+
+      this.showTotalProfitRatio();
     } catch (error) {
       console.log(error);
       this.run();
