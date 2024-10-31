@@ -1,7 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  PurchaseLottoNumbers = [];
+  PurchaseLottoNumbersArray = [];
   // 1~45까지의 숫자를 인덱스로 사용하기 위해 46개의 배열 생성 (효율성)
   WinningLottoNumbersArray = Array(46).fill(0);
 
@@ -33,7 +33,7 @@ class App {
     while (lottoCount > 0) {
       let lottoNumbers = this.generateLottoNumbers();
       Console.print(lottoNumbers);
-      this.PurchaseLottoNumbers.push(lottoNumbers);
+      this.PurchaseLottoNumbersArray.push(lottoNumbers);
       lottoCount--;
     }
   }
