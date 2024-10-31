@@ -48,20 +48,37 @@ const validateAmountLessThanMaxAmount = (amount, maxAmount) => {
   }
 }
 
-const checkValidNumberScope = (minNumber, maxNumber) => {
+const checkValidNumberRange = (minNumber, maxNumber) => {
   if (!Validator.isLessThan(minNumber, maxNumber) || Validator.isEqualTo(minNumber, maxNumber)) {
-    throw new Error(ERROR_MESSAGE.ERROR_CONFIG_INVALID_LOTTO_NUMBER_SCOPE(minNumber, maxNumber));
+    throw new Error(ERROR_MESSAGE.ERROR_CONFIG_INVALID_LOTTO_NUMBER_RANGE(minNumber, maxNumber));
   }
 }
 
-const validateLottoNumberCount = (count, minNumber, maxNumber) => {
-  const validLottoNumberCount = maxNumber - minNumber + 1;
+const validateLottoNumberCountInRange = (count, startNumber, endNumber) => {
+  const validLottoNumberCount = endNumber - startNumber + 1;
 
   if (!Validator.isGreaterThan(validLottoNumberCount, count)) {
     throw new Error(ERROR_MESSAGE.ERROR_CONFIG_COUNT_GREATER_THAN_ALL_LOTTO_NUMBERS(count, validLottoNumberCount));
   }
 }
 
+const validateLottoNumberInRange = (number, startNumber, endNumber) => {
+  if (!Validator.isNumberInRange(number, startNumber, endNumber)) {
+    throw new Error(ERROR_MESSAGE.ERROR_NUMBER_OUT_OF_RANGE(number, startNumber, endNumber));
+  }
+}
+
+const validateLottoNumberCount = (inputcount, numberCount) => {
+  if (inputcount !== numberCount) {
+    throw new Error(ERROR_MESSAGE.ERROR_INCORRECT_LOTTO_NUMBER_COUNT(inputcount, numberCount));
+  }
+}
+
+const validateDuplicateNumbers = (numbers) => {
+  if (Validator.isDuplicateValueInArray(numbers)) {
+    throw new Error(ERROR_MESSAGE.ERROR_DUPLICATE_NUMBER);
+  }
+}
 export function validateLottoAmountRule(amount, maxAmount) {
   checkValidInput(amount);
   checkValidInput(maxAmount);
@@ -69,13 +86,13 @@ export function validateLottoAmountRule(amount, maxAmount) {
   validateAmountLessThanMaxAmount(amount, maxAmount);
 }
 
-export function validateLottoNumberRule(count, minNumber, maxNumber) {
+export function validateLottoNumberRule(count, startNumber, endNumber) {
   checkValidInput(count);
-  checkValidInput(minNumber);
-  checkValidInput(maxNumber);
+  checkValidInput(startNumber);
+  checkValidInput(endNumber);
 
-  checkValidNumberScope(minNumber, maxNumber);
-  validateLottoNumberCount(count, minNumber, maxNumber);
+  checkValidNumberRange(startNumber, endNumber);
+  validateLottoNumberCountInRange(count, startNumber, endNumber);
 }
 
 export function validatePurchaseAmount(amount, maxAmount, amountUnit) {
@@ -83,6 +100,12 @@ export function validatePurchaseAmount(amount, maxAmount, amountUnit) {
   validateNumericInput(amount);
 
   validateAmountRule(amount, maxAmount, amountUnit);
+}
+
+export function validateLottoNumbers(numbers, numberCount, numberRange) {
+  validateLottoNumberCount(numbers.length, numberCount);
+  numbers.forEach((number) => validateLottoNumberInRange(number, numberRange.startNumber, numberRange.endNumber));
+  validateDuplicateNumbers(numbers);
 }
 
 

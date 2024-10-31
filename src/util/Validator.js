@@ -30,6 +30,14 @@ export function isEqualTo(number, compareNumber) {
   return number === compareNumber;
 }
 
+export function isNumberInRange(number, startNumber, endNumber) {
+  return number >= startNumber && number <= endNumber;
+}
+
 export function isDivisibleByDivisor(number, divisor) {
   return number % divisor === 0;
+}
+
+export function isDuplicateValueInArray(arr) {
+  return !arr.every((value, index) => arr.indexOf(value, index + 1) === -1);
 }

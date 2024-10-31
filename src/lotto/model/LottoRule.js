@@ -10,15 +10,15 @@ class LottoRule {
 
   #lottoNumberCount;
 
-  #lottoNumberScope;
+  #lottoNumberRange;
 
   constructor(lottoConfig) {
     this.#lottoAmount = lottoConfig.LOTTO_AMOUNT;
     this.#maxlottoPurchaseAmount = lottoConfig.MAX_PURCHASE_AMOUNT;
     this.#lottoNumberCount = lottoConfig.NUMBER_COUNT;
-    this.#lottoNumberScope = {
-      minNumber: lottoConfig.NUMBER_MIN_VALUE,
-      maxNumber: lottoConfig.NUMBER_MAX_VALUE,
+    this.#lottoNumberRange = {
+      startNumber: lottoConfig.NUMBER_MIN_VALUE,
+      endNumber: lottoConfig.NUMBER_MAX_VALUE,
     }
 
     this.#validateRuleValue();
@@ -27,8 +27,8 @@ class LottoRule {
   #validateRuleValue() {
     validateLottoAmountRule(this.#lottoAmount, this.#maxlottoPurchaseAmount);
 
-    const { minNumber, maxNumber } = this.#lottoNumberScope;
-    validateLottoNumberRule(this.#lottoNumberCount, minNumber, maxNumber);
+    const { startNumber, endNumber } = this.#lottoNumberRange;
+    validateLottoNumberRule(this.#lottoNumberCount, startNumber, endNumber);
   }
 
   get lottoAmount() {
@@ -37,6 +37,14 @@ class LottoRule {
 
   get maxlottoPurchaseAmount() {
     return this.#maxlottoPurchaseAmount;
+  }
+
+  get lottoNumberCount() {
+    return this.#lottoNumberCount;
+  }
+
+  get lottoNumberRange() {
+    return this.#lottoNumberRange;
   }
 }
 
