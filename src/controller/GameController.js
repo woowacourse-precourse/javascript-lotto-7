@@ -2,89 +2,92 @@ import GameInput from "../view/GameInput.js";
 import GameOutput from "../view/GameOutput.js";
 import NumberValidate from "../validate/NumberValidate.js";
 import GetNumber from "../model/GetNumber.js";
+import GameResult from "../model/GameResult.js";
 import { LOTTO_DATA } from "../constant/Data.js";
 
 class GameController {
   #gameInput;
   #gameOutput;
   #getNumber;
+  #gameResult;
 
   constructor() {
     this.#gameInput = new GameInput();
     this.#gameOutput = new GameOutput();
     this.#getNumber = new GetNumber();
-  }
-
-  async #getLotto() {
-    const purchase_money = await this.#purchaseMoneyInput();
-    const purchase_lotto = this.#purchaseLotto(purchase_money);
-    const new_lotto = this.#newLotto(purchase_lotto);
-    return new_lotto;
+    this.#gameResult = new GameResult();
   }
 
   async #purchaseMoneyInput() {
     while (true) {
       try {
-        const purchase_money = await this.#gameInput.readPurchaseMoney();
-        this.#purchaseMoneyValidate(purchase_money);
-        return purchase_money;
+        const money = await this.#gameInput.readPurchaseMoney();
+        this.#purchaseMoneyValidate(money);
+        return money;
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
       }
     }
   }
 
-  #purchaseMoneyValidate(purchase_money) {
-    NumberValidate.validateNonNumber(purchase_money);
-    NumberValidate.validateSmallNumber(purchase_money);
-    NumberValidate.validateDivideThousand(purchase_money);
+  async #getLotto(money) {
+    const purchase_lotto = this.#purchaseLotto(money);
+    const new_lotto = this.#newLotto(purchase_lotto);
+    return new_lotto;
   }
 
-  #purchaseLotto(purchase_money) {
-    return parseInt(purchase_money / LOTTO_DATA.lottoPrice);
+  #purchaseMoneyValidate(money) {
+    NumberValidate.validateNonNumber(money);
+    NumberValidate.validateSmallNumber(money);
+    NumberValidate.validateDivideThousand(money);
+  }
+
+  #purchaseLotto(money) {
+    return parseInt(money / LOTTO_DATA.lottoPrice);
   }
 
   #newLotto(purchase_lotto) {
-    return Array.from({ length: purchase_lotto }, () =>
-      this.#getNumber.purchaseLotto()
-    );
+    return Array.from({ length: purchase_lotto }, () => this.#getNumber.purchaseLotto());
   }
 
   async #winningLotto() {
     while (true) {
       try {
-        const wining_lotto = await this.#gameInput.readWinningLotto();
-        return this.#getNumber.winningLotto(wining_lotto);
+        const winning_lotto = await this.#gameInput.readWinningLotto();
+        return this.#getNumber.winningLotto(winning_lotto);
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
       }
     }
   }
 
-  async #bonusNumber(wining_lotto) {
+  async #bonusNumber(winning_lotto) {
     while (true) {
       try {
-        const bonus_number = await this.#gameInput.readBonusNumber();
-        this.#bonusNumberValidate(bonus_number, wining_lotto);
-        return bonus_number;
+        const bonus = await this.#gameInput.readBonusNumber();
+        this.#bonusNumberValidate(bonus, winning_lotto);
+        return bonus;
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
       }
     }
   }
 
-  #bonusNumberValidate(bonus_number, wining_lotto) {
-    NumberValidate.validateNonNumber(bonus_number);
-    NumberValidate.validateBonusDup(bonus_number, wining_lotto);
-    NumberValidate.validateBonusRange(bonus_number);
+  #bonusNumberValidate(bonus, winning_lotto) {
+    NumberValidate.validateNonNumber(bonus);
+    NumberValidate.validateBonusDup(bonus, winning_lotto);
+    NumberValidate.validateBonusRange(bonus);
   }
 
   async startGame() {
-    const new_lotto = await this.#getLotto();
+    const money = await this.#purchaseMoneyInput();
+    const new_lotto = await this.#getLotto(money);
     this.#gameOutput.printNewLotto(new_lotto);
 
-    const wining_lotto = await this.#winningLotto();
-    const bonus_number = await this.#bonusNumber(wining_lotto);
+    const winning_lotto = await this.#winningLotto();
+    const bonus = await this.#bonusNumber(winning_lotto);
+
+    this.#gameResult.gameResult(money, new_lotto, winning_lotto, bonus);
   }
 }
 
