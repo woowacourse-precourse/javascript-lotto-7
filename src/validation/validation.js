@@ -1,26 +1,26 @@
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
-const validator = {
-  checkNumericString(value) {
+const validation = {
+  numericString(value) {
     // Number() 변환 시 NaN, 음수, 소수, 지수 표현 문제 사전 방지
     if (!/^[0-9]+$/.test(value)) {
       throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
     }
   },
-  checkSafeInteger(value) {
+  safeInteger(value) {
     if (!Number.isSafeInteger(value)) {
       throw new Error(ERROR_MESSAGES.SAFE_INTEGER);
     }
   },
-  checkInteger(value) {
-    validator.checkNumericString(value);
-    validator.checkSafeInteger(Number(value));
+  integer(value) {
+    validation.numericString(value);
+    validation.safeInteger(Number(value));
   },
-  checkPurchasePrice(purchasePrice) {
-    validator.checkInteger(purchasePrice);
+  purchasePrice(value) {
+    validation.integer(value);
 
-    const parsedPurchasePrice = Number(purchasePrice);
+    const parsedPurchasePrice = Number(value);
 
     if (
       parsedPurchasePrice % LOTTO_CONFIG.PRICE !== 0 ||
@@ -29,15 +29,15 @@ const validator = {
       throw new Error(ERROR_MESSAGES.INVALID_PRICE);
     }
   },
-  checkWinningNumbers(winningNumbers) {
-    winningNumbers.split(',').forEach((number) => {
-      validator.checkInteger(number);
+  winningNumbers(value) {
+    value.split(',').forEach((number) => {
+      validation.integer(number);
     });
   },
-  checkBonusNumber(bonusNumber, winningLotto) {
-    validator.checkInteger(bonusNumber);
+  bonusNumber(value, winningLotto) {
+    validation.integer(value);
 
-    const parsedBonusNumber = Number(bonusNumber);
+    const parsedBonusNumber = Number(value);
 
     if (
       parsedBonusNumber < LOTTO_CONFIG.NUMBER_MIN ||
@@ -52,4 +52,4 @@ const validator = {
   },
 };
 
-export default validator;
+export default validation;
