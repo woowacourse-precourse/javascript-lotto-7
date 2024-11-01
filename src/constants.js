@@ -1,5 +1,6 @@
 const PROMPTS = Object.freeze({
   INPUT_USER_MONEY: '구입금액을 입력해 주세요.\n',
+  INPUT_USER_WINNING_NUMBER: '\n당첨 번호를 입력해 주세요.\n',
 });
 
 const INFO = Object.freeze({

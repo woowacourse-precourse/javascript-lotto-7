@@ -14,6 +14,8 @@ class App {
       );
       MissionUtils.Console.print(userLotto[i].showNumber());
     }
+    const userWinningNumber = await this.getUserWinningNumber();
+    const winningNumber = userWinningNumber.split(',');
   }
 
   async getUserMoney() {
@@ -21,6 +23,13 @@ class App {
       PROMPTS.INPUT_USER_MONEY
     );
     return userMoney;
+  }
+
+  async getUserWinningNumber() {
+    const userWinningNumber = await MissionUtils.Console.readLineAsync(
+      PROMPTS.INPUT_USER_WINNING_NUMBER
+    );
+    return userWinningNumber;
   }
 }
 
