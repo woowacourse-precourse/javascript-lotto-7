@@ -12,6 +12,11 @@ class InputHandler {
       `${PROGRESS_MESSAGE.ENTER_WINNER_NUMBERS}\n`
     );
   }
+  static async inputBonusNumbers() {
+    return await Console.readLineAsync(
+      `${PROGRESS_MESSAGE.ENTER_BONUSNUMBER}\n`
+    );
+  }
 }
 
 export default InputHandler;
