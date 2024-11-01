@@ -22,6 +22,8 @@ class App {
 
     const bonusNumberInput = await InputView.getBonusNumber();
     const bonusNumber = validateBonusNumber(bonusNumberInput, winningNumbers);
+
+    const matchCounts = lottoService.compareLottos(winningNumbers, bonusNumber);
   }
 }
 
