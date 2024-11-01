@@ -26,4 +26,10 @@ describe("로또 게임에 대한 테스트", () => {
       exception.validateBonusNumber(66, false);
     }).toThrow("[ERROR]");
   });
+
+  test("[입력 테스트]보너스 번호가 공백이면 예외가 발생한다.", () => {
+    expect(() => {
+      exception.validateBonusNumber("", false);
+    }).toThrow("[ERROR]");
+  });
 });
