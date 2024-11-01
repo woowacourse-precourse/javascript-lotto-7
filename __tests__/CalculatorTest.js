@@ -3,15 +3,15 @@ import { Calculator } from "../src/utils/Calculator.js";
 describe("계산기 클래스 테스트", () => {
   test("당첨금 계산 테스트", () => {
     const RANKING = [
-      [1, 1, 1],
-      [2, 5],
-      [3, false],
-      [1, 2, 3, 4, 5, false],
+      { 1: 3, 2: 0, 3: 0, 4: 0, 5: 0 },
+      { 1: 0, 2: 1, 3: 0, 4: 0, 5: 1 },
+      { 1: 0, 2: 0, 3: 1, 4: 0, 5: 0 },
+      { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 },
     ];
     const RESULT = [6000000000, 30005000, 1500000, 2031555000];
 
     for (let i = 0; i < RANKING.length; i++) {
-      expect(Calculator.prizeAmount(RANKING[i])).toBe(RESULT[i]);
+      expect(Calculator.totalPrize(RANKING[i])).toBe(RESULT[i]);
     }
   });
 });

@@ -1,5 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
-import { MESSAGE } from "../constants/Constants.js";
+import {
+  MESSAGE,
+  SEPARATOR,
+  STATISTICS_MESSAGE,
+  WHITE_SPACE,
+} from "../constants/Constants.js";
 
 export class OutputView {
   static error(message) {
@@ -7,18 +12,23 @@ export class OutputView {
   }
 
   static purchaseResult(money) {
-    return Console.print(money + MESSAGE.PURCHASE_RESULT);
+    return Console.print(MESSAGE.PURCHASE_RESULT(money));
   }
 
   static lottoNumber(numbers) {
-    return Console.print("[" + numbers.join(", ") + "]");
+    return Console.print(
+      MESSAGE.LOTTO_NUMBER(numbers.join(SEPARATOR + WHITE_SPACE))
+    );
   }
 
-  static statistics() {
-    return Console.print(MESSAGE.STATISTICS());
+  static statistics(statistics) {
+    statistics.forEach((message) => {
+      Console.print(message);
+    });
+    return;
   }
 
   static returnRate(returnRate) {
-    return Console.print(`총 수익률은 ${returnRate}%입니다.`);
+    return Console.print(STATISTICS_MESSAGE.RETURN_RATE(returnRate));
   }
 }

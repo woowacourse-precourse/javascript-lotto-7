@@ -1,3 +1,5 @@
+import { NONE } from "./constants/Constants.js";
+
 class Lotto {
   #numbers;
 
@@ -6,7 +8,7 @@ class Lotto {
   }
 
   matchingWinning(winningNumbers) {
-    let correct = 0;
+    let correct = NONE;
     this.#numbers.forEach((number) => {
       if (winningNumbers.includes(number)) return correct++;
     });

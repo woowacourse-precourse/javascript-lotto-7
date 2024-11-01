@@ -1,30 +1,37 @@
-import { PRIZE, RANKING_TOTAL } from "../constants/Constants.js";
+import {
+  DECIMAL_POINT,
+  NONE,
+  PERCENTAGE_FACTOR,
+  RANKING,
+  RANKINGS,
+} from "../constants/Constants.js";
 
 export class Calculator {
-  static prizeAmount(rankings) {
-    return rankings.reduce((cumulative, ranking) => {
-      return cumulative + PRIZE[ranking];
-    }, 0);
-  }
-
   static returnRate(purchaseAmount, prizeAmount) {
-    return (prizeAmount / purchaseAmount) * 100;
+    return parseFloat(
+      ((prizeAmount / purchaseAmount) * PERCENTAGE_FACTOR).toFixed(
+        DECIMAL_POINT
+      )
+    );
   }
 
   static ranking(correctNumber, correctBonusNumber) {
-    if (correctNumber === 6) return 1;
-    if (correctNumber === 5 && correctBonusNumber === true) return 2;
-    if (correctNumber === 5) return 3;
-    if (correctNumber === 4) return 4;
-    if (correctNumber === 3) return 5;
+    for (let ranking = RANKING.FIRST; ranking <= RANKING.LAST; ranking++) {
+      if (
+        correctNumber === RANKINGS[ranking].MATCH &&
+        correctBonusNumber === RANKINGS[ranking].BONUS
+      ) {
+        return ranking;
+      }
+    }
     return false;
   }
 
-  static totalPrize() {
-    let prize = 0;
+  static totalPrize(rankings) {
+    let prize = NONE;
 
-    Object.entries(RANKING_TOTAL).forEach(([ranking, count]) => {
-      prize += PRIZE[ranking] * count;
+    Object.entries(rankings).forEach(([ranking, count]) => {
+      if (RANKINGS[ranking]) prize += RANKINGS[ranking].PRIZE * count;
     });
 
     return prize;

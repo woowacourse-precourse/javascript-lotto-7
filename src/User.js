@@ -14,11 +14,21 @@ class User {
     this.#lottos.push(new Lotto(number));
   }
 
-  matching(winning, bonus) {
+  matchingWinning(winning) {
     let result = [];
 
     this.#lottos.forEach((lotto) => {
-      result.push([lotto.matchingWinning(winning), lotto.matchingBonus(bonus)]);
+      result.push(lotto.matchingWinning(winning));
+    });
+
+    return result;
+  }
+
+  matchingBonus(bonus) {
+    let result = [];
+
+    this.#lottos.forEach((lotto) => {
+      result.push(lotto.matchingBonus(bonus));
     });
 
     return result;
