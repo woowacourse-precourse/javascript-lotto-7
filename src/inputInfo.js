@@ -54,7 +54,7 @@ class Input {
         Console.print(this.WinNumbers);
         break;
       } catch (error) {
-        Console.print("[ERROR] 로또 번호는 6개여야 합니다.");
+        Console.print("");
       }
     }
   }
