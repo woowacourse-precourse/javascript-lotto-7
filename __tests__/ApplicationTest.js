@@ -24,7 +24,11 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
+const runException = async (
+  amount = '1000',
+  winningNumbers = '1,2,3,4,5,6',
+  bonusNumber = '7'
+) => {
   // given
   const logSpy = getLogSpy();
 
@@ -32,7 +36,7 @@ const runException = async (input) => {
   const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+  mockQuestions([amount, winningNumbers, bonusNumber, ...INPUT_NUMBERS_TO_END]);
 
   // when
   const app = new App();
