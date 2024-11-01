@@ -50,11 +50,17 @@ class LottoStatistics {
     }
   }
 
-  calculateTotalPrize() {
+  #calculateTotalPrize() {
     return Object.values(this.#winningStatistics).reduce(
       (total, { count, prize }) => total + count * prize,
       0,
     );
+  }
+
+  calculateRageOfReturn(purchaseAmount) {
+    const totalPrize = this.#calculateTotalPrize();
+    const rangeOfReturn = (totalPrize / purchaseAmount) * 100;
+    return rangeOfReturn;
   }
 }
 
