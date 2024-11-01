@@ -3,6 +3,13 @@ import { Console } from '@woowacourse/mission-utils';
 class LottoResult {
   constructor() {
     this.matchCounts = { '1등': 0, '2등': 0, '3등': 0, '4등': 0, '5등': 0 };
+    this.prizes = {
+      '1등': 2000000000,
+      '2등': 30000000,
+      '3등': 1500000,
+      '4등': 50000,
+      '5등': 5000,
+    };
   }
 
   countMatches(matches, hasBonus) {
@@ -17,6 +24,13 @@ class LottoResult {
     } else if (matches === 3) {
       this.matchCounts['5등']++;
     }
+  }
+  calculateProfitRate(amount) {
+    const totalPrize = Object.entries(this.matchCounts).reduce(
+      (sum, [key, count]) => sum + this.prizes[key] * count,
+      0
+    );
+    return ((totalPrize / amount) * 100).toFixed(1);
   }
 
   printStatistics() {

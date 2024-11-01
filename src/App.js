@@ -11,6 +11,8 @@ class App {
     const lottoResult = new LottoResult();
     this.calculateStatistics(tickets, winningNumbers, bonusNumber, lottoResult);
     lottoResult.printStatistics();
+    const profitRate = lottoResult.calculateProfitRate(amount);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 
   async getAmount() {
