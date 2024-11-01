@@ -26,15 +26,19 @@ class App {
       "당첨 번호를 입력해 주세요.\n"
     );
 
-    const winningNumbers = winningNumbersInput
-      .split(",")
-      .map((num) => num.trim());
+    const winningNumbers = winningNumbersInput.split(",").map(Number);
 
-    const bonusNumber = await MissionUtils.Console.readLineAsync(
+    const uniqueNumbers = new Set(winningNumbers);
+    if (
+      uniqueNumbers.size !== winningNumbers.length ||
+      winningNumbers.length !== 6
+    ) {
+      throw new Error("[ERROR] : 6개의 숫자를 중복되지 않게 입력해야합니다.");
+    }
+
+    const bonusNumberInput = await MissionUtils.Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
-
-    console.log(bonusNumber);
   }
 }
 
