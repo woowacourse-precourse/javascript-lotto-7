@@ -8,16 +8,16 @@ class Analyzer {
     this.#winningNumbers = winningNumbers;
   }
 
-  #calculateMatchingCount() {
+  #estimateTotalMatchingNumbers() {
     const { numbers } = this.#winningNumbers;
-    const matchingCount = this.#lottos.map((lotto) =>
-      this.#calculateMatchingNumbers(lotto, numbers),
+    const numbersOfMatchedList = this.#lottos.map((lotto) =>
+      this.#estimateMatchingNumbers(lotto, numbers),
     );
 
-    return matchingCount;
+    return numbersOfMatchedList;
   }
 
-  #calculateMatchingNumbers(lotto, winningNumbers) {
+  #estimateMatchingNumbers(lotto, winningNumbers) {
     const WINNING_BONUS_TAG = 'bonus';
     const numbersOfMatched = lotto.countMatchingNumbers(winningNumbers);
 
@@ -42,12 +42,12 @@ class Analyzer {
     return lotto.isBonusNumberMatched(bonusNumber);
   }
 
-  static #makeWinningTable(matchedNumbers) {
+  static #makeWinningTable(matchingNumbers) {
     const DEFAULT_COUNT = 0;
     const UNIT_COUNT = 1;
     const winningTable = new Map();
 
-    matchedNumbers.forEach((matchedCount) => {
+    matchingNumbers.forEach((matchedCount) => {
       const numbersOfLotto = winningTable.get(matchedCount) ?? DEFAULT_COUNT;
       winningTable.set(matchedCount, numbersOfLotto + UNIT_COUNT);
     });
@@ -56,8 +56,8 @@ class Analyzer {
   }
 
   getWinningTable() {
-    const matchedNumbers = this.#calculateMatchingCount();
-    const winningTable = Analyzer.#makeWinningTable(matchedNumbers);
+    const matchingNumbers = this.#estimateTotalMatchingNumbers();
+    const winningTable = Analyzer.#makeWinningTable(matchingNumbers);
 
     return winningTable;
   }
