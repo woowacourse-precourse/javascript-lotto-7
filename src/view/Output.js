@@ -28,6 +28,11 @@ class Output {
     );
   }
 
+  lottoTicket(tickets) {
+    this.lottoTicketCount(tickets);
+    this.lottoTicketNumbers(tickets);
+  }
+
   winningResult(results) {
     Console.print(OUTPUT.winningStatistics);
 
@@ -40,6 +45,13 @@ class Output {
 
   totalReturnResult(totalReturn) {
     Console.print(OUTPUT.totalProfit(Math.round(totalReturn * 100) / 100));
+  }
+
+  totalResult(result) {
+    const { results, totalReturn } = result;
+
+    this.winningResult(results);
+    this.totalReturnResult(totalReturn);
   }
 }
 

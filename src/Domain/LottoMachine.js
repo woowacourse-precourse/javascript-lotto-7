@@ -111,7 +111,7 @@ class LOTTO_MACHINE {
     return results;
   }
 
-  calculateTotalReturn(results, money) {
+  calculateTotalReturn(money, results) {
     const total =
       results[firstWinner.rank] * firstWinner.reward +
       results[secondWinner.rank] * secondWinner.reward +
@@ -119,7 +119,12 @@ class LOTTO_MACHINE {
       results[fourthWinner.rank] * fourthWinner.reward +
       results[fifthWinner.rank] * fifthWinner.reward;
 
-    return (total / money) * 100;
+    return Math.round((total / money) * 10000) / 100;
+  }
+  calculateMatchResults(tickets, money) {
+    const results = this.calculateWinningResult(tickets);
+    const totalReturn = this.calculateTotalReturn(money, results);
+    return { results: results, totalReturn, totalReturn };
   }
 }
 export default LOTTO_MACHINE;
