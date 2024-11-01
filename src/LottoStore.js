@@ -15,8 +15,8 @@ class LottoStore {
   async purchaseLottos() {
     while (true) {
       try {
-        const inputAmount =
-          await InputView.getUserInput('구입금액을 입력해 주세요.\n');
+        const inputAmount
+          = await InputView.getUserInput('구입금액을 입력해 주세요.\n');
         LottoStore.#validateAmount(inputAmount);
       } catch (error) {
         OutputView.printError(error);
@@ -37,6 +37,13 @@ class LottoStore {
       100000,
       '금액은 1000원 이상, 10만원 이하로 입력해야 합니다.',
     );
+    LottoStore.#checkThousandUnit(amount);
+  }
+
+  static #checkThousandUnit(amount) {
+    if (amount % 1000 !== 0) {
+      throw new Error('[ERROR] 금액은 1000원 단위로 입력해야 합니다.');
+    }
   }
 }
 
