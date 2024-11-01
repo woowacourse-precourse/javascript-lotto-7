@@ -38,6 +38,11 @@ export const INPUT_VIEW = {
   bonusNumberQuestion: '보너스 번호를 입력해 주세요.',
 };
 
+export const VALIDATION = {
+  mustOverage: 0,
+};
+
 export const ERROR_MESSAGE = {
   notNumber: '숫자만 입력 가능합니다.',
+  notPositiveNumber: '구입 금액은 양수만 가능합니다.',
 };
