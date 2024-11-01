@@ -35,6 +35,7 @@ class GameController {
   async finishGame(result) {
     this.outputView.printResultHeader();
     const ranking = this.winner.checkRanking(result);
+    this.outputView.printGameResult(ranking);
   }
 }
 

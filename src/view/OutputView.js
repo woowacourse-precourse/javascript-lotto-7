@@ -26,6 +26,14 @@ class OutputView {
     Console.print(MESSAGE.RESULT_HEADER);
     Console.print(MESSAGE.RESULT_HEADER_DIVIDER);
   }
+
+  printGameResult(matchCount) {
+    Console.print(`${MESSAGE.FIFTH_PRIZE_MESSAGE}${matchCount[0]}개`);
+    Console.print(`${MESSAGE.FOURTH_PRIZE_MESSAGE}${matchCount[1]}개`);
+    Console.print(`${MESSAGE.THIRD_PRIZE_MESSAGE}${matchCount[2]}개`);
+    Console.print(`${MESSAGE.SECOND_PRIZE_MESSAGE}${matchCount[3]}개`);
+    Console.print(`${MESSAGE.FIRST_PRIZE_MESSAGE}${matchCount[4]}개`);
+  }
 }
 
 export default OutputView;
