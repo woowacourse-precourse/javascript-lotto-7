@@ -6,6 +6,12 @@ class App {
     const lottoCount = Math.floor(amount / 1000);
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
     this.#generateLottoNumbers(lottoCount);
+    const winningNumbers = await this.#readWinningNumbers();
+  }
+
+  async #readWinningNumbers() {
+    const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+    return input.split(",").map((number) => Number(number.trim()));
   }
 
   #generateLottoNumbers(count) {
