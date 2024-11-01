@@ -36,7 +36,7 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test('보너스 번호가 빈 입력값인 경우 예외가 발생한다', () => {
+  test('보너스 번호가 빈 입력값인 경우 예외가 발생한다.', () => {
     expect(() => {
       new BonusNumber('');
     }).toThrow('[ERROR]');
@@ -46,13 +46,27 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test('보너스 번호가 한 개 이상인 경우 예외가 발생한다', () => {
+  test('보너스 번호가 한 개 초과인 경우 예외가 발생한다.', () => {
     expect(() => {
       new BonusNumber('1,2');
     }).toThrow('[ERROR]');
 
     expect(() => {
       new BonusNumber('1,2,3,4,5,6');
+    }).toThrow('[ERROR]');
+  });
+
+  test('보너스 번호가 1이상 45이하 정수가 아닌 경우 예외가 발생한다.', () => {
+    expect(() => {
+      new BonusNumber('-1');
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      new BonusNumber('2.5');
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      new BonusNumber('46');
     }).toThrow('[ERROR]');
   });
 });
