@@ -13,32 +13,44 @@ class Validator {
     if (!numbers || numbers.length === 0)
       throw new Error(ERRORS.WINNING_NUMBERS_EMPTY);
 
-    if (numbers.length > 0 && numbers.length !== 6)
+    if (numbers.length !== 6)
       throw new Error(ERRORS.WINNING_NUMBERS_INVALID_COUNT);
+
+    const parsedNumbers = numbers.map((number) => {
+      const parsed = Number(number);
+      if (isNaN(parsed)) {
+        throw new Error(ERRORS.WINNING_NUMBERS_NOT_NUMBER);
+      }
+      return parsed;
+    });
 
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== 6)
       throw new Error(ERRORS.WINNING_NUMBERS_DUPLICATE);
 
-    numbers.forEach((number) => {
-      if (typeof number !== 'number' || number < 1 || number > 45) {
+    parsedNumbers.forEach((number) => {
+      if (number < 1 || number > 45) {
         throw new Error(ERRORS.WINNING_NUMBERS_NOT_NUMBER);
       }
     });
   }
 
   static validateBonusNumber(bonusNumber, winningNumbers) {
-    if (bonusNumber === undefined || bonusNumber === null)
-      throw new Error(ERRORS.BONUS_NUMBER_EMPTY);
+    if (!bonusNumber) throw new Error(ERRORS.BONUS_NUMBER_EMPTY);
+
+    const parsedBonusNumber = Number(bonusNumber);
     if (
-      typeof bonusNumber !== 'number' ||
-      bonusNumber < 1 ||
-      bonusNumber > 45
+      isNaN(parsedBonusNumber) ||
+      parsedBonusNumber < 1 ||
+      parsedBonusNumber > 45
     ) {
       throw new Error(ERRORS.BONUS_NUMBER_OUT_OF_RANGE);
     }
-    if (winningNumbers.includes(bonusNumber))
+
+    const parsedWinningNumbers = winningNumbers.map((num) => Number(num));
+    if (parsedWinningNumbers.includes(parsedBonusNumber)) {
       throw new Error(ERRORS.BONUS_NUMBER_DUPLICATE);
+    }
   }
 }
 

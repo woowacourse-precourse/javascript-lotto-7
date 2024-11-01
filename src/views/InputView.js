@@ -12,8 +12,7 @@ class InputView {
     return input
       .split(',')
       .map((num) => num.trim())
-      .filter((num) => num) // 빈 문자열 제거
-      .map((num) => Number(num)); // 숫자로 변환
+      .filter((num) => num); // 빈 문자열 제거
   }
 
   static async askBonusNumber() {
