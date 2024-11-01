@@ -60,6 +60,14 @@ class InputHandler {
       .map((element) => element.trim());
     new Lotto(winningNumbersArray);
   }
+
+  static async getBonusNumber() {
+    const bonusNumberInput = (
+      await Console.readLineAsync(INPUT_MESSAGE.BONUS)
+    ).trim();
+
+    return bonusNumberInput;
+  }
 }
 
 export default InputHandler;

@@ -19,6 +19,8 @@ class App {
     const winningNumbers = await InputHandler.getWinningNumbers();
 
     InputHandler.validateWinningNumbers(winningNumbers);
+
+    const bonusNumber = await InputHandler.getBonusNumber();
   }
 }
 
