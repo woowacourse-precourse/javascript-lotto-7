@@ -5,7 +5,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 describe('MoneyManager 클래스 예외 테스트', () => {
   test.each([
     {
-      input: undefined,
+      input: '',
       description: '금액이 입력되지 않았을 때 예외 발생',
       expectedError: `[ERROR] : ${INPUT_ERROR_MESSAGES.missingMoney}`,
     },
@@ -25,3 +25,4 @@ describe('MoneyManager 클래스 예외 테스트', () => {
     }).toThrow(expectedError);
   });
 });
+
