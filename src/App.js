@@ -18,6 +18,7 @@ class App {
         45,
         6
       );
+      lottoNumbers.sort((a, b) => a - b);
       MissionUtils.Console.print(`[${lottoNumbers.join(", ")}]`);
     }
   }
