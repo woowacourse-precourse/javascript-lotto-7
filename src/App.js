@@ -1,5 +1,5 @@
 import LOTTO_INFO from './constant/lotto.js';
-import { validateInputMoney, validateLottoNumbers } from './utils/validate.js';
+import { validateBonusNumber, validateInputMoney, validateLottoNumbers } from './utils/validate.js';
 import InputView from './view/InputView.js';
 import OuputView from './view/OutputView.js';
 import Lotto from './model/Lotto.js';
@@ -11,11 +11,14 @@ class App {
 
   #winningNumber;
 
+  #bonusNumber;
+
   async run() {
     await this.setMoney();
     this.buyLotto();
     this.displayLottoList();
     await this.setWinningNumber();
+    await this.setBonusNumber();
   }
 
   async setMoney() {
@@ -45,10 +48,21 @@ class App {
       const inputWinningNumber = await InputView.readWinningNumber();
       const winningNumber = inputWinningNumber.split(',');
       validateLottoNumbers(winningNumber);
-      this.#winningNumber = winningNumber;
+      this.#winningNumber = winningNumber.map(Number);
     } catch (error) {
       OuputView.printMessage(error.message);
       await this.setWinningNumber();
+    }
+  }
+
+  async setBonusNumber() {
+    try {
+      const inputBonusNumber = await InputView.readBonusNumber();
+      validateBonusNumber(this.#winningNumber, inputBonusNumber);
+      this.#bonusNumber = Number(inputBonusNumber);
+    } catch (error) {
+      OuputView.printMessage(error.message);
+      await this.setBonusNumber();
     }
   }
 }

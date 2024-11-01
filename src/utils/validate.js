@@ -4,6 +4,10 @@ const validateFirstInput = (input) => {
   if (!input) {
     throw new Error(ERROR_MESSAGE.EMPTY);
   }
+
+  if (!/^[0-9]+$/.test(String(input))) {
+    throw new Error(ERROR_MESSAGE.NOT_A_NUMBER);
+  }
 };
 
 export const validateInputMoney = (money) => {
@@ -41,5 +45,17 @@ export const validateLottoNumbers = (numbers) => {
 
   if (numbers.some((num) => !/^[0-9]+$/.test(String(num)))) {
     throw new Error(ERROR_MESSAGE.LOTTO_NUM_TYPE);
+  }
+};
+
+export const validateBonusNumber = (winningNumber, bonusNumber) => {
+  validateFirstInput(bonusNumber);
+
+  if (bonusNumber < LOTTO_INFO.MIN_RANGE_NUM || bonusNumber > LOTTO_INFO.MAX_RANGE_NUM) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_RANGE);
+  }
+
+  if (winningNumber.includes(Number(bonusNumber))) {
+    throw new Error(ERROR_MESSAGE.BONUS_NUM_DUPLICATION);
   }
 };
