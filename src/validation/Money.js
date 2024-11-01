@@ -7,6 +7,8 @@ class Money {
       throw new Error(ERROR.PREFIX + ERROR.EMPTY);
     if (MoneyValidation.checkIsNaN(money))
       throw new Error(ERROR.PREFIX + ERROR.IS_NAN);
+    if (MoneyValidation.checkLessThanPrice(money))
+      throw new Error(ERROR.PREFIX + ERROR.PRICE);
   }
 }
 export default Money;
