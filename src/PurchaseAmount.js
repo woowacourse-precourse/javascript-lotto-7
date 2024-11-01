@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils"
+// import { MissionUtils } from "@woowacourse/mission-utils"
 
 class PurchaseAmount {
     #amount;

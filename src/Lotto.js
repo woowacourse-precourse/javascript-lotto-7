@@ -9,9 +9,6 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (!Array.isArray(numbers) || numbers === undefined) {
-      throw new Error("[ERROR] 유효한 번호 배열이 필요합니다.");
-    }
     this.#validateIsNumber(numbers);
     this.#validateLength(numbers);
     this.#validateOnlyUnique(numbers);
@@ -20,7 +17,7 @@ class Lotto {
 
   #validateIsNumber(numbers) {
     numbers.forEach((val) => {
-      if (typeof val !== 'number') {
+      if (isNaN(val)) {
         throw new Error("[ERROR] 로또 번호는 숫자로 입력해야 합니다.");
       }
     });

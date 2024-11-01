@@ -9,6 +9,8 @@ const AMOUNT_PER_MATCH = {
     '6': 2000000000,
 }
 
+const KEYS_ARR = ['3', '4', '5', '5+', '6'];
+
 class AllLotto {
     #inputLottos;
     #winningLotto;
@@ -42,6 +44,14 @@ class AllLotto {
         this.#bonusNumber = Number(bonusNumber);
     }
 
+    getWinningLotto() {
+        return this.#winningLotto;
+    }
+
+    getBonusNumber() {
+        return this.#bonusNumber;
+    }
+
     #validateBonusNumber(bonusNumber) {
         const numBonus = Number(bonusNumber);
 
@@ -63,7 +73,7 @@ class AllLotto {
     }
 
     #countMatches(userNumbers) {
-        const winningNumbers = this.#winningLotto.getNumbers();
+        const winningNumbers = this.#winningLotto;
         return winningNumbers.filter((num) => userNumbers.includes(num)).length;
     }
 
@@ -96,7 +106,7 @@ class AllLotto {
     printAllLotto() {
         const length = this.#inputLottos.length;
         MissionUtils.Console.print(`\n${length}개를 구매했습니다.`);
-        this.#inputLottos.forEach((lotto) => MissionUtils.Console.print(`[${lotto.join(', ')}]`));
+        this.#inputLottos.forEach((lotto) => MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`));
     }
 
     printWinningResult() {
@@ -110,18 +120,18 @@ class AllLotto {
     }
 
     #printHeader() {
-        MissionUtils.Console.print('당첨 통계\n');
-        MissionUtils.Console.print('---\n');
+        MissionUtils.Console.print('\n당첨 통계');
+        MissionUtils.Console.print('---');
     }
 
     #printWinningDetails() {
-        for (let key in this.#winningCountMap) {
+        for (let key of KEYS_ARR) {
             const count = this.#winningCountMap[key];
             const prize = AMOUNT_PER_MATCH[key].toLocaleString();
             if (key === '5+') {
-                MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${prize}원) - ${count}개\n`);
+                MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${prize}원) - ${count}개`);
             } else {
-                MissionUtils.Console.print(`${key}개 일치 (${prize}원) - ${count}개\n`);
+                MissionUtils.Console.print(`${key}개 일치 (${prize}원) - ${count}개`);
             }
         }
     }

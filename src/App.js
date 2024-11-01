@@ -1,9 +1,7 @@
-// import Lotto from "./Lotto";
-import { MissionUtils } from "@woowacourse/mission-utils"
+import { MissionUtils } from "@woowacourse/mission-utils";
 import PurchaseAmount from "./PurchaseAmount.js";
 import AllLotto from "./AllLotto.js";
 import Lotto from "./Lotto.js";
-
 
 class App {
   async run() {
@@ -15,18 +13,25 @@ class App {
     for (let i = 0; i < totalLotto; i++) {
       const numbers = await MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
       numbers.sort((a, b) => a - b);
-      const lotto = new Lotto(numbers).getNumbers();
+      const lotto = new Lotto(numbers);
       allLotto.addInputLotto(lotto);
-    };
+    }
 
     allLotto.printAllLotto();
 
-    const winningNumbers = new Lotto(await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n').split(','));
 
-    const bonusNumber = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n').map(Number);
+    const inputWinningNumbers = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+    const winningNumbersArray = inputWinningNumbers.split(',').map(Number);
 
-    console.log(winningNumbers, bonusNumber);
 
+    const bonusNumber = Number(await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n'));
+
+
+    allLotto.setWinningLotto(winningNumbersArray, bonusNumber);
+
+    allLotto.compareLottos();
+
+    allLotto.printWinningResult();
   }
 }
 
