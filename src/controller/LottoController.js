@@ -12,6 +12,9 @@ export default class LottoController {
 
     this.purchasedLotto = new PurchasedLottoModel(purchaseAmount);
 
+    const lottoCount = this.purchasedLotto.calculateLottoCount();
+    this.view.showPurchasedLottoCount(lottoCount);
+
     const purchasedLottos = this.purchasedLotto.getPurchasedLottos();
   }
 }
