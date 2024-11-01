@@ -1,9 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
-
+import CheckNumber from "./CheckNumber.js";
 class GetNumber {
-    constructor() {
+    constructor(checkNumber) {
         this.bonusAndWinnerNumbers = [];
+        this.checkNumber = checkNumber;
     }
+
 
     async getWinNumber() {
         const WinNumber = await Console.readLineAsync('당첨 번호를 입력해주세요.(,로 구분)');
@@ -19,6 +21,11 @@ class GetNumber {
         const BonusNumberArray = [Number(BonusNumber.trim())];
         this.validateNumberRange(BonusNumberArray [0])
         this.validateBonusNumber(BonusNumberArray);
+        this.saveNumbers();
+    }
+
+    saveNumbers() {
+        this.checkNumber.winNumber.push(...this.bonusAndWinnerNumbers);
     }
 
     validateWinNumber(WinNumberArray) {

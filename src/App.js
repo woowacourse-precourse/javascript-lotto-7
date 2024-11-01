@@ -2,18 +2,23 @@ import { Console } from "@woowacourse/mission-utils";
 import CostManager from "./CostManager.js";
 import LottoGenerator from "./LottoGenerator.js";
 import GetNumber from "./GetNumber.js";
-
+import CheckNumber from "./CheckNumber.js";
 class App {
+  constructor(){
+    this.checkNumber = new CheckNumber();
+  }
   async run() {
     const costManager = new CostManager();
-    const lottoGenerator = new LottoGenerator();
-    const getNumber = new GetNumber();
+    const lottoGenerator = new LottoGenerator(this.checkNumber);
+    const getNumber = new GetNumber(this.checkNumber);
 
     await this.handlePurchaseLottos(costManager, lottoGenerator);
 
     await this.handleGetWinNumber(getNumber);
 
     await this.handleGetBonusNumber(getNumber);
+
+    this.checkNumber.checkNumbers();
   }
 
   async handlePurchaseLottos(costManager, lottoGenerator) {

@@ -2,7 +2,7 @@ import CostManager from '../src/CostManager.js';
 import { Console,Random } from '@woowacourse/mission-utils';
 import LottoGenerator from '../src/LottoGenerator.js';
 import GetNumber from '../src/GetNumber.js';
-
+import CheckNumber from '../src/CheckNumber.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
@@ -42,7 +42,8 @@ describe("코스트 메니저 클래스 테스트", () => {
   });
 
   test('generateLottos는 lottoCount만큼의 정렬된 로또 번호를 출력한다.', () => {
-    let lottoGenerator = new LottoGenerator()
+    const checkNumber = new CheckNumber(); // CheckNumber 인스턴스 생성
+    let lottoGenerator = new LottoGenerator(checkNumber); // 인스턴스 전달
     const lottoCount = 2;
 
     Random.pickUniqueNumbersInRange
@@ -71,6 +72,8 @@ describe('Get Number 테스트', ()=>{
   });
 
   test('중복된 번호 없을 때', async () => {
+    const checkNumber = new CheckNumber();
+    let getNumber = new GetNumber(checkNumber);
     const mockValues = ['1,2,3,4,5,6', '7'];
 
     Console.readLineAsync.mockResolvedValueOnce(mockValues[0]);
@@ -100,6 +103,34 @@ describe('Get Number 테스트', ()=>{
     Console.readLineAsync.mockResolvedValue('1,2,3,4,55,6');
     await expect(getNumber.getWinNumber()).rejects.toThrow('[Error] 1~45까지만 허용 됩니다.');
   })
+
+  
+
+})
+
+
+describe('CheckNumber 테스트', ()=>{
+  let checkNumber;
+  beforeEach(() => {
+    checkNumber = new CheckNumber();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('matching numbers count', () => {
+    checkNumber.RandomLottoNumbers = [
+        [1,2,3,4,5,6],
+        [7,8,9,10,11,12],
+        [1,13,14,15,16,17]
+    ];
+    checkNumber.winNumber = [1,15,21,11,10,20,17];
+
+    const result = checkNumber.checkNumbers();
+
+    expect(result).toEqual([1,2,3]);
+});
 
   
 
