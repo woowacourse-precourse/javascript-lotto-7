@@ -13,7 +13,7 @@ import {
 } from './Views/outputViews.js';
 import { issueLottoList } from './Models/lottoListIssueUtils.js';
 import { WinningNumbersValidator } from './Controllers/Validator/winningNumbersValidator.js';
-import { validateBonusNumber } from './Controllers/Validator/bonusNumberValidator.js';
+import { BonusNumberValidator } from './Controllers/Validator/bonusNumberValidator.js';
 import { produceStatistics } from './Models/winningStatisticsUtils.js';
 import { produceRateOfReturn } from './Models/rateOfReturnUtils.js';
 import { trimWinningNumbers } from './Models/winningNumbersUtils.js';
@@ -36,7 +36,7 @@ class App {
     const trimWinningNum = trimWinningNumbers(winningNumbers);
 
     const bonusNumber = await getBonusNumberInput();
-    validateBonusNumber(bonusNumber);
+    new BonusNumberValidator(bonusNumber).validateBonusNumber();
 
     produceStatistics(trimWinningNum, bonusNumber, lottoList);
     printWinningAmount();
