@@ -2,6 +2,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import Lotto_purchase from "./Lotto_purchase.js";
 import Rank_check from "./Rank_check.js";
+import Lotto_bonus from "./Lotto_bonus.js";
 
 class App {
   async run() {
@@ -14,7 +15,10 @@ class App {
     let lottoNumberArray = inputLottoNumber.split(",");
     let numbers = new Lotto(lottoNumberArray);
     
-    new Rank_check(myLottoArray, numbers);
+    Console.print("\n보너스 번호를 입력해 주세요.");
+    let inputbonusNumber = await Console.readLineAsync("");
+    let bonusNumber = new Lotto_bonus(inputbonusNumber).bonusNumber;
+    new Rank_check(myLottoArray, numbers, bonusNumber);
   }
 }
 
