@@ -1,5 +1,6 @@
 import ERROR_MESSAGES from './constants/error.js';
-import LOTTO from './constants/lotto.js';
+import { LOTTO } from './constants/lotto.js';
+import applyToValueOrArray from './utils/applyToValueOrArray.js';
 import { handleError, hasDuplicates, isEmptyOrNull, isIntegerNumber, isNegativeNumber } from './utils/index.js';
 import isInvalidNumber from './utils/isInvalidNumber.js';
 
@@ -32,6 +33,16 @@ class Validator {
     handleError(arr.includes(number), ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
   }
 
+  static isInValidNumberRange(value) {
+    const condition = applyToValueOrArray(value, (v) => v < LOTTO.MIN_NUMBER || v > LOTTO.MAX_NUMBER);
+    handleError(condition, ERROR_MESSAGES.INVALID_NUMBER_RANGE);
+  }
+
+  static isInValidPriceRange(value) {
+    const condition = applyToValueOrArray(value, (v) => v < LOTTO.PRICE_UNIT || v > LOTTO.MAX_PRICE);
+    handleError(condition, ERROR_MESSAGES.INVALID_PRICE_RANGE);
+  }
+
   static lengthIsNotEqual(length, condition) {
     let errorMessage;
 
@@ -57,18 +68,21 @@ class Validator {
 
   static price(price) {
     Validator.defaultNumber(price);
+    Validator.isInValidPriceRange(price);
     Validator.isNotDivisible(price);
   }
 
   static winningNumbers(numbers) {
     Validator.lengthIsNotEqual(numbers.length, LOTTO.LENGTH_WINNING_NUMBER);
     Validator.defaultNumber(numbers);
+    Validator.isInValidNumberRange(numbers);
     Validator.isDuplicated(numbers);
   }
 
   static bonusNumber(winningNumbers, bonusNumber) {
-    Validator.lengthIsNotEqual(bonusNumber.length, LOTTO.LENGTH_BONUS_NUMBER);
+    Validator.lengthIsNotEqual([bonusNumber].length, LOTTO.LENGTH_BONUS_NUMBER);
     Validator.defaultNumber(bonusNumber);
+    Validator.isInValidNumberRange(bonusNumber);
     Validator.includedInArray(winningNumbers, bonusNumber);
   }
 }
