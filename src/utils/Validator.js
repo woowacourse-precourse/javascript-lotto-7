@@ -5,7 +5,15 @@ class Validator {
   }
 
   static checkRegexPattern(userInput, regex, errorMessage) {
-    if (!regex.test(userInput)) throw new Error(`[ERROR] ${errorMessage}`);
+    if (!regex.test(userInput)) {
+      throw new Error(`[ERROR] ${errorMessage}`);
+    }
+  }
+
+  static checkValidRange(userInput, start, end, errorMessage) {
+    if (userInput < start || userInput > end) {
+      throw new Error(`[ERROR] ${errorMessage}`);
+    }
   }
 }
 
