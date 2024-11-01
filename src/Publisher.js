@@ -1,6 +1,7 @@
 import Lotto from './Lotto.js';
 import Lottos from './Lottos.js';
 import { Validator } from './Validator.js';
+import { SEPERATOR } from './constants/index.js';
 import {
   calculateQuatity,
   generateRandomNumbers,
@@ -20,7 +21,7 @@ export class Publisher {
   setWinningNumbers = (winningNumbersString) => {
     this.validator.validateWinningNumberString(winningNumbersString);
 
-    this.winningNumbers = splitBySeperator(',', winningNumbersString);
+    this.winningNumbers = splitBySeperator(SEPERATOR, winningNumbersString);
     this.validator.validateWinningNumbers(this.winningNumbers);
   };
 

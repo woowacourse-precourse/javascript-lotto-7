@@ -1,5 +1,16 @@
-import { UNIT_LOTTO_PRICE } from "../constants/index.js";
+import { Random } from '@woowacourse/mission-utils';
+import { LOTTO } from '../constants/index.js';
 
 const calculateQuatity = (purchaseAmount) =>
-  parseInt(purchaseAmount, 10) / UNIT_LOTTO_PRICE;
-export { calculateQuatity };
+  parseInt(purchaseAmount, 10) / LOTTO.UNIT_PRICE;
+
+const generateRandomNumbers = () =>
+  Random.pickUniqueNumbersInRange(
+    LOTTO.MINIMUM_NUMBER,
+    LOTTO.MAXIMUM_NUMBER,
+    LOTTO.NUMBER_OF_SPACE,
+  );
+
+const splitBySeperator = (seperator, string) => string.split(seperator);
+
+export { calculateQuatity, generateRandomNumbers, splitBySeperator };
