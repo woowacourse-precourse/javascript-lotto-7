@@ -1,5 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
-import Input from "./inputInfo.js";
+import Exception from "./exceptionHandling.js";
 
 class Lotto {
   #numbers;
@@ -9,19 +8,12 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(numbers, retry = true) {
-    if (numbers.length !== 6) {
-      Console.print("[ERROR] 로또 번호는 6개여야 합니다.");
-
-      if (retry) {
-        let replayInputWinNumbers = new Input();
-        replayInputWinNumbers.WinLottoNumbers();
-      } else {
-        throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-      }
-    }
-
-    // TODO: 추가 기능 구현
+  #validate(numbers) {
+    let exception = new Exception();
+    exception.validateWinNumbers(numbers);
   }
+
+  // TODO: 추가 기능 구현
 }
+
 export default Lotto;

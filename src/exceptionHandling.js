@@ -21,5 +21,15 @@ class Exception {
       replayInputPrice.purchaseNumber(price);
     }
   }
+
+  validateWinNumbers(numbers, retry = true) {
+    let replayInputWinNumbers = new Input();
+    if (numbers.length !== 6) {
+      Console.print("[ERROR] 로또 번호는 6개여야 합니다.");
+      if (retry) {
+        replayInputWinNumbers.WinLottoNumbers();
+      }
+    }
+  }
 }
 export default Exception;

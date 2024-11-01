@@ -1,10 +1,34 @@
-import Lotto from "../src/Lotto";
+import Lotto from "../src/Lotto.js";
+import { MissionUtils } from "@woowacourse/mission-utils";
+
+const mockQuestions = (inputs) => {
+  MissionUtils.Console.readLineAsync = jest.fn();
+
+  MissionUtils.Console.readLineAsync.mockImplementation(() => {
+    const input = inputs.shift();
+    return Promise.resolve(input);
+  });
+};
+
+const getLogSpy = () => {
+  const logSpy = jest.spyOn(MissionUtils.Console, "print");
+  logSpy.mockClear();
+  return logSpy;
+};
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow("[ERROR]");
+    const logSpy = getLogSpy();
+
+    new Lotto([1, 2, 3, 4, 5, 6, 7]);
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  });
+
+  test("로또 번호의 개수가 6개 미만이면 예외가 발생한다.", () => {
+    const logSpy = getLogSpy();
+
+    new Lotto([1, 2, 3, 4]);
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
   });
 
   // TODO: 테스트가 통과하도록 프로덕션 코드 구현
