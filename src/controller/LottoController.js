@@ -17,6 +17,8 @@ class LottoController {
 
   #lottos;
 
+  #purchaseAmount;
+
   #winningNumbers;
 
   #bonusNumber;
@@ -29,37 +31,52 @@ class LottoController {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
     this.#lottos = [];
+    this.#purchaseAmount = 0;
     this.#validatePurchaseAmount = new ValidatePurchaseAmount();
     this.#validateBonusNumber = new ValidateBonusNumber();
   }
 
   async play() {
     try {
-      const amount = await this.#inputView.readLottoAmount();
-      this.#validatePurchaseAmount.validatePurchaseAmount(amount);
-
-      this.#lottos = this.#generateLottos(amount);
-      this.#outputView.printLottos(amount, this.#lottos);
-
-      const winningNumbersInput = await this.#inputView.readWinningNumbers();
-      this.#winningNumbers = this.#parseWinningNumbers(winningNumbersInput);
-      new Lotto(this.#winningNumbers);
-
-      const bonusNumberInput = await this.#inputView.readBonusNumber();
-      this.#bonusNumber = this.#validateBonusNumber.validateBonusNumber(
-        bonusNumberInput,
-        this.#winningNumbers,
-      );
-      const matchResults = this.#getMatchResults();
-      const statistics = calculateLottoStatistics(matchResults);
-      this.#outputView.printMatchResults(statistics);
-
-      const totalPrize = calculateTotalPrize(statistics);
-      const profitRate = calculateProfitRate(totalPrize, amount);
-      this.#outputView.printProfitRate(profitRate);
+      await this.#handlePurchase();
+      await this.#handleWinningNumbers();
+      await this.#handleBonusNumber();
+      await this.#showResults();
     } catch (error) {
       Console.print(error.message);
     }
+  }
+
+  async #handlePurchase() {
+    const amount = await this.#inputView.readLottoAmount();
+    this.#validatePurchaseAmount.validatePurchaseAmount(amount);
+    this.#purchaseAmount = amount;
+    this.#lottos = this.#generateLottos(amount);
+    this.#outputView.printLottos(amount, this.#lottos);
+  }
+
+  async #handleWinningNumbers() {
+    const winningNumbersInput = await this.#inputView.readWinningNumbers();
+    this.#winningNumbers = this.#parseWinningNumbers(winningNumbersInput);
+    new Lotto(this.#winningNumbers);
+  }
+
+  async #handleBonusNumber() {
+    const bonusNumberInput = await this.#inputView.readBonusNumber();
+    this.#bonusNumber = this.#validateBonusNumber.validateBonusNumber(
+      bonusNumberInput,
+      this.#winningNumbers,
+    );
+  }
+
+  async #showResults() {
+    const matchResults = this.#getMatchResults();
+    const statistics = calculateLottoStatistics(matchResults);
+    this.#outputView.printMatchResults(statistics);
+
+    const totalPrize = calculateTotalPrize(statistics);
+    const profitRate = calculateProfitRate(totalPrize, this.#purchaseAmount);
+    this.#outputView.printProfitRate(profitRate);
   }
 
   #parseWinningNumbers(input) {
