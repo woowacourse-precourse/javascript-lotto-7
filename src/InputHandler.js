@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PROGRESS_MESSAGE } from '../Constants/Message.js';
+import { PROGRESS_MESSAGE } from './constants/Message.js';
 
 class InputHandler {
   static async inputPurchaseAmount() {
@@ -9,7 +9,7 @@ class InputHandler {
   }
   static async inputWinningNumbers() {
     return await Console.readLineAsync(
-      `${PROGRESS_MESSAGE.ENTER_WINNER_NUMBERS}\n`
+      `${PROGRESS_MESSAGE.ENTER_WINNING_NUMBERS}\n`
     );
   }
   static async inputBonusNumbers() {
