@@ -52,7 +52,7 @@ describe('당첨 번호 입력 예외 테스트', () => {
     );
   });
 
-  test('당첨 번호가 1부터 45 사이의 숫자가 있다면 예외가 발생한다.', () => {
+  test('당첨 번호가 1부터 45 사이의 숫자가 아니라면 예외가 발생한다.', () => {
     const numbers = '1,2,3,4,5,80';
 
     expect(() => validateWinningNumber(numbers)).toThrow(
