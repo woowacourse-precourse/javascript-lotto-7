@@ -12,7 +12,7 @@ export const matchedBonusNumber = (lottoNumbers, bonusNumber) =>
 export const getPrize = (prize, count) => prize * count;
 
 export const getRate = (prizePrice, purchasePrice) => {
-  if (purchasePrice === 0) {
+  if (prizePrice === 0 || purchasePrice === 0) {
     return 0;
   }
   return (prizePrice / purchasePrice) * 100;
@@ -26,4 +26,5 @@ export const generateLottoNumbers = (count) => {
   for (let i = 0; i < count; i++) {
     lottoNumberDoubleArray.push(Random.pickUniqueNumbersInRange(1, 45, 6));
   }
+  return lottoNumberDoubleArray;
 };
