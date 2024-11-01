@@ -15,7 +15,7 @@ class LottoController {
   async #getLottoPurchaseAmount() {
     const purchaseAmount = await this.#inputView.inputPurchaseAmount();
     const trimPurchaseAmount = InputUtils.trimInput(purchaseAmount);
-    console.log(trimPurchaseAmount);
+    InputUtils.validatePurchaseAmount(trimPurchaseAmount);
     return trimPurchaseAmount;
   }
 }
