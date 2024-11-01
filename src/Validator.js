@@ -5,6 +5,7 @@ import throwError from './utils/error.js';
 class Validator {
   static validatePurchaseAmount(input) {
     const purchaseAmount = this.#convertToNumber(input);
+    this.#validateIsNumber(purchaseAmount);
     this.#validateAmountRange(purchaseAmount);
   }
 
@@ -30,11 +31,11 @@ class Validator {
   }
 
   static #convertToNumber(input) {
-    const number = Number(input);
+    return Number(input);
+  }
 
-    if (Number.isNaN(number)) throwError(ERROR_MESSAGES.purchase_amount_not_number);
-
-    return number;
+  static #validateIsNumber(input) {
+    if (Number.isNaN(input)) throwError(ERROR_MESSAGES.purchase_amount_not_number);
   }
 
   static #validateAmountRange(amount) {
