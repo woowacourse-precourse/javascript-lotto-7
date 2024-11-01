@@ -20,6 +20,9 @@ export const ERROR_MESSAGE = {
         `${DEFAULT_ERROR_MESSAGE} 번호는 1 이상 45 이하 사이의 숫자여야 합니다.`
     ),
     NOT_SIX_ELEMENTS: Object.freeze(
-        `${DEFAULT_ERROR_MESSAGE} 로또 번호는 6개를 입력해야 합니다.`
+        `${DEFAULT_ERROR_MESSAGE} 당첨 번호는 6개를 입력해야 합니다.`
     ),
+    DUPLICATION: Object.freeze(
+        `${DEFAULT_ERROR_MESSAGE} 번호가 중복되지 않아야 합니다.`
+    )
 }
