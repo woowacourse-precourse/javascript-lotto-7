@@ -21,6 +21,15 @@ class App {
       lottoNumbers.sort((a, b) => a - b);
       MissionUtils.Console.print(`[${lottoNumbers.join(", ")}]`);
     }
+
+    const winningNumbersInput = await MissionUtils.Console.readLineAsync(
+      "당첨 번호를 입력해 주세요.\n"
+    );
+
+    const winningNumbers = winningNumbersInput
+      .split(",")
+      .map((num) => num.trim());
+    console.log(winningNumbers);
   }
 }
 
