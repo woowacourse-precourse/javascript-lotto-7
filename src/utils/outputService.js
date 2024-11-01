@@ -8,7 +8,7 @@ export function outputPayment(amount) {
 
 export function printLottos(lottos) {
   lottos.forEach((lotto) => {
-    Console.print(`[${lotto.numbers}]`);
+    Console.print(`[${lotto.numbers.join(', ')}]`);
   });
 
   Console.print('');
