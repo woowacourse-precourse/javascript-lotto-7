@@ -1,5 +1,5 @@
 import LotteryFactory from '../Factory/LotteryFactory.js';
-import validateLotteryNotes from '../Validation/Domain/validateLotteryNotes.js';
+import Notes from '../Notes.js';
 
 export default class LotteryService {
   constructor(lotteryClass, settings) {
@@ -20,7 +20,7 @@ export default class LotteryService {
     return { matchingNumberCount, hasBonusNumber };
   }
 
-  calculateNumberOfTickets(purchaseAmount) {
-    return validateLotteryNotes(purchaseAmount);
+  calculateNumberOfNotes(purchaseAmount) {
+    return new Notes(purchaseAmount).getNotes();
   }
 }

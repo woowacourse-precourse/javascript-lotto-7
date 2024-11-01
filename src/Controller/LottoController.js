@@ -36,7 +36,7 @@ export default class LottoController {
 
   purchaseLotteries(purchaseAmount) {
     const numberOfTickets =
-      this.lotteryService.calculateNumberOfTickets(purchaseAmount);
+      this.lotteryService.calculateNumberOfNotes(purchaseAmount);
     const purchasedLotteries =
       this.lotteryService.generateLotteries(numberOfTickets);
     this.ioService.printMessage(`${numberOfTickets}개를 구매했습니다.`);
