@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import OutputView from './view/OutputView.js';
 
 class LottoBundle {
   #lottoBundle;
@@ -14,6 +15,7 @@ class LottoBundle {
       const sortedNums = LottoBundle.#sortNumbers(numbers);
       this.#addLotto(sortedNums);
     }
+    OutputView.printLottoBundle(this.#lottoBundle);
   }
 
   static #generateRandomNums() {
