@@ -12,6 +12,17 @@ class App {
     this.#generateLottoNumbers(lottoCount);
     this.#winningNumbers = await this.#readWinningNumbers();
     this.#bonusNumber = await this.#readBonusNumber();
+    this.#matchLottoNumbers();
+  }
+
+  #matchLottoNumbers() {
+    return this.#lottos.map(lotto => {
+      const matchCount = lotto.filter(number => 
+        this.#winningNumbers.includes(number)
+      ).length;
+      const hasBonus = matchCount === 5 && lotto.includes(this.#bonusNumber);
+      return { matchCount, hasBonus };
+    });
   }
 
   async #readAmount() {
@@ -30,13 +41,11 @@ class App {
 
   async #readWinningNumbers() {
     const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-    return input.split(",").map((number) => Number(number.trim()));
+    return input.split(",").map(number => Number(number.trim()));
   }
 
   async #readBonusNumber() {
-    const input = await Console.readLineAsync(
-      "\n보너스 번호를 입력해 주세요.\n",
-    );
+    const input = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
     return Number(input);
   }
 }
