@@ -3,32 +3,32 @@ import { parseNumbers } from '../utils/Parser.js';
 
 class BonusNumber {
   constructor(bonusNumber) {
-    this.#checkEmptyInput(bonusNumber);
-    this.#checkNumberExceedsLimit(bonusNumber);
-    this.#checkNumberRange(bonusNumber);
+    this.#checkBonusNumberEmptyInput(bonusNumber);
+    this.#checkBonusNumberCount(bonusNumber);
+    this.#checkBonusNumberRange(bonusNumber);
     this.bonusNumber = bonusNumber;
   }
 
-  #checkEmptyInput(bonusNumberInput) {
+  #checkBonusNumberEmptyInput(bonusNumberInput) {
     if (!bonusNumberInput || bonusNumberInput.trim() === '') {
-      throw new Error(ERROR_MESSAGE.CHECK_EMPTY_INPUT);
+      throw new Error(ERROR_MESSAGE.INVALID_EMPTY_BONUS_NUMBER);
     }
   }
 
-  #checkNumberExceedsLimit(bonusNumberInput) {
+  #checkBonusNumberCount(bonusNumberInput) {
     const bonusNumber = parseNumbers(bonusNumberInput);
     if (bonusNumber.length > 1) {
-      throw new Error(ERROR_MESSAGE.BONUS_NUMBER_EXCEEDS_LIMIT);
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_COUNT);
     }
   }
 
-  #checkNumberRange(bonusNumberInput) {
+  #checkBonusNumberRange(bonusNumberInput) {
     if (
       !Number.isInteger(bonusNumberInput) ||
       bonusNumberInput < 1 ||
       bonusNumberInput > 45
     ) {
-      throw new Error(ERROR_MESSAGE.NUMBER_RANGE);
+      throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_RANGE);
     }
   }
 
