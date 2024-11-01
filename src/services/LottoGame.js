@@ -33,7 +33,7 @@ class LottoGame {
   }
 
   presentResult() {
-    this.#makeStatistics();
+    const earningsRate = this.#makeStatistics();
     ConsoleIO.print(MESSAGES.winningStatistics);
   }
 
@@ -47,10 +47,10 @@ class LottoGame {
   }
 
   #makeStatistics() {
-    // 필요 정보: 각 로또의 맞춘 갯수(로또 필드), 맞춘 갯수에 따른 상금 정보, 총 수익률(상금 합산 액)
     this.#checkTickets();
     this.#tickets[0].setRanking(Prize.rank(this.#tickets[0].getMatchData()));
     this.prize.sumPrizeMoney(this.#tickets[0]);
+    return this.#calculateEarningsRate();
   }
 
   #checkTickets() {
@@ -60,6 +60,13 @@ class LottoGame {
     };
 
     this.#tickets.forEach((lotto) => lotto.matchNumbers(winningNumbers));
+  }
+
+  #calculateEarningsRate() {
+    const totalPrizeMoney = this.prize.getPrizeMoney();
+    const investmentMoney = this.storage.getMoney();
+
+    return (totalPrizeMoney / investmentMoney).toFixed(2);
   }
 }
 

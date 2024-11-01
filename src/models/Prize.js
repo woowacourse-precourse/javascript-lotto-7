@@ -47,6 +47,10 @@ class Prize {
     }
   }
 
+  getPrizeMoney() {
+    return this.#prizeMoney;
+  }
+
   static #validateMatchCount(matchCount) {
     if (matchCount > MATCH_COUNT.max) {
       throwError(PRIZE_ERROR_MESSAGES.exceedMaxMatchCount);
