@@ -16,6 +16,13 @@ class App {
     // // 3. 발행한 로또 출력
     Output.displayLottoCount(tickets.length);
     Output.displayTickets(tickets.map((ticket) => ticket.getNumbers()));
+
+    // // 4. 당첨 번호 및 보너스 번호 입력
+    const winningNumbers = await Input.getWinningNumbers();
+    const bonusNumber = await Input.getBonusNumber();
+
+    // // 5. 당첨 번호 설정
+    lottoController.setWinningNumbers(winningNumbers, bonusNumber);
   }
 }
 

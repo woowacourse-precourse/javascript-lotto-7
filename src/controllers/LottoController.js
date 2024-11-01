@@ -3,9 +3,14 @@ import Lotto from '../models/Lotto.js';
 
 class LottoController {
   #tickets;
+  #winningNumbers;
+  #bonusNumber;
 
   constructor() {
+    // this.#resultChecker = new ResultChecker();
     this.#tickets = [];
+    this.#winningNumbers = [];
+    this.#bonusNumber = null;
   }
 
   /**
@@ -20,6 +25,25 @@ class LottoController {
       return new Lotto(numbers);
     });
     return this.#tickets;
+  }
+
+  /**
+   * 당첨 번호와 보너스 번호를 설정합니다.
+   * @param {string} winningNumbers - 쉼표로 구분된 당첨 번호 문자열
+   * @param {number} bonusNumber - 보너스 번호
+   */
+  setWinningNumbers(winningNumbers, bonusNumber) {
+    this.#winningNumbers = this.parseWinningNumbers(winningNumbers);
+    this.#bonusNumber = Number(bonusNumber);
+  }
+
+  /**
+   * 쉼표로 구분된 문자열을 배열로 변환하여 당첨 번호로 사용합니다.
+   * @param {string} numbersString - 쉼표로 구분된 숫자 문자열
+   * @returns {Array} - 숫자 배열
+   */
+  parseWinningNumbers(numbersString) {
+    return numbersString.split(',').map(Number);
   }
 
   /**

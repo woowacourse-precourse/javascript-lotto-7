@@ -11,13 +11,13 @@ class Input {
 
   static async getWinningNumbers() {
     const input = await Console.readLineAsync(
-      `${PROMPT_MSG.WINNING_NUMBERS}\n`,
+      `\n${PROMPT_MSG.WINNING_NUMBERS}\n`,
     );
     return input;
   }
 
   static async getBonusNumber() {
-    const input = await Console.readLineAsync(`${PROMPT_MSG.BONUS_NUMBER}\n`);
+    const input = await Console.readLineAsync(`\n${PROMPT_MSG.BONUS_NUMBER}\n`);
     return input;
   }
 }
