@@ -16,7 +16,7 @@ class Lotto {
 
   #validateRange(numbers) {
     const isInvalid = numbers.some(
-      number => !Number.isInteger(number) || number < 1 || number > 45
+      (number) => !Number.isInteger(number) || number < 1 || number > 45,
     );
     if (isInvalid) {
       throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
@@ -32,6 +32,16 @@ class Lotto {
   getNumbers() {
     return [...this.#numbers].sort((a, b) => a - b);
   }
+
+  match(winningNumbers) {
+    return this.#numbers.filter((number) => winningNumbers.includes(number))
+      .length;
+  }
+
+  contains(number) {
+    return this.#numbers.includes(number);
+  }
+  
 }
 
 export default Lotto;
