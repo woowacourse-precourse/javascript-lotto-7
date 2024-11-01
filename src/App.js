@@ -37,9 +37,16 @@ class App {
     Console.print(`${amount}개를 구매했습니다.\n${this.numbers.map((number) => `[${number.join(', ')}]`).join('\n')}`);
   }
 
+  async getWinningNumbers() {
+    const numbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const lottoNumbers = numbers.split(',').map((number) => Number(number));
+    const lotto = new Lotto(lottoNumbers);
+  }
+
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
     const amount = this.createLottoNumbers(purchaseAmount);
+    const winningNumbers = await this.getWinningNumbers();
   }
 }
 
