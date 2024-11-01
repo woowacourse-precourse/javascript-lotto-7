@@ -9,7 +9,7 @@ class LottoService {
   }
 
   getLottos() {
-    return this.#lottos;
+    return [...this.#lottos];
   }
 
   generateLottos(count) {
