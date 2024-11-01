@@ -15,4 +15,25 @@ describe("로또 클래스 테스트", () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("로또 번호가 1부터 45사이의 숫자가 아니면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 46]);
+    }).toThrow("[ERROR]")
+  })
+});
+
+describe("보너스 번호 검증 테스트", () => {
+  test("보너스 번호가 1부터 45 사이의 숫자가 아니면 예외가 발생한다.", () => {
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    expect(() => {
+      Lotto.validateBonusNumber(46, lotto.getNumbers());
+    }).toThrow("[ERROR]");
+  });
+
+  test("보너스 번호가 로또 번호와 중복되면 예외가 발생한다.", () => {
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    expect(() => {
+      Lotto.validateBonusNumber(1, lotto.getNumbers());
+    }).toThrow("[ERROR]");
+  });
 });
