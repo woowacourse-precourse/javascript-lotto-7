@@ -1,5 +1,6 @@
 export const INFO_MESSAGE = Object.freeze({
   PURCHASE_AMOUNT: "구입금액을 입력해 주세요.\n",
+  PURCHASE_CONFORM: (count) => `\n${count}개를 구매했습니다.`,
 });
 
 export const ERROR_MESSAGE = Object.freeze({
