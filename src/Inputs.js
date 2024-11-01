@@ -10,7 +10,7 @@ class Input {
       if (!isInvalid){
         return input;
       }
-      
+
     }
   }
   #getIsInValid(money) {
@@ -27,6 +27,17 @@ class Input {
       return true;
     }
     return false;
+  }
+
+  async InputLotto(){
+    const input = await Console.readLineAsync("구매할 금액을 입력해주세요.\n")
+    // todo : indent 줄이기
+    return input.trim().split(",").map((e) => {
+        e.replace(" ","");
+        if (e === "") throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
+        if (isNaN(e)) throw new Error("[ERROR] 숫자를 입력될 수 없습니다.");
+        return Number(e);
+    });
   }
 }
 

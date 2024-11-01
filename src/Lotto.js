@@ -2,12 +2,10 @@ import { Console } from "@woowacourse/mission-utils";
 
 class Lotto {
   #numbers;
-  #bonus;
 
   constructor(input) {
-    input = this.#str2Arr(input);
     this.#validate(input);
-    this.#numbers = input.map(Number);
+    this.#numbers = input;
   }
 
   #validate(numbers) {
@@ -18,7 +16,7 @@ class Lotto {
   }
   #validateNumber(number) {
     if (number === "") {
-      Console.print("[ERROR] 공백은 입력될 수 없습니다.")
+      Console.print("[ERROR] 공백은 입력될 수 없습니다.");
       throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
     }
     if (isNaN(number)) {
@@ -42,10 +40,6 @@ class Lotto {
       throw new Error("[ERROR] 중복되는 번호는 입력될 수 없습니다.");
     }
   }
-  // ,을 구분자로 배열을 리턴하는 함수
-  #str2Arr(numbers) {
-    return numbers.split(",");
-  }
   // TODO: 추가 기능 구현
   async inputBonusNumber() {
     const bonusNumber = String(
@@ -55,7 +49,7 @@ class Lotto {
     if (this.#numbers.includes(Number(bonusNumber))) {
       throw new Error("[ERROR] 중복되는 번호는 입력될 수 없습니다.");
     }
-    this.#bonus = bonusNumber;
+    this.#numbers = { basicNumbers: this.#numbers, bonusNumber: Number(bonusNumber) };
   }
 
   getLottoNumbers() {
@@ -68,9 +62,9 @@ class Lotto {
     const results = [];
     for (const betList of betLists) {
       const matchNumber = betList.filter((number) =>
-        this.#numbers.includes(number)
+        this.#numbers.basicNumbers.includes(number)
       );
-      const isBonus = betList.includes(this.#bonus);
+      const isBonus = betList.includes(this.#numbers.bonusNumber);
       results.push({
         score: matchNumber.length,
         isBonus: isBonus,
