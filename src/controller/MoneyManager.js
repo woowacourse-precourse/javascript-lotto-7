@@ -13,11 +13,12 @@ class MoneyManager {
     this.checkMissingAmount(money);
     this.checkNumericInput(money);
     this.checkPurchaseUnit(money);
+    return parseInt(money, 10);
   }
 
   //빈 문자 검증
   checkMissingAmount(money) {
-    if (money == null) {
+    if (money.length == 0) {
       throw new Error(`[ERROR] : ${INPUT_ERROR_MESSAGES.missingMoney}`);
     }
   }
@@ -30,10 +31,11 @@ class MoneyManager {
   }
 
   checkPurchaseUnit(money) {
-    if (money % MoneyManager.#LOTTO_PRICE != 0) {
+    if (parseInt(money, 10) % MoneyManager.#LOTTO_PRICE != 0) {
       throw new Error(`[ERROR] : ${INPUT_ERROR_MESSAGES.notUnts1000Won}`);
     }
   }
+
 }
 
 export default MoneyManager;
