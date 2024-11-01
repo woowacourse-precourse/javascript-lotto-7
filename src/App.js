@@ -10,7 +10,16 @@ class App {
     }
 
     const lottoQuantity = lottoPurchaseAmount / 1000;
-    MissionUtils.Console.print(`${lottoQuantity}개를 구매했습니다.`);
+    MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
+
+    for (let i = 0; i < lottoQuantity; i++) {
+      const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
+        1,
+        45,
+        6
+      );
+      MissionUtils.Console.print(`[${lottoNumbers.join(", ")}]`);
+    }
   }
 }
 
