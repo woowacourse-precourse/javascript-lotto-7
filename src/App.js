@@ -1,5 +1,20 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
+
+const rankBoard = {
+  1: { correctNumber: 6, correctBonus: false },
+  2: { correctNumber: 5, correctBonus: true },
+  3: { correctNumber: 5, correctBonus: false },
+  4: { correctNumber: 4, correctBonus: false },
+  5: { correctNumber: 3, correctBonus: false },
+};
+
+const rankPrice = {
+  1: 2000000000,
+  2: 30000000,
+  3: 1500000,
+  4: 50000,
+  5: 5000,
+};
 
 class App {
   #cash;
@@ -65,6 +80,23 @@ class App {
         this.#lottoResults[5] += 1;
       }
     });
+
+    // 당첨 출력
+    Console.print('\n당첨 통계\n---');
+    Object.keys(rankPrice)
+      .reverse()
+      .forEach((rank) => {
+        const { correctNumber, correctBonus } = rankBoard[rank];
+        const price = rankPrice[rank].toLocaleString();
+
+        if (correctBonus) {
+          Console.print(
+            `${correctNumber}개 일치, 보너스 볼 일치 (${price}원) - ${this.#lottoResults[rank]}개`,
+          );
+        } else {
+          Console.print(`${correctNumber}개 일치 (${price}원) - ${this.#lottoResults[rank]}개`);
+        }
+      });
   }
 }
 
