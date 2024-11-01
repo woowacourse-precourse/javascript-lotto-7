@@ -31,6 +31,7 @@ class WinningLottoMachine {
     splitNums.forEach((num) => {
       Validator.checkValidRange(num, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
     });
+    WinningLottoMachine.#checkDuplicateNum(splitNums);
   }
 
   static #splitByComma(inputString) {
@@ -39,6 +40,13 @@ class WinningLottoMachine {
 
   static #checkValidLength(splitNums) {
     if (splitNums.length !== 6) throw new Error('[ERROR] 당첨 번호는 6개의 숫자를 입력해야 합니다.\n');
+  }
+
+  static #checkDuplicateNum(splitNums) {
+    const uniqueNums = new Set(splitNums);
+    if (uniqueNums.size !== splitNums.length) {
+      throw new Error('[ERROR] 당첨 번호는 중복된 숫자를 포함할 수 없습니다.\n');
+    }
   }
 }
 
