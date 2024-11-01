@@ -2,7 +2,13 @@ import { Console } from '@woowacourse/mission-utils';
 import { INPUT_TEXTS, ERROR_TEXTS } from './Constants.js';
 
 class InputManagement {
+  #availablePublicationCount = 0;
+
   constructor() {}
+
+  getPublicationCount() {
+    return this.#availablePublicationCount;
+  }
 
   #validationPA(purchaseAmount) {
     if(Number.isNaN(Number(purchaseAmount))) {
@@ -21,6 +27,8 @@ class InputManagement {
   async getPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync(INPUT_TEXTS.PURCHASE_AMOUNT);
     this.#validationPA(purchaseAmount);
+    
+    this.#availablePublicationCount = purchaseAmount/1000;
   }
 
   getWinningNumbers() {
