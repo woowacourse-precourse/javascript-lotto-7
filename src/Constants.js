@@ -1,6 +1,6 @@
 export const GLOBAL_CONSTANTS = {
   bonusWinningStandard: 5,
-  winningBonusTag: 'bonus',
+  bonusTag: 'bonus',
 };
 
 export const LOTTO_MACHINE = {
@@ -11,7 +11,7 @@ export const LOTTO_MACHINE = {
 };
 
 export const ANALYZER = {
-  winningBonusTag: GLOBAL_CONSTANTS.winningBonusTag,
+  bonusTag: GLOBAL_CONSTANTS.bonusTag,
   bonusWinningStandard: GLOBAL_CONSTANTS.bonusWinningStandard,
   defaultCount: 0,
   unitCount: 1,

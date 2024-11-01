@@ -23,7 +23,7 @@ class Analyzer {
     const numbersOfMatched = lotto.countMatchingNumbers(winningNumbers);
 
     if (this.#isBonusWinning(numbersOfMatched, lotto)) {
-      return ANALYZER.winningBonusTag;
+      return ANALYZER.bonusTag;
     }
 
     return numbersOfMatched;
