@@ -7,3 +7,4 @@ export const CONSTANT_LOTTO = Object.freeze({
 export const EMPTY_STRING = Object.freeze("");
 
 export const ZERO = Object.freeze(0);
+export const ONE_HUNDRED = Object.freeze(100);

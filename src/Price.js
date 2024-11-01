@@ -1,3 +1,5 @@
+import { print, printEmptyLine } from "./util/io.js";
+import EXECUTE_MESSAGE from "./util/messages/execute-message.js";
 import Validate from "./Validate.js";
 
 class Price {
@@ -18,6 +20,11 @@ class Price {
 
   get lottoCount() {
     return this.#price / 1000;
+  }
+
+  printCount() {
+    printEmptyLine();
+    print(EXECUTE_MESSAGE.LOTTO.RECEIPT(this.lottoCount));
   }
 }
 

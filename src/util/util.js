@@ -1,5 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
-import { CONSTANT_LOTTO, ZERO } from "./const.js";
+import { CONSTANT_LOTTO, ONE_HUNDRED, ZERO } from "./const.js";
+import { print, printEmptyLine } from "./io.js";
 
 export const isOutOfRange = (number) =>
   number < CONSTANT_LOTTO.MIN_NUMBER || number > CONSTANT_LOTTO.MAX_NUMBER;
@@ -12,30 +13,34 @@ export const matchedBonusNumber = (lottoNumbers, bonusNumber) =>
 export const getPrize = (prize, count) => prize * count;
 
 export const getRate = (prizePrice, purchasePrice) => {
-  if (prizePrice === 0 || purchasePrice === 0) {
-    return 0;
+  if (prizePrice === ZERO || purchasePrice === ZERO) {
+    return ZERO;
   }
-  return (prizePrice / purchasePrice) * 100;
+  return (prizePrice / purchasePrice) * ONE_HUNDRED;
 };
 
 export const getReduceValue = (prizeList) =>
-  prizeList.reduce((prev, cur) => prev + cur, 0);
+  prizeList.reduce((prev, cur) => prev + cur, ZERO);
 
 export const generateLottoNumbers = (count) => {
   const lottoNumberDoubleArray = [];
   for (let i = ZERO; i < count; i++) {
     const lottoNumbers = getLottoNumbers();
+    lottoNumbers.sort((a, b) => a - b);
     lottoNumberDoubleArray.push(lottoNumbers);
   }
   return lottoNumberDoubleArray;
 };
 
 export const getLottoNumbers = () => {
-  const lottoNumbers = Random.pickUniqueNumbersInRange(
+  return Random.pickUniqueNumbersInRange(
     CONSTANT_LOTTO.MIN_NUMBER,
     CONSTANT_LOTTO.MAX_NUMBER,
     CONSTANT_LOTTO.LENGTH
   );
-  lottoNumbers.sort((a, b) => a - b);
-  return lottoNumbers;
+};
+
+export const loopPrintLottoNumbers = (lottoNumbers) => {
+  lottoNumbers.forEach(print);
+  printEmptyLine();
 };
