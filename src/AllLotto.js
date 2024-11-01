@@ -38,9 +38,9 @@ class AllLotto {
         this.#inputLottos.push(lotto);
     }
 
-    setWinningLotto(winningNumbers, bonusNumber) {
+    async setWinningLotto(winningNumbers, bonusNumber) {
         this.#winningLotto = winningNumbers;
-        this.#validateBonusNumber(bonusNumber);
+        await this.#validateBonusNumber(bonusNumber);
         this.#bonusNumber = Number(bonusNumber);
     }
 
@@ -52,14 +52,16 @@ class AllLotto {
         return this.#bonusNumber;
     }
 
-    #validateBonusNumber(bonusNumber) {
+    async #validateBonusNumber(bonusNumber) {
         const numBonus = Number(bonusNumber);
 
         if (isNaN(numBonus)) {
-            throw new Error("[ERROR] 보너스 번호는 숫자로 입력해야 합니다.");
+            await MissionUtils.Console.print("[ERROR] 보너스 번호는 숫자로 입력해야 합니다.");
+            // throw new Error("[ERROR] 보너스 번호는 숫자로 입력해야 합니다.");
         }
-        if (bonusNumber < 1 || bonusNumber > 45) {
-            throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+        if (numBonus < 1 || numBonus > 45) {
+            await MissionUtils.Console.print("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+            // throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
     }
 
@@ -74,6 +76,7 @@ class AllLotto {
 
     #countMatches(userNumbers) {
         const winningNumbers = this.#winningLotto;
+        console.log(winningNumbers.filter((num) => userNumbers.includes(num)));
         return winningNumbers.filter((num) => userNumbers.includes(num)).length;
     }
 
@@ -86,8 +89,12 @@ class AllLotto {
             this.#winningCountMap['6'] += 1;
         } else if (matchCount === 5 && hasBonus) {
             this.#winningCountMap['5+'] += 1;
-        } else if (matchCount >= 3) {
-            this.#winningCountMap[String(matchCount)] += 1;
+        } else if (matchCount === 5) {
+            this.#winningCountMap['5'] += 1;
+        } else if (matchCount === 4) {
+            this.#winningCountMap['4'] += 1;
+        } else if (matchCount === 3) {
+            this.#winningCountMap['3'] += 1;
         }
     }
 
@@ -103,42 +110,43 @@ class AllLotto {
         this.#totalPurchaseAmount = this.#inputLottos.length * 1000;
     }
 
-    printAllLotto() {
+    async printAllLotto() {
         const length = this.#inputLottos.length;
         MissionUtils.Console.print(`\n${length}개를 구매했습니다.`);
-        this.#inputLottos.forEach((lotto) => MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`));
+        this.#inputLottos.forEach(async (lotto) => await MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`));
     }
 
-    printWinningResult() {
+    async printWinningResult() {
         this.#calculatePurchaseAmount();
-        this.compareLottos();
+        await this.compareLottos();
         this.#calculateTotalAvenue();
 
-        this.#printHeader();
-        this.#printWinningDetails();
-        this.#printRevenueRate();
+        await this.printHeader();
+        await this.printWinningDetails();
+        await this.printRevenueRate();
     }
 
-    #printHeader() {
-        MissionUtils.Console.print('\n당첨 통계');
-        MissionUtils.Console.print('---');
+    async printHeader() {
+        await MissionUtils.Console.print('\n당첨 통계');
+        await MissionUtils.Console.print('---');
     }
 
-    #printWinningDetails() {
+    async printWinningDetails() {
         for (let key of KEYS_ARR) {
             const count = this.#winningCountMap[key];
             const prize = AMOUNT_PER_MATCH[key].toLocaleString();
             if (key === '5+') {
-                MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${prize}원) - ${count}개`);
-            } else {
-                MissionUtils.Console.print(`${key}개 일치 (${prize}원) - ${count}개`);
+                await MissionUtils.Console.print(String(`5개 일치, 보너스 볼 일치 (${prize}원) - ${count}개`));
+            }
+            if (key !== '5+') {
+                await MissionUtils.Console.print(String(`${key}개 일치 (${prize}원) - ${count}개`));
             }
         }
     }
 
-    #printRevenueRate() {
+    async printRevenueRate() {
         const revenueRate = ((this.#totalAvenue / this.#totalPurchaseAmount) * 100).toFixed(1);
-        MissionUtils.Console.print(`총 수익률은 ${revenueRate}%입니다.`);
+        await MissionUtils.Console.print(`총 수익률은 ${revenueRate}%입니다.`);
     }
 }
 

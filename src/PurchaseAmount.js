@@ -1,33 +1,38 @@
-// import { MissionUtils } from "@woowacourse/mission-utils"
+import { MissionUtils } from "@woowacourse/mission-utils"
 
 class PurchaseAmount {
     #amount;
     constructor(amount) {
-        this.#validate(amount);
-        this.#amount = amount;
+        this._validate(amount);
+        this.#amount = Number(amount);
     }
 
-    #validate(amount) {
-        this.#validateIsNumber(amount);
-        this.#validateIsPositive(amount);
-        this.#validateIsMultipleOfThousand(amount);
+    _validate(amount) {
+        this._validateIsNumber(amount);
+        this._validateIsPositive(amount);
+        this._validateIsMultipleOfThousand(amount);
     }
 
-    #validateIsNumber(amount) {
-        if (isNaN(amount)) {
-            throw new Error("[ERROR] 구입금액을 숫자로 입력해주세요.")
+    _validateIsNumber(amount) {
+        for (let i = 0; i < amount.length; i++) {
+            if (amount[i] < '0' || amount[i] > '9') {
+                MissionUtils.Console.print('[ERROR] 구입금액을 숫자로 입력해주세요');
+                // throw new Error('[ERROR] 구입금액을 숫자로 입력해주세요');
+            };
         }
     }
 
-    #validateIsMultipleOfThousand(amount) {
+    _validateIsMultipleOfThousand(amount) {
         if (amount % 1000 !== 0) {
-            throw new Error("[ERROR] 구입금액은 1000원 단위로 입력해야 합니다.");
+            MissionUtils.Console.print("[ERROR] 구입금액은 1000원 단위로 입력해야 합니다.");
+            // throw new Error("[ERROR] 구입금액은 1000원 단위로 입력해야 합니다.");
         }
     }
 
-    #validateIsPositive(amount) {
+    _validateIsPositive(amount) {
         if (amount <= 0) {
-            throw new Error("[ERROR] 구입금액은 0보다 커야 합니다.")
+            MissionUtils.Console.print("[ERROR] 구입금액은 0보다 커야 합니다.");
+            // throw new Error("[ERROR] 구입금액은 0보다 커야 합니다.")
         }
     }
 

@@ -14,24 +14,23 @@ class App {
       const numbers = await MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
       numbers.sort((a, b) => a - b);
       const lotto = new Lotto(numbers);
-      allLotto.addInputLotto(lotto);
+      await allLotto.addInputLotto(lotto);
     }
 
-    allLotto.printAllLotto();
+    await allLotto.printAllLotto();
 
 
     const inputWinningNumbers = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-    const winningNumbersArray = inputWinningNumbers.split(',').map(Number);
+
+    const winningNumbersArray = inputWinningNumbers.split(',').map(Number);  // 당첨 번호 검증 필요
 
 
     const bonusNumber = Number(await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n'));
 
 
-    allLotto.setWinningLotto(winningNumbersArray, bonusNumber);
+    await allLotto.setWinningLotto(winningNumbersArray, bonusNumber);
 
-    allLotto.compareLottos();
-
-    allLotto.printWinningResult();
+    await allLotto.printWinningResult();
   }
 }
 
