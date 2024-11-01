@@ -6,7 +6,8 @@ import { View } from './view/View.js';
 
 class App {
   amount = null;
-  winningNumbers = null;
+  winning = null;
+  bonus = null;
 
   async run() {
     const view = new View();
@@ -28,9 +29,15 @@ class App {
           lottos.forEach((lotto) => view.printLotto(lotto.getNumbers()));
         }
 
-        if (this.winningNumbers === null) {
+        if (this.winning === null) {
           const rawInput = await view.promptWinningNumbers();
-          this.winningNumbers = new Lotto(this.parseNumbers(rawInput));
+          this.winning = new Lotto(this.parseNumbers(rawInput));
+        }
+
+        if (this.bonus === null) {
+          this.bonus = await view.promptBonusNumber();
+          this.validationBonus(this.bonus);
+          this.checkBonusWithWinningnumbers(this.bonus);
         }
 
         break;
@@ -45,6 +52,17 @@ class App {
     if (amount <= 0) throw new Error(PURCHASE_AMOUNT_ERROR.NOT_POSITIVE);
     if (amount % ONE_LOTTO_AMOUNT !== 0)
       throw new Error(PURCHASE_AMOUNT_ERROR.NOT_DIVIDE_ONE_THOUSAND);
+  }
+
+  validationBonus(bonus) {
+    if (isNaN(bonus)) throw new Error('[ERROR]');
+    if (bonus < 1 || bonus > 45) throw new Error('[ERROR]');
+  }
+
+  checkBonusWithWinningnumbers(bonus) {
+    console.log(this.winning.getNumbers());
+    if (this.winning.getNumbers().includes(Number(bonus)))
+      throw new Error('[ERROR]');
   }
 
   parseNumbers(numbers) {

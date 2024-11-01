@@ -17,6 +17,12 @@ export class View {
     return input.trim();
   }
 
+  async promptBonusNumber() {
+    const input = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+
+    return input.trim();
+  }
+
   printLotto(lotto) {
     Console.print(lotto);
   }
