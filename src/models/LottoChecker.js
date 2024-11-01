@@ -14,6 +14,10 @@ class LottoChecker {
     if (!Validates.isNumber(number)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
   }
 
+  #validateBonusNumber(number) {
+    if (!Validates.isNumber(number)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
+  }
+
   createWinningNumbers(numbers) {
     numbers.split(",").forEach((number) => {
       this.#validateWinningNumbers(number);
@@ -22,6 +26,7 @@ class LottoChecker {
   }
 
   createBonusNumber(number) {
+    this.#validateBonusNumber(number);
     this.#bonusNumber = Number(number);
   }
 

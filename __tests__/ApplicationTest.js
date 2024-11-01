@@ -52,6 +52,12 @@ const runWinningNumbersException = async (input) => {
   runException();
 };
 
+const runBonusNumbersException = async (input) => {
+  const INPUT_NUMBERS_TO_END = ["7"];
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+  runException();
+};
+
 describe("로또 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -110,6 +116,11 @@ describe("로또 테스트", () => {
     describe("당첨 번호가", () => {
       test("숫자가 아닌 경우", async () => {
         await runWinningNumbersException(["1000", "1,2,3,4,5,6j"]);
+      });
+    });
+    describe("보너스 번호가", () => {
+      test("숫자가 아닌 경우", async () => {
+        await runBonusNumbersException(["1000", "1,2,3,4,5,6", "7j"]);
       });
     });
   });
