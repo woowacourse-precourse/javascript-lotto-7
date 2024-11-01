@@ -2,7 +2,7 @@ import { INPUT, OUTPUT } from '../constants/Constants.js';
 import { ticketCount } from '../utils/Calculation.js';
 import { Console } from '@woowacourse/mission-utils';
 import { validateCost } from '../utils/Validation.js';
-import { randomTicket } from '../utils/Random.js';
+import { ticketArray } from '../utils/Random.js';
 
 class TicketController {
   tickets;
@@ -22,7 +22,11 @@ class TicketController {
   }
 
   displayTicketNumber() {
-    Console.print(randomTicket(this.tickets));
+    const numberArray = ticketArray(this.tickets);
+    const printTicket = numberArray
+      .map((arr) => `[${arr.join(', ')}]`)
+      .join('\n');
+    Console.print(printTicket);
   }
 }
 
