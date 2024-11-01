@@ -2,6 +2,10 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import { OUTPUT_MESSAGE, LOTTO_INFORMATIONS } from './lib/constants.js';
 
 class OutputManager {
+  static printError(message) {
+    MissionUtils.Console.print(message);
+  }
+
   static printPurchaseHistory(lottos) {
     const purchaseLottoCount = lottos.length;
 

@@ -10,6 +10,7 @@ import {
   getIsPositive,
   getIsThousandUnit,
 } from './lib/utils.js';
+import OutputManager from './OutputManager.js';
 
 class InputManager {
   static #SPLIT_SEPARATOR = ',';
@@ -27,7 +28,7 @@ class InputManager {
 
       if (!isError) return purchasePrice;
 
-      MissionUtils.Console.print(errorMessage);
+      OutputManager.printError(errorMessage);
     }
   }
 
@@ -44,7 +45,7 @@ class InputManager {
 
       if (!isError) return winningNumbers;
 
-      MissionUtils.Console.print(errorMessage);
+      OutputManager.printError(errorMessage);
     }
   }
 
@@ -63,7 +64,7 @@ class InputManager {
 
       if (!isError) return bonusNumber;
 
-      MissionUtils.Console.print(errorMessage);
+      OutputManager.printError(errorMessage);
     }
   }
 
