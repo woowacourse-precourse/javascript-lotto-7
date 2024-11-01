@@ -83,6 +83,28 @@ describe("로또 테스트", () => {
     expect(app.getBonusNumber()).toBe(7);
   })
 
+  test('로또 추첨 테스트', async () => {
+    const app = new App();
+    const input = ['7000', '1,2,3,4,5,6', '7'];
+    const prizeCountResult = [1,1,1,1,1,2];
+    const totalPrizeMoney = 2031560000;
+    mockRandoms([
+      [1,2,3,4,5,6],
+      [1,2,3,4,5,7],
+      [1,2,3,4,5,8],
+      [1,2,3,4,8,9],
+      [1,2,3,8,9,10],
+      [1,2,3,8,9,10],
+      [11,12,13,14,15,16],
+    ]);
+    mockQuestions(input);
+    await app.setUserInputs();
+    app.setUserLotteries(app.publishUserLotteries());
+    app.drawUserLotteries();
+    expect(app.getPrizeCount()).toStrictEqual(prizeCountResult);
+    expect(app.getWinningMoneySum()).toBe(totalPrizeMoney);
+  })
+
   // test("기능 테스트", async () => {
   //   // given
   //   const logSpy = getLogSpy();

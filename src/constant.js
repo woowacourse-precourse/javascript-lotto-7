@@ -4,13 +4,7 @@ const LOTTERY = Object.freeze({
   MAX_NUMBER: 45,
   WINNING_NUMBER_SIZE: 6,
   WINNING_NUMBER_SPLITTER: ',',
-  PRIZE: Object.freeze({
-    FIRST: 2000000000,
-    SECOND: 30000000,
-    THIRD: 1500000,
-    FOURTH: 50000,
-    FIFTH: 5000,
-  }),
+  PRIZE: Object.freeze([0, 2000000000, 30000000, 1500000, 50000, 5000]),
 });
 
 const IO_MESSAGE = Object.freeze({

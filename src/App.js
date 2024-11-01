@@ -8,11 +8,14 @@ class App {
   #winningNumbers;
   #bonusNumber;
   #userLotteries = [];
+  #prizeCount = [0, 0, 0, 0, 0, 0];
+  #winningMoneySum;
 
   async run() {
     await this.setUserInputs();
     this.setUserLotteries(this.publishUserLotteries());
     this.printUserLotteries();
+    this.drawUserLotteries();
   }
 
   async setUserInputs() {
@@ -79,6 +82,32 @@ class App {
     this.#userLotteries.forEach((lottery) => {
       Console.print(lottery.toString());
     });
+  }
+
+  drawUserLotteries() {
+    const prizeCountCopy = [...this.#prizeCount];
+    this.setWinningMoneySum(this.#userLotteries.map((lottery) => {
+      const result = lottery.getLottoResult(this.#winningNumbers, this.#bonusNumber);
+      prizeCountCopy[result.prize] += 1;
+      return result.money;
+    }).reduce((acc, cur) => acc + cur, 0));
+    this.setPrizeCount(prizeCountCopy);
+  }
+
+  setPrizeCount(numbers) {
+    this.#prizeCount = numbers;
+  }
+
+  getPrizeCount() {
+    return this.#prizeCount;
+  }
+
+  setWinningMoneySum(number) {
+    this.#winningMoneySum = number;
+  }
+
+  getWinningMoneySum() {
+    return this.#winningMoneySum;
   }
 }
 
