@@ -38,7 +38,7 @@ describe('validateLotto 함수 테스트', () => {
 
   test('입력받은 로또 번호가 숫자가 아니면 예외가 발생한다.', () => {
     expect(() => {
-      validateLotto([1, '2', '3', 4, '5', '6']);
+      validateLotto([1, '2', '3s', 4, '5', '6']);
     }).toThrow(ERROR_MESSAGE.INVALID_NOT_NUMBER);
   });
 
