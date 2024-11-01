@@ -29,7 +29,12 @@ class App {
     const winningNumbers = winningNumbersInput
       .split(",")
       .map((num) => num.trim());
-    console.log(winningNumbers);
+
+    const bonusNumber = await MissionUtils.Console.readLineAsync(
+      "보너스 번호를 입력해 주세요.\n"
+    );
+
+    console.log(bonusNumber);
   }
 }
 
