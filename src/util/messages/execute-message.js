@@ -1,6 +1,6 @@
 const EXECUTE_MESSAGE = {
   LOTTO: {
-    RECEIPT: (count) => Object.freeze(`로또 ${count}개를 구매했습니다.`),
+    RECEIPT: (count) => Object.freeze(`${count}개를 구매했습니다.`),
     NUMBERS: (numbers) => Object.freeze(numbers),
   },
   PRIZE: {

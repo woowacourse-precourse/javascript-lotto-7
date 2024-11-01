@@ -3,13 +3,12 @@ import Validate from "./Validate.js";
 class Bonus {
   #bonusNumber;
   constructor(bonusNumber) {
-    this.#validate(bonusNumber);
     this.#bonusNumber = bonusNumber;
   }
 
-  #validate(bonusNumber) {
+  validate(lottoNumbers) {
     const validate = new Validate();
-    validate.validateBonusNumber(bonusNumber);
+    validate.validateBonusNumber(this.#bonusNumber, lottoNumbers);
   }
 
   get value() {

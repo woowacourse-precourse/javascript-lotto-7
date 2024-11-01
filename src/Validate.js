@@ -21,11 +21,11 @@ class Validate {
     this.#LottoNumbersDelimiterTwice(lottoNumbers);
   }
 
-  validateBonusNumber(bonusNumber) {
+  validateBonusNumber(bonusNumber, lottoNumbers) {
     this.#BonusNumberEmpty(bonusNumber);
     this.#BonusNumberType(bonusNumber);
     this.#BonusNumberOutOfRange(bonusNumber);
-    this.#BonusNumberDuplicate(bonusNumber);
+    this.#BonusNumberDuplicate(bonusNumber, lottoNumbers);
   }
 
   #PriceEmpty(price) {

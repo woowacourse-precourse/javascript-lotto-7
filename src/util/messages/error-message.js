@@ -2,7 +2,7 @@ const DEFAULT_ERROR_MESSAGE = "[ERROR]";
 const ERROR_MESSAGES = {
   PRICE: {
     WRONG: Object.freeze(
-      `${DEFAULT_ERROR_MESSAGE} 로또 구입 금액은 1000원 단위여야 합니다.`
+      `${DEFAULT_ERROR_MESSAGE} 로또 구입 금액은 1,000원 단위여야 합니다.`
     ),
     NOT_ENOUGH: Object.freeze(
       `${DEFAULT_ERROR_MESSAGE} 로또 구입 금액이 부족합니다.`
