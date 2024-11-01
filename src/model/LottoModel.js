@@ -1,5 +1,5 @@
-import Lotto from './Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
+import Lotto from './../Lotto.js';
 
 class LottoModel {
   #buyLottoCount;
@@ -12,6 +12,10 @@ class LottoModel {
     this.#randomLottoNumbers = [];
     this.#pickLottoNumber = [];
     this.#pickBonusNumber = 0;
+  }
+
+  setBuyLottoCount(buyLottoCount) {
+    this.#buyLottoCount = buyLottoCount;
   }
 
   getBuyLottoCount() {
