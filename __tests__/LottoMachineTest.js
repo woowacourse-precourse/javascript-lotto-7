@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import LottoMachine from '../src/LottoMachine/LottoMachine';
+import LottoMachine from '../src/LottoMachine';
 
 const inputPurchaseAmountMockQuestion = (input) => {
   MissionUtils.Console.readLineAsync = jest.fn().mockImplementation(() => {
