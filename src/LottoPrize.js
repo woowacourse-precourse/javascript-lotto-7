@@ -16,12 +16,11 @@ class LottoPrize {
 
   /**
    *
-   * @param {number[][]} lottos
+   * @param {"first"|"second"|"third"|"forth"|"fifth"} rank - 등수
    */
-  #checkLottos(lottos) {
-    lottos.forEach((lotto) => {
-      this.getRank(lotto);
-    });
+  #updateRanks(rank) {
+    this.#prize[rank].count += 1;
+    return rank;
   }
 
   /**
@@ -41,19 +40,12 @@ class LottoPrize {
 
   /**
    *
-   * @param {"first"|"second"|"third"|"forth"|"fifth"} rank - 등수
-   */
-  #updateRanks(rank) {
-    this.#prize[rank].count += 1;
-    return rank;
-  }
-
-  /**
-   *
    * @param {number[][]} lottos
    */
   getPrize(lottos) {
-    this.#checkLottos(lottos);
+    lottos.forEach((lotto) => {
+      this.getRank(lotto);
+    });
     return this.#prize;
   }
 }
