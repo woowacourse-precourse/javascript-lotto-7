@@ -26,3 +26,5 @@ class Input {
         return this.value;
     }
 }
+
+export default Input;
