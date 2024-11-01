@@ -48,6 +48,19 @@ class LottoGameService {
   createLottoQuantity(userMoney) {
     return userMoney / LOTTO_PRICE;
   }
+
+  calculateRank(matchedCount, isBonusMatched) {
+    if (matchedCount === 5 && isBonusMatched === true) { return 2; }
+
+    const rankConditions = {
+      6: 1,
+      5: 3,
+      4: 4,
+      3: 5,
+    };
+
+    return rankConditions[matchedCount] || -1;
+  }
 }
 
 export default LottoGameService;
