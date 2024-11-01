@@ -32,6 +32,10 @@ class LottoMachine {
   getLottoQuantity() {
     return this.#lottoQuantity;
   }
+
+  getLottos() {
+    return this.#lottos;
+  }
 }
 
 export default LottoMachine;
