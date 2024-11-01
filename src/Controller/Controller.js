@@ -1,15 +1,19 @@
+import SYSTEM_MESSAGES from "../Model/SystemMessages";
+
+// Controller에서 전체 로직을 처리
+
 class Controller {
   async run() {
-    const price = await getInput("구입금액을 입력해 주세요.");
+    const price = await getInput(SYSTEM_MESSAGES.ASK_PRICE);
     const validatedPrice = validatePrice(price);
 
     const lottoTickets = generateLottoTickets(validatedPrice);
     printLottoTickets(lottoTickets);
 
-    const winningNumber = await getInput("당첨 번호를 입력해 주세요.");
+    const winningNumber = await getInput(SYSTEM_MESSAGES.ASK_WINNING_NUMBER);
     const validatedWinningNumber = validateWinnigNumber(winningNumber);
 
-    const bonusNumber = await getInput("보너스 번호를 입력해 주세요.");
+    const bonusNumber = await getInput(SYSTEM_MESSAGES.ASK_BONUS_NUMBER);
     const validatedBonusNumber = validateBonusNumber(bonusNumber);
 
     const winningResult = calculateWinningResult(
