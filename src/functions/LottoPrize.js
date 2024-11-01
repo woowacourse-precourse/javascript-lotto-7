@@ -1,7 +1,7 @@
 import Lotto from '../Lotto.js';
 
 export const splitByComma = (stringInput) => {
-  return stringInput.split(',');
+  return stringInput.split(',').map(Number);
 };
 
 export const getLottoPrizeCount = (lotto, lottoPrizeNumbers) => {
