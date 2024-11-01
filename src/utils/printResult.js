@@ -18,12 +18,12 @@ export function printResult(lottos, winningNumbers, bonusNumber) {
     }
   );
 
-  console.log(`1등: ${result.FIRST}개`);
-  console.log(`2등: ${result.SECOND}개`);
-  console.log(`3등: ${result.THIRD}개`);
-  console.log(`4등: ${result.FOURTH}개`);
-  console.log(`5등: ${result.FIFTH}개`);
-  console.log(`낙첨: ${result.MISS}개`);
+  console.log(`3개 일치 (5,000원) - ${result.FIFTH}개`);
+  console.log(`4개 일치 (50,000원) - ${result.FOURTH}개`);
+  console.log(`5개 일치 (1,500,000원) - ${result.THIRD}개`);
+  console.log(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.SECOND}개`);
+  console.log(`6개 일치 (2,000,000,000원) - ${result.FIRST}개`);
+  console.log(`총 수익률은 ${getTotalProfitRate(lottos, result)}%입니다.`);
 }
 
 function getMatchCount(lotto, winningNumbers) {
@@ -51,4 +51,15 @@ function getRank(matchCount, isHasBonusNumber) {
     return 'FIFTH';
   }
   return 'MISS';
+}
+
+function getTotalProfitRate(lottos, result) {
+  const totalWinningMoney =
+    result.FIRST * 2000000000 +
+    result.SECOND * 30000000 +
+    result.THIRD * 1500000 +
+    result.FOURTH * 50000 +
+    result.FIFTH * 5000;
+  const totalAmount = lottos.length * 1000;
+  return ((totalWinningMoney / totalAmount) * 100).toFixed(1);
 }
