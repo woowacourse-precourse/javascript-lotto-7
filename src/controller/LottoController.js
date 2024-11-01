@@ -25,5 +25,9 @@ export default class LottoController {
     const winningLottoInput = await this.view.getWinningLottoNumbers();
     const winningLottoNumbers = winningLottoInput.split(",").map(Number);
     const winningLotto = new Lotto(winningLottoNumbers);
+    console.log(winningLotto);
+
+    // 보너스 번호 입력 받기
+    const winningBonusInput = await this.view.getWinningLottoBonusNumbers();
   }
 }
