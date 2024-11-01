@@ -6,6 +6,10 @@ class LottoPublication {
 
   constructor() {}
 
+  getPublishedLottoList() {
+    return this.#publishedLottoList;
+  }
+
   publicationLotto(publicationCount) {
     for (let i = 0; i < publicationCount; ++i) {
       const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
