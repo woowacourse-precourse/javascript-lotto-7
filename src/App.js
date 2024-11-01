@@ -1,5 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import LottoResult from './LottoResult.js';
 
 class App {
   async run() {
@@ -7,6 +8,8 @@ class App {
     const tickets = this.generateLottoTickets(amount / 1000);
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
+    const lottoResult = new LottoResult();
+    this.calculateStatistics(tickets, winningNumbers, bonusNumber, lottoResult);
   }
 
   async getAmount() {
@@ -106,6 +109,16 @@ class App {
     }
 
     return parseInt(input, 10);
+  }
+
+  calculateStatistics(tickets, winningNumbers, bonusNumber, lottoResult) {
+    const winningNums = winningNumbers.map((num) => parseInt(num, 10));
+
+    tickets.forEach((ticket) => {
+      const matches = ticket.getNumbers().filter((num) => winningNums.includes(num)).length;
+      const hasBonus = ticket.getNumbers().includes(bonusNumber);
+      lottoResult.countMatches(matches, hasBonus);
+    });
   }
 }
 
