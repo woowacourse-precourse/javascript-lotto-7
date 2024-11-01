@@ -1,7 +1,7 @@
 export const COMMON_MESSAGE = {
-    INPUT_PURCHASE: Object.freeze("구입금액을 입력해 주세요."),
-    INPUT_WINNING_NUM: Object.freeze("당첨 번호를 입력해 주세요."),
-    INPUT_BONUS_NUM: Object.freeze("보너스 번호를 입력해 주세요."),
+    INPUT_PURCHASE: Object.freeze("구입금액을 입력해 주세요.\n"),
+    INPUT_WINNING_NUM: Object.freeze("당첨 번호를 입력해 주세요.\n"),
+    INPUT_BONUS_NUM: Object.freeze("보너스 번호를 입력해 주세요.\n"),
     WINNING_STATS: Object.freeze("당첨 통계\n---"),
 }
 
@@ -15,5 +15,11 @@ export const ERROR_MESSAGE = {
     ),
     NOT_POSITIVE: Object.freeze(
         `${DEFAULT_ERROR_MESSAGE} 입력한 값이 양수가 아닙니다.`
+    ),
+    NOT_RANGE: Object.freeze(
+        `${DEFAULT_ERROR_MESSAGE} 번호는 1 이상 45 이하 사이의 숫자여야 합니다.`
+    ),
+    NOT_SIX_ELEMENTS: Object.freeze(
+        `${DEFAULT_ERROR_MESSAGE} 로또 번호는 6개를 입력해야 합니다.`
     ),
 }
