@@ -25,6 +25,19 @@
 - 구입금액 검증
 - 로또 구매 개수 반환 및 출력 메서드
 
+### ➡️ AllLotto
+
+- 구매한 로또 개수에 따른 로또 번호를 모두 저장한 배열 관리
+
+=> 아래는 주요 메서드입니다.
+
+- addInputLotto : 배열에 로또 번호 저장
+- setWinningLotto : 우승번호와 보너스 번호 저장
+  = getWinningLotto, getBonusNumber : 우승번호와 보너스 번호 반환
+- compareLottos : 일치하는 숫자 개수 비교
+- printAllLotto : 모든 구매한 로또를 출력
+- printWinningResult : 당첨 여부 관련 출력
+
 ## ❗ 주의 사항
 
 - indent depth는 2까지만 허용
