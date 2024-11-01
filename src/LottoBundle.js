@@ -11,7 +11,8 @@ class LottoBundle {
   generateLottos(lottoCount) {
     for (let i = 0; i < lottoCount; i += 1) {
       const numbers = LottoBundle.#generateRandomNums();
-      this.addLotto(numbers);
+      const sortedNums = LottoBundle.#sortNumbers(numbers);
+      this.#addLotto(sortedNums);
     }
   }
 
@@ -19,9 +20,13 @@ class LottoBundle {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
-  addLotto(numbers) {
+  #addLotto(numbers) {
     const lotto = new Lotto(numbers);
     this.#lottoBundle.push(lotto);
+  }
+
+  static #sortNumbers(numbers) {
+    return [...numbers].sort((first, second) => first - second);
   }
 }
 
