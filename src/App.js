@@ -38,17 +38,42 @@ class App {
     }
     Console.print('');
 
+    let winningNumbers;
     while (true) {
       try {
-        const winnerNumbers = (
+        winningNumbers = (
           await Console.readLineAsync('당첨 번호를 입력해 주세요.\n')
         )
           .split(',')
           .map(Number);
 
-        if (winnerNumbers.some((number) => number < 1 || number > 45)) {
+        if (winningNumbers.some((number) => number < 1 || number > 45)) {
           throw new Error(
             '[ERROR] 로또 번호는 1-45 사이의 숫자로 이루어져야 합니다.'
+          );
+        }
+
+        Console.print('');
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+
+    let bonusNumber;
+    while (true) {
+      try {
+        bonusNumber = parseInt(
+          await Console.readLineAsync('보너스 번호를 입력해 주세요.\n')
+        );
+        if (bonusNumber < 1 || bonusNumber > 45) {
+          throw new Error(
+            '[ERROR] 로또 번호는 1-45 사이의 숫자로 이루어져야 합니다.'
+          );
+        }
+        if (winningNumbers.some((number) => number === bonusNumber)) {
+          throw new Error(
+            '[ERROR] 당첨 번호 6개와 보너스 번호는 중복이 불가능합니다.'
           );
         }
 
