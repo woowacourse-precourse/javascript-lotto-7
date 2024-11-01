@@ -7,6 +7,25 @@ import { LOTTO_PRICE } from '../constants/config.js';
 class LottoGameService {
   constructor() {
     this.lottos = [];
+    this.prizes = {
+      1: {
+        matchCount: 6, bonus: false, money: 2000000000, count: 0,
+      },
+      2: {
+        matchCount: 5, bonus: true, money: 30000000, count: 0,
+      },
+      3: {
+        matchCount: 5, bonus: false, money: 1500000, count: 0,
+      },
+      4: {
+        matchCount: 4, bonus: false, money: 50000, count: 0,
+      },
+      5: {
+        matchCount: 3, bonus: false, money: 5000, count: 0,
+      },
+    };
+  }
+
   }
 
   createLottoQuantity(userMoney) {
