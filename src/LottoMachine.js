@@ -43,7 +43,10 @@ class LottoMachine {
   #printLottos() {
     MissionUtils.Console.print(`${this.#lottos.length}개를 구매했습니다.`);
     for (let i = 0; i < this.#lottos.length; i++) {
-      const lottoStr = this.#lottos[i].numbers.toString().replaceAll(',', ', ');
+      const lottoStr = this.#lottos[i].numbers
+        .sort((a, b) => a - b)
+        .toString()
+        .replaceAll(',', ', ');
       MissionUtils.Console.print(`[${lottoStr}]`);
     }
   }
