@@ -4,22 +4,60 @@ import { InputView } from "../views/InputView.js";
 import { OutputView } from "../views/OutputView.js";
 import LottoResult from "../LottoResult.js";
 import { SEPARATOR } from "../constants/Constants.js";
+import User from "../User.js";
+import { RandomNumberGenerator } from "../utils/RandomNumberGenerator.js";
 
 class LottoController {
   #user;
-  #winningNumbers;
-  #bonusNumber;
+  #lottoResult;
+  #totalIssuance;
 
-  constructor(user) {
-    this.#user = user;
+  async purchase() {
+    const purchaseAmount = await this.inputPurchaseAmount();
+    this.#user = new User(purchaseAmount);
+    this.#totalIssuance = Calculator.totalIssuance(purchaseAmount);
+    OutputView.purchaseResult(this.#totalIssuance);
   }
 
-  async start() {
-    this.#winningNumbers = await this.inputWinningNumber();
-    this.#bonusNumber = await this.inputBonusNumber();
-    const lottoResult = new LottoResult(this.matching());
-    OutputView.statistics(lottoResult.statistics());
-    OutputView.returnRate(this.returnRate(lottoResult.totalPrize()));
+  async issuance() {
+    for (let count = 0; count < this.#totalIssuance; count++) {
+      const lottoNumber = await RandomNumberGenerator();
+      this.#user.getLotto(lottoNumber);
+      OutputView.lottoNumber(lottoNumber);
+    }
+  }
+
+  async matching() {
+    const winningNumber = await this.inputWinningNumber();
+    const bonusNumber = await this.inputBonusNumber(winningNumber);
+    const matchWinning = this.#user.matchingWinning(winningNumber);
+    const matchBonus = this.#user.matchingBonus(bonusNumber);
+    this.#lottoResult = new LottoResult(this.rank(matchWinning, matchBonus));
+  }
+
+  async statistics() {
+    OutputView.statistics(this.#lottoResult.statistics());
+    OutputView.returnRate(
+      this.#user.returnRate(this.#lottoResult.totalPrize())
+    );
+  }
+
+  async inputPurchaseAmount() {
+    const purchaseAmount = Number(await InputView.purchaseAmount());
+
+    return await this.validatePurchaseAmount(purchaseAmount);
+  }
+
+  async validatePurchaseAmount(number) {
+    try {
+      Validator.purchaseAmountunit(number);
+      Validator.minPurchase(number);
+    } catch (error) {
+      OutputView.error(error.message);
+      return await this.inputPurchaseAmount();
+    }
+
+    return number;
   }
 
   async inputWinningNumber() {
@@ -44,18 +82,18 @@ class LottoController {
     return numbers;
   }
 
-  async inputBonusNumber() {
+  async inputBonusNumber(winningNumber) {
     const bonusNumber = Number(await InputView.bonusNumber());
 
-    return this.validateBonusNumber(bonusNumber);
+    return this.validateBonusNumber(bonusNumber, winningNumber);
   }
 
-  async validateBonusNumber(number) {
+  async validateBonusNumber(number, winningNumbers) {
     let numberArr = [number];
     try {
       Validator.numberArrange(numberArr);
       Validator.isInteger(numberArr);
-      this.#winningNumbers.forEach((number) => {
+      winningNumbers.forEach((number) => {
         numberArr.push(number);
       });
       Validator.sameNumber(numberArr);
@@ -67,18 +105,16 @@ class LottoController {
     return number;
   }
 
-  matching() {
-    const matchWinning = this.#user.matchingWinning(this.#winningNumbers);
-    const matchBonus = this.#user.matchingBonus(this.#bonusNumber);
+  rank(winningNumbers, bonusNumber) {
+    let rankings = [];
 
-    const rankings = matchWinning.map((total, index) =>
-      Calculator.ranking(total, matchBonus[index])
-    );
+    for (let count = 0; count < this.#totalIssuance; count++) {
+      rankings.push(
+        Calculator.ranking(winningNumbers[count], bonusNumber[count])
+      );
+    }
+
     return rankings;
-  }
-
-  returnRate(totalPrize) {
-    return this.#user.returnRate(totalPrize);
   }
 }
 

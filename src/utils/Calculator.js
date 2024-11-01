@@ -36,4 +36,8 @@ export class Calculator {
 
     return prize;
   }
+
+  static totalIssuance(purchaseAmount) {
+    return purchaseAmount / LOTTO.PRICE;
+  }
 }
