@@ -16,8 +16,8 @@ class LottoBuyer {
     OutputManager.printPurchaseHistory(this.#lottos);
   }
 
-  checkWinningLotto(lottoShop) {
-    this.#winningLottoMap = lottoShop.checkWinningLottos(this.#lottos);
+  checkWinningLotto(lottoCompany) {
+    this.#winningLottoMap = lottoCompany.checkWinningLottos(this.#lottos);
 
     OutputManager.printWinningStatics(this.#winningLottoMap);
   }

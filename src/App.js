@@ -1,21 +1,21 @@
 import LottoBuyer from './LottoBuyer.js';
-import LottoShop from './LottoShop.js';
+import LottoCompany from './LottoCompany.js';
 
 class App {
   #lottoBuyer;
-  #lottoShop;
+  #lottoCompany;
 
   constructor() {
     this.#lottoBuyer = new LottoBuyer();
-    this.#lottoShop = new LottoShop();
+    this.#lottoCompany = new LottoCompany();
   }
 
   async run() {
     await this.#lottoBuyer.purchaseLottos();
 
-    await this.#lottoShop.draw();
+    await this.#lottoCompany.draw();
 
-    this.#lottoBuyer.checkWinningLotto(this.#lottoShop);
+    this.#lottoBuyer.checkWinningLotto(this.#lottoCompany);
 
     this.#lottoBuyer.calculateReturn();
   }
