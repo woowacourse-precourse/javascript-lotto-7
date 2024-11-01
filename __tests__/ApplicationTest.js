@@ -1,5 +1,6 @@
 import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { COMMON_ERRORS, VALIDATION_ERRORS } from '../src/constants/constants.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -40,7 +41,7 @@ const runLottoTest = async (randomsArr, questionsArr, expectedLogs) => {
   });
 }
 
-const runException = async (input) => {
+const runException = async (input, errorMessage) => {
   // given
   const logSpy = getLogSpy();
 
@@ -55,7 +56,7 @@ const runException = async (input) => {
   await app.run();
 
   // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorMessage));
 };
 
 describe('로또 테스트', () => {
@@ -141,14 +142,14 @@ describe('로또 테스트', () => {
   });
 
   test('예외 테스트: 숫자가 아닌 경우', async () => {
-    await runException('1000j');
+    await runException('1000j', COMMON_ERRORS.NUMBER);
   });
 
   test('예외 테스트: 정수가 아닌 경우', async () => {
-    await runException('1000.1');
+    await runException('1000.1', COMMON_ERRORS.INTEGER);
   });
 
   test('예외 테스트: 1,000원 단위가 아닌 경우', async () => {
-    await runException('1001');
+    await runException('1001', VALIDATION_ERRORS.PURCHASE_PRICE.THOUSAND);
   });
 });
