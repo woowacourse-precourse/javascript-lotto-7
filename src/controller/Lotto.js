@@ -9,7 +9,7 @@ class Lotto {
     const bonusNumberInstance = new BonusNumber();
     const bonusNumber = bonusNumberInstance.getBonusNumber();
     this.#checkBonusNumberDuplicate(numbers, bonusNumber);
-    Validator.validateWinningNumbers(numbers);
+    Validator.checkWinningNumbers(numbers);
     this.#numbers = parseNumbers(numbers);
   }
 

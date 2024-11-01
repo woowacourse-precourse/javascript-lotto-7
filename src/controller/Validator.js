@@ -1,14 +1,30 @@
 import { ERROR_MESSAGE } from '../constants/messages.js';
+import { parseNumbers } from '../utils/Parser.js';
 
 class Validator {
   static #WINNING_NUMBER_COUNT = 6;
   static #WINNING_NUMBER_MIN = 1;
-  static #WINNING_NUMBER_MAX = 6;
+  static #WINNING_NUMBER_MAX = 45;
+  static #BONUS_NUMBER_EMPTY_STRING = '';
+  static #BONUS_NUMBER_MIN_LENGTH = 1;
+  static #BONUS_NUMBER_MIN_VALUE = 1;
+  static #BONUS_NUMBER_MAX_VALUE = 45;
+  static #WINNING_NUMBERS;
+
+  constructor() {}
 
   static checkWinningNumbers(numbers) {
     Validator.#checkWinningNumberCount(numbers);
     Validator.#checkWinningNumberDuplicate(numbers);
     Validator.#checkWinningNumberRange(numbers);
+    Validator.#WINNING_NUMBERS = numbers;
+  }
+
+  static checkBonusNumber(bonusNumber) {
+    Validator.#checkBonusNumberEmptyInput(bonusNumber);
+    Validator.#checkBonusNumberCount(bonusNumber);
+    Validator.#checkBonusNumberRange(bonusNumber);
+    Validator.#checkBonusNumberDuplicate(bonusNumber);
   }
 
   static #checkWinningNumberCount(numbers) {
@@ -20,7 +36,7 @@ class Validator {
   static #checkWinningNumberDuplicate(numbers) {
     const setNumbers = new Set(numbers);
     if (numbers.length !== setNumbers.size) {
-      throw new Error(ERROR_MESSAGE.INVALID_DUPLICATE_NUMBER);
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_DUPLICATE);
     }
   }
 
@@ -34,6 +50,35 @@ class Validator {
         throw new Error(ERROR_MESSAGE.INVALID_NUMBER_COUNT);
       }
     });
+  }
+
+  static #checkBonusNumberEmptyInput(number) {
+    if (!number || number.trim() === Validator.#BONUS_NUMBER_EMPTY_STRING) {
+      throw new Error(ERROR_MESSAGE.INVALID_EMPTY_BONUS_NUMBER);
+    }
+  }
+
+  static #checkBonusNumberCount(number) {
+    const bonusNumber = parseNumbers(number);
+    if (bonusNumber.length > Validator.#BONUS_NUMBER_MIN_LENGTH) {
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_COUNT);
+    }
+  }
+
+  static #checkBonusNumberRange(number) {
+    if (
+      !Number.isInteger(number) ||
+      number < Validator.#BONUS_NUMBER_MIN_VALUE ||
+      number > Validator.#BONUS_NUMBER_MAX_VALUE
+    ) {
+      throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_RANGE);
+    }
+  }
+
+  static #checkBonusNumberDuplicate(bonusNumber) {
+    if (Validator.#WINNING_NUMBERS.includes(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_DUPLICATE);
+    }
   }
 }
 
