@@ -2,16 +2,19 @@ import { validateMoney } from '../src/utils/validation';
 import { ERROR_MESSAGES } from '../src/constant/constants';
 
 describe('로또 구입금액 입력 예외 테스트', () => {
-  const NOT_A_NUMBER = '*';
-  const INVALID_UNIT = 20;
+  test('로또 구입금액이 숫자가 아닌경우 예외가 발생한다.', () => {
+    const money = '*';
 
-  test.each([
-    [NOT_A_NUMBER, ERROR_MESSAGES.PURCHASE_PRICE.NOT_A_NUMBER],
-    [INVALID_UNIT, ERROR_MESSAGES.PURCHASE_PRICE.INVALID_UNIT],
-  ])(
-    '구입금액이 %s 인 경우 "%s" 라는 에러문을 출력한다.',
-    async (money, ErrorMessage) => {
-      await expect(() => validateMoney(money)).toThrow(ErrorMessage);
-    },
-  );
+    expect(() => validateMoney(money)).toThrow(
+      ERROR_MESSAGES.PURCHASE_PRICE.NOT_A_NUMBER,
+    );
+  });
+
+  test('로또 구입금액의 단위가 1000원이 아닌 경우 예외가 발생한다.', () => {
+    const money = 20;
+
+    expect(() => validateMoney(money)).toThrow(
+      ERROR_MESSAGES.PURCHASE_PRICE.INVALID_UNIT,
+    );
+  });
 });
