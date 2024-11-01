@@ -1,9 +1,8 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import VALUES from '../constants/values.js';
 
 class UserLotto {
   static #RANGE = { start: 1, end: 45, number: 6 };
-
-  static #PRICE = 1000;
 
   #lottoCount = 0;
 
@@ -15,7 +14,7 @@ class UserLotto {
   }
 
   #calculateLottoCount(payment) {
-    this.#lottoCount = payment / UserLotto.#PRICE;
+    this.#lottoCount = payment / VALUES.price;
   }
 
   static #getRandoms() {
