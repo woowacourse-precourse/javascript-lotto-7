@@ -5,6 +5,7 @@ import {
   PRINT_INPUT_MONEY,
   PRINT_LOTTO_NUMBER,
 } from "./constants/printConstant.js";
+import { ERROR_BLANK, ERROR_NOT_A_NUMBER, throwError } from "./constants/errorConstants.js";
 
 class Input {
   async inputMoney() {
@@ -27,8 +28,8 @@ class Input {
           .split(",")
           .map((e) => {
             e.replace(" ", "");
-            if (e === "") throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
-            if (isNaN(e)) throw new Error("[ERROR] 숫자를 입력해주세요.");
+            if (e === "") throwError(ERROR_BLANK);
+            if (isNaN(e)) throwError(ERROR_NOT_A_NUMBER);
             return Number(e);
           })
       );

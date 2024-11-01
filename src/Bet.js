@@ -1,4 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { ERROR_BLANK, ERROR_MULTI_OF_1000, ERROR_NOT_A_NUMBER, throwError } from "./constants/errorConstants";
 class Bet {
   #money;
   count;
@@ -16,15 +17,15 @@ class Bet {
   }
 
   #validateBlank(money) {
-    if (money === "") throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
+    if (money === "") throwError(ERROR_BLANK);
   }
 
   #validateNumber(money) {
-    if (isNaN(money)) throw new Error("[ERROR] 숫자를 입력해주세요.");
+    if (isNaN(money)) throwError(ERROR_NOT_A_NUMBER);
   }
 
   #validateUnit(money) {
-    if (money % 1000 !== 0) throw new Error("[ERROR] 1000단위의 숫자를 입력해주세요.");
+    if (money % 1000 !== 0) throwError(ERROR_MULTI_OF_1000);
   }
   // TODO: 추가 기능 구현
   getMoney() {

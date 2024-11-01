@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { PRINT_BONUS_NUMBER, PRINT_SPACER, PRINT_WINNING_RESULT } from "./constants/printConstant";
+import { ERROR_BLANK, ERROR_DUPLICATE, ERROR_LENGTH_IS_NOT_6, ERROR_NOT_A_NUMBER, ERROR_NUMBER_RANGE, throwError } from "./constants/errorConstants";
 
 class Lotto {
   #numbers;
@@ -18,13 +19,13 @@ class Lotto {
   
   #validateNumber(number) {
     if (number === "") {
-      throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
+      throwError(ERROR_BLANK);
     }
     if (isNaN(number)) {
-      throw new Error("[ERROR] 숫자를 입력해주세요.");
+      throwError(ERROR_NOT_A_NUMBER);
     }
     if (number > 45 || number < 1) {
-      throw new Error("[ERROR] 1이상 45이하의 숫자를 입력해주세요.");
+      throwError(ERROR_NUMBER_RANGE);
     }
   }
   #validateNumbers(numbers) {
@@ -33,12 +34,12 @@ class Lotto {
   }
   #validateIsSix(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throwError(ERROR_LENGTH_IS_NOT_6)
     }
   }
   #validateIsUnique(numbers) {
     if (numbers.length !== new Set(numbers).size) {
-      throw new Error("[ERROR] 중복되는 번호는 입력될 수 없습니다.");
+      throwError(ERROR_DUPLICATE);
     }
   }
   // TODO: 추가 기능 구현
@@ -49,7 +50,7 @@ class Lotto {
       );
       this.#validateNumber(bonusNumber);
       if (this.#numbers.includes(Number(bonusNumber))) {
-        throw new Error("[ERROR] 중복되는 번호는 입력될 수 없습니다.");
+        throwError(ERROR_DUPLICATE);
       }
       this.#numbers = { basicNumbers: this.#numbers, bonusNumber: Number(bonusNumber) };  
     } catch (error) {
