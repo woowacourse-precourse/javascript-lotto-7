@@ -1,41 +1,40 @@
-const INPUT_MESSAGE = {
-  purchaseMoney: '구입금액을 입력해 주세요.',
-  winningNumber: '당첨 번호를 입력해 주세요.',
-  bonusNumber: '보너스 번호를 입력해 주세요.',
+import { LOTTO_PRICE_UNIT } from './Constant.js';
+
+const INPUT = {
+  purchaseMoney: '구입금액을 입력해 주세요.\n',
+  winningNumber: '당첨 번호를 입력해 주세요.\n',
+  bonusNumber: '보너스 번호를 입력해 주세요.\n',
 };
 
-const OUTPUT_MESSAGE = {
-  purchaseQuantity: '개를 구매했습니다.',
-  winningStatistics: '당첨 통계',
-  divisionLine: '---',
-  fifthWinner: '3개 일치 (5,000원) - ',
-  fourthWinner: '4개 일치 (50,000원) - ',
-  thirdWinner: '5개 일치 (1,500,000원) - ',
-  secondWinner: '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
-  firstWinner: '6개 일치 (2,000,000,000원) - ',
+const OUTPUT = {
+  winningStatistics: '\n당첨 통계\\n---',
+  ticketQuantity: (count) => `${count}개를 구매했습니다.`,
+  ticketNumber: (number) => `[${number}]`,
+  defaultWinner: (match, reward, count) =>
+    `${match}개 일치 (${reward}원) - ${count}개`,
+  bonusWinner: (match, reward, count) =>
+    `${match}개 일치, 보너스 볼 일치 (${reward}원) - ${count}개`,
+  totalProfit: (value) => `총 수익률은 ${value.toFixed(1)}%입니다.`,
 };
 
 const PREFIX_ERROR = '[ERROR]';
 
 const BASIC_ERROR = {
-  invalidMoney: `${PREFIX_ERROR} 1,000원 단위로 입력해 주십시오.`,
-  invalidInput: `${PREFIX_ERROR} 숫자를 입력해 주십시오.`,
+  null: `${PREFIX_ERROR} 입력이 없습니다.`,
+  invalidType: `${PREFIX_ERROR} 숫자를 입력해 주십시오.`,
+  invalidMoney: `${PREFIX_ERROR} ${LOTTO_PRICE_UNIT}원 단위로 입력해 주십시오.`,
   invalidNumber: `${PREFIX_ERROR} 1~45 사이의 숫자를 입력해 주십시오`,
+  invalidLength: (count) =>
+    `${PREFIX_ERROR} 입력은 ${count}걔의 숫자를 입력해 주십시오.`,
 };
 
 const WINNING_NUMBER_ERROR = {
+  overlap: `${PREFIX_ERROR} 중복된 값이 있습니다.`,
   invalidSeparator: `${PREFIX_ERROR} ,(쉼표)로 구분해 주십시오.`,
-  invalidlength: `${PREFIX_ERROR} 6개의 숫자를 입력해 주십시오.`,
 };
 
 const BOUNS_NUMBER_ERROR = {
-  invalidlength: `${PREFIX_ERROR} 1개의 숫자를 입력해 주십시오.`,
+  overlapBonus: `${PREFIX_ERROR} 당첨 번호와 중복된 값이 있습니다.`,
 };
 
-export {
-  INPUT_MESSAGE,
-  OUTPUT_MESSAGE,
-  BASIC_ERROR,
-  WINNING_NUMBER_ERROR,
-  BOUNS_NUMBER_ERROR,
-};
+export { INPUT, OUTPUT, BASIC_ERROR, WINNING_NUMBER_ERROR, BOUNS_NUMBER_ERROR };
