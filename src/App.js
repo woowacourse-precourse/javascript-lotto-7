@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { ERROR_MESSAGE } from "./constants/error.js";
+import { ERROR_MESSAGE, INPUT_MESSAGE } from "./constants/message.js";
 
 const NUMBER_REGEX = /^[0-9]*$/;
 class App {
@@ -8,7 +8,7 @@ class App {
     try {
       // purchase input
       const purchaseAmount = await Console.readLineAsync(
-        "구입금액을 입력해 주세요.\n"
+        INPUT_MESSAGE.PURCHASE_AMOUNT
       );
 
       // purchase validate
@@ -40,7 +40,7 @@ class App {
 
       // lotto number input
       const lottoNumber = await Console.readLineAsync(
-        "당첨 번호를 입력해 주세요.\n"
+        INPUT_MESSAGE.LOTTO_NUMBER
       );
 
       const lottoArray = new Set(lottoNumber.split(",").map(Number));
@@ -71,7 +71,7 @@ class App {
 
       // bonus number input
       const bonusNumber = await Console.readLineAsync(
-        "보너스 번호를 입력해 주세요.\n"
+        INPUT_MESSAGE.BONUS_NUMBER
       );
 
       // 1. 숫자가 아닌 문자가 입력된 경우
