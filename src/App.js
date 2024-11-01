@@ -18,6 +18,8 @@ class App {
 
     const winningNumbersInput = await InputView.getWinningNumbers();
     const winningNumbers = validateWinningNumbers(winningNumbersInput);
+
+    const bonusNumberInput = await InputView.getBonusNumber();
   }
 }
 
