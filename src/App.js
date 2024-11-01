@@ -145,7 +145,7 @@ class App {
     if (totalPrize === 0) {
       return 0;
     }
-    return ((totalPrize / totalCost) * 100).toFixed(1);
+    return ((totalPrize / totalCost) * 100).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })
   }
 }
 
