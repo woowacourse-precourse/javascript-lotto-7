@@ -5,6 +5,13 @@ export const LOTTO_PRICE = 1000;
 const LOTTO_NUMBER_MIN = 1;
 const LOTTO_NUMBER_MAX = 45;
 const NUMBER_COUNT_BY_LOTTO = 6;
+const EARNINGS_MONEYS = {
+  3: 5000,
+  4: 50000,
+  5: 1500000,
+  "5+": 30000000,
+  6: 2000000000,
+};
 
 class Lotto {
   #numbers;
@@ -91,17 +98,18 @@ class Lotto {
     const money = await this.#getUserAmount();
     const lottoCount = this.#pay2Lotto(money, LOTTO_PRICE);
 
-    LottoIO.print(`\n${lottoCount}개를 구매했습니다.`);
+    LottoIO.print("");
+    LottoIO.print(`${lottoCount}개를 구매했습니다.`);
 
     const lottos = this.#scratch(lottoCount);
 
     lottos.forEach((lotto) => {
-      LottoIO.print(lotto);
+      LottoIO.print(JSON.stringify(lotto).replaceAll(",", ", "));
     });
 
     LottoIO.print("");
 
-    return lottos;
+    return [money, lottos];
   }
 
   static #scratch(count) {
@@ -181,13 +189,12 @@ class Lotto {
     }
   }
 
-  static showResultByLot = (purchasedLottos, winnningNumbers, bonusNumber) => {
-    this.#validateResultByLot(purchasedLottos);
-    this.#validateResultByLot(winnningNumbers);
-    if (!this.#isNumber(bonusNumber)) {
-      this.#throwLottoError("보너스 번호는 숫자입니다.");
-    }
-
+  static showResultByLot = (
+    usedMoney,
+    purchasedLottos,
+    winnningNumbers,
+    bonusNumber
+  ) => {
     const totalHits = { 3: 0, 4: 0, 5: 0, "5+": 0, 6: 0 };
 
     purchasedLottos.forEach((lotto) => {
@@ -195,13 +202,9 @@ class Lotto {
     });
 
     this.#printWinList(totalHits);
-  };
 
-  static #validateResultByLot(numbers) {
-    if (typeof numbers !== "object" || numbers.length === undefined) {
-      this.#throwLottoError("로또 번호와 당첨 번호는 배열입니다.");
-    }
-  }
+    this.#printEarningsRate(totalHits, usedMoney);
+  };
 
   static #calculateHit(lotto, totalHits, winnningNumbers, bonusNumber) {
     const count = this.#getHitWinning(lotto, winnningNumbers);
@@ -247,6 +250,19 @@ class Lotto {
     printList.forEach((text) => {
       LottoIO.print(text);
     });
+  }
+
+  static #printEarningsRate(hits, usedMoney) {
+    const totalEarning = Object.entries(hits).reduce(
+      (total, [rank, hitCount]) => {
+        return total + EARNINGS_MONEYS[rank] * hitCount;
+      },
+      0
+    );
+
+    const earningsRate = (totalEarning / usedMoney) * 100;
+
+    LottoIO.print(`총 수익률은 ${earningsRate.toFixed(1)}%입니다.`);
   }
 
   static #isNumber(number) {
