@@ -1,9 +1,9 @@
 import InputView from "./views/InputView.js";
 import OutputView from "./views/OutputView.js";
-import LottoStore from "./LottoStore.js";
-import LottoPrize from "./LottoPrize.js";
+import LottoStore from "./models/LottoStore.js";
+import LottoPrize from "./models/LottoPrize.js";
 import Controller from "./controller/Controller.js";
-import LottoChecker from "./LottoChecker.js";
+import LottoChecker from "./models/LottoChecker.js";
 
 class App {
   controller;

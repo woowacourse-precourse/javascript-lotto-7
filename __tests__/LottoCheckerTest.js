@@ -1,4 +1,4 @@
-import LottoChecker from "../src/LottoChecker.js";
+import LottoChecker from "../src/models/LottoChecker.js";
 
 describe("로또 체커 클래스 테스트", () => {
   let lottoChecker;

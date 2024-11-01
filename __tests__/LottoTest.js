@@ -1,4 +1,4 @@
-import Lotto from "../src/Lotto";
+import Lotto from "../src/models/Lotto";
 
 describe("로또 클래스 테스트", () => {
   describe("로또 생성 테스트", () => {

@@ -1,5 +1,5 @@
-import LottoPrize from "../src/LottoPrize.js";
-import LottoChecker from "../src/LottoChecker.js";
+import LottoPrize from "../src/models/LottoPrize.js";
+import LottoChecker from "../src/models/LottoChecker.js";
 
 describe("로또 당첨 클래스 테스트", () => {
   let lottoPrize;

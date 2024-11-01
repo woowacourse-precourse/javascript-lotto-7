@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { LOTTO_COUNT } from "./constants/lottoValue.js";
+import { LOTTO_COUNT } from "../constants/lottoValue.js";
 
 class LottoStore {
   #money;
