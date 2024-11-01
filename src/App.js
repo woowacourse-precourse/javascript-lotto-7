@@ -23,7 +23,14 @@ class App {
       }
     }
 
+    const getLottoCount = (number) => {
+      return number / 1000;
+    }
+
     validate(parseInput);
+    const lottoCount = getLottoCount(parseInput);
+
+    const printBuyLotto = await MissionUtils.Console.print(`${lottoCount}개를 구매했습니다.\n`)
   }
 }
 
