@@ -14,4 +14,13 @@ describe("로또 당첨 클래스 테스트", () => {
       expect(lottoPrize.isWinningNumber(7)).toBe(false);
     });
   });
+
+  describe("isBonusNumber 메서드", () => {
+    test("보너스 번호를 등록하면, 번호의 일치 여부를 확인할 수 있다.", () => {
+      lottoPrize.createBonusNumber("7");
+
+      expect(lottoPrize.isBonusNumber(7)).toBe(true);
+      expect(lottoPrize.isBonusNumber(1)).toBe(false);
+    });
+  });
 });
