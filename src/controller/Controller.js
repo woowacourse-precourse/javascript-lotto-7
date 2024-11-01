@@ -24,6 +24,10 @@ class Controller {
     const bonusNumber = await this.views.input.getBonusNumber();
     this.models.lottoPrize.createBonusNumber(bonusNumber);
   }
+
+  checkLotto() {
+    this.views.output.printResultHeader();
+  }
 }
 
 export default Controller;

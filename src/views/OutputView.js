@@ -17,6 +17,9 @@ const OutputView = {
   printNewLine() {
     MissionUtils.Console.print("");
   },
+  printResultHeader() {
+    MissionUtils.Console.print("\n당첨 통계\n---\n");
+  },
 };
 
 export default OutputView;

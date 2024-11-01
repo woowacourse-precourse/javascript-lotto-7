@@ -20,6 +20,7 @@ class App {
   async run() {
     await this.controller.buyLotto();
     await this.controller.setLottoPrize();
+    this.controller.checkLotto();
   }
 }
 
