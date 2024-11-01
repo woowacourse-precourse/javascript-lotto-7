@@ -1,8 +1,11 @@
-import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import Lottos from './Lottos.js';
-import { calculateQuatity } from './utils/index.js';
 import { Validator } from './Validator.js';
+import {
+  calculateQuatity,
+  generateRandomNumbers,
+  splitBySeperator,
+} from './utils/index.js';
 
 export class Publisher {
   constructor() {
@@ -14,18 +17,25 @@ export class Publisher {
     this.validator.validatePurchaseAmount(purchaseAmount);
   };
 
+  setWinningNumbers = (winningNumbersString) => {
+    this.validator.validateWinningNumberString(winningNumbersString);
+
+    this.winningNumbers = splitBySeperator(',', winningNumbersString);
+    this.validator.validateWinningNumbers(this.winningNumbers);
+  };
+
+  setBonusNumbers = (bonusNubmer) => {
+    this.bonusNumber = bonusNubmer;
+    this.validator.validateBonusNumber(this.bonusNumber);
+  };
+
   generateLotto = () => {
     const lottoNumbers = Array.from({ length: this.purchaseQuantity }).map(
       () => {
-        const randomNumbers = this.generateRandomNumbers();
+        const randomNumbers = generateRandomNumbers();
         return new Lotto(randomNumbers);
       },
     );
     return new Lottos(lottoNumbers);
-  };
-
-  generateRandomNumbers = () => {
-    const lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
-    return lottoNumbers;
   };
 }
