@@ -11,6 +11,7 @@ const generateRandomNumbers = () =>
     LOTTO.NUMBER_OF_SPACE,
   );
 
-const splitBySeperator = (seperator, string) => string.split(seperator);
+const splitBySeperator = (seperator, string) =>
+  string.split(seperator).map(Number);
 
 export { calculateQuatity, generateRandomNumbers, splitBySeperator };
