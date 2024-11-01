@@ -4,7 +4,14 @@ import { Console } from "@woowacourse/mission-utils"; // 외부 라이브러리 
 class App {
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
-    const ticketCount = purchaseAmount / 1000;
+    Console.print("");
+
+    const { lottoCount, lottoArr } = Lotto.createLotto(purchaseAmount);
+    Console.print(`${lottoCount}개를 구매했습니다.`);
+
+    lottoArr.forEach((lotto) => {
+      Console.print(`[${lotto.numbers.join(", ")}]`);
+    });
   }
 
   async getPurchaseAmount() {
@@ -32,6 +39,3 @@ class App {
   }
 }
 export default App;
-
-// - **로또 구입 금액 입력**: 로또 구입 금액을 입력받고,
-// 입력 값이 1,000원 단위로 받을 수 있는 기능 구현
