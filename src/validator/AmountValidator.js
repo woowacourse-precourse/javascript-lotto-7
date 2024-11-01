@@ -1,7 +1,7 @@
-import BaseValidator from "./BaseValidator.js";
+import Validator from "./Validator.js";
 import _pipe from "../utils/util.js";
 
-class AmountValidator extends BaseValidator {
+class AmountValidator extends Validator {
   static isMultipleOfThousand(input) {
     if (input % 1000 !== 0) throw new Error("1,000원 단위 아님");
     return input;
