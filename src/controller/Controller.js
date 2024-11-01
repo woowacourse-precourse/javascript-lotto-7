@@ -23,6 +23,7 @@ export default class Controller {
     this.outputView.printLottoPurchaseHistory(lottosNumber);
 
     const winningNumber = await this.getWinningNumber();
+    const bonusNumber = await this.getBonusNumber();
   }
 
   generateLottos(lottoCount) {
@@ -33,6 +34,12 @@ export default class Controller {
     const lottoNumbers = getUniqueNumbers();
 
     return new Lotto(lottoNumbers);
+  }
+
+  async getBonusNumber() {
+    const input = await this.inputView.getInput(INPUT_MESSAGE.BONUS_NUMBER);
+
+    return input;
   }
 
   async getWinningNumber() {
