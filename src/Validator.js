@@ -1,96 +1,74 @@
+import ERROR_MESSAGES from './constants/errorMessages.js';
+import { AMOUNT, CONTEXT, NUMBER } from './constants/constants.js';
+import throwError from './utils/error.js';
+
 class Validator {
   static validatePurchaseAmount(input) {
     const purchaseAmount = this.#convertToNumber(input);
     this.#validateAmountRange(purchaseAmount);
   }
 
+  static validateLotto(numbers) {
+    this.#validateNumbers(numbers, 6, CONTEXT.LOTTO);
+  }
+
+  static validateWinningNumbers(numbers) {
+    this.#validateNumbers(numbers, 6, CONTEXT.WINNING);
+  }
+
+  static validateBonusNumber(bonusNumber, winningNumbers) {
+    this.#validateInteger(bonusNumber, CONTEXT.BONUS);
+    this.#validateSingleNumberInRange(bonusNumber, CONTEXT.BONUS);
+
+    if (winningNumbers.includes(bonusNumber)) throwError(ERROR_MESSAGES.INVALID_BONUS_DUPLICATE);
+  }
+
+  static #validateNumbers(numbers, length = 6, context = CONTEXT.DEFAULT) {
+    this.#validateLength(numbers, length, context);
+    this.#validateNumberRange(numbers, context);
+    this.#validateDuplicates(numbers, context);
+  }
+
   static #convertToNumber(input) {
     const number = Number(input);
 
-    if (Number.isNaN(number)) {
-      throw new Error('[ERROR] 구입 금액은 숫자여야 합니다.');
-    }
+    if (Number.isNaN(number)) throwError(ERROR_MESSAGES.PURCHASE_AMOUNT_NOT_NUMBER);
 
     return number;
   }
 
   static #validateAmountRange(amount) {
-    if (amount < 1000) {
-      throw new Error('[ERROR] 구입 금액은 1,000원 이상이어야 합니다.');
-    }
+    if (amount < AMOUNT.MIN) throwError(ERROR_MESSAGES.PURCHASE_AMOUNT_MIN(AMOUNT.MIN));
 
-    if (amount > 100000) {
-      throw new Error('[ERROR] 구입 금액은 100,000원을 넘을 수 없습니다.');
-    }
+    if (amount > AMOUNT.MAX) throwError(ERROR_MESSAGES.PURCHASE_AMOUNT_MAX(AMOUNT.MAX));
 
-    if (amount % 1000 !== 0) {
-      throw new Error('[ERROR] 구입 금액은 1,000원 단위여야 합니다.');
-    }
+    if (amount % AMOUNT.UNIT !== 0) throwError(ERROR_MESSAGES.PURCHASE_AMOUNT_UNIT(AMOUNT.UNIT));
   }
 
-  static validateWinningNumbers(numbers) {
-    this.#validateLength(numbers);
-    this.#validateNumberRange(numbers);
-    this.#validateDuplicates(numbers);
+  static #validateLength(numbers, length, context) {
+    if (numbers.length !== NUMBER.EXPECTED_LENGTH)
+      throwError(ERROR_MESSAGES.INVALID_NUMBER_COUNT(context, length));
   }
 
-  static #validateLength(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 당첨 번호는 6개여야 합니다.');
-    }
+  static #validateDuplicates(numbers, context) {
+    if (new Set(numbers).size !== numbers.length)
+      throwError(ERROR_MESSAGES.INVALID_DUPLICATE__NUMBER(context));
   }
 
-  static #validateDuplicates(numbers) {
-    if (new Set(numbers).size !== numbers.length) {
-      throw new Error('[ERROR] 당첨 번호는 중복되지 않아야 합니다.');
-    }
-  }
-
-  static #validateNumberRange(numbers) {
+  static #validateNumberRange(numbers, context) {
     numbers.forEach((number) => {
-      this.#validateInteger(number);
-      this.#validateSingleNumberInRange(number);
+      this.#validateInteger(number, context);
+      this.#validateSingleNumberInRange(number, context);
     });
   }
 
-  static #validateInteger(number) {
-    if (!Number.isInteger(number)) {
-      throw new Error('[ERROR] 당첨 번호는 정수만 입력할 수 있습니다.');
-    }
+  static #validateInteger(number, context) {
+    if (!Number.isInteger(number)) throwError(ERROR_MESSAGES.INVALID_NUMBER_TYPE(context));
   }
 
-  static #validateSingleNumberInRange(number) {
-    if (number < 1 || number > 45) {
-      throw new Error('[ERROR] 번호는 1부터 45 사이의 숫자여야 합니다.');
-    }
-  }
-
-  static validateBonusNumber(bonusNumber, winningNumbers) {
-    if (!Number.isInteger(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 숫자여야 합니다.');
-    }
-
-    if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 정수여야 합니다.');
-    }
-
-    if (winningNumbers.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
-    }
-  }
-
-  static validateLotto(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
-    }
-
-    if (new Set(numbers).size !== 6) {
-      throw new Error('[ERROR] 중복된 로또 번호가 있습니다.');
-    }
-
-    numbers.forEach((number) => {
-      this.#validateSingleNumberInRange(number);
-    });
+  static #validateSingleNumberInRange(number, context) {
+    if (number < NUMBER.MIN_RANGE || number > NUMBER.MAX_RANGE)
+      throwError(ERROR_MESSAGES.INVALID_NUMBER_RANGE(context, NUMBER.MIN_RANGE, NUMBER.MAX_RANGE));
   }
 }
 
