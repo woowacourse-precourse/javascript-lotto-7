@@ -68,7 +68,7 @@ class Output {
     );
   }
 
-  calculateROI() {
+  printROI() {
     const resultObj = this.resultObj;
     const profit = this.#calculateProfit(resultObj);
     const profitRate = (profit / this.userPurchaseAmount) * 100;

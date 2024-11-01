@@ -21,7 +21,7 @@ class App {
 
     output.printSortedLottoNumbers();
     output.printResult();
-    output.calculateROI();
+    output.printROI();
   }
 }
 
