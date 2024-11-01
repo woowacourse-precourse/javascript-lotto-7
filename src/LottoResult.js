@@ -1,3 +1,5 @@
+import { Console } from '@woowacourse/mission-utils';
+
 class LottoResult {
   constructor() {
     this.matchCounts = { '1등': 0, '2등': 0, '3등': 0, '4등': 0, '5등': 0 };
@@ -15,6 +17,11 @@ class LottoResult {
     } else if (matches === 3) {
       this.matchCounts['5등']++;
     }
+  }
+
+  printStatistics() {
+    Console.print('\n당첨 통계\n---');
+    Console.print(`3개 일치 (5,000원) - ${this.matchCounts['5등']}개\n4개 일치 (50,000원) - ${this.matchCounts['4등']}개\n5개 일치 (1,500,000원) - ${this.matchCounts['3등']}개\n5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.matchCounts['2등']}개\n6개 일치 (2,000,000,000원) - ${this.matchCounts['1등']}개`);
   }
 }
 

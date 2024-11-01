@@ -10,6 +10,7 @@ class App {
     const bonusNumber = await this.getBonusNumber(winningNumbers);
     const lottoResult = new LottoResult();
     this.calculateStatistics(tickets, winningNumbers, bonusNumber, lottoResult);
+    lottoResult.printStatistics();
   }
 
   async getAmount() {
