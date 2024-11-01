@@ -3,12 +3,10 @@ import { parseNumbers } from '../utils/Parser.js';
 
 class Validator {
   static #WINNING_NUMBER_COUNT = 6;
-  static #WINNING_NUMBER_MIN = 1;
-  static #WINNING_NUMBER_MAX = 45;
+  static #NUMBER_MIN = 1;
+  static #NUMBER_MAX = 45;
   static #BONUS_NUMBER_EMPTY_STRING = '';
   static #BONUS_NUMBER_MIN_LENGTH = 1;
-  static #BONUS_NUMBER_MIN_VALUE = 1;
-  static #BONUS_NUMBER_MAX_VALUE = 45;
   static #WINNING_NUMBERS;
 
   constructor() {}
@@ -29,14 +27,14 @@ class Validator {
 
   static #checkWinningNumberCount(numbers) {
     if (numbers.length !== Validator.#WINNING_NUMBER_COUNT) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_COUNT);
+      throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_COUNT);
     }
   }
 
   static #checkWinningNumberDuplicate(numbers) {
     const setNumbers = new Set(numbers);
     if (numbers.length !== setNumbers.size) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_DUPLICATE);
+      throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_DUPLICATE);
     }
   }
 
@@ -44,10 +42,10 @@ class Validator {
     numbers.forEach((number) => {
       if (
         !Number.isInteger(number) ||
-        number < Validator.#WINNING_NUMBER_MIN ||
-        number > Validator.#WINNING_NUMBER_MAX
+        number < Validator.#NUMBER_MIN ||
+        number > Validator.#NUMBER_MAX
       ) {
-        throw new Error(ERROR_MESSAGE.INVALID_NUMBER_COUNT);
+        throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_COUNT);
       }
     });
   }
@@ -61,15 +59,15 @@ class Validator {
   static #checkBonusNumberCount(number) {
     const bonusNumber = parseNumbers(number);
     if (bonusNumber.length > Validator.#BONUS_NUMBER_MIN_LENGTH) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_COUNT);
+      throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_COUNT);
     }
   }
 
   static #checkBonusNumberRange(number) {
     if (
       !Number.isInteger(number) ||
-      number < Validator.#BONUS_NUMBER_MIN_VALUE ||
-      number > Validator.#BONUS_NUMBER_MAX_VALUE
+      number < Validator.#NUMBER_MIN ||
+      number > Validator.#NUMBER_MAX
     ) {
       throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_RANGE);
     }
