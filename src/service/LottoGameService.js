@@ -45,7 +45,7 @@ class LottoGameService {
     return lottos;
   }
 
-  createLottoQuantity(userMoney) {
+  getLottoQuantity(userMoney) {
     return userMoney / LOTTO_PRICE;
   }
 
