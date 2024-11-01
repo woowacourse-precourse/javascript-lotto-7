@@ -32,4 +32,16 @@ describe("로또 게임에 대한 테스트", () => {
       exception.validateBonusNumber("", false);
     }).toThrow("[ERROR]");
   });
+
+  test("[입력 테스트]보너스 번호가 숫자가 아니면 예외가 발생한다.", () => {
+    expect(() => {
+      exception.validateBonusNumber("hi", false);
+    }).toThrow("[ERROR]");
+  });
+
+  test("[입력 테스트]보너스 번호가 정수가 아니면 예외가 발생한다.", () => {
+    expect(() => {
+      exception.validateBonusNumber(2.3, false);
+    }).toThrow("[ERROR]");
+  });
 });
