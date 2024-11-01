@@ -1,7 +1,12 @@
 import { Random } from '@woowacourse/mission-utils';
 import LottoService from '../src/service/LottoService.js';
 
-import { RANK_PRICE, PRICE_RANGE, SEPARATOR } from '../src/constant/system.js';
+import {
+  RANK_PRICE,
+  PRICE_RANGE,
+  SEPARATOR,
+  RANK_NAMES,
+} from '../src/constant/system.js';
 
 function mockRandomRange() {
   Random.pickUniqueNumbersInRange = jest.fn();
@@ -101,7 +106,10 @@ describe('LottoService 클래스 테스트', () => {
     const rate = lottoService.getRateOfReturn(rankObject, price);
 
     expect(rate).toEqual(
-      (((RANK_PRICE.FOUR + RANK_PRICE.FIVE) / price) * 100).toFixed(1),
+      (
+        ((RANK_PRICE[RANK_NAMES.FOUR] + RANK_PRICE[RANK_NAMES.FIVE]) / price) *
+        100
+      ).toFixed(1),
     );
   });
 });

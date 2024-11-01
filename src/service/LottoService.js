@@ -1,5 +1,12 @@
 import { Random } from '@woowacourse/mission-utils';
-import { RANK_PRICE, PRICE_RANGE, SEPARATOR } from '../constant/system.js';
+import {
+  RANK_PRICE,
+  PRICE_RANGE,
+  SEPARATOR,
+  RANK_NAMES,
+  NUMBER_RANGE,
+  LOTTO_NUMBER_LENGTH,
+} from '../constant/system.js';
 import Validator from '../Validator.js';
 import UserModel from '../model/UserModel.js';
 import Lotto from '../Lotto.js';
@@ -18,7 +25,11 @@ export default class LottoService {
     const lottoLength = price / PRICE_RANGE.MIN;
 
     for (let i = 0; i < lottoLength; i += 1) {
-      const randomNumber = Random.pickUniqueNumbersInRange(1, 45, 6);
+      const randomNumber = Random.pickUniqueNumbersInRange(
+        NUMBER_RANGE.MIN,
+        NUMBER_RANGE.MAX,
+        LOTTO_NUMBER_LENGTH,
+      );
       this.userModel.createLotto(new Lotto(randomNumber));
     }
   }
@@ -52,8 +63,12 @@ export default class LottoService {
     const bonusNumber = this.winningLottoModel.getBonusNumber();
 
     this.userModel.getLottos().forEach((lotto) => {
-      const rank = this.#getRank(lotto, winningLottoNumbers, bonusNumber);
-      if (rank) rankMap.set(rank, rankMap.get(rank) + 1);
+      const rankName = this.#getRankName(
+        lotto,
+        winningLottoNumbers,
+        bonusNumber,
+      );
+      if (rankName) rankMap.set(rankName, rankMap.get(rankName) + 1);
     });
 
     return rankMap;
@@ -65,34 +80,40 @@ export default class LottoService {
   }
 
   #getRankMap() {
-    return new Map([
-      [3, 0],
-      [4, 0],
-      [5, 0],
-      ['5+', 0],
-      [6, 0],
-    ]);
+    return new Map(Object.values(RANK_NAMES).map((rankName) => [rankName, 0]));
   }
 
-  #getRank(lotto, winningLottoNumbers, bonusNumber) {
+  #getRankName(lotto, winningLottoNumbers, bonusNumber) {
     const lottoNumbers = lotto.getNumbers();
 
     const intersectionLottoNumbers = lottoNumbers.filter((number) =>
       winningLottoNumbers.includes(number),
     );
 
-    const rank = intersectionLottoNumbers.length;
-    if (rank === 5 && lottoNumbers.includes(bonusNumber)) return '5+';
-    if (rank >= 3) return rank;
+    const matchCount = intersectionLottoNumbers.length;
+    const determinRank = this.#determineRank(
+      matchCount,
+      lottoNumbers,
+      bonusNumber,
+    );
+    return determinRank;
+  }
+
+  #determineRank(matchCount, lottoNumbers, bonusNumber) {
+    if (matchCount === RANK_NAMES.SIX) return RANK_NAMES.SIX;
+    if (matchCount === RANK_NAMES.FIVE && lottoNumbers.includes(bonusNumber))
+      return RANK_NAMES.FIVE_BONUS;
+    if (matchCount === RANK_NAMES.FIVE) return RANK_NAMES.FIVE;
+    if (matchCount === RANK_NAMES.FOUR) return RANK_NAMES.FOUR;
+    if (matchCount === RANK_NAMES.THREE) return RANK_NAMES.THREE;
     return null;
   }
 
   #getTotalPrize(rankMap) {
-    const prizes = Object.values(RANK_PRICE);
     let totalPrize = 0;
 
-    Array.from(rankMap.values()).forEach((count, index) => {
-      totalPrize += prizes[index] * count;
+    rankMap.forEach((count, rankName) => {
+      totalPrize += RANK_PRICE[rankName] * count;
     });
 
     return totalPrize;

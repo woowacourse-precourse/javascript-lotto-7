@@ -28,18 +28,20 @@ describe('OuputView 클래스 테스트', () => {
 
   test('당첨 통계 출력', () => {
     const lottoRankMap = new Map([
-      [3, 1],
-      [4, 3],
-      [5, 1],
-      ['5+', 0],
+      ['5등', 1],
+      ['4등', 3],
+      ['3등', 1],
+      ['2등', 0],
+      ['1등', 0],
     ]);
 
-    const lottoRanks = Array.from(lottoRankMap.values());
     OutputView.winningStatistics(lottoRankMap);
 
-    Object.values(RANK_OUTPUT_MESSAGE).forEach((message, index) => {
+    lottoRankMap.forEach((count, rankName) => {
       expect(spy).toHaveBeenCalledWith(
-        expect.stringContaining(`${message} - ${lottoRanks[index]}개`),
+        expect.stringContaining(
+          `${RANK_OUTPUT_MESSAGE[rankName]} - ${count}개`,
+        ),
       );
     });
   });
