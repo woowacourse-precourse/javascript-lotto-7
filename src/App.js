@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto"; // Lotto 클래스 임포트
+import Lotto from "./Lotto";
 
 class App {
   async run() {
@@ -25,14 +25,23 @@ class App {
       Console.print(`[${randomNumbers.join(", ")}]`);
     }
 
-    // 당첨 번호 및 보너스 번호 입력 처리
-    const lottoNum = await Console.readLineAsync("당첨 번호를 입력 하세요.");
-    const lottoNumbers = lottoNum.split(",").map(Number);
-    const lotto = new Lotto(lottoNumbers);
+    // 당첨 번호 입력 처리
+    let lottoNumbers;
+    while (true) {
+      try {
+        const lottoNum = await Console.readLineAsync("당첨 번호를 입력하세요.");
+        lottoNumbers = lottoNum.split(",").map(Number);
+        new Lotto(lottoNumbers); // 로또 번호 유효성 검사
+        break; // 유효한 번호가 입력되면 반복 종료
+      } catch (error) {
+        Console.print(error.message); // [ERROR] 메시지 출력
+      }
+    }
 
-    const bonusNumber = Lotto.genBonusNum(lotto.getNum());
+    // 보너스 번호 생성
+    const bonusNumber = Lotto.genBonusNum(lottoNumbers);
 
-    //당첨 결과 계산
+    // 당첨 결과 계산
     const winningMoney = {
       3: 5000,
       4: 50000,
@@ -52,19 +61,18 @@ class App {
       else if (matchCount >= 3) result[matchCount]++;
     });
 
-    //수익률 계산
+    // 수익률 계산
     const totalPrize = Object.keys(result).reduce(
       (acc, key) => acc + result[key] * winningMoney[key],
       0
     );
     const profitRate = Math.round((totalPrize / lottoPrice) * 100 * 10) / 10;
 
-    // 로직 실행
+    // 결과 출력
     Console.print(`구입 금액: ${lottoPrice}`);
-    Console.print(`당첨 번호: ${lotto.getNum()}`);
+    Console.print(`당첨 번호: ${lottoNumbers}`);
     Console.print(`보너스 번호: ${bonusNumber}`);
 
-    // 당첨 내역 출력
     Console.print(`3개 일치 (5,000원) - ${result[3]}개`);
     Console.print(`4개 일치 (50,000원) - ${result[4]}개`);
     Console.print(`5개 일치 (1,500,000원) - ${result[5]}개`);
