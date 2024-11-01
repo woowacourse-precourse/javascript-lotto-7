@@ -11,9 +11,16 @@ class InputHandler {
   }
 
   static validateCost(cost) {
+    this.checkIsString(cost);
     this.checkIsZero(cost);
     this.checkIsNegative(cost);
     this.checkIs1000Units(cost);
+  }
+
+  static checkIsString(cost) {
+    if (isNaN(cost)) {
+      throw new Error(COST.STRING);
+    }
   }
 
   static checkIsZero(cost) {
