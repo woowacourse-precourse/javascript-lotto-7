@@ -12,9 +12,8 @@ import {
   printWinningAmount,
 } from './Views/outputViews.js';
 import { issueLottoList } from './Models/lottoListIssueUtils.js';
-import { validateWinningNumbers } from './Controllers/Validator/winningNumbersValidator.js';
+import { WinningNumbersValidator } from './Controllers/Validator/winningNumbersValidator.js';
 import { validateBonusNumber } from './Controllers/Validator/bonusNumberValidator.js';
-
 import { produceStatistics } from './Models/winningStatisticsUtils.js';
 import { produceRateOfReturn } from './Models/rateOfReturnUtils.js';
 import { trimWinningNumbers } from './Models/winningNumbersUtils.js';
@@ -31,7 +30,8 @@ class App {
     printLottoList(purchaseCount, lottoList);
 
     const winningNumbers = await getWinningNumbersInput();
-    validateWinningNumbers(winningNumbers);
+
+    new WinningNumbersValidator(winningNumbers).validateWinningNumbers();
 
     const trimWinningNum = trimWinningNumbers(winningNumbers);
 

@@ -1,45 +1,45 @@
 import { ERROR_MESSAGE } from '../../Constants/errorMessages.js';
 
-const isWinningNumbersEmptyInput = (winningNumbersInput) => winningNumbersInput !== '';
-
-const isWinningNumbersSixDigits = (winningNumbersInput) => {
-  const indexArr = winningNumbersInput.split(',').map((x) => x.trim());
-
-  return indexArr.length === 6;
-};
-
-const isWinningNumbersFiveComma = (winningNumbersInput) => {
-  const arr = [...winningNumbersInput];
-  const onlyNumber = arr.filter((number) => number === ',');
-
-  return onlyNumber.length === 5;
-};
-
-// 중복된 숫자 되면 안됨
-const isWinningNumberDuplicated = (winningNumbers) => {
-  const indexArr = winningNumbers.split(',').map((x) => x.trim());
-  const onlyNumber = indexArr.filter((number) => !isNaN(number) === true);
-  const uniqueWinningNumbers = new Set(onlyNumber);
-
-  return onlyNumber.length === uniqueWinningNumbers.size;
-};
-
-const validateWinningNumbers = (winningNumbers) => {
-  if (!isWinningNumbersEmptyInput(winningNumbers)) {
-    throw new Error(ERROR_MESSAGE.EMPTY_INPUT_WINNING_NUMBERS);
+class WinningNumbersValidator {
+  constructor(winningNumber) {
+    this.winningNumber = winningNumber;
+    this.parsedWinningNumbers = this.winningNumber.split(',').map((x) => x.trim());
   }
 
-  if (!isWinningNumbersSixDigits(winningNumbers)) {
-    throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
+  isWinningNumbersEmptyInput() {
+    return this.parsedWinningNumbers.length === 6;
   }
 
-  if (!isWinningNumbersFiveComma(winningNumbers)) {
-    throw new Error(ERROR_MESSAGE.COMMA_COUNT);
+  isWinningNumbersSixDigits() {
+    return this.parsedWinningNumbers.length === 6;
   }
 
-  if (!isWinningNumberDuplicated(winningNumbers)) {
-    throw new Error(ERROR_MESSAGE.UNIQUE_NUMBER);
+  isWinningNumbersFiveComma() {
+    const arr = [...this.winningNumber];
+    const onlyNumber = arr.filter((number) => number === ',');
+    return onlyNumber.length === 5;
   }
-};
 
-export { validateWinningNumbers };
+  isWinningNumberDuplicated() {
+    const onlyNumber = this.parsedWinningNumbers.filter((number) => !isNaN(number) === true);
+    const uniqueWinningNumbers = new Set(onlyNumber);
+    return onlyNumber.length === uniqueWinningNumbers.size;
+  }
+
+  validateWinningNumbers() {
+    if (!this.isWinningNumbersEmptyInput(this.winningNumber)) {
+      throw new Error(ERROR_MESSAGE.EMPTY_INPUT_WINNING_NUMBERS);
+    }
+    if (!this.isWinningNumbersSixDigits(this.winningNumber)) {
+      throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
+    }
+    if (!this.isWinningNumbersFiveComma(this.winningNumber)) {
+      throw new Error(ERROR_MESSAGE.COMMA_COUNT);
+    }
+    if (!this.isWinningNumberDuplicated(this.winningNumber)) {
+      throw new Error(ERROR_MESSAGE.UNIQUE_NUMBER);
+    }
+  }
+}
+
+export { WinningNumbersValidator };
