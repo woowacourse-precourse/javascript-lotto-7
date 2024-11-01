@@ -15,6 +15,11 @@ export default class Controller {
     const paidMoney = await this.getMoney();
     const lottoCount = paidMoney / LOTTO.LOTTO_PRICE;
     const lottos = this.generateLottos(lottoCount);
+    const lottosNumber = lottos.map((lotto) =>
+      lotto.getNumbers().sort((a, b) => a - b),
+    );
+
+    this.outputView.printLottoPurchaseHistory(lottosNumber);
   }
 
   generateLottos(lottoCount) {
