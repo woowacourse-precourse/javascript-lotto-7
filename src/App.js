@@ -16,6 +16,23 @@ class App {
     }
   }
 
+  async #readAmount() {
+    const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    const amount = Number(input);
+    
+    if (isNaN(amount)) {
+      throw new Error("[ERROR] 구입 금액은 숫자여야 합니다.");
+    }
+    if (amount <= 0) {
+      throw new Error("[ERROR] 구입 금액은 0보다 커야 합니다.");
+    }
+    if (amount % 1000 !== 0) {
+      throw new Error("[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다.");
+    }
+    
+    return amount;
+  }
+
   async #purchaseLottos() {
     const amount = await this.#readAmount();
     const lottoCount = Math.floor(amount / 1000);
@@ -23,10 +40,6 @@ class App {
     this.#generateLottos(lottoCount);
   }
 
-  async #readAmount() {
-    const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
-    return Number(input);
-  }
 
   #generateLottos(count) {
     for (let i = 0; i < count; i++) {
