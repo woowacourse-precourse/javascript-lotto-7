@@ -10,7 +10,10 @@ class App {
   constructor() {
     this.controller = new Controller(
       { input: InputView, output: OutputView },
-      { LottoStore, lottoPrize: new LottoPrize() },
+      {
+        lottoStore: new LottoStore(),
+        lottoPrize: new LottoPrize(),
+      },
     );
   }
 

@@ -9,13 +9,10 @@ class LottoStore {
 
   LOTTO_PRICE = 1000;
 
-  constructor(money) {
-    this.#lottoCount = this.buyLotto(money);
-    this.#lottoList = new Array(this.#lottoCount).fill(0).map(LottoStore.#createLotto);
-  }
-
   buyLotto(money) {
-    return Math.floor(money / this.LOTTO_PRICE);
+    this.#lottoCount = Math.floor(money / this.LOTTO_PRICE);
+    this.#lottoList = new Array(this.#lottoCount).fill(0).map(LottoStore.#createLotto);
+    return this.#lottoList;
   }
 
   static #createLotto() {

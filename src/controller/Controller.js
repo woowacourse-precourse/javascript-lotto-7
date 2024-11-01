@@ -10,10 +10,10 @@ class Controller {
 
   async buyLotto() {
     const money = await this.views.input.getLottoMoney();
-    const lottoStore = new this.models.LottoStore(money);
+    this.models.lottoStore.buyLotto(money);
 
-    this.views.output.printLottoCount(lottoStore.getLottoCount());
-    this.views.output.printLottos(lottoStore.getLottos());
+    this.views.output.printLottoCount(this.models.lottoStore.getLottoCount());
+    this.views.output.printLottos(this.models.lottoStore.getLottos());
   }
 
   async setLottoPrize() {
