@@ -37,7 +37,7 @@ class CommonValidator {
   }
 
   checkValidInputValues(values) {
-    values.every((value) => this.checkValidInput(value));
+    values.forEach((value) => this.checkValidInput(value));
   }
 
   validateNumericInput(inputValue) {
