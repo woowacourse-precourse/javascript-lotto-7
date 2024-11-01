@@ -37,6 +37,8 @@ export const RESULT = {
 };
 
 export const ERROR = {
+  COST_UNIT: '[ERROR] 구매 금액은 1,000원 단위만 가능합니다.',
+  COST_TYPE: '[ERROR] 구매 금액은 숫자만 입력 가능합니다.',
   LOTTO_RANGE: '[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.',
   LOTTO_ARRAY_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
 };
