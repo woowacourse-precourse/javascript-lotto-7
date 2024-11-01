@@ -51,7 +51,9 @@ class App {
     });
 
     let userPickedNumbers = [];
-    userPickedNumbers = await this.getUserPickedNumbers();
+    userPickedNumbers = this.splitUserPickedNumbers(
+      await this.getUserPickedNumbers()
+    );
   }
   getLottoCost() {
     return MissionUtils.Console.readLineAsync(GUIDE_MESSAGE_INPUT_COST);
@@ -60,6 +62,9 @@ class App {
     return MissionUtils.Console.readLineAsync(
       GUIDE_MESSAGE_INPUT_USER_PICKED_NUMBERS
     );
+  }
+  splitUserPickedNumbers(userPickedStr) {
+    return userPickedStr.split(",");
   }
 }
 
