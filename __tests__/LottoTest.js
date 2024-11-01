@@ -20,5 +20,9 @@ describe("로또 클래스 테스트", () => {
       const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
       expect(lotto.getLottoNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
     });
+    test("로또 번호는 오름차순으로 반환한다.", () => {
+      const lotto = new Lotto([6, 5, 4, 3, 2, 1]);
+      expect(lotto.getLottoNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
+    });
   });
 });

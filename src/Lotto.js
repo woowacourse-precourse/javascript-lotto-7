@@ -21,7 +21,12 @@ class Lotto {
     }
   }
 
+  #sortLottoNumbers() {
+    this.#numbers.sort((a, b) => a - b);
+  }
+
   getLottoNumbers() {
+    this.#sortLottoNumbers();
     return this.#numbers;
   }
 }
