@@ -37,6 +37,45 @@ class InputView {
     }
   }
 
+  async readWinningNumbers() {
+    const winningNumbersInput = await this.readInput(
+      '당첨 번호를 입력해 주세요.'
+    );
+
+    if (winningNumbersInput.trim() === '') {
+      throw new Error('[ERROR] 당첨 번호를 입력해야 합니다.');
+    }
+
+    const winningNumbers = winningNumbersInput
+      .split(',')
+      .map(name => Number(name.trim()));
+
+    this.validateWinningNumbers(winningNumbers);
+
+    return winningNumbers;
+  }
+
+  validateWinningNumbers(numbers) {
+    if (numbers.length !== 6) {
+      throw new Error('[ERROR] 당첨 번호는 반드시 6개여야 합니다.');
+    }
+
+    numbers.forEach(number => {
+      if (isNaN(number)) {
+        throw new Error('[ERROR] 당첨 번호는 숫자여야 합니다.');
+      }
+
+      if (number < 1 || number > 45) {
+        throw new Error('[ERROR] 당첨 번호는 1~45 사이여야 합니다.');
+      }
+    });
+
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error('[ERROR] 중복된 당첨 번호가 있습니다.');
+    }
+  }
+
 }
 
 export default InputView;
