@@ -1,4 +1,8 @@
-import { validateInputMoney, validateLottoNumbers } from '../src/utils/validate.js';
+import {
+  validateBonusNumber,
+  validateInputMoney,
+  validateLottoNumbers,
+} from '../src/utils/validate.js';
 import { ERROR_MESSAGE } from '../src/constant/index.js';
 
 describe('validateInputMoney() 검증 테스트', () => {
@@ -45,5 +49,30 @@ describe('validateLottoNumbers() 검증 테스트', () => {
   ];
   test.each(FAILED_CASES)(`실패 테스트`, (input, errorMessage) => {
     expect(() => validateLottoNumbers(input)).toThrow(errorMessage);
+  });
+});
+
+describe('validateBonusNumber() 검증 테스트', () => {
+  const SUCCESS_CASES = [
+    [[10, 11, 12, 13, 14, 15], '1'],
+    [[10, 11, 12, 13, 14, 15], '45'],
+    [[10, 11, 12, 13, 14, 15], '32'],
+    [[10, 11, 12, 13, 14, 15], '29'],
+  ];
+  test.each(SUCCESS_CASES)(`성공 테스트`, (winningNumber, bonusNumber) => {
+    expect(() => validateBonusNumber(winningNumber, bonusNumber)).not.toThrow();
+  });
+
+  const FAILED_CASES = [
+    [[10, 11, 12, 13, 14, 15], '', ERROR_MESSAGE.EMPTY],
+    [[10, 11, 12, 13, 14, 15], undefined, ERROR_MESSAGE.EMPTY],
+    [[10, 11, 12, 13, 14, 15], null, ERROR_MESSAGE.EMPTY],
+    [[10, 11, 12, 13, 14, 15], '11!@', ERROR_MESSAGE.NOT_A_NUMBER],
+    [[10, 11, 12, 13, 14, 15], '0', ERROR_MESSAGE.LOTTO_NUM_RANGE],
+    [[10, 11, 12, 13, 14, 15], '46', ERROR_MESSAGE.LOTTO_NUM_RANGE],
+    [[10, 11, 12, 13, 14, 15], '10', ERROR_MESSAGE.BONUS_NUM_DUPLICATION],
+  ];
+  test.each(FAILED_CASES)(`실패 테스트`, (winningNumber, bonusNumber, errorMessage) => {
+    expect(() => validateBonusNumber(winningNumber, bonusNumber)).toThrow(errorMessage);
   });
 });
