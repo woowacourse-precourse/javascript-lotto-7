@@ -2,6 +2,7 @@ import { INPUT, OUTPUT } from '../constants/Constants.js';
 import { ticketCount } from '../utils/Calculation.js';
 import { Console } from '@woowacourse/mission-utils';
 import { validateCost } from '../utils/Validation.js';
+import { randomTicket } from '../utils/Random.js';
 
 class TicketController {
   tickets;
@@ -18,6 +19,10 @@ class TicketController {
 
   displayTicketCount() {
     Console.print(`\n${this.tickets}${OUTPUT.TICKET}`);
+  }
+
+  displayTicketNumber() {
+    Console.print(randomTicket(this.tickets));
   }
 }
 
