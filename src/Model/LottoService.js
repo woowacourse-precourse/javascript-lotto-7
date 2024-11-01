@@ -16,6 +16,10 @@ export default class LottoService {
     this.#lottoCount = price / LOTTO_PRICE;
   }
 
+  getlottoCount() {
+    return this.#lottoCount;
+  }
+
   getLottos() {
     const lottoNumberList = [];
     this.#lottos.forEach((lotto) => {
