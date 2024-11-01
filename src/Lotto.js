@@ -1,3 +1,4 @@
+import { Random } from "@woowacourse/mission-utils";
 import LottoIO from "./LottoIO.js";
 
 export const LOTTO_PRICE = 1000;
@@ -23,14 +24,35 @@ class Lotto {
   // TODO: 추가 기능 구현
 
   static async buy() {
+    const money = await this.#getUserAmount();
+    const lottoCount = this.#pay2Lotto(money, LOTTO_PRICE);
+
+    LottoIO.print(`\n${lottoCount}개를 구매했습니다.`);
+
+    const lottos = this.#scratch(lottoCount);
+
+    lottos.forEach((lotto) => {
+      LottoIO.print(lotto);
+    });
+
+    return;
+  }
+
+  static #scratch(count) {
+    return Array.from({ length: count }, () =>
+      Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)
+    );
+  }
+
+  static async #getUserAmount() {
     let amount = null;
 
     do {
-      amount = await LottoIO.getUserInput("구입금액을 입력해 주세요.");
+      amount = await LottoIO.getUserInput("구입금액을 입력해 주세요.\n");
       amount = this.#parseAmount(amount);
     } while (!this.#isValidAmount(amount));
 
-    return this.#pay2Lotto(amount, LOTTO_PRICE);
+    return amount;
   }
 
   static #parseAmount(number) {
