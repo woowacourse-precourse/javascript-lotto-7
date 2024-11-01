@@ -27,43 +27,45 @@ const runException = async (inputs, errorMessage) => {
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorMessage));
 };
 
-describe('로또 애플리케이션 테스트', () => {
+describe('App', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
 
-  describe('기능 테스트', () => {
-    test('Mock 데이터', async () => {
-      const logSpy = getLogSpy();
+  describe('정상 케이스', () => {
+    describe('올바른 데이터를 입력했을 때의 상황을 테스트한다.', () => {
+      test('모킹 데이터', async () => {
+        const logSpy = getLogSpy();
 
-      mockRandoms(MOCKDATA.RANDOM.LOTTO_NUMBERS);
-      mockQuestions(Object.values(MOCKDATA.INPUT).flat());
+        mockRandoms(MOCKDATA.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCKDATA.INPUT).flat());
 
-      const app = new App();
-      await app.run();
+        const app = new App();
+        await app.run();
 
-      Object.values(MOCKDATA.OUTPUT)
-        .flat()
-        .forEach((log) => {
-          expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
-        });
+        Object.values(MOCKDATA.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
     });
   });
 
   describe('예외 케이스', () => {
-    describe('구입 금액', () => {
-      test('숫자가 아닌 경우.', async () => {
+    describe('입력된 구입 금액이 올바르지 않은 경우 예외를 처리한다.', () => {
+      test('숫자가 아닌 경우', async () => {
         await runException(['1000j'], ERROR_MESSAGE.NOT_NUMERIC);
       });
-      test('1,000원 단위가 아닌 경우.', async () => {
+      test('1,000원 단위가 아닌 경우', async () => {
         await runException(['1010'], ERROR_MESSAGE.NOT_THOUSAND_UNIT);
       });
-      test('양수가 아닌 경우.', async () => {
+      test('양수가 아닌 경우', async () => {
         await runException(['-1000'], ERROR_MESSAGE.NOT_POSITIVE);
       });
     });
 
-    describe('당첨 번호', () => {
+    describe('입력된 당첨 번호가 올바르지 않은 경우 예외를 처리한다.', () => {
       test('6개의 숫자보다 적거나 많게 입력한 경우', async () => {
         await runException(
           [MOCKDATA.INPUT.PURCHASE_PRICE, '1,2,3'],
@@ -92,7 +94,7 @@ describe('로또 애플리케이션 테스트', () => {
       });
     });
 
-    describe('보너스 번호', () => {
+    describe('입력된 보너스 번호가 올바르지 않은 경우 예외를 처리한다.', () => {
       test('입력한 값이 숫자가 아닌 경우', async () => {
         await runException(
           [MOCKDATA.INPUT.PURCHASE_PRICE, MOCKDATA.INPUT.WINNING_NUMBERS, 'a'],

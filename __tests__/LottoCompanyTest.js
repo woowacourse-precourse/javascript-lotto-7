@@ -3,7 +3,7 @@ import { mockQuestions, mockRandoms } from '../src/lib/mock/utils';
 import LottoCompany from '../src/LottoCompany';
 import LottoShop from '../src/LottoShop';
 
-describe('LottoCompany 테스트', () => {
+describe('LottoCompany', () => {
   const lottoCompany = new LottoCompany();
   const lottoShop = new LottoShop();
 

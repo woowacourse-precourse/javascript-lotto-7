@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from '../src/lib/constants';
 import Lotto from '../src/Lotto';
 
-describe('Lotto 테스트', () => {
+describe('Lotto', () => {
   describe('예외 케이스', () => {
     test('로또 번호의 개수가 6개가 넘어가는 경우 예외가 발생한다.', () => {
       expect(() => {
@@ -16,7 +16,7 @@ describe('Lotto 테스트', () => {
     });
   });
 
-  describe('기능 테스트', () => {
+  describe('정상적인 케이스', () => {
     const lotto = new Lotto([4, 2, 3, 6, 1, 5]);
 
     test('로또 번호가 오름차순으로 정렬된다.', () => {

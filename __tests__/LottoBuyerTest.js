@@ -8,7 +8,7 @@ import LottoBuyer from '../src/LottoBuyer.js';
 import LottoCompany from '../src/LottoCompany.js';
 import LottoShop from '../src/LottoShop.js';
 
-describe('LottoBuyer 테스트', () => {
+describe('LottoBuyer', () => {
   const lottoBuyer = new LottoBuyer();
   const lottoShop = new LottoShop();
   const lottoCompany = new LottoCompany();

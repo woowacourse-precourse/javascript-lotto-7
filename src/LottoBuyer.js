@@ -38,7 +38,6 @@ class LottoBuyer {
         cumulativeWinningMoney +
         this.#winningLottoMap.get(lottoInformation.rank) *
           lottoInformation.prizeMoney,
-
       0,
     );
   }

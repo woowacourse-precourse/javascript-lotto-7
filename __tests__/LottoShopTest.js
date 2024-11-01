@@ -2,7 +2,7 @@ import MOCKDATA from '../src/lib/mock/data';
 import { mockRandoms } from '../src/lib/mock/utils';
 import LottoShop from '../src/LottoShop';
 
-describe('LottoCompany 테스트', () => {
+describe('LottoCompany', () => {
   const lottoShop = new LottoShop();
 
   test('orderLottos', () => {
