@@ -11,11 +11,13 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    //중복X
-    //1~45범위
-    //숫자 아님
+    if(new Set(numbers).size !== 6){
+      throw new Error("[ERROR] 배열에 중복값이 존재합니다.");
+    }
+    if(!numbers.every((number)=> 1<=number && number<=45)){
+      throw new Error("[ERROR] 로또 번호는 1부터 45까지 입니다.");
+    }
   }
-
 
 }
 
