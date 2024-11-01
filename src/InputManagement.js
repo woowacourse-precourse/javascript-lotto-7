@@ -88,7 +88,11 @@ class InputManagement {
       throw new Error(ERROR_TEXTS.NOT_A_FLOAT_BONUS_NUMBER);
     }
 
-    return bonusNumber;
+    if(this.#winningNumbers.includes(Number(bonusNumber))) {
+      throw new Error(ERROR_TEXTS.NOT_A_DUPLICATION_BONUS_NUMBER);
+    }
+
+    return Number(bonusNumber);
   }
 
   async inputPurchaseAmount() {

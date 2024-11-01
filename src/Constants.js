@@ -18,6 +18,7 @@ const ERROR_TEXTS = Object.freeze({
   NOT_A_BLANK_BONUS_NUMBER : '[ERROR] 보너스 번호는 공백으로 입력할 수 없습니다.\n',
   OUT_OF_RANGE_BONUS_NUMBER : '[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자로 입력해야 합니다.\n',
   NOT_A_FLOAT_BONUS_NUMBER : '[ERROR] 보너스 번호는 소수가 될 수 없습니다.\n',
+  NOT_A_DUPLICATION_BONUS_NUMBER : '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.\n',
 });
 
 export { INPUT_TEXTS, ERROR_TEXTS };
