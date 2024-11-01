@@ -8,3 +8,12 @@ describe('구입금액 입력 유효성 검사', () => {
     );
   });
 });
+
+describe('당첨번호 입력 유효성 검사', () => {
+  test('구분자 유효성 검사', () => {
+    const input = '1.2.3.4.5.6';
+    expect(() => new App().getWinningNumbers(Number(input))).toThrow(
+      '[ERROR] ,(쉼표)로 구분해 주십시오.'
+    );
+  });
+});
