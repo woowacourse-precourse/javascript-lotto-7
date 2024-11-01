@@ -1,5 +1,4 @@
 import InputManager from './InputManager.js';
-import LottoShop from './LottoShop.js';
 import OutputManager from './OutputManager.js';
 import { LOTTO_INFORMATIONS } from './lib/constants.js';
 import { calculateRateOfReturn } from './lib/utils.js';
@@ -10,10 +9,10 @@ class LottoBuyer {
 
   #winningLottoMap;
 
-  async purchaseLottos() {
+  async purchaseLottos(lottoShop) {
     this.#purchasePrice = await InputManager.getPurchasePrice();
 
-    this.#lottos = LottoShop.orderLottos(this.#purchasePrice);
+    this.#lottos = lottoShop.orderLottos(this.#purchasePrice);
     OutputManager.printPurchaseHistory(this.#lottos);
   }
 

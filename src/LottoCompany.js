@@ -9,7 +9,7 @@ class LottoCompany {
 
   async draw() {
     this.#winningNumbers = await InputManager.getWinningNumbers();
-    this.#bonusNumber = await InputManager.getBonusNumber();
+    this.#bonusNumber = await InputManager.getBonusNumber(this.#winningNumbers);
   }
 
   checkWinningLottos(lottos) {

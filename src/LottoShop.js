@@ -2,19 +2,19 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 
 class LottoShop {
-  static #LOTTO_PRICE = 1_000;
-  static #MIN_LOTTO_NUMBER = 1;
-  static #MAX_LOTTO_NUMBER = 45;
-  static #COUNT_LOTTO_NUMBER = 6;
+  #LOTTO_PRICE = 1_000;
+  #MIN_LOTTO_NUMBER = 1;
+  #MAX_LOTTO_NUMBER = 45;
+  #COUNT_LOTTO_NUMBER = 6;
 
-  static orderLottos(purchasePrice) {
+  orderLottos(purchasePrice) {
     const lottoCount = purchasePrice / this.#LOTTO_PRICE;
     const lottos = this.#generateLottos(lottoCount);
 
     return lottos;
   }
 
-  static #generateLottos(lottoCount) {
+  #generateLottos(lottoCount) {
     const lottos = new Array(lottoCount).fill().map(() => {
       const lottoNumbers = this.#generateLottoNumbers();
       const lotto = new Lotto(lottoNumbers);
@@ -24,7 +24,7 @@ class LottoShop {
     return lottos;
   }
 
-  static #generateLottoNumbers() {
+  #generateLottoNumbers() {
     const lotto = MissionUtils.Random.pickUniqueNumbersInRange(
       this.#MIN_LOTTO_NUMBER,
       this.#MAX_LOTTO_NUMBER,
