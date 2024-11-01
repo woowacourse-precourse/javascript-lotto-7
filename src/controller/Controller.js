@@ -1,6 +1,6 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import { validateMoney } from '../utils/validation.js';
+import { validateMoney, validateWinningNumber } from '../utils/validation.js';
 import Lotto from '../Lotto.js';
 import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
@@ -36,9 +36,15 @@ export default class Controller {
   }
 
   async getWinningNumber() {
-    const input = await this.inputView.getInput(INPUT_MESSAGE.WINNING_NUMBER);
+    try {
+      const input = await this.inputView.getInput(INPUT_MESSAGE.WINNING_NUMBER);
+      validateWinningNumber(input);
 
-    return input;
+      return input;
+    } catch (error) {
+      this.outputView.printError(error.message);
+      await this.getWinningNumber();
+    }
   }
 
   async getMoney() {
