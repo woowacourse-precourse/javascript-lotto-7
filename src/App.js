@@ -1,15 +1,21 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import { INPUT, OUTPUT } from './Constants/Message.js';
-import { BasicValidation, WinningNumberValidation } from './Validation.js';
+import {
+  BasicValidation,
+  WinningNumberValidation,
+  BonusNumberValidation,
+} from './Validation.js';
 import Lotto from './Domain/Lotto.js';
 
 class App {
   #basicValidation;
   #winningNumberValidation;
+  #bonusNumberValidation;
 
   constructor() {
     this.#basicValidation = new BasicValidation();
     this.#winningNumberValidation = new WinningNumberValidation();
+    this.#bonusNumberValidation = new BonusNumberValidation();
   }
 
   async getPurchaseMoney() {
@@ -71,6 +77,20 @@ class App {
     }
   }
 
+  async getBounsNumber(winningNumbers) {
+    while (true) {
+      try {
+        const bonusNumber = await Console.readLineAsync(INPUT.bonusNumber);
+
+        this.#bonusNumberValidation.InputOverlap(winningNumbers, bonusNumber);
+
+        return bonusNumber;
+      } catch (err) {
+        Console.print(err.message);
+      }
+    }
+  }
+
   async run() {
     const purchaseMoney = await this.getPurchaseMoney();
     const purchaseTickets = this.purchaseLottoTickets(purchaseMoney);
@@ -79,6 +99,7 @@ class App {
     this.printPurchaseLottoNumbers(purchaseTickets);
 
     const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBounsNumber(winningNumbers);
   }
 }
 
