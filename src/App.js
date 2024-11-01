@@ -33,9 +33,37 @@ function printLottoPurchase(lottos) {
   }
 }
 
-async function getWinningNumber() {
-  const message = '당첨 번호를 입력해 주세요.\n';
+async function getWinningNumberArray() {
+  const message = '\n당첨 번호를 입력해 주세요.\n';
   const numbers = await MissionUtils.Console.readLineAsync(message);
+  const stringArray = numbers.split(',');
+  return stringArray.map(str => parseInt(str, 10));
+}
+
+async function getBonusNumber() {
+  const message = '\n보너스 번호를 입력해주세요.\n';
+  const number = await MissionUtils.Console.readLineAsync(message);
+  return number;
+}
+
+// 한개의 배열과 당첨배열을 비교하고 몇개 일치했는지 반환하는 함수
+function getMatchNumber(curLotto, targetLotto) {
+  let matchNumber = 0;
+  for (let i = 0; i < curLotto.length; i += 1) {
+    if (targetLotto[i] === curLotto[i]) matchNumber += 1;
+  }
+  return matchNumber;
+}
+
+function isIncludeBonusNumber(bonusNumber, lotto) {
+  return lotto.filter(number => number === bonusNumber);
+}
+
+// 여러개의 로또들을 받고 몇개 당첨됐는지 object로 정리하는 함수
+
+function printWinningStatistics() {
+  MissionUtils.Console.print('당첨 통계');
+  MissionUtils.Console.print('---');
 }
 
 class App {
@@ -45,7 +73,9 @@ class App {
     const lottos = createLottos(cash);
     printLottoPurchase(lottos);
 
-    getWinningNumber();
+    const winningNumberArray = await getWinningNumberArray();
+    const bonusNumber = await getBonusNumber();
+    console.log(getMatchNumber(lottos[0], winningNumberArray));
   }
 }
 
