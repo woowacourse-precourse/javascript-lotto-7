@@ -1,7 +1,12 @@
-import { CONFIG, ERROR_MESSAGE, INFO_MESSAGE } from "./constants.js";
+import { CONFIG, ERROR_MESSAGE, INFO_MESSAGE, WINNER_LOTTO_NUMBER_DELIMITER } from "./constants.js";
 import { LottoError } from "./errors.js";
 import { getInput, printResult } from "./utils.js";
-import { validateEmptyInput, validateNumberType } from "./validate.js";
+import {
+  validateEmptyInput,
+  validateNumberType,
+  validateUniqueNumbers,
+  validateWinnerNumberLength,
+} from "./validate.js";
 
 export async function getLottoPurchaseCountByAmountInput() {
   try {
@@ -11,7 +16,7 @@ export async function getLottoPurchaseCountByAmountInput() {
     return calculateAmount(amount);
   } catch (error) {
     printResult(error.message);
-    getLottoPurchaseCountByAmountInput();
+    await getLottoPurchaseCountByAmountInput();
   }
 }
 
@@ -21,4 +26,17 @@ export function calculateAmount(amount) {
     throw new LottoError(ERROR_MESSAGE.INVALID_PURCHASE_AMOUNT);
   }
   return dividedAmount;
+}
+
+export async function getValidateWinnerNumbers() {
+  try {
+    const winnerLottoNumbersInput = await getInput(INFO_MESSAGE.WINNER_LOTTO_NUMBERS_INPUT);
+    validateEmptyInput(winnerLottoNumbersInput);
+    const winnerLottoNumbers = winnerLottoNumbersInput.split(WINNER_LOTTO_NUMBER_DELIMITER).map(validateNumberType);
+    validateWinnerNumberLength(winnerLottoNumbers);
+    return validateUniqueNumbers(winnerLottoNumbers);
+  } catch (error) {
+    printResult(error.message);
+    await getValidateWinnerNumbers();
+  }
 }

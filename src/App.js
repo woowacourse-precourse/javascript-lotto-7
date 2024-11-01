@@ -1,5 +1,5 @@
 import { CONFIG, INFO_MESSAGE } from "./libs/constants.js";
-import { getLottoPurchaseCountByAmountInput } from "./libs/helpers.js";
+import { getLottoPurchaseCountByAmountInput, getValidateWinnerNumbers } from "./libs/helpers.js";
 import { pickUniqueNumbersInRange, printResult } from "./libs/utils.js";
 import Lotto from "./Lotto.js";
 
@@ -16,6 +16,8 @@ class App {
     });
 
     lottoNumbers.forEach((lotto) => `${lotto.print()}\n`);
+
+    const winnerLottoNumbersInput = await getValidateWinnerNumbers();
   }
 }
 
