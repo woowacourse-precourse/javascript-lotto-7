@@ -3,7 +3,8 @@ import {
   isNull,
   isUndefined,
   isZero,
-  isNumeric
+  isNumeric,
+  isNumberInRange
 } from '../../util/Validator.js';
 import { ERROR_MESSAGE } from '../constants/Message.js';
 
@@ -40,6 +41,12 @@ class CommonValidator {
   validateNumericInput(inputValue) {
     if (!isNumeric(inputValue)) {
       throw new Error(ERROR_MESSAGE.ERROR_INPUT_ONLY_NUMERIC(inputValue));
+    }
+  }
+
+  validateNumberInRange(number, startNumber, endNumber) {
+    if (!isNumberInRange(number, startNumber, endNumber)) {
+      throw new Error(ERROR_MESSAGE.ERROR_NUMBER_OUT_OF_RANGE(number, startNumber, endNumber));
     }
   }
 }

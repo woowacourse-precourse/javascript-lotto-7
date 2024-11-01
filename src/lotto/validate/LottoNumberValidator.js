@@ -22,16 +22,9 @@ class LottoNumberValidator extends CommonValidator {
     super.checkValidInputValues(numbers);
 
     this.#validateLottoNumberCount(numbers.length);
-    numbers.forEach((number) => this.#validateLottoNumberInRange(number));
-    this.#validateDuplicateNumbers(numbers);
-  }
-
-  #validateLottoNumberInRange = (number) => {
     const { startNumber, endNumber } = this.#numberRange;
-
-    if (!isNumberInRange(number, startNumber, endNumber)) {
-      throw new Error(ERROR_MESSAGE.ERROR_NUMBER_OUT_OF_RANGE(number, startNumber, endNumber));
-    }
+    numbers.forEach((number) => super.validateNumberInRange(number, startNumber, endNumber));
+    this.#validateDuplicateNumbers(numbers);
   }
 
   #validateLottoNumberCount = (inputcount) => {
