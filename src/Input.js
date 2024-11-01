@@ -25,12 +25,12 @@ class Input {
         return this.value;
     }
 
-    splitNum(){
-        this.value = this.value.split(',');
+    changeArray(){
+        this.value = this.value.split(',').map(Number);
     }
 
     changeNum(){
-        this.value = this.value.map(Number);
+        this.value = Number(this.value);
     }
 }
 
