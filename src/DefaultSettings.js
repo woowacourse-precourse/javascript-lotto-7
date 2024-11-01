@@ -7,7 +7,7 @@ const defaultSettings = {
   },
   randomRangeValue: {
     minimumRangeValue: 1,
-    maximumRangeValue: 8,
+    maximumRangeValue: 45,
     pickingNumber: 6,
   },
 };
