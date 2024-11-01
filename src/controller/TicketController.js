@@ -23,10 +23,9 @@ class TicketController {
 
   displayTicketNumber() {
     const numberArray = ticketArray(this.tickets);
-    const printTicket = numberArray
-      .map((arr) => `[${arr.join(', ')}]`)
-      .join('\n');
-    Console.print(printTicket);
+    numberArray.forEach((arr) => {
+      Console.print(arr);
+    });
   }
 }
 
