@@ -114,7 +114,7 @@ describe.each([
   ['1000', '1,2,3,4,5,46', '[ERROR]'],
   ['1000', '0,2,3,4,5,6', '[ERROR]'],
 ])('당첨 번호 입력 테스트', (amount, winningNumbers, errorMessage) => {
-  test(`당첨번호가 [${winningNumbers}] 일 때 ${errorMessage}를 출력한다.`, async () => {
-    await runException([amount, winningNumbers]);
+  test(`당첨 번호가 [${winningNumbers}] 일 때 ${errorMessage}를 출력한다.`, async () => {
+    await runException(amount, winningNumbers);
   });
 });
