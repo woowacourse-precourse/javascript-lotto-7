@@ -2,6 +2,8 @@ import { Random } from "@woowacourse/mission-utils";
 import LottoIO from "./LottoIO.js";
 
 export const LOTTO_PRICE = 1000;
+const LOTTO_NUMBER_MIN = 1;
+const LOTTO_NUMBER_MAX = 45;
 
 class Lotto {
   #numbers;
@@ -46,8 +48,39 @@ class Lotto {
       this.#throwLottoError("숫자와 콤마(,)만 입력해 주세요.");
     }
 
-    if (numbers.some((n) => n < 1 || 45 < n)) {
-      this.#throwLottoError("당첨 번호는 1 ~ 45 사이로 입력해 주세요.");
+    if (numbers.some(this.#isOutRangeLottoNumber)) {
+      this.#throwLottoError(
+        `당첨 번호는 ${LOTTO_NUMBER_MIN} ~ ${LOTTO_NUMBER_MAX} 사이로 입력해 주세요.`
+      );
+    }
+  }
+
+  async getBonusNumber() {
+    while (true) {
+      try {
+        const bonus = await LottoIO.getUserInput(
+          "\n보너스 번호를 입력해 주세요.\n"
+        );
+        const bonusNumber = Number(bonus);
+
+        Lotto.#validateBonusNumber(bonusNumber);
+
+        return bonusNumber;
+      } catch ({ message }) {
+        LottoIO.print(message);
+      }
+    }
+  }
+
+  static #validateBonusNumber(number) {
+    if (!this.#isNumber(number)) {
+      this.#throwLottoError("보너스 번호는 숫자로 입력해 주세요.");
+    }
+
+    if (this.#isOutRangeLottoNumber([number])) {
+      this.#throwLottoError(
+        `보너스 번호는 ${LOTTO_NUMBER_MIN} ~ ${LOTTO_NUMBER_MAX} 사이로 입력해 주세요.`
+      );
     }
   }
 
@@ -141,6 +174,10 @@ class Lotto {
 
   static #isNumber(number) {
     return typeof number === "number" && !Number.isNaN(number);
+  }
+
+  static #isOutRangeLottoNumber(number) {
+    return number < LOTTO_NUMBER_MIN || LOTTO_NUMBER_MAX < number;
   }
 
   static #throwLottoError(message) {

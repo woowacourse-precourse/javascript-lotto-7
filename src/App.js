@@ -6,7 +6,9 @@ class App {
 
     const lotto = await Lotto.createWinningNumbers();
 
-    // lotto.winnningNumbers
+    const numbers = lotto.winnningNumbers;
+
+    const bonusNumber = await lotto.getBonusNumber();
 
     return;
   }
