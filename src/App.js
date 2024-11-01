@@ -25,6 +25,8 @@ class App {
 
   #lottoResults;
 
+  #totalPrice;
+
   constructor() {
     this.#lottos = [];
     this.#lottoResults = {
@@ -34,6 +36,7 @@ class App {
       4: 0,
       5: 0,
     };
+    this.#totalPrice = 0;
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -70,14 +73,19 @@ class App {
 
       if (correctCount == 6) {
         this.#lottoResults[1] += 1;
+        this.#totalPrice += rankPrice[1];
       } else if (correctCount == 5 && isCorrectBonus) {
         this.#lottoResults[2] += 1;
+        this.#totalPrice += rankPrice[2];
       } else if (correctCount == 5) {
         this.#lottoResults[3] += 1;
+        this.#totalPrice += rankPrice[3];
       } else if (correctCount == 4) {
         this.#lottoResults[4] += 1;
+        this.#totalPrice += rankPrice[4];
       } else if (correctCount == 3) {
         this.#lottoResults[5] += 1;
+        this.#totalPrice += rankPrice[5];
       }
     });
 
@@ -97,6 +105,10 @@ class App {
           Console.print(`${correctNumber}개 일치 (${price}원) - ${this.#lottoResults[rank]}개`);
         }
       });
+
+    // 7. 총 수익률을 출력한다.
+    const earningRate = ((this.#totalPrice / this.#cash) * 100).toFixed(1);
+    Console.print(`총 수익률은 ${earningRate}%입니다.`);
   }
 }
 
