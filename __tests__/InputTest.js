@@ -1,4 +1,4 @@
-import LottoApp from "../src/LottoApp";
+import Lotto from "../src/Lotto";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -20,7 +20,7 @@ const getLogSpy = () => {
 describe("입력 테스트" , () => {
   let lotto;
   beforeEach(() => {
-    lotto = new LottoApp();
+    lotto = new Lotto();
   })
 
   test("구입 금액 입력 테스트", async () => {
