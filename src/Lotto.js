@@ -100,6 +100,8 @@ class Lotto {
     });
 
     LottoIO.print("");
+
+    return lottos;
   }
 
   static #scratch(count) {
@@ -177,6 +179,74 @@ class Lotto {
     if (money < 0 || price < 0) {
       this.#throwLottoError("로또의 금액과 가격은 양수입니다.");
     }
+  }
+
+  static showResultByLot = (purchasedLottos, winnningNumbers, bonusNumber) => {
+    this.#validateResultByLot(purchasedLottos);
+    this.#validateResultByLot(winnningNumbers);
+    if (!this.#isNumber(bonusNumber)) {
+      this.#throwLottoError("보너스 번호는 숫자입니다.");
+    }
+
+    const totalHits = { 3: 0, 4: 0, 5: 0, "5+": 0, 6: 0 };
+
+    purchasedLottos.forEach((lotto) => {
+      this.#calculateHit(lotto, totalHits, winnningNumbers, bonusNumber);
+    });
+
+    this.#printWinList(totalHits);
+  };
+
+  static #validateResultByLot(numbers) {
+    if (typeof numbers !== "object" || numbers.length === undefined) {
+      this.#throwLottoError("로또 번호와 당첨 번호는 배열입니다.");
+    }
+  }
+
+  static #calculateHit(lotto, totalHits, winnningNumbers, bonusNumber) {
+    const count = this.#getHitWinning(lotto, winnningNumbers);
+    if (count < 3) return;
+
+    const isExistBonus = this.#isHitBonus(lotto, bonusNumber);
+    if (count === 5 && isExistBonus) {
+      totalHits["5+"] += 1;
+      return;
+    }
+
+    if (Object.hasOwn(totalHits, count)) {
+      totalHits[count] += 1;
+      return;
+    }
+  }
+
+  static #isHitBonus(lotto, hitNumber) {
+    return lotto.includes(hitNumber);
+  }
+
+  static #getHitWinning(lotto, hitNumbers) {
+    return lotto.reduce((hit, number) => {
+      if (hitNumbers.includes(number)) {
+        return hit + 1;
+      }
+
+      return hit;
+    }, 0);
+  }
+
+  static #printWinList(hits) {
+    const printList = [
+      `3개 일치 (5,000원) - ${hits["3"]}개`,
+      `4개 일치 (50,000원) - ${hits["4"]}개`,
+      `5개 일치 (1,500,000원) - ${hits["5"]}개`,
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${hits["5+"]}개`,
+      `6개 일치 (2,000,000,000원) - ${hits["6"]}개`,
+    ];
+
+    LottoIO.print("\n당첨 통계\n---");
+
+    printList.forEach((text) => {
+      LottoIO.print(text);
+    });
   }
 
   static #isNumber(number) {
