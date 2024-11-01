@@ -1,8 +1,5 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
-import {
-  getLottoBuyCount,
-  getRandomLottoNumbers,
-} from './functions/LottoMake.js';
+import { getLottoBuyCount } from './functions/LottoMake.js';
 class App {
   async run() {
     try {
