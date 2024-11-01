@@ -4,6 +4,8 @@ import LottoMachine from './LottoMachine.js';
 import validateLotto from '../utils/validation/validateLotto.js';
 import INPUT from '../constants/InputMessage.js';
 import { getValidValue } from '../utils/StringUtils.js';
+import validateBonus from '../utils/validation/validateBonus.js';
+import RULES from '../constants/Rules.js';
 
 class LottoManager {
   #winningLotto = [];
@@ -21,17 +23,32 @@ class LottoManager {
     Output.print('');
   }
 
-  saveWinningLotto(lottoWinningNumbers) {
-    this.#winningLotto = getValidValue(lottoWinningNumbers, INPUT.DELIMITER);
+  setWinningLotto(lottoWinningNumbers) {
+    this.#winningLotto = getValidValue(lottoWinningNumbers, RULES.DELIMITER);
   }
 
-  async setWinningLotto() {
+  setBonusNumber(bonusNumber) {
+    this.#bonusNumber = bonusNumber;
+  }
+
+  getWinningLotto() {
+    return this.#winningLotto;
+  }
+
+  async inputWinningLotto() {
     const lottoWinningNumbers = await InputRepeat(
       INPUT.LOTTO_WINNING_NUMBERS,
       validateLotto,
     );
 
-    this.saveWinningLotto(lottoWinningNumbers);
+    this.setWinningLotto(lottoWinningNumbers);
+
+    Output.print('');
+    const bonusNumber = await InputRepeat(INPUT.BONUS_NUMBER, (input) =>
+      validateBonus(input, this.getWinningLotto()),
+    );
+
+    this.setBonusNumber(bonusNumber);
   }
 }
 
