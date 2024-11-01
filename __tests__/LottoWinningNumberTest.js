@@ -85,5 +85,5 @@ describe('로또 당첨 번호 입력 테스트', () => {
     mockQuestions(input);
 
     await expect(getWinningLottoNumbersAndBonusNumber()).rejects.toThrow(error);
-  })
-})
+  });
+});

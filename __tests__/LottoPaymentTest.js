@@ -67,5 +67,5 @@ describe('로또 결제 테스트', () => {
 
     const lottoPayment = new LottoPayment(LOTTO_AMOUNT);
     await expect(lottoPayment.executePaymentAndGetLottoCount()).rejects.toThrow(error);
-  })
+  });
 });
