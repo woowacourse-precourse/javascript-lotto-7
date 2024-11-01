@@ -4,7 +4,7 @@ import {Console, MissionUtils} from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 class App {
-    quantity;
+    purchasedLottery;
     lotto;
 
     async run() {
@@ -12,14 +12,15 @@ class App {
         for (const prompt of INPUT) {
             const input = await this.input(prompt)
             if (sequence === 1) {
-                this.quantity = this.moneyToLotto(input)
+                const lottoQuantity = this.moneyToLotto(input)
+                this.purchasedLottery = this.purchaseNumbers(lottoQuantity)
             }
             if (sequence === 2) {
-                this.lotto = this.purchaseNumbers()
+                this.lotto = new Lotto(input.split(","))
             }
-            /*if (this.sequence === 3) {//보너스 번호
+            if (sequence === 3) {//보너스 번호
 
-            }*/
+            }
             sequence++
         }
     }
@@ -28,9 +29,9 @@ class App {
         return Number(money) / 1000 //로또 가격 상수화 예정
     }
 
-    purchaseNumbers() { //인자로 몇번인지를 넣자
+    purchaseNumbers(lottoQuantity) { //인자로 몇번인지를 넣자
         let arr = []
-        for (let i = 0; i < this.quantity; i++) {
+        for (let i = 0; i < lottoQuantity; i++) {
             const sixRandomValues = this.getSixRandomValues()
             arr.push(sixRandomValues)
         }
