@@ -60,14 +60,18 @@ class App {
   }
 
   calculateWinningResult(purchaseTickets, winningNumbers, bonusNumber) {
-    const results = purchaseTickets.map((purchaseTickets) => {
-      return purchaseTickets.calculateWinningLotto(winningNumbers, bonusNumber);
+    const results = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+
+    purchaseTickets.forEach((purchaseTickets) => {
+      const rank = purchaseTickets.calculateWinningLotto(
+        winningNumbers,
+        bonusNumber
+      );
+
+      results[rank] += 1;
     });
 
-    return results.reduce((acc, cur) => {
-      acc[cur] = (acc[cur] || 0) + 1;
-      return acc;
-    }, {});
+    return results;
   }
 
   calculateTotalReturn(results, purchaseMoney) {
@@ -78,6 +82,22 @@ class App {
       results['4'] * 50000 +
       results['5'] * 5000;
     return (total / purchaseMoney) * 100;
+  }
+
+  printWinningResult(results) {
+    Console.print('당첨 통계');
+    Console.print('---');
+    Console.print(`3개 일치 (5,000원) - ${results['5']}개`);
+    Console.print(`4개 일치 (50,000원) - ${results['4']}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results['3']}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${results['2']}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${results['1']}개`);
+  }
+  printTotalReturn(totalReturn) {
+    Console.print(totalReturn);
+    Console.print(`총 수익률은 ${Math.round(totalReturn * 100) / 100}%입니다.`);
   }
 
   async getWinningNumbers() {
@@ -128,7 +148,9 @@ class App {
       bonusNumber
     );
 
-    const totalReturn = this.calculateTotalReturn(results);
+    const totalReturn = this.calculateTotalReturn(results, purchaseMoney);
+    this.printWinningResult(results);
+    this.printTotalReturn(totalReturn);
   }
 }
 
