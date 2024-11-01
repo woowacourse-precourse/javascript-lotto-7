@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-import { USER_MONEY_PROMPT } from '../constants/prompts';
-import { INPUT_ERROR_MESSAGE } from '../constants/message';
+import { USER_MONEY_PROMPT, WINNING_NUMBER_PROMPT, BONUS_NUMBER_PROMPT } from '../constants/prompts.js';
+import { INPUT_ERROR_MESSAGE } from '../constants/message.js';
 
 export async function getUserMoney() {
   try {
