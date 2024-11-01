@@ -4,7 +4,7 @@ const UNIT = 1000;
 
 function validatePriceType(price) {
   if (Number.isNaN(price)) {
-    throw new Error(ERROR_MESSAGE.INVALID_LOTTO_PRICE_NOT_NUMBER);
+    throw new Error(ERROR_MESSAGE.INVALID_NOT_NUMBER);
   }
 }
 
