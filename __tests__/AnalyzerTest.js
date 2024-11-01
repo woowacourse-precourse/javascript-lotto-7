@@ -26,4 +26,42 @@ describe('Analyzer 클래스 테스트', () => {
       expect(winningTable.get(key)).toBe(value);
     });
   });
+
+  test.each([
+    [
+      [
+        [1, 2, 3, 4, 5, 7],
+        [2, 3, 4, 5, 6, 7],
+        [1, 3, 4, 5, 6, 7],
+        [1, 2, 3, 5, 6, 7],
+      ],
+      4,
+    ],
+    [
+      [
+        [1, 2, 3, 4, 5, 7],
+        [2, 3, 4, 5, 6, 8],
+      ],
+      1,
+    ],
+    [
+      [
+        [3, 4, 8, 9, 10, 11],
+        [2, 3, 4, 5, 6, 8],
+      ],
+      0,
+    ],
+  ])('보너스 당첨을 분류하는지 테스트', (lottoNumbers, expected) => {
+    const WINNING_NUMBERS = {
+      numbers: [1, 2, 3, 4, 5, 6],
+      bonusNumber: 7,
+    };
+    const WINNING_BONUS_TAG = 'bonus';
+
+    const lottos = lottoNumbers.map((numbers) => new Lotto(numbers));
+    const analyzer = new Analyzer(lottos, WINNING_NUMBERS);
+    const winningTable = analyzer.getWinningTable();
+
+    expect(winningTable.get(WINNING_BONUS_TAG)).toBe(expected);
+  });
 });
