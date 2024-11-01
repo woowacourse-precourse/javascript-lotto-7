@@ -8,6 +8,10 @@ export const FORMAT = {
   HYPHEN: '-',
 };
 
+export const UNIT = {
+  TICKET_PRICE: 1000,
+};
+
 export const WINNINGS = {
   RANK5: '5,000',
   RANK4: '50,000',
