@@ -1,5 +1,52 @@
 # javascript-lotto-precourse
 
+## 🏄🏼‍♂️ 프로젝트 소개
+
+로또를 구매한 소년에 대한 이야기입니다.
+
+```
+오늘은 로또를 구매하는 날입니다. 한 소년이 로또 가게에 가 로또를 구매했습니다.
+
+며칠 후 로또를 추첨하는 날이 다가왔습니다. 로또 회사에서는 로또를 추첨을 합니다.
+
+소년은 자신의 로또가 당첨되었는지 확인하기 위해 로또 회사에 다녀옵니다.
+
+집에 돌아온 소년은 로또로 얻은 수익률을 계산합니다.
+```
+
+이렇게 로또를 구매한 소년에 대한 이야기는 끝이 납니다.
+
+프로젝트에 대한 이해를 현실 세계에 빗대어 생각해보았습니다. 위와 같은 이야기를 순서도로 옮기면 아래와 같습니다.
+
+### 순서도
+
+```mermaid
+sequenceDiagram
+
+    participant Shop as 로또 가게
+    participant Buyer as 로또 구매자
+    participant Lotto as 로또
+    participant Company as 로또 회사
+
+    Note over Buyer,Shop: 1. 로또를  구매한다.
+
+    Buyer->>Shop: "저 로또 구매할게요."
+    Shop<<->>Lotto: 로또 발급
+    Shop->>Buyer: "로또 여기 있습니다."
+
+    Note over Company: 2. 로또를 추첨한다.
+
+    Note over Buyer,Company: 3. 로또 당첨을 확인한다.
+    Buyer->>Company: "저 로또 당첨 여부좀 확인할게요."
+    Company<<->>Lotto: 당첨 여부 확인
+    Company->>Buyer: "여기/ 당첨 결과입니다"
+
+    Note over Buyer: 4. 로또 수익을을 계산한다.
+
+```
+
+이 순서도를 코드에 옮긴 것이 [App.js](./src//App.js)입니다.
+
 ## 🔨 기능 구현 목록
 
 ### 동작 기능
@@ -94,64 +141,3 @@
 1. 사용자가 입력된 값이 잘못되었을 경우 에러 출력 후, 다시 입력을 받는다.
 2. Lotto클래스를 사용하여 구현해야한다.
 3. Lotoo 클래스에 numbers이외의 필드(인스턴스 변수)를 추가할 수 없다.
-
-## 🏄🏼‍♂️ 프로젝트 소개
-
-로또를 구매하게된 한 소년에 대한 이야기입니다.
-
-```
-오늘은 로또를 구매하는 날입니다. 한 소년이 로또 가게에 가 로또를 구매했습니다.
-
-며칠 후, 로또를 추첨하는 날이 다가왔습니다. 로또 회사에서는 로또를 추첨을 합니다.
-
-소년은 자신의 로또가 당첨되었는지 확인하기 위해 로또 회사에 다녀옵니다.
-
-집에 돌아온 소년은 로또로 얻은 수익률을 계산합니다.
-```
-
-이렇게 로또를 구매한 소년에 대한 이야기는 끝이 납니다.
-
-프로젝트에 대한 이해를 현실 세계에 빗대어 생각해보았습니다. 위와 같은 이야기를 순서도로 옮기면 아래와 같습니다.
-
-### 순서도
-
-```mermaid
-sequenceDiagram
-
-    participant Shop as 로또 가게
-    participant Buyer as 로또 구매자
-    participant Lotto as 로또
-    participant Company as 로또 회사
-
-    Note over Buyer,Shop: 1. 로또를  구매한다.
-
-    Buyer->>Shop: "저 로또 구매할게요."
-    Shop<<->>Lotto: 로또 발급
-    Shop->>Buyer: "로또 여기 있습니다."
-
-    Note over Company: 2. 로또를 추첨한다.
-
-    Note over Buyer,Company: 3. 로또 당첨을 확인한다.
-    Buyer->>Company: "저 로또 당첨 여부좀 확인할게요."
-    Company<<->>Lotto: 당첨 여부 확인
-    Company->>Buyer: "여기/ 당첨 결과입니다"
-
-    Note over Buyer: 4. 로또 수익을을 계산한다.
-
-```
-
-이 순서도를 코드에 옮긴 것이 [App.js](./src//App.js)입니다.
-
-### 🧑🏻‍💻 실행 방법
-
-1. 설치된 Node 버전이 20.17.0 이상인지 확인한다.
-2. npm install
-3. npm run start
-
-### 📂 폴더 구조
-
--
-
-### 📚 헷갈렸던 포인트
-
--
