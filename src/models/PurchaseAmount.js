@@ -25,7 +25,7 @@ class PurchaseAmount {
     }
 
     validateAmountNotEmpty() {
-        if(/\s/.test(this.#purchaseAmount) || this.#purchaseAmount.trim() === '') {
+        if(/\s/.test(this.#purchaseAmount) || this.#purchaseAmount === '') {
             throw new PurchaseAmountError(ERROR_MESSAGE.input_is_empty);
         }
     }
