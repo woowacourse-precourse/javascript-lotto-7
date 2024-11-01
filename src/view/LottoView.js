@@ -14,4 +14,8 @@ export default class LottoView {
       Console.print(`[${lotto.join(", ")}]`);
     });
   }
+
+  async getWinningLottoNumbers() {
+    return await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+  }
 }
