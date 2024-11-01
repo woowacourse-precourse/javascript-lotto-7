@@ -59,6 +59,27 @@ class App {
     );
   }
 
+  calculateWinningResult(purchaseTickets, winningNumbers, bonusNumber) {
+    const results = purchaseTickets.map((purchaseTickets) => {
+      return purchaseTickets.calculateWinningLotto(winningNumbers, bonusNumber);
+    });
+
+    return results.reduce((acc, cur) => {
+      acc[cur] = (acc[cur] || 0) + 1;
+      return acc;
+    }, {});
+  }
+
+  calculateTotalReturn(results, purchaseMoney) {
+    const total =
+      results['1'] * 2000000000 +
+      results['2'] * 30000000 +
+      results['3'] * 1500000 +
+      results['4'] * 50000 +
+      results['5'] * 5000;
+    return (total / purchaseMoney) * 100;
+  }
+
   async getWinningNumbers() {
     while (true) {
       try {
@@ -100,6 +121,14 @@ class App {
 
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBounsNumber(winningNumbers);
+
+    const results = this.calculateWinningResult(
+      purchaseTickets,
+      winningNumbers,
+      bonusNumber
+    );
+
+    const totalReturn = this.calculateTotalReturn(results);
   }
 }
 
