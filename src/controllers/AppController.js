@@ -15,11 +15,21 @@ class AppController {
       // 1. 구입 금액 입력
       const purchaseAmount = await InputView.askPurchaseAmount();
 
-      // 2. 당첨 번호 및 보너스 번호 입력
+      // 2. 로또 티켓 출력
+      OutputView.displayLottoCount(this.lottoCount);
+      OutputView.displayLottoNumbers(this.tickets);
+
+      // 3. 당첨 번호 및 보너스 번호 입력
       const winningNumbers = await InputView.askWinningNumbers();
       const bonusNumber = await InputView.askBonusNumber();
+
+      // 4. 당첨 결과 출력
+      OutputView.displayResults(this.resultCounts);
+
+      // 5. 수익률 출력
+      OutputView.displayProfitRate(this.profitRate);
     } catch (error) {
-      OutputView.printError(error.message);
+      OutputView.displayError(error.message);
     }
   }
 }
