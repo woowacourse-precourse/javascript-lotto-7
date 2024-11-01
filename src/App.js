@@ -4,6 +4,7 @@ import {
   makeLottoArray,
   printLottoBuyCount,
 } from './functions/LottoMake.js';
+import { splitByComma } from './functions/LottoPrize.js';
 class App {
   async run() {
     try {
@@ -22,6 +23,9 @@ class App {
       const lottoPrizeNumbersInput = await Console.readLineAsync(
         '당첨 번호를 입력해 주세요.\n',
       );
+
+      const lottoPrizeNumbers = splitByComma(lottoPrizeNumbersInput);
+
       // * ==== //
     } catch (error) {}
   }
