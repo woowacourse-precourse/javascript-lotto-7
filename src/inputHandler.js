@@ -12,11 +12,18 @@ class InputHandler {
 
   static validateCost(cost) {
     this.checkIsZero(cost);
+    this.checkIsNegative(cost);
   }
 
   static checkIsZero(cost) {
     if (cost === 0) {
       throw new Error(COST.ZERO);
+    }
+  }
+
+  static checkIsNegative(cost) {
+    if (cost < 0) {
+      throw new Error(COST.NEGATIVE);
     }
   }
 }
