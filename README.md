@@ -43,16 +43,28 @@
     - 단위 테스트 작성이 익숙하지 않다면 LottoTest를 참고하여 학습한 후 테스트를 작성한다.
 
 
-
 ## 기능 명세
 1. views 폴더
     - InputView.js: 사용자로 부터 로또 구입 금액, 로또 당첨 번호 6자리, 보너스 번호를 입력받고 리턴한다.
-
 2. utils 폴더
     - makeRandoms.js : 6개의 랜덤 숫자를 생성하여 배열로 리턴한다. 이는 하나의 복권이 된다.
+    - init.js: 초기화를 담당하는 파일
+    - parser.js: 파싱을 담당하는 파일
+3. models 폴더
+    - compareLotto 함수: 당첨번호와 랜덤번호를 비교한다. 일치 번호 갯수(winnings)와 차집합(difference)을 리턴함 (difference는 보너스 번호륿 체크하기 위한 배열)
+    - getRanking 함수 : 등수를 리턴하는 함수 함수
+    - getRevenue 함수 : 둥수에 따라 수익을 반환하는 함수
+    - lottoResultCalculator : getRanking과 getRevenue를 호출하여 등수와 수익을 반환함.
+4. controllers 폴더
+    - MainController.js:
+    - SubController.js:
+
+5. constants 폴더
+    - RANKING_MAP : 겹치는 당첨번호 갯수에 따른 순위 맵핑하기 위한 constant
+    - REVENUE_BY_RANKING : 순위에 따른 수익을 맵핑하기 위한 constant
 
 
-## 사용자가 잘못된 값을 입력한 경우
+## <사용자가 잘못된 값을 입력한 경우>
 ### 당첨번호의 경우
 - 중복된 숫자를 입력했을 때
 - 당첨번호가 6개가 아닐 때
@@ -60,4 +72,4 @@
 - 입력한 숫자값이 범위를 벗어날 때(1~45)
 
 ### 구매금액의 경우
-- 구입금액은 1,000단위로 입력하지 않은 경우.
+- 구입금액을 1,000단위로 입력하지 않은 경우.

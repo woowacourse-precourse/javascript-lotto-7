@@ -23,7 +23,6 @@ export default class InputView{
                 Console.print("[ERROR] 구매금액을 1000원 단위로 입력해주세요.")
             }
         }
-        
         while(true){
             try{
               winningNums = await Console.readLineAsync(
