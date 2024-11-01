@@ -6,7 +6,7 @@ import Lotto from './Lotto.js';
 class App {
   async run() {
     try {
-      const money = await Money.getMoney();
+      const money = new Money(await this.payingMoney()).getMoney();
       const lotteryNumbers = Draw.getLotteryNumbers(money);
       const enteredNumbers = await this.getNumbers();
       const lottoNumbers = new Lotto(enteredNumbers);
@@ -15,6 +15,13 @@ class App {
       Console.print(error.message);
     }
   }
+
+  
+  async payingMoney(){
+    Console.print("구입금액을 입력해 주세요.");
+    const paidMoney = Number(await Console.readLineAsync(''));
+    return paidMoney;
+}
 
   async getNumbers(){
     Console.print("당첨 번호를 입력해 주세요.");
