@@ -57,6 +57,17 @@ class Exception {
       }
     }
 
+    // 로또 번호가 중복 될 경우
+    let setNumbers = [...new Set(numbers)];
+    if (setNumbers.length !== numbers.length) {
+      Console.print("[ERROR] 로또 번호를 중복으로 작성하였습니다.");
+      if (retry) {
+        throw new Error("[ERROR] 로또 번호를 중복으로 작성하였습니다.");
+      } else {
+        return false;
+      }
+    }
+
     return true;
   }
 }
