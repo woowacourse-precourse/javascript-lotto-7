@@ -1,4 +1,4 @@
-import { ERROR_MSG, REGEXP } from '../Util/Constants.js';
+import { ERROR_MSG, REGEXP } from './Constants.js';
 
 const DELIMETER = ',';
 

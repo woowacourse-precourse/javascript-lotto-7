@@ -1,10 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MSG } from '../../Util/Constants.js';
+import { ERROR_MSG } from '../Constants.js';
 
 const INPUT_MSG = {
   purchaseAmount: '구입금액을 입력해 주세요.\n',
-  winningNum: '당첨 번호를 입력해 주세요.\n',
-  bonusNum: '보너스 번호를 입력해 주세요.\n',
+  winningNum: '\n당첨 번호를 입력해 주세요.\n',
+  bonusNum: '\n보너스 번호를 입력해 주세요.\n',
 };
 
 class InputView {

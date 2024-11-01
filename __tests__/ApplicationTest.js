@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import App from '../src/App.js';
-import { ERROR_MSG } from '../Util/Constants.js';
+import { ERROR_MSG } from '../src/Constants.js';
 
 export const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -108,11 +108,11 @@ describe('로또 테스트', () => {
     ['>_<', ERROR_MSG.notANumber],
     ['--1', ERROR_MSG.notANumber],
     // Range Check
-    ['0', ERROR_MSG.outOfRange],
-    ['1', ERROR_MSG.outOfRange],
-    ['123', ERROR_MSG.outOfRange],
-    ['1000000000', ERROR_MSG.outOfRange],
-    ['100000000001', ERROR_MSG.outOfRange],
+    ['0', ERROR_MSG.outOfAmountRange],
+    ['1', ERROR_MSG.outOfAmountRange],
+    ['123', ERROR_MSG.outOfAmountRange],
+    ['1000000000', ERROR_MSG.outOfAmountRange],
+    ['100000000001', ERROR_MSG.outOfAmountRange],
     // Price Align Check
     ['1001', ERROR_MSG.priceMisalign],
   ])("[예외 테스트] 로또 구입 금액이 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {

@@ -41,7 +41,7 @@ class App {
         const userInputString = await this.inputView.getwinningNum();
         const userInputNumbers = this.inputHandler.splitStringToInt(userInputString);
 
-        console.log(userInputNumbers);
+        this.lottolService.setWinningCount(userInputNumbers);
 
         return;
       } catch (errorMsg) {

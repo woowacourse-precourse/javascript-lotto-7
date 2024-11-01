@@ -1,11 +1,13 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { PURCHASE_AMOUNT_RANGE, LOTTO_PRICE, ERROR_MSG } from '../../Util/Constants.js';
-import Lotto from '../Lotto.js';
+import { PURCHASE_AMOUNT_RANGE, LOTTO_PRICE, ERROR_MSG } from '../Constants.js';
+import Lotto from './Lotto.js';
 
 export default class LottoService {
   #lottoCount;
 
   #lottos = [];
+
+  #winningNumber;
 
   construct() {
     this.#lottoCount = 0;
@@ -14,6 +16,10 @@ export default class LottoService {
   setPurcharedAmount(price) {
     this.#validate(price);
     this.#lottoCount = price / LOTTO_PRICE;
+  }
+
+  setWinningCount(numbers) {
+    this.#winningNumber = new Lotto(numbers);
   }
 
   getlottoCount() {
@@ -39,7 +45,7 @@ export default class LottoService {
 
   #validate(price) {
     if (price < PURCHASE_AMOUNT_RANGE.min || price > PURCHASE_AMOUNT_RANGE.max) {
-      throw Error(ERROR_MSG.outOfRange);
+      throw Error(ERROR_MSG.outOfAmountRange);
     }
 
     if (price % LOTTO_PRICE) {
