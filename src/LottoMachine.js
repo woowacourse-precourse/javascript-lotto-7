@@ -1,5 +1,9 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGES, MINIMUM_PURCHASE_AMOUNT } from "./Constants.js";
+import {
+  DEFAULT_DELIMITER,
+  ERROR_MESSAGES,
+  MINIMUM_PURCHASE_AMOUNT,
+} from "./Constants.js";
 import Input from "./Input.js";
 import Lotto from "./Lotto.js";
 
@@ -34,7 +38,7 @@ class LottoMachine {
     while (true) {
       const winningNumbers = await Input.getUserWinningNumber();
       const splitedWinningNumber = winningNumbers
-        .split(",")
+        .split(DEFAULT_DELIMITER)
         .map((number) => number.replace(/\s+/g, ""));
       try {
         return new Lotto(splitedWinningNumber).winningNumbers;

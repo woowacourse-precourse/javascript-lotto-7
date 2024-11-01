@@ -47,3 +47,5 @@ export const WINNING_PRIZE = {
 export const ROI_MESSAGES = {
   RESULT: "총 수익률은 ${value}%입니다.",
 };
+
+export const DEFAULT_DELIMITER = ",";
