@@ -36,7 +36,7 @@
 
 1. 입력된 구입 금액을 기반으로 로또 번호가 든 배열을 만드는 LotteryGenerator class
 
--   로또 배열이 든 배열인 lottoList 필드
+-   로또 배열이 든 배열인 lottoList 필드, 구입금액을 저장하는 buyingCost 필드
 -   Random.pickUniqueNumbersInRange(1, 45, 6)로 나온 값으로 Lotto class를 만들고 lottoList에 넣음
 -   만약 Lotto class에서 에러가 발생할 경우 다시 새로운 배열을 받아서 Lotto class를 만들어야 함
 -   위의 과정을 구입 금액 / 1000 만큼 실행하고 배열을 반환함
