@@ -58,7 +58,14 @@ class App {
 
   async #readWinningNumbers() {
     const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-    return input.split(",").map((number) => Number(number.trim()));
+    if (!input.match(/^\d+(,\d+){5}$/)) {
+      throw new Error("[ERROR] 쉼표(,)로 구분된 6개의 숫자를 입력해 주세요.");
+    }
+    const numbers = input.split(",").map(number => Number(number.trim()));
+    if (numbers.some(isNaN)) {
+      throw new Error("[ERROR] 당첨 번호는 숫자만 입력 가능합니다.");
+    }
+    return numbers;
   }
 
   async #readBonusNumber() {
