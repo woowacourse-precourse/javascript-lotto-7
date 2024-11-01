@@ -38,7 +38,7 @@ class App {
   //로또 갯수 가공
   processLottoCount(purchaseAmount) {
     if (purchaseAmount > 0 && purchaseAmount % 1000 !== 0)
-      return "[ERROR] 1000원 단위로 입력해 주세요.";
+      throw new Error("[ERROR] 1000원 단위로 입력해 주세요.");
 
     return purchaseAmount / 1000;
   }
@@ -63,13 +63,13 @@ class App {
   processWinningNumber(winningNumber) {
     const winningNumbers = winningNumber.split(",").map(Number);
     if (winningNumbers.length !== 6)
-      return "[ERROR] 당첨 번호를 6개 입력해주세요.";
+      throw new Error("[ERROR] 당첨 번호를 6개 입력해주세요.");
     if (winningNumbers.some((number) => isNaN(number)))
-      return "[ERROR] 숫자만 입력해주세요.";
+      throw new Error("[ERROR] 숫자만 입력해주세요.");
     if (winningNumbers.some((number) => number < 1 || number > 45))
-      return "[ERROR] 1~45 사이의 숫자만 입력해주세요.";
+      throw new Error("[ERROR] 1~45 사이의 숫자만 입력해주세요.");
     if (winningNumbers.length !== new Set(winningNumbers).size)
-      return "[ERROR] 중복된 숫자가 있습니다.";
+      throw new Error("[ERROR] 중복된 숫자가 있습니다.");
 
     winningNumbers.forEach((number) => {
       this.WinningLottoNumbersArray[number] = 1; // 해당 인덱스 === 당첨 번호를 1로 변경
@@ -79,11 +79,11 @@ class App {
   // 보너스 번호 가공
   processBonusgNumber(bonusNumber) {
     bonusNumber = Number(bonusNumber);
-    if (isNaN(bonusNumber)) return "[ERROR] 숫자만 입력해주세요.";
+    if (isNaN(bonusNumber)) throw new Error("[ERROR] 숫자만 입력해주세요.");
     if (bonusNumber < 1 || bonusNumber > 45)
-      return "[ERROR] 1~45 사이의 숫자만 입력해주세요.";
+      throw new Error("[ERROR] 1~45 사이의 숫자만 입력해주세요.");
     if (this.WinningLottoNumbersArray[bonusNumber] === 1)
-      return "[ERROR] 당첨 번호와 중복됩니다.";
+      throw new Error("[ERROR] 당첨 번호와 중복됩니다.");
 
     this.WinningLottoNumbersArray[bonusNumber] = 2; // 보너스 번호는 2로 표시
   }
