@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
@@ -10,6 +10,13 @@ class App {
 
     const lottoCount = purchasePrice / 1000;
     Console.print(`\n${lottoCount}개를 구매했습니다.`)
+
+    const lottoArr = [];
+
+    for (let i = 0; i < lottoCount; i++) {
+      const randomNums = Random.pickUniqueNumbersInRange(1, 45, 6)
+      lottoArr.push(randomNums);
+    }
   }
 }
 
