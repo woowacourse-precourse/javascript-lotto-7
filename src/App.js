@@ -1,26 +1,26 @@
 import LotteryMachine from "./LotteryMachine.js";
 import {INPUT} from "./constants/message.js";
-import {Console} from "@woowacourse/mission-utils";
+import {Console, MissionUtils} from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 class App {
-    sequence = 1
-    price;
+    quantity;
+    lotto;
 
     async run() {
+        let sequence = 1;
         for (const prompt of INPUT) {
             const input = await this.input(prompt)
-            if (this.sequence === 1) {
-                this.price = this.moneyToLotto(input)
+            if (sequence === 1) {
+                this.quantity = this.moneyToLotto(input)
             }
-            if (this.sequence === 2) {
-                const lotto = new Lotto(input.split(","))
-                lotto.purchaseNumbers()
+            if (sequence === 2) {
+                this.lotto = this.purchaseNumbers()
             }
             /*if (this.sequence === 3) {//보너스 번호
 
             }*/
-            this.sequence++
+            sequence++
         }
     }
 
@@ -28,6 +28,19 @@ class App {
         return Number(money) / 1000 //로또 가격 상수화 예정
     }
 
+    purchaseNumbers() { //인자로 몇번인지를 넣자
+        let arr = []
+        for (let i = 0; i < this.quantity; i++) {
+            const sixRandomValues = this.getSixRandomValues()
+            arr.push(sixRandomValues)
+        }
+        console.log(arr)
+        return arr
+    }
+
+    getSixRandomValues() {
+        return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    }
 
     async input(message) {
         const input = await Console.readLineAsync(message)
