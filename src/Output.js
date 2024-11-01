@@ -13,6 +13,13 @@ class Output {
     const profitRateMessage = this.#getProfitRateMessage(profitRate);
     Console.print(profitRateMessage);
   }
+
+  static printLottos(lottos) {
+    Console.print(`\n${lottos.length}${OUTPUT_MESSAGES.QUANTITY}`);
+    lottos.forEach((lotto) => {
+      Console.print(lotto);
+    });
+  }
 }
 
 export default Output;
