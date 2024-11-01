@@ -1,14 +1,13 @@
 import Generator from './Generator.js';
 import InputProcessor from './InputProcessor.js';
+import Statistics from './Statistics.js';
 import Validator from './Validator.js';
-import LOTTO from './constants/lotto.js';
-import MESSAGES from './constants/messages.js';
+import { LOTTO } from './constants/lotto.js';
+import { PROMPT } from './constants/messages.js';
 import handleError from './utils/handleError.js';
 
 class App {
   #purchasePrice;
-
-  #lottos;
 
   #winningNumbers;
 
@@ -20,15 +19,17 @@ class App {
       const quantity = this.#getPurchaseQuantity();
       const lottoGenerator = new Generator(quantity);
       const lottos = lottoGenerator.execute();
-      this.winningNumbers = await this.#getWinningNumbers();
-      this.#bonusNumber = await this.#getBonusNumber();
+      await this.#getWinningNumbers();
+      await this.#getBonusNumber();
+      const winningStatistics = new Statistics(lottos, this.#purchasePrice, this.#winningNumbers, this.#bonusNumber);
+      winningStatistics.result();
     } catch (error) {
       handleError(true, error);
     }
   }
 
   async #getPurchasePrice() {
-    const input = await InputProcessor.get(MESSAGES.PRICE_INPUT);
+    const input = await InputProcessor.get(PROMPT.PRICE_INPUT);
     Validator.price(input);
     return input;
   }
@@ -39,16 +40,15 @@ class App {
   }
 
   async #getWinningNumbers() {
-    const input = await InputProcessor.get(MESSAGES.WINNING_NUMBER_INPUT);
-    this.winningNumbers = input.split(',');
-    Validator.winningNumbers(this.winningNumbers);
-    return input;
+    const input = await InputProcessor.get(PROMPT.WINNING_NUMBER_INPUT);
+    this.#winningNumbers = input.split(',');
+    Validator.winningNumbers(this.#winningNumbers);
   }
 
   async #getBonusNumber() {
-    const input = await InputProcessor.get(MESSAGES.BONUS_NUMBER_INPUT);
-    Validator.bonusNumber(this.winningNumbers, input);
-    return input;
+    const input = await InputProcessor.get(PROMPT.BONUS_NUMBER_INPUT);
+    Validator.bonusNumber(this.#winningNumbers, input);
+    this.#bonusNumber = input;
   }
 }
 
