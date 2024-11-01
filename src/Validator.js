@@ -27,8 +27,11 @@ export class Validator {
 
   validateWinningNumbers = (winningNumbers) => {
     winningNumbers.forEach((winningNumber) => {
-      if (parseInt(winningNumber, 10) < 1 || parseInt(winningNumber, 10) > 45) {
-        throw new Error('[ERROR] 로또 번호가 1과 45 사이에 존재하지 않습니다.');
+      if (
+        parseInt(winningNumber, 10) < LOTTO.MINIMUM_NUMBER ||
+        parseInt(winningNumber, 10) > LOTTO.MAXIMUM_NUMBER
+      ) {
+        throw new Error('[ERROR] 당첨 번호가 1과 45 사이에 존재하지 않습니다.');
       }
     });
     if (winningNumbers.length !== LOTTO.NUMBER_OF_SPACE) {
@@ -44,6 +47,12 @@ export class Validator {
     }
     if (!Number.isInteger(parseFloat(bonusNubmer))) {
       throw new Error('[ERROR] 구입 금액은 정수이어야 합니다.');
+    }
+    if (
+      parseInt(bonusNubmer, 10) < LOTTO.MINIMUM_NUMBER ||
+      parseInt(bonusNubmer, 10) > LOTTO.MAXIMUM_NUMBER
+    ) {
+      throw new Error('[ERROR] 보너스 번호가 1과 45 사이에 존재하지 않습니다.');
     }
   };
 }
