@@ -13,6 +13,9 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  getLotteryMatches(lottery) {
+    return this.#numbers.filter(num => lottery.includes(num));
+  }
 }
 
 export default Lotto;
