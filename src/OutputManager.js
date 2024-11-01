@@ -7,10 +7,16 @@ class OutputManager {
   }
 
   static printPurchaseHistory(lottos) {
-    const purchaseLottoCount = lottos.length;
+    const purchasedLottosCount = lottos.length;
+    const purchasedLottosCountOutput = `${purchasedLottosCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`;
 
-    this.print(`${purchaseLottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`);
-    lottos.forEach(({ numbers }) => this.print(`[${numbers.join(', ')}]`));
+    this.print(purchasedLottosCountOutput);
+
+    lottos.forEach(({ numbers }) => {
+      const purchasedLottoOutput = `[${numbers.join(', ')}]`;
+
+      this.print(purchasedLottoOutput);
+    });
   }
 
   static printWinningStatics(rankCountMap) {
@@ -18,11 +24,11 @@ class OutputManager {
 
     LOTTO_INFORMATIONS.forEach(({ winningCount, prizeMoney, rank }) => {
       const bonusNumberString = this.#getBonusNumberString(rank);
-      const winningLottoSentence = `${winningCount}개 일치${bonusNumberString} (${prizeMoney.toLocaleString(
+      const winningLottoOutput = `${winningCount}개 일치${bonusNumberString} (${prizeMoney.toLocaleString(
         'ko-KR',
       )}원) - ${rankCountMap.get(rank)}개`;
 
-      this.print(winningLottoSentence);
+      this.print(winningLottoOutput);
     });
   }
 
@@ -32,7 +38,9 @@ class OutputManager {
   }
 
   static printRateOfReturn(rateOfReturn) {
-    this.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+    const rateOfReturnSetence = `총 수익률은 ${rateOfReturn}%입니다.`;
+
+    this.print(rateOfReturnSetence);
   }
 }
 
