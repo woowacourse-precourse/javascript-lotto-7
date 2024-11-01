@@ -47,8 +47,15 @@
 - [X] seperated by seperator
 - [X] input number of bonus
 - [X] sorting lotto numbers generated randomly
-- [] print result of lotto
-- [] round result
+- [X] print result of lotto
+- [X] round result
 
 ## 고전한 내용
 이전에 script 상 명령어는 yarn start 또는 yarn test였다. 하지만 이번엔 디렉토리를 제대로 적용하기 위해선 yarn run start 또는 yarn run test로 진행해야한다. 그리고 import시 상대경로는 js확장자를 붙여야한다.
+
+
+## 다시 생각한 내용 1
+Lotto 클래스의 용도를 처음 사용자로 부터 입력받은 초기 로또번호를 검증하는 용도로만 사용하려고 했으나, 로또번호들의 배열들을 무작위 생성시에(로또 가격을 통한 개수만큼) 로또객체를 생성하여 배열에 담아 사용할 수 있을 것 같았다. 또한 무작위로 생성한 로또번호들의 유효성을 평가할 때도 같은 함수를 사용하여 평가할 수 있으므로 재사용성이 높아질 것이다. 따라서 이전에는 무작위로 생성된 로또번호를 2차원 배열에 담았다면 이제는 로또 객체들을 1차원 배열의 각 원소로 하여 1차원 배열을 App에서 다루는 것으로 수정한다.
+
+## 다시 생각한 내용 2
+사용자가 입력한 값이 잘못된 경우에 대해서 에러를 발생시킨 뒤 그 위치부터 다시 입력받아야 하므로 적절한 에러를 발생시켰는지 확인하는 단위테스트 코드들은 skip을 하고 테스트를 진행해야한다. 마지막에는 ApplicationTest에 있는 Exception테스트를 이용하여 잘못된 값이 입력된 경우에 대해서 적절한 값을 다시 넣어주어 적절한 입력을 만든 뒤 출력이 맞는지를 검증할 필요가 있다.
