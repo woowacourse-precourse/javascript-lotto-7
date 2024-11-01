@@ -29,6 +29,12 @@ describe("입력 테스트" , () => {
     expect(money).toBe("1000");
   });
 
+  test("로또 티켓 수 계산 테스트", async () => {
+    mockQuestions(["14000"]);
+    const money = await lotto.purchasedTicketAmount();
+    expect(money).toBe(14);
+  });
+
   test("로또 당첨 번호 입력 테스트", async () => {
     mockQuestions(["1, 2, 3, 4, 5, 6"]);
     const numbers = await lotto.getLottoNumbers();

@@ -16,12 +16,16 @@ class Lotto {
     
   }
 
+  async purchasedTicketAmount() {
+    const paymentAmount = await this.getPaymentAmount();
+    return this.calculateTicketAmount(paymentAmount);
+  }
   async getPaymentAmount() {
     while(true) {
       try {
-        const price = await Console.readLineAsync("구입 금액을 입력해주세요(로또 1장 당 1000원)");
-        PaymentValidator.checkThousandUnit(price);
-        return price;
+        const paymentAmount = await Console.readLineAsync("구입 금액을 입력해주세요(로또 1장 당 1000원)");
+        PaymentValidator.checkThousandUnit(paymentAmount);
+        return paymentAmount;
       } catch(error) {
         Console.print(error.message);
       }
@@ -48,6 +52,9 @@ class Lotto {
         Console.print(error.message);
       }
     }
+  }
+  calculateTicketAmount(paymentAmount) {
+    return paymentAmount / 1000;
   }
 }
 

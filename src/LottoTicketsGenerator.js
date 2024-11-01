@@ -3,20 +3,20 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class LottoTicketsGenerator {
   #generatedLottoNumbers;
 
-  constructor(ticketCount) {
-    this.#generatedLottoNumbers = this.generateAllTickets(ticketCount);
+  constructor(ticketAmount) {
+    this.#generatedLottoNumbers = this.generateAllTickets(ticketAmount);
   }
-
-  generateSingleTicket() {
-    const uniqueNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    return uniqueNumbers.sort((a, b) => a - b);
-  }
-  generateAllTickets(ticketCount) {
+  
+  generateAllTickets(ticketAmount) {
     const tickets = [];
-    for(let cnt = 0 ; cnt < ticketCount ; cnt++) {
+    for(let cnt = 0 ; cnt < ticketAmount ; cnt++) {
       tickets.push(this.generateSingleTicket());
     }
     return tickets;
+  }
+  generateSingleTicket() {
+    const uniqueNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return uniqueNumbers.sort((a, b) => a - b);
   }
 }
 
