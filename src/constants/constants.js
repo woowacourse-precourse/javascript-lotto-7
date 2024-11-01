@@ -1,18 +1,18 @@
 export const AMOUNT = {
-  MIN: 1000,
-  MAX: 100000,
-  UNIT: 1000,
+  min: 1000,
+  max: 100000,
+  unit: 1000,
 };
 
 export const NUMBER = {
-  EXPECTED_LENGTH: 6,
-  MIN_RANGE: 1,
-  MAX_RANGE: 45,
+  expected_length: 6,
+  min_range: 1,
+  max_range: 45,
 };
 
 export const CONTEXT = {
-  DEFAULT: '번호',
-  LOTTO: '로또 번호',
-  WINNING: '당첨 번호',
-  BONUS: '보너스 번호',
+  default: '번호',
+  lotto: '로또 번호',
+  winning: '당첨 번호',
+  bonus: '보너스 번호',
 };

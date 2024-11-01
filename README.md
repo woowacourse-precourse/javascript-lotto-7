@@ -108,5 +108,23 @@
        ResultController: 전체적인 흐름을 관리하고, 각 구성 요소를 조합하여 최종 결과를 출력
        ```
 2. 상수화 및 매직 넘버 제거
+
+   - 상수를 표기할 때 놓쳤던 규칙을 적용한다.
+
+     > **Airbnb 스타일 가이드**
+     > object를 export 할 때는 object의 상위 레벨에서만 대문자 표기를 사용하고, 내부 키(key)들은 소문자로 표기한다.
+
+     ```
+     // bad - unnecessarily uppercases key while adding no semantic value
+     export const MAPPING = {
+       KEY: 'value'
+     };
+
+     // good
+     export const MAPPING = {
+       key: 'value',
+     };
+     ```
+
 3. 중복되는 로직 제거
 4. 클래스명, 변수명, 메소드명 의미가 명확하도록 수정
