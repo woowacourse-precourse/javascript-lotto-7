@@ -3,17 +3,17 @@ class LottoPrize {
 
   #bonusNumber;
 
-  ranks;
+  #prize;
 
   constructor() {
     this.#winningNumbers = {};
     this.#bonusNumber = 0;
-    this.ranks = {
-      first: 0,
-      second: 0,
-      third: 0,
-      forth: 0,
-      fifth: 0,
+    this.#prize = {
+      first: { condition: 6, money: 2000000000, count: 0 },
+      second: { condition: 5, money: 30000000, count: 0 },
+      third: { condition: 5, money: 1500000, count: 0 },
+      forth: { condition: 4, money: 50000, count: 0 },
+      fifth: { condition: 3, money: 5000, count: 0 },
     };
   }
 
@@ -38,17 +38,17 @@ class LottoPrize {
 
   /**
    *
-   * @param {number[]} lottos - 로또 배열
+   * @param {number[]} lotto - 로또 배열
    */
-  countMatchNumbers(lottos) {
+  countMatchNumbers(lotto) {
     let isMatchBonus = false;
-    const winningCount = lottos.reduce(
-      (count, lotto) => {
-        if (this.isBonusNumber(lotto)) {
+    const winningCount = lotto.reduce(
+      (count, number) => {
+        if (this.isBonusNumber(number)) {
           isMatchBonus = true;
           return count;
         }
-        return count + this.isWinningNumber(lotto);
+        return count + this.isWinningNumber(number);
       },
       0,
     );
@@ -57,10 +57,20 @@ class LottoPrize {
 
   /**
    *
-   * @param {number[]} lottos - 로또 배열
+   * @param {number[][]} lottos
    */
-  getRank(lottos) {
-    const { winningCount, isMatchBonus } = this.countMatchNumbers(lottos);
+  #checkLottos(lottos) {
+    lottos.forEach((lotto) => {
+      this.getRank(lotto);
+    });
+  }
+
+  /**
+   *
+   * @param {number[]} lotto - 로또 배열
+   */
+  getRank(lotto) {
+    const { winningCount, isMatchBonus } = this.countMatchNumbers(lotto);
 
     if (winningCount === 6) return this.#updateRanks("first");
     if (winningCount === 5 && isMatchBonus) return this.#updateRanks("second");
@@ -75,8 +85,17 @@ class LottoPrize {
    * @param {"first"|"second"|"third"|"forth"|"fifth"} rank - 등수
    */
   #updateRanks(rank) {
-    this.ranks[rank] += 1;
+    this.#prize[rank].count += 1;
     return rank;
+  }
+
+  /**
+   *
+   * @param {number[][]} lottos
+   */
+  getPrize(lottos) {
+    this.#checkLottos(lottos);
+    return this.#prize;
   }
 }
 
