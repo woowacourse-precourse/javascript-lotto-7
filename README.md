@@ -33,13 +33,18 @@
 
 -   중복된 숫자가 든 배열일 경우 에러 반환
 -   1 ~ 45의 숫자가 아닌 원소가 든 배열일 경우 에러 반환
+-   numbers를 getter로 반환해줄 수 있도록 구현
 
 1. 입력된 구입 금액을 기반으로 로또 번호가 든 배열을 만드는 LotteryGenerator class
 
 -   로또 배열이 든 배열인 lottoList 필드, 구입금액을 저장하는 buyingCost 필드
--   Random.pickUniqueNumbersInRange(1, 45, 6)로 나온 값으로 Lotto class를 만들고 lottoList에 넣음
+    -   buyingCost가 1000원 단위가 아닌 경우 예외 처리 한다
+    -   공백들은 다 허용하며 "원"이 붙거나 안붙거나 상관없이 허용
+    -   정규표현식으로 위의 경우를 필터링하고 동시에 0을 3개 제외한 로또 구매 장수가 반환되도록 함
+-   Random.pickUniqueNumbersInRange(1, 45, 6)로 나온 값으로 Lotto class로 검증하고 lottoList에 넣음
 -   만약 Lotto class에서 에러가 발생할 경우 다시 새로운 배열을 받아서 Lotto class를 만들어야 함
--   위의 과정을 구입 금액 / 1000 만큼 실행하고 배열을 반환함
+-   위의 과정을 구입 장수만큼 실행하고 배열을 반환함
+-   getter로 lottoList를 반환할 수 있도록 구현
 
 2. 로또 번호들이 얼마나 일치하는지 확인하고 등수를 반환해줄 LottoMatcher class
 
