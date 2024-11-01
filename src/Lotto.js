@@ -28,6 +28,10 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있을 수 없습니다.");
     }
   }
+
+  getNumbers() {
+    return [...this.#numbers].sort((a, b) => a - b);
+  }
 }
 
 export default Lotto;
