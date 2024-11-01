@@ -8,7 +8,7 @@ class App {
     try {
       const money = new Money(await this.payingMoney()).getMoney();
       const lotteryNumbers = Draw.getLotteryNumbers(money);
-      const lottoNumbers = new Lotto(await this.getNumbers());
+      const lottoNumbers = new Lotto(await this.enteringNumbers()).getNumbers();
       const bonusNumber = await this.getBonusNumbers();
     } catch (error) {
       Console.print(error.message);
@@ -20,7 +20,7 @@ class App {
     return Number(await Console.readLineAsync(''));
   }
 
-  async getNumbers() {
+  async enteringNumbers() {
     Console.print('당첨 번호를 입력해 주세요.');
     const enteredNumbers = await Console.readLineAsync('');
     return enteredNumbers.split(',');
