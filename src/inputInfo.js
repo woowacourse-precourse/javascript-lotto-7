@@ -65,7 +65,8 @@ class Input {
     this.bonusNumber = await Console.readLineAsync(
       "보너스 번호를 입력해주세요. \n"
     );
-    Console.print(this.bonusNumber);
+    let exception = new Exception();
+    exception.validateBonusNumber(this.bonusNumber);
   }
 }
 export default Input;

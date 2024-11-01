@@ -70,5 +70,23 @@ class Exception {
 
     return true;
   }
+
+  // 보너스 번호 입력 예외 상황
+  validateBonusNumber(number, retry = true) {
+    // 보너스 번호가 1부터 45까지의 수가 아닐 경우
+    if (number < 1 || number > 45) {
+      Console.print("[ERROR] 보너스 번호를 1부터 45까지의 수로 입력해주세요.");
+
+      if (retry) {
+        let input = new Input();
+        input.WinBonusNumber();
+      } else {
+        throw new Error(
+          "[ERROR] 보너스 번호를 1부터 45까지의 수로 입력해주세요."
+        );
+      }
+    }
+  }
 }
+
 export default Exception;
