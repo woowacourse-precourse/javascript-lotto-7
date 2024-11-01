@@ -31,7 +31,7 @@ export function validateNumbers(input) {
   const numbers = input.trim();
 
   if (!regex.number.test(numbers))
-    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidNumber}`);
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidLotto}`);
 
   return numbers;
 }
@@ -46,7 +46,7 @@ export function validateBonusNumber(input) {
     throw new Error(`${errorMessage.prefix} ${errorMessage.invalidBonusNumber}`);
 
   if (bonusNumber < 1 || bonusNumber > 45)
-    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidNumber}`);
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidNumberRange}`);
 
   return bonusNumber;
 }
