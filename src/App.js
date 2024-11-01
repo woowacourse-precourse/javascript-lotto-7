@@ -1,45 +1,37 @@
 import InputView from './View/InputView.js';
 import OutputView from './View/OutView.js';
 import LottoService from '../src/Model/LottoService.js';
-import { ERROR_MSG, REGEXP } from '../Util/Constants.js';
+import InputHandler from './InputHandler.js';
 
 class App {
   constructor() {
     this.inputView = new InputView();
     this.outputView = new OutputView();
     this.lottolService = new LottoService();
+    this.inputHandler = new InputHandler();
   }
 
   async run() {
-    await this.getPuchaseAmount();
+    await this.readPuchaseAmount();
     this.lottolService.drawLottos();
 
     const lottos = this.lottolService.getLottos();
     this.outputView.printLotto(lottos);
   }
 
-  async getPuchaseAmount() {
+  async;
+
+  async readPuchaseAmount() {
     while (true) {
       try {
-        const userInput = await this.inputView.readPuchaseAmount();
+        const userInputString = await this.inputView.readPuchaseAmount();
+        const userInputNumber = this.inputHandler.stringToInt(userInputString);
 
-        this.validateNumber(userInput);
-        this.lottolService.setPurcharedAmount(this.stringToInt(userInput));
-
+        this.lottolService.setPurcharedAmount(userInputNumber);
         return;
       } catch (errorMsg) {
         this.outputView.print(errorMsg.message);
       }
-    }
-  }
-
-  stringToInt(string) {
-    return parseInt(string, 10);
-  }
-
-  validateNumber(string) {
-    if (REGEXP.IS_NUMBER.test(string) === false) {
-      throw Error(ERROR_MSG.notANumber);
     }
   }
 }

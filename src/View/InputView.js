@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MSG } from '../../Util/Constants.js';
 
 const INPUT_MSG = {
   purchaseAmount: '구입금액을 입력해 주세요.\n',
@@ -18,14 +17,7 @@ class InputView {
 
   async #getUserInput(inputMessage) {
     const userInput = await Console.readLineAsync(inputMessage);
-    this.#validate(userInput);
     return userInput;
-  }
-
-  #validate(userInput) {
-    if (!userInput || userInput.trim().length === 0) {
-      throw Error(ERROR_MSG.invalidInputData);
-    }
   }
 }
 
