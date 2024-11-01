@@ -42,7 +42,8 @@ export const validateWinnigNum = {
         return(
             validateWinnigNum.checkIsNumber(numbers) &&
             validateWinnigNum.checkRange(numbers) &&
-            validateWinnigNum.checkIsSixElements(numbers)
+            validateWinnigNum.checkIsSixElements(numbers) &&
+            validateWinnigNum.checkDuplication(numbers)
         );
     },
 
@@ -65,6 +66,15 @@ export const validateWinnigNum = {
     checkIsSixElements(value){
         if(value.length !== 6){
             Console.print(ERROR_MESSAGE.NOT_SIX_ELEMENTS);
+            return false;
+        }
+        return true;
+    },
+    checkDuplication(value){
+        const isVaild = Set(value).size === value.length;
+
+        if(!isVaild){
+            Console.print(ERROR_MESSAGE.DUPLICATION);
             return false;
         }
         return true;
