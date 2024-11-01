@@ -14,6 +14,13 @@ class GameResult {
     this.#benefitRate = "";
   }
 
+  gameResult(money, new_lotto, winning_lotto, bonus) {
+    this.addPrizeStat(new_lotto, winning_lotto, bonus);
+    this.addTotalMoney();
+    this.addBenefitRate(money);
+    return { prizeStat: this.#prizeStat, benefitRate: this.#benefitRate };
+  }
+
   addPrizeStat(new_lotto, winning_lotto, bonus) {
     new_lotto.forEach((player_lotto) => {
       const same_lotto_count = this.sameLottoCheck(player_lotto, winning_lotto);
@@ -46,13 +53,6 @@ class GameResult {
 
   addBenefitRate(money) {
     this.#benefitRate = ((this.#prizeTotalMoney / money) * 100).toFixed(1) + "%";
-  }
-
-  gameResult(money, new_lotto, winning_lotto, bonus) {
-    this.addPrizeStat(new_lotto, winning_lotto, bonus);
-    this.addTotalMoney();
-    this.addBenefitRate(money);
-    return { prizeStat: this.#prizeStat, benefitRate: this.#benefitRate };
   }
 }
 

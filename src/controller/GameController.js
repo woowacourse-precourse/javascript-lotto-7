@@ -16,6 +16,18 @@ class GameController {
     this.#gameResult = new GameResult();
   }
 
+  async startGame() {
+    const money = await this.#purchaseMoneyInput();
+    const new_lotto = await this.#getLotto(money);
+    this.#gameOutput.printNewLotto(new_lotto);
+
+    const winning_lotto = await this.#winningLotto();
+    const bonus = await this.#bonusNumber(winning_lotto);
+
+    const result = this.#gameResult.gameResult(money, new_lotto, winning_lotto, bonus);
+    this.#gameOutput.printGameResult(result);
+  }
+
   async #purchaseMoneyInput() {
     while (true) {
       try {
@@ -63,18 +75,6 @@ class GameController {
         this.#gameOutput.printErrorMesssage(error);
       }
     }
-  }
-
-  async startGame() {
-    const money = await this.#purchaseMoneyInput();
-    const new_lotto = await this.#getLotto(money);
-    this.#gameOutput.printNewLotto(new_lotto);
-
-    const winning_lotto = await this.#winningLotto();
-    const bonus = await this.#bonusNumber(winning_lotto);
-
-    const result = this.#gameResult.gameResult(money, new_lotto, winning_lotto, bonus);
-    this.#gameOutput.printGameResult(result);
   }
 }
 
