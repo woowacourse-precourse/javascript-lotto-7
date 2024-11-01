@@ -6,8 +6,9 @@ class App {
     const Lotto = await this.getLottos(Count);
     const CorrectArray = await this.getCorrectNumbers();
     const BonusNumber = await this.getBonusNumber(CorrectArray);
-    const CorrectCount = this.checkCountCorrect(Count, Lotto, CorrectArray);
+    const CorrectCount = this.checkCountCorrect(Count, Lotto, CorrectArray, BonusNumber);
     this.winningResult(CorrectCount);
+    MissionUtils.Console.print(`총 수익률은 ${this.calculateBenefit(CorrectCount, Count)}%입니다.`);
   }
 
   async getMoney() {
@@ -51,6 +52,7 @@ class App {
   async getBonusNumber(numberArray) {
     const input = await MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
     const bonusNumber = Number(input);
+    // const bonusNumber = input;
     if (isNaN(bonusNumber)) {
         throw new Error("[ERROR] 숫자를 입력해 주세요.");
     }
@@ -63,7 +65,7 @@ class App {
     return bonusNumber;
   }
 
-  checkCorrect(lotto, correct) {
+  checkCorrect(lotto, correct, bonus) {
     const setLotto = new Set(lotto);
     const setCorrect = new Set(correct);
     let count = 0;
@@ -72,13 +74,20 @@ class App {
         count++;
       }
     });
+    if (count == 5) {
+      setLotto.forEach(value => {
+        if (bonus == value) {
+          count += 2;
+        }
+      });
+    }
     return count;
   }
 
-  checkCountCorrect(Count, Lotto, CorrectArray) {
+  checkCountCorrect(Count, Lotto, CorrectArray, BonusNumber) {
     const array = [];
     for (let i = 0; i < Count; i++) {
-      array.push(this.checkCorrect(Lotto[i], CorrectArray))
+      array.push(this.checkCorrect(Lotto[i], CorrectArray, BonusNumber))
     }
     return array;
   }
@@ -97,10 +106,16 @@ class App {
     MissionUtils.Console.print(`3개 일치 (5,000원) - ${this.countSpecificElement(CorrectCount, 3)}개`);
     MissionUtils.Console.print(`4개 일치 (50,000원) - ${this.countSpecificElement(CorrectCount, 4)}개`);
     MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${this.countSpecificElement(CorrectCount, 5)}개`);
-    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.countSpecificElement(CorrectCount, 5)}개`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.countSpecificElement(CorrectCount, 7)}개`);
     MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${this.countSpecificElement(CorrectCount, 6)}개`);
   }
 
+  calculateBenefit(CorrectCount, Count) {
+    return ((this.countSpecificElement(CorrectCount, 3) * 5000 + this.countSpecificElement(CorrectCount, 4) * 50000 + this.countSpecificElement(CorrectCount, 5) * 1500000
+    + this.countSpecificElement(CorrectCount, 7) * 30000000 + this.countSpecificElement(CorrectCount, 6) * 2000000000) / Count / 10);
+  }
+  
+  
 }
 
 export default App;
