@@ -23,6 +23,12 @@ class App {
 
     // // 5. 당첨 번호 설정
     lottoController.setWinningNumbers(winningNumbers, bonusNumber);
+
+    // // 6. 당첨 결과 확인 및 출력
+    const result = lottoController.checkResults();
+    Output.displayWinningNumbersResult(result);
+
+    // // 7. 수익률 계산 및 출력
   }
 }
 

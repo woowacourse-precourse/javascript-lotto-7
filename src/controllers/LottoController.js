@@ -1,13 +1,15 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from '../models/Lotto.js';
+import ResultChecker from '../models/ResultChecker.js';
 
 class LottoController {
+  #resultChecker;
   #tickets;
   #winningNumbers;
   #bonusNumber;
 
   constructor() {
-    // this.#resultChecker = new ResultChecker();
+    this.#resultChecker = new ResultChecker();
     this.#tickets = [];
     this.#winningNumbers = [];
     this.#bonusNumber = null;
@@ -35,6 +37,19 @@ class LottoController {
   setWinningNumbers(winningNumbers, bonusNumber) {
     this.#winningNumbers = this.parseWinningNumbers(winningNumbers);
     this.#bonusNumber = Number(bonusNumber);
+  }
+
+  /**
+   * 구매한 티켓들과 당첨 번호를 비교하여 당첨 결과를 계산합니다.
+   * @returns {Object} - 당첨 결과
+   */
+  checkResults() {
+    const ticketNumbers = this.#tickets.map((ticket) => ticket.getNumbers());
+    return this.#resultChecker.checkAllTickets(
+      ticketNumbers,
+      this.#winningNumbers,
+      this.#bonusNumber,
+    );
   }
 
   /**
