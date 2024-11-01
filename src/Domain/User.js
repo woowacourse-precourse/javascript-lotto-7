@@ -1,4 +1,4 @@
-import { BasicValidation } from '../Validation.js';
+import { basicValidation } from '../Validation.js';
 
 class User {
   #money;
@@ -9,14 +9,14 @@ class User {
     this.#tickets = [];
   }
 
-  #validateUserMoney(money) {
-    BasicValidation.InputBlank(money);
-    BasicValidation.InputNumberType(money);
-    BasicValidation.PurchaseUnit(money);
+  #validateMoney(money) {
+    basicValidation.validateInputBlank(money);
+    basicValidation.validateInputNumberType(money);
+    basicValidation.validatePurchaseUnit(money);
   }
 
   setMoney(money) {
-    this.#validateUserMoney(money);
+    this.#validateMoney(money);
     this.#money = money;
   }
 

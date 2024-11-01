@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT } from '../Constants/Message.js';
-import { LOTTO_NUMBER_STANDARD, WINNER } from '../Constants/Constant.js';
+import { LOTTO_NUMBER_STANDARD, PRIZE } from '../Constants/Constant.js';
 
 class Output {
   error(message) {
@@ -8,6 +8,7 @@ class Output {
   }
 
   lottoTicketCount(tickets) {
+    console.log();
     Console.print(OUTPUT.ticketQuantity(tickets.length));
   }
 
@@ -15,35 +16,35 @@ class Output {
     tickets.forEach((ticket) =>
       Console.print(
         OUTPUT.ticketNumber(
-          ticket.getNumber().join(`${LOTTO_NUMBER_STANDARD.separator}`)
+          ticket.getNumbers().join(`${LOTTO_NUMBER_STANDARD.separator}`)
         )
       )
     );
   }
 
-  singleWinningResult(winner, results) {
-    if (winner === WINNER[2]) {
+  singleWinningResult(prize, results) {
+    if (prize === PRIZE[2]) {
       Console.print(
-        OUTPUT.bonusWinner(winner.match, winner.reward, results[winner.rank])
+        OUTPUT.bonusPrize(prize.match, prize.reward, results[prize.rank])
       );
     }
 
-    if (winner !== WINNER[0]) {
+    if (prize !== PRIZE[0]) {
       Console.print(
-        OUTPUT.defaultWinner(winner.match, winner.reward, results[winner.rank])
+        OUTPUT.defaultPrize(prize.match, prize.reward, results[prize.rank])
       );
     }
   }
 
   totalWinningResult(results) {
     Console.print(OUTPUT.winningStatistics);
-    [...WINNER]
+    [...PRIZE]
       .reverse()
-      .forEach((winner) => this.singleWinningResult(winner, results));
+      .forEach((prize) => this.singleWinningResult(prize, results));
   }
 
   totalReturnResult(totalReturn) {
-    Console.print(OUTPUT.totalProfit(Math.round(totalReturn * 100) / 100));
+    Console.print(OUTPUT.totalProfit(totalReturn));
   }
 }
 

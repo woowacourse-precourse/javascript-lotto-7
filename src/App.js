@@ -63,7 +63,7 @@ class App {
     this.#output.lottoTicketNumbers(user.getTickets());
 
     await this.setWinningNumbers();
-    await this.setBounsNumber();
+    await this.setBonusNumber();
   }
 
   async run() {

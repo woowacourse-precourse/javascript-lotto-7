@@ -1,14 +1,14 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import {
-  BasicValidation,
-  WinningNumberValidation,
-  BonusNumberValidation,
+  basicValidation,
+  winningNumberValidation,
+  bonusNumberValidation,
 } from '../Validation.js';
 import {
   LOTTO_NUMBER_STANDARD,
   LOTTO_PRICE_UNIT,
-  WINNER,
+  PRIZE,
 } from '../Constants/Constant.js';
 
 class LOTTO_MACHINE {
@@ -29,26 +29,29 @@ class LOTTO_MACHINE {
   }
 
   #validateWinningNumbers(winningNumbers) {
-    WinningNumberValidation.InputSeparator(winningNumbers);
+    winningNumberValidation.validateInputSeparator(winningNumbers);
 
-    const parseWinningNumbers = this.#parseWinningNumbers(winningNumbers);
+    const parsedWinningNumbers = this.#parseWinningNumbers(winningNumbers);
 
-    WinningNumberValidation.InputOverlap(parseWinningNumbers);
-    BasicValidation.inputLength(
-      parseWinningNumbers,
+    winningNumberValidation.validateInputOverlap(parsedWinningNumbers);
+    basicValidation.validateInputLength(
+      parsedWinningNumbers,
       LOTTO_NUMBER_STANDARD.length
     );
 
-    parseWinningNumbers.forEach((number) => {
-      WinningNumberValidation.InputNumberType(number);
-      WinningNumberValidation.InputLottoRange(number);
+    parsedWinningNumbers.forEach((number) => {
+      basicValidation.validateInputNumberType(number);
+      winningNumberValidation.validateInputLottoRange(number);
     });
   }
 
   #validateBonusNumber(bonusNumber) {
-    BasicValidation.InputNumberType(bonusNumber);
-    BasicValidation.InputLength(bonusNumber, 1);
-    BonusNumberValidation.InputOverlap(bonusNumber, this.#winningNumbers);
+    basicValidation.validateInputNumberType(bonusNumber);
+    winningNumberValidation.validateInputLottoRange(bonusNumber);
+    bonusNumberValidation.validateInputOverlap(
+      bonusNumber,
+      this.#winningNumbers
+    );
   }
 
   setWinningNumbers(winningNumbers) {
@@ -61,7 +64,7 @@ class LOTTO_MACHINE {
     this.#bonusNumber = bonusNumber;
   }
 
-  drawRandomLottoNumbers() {
+  drawLottoNumbers() {
     return Random.pickUniqueNumbersInRange(
       LOTTO_NUMBER_STANDARD.min,
       LOTTO_NUMBER_STANDARD.max,
@@ -70,7 +73,7 @@ class LOTTO_MACHINE {
   }
 
   drawSingleLottoTicket() {
-    const numbers = this.drawRandomLottoNumbers();
+    const numbers = this.drawLottoNumbers();
     return new Lotto(numbers.sort((a, b) => a - b));
   }
 
@@ -83,13 +86,13 @@ class LOTTO_MACHINE {
   }
 
   calculateWinningResult(tickets) {
-    const results = WINNER.reduce((obj, winner) => {
-      obj[winner.rank] = 0;
+    const results = PRIZE.reduce((obj, prize) => {
+      obj[prize.rank] = 0;
       return obj;
     }, {});
 
     tickets.forEach((ticket) => {
-      const rank = ticket.calculateWinningLotto(
+      const rank = ticket.calculateLottoResult(
         this.#winningNumbers,
         this.#bonusNumber
       );
@@ -100,8 +103,8 @@ class LOTTO_MACHINE {
   }
 
   calculateTotalReturn(money, results) {
-    const total = WINNER.reduce((acc, winner) => {
-      return acc + results[winner.rank] * winner.reward;
+    const total = PRIZE.reduce((acc, prize) => {
+      return acc + results[prize.rank] * prize.reward;
     }, 0);
 
     return Math.round((total / money) * 10000) / 100;

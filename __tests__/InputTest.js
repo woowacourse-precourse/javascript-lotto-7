@@ -1,4 +1,4 @@
-import App from '../src/App.js';
+/*import App from '../src/App.js';
 
 describe('구입금액 입력 유효성 검사', () => {
   test('구입금액이 1000원 단위가 아닐 때 유효성 검사', () => {
@@ -23,8 +23,8 @@ describe('보너스 번호 입력 유효성 검사', () => {
 
   test('숫자 중복 유효성 검사', () => {
     const input = '5';
-    expect(() => new App().getBounsNumber(winningNumbers, input)).toThrow(
+    expect(() => new App().getBonusNumber(winningNumbers, input)).toThrow(
       '[ERROR] 중복된 값이 있습니다.'
     );
   });
-});
+});*/

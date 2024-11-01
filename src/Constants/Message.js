@@ -7,12 +7,12 @@ const INPUT = {
 };
 
 const OUTPUT = {
-  winningStatistics: '\n당첨 통계\\n---',
+  winningStatistics: '\n당첨 통계\n---',
   ticketQuantity: (count) => `${count}개를 구매했습니다.`,
   ticketNumber: (number) => `[${number}]`,
-  defaultWinner: (match, reward, count) =>
+  defaultPrize: (match, reward, count) =>
     `${match}개 일치 (${reward}원) - ${count}개`,
-  bonusWinner: (match, reward, count) =>
+  bonusPrize: (match, reward, count) =>
     `${match}개 일치, 보너스 볼 일치 (${reward}원) - ${count}개`,
   totalProfit: (value) => `총 수익률은 ${value.toFixed(1)}%입니다.`,
 };
@@ -33,8 +33,8 @@ const WINNING_NUMBER_ERROR = {
   invalidSeparator: `${PREFIX_ERROR} ,(쉼표)로 구분해 주십시오.`,
 };
 
-const BOUNS_NUMBER_ERROR = {
+const BONUS_NUMBER_ERROR = {
   overlapBonus: `${PREFIX_ERROR} 당첨 번호와 중복된 값이 있습니다.`,
 };
 
-export { INPUT, OUTPUT, BASIC_ERROR, WINNING_NUMBER_ERROR, BOUNS_NUMBER_ERROR };
+export { INPUT, OUTPUT, BASIC_ERROR, WINNING_NUMBER_ERROR, BONUS_NUMBER_ERROR };

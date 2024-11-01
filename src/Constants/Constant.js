@@ -9,31 +9,31 @@ const LOTTO_NUMBER_STANDARD = {
   separator: ',',
 };
 
-const firstWinner = {
+const firstPrize = {
   rank: '1',
   match: '6',
   reward: 2000000000,
 };
 
-const secondWinner = {
+const secondPrize = {
   rank: '2',
   match: '5',
   reward: 30000000,
 };
 
-const thirdWinner = {
+const thirdPrize = {
   rank: '3',
   match: '5',
   reward: 1500000,
 };
 
-const fourthWinner = {
+const fourthPrize = {
   rank: '4',
   match: '4',
   reward: 50000,
 };
 
-const fifthWinner = {
+const fifthPrize = {
   rank: '5',
   match: '3',
   reward: 5000,
@@ -45,18 +45,18 @@ const losing_ticket = {
   reward: '0',
 };
 
-const WINNER = [
+const PRIZE = [
   losing_ticket,
-  firstWinner,
-  secondWinner,
-  thirdWinner,
-  fourthWinner,
-  fifthWinner,
+  firstPrize,
+  secondPrize,
+  thirdPrize,
+  fourthPrize,
+  fifthPrize,
 ];
 
 export {
   LOTTO_NUMBER_STANDARD,
   LOTTO_PRICE_UNIT,
   PURCHASE_MONEY_INITIAL_VALUE,
-  WINNER,
+  PRIZE,
 };
