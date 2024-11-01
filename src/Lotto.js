@@ -31,7 +31,10 @@ class Lotto {
       lottoArr.push(new Lotto(numbers)); // 각 티켓에 대해 Lotto 객체 생성
     }
 
-    return lottoArr;
+    return {
+      lottoCount,
+      lottoArr,
+    };
   }
 }
 
