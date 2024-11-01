@@ -1,8 +1,20 @@
-import { LOTTO_MESSAGE, NUMBER_OF_LOTTO_NUMBERS } from './constants/constants';
+import { Random } from '@woowacourse/mission-utils';
+import {
+  LOTTO_MESSAGE,
+  NUMBER_OF_LOTTO_NUMBERS,
+  MIN_NUMBER,
+  MAX_NUMBER,
+} from './constants/constants.js';
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
+  constructor(
+    numbers = Random.pickUniqueNumbersInRange(
+      MIN_NUMBER,
+      MAX_NUMBER,
+      NUMBER_OF_LOTTO_NUMBERS
+    )
+  ) {
     this.#validate(numbers);
     this.#numbers = numbers;
   }
@@ -14,6 +26,9 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
