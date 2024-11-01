@@ -6,10 +6,7 @@ class App {
 
   async run() {
     try {
-      await this.#lottoManager.enterInputs();
-      this.#lottoManager.calculateResult();
-      this.#lottoManager.printStatistics();
-      this.#lottoManager.printReturns();
+      await this.#lottoManager.run();
     } catch (error) {
       Console.print(error.message);
     }

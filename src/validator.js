@@ -8,13 +8,15 @@ const validator = Object.freeze({
   },
 
   bonusNumber(bonusNumber, winningNumbers) {
-    if (bonusNumber.trim() === '') throw new Error(ERROR_MESSAGES.EMPTY_INPUT);
-    if (bonusNumber.includes(' ')) throw new Error(ERROR_MESSAGES.BLANK_INPUT);
-
+    if (bonusNumber.trim() === '') {
+      throw new Error(ERROR_MESSAGES.EMPTY_INPUT);
+    }
+    if (bonusNumber.includes(' ')) {
+      throw new Error(ERROR_MESSAGES.BLANK_INPUT);
+    }
     if (bonusNumber < 1 || bonusNumber > 45 || !Number.isInteger(Number(bonusNumber))) {
       throw new Error(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
     }
-
     if (winningNumbers.getNumbers().includes(Number(bonusNumber))) {
       throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
     }

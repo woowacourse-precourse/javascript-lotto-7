@@ -29,4 +29,20 @@ const ERROR_MESSAGES = Object.freeze({
   BONUS_NUMBER_DUPLICATE: `${ERROR_PREFIX} 보너스 번호는 당첨 번호와 중복될 수 없습니다.`,
 });
 
-export { SYSTEM_MESSAGES, RESULT_MESSAGES, ERROR_MESSAGES };
+const BUDGET_UNIT = Object.freeze(1000);
+
+const JACKPOT_UNIT = Object.freeze([5000, 50000, 1500000, 30000000, 2000000000]);
+
+const EMPTY_STRING = Object.freeze('');
+
+const COMMA = Object.freeze(',');
+
+export {
+  SYSTEM_MESSAGES,
+  RESULT_MESSAGES,
+  ERROR_MESSAGES,
+  JACKPOT_UNIT,
+  EMPTY_STRING,
+  COMMA,
+  BUDGET_UNIT,
+};
