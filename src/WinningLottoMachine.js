@@ -5,6 +5,7 @@ import Validator from './utils/Validator.js';
 class WinningLottoMachine {
   async createWinningLotto() {
     const winningNumbers = await WinningLottoMachine.#getValidWinningNums();
+    const bonusNumber = await WinningLottoMachine.#getValidBonusNums();
   }
 
   static async #getValidWinningNums() {
@@ -19,12 +20,23 @@ class WinningLottoMachine {
     }
   }
 
+  static async #getValidBonusNums() {
+    while (true) {
+      try {
+        const bonusNumber = await InputView.getUserInput('보너스 번호를 입력해 주세요.\n');
+        return bonusNumber;
+      } catch (error) {
+        OutputView.printError(error);
+      }
+    }
+  }
+
   static #validateWinningNumbers(winningNumbers) {
     Validator.checkIsNull(winningNumbers);
     Validator.checkRegexPattern(
       winningNumbers,
       /^\d+(,\d+)*$/,
-      '당첨 번호는 숫자만 입력 가능하며 쉼표(,)를 기준으로 구분합니다.\n',
+      '당첨 번호는 숫자만 입력 가능하며 쉼표(,)를 기준으로 구분합니다.',
     );
     const splitNums = WinningLottoMachine.#splitByComma(winningNumbers);
     WinningLottoMachine.#checkValidLength(splitNums);
@@ -39,13 +51,13 @@ class WinningLottoMachine {
   }
 
   static #checkValidLength(splitNums) {
-    if (splitNums.length !== 6) throw new Error('[ERROR] 당첨 번호는 6개의 숫자를 입력해야 합니다.\n');
+    if (splitNums.length !== 6) throw new Error('[ERROR] 당첨 번호는 6개의 숫자를 입력해야 합니다.');
   }
 
   static #checkDuplicateNum(splitNums) {
     const uniqueNums = new Set(splitNums);
     if (uniqueNums.size !== splitNums.length) {
-      throw new Error('[ERROR] 당첨 번호는 중복된 숫자를 포함할 수 없습니다.\n');
+      throw new Error('[ERROR] 당첨 번호는 중복된 숫자를 포함할 수 없습니다.');
     }
   }
 }
