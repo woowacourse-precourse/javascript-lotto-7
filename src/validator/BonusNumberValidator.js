@@ -1,5 +1,5 @@
 import Validator from "./Validator.js";
-import _pipe from "../utils/util.js";
+import { _pipe } from "../utils/util.js";
 
 class BonusNumberValidator extends Validator {
   static validate(bonusNumberInput, winningNumbers) {

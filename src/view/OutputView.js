@@ -1,4 +1,4 @@
-import printResult from "../utils/outputHandler.js";
+import { printResult } from "../utils/util.js";
 
 class OutputView {
   static printLottoCount(count) {

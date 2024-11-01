@@ -1,5 +1,5 @@
-import _pipe from "../utils/util.js";
 import Validator from "./Validator.js";
+import { _pipe } from "../utils/util.js";
 
 class WinningNumbersValidator extends Validator {
   static isLengthSix(input) {

@@ -1,4 +1,4 @@
-import readUserInput from "../utils/inputHandler.js";
+import { readUserInput } from "../utils/util.js";
 
 export class InputView {
   static async getLottoAmount() {
