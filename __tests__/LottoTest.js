@@ -36,7 +36,7 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test('보너스 번호가 빈 입력값인 경우', () => {
+  test('보너스 번호가 빈 입력값인 경우 예외가 발생한다', () => {
     expect(() => {
       new BonusNumber('');
     }).toThrow('[ERROR]');
