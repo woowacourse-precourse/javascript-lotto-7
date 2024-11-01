@@ -17,7 +17,7 @@ export default class InputLottoView {
     this.#validateNumber(purchasePrice);
     this.#validateBlank(purchasePrice);
 
-    return purchasePrice;
+    return Number(purchasePrice);
   }
 
   #validateNumber(input) {
