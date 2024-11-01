@@ -16,6 +16,7 @@ class App {
     const results = this.#calculateResults(matches);
     this.#printResults(results);
     const profitRate = this.#calculateProfitRate(results, amount);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 
   async #readAmount() {
