@@ -1,13 +1,5 @@
 import { BASIC_ERROR } from '../Constants/Message.js';
-import {
-  LOTTO_NUMBER_STANDARD,
-  fifthWinner,
-  fourthWinner,
-  thirdWinner,
-  secondWinner,
-  firstWinner,
-  losing_ticket,
-} from '../Constants/Constant.js';
+import { LOTTO_NUMBER_STANDARD, WINNER } from '../Constants/Constant.js';
 
 class Lotto {
   #numbers;
@@ -33,15 +25,15 @@ class Lotto {
   }
   compareMatchNumber(matchNumberCount, bonusNumber) {
     const resultTable = {
-      [firstWinner.match]: firstWinner.rank,
-      [secondWinner.match]: this.#numbers.includes(bonusNumber)
-        ? secondWinner.rank
-        : thirdWinner.rank,
-      [fourthWinner.match]: fourthWinner.rank,
-      [fifthWinner.match]: fifthWinner.rank,
+      [WINNER.firstWinner.match]: WINNER.firstWinner.rank,
+      [WINNER.secondWinner.match]: this.#numbers.includes(bonusNumber)
+        ? WINNER.secondWinner.rank
+        : WINNER.thirdWinner.rank,
+      [WINNER.fourthWinner.match]: WINNER.fourthWinner.rank,
+      [WINNER.fifthWinner.match]: WINNER.fifthWinner.rank,
     };
 
-    return resultTable[matchNumberCount] || losing_ticket.rank;
+    return resultTable[matchNumberCount] || WINNER.losing_ticket.rank;
   }
 
   calculateLottoResult(winningNumbers, bonusNumber) {

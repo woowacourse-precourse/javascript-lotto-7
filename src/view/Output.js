@@ -1,13 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT } from '../Constants/Message.js';
-import {
-  LOTTO_NUMBER_STANDARD,
-  firstWinner,
-  secondWinner,
-  thirdWinner,
-  fourthWinner,
-  fifthWinner,
-} from '../Constants/Constant.js';
+import { LOTTO_NUMBER_STANDARD, WINNER } from '../Constants/Constant.js';
 
 class Output {
   error(message) {
@@ -36,11 +29,11 @@ class Output {
   winningResult(results) {
     Console.print(OUTPUT.winningStatistics);
 
-    Console.print(OUTPUT.fifthWinner(results[fifthWinner.rank]));
-    Console.print(OUTPUT.fourthWinner(results[fourthWinner.rank]));
-    Console.print(OUTPUT.thirdWinner(results[thirdWinner.rank]));
-    Console.print(OUTPUT.secondWinner(results[secondWinner.rank]));
-    Console.print(OUTPUT.firstWinner(results[firstWinner.rank]));
+    Console.print(OUTPUT.fifthWinner(results[WINNER.fifthWinner.rank]));
+    Console.print(OUTPUT.fourthWinner(results[WINNER.fourthWinner.rank]));
+    Console.print(OUTPUT.thirdWinner(results[WINNER.thirdWinner.rank]));
+    Console.print(OUTPUT.secondWinner(results[WINNER.secondWinner.rank]));
+    Console.print(OUTPUT.firstWinner(results[WINNER.firstWinner.rank]));
   }
 
   totalReturnResult(totalReturn) {

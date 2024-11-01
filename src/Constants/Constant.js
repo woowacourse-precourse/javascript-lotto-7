@@ -45,14 +45,18 @@ const losing_ticket = {
   reward: '0',
 };
 
-export {
-  LOTTO_NUMBER_STANDARD,
-  LOTTO_PRICE_UNIT,
-  PURCHASE_MONEY_INITIAL_VALUE,
+const WINNER = {
   firstWinner,
   secondWinner,
   thirdWinner,
   fourthWinner,
   fifthWinner,
   losing_ticket,
+};
+
+export {
+  LOTTO_NUMBER_STANDARD,
+  LOTTO_PRICE_UNIT,
+  PURCHASE_MONEY_INITIAL_VALUE,
+  WINNER,
 };

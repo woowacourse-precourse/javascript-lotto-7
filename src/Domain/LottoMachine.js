@@ -8,12 +8,7 @@ import {
 import {
   LOTTO_NUMBER_STANDARD,
   LOTTO_PRICE_UNIT,
-  fifthWinner,
-  secondWinner,
-  thirdWinner,
-  fourthWinner,
-  firstWinner,
-  losing_ticket,
+  WINNER,
 } from '../Constants/Constant.js';
 
 class LOTTO_MACHINE {
@@ -92,12 +87,12 @@ class LOTTO_MACHINE {
 
   calculateWinningResult(tickets) {
     const results = {
-      [losing_ticket.rank]: 0,
-      [firstWinner.rank]: 0,
-      [secondWinner.rank]: 0,
-      [thirdWinner.rank]: 0,
-      [fourthWinner.rank]: 0,
-      [fifthWinner.rank]: 0,
+      [WINNER.losing_ticket.rank]: 0,
+      [WINNER.firstWinner.rank]: 0,
+      [WINNER.secondWinner.rank]: 0,
+      [WINNER.thirdWinner.rank]: 0,
+      [WINNER.fourthWinner.rank]: 0,
+      [WINNER.fifthWinner.rank]: 0,
     };
 
     tickets.forEach((ticket) => {
@@ -113,11 +108,11 @@ class LOTTO_MACHINE {
 
   calculateTotalReturn(money, results) {
     const total =
-      results[firstWinner.rank] * firstWinner.reward +
-      results[secondWinner.rank] * secondWinner.reward +
-      results[thirdWinner.rank] * thirdWinner.reward +
-      results[fourthWinner.rank] * fourthWinner.reward +
-      results[fifthWinner.rank] * fifthWinner.reward;
+      results[WINNER.firstWinner.rank] * WINNER.firstWinner.reward +
+      results[WINNER.secondWinner.rank] * WINNER.secondWinner.reward +
+      results[WINNER.thirdWinner.rank] * WINNER.thirdWinner.reward +
+      results[WINNER.fourthWinner.rank] * WINNER.fourthWinner.reward +
+      results[WINNER.fifthWinner.rank] * WINNER.fifthWinner.reward;
 
     return Math.round((total / money) * 10000) / 100;
   }
