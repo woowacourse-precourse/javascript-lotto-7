@@ -17,7 +17,7 @@ export const WINNINGS = {
 };
 
 export const OUTPUT = {
-  COUNT: '개를 구매했습니다.',
+  TICKET: '개를 구매했습니다.',
 };
 
 export const RESULT = {
