@@ -40,7 +40,9 @@ export const getLottoNumbers = () => {
   );
 };
 
-export const loopPrintLottoNumbers = (lottoNumbers) => {
+export const loopPrintLottoNumbers = (lottoCount, lottoNumbers) => {
+  printEmptyLine();
+  print(EXECUTE_MESSAGE.LOTTO.RECEIPT(lottoCount));
   lottoNumbers.forEach(print);
   printEmptyLine();
 };

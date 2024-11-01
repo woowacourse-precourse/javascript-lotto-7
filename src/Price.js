@@ -21,11 +21,6 @@ class Price {
   get lottoCount() {
     return this.#price / 1000;
   }
-
-  printCount() {
-    printEmptyLine();
-    print(EXECUTE_MESSAGE.LOTTO.RECEIPT(this.lottoCount));
-  }
 }
 
 export default Price;
