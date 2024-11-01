@@ -16,6 +16,11 @@ class Lotto {
     if (uniqueNum.size !== 6) {
       throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
     }
+    for (const number of numbers) {
+      if (number < 1 || number > 45) {
+        throw new Error("[ERROR] 로또 번호는 1과 45 사이여야 합니다.")
+      }
+    }
   }
 
   getNum() {
