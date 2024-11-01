@@ -80,7 +80,6 @@ class LottoGameService {
     lottos.forEach((lotto) => {
       const [matchedCount, isBonusMatched] = lotto.getMatchResult(winningNumbers, bonusNumber);
       const rank = this.calculateRank(matchedCount, isBonusMatched);
-
       this.increaseRankCount(rank);
     });
   }
