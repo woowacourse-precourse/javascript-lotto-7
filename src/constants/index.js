@@ -18,7 +18,7 @@ export const LOTTO_MESSAGES = Object.freeze({
 export const LOTTO_RULES = Object.freeze({
   MIN_RANGE: 1,
   MAX_RANGE: 45,
-  DRAW_SIZE: 6,
+  NUMBERS_SIZE: 6,
   PRICE: 1000,
 });
 

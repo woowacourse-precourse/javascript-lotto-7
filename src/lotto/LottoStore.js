@@ -31,7 +31,7 @@ class LottoStore {
   };
 
   static generateLottoNumbers = (count) => {
-    const { MIN_RANGE, MAX_RANGE, DRAW_SIZE } = LOTTO_RULES;
+    const { MIN_RANGE, MAX_RANGE, NUMBERS_SIZE: DRAW_SIZE } = LOTTO_RULES;
     return Array.from({ length: count }, () =>
       this.generateSingleLotto(MIN_RANGE, MAX_RANGE, DRAW_SIZE, "asc")
     );

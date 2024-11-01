@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import IOHandler from "./IOHandler.js";
-import { Price, LottoStore, Lotto } from "./lotto/index.js";
+import { Price, LottoStore, Lotto, BonusNumber } from "./lotto/index.js";
 
 class App {
   async run() {
@@ -18,6 +18,10 @@ class App {
     const winningNumbers = await io.retryUntilValid(
       io.getWinningNumbers,
       (winningNumber) => new Lotto(winningNumber)
+    );
+    const bonusNumber = await io.retryUntilValid(
+      io.getBonusNumber,
+      (bonusNumber) => new BonusNumber(bonusNumber, winningNumbers)
     );
   }
 }

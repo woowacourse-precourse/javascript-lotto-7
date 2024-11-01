@@ -41,6 +41,13 @@ class IOHandler {
     );
     return winningNumber.split(",").map(Number);
   };
+
+  getBonusNumber = async () => {
+    const bonusNumber = await this.inputHandler(
+      LOTTO_MESSAGES.INPUT_BONUS_NUMBER
+    );
+    return Number(bonusNumber);
+  };
 }
 
 export default IOHandler;
