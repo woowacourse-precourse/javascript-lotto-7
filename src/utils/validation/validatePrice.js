@@ -1,6 +1,5 @@
 import ERROR_MESSAGE from '../../constants/ErrorMessage.js';
-
-const UNIT = 1000;
+import RULES from '../../constants/Rules.js';
 
 function validatePriceType(price) {
   if (Number.isNaN(price)) {
@@ -10,14 +9,14 @@ function validatePriceType(price) {
 
 function validateUnitOfPrice(price) {
   const type = typeof price;
-  if (type === 'number' && price % UNIT !== 0) {
+  if (type === 'number' && price % RULES.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.INVALID_LOTTO_PRICE);
   }
 }
 
 function validatePriceOverUnit(price) {
   const type = typeof price;
-  if (type === 'number' && price < UNIT) {
+  if (type === 'number' && price < RULES.UNIT) {
     throw new Error(ERROR_MESSAGE.INVALID_PRICE);
   }
 }
