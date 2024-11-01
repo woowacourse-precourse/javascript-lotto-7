@@ -8,10 +8,10 @@ const OUTPUT = Object.freeze({
   PURCHASED_TICKETS: (input) => {
     `${input}개를 구매했습니다.`
   }
-})
+});
 
 const LOTTO = Object.freeze({
-  PRIZE: 1000,
+  PRICE: 1000,
   COUNT: 6,
   MIN_NUMBER: 1,
   MAX_NUMBER: 45,
@@ -28,12 +28,13 @@ const PRIZE = Object.freeze({
 const ERROR = Object.freeze({
   INVALID_AMOUNT: '[ERROR] 구입 금액은 1,000원 단위여야 합니다.',
   EMPTY_QUERY: '[ERROR] 값을 입력해야 합니다.',
-})
+  INVALID_INPUT: '[ERROR] 숫자만 입력해야 합니다.',
+});
 
 export {
   INPUT,
   OUTPUT,
   LOTTO,
   PRIZE,
-  ERROR
+  ERROR,
 };
