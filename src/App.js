@@ -1,5 +1,5 @@
 class App {
-  async run() {}
+  static async run() {}
 }
 
 export default App;
