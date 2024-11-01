@@ -5,9 +5,11 @@ import Rank_check from "./Rank_check.js";
 
 class App {
   async run() {
+    Console.print("구입금액을 입력해 주세요.");
     let payment = await Console.readLineAsync("");
     let myLottoArray = new Lotto_purchase(payment);
     
+    Console.print("당첨 번호를 입력해 주세요.");
     let inputLottoNumber = await Console.readLineAsync("");
     let lottoNumberArray = inputLottoNumber.split(",");
     let numbers = new Lotto(lottoNumberArray);
