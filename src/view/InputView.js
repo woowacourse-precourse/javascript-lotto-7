@@ -1,6 +1,6 @@
 import { readUserInput } from "../utils/util.js";
 
-export class InputView {
+class InputView {
   static async getLottoAmount() {
     return readUserInput("구매 금액을 입력해 주세요.\n");
   }
@@ -13,3 +13,5 @@ export class InputView {
     return readUserInput("보너스 번호를 입력해 주세요.\n");
   }
 }
+
+export default InputView;

@@ -1,5 +1,5 @@
-import { InputView } from "../view/InputView.js";
 import LottoService from "../services/LottoService.js";
+import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 import AmountValidator from "../validator/AmountValidator.js";
 import WinningNumbersValidator from "../validator/WinningNumbersValidator.js";
