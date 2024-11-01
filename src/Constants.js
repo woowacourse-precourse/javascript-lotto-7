@@ -31,3 +31,7 @@ export const PRIZE_CALCULATOR = {
   profitRatio: 100,
   profitDecimalPlace: 1,
 };
+
+export const INPUT_VIEW = {
+  paymentQuestion: '구입금액을 입력해 주세요.',
+};
