@@ -1,4 +1,6 @@
 import ERROR_MESSAGE from '../../constants/ErrorMessage.js';
+import { getValidValue } from '../StringUtils.js';
+import RULES from '../../constants/Rules.js';
 
 function validateLottoNumberLength(numbers) {
   if (numbers.length !== 6) {
@@ -33,8 +35,11 @@ export default function validateLotto(numbers) {
   if (!numbers) {
     throw new Error(ERROR_MESSAGE.INVALID_NOT_NUMBER);
   }
-  validateLottoNumberLength(numbers);
-  validateLottoNumbers(numbers);
-  validateLottoNumberRange(numbers);
-  validateLottoNumbersUnique(numbers);
+
+  const lottoNumbers = getValidValue(numbers, RULES.DELIMITER);
+
+  validateLottoNumberLength(lottoNumbers);
+  validateLottoNumbers(lottoNumbers);
+  validateLottoNumberRange(lottoNumbers);
+  validateLottoNumbersUnique(lottoNumbers);
 }

@@ -1,6 +1,5 @@
 import Lotto from './Lotto.js';
 import { getRandomNumbers } from '../utils/NumberUtils.js';
-import Output from '../utils/io/Output.js';
 
 class LottoMachine {
   #lottoList = [];
@@ -26,13 +25,6 @@ class LottoMachine {
   getLottoList() {
     const lottoListNumbers = this.#lottoList.map((lotto) => lotto.getNumbers());
     return lottoListNumbers;
-  }
-
-  printPurchasedLotto() {
-    const lottoList = this.getLottoList();
-
-    Output.print(`\n${lottoList.length}개를 구매했습니다.`);
-    Output.printArrayWithComma(lottoList);
   }
 }
 
