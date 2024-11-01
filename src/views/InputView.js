@@ -8,7 +8,12 @@ class InputView {
 
   static async askWinningNumbers() {
     Console.print('');
-    return await Console.readLineAsync(MESSAGES.WINNING_NUMBERS_PROMPT);
+    const input = await Console.readLineAsync(MESSAGES.WINNING_NUMBERS_PROMPT);
+    return input
+      .split(',')
+      .map((num) => num.trim())
+      .filter((num) => num) // 빈 문자열 제거
+      .map((num) => Number(num)); // 숫자로 변환
   }
 
   static async askBonusNumber() {

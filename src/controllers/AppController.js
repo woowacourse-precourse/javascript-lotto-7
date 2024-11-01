@@ -27,7 +27,10 @@ class AppController {
 
       // 3. 당첨 번호 및 보너스 번호 입력
       const winningNumbers = await InputView.askWinningNumbers();
+      Validator.validateWinningNumbers(winningNumbers);
+
       const bonusNumber = await InputView.askBonusNumber();
+      Validator.validateBonusNumber(bonusNumber, winningNumbers);
 
       // 4. 당첨 결과 출력
       OutputView.displayResults(this.resultCounts);
