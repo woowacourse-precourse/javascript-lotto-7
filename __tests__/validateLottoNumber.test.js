@@ -1,5 +1,5 @@
 import { runErrorLogTest } from '../src/Test/Test.js';
-import { ERROR_MESSAGES } from '../src/Error/Error.js';
+import ERROR_MESSAGES from '../src/Error/Error.js';
 import validateLottoNumber from '../src/Validation/Input/validateLottoNumber.js';
 
 const validateLottoNumberTestCases = [

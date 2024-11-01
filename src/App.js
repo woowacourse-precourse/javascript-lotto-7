@@ -1,6 +1,6 @@
 import LottoController from './Controller/LottoController.js';
 import Lotto from './Lotto.js';
-import { defaultSettings } from './Config/DefaultSettings.js';
+import defaultSettings from './Config/DefaultSettings.js';
 
 import RankCalculationService from './Services/RankCalculationService.js';
 import RANKS from './Model/Rank.js';

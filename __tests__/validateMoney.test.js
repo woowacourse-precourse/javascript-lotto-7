@@ -1,5 +1,5 @@
 import validateMoney from '../src/Validation/Input/validateMoney.js';
-import { ERROR_MESSAGES } from '../src/Error/Error.js';
+import ERROR_MESSAGES from '../src/Error/Error.js';
 import { runErrorLogTest } from '../src/Test/Test.js';
 
 const validateMoneyTestCases = [

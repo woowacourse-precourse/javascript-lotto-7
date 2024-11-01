@@ -1,8 +1,8 @@
 import printMessage from '../../View/OutputView.js';
-import { ERROR_MESSAGES } from '../../Error/Error.js';
+import ERROR_MESSAGES from '../../Error/Error.js';
 import { isNumber } from '../../Util/Regex.js';
 import runValidators from '../runValidators.js';
-import { defaultSettings } from '../../Config/DefaultSettings.js';
+import defaultSettings from '../../Config/DefaultSettings.js';
 
 const { lotteryNumber } = ERROR_MESSAGES;
 const { lotto } = defaultSettings;

@@ -1,4 +1,3 @@
-// Validation/ValidationService.js
 import validateBonusNumber from '../Validation/Input/validateBonusNumber.js';
 import validateLottoNumber from '../Validation/Input/validateLottoNumber.js';
 import validateMoney from '../Validation/Input/validateMoney.js';

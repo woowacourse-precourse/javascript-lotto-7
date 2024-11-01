@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../../Error/Error.js';
+import ERROR_MESSAGES from '../../Error/Error.js';
 import runValidators from '../runValidators.js';
 import { isNumber } from '../../Util/Regex.js';
 

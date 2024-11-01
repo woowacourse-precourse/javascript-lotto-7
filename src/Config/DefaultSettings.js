@@ -11,4 +11,4 @@ const defaultSettings = {
     pickingNumber: 6,
   },
 };
-export { defaultSettings };
+export default defaultSettings;
