@@ -3,6 +3,7 @@ import { BasicValidation } from '../Validation.js';
 class User {
   #money;
   #tickets;
+
   constructor() {
     this.#money = 0;
     this.#tickets = [];

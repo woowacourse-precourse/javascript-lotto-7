@@ -26,11 +26,6 @@ class App {
     }
   }
 
-  setLottoTickets(user) {
-    const tickets = this.#lottomachine.purchaseLottoTickets(user.getMoney());
-    user.setTickets(tickets);
-  }
-
   async setWinningNumbers() {
     while (true) {
       try {
@@ -43,7 +38,7 @@ class App {
     }
   }
 
-  async setBounsNumber() {
+  async setBonusNumber() {
     while (true) {
       try {
         const bonusNumber = await this.#input.bonusNumbers();
@@ -55,11 +50,17 @@ class App {
     }
   }
 
+  setLottoTickets(user) {
+    const tickets = this.#lottomachine.purchaseLottoTickets(user.getMoney());
+    user.setTickets(tickets);
+  }
+
   async setLottomachineConditions(user) {
     await this.setPurchaseMoney(user);
     this.setLottoTickets(user);
 
-    this.#output.lottoTicket(user.getTickets());
+    this.#output.lottoTicketCount(user.getTickets());
+    this.#output.lottoTicketNumbers(user.getTickets());
 
     await this.setWinningNumbers();
     await this.setBounsNumber();
@@ -67,13 +68,15 @@ class App {
 
   async run() {
     const user = new User();
+
     await this.setLottomachineConditions(user);
 
-    const result = this.#lottomachine.calculateMatchResults(
+    const { results, totalReturn } = this.#lottomachine.calculateMatchResults(
       user.getTickets(),
       user.getMoney()
     );
-    this.#output.winningResult(result);
+    this.#output.totalWinningResult(results);
+    this.#output.totalReturnResult(totalReturn);
   }
 }
 

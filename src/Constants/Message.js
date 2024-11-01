@@ -1,4 +1,4 @@
-import { LOTTO_PRICE_UNIT, LOTTO_NUMBER_STANDARD, WINNER } from './Constant.js';
+import { LOTTO_PRICE_UNIT, LOTTO_NUMBER_STANDARD } from './Constant.js';
 
 const INPUT = {
   purchaseMoney: '구입금액을 입력해 주세요.\n',

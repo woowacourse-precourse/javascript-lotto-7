@@ -48,7 +48,7 @@ class LOTTO_MACHINE {
   #validateBonusNumber(bonusNumber) {
     BasicValidation.InputNumberType(bonusNumber);
     BasicValidation.InputLength(bonusNumber, 1);
-    BonusNumberValidation.InputOverlap(bonusNumbernumber, this.#winningNumbers);
+    BonusNumberValidation.InputOverlap(bonusNumber, this.#winningNumbers);
   }
 
   setWinningNumbers(winningNumbers) {
@@ -74,14 +74,11 @@ class LOTTO_MACHINE {
     return new Lotto(numbers.sort((a, b) => a - b));
   }
 
-  purchaseLottoTickets() {
-    const ticketCount = user.getMoney() / LOTTO_PRICE_UNIT;
-
-    const tickets = Array.from({ length: ticketCount }).map(() => {
+  purchaseLottoTickets(money) {
+    const tickets = Array.from({ length: money / LOTTO_PRICE_UNIT }).map(() => {
       return this.drawSingleLottoTicket();
     });
 
-    user.setTickets(tickets);
     return tickets;
   }
 
@@ -109,10 +106,12 @@ class LOTTO_MACHINE {
 
     return Math.round((total / money) * 10000) / 100;
   }
+
   calculateMatchResults(tickets, money) {
     const results = this.calculateWinningResult(tickets);
     const totalReturn = this.calculateTotalReturn(money, results);
-    return { results: results, totalReturn, totalReturn };
+
+    return { results, totalReturn };
   }
 }
 export default LOTTO_MACHINE;
