@@ -25,6 +25,15 @@ class IOHandler {
     const price = await this.inputHandler(LOTTO_MESSAGES.INPUT_LOTTO_PRICE);
     return Number(price);
   };
+
+  printLottoPurchaseCount = (count) => {
+    this.outputHandler("\n" + count + LOTTO_MESSAGES.BUY_LOTTO);
+  };
+
+  printLottoNumbers = (lottoNumbers) => {
+    const result = lottoNumbers.map((numbers) => `[${numbers.join(", ")}]`);
+    this.outputHandler(result.join("\n"));
+  };
 }
 
 export default IOHandler;
