@@ -3,11 +3,12 @@ import Exception from "./exceptionHandling.js";
 import Lotto from "./Lotto.js";
 
 class Input {
-  constructor(price, numberOfPurchase, lottosNumbers, WinNumbers) {
+  constructor(price, numberOfPurchase, lottosNumbers, WinNumbers, bonusNumber) {
     this.price = price;
     this.numberOfPurchase = numberOfPurchase;
     this.lottosNumbers = lottosNumbers;
     this.WinNumbers = WinNumbers;
+    this.bonusNumber = bonusNumber;
   }
 
   async inputPrice() {
@@ -52,11 +53,19 @@ class Input {
 
         new Lotto(winNumberArray);
         Console.print(this.WinNumbers);
+        this.WinBonusNumber();
         break;
       } catch (error) {
         Console.print("");
       }
     }
+  }
+
+  async WinBonusNumber() {
+    this.bonusNumber = await Console.readLineAsync(
+      "보너스 번호를 입력해주세요. \n"
+    );
+    Console.print(this.bonusNumber);
   }
 }
 export default Input;
