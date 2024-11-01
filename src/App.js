@@ -32,9 +32,12 @@ class App {
   async checkLotto(lottoArr) {
     const successNumList = await inputView.getSuccessNum();
     const bonusNum = await inputView.getBonusNum();
+    return this.makeScoreTable(successNumList, bonusNum, lottoArr);
+  }
+
+  makeScoreTable(successNumList, bonusNum, lottoArr) {
     let scoreTable = { 3: 0, 4: 0, 5: 0, 7: 0, 6: 0 };
 
-    //당첨 계산
     lottoArr.forEach((lotto) => {
       const score = this.calculateDiff(lotto.getNumbers(), successNumList);
       const isBonus = lotto.getNumbers().includes(Number(bonusNum));
@@ -46,7 +49,6 @@ class App {
         scoreTable[7] += 1;
       }
     });
-
     return scoreTable;
   }
 
@@ -67,7 +69,6 @@ class App {
       lottoArr.push(tempLotto);
       outputView.printLotto(tempLotto.getNumbers());
     }
-
     return { lottoArr, costInput };
   }
 }
