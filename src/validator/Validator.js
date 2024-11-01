@@ -6,14 +6,13 @@ class Validator {
 
   static isSeparatedFormat(input, separator = ",") {
     const values = input.split(separator).map((value) => value.trim());
-    if (values.length <= 1) throw new Error("입력 형식이 잘못됐습니다.");
+    if (values.length < 1) throw new Error("입력 형식이 잘못됐습니다.");
     return values;
   }
 
   static isNumber(input) {
-    const amount = Number(input);
-    if (isNaN(amount)) throw new Error("숫자 타입 아님");
-    return amount;
+    if (isNaN(input)) throw new Error("숫자 타입 아님");
+    return Number(input);
   }
 
   static isNumberInRange(input, min = 1, max = 45) {
