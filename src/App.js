@@ -3,6 +3,7 @@ import { Console } from "@woowacourse/mission-utils";
 class App {
   async run() {
     const amount = await this.#readAmount();
+    const lottoCount = Math.floor(amount / 1000);
   }
 
   async #readAmount() {
