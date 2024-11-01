@@ -45,11 +45,13 @@ class App {
 
   async #readWinningNumbers() {
     const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-    return input.split(",").map(number => Number(number.trim()));
+    return input.split(",").map((number) => Number(number.trim()));
   }
 
   async #readBonusNumber() {
-    const input = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+    const input = await Console.readLineAsync(
+      "\n보너스 번호를 입력해 주세요.\n",
+    );
     const number = Number(input);
     if (this.#winningLotto.contains(number)) {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
@@ -65,16 +67,12 @@ class App {
 
   #calculateResults() {
     const results = { 3: 0, 4: 0, 5: 0, "5+": 0, 6: 0 };
-    
-    this.#lottos.forEach(lotto => {
+
+    this.#lottos.forEach((lotto) => {
       const matchCount = lotto.match(this.#winningLotto.getNumbers());
-      if (matchCount === 6) results[6]++;
-      else if (matchCount === 5 && lotto.contains(this.#bonusNumber)) results["5+"]++;
-      else if (matchCount === 5) results[5]++;
-      else if (matchCount === 4) results[4]++;
-      else if (matchCount === 3) results[3]++;
+      this.#updateWinningRank(results, matchCount, lotto);
     });
-    
+
     return results;
   }
 
@@ -83,7 +81,9 @@ class App {
     Console.print(`3개 일치 (5,000원) - ${results[3]}개`);
     Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
     Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results["5+"]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${results["5+"]}개`,
+    );
     Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
   }
 
@@ -93,15 +93,38 @@ class App {
       4: 50000,
       5: 1500000,
       "5+": 30000000,
-      6: 2000000000
+      6: 2000000000,
     };
 
-    const totalPrize = Object.entries(results)
-      .reduce((sum, [rank, count]) => sum + (prizeMap[rank] * count), 0);
+    const totalPrize = Object.entries(results).reduce(
+      (sum, [rank, count]) => sum + prizeMap[rank] * count,
+      0,
+    );
     const purchaseAmount = this.#lottos.length * 1000;
     const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
-    
+
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
+  #updateWinningRank(results, matchCount, lotto) {
+    if (matchCount === 6) {
+      results[6]++; // 1등
+      return;
+    }
+    if (matchCount === 5 && lotto.contains(this.#bonusNumber)) {
+      results["5+"]++; // 2등
+      return;
+    }
+    if (matchCount === 5) {
+      results[5]++; // 3등
+      return;
+    }
+    if (matchCount === 4) {
+      results[4]++; // 4등
+      return;
+    }
+    if (matchCount === 3) {
+      results[3]++; // 5등
+    }
   }
 }
 
