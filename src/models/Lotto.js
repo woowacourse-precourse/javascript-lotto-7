@@ -3,6 +3,8 @@ import { LottoValidator } from '../services/index.js';
 
 class Lotto {
   #numbers;
+  #matchCount;
+  #isBonusMatch;
 
   constructor(numbers) {
     LottoValidator.validate(numbers);
@@ -10,11 +12,14 @@ class Lotto {
     this.#printNumbers();
   }
 
+  matchNumbers({ mainNumbers, bonusNumber }) {
+    this.#matchCount = this.#numbers.reduce((acc, cur) => acc + Number(mainNumbers.includes(cur)), 0);
+    this.#isBonusMatch = this.#numbers.includes(bonusNumber);
+  }
+
   #printNumbers() {
     ConsoleIO.print(`[${this.#numbers.join(', ')}]`);
   }
-
-  // TODO: 추가 기능 구현
 }
 
 export default Lotto;

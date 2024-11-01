@@ -6,6 +6,8 @@ class App {
 
     await lottoGame.putMoney();
     await lottoGame.enterNumber();
+
+    lottoGame.presentResult();
   }
 }
 

@@ -1,11 +1,12 @@
-import { LOTTO_MESSAGES } from '../constants/index.js';
+import { MESSAGES } from '../constants/index.js';
 import { ConsoleIO } from '../io/index.js';
 import { Lotto } from '../models/index.js';
-import { generateLottoNumbers } from '../utils/LottoUtils.js';
+import { calculateCountOfPurchase, generateLottoNumbers } from '../utils/LottoUtils.js';
 import { LottoStorage } from './index.js';
 
 class LottoGame {
   #tickets;
+  #countOfTickets = 0;
 
   constructor() {
     this.console = new ConsoleIO();
@@ -42,6 +43,20 @@ class LottoGame {
     }, []);
 
     return tickets;
+  }
+
+  #makeStatistics() {
+    // 필요 정보: 각 로또의 맞춘 갯수(로또 필드), 맞춘 갯수에 따른 상금 정보, 총 수익률(상금 합산 액)
+    this.#checkTickets();
+  }
+
+  #checkTickets() {
+    const winningNumbers = {
+      mainNumbers: this.storage.getMainNumbers(),
+      bonusNumber: this.storage.getBonusNumber(),
+    };
+
+    this.#tickets.forEach((lotto) => lotto.matchNumbers(winningNumbers));
   }
 }
 
