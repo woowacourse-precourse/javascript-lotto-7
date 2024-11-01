@@ -8,8 +8,13 @@ class LottoChecker {
     this.#bonusNumber = 0;
   }
 
+  #validateWinningNumbers(number) {
+    if (!/^[0-9]+$/.test(number)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
+  }
+
   createWinningNumbers(numbers) {
     numbers.split(",").forEach((number) => {
+      this.#validateWinningNumbers(number);
       this.#winningNumbers[number] = true;
     });
   }

@@ -21,13 +21,25 @@ class Controller {
     }
   }
 
-  async setLottoChecker() {
-    const numbers = await this.views.input.getWinningNumbers();
-    this.models.lottoChecker.createWinningNumbers(numbers);
-    this.views.output.printNewLine();
+  async setLottoCheckerWinningNumbers() {
+    try {
+      const numbers = await this.views.input.getWinningNumbers();
+      this.models.lottoChecker.createWinningNumbers(numbers);
+      this.views.output.printNewLine();
+    } catch (error) {
+      this.views.output.printError(error.message);
+      await this.setLottoCheckerWinningNumbers();
+    }
+  }
 
-    const bonusNumber = await this.views.input.getBonusNumber();
-    this.models.lottoChecker.createBonusNumber(bonusNumber);
+  async setLottoCheckerBonusNumber() {
+    try {
+      const bonusNumber = await this.views.input.getBonusNumber();
+      this.models.lottoChecker.createBonusNumber(bonusNumber);
+    } catch (error) {
+      this.views.output.printError(error.message);
+      await this.setLottoCheckerBonusNumber();
+    }
   }
 
   checkLotto() {

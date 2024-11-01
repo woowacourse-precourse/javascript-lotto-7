@@ -25,15 +25,12 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
+const runException = async () => {
   // given
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
-
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
   // when
   const app = new App();
@@ -41,6 +38,18 @@ const runException = async (input) => {
 
   // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+};
+
+const runMoneyException = async (input) => {
+  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  runException();
+};
+
+const runWinningNumbersException = async (input) => {
+  const INPUT_NUMBERS_TO_END = ["1,2,3,4,5,6", "7"];
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+  runException();
 };
 
 describe("로또 테스트", () => {
@@ -92,7 +101,16 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  describe("예외 테스트", () => {
+    describe("구매 금액이", () => {
+      test("숫자가 아닌 경우", async () => {
+        await runMoneyException("1000j");
+      });
+    });
+    describe("당첨 번호가", () => {
+      test("숫자가 아닌 경우", async () => {
+        await runWinningNumbersException(["1000", "1,2,3,4,5,6j"]);
+      });
+    });
   });
 });
