@@ -24,12 +24,12 @@ class LOTTO_MACHINE {
   #validateWinningNumbers(winningNumbers) {
     WinningNumberValidation.InputSeparator(winningNumbers);
 
-    const winningNumbersArray = this.#parseWinningNumbers(winningNumbers);
+    const parseWinningNumbers = this.#parseWinningNumbers(winningNumbers);
 
-    WinningNumberValidation.InputOverlap(winningNumbersArray);
-    BasicValidation.inputLength(winningNumbersArray, 6);
+    WinningNumberValidation.InputOverlap(parseWinningNumbers);
+    BasicValidation.inputLength(parseWinningNumbers, 6);
 
-    winningNumbersArray.forEach((number) => {
+    parseWinningNumbers.forEach((number) => {
       WinningNumberValidation.InputNumberType(number);
       WinningNumberValidation.InputLottoRange(number);
     });
@@ -55,17 +55,20 @@ class LOTTO_MACHINE {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
-  singleLottoTicket() {
+  drawSingleLottoTicket() {
     const numbers = this.drawRandomLottoNumbers();
     return new Lotto(numbers.sort((a, b) => a - b));
   }
 
-  purchaseLottoTickets(user) {
-    const tickets = Array.from({ length: user.getMoney() / 1000 }).map(() => {
-      return this.singleLottoTicket();
+  purchaseLottoTickets() {
+    const ticketCount = user.getMoney() / 1000;
+
+    const tickets = Array.from({ length: ticketCount }).map(() => {
+      return this.drawSingleLottoTicket();
     });
 
     user.setTickets(tickets);
+    return tickets;
   }
 
   calculateWinningResult(tickets) {
