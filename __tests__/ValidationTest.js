@@ -1,4 +1,5 @@
 import ERROR_MESSAGE from '../src/constants/ErrorMessage.js';
+import validateBonus from '../src/utils/validation/validateBonus.js';
 import validateLotto from '../src/utils/validation/validateLotto.js';
 import validatePrice from '../src/utils/validation/validatePrice.js';
 
@@ -57,5 +58,31 @@ describe('validateLotto 함수 테스트', () => {
     expect(() => {
       validateLotto([1, 2, 3, 4, 5, 46]);
     }).toThrow(ERROR_MESSAGE.INVALID_LOTTO_NUMBER_RANGE);
+  });
+});
+
+describe('validateBonus 함수 테스트', () => {
+  test('입력받은 보너스 번호가 없으면 예외가 발생한다.', () => {
+    expect(() => {
+      validateBonus('', [1, 2, 3, 4, 5, 6]);
+    }).toThrow(ERROR_MESSAGE.INVALID_NOT_NUMBER);
+  });
+
+  test('입력받은 보너스 번호가 숫자가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      validateBonus('dd', [1, 2, 3, 4, 5, 6]);
+    }).toThrow(ERROR_MESSAGE.INVALID_NOT_NUMBER);
+  });
+
+  test('입력받은 보너스 번호의 범위가 1 ~ 45가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      validateBonus(46, [1, 2, 3, 4, 5, 6]);
+    }).toThrow(ERROR_MESSAGE.INVALID_WINNING_BONUS_NUMBER);
+  });
+
+  test('입력받은 보너스 번호는 로또 번호와 중복되면 예외가 발생한다.', () => {
+    expect(() => {
+      validateBonus(1, [1, 2, 3, 4, 5, 6]);
+    }).toThrow(ERROR_MESSAGE.DUPLICATE_WINNING_NUMBERS);
   });
 });
