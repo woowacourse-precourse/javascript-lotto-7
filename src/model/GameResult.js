@@ -6,13 +6,10 @@ class GameResult {
   #benefitRate;
 
   constructor() {
-    this.#prizeStat = {
-      [PRIZE_NAME.first]: 0,
-      [PRIZE_NAME.second]: 0,
-      [PRIZE_NAME.third]: 0,
-      [PRIZE_NAME.fourth]: 0,
-      [PRIZE_NAME.fifth]: 0,
-    };
+    this.#prizeStat = Object.values(PRIZE_NAME).reduce((acc, name) => {
+      acc[name] = 0;
+      return acc;
+    }, {});
     this.#prizeTotalMoney = 0;
     this.#benefitRate = "";
   }
@@ -42,12 +39,9 @@ class GameResult {
   }
 
   addTotalMoney() {
-    this.#prizeTotalMoney +=
-      PRIZE_MONEY.prizeFirst * this.#prizeStat[PRIZE_NAME.first] +
-      PRIZE_MONEY.prizeSecond * this.#prizeStat[PRIZE_NAME.second] +
-      PRIZE_MONEY.prizeThird * this.#prizeStat[PRIZE_NAME.third] +
-      PRIZE_MONEY.prizeFourth * this.#prizeStat[PRIZE_NAME.fourth] +
-      PRIZE_MONEY.prizeFifth * this.#prizeStat[PRIZE_NAME.fifth];
+    this.#prizeTotalMoney = Object.keys(this.#prizeStat).reduce((total, prize) => {
+      return total + PRIZE_MONEY[prize] * this.#prizeStat[prize];
+    }, 0);
   }
 
   addBenefitRate(money) {
