@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import { Calculator } from "./utils/Calculator.js";
 

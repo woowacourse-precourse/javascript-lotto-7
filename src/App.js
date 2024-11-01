@@ -29,9 +29,8 @@ class App {
 
   async inputPurchaseAmount() {
     const purchaseAmount = Number(await InputView.purchaseAmount());
-    await this.validatePurchaseAmount(purchaseAmount);
 
-    return purchaseAmount;
+    return await this.validatePurchaseAmount(purchaseAmount);
   }
 
   async validatePurchaseAmount(number) {
@@ -40,8 +39,10 @@ class App {
       Validator.minPurchase(number);
     } catch (error) {
       OutputView.error(error.message);
-      await this.inputPurchaseAmount();
+      return await this.inputPurchaseAmount();
     }
+
+    return number;
   }
 
   outputPurchaseResult() {

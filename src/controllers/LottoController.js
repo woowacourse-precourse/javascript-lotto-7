@@ -26,8 +26,7 @@ class LottoController {
       .split(",")
       .map((number) => Number(number));
 
-    await this.validateWinningNumber(winningNumber);
-    return winningNumber;
+    return await this.validateWinningNumber(winningNumber);
   }
 
   async validateWinningNumber(numbers) {
@@ -38,15 +37,16 @@ class LottoController {
       Validator.sameNumber(numbers);
     } catch (error) {
       OutputView.error(error.message);
-      await this.inputWinningNumber();
+      return await this.inputWinningNumber();
     }
+
+    return numbers;
   }
 
   async inputBonusNumber() {
     const bonusNumber = Number(await InputView.bonusNumber());
 
-    this.validateBonusNumber(bonusNumber);
-    return bonusNumber;
+    return this.validateBonusNumber(bonusNumber);
   }
 
   async validateBonusNumber(number) {
@@ -62,6 +62,8 @@ class LottoController {
       OutputView.error(error.message);
       await this.inputBonusNumber();
     }
+
+    return number;
   }
 
   matching() {

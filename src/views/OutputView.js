@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { MESSAGE, RANKING_TOTAL } from "../constants/Constants.js";
+import { MESSAGE } from "../constants/Constants.js";
 
 export class OutputView {
   static error(message) {
