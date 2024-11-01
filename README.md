@@ -52,11 +52,8 @@
 #### 3.5 **RankCalculationService 클래스**
 
 - [x] 클래스를 생성한다.
-- [ ] 유닛 테스트를 생성한다.
-
-#### 3.6 **PickRank 클래스**
-
-- [ ] Unit Test를 통해, 확실히 rank를 받는지 확인한다.
+- [x] 유닛 테스트를 생성한다.
+- [x] Unit Test를 통해, 확실히 rank를 받는지 확인한다.
 
 #### 3.7 **LotteryNotes**
 

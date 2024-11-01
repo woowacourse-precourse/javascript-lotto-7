@@ -18,7 +18,6 @@ class App {
     const validationService = new ValidationService();
     const statisticsService = new StatisticsService();
 
-    // LottoController를 생성하고 주입
     this.controller = new LottoController({
       lotteryService,
       ioService,
