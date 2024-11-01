@@ -1,7 +1,7 @@
 import InputManager from './InputManager.js';
 import LottoShop from './LottoShop.js';
 import OutputManager from './OutputManager.js';
-import { LOTTO_INFORMATIONS } from './lib/constants.js';
+import { WINNING_PRICE_MAP } from './lib/constants.js';
 import { calculateRateOfReturn } from './lib/utils.js';
 
 class LottoBuyer {
@@ -24,7 +24,7 @@ class LottoBuyer {
   }
 
   calculateReturn() {
-    const lottoWinningMoney = this.#calculateLottoWinningMoney();
+    const lottoWinningMoney = this.#sumLottoWinningMoney();
 
     const rateOfReturn = parseFloat(
       calculateRateOfReturn(lottoWinningMoney, this.#purchasePrice).toFixed(2),
@@ -33,12 +33,9 @@ class LottoBuyer {
     OutputManager.printRateOfReturn(rateOfReturn);
   }
 
-  #calculateLottoWinningMoney() {
-    return LOTTO_INFORMATIONS.reduce(
-      (cumulativeWinningMoney, lottoInformation) =>
-        cumulativeWinningMoney +
-        this.#winningLottoMap.get(lottoInformation.rank) *
-          lottoInformation.prizeMoney,
+  #sumLottoWinningMoney() {
+    return [...this.#winningLottoMap.entries()].reduce(
+      (sum, [rank, count]) => WINNING_PRICE_MAP[rank] ?? 0 * count + sum,
       0,
     );
   }

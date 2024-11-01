@@ -10,17 +10,24 @@ export const OUTPUT_MESSAGE = {
 };
 
 export const LOTTO_INFORMATIONS = [
-  { rank: 5, winningCount: 3, isBonusMatch: false, prizeMoney: 5_000 },
-  { rank: 4, winningCount: 4, isBonusMatch: false, prizeMoney: 50_000 },
-  { rank: 3, winningCount: 5, isBonusMatch: false, prizeMoney: 1_500_000 },
-  { rank: 2, winningCount: 5, isBonusMatch: true, prizeMoney: 30_000_000 },
+  { rank: 5, winningCount: 3, isBonusMatch: false },
+  { rank: 4, winningCount: 4, isBonusMatch: false },
+  { rank: 3, winningCount: 5, isBonusMatch: false },
+  { rank: 2, winningCount: 5, isBonusMatch: true },
   {
     rank: 1,
     winningCount: 6,
     isBonusMatch: false,
-    prizeMoney: 2_000_000_000,
   },
 ];
+
+export const WINNING_PRICE_MAP = {
+  1: 2_000_000_000,
+  2: 30_000_000,
+  3: 1_500_000,
+  4: 50_000,
+  5: 5_000,
+};
 
 export const LOTTO = {
   MIN_NUMBER: 1,
