@@ -21,7 +21,6 @@ class Analyzer {
 
   #estimateMatchingNumbers(lotto, winningNumbers) {
     const numbersOfMatched = lotto.countMatchingNumbers(winningNumbers);
-
     if (this.#isBonusWinning(numbersOfMatched, lotto)) {
       return ANALYZER.bonusTag;
     }
