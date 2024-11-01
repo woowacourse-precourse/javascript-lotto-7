@@ -110,4 +110,15 @@ describe('InputView 테스트', () => {
     );
   });
 
+  test('입력한 당첨 번호가 6개가 아닌 경우 예외 처리한다.', async () => {
+    const input = ['1,3,4,5,6'];
+
+    mockQuestions(input);
+
+    const inputView = new InputView();
+
+    await expect(inputView.readWinningNumbers()).rejects.toThrow(
+      '[ERROR] 당첨 번호는 반드시 6개여야 합니다.'
+    );
+  });
 });
