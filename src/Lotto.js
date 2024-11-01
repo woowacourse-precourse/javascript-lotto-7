@@ -1,3 +1,6 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
+
 class Lotto {
   #numbers;
 
@@ -41,6 +44,15 @@ class Lotto {
       }
       copyNumbers.push(num);
     });
+  }
+
+  async getNumbersInString() {
+    const message = '[' + this.#numbers.join(', ') + ']';
+    await Console.print(message);
+  }
+
+  getNumbers() {
+    return this.#numbers;
   }
 }
 
