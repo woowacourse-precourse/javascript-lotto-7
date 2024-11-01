@@ -12,6 +12,7 @@ class App {
     for (let i = 0; i < count; i++) {
       const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       const sortedNumbers = numbers.sort((a, b) => a - b);
+      Console.print(`[${sortedNumbers.join(", ")}]`);
     }
   }
 
