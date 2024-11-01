@@ -2,11 +2,16 @@ import { Console } from '@woowacourse/mission-utils';
 import { INPUT_TEXTS, ERROR_TEXTS } from './Constants.js';
 
 class InputManagement {
+  #purchaseAmout = 0;
   #availablePublicationCount = 0;
   #winningNumbers = [];
   #bonusNumber = 0;
 
   constructor() {}
+
+  getPurchaseAmount() {
+    return this.#purchaseAmout;
+  }
 
   getPublicationCount() {
     return this.#availablePublicationCount;
@@ -32,6 +37,8 @@ class InputManagement {
     if(purchaseAmount % 1000 !== 0) {
       throw new Error(ERROR_TEXTS.NOT_DIVIDE_1000_PURCHASE_AMOUNT);
     }
+
+    return purchaseAmount;
   }
 
   #validationWN(winningNumbers) {
@@ -95,11 +102,14 @@ class InputManagement {
     return Number(bonusNumber);
   }
 
+  #calculatePublicationCount(purchaseAmount) {
+    return purchaseAmount / 1000;
+  }
+
   async inputPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync(INPUT_TEXTS.PURCHASE_AMOUNT);
-    this.#validationPA(purchaseAmount);
-    
-    this.#availablePublicationCount = purchaseAmount/1000;
+    this.#purchaseAmout = this.#validationPA(purchaseAmount);
+    this.#availablePublicationCount = this.#calculatePublicationCount(purchaseAmount);
   }
 
   async inputWinningNumbers() {
