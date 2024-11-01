@@ -1,10 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
-import { inputMessage } from "./constants/input.js";
+import { INPUT_MESSAGE } from "./constants/input.js";
 import { COST } from "./constants/error.js";
 
 class InputHandler {
   static async getCost() {
-    const costInput = (await Console.readLineAsync(inputMessage.cost)).trim();
+    const costInput = (await Console.readLineAsync(INPUT_MESSAGE.cost)).trim();
     const cost = Number(costInput);
 
     return cost;

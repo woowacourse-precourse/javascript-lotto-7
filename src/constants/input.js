@@ -1,3 +1,3 @@
-export const inputMessage = {
+export const INPUT_MESSAGE = {
   cost: "구입금액을 입력해 주세요.\n",
 };
