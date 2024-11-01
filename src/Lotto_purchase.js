@@ -6,6 +6,7 @@ class Lotto_purchase {
     let lottoQuantity = this.countQuantity(payment);
     let myLottoArray = this.randomLottoDraw(lottoQuantity);
     this.printMyLottoArray(lottoQuantity, myLottoArray);
+    return myLottoArray;
   }
   validate(payment) {
     if (payment % 1000 !== 0) {
