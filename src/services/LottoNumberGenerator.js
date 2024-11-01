@@ -1,25 +1,13 @@
-import ERROR_MESSAGES from '../constants/errorConstants.js';
 import Lotto from '../Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
+import { validatePurchaseAmount } from '../utils/validation.js';
 
 class LottoNumberGenerator {
   #lottoAmount;
 
   constructor(purchaseAmount) {
-    this.#validate(purchaseAmount);
+    validatePurchaseAmount(purchaseAmount);
     this.#lottoAmount = purchaseAmount / 1000;
-  }
-
-  #validate(purchaseAmount) {
-    if (purchaseAmount === "" || isNaN(Number(purchaseAmount))) {
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_IS_NOT_NUMBER);
-    }
-    if (purchaseAmount % 1000 != 0) {
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_IS_NOT_DIVIDE_BY_THOUSAND);
-    }
-    if (Number(purchaseAmount) <= 0) {
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_MORE_THAN_ZERO);
-    }
   }
 
   #randomGererateNumber() {
