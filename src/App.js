@@ -1,14 +1,11 @@
 import { CONFIG, INFO_MESSAGE } from "./libs/constants.js";
-import { calculateAmount } from "./libs/helpers.js";
-import { getInput, pickUniqueNumbersInRange, printResult } from "./libs/utils.js";
-import { validateNumberType } from "./libs/validate.js";
+import { getLottoPurchaseCountByAmountInput } from "./libs/helpers.js";
+import { pickUniqueNumbersInRange, printResult } from "./libs/utils.js";
 import Lotto from "./Lotto.js";
 
 class App {
   async run() {
-    const amount = await getInput(INFO_MESSAGE.PURCHASE_AMOUNT);
-    validateNumberType(amount);
-    const calculatedAmount = calculateAmount(amount);
+    const calculatedAmount = await getLottoPurchaseCountByAmountInput();
     printResult(INFO_MESSAGE.PURCHASE_CONFORM(calculatedAmount));
 
     const lottoNumbers = Array.from({ length: calculatedAmount }, (_) => {
