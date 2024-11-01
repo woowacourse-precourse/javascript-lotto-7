@@ -1,8 +1,16 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { PURCHASE_AMOUNT_RANGE, LOTTO_PRICE, ERROR_MSG } from '../Constants.js';
 import Lotto from './Lotto.js';
-import { asendingSort, checkRange } from '../Util.js';
+import { asendingSort, checkRange, intersection, calculatePercentage } from '../Util.js';
 import WinningLotto from './WinningLotto.js';
+
+const WINNING_PRICE_INFO = {
+  prize1: 2000000000,
+  prize2: 30000000,
+  prize3: 1500000,
+  prize4: 50000,
+  prize5: 5000,
+};
 
 export default class LottoService {
   #lottoCount;
@@ -48,6 +56,48 @@ export default class LottoService {
 
   setBonusNumber(number) {
     this.#winningLottoNumber.setBonusNumber(number);
+  }
+
+  getAllWinningDetail() {
+    const priceInfo = {
+      1: { match: 6, price: 2000000000, count: 0 },
+      2: { match: 5, price: 30000000, count: 0 },
+      3: { match: 5, price: 1500000, count: 0 },
+      4: { match: 4, price: 50000, count: 0 },
+      5: { match: 3, price: 5000, count: 0 },
+    };
+
+    this.#lottoList.forEach((lotto) => {
+      const place = this.getWinningDetail(lotto.getNumbers());
+      if (place) {
+        priceInfo[place].count += 1;
+      }
+    });
+
+    return priceInfo;
+  }
+
+  getWinningDetail(lotto) {
+    const matchCount = intersection(lotto, this.#winningLottoNumber.getNumbers()).length;
+    if (matchCount < 3) return 0;
+    if (matchCount === 3) return 5;
+    if (matchCount === 4) return 4;
+    if (matchCount === 5) {
+      if (intersection(lotto, this.#winningLottoNumber.getbonusNumber())) return 2;
+      return 3;
+    }
+    if (matchCount === 6) return 1;
+  }
+
+  getRateOfReturn(priceInfo) {
+    console.log(priceInfo);
+
+    let totalPrice = 0;
+    for (const i in priceInfo) {
+      totalPrice += priceInfo[i].price * priceInfo[i].count;
+    }
+
+    return calculatePercentage(totalPrice, this.#lottoCount * LOTTO_PRICE, 1);
   }
 
   #validate(price) {

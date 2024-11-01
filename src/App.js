@@ -20,6 +20,12 @@ class App {
 
     await this.readWinningNumber();
     await this.readBonusNumber();
+
+    const winningInfo = this.lottolService.getAllWinningDetail();
+    this.outputView.printWinningInfo(winningInfo);
+
+    const rateOfReturn = this.lottolService.getRateOfReturn(winningInfo);
+    this.outputView.printRateOfReturn(rateOfReturn);
   }
 
   async readPuchaseAmount() {
