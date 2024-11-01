@@ -1,3 +1,5 @@
+import { Console } from '@woowacourse/mission-utils';
+
 const ERROR_MESSAGE = {
   COST: {
     NOT_NUM: '[ERROR] 구입 금액은 숫자만 입력해주세요',
@@ -24,12 +26,11 @@ const validator = {
     }
   },
   validateSuccessNum(input) {
-    const successNumList = input.split(',');
-    if (successNumList.length !== 6) {
+    if (input.length !== 6) {
       throw new Error(ERROR_MESSAGE.SUCCESS_NUM.LEN);
     }
-    successNumList.forEach((elem) => {
-      if (!isNaN(elem)) {
+    input.forEach((elem) => {
+      if (isNaN(elem)) {
         throw new Error(ERROR_MESSAGE.SUCCESS_NUM.NOT_NUM);
       }
       if (Number(elem) < 1 || Number(elem) > 45) {

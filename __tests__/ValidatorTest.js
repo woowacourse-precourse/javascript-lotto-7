@@ -1,8 +1,6 @@
-import Validator from '../src/validators/Validator';
+import validator from '../src/validators/Validator';
 
 describe('Validator 클래스 테스트', () => {
-  const validator = new Validator();
-
   test('구입금액이 숫자 외 값이면 예외가 발생한다.', () => {
     expect(() => {
       validator.validateInputCost('aaa');
