@@ -13,7 +13,7 @@ class LottoMachine {
   }
 
   generateLottoTickets(purchaseAmount) {
-    for (let i = 0; i < purchaseAmount; i++) {
+    for (let i = 0; i < purchaseAmount / 1000; i++) {
       const lottoNumbers = this.generateLottoNumbers();
       const lotto = new Lotto(lottoNumbers);
       this.#lottos.push(lotto);
@@ -98,6 +98,8 @@ class LottoMachine {
 
     return winningRank;
   }
+
+  calculateTotalReturnRate(totalWinningRank) {}
 }
 
 export default LottoMachine;

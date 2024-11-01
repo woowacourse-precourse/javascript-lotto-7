@@ -19,7 +19,7 @@ describe('LottoMachine 테스트', () => {
   });
 
   test('구입 금액에 해당하는 만큼 로또를 발행한다.', () => {
-    const purchaseAmount = 3;
+    const purchaseAmount = 3000;
     const mockValues = [
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
@@ -45,7 +45,7 @@ describe('LottoMachine 테스트', () => {
   test('당첨 내역을 계산한다.', () => {
     const winningNumbers = [8, 21, 23, 41, 42, 43];
     const bonusNumber = 7;
-    const purchaseAmount = 3;
+    const purchaseAmount = 3000;
     const mockValues = [
       [8, 21, 23, 41, 42, 43],
       [8, 21, 23, 41, 42, 7],
