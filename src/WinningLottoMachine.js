@@ -24,6 +24,7 @@ class WinningLottoMachine {
     while (true) {
       try {
         const bonusNumber = await InputView.getUserInput('보너스 번호를 입력해 주세요.\n');
+        WinningLottoMachine.#validateBonusNumber(bonusNumber);
         return bonusNumber;
       } catch (error) {
         OutputView.printError(error);
@@ -44,6 +45,12 @@ class WinningLottoMachine {
       Validator.checkValidRange(num, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
     });
     WinningLottoMachine.#checkDuplicateNum(splitNums);
+  }
+
+  static #validateBonusNumber(bonusNumber) {
+    Validator.checkIsNull(bonusNumber);
+    Validator.checkRegexPattern(bonusNumber, /^\d+$/, '보너스 번호는 숫자만 입력 가능합니다.');
+    Validator.checkValidRange(bonusNumber, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
   }
 
   static #splitByComma(inputString) {
