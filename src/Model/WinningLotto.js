@@ -14,7 +14,7 @@ class WinningLotto extends Lotto {
 
   validateBonusNumberCount(number) {
     if (number.length !== 1) {
-      throw new Error(ERROR_MSG.invalidNumberCount);
+      throw new Error(ERROR_MSG.invalidBonusNumberCount);
     }
   }
 

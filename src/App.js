@@ -55,9 +55,9 @@ class App {
     while (true) {
       try {
         const userInputString = await this.inputView.getbonusNum();
-        const userInputNumber = this.inputHandler.stringToInt(userInputString);
+        const userInputNumber = this.inputHandler.splitStringToInt(userInputString);
 
-        this.lottolService.setBonusNumber([userInputNumber]);
+        this.lottolService.setBonusNumber(userInputNumber);
 
         return;
       } catch (errorMsg) {

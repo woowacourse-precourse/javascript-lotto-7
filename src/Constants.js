@@ -5,6 +5,7 @@ export const REGEXP = Object.freeze({
 
 export const LOTTO_PRICE = 1000;
 export const LOTTO_NUMBER_COUNT = 6;
+export const LOTTO_BONUS_NUMBER_COUNT = 1;
 
 export const PURCHASE_AMOUNT_RANGE = Object.freeze({
   min: 1000,
@@ -24,5 +25,7 @@ export const ERROR_MSG = Object.freeze({
 
   outOfLottoRange: `[ERROR] 입력 가능한 숫자 범위를 벗어납니다. ${LOTTO_NUMBER_RANGE.min}이상 ${LOTTO_NUMBER_RANGE.max}이하의 숫자로 입력해주세요!`,
   invalidNumberCount: `[ERROR] 당첨 번호는 ${LOTTO_NUMBER_COUNT}개가 지정되어야 합니다.`,
-  duplicateNumber: `[ERROR] 당첨 번호가 중복됩니다. 중복이 되지 않게 입력해주세요!`,
+  duplicateNumber: `[ERROR] 번호가 중복됩니다. 중복이 되지 않게 입력해주세요!`,
+
+  invalidBonusNumberCount: `[ERROR] 보너스 번호는 ${LOTTO_BONUS_NUMBER_COUNT}개가 지정되어야 합니다.`,
 });

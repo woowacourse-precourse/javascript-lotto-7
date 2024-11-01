@@ -149,4 +149,29 @@ describe('로또 테스트', () => {
   ])("[예외 테스트] 당첨 번호가 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
     await runException(input, 1, errorMsg);
   });
+
+  // 보너스 번호 입력 유효성 검사 TC (우선순위 높은 순으로 정렬)
+  test.each([
+    // empty Check
+    [null, ERROR_MSG.invalidInputData],
+    [undefined, ERROR_MSG.invalidInputData],
+    ['', ERROR_MSG.invalidInputData],
+    ['   ', ERROR_MSG.invalidInputData],
+    // Number Only Check
+    ['abcd', ERROR_MSG.notANumber],
+    ['///', ERROR_MSG.notANumber],
+    ['\\\\\\', ERROR_MSG.notANumber],
+    ['>_<', ERROR_MSG.notANumber],
+    ['--1', ERROR_MSG.notANumber],
+    // Count Check
+    ['1,2', ERROR_MSG.invalidBonusNumberCount],
+    ['1,2,3,46', ERROR_MSG.invalidBonusNumberCount],
+    // Range Check
+    ['46', ERROR_MSG.outOfLottoRange],
+    ['-1', ERROR_MSG.outOfLottoRange],
+    // Duplicate Check
+    ['1', ERROR_MSG.duplicateNumber],
+  ])("[예외 테스트] 보너스 번호가 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
+    await runException(input, 2, errorMsg);
+  });
 });
