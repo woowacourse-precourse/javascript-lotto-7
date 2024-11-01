@@ -17,7 +17,7 @@ export const start = async () => {
     const winningNumbers = await getWinningNumbers();
     const bonusNumber = await getBonusNumber(winningNumbers);
 
-    displayWinningDetails(calculateWinningCounts(lottos, winningNumbers, bonusNumber));
+    displayWinningDetails(calculateWinningCounts(lottos, winningNumbers, bonusNumber), purchaseAmount);
 }
 
 const generateLottos = quantity => {

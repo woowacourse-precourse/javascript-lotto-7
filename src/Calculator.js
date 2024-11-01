@@ -20,3 +20,5 @@ export const calculateTotalPrize = (winningsCount, prizeInfo) => {
         return total + winningsCount[key] * prize
     }, 0);
 }
+
+export const calculateYieldRate = (purchaseAmount, totalPrize) => (totalPrize / purchaseAmount) * 100;

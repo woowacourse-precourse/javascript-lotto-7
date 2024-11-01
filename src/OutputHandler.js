@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { calculateTotalPrize } from './Calculator.js';
+import { calculateTotalPrize, calculateYieldRate } from './Calculator.js';
 
 const PRICE_PER_LOTTO = 1000;
 const prizeInfo = {
@@ -23,7 +23,7 @@ export const displayGeneratedLottos = lottos => {
     });
 }
 
-export const displayWinningDetails = winningsCount => {
+export const displayWinningDetails = (winningsCount, purchaseAmount) => {
     Console.print('\n당첨 통계\n---\n');
     let totalPrize = calculateTotalPrize(winningsCount, prizeInfo);
 
@@ -31,5 +31,10 @@ export const displayWinningDetails = winningsCount => {
         Console.print(`${label} (${prize.toLocaleString()}원) - ${winningsCount[key]}개\n`);
     });
 
-    // Console.print(`총 상금: ${totalPrize}`);
+    displayProfitRate(purchaseAmount, totalPrize);
+}
+
+const displayProfitRate = (purchaseAmount, totalPrize) => {
+    const YieldRate = calculateYieldRate(purchaseAmount, totalPrize);
+    Console.print(`총 수익률은 ${YieldRate.toFixed(1)}%입니다.`);
 }
