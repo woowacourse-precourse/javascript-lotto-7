@@ -17,9 +17,9 @@ class LottoController {
 
   #lottos;
 
-  #purchaseAmount;
+  #winningLotto;
 
-  #winningNumbers;
+  #purchaseAmount;
 
   #bonusNumber;
 
@@ -31,6 +31,7 @@ class LottoController {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
     this.#lottos = [];
+    this.#winningLotto = null;
     this.#purchaseAmount = 0;
     this.#validatePurchaseAmount = new ValidatePurchaseAmount();
     this.#validateBonusNumber = new ValidateBonusNumber();
@@ -57,15 +58,15 @@ class LottoController {
 
   async #handleWinningNumbers() {
     const winningNumbersInput = await this.#inputView.readWinningNumbers();
-    this.#winningNumbers = this.#parseWinningNumbers(winningNumbersInput);
-    new Lotto(this.#winningNumbers);
+    const numbers = this.#parseWinningNumbers(winningNumbersInput);
+    this.#winningLotto = new Lotto(numbers);
   }
 
   async #handleBonusNumber() {
     const bonusNumberInput = await this.#inputView.readBonusNumber();
     this.#bonusNumber = this.#validateBonusNumber.validateBonusNumber(
       bonusNumberInput,
-      this.#winningNumbers,
+      this.#winningLotto.getNumbers(),
     );
   }
 
@@ -95,7 +96,7 @@ class LottoController {
 
   #getMatchResults() {
     return this.#lottos.map((lotto) => ({
-      matchCount: lotto.countMatchingNumbers(this.#winningNumbers),
+      matchCount: lotto.countMatchingNumbers(this.#winningLotto.getNumbers()),
       hasBonus: lotto.containsBonusNumber(this.#bonusNumber),
     }));
   }
