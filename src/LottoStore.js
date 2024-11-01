@@ -16,9 +16,10 @@ class LottoStore {
   async purchaseLottos() {
     const userAmount = await LottoStore.#getValidAmount();
     this.#setPurchaseAmount(userAmount);
-    this.#printLottoCount();
+    OutputView.printMessage(`\n${this.#lottoCount}개를 구매했습니다.`);
 
     const lottoBundle = this.#generateLottos();
+    OutputView.printLottoBundle(lottoBundle.getLottos());
     return lottoBundle;
   }
 
@@ -37,10 +38,6 @@ class LottoStore {
   #setPurchaseAmount(userAmount) {
     this.#amount = LottoStore.#parseAmount(userAmount);
     this.#lottoCount = this.#getLottoCount();
-  }
-
-  #printLottoCount() {
-    OutputView.printMessage(`\n${this.#lottoCount}개를 구매했습니다.`);
   }
 
   static #validateAmount(amount) {
