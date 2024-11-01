@@ -28,7 +28,7 @@ class InputManager {
 
       if (!isError) return purchasePrice;
 
-      OutputManager.printError(errorMessage);
+      OutputManager.print(errorMessage);
     }
   }
 
@@ -45,7 +45,7 @@ class InputManager {
 
       if (!isError) return winningNumbers;
 
-      OutputManager.printError(errorMessage);
+      OutputManager.print(errorMessage);
     }
   }
 
@@ -64,7 +64,7 @@ class InputManager {
 
       if (!isError) return bonusNumber;
 
-      OutputManager.printError(errorMessage);
+      OutputManager.print(errorMessage);
     }
   }
 

@@ -2,38 +2,37 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import { OUTPUT_MESSAGE, LOTTO_INFORMATIONS } from './lib/constants.js';
 
 class OutputManager {
-  static printError(message) {
+  static print(message) {
     MissionUtils.Console.print(message);
   }
 
   static printPurchaseHistory(lottos) {
     const purchaseLottoCount = lottos.length;
 
-    MissionUtils.Console.print(
-      `${purchaseLottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
-    );
-    lottos.forEach(({ numbers }) =>
-      MissionUtils.Console.print(`[${numbers.join(', ')}]`),
-    );
+    this.print(`${purchaseLottoCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`);
+    lottos.forEach(({ numbers }) => this.print(`[${numbers.join(', ')}]`));
   }
 
   static printWinningStatics(rankCountMap) {
-    MissionUtils.Console.print(OUTPUT_MESSAGE.WINNING_STATICS);
+    this.print(OUTPUT_MESSAGE.WINNING_STATICS);
 
     LOTTO_INFORMATIONS.forEach(({ winningCount, prizeMoney, rank }) => {
-      let bonusNumberString = '';
-      if (rank === 2) bonusNumberString = ', 보너스 볼 일치';
+      const bonusNumberString = this.#getBonusNumberString(rank);
+      const winningLottoSentence = `${winningCount}개 일치${bonusNumberString} (${prizeMoney.toLocaleString(
+        'ko-KR',
+      )}원) - ${rankCountMap.get(rank)}개`;
 
-      MissionUtils.Console.print(
-        `${winningCount}개 일치${bonusNumberString} (${prizeMoney.toLocaleString(
-          'ko-KR',
-        )}원) - ${rankCountMap.get(rank)}개`,
-      );
+      this.print(winningLottoSentence);
     });
   }
 
+  static #getBonusNumberString(rank) {
+    if (rank === 2) return ', 보너스 볼 일치';
+    return '';
+  }
+
   static printRateOfReturn(rateOfReturn) {
-    MissionUtils.Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+    this.print(`총 수익률은 ${rateOfReturn}%입니다.`);
   }
 }
 
