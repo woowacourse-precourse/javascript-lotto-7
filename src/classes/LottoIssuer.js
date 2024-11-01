@@ -1,7 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 
-class LottoIssuance {
+class LottoIssuer {
   static LOTTO_PRICE = 1000;
 
   static calculateLottoCount(purchaseAmount) {
@@ -10,7 +10,7 @@ class LottoIssuance {
     return lottoCount;
   }
 
-  static createLotto(count) {
+  static generateLottos(count) {
     const allLotto = [];
 
     for (let i = 0; i < count; i++) {
@@ -21,4 +21,4 @@ class LottoIssuance {
   }
 }
 
-export default LottoIssuance;
+export default LottoIssuer;
