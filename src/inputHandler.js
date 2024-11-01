@@ -13,6 +13,7 @@ class InputHandler {
   static validateCost(cost) {
     this.checkIsZero(cost);
     this.checkIsNegative(cost);
+    this.checkIs1000Units(cost);
   }
 
   static checkIsZero(cost) {
@@ -24,6 +25,12 @@ class InputHandler {
   static checkIsNegative(cost) {
     if (cost < 0) {
       throw new Error(COST.NEGATIVE);
+    }
+  }
+
+  static checkIs1000Units(cost) {
+    if (cost % 1000 !== 0) {
+      throw new Error(COST.REMAINDER);
     }
   }
 }
