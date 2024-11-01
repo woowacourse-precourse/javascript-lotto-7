@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import PaymentValidator from "./PaymentValidator";
-import LottoValidator from "./LottoValidator";
+import PaymentValidator from "./validators/PaymentValidator";
+import LottoValidator from "./validators/LottoValidator";
 
 class Lotto {
   #numbers;
@@ -13,7 +13,7 @@ class Lotto {
   }
 
   async start() {
-
+    
   }
 
   async getPaymentAmount() {

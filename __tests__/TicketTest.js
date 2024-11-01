@@ -31,4 +31,9 @@ describe("로또 번호 테스트", () => {
     const sortedTicket = [...ticket].sort((a, b) => a - b);
     expect(ticket).toEqual(sortedTicket);
   });
+
+  test("로또 티켓의 개수만큼 생성되어야한다.", () => {
+    const tickets = generator.generateAllTickets(6);
+    expect(tickets.length).toBe(6);
+  });
 })
