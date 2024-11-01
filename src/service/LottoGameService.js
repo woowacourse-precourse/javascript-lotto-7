@@ -26,6 +26,10 @@ class LottoGameService {
     };
   }
 
+  getPrizes() {
+    return this.prizes;
+  }
+
   createLottoQuantity(userMoney) {
     return userMoney / LOTTO_PRICE;
   }
