@@ -11,6 +11,10 @@ class InputHandler {
   }
 
   static validateCost(cost) {
+    this.checkIsZero(cost);
+  }
+
+  static checkIsZero(cost) {
     if (cost === 0) {
       throw new Error(COST.ZERO);
     }
