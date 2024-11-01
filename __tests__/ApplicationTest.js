@@ -97,155 +97,85 @@ describe('로또 테스트', () => {
 });
 
 describe('구입 금액 입력 관련 에러 처리', () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
+  test('구입 금액이 비어있는 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processPurchaseAmount('');
+    }).toThrow(Errors.PURCHASE_AMOUNT_EMPTY);
   });
 
-  test('구입 금액이 비어있는 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[ERROR] 구입 금액을 입력해야 합니다.'),
-    );
+  test('구입 금액이 숫자가 아닌 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processPurchaseAmount('one thousand');
+    }).toThrow(Errors.PURCHASE_AMOUNT_NOT_NUMBER);
   });
 
-  test('구입 금액이 숫자가 아닌 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['one thousand']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[ERROR] 구입 금액은 숫자여야 합니다.'),
-    );
+  test('구입 금액이 0 또는 음수인 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processPurchaseAmount('0');
+    }).toThrow(Errors.PURCHASE_AMOUNT_NEGATIVE);
+
+    expect(() => {
+      new App().processPurchaseAmount('-1000');
+    }).toThrow(Errors.PURCHASE_AMOUNT_NEGATIVE);
   });
 
-  test('구입 금액이 0 또는 음수인 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['0']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        '[ERROR] 구입 금액은 1,000원 이상의 양수여야 합니다.',
-      ),
-    );
-
-    mockQuestions(['-1000']);
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        '[ERROR] 구입 금액은 1,000원 이상의 양수여야 합니다.',
-      ),
-    );
-  });
-
-  test('구입 금액이 1,000원 단위가 아닌 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['10500']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[ERROR] 구입 금액은 1,000원 단위여야 합니다.'),
-    );
+  test('구입 금액이 1,000원 단위가 아닌 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processPurchaseAmount('10500');
+    }).toThrow(Errors.PURCHASE_AMOUNT_INVALID_UNIT);
   });
 });
 
 describe('당첨 번호 및 보너스 번호 입력 관련 에러 처리', () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
+  test('당첨 번호가 비어있는 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processWinningNumbers('');
+    }).toThrow(Errors.WINNING_NUMBERS_EMPTY);
   });
 
-  test('당첨 번호가 비어있는 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['8000', '']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[ERROR] 당첨 번호를 입력해야 합니다.'),
-    );
+  test('당첨 번호에 숫자가 아닌 값이 포함된 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processWinningNumbers('1,2,three,4,5,6');
+    }).toThrow(Errors.WINNING_NUMBERS_NOT_NUMBER);
   });
 
-  test('당첨 번호에 숫자가 아닌 값이 포함된 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['8000', '1,2,three,4,5,6']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        '[ERROR] 당첨 번호는 1에서 45 사이의 숫자여야 합니다.',
-      ),
-    );
+  test('당첨 번호에 중복된 숫자가 포함된 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processWinningNumbers('1,2,3,3,4,5');
+    }).toThrow(Errors.WINNING_NUMBERS_DUPLICATE);
   });
 
-  test('당첨 번호에 중복된 숫자가 포함된 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['8000', '1,2,3,3,4,5']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        '[ERROR] 당첨 번호에 중복된 숫자가 포함되어 있습니다.',
-      ),
-    );
+  test('당첨 번호의 개수가 6개가 아닌 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processWinningNumbers('1,2,3,4,5'); // 5개
+    }).toThrow(Errors.WINNING_NUMBERS_INVALID_COUNT);
+
+    expect(() => {
+      new App().processWinningNumbers('1,2,3,4,5,6,7'); // 7개
+    }).toThrow(Errors.WINNING_NUMBERS_INVALID_COUNT);
   });
 
-  test('당첨 번호의 개수가 6개가 아닌 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['8000', '1,2,3,4,5']); // 5개
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[ERROR] 당첨 번호는 6개여야 합니다.'),
-    );
-
-    mockQuestions(['8000', '1,2,3,4,5,6,7']); // 7개
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[ERROR] 당첨 번호는 6개여야 합니다.'),
-    );
+  test('보너스 번호가 비어있는 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processBonusNumber('');
+    }).toThrow(Errors.BONUS_NUMBER_EMPTY);
   });
 
-  test('보너스 번호가 비어있는 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['8000', '1,2,3,4,5,6', '']);
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[ERROR] 보너스 번호를 입력해야 합니다.'),
-    );
+  test('보너스 번호가 1~45 범위를 벗어나는 경우 에러가 발생한다.', () => {
+    expect(() => {
+      new App().processBonusNumber('0');
+    }).toThrow(Errors.BONUS_NUMBER_OUT_OF_RANGE);
+
+    expect(() => {
+      new App().processBonusNumber('46');
+    }).toThrow(Errors.BONUS_NUMBER_OUT_OF_RANGE);
   });
 
-  test('보너스 번호가 1~45 범위를 벗어나는 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['8000', '1,2,3,4,5,6', '0']); // 0은 범위 밖
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        '[ERROR] 보너스 번호는 1에서 45 사이의 숫자여야 합니다.',
-      ),
-    );
-
-    mockQuestions(['8000', '1,2,3,4,5,6', '46']); // 46도 범위 밖
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        '[ERROR] 보너스 번호는 1에서 45 사이의 숫자여야 합니다.',
-      ),
-    );
-  });
-
-  test('보너스 번호가 당첨 번호와 중복되는 경우 에러가 발생한다.', async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(['8000', '1,2,3,4,5,6', '3']); // 중복된 번호
-    const app = new App();
-    await app.run();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        '[ERROR] 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.',
-      ),
-    );
+  test('보너스 번호가 당첨 번호와 중복되는 경우 에러가 발생한다.', () => {
+    expect(() => {
+      const app = new App();
+      app.processWinningNumbers('1,2,3,4,5,6');
+      app.processBonusNumber('3'); // 중복된 번호
+    }).toThrow(Errors.BONUS_NUMBER_DUPLICATE);
   });
 });
