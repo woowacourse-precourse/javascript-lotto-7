@@ -7,7 +7,7 @@ class PrizeCalculator {
     this.#winningTable = winningTable;
   }
 
-  calculatePrize() {
+  #calculatePrize() {
     let winningPrize = PRIZE_CALCULATOR.defaultPrize;
 
     this.#winningTable.forEach((numbersOfLotto, numbersOfMatched) => {
