@@ -1,12 +1,17 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class Rank_check {
-  constructor(myLottoArray, numbers) {
+  constructor(myLottoArray, numbers, bonusNumber) {
     let numberMatchArray = [];
     myLottoArray.forEach((myLotto) =>
       numberMatchArray.push(this.countNumbersMatch(myLotto, numbers))
     );
-    this.countRank(myLottoArray, numberMatchArray);
+
+    let bonusNumberMatchArray = [];
+    myLottoArray.forEach((myLotto) =>
+      bonusNumberMatchArray.push(this.countBonusNumbersMatch(myLotto, bonusNumber))
+    );
+    this.countRank(myLottoArray, numberMatchArray, bonusNumberMatchArray);
   }
 
   countNumbersMatch(myLotto, numbers) {
@@ -16,12 +21,26 @@ class Rank_check {
     return numberMatch;
   }
 
-  countRank(myLottoArray, numberMatchArray){
+  countBonusNumbersMatch(myLotto, bonusNumber) {
+    let bonusNumberMatch = 0;
+    if(myLotto.some((myNumber) => myNumber === bonusNumber)) {
+      bonusNumberMatch++;
+    }
+    return bonusNumberMatch;
+  }
+
+  countRank(myLottoArray, numberMatchArray, bonusNumberMatchArray){
+    let match_six = numberMatchArray.filter(numberMatch => 6 === numberMatch).length;
+
+    for (let index = 0; index < bonusNumberMatchArray.length; index++) {
+      if(bonusNumberMatchArray[index] === 1) {
+        numberMatchArray[index] ++;
+      }
+    }
     let match_three = numberMatchArray.filter(numberMatch => 3 === numberMatch).length;
     let match_four = numberMatchArray.filter(numberMatch => 4 === numberMatch).length;
     let match_five = numberMatchArray.filter(numberMatch => 5 === numberMatch).length;
-    let match_five_bonus = 0;
-    let match_six = numberMatchArray.filter(numberMatch => 6 === numberMatch).length;
+    let match_five_bonus = numberMatchArray.filter(numberMatch => 6 === numberMatch).length;
     this.printRank(match_three, match_four, match_five, match_five_bonus, match_six);
     this.revenue_percent(myLottoArray, match_three, match_four, match_five, match_five_bonus, match_six);
   }
@@ -38,7 +57,7 @@ class Rank_check {
 
   revenue_percent(myLottoArray, match_three, match_four, match_five, match_five_bonus, match_six) {
     let payment = (myLottoArray.length) * 1000;
-    let revenue = (match_three * 5000) + (match_four * 5000) + (match_five * 5000) + (match_five_bonus * 5000) + (match_six * 5000);
+    let revenue = (match_three * 5000) + (match_four * 50000) + (match_five * 1500000) + (match_five_bonus * 30000000) + (match_six * 2000000000);
     let revenue_percent = (revenue / payment) * 100;
     this.print_revenue_percent(revenue_percent);
   }
