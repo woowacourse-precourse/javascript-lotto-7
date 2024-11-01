@@ -4,7 +4,7 @@ import { COST } from "./constants/error.js";
 
 class InputHandler {
   static async getCost() {
-    const costInput = (await Console.readLineAsync(INPUT_MESSAGE.cost)).trim();
+    const costInput = (await Console.readLineAsync(INPUT_MESSAGE.COST)).trim();
     const cost = Number(costInput);
 
     return cost;
