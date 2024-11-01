@@ -14,6 +14,8 @@ class App {
 
     OutputView.printLottoCount(lottoCount);
     OutputView.printLottoNumbers(lottoService.getLottos());
+
+    const winningNumbers = InputView.getWinningNumbers();
   }
 }
 
