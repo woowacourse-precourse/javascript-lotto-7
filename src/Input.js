@@ -7,10 +7,15 @@ class Input {
     }
 
     async inputValue(message){
-        const value = await Console.readLineAsync(message);
-
-        this._validateValue(value);
-
+        while(true){
+            try{
+                const value = await Console.readLineAsync(message);
+                this._validateValue(value);
+                break;
+            } catch(error){
+                Console.print("[ERROR] 입력 시 에러가 발생했습니다.");
+            }
+        }
         this.value = value;
     }
 
