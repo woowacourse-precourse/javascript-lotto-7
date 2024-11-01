@@ -6,10 +6,6 @@ import { LOTTO } from "./constants.js";
 class Game {
 
     purchaseLotto (paidMoney) {
-        if (paidMoney % 1000 !== 0) {
-            throw new Error(`[ERROR] 로또 1장당 금액은 ${LOTTO.TICKET_PRICE}입니다. 거스름돈 없이 해주세요`);
-        }
-    
         const ticketCount = Math.floor(paidMoney / 1000);
         return ticketCount;
     }
