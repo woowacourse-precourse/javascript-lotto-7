@@ -1,4 +1,5 @@
 import ERROR_MESSAGE from '../src/constants/ErrorMessage.js';
+import validateLotto from '../src/utils/validation/validateLotto.js';
 import validatePrice from '../src/utils/validation/validatePrice.js';
 
 describe('validatePrice 함수 테스트', () => {
@@ -11,7 +12,7 @@ describe('validatePrice 함수 테스트', () => {
   test('입력받은 금액이 숫자가 아니면 예외가 발생한다.', () => {
     expect(() => {
       validatePrice('2000b');
-    }).toThrow(ERROR_MESSAGE.INVALID_LOTTO_PRICE_NOT_NUMBER);
+    }).toThrow(ERROR_MESSAGE.INVALID_NOT_NUMBER);
   });
 
   test('입력받은 금액이 1000보다 작으면 예외가 발생한다.', () => {
@@ -24,5 +25,37 @@ describe('validatePrice 함수 테스트', () => {
     expect(() => {
       validatePrice('5500');
     }).toThrow(ERROR_MESSAGE.INVALID_LOTTO_PRICE);
+  });
+});
+
+describe('validateLotto 함수 테스트', () => {
+  test('입력받은 로또 번호가 없으면 예외가 발생한다.', () => {
+    expect(() => {
+      validateLotto('');
+    }).toThrow(ERROR_MESSAGE.INVALID_NOT_NUMBER);
+  });
+
+  test('입력받은 로또 번호가 숫자가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      validateLotto([1, '2', '3', 4, '5', '6']);
+    }).toThrow(ERROR_MESSAGE.INVALID_NOT_NUMBER);
+  });
+
+  test('입력받은 로또 번호의 개수가 6개가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      validateLotto([1, 2, 3, 4, 5]);
+    }).toThrow(ERROR_MESSAGE.INVALID_LOTTO_NUMBER_LENGTH);
+  });
+
+  test('입력받은 로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
+    expect(() => {
+      validateLotto([1, 2, 3, 4, 5, 5]);
+    }).toThrow(ERROR_MESSAGE.INVALID_LOTTO_NUMBER);
+  });
+
+  test('입력받은 로또 번호의 범위가 1 ~ 45가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      validateLotto([1, 2, 3, 4, 5, 46]);
+    }).toThrow(ERROR_MESSAGE.INVALID_LOTTO_NUMBER_RANGE);
   });
 });
