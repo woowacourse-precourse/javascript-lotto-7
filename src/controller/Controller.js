@@ -1,6 +1,9 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import { validateMoney } from '../utils/validation.js';
+import Lotto from '../Lotto.js';
+import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
+import { LOTTO } from '../constant/constants.js';
 
 export default class Controller {
   constructor() {
@@ -10,6 +13,18 @@ export default class Controller {
 
   async start() {
     const paidMoney = await this.getMoney();
+    const lottoCount = paidMoney / LOTTO.LOTTO_PRICE;
+    const lottos = this.generateLottos(lottoCount);
+  }
+
+  generateLottos(lottoCount) {
+    return Array.from({ length: lottoCount }, () => this.createLotto());
+  }
+
+  createLotto() {
+    const lottoNumbers = getUniqueNumbers();
+
+    return new Lotto(lottoNumbers);
   }
 
   async getMoney() {

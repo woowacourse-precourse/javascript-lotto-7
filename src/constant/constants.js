@@ -6,3 +6,7 @@ export const ERROR_MESSAGES = {
     INVALID_UNIT: '구입금액은 1,000원 단위로 입력해야 합니다.',
   },
 };
+
+export const LOTTO = {
+  LOTTO_PRICE: 1000,
+};
