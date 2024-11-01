@@ -5,7 +5,7 @@ import LottoCount from '../domain/LottoCount.js';
 import Lotto from '../domain/Lotto.js';
 import LottoBonus from '../domain/LottoBonus.js';
 
-class InputController {
+class LottoInputController {
   static async getLottoPurchasePrice() {
     return await inputPipe(
       InputView.readLottoPurchasePriceAsync,
@@ -35,4 +35,4 @@ class InputController {
   }
 }
 
-export default InputController;
+export default LottoInputController;

@@ -102,8 +102,9 @@ src
 ├── constants
 │   └── constants.js
 ├── controller
-│   ├── InputController.js
-│   └── LottoController.js
+│   ├── LottoCoreController.js
+│   ├── LottoInputController.js
+│   └── LottoProcessController.js
 ├── domain
 │   ├── Lotto.js
 │   ├── LottoBonus.js
