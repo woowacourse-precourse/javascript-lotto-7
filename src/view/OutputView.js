@@ -13,6 +13,10 @@ class OutputView {
       `\n${lottoCount + PRINT_MESSAGE.PRINT_LOTTO_COUNT}`
     );
   }
+
+  outputLottoNumbers(lotto) {
+    MissionUtils.Console.print(`[${lotto.getLottoNumber().join(", ")}]`);
+  }
 }
 
 export default OutputView;

@@ -58,7 +58,13 @@ class LottoController {
   #generateLottos(lottoCount) {
     for (let i = 0; i < lottoCount; i++) {
       const lottoNumbers = generateRandomNumbers();
+      const lotto = new Lotto(lottoNumbers);
+      this.#printLottoNumbers(lotto);
     }
+  }
+
+  #printLottoNumbers(lotto) {
+    this.#outputView.outputLottoNumbers(lotto);
   }
 }
 
