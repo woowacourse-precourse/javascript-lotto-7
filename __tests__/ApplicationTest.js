@@ -141,15 +141,15 @@ describe('로또 테스트', () => {
     );
   });
 
-  test('예외 테스트: 숫자가 아닌 경우', async () => {
+  test('예외 테스트: 숫자가 아닌 경우 에러 출력 후 다시 입력 받는다.', async () => {
     await runException('1000j', COMMON_ERRORS.NUMBER);
   });
 
-  test('예외 테스트: 정수가 아닌 경우', async () => {
+  test('예외 테스트: 정수가 아닌 경우 에러 출력 후 다시 입력 받는다.', async () => {
     await runException('1000.1', COMMON_ERRORS.INTEGER);
   });
 
-  test('예외 테스트: 1,000원 단위가 아닌 경우', async () => {
+  test('예외 테스트: 1,000원 단위가 아닌 경우 에러 출력 후 다시 입력 받는다.', async () => {
     await runException('1001', VALIDATION_ERRORS.PURCHASE_PRICE.THOUSAND);
   });
 });
