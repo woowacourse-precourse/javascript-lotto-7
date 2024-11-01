@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, VALIDATION } from './Constants.js';
+import { ERROR_MESSAGE, VALIDATION, GLOBAL_CONSTANTS } from './Constants.js';
 
 class Validation {
   static isNumber(input) {
@@ -9,6 +9,12 @@ class Validation {
 
   static isPositiveNumber(number) {
     if (number <= VALIDATION.mustOverage) {
+      throw new Error(ERROR_MESSAGE.notPositiveNumber);
+    }
+  }
+
+  static hasMeetUnitAmount(number) {
+    if (number % GLOBAL_CONSTANTS.unitPrice !== 0) {
       throw new Error(ERROR_MESSAGE.notPositiveNumber);
     }
   }

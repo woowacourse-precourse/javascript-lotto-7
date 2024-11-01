@@ -2,10 +2,11 @@ export const GLOBAL_CONSTANTS = {
   bonusWinningStandard: 5,
   bonusTag: 'bonus',
   drawNumbers: 6,
+  unitPrice: 1000,
 };
 
 export const LOTTO_MACHINE = {
-  unitPrice: 1000,
+  unitPrice: GLOBAL_CONSTANTS.unitPrice,
   minimumNumber: 1,
   maximumNumber: 45,
   drawNumbers: GLOBAL_CONSTANTS.drawNumbers,
@@ -40,6 +41,7 @@ export const INPUT_VIEW = {
 
 export const VALIDATION = {
   mustOverage: 0,
+  unitPrice: GLOBAL_CONSTANTS.unitPrice,
 };
 
 export const ERROR_MESSAGE = {
