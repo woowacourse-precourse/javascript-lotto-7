@@ -2,9 +2,11 @@ import PurchaseAmount from "../models/PurchaseAmount.js";
 import BonusNumber from "../models/BonusNumber.js";
 import Lotto from "../models/Lotto.js";
 import WinningNumbers from "../models/WinningNumbers.js";
+import Prize from "../models/Prize.js";
 import { InputView } from "../views/InputView.js";
 import { OutputView } from "../views/OutputView.js";
 import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
+import { PRIZE_MESSAGES } from "../constants/prizeMessages.js";
 
 class LottoController {
 
@@ -16,11 +18,16 @@ class LottoController {
 
     #bonusNumber;
 
+    #prize;
+
+    #rateReturn;
+
     async lottoProcess() {
         await this.getInputPurchaseAmount();
         this.getLottos();
         await this.getInputWinningNumbers();
         await this.getInputBonusNumber();
+        this.getPrizeResult();
     }
 
     async getInputPurchaseAmount() {
@@ -30,7 +37,7 @@ class LottoController {
             OutputView.outputEmptyPrintLine();
         } catch (error) {
             OutputView.outputPrint(error.message);
-            await this.getInputPurchaseAmount();
+            return await this.getInputPurchaseAmount();
         }
     }
 
@@ -48,7 +55,7 @@ class LottoController {
             OutputView.outputEmptyPrintLine();
         } catch (error) {
             OutputView.outputPrint(error.message);
-            await this.getInputWinningNumbers();
+            return await this.getInputWinningNumbers();
         }
     }
 
@@ -59,8 +66,26 @@ class LottoController {
             OutputView.outputEmptyPrintLine();
         } catch (error) {
             OutputView.outputPrint(error.message);
-            await this.getInputBonusNumber();
-        }            
+            return await this.getInputBonusNumber();
+        }
+    }
+
+    getPrizeResult() {
+        const prize = new Prize(this.#lottos, this.#winningNumbers, this.#bonusNumber);
+        this.#prize = prize.getPrize();
+        OutputView.outputPrint(PRIZE_MESSAGES.output_winning_statistics);
+        Object.values(this.#prize).reverse().forEach(({ count, price, condition }) => {
+            OutputView.outputPrint(PRIZE_MESSAGES.output_prize_result(count, price, this.getConditionText(condition)));
+        });
+        this.#rateReturn = prize.getRateReturn(this.#prize);
+        OutputView.outputPrint(PRIZE_MESSAGES.output_rate_return(this.#rateReturn));
+    }
+    
+    getConditionText(condition) {
+        if (typeof condition === 'string') {
+            return PRIZE_MESSAGES.output_prize_bonus_text;
+        }
+        return PRIZE_MESSAGES.output_prize_condition_text(condition);
     }
 }
 
