@@ -81,7 +81,7 @@ class Lotto {
         matchList["4등"] += 1;
         reward += 50000;
       }
-      if (result.score === 5) {
+      if (result.score === 5 && !result.isBonus) {
         matchList["3등"] += 1;
         reward += 1500000;
       }
