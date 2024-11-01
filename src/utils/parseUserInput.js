@@ -2,10 +2,14 @@ function toPurchaseAmountNumber(amout) {
   return Number(amout);
 }
 
-function parseWinningNumbersWithBonus(numbers, bonus) {
+function parseWinningNumbers(numbers) {
   const winningNumbers = numbers.split(',').map((e) => Number(e.trim()));
 
-  return [...winningNumbers, Number(bonus)];
+  return [...winningNumbers];
 }
 
-export { toPurchaseAmountNumber, parseWinningNumbersWithBonus };
+function parseBonusNumber(bonus) {
+  return Number(bonus);
+}
+
+export { toPurchaseAmountNumber, parseWinningNumbers, parseBonusNumber };

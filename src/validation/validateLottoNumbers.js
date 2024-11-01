@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { getWinningNumbers, getBonusNumber } from '../utils/getUserInput.js';
 
 // export default async function validateLottotNumbers() {
 //   const winningNumbers = await getValidateWinningNumbers();
@@ -14,17 +15,20 @@ async function validateWinningNumbers(winningNumbers) {
     validateAllInRange(parsedWinningNumbers);
   } catch (error) {
     Console.print(error.message);
-    await getValidateWinningNumbers();
+    const isValidInput = await getWinningNumbers();
+    validateWinningNumbers(isValidInput);
   }
 }
 
-async function validateBonusNumber(bonusNumber) {
+async function validateBonusNumber(winningNumberArray, bonusNumber) {
   try {
     validateIsNumeric(bonusNumber);
     validateInRange(bonusNumber);
+    validateBonusNumberUniqueness(winningNumberArray, bonusNumber);
   } catch (error) {
     Console.print(error.message);
-    await getValidateBonusNumber();
+    const isValidInput = await getBonusNumber();
+    validateBonusNumber(winningNumberArray, isValidInput);
   }
 }
 

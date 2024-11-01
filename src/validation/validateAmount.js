@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { getPurchaseAmount } from '../utils/getUserInput.js';
 
 const NO_COMMA_NUMBER_REGEX = /^\d+$/;
 const THOUSANDS_COMMA_REGEX = /^\d{1,3}(,\d{3})*$/;
@@ -10,7 +11,8 @@ export default async function validatePurchaseAmount(purchaseAmount) {
     isDivisibleByThousand(purchaseAmount);
   } catch (error) {
     Console.print(error.message);
-    await validatePurchaseAmount();
+    const isValidInput = await getPurchaseAmount();
+    validatePurchaseAmount(isValidInput);
   }
 }
 

@@ -5,7 +5,8 @@ import {
 } from './utils/getUserInput.js';
 import {
   toPurchaseAmountNumber,
-  parseWinningNumbersWithBonus,
+  parseWinningNumbers,
+  parseBonusNumber,
 } from './utils/parseUserInput.js';
 import validatePurchaseAmount from './validation/validateAmount.js';
 import {
@@ -23,18 +24,11 @@ class App {
 
     const winningNumbers = await getWinningNumbers();
     validateWinningNumbers(winningNumbers);
+    const winningNumbersArray = parseWinningNumbers(winningNumbers);
 
     const bonusNumber = await getBonusNumber();
-    validateBonusNumber(bonusNumber);
-    // TODO: 리턴값이 없다.
-    // validate는 검증만하게 get으로 역할 분할하자.
-    const winningNumberArray = parseWinningNumbersWithBonus(
-      winningNumbers,
-      bonusNumber
-    );
-
-    Console.print(purchaseAmount);
-    Console.print(winningNumberArray);
+    validateBonusNumber(winningNumbersArray, bonusNumber);
+    const toBonusNumber = parseBonusNumber(bonusNumber);
   }
 }
 
