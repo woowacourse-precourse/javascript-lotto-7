@@ -1,6 +1,18 @@
 import { Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
+import { BOUND, LOTTO_PRICE, SIZE } from './constants/lottoSettings.js';
 
 class MoneyToLottos {
+  #ticketCount;
+  constructor(purchseAmount) {
+    this.#ticketCount = purchseAmount / LOTTO_PRICE;
+  }
+  generateLottoTickets() {
+    return Array.from(
+      { length: this.#ticketCount },
+      () => new Lotto(this.generateLottoNumbers())
+    );
+  }
   generateLottoNumbers() {
     const numbers = Random.pickUniqueNumbersInRange(
       BOUND.LOWER,
