@@ -15,9 +15,11 @@ class LottoStore {
   async purchaseLottos() {
     while (true) {
       try {
-        const inputAmount
-          = await InputView.getUserInput('구입금액을 입력해 주세요.\n');
+        const inputAmount =
+          await InputView.getUserInput('구입금액을 입력해 주세요.\n');
         LottoStore.#validateAmount(inputAmount);
+        this.#amount = LottoStore.#getParseInt(inputAmount);
+        this.#lottoCount = this.getLottoCount();
       } catch (error) {
         OutputView.printError(error);
       }
@@ -44,6 +46,14 @@ class LottoStore {
     if (amount % 1000 !== 0) {
       throw new Error('[ERROR] 금액은 1000원 단위로 입력해야 합니다.');
     }
+  }
+
+  static #getParseInt(amount) {
+    return parseInt(amount, 10);
+  }
+
+  getLottoCount() {
+    return Math.floor(this.#amount / 1000);
   }
 }
 
