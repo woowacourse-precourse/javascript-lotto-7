@@ -14,9 +14,9 @@ class Lotto {
     });
     this.#validateNumbers(numbers);
   }
+  
   #validateNumber(number) {
     if (number === "") {
-      Console.print("[ERROR] 공백은 입력될 수 없습니다.");
       throw new Error("[ERROR] 공백은 입력될 수 없습니다.");
     }
     if (isNaN(number)) {
