@@ -23,10 +23,10 @@ describe('Lotto', () => {
       expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
     });
 
-    test('로또 번호가 0개에서 2개 사이 당첨 될 경우 0를 반환한다.', () => {
-      expect(lotto.checkWinning([11, 12, 13, 14, 15, 16], 20)).toBe(0);
-      expect(lotto.checkWinning([1, 11, 12, 13, 14, 15], 20)).toBe(0);
-      expect(lotto.checkWinning([1, 2, 11, 12, 13, 14], 20)).toBe(0);
+    test('로또 번호가 0개에서 2개 사이 당첨 될 경우 undefined를 반환한다.', () => {
+      expect(lotto.checkWinning([11, 12, 13, 14, 15, 16], 20)).toBeUndefined();
+      expect(lotto.checkWinning([1, 11, 12, 13, 14, 15], 20)).toBeUndefined();
+      expect(lotto.checkWinning([1, 2, 11, 12, 13, 14], 20)).toBeUndefined();
     });
     test('로또 번호가 3개 당첨 될 경우 5를 반환한다.', () => {
       expect(lotto.checkWinning([1, 2, 3, 11, 12, 13], 20)).toBe(5);

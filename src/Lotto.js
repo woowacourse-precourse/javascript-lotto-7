@@ -28,13 +28,11 @@ class Lotto {
   }
 
   static #calculateRank(winningCount, isBonusMatch) {
-    return (
-      LOTTO_INFORMATIONS.find(
-        (rankObject) =>
-          rankObject.winningCount === winningCount &&
-          rankObject.isBonusMatch === isBonusMatch,
-      )?.rank ?? 0
-    );
+    return LOTTO_INFORMATIONS.find(
+      (rankObject) =>
+        rankObject.winningCount === winningCount &&
+        rankObject.isBonusMatch === isBonusMatch,
+    )?.rank;
   }
 
   #sortByAscending() {

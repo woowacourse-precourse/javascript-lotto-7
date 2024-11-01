@@ -2,7 +2,7 @@ import InputManager from './InputManager.js';
 import { generateMapWithZeroValue } from './lib/utils.js';
 
 class LottoCompany {
-  static #RANKS = [0, 1, 2, 3, 4, 5];
+  static #RANKS = [1, 2, 3, 4, 5];
 
   #winningNumbers;
   #bonusNumber;
@@ -16,7 +16,8 @@ class LottoCompany {
     const lottoWinningMap = generateMapWithZeroValue(LottoCompany.#RANKS);
     lottos.forEach((lotto) => {
       const rank = lotto.checkWinning(this.#winningNumbers, this.#bonusNumber);
-      lottoWinningMap.set(rank, lottoWinningMap.get(rank) + 1);
+      if (lottoWinningMap.has(rank))
+        lottoWinningMap.set(rank, lottoWinningMap.get(rank) + 1);
     });
 
     return lottoWinningMap;
