@@ -60,7 +60,7 @@ class LottoStatistics {
   calculateRageOfReturn(purchaseAmount) {
     const totalPrize = this.#calculateTotalPrize();
     const rangeOfReturn = (totalPrize / purchaseAmount) * 100;
-    return rangeOfReturn;
+    return rangeOfReturn.toFixed(1);
   }
 }
 
