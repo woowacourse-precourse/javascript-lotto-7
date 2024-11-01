@@ -34,11 +34,17 @@ const isLengthSix = (input) => {
   return input;
 };
 
+const isDuplicate = (input) => {
+  if (new Set(input).size !== input.length) throw new Error("중복");
+  return input;
+};
+
 const validateWinningNumbers = _pipe(
   isEmpty,
   isSeparatedFormat,
   validateNumbersArray,
-  isLengthSix
+  isLengthSix,
+  isDuplicate
 );
 
 export default validateWinningNumbers;
