@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoMachine from '../src/LottoMachine';
+import Lotto from '../src/Lotto';
 
 const inputPurchaseAmountMockQuestion = (input) => {
   MissionUtils.Console.readLineAsync = jest.fn().mockImplementation(() => {
@@ -32,5 +33,23 @@ describe('로또 발매기 클래스 테스트', () => {
       // then
       expect(lottoMachine.amount).toBe(expected);
     }
+  });
+
+  test('금액에 맞게 로또 생성 테스트', async () => {
+    //given
+    const lottoMachine = new LottoMachine();
+    const AMOUNT = 8000;
+    inputPurchaseAmountMockQuestion(AMOUNT);
+
+    //when
+
+    //내부적으로 #generateLotto() 실행
+    await lottoMachine.inputPurchaseAmount();
+
+    //then
+    expect(lottoMachine.lottos.length).toBe(AMOUNT / 1000);
+    lottoMachine.lottos.forEach((lotto) => {
+      expect(lotto).toBeInstanceOf(Lotto);
+    });
   });
 });

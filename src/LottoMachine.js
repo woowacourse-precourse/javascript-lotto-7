@@ -1,14 +1,21 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import Lotto from './Lotto';
 
 class LottoMachine {
   #amount;
+  #lottos;
 
   constructor() {
     this.#amount = 0;
+    this.#lottos = [];
   }
 
   get amount() {
     return this.#amount;
+  }
+
+  get lottos() {
+    return this.#lottos;
   }
 
   async inputPurchaseAmount() {
@@ -20,6 +27,16 @@ class LottoMachine {
       );
     }
     this.#amount = amount;
+    this.#generateLotto();
+  }
+
+  #generateLotto() {
+    const lottoCnt = this.#amount / 1000;
+    for (let i = 0; i < lottoCnt; i++) {
+      this.#lottos.push(
+        new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)),
+      );
+    }
   }
 }
 
