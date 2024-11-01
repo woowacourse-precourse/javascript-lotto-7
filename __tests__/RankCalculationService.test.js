@@ -1,4 +1,4 @@
-import RANKS from '../src/Model/Rank.js'; // RANKS 파일 import
+import RANKS from '../src/Model/Rank.js';
 import RankCalculationService from '../src/Services/RankCalculationService.js';
 
 describe('RankCalculationService', () => {
