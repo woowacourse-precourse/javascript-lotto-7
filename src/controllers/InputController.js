@@ -1,23 +1,36 @@
 import Validator from '../Validator.js';
 import InputView from '../views/InputView.js';
+import OutputView from '../views/OutputView.js';
 
 class InputController {
   async getWinningNumbers() {
-    const inputWinningNumbers = await InputView.getWinningNumbers();
-    const winningNumbers = this.parseWinningNumbers(inputWinningNumbers);
+    try {
+      const inputWinningNumbers = await InputView.getWinningNumbers();
+      const winningNumbers = this.parseWinningNumbers(inputWinningNumbers);
 
-    Validator.validateWinningNumbers(winningNumbers);
+      Validator.validateWinningNumbers(winningNumbers);
 
-    return winningNumbers;
+      return winningNumbers;
+    } catch (error) {
+      OutputView.printError(error.message);
+
+      return this.getWinningNumbers();
+    }
   }
 
   async getBonusNumber(winningNumbers) {
-    const inputBonusNumber = await InputView.getBonusNumber();
-    const bonusNumber = Number(inputBonusNumber);
+    try {
+      const inputBonusNumber = await InputView.getBonusNumber();
+      const bonusNumber = Number(inputBonusNumber);
 
-    Validator.validateBonusNumber(bonusNumber, winningNumbers);
+      Validator.validateBonusNumber(bonusNumber, winningNumbers);
 
-    return bonusNumber;
+      return bonusNumber;
+    } catch (error) {
+      OutputView.printError(error.message);
+
+      return this.getBonusNumber();
+    }
   }
 
   parseWinningNumbers(input) {
