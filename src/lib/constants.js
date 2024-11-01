@@ -21,6 +21,12 @@ export const LOTTO_INFORMATIONS = [
   },
 ];
 
+export const LOTTO = {
+  MIN_NUMBER: 1,
+  MAX_NUMBER: 45,
+  NUMBER_COUNT: 6,
+};
+
 export const ERROR_MESSAGE_DEFAULT = '[ERROR]';
 export const ERROR_MESSAGE = {
   NOT_NUMERIC: `${ERROR_MESSAGE_DEFAULT} 숫자를 입력해주세요.`,

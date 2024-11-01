@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, INPUT_MESSAGE } from './lib/constants.js';
+import { ERROR_MESSAGE, INPUT_MESSAGE, LOTTO } from './lib/constants.js';
 import {
   getIsAllItemsBetweenNumbers,
   getIsAllItemsNumeric,
@@ -13,9 +13,6 @@ import {
 
 class InputManager {
   static #SPLIT_SEPARATOR = ',';
-  static #LOTTO_NUMBER_MIN = 1;
-  static #LOTTO_NUMBER_MAX = 45;
-  static #LOTTO_ARRAY_LENGTH = 6;
 
   static async getPurchasePrice() {
     while (1) {
@@ -83,15 +80,15 @@ class InputManager {
   }
 
   static #getIsValidWinningNumbers(winningNumbers) {
-    if (!getIsArrayLengthMatch(winningNumbers, this.#LOTTO_ARRAY_LENGTH))
+    if (!getIsArrayLengthMatch(winningNumbers, LOTTO.NUMBER_COUNT))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_SIX };
     if (!getIsAllItemsNumeric(winningNumbers))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
     if (
       !getIsAllItemsBetweenNumbers(
         winningNumbers,
-        this.#LOTTO_NUMBER_MIN,
-        this.#LOTTO_NUMBER_MAX,
+        LOTTO.MIN_NUMBER,
+        LOTTO.MAX_NUMBER,
       )
     )
       return {
@@ -112,13 +109,7 @@ class InputManager {
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
     if (!getIsPositive(bonusNumber))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_POSITIVE };
-    if (
-      !getIsBetweenNumbers(
-        bonusNumber,
-        this.#LOTTO_NUMBER_MIN,
-        this.#LOTTO_NUMBER_MAX,
-      )
-    )
+    if (!getIsBetweenNumbers(bonusNumber, LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER))
       return {
         isError: true,
         errorMessage: ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
