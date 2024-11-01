@@ -3,7 +3,7 @@ export const INPUT_MESSAGE = Object.freeze({
 });
 
 export const PRINT_MESSAGE = Object.freeze({
-  PRINT_LOTTO_COUNT: "개를 구입했습니다.",
+  PRINT_LOTTO_COUNT: "개를 구매했습니다.",
 });
 
 export const ERROR_MESSAGE = Object.freeze({
