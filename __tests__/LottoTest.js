@@ -45,4 +45,14 @@ describe('로또 클래스 테스트', () => {
       new BonusNumber(null);
     }).toThrow('[ERROR]');
   });
+
+  test('보너스 번호가 한 개 이상인 경우 예외가 발생한다', () => {
+    expect(() => {
+      new BonusNumber('1,2');
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      new BonusNumber('1,2,3,4,5,6');
+    }).toThrow('[ERROR]');
+  });
 });
