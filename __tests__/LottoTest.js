@@ -27,41 +27,29 @@ describe('로또 클래스 테스트', () => {
   });
 
   describe('LottoStore 클래스 테스트', () => {
-    test.each(['!@#$', 'abcd', 'ㄱㄴㄷ'])(
-      '로또 구입 금액이 숫자가 아니면 예외가 발생한다. 로또 구입 금액 : %s',
-      (payment) => {
-        expect(() => {
-          const lottoStore = new LottoStore();
-          lottoStore.buyLotto(Number(payment));
-        }).toThrow('금액은 숫자만 입력 가능합니다.');
-      },
-    );
+    let lottoStore;
 
-    test.each([0, -2000, 1000.423, -4000.5])(
-      '로또 구입 금액이 양의 정수가 아니면 예외가 발생한다. 구입 금액 : %s',
-      (payment) => {
-        expect(() => {
-          const lottoStore = new LottoStore();
-          lottoStore.buyLotto(payment);
-        }).toThrow('로또 구입 금액은 양의 정수로만 입력해주세요.');
-      },
-    );
+    beforeEach(() => {
+      lottoStore = new LottoStore();
+    });
 
-    test.each([1500, 1700, 1234, 4530])(
-      '로또 구입 금액이 1000원 단위가 아니면 예외가 발생한다. 구입 금액 : %s',
-      (payment) => {
-        expect(() => {
-          const lottoStore = new LottoStore();
-          lottoStore.buyLotto(payment);
-        }).toThrow('로또 구입 금액은 1000원 단위로만 받습니다.');
-      },
-    );
-
-    test('로또 구입 금액이 100,000원이 넘으면 예외가 발생한다.', () => {
+    test.each([
+      { payment: '!@#$', error: '금액은 숫자만 입력 가능합니다.' },
+      { payment: 'abcd', error: '금액은 숫자만 입력 가능합니다.' },
+      { payment: 'ㄱㄴㄷ', error: '금액은 숫자만 입력 가능합니다.' },
+      { payment: 0, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
+      { payment: -2000, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
+      { payment: 1000.423, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
+      { payment: -4000.5, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
+      { payment: 1500, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
+      { payment: 1700, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
+      { payment: 1234, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
+      { payment: 4530, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
+      { payment: 10000000, error: '10만원 이상은 구매할 수 없습니다.' },
+    ])('로또 구입 금액이 $payment 일 때 유효성 검사', ({ payment, error }) => {
       expect(() => {
-        const lottoStore = new LottoStore();
-        lottoStore.buyLotto(10000000);
-      }).toThrow('10만원 이상은 구매할 수 없습니다.');
+        lottoStore.buyLotto(Number(payment));
+      }).toThrow(error);
     });
   });
 });
