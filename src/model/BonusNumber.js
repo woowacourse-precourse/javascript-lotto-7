@@ -1,20 +1,21 @@
 import { ERROR_MESSAGE } from '../constants/messages.js';
+import { parseNumbers } from '../utils/Parser.js';
 
 class BonusNumber {
-  constructor(number) {
-    this.#checkEmptyInput(number);
-    this.#checkNumberExceedsLimit(number);
-    this.bonusNumber = number;
+  constructor(bonusNumber) {
+    this.#checkEmptyInput(bonusNumber);
+    this.#checkNumberExceedsLimit(bonusNumber);
+    this.bonusNumber = bonusNumber;
   }
 
-  #checkEmptyInput(number) {
-    if (!number || number.trim() === '') {
-      throw new Error(ERROR_MESSAGE.BONUS_NUMBER_COUNT);
+  #checkEmptyInput(bonusNumberInput) {
+    if (!bonusNumberInput || bonusNumberInput.trim() === '') {
+      throw new Error(ERROR_MESSAGE.CHECK_EMPTY_INPUT);
     }
   }
 
-  #checkNumberExceedsLimit(number) {
-    const bonusNumber = number.split(',').map((num) => num.trim());
+  #checkNumberExceedsLimit(bonusNumberInput) {
+    const bonusNumber = parseNumbers(bonusNumberInput);
     if (bonusNumber.length > 1) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_EXCEEDS_LIMIT);
     }
