@@ -40,7 +40,7 @@ describe('validateLottoNumbers() 검증 테스트', () => {
     [[1, 2, 3, 4, 5, 5], ERROR_MESSAGE.LOTTO_NUM_DUPLICATION],
     [[1, 2, 'a', 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_TYPE],
     [[1, 2, NaN, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_TYPE],
-    [[1, 2, 3.5, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_INTEGER],
+    [[1, 2, 3.5, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_TYPE],
     [[0, 2, 3, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_RANGE],
     [[1, 2, 3, 4, 5, 46], ERROR_MESSAGE.LOTTO_NUM_RANGE],
     [[-1, 2, 3, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_RANGE],

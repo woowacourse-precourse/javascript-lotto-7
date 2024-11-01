@@ -28,7 +28,7 @@ describe('로또 클래스 테스트', () => {
     [[1, 2, 'a', 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_TYPE],
     [[0, 2, 3, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_RANGE],
     [[1, 2, 3, 4, 5, 46], ERROR_MESSAGE.LOTTO_NUM_RANGE],
-    [[1.1, 2, 3, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_INTEGER],
+    [[1.1, 2, 3, 4, 5, 45], ERROR_MESSAGE.LOTTO_NUM_TYPE],
     [['1', '2', '3   ', '4', ' 5', '45'], ERROR_MESSAGE.LOTTO_NUM_TYPE],
   ])('로또 생성 Lotto.create() 예외 처리 테스트', (numbers, errorMessage) => {
     mockRandoms([numbers]);
