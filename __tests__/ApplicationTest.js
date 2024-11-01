@@ -32,7 +32,7 @@ const runException = async (input) => {
   const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
 
   // when
   const app = new App();
@@ -104,5 +104,17 @@ describe.each([
 ])('구입 금액 입력 테스트', (input, errorMessage) => {
   test(`구입 금액이 ${input}일 때 ${errorMessage}를 출력한다.`, async () => {
     await runException(input);
+  });
+});
+
+describe.each([
+  ['1000', '1.2.3.4.5.6', '[ERROR]'],
+  ['1000', '1,2,3,4,5,', '[ERROR]'],
+  ['1000', '1,2,3,4,5,a', '[ERROR]'],
+  ['1000', '1,2,3,4,5,46', '[ERROR]'],
+  ['1000', '0,2,3,4,5,6', '[ERROR]'],
+])('당첨 번호 입력 테스트', (amount, winningNumbers, errorMessage) => {
+  test(`당첨번호가 [${winningNumbers}] 일 때 ${errorMessage}를 출력한다.`, async () => {
+    await runException([amount, winningNumbers]);
   });
 });
