@@ -14,6 +14,14 @@ const inputView = {
 
     return winningNumbers;
   },
+
+  askBonusNumber: async () => {
+    const bonusNumber = await Console.readLineAsync(
+      INPUT_VIEW.bonusNumberQuestion,
+    );
+
+    return bonusNumber;
+  },
 };
 
 export default inputView;
