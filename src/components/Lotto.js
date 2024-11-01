@@ -16,6 +16,21 @@ class Lotto {
   getNumbers() {
     return this.#numbers;
   }
+
+  match(winningLotto, bonusNumber) {
+    const matchCount = winningLotto.reduce((acc, number) => {
+      if (this.#numbers.includes(number)) {
+        return acc + 1;
+      }
+      return acc;
+    }, 0);
+
+    if (this.#numbers.includes(bonusNumber)) {
+      return matchCount === 5 ? 5.5 : matchCount;
+    }
+
+    return matchCount;
+  }
 }
 
 export default Lotto;
