@@ -12,6 +12,10 @@ class Lotto {
     }
   }
 
+  getFormattedNumbers() {
+    return `[${String(this.#numbers).replaceAll(',', ', ')}]`;
+  }
+
   getMatchResult(winningNumbers, bonusNumber) {
     const matchedCount = winningNumbers
       .filter((winningNumber) => this.#numbers.includes(winningNumber)).length;
