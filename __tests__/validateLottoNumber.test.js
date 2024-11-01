@@ -51,6 +51,12 @@ const validateLottoNumberTestCases = [
     expected: false,
     errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED,
   },
+  {
+    description: `범위를 벗어난 숫자(1 미만)가 포함된 경우 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 메시지를 출력하고 false를 반환해야 합니다. (예: "10, 2, 3, 4, 5, 6")`,
+    input: '1e1, 2, 3, 4, 5, 6',
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
 ];
 
 validateLottoNumberTestCases.forEach(runErrorLogTest(validateLottoNumber));

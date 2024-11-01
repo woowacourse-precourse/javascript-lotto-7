@@ -6,8 +6,10 @@ import { defaultSettings } from '../DefaultSettings.js';
 
 const { lotteryNumber } = ERROR_MESSAGES;
 const { lotto } = defaultSettings;
+
 const validateLength = (input) => {
-  if (input.length !== lotto.pickingNumber) {
+  const numbers = input.split(',');
+  if (numbers.length !== lotto.pickingNumber) {
     printMessage(lotteryNumber.NOT_ENOUGH_ELEMENT);
     return false;
   }
@@ -15,7 +17,8 @@ const validateLength = (input) => {
 };
 
 const validateUniqueNumbers = (input) => {
-  if (new Set(input).size !== lotto.pickingNumber) {
+  const numbers = input.split(',').map((num) => num.trim());
+  if (new Set(numbers).size !== lotto.pickingNumber) {
     printMessage(lotteryNumber.DUPLICATED_NUMBER);
     return false;
   }
@@ -23,7 +26,8 @@ const validateUniqueNumbers = (input) => {
 };
 
 const validateIsNumber = (input) => {
-  if (!input.every((number) => isNumber.test(number))) {
+  const numbers = input.split(',').map((num) => num.trim());
+  if (!numbers.every((number) => isNumber.test(number))) {
     printMessage(lotteryNumber.ONLY_NUMBER_ALLOWED);
     return false;
   }
@@ -31,8 +35,9 @@ const validateIsNumber = (input) => {
 };
 
 const validateRange = (input) => {
+  const numbers = input.split(',').map((num) => Number(num.trim()));
   if (
-    !input.every(
+    !numbers.every(
       (number) =>
         number >= lotto.minimumNumber && number <= lotto.maximumNumber,
     )
@@ -43,9 +48,8 @@ const validateRange = (input) => {
   return true;
 };
 
-// Use the reusable validation setup
+// Validate raw input
 export default function validateLottoNumber(input) {
-  const parsedInput = input.replaceAll(' ', '').split(',').map(Number);
   const validators = [
     validateLength,
     validateUniqueNumbers,
@@ -53,10 +57,11 @@ export default function validateLottoNumber(input) {
     validateRange,
   ];
 
-  const isValid = runValidators(parsedInput, validators);
+  const isValid = runValidators(input, validators);
 
+  // Parse only if all validations pass
   if (isValid) {
-    return parsedInput;
+    return input.replace(/\s/g, '').split(',').map(Number);
   }
   return false;
 }

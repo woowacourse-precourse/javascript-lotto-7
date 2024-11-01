@@ -7,16 +7,17 @@ import { defaultSettings } from '../DefaultSettings.js';
 const { lotteryNumber } = ERROR_MESSAGES;
 const { lotto } = defaultSettings;
 
-const validateIsNumber = (bonusNumber) => {
-  if (!isNumber.test(bonusNumber)) {
+const validateIsNumber = (input) => {
+  if (!isNumber.test(input)) {
     printMessage(lotteryNumber.ONLY_NUMBER_ALLOWED);
     return false;
   }
   return true;
 };
 
-const validateRange = (bonusNumber) => {
-  if (bonusNumber < lotto.minimumNumber || bonusNumber > lotto.maximumNumber) {
+const validateRange = (input) => {
+  const number = Number(input);
+  if (number < lotto.minimumNumber || number > lotto.maximumNumber) {
     printMessage(lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     return false;
   }
@@ -32,17 +33,20 @@ const validateDuplicate = (bonusNumber, lottoNumbers) => {
 };
 
 export default function validateBonusNumber(input, lottoNumbers) {
+  const initialValidators = [validateIsNumber, validateRange];
+
+  // Run initial validations on raw input
+  const isInitialValid = runValidators(input, initialValidators);
+
+  if (!isInitialValid) return false;
+
+  // Parse input only after initial validations pass
   const parsedNumber = Number(input);
-  const validators = [
-    (num) => validateIsNumber(num),
-    (num) => validateRange(num),
-    (num) => validateDuplicate(num, lottoNumbers),
-  ];
 
-  const isValid = runValidators(parsedNumber, validators);
-
-  if (isValid) {
-    return parsedNumber;
+  // Run duplicate check with parsed number
+  if (!validateDuplicate(parsedNumber, lottoNumbers)) {
+    return false;
   }
-  return false;
+
+  return parsedNumber;
 }

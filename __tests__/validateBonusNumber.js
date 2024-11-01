@@ -18,6 +18,13 @@ const validateBonusNumberTestCases = [
     errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
   },
   {
+    description: `숫자가 아닌 값을 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: '1e1',
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+  {
     description: `범위를 벗어난 숫자 (45 초과)를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
     input: '46',
     lottoNumbers: [1, 2, 3, 4, 5, 6],
