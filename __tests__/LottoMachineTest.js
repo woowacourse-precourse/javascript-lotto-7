@@ -1,6 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoMachine from '../src/LottoMachine';
 import Lotto from '../src/Lotto';
+import { mockRandoms, getLogSpy } from './ApplicationTest';
 
 const inputPurchaseAmountMockQuestion = (input) => {
   MissionUtils.Console.readLineAsync = jest.fn().mockImplementation(() => {
@@ -37,12 +38,11 @@ describe('로또 발매기 클래스 테스트', () => {
 
   test('금액에 맞게 로또 생성 테스트', async () => {
     //given
-    const lottoMachine = new LottoMachine();
     const AMOUNT = 8000;
     inputPurchaseAmountMockQuestion(AMOUNT);
 
     //when
-
+    const lottoMachine = new LottoMachine();
     //내부적으로 #generateLotto() 실행
     await lottoMachine.inputPurchaseAmount();
 
@@ -50,6 +50,44 @@ describe('로또 발매기 클래스 테스트', () => {
     expect(lottoMachine.lottos.length).toBe(AMOUNT / 1000);
     lottoMachine.lottos.forEach((lotto) => {
       expect(lotto).toBeInstanceOf(Lotto);
+    });
+  });
+
+  test('발매된 로또 출력 테스트', async () => {
+    //given
+    const AMOUNT = 8000;
+    inputPurchaseAmountMockQuestion(AMOUNT);
+    mockRandoms([
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+      [1, 8, 11, 31, 41, 42],
+      [13, 14, 16, 38, 42, 45],
+      [7, 11, 30, 40, 42, 43],
+      [2, 13, 22, 32, 38, 45],
+      [1, 3, 5, 14, 22, 45],
+    ]);
+    const logSpy = getLogSpy();
+
+    //when
+    const lottoMachine = new LottoMachine();
+    //내부적으로 #printLottos() 실행
+    await lottoMachine.inputPurchaseAmount();
+
+    //then
+    const logs = [
+      '8개를 구매했습니다.',
+      '[8, 21, 23, 41, 42, 43]',
+      '[3, 5, 11, 16, 32, 38]',
+      '[7, 11, 16, 35, 36, 44]',
+      '[1, 8, 11, 31, 41, 42]',
+      '[13, 14, 16, 38, 42, 45]',
+      '[7, 11, 30, 40, 42, 43]',
+      '[2, 13, 22, 32, 38, 45]',
+      '[1, 3, 5, 14, 22, 45]',
+    ];
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
 });

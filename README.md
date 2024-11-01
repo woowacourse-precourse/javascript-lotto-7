@@ -133,7 +133,7 @@ class Lotto {
   - [x] 로또 생성 메서드
     - 제약조건)
       - `@woowacourse/mission-utils` 의`Random.pickUniqueNumbersInRange()` 사용
-  - [ ] 발매된 로또 출력 메서드
+  - [x] 발매된 로또 출력 메서드
     - 제약조건)
       - 로또 번호는 오름차순으로 정렬
   - [ ] 당첨번호 입력 메서드

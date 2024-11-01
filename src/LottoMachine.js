@@ -27,15 +27,24 @@ class LottoMachine {
       );
     }
     this.#amount = amount;
-    this.#generateLotto();
+    this.#generateLottos();
   }
 
-  #generateLotto() {
+  #generateLottos() {
     const lottoCnt = this.#amount / 1000;
     for (let i = 0; i < lottoCnt; i++) {
       this.#lottos.push(
         new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)),
       );
+    }
+    this.#printLottos();
+  }
+
+  #printLottos() {
+    MissionUtils.Console.print(`${this.#lottos.length}개를 구매했습니다.`);
+    for (let i = 0; i < this.#lottos.length; i++) {
+      const lottoStr = this.#lottos[i].numbers.toString().replaceAll(',', ', ');
+      MissionUtils.Console.print(`[${lottoStr}]`);
     }
   }
 }
