@@ -10,7 +10,8 @@ class App {
 
     const parsedNumber = parseStringToNumber(inputs);
     const lottoMachine = new LottoMachine(parsedNumber);
-    const lottoList = lottoMachine.getLottoList();
+
+    lottoMachine.printPurchasedLotto();
   }
 }
 
