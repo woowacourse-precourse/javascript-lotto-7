@@ -48,6 +48,12 @@ class LottoPrize {
     });
     return this.#prize;
   }
+
+  getReturnRate(money) {
+    const totalPrize = Object.values(this.#prize)
+      .reduce((acc, cur) => acc + cur.count * cur.money, 0);
+    return (totalPrize / money) * 100;
+  }
 }
 
 export default LottoPrize;

@@ -3,6 +3,8 @@ import Lotto from "./Lotto.js";
 import { LOTTO_COUNT } from "./constants/lottoValue.js";
 
 class LottoStore {
+  #money;
+
   #lottoCount;
 
   #lottoList;
@@ -10,6 +12,7 @@ class LottoStore {
   LOTTO_PRICE = 1000;
 
   buyLotto(money) {
+    this.#money = money;
     this.#lottoCount = Math.floor(money / this.LOTTO_PRICE);
     this.#lottoList = new Array(this.#lottoCount).fill(0).map(LottoStore.#createLotto);
     return this.#lottoList;
@@ -27,6 +30,10 @@ class LottoStore {
 
   getLottos() {
     return this.#lottoList;
+  }
+
+  getMoney() {
+    return this.#money;
   }
 }
 

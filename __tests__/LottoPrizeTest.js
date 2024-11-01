@@ -29,4 +29,13 @@ describe("로또 당첨 클래스 테스트", () => {
       });
     });
   });
+
+  describe("getReturnRate 메서드", () => {
+    test("로또 당첨 금액의 수익률을 계산한다.", () => {
+      const RANDOM_NUMBERS = [[1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12]];
+      lottoPrize.getPrize(RANDOM_NUMBERS);
+
+      expect(lottoPrize.getReturnRate(2000)).toBe((2000000000 / 2000) * 100);
+    });
+  });
 });
