@@ -10,4 +10,7 @@ export const ERROR_MESSAGE = Object.freeze({
 
 export const CONFIG = Object.freeze({
   DEFAULT_AMOUNT_UNIT: 1000,
+  MIN_LOTTO_NUMBER: 1,
+  MAX_LOTTO_NUMBER: 45,
+  LOTTO_COUNT: 6,
 });
