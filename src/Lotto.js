@@ -1,6 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
-import { PRINT_BONUS_NUMBER, PRINT_SPACER, PRINT_WINNING_RESULT } from "./constants/printConstant";
-import { ERROR_BLANK, ERROR_DUPLICATE, ERROR_LENGTH_IS_NOT_6, ERROR_NOT_A_NUMBER, ERROR_NUMBER_RANGE, throwError } from "./constants/errorConstants";
+import {
+  PRINT_BONUS_NUMBER,
+  PRINT_SPACER,
+  PRINT_WINNING_RESULT,
+} from "./constants/printConstant.js";
+import Validator from "./Validator.js";
 
 class Lotto {
   #numbers;
@@ -16,32 +20,17 @@ class Lotto {
     });
     this.#validateNumbers(numbers);
   }
-  
+
   #validateNumber(number) {
-    if (number === "") {
-      throwError(ERROR_BLANK);
-    }
-    if (isNaN(number)) {
-      throwError(ERROR_NOT_A_NUMBER);
-    }
-    if (number > 45 || number < 1) {
-      throwError(ERROR_NUMBER_RANGE);
-    }
+    Validator.validateBlank(number);
+    Validator.validateNumber(number);
+    Validator.validateRangeFrom1To45(number);
   }
   #validateNumbers(numbers) {
-    this.#validateIsSix(numbers);
-    this.#validateIsUnique(numbers);
+    Validator.validateLengthIsSix(numbers);
+    Validator.validateUnique(numbers);
   }
-  #validateIsSix(numbers) {
-    if (numbers.length !== 6) {
-      throwError(ERROR_LENGTH_IS_NOT_6)
-    }
-  }
-  #validateIsUnique(numbers) {
-    if (numbers.length !== new Set(numbers).size) {
-      throwError(ERROR_DUPLICATE);
-    }
-  }
+
   // TODO: 추가 기능 구현
   async inputBonusNumber() {
     try {
@@ -49,15 +38,15 @@ class Lotto {
         await Console.readLineAsync(PRINT_BONUS_NUMBER)
       );
       this.#validateNumber(bonusNumber);
-      if (this.#numbers.includes(Number(bonusNumber))) {
-        throwError(ERROR_DUPLICATE);
-      }
-      this.#numbers = { basicNumbers: this.#numbers, bonusNumber: Number(bonusNumber) };  
+      Validator.validateDuplicateInArray(this.#numbers, Number(bonusNumber));
+      this.#numbers = {
+        basicNumbers: this.#numbers,
+        bonusNumber: Number(bonusNumber),
+      };
     } catch (error) {
       Console.print(error.message);
       return this.inputBonusNumber();
     }
-    
   }
 
   getLottoNumbers() {

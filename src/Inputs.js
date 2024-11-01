@@ -5,7 +5,7 @@ import {
   PRINT_INPUT_MONEY,
   PRINT_LOTTO_NUMBER,
 } from "./constants/printConstant.js";
-import { ERROR_BLANK, ERROR_NOT_A_NUMBER, throwError } from "./constants/errorConstants.js";
+import Validator from "./Validator.js";
 
 class Input {
   async inputMoney() {
@@ -28,8 +28,8 @@ class Input {
           .split(",")
           .map((e) => {
             e.replace(" ", "");
-            if (e === "") throwError(ERROR_BLANK);
-            if (isNaN(e)) throwError(ERROR_NOT_A_NUMBER);
+            Validator.validateBlank(e);
+            Validator.validateNumber(e);
             return Number(e);
           })
       );

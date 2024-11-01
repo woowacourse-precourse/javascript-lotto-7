@@ -1,5 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import { ERROR_BLANK, ERROR_MULTI_OF_1000, ERROR_NOT_A_NUMBER, throwError } from "./constants/errorConstants";
+import Validator from "./Validator.js";
 class Bet {
   #money;
   count;
@@ -11,22 +11,11 @@ class Bet {
   }
 
   #validate(money) {
-    this.#validateBlank(money);
-    this.#validateNumber(money);
-    this.#validateUnit(money);
+    Validator.validateBlank(money);
+    Validator.validateNumber(money);
+    Validator.validateUnit(money);
   }
 
-  #validateBlank(money) {
-    if (money === "") throwError(ERROR_BLANK);
-  }
-
-  #validateNumber(money) {
-    if (isNaN(money)) throwError(ERROR_NOT_A_NUMBER);
-  }
-
-  #validateUnit(money) {
-    if (money % 1000 !== 0) throwError(ERROR_MULTI_OF_1000);
-  }
   // TODO: 추가 기능 구현
   getMoney() {
     return this.#money;
@@ -34,8 +23,12 @@ class Bet {
 
   getBetResults() {
     Console.print(`${this.count}개를 구매했습니다.`);
+    return pickRandomNumberList();
+  }
+
+  pickRandomNumberList() {
     const betResults = [];
-    for (let index = 0; index < this.count; index++) {
+    for (let index = 0; index < this.count; index += 1) {
       const betResult = MissionUtils.Random.pickUniqueNumbersInRange(
         1,
         45,
