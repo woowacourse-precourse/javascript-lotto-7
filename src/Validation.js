@@ -1,6 +1,12 @@
 import { ERROR_MESSAGE, VALIDATION, GLOBAL_CONSTANTS } from './Constants.js';
 
 class Validation {
+  static validatePayment(payment) {
+    this.isNumber(payment);
+    this.isPositiveNumber(payment);
+    this.hasMeetUnitAmount(payment);
+  }
+
   static isNumber(input) {
     if (Number.isNaN(input) || input === null) {
       throw new Error(ERROR_MESSAGE.notNumber);
