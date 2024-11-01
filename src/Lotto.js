@@ -33,22 +33,22 @@ class Lotto {
 
   static #validate(numbers) {
     if (typeof numbers !== "object") {
-      throw new Error(
-        "[ERROR] 로또 번호는 콤마(,)를 기준으로 숫자를 입력해 주세요 (ex: 1,2,3)"
+      this.#throwLottoError(
+        "당첨 번호는 콤마(,)를 기준으로 숫자를 입력해 주세요. (ex: 1,2,3)"
       );
     }
 
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 6개의 로또 번호를 입력해 주세요.");
+      this.#throwLottoError("6개의 당첨 번호를 입력해 주세요.");
     }
 
     if (numbers.some((n) => !this.#isNumber(n))) {
-      throw new Error("[ERROR] 숫자와 콤마(,)만 입력해 주세요.");
+      this.#throwLottoError("숫자와 콤마(,)만 입력해 주세요.");
     }
-  }
 
-  static #throwLottoError(message) {
-    throw new Error(`[ERROR] ${message}`);
+    if (numbers.some((n) => n < 1 || 45 < n)) {
+      this.#throwLottoError("당첨 번호는 1 ~ 45 사이로 입력해 주세요.");
+    }
   }
 
   static async buy() {
@@ -141,6 +141,10 @@ class Lotto {
 
   static #isNumber(number) {
     return typeof number === "number" && !Number.isNaN(number);
+  }
+
+  static #throwLottoError(message) {
+    throw new Error(`[ERROR] ${message}`);
   }
 }
 
