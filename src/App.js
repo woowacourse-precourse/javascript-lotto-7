@@ -2,25 +2,21 @@ import InputView from "./views/InputView.js";
 import OutputView from "./views/OutputView.js";
 import LottoStore from "./LottoStore.js";
 import LottoPrize from "./LottoPrize.js";
+import Controller from "./controller/Controller.js";
 
 class App {
-  lottoPrize;
+  controller;
 
   constructor() {
-    this.lottoPrize = new LottoPrize();
+    this.controller = new Controller(
+      { input: InputView, output: OutputView },
+      { LottoStore, lottoPrize: new LottoPrize() },
+    );
   }
 
   async run() {
-    const money = await InputView.getLottoMoney();
-    const lottoStore = new LottoStore(money);
-
-    OutputView.printLottoCount(lottoStore.getLottoCount());
-    OutputView.printLottos(lottoStore.getLottos());
-
-    const numbers = await InputView.getWinningNumbers();
-    this.lottoPrize.createWinningNumbers(numbers);
-    const bonusNumber = await InputView.getBonusNumber();
-    this.lottoPrize.createBonusNumber(bonusNumber);
+    await this.controller.buyLotto();
+    await this.controller.setLottoPrize();
   }
 }
 
