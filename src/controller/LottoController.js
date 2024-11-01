@@ -1,7 +1,7 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
-import Lotto from '../models/Lotto.js';
+import Lotto from '../Lotto.js';
 import { calculateLottoStatistics } from '../utils/calculateLottoStatistics.js';
 import {
   calculateProfitRate,
@@ -20,11 +20,11 @@ class LottoController {
 
   #winningNumbers;
 
+  #winningLotto;
+
   #bonusNumber;
 
   #validatePurchaseAmount;
-
-  #validateWinningNumbers;
 
   #validateBonusNumber;
 
@@ -46,16 +46,8 @@ class LottoController {
       this.#outputView.printLottos(amount, this.#lottos);
 
       const winningNumbersInput = await this.#inputView.readWinningNumbers();
-      this.#validateWinningNumbers.validateWinningNumbersFormat(
-        winningNumbersInput,
-      );
       this.#winningNumbers = this.#parseWinningNumbers(winningNumbersInput);
-      this.#validateWinningNumbers.validateDuplicateNumbers(
-        this.#winningNumbers,
-      );
-      this.#winningNumbers.forEach((number) =>
-        this.#validateWinningNumbers.validateNumberRange(number),
-      );
+      this.#winningLotto = new Lotto(this.#winningNumbers);
 
       const bonusNumberInput = await this.#inputView.readBonusNumber();
       this.#bonusNumber = this.#validateBonusNumber.validateBonusNumber(
@@ -70,7 +62,7 @@ class LottoController {
       const profitRate = calculateProfitRate(totalPrize, amount);
       this.#outputView.printProfitRate(profitRate);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
     }
   }
 
