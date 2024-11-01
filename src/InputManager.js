@@ -23,10 +23,12 @@ class InputManager {
         INPUT_MESSAGE.PURCHASE_PRICE,
       );
 
-      const { isError, errorMessage } =
-        this.#getIsValidPurchasePrice(rawPurchasePrice);
+      const purchasePrice = this.#parsePurchasePrice(rawPurchasePrice);
 
-      if (!isError) return this.#parsePurchasePrice(rawPurchasePrice);
+      const { isError, errorMessage } =
+        this.#getIsValidPurchasePrice(purchasePrice);
+
+      if (!isError) return purchasePrice;
 
       MissionUtils.Console.print(errorMessage);
     }
@@ -37,51 +39,57 @@ class InputManager {
       const rawWinningNumbers = await MissionUtils.Console.readLineAsync(
         INPUT_MESSAGE.WINNING_NUMBER,
       );
-      const { errorMessage, isError } =
-        this.#getIsValidWinningNumbers(rawWinningNumbers);
 
-      if (!isError) return this.#parseWinningNumbers(rawWinningNumbers);
+      const winningNumbers = this.#parseWinningNumbers(rawWinningNumbers);
+
+      const { errorMessage, isError } =
+        this.#getIsValidWinningNumbers(winningNumbers);
+
+      if (!isError) return winningNumbers;
 
       MissionUtils.Console.print(errorMessage);
     }
   }
 
-  static async getBonusNumber() {
+  static async getBonusNumber(winningNumbers) {
     while (1) {
       const rawBonusNumber = await MissionUtils.Console.readLineAsync(
         INPUT_MESSAGE.BONUS_NUMBER,
       );
 
-      const { errorMessage, isError } =
-        this.#getIsValidBonusNumber(rawBonusNumber);
+      const bonusNumber = this.#parseBonusNumber(rawBonusNumber);
 
-      if (!isError) return this.#parseBonusNumber(rawBonusNumber);
+      const { errorMessage, isError } = this.#getIsValidBonusNumber(
+        winningNumbers,
+        bonusNumber,
+      );
+
+      if (!isError) return bonusNumber;
 
       MissionUtils.Console.print(errorMessage);
     }
   }
 
-  static #getIsValidPurchasePrice(rawPurchasePrice) {
-    if (!getIsNumeric(rawPurchasePrice)) {
+  static #getIsValidPurchasePrice(purchasePrice) {
+    if (!getIsNumeric(purchasePrice)) {
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
     }
-    if (!getIsThousandUnit(rawPurchasePrice))
+    if (!getIsThousandUnit(purchasePrice))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_THOUSAND_UNIT };
-    if (!getIsPositive(rawPurchasePrice))
+    if (!getIsPositive(purchasePrice))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_POSITIVE };
 
     return { isError: false, errorMessage: null };
   }
 
-  static #getIsValidWinningNumbers(rawWinningNumbers) {
-    const winningNumberArray = rawWinningNumbers.split(this.#SPLIT_SEPARATOR);
-    if (!getIsArrayLengthMatch(winningNumberArray, this.#LOTTO_ARRAY_LENGTH))
+  static #getIsValidWinningNumbers(winningNumbers) {
+    if (!getIsArrayLengthMatch(winningNumbers, this.#LOTTO_ARRAY_LENGTH))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_SIX };
-    if (!getIsAllItemsNumeric(winningNumberArray))
+    if (!getIsAllItemsNumeric(winningNumbers))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
     if (
       !getIsAllItemsBetweenNumbers(
-        winningNumberArray,
+        winningNumbers,
         this.#LOTTO_NUMBER_MIN,
         this.#LOTTO_NUMBER_MAX,
       )
@@ -90,7 +98,7 @@ class InputManager {
         isError: true,
         errorMessage: ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
       };
-    if (!getIsAllItemsUnique(winningNumberArray))
+    if (!getIsAllItemsUnique(winningNumbers))
       return {
         isError: true,
         errorMessage: ERROR_MESSAGE.NOT_UNIQUE,
@@ -99,14 +107,14 @@ class InputManager {
     return { isError: false, errorMessage: null };
   }
 
-  static #getIsValidBonusNumber(rawBonusNumber) {
-    if (!getIsNumeric(rawBonusNumber))
+  static #getIsValidBonusNumber(winningNumbers, bonusNumber) {
+    if (!getIsNumeric(bonusNumber))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_NUMERIC };
-    if (!getIsPositive(rawBonusNumber))
+    if (!getIsPositive(bonusNumber))
       return { isError: true, errorMessage: ERROR_MESSAGE.NOT_POSITIVE };
     if (
       !getIsBetweenNumbers(
-        rawBonusNumber,
+        bonusNumber,
         this.#LOTTO_NUMBER_MIN,
         this.#LOTTO_NUMBER_MAX,
       )
@@ -114,6 +122,11 @@ class InputManager {
       return {
         isError: true,
         errorMessage: ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
+      };
+    if (!getIsAllItemsUnique([...winningNumbers, bonusNumber]))
+      return {
+        isError: true,
+        errorMessage: ERROR_MESSAGE.NOT_UNIQUE,
       };
 
     return { isError: false, errorMessage: null };
@@ -124,7 +137,7 @@ class InputManager {
   }
 
   static #parseWinningNumbers(rawWinningNumbers) {
-    return rawWinningNumbers.split(',').map(Number);
+    return rawWinningNumbers.split(this.#SPLIT_SEPARATOR).map(Number);
   }
 
   static #parseBonusNumber(rawBonusNumber) {
