@@ -1,3 +1,4 @@
+import InputUtils from "../utils/InputUtils.js";
 import InputView from "../view/InputView.js";
 
 class LottoController {
@@ -8,11 +9,14 @@ class LottoController {
   }
 
   async run() {
-    this.#getLottoPurchaseAmount();
+    await this.#getLottoPurchaseAmount();
   }
 
   async #getLottoPurchaseAmount() {
-    return await this.#inputView.inputPurchaseAmount();
+    const purchaseAmount = await this.#inputView.inputPurchaseAmount();
+    const trimPurchaseAmount = InputUtils.trimInput(purchaseAmount);
+    console.log(trimPurchaseAmount);
+    return trimPurchaseAmount;
   }
 }
 
