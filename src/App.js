@@ -24,6 +24,7 @@ class App {
     const bonusNumber = validateBonusNumber(bonusNumberInput, winningNumbers);
 
     const matchCounts = lottoService.compareLottos(winningNumbers, bonusNumber);
+    OutputView.printWinningStatistics(matchCounts);
   }
 }
 
