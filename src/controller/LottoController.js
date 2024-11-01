@@ -1,4 +1,6 @@
+import Lotto from "../model/Lotto.js";
 import InputUtils from "../utils/InputUtils.js";
+import { generateRandomNumbers } from "../utils/LottoUtils.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 
@@ -19,6 +21,7 @@ class LottoController {
     const lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
     const lottoCount = this.#calculateLottoCount(lottoPurchaseAmount);
     this.#printLottoCount(lottoCount);
+    this.#generateLottos(lottoCount);
   }
 
   async #getLottoPurchaseAmount() {
@@ -50,6 +53,12 @@ class LottoController {
   #calculateLottoCount(purchaseAmount) {
     const lottoCount = Math.floor(purchaseAmount / 1000);
     return lottoCount;
+  }
+
+  #generateLottos(lottoCount) {
+    for (let i = 0; i < lottoCount; i++) {
+      const lottoNumbers = generateRandomNumbers();
+    }
   }
 }
 
