@@ -13,11 +13,10 @@ import {
   validateWinningNumbers,
   validateBonusNumber,
 } from './validation/validateLottoNumbers.js';
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   async run() {
-    // 입력값 받고
     const amout = await getPurchaseAmount();
     validatePurchaseAmount(amout);
     const purchaseAmount = toPurchaseAmountNumber(amout);
