@@ -1,4 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
+import { LOTTO_MACHINE } from './Constants.js';
 
 class LottoMachine {
   #payment;
@@ -12,11 +13,15 @@ class LottoMachine {
 
   #calculateAmount() {
     const payment = this.#payment;
-    return payment / 1000;
+    return payment / LOTTO_MACHINE.unitPice;
   }
 
   static #draw() {
-    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    const numbers = Random.pickUniqueNumbersInRange(
+      LOTTO_MACHINE.minimumNumber,
+      LOTTO_MACHINE.maximumNumber,
+      LOTTO_MACHINE.drawNumbers,
+    );
     return numbers;
   }
 
