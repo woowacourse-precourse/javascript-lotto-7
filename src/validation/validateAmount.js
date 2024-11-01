@@ -1,13 +1,11 @@
-import { getPurchaseAmount } from '../utils/getUserInput.js';
 import { Console } from '@woowacourse/mission-utils';
 
 const NO_COMMA_NUMBER_REGEX = /^\d+$/;
 const THOUSANDS_COMMA_REGEX = /^\d{1,3}(,\d{3})*$/;
 const DIVISIBILITY_UNIT = 1000;
 
-export default async function validatePurchaseAmount() {
+export default async function validatePurchaseAmount(purchaseAmount) {
   try {
-    const purchaseAmount = await getPurchaseAmount();
     isNumber(purchaseAmount);
     isDivisibleByThousand(purchaseAmount);
   } catch (error) {

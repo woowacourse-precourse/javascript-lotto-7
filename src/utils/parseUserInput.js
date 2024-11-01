@@ -1,19 +1,11 @@
-import {
-  getPurchaseAmount,
-  getWinningNumbers,
-  getBonusNumber,
-} from './getUserInput';
-
-function toPurchaseAmountNumber() {
-  return Number(getPurchaseAmount());
+function toPurchaseAmountNumber(amout) {
+  return Number(amout);
 }
 
-function parseWinningNumbersWithBonus() {
-  const winningNumbers = getWinningNumbers()
-    .split(',')
-    .map((e) => Number(e.trim()));
+function parseWinningNumbersWithBonus(numbers, bonus) {
+  const winningNumbers = numbers.split(',').map((e) => Number(e.trim()));
 
-  return [...winningNumbers, Number(getBonusNumber())];
+  return [...winningNumbers, Number(bonus)];
 }
 
 export { toPurchaseAmountNumber, parseWinningNumbersWithBonus };

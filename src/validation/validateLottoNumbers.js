@@ -1,14 +1,14 @@
-import { getWinningNumbers, getBonusNumber } from '../utils/getUserInput.js';
 import { Console } from '@woowacourse/mission-utils';
 
-export default async function validateLottotNumbers() {
-  await getValidateWinningNumbers();
-  await getValidateBonusNumber();
-}
+// export default async function validateLottotNumbers() {
+//   const winningNumbers = await getValidateWinningNumbers();
+//   const bonusNumber = await getValidateBonusNumber();
 
-async function getValidateWinningNumbers() {
+//   return { winningNumbers, bonusNumber };
+// }
+
+async function validateWinningNumbers(winningNumbers) {
   try {
-    const winningNumbers = await getWinningNumbers();
     const parsedWinningNumbers = validateSixNumbers(winningNumbers);
     validateAllNumeric(parsedWinningNumbers);
     validateAllInRange(parsedWinningNumbers);
@@ -18,9 +18,8 @@ async function getValidateWinningNumbers() {
   }
 }
 
-async function getValidateBonusNumber() {
+async function validateBonusNumber(bonusNumber) {
   try {
-    const bonusNumber = await getBonusNumber();
     validateIsNumeric(bonusNumber);
     validateInRange(bonusNumber);
   } catch (error) {
@@ -67,3 +66,5 @@ function validateInRange(bonusNumber) {
     throw new Error('[ERROR] 로또 번호는 1부터 45까지의 숫자입니다.');
   }
 }
+
+export { validateWinningNumbers, validateBonusNumber };
