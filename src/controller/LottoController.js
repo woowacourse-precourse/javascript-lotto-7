@@ -12,7 +12,13 @@ class LottoController {
   }
 
   async run() {
-    await this.#getLottoPurchaseAmount();
+    await this.#startPurchaseLotto();
+  }
+
+  async #startPurchaseLotto() {
+    const lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
+    const lottoCount = this.#calculateLottoCount(lottoPurchaseAmount);
+    this.#printLottoCount(lottoCount);
   }
 
   async #getLottoPurchaseAmount() {
@@ -35,6 +41,15 @@ class LottoController {
         this.#outputView.errorOccurred(error);
       }
     }
+  }
+
+  #printLottoCount(lottoCount) {
+    this.#outputView.outputLottoCount(lottoCount);
+  }
+
+  #calculateLottoCount(purchaseAmount) {
+    const lottoCount = Math.floor(purchaseAmount / 1000);
+    return lottoCount;
   }
 }
 
