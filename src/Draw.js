@@ -6,7 +6,7 @@ class Draw {
     
     const lotteryNumbers = [];
     for (let i = 0; i < draws; i++) {
-      const pickedNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      const pickedNumbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort((a,b)=> a-b);
       Console.print(`[${pickedNumbers.join(', ')}]`);
       lotteryNumbers.push(pickedNumbers);
     }

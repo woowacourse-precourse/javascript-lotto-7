@@ -9,7 +9,7 @@ class Money {
     }
 
     static validateMoney(money){
-        if(money % 1000 != 0){
+        if(Number.isNaN(money) ||money % 1000 != 0 || money <= 0){
             throw new Error("[ERROR] 1000원 단위로 입력해주세요.");
         }
     } 

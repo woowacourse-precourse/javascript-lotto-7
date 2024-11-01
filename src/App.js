@@ -6,10 +6,8 @@ class App {
     try {
       const money = await Money.getMoney();
       const lotteryNumbers = Draw.getLotteryNumbers(money);
-      return lotteryNumbers;
     } catch (error) {
       Console.print(error.message);
-      throw error;
     }
   }
 }
