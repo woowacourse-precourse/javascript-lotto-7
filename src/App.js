@@ -11,6 +11,7 @@ class App {
     const lottoManager = new LottoManager(parseStringToNumber(inputs));
     lottoManager.printPurchasedLotto();
     await lottoManager.inputWinningLotto();
+    lottoManager.printLottoResult();
   }
 }
 

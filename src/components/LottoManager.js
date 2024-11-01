@@ -33,6 +33,8 @@ class LottoManager {
       this.getBonusNumber(),
     );
     const rateOfReturn = this.calculateRateOfReturn(matchObj);
+
+    lottoMatchResult(matchObj, rateOfReturn);
   }
 
   calculateRateOfReturn(matchObj) {
