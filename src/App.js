@@ -3,6 +3,7 @@ import OutputView from './views/OutputView.js';
 import Lotto from './Lotto.js';
 import LottoModel from './model/LottoModel.js';
 import LottoController from './controller/LottoController.js';
+import Validator from './validator/Validator.js';
 
 class App {
   async run() {
@@ -10,8 +11,16 @@ class App {
     const lottoController = new LottoController(model);
 
     // 구입 금액 입력
-    const buyLottoCount = await InputView.getBuyLottoCount();
-    model.setBuyLottoCount(buyLottoCount);
+    while (true) {
+      try {
+        const buyLottoCount = await InputView.getBuyLottoCount();
+        Validator.validateBuyLottoCount(buyLottoCount);
+        model.setBuyLottoCount(buyLottoCount);
+        break;
+      } catch (error) {
+        OutputView.printMessage(error.message);
+      }
+    }
 
     // 랜덤 로또 번호 생성
     model.generateRandomLottoNumbers();
