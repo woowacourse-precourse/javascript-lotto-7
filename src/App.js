@@ -16,7 +16,9 @@ class App {
       lotto.printNumbers();
     });
 
-    const winningNumbers = InputHandler.getWinningNumbers();
+    const winningNumbers = await InputHandler.getWinningNumbers();
+
+    InputHandler.validateWinningNumbers(winningNumbers);
   }
 }
 

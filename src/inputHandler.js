@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE } from "./constants/input.js";
 import { COST } from "./constants/error.js";
+import Lotto from "./Lotto.js";
 
 class InputHandler {
   static async getCost() {
@@ -47,6 +48,17 @@ class InputHandler {
     ).trim();
 
     return winningNumbersInput;
+  }
+
+  static validateWinningNumbers(winningNumbers) {
+    this.checkCommaOnly(winningNumbers);
+  }
+
+  static checkCommaOnly(winningNumbers) {
+    const winningNumbersArray = winningNumbers
+      .split(",")
+      .map((element) => element.trim());
+    new Lotto(winningNumbersArray);
   }
 }
 
