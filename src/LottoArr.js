@@ -8,14 +8,17 @@ class LottoArr {
 
     constructor(PAY_INPUT) {
         this.#PAY_INPUT = PAY_INPUT
-        this.TIMES = PAY_INPUT / 1000
+        this.#TIMES = this.#calculateTIMES()
+    }
+
+    #calculateTIMES() {
+        return this.#PAY_INPUT / 1000
     }
 
     create() {
-        for (let i = 0; i < this.TIMES; i++) {
+        for (let i = 0; i < this.#TIMES; i++) {
             const LOTTO_NUMBERS = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
             this.#lottoArr[i] = new Lotto(LOTTO_NUMBERS)
-            MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
         }
         return this.#lottoArr
     }
