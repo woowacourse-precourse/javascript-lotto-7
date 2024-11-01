@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { errorMessage } from './constant/errorMessage';
+import { errorMessage } from './constant/errorMessage.js';
 
 class Lotto {
   #numbers;
@@ -13,6 +13,10 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error(`${errorMessage.prefix} ${errorMessage.invalidLotto}`);
     }
+  }
+
+  get numbers() {
+    return this.#numbers;
   }
 }
 
