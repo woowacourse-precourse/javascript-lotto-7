@@ -1,11 +1,9 @@
 import { PRIZE_NAME, PRIZE_CHECK, PRIZE_MONEY } from "../constant/Data.js";
-import GameOutput from "../view/GameOutput.js";
 
 class GameResult {
   #prizeStat;
   #prizeTotalMoney;
   #benefitRate;
-  #gameOutput;
 
   constructor() {
     this.#prizeStat = {
@@ -17,7 +15,6 @@ class GameResult {
     };
     this.#prizeTotalMoney = 0;
     this.#benefitRate = "";
-    this.#gameOutput = new GameOutput();
   }
 
   addPrizeStat(new_lotto, winning_lotto, bonus) {
@@ -61,7 +58,7 @@ class GameResult {
     this.addPrizeStat(new_lotto, winning_lotto, bonus);
     this.addTotalMoney();
     this.addBenefitRate(money);
-    this.#gameOutput.printGameResult(this.#benefitRate, this.#prizeStat);
+    return { prizeStat: this.#prizeStat, benefitRate: this.#benefitRate };
   }
 }
 

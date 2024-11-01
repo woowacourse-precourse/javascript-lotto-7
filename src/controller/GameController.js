@@ -87,7 +87,8 @@ class GameController {
     const winning_lotto = await this.#winningLotto();
     const bonus = await this.#bonusNumber(winning_lotto);
 
-    this.#gameResult.gameResult(money, new_lotto, winning_lotto, bonus);
+    const result = this.#gameResult.gameResult(money, new_lotto, winning_lotto, bonus);
+    this.#gameOutput.printGameResult(result);
   }
 }
 
