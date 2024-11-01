@@ -17,6 +17,11 @@ class Lotto {
   showLottoNumber() {
     Console.print(this.#numbers);
   }
+
+  countMatchedWinningNumbers(winningNumbers) {
+    return this.#numbers.filter((number) => winningNumbers.includes(number))
+      .length;
+  }
 }
 
 export default Lotto;
