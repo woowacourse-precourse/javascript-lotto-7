@@ -4,7 +4,8 @@ test.each([
   ['8000', 8],
   ['12000', 12],
 ])('구입 금액 검증 성공', (purchaseAmount, result) => {
-  const publisher = new Publisher(purchaseAmount);
+  const publisher = new Publisher();
+  publisher.setPurchaseQuantity(purchaseAmount);
   expect(publisher.purchaseQuantity).toBe(result);
 });
 
@@ -15,5 +16,9 @@ test.each([
   ['-10', '[ERROR] 구입 금액은 1,000원 이상이어야 합니다.'],
   ['', '[ERROR] 구입 금액이 입력되지 않았습니다.'],
 ])('구입 금액 검증 실패', (purchaseAmount) => {
-  expect(() => new Publisher(purchaseAmount)).toThrow('[ERROR]');
+  expect(() => {
+    const publisher = new Publisher();
+    publisher.setPurchaseQuantity(purchaseAmount);
+  }).toThrow('[ERROR]');
 });
+
