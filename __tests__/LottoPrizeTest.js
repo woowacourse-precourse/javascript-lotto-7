@@ -39,4 +39,13 @@ describe("로또 당첨 클래스 테스트", () => {
       });
     });
   });
+
+  describe("getRank 메서드", () => {
+    test("사용자가 구매한 로또의 등수를 확인할 수 있다.", () => {
+      lottoPrize.createWinningNumbers("1,2,3,4,5,6");
+      lottoPrize.createBonusNumber("7");
+
+      expect(lottoPrize.getRank([1, 2, 3, 4, 5, 6])).toEqual("first");
+    });
+  });
 });
