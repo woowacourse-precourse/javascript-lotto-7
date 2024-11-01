@@ -4,6 +4,7 @@ import { validateMoney } from '../utils/validation.js';
 import Lotto from '../Lotto.js';
 import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
+import { INPUT_MESSAGE } from '../constant/constants.js';
 
 export default class Controller {
   constructor() {
@@ -20,6 +21,8 @@ export default class Controller {
     );
 
     this.outputView.printLottoPurchaseHistory(lottosNumber);
+
+    const winningNumber = await this.getWinningNumber();
   }
 
   generateLottos(lottoCount) {
@@ -32,9 +35,15 @@ export default class Controller {
     return new Lotto(lottoNumbers);
   }
 
+  async getWinningNumber() {
+    const input = await this.inputView.getInput(INPUT_MESSAGE.WINNING_NUMBER);
+
+    return input;
+  }
+
   async getMoney() {
     try {
-      const input = await this.inputView.getInput('구입금액을 입력해 주세요.');
+      const input = await this.inputView.getInput(INPUT_MESSAGE.PURCHASE_PRICE);
       validateMoney(input);
 
       return input;
