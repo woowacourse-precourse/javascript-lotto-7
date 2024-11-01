@@ -8,3 +8,7 @@ export const COST = {
 export const LOTTO_NUMBER = {
   EXCEPT_COMMA: "[ERROR] 로또 번호는 콤마 이외의 문자는 들어갈 수 없습니다.",
 };
+
+export const BONUS_NUMBER = {
+  BETWEEN_1_AND_45: "[ERROR] 보너스 번호는 1과 45사이에 있어야 합니다.",
+};

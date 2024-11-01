@@ -21,6 +21,8 @@ class App {
     InputHandler.validateWinningNumbers(winningNumbers);
 
     const bonusNumber = await InputHandler.getBonusNumber();
+
+    InputHandler.validateBonusNumber(bonusNumber);
   }
 }
 

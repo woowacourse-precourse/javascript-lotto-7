@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE } from "./constants/input.js";
-import { COST } from "./constants/error.js";
+import { BONUS_NUMBER, COST } from "./constants/error.js";
 import Lotto from "./Lotto.js";
 
 class InputHandler {
@@ -66,7 +66,19 @@ class InputHandler {
       await Console.readLineAsync(INPUT_MESSAGE.BONUS)
     ).trim();
 
-    return bonusNumberInput;
+    const bonusNumber = Number(bonusNumberInput);
+
+    return bonusNumber;
+  }
+
+  static validateBonusNumber(bonusNumber) {
+    this.checkBetween1And45(bonusNumber);
+  }
+
+  static checkBetween1And45(bonusNumber) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error(BONUS_NUMBER.BETWEEN_1_AND_45);
+    }
   }
 }
 
