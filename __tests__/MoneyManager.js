@@ -1,21 +1,21 @@
 import MoneyManager from '../src/controller/MoneyManager';
-import { INPUT_PRINT_MESSAGES } from '../src/contents/InputPrintMessages';
+import { INPUT_ERROR_MESSAGES } from '../src/contents/InputErrorMessages';
 describe('MoneyManager 클래스 예외 테스트', () => {
   test.each([
     {
       input: undefined,
       description: '금액이 입력되지 않았을 때 예외 발생',
-      expectedError: INPUT_PRINT_MESSAGES.money,
+      expectedError: INPUT_ERROR_MESSAGES.missingMoney,
     },
     {
       input: '.',
       description: '문자가 입력되었을 때 예외 발생',
-      expectedError: INPUT_PRINT_MESSAGES.winning_number,
+      expectedError: INPUT_ERROR_MESSAGES.nonNumericInput,
     },
     {
       input: 1200,
       description: '1000원 단위가 아닐 때 예외 발생',
-      expectedError: INPUT_PRINT_MESSAGES.bonus_number,
+      expectedError: INPUT_ERROR_MESSAGES.notUnts1000Won,
     },
   ])('$description', ({ input, expectedError }) => {
     expect(() => {
