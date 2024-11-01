@@ -20,7 +20,7 @@ class Game {
   lotto(purchaseAmount) {
     const lottoCount = purchaseAmount / LOTTO.PRICE_PER;
     outputView.printMessage(`${lottoCount}${GAME_MESSAGE.BOUGHT}`);
-    this.createLotto(lottoCount);
+    this.printLottos(lottoCount);
   }
 
   /**@param {number} count  */
@@ -28,13 +28,21 @@ class Game {
     const lottos = [];
     for (let i = 0; i < count; i++) {
       const randomNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6
+        LOTTO.MIN_NUMBER,
+        LOTTO.MAX_NUMBER,
+        LOTTO.NUMBERS_PER
       );
       lottos.push(randomNumbers.sort((a, b) => a - b));
     }
     return lottos;
+  }
+
+  /**@param {number} count  */
+  printLottos(count) {
+    const lottos = this.createLotto(count);
+    lottos.forEach((lotto) => {
+      outputView.printMessage(`[${lotto.join(', ')}]`);
+    });
   }
 }
 
