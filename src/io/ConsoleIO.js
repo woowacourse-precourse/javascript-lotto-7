@@ -31,7 +31,6 @@ class ConsoleIO {
   }
 
   async readInput(query) {
-    ConsoleIO.printNewline();
     return await Console.readLineAsync(query);
   }
 

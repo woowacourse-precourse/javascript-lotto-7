@@ -1,9 +1,16 @@
+import { ConsoleIO } from '../io/index.js';
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
+    this.#printNumbers();
+  }
+
+  #printNumbers() {
+    ConsoleIO.print(`[${this.#numbers.join(', ')}]`);
   }
 
   #validate(numbers) {
