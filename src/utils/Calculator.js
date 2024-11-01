@@ -4,6 +4,7 @@ import {
   PERCENTAGE_FACTOR,
   RANKING,
   RANKINGS,
+  LOTTO,
 } from "../constants/Constants.js";
 
 export class Calculator {
@@ -39,5 +40,9 @@ export class Calculator {
 
   static totalIssuance(purchaseAmount) {
     return purchaseAmount / LOTTO.PRICE;
+  }
+
+  static sort(numbers) {
+    return numbers.sort((a, b) => a - b);
   }
 }

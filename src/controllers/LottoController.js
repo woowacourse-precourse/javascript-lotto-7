@@ -23,7 +23,7 @@ class LottoController {
     for (let count = 0; count < this.#totalIssuance; count++) {
       const lottoNumber = await RandomNumberGenerator();
       this.#user.getLotto(lottoNumber);
-      OutputView.lottoNumber(lottoNumber);
+      OutputView.lottoNumber(Calculator.sort(lottoNumber));
     }
   }
 
