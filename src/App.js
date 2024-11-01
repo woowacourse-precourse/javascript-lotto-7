@@ -24,7 +24,19 @@ class App {
     })
     Console.print("");
 
-    const winNumber = await Console.readLineAsync("당첨 번호를 입력해주세요 : ");
+    const winString = await Console.readLineAsync("당첨 번호를 입력해주세요 : ");
+    const winNumber = winString.split(',');
+
+    winNumber.map((num)=>{
+      num = Number.parseInt(num);
+    })
+
+    const winLotto = new Lotto(winNumber);
+
+    lottoNumber.map((lotto)=>{
+      Console.print(lotto.isLottoWin(lotto, winLotto));
+    })
+    Console.print("");
 
     const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요 : ");
 

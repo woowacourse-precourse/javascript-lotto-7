@@ -20,18 +20,30 @@ class Lotto {
   }
 
   isNumberWin(number, winNumbers){
+    let win = false;
     winNumbers.map((winNum)=>{
+      winNum = Number.parseInt(winNum);
       if(number === winNum){
-        return true;
+        win = true;
       }
     })
-    return false;
+    return win;
   }
 
-  isWin(numbers, winNumbers){
+  isWin(winNumbers){
     let winNumCount = 0;
-    numbers.map((num)=>{
+    this.#numbers.map((num)=>{
       if(this.isNumberWin(num, winNumbers)){
+        winNumCount++;
+      }
+    });
+    return winNumCount;
+  }
+
+  isLottoWin(targetLotto, winLotto){
+    let winNumCount = 0;
+    targetLotto.getNumber().map((targetNum)=>{
+      if(this.isNumberWin(targetNum, winLotto.getNumber())){
         winNumCount++;
       }
     });
