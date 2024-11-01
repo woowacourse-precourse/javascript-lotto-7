@@ -2,9 +2,8 @@ import { Random } from "@woowacourse/mission-utils";
 
 class Consumer {
   #lottoTickets = [];
-  constructor(price) {
-    getOrderLotto();
-  }
+
+  constructor(price) {}
 
   isPriceNumber(price) {
     if (!/^[0-9]+$/.test(price)) {
@@ -39,6 +38,13 @@ class Consumer {
       randomNumber = Random.pickUniqueNumbersInRange(1, 45, 6);
       lotto = new Lotto(randomNumber);
       this.#lottoTickets.push(lotto);
+    }
+  }
+  ///당첨번호 유효성
+  isWinningNumberLength() {
+    const maxNum = 7;
+    if (winningNumber > maxNum) {
+      throw new Error(ERROR_MESSAGE.MAX_PRICE);
     }
   }
 }
