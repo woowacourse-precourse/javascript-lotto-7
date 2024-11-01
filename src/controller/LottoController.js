@@ -8,7 +8,6 @@ import {
   calculateTotalPrize,
 } from '../utils/calculateLottoPrizes.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
-import ValidateWinningNumbers from '../models/ValidateWinningNumbers.js';
 import ValidateBonusNumber from '../models/ValidateBonusNumber.js';
 
 class LottoController {
@@ -19,8 +18,6 @@ class LottoController {
   #lottos;
 
   #winningNumbers;
-
-  #winningLotto;
 
   #bonusNumber;
 
@@ -33,7 +30,6 @@ class LottoController {
     this.#outputView = new OutputView();
     this.#lottos = [];
     this.#validatePurchaseAmount = new ValidatePurchaseAmount();
-    this.#validateWinningNumbers = new ValidateWinningNumbers();
     this.#validateBonusNumber = new ValidateBonusNumber();
   }
 
@@ -47,7 +43,7 @@ class LottoController {
 
       const winningNumbersInput = await this.#inputView.readWinningNumbers();
       this.#winningNumbers = this.#parseWinningNumbers(winningNumbersInput);
-      this.#winningLotto = new Lotto(this.#winningNumbers);
+      new Lotto(this.#winningNumbers);
 
       const bonusNumberInput = await this.#inputView.readBonusNumber();
       this.#bonusNumber = this.#validateBonusNumber.validateBonusNumber(
