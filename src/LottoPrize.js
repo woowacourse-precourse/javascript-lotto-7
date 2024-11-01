@@ -1,13 +1,10 @@
 class LottoPrize {
-  #winningNumbers;
-
-  #bonusNumber;
+  #lottoChecker;
 
   #prize;
 
-  constructor() {
-    this.#winningNumbers = {};
-    this.#bonusNumber = 0;
+  constructor(lottoChecker) {
+    this.#lottoChecker = lottoChecker;
     this.#prize = {
       first: { condition: 6, money: 2000000000, count: 0 },
       second: { condition: 5, money: 30000000, count: 0 },
@@ -15,44 +12,6 @@ class LottoPrize {
       forth: { condition: 4, money: 50000, count: 0 },
       fifth: { condition: 3, money: 5000, count: 0 },
     };
-  }
-
-  createWinningNumbers(numbers) {
-    numbers.split(",").forEach((number) => {
-      this.#winningNumbers[number] = true;
-    });
-  }
-
-  createBonusNumber(number) {
-    this.#bonusNumber = Number(number);
-  }
-
-  isWinningNumber(number) {
-    if (this.#winningNumbers[number]) return true;
-    return false;
-  }
-
-  isBonusNumber(number) {
-    return this.#bonusNumber === number;
-  }
-
-  /**
-   *
-   * @param {number[]} lotto - 로또 배열
-   */
-  countMatchNumbers(lotto) {
-    let isMatchBonus = false;
-    const winningCount = lotto.reduce(
-      (count, number) => {
-        if (this.isBonusNumber(number)) {
-          isMatchBonus = true;
-          return count;
-        }
-        return count + this.isWinningNumber(number);
-      },
-      0,
-    );
-    return { winningCount, isMatchBonus };
   }
 
   /**
@@ -70,7 +29,7 @@ class LottoPrize {
    * @param {number[]} lotto - 로또 배열
    */
   getRank(lotto) {
-    const { winningCount, isMatchBonus } = this.countMatchNumbers(lotto);
+    const { winningCount, isMatchBonus } = this.#lottoChecker.checkLotto(lotto);
 
     if (winningCount === 6) return this.#updateRanks("first");
     if (winningCount === 5 && isMatchBonus) return this.#updateRanks("second");

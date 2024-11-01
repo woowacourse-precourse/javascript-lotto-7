@@ -16,13 +16,13 @@ class Controller {
     this.views.output.printLottos(this.models.lottoStore.getLottos());
   }
 
-  async setLottoPrize() {
+  async setLottoChecker() {
     const numbers = await this.views.input.getWinningNumbers();
-    this.models.lottoPrize.createWinningNumbers(numbers);
+    this.models.lottoChecker.createWinningNumbers(numbers);
     this.views.output.printNewLine();
 
     const bonusNumber = await this.views.input.getBonusNumber();
-    this.models.lottoPrize.createBonusNumber(bonusNumber);
+    this.models.lottoChecker.createBonusNumber(bonusNumber);
   }
 
   checkLotto() {
