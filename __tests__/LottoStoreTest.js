@@ -1,5 +1,4 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Lotto from "../src/Lotto.js";
 import LottoStore from "../src/LottoStore.js";
 
 const mockRandoms = (numbers) => {
@@ -23,8 +22,7 @@ describe("로또판매점 클래스 테스트", () => {
       const lottoStore = new LottoStore(2000);
       mockRandoms(RANDOM_NUMBERS);
 
-      expect(lottoStore.createLotto())
-        .toEqual([new Lotto(RANDOM_NUMBERS[0]), new Lotto(RANDOM_NUMBERS[1])]);
+      expect(lottoStore.createLotto()).toEqual(RANDOM_NUMBERS);
     });
   });
 });

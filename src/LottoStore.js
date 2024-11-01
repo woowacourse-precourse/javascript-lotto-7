@@ -21,7 +21,8 @@ class LottoStore {
   createLotto() {
     for (let i = 0; i < this.#lottoCount; i += 1) {
       const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, LOTTO_COUNT);
-      this.#lottoList.push(new Lotto(numbers));
+      const lotto = new Lotto(numbers);
+      this.#lottoList.push(lotto.getLottoNumbers());
     }
     return this.#lottoList;
   }
