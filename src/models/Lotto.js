@@ -20,6 +20,14 @@ class Lotto {
   #printNumbers() {
     ConsoleIO.print(`[${this.#numbers.join(', ')}]`);
   }
+
+  getMatchCount() {
+    return this.#matchCount;
+  }
+
+  isBonusMatch() {
+    return this.#isBonusMatch;
+  }
 }
 
 export default Lotto;
