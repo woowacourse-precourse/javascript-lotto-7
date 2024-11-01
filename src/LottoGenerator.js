@@ -22,12 +22,16 @@ class LottoGenerator {
       .map(() => this.#createLottoNumber());
   }
 
+  sortLotto(lottos) {
+    return lottos.sort((a, b) => a - b);
+  }
+
   get lottoCount() {
     return this.#lottoCount;
   }
 
   getLottoNumbers() {
-    this.#lottos.forEach((lotto) => Console.print(lotto));
+    this.#lottos.forEach((lotto) => Console.print(this.sortLotto(lotto)));
     Console.print('\n');
   }
 }
