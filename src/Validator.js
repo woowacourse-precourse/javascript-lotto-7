@@ -1,4 +1,4 @@
-import { UNIT_LOTTO_PRICE } from './constants/index.js';
+import { LOTTO } from './constants/index.js';
 
 export class Validator {
   validatePurchaseAmount = (purchaseAmount) => {
@@ -11,7 +11,7 @@ export class Validator {
     if (purchaseAmount < 1000) {
       throw new Error('[ERROR] 구입 금액은 1,000원 이상이어야 합니다.');
     }
-    if (parseInt(purchaseAmount, 10) % UNIT_LOTTO_PRICE !== 0) {
+    if (parseInt(purchaseAmount, 10) % LOTTO.UNIT_PRICE !== 0) {
       throw new Error('[ERROR] 구입 금액은 1,000원 단위여야 합니다.');
     }
   };
@@ -31,6 +31,11 @@ export class Validator {
         throw new Error('[ERROR] 로또 번호가 1과 45 사이에 존재하지 않습니다.');
       }
     });
+    if (winningNumbers.length !== LOTTO.NUMBER_OF_SPACE) {
+      throw new Error(
+        '[ERROR] 당첨 번호는 6개의 1과 45 사이의 숫자로 이루어져야 합니다.',
+      );
+    }
   };
 
   validateBonusNumber = (bonusNubmer) => {
