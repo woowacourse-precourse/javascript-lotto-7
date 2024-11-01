@@ -59,17 +59,21 @@ class InputManagement {
       throw new Error(ERROR_TEXTS.NOT_A_DUPLICATION_WINNING_NUMBER);
     }
 
+    _winningNumbers.sort((a, b) => {
+      return a - b;
+    });
+    
     return _winningNumbers;
   }
 
-  async getPurchaseAmount() {
+  async inputPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync(INPUT_TEXTS.PURCHASE_AMOUNT);
     this.#validationPA(purchaseAmount);
     
     this.#availablePublicationCount = purchaseAmount/1000;
   }
 
-  async getWinningNumbers() {
+  async inputWinningNumbers() {
     const winningNumbers = await Console.readLineAsync(INPUT_TEXTS.WINNING_NUMBER);
     this.#winningNumbers = this.#validationWN(winningNumbers);
   }
