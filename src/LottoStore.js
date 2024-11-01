@@ -1,4 +1,13 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
+import Lotto from './Lotto';
+
 class LottoStore {
+  #lottoList;
+
+  constructor() {
+    this.#lottoList = [];
+  }
+
   buyLotto(payment) {
     if (Number.isNaN(payment)) {
       throw new Error('금액은 숫자만 입력 가능합니다.');
@@ -15,6 +24,16 @@ class LottoStore {
     if (payment >= 100000) {
       throw new Error('10만원 이상은 구매할 수 없습니다.');
     }
+
+    for (let i = 0; i < payment / 1000; i++) {
+      const lotto = this.#publishLotto();
+      this.#lottoList.push(lotto);
+    }
+  }
+
+  #publishLotto() {
+    const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return new Lotto(lottoNumbers);
   }
 }
 
