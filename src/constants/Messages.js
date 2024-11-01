@@ -1,7 +1,7 @@
-const Messages = {
-  PURCHASE_AMOUNT_PROMPT: '구입 금액을 입력해 주세요.',
-  WINNING_NUMBERS_PROMPT: '당첨 번호를 입력해 주세요.',
-  BONUS_NUMBER_PROMPT: '보너스 번호를 입력해 주세요.',
+const MESSAGES = {
+  PURCHASE_AMOUNT_PROMPT: '구입 금액을 입력해 주세요.\n',
+  WINNING_NUMBERS_PROMPT: '당첨 번호를 입력해 주세요.\n',
+  BONUS_NUMBER_PROMPT: '보너스 번호를 입력해 주세요.\n',
 
   PURCHASE_COUNT: (count) => `${count}개를 구매했습니다.`,
   LOTTO_NUMBERS: (numbers) => `[${numbers.join(', ')}]`,
@@ -15,4 +15,4 @@ const Messages = {
   TOTAL_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
-export default Messages;
+export default MESSAGES;

@@ -1,4 +1,4 @@
-const Errors = {
+const ERRORS = {
   PURCHASE_AMOUNT_EMPTY: '[ERROR] 구입 금액을 입력해야 합니다.',
   PURCHASE_AMOUNT_NOT_NUMBER: '[ERROR] 구입 금액은 숫자여야 합니다.',
   PURCHASE_AMOUNT_NEGATIVE:
@@ -19,4 +19,4 @@ const Errors = {
     '[ERROR] 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.',
 };
 
-export default Errors;
+export default ERRORS;
