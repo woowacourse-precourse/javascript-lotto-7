@@ -13,7 +13,7 @@ class App {
     try {
       this.#money = await this.input.getMoney();
     } catch (error) {
-      Console.print(`[ERROR] ${error.message}`);
+      Console.print(error.message);
       throw error;
     }
   }
