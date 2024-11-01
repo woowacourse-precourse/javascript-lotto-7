@@ -18,15 +18,25 @@ class UserLotto {
     this.#lottoCount = payment / UserLotto.#PRICE;
   }
 
-  #issueUserLotto() {
+  static #getRandoms() {
     const { start, end, number } = UserLotto.#RANGE;
+    const randoms = MissionUtils.Random.pickUniqueNumbersInRange(
+      start,
+      end,
+      number,
+    );
 
+    return randoms;
+  }
+
+  static #sortRandoms(randoms) {
+    return randoms.sort((first, later) => first - later);
+  }
+
+  #issueUserLotto() {
     for (let index = 0; index < this.#lottoCount; index += 1) {
-      const lotto = MissionUtils.Random.pickUniqueNumbersInRange(
-        start,
-        end,
-        number,
-      );
+      const randoms = UserLotto.#getRandoms();
+      const lotto = UserLotto.#sortRandoms(randoms);
 
       this.#userLotto.push(lotto);
     }
