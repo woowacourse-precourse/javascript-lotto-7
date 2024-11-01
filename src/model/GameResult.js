@@ -34,7 +34,7 @@ class GameResult {
   }
 
   sameBonusCheck(player_lotto, bonus) {
-    return player_lotto.includes(bonus);
+    return player_lotto.includes(parseInt(bonus));
   }
 
   prizeStatCheck(same_lotto_count, same_bonus) {
