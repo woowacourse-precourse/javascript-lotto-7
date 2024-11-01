@@ -27,8 +27,10 @@ class App {
     );
 
     const winningNumbers = winningNumbersInput.split(",").map(Number);
-
     const uniqueNumbers = new Set(winningNumbers);
+    if (!winningNumbers.every((num) => num >= 1 && num <= 45)) {
+      throw new Error("[ERROR] : 당첨 번호는 1~45 사이여야 합니다.");
+    }
     if (
       uniqueNumbers.size !== winningNumbers.length ||
       winningNumbers.length !== 6
