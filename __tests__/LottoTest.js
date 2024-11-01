@@ -1,8 +1,7 @@
 import Lotto from '../src/domain/Lotto.js';
-import runExceptionTestPipe from '../src/utils/runExceptionTestPipe.js';
 import { COMMON_ERRORS, VALIDATION_ERRORS } from '../src/constants/constants.js';
 
-describe('로또 클래스 테스트', () => {
+describe('로또 번호 클래스 테스트', () => {
   const exceptionTestCases = [
     ['로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', [1, 2, 3, 4, 5, 6, 7], VALIDATION_ERRORS.LOTTO_NUMBERS.COUNT],
     ['로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', [1, 2, 3, 4, 5, 5], VALIDATION_ERRORS.LOTTO_NUMBERS.DUPLICATE],
@@ -11,10 +10,9 @@ describe('로또 클래스 테스트', () => {
     ['로또 번호가 1 이상 45 이하가 아닌 경우 예외가 발생한다.', [1, 2, 46, 4, 5, 0], COMMON_ERRORS.RANGE],
   ];
 
-  it.each(exceptionTestCases)('%s', (_, input, errorMessage) => {
-      runExceptionTestPipe(Lotto, input, errorMessage);
-    }
-  );
+  it.each(exceptionTestCases)('%s', (_, lottoNumbers, errorMessage) => {
+    expect(() => new Lotto(lottoNumbers)).toThrow(errorMessage);
+  });
 
   test('로또 번호가 올바른 경우 getLottoNumbers()를 통해 로또 번호를 반환한다.', () => {
     // given
