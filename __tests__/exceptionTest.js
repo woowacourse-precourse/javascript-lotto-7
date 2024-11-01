@@ -20,4 +20,10 @@ describe("로또 게임에 대한 테스트", () => {
       exception.validatePrice(-1000, false);
     }).toThrow("[ERROR]");
   });
+
+  test("[입력 테스트]보너스 번호가 1부터 45까지의 수가 아니면 예외가 발생한다.", () => {
+    expect(() => {
+      exception.validateBonusNumber(66, false);
+    }).toThrow("[ERROR]");
+  });
 });
