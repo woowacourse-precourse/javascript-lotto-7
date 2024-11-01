@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import { LOTTO_COUNT } from "../constants/lottoValue.js";
+import Validates from "../validates/Validates.js";
 
 class LottoStore {
   #money;
@@ -25,7 +26,7 @@ class LottoStore {
   }
 
   #validate(money) {
-    if (!/^[0-9]+$/.test(money)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
+    if (!Validates.isNumber(money)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
     return money;
   }
 

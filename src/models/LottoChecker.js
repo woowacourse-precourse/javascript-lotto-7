@@ -1,3 +1,5 @@
+import Validates from "../validates/Validates.js";
+
 class LottoChecker {
   #winningNumbers;
 
@@ -9,7 +11,7 @@ class LottoChecker {
   }
 
   #validateWinningNumbers(number) {
-    if (!/^[0-9]+$/.test(number)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
+    if (!Validates.isNumber(number)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
   }
 
   createWinningNumbers(numbers) {
