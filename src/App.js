@@ -25,6 +25,8 @@ class App {
 
     const matchCounts = lottoService.compareLottos(winningNumbers, bonusNumber);
     OutputView.printWinningStatistics(matchCounts);
+
+    const profit = lottoService.calculateProfit(matchCounts, amount);
   }
 }
 

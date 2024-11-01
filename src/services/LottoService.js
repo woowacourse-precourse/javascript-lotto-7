@@ -52,6 +52,22 @@ class LottoService {
 
     return { winningCnt, bonusHit };
   }
+
+  calculateProfit(matchCounts, amount) {
+    const prizeMapping = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      bonus: 30000000,
+      6: 2000000000,
+    };
+
+    const prize = Object.keys(matchCounts).reduce((total, key) => {
+      return total + (matchCounts[key] * prizeMapping[key] || 0);
+    }, 0);
+
+    return ((prize / amount) * 100).toFixed(1);
+  }
 }
 
 export default LottoService;
