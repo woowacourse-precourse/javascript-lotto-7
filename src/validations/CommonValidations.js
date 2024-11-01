@@ -1,44 +1,29 @@
 import { COMMON_ERRORS, LOTTO_CONFIG } from '../constants/constants.js';
+import validateCondition from '../utils/validateCondition.js';
 
-export const validateNumber = (number) => {
-  if (isNaN(number)) {
-    throw new Error(COMMON_ERRORS.NUMBER);
-  }
+const isNotNumber = (number) => isNaN(number);
+const isNotInteger = (number) => !Number.isInteger(number);
+const isOutOfRange = (number) => number < LOTTO_CONFIG.NUMBER_RANGE.MIN || number > LOTTO_CONFIG.NUMBER_RANGE.MAX;
+
+const validationConditions = {
+  validateNumber: [isNotNumber, COMMON_ERRORS.NUMBER],
+  validateInteger: [isNotInteger, COMMON_ERRORS.INTEGER],
+  validateNumberRange: [isOutOfRange, COMMON_ERRORS.RANGE],
 };
 
-export const validateAllNumber = (numbers) => {
-  const isNumber = (number) => isNaN(number);
-  if (numbers.some(isNumber)) {
-    throw new Error(COMMON_ERRORS.NUMBER);
-  }
-}
-
-export const validateInteger = (number) => {
-  if (!Number.isInteger(number)) {
-    throw new Error(COMMON_ERRORS.INTEGER);
-  }
+const validateSingle = (value, [condition, errorMessage]) => {
+  validateCondition(condition(value), errorMessage);
 };
 
-export const validateAllInteger = (numbers) => {
-  const isInteger = (number) => !Number.isInteger(number);
-  if (numbers.some(isInteger)) {
-    throw new Error(COMMON_ERRORS.INTEGER);
-  }
+const validateAll = (values, [condition, errorMessage]) => {
+  validateCondition(values.some((value) => condition(value)), errorMessage);
 };
 
-const isOutOfRange = (number) => {
-  return number < LOTTO_CONFIG.NUMBER_RANGE.MIN || number > LOTTO_CONFIG.NUMBER_RANGE.MAX;
-}
+export const validateNumber = (number) => validateSingle(number, validationConditions.validateNumber);
+export const validateAllNumber = (numbers) => validateAll(numbers, validationConditions.validateNumber);
 
-export const validateNumberRange = (number) => {
-  if (isOutOfRange(number)) {
-    throw new Error(COMMON_ERRORS.RANGE);
-  }
-}
+export const validateInteger = (number) => validateSingle(number, validationConditions.validateInteger);
+export const validateAllInteger = (numbers) => validateAll(numbers, validationConditions.validateInteger);
 
-export const validateAllNumberRange = (numbers) => {
-  const checkRange = (number) => isOutOfRange(number);
-  if (numbers.some(checkRange)) {
-    throw new Error(COMMON_ERRORS.RANGE);
-  }
-};
+export const validateNumberRange = (number) => validateSingle(number, validationConditions.validateNumberRange);
+export const validateAllNumberRange = (numbers) => validateAll(numbers, validationConditions.validateNumberRange);
