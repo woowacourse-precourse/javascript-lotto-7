@@ -13,7 +13,7 @@ class Lotto {
   }
 
   showNumber() {
-    return this.#numbers;
+    return this.#numbers.sort((a, b) => a - b);
   }
 
   // TODO: 추가 기능 구현
