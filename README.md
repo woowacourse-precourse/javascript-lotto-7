@@ -14,11 +14,10 @@
 
 #### 2.1 **MVC 구조 적용**
 
-- [ ] View, Model, Controller를 구분한다.
 - [x] View에서 Input, Output을 구분한다.
 - [x] Validation logic을 만들고 분리한다.
 - [x] View에서 Error를 발생하고, 메시지를 재시작하는 로직을 구현해본다.
-- [ ] `lotteryNumbers`, `bonusNumber`, `paidAmount`를 어디에 보관할지 고민해본다.
+- [x] `lotteryNumbers`, `bonusNumber`, `paidAmount`를 어디에 보관할지 고민해본다.
 
 ---
 
@@ -26,15 +25,15 @@
 
 #### 3.1 **Lotto 클래스**
 
-- [ ] Lotto class에 validation을 더 추가한다.
-- [ ] Lotto가 정렬되어있는지 확인한다.
-- [ ] Lotto 클래스의 unit Test를 작성한다.
+- [x] Lotto class에 validation을 더 추가한다.
+- [x] Lotto가 정렬되어있는지 확인한다.
+- [x] Lotto 클래스의 unit Test를 작성한다.
 
 #### 3.2 **LotteryFactory 클래스**
 
-- [ ] LotteryFactory의 validation 더 추가한다.
-- [ ] Lotteries의 길이를 확인한다.
-- [ ] LotteryFactory의 unit Test를 작성한다.
+- [x] LotteryFactory의 validation 더 추가한다.
+- [x] Lotteries의 길이를 확인한다.
+- [x] LotteryFactory의 unit Test를 작성한다.
 
 #### 3.3 **LotteryNumbers 클래스**
 
@@ -61,15 +60,15 @@
 
 #### 3.7 **LotteryNotes**
 
-- [ ] Validation을 진행한다. `parseInt`가 잘 적용되는지 확인한다.
+- [x] Validation을 진행한다. `parseInt`가 잘 적용되는지 확인한다.
 
 ---
 
 ### 4. **Validation 관련 작업**
 
-- [ ] Validation logic을 구분하고, 어디에 붙일지 생각해본다.
+- [x] Validation logic을 구분하고, 어디에 붙일지 생각해본다.
 - [x] `validateMoney`의 유닛 테스트 작성
-- [ ] Trim을 도입할지 결정한다.
+- [x] Trim을 도입할지 결정한다.
 
 ---
 
