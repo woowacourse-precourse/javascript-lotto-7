@@ -15,6 +15,6 @@ export const MESSAGE = Object.freeze({
       FIFTH: "3개 일치 (5,000원)",
     }),
     RESULT_PROFIT_RATE: "총 수익률은 ",
-    RESULT_FOOTER: "입니다.",
+    RESULT_FOOTER: "%입니다.",
   }),
 });

@@ -52,7 +52,7 @@ class GameResult {
   }
 
   addBenefitRate(money) {
-    this.#benefitRate = ((this.#prizeTotalMoney / money) * 100).toFixed(1) + "%";
+    this.#benefitRate = ((this.#prizeTotalMoney / money) * 100).toFixed(1);
   }
 }
 

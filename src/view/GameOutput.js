@@ -10,13 +10,15 @@ class GameOutput {
   }
 
   printGameResult(result) {
+    const REGEX = /\B(?=(\d{3})+(?!\d))/g;
+    const formattedBenefitRate = result.benefitRate.toString().replace(REGEX, ",");
     Console.print(MESSAGE.OUTPUT.RESULT_HEADER);
     Console.print(`${MESSAGE.OUTPUT.RESULT.FIFTH} - ${result.prizeStat.prizeFifth}개`);
     Console.print(`${MESSAGE.OUTPUT.RESULT.FOURTH} - ${result.prizeStat.prizeFourth}개`);
     Console.print(`${MESSAGE.OUTPUT.RESULT.THIRD} - ${result.prizeStat.prizeThird}개`);
     Console.print(`${MESSAGE.OUTPUT.RESULT.SECOND} - ${result.prizeStat.prizeSecond}개`);
     Console.print(`${MESSAGE.OUTPUT.RESULT.FIRST} - ${result.prizeStat.prizeFirst}개`);
-    Console.print(`${MESSAGE.OUTPUT.RESULT_PROFIT_RATE}${result.benefitRate}${MESSAGE.OUTPUT.RESULT_FOOTER}`);
+    Console.print(`${MESSAGE.OUTPUT.RESULT_PROFIT_RATE}${formattedBenefitRate}${MESSAGE.OUTPUT.RESULT_FOOTER}`);
   }
 
   printErrorMesssage(error) {
