@@ -9,7 +9,7 @@ function getMarginSum(winningStats) {
 };
 
 function getMarginRate(marginSum, purchase) {
-  const MARGIN_RATE = ((marginSum - purchase) / purchase) * 100;
+  const MARGIN_RATE = (marginSum / purchase) * 100;
   const RESULT_RATE = String(Number(MARGIN_RATE).toFixed(1));
   return RESULT_RATE;
 }
