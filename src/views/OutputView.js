@@ -3,7 +3,7 @@ import { Console } from '@woowacourse/mission-utils';
 class OutputView {
   static printRandomLottoNumbers(randomLottoNumbers) {
     Console.print(`\n${randomLottoNumbers.length}개를 구매했습니다.`);
-    randomLottoNumbers.forEach((lottoNumber) => Console.print(`[${lottoNumber.join(', ')}]`));
+    randomLottoNumbers.forEach((lottoNumber) => Console.print(`[${lottoNumber.getNumbers().join(', ')}]`));
   }
 
   static printWinningStatistics(winningStatistics) {
