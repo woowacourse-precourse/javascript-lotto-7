@@ -1,6 +1,6 @@
 import { errorMessage } from './constant/errorMessage.js';
 import { checkDuplication } from './utils/checkDuplication.js';
-import { checkNumberRange } from './utils/checkNumberRange.js';
+import { checkNumbersRange } from './utils/checkNumbersRange.js';
 
 class Lotto {
   #numbers;
@@ -8,7 +8,6 @@ class Lotto {
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
-    console.log(numbers);
   }
 
   #validate(numbers) {
@@ -17,16 +16,16 @@ class Lotto {
     }
 
     if (checkDuplication(numbers)) {
-      throw new Error(`${errorMessage.prefix} ${errorMessage.duplicateNumber}`);
+      throw new Error(`${errorMessage.prefix} ${errorMessage.duplicatedNumber}`);
     }
 
-    if (!checkNumberRange(numbers)) {
+    if (!checkNumbersRange(numbers)) {
       throw new Error(`${errorMessage.prefix} ${errorMessage.invalidNumberRange}`);
     }
   }
 
   get numbers() {
-    return this.#numbers.join(', ');
+    return this.#numbers;
   }
 }
 
