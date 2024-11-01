@@ -35,3 +35,18 @@ export function validateNumbers(input) {
 
   return numbers;
 }
+
+export function validateBonusNumber(input) {
+  const bonusNumber = parseInt(input.trim(), 10);
+
+  if (bonusNumber != input.trim())
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidBonusNumber}`);
+
+  if (!bonusNumber && bonusNumber !== 0)
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidBonusNumber}`);
+
+  if (bonusNumber < 1 || bonusNumber > 45)
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidNumber}`);
+
+  return bonusNumber;
+}
