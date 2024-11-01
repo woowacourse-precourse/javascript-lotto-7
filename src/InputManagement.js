@@ -4,6 +4,7 @@ import { INPUT_TEXTS, ERROR_TEXTS } from './Constants.js';
 class InputManagement {
   #availablePublicationCount = 0;
   #winningNumbers = [];
+  #bonusNumber = 0;
 
   constructor() {}
 
@@ -13,6 +14,10 @@ class InputManagement {
 
   getWinningNumbers() {
     return this.#winningNumbers;
+  }
+
+  getBonusNumber() {
+    return this.#bonusNumber;
   }
 
   #validationPA(purchaseAmount) {
@@ -51,7 +56,7 @@ class InputManagement {
     }
 
     if(_winningNumbers.some(element => element % 1 !== 0)) {
-      throw new Error(ERROR_TEXTS.NOT_A_INT_WINNING_NUMBER);
+      throw new Error(ERROR_TEXTS.NOT_A_FLOAT_WINNING_NUMBER);
     }
 
     const checkDuplicationArr = new Set(_winningNumbers);
@@ -62,8 +67,28 @@ class InputManagement {
     _winningNumbers.sort((a, b) => {
       return a - b;
     });
-    
+
     return _winningNumbers;
+  }
+
+  #validationBN(bonusNumber) {
+    if(Number.isNaN(Number(bonusNumber))) {
+      throw new Error(ERROR_TEXTS.NOT_A_NUMBER_BONUS_NUMBER);
+    }
+
+    if(bonusNumber === '') {
+      throw new Error(ERROR_TEXTS.NOT_A_BLANK_BONUS_NUMBER);
+    }
+
+    if(bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error(ERROR_TEXTS.OUT_OF_RANGE_BONUS_NUMBER);
+    }
+
+    if(bonusNumber % 1 !== 0) {
+      throw new Error(ERROR_TEXTS.NOT_A_FLOAT_BONUS_NUMBER);
+    }
+
+    return bonusNumber;
   }
 
   async inputPurchaseAmount() {
@@ -78,8 +103,9 @@ class InputManagement {
     this.#winningNumbers = this.#validationWN(winningNumbers);
   }
 
-  getBonusNumber() {
-    
+  async inputBonusNumber() {
+    const bonusNumber = await Console.readLineAsync(INPUT_TEXTS.BONUS_NUMBER);
+    this.#bonusNumber = this.#validationBN(bonusNumber);
   }
 }
 
