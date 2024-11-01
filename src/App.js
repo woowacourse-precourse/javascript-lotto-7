@@ -19,6 +19,7 @@ class App {
     this.displayLottoList();
     await this.setWinningNumber();
     await this.setBonusNumber();
+    this.displayLottoWinning();
   }
 
   async setMoney() {
@@ -64,6 +65,39 @@ class App {
       OuputView.printMessage(error.message);
       await this.setBonusNumber();
     }
+  }
+
+  displayLottoWinning() {
+    OuputView.printLottoWinning(this.#getLottosRankCount());
+  }
+
+  #getLottosRankCount() {
+    return this.#lottoList.reduce(
+      (acc, lotto) => {
+        const cur = this.#compareLottoToWinningNumber(lotto);
+        const count = cur.matchWinningNumberCount;
+        if (count === 6) acc[1] += 1;
+        if (count === 5 && cur.isContainBounusNumber) acc[2] += 1;
+        if (count === 5) acc[3] += 1;
+        if (count === 4) acc[4] += 1;
+        if (count === 3) acc[5] += 1;
+        return acc;
+      },
+      { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+    );
+  }
+
+  #compareLottoToWinningNumber(lotto) {
+    const lottoNumbers = lotto.getNumbers();
+    const [matchWinningNumberCount, isContainBounusNumber] = this.#winningNumber.reduce(
+      (acc, cur) => {
+        if (lottoNumbers.includes(cur)) acc[0] += 1;
+        return acc;
+      },
+      [0, lottoNumbers.includes(this.#bonusNumber)],
+    );
+
+    return { matchWinningNumberCount, isContainBounusNumber };
   }
 }
 
