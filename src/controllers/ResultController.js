@@ -13,16 +13,24 @@ class ResultController {
   }
 
   async processResults() {
+    await this.getWinningLotto();
+    const { prizeCounts, ROI } = this.calculateResults();
+    this.displayResults(prizeCounts, ROI);
+  }
+
+  async getWinningLotto() {
     const inputController = new InputController();
     const winningNumbers = await inputController.getWinningNumbers();
     const bonusNumber = await inputController.getBonusNumber(winningNumbers);
 
     this.#winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+  }
 
+  calculateResults() {
     const resultCalculator = new ResultCalculator(
       this.#lottos,
-      winningNumbers,
-      bonusNumber,
+      this.#winningLotto.getWinningNumbers(),
+      this.#winningLotto.getBonusNumber(),
     );
 
     resultCalculator.calculateResults();
@@ -30,6 +38,10 @@ class ResultController {
     const prizeCounts = resultCalculator.getPrizeCounts();
     const ROI = resultCalculator.calculateROI();
 
+    return { prizeCounts, ROI };
+  }
+
+  displayResults(prizeCounts, ROI) {
     OutputView.printResult(prizeCounts);
     OutputView.printROI(ROI);
   }
