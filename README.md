@@ -80,7 +80,7 @@
       - [x] **LottoIssuance 테스트**
           - 발행된 로또 반환 검사
 
-      - [ ] **LottoRevenue 테스트**
+      - [x] **LottoRevenue 테스트**
           - 수익률 반환 검사
 
       - [ ] **LottoStatistics 테스트**
