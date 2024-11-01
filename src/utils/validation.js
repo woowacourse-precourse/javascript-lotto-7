@@ -71,3 +71,19 @@ const checkWinningNumberType = (numbers) => {
       throw new Error(ERROR_MESSAGES.WINNING_NUMBER.NOT_A_NUMBER);
   }
 };
+
+export const validateBonusNumber = (bonusNumberInput, winningNumbers) => {
+  const bonusNumber = Number(bonusNumberInput);
+
+  if (isNaN(bonusNumber)) {
+    throw new Error(ERROR_MESSAGES.BONUS_NUMBER.NOT_A_NUMBER);
+  }
+
+  if (winningNumbers.includes(bonusNumber)) {
+    throw new Error(ERROR_MESSAGES.BONUS_NUMBER.DUPLICATION_NUMBER);
+  }
+
+  if (bonusNumber < 1 || bonusNumber > 45) {
+    throw new Error(ERROR_MESSAGES.BONUS_NUMBER.OUT_OF_RANGE);
+  }
+};

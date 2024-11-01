@@ -1,6 +1,10 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import { validateMoney, validateWinningNumber } from '../utils/validation.js';
+import {
+  validateMoney,
+  validateWinningNumber,
+  validateBonusNumber,
+} from '../utils/validation.js';
 import Lotto from '../Lotto.js';
 import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
@@ -10,6 +14,7 @@ export default class Controller {
   constructor() {
     this.inputView = new InputView();
     this.outputView = new OutputView();
+    this.winningNumber = [];
   }
 
   async start() {
@@ -22,7 +27,7 @@ export default class Controller {
 
     this.outputView.printLottoPurchaseHistory(lottosNumber);
 
-    const winningNumber = await this.getWinningNumber();
+    this.winningNumber = await this.getWinningNumber();
     const bonusNumber = await this.getBonusNumber();
   }
 
@@ -37,9 +42,15 @@ export default class Controller {
   }
 
   async getBonusNumber() {
-    const input = await this.inputView.getInput(INPUT_MESSAGE.BONUS_NUMBER);
+    try {
+      const input = await this.inputView.getInput(INPUT_MESSAGE.BONUS_NUMBER);
+      validateBonusNumber(input, this.winningNumber);
 
-    return input;
+      return input;
+    } catch (error) {
+      this.outputView.printError(error.message);
+      await this.getBonusNumber();
+    }
   }
 
   async getWinningNumber() {
