@@ -42,14 +42,20 @@ class Lotto {
   }
   // TODO: 추가 기능 구현
   async inputBonusNumber() {
-    const bonusNumber = String(
-      await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n")
-    );
-    this.#validateNumber(bonusNumber);
-    if (this.#numbers.includes(Number(bonusNumber))) {
-      throw new Error("[ERROR] 중복되는 번호는 입력될 수 없습니다.");
+    try {
+      const bonusNumber = String(
+        await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n")
+      );
+      this.#validateNumber(bonusNumber);
+      if (this.#numbers.includes(Number(bonusNumber))) {
+        throw new Error("[ERROR] 중복되는 번호는 입력될 수 없습니다.");
+      }
+      this.#numbers = { basicNumbers: this.#numbers, bonusNumber: Number(bonusNumber) };  
+    } catch (error) {
+      Console.print(error.message);
+      return this.inputBonusNumber();
     }
-    this.#numbers = { basicNumbers: this.#numbers, bonusNumber: Number(bonusNumber) };
+    
   }
 
   getLottoNumbers() {
