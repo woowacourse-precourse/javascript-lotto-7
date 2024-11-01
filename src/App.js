@@ -51,9 +51,15 @@ class App {
     });
 
     let userPickedNumbers = [];
+    userPickedNumbers = await this.getUserPickedNumbers();
   }
   getLottoCost() {
     return MissionUtils.Console.readLineAsync(GUIDE_MESSAGE_INPUT_COST);
+  }
+  getUserPickedNumbers() {
+    return MissionUtils.Console.readLineAsync(
+      GUIDE_MESSAGE_INPUT_USER_PICKED_NUMBERS
+    );
   }
 }
 
