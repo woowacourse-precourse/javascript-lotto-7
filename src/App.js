@@ -5,12 +5,23 @@ import Lotto from "./Lotto.js";
 
 class App {
     sequence = 1
+    price;
 
     async run() {
         for (const prompt of INPUT) {
             const input = await this.input(prompt)
-            const lotto = new Lotto(input.split(","))
-            lotto.purchaseNumbers()
+            if (this.sequence === 1) {
+                this.price = Number(input)
+            }
+            if (this.sequence === 2) {
+                const lotto = new Lotto(input.split(","))
+                lotto.purchaseNumbers()
+            }
+            /*if (this.sequence === 3) {//보너스 번호
+
+            }*/
+
+
             this.sequence++
         }
 
