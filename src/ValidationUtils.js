@@ -1,6 +1,9 @@
 import { MESSAGES, GENERALS } from "./Constants.js";
 
 const isNumber = (input) => {
+    if (input === '') {
+        throw new Error(MESSAGES.ERROR.NOT_A_NUMBER);
+    }
     const inputAsNum = Number(input);
     if (isNaN(inputAsNum)) {
         throw new Error(MESSAGES.ERROR.NOT_A_NUMBER);
@@ -32,10 +35,34 @@ const isOverLimit = (money) => {
     }
  }
 
+ const isInRange = (number) => {
+    if (number < GENERALS.LOTTO_MIN_NUMBER || number > GENERALS.LOTTO_MAX_NUMBER) {
+        throw new Error(MESSAGES.ERROR.NUMBER_OUT_OF_RANGE);
+    }
+    return number;
+}
+
+const isSixNumbers = (numbers) => {
+    if (numbers.length !== 6) {
+        throw new Error(MESSAGES.ERROR.NOT_SIX_NUMBERS);
+    }
+}
+
+const hasDuplicates = (numbers) => {
+    const uniqueNumbers = [...new Set(numbers)];
+
+    if (uniqueNumbers.length !== numbers.length) {
+        throw new Error(MESSAGES.ERROR.HAS_DUPLICATES);
+    }
+}
+
 export {
     isNumber,
     isEmpty,
     isNegative,
     isMoneyDivisible,
     isOverLimit,
+    isInRange,
+    isSixNumbers,
+    hasDuplicates,
 };

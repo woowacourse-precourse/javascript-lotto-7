@@ -4,6 +4,9 @@ import {
     isNegative,
     isMoneyDivisible,
     isOverLimit,
+    isInRange,
+    isSixNumbers,
+    hasDuplicates,
 } from './ValidationUtils.js';
 
 const validateMoney = (userMoney) => {
@@ -15,4 +18,20 @@ const validateMoney = (userMoney) => {
     return money
 };
 
-export { validateMoney };
+const validateWinningNumbers = (winningNumbers) => {
+    isEmpty(winningNumbers);
+    const sixNumbers = winningNumbers.split(',').map(num => num.trim());
+
+    sixNumbers.forEach(number => {
+        isNumber(number);
+        isNegative(number);
+        isInRange(number);
+        
+    });
+    isSixNumbers(sixNumbers);
+    hasDuplicates(sixNumbers);
+
+    return numberArray;
+}
+
+export { validateMoney, validateWinningNumbers };
