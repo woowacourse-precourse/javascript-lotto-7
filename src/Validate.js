@@ -1,7 +1,7 @@
-import { CONSTANT_LOTTO, EMPTY_STRING, ZERO } from "./util/const";
-import ERROR_MESSAGES from "./util/messages/error-message";
+import { CONSTANT_LOTTO, EMPTY_STRING, ZERO } from "./util/const.js";
+import ERROR_MESSAGES from "./util/messages/error-message.js";
 import REGEX from "./util/regex.js";
-import { isNotANumber, isOutOfRange } from "./util/util";
+import { isNotANumber, isOutOfRange } from "./util/util.js";
 
 class Validate {
   validatePrice(price) {
