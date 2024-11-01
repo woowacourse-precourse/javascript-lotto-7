@@ -3,6 +3,7 @@ import UserLotto from '../service/UserLotto.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import Lotto from '../Lotto.js';
+import Winner from '../service/Winner.js';
 
 class GameController {
   constructor() {
@@ -10,6 +11,7 @@ class GameController {
     this.outputView = new OutputView();
     this.randomLotto = new RandomLotto();
     this.userLotto = new UserLotto();
+    this.winner = new Winner();
   }
 
   async prepareGame() {
@@ -32,6 +34,7 @@ class GameController {
 
   async finishGame(result) {
     this.outputView.printResultHeader();
+    const ranking = this.winner.checkRanking(result);
   }
 }
 
