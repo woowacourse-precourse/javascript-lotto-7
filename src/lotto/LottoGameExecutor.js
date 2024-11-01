@@ -1,23 +1,22 @@
-import LottoRule from './model/LottoRule.js';
-import LottoPayment from './LottoPayment.js';
-import LottoGenerator from './LottoGenerator.js';
 import { printEmptyLine, printPurchaseResult } from './view/OutputPrinter.js';
 
 class LottoGameExecutor {
-  #lottoRule
 
-  constructor(lottoConfig) {
-    this.#lottoRule = new LottoRule(lottoConfig);
+  #lottoPayment;
+
+  #lottoGenerator;
+
+  constructor(lottoPayment, lottoGenerator) {
+    this.#lottoPayment = lottoPayment;
+    this.#lottoGenerator = lottoGenerator;
   }
 
   async startGame() {
-    const lottoPayment = new LottoPayment(this.#lottoRule);
-    const lottoCount = await lottoPayment.executePaymentAndGetLottoCount(this.#lottoRule.lottoAmount, this.#lottoRule.maxlottoPurchaseAmount);
+    const lottoCount = await this.#lottoPayment.executePaymentAndGetLottoCount();
 
     printEmptyLine();
 
-    const lottoGenerator = new LottoGenerator(this.#lottoRule.lottoNumberCount, this.#lottoRule.lottoNumberRange);
-    const lottos = lottoGenerator.generateLottosBycount(lottoCount);
+    const lottos = this.#lottoGenerator.generateLottosBycount(lottoCount);
     this.#printPurchaseLottos(lottoCount, lottos);
 
     printEmptyLine();

@@ -1,14 +1,13 @@
 import { getPurchaseAmount } from './view/InputReader.js';
-import { validatePurchaseAmount } from './LottoValidator.js';
+import { createPurchaseAmountValidator } from './validate/ValidatorCreator.js';
+
+const validator = createPurchaseAmountValidator();
 
 class LottoPayment {
-  #lottoAmount;
+  #lottoUnitAmount;
 
-  #maxPurchaseAmount;
-
-  constructor({ lottoAmount, maxPurchaseAmount }) {
-    this.#lottoAmount = lottoAmount;
-    this.#maxPurchaseAmount = maxPurchaseAmount;
+  constructor(lottoUnitAmount) {
+    this.#lottoUnitAmount = lottoUnitAmount;
   }
 
   async executePaymentAndGetLottoCount() {
@@ -18,13 +17,13 @@ class LottoPayment {
 
   async #getPurchaseAmount() {
     const amount = await getPurchaseAmount();
-    validatePurchaseAmount(amount, this.#maxPurchaseAmount, this.#lottoAmount);
+    validator.validatePurchaseAmount(amount);
 
     return amount;
   }
 
   #calculateLottoCountByAmount(purchaseAmount) {
-    return purchaseAmount / this.#lottoAmount;
+    return purchaseAmount / this.#lottoUnitAmount;
   }
 }
 

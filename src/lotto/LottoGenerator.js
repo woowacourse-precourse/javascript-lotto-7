@@ -23,7 +23,7 @@ class LottoGenerator {
 
   generateLotto() {
     const numbers = this.#getNumbers();
-    return new Lotto(numbers, this.#numberCount, this.#numberRange);
+    return new Lotto(numbers);
   }
 
   #getNumbers() {
