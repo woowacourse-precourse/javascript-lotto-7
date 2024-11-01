@@ -22,6 +22,7 @@ class LOTTO_MACHINE {
 
   #parseWinningNumbers(winningNumbers) {
     return winningNumbers
+      .replace(/\s+/g, '')
       .split(LOTTO_NUMBER_STANDARD.separator)
       .map((number) => {
         return Number(number);

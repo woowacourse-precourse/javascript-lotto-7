@@ -11,9 +11,11 @@ const OUTPUT = {
   ticketQuantity: (count) => `${count}개를 구매했습니다.`,
   ticketNumber: (number) => `[${number}]`,
   defaultPrize: (match, reward, count) =>
-    `${match}개 일치 (${reward}원) - ${count}개`,
+    `${match}개 일치 (${reward.toLocaleString('ko-KR')}원) - ${count}개`,
   bonusPrize: (match, reward, count) =>
-    `${match}개 일치, 보너스 볼 일치 (${reward}원) - ${count}개`,
+    `${match}개 일치, 보너스 볼 일치 (${reward.toLocaleString(
+      'ko-KR'
+    )}원) - ${count}개`,
   totalProfit: (value) => `총 수익률은 ${value.toFixed(1)}%입니다.`,
 };
 

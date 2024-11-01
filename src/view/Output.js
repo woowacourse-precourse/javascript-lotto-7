@@ -16,7 +16,7 @@ class Output {
     tickets.forEach((ticket) =>
       Console.print(
         OUTPUT.ticketNumber(
-          ticket.getNumbers().join(`${LOTTO_NUMBER_STANDARD.separator}`)
+          ticket.getNumbers().join(`${LOTTO_NUMBER_STANDARD.separator} `)
         )
       )
     );
