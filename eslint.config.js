@@ -46,11 +46,7 @@ export default [
         },
       ],
       // 문자열에 작은따옴표 사용 권장 (Airbnb 스타일)
-      quotes: [
-        'error',
-        'single',
-        { avoidEscape: true, allowTemplateLiterals: true },
-      ],
+      quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
       // 템플릿 리터럴 내 중괄호 공백 일관성 유지
       'template-curly-spacing': ['error', 'never'],
       // 문자열 연결 시 템플릿 리터럴 사용 권장
@@ -74,7 +70,14 @@ export default [
       // Function 생성자 사용 금지
       'no-new-func': 'error',
       // 함수 괄호 앞의 공백 스타일 통일
-      'space-before-function-paren': ['error', 'never'],
+      'space-before-function-paren': [
+        'error',
+        {
+          anonymous: 'always',
+          named: 'never',
+          asyncArrow: 'always',
+        },
+      ],
       // 코드 블록 앞의 공백 스타일 통일
       'space-before-blocks': 'error',
       // 함수 매개변수 재할당 금지
@@ -86,12 +89,9 @@ export default [
       // 화살표 함수의 화살표 주변 공백 일관성 유지
       'arrow-spacing': ['error', { before: true, after: true }],
       // 화살표 함수 콜백 사용을 권장
-      'prefer-arrow-callback': [
-        'error',
-        { allowNamedFunctions: false, allowUnboundThis: true },
-      ],
+      'prefer-arrow-callback': ['error', { allowNamedFunctions: false, allowUnboundThis: true }],
       // 화살표 함수의 괄호 스타일 통일
-      'arrow-parens': ['error', 'as-needed'],
+      'arrow-parens': ['error', 'always'],
       // 화살표 함수의 본문 스타일 통일
       'arrow-body-style': ['error', 'as-needed'],
       // 혼동을 피하기 위해 불명확한 화살표 함수 금지
@@ -127,22 +127,13 @@ export default [
       // 증감 연산자 사용 금지
       'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
       // 코드 길이 제한 설정 (Airbnb 권장: 100자)
-      'max-len': [
-        'error',
-        { code: 100, ignoreComments: true, ignoreUrls: true },
-      ],
+      'max-len': ['error', { code: 100, ignoreComments: true, ignoreUrls: true }],
       // 연산자 줄바꿈 통일
       'operator-linebreak': ['error', 'before'],
       // 사용하지 않는 변수 금지
-      'no-unused-vars': [
-        'error',
-        { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
-      ],
+      'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
       // 정의 전에 사용 금지
-      'no-use-before-define': [
-        'error',
-        { functions: false, classes: true, variables: true },
-      ],
+      'no-use-before-define': ['error', { functions: false, classes: true, variables: true }],
       // 일치 연산자 사용 강제
       eqeqeq: ['error', 'always', { null: 'ignore' }],
       // case 블록 내 변수 선언 금지
@@ -152,10 +143,7 @@ export default [
       // 불필요한 삼항 연산자 금지
       'no-unneeded-ternary': ['error', { defaultAssignment: false }],
       // 혼합 연산자 금지
-      'no-mixed-operators': [
-        'error',
-        { groups: [['+', '-', '*', '/', '%', '**']] },
-      ],
+      'no-mixed-operators': ['error', { groups: [['+', '-', '*', '/', '%', '**']] }],
       // 비블록 문장 본문 위치 통일
       'nonblock-statement-body-position': ['error', 'beside'],
       // 코드 블록 스타일 통일
@@ -203,7 +191,16 @@ export default [
       // 쉼표 스타일 통일
       'comma-style': ['error', 'last'],
       // 끝에 쉼표 설정 통일
-      'comma-dangle': ['error', 'always-multiline'],
+      'comma-dangle': [
+        'error',
+        {
+          arrays: 'always-multiline',
+          objects: 'always-multiline',
+          imports: 'always-multiline',
+          exports: 'always-multiline',
+          functions: 'never', // 함수 인자에서는 trailing comma를 허용하지 않음
+        },
+      ],
       // 세미콜론 사용 통일
       semi: ['error', 'always'],
       // 새로운 기본형 생성 금지

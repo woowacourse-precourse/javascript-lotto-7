@@ -5,5 +5,7 @@
   "singleQuote": true,
   "bracketSameLine": false,
   "useTabs": false,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "arrowParens": "always",
+  "printWidth": 100
 }
