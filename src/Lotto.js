@@ -25,6 +25,13 @@ class Lotto {
     }
   }
 
+  sortLottoNumbers() {
+    this.#numbers.sort(function (a, b) {
+      return a - b;
+    });
+    return this.#numbers;
+  }
+
   // TODO: 추가 기능 구현
   getNumbers() {
     return this.#numbers;

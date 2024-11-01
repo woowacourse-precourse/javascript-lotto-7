@@ -18,6 +18,7 @@ class App {
     const lottos = [];
     for (let i = 0; i < amountOfLotto; i += 1) {
       const lotto = new Lotto();
+      lotto.sortLottoNumbers();
       lottos.push(lotto.getNumbers());
       Console.print(lottos[i]);
     }
