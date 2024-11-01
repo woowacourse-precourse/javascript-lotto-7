@@ -41,4 +41,106 @@ describe('LottoMachine 테스트', () => {
       expect(lotto.getNumbers()).toEqual(output[index]);
     });
   });
+
+  test('당첨 내역을 계산한다.', () => {
+    const winningNumbers = [8, 21, 23, 41, 42, 43];
+    const bonusNumber = 7;
+    const purchaseAmount = 3;
+    const mockValues = [
+      [8, 21, 23, 41, 42, 43],
+      [8, 21, 23, 41, 42, 7],
+      [8, 21, 23, 41, 1, 2],
+    ];
+    mockRandoms(mockValues);
+
+    const lottoMachine = new LottoMachine();
+    lottoMachine.generateLottoTickets(purchaseAmount);
+    const lottos = lottoMachine.getLottos();
+    const totalWinningRank = lottoMachine.calculateWinningResults(
+      winningNumbers,
+      bonusNumber,
+      lottos
+    );
+
+    expect(totalWinningRank.first).toBe(1);
+    expect(totalWinningRank.second).toBe(1);
+    expect(totalWinningRank.third).toBe(0);
+    expect(totalWinningRank.fourth).toBe(1);
+    expect(totalWinningRank.fifth).toBe(0);
+  });
+
+  test('6개 번호 일치', () => {
+    const winningNumbers = [8, 21, 23, 41, 42, 43];
+    const bonusNumber = 7;
+    const lottoNumbers = [8, 21, 23, 41, 42, 43];
+
+    const lottoMachine = new LottoMachine();
+    const winningRank = lottoMachine.calculateWinningResult(
+      winningNumbers,
+      bonusNumber,
+      lottoNumbers
+    );
+
+    expect(winningRank).toBe(1);
+  });
+
+  test('5개 번호 + 보너스 번호 일치', () => {
+    const winningNumbers = [8, 21, 23, 41, 42, 43];
+    const bonusNumber = 7;
+    const lottoNumbers = [8, 21, 23, 41, 42, 7];
+
+    const lottoMachine = new LottoMachine();
+    const winningRank = lottoMachine.calculateWinningResult(
+      winningNumbers,
+      bonusNumber,
+      lottoNumbers
+    );
+
+    expect(winningRank).toBe(2);
+  });
+
+  test('5개 번호 일치', () => {
+    const winningNumbers = [8, 21, 23, 41, 42, 43];
+    const bonusNumber = 7;
+    const lottoNumbers = [8, 21, 23, 41, 42, 2];
+
+    const lottoMachine = new LottoMachine();
+    const winningRank = lottoMachine.calculateWinningResult(
+      winningNumbers,
+      bonusNumber,
+      lottoNumbers
+    );
+
+    expect(winningRank).toBe(3);
+  });
+
+  test('4개 번호 일치', () => {
+    const winningNumbers = [8, 21, 23, 41, 42, 43];
+    const bonusNumber = 7;
+    const lottoNumbers = [8, 21, 23, 41, 1, 2];
+
+    const lottoMachine = new LottoMachine();
+    const winningRank = lottoMachine.calculateWinningResult(
+      winningNumbers,
+      bonusNumber,
+      lottoNumbers
+    );
+
+    expect(winningRank).toBe(4);
+  });
+
+  test('3개 번호 일치', () => {
+    const winningNumbers = [8, 21, 23, 41, 42, 43];
+    const bonusNumber = 7;
+    const lottoNumbers = [8, 21, 23, 1, 2, 3];
+
+    const lottoMachine = new LottoMachine();
+    const winningRank = lottoMachine.calculateWinningResult(
+      winningNumbers,
+      bonusNumber,
+      lottoNumbers
+    );
+
+    expect(winningRank).toBe(5);
+  });
 });
