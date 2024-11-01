@@ -4,6 +4,9 @@ import { regex } from './constant/regex.js';
 export function validateAmount(input) {
   const amount = parseInt(input.trim(), 10);
 
+  if (amount != input.trim())
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidAmount}`);
+
   if (!amount && amount !== 0)
     throw new Error(`${errorMessage.prefix} ${errorMessage.invalidAmount}`);
 
@@ -22,4 +25,13 @@ function isValidAmount(amount) {
 
 function isDivisibleAmount(amount) {
   return amount % 1000 === 0;
+}
+
+export function validateNumbers(input) {
+  const numbers = input.trim();
+
+  if (!regex.number.test(numbers))
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidNumber}`);
+
+  return numbers;
 }
