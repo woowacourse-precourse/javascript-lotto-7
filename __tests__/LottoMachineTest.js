@@ -17,4 +17,28 @@ describe('LottoMachine 테스트', () => {
       expect(number).toBeLessThanOrEqual(45);
     });
   });
+
+  test('구입 금액에 해당하는 만큼 로또를 발행한다.', () => {
+    const purchaseAmount = 3;
+    const mockValues = [
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+    ];
+    const output = [
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+    ];
+
+    mockRandoms(mockValues);
+
+    const lottoMachine = new LottoMachine();
+    lottoMachine.generateLottoTickets(purchaseAmount);
+    const lottos = lottoMachine.getLottos();
+
+    lottos.forEach((lotto, index) => {
+      expect(lotto.getNumbers()).toEqual(output[index]);
+    });
+  });
 });
