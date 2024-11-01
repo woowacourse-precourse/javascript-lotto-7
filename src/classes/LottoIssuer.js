@@ -10,14 +10,16 @@ class LottoIssuer {
     return lottoCount;
   }
 
+  static generateLottoNumbers() {
+    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+
+    return numbers;
+  }
+
   static generateLottos(count) {
-    const allLotto = [];
-
-    for (let i = 0; i < count; i++) {
-      allLotto.push(new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
-    }
-
-    return allLotto;
+    return Array(count)
+      .fill()
+      .map(() => new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
   }
 }
 
