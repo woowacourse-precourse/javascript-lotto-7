@@ -31,6 +31,10 @@ class BonusNumber {
       throw new Error(ERROR_MESSAGE.NUMBER_RANGE);
     }
   }
+
+  getBonusNumber() {
+    return Number.parseInt(this.bonusNumber);
+  }
 }
 
 export default BonusNumber;
