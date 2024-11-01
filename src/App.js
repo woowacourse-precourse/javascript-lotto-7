@@ -2,9 +2,9 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
-    // 1에서 45 사이의 중복되지 않은 정수 6개 반환
-    const pickLottoNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    // console.log(pickLottoNumber);
+    const getLottoNumber = () => {
+      return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    }
 
     const input = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n')
     const parseInput = parseInt(input, 10);
@@ -32,15 +32,20 @@ class App {
 
     const range = (count, value) => Array(count).fill(value || '');
 
+    const compareNumbers = (a, b) => a - b;
+
+    const getSortNumber = (array) => array.sort(compareNumbers);
+
     const printLotto = (count) => {
       MissionUtils.Console.print(`${lottoCount}개를 구매했습니다.\n`);
 
       const totalLottoArray = range(count, []);
 
-      totalLottoArray.forEach((array) => {
-        array.push(pickLottoNumber);
-        MissionUtils.Console.print(`[${pickLottoNumber}]`);
-      })
+      const createLotto = totalLottoArray.map(() => {
+        const lotto = getLottoNumber();
+        const result = getSortNumber(lotto);
+        MissionUtils.Console.print(`[${result}]`);
+      });
     }
 
     printLotto(lottoCount);
