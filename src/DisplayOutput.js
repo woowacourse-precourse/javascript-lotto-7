@@ -5,7 +5,7 @@ import Game from "./Game.js";
 class DisplayOutput {
 
     displayPaidLotto(number) {
-        MissionUtils.Console.print(`${number}개를 구입했습니다.`);
+        MissionUtils.Console.print(`\n${number}개를 구입했습니다.`);
     }
 
     displayLotto (lotto){
@@ -13,6 +13,7 @@ class DisplayOutput {
         for (const lottoNumbers of lotto) {
             MissionUtils.Console.print(lottoNumbers);
         }
+        MissionUtils.Console.print("\n");
     }
 
     changeNumberStyle (number){
@@ -30,7 +31,7 @@ class DisplayOutput {
             'PRIZE_FIVE_NUMBER_BONUS_MATCHES', 'PRIZE_SIX_NUMBER_MATCHES'
         ];
     
-        MissionUtils.Console.print("당첨 통계\n---");
+        MissionUtils.Console.print("\n당첨 통계\n---");
     
         for (let i = 0; i < 3; i++) {
             MissionUtils.Console.print(`${i + 3}개 일치 (${this.changeNumberStyle(LOTTO.PRIZE[prizeKeys[i]])}원) - ${lottoResult[0][i + 2]}개`);

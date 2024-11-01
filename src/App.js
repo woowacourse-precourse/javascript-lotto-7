@@ -10,19 +10,22 @@ class App {
   }
   async run() {
 
+    // purcharse lotto
     const paidMoney = await this.userInput.getUserPaidMoney();
     const lottoTickets= this.game.purchaseLotto(paidMoney);
 
     this.displayOutput.displayPaidLotto(lottoTickets);
+
+    // display pucharased lotto
+    const lotto = this.game.generateLotto(lottoTickets);
+    this.displayOutput.displayLotto(lotto);
 
     const winngingNumber = await this.userInput.getWinningNumber();
     const splitWinningNumbers = this.game.splitWinningNumbers(winngingNumber);
 
     const bonusNumber = await this.userInput.getBonusNumber();
     
-    const lotto = this.game.generateLotto(lottoTickets);
 
-    this.displayOutput.displayLotto(lotto);
 
     const lottoReult = this.game.checkLottoResult(lotto, splitWinningNumbers, bonusNumber)
 
