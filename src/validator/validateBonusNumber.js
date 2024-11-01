@@ -16,6 +16,20 @@ const isNumberInRange = (input) => {
   return input;
 };
 
-const validateBonusNumber = _pipe(isEmpty, isNumber, isNumberInRange);
+const isDuplicate = (input) => {
+  if (new Set(input).size !== input.length) throw new Error("중복");
+  return input;
+};
 
+const validateBonusNumber = (bonusNumberInput, winningNumbers) => {
+  const bonusNumber = _pipe(
+    isEmpty,
+    isNumber,
+    isNumberInRange
+  )(bonusNumberInput);
+
+  isDuplicate([...winningNumbers, bonusNumber]);
+
+  return bonusNumber;
+};
 export default validateBonusNumber;

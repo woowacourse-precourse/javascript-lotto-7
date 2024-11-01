@@ -21,7 +21,7 @@ class App {
     const winningNumbers = validateWinningNumbers(winningNumbersInput);
 
     const bonusNumberInput = await InputView.getBonusNumber();
-    const bonusNumber = validateBonusNumber(bonusNumberInput);
+    const bonusNumber = validateBonusNumber(bonusNumberInput, winningNumbers);
   }
 }
 
