@@ -17,6 +17,8 @@ class App {
       );
       return new Lotto(lotto);
     });
+
+    lottoNumbers.forEach((lotto) => `${lotto.print()}\n`);
   }
 }
 

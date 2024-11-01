@@ -1,3 +1,6 @@
+import { LOTTO_NUMBER_DELIMITER } from "./libs/constants.js";
+import { printResult } from "./libs/utils.js";
+
 class Lotto {
   #numbers;
 
@@ -12,7 +15,13 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  join() {
+    return `[${this.#numbers.join(LOTTO_NUMBER_DELIMITER)}]`;
+  }
+
+  print() {
+    printResult(this.join());
+  }
 }
 
 export default Lotto;

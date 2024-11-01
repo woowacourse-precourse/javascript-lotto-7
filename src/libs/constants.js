@@ -14,3 +14,6 @@ export const CONFIG = Object.freeze({
   MAX_LOTTO_NUMBER: 45,
   LOTTO_COUNT: 6,
 });
+
+export const LOTTO_NUMBER_DELIMITER = ", ";
+export const WINNER_LOTTO_NUMBER_DELIMITER = ",";
