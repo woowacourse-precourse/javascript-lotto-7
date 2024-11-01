@@ -1,19 +1,19 @@
 import { PRIZE_CALCULATOR } from './Constants.js';
 
 class PrizeCalculator {
-  #winningTable;
+  #matchingTable;
 
   #payment;
 
-  constructor(winningTable, payment) {
-    this.#winningTable = winningTable;
+  constructor(matchingTable, payment) {
+    this.#matchingTable = matchingTable;
     this.#payment = payment;
   }
 
   #calculatePrize() {
     let winningPrize = PRIZE_CALCULATOR.defaultPrize;
 
-    this.#winningTable.forEach((numbersOfLotto, numbersOfMatched) => {
+    this.#matchingTable.forEach((numbersOfLotto, numbersOfMatched) => {
       const prizeAmount = PRIZE_CALCULATOR.amount[numbersOfMatched];
       winningPrize += prizeAmount * numbersOfLotto;
     });

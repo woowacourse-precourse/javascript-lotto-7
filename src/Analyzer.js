@@ -40,23 +40,23 @@ class Analyzer {
     return lotto.isBonusNumberMatched(bonusNumber);
   }
 
-  static #makeWinningTable(matchingNumbers) {
-    const winningTable = new Map();
+  static #makeMatchingTable(matchingNumbers) {
+    const matchingTable = new Map();
 
     matchingNumbers.forEach((matchedCount) => {
       const numbersOfLotto =
-        winningTable.get(matchedCount) ?? ANALYZER.defaultCount;
-      winningTable.set(matchedCount, numbersOfLotto + ANALYZER.unitCount);
+        matchingTable.get(matchedCount) ?? ANALYZER.defaultCount;
+      matchingTable.set(matchedCount, numbersOfLotto + ANALYZER.unitCount);
     });
 
-    return winningTable;
+    return matchingTable;
   }
 
-  getWinningTable() {
+  getMatchingTable() {
     const matchingNumbers = this.#estimateTotalMatchingNumbers();
-    const winningTable = Analyzer.#makeWinningTable(matchingNumbers);
+    const matchingTable = Analyzer.#makeMatchingTable(matchingNumbers);
 
-    return winningTable;
+    return matchingTable;
   }
 }
 
