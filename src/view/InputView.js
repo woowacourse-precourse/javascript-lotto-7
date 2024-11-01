@@ -1,8 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class InputView {
-  static async getUserInput(promptMessage) {
-    const userInput = await Console.readLineAsync(`${promptMessage}`);
+  static getUserInput(promptMessage) {
+    const userInput = Console.readLineAsync(`${promptMessage}`);
     return userInput;
   }
 }

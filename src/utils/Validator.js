@@ -10,8 +10,8 @@ class Validator {
     }
   }
 
-  static checkValidRange(userInput, start, end, errorMessage) {
-    if (userInput < start || userInput > end) {
+  static checkValidRange(userInput, startNum, endNum, errorMessage) {
+    if (userInput < startNum || userInput > endNum) {
       throw new Error(`[ERROR] ${errorMessage}`);
     }
   }
