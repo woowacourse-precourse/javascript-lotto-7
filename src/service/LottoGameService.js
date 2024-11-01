@@ -26,8 +26,6 @@ class LottoGameService {
     };
   }
 
-  }
-
   createLottoQuantity(userMoney) {
     return userMoney / LOTTO_PRICE;
   }
