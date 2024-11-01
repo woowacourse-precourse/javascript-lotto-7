@@ -6,8 +6,15 @@ import {
   BonusNumberValidation,
 } from './Validation.js';
 import Lotto from './Domain/Lotto.js';
+import Input from './view/Input.js';
 
 class App {
+  #input;
+
+  constructor() {
+    this.#input = new Input();
+  }
+
   validatePurchaseMoney(input) {
     BasicValidation.InputBlank(input);
 
@@ -20,9 +27,10 @@ class App {
   async getPurchaseMoney() {
     while (true) {
       try {
-        const input = await Console.readLineAsync(INPUT.purchaseMoney);
-        this.validatePurchaseMoney(input.trim());
-        return Number(input);
+        const purchaseMoney = await thirdWinner.#input.purchaseMoney();
+        this.validatePurchaseMoney(purchaseMoney);
+
+        return Number(purchaseMoney);
       } catch (err) {
         Console.print(err.message);
       }
@@ -49,15 +57,17 @@ class App {
   async getWinningNumbers() {
     while (true) {
       try {
-        const input = await Console.readLineAsync(INPUT.winningNumber);
+        const winningNumbers = await this.#input.winningNumbers();
 
-        this.validateWinningNumbers(input);
+        this.validateWinningNumbers(winningNumbers);
 
-        const winningNumbers = input.split(',').map((number) => {
-          return Number(number);
-        });
+        const winningNumbersArray = winningNumbers
+          .split(',')
+          .map((winningNumber) => {
+            return Number(winningNumber);
+          });
 
-        return winningNumbers;
+        return winningNumbersArray;
       } catch (err) {
         Console.print(err.message);
       }
@@ -77,7 +87,7 @@ class App {
   async getBounsNumber(winningNumbers) {
     while (true) {
       try {
-        const bonusNumber = await Console.readLineAsync(INPUT.bonusNumber);
+        const bonusNumber = await this.#input.bonusNumbers();
 
         this.validateBonusNumber(winningNumbers, bonusNumber);
 

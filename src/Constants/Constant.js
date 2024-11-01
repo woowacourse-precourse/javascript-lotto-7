@@ -24,7 +24,7 @@ const secondWinner = {
 const thirdWinner = {
   rank: '3',
   match: '5',
-  reward: '1500000',
+  reward: 1500000,
 };
 
 const fourthWinner = {
