@@ -24,6 +24,14 @@ class Input {
     getValue(){
         return this.value;
     }
+
+    splitNum(){
+        this.value = this.value.split(',');
+    }
+
+    changeNum(){
+        this.value = this.value.map(Number);
+    }
 }
 
 export default Input;
