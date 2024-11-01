@@ -1,15 +1,12 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { NUMBER } from './constants.js';
 
 class LottoMachine {
-  static START_NUMBER = 1;
-  static NUMBER_COUNT = 6;
-  static MAX_NUMBER = 45;
-
   static #pickRandomNumbers() {
     return MissionUtils.Random.pickUniqueNumbersInRange(
-      LottoMachine.START_NUMBER,
-      LottoMachine.MAX_NUMBER,
-      LottoMachine.NUMBER_COUNT
+      NUMBER.START,
+      NUMBER.MAX,
+      NUMBER.VALID_LENGTH
     );
   }
 
