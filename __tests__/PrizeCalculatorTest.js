@@ -10,7 +10,7 @@ describe('PrizeCalculator 클래스 테스트', () => {
         ]),
         payment: 5000,
       },
-      3100,
+      3200,
     ],
     [
       {
