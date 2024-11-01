@@ -3,7 +3,7 @@ import {
   getWinningNumbersInput,
   getBonusNumberInput,
 } from './Views/inputViews.js';
-import { validatePurchasePrice } from './Controllers/Validator/purchasePriceValidator.js';
+import { PurchaseAmountValidator } from './Controllers/Validator/purchaseAmountValidator.js';
 import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
 import {
   printCountPurchaseAmount,
@@ -21,7 +21,7 @@ import { trimWinningNumbers } from './Models/winningNumbersUtils.js';
 class App {
   async run() {
     const purchasePrice = await getPurchasePriceInput();
-    validatePurchasePrice(purchasePrice);
+    new PurchaseAmountValidator(purchasePrice).validatePurchaseAmount();
 
     const purchaseCount = countPurchaseAmount(purchasePrice);
     printCountPurchaseAmount(purchaseCount);
