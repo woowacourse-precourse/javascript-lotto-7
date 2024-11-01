@@ -1,4 +1,4 @@
-import { getPurchaseAmount } from './view/InputReader.js';
+import { inputPurchaseAmount } from './view/InputReader.js';
 import { createPurchaseAmountValidator } from './validate/ValidatorCreator.js';
 
 const validator = createPurchaseAmountValidator();
@@ -16,7 +16,7 @@ class LottoPayment {
   }
 
   async #getPurchaseAmount() {
-    const amount = await getPurchaseAmount();
+    const amount = await inputPurchaseAmount();
     validator.validatePurchaseAmount(amount);
 
     return amount;
