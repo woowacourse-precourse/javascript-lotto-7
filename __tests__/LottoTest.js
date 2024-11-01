@@ -32,4 +32,9 @@ describe('로또 클래스 테스트', () => {
       expect(lotto.getMatchResult([1, 3, 5, 2, 9, 4], 6)).toEqual([5, true]);
     });
   });
+
+  test('출력 형식에 맞게 로또 배열을 변경한다', () => {
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    expect(lotto.getFormattedNumbers()).toBe('[1, 2, 3, 4, 5, 6]');
+  });
 });
