@@ -7,6 +7,7 @@ class App {
         "구입금액을 입력해 주세요.\n"
       );
       const lottoTickes = new PurchasedLotto(purchaseAmount);
+      console.log(lottoTickes.getTickets());
       // const lottoNumbers = await MissionUtils.Console.readLineAsync(
       //   "당첨 번호를 입력해 주세요.\n"
       // );

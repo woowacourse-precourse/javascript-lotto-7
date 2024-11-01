@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import errorMessages from "./constants/errorMessages.js";
+import Lotto from "./Lotto.js";
 
 class PurchasedLotto {
   constructor(purchaseAmount) {
@@ -16,7 +17,8 @@ class PurchasedLotto {
   #getTicketsArray(numberOfTickets) {
     let tickesArray = [];
     for (let i = 0; i < numberOfTickets; i++) {
-      tickesArray.push(this.#getRandomNumbers());
+      const lottoTicket = new Lotto(this.#getRandomNumbers());
+      tickesArray.push(lottoTicket);
     }
     return tickesArray;
   }
@@ -32,7 +34,7 @@ class PurchasedLotto {
   }
 
   getTickets() {
-    return this.tickets;
+    return this.tickets.map((ticket) => ticket.getNumbers());
   }
 }
 
