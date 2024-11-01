@@ -12,7 +12,7 @@ class LottoStore {
   LOTTO_PRICE = 1000;
 
   buyLotto(money) {
-    this.#money = money;
+    this.#money = this.#validate(money);
     this.#lottoCount = Math.floor(money / this.LOTTO_PRICE);
     this.#lottoList = new Array(this.#lottoCount).fill(0).map(LottoStore.#createLotto);
     return this.#lottoList;
@@ -22,6 +22,11 @@ class LottoStore {
     const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, LOTTO_COUNT);
     const lotto = new Lotto(numbers);
     return lotto.getLottoNumbers();
+  }
+
+  #validate(money) {
+    if (!/^[0-9]+$/.test(money)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
+    return money;
   }
 
   getLottoCount() {

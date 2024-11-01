@@ -48,7 +48,7 @@ describe("로또 테스트", () => {
     jest.restoreAllMocks();
   });
 
-  test.skip("기능 테스트", async () => {
+  test("기능 테스트", async () => {
     // given
     const logSpy = getLogSpy();
 
@@ -92,7 +92,7 @@ describe("로또 테스트", () => {
     });
   });
 
-  test.skip("예외 테스트", async () => {
+  test("예외 테스트", async () => {
     await runException("1000j");
   });
 });

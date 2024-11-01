@@ -29,6 +29,9 @@ const OutputView = {
   printReturnRate(rate) {
     MissionUtils.Console.print(`총 수익률은 ${rate}%입니다.`);
   },
+  printError(message) {
+    MissionUtils.Console.print(message);
+  },
 };
 
 export default OutputView;

@@ -9,11 +9,16 @@ class Controller {
   }
 
   async buyLotto() {
-    const money = await this.views.input.getLottoMoney();
-    this.models.lottoStore.buyLotto(money);
+    try {
+      const money = await this.views.input.getLottoMoney();
+      this.models.lottoStore.buyLotto(money);
 
-    this.views.output.printLottoCount(this.models.lottoStore.getLottoCount());
-    this.views.output.printLottos(this.models.lottoStore.getLottos());
+      this.views.output.printLottoCount(this.models.lottoStore.getLottoCount());
+      this.views.output.printLottos(this.models.lottoStore.getLottos());
+    } catch (error) {
+      this.views.output.printError(error.message);
+      await this.buyLotto();
+    }
   }
 
   async setLottoChecker() {
