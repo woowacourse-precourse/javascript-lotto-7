@@ -1,13 +1,15 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import { INPUT, OUTPUT } from './Constants/Message.js';
-import { BasicValidation } from './Validation.js';
+import { BasicValidation, WinningNumberValidation } from './Validation.js';
 import Lotto from './Domain/Lotto.js';
 
 class App {
   #basicValidation;
+  #winningNumberValidation;
 
   constructor() {
     this.#basicValidation = new BasicValidation();
+    this.#winningNumberValidation = new WinningNumberValidation();
   }
 
   async getPurchaseMoney() {
@@ -51,12 +53,32 @@ class App {
     );
   }
 
+  async getWinningNumbers() {
+    while (true) {
+      try {
+        const input = await Console.readLineAsync(INPUT.winningNumber);
+
+        this.#winningNumberValidation.InputSeparator(input);
+
+        const winningNumbers = input.split(',').map((number) => {
+          return Number(number);
+        });
+
+        return winningNumbers;
+      } catch (err) {
+        Console.print(err.message);
+      }
+    }
+  }
+
   async run() {
     const purchaseMoney = await this.getPurchaseMoney();
     const purchaseTickets = this.purchaseLottoTickets(purchaseMoney);
 
     this.printPurchaseLottoCount(purchaseTickets);
     this.printPurchaseLottoNumbers(purchaseTickets);
+
+    const winningNumbers = await this.getWinningNumbers();
   }
 }
 
