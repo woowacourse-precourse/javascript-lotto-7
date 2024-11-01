@@ -16,12 +16,16 @@ async function inputRecursion(message, fn) {
   }
 }
 
+async function handleRecursion(result, fn) {
+  if (result.success) {
+    return result.input;
+  }
+  const newResult = await inputRecursion(`${result.message}\n`, fn);
+  return handleRecursion(newResult, fn);
+}
+
 export default async function InputRepeat(message, fn) {
   const inputs = await inputRecursion(message, fn);
 
-  if (inputs.success) {
-    return inputs.input;
-  }
-
-  InputRepeat(`${inputs.message}\n`, fn);
+  return handleRecursion(inputs, fn);
 }
