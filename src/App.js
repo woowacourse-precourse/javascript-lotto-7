@@ -5,6 +5,7 @@ class App {
   async run() {
     const amount = await this.getAmount();
     const tickets = this.generateLottoTickets(amount / 1000);
+    const winningNumbers = await this.getWinningNumbers();
   }
 
   async getAmount() {
@@ -49,6 +50,37 @@ class App {
       Console.print(`[${lotto.getNumbers().join(', ')}]`);
     }
     return tickets;
+  }
+
+  async getWinningNumbers() {
+    while (true) {
+      const input = await Console.readLineAsync(
+        '\n당첨 번호를 입력해 주세요.\n'
+      );
+
+      try {
+        return this.validateWinningNumbers(input);
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
+  validateWinningNumbers(input) {
+    const numbers = input.split(',');
+
+    if (numbers.length !== 6)
+      throw new Error('[ERROR] 당첨 번호는 6개여야 합니다.');
+    if (new Set(numbers).size !== numbers.length)
+      throw new Error('[ERROR] 당첨 번호는 중복될 수 없습니다.');
+
+    numbers.forEach((n) => {
+      if (!/^\d+$/.test(n) || parseInt(n, 10) < 1 || parseInt(n, 10) > 45) {
+        throw new Error('[ERROR] 당첨 번호는 1~45 사이의 숫자여야 합니다.');
+      }
+    });
+
+    return numbers;
   }
 }
 
