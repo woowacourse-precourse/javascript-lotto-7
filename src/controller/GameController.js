@@ -1,7 +1,7 @@
 import GameInput from "../view/GameInput.js";
 import GameOutput from "../view/GameOutput.js";
-import Exception from "../util/Exception.js";
-import GetNumber from "../util/GetNumber.js";
+import Exception from "../component/Exception.js";
+import GetNumber from "../component/GetNumber.js";
 import GameResult from "../model/GameResult.js";
 import { LOTTO_DATA } from "../constant/Data.js";
 

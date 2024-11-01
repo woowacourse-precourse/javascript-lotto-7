@@ -1,4 +1,4 @@
-import Exception from "../util/Exception.js";
+import Exception from "../component/Exception.js";
 
 class Lotto {
   #numbers;
