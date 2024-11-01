@@ -1,5 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT } from '../Constants/Message.js';
+import {
+  LOTTO_NUMBER_STANDARD,
+  firstWinner,
+  secondWinner,
+  thirdWinner,
+  fourthWinner,
+  fifthWinner,
+} from '../Constants/Constant.js';
 
 class Output {
   error(message) {
@@ -11,23 +19,27 @@ class Output {
   }
 
   lottoTicketNumbers(tickets) {
-    tickets.forEach((ticket) => ticket.printLottoNumbers());
+    tickets.forEach((ticket) =>
+      Console.print(
+        OUTPUT.ticketNumber(
+          ticket.getNumber().join(LOTTO_NUMBER_STANDARD.separator)
+        )
+      )
+    );
   }
 
   winningResult(results) {
-    Console.print('당첨 통계');
-    Console.print('---');
-    Console.print(`3개 일치 (5,000원) - ${results['5']}개`);
-    Console.print(`4개 일치 (50,000원) - ${results['4']}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${results['3']}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${results['2']}개`
-    );
-    Console.print(`6개 일치 (2,000,000,000원) - ${results['1']}개`);
+    Console.print(OUTPUT.winningStatistics);
+
+    Console.print(OUTPUT.fifthWinner(results[fifthWinner.rank]));
+    Console.print(OUTPUT.fourthWinner(results[fourthWinner.rank]));
+    Console.print(OUTPUT.thirdWinner(results[thirdWinner.rank]));
+    Console.print(OUTPUT.secondWinner(results[secondWinner.rank]));
+    Console.print(OUTPUT.firstWinner(results[firstWinner.rank]));
   }
 
   totalReturnResult(totalReturn) {
-    Console.print(`총 수익률은 ${Math.round(totalReturn * 100) / 100}%입니다.`);
+    Console.print(OUTPUT.totalProfit(Math.round(totalReturn * 100) / 100));
   }
 }
 

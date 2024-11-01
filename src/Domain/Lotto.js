@@ -1,4 +1,13 @@
-import { Console } from '@woowacourse/mission-utils';
+import { BASIC_ERROR } from '../Constants/Message.js';
+import {
+  LOTTO_NUMBER_STANDARD,
+  fifthWinner,
+  fourthWinner,
+  thirdWinner,
+  secondWinner,
+  firstWinner,
+  losing_ticket,
+} from '../Constants/Constant.js';
 
 class Lotto {
   #numbers;
@@ -9,8 +18,8 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    if (numbers.length !== LOTTO_NUMBER_STANDARD.length) {
+      throw new Error(BASIC_ERROR.invalidLength);
     }
   }
 
@@ -22,18 +31,16 @@ class Lotto {
     const matchNumberCount =
       12 - new Set([...this.#numbers, ...winningNumbers]).size;
 
-    switch (matchNumberCount) {
-      case 6:
-        return 1;
-      case 5:
-        return this.#numbers.includes(bonusNumber) ? '2' : '3';
-      case 4:
-        return '4';
-      case 3:
-        return '5';
-      default:
-        return '0';
-    }
+    const resultTable = {
+      [firstWinner.match]: firstWinner.rank,
+      [secondWinner.match]: this.#numbers.includes(bonusNumber)
+        ? secondWinner.rank
+        : thirdWinner.rank,
+      [fourthWinner.match]: fourthWinner.rank,
+      [fifthWinner.match]: fifthWinner.rank,
+    };
+
+    return resultTable[matchNumberCount] || losing_ticket.rank;
   }
 }
 

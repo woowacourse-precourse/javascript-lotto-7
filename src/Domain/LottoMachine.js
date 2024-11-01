@@ -5,6 +5,16 @@ import {
   WinningNumberValidation,
   BonusNumberValidation,
 } from '../Validation.js';
+import {
+  LOTTO_NUMBER_STANDARD,
+  LOTTO_PRICE_UNIT,
+  fifthWinner,
+  secondWinner,
+  thirdWinner,
+  fourthWinner,
+  firstWinner,
+  losing_ticket,
+} from '../Constants/Constant.js';
 
 class LOTTO_MACHINE {
   #winningNumbers;
@@ -16,9 +26,11 @@ class LOTTO_MACHINE {
   }
 
   #parseWinningNumbers(winningNumbers) {
-    return winningNumbers.split(',').map((number) => {
-      return Number(number);
-    });
+    return winningNumbers
+      .split(LOTTO_NUMBER_STANDARD.separator)
+      .map((number) => {
+        return Number(number);
+      });
   }
 
   #validateWinningNumbers(winningNumbers) {
@@ -27,7 +39,10 @@ class LOTTO_MACHINE {
     const parseWinningNumbers = this.#parseWinningNumbers(winningNumbers);
 
     WinningNumberValidation.InputOverlap(parseWinningNumbers);
-    BasicValidation.inputLength(parseWinningNumbers, 6);
+    BasicValidation.inputLength(
+      parseWinningNumbers,
+      LOTTO_NUMBER_STANDARD.length
+    );
 
     parseWinningNumbers.forEach((number) => {
       WinningNumberValidation.InputNumberType(number);
@@ -52,7 +67,11 @@ class LOTTO_MACHINE {
   }
 
   drawRandomLottoNumbers() {
-    return Random.pickUniqueNumbersInRange(1, 45, 6);
+    return Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBER_STANDARD.min,
+      LOTTO_NUMBER_STANDARD.max,
+      LOTTO_NUMBER_STANDARD.length
+    );
   }
 
   drawSingleLottoTicket() {
@@ -61,7 +80,7 @@ class LOTTO_MACHINE {
   }
 
   purchaseLottoTickets() {
-    const ticketCount = user.getMoney() / 1000;
+    const ticketCount = user.getMoney() / LOTTO_PRICE_UNIT;
 
     const tickets = Array.from({ length: ticketCount }).map(() => {
       return this.drawSingleLottoTicket();
@@ -72,7 +91,14 @@ class LOTTO_MACHINE {
   }
 
   calculateWinningResult(tickets) {
-    const results = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    const results = {
+      [losing_ticket.rank]: 0,
+      [firstWinner.rank]: 0,
+      [secondWinner.rank]: 0,
+      [thirdWinner.rank]: 0,
+      [fourthWinner.rank]: 0,
+      [fifthWinner.rank]: 0,
+    };
 
     tickets.forEach((ticket) => {
       const rank = ticket.calculateWinningLotto(
@@ -87,11 +113,12 @@ class LOTTO_MACHINE {
 
   calculateTotalReturn(results, money) {
     const total =
-      results['1'] * 2000000000 +
-      results['2'] * 30000000 +
-      results['3'] * 1500000 +
-      results['4'] * 50000 +
-      results['5'] * 5000;
+      results[firstWinner.rank] * firstWinner.reward +
+      results[secondWinner.rank] * secondWinner.reward +
+      results[thirdWinner.rank] * thirdWinner.reward +
+      results[fourthWinner.rank] * fourthWinner.reward +
+      results[fifthWinner.rank] * fifthWinner.reward;
+
     return (total / money) * 100;
   }
 }
