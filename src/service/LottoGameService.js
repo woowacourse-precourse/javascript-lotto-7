@@ -67,6 +67,15 @@ class LottoGameService {
       this.prizes[rank].count += 1;
     }
   }
+
+  updateLottoPrizes(lottos, winningNumbers, bonusNumber) {
+    lottos.forEach((lotto) => {
+      const [matchedCount, isBonusMatched] = lotto.getMatchResult(winningNumbers, bonusNumber);
+      const rank = this.calculateRank(matchedCount, isBonusMatched);
+
+      this.increaseRankCount(rank);
+    });
+  }
 }
 
 export default LottoGameService;
