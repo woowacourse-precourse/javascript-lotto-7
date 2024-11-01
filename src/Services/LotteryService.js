@@ -20,7 +20,7 @@ export default class LotteryService {
     return { matchingNumberCount, hasBonusNumber };
   }
 
-  validateLotteryNotes(purchaseAmount) {
+  calculateNumberOfTickets(purchaseAmount) {
     return validateLotteryNotes(purchaseAmount);
   }
 }

@@ -1,8 +1,8 @@
-import { printMessage } from '../../View/OutputView.js';
 import { isNumber } from '../../Util/Regex.js';
 import { ERROR_MESSAGES } from '../../Error/Error.js';
 import runValidators from '../runValidators.js';
 import { defaultSettings } from '../../Config/DefaultSettings.js';
+import printMessage from '../../View/OutputView.js';
 
 const { lotto } = defaultSettings;
 const validateIsNumber = (input) => {

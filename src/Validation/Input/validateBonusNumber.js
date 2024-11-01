@@ -1,4 +1,4 @@
-import { printMessage } from '../../View/OutputView.js';
+import printMessage from '../../View/OutputView.js';
 import { ERROR_MESSAGES } from '../../Error/Error.js';
 import { isNumber } from '../../Util/Regex.js';
 import runValidators from '../runValidators.js';

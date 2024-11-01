@@ -11,10 +11,12 @@ import { Console } from '@woowacourse/mission-utils';
  *   console.log(input);
  * });
  */
-export async function getInputWhileValid(validator, promptMessage) {
-  while (true) {
-    const input = await Console.readLineAsync(promptMessage);
-    const validInput = validator(input);
-    if (validInput) return validInput;
+export default async function getInputWhileValid(validator, promptMessage) {
+  const input = await Console.readLineAsync(promptMessage);
+  const validInput = validator(input);
+
+  if (validInput) {
+    return validInput;
   }
+  return this.getInputWhileValid(validator, promptMessage);
 }

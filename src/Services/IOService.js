@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class IOService {
+  // await을 반복하게 쓰기 위해서 재귀로 짬. 위험할까?
   async getInputWhileValid(validator, promptMessage) {
     const input = await Console.readLineAsync(promptMessage);
     const validInput = validator(input);
