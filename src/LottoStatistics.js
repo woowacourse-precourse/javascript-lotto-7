@@ -1,3 +1,5 @@
+import OutputView from './view/OutputView.js';
+
 class LottoStatistics {
   #purchasedLottos;
 
@@ -5,9 +7,12 @@ class LottoStatistics {
 
   #winningStatistics;
 
-  constructor(purchasedLottos, winningLotto) {
+  #purchaseAmount;
+
+  constructor(purchasedLottos, winningLotto, purchaseAmount) {
     this.#purchasedLottos = purchasedLottos;
     this.#winningLotto = winningLotto;
+    this.#purchaseAmount = purchaseAmount;
     this.#winningStatistics = {
       3: { count: 0, prize: 5000 },
       4: { count: 0, prize: 50000 },
@@ -57,10 +62,15 @@ class LottoStatistics {
     );
   }
 
-  calculateRageOfReturn(purchaseAmount) {
+  #calculateRageOfReturn() {
     const totalPrize = this.#calculateTotalPrize();
-    const rangeOfReturn = (totalPrize / purchaseAmount) * 100;
+    const rangeOfReturn = (totalPrize / this.#purchaseAmount) * 100;
     return rangeOfReturn.toFixed(1);
+  }
+
+  printStatistics() {
+    const profitRate = this.#calculateRageOfReturn();
+    OutputView.printResult(this.#winningStatistics, profitRate);
   }
 }
 
