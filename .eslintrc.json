@@ -33,6 +33,9 @@
         "skipComments": true,
         "IIFEs": true
       }
-    ]
+    ],
+    "parserOptions": {
+      "ecmaVersion": 13
+    }
   }
 }
