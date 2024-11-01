@@ -4,3 +4,6 @@ export const CONSTANT_LOTTO = Object.freeze({
   MAX_NUMBER: 45,
   PRICE: 1000,
 });
+export const EMPTY_STRING = Object.freeze("");
+
+export const ZERO = Object.freeze(0);
