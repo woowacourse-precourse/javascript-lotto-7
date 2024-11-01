@@ -1,12 +1,12 @@
-import InputView from '../view/InputView.js';
 import Validator from './Validator.js';
+import { parseNumbers } from '../utils/Parser.js';
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     Validator.validateWinningNumbers(numbers);
-    this.#numbers = numbers;
+    this.#numbers = parseNumbers(numbers);
   }
 }
 
