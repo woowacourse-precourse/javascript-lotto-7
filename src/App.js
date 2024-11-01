@@ -12,6 +12,7 @@ class App {
     const lottoQuantity = lottoPurchaseAmount / 1000;
     MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
 
+    const allLottos = [];
     for (let i = 0; i < lottoQuantity; i++) {
       const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
         1,
@@ -20,6 +21,7 @@ class App {
       );
       lottoNumbers.sort((a, b) => a - b);
       MissionUtils.Console.print(`[${lottoNumbers.join(", ")}]`);
+      allLottos.push(lottoNumbers);
     }
 
     const winningNumbersInput = await MissionUtils.Console.readLineAsync(
@@ -50,6 +52,33 @@ class App {
         "[ERROR] : 보너스 번호는 당첨 번호와 중복될 수 없습니다."
       );
     }
+
+    const counts = {
+      3: 0,
+      4: 0,
+      5: 0,
+      "5_bonus": 0,
+      6: 0,
+    };
+
+    allLottos.forEach((lottoNumbers) => {
+      const matchedCount = lottoNumbers.filter((num) =>
+        winningNumbers.includes(num)
+      ).length;
+      const hasBouns = lottoNumbers.includes(bonusNumber);
+
+      if (matchedCount === 5 && hasBouns) {
+        counts["5_bonus"]++;
+      } else if (matchedCount >= 3) {
+        counts[matchedCount]++;
+      }
+    });
+
+    console.log(`3개 일치(5,000원) - ${counts[3]}`);
+    console.log(`4개 일치(50,000원) - ${counts[4]}`);
+    console.log(`5개 일치(1,500,000원) - ${counts[5]}`);
+    console.log(`5개 일치(30,000,000원) - ${counts["5_bonus"]}`);
+    console.log(`6개 일치(2,000,000,000원) - ${counts[6]}`);
   }
 }
 
