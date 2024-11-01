@@ -36,7 +36,9 @@ export default function validateLotto(numbers) {
     throw new Error(ERROR_MESSAGE.INVALID_NOT_NUMBER);
   }
 
-  const lottoNumbers = getValidValue(numbers, RULES.DELIMITER);
+  const lottoNumbers = getValidValue(numbers, RULES.DELIMITER)
+    .filter((number) => !!number)
+    .map(Number);
 
   validateLottoNumberLength(lottoNumbers);
   validateLottoNumbers(lottoNumbers);

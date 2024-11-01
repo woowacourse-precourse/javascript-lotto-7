@@ -1,5 +1,5 @@
 export function splitWithDelimiter(delimiter, string) {
-  const result = string.split(delimiter).map((str) => Number(str.trim()));
+  const result = string.split(delimiter).map((str) => str.trim());
   return result;
 }
 
