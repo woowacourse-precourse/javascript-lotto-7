@@ -5,6 +5,7 @@ class BonusNumber {
   constructor(bonusNumber) {
     this.#checkEmptyInput(bonusNumber);
     this.#checkNumberExceedsLimit(bonusNumber);
+    this.#checkNumberRange(bonusNumber);
     this.bonusNumber = bonusNumber;
   }
 
@@ -18,6 +19,16 @@ class BonusNumber {
     const bonusNumber = parseNumbers(bonusNumberInput);
     if (bonusNumber.length > 1) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_EXCEEDS_LIMIT);
+    }
+  }
+
+  #checkNumberRange(bonusNumberInput) {
+    if (
+      !Number.isInteger(bonusNumberInput) ||
+      bonusNumberInput < 1 ||
+      bonusNumberInput > 45
+    ) {
+      throw new Error(ERROR_MESSAGE.NUMBER_RANGE);
     }
   }
 }
