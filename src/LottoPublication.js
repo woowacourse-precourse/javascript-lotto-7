@@ -20,7 +20,7 @@ class LottoPublication {
   showPublishedLottoList() {
     Console.print('\n' + this.#publishedLottoList.length + '개를 구매했습니다.');
     this.#publishedLottoList.forEach((lotto) => {
-      Console.print(lotto.getNumbers());
+      lotto.printNumbers();
     });
   }
 }

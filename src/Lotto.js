@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 class Lotto {
   #numbers;
 
@@ -14,6 +15,10 @@ class Lotto {
 
   getNumbers() {
     return this.#numbers;
+  }
+
+  printNumbers() {
+    Console.print(this.#numbers);
   }
 }
 
