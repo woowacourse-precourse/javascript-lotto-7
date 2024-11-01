@@ -63,6 +63,10 @@ class Lotto {
         `당첨 번호는 ${LOTTO_NUMBER_MIN} ~ ${LOTTO_NUMBER_MAX} 사이로 입력해 주세요.`
       );
     }
+
+    if (new Set(numbers).size !== numbers.length) {
+      this.#throwLottoError("모든 당첨 번호를 서로 다르게 입력해 주세요.");
+    }
   }
 
   async getBonusNumber() {
@@ -73,7 +77,7 @@ class Lotto {
         );
         const bonusNumber = Number(bonus);
 
-        Lotto.#validateBonusNumber(bonusNumber);
+        Lotto.#validateBonusNumber(bonusNumber, this.#numbers);
 
         return bonusNumber;
       } catch ({ message }) {
@@ -82,14 +86,20 @@ class Lotto {
     }
   }
 
-  static #validateBonusNumber(number) {
-    if (!this.#isNumber(number)) {
+  static #validateBonusNumber(bonus, numbers) {
+    if (!this.#isNumber(bonus)) {
       this.#throwLottoError("보너스 번호는 숫자로 입력해 주세요.");
     }
 
-    if (this.#isOutRangeLottoNumber([number])) {
+    if (this.#isOutRangeLottoNumber(bonus)) {
       this.#throwLottoError(
         `보너스 번호는 ${LOTTO_NUMBER_MIN} ~ ${LOTTO_NUMBER_MAX} 사이로 입력해 주세요.`
+      );
+    }
+
+    if (new Set([bonus, ...numbers]).size !== numbers.length + 1) {
+      this.#throwLottoError(
+        "보너스 번호는 이전에 입력한 당첨 번호와 중복되지 않게 입력해 주세요."
       );
     }
   }
