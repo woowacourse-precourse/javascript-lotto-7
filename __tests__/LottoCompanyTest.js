@@ -5,7 +5,6 @@ import LottoShop from '../src/LottoShop';
 
 describe('LottoCompany', () => {
   const lottoCompany = new LottoCompany();
-  const lottoShop = new LottoShop();
 
   test('checkWinningLottos', async () => {
     mockQuestions([
@@ -15,7 +14,7 @@ describe('LottoCompany', () => {
     mockRandoms(MOCKDATA.RANDOM.LOTTO_NUMBERS);
 
     await lottoCompany.draw();
-    const lottos = lottoShop.orderLottos(MOCKDATA.INPUT.PURCHASE_PRICE);
+    const lottos = LottoShop.orderLottos(MOCKDATA.INPUT.PURCHASE_PRICE);
 
     const lottoWinningMap = lottoCompany.checkWinningLottos(lottos);
 

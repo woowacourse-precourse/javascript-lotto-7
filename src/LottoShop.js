@@ -3,18 +3,16 @@ import Lotto from './Lotto.js';
 import { LOTTO } from './lib/constants.js';
 
 class LottoShop {
-  #LOTTO_PRICE = 1_000;
-
-  orderLottos(purchasePrice) {
-    const lottoCount = purchasePrice / this.#LOTTO_PRICE;
-    const lottos = LottoShop.#generateLottos(lottoCount);
+  static orderLottos(purchasePrice) {
+    const lottoCount = purchasePrice / LOTTO.PRICE;
+    const lottos = this.#generateLottos(lottoCount);
 
     return lottos;
   }
 
   static #generateLottos(lottoCount) {
     const lottos = new Array(lottoCount).fill().map(() => {
-      const lottoNumbers = LottoShop.#generateLottoNumbers();
+      const lottoNumbers = this.#generateLottoNumbers();
       const lotto = new Lotto(lottoNumbers);
       return lotto;
     });
