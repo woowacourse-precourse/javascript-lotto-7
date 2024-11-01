@@ -7,6 +7,7 @@ import { calculateRateOfReturn } from './lib/utils';
 class LottoBuyer {
   #purchasePrice;
   #lottos;
+
   #winningLottoMap;
 
   async purchaseLottos() {
