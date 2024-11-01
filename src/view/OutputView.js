@@ -21,6 +21,11 @@ class OutputView {
 
     return lotteries;
   }
+
+  printResultHeader() {
+    Console.print(MESSAGE.RESULT_HEADER);
+    Console.print(MESSAGE.RESULT_HEADER_DIVIDER);
+  }
 }
 
 export default OutputView;

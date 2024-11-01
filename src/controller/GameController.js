@@ -22,8 +22,16 @@ class GameController {
   async runGame(randomLotto) {
     const userLottoNumber = await this.inputView.askUserLotto();
     const userBonusNumber = await this.inputView.askBonusLotto();
+    const gameResult = Lotto.compareResult(
+      randomLotto,
+      userLottoNumber,
+      userBonusNumber,
+    );
+    return gameResult;
+  }
 
-    Lotto.compareResult(randomLotto, userLottoNumber, userBonusNumber);
+  async finishGame(result) {
+    this.outputView.printResultHeader();
   }
 }
 

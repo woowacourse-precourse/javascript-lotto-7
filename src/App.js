@@ -7,7 +7,8 @@ class App {
 
   async run() {
     const randomLotto = await this.gameController.prepareGame();
-    await this.gameController.runGame(randomLotto);
+    const gameResult = await this.gameController.runGame(randomLotto);
+    await this.gameController.finishGame(gameResult);
   }
 }
 
