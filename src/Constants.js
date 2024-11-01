@@ -27,4 +27,5 @@ export const PRIZE_CALCULATOR = {
   },
   defaultPrize: 0,
   profitRatio: 100,
+  profitDecimalPlace: 1,
 };

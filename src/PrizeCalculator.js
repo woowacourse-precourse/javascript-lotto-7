@@ -28,6 +28,11 @@ class PrizeCalculator {
 
     return profit;
   }
+
+  static #parseProfit(profit) {
+    const roundingProfit = profit.toFixed(PRIZE_CALCULATOR.profitDecimalPlace);
+    return Number(roundingProfit);
+  }
 }
 
 export default PrizeCalculator;
