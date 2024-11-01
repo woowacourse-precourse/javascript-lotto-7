@@ -12,7 +12,7 @@ class Lotto {
     }
     const numOfTickets = amount / this.ticketPrice;
     this.lottoTickets = Array.from({ length: numOfTickets }, () =>
-      new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b))
+      Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)
     );
     return this.lottoTickets;
   }
