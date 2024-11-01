@@ -2,6 +2,7 @@ import validateAmount from "./validator/validateAmount.js";
 import { InputView } from "./view/InputView.js";
 import LottoService from "./services/LottoService.js";
 import OutputView from "./view/OutputView.js";
+import validateWinningNumbers from "./validator/validateWinningNumbers.js";
 
 class App {
   async run() {
@@ -15,7 +16,8 @@ class App {
     OutputView.printLottoCount(lottoCount);
     OutputView.printLottoNumbers(lottoService.getLottos());
 
-    const winningNumbers = InputView.getWinningNumbers();
+    const winningNumbersInput = await InputView.getWinningNumbers();
+    const winningNumbers = validateWinningNumbers(winningNumbersInput);
   }
 }
 
