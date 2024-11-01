@@ -14,7 +14,7 @@ export async function getUserMoney() {
 
 export async function getWinningNumbers() {
   try {
-    const winningNumber = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
+    const winningNumber = await MissionUtils.Console.readLineAsync(WINNING_NUMBER_PROMPT);
     return winningNumber;
   } catch (error) {
     throw new Error(INPUT_ERROR_MESSAGE);
@@ -23,7 +23,7 @@ export async function getWinningNumbers() {
 
 export async function getBonusNumber() {
   try {
-    const bonusNumber = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
+    const bonusNumber = await MissionUtils.Console.readLineAsync(BONUS_NUMBER_PROMPT);
     return bonusNumber;
   } catch (error) {
     throw new Error(INPUT_ERROR_MESSAGE);
