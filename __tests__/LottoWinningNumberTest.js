@@ -22,13 +22,6 @@ describe('로또 당첨 번호 입력 테스트', () => {
       }
     },
     {
-      name: '입력 받은 당첨번호 값에 빈 값이 포함되어 있다면 에러를 발생시킨다.',
-      input: '1, 2,,4, 5, 6 ',
-      get error() {
-        return ERROR_MESSAGE.ERROR_INPUT_EMPTY_VALUE;
-      }
-    },
-    {
       name: '입력 받은 당첨번호가 null로 전달되면 에러를 발생시킨다.',
       input: null,
       get error() {
@@ -40,6 +33,27 @@ describe('로또 당첨 번호 입력 테스트', () => {
       input: undefined,
       get error() {
         return ERROR_MESSAGE.ERROR_INPUT_UNDEFINED_VALUE;
+      }
+    },
+    {
+      name: '입력 받은 당첨번호 값에 빈 값이 포함되어 있다면 에러를 발생시킨다.',
+      input: '1, 2,,4, 5, 6 ',
+      get error() {
+        return ERROR_MESSAGE.ERROR_INPUT_EMPTY_VALUE;
+      }
+    },
+    {
+      name: '입력 받은 당첨번호 값에 문자가 포함되어 있다면 에러를 발생시킨다.',
+      input: '1,2,a,4,5,6',
+      get error() {
+        return ERROR_MESSAGE.ERROR_INPUT_ONLY_NUMERIC('a');
+      }
+    },
+    {
+      name: '입력 받은 당첨번호 값에 특수 문자가 포함되어 있다면 에러를 발생시킨다.',
+      input: '1,2,@@,4,5,6',
+      get error() {
+        return ERROR_MESSAGE.ERROR_INPUT_ONLY_NUMERIC('@@');
       }
     },
     {
