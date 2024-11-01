@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { isValidPayment, isValidLotto, isRepeat } from "./validator.js";
+import Lotto from "./Lotto.js";
 
 async function askPayment() {
   try {
@@ -22,6 +23,7 @@ async function askWinningNumbers() {
       isRepeat(winningNumbers, element);
       return Number(element);
     })
+    winningNumbers = new Lotto(winningNumbers)
     return winningNumbers;
 
   } catch (err) {
@@ -34,7 +36,7 @@ async function askBonusNumber(list) {
   try {
     const input = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n')
     isValidLotto(input);
-    if (list.includes(Number(input))) throw Error('[ERROR] 보너스 번호가 중복됨')
+    if (list.numbers.includes(Number(input))) throw Error('[ERROR] 보너스 번호가 중복됨')
     return Number(input)
 
   } catch (err) {
@@ -62,14 +64,14 @@ class App {
 
     // 로또 번호 출력
     const printList = (list) => {
-      MissionUtils.Console.print(`[${list.join(', ')}]`);
+      MissionUtils.Console.print(`[${list.numbers.join(', ')}]`);
     }
 
     const myLottoList = []
     for (let i = 0; i < quantity; i++) {
-      myLottoList.push(makeLottoNumber())
-      myLottoList[i].sort(asc)
-      printList(myLottoList[i])
+      myLottoList.push(new Lotto(makeLottoNumber()));
+      myLottoList[i].numbers.sort(asc);
+      printList(myLottoList[i]);
     }
 
     // 당첨 번호 입력
@@ -77,7 +79,7 @@ class App {
 
     // 보너스 번호 입력
     const bonusNumber = await askBonusNumber(winningNumbers)
-  
+
     // 당첨 내역 집계
     const score = {
       THREE_MATCHES: 0,
@@ -95,8 +97,8 @@ class App {
     }
 
     for (let i = 0; i < quantity; i++) {
-      const result = myLottoList[i].filter(list => winningNumbers.includes(list))
-      const isBonus = myLottoList[i].some((element) => {
+      const result = myLottoList[i].numbers.filter(list => winningNumbers.numbers.includes(list))
+      const isBonus = myLottoList[i].numbers.some((element) => {
         return element == bonusNumber
       });
       countScore(score, result.length, isBonus);
