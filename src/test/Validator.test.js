@@ -1,12 +1,14 @@
-import { Publisher } from '../Publisher.js';
+import { Validator } from '../Validator.js';
+import { calculateQuatity } from '../utils/index.js';
 
 test.each([
   ['8000', 8],
   ['12000', 12],
 ])('구입 금액 검증 성공', (purchaseAmount, result) => {
-  const publisher = new Publisher();
-  publisher.setPurchaseQuantity(purchaseAmount);
-  expect(publisher.purchaseQuantity).toBe(result);
+  const validator = new Validator();
+  validator.validatePurchaseAmount(purchaseAmount);
+  const purchaseQuantity = calculateQuatity(purchaseAmount);
+  expect(purchaseQuantity).toBe(result);
 });
 
 test.each([
@@ -17,8 +19,8 @@ test.each([
   ['', '[ERROR] 구입 금액이 입력되지 않았습니다.'],
 ])('구입 금액 검증 실패', (purchaseAmount) => {
   expect(() => {
-    const publisher = new Publisher();
-    publisher.setPurchaseQuantity(purchaseAmount);
+    const validator = new Validator();
+    validator.validatePurchaseAmount(purchaseAmount);
   }).toThrow('[ERROR]');
 });
 
