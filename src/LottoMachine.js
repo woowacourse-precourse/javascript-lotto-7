@@ -25,13 +25,7 @@ class LottoMachine {
   }
 
   calculateWinningResults(winningNumbers, bonusNumber, lottos) {
-    const totalWinningRank = {
-      first: 0,
-      second: 0,
-      third: 0,
-      fourth: 0,
-      fifth: 0,
-    };
+    const totalWinningRank = [0, 0, 0, 0, 0];
 
     lottos.forEach(lotto => {
       const winningRank = this.calculateWinningResult(
@@ -40,24 +34,8 @@ class LottoMachine {
         lotto.getNumbers()
       );
 
-      switch (winningRank) {
-        case 1:
-          totalWinningRank.first += 1;
-          break;
-        case 2:
-          totalWinningRank.second += 1;
-          break;
-        case 3:
-          totalWinningRank.third += 1;
-          break;
-        case 4:
-          totalWinningRank.fourth += 1;
-          break;
-        case 5:
-          totalWinningRank.fifth += 1;
-          break;
-        default:
-          break;
+      if (winningRank >= 1 && winningRank <= 5) {
+        totalWinningRank[winningRank - 1] += 1;
       }
     });
 
@@ -99,7 +77,7 @@ class LottoMachine {
     return winningRank;
   }
 
-  calculateTotalReturnRate(totalWinningRank) {}
+  calculateTotalReturnRate(purchaseAmount, totalWinningRank) {}
 }
 
 export default LottoMachine;

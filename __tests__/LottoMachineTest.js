@@ -62,11 +62,11 @@ describe('LottoMachine 테스트', () => {
       lottos
     );
 
-    expect(totalWinningRank.first).toBe(1);
-    expect(totalWinningRank.second).toBe(1);
-    expect(totalWinningRank.third).toBe(0);
-    expect(totalWinningRank.fourth).toBe(1);
-    expect(totalWinningRank.fifth).toBe(0);
+    expect(totalWinningRank[0]).toBe(1);
+    expect(totalWinningRank[1]).toBe(1);
+    expect(totalWinningRank[2]).toBe(0);
+    expect(totalWinningRank[3]).toBe(1);
+    expect(totalWinningRank[4]).toBe(0);
   });
 
   test('6개 번호 일치', () => {
