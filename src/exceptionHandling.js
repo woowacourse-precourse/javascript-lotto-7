@@ -46,6 +46,17 @@ class Exception {
       }
     }
 
+    // 로또 번호가 정수가 아닐 경우
+    let isInteger = numbers.every((val) => val % 1 === 0);
+    if (isInteger !== true) {
+      Console.print("[ERROR] 로또 번호는 1부터 45까지의 정수여야 합니다.");
+      if (retry) {
+        throw new Error("[ERROR] 로또 번호는 1부터 45까지의 정수여야 합니다.");
+      } else {
+        return false;
+      }
+    }
+
     return true;
   }
 }
