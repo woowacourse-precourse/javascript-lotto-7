@@ -76,6 +76,39 @@ class InputView {
     }
   }
 
+  async readBonusNumber(winningNumbers) {
+    const bonusNumberInput = await this.readInput(
+      '보너스 번호를 입력해 주세요.'
+    );
+
+    this.validateBonusNumber(winningNumbers, bonusNumberInput);
+
+    return Number(bonusNumberInput);
+  }
+
+  validateBonusNumber(winningNumbers, bonusNumber) {
+    if (bonusNumber === '') {
+      throw new Error('[ERROR] 보너스 번호를 입력해야 합니다.');
+    }
+
+    if (bonusNumber.split(',').length !== 1) {
+      throw new Error('[ERROR] 보너스 번호는 반드시 1개여야 합니다.');
+    }
+
+    const bonusNumberValue = Number(bonusNumber);
+
+    if (Number.isNaN(bonusNumberValue)) {
+      throw new Error('[ERROR] 보너스 번호는 숫자여야 합니다.');
+    }
+
+    if (bonusNumberValue < 1 || bonusNumberValue > 45) {
+      throw new Error('[ERROR] 보너스 번호는 1~45 사이여야 합니다.');
+    }
+
+    if (winningNumbers.includes(bonusNumberValue)) {
+      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+    }
+  }
 }
 
 export default InputView;
