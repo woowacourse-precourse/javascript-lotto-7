@@ -15,6 +15,21 @@ class App {
     this.#matchLottoNumbers();
   }
 
+  #calculateResults(matches) {
+    const results = { 3: 0, 4: 0, 5: 0, "5+": 0, 6: 0 };
+    
+    matches.forEach(({ matchCount, hasBonus }) => {
+      if (matchCount === 6) results[6]++;
+      else if (matchCount === 5 && hasBonus) results["5+"]++;
+      else if (matchCount === 5) results[5]++;
+      else if (matchCount === 4) results[4]++;
+      else if (matchCount === 3) results[3]++;
+    });
+    
+    return results;
+  }
+
+
   #matchLottoNumbers() {
     return this.#lottos.map(lotto => {
       const matchCount = lotto.filter(number => 
