@@ -17,11 +17,17 @@ class App {
   }
 
   validateAmount(amount) {
+    if (isNaN(amount)) {
+      Console.print("[ERROR] 금액은 숫자여야 합니다.");
+      return;
+    }
     if (amount % 1000 !== 0) {
       Console.print("[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다.");
+      return;
     }
     if (amount <= 0) {
       Console.print("[ERROR] 정상적인 금액을 입력해주세요.");
+      return;
     }
   }
 }
