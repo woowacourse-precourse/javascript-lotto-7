@@ -30,10 +30,6 @@ class LottoGameService {
     return this.prizes;
   }
 
-  createLottoQuantity(userMoney) {
-    return userMoney / LOTTO_PRICE;
-  }
-
   generateLotto() {
     const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     return new Lotto(randomNumber);
@@ -47,6 +43,10 @@ class LottoGameService {
     }
 
     return lottos;
+  }
+
+  createLottoQuantity(userMoney) {
+    return userMoney / LOTTO_PRICE;
   }
 }
 
