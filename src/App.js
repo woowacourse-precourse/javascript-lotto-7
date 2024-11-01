@@ -2,8 +2,13 @@ import Lotto from "./Lotto.js";
 
 class App {
   async run() {
-    const lottoCount = await Lotto.buy();
-    console.log("end App");
+    await Lotto.buy();
+
+    const lotto = await Lotto.createWinningNumbers();
+
+    // lotto.winnningNumbers
+
+    return;
   }
 }
 
