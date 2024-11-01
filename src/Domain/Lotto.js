@@ -27,10 +27,11 @@ class Lotto {
     Console.print(`[${this.#numbers.join(', ')}]`);
   }
 
-  calculateWinningLotto(winningNumbers, bonusNumber) {
-    const matchNumberCount =
-      12 - new Set([...this.#numbers, ...winningNumbers]).size;
-
+  calculateWinningLotto(winningNumbers) {
+    return this.#numbers.filter((number) => winningNumbers.includes(number))
+      .length;
+  }
+  compareMatchNumber(matchNumberCount, bonusNumber) {
     const resultTable = {
       [firstWinner.match]: firstWinner.rank,
       [secondWinner.match]: this.#numbers.includes(bonusNumber)
@@ -41,6 +42,12 @@ class Lotto {
     };
 
     return resultTable[matchNumberCount] || losing_ticket.rank;
+  }
+
+  calculateLottoResult(winningNumbers, bonusNumber) {
+    const matchNumberCount = this.calculateMatchNumber(winningNumbers);
+    const result = this.compareMatchNumber(matchNumberCount, bonusNumber);
+    return result;
   }
 }
 
