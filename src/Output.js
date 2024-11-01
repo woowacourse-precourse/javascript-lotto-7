@@ -5,6 +5,7 @@ import {
   ROI_MESSAGES,
   WINNING_PRIZE,
 } from "./Constants.js";
+import RankChecker from "./RankChecker.js";
 
 class Output {
   constructor(
@@ -17,6 +18,7 @@ class Output {
     this.winningAndBonusNumber = winningAndBonusNumber;
     this.totalLottoCount = totalLottoCount;
     this.purchasedLottos = this.#sortLottoNumbers(purchasedLottos);
+    this.resultObj = this.#getResultObj();
   }
 
   #sortLottoNumbers(purchasedLottos) {
@@ -32,7 +34,20 @@ class Output {
     });
   }
 
-  printResult(resultObj) {
+  #getMatchCounts() {
+    return RankChecker.checkMatch(
+      this.purchasedLottos,
+      this.winningAndBonusNumber
+    );
+  }
+
+  #getResultObj() {
+    const matchCounts = this.#getMatchCounts();
+    return RankChecker.getRank(matchCounts);
+  }
+
+  printResult() {
+    const resultObj = this.resultObj;
     Console.print(PRIZE_MESSAGES.TITLE);
     Console.print(PRIZE_MESSAGES.SEPARATOR);
     Console.print(`${PRIZE_MESSAGES.FIFTH} ${resultObj.FIFTH_PLACE}개`);
@@ -42,7 +57,8 @@ class Output {
     Console.print(`${PRIZE_MESSAGES.FIRST} ${resultObj.FIRST_PLACE}개`);
   }
 
-  #calculateProfit(resultObj) {
+  #calculateProfit() {
+    const resultObj = this.resultObj;
     return (
       WINNING_PRIZE.FIFTH_PLACE * resultObj.FIFTH_PLACE +
       WINNING_PRIZE.FOURTH_PLACE * resultObj.FOURTH_PLACE +
@@ -52,7 +68,8 @@ class Output {
     );
   }
 
-  calculateROI(resultObj) {
+  calculateROI() {
+    const resultObj = this.resultObj;
     const profit = this.#calculateProfit(resultObj);
     const profitRate = (profit / this.userPurchaseAmount) * 100;
     Console.print(

@@ -19,15 +19,9 @@ class App {
       purchasedLottos
     );
 
-    const matchCounts = RankChecker.checkMatch(
-      output.purchasedLottos,
-      output.winningAndBonusNumber
-    );
-    const resultObj = RankChecker.getRank(matchCounts);
-
-    output.printSortedLottoNumbers(resultObj);
-    output.printResult(resultObj);
-    output.calculateROI(resultObj);
+    output.printSortedLottoNumbers();
+    output.printResult();
+    output.calculateROI();
   }
 }
 
