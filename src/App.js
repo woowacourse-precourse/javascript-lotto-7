@@ -5,26 +5,33 @@ import Lotto from './Lotto.js';
 import { View } from './view/View.js';
 
 class App {
+  amount = null;
+  winningNumbers = null;
+
   async run() {
     const view = new View();
 
     while (true) {
       try {
-        const amount = await view.promptPurchaseAmount();
-        this.validationAmount(amount);
+        if (this.amount === null) {
+          this.amount = await view.promptPurchaseAmount();
+          this.validationAmount(this.amount);
 
-        const lottoCount = amount / ONE_LOTTO_AMOUNT;
-        view.promptPurchaseLotto(lottoCount);
+          const lottoCount = this.amount / ONE_LOTTO_AMOUNT;
+          view.promptPurchaseLotto(lottoCount);
 
-        const lottos = Array.from(
-          { length: lottoCount },
-          () => new Lotto(this.makeRandomNumbers())
-        );
+          const lottos = Array.from(
+            { length: lottoCount },
+            () => new Lotto(this.makeRandomNumbers())
+          );
 
-        lottos.forEach((lotto) => view.printLotto(lotto.getNumbers()));
+          lottos.forEach((lotto) => view.printLotto(lotto.getNumbers()));
+        }
 
-        const rawInput = await view.promptWinningNumbers();
-        const winningNumbers = new Lotto(this.parseNumbers(rawInput));
+        if (this.winningNumbers === null) {
+          const rawInput = await view.promptWinningNumbers();
+          this.winningNumbers = new Lotto(this.parseNumbers(rawInput));
+        }
 
         break;
       } catch (error) {
