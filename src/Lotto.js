@@ -1,9 +1,10 @@
-import Validator from "./Validator";
+import LottoValidator from "./LottoValidator";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    Validator.validateLottoNumbers(numbers);
+    LottoValidator.validateLottoNumbers(numbers);
     this.#numbers = numbers;
   }
 

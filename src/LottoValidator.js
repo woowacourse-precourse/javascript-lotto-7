@@ -1,4 +1,4 @@
-class Validator {
+class LottoValidator {
   static validateLottoNumbers(numbers) {
     this.checkDuplicateNumber(numbers);
     this.checkSixNumbers(numbers);
@@ -33,11 +33,11 @@ class Validator {
   }
   static checkIsInteger(numbers) {
     numbers.forEach(number => {
-      if(Number.isInteger(number)) {
+      if(!Number.isInteger(number)) {
         throw new Error("[ERROR] : 로또 번호는 정수이어야 합니다.");
       }
     })
   }
 };
 
-export default Validator;
+export default LottoValidator;
