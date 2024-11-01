@@ -1,10 +1,17 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
-export function randomTicket(tickets) {
+export function randomTicket() {
+  const randomArray = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+    (a, b) => a - b
+  );
+  return randomArray;
+}
+
+export function ticketArray(tickets) {
   const ticketArray = [];
   for (let i = 0; i < tickets; i++) {
-    const randomArray = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    ticketArray.push(randomArray);
+    ticketArray.push(randomTicket());
   }
+
   return ticketArray;
 }
