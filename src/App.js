@@ -4,26 +4,26 @@ import LottoGenerator from './LottoGenerator.js';
 
 class App {
   async run() {
-    const purchasePrice = await Console.readLineAsync(
+    const purchaseAmount = await Console.readLineAsync(
       '구입금액을 입력해주세요.\n'
     );
 
-    const purchasedLottos = new LottoGenerator(purchasePrice);
+    const lottoManager = new LottoGenerator(purchaseAmount);
 
-    Console.print(`\n${purchasedLottos.lottoCount}개를 구매했습니다.`);
+    Console.print(`\n${lottoManager.lottoCount}개를 구매했습니다.`);
 
-    purchasedLottos.createLotto();
+    lottoManager.createLotto();
 
-    purchasedLottos.getLottoNumbers();
+    lottoManager.getLottoNumbers();
 
-    const lottoWinningNumbers = await Console.readLineAsync(
+    const winningNumbersInput = await Console.readLineAsync(
       '당첨 번호를 입력해 주세요.\n'
     );
-    const lottoWinningNumbersArray = lottoWinningNumbers
+    const winningNumbers = winningNumbersInput
       .split(',')
       .map((lottoNumber) => parseInt(lottoNumber));
 
-    const lotto = new Lotto(lottoWinningNumbersArray);
+    const winningLotto = new Lotto(winningNumbers);
 
     const bonusNumber = await Console.readLineAsync(
       '\n보너스 번호를 입력해 주세요.\n'
