@@ -1,19 +1,20 @@
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 import Validator from './utils/Validator.js';
+import WinningLotto from './WinningLotto.js';
 
 class WinningLottoMachine {
   async createWinningLotto() {
     const winningNumbers = await WinningLottoMachine.#getValidWinningNums();
     const bonusNumber = await WinningLottoMachine.#getValidBonusNums(winningNumbers);
+    return new WinningLotto(winningNumbers, bonusNumber);
   }
 
   static async #getValidWinningNums() {
     while (true) {
       try {
         const winningNumbers = await InputView.getUserInput('당첨 번호를 입력해 주세요.\n');
-        WinningLottoMachine.#validateWinningNumbers(winningNumbers);
-        return winningNumbers;
+        return WinningLottoMachine.#validateWinningNumbers(winningNumbers);
       } catch (error) {
         OutputView.printError(error);
       }
@@ -45,6 +46,7 @@ class WinningLottoMachine {
       Validator.checkValidRange(num, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
     });
     WinningLottoMachine.#checkDuplicateNum(splitNums);
+    return splitNums;
   }
 
   static #validateBonusNumber(bonusNumber, winningNumbers) {
