@@ -21,6 +21,12 @@ class Validator {
     return input;
   }
 
+  static isLengthSix(input) {
+    if (input.length !== 6)
+      throw new Error("로또 번호는 6개의 숫자여야 합니다.");
+    return input;
+  }
+
   static isDuplicate(input) {
     if (new Set(input).size !== input.length) throw new Error("중복");
     return input;
