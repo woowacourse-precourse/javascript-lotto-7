@@ -22,4 +22,30 @@ describe('Validator Test', () => {
       expect(validate).not.toThrow();
     });
   });
+
+  describe('isNotZero() Test : 입력값이 0이 아닌지 검증', () => {
+    test('값이 0인 경우 에러를 발생시킨다.', () => {
+      const zero = 0;
+
+      // when
+      const validate = () => {
+        Validator.isZero(zero);
+      };
+
+      // then
+      expect(validate).toThrow(ERROR_PREFIX);
+    });
+
+    test('값이 0이 아닌 경우 정상적으로 동작한다.', () => {
+      const notZero = 1;
+
+      // when
+      const validate = () => {
+        Validator.isZero(notZero);
+      };
+
+      // then
+      expect(validate).not.toThrow();
+    });
+  });
 });
