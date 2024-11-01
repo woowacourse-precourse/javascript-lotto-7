@@ -6,10 +6,8 @@ class App {
     const Lotto = await this.getLottos(Count);
     const CorrectArray = await this.getCorrectNumbers();
     const BonusNumber = await this.getBonusNumber(CorrectArray);
-    for (let i = 0; i < Count; i++) {
-      console.log(`${this.checkCorrect(Lotto[i], CorrectArray)}개 맞춤\n`);
-    }
-    
+    const CorrectCount = this.checkCountCorrect(Count, Lotto, CorrectArray);
+    this.winningResult(CorrectCount);
   }
 
   async getMoney() {
@@ -77,10 +75,32 @@ class App {
     return count;
   }
 
+  checkCountCorrect(Count, Lotto, CorrectArray) {
+    const array = [];
+    for (let i = 0; i < Count; i++) {
+      array.push(this.checkCorrect(Lotto[i], CorrectArray))
+    }
+    return array;
+  }
+
   hasUniqueElements(array) {
     const uniqueElements = new Set(array);
     return uniqueElements.size === array.length;
   }
+
+  countSpecificElement(CorrectCount, target) {
+    return CorrectCount.filter(element => element === target).length;
+  }
+  
+  winningResult(CorrectCount) {
+    MissionUtils.Console.print("당첨 통계\n---");
+    MissionUtils.Console.print(`3개 일치 (5,000원) - ${this.countSpecificElement(CorrectCount, 3)}개`);
+    MissionUtils.Console.print(`4개 일치 (50,000원) - ${this.countSpecificElement(CorrectCount, 4)}개`);
+    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${this.countSpecificElement(CorrectCount, 5)}개`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.countSpecificElement(CorrectCount, 5)}개`);
+    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${this.countSpecificElement(CorrectCount, 6)}개`);
+  }
+
 }
 
 export default App;
