@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import { PRINT_BONUS_NUMBER, PRINT_SPACER, PRINT_WINNING_RESULT } from "./constants/printConstant";
 
 class Lotto {
   #numbers;
@@ -44,7 +45,7 @@ class Lotto {
   async inputBonusNumber() {
     try {
       const bonusNumber = String(
-        await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n")
+        await Console.readLineAsync(PRINT_BONUS_NUMBER)
       );
       this.#validateNumber(bonusNumber);
       if (this.#numbers.includes(Number(bonusNumber))) {
@@ -63,8 +64,8 @@ class Lotto {
   }
 
   compareLottoList(betLists) {
-    Console.print("\n당첨 통계");
-    Console.print("---");
+    Console.print(PRINT_WINNING_RESULT);
+    Console.print(PRINT_SPACER);
     const results = [];
     for (const betList of betLists) {
       const matchNumber = betList.filter((number) =>
