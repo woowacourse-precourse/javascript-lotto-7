@@ -58,33 +58,33 @@
 
 ### ✔️ 테스트 코드
 
-  - [ ] 통합 테스트
+  - [x] 통합 테스트
 
-        - [ ] dd
-        - [ ] dd
+      - 기능 테스트
+      - 예외 테스트
 
   - [ ] 단위 테스트
 
-        **Lotto 테스트**
-          - [ ] dd
+      - [ ] **Lotto 테스트**
+          - 
 
-        **LottoBonus 테스트**
-          - [ ] ㅇㅇ
+      - [ ] **LottoBonus 테스트**
+          - 
 
-        **LottoCount 테스트**
-          - [ ] ㅇㅇ
+      - [ ] **LottoCount 테스트**
+          - 
 
-        **LottoIssuance 테스트**
-          - [ ] ㅇㅇ
+      - [ ] **LottoIssuance 테스트**
+          - 
 
-        **LottoRevenue 테스트**
-          - [ ] ㅇㅇ
+      - [ ] **LottoRevenue 테스트**
+          - 
 
-        **LottoStatistics 테스트**
-          - [ ] ㅇㅇ
+      - [ ] **LottoStatistics 테스트**
+          - 
 
-        **LottoBonus 테스트**
-          - [ ] ㅇㅇ
+      - [ ] **LottoBonus 테스트**
+          - 
 
 ## 🏛️ 프로젝트 구조
 
