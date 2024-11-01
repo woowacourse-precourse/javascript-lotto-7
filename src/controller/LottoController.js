@@ -1,5 +1,6 @@
 import Lotto from "../Lotto.js";
 import PurchasedLottoModel from "../model/purchasedLottoModel.js";
+import RankingModel from "../model/RankingModel.js";
 import LottoView from "../view/LottoView.js";
 
 export default class LottoController {
@@ -25,9 +26,18 @@ export default class LottoController {
     const winningLottoInput = await this.view.getWinningLottoNumbers();
     const winningLottoNumbers = winningLottoInput.split(",").map(Number);
     const winningLotto = new Lotto(winningLottoNumbers);
-    console.log(winningLotto);
 
     // 보너스 번호 입력 받기
     const winningBonusInput = await this.view.getWinningLottoBonusNumbers();
+
+    // 당첨 내역
+    const rankingModel = new RankingModel(
+      purchasedLottos,
+      winningLottoNumbers,
+      winningBonusInput
+    );
+
+    // 당첨 내역 결과
+    const rankingCount = rankingModel.countMatch();
   }
 }
