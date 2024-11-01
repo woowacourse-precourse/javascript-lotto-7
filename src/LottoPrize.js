@@ -26,6 +26,25 @@ class LottoPrize {
   isBonusNumber(number) {
     return this.#bonusNumber === number;
   }
+
+  /**
+   *
+   * @param {number[]} lottos - 로또 배열
+   */
+  countMatchNumbers(lottos) {
+    let isMatchBonus = false;
+    const winningCount = lottos.reduce(
+      (count, lotto) => {
+        if (this.isBonusNumber(lotto)) {
+          isMatchBonus = true;
+          return count;
+        }
+        return count + this.isWinningNumber(lotto);
+      },
+      0,
+    );
+    return { winningCount, isMatchBonus };
+  }
 }
 
 export default LottoPrize;
