@@ -25,15 +25,18 @@
 ```
 📦src
  ┣ 📂constant
+ ┃ ┣ 📜amountInputTestCase.js
  ┃ ┣ 📜errorMessage.js
  ┃ ┣ 📜ioMessage.js
+ ┃ ┣ 📜lottoTestCase.js
  ┃ ┗ 📜regex.js
  ┣ 📂utils
  ┃ ┣ 📜buyLottos.js
  ┃ ┣ 📜checkDuplication.js
  ┃ ┣ 📜checkNumberRange.js
  ┃ ┣ 📜inputService.js
- ┃ ┗ 📜outputService.js
+ ┃ ┣ 📜outputService.js
+ ┃ ┗ 📜printResult.js
  ┣ 📜App.js
  ┣ 📜index.js
  ┣ 📜Lotto.js
