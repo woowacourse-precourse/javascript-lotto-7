@@ -5,19 +5,19 @@ export const splitByComma = (stringInput) => {
 };
 
 export const getLottoPrizeCount = (lotto, lottoPrizeNumbers) => {
-  let prizeCount = 0;
+  let lottoPrizeCount = 0;
 
   lottoPrizeNumbers.forEach((lottoPrizeNumber) => {
     if (lotto.numbers.includes(lottoPrizeNumber)) {
-      prizeCount += 1;
+      lottoPrizeCount += 1;
     }
   });
 
-  return prizeCount;
+  return lottoPrizeCount;
 };
 
-const getIsBonusNumber = (lotto, lottoBonusNumber, prizeCount) => {
-  if (prizeCount == 5 && lotto.numbers.includes(lottoBonusNumber)) {
+export const getIsBonusNumber = (lotto, lottoBonusNumber, lottoPrizeCount) => {
+  if (lottoPrizeCount == 5 && lotto.numbers.includes(lottoBonusNumber)) {
     return true;
   }
   return false;

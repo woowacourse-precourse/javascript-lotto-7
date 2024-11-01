@@ -2,6 +2,7 @@ import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { getLottoBuyCount } from '../src/functions/LottoMake.js';
 import {
+  getIsBonusNumber,
   getLottoPrizeCount,
   splitByComma,
 } from '../src/functions/LottoPrize.js';
@@ -119,5 +120,13 @@ describe('로또 당첨 테스트', () => {
     const lottoPrizeNumbers = [1, 2, 3, 4, 6, 7];
 
     expect(getLottoPrizeCount(lotto, lottoPrizeNumbers)).toBe(5);
+  });
+
+  test('getIsBonusNumber() : 로또 당첨수가 5 라면, 보너스 번호가 일치하는지 확인이 잘 되는가?', () => {
+    const lotto = new Lotto(splitByComma('1,2,3,4,5,6'));
+    const lottoPrizeCount = 5;
+    const lottoBonusNumber = 5;
+
+    expect(getIsBonusNumber(lotto, lottoBonusNumber, lottoPrizeCount));
   });
 });
