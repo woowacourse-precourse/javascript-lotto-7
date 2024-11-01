@@ -8,22 +8,80 @@ import {
 import Lotto from './Domain/Lotto.js';
 
 class App {
-  #basicValidation;
-  #winningNumberValidation;
-  #bonusNumberValidation;
+  validatePurchaseMoney(input) {
+    BasicValidation.InputBlank(input);
 
-  constructor() {
-    this.#basicValidation = new BasicValidation();
-    this.#winningNumberValidation = new WinningNumberValidation();
-    this.#bonusNumberValidation = new BonusNumberValidation();
+    const number = Number(input);
+
+    BasicValidation.InputNumberType(number);
+    BasicValidation.PurchaseUnit(number);
   }
 
   async getPurchaseMoney() {
     while (true) {
       try {
         const input = await Console.readLineAsync(INPUT.purchaseMoney);
-        this.#basicValidation.PurchaseUnit(input.trim());
+        this.validatePurchaseMoney(input.trim());
         return Number(input);
+      } catch (err) {
+        Console.print(err.message);
+      }
+    }
+  }
+
+  validateWinningNumbers(input) {
+    BasicValidation.InputBlank(input);
+    WinningNumberValidation.InputSeparator(input);
+
+    const numbers = input.split(',').map((number) => {
+      return Number(number);
+    });
+
+    WinningNumberValidation.InputOverlap(numbers);
+    BasicValidation.InputLength(numbers, 6);
+
+    numbers.forEach((number) => {
+      BasicValidation.InputNumberType(number);
+      WinningNumberValidation.InputLottoRange(number);
+    });
+  }
+
+  async getWinningNumbers() {
+    while (true) {
+      try {
+        const input = await Console.readLineAsync(INPUT.winningNumber);
+
+        this.validateWinningNumbers(input);
+
+        const winningNumbers = input.split(',').map((number) => {
+          return Number(number);
+        });
+
+        return winningNumbers;
+      } catch (err) {
+        Console.print(err.message);
+      }
+    }
+  }
+
+  validateBonusNumber(winningNumbers, input) {
+    BasicValidation.InputBlank(input);
+
+    const number = Number(input);
+
+    BasicValidation.InputNumberType(number);
+    BasicValidation.InputLength(number, 1);
+    BonusNumberValidation.InputOverlap(number, winningNumbers);
+  }
+
+  async getBounsNumber(winningNumbers) {
+    while (true) {
+      try {
+        const bonusNumber = await Console.readLineAsync(INPUT.bonusNumber);
+
+        this.validateBonusNumber(winningNumbers, bonusNumber);
+
+        return bonusNumber;
       } catch (err) {
         Console.print(err.message);
       }
@@ -98,38 +156,6 @@ class App {
   printTotalReturn(totalReturn) {
     Console.print(totalReturn);
     Console.print(`총 수익률은 ${Math.round(totalReturn * 100) / 100}%입니다.`);
-  }
-
-  async getWinningNumbers() {
-    while (true) {
-      try {
-        const input = await Console.readLineAsync(INPUT.winningNumber);
-
-        this.#winningNumberValidation.InputSeparator(input);
-
-        const winningNumbers = input.split(',').map((number) => {
-          return Number(number);
-        });
-
-        return winningNumbers;
-      } catch (err) {
-        Console.print(err.message);
-      }
-    }
-  }
-
-  async getBounsNumber(winningNumbers) {
-    while (true) {
-      try {
-        const bonusNumber = await Console.readLineAsync(INPUT.bonusNumber);
-
-        this.#bonusNumberValidation.InputOverlap(winningNumbers, bonusNumber);
-
-        return bonusNumber;
-      } catch (err) {
-        Console.print(err.message);
-      }
-    }
   }
 
   async run() {

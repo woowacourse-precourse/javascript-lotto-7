@@ -4,7 +4,6 @@ import {
   BOUNS_NUMBER_ERROR,
 } from './Constants/Message.js';
 import {
-  PURCHASE_MONEY_INITIAL_VALUE,
   LOTTO_PRICE_UNIT,
   LOTTO_NUMBER_STANDARD,
 } from './Constants/Constant.js';
@@ -30,7 +29,7 @@ class BasicValidation {
 
   InputLength(input, count) {
     if (input.length !== count) {
-      throw new Error(BASIC_ERROR.invalidLength);
+      throw new Error(BASIC_ERROR.invalidLength(count));
     }
   }
 }
