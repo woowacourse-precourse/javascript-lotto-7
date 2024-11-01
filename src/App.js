@@ -17,6 +17,12 @@ class App {
       const randomNums = Random.pickUniqueNumbersInRange(1, 45, 6)
       lottoArr.push(randomNums);
     }
+
+    const sortedLottoArr = lottoArr.map(nums => nums.map(Number).sort((a, b) => a - b));
+
+    sortedLottoArr.forEach(arr => {
+        Console.print(arr);
+    });
   }
 }
 
