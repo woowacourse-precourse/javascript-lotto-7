@@ -12,6 +12,7 @@ class OuputView {
       5: '3개 일치 (5,000원)',
     }),
     COUNT: (count) => `${count}개`,
+    RATE_OF_RETURN: (percentage) => `총 수익률은 ${percentage}%입니다.`,
   });
 
   static printMessage(value) {
@@ -31,6 +32,10 @@ class OuputView {
         `${this.OUTPUT_MESSAGE.RANK_INFO[i]} - ${this.OUTPUT_MESSAGE.COUNT(lottosRankCount[i])}`,
       );
     }
+  }
+
+  static printProfitPercentage(totalAmount, inputMoney) {
+    Console.print(this.OUTPUT_MESSAGE.RATE_OF_RETURN((totalAmount / inputMoney) * 100));
   }
 }
 

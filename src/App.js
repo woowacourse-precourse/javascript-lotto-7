@@ -68,7 +68,13 @@ class App {
   }
 
   displayLottoWinning() {
-    OuputView.printLottoWinning(this.#getLottosRankCount());
+    const lottosRankCountObj = this.#getLottosRankCount();
+
+    OuputView.printLottoWinning(lottosRankCountObj);
+    OuputView.printProfitPercentage(
+      this.#calculateTotalAmountFromLotto(lottosRankCountObj),
+      this.#money,
+    );
   }
 
   #getLottosRankCount() {
@@ -98,6 +104,15 @@ class App {
     );
 
     return { matchWinningNumberCount, isContainBounusNumber };
+  }
+
+  #calculateTotalAmountFromLotto(lottosRankCount) {
+    let totalAmount = 0;
+    for (let i = 1; i <= LOTTO_INFO.MIN_RANK; i += 1) {
+      totalAmount += lottosRankCount[i] * LOTTO_INFO.WINNING_MONEY[i];
+    }
+
+    return totalAmount;
   }
 }
 
