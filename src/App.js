@@ -17,9 +17,9 @@ class App {
 
     const lottos = this.lottolService.getLottos();
     this.outputView.printLotto(lottos);
-  }
 
-  async;
+    await this.readWinningNumber();
+  }
 
   async readPuchaseAmount() {
     while (true) {
@@ -28,6 +28,21 @@ class App {
         const userInputNumber = this.inputHandler.stringToInt(userInputString);
 
         this.lottolService.setPurcharedAmount(userInputNumber);
+        return;
+      } catch (errorMsg) {
+        this.outputView.print(errorMsg.message);
+      }
+    }
+  }
+
+  async readWinningNumber() {
+    while (true) {
+      try {
+        const userInputString = await this.inputView.getwinningNum();
+        const userInputNumbers = this.inputHandler.splitStringToInt(userInputString);
+
+        console.log(userInputNumbers);
+
         return;
       } catch (errorMsg) {
         this.outputView.print(errorMsg.message);

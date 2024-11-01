@@ -1,8 +1,20 @@
 import { ERROR_MSG, REGEXP } from '../Util/Constants.js';
 
+const DELIMETER = ',';
+
 export default class InputHandler {
+  splitStringToInt(string) {
+    const splitedString = string.split(DELIMETER);
+    const numbers = [];
+
+    splitedString.forEach((element) => {
+      numbers.push(this.stringToInt(element));
+    });
+
+    return numbers;
+  }
+
   stringToInt(string) {
-    this.#validateEmpty(string);
     this.#validateNumber(string);
     return parseInt(string, 10);
   }
@@ -10,12 +22,6 @@ export default class InputHandler {
   #validateNumber(string) {
     if (REGEXP.IS_NUMBER.test(string) === false) {
       throw Error(ERROR_MSG.notANumber);
-    }
-  }
-
-  #validateEmpty(string) {
-    if (!string || string.trim().length === 0) {
-      throw Error(ERROR_MSG.invalidInputData);
     }
   }
 }
