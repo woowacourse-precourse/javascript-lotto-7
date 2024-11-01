@@ -33,6 +33,13 @@ class PrizeCalculator {
     const roundingProfit = profit.toFixed(PRIZE_CALCULATOR.profitDecimalPlace);
     return Number(roundingProfit);
   }
+
+  getProfit() {
+    const totalPrize = this.#calculatePrize();
+    const profit = this.#calculateProfit(totalPrize);
+    const parsedProfit = PrizeCalculator.#parseProfit(profit);
+    return parsedProfit;
+  }
 }
 
 export default PrizeCalculator;
