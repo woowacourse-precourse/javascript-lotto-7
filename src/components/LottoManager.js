@@ -34,6 +34,7 @@ class LottoManager {
     );
     const rateOfReturn = this.calculateRateOfReturn(matchObj);
 
+    Output.print('');
     lottoMatchResult(matchObj, rateOfReturn);
   }
 
@@ -69,7 +70,10 @@ class LottoManager {
   }
 
   setWinningLotto(lottoWinningNumbers) {
-    this.#winningLotto = getValidValue(lottoWinningNumbers, RULES.DELIMITER);
+    this.#winningLotto = getValidValue(
+      lottoWinningNumbers,
+      RULES.DELIMITER,
+    ).map(Number);
   }
 
   setBonusNumber(bonusNumber) {
