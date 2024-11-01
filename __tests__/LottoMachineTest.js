@@ -143,4 +143,18 @@ describe('LottoMachine 테스트', () => {
 
     expect(winningRank).toBe(5);
   });
+
+  test('총 수익률을 계산한다.', () => {
+    const purchaseAmount = 8000;
+    const totalWinningRank = [0, 0, 0, 0, 1];
+    const output = 62.5;
+
+    const lottoMachine = new LottoMachine();
+    const totalReturnRate = lottoMachine.calculateTotalReturnRate(
+      purchaseAmount,
+      totalWinningRank
+    );
+
+    expect(totalReturnRate).toBe(output);
+  });
 });
