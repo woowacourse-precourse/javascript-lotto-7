@@ -1,12 +1,14 @@
 import InputHandler from "./inputHandler.js";
-import OutputHandler from "./outputHandler.js";
+import LottoMachine from "./lottoMachine.js";
 
 class App {
   async run() {
     const cost = await InputHandler.getCost();
+    const lottoMachine = new LottoMachine(cost);
+
     InputHandler.validateCost(cost);
 
-    OutputHandler.print(cost);
+    lottoMachine.printQuantity();
   }
 }
 
