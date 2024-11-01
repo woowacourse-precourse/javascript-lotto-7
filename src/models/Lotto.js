@@ -5,6 +5,7 @@ class Lotto {
   #numbers;
   #matchCount;
   #isBonusMatch;
+  #ranking;
 
   constructor(numbers) {
     LottoValidator.validate(numbers);
@@ -27,6 +28,21 @@ class Lotto {
 
   isBonusMatch() {
     return this.#isBonusMatch;
+  }
+
+  getMatchData() {
+    return {
+      matchCount: this.#matchCount,
+      isBonusMatch: this.#isBonusMatch,
+    };
+  }
+
+  getRanking() {
+    return this.#ranking;
+  }
+
+  setRanking(ranking) {
+    this.#ranking = ranking;
   }
 }
 
