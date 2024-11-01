@@ -30,3 +30,10 @@ export function validateWinnerNumberLength(numbers) {
   }
   return numbers;
 }
+
+export function validateLottoNumber(number) {
+  if (number < CONFIG.MIN_LOTTO_NUMBER || number > CONFIG.MAX_LOTTO_NUMBER) {
+    throw new LottoError(ERROR_MESSAGE.INVALID_LOTTO_NUMBER);
+  }
+  return number;
+}

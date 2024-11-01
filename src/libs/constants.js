@@ -2,6 +2,7 @@ export const INFO_MESSAGE = Object.freeze({
   PURCHASE_AMOUNT: "구입금액을 입력해 주세요.\n",
   PURCHASE_CONFORM: (count) => `\n${count}개를 구매했습니다.`,
   WINNER_LOTTO_NUMBERS_INPUT: "\n당첨 번호를 입력해 주세요.\n",
+  BONUS_NUMBERS_INPUT: "\n보너스 번호를 입력해 주세요.\n",
 });
 
 export const ERROR_MESSAGE = Object.freeze({
@@ -10,6 +11,7 @@ export const ERROR_MESSAGE = Object.freeze({
   INVALID_EMPTY: "값이 비어있습니다. 입력부탁드립니다.",
   INVALID_WINNER_NUMBER: "당첨 번호는 중복된 숫자가 없어야 합니다.",
   INVALID_WINNER_NUMBER_COUNT: "당첨 번호는 6개 여야 합니다.",
+  INVALID_LOTTO_NUMBER: "로또 번호는 1이상 45이하여야 합니다.",
 });
 
 export const CONFIG = Object.freeze({

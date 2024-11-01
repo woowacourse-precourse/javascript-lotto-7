@@ -3,6 +3,7 @@ import { LottoError } from "./errors.js";
 import { getInput, printResult } from "./utils.js";
 import {
   validateEmptyInput,
+  validateLottoNumber,
   validateNumberType,
   validateUniqueNumbers,
   validateWinnerNumberLength,
@@ -38,5 +39,17 @@ export async function getValidateWinnerNumbers() {
   } catch (error) {
     printResult(error.message);
     await getValidateWinnerNumbers();
+  }
+}
+
+export async function getValidateBonusNumbers() {
+  try {
+    const bonusNumber = await getInput(INFO_MESSAGE.BONUS_NUMBERS_INPUT);
+    validateEmptyInput(bonusNumber);
+    validateNumberType(bonusNumber);
+    return validateLottoNumber(bonusNumber);
+  } catch (error) {
+    printResult(error.message);
+    await getValidateBonusNumbers();
   }
 }
