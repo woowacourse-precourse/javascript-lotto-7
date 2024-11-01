@@ -2,6 +2,7 @@ import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import Validator from '../utils/Validator.js';
 import ERRORS from '../constants/Errors.js';
+import LottoController from './LottoController.js';
 
 class AppController {
   constructor() {
@@ -17,6 +18,10 @@ class AppController {
       Validator.validatePurchaseAmount(purchaseAmount);
 
       // 2. 로또 티켓 출력
+      const lottoController = new LottoController(purchaseAmount);
+      lottoController.generateLottos();
+      this.tickets = lottoController.getLottos();
+
       OutputView.displayLottoCount(purchaseAmount);
       OutputView.displayLottoNumbers(this.tickets);
 

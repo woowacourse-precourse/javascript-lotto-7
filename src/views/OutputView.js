@@ -10,9 +10,8 @@ class OutputView {
   }
 
   static displayLottoNumbers(tickets) {
-    tickets.forEach((ticket) => {
-      Console.print('');
-      Console.print(MESSAGES.LOTTO_NUMBERS(ticket.numbers));
+    tickets.forEach((numbers) => {
+      Console.print(MESSAGES.LOTTO_NUMBERS(numbers));
     });
   }
 
