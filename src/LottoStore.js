@@ -26,6 +26,10 @@ class LottoStore {
     }
     return this.#lottoList;
   }
+
+  getLottoCount() {
+    return this.#lottoCount;
+  }
 }
 
 export default LottoStore;

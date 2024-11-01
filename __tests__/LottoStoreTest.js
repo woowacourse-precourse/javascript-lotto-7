@@ -25,4 +25,11 @@ describe("로또판매점 클래스 테스트", () => {
       expect(lottoStore.createLotto()).toEqual(RANDOM_NUMBERS);
     });
   });
+  describe("getLottoCount 메서드", () => {
+    test("구입한 로또 장수를 반환한다.", () => {
+      const lottoStore = new LottoStore(1500);
+
+      expect(lottoStore.getLottoCount()).toEqual(1);
+    });
+  });
 });
