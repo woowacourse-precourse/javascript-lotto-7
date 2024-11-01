@@ -16,6 +16,7 @@ class App {
     }
     const userWinningNumber = await this.getUserWinningNumber();
     const winningNumber = userWinningNumber.split(',');
+    const bonusNumber = await this.getBonusNumber();
   }
 
   async getUserMoney() {
@@ -30,6 +31,13 @@ class App {
       PROMPTS.INPUT_USER_WINNING_NUMBER
     );
     return userWinningNumber;
+  }
+
+  async getBonusNumber() {
+    const userBonusNumber = await MissionUtils.Console.readLineAsync(
+      PROMPTS.INPUT_USER_BONUS_NUMBER
+    );
+    return userBonusNumber;
   }
 }
 
