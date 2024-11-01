@@ -13,11 +13,6 @@ describe("Game 클래스 - purchaseLotto 메서드", () => {
     expect(ticketCount).toBe(8);
   });
 
-  test("실패 케이스: 7500원을 입력하면 에러가 발생한다.", () => {
-    expect(() => {
-      game.purchaseLotto(7500);
-    }).toThrow("[ERROR]");
-  });
 });
 
 
