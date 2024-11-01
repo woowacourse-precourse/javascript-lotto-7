@@ -24,7 +24,7 @@ class LottoRuleValidator extends CommonValidator {
     super.checkValidInputValues([count, startNumber, endNumber]);
 
     this.#checkValidNumberRange(startNumber, endNumber);
-    this.#validateLottoNumberCountInRange(count, startNumber, endNumber);
+    this.#validateNumberCountInRangeNumberCount(count, startNumber, endNumber);
   }
 
   #validateAmountLessThanMaxAmount = (amount, maxAmount) => {
@@ -39,7 +39,7 @@ class LottoRuleValidator extends CommonValidator {
     }
   }
 
-  #validateLottoNumberCountInRange = (count, startNumber, endNumber) => {
+  #validateNumberCountInRangeNumberCount = (count, startNumber, endNumber) => {
     const validLottoNumberCount = endNumber - startNumber + 1;
 
     if (!isGreaterThan(validLottoNumberCount, count)) {
