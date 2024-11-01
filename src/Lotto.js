@@ -23,11 +23,11 @@ class Lotto {
     const winningCount = this.#getWinningNumberCount(winningNumbers);
     const isBonusMatch = this.#getIsBonusMatch(bonusNumber);
 
-    const rank = this.#calculateRank(winningCount, isBonusMatch);
+    const rank = Lotto.#calculateRank(winningCount, isBonusMatch);
     return rank;
   }
 
-  #calculateRank(winningCount, isBonusMatch) {
+  static #calculateRank(winningCount, isBonusMatch) {
     return (
       LOTTO_INFORMATIONS.find(
         (rankObject) =>

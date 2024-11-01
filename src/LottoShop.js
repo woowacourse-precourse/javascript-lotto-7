@@ -7,14 +7,14 @@ class LottoShop {
 
   orderLottos(purchasePrice) {
     const lottoCount = purchasePrice / this.#LOTTO_PRICE;
-    const lottos = this.#generateLottos(lottoCount);
+    const lottos = LottoShop.#generateLottos(lottoCount);
 
     return lottos;
   }
 
-  #generateLottos(lottoCount) {
+  static #generateLottos(lottoCount) {
     const lottos = new Array(lottoCount).fill().map(() => {
-      const lottoNumbers = this.#generateLottoNumbers();
+      const lottoNumbers = LottoShop.#generateLottoNumbers();
       const lotto = new Lotto(lottoNumbers);
       return lotto;
     });
@@ -22,7 +22,7 @@ class LottoShop {
     return lottos;
   }
 
-  #generateLottoNumbers() {
+  static #generateLottoNumbers() {
     const lotto = MissionUtils.Random.pickUniqueNumbersInRange(
       LOTTO.MIN_NUMBER,
       LOTTO.MAX_NUMBER,
