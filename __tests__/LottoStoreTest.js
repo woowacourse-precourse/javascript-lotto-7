@@ -16,20 +16,20 @@ describe("로또판매점 클래스 테스트", () => {
       expect(lottoStore.buyLotto(2000)).toBe(2);
     });
   });
-  describe("createLotto 메서드", () => {
-    test("로또 장수만큼 1~45 사이의 숫자 6개를 뽑아 로또를 생성한다.", () => {
-      const RANDOM_NUMBERS = [[1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12]];
-      const lottoStore = new LottoStore(2000);
-      mockRandoms(RANDOM_NUMBERS);
-
-      expect(lottoStore.createLotto()).toEqual(RANDOM_NUMBERS);
-    });
-  });
   describe("getLottoCount 메서드", () => {
     test("구입한 로또 장수를 반환한다.", () => {
       const lottoStore = new LottoStore(1500);
 
       expect(lottoStore.getLottoCount()).toEqual(1);
+    });
+  });
+  describe("getLottos 메서드", () => {
+    test("발행한 로또 목록을 반환한다.", () => {
+      const RANDOM_NUMBERS = [[1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12]];
+      mockRandoms(RANDOM_NUMBERS);
+      const lottoStore = new LottoStore(2500);
+
+      expect(lottoStore.getLottos()).toEqual(RANDOM_NUMBERS);
     });
   });
 });
