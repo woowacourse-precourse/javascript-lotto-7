@@ -20,7 +20,7 @@ describe('Analyzer 클래스 테스트', () => {
 
     const lottos = NUMBERS.map((numbers) => new Lotto(numbers));
     const analyzer = new Analyzer(lottos, WINNING_NUMBERS);
-    const winningTable = analyzer.getWinningTable();
+    const winningTable = analyzer.getMatchingTable();
 
     WINNING_STATISTICS.forEach(([key, value]) => {
       expect(winningTable.get(key)).toBe(value);
@@ -60,7 +60,7 @@ describe('Analyzer 클래스 테스트', () => {
 
     const lottos = lottoNumbers.map((numbers) => new Lotto(numbers));
     const analyzer = new Analyzer(lottos, WINNING_NUMBERS);
-    const winningTable = analyzer.getWinningTable();
+    const winningTable = analyzer.getMatchingTable();
 
     expect(winningTable.get(WINNING_BONUS_TAG)).toBe(expected);
   });
