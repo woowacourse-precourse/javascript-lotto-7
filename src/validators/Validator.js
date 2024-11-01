@@ -14,7 +14,7 @@ const ERROR_MESSAGE = {
   },
 };
 
-class Validator {
+const validator = {
   validateInputCost(input) {
     if (isNaN(input)) {
       throw new Error(ERROR_MESSAGE.COST.NOT_NUM);
@@ -22,8 +22,7 @@ class Validator {
     if (Number(input) % 1000 !== 0) {
       throw new Error(ERROR_MESSAGE.COST.UNIT);
     }
-  }
-
+  },
   validateSuccessNum(input) {
     const successNumList = input.split(',');
     if (successNumList.length !== 6) {
@@ -37,7 +36,7 @@ class Validator {
         throw new Error(ERROR_MESSAGE.SUCCESS_NUM.RANGE);
       }
     });
-  }
+  },
   validateBonusNum(input) {
     if (isNaN(input)) {
       throw new Error(ERROR_MESSAGE.BONUS_NUM.NOT_NUM);
@@ -45,7 +44,7 @@ class Validator {
     if (Number(input) < 1 || Number(input) > 45) {
       throw new Error(ERROR_MESSAGE.BONUS_NUM.RANGE);
     }
-  }
-}
+  },
+};
 
-export default Validator;
+export default validator;
