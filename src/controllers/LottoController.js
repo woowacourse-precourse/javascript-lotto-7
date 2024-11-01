@@ -3,9 +3,9 @@ import InputLottoView from '../views/InputLottoView.js';
 import OutputLottoView from '../views/OutputLottoView.js';
 
 export default class LottoController {
-  #inputLottoView
-  #outputLottoView
-  #lottoService
+  #inputLottoView;
+  #outputLottoView;
+  #lottoService;
 
   constructor() {
     this.#inputLottoView = new InputLottoView();
@@ -14,10 +14,19 @@ export default class LottoController {
   }
 
   async run() {
-    // view를 통해 입력받기
-    const purchasePrice = await this.#inputLottoView.getInputPrice();
+    await this.#getInputPriceAndPurchaseLottos();
+  }
 
-    // service로 로또 구매하기
-    this.#lottoService.purchaseLottos(purchasePrice);
+  async #getInputPriceAndPurchaseLottos() {
+    while (true) {
+      try {
+        const purchasePrice = await this.#inputLottoView.getInputPrice();
+        this.#lottoService.purchaseLottos(purchasePrice);
+
+        return
+      } catch (error) {
+        this.#outputLottoView.printMessage(error.message);
+      }
+    }
   }
 }
