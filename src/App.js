@@ -19,6 +19,7 @@ class App {
     this.outputView.printLotto(lottos);
 
     await this.readWinningNumber();
+    await this.readBonusNumber();
   }
 
   async readPuchaseAmount() {
@@ -41,7 +42,22 @@ class App {
         const userInputString = await this.inputView.getwinningNum();
         const userInputNumbers = this.inputHandler.splitStringToInt(userInputString);
 
-        this.lottolService.setWinningCount(userInputNumbers);
+        this.lottolService.setWinningNumber(userInputNumbers);
+
+        return;
+      } catch (errorMsg) {
+        this.outputView.print(errorMsg.message);
+      }
+    }
+  }
+
+  async readBonusNumber() {
+    while (true) {
+      try {
+        const userInputString = await this.inputView.getbonusNum();
+        const userInputNumber = this.inputHandler.stringToInt(userInputString);
+
+        this.lottolService.setBonusNumber([userInputNumber]);
 
         return;
       } catch (errorMsg) {
