@@ -122,3 +122,17 @@ describe.each([
     await runException(amount, winningNumbers);
   });
 });
+
+describe.each([
+  ['1000', '1,2,3,4,5,6', 'a', '[ERROR]'],
+  ['1000', '1,2,3,4,5,6', '0', '[ERROR]'],
+  ['1000', '1,2,3,4,5,6', '46', '[ERROR]'],
+  ['1000', '1,2,3,4,5,6', '1', '[ERROR]'],
+])(
+  '보너스 번호 입력 테스트',
+  (amount, winningNumbers, bonusNumber, errorMessage) => {
+    test(`보너스 번호가 ${bonusNumber}일 때 ${errorMessage}를 출력한다.`, async () => {
+      await runException(amount, winningNumbers, bonusNumber);
+    });
+  }
+);
