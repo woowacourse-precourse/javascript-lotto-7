@@ -12,9 +12,9 @@ export default class OutputView {
     });
   }
 
-  static winningStatistics(lottoRanckMap) {
+  static winningStatistics(rankMap) {
     Console.print(OUTPUT_MESSAGE.WINNING_STATISTICS);
-    lottoRanckMap.forEach((count, rankName) => {
+    rankMap.forEach((count, rankName) => {
       Console.print(`${RANK_OUTPUT_MESSAGE[rankName]} - ${count}개`);
     });
   }
