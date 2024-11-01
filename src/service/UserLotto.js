@@ -5,13 +5,6 @@ class UserLotto {
     this.userLottoValidator = new UserLottoValidate();
   }
 
-  createUserLotto(lotto, bonus) {
-    let userLotto = [];
-    userLotto.push(lotto);
-    userLotto.push(bonus);
-    return userLotto;
-  }
-
   setUserLotto(userInput) {
     let inputValue = userInput.split(',');
     const userLotto = inputValue.map((number) => Number(number));

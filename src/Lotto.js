@@ -33,6 +33,48 @@ class Lotto {
   getNumbers() {
     return this.#numbers;
   }
-}
 
+  static compareResult(lotteries, userLotto, userBonus) {
+    const matchNumber = Lotto.matchNumber(lotteries, userLotto);
+    const matchBonus = Lotto.matchBonusNumber(lotteries, userBonus);
+    let lottoResult = [];
+
+    for (let result = 0; result < lotteries.length; result++) {
+      let matchLotto = {
+        numberMatch: matchNumber[result],
+        bonusMatch: matchBonus[result],
+      };
+      lottoResult.push(matchLotto);
+    }
+    return lottoResult;
+  }
+
+  static matchNumber(lotteries, userLotto) {
+    let result = [];
+    lotteries.forEach((lotto) => {
+      let count = 0;
+      lotto.forEach((num) => {
+        if (userLotto.includes(num)) {
+          count++;
+        }
+      });
+      result.push(count);
+    });
+    return result;
+  }
+
+  static matchBonusNumber(lotteries, userBonus) {
+    let result = [];
+    lotteries.forEach((lotto) => {
+      let match = false;
+      lotto.forEach((num) => {
+        if (userBonus === num) {
+          match = true;
+        }
+      });
+      result.push(match);
+    });
+    return result;
+  }
+}
 export default Lotto;
