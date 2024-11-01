@@ -30,6 +30,10 @@ class LottoGameService {
     return [...this.lottos];
   }
 
+  setLottos(lottos) {
+    this.lottos = lottos;
+  }
+
   getPrizes() {
     return this.prizes;
   }
