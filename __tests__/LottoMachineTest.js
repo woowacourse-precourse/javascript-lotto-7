@@ -1,3 +1,4 @@
+import LottoMachine from '../src/LottoMachine';
 import { mockRandoms } from './ApplicationTest';
 
 describe('LottoMachine 테스트', () => {
