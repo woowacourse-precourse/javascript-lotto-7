@@ -1,10 +1,6 @@
 import CustomError from "../CustomError.js";
 import { LOTTO_MESSAGES, LOTTO_RULES } from "../constants/index.js";
-import {
-  hasDuplicate,
-  isNotPositiveInteger,
-  isInRange,
-} from "../utils/validation.js";
+import { hasDuplicate, isNotPositiveInteger, isInRange } from "../utils/validation.js";
 
 class Lotto {
   #numbers;

@@ -30,9 +30,7 @@ export const LOTTO_PRIZE_MONEY_MAP = new FrozenMap([
   [6, 2000000000],
 ]);
 
-export const LOTTO_RESULT_MESSAGES_MAP = Array.from(
-  LOTTO_PRIZE_MONEY_MAP
-).reduce((messages, [key, value]) => {
+export const LOTTO_RESULT_MESSAGES_MAP = Array.from(LOTTO_PRIZE_MONEY_MAP).reduce((messages, [key, value]) => {
   const prizeMoney = value.toLocaleString();
   if (key === "5B") {
     messages.set(key, `5개 일치, 보너스 볼 일치 (${prizeMoney}원) - `);

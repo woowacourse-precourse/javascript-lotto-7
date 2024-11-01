@@ -1,4 +1,4 @@
-import { LOTTO_MESSAGES } from "./constants/index.js";
+import { LOTTO_MESSAGES, LOTTO_RESULT_MESSAGES_MAP } from "./constants/index.js";
 
 class IOHandler {
   inputHandler;
@@ -35,18 +35,40 @@ class IOHandler {
     this.outputHandler(result.join("\n"));
   };
 
+  printPurchaseCountAndLottoNumbers = (lottoPurchaseCount, lottoNumbers) => {
+    this.printLottoPurchaseCount(lottoPurchaseCount);
+    this.printLottoNumbers(lottoNumbers);
+  };
+
   getWinningNumbers = async () => {
-    const winningNumber = await this.inputHandler(
-      LOTTO_MESSAGES.INPUT_WINNING_NUMBER
-    );
+    const winningNumber = await this.inputHandler(LOTTO_MESSAGES.INPUT_WINNING_NUMBER);
     return winningNumber.split(",").map(Number);
   };
 
   getBonusNumber = async () => {
-    const bonusNumber = await this.inputHandler(
-      LOTTO_MESSAGES.INPUT_BONUS_NUMBER
-    );
+    const bonusNumber = await this.inputHandler(LOTTO_MESSAGES.INPUT_BONUS_NUMBER);
     return Number(bonusNumber);
+  };
+
+  printLottoResult = (lottoResult) => {
+    const result = Array.from(lottoResult).map(([key, count]) => {
+      const message = LOTTO_RESULT_MESSAGES_MAP.get(key);
+      return message + count + "개";
+    });
+    this.outputHandler(result.join("\n"));
+  };
+
+  printRevenueRate = (revenueRate) => {
+    const formatRevenueRate = revenueRate.toLocaleString(undefined, {
+      minimumFractionDigits: 1,
+    });
+    this.outputHandler(`총 수익률은 ${formatRevenueRate}% 입니다.`);
+  };
+
+  printResultAndRevenueRate = (lottoResult, revenueRate) => {
+    this.outputHandler(LOTTO_MESSAGES.RESULT_LOTTO);
+    this.printLottoResult(lottoResult);
+    this.printRevenueRate(revenueRate);
   };
 }
 
