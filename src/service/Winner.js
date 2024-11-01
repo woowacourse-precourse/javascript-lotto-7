@@ -11,5 +11,19 @@ class Winner {
     });
     return matchCounts;
   }
+
+  confirmProfitRate(ranks, cost) {
+    const totalPrize = this.calculateTotalPrizeMoney(ranks);
+    return ((totalPrize / cost) * 100).toFixed(1);
+  }
+
+  calculateTotalPrizeMoney(ranks) {
+    const prizeCriteria = [5000, 50000, 1500000, 30000000, 2000000000];
+    let totalPrize = 0;
+    ranks.forEach((rank, index) => {
+      totalPrize += rank * prizeCriteria[index];
+    });
+    return totalPrize;
+  }
 }
 export default Winner;

@@ -18,7 +18,7 @@ class GameController {
     const price = await this.inputView.askPurchasePrice();
     const lottoQuantity = this.outputView.printLottoQuantity(price);
     const randomLotto = this.outputView.printPurchasedLotteries(lottoQuantity);
-    return randomLotto;
+    return [price, randomLotto];
   }
 
   async runGame(randomLotto) {
@@ -32,10 +32,11 @@ class GameController {
     return gameResult;
   }
 
-  async finishGame(result) {
+  async finishGame(result, cost) {
     this.outputView.printResultHeader();
     const ranking = this.winner.checkRanking(result);
     this.outputView.printGameResult(ranking);
+    this.winner.confirmProfitRate(ranking, cost);
   }
 }
 
