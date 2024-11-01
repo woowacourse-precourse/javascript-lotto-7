@@ -28,6 +28,10 @@ class App {
 
       Console.print(sortedNumbers);
     }
+
+    // 4. 당첨 번호를 입력받는다.
+    const winnerNumberInput = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+    const winnerNumbers = winnerNumberInput.split(',').map((num) => Number(num));
   }
 }
 
