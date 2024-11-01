@@ -11,6 +11,12 @@ export class View {
     Console.print(`${count}개를 구매했습니다.`);
   }
 
+  async promptWinningNumbers() {
+    const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+
+    return input.trim();
+  }
+
   printLotto(lotto) {
     Console.print(lotto);
   }

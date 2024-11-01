@@ -23,6 +23,9 @@ class App {
 
         lottos.forEach((lotto) => view.printLotto(lotto.getNumbers()));
 
+        const rawInput = await view.promptWinningNumbers();
+        const winningNumbers = new Lotto(this.parseNumbers(rawInput));
+
         break;
       } catch (error) {
         view.printErrorMessage(error.message);
@@ -35,6 +38,10 @@ class App {
     if (amount <= 0) throw new Error(PURCHASE_AMOUNT_ERROR.NOT_POSITIVE);
     if (amount % ONE_LOTTO_AMOUNT !== 0)
       throw new Error(PURCHASE_AMOUNT_ERROR.NOT_DIVIDE_ONE_THOUSAND);
+  }
+
+  parseNumbers(numbers) {
+    return numbers.split(',').map((number) => parseInt(number.trim(), 10));
   }
 
   makeRandomNumbers() {
