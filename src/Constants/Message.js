@@ -1,4 +1,4 @@
-import { LOTTO_PRICE_UNIT } from './Constant.js';
+import { LOTTO_PRICE_UNIT, LOTTO_NUMBER_STANDARD, WINNER } from './Constant.js';
 
 const INPUT = {
   purchaseMoney: '구입금액을 입력해 주세요.\n',
@@ -23,7 +23,7 @@ const BASIC_ERROR = {
   null: `${PREFIX_ERROR} 입력이 없습니다.`,
   invalidType: `${PREFIX_ERROR} 숫자를 입력해 주십시오.`,
   invalidMoney: `${PREFIX_ERROR} ${LOTTO_PRICE_UNIT}원 단위로 입력해 주십시오.`,
-  invalidNumber: `${PREFIX_ERROR} 1~45 사이의 숫자를 입력해 주십시오`,
+  invalidNumber: `${PREFIX_ERROR} ${LOTTO_NUMBER_STANDARD.min} ~ ${LOTTO_NUMBER_STANDARD.max} 사이의 숫자를 입력해 주십시오`,
   invalidLength: (count) =>
     `${PREFIX_ERROR} 입력은 ${count}걔의 숫자를 입력해 주십시오.`,
 };
