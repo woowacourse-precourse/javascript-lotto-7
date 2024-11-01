@@ -50,6 +50,7 @@ class LottoGame {
     // 필요 정보: 각 로또의 맞춘 갯수(로또 필드), 맞춘 갯수에 따른 상금 정보, 총 수익률(상금 합산 액)
     this.#checkTickets();
     this.#tickets[0].setRanking(Prize.rank(this.#tickets[0].getMatchData()));
+    this.prize.sumPrizeMoney(this.#tickets[0]);
   }
 
   #checkTickets() {

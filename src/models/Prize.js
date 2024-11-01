@@ -3,6 +3,8 @@ import { MATCH_COUNT } from '../constants/lottoConfig.js';
 import { throwError } from '../utils/validateUtils.js';
 
 class Prize {
+  #prizeMoney = 0;
+
   static rank({ matchCount, isBonusMatch }) {
     this.#validateMatchCount(matchCount);
 
@@ -18,6 +20,30 @@ class Prize {
         return 1;
       default:
         return 0;
+    }
+  }
+
+  sumPrizeMoney(lotto) {
+    // tickets.forEach((lotto) => {
+    //   const ranking = lotto.getRanking();
+    //   this.#prizeMoney += this.#checkPrizeMoney(ranking);
+    // });
+    const ranking = lotto.getRanking();
+    this.#prizeMoney += this.#checkPrizeMoney(ranking);
+  }
+
+  #checkPrizeMoney(ranking) {
+    switch (ranking) {
+      case 5:
+        return 5_000;
+      case 4:
+        return 50_000;
+      case 3:
+        return 1_500_000;
+      case 2:
+        return 30_000_000;
+      case 1:
+        return 2_000_000_000;
     }
   }
 
