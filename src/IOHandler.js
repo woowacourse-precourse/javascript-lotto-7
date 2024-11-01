@@ -34,6 +34,13 @@ class IOHandler {
     const result = lottoNumbers.map((numbers) => `[${numbers.join(", ")}]`);
     this.outputHandler(result.join("\n"));
   };
+
+  getWinningNumbers = async () => {
+    const winningNumber = await this.inputHandler(
+      LOTTO_MESSAGES.INPUT_WINNING_NUMBER
+    );
+    return winningNumber.split(",").map(Number);
+  };
 }
 
 export default IOHandler;
