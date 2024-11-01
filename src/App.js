@@ -1,15 +1,15 @@
 import { Console } from '@woowacourse/mission-utils';
-import Money from './Money.js';
 import Draw from './Draw.js';
 import Lotto from './Lotto.js';
 
 class App {
   async run() {
     try {
-      const money = new Money(await this.payingMoney()).getMoney();
-      const lotteryNumbers = Draw.getLotteryNumbers(money);
-      const lottoNumbers = new Lotto(await this.enteringNumbers()).getNumbers();
+      const draw = new Draw(await this.payingMoney());
+      const pickedNumbers = draw.getPickedNumbers();
+      const winningNumbers = new Lotto(await this.enteringNumbers()).getNumbers();
       const bonusNumber = await this.getBonusNumbers();
+      this.playLotto(winningNumbers, bonusNumber);
     } catch (error) {
       Console.print(error.message);
     }
@@ -33,6 +33,10 @@ class App {
       throw new Error("[ERROR] 1부터 45 범위 내의 번호 1개를 입력해주세요.");
     }
     return bonusNumber;
+  }
+
+  playLotto(arr, num){
+    
   }
 }
 
