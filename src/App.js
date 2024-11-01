@@ -1,5 +1,4 @@
-import { Random, Console } from '@woowacourse/mission-utils';
-import { INPUT, OUTPUT } from './Constants/Message.js';
+import { Random } from '@woowacourse/mission-utils';
 import {
   BasicValidation,
   WinningNumberValidation,
@@ -8,6 +7,7 @@ import {
 import Lotto from './Domain/Lotto.js';
 import Input from './view/Input.js';
 import Output from './view/Output.js';
+import User from './Domain/user.js';
 
 class App {
   #input;
@@ -18,22 +18,12 @@ class App {
     this.#output = new Output();
   }
 
-  validatePurchaseMoney(input) {
-    BasicValidation.InputBlank(input);
-
-    const number = Number(input);
-
-    BasicValidation.InputNumberType(number);
-    BasicValidation.PurchaseUnit(number);
-  }
-
-  async getPurchaseMoney() {
+  async getPurchaseMoney(user) {
     while (true) {
       try {
         const purchaseMoney = await thirdWinner.#input.purchaseMoney();
-        this.validatePurchaseMoney(purchaseMoney);
-
-        return Number(purchaseMoney);
+        user.setMoney(purchaseMoney);
+        break;
       } catch (err) {
         this.#output.error(err.message);
       }
@@ -110,25 +100,19 @@ class App {
     return new Lotto(numbers.sort((a, b) => a - b));
   }
 
-  purchaseLottoTickets(purchaseMoney) {
-    const purchaseTickets = Array.from({ length: purchaseMoney / 1000 }).map(
-      () => {
-        return this.singleLottoTicket();
-      }
-    );
+  purchaseLottoTickets(user) {
+    const tickets = Array.from({ length: user.getMoney() / 1000 }).map(() => {
+      return this.singleLottoTicket();
+    });
 
-    return purchaseTickets;
+    user.setTickets(tickets);
   }
 
-  calculateWinningResult(purchaseTickets, winningNumbers, bonusNumber) {
+  calculateWinningResult(tickets, winningNumbers, bonusNumber) {
     const results = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
 
-    purchaseTickets.forEach((purchaseTickets) => {
-      const rank = purchaseTickets.calculateWinningLotto(
-        winningNumbers,
-        bonusNumber
-      );
-
+    tickets.forEach((ticket) => {
+      const rank = ticket.calculateWinningLotto(winningNumbers, bonusNumber);
       results[rank] += 1;
     });
 
@@ -146,22 +130,24 @@ class App {
   }
 
   async run() {
-    const purchaseMoney = await this.getPurchaseMoney();
-    const purchaseTickets = this.purchaseLottoTickets(purchaseMoney);
+    const user = new User();
 
-    this.#output.lottoTicketCount(purchaseTickets);
-    this.#output.lottoTicketNumbers(purchaseTickets);
+    await this.getPurchaseMoney(user);
+    this.purchaseLottoTickets(user);
+
+    this.#output.lottoTicketCount(user.getTickets);
+    this.#output.lottoTicketNumbers(user.getTickets);
 
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBounsNumber(winningNumbers);
 
     const results = this.calculateWinningResult(
-      purchaseTickets,
+      user.getTickets(),
       winningNumbers,
       bonusNumber
     );
 
-    const totalReturn = this.calculateTotalReturn(results, purchaseMoney);
+    const totalReturn = this.calculateTotalReturn(results, user.getMoney);
     this.#output.winningResult(results);
     this.#output.totalReturnResult(totalReturn);
   }
