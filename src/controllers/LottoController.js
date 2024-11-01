@@ -16,9 +16,14 @@ class LottoController {
     }
 
     async getInputPurchaseAmount() {
-        const INPUT_PURCHASE_AMOUNT = await InputView.inputReadLine(LOTTO_MESSAGES.input_purchase_amount);
-        this.#purchaseLottosCount = PurchaseAmount.getPurchaseAmount(INPUT_PURCHASE_AMOUNT);
-        OutputView.outputEmptyPrintLine();
+        try {
+            const INPUT_PURCHASE_AMOUNT = await InputView.inputReadLine(LOTTO_MESSAGES.input_purchase_amount);
+            this.#purchaseLottosCount = PurchaseAmount.getPurchaseAmount(INPUT_PURCHASE_AMOUNT);
+            OutputView.outputEmptyPrintLine();
+        } catch (error) {
+            OutputView.outputPrint(error.message);
+            await this.getInputPurchaseAmount();
+        }
     }
 
     getLottos() {
