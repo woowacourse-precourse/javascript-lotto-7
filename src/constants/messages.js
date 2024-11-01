@@ -23,4 +23,5 @@ export const ERROR_MESSAGE = Object.freeze({
 	INVALID_LOTTO_COUNT: `당첨 숫자의 갯수는 ${LOTTO_COUNT}개여야 합니다.`,
 	IS_DUPLICATED: '중복된 숫자는 입력될 수 없습니다.',
 	IS_OVER_NUMBER_RANGE: `숫자의 범위는 ${MIN_LOTTO_NUMBER}~${MAX_LOTTO_NUMBER} 사이의 값만 가능합니다.`,
+	DUPLICATED_BONUS_NUMBER: '보너스 숫자는 당첨 숫자와 중복될 수 없습니다.',
 });
