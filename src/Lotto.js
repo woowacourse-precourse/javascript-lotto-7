@@ -4,6 +4,7 @@ import LottoIO from "./LottoIO.js";
 export const LOTTO_PRICE = 1000;
 const LOTTO_NUMBER_MIN = 1;
 const LOTTO_NUMBER_MAX = 45;
+const NUMBER_COUNT_BY_LOTTO = 6;
 
 class Lotto {
   #numbers;
@@ -40,8 +41,10 @@ class Lotto {
       );
     }
 
-    if (numbers.length !== 6) {
-      this.#throwLottoError("6개의 당첨 번호를 입력해 주세요.");
+    if (numbers.length !== NUMBER_COUNT_BY_LOTTO) {
+      this.#throwLottoError(
+        `${NUMBER_COUNT_BY_LOTTO}개의 당첨 번호를 입력해 주세요.`
+      );
     }
 
     if (numbers.some((n) => !this.#isNumber(n))) {
@@ -101,7 +104,11 @@ class Lotto {
 
   static #scratch(count) {
     return Array.from({ length: count }, () =>
-      Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)
+      Random.pickUniqueNumbersInRange(
+        LOTTO_NUMBER_MIN,
+        LOTTO_NUMBER_MAX,
+        NUMBER_COUNT_BY_LOTTO
+      ).sort((a, b) => a - b)
     );
   }
 
