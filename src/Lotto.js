@@ -1,3 +1,5 @@
+import { LOTTO_NUMBER_ERROR } from './constants/errorMessage';
+
 class Lotto {
   #numbers;
 
@@ -8,13 +10,13 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.some((number) => isNaN(number))) {
-      throw new Error('[ERROR] 로또 번호는 숫자여야 합니다');
+      throw new Error(LOTTO_NUMBER_ERROR.NOT_NUMBER);
     }
     if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      throw new Error(LOTTO_NUMBER_ERROR.NOT_SIX_LENGTH);
     }
     if (numbers.some((number) => number <= 0 || number > 45)) {
-      throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 힙니다.');
+      throw new Error(LOTTO_NUMBER_ERROR.NOT_RANGE);
     }
   }
 
