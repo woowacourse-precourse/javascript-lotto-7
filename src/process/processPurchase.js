@@ -17,7 +17,7 @@ async function processPurchase() {
     return PURCHASE.purchase;
   } catch (error) {
     Console.print(error.message)
-    processPurchase();
+    return await processPurchase();
   }
 };
 

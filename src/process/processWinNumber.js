@@ -21,7 +21,7 @@ async function processWinNumber() {
     return LOTTO;
   } catch (error) {
     Console.print(error.message);
-    processWinNumber();
+    return await processWinNumber();
   }
 }
 
