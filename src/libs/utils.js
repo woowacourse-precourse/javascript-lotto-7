@@ -9,10 +9,5 @@ export function printResult(result) {
 }
 
 export function pickUniqueNumbersInRange(start, end, count) {
-  const set = new Set();
-  while (set.size !== count) {
-    const randomNumbers = MissionUtils.Random.pickUniqueNumbersInRange(start, end, count - set.size);
-    set.add(...randomNumbers);
-  }
-  return Array.from(set);
+  return MissionUtils.Random.pickUniqueNumbersInRange(start, end, count);
 }
