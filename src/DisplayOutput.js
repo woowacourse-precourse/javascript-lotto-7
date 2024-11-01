@@ -5,7 +5,7 @@ import Game from "./Game.js";
 class DisplayOutput {
 
     displayPaidLotto(number) {
-        MissionUtils.Console.print(`\n${number}개를 구입했습니다.`);
+        MissionUtils.Console.print(`${number}개를 구매했습니다.`);
     }
 
     displayLotto (lotto){
