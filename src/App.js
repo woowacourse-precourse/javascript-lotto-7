@@ -1,5 +1,8 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { PURCHASE_AMOUNT_ERROR } from './constants/errorMessage.js';
+import {
+  BONUS_NUMBER_ERROR,
+  PURCHASE_AMOUNT_ERROR,
+} from './constants/errorMessage.js';
 import { ONE_LOTTO_AMOUNT } from './constants/won.js';
 import Lotto from './Lotto.js';
 import { View } from './view/View.js';
@@ -55,14 +58,13 @@ class App {
   }
 
   validationBonus(bonus) {
-    if (isNaN(bonus)) throw new Error('[ERROR]');
-    if (bonus < 1 || bonus > 45) throw new Error('[ERROR]');
+    if (isNaN(bonus)) throw new Error(BONUS_NUMBER_ERROR.NOT_NUMBER);
+    if (bonus < 1 || bonus > 45) throw new Error(BONUS_NUMBER_ERROR.NOT_RANGE);
   }
 
   checkBonusWithWinningnumbers(bonus) {
-    console.log(this.winning.getNumbers());
     if (this.winning.getNumbers().includes(Number(bonus)))
-      throw new Error('[ERROR]');
+      throw new Error(BONUS_NUMBER_ERROR.NOT_DUPLICATED);
   }
 
   parseNumbers(numbers) {

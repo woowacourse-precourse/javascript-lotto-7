@@ -9,3 +9,9 @@ export const LOTTO_NUMBER_ERROR = Object.freeze({
   NOT_SIX_LENGTH: '[ERROR] 로또 번호는 6개여야 합니다.',
   NOT_RANGE: '[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.',
 });
+
+export const BONUS_NUMBER_ERROR = Object.freeze({
+  NOT_NUMBER: '[ERROR] 보너스 번호는 숫자여야 합니다.',
+  NOT_RANGE: '[ERROR] 보너스 번호는 1퉅터 45 사이의 숫자여야 합니다.',
+  NOT_DUPLICATED: '[ERROR] 보너스 번호는 로또 번호와 중복되면 안됩니다.',
+});
