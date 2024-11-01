@@ -11,6 +11,8 @@ class App {
     let inputLottoNumber = await Console.readLineAsync("");
     let lottoNumberArray = inputLottoNumber.split(",");
     let numbers = new Lotto(lottoNumberArray);
+    
+    new Rank_check(myLottoArray, numbers);
   }
 }
 
