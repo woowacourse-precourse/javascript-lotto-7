@@ -12,7 +12,7 @@ class Lotto {
   constructor(numbers) {
     while (true) {
       try {
-        Lotto.#validate(numbers);
+        Lotto.#validateLottoNumbers(numbers);
         this.#numbers = numbers;
 
         break;
@@ -34,7 +34,7 @@ class Lotto {
     return [...this.#numbers];
   }
 
-  static #validate(numbers) {
+  static #validateLottoNumbers(numbers) {
     if (typeof numbers !== "object") {
       this.#throwLottoError(
         "당첨 번호는 콤마(,)를 기준으로 숫자를 입력해 주세요. (ex: 1,2,3)"
