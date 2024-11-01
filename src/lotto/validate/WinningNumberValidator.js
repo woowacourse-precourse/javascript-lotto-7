@@ -15,6 +15,10 @@ class WinningNumberValidator extends CommonValidator {
     this.#numberRange = numberRange;
   }
 
+  validateRawWinningNumber(rawValue) {
+    super.checkValidInput(rawValue);
+  }
+
   validateWinningNumbers(numbers) {
     super.checkValidInputValues(numbers);
     super.validateEqualNumberCount(numbers.length, this.#numberCount);

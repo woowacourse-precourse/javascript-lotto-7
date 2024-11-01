@@ -3,13 +3,15 @@ import { createWinningNumberValidator } from './validate/ValidatorCreator.js';
 
 const winningNumberValidator = createWinningNumberValidator();
 
-const splitWinningNumbers = (winningNumbers) => winningNumbers.split(',');
+const splitWinningNumbers = (winningNumbers) => winningNumbers.split(',').map((number) => number.replaceAll(' ', ''));
 
 const getWinningNumbers = async () => {
-  const winningNumbersString = await inputWinningNumbers();
-  const winningNumbers = splitWinningNumbers(winningNumbersString);
+  const rawWinningNumbers = await inputWinningNumbers();
+  winningNumberValidator.validateRawWinningNumber(rawWinningNumbers);
 
+  const winningNumbers = splitWinningNumbers(rawWinningNumbers);
   winningNumberValidator.validateWinningNumbers(winningNumbers);
+
   return winningNumbers;
 }
 
