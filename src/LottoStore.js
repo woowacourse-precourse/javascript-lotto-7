@@ -13,46 +13,50 @@ class LottoStore {
   }
 
   async purchaseLottos() {
+    const userAmount = await LottoStore.#getValidAmount();
+    this.#setPurchaseAmount(userAmount);
+    this.#printLottoCount();
+  }
+
+  static async #getValidAmount() {
     while (true) {
       try {
-        const inputAmount =
-          await InputView.getUserInput('구입금액을 입력해 주세요.\n');
+        const inputAmount = await InputView.getUserInput('구입금액을 입력해 주세요.\n');
         LottoStore.#validateAmount(inputAmount);
-        this.#amount = LottoStore.#getParseInt(inputAmount);
-        this.#lottoCount = this.getLottoCount();
+        return inputAmount;
       } catch (error) {
         OutputView.printError(error);
       }
     }
   }
 
+  #setPurchaseAmount(userAmount) {
+    this.#amount = LottoStore.#parseAmount(userAmount);
+    this.#lottoCount = this.#getLottoCount();
+  }
+
+  #printLottoCount() {
+    OutputView.printMessage(`\n${this.#lottoCount}개를 구매했습니다.`);
+  }
+
   static #validateAmount(amount) {
     Validator.checkIsNull(amount);
-    Validator.checkRegexPattern(
-      amount,
-      /^\d+$/,
-      '금액은 숫자만 입력해야 합니다.',
-    );
-    Validator.checkValidRange(
-      amount,
-      1000,
-      100000,
-      '금액은 1000원 이상, 10만원 이하로 입력해야 합니다.',
-    );
+    Validator.checkRegexPattern(amount, /^\d+$/, '금액은 숫자만 입력 가능합니다.');
+    Validator.checkValidRange(amount, 1000, 100000, '금액은 1000원 이상 10만원 이하로 입력 가능합니다.');
     LottoStore.#checkThousandUnit(amount);
   }
 
   static #checkThousandUnit(amount) {
     if (amount % 1000 !== 0) {
-      throw new Error('[ERROR] 금액은 1000원 단위로 입력해야 합니다.');
+      throw new Error('[ERROR] 금액은 1000원 단위로 입력 가능합니다.');
     }
   }
 
-  static #getParseInt(amount) {
+  static #parseAmount(amount) {
     return parseInt(amount, 10);
   }
 
-  getLottoCount() {
+  #getLottoCount() {
     return Math.floor(this.#amount / 1000);
   }
 }
