@@ -3,8 +3,9 @@ import MESSAGES from '../constants/Messages.js';
 import ERRORS from '../constants/Errors.js';
 
 class OutputView {
-  static displayLottoCount(count) {
+  static displayLottoCount(amount) {
     Console.print('');
+    const count = Math.floor(Number(amount) / 1000);
     Console.print(MESSAGES.PURCHASE_COUNT(count));
   }
 
