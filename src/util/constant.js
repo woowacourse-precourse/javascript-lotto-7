@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 const INPUT = Object.freeze({
   PURCHASE_AMOUNT: '구입금액을 입력해 주세요.\n',
   WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
@@ -5,9 +7,7 @@ const INPUT = Object.freeze({
 });
 
 const OUTPUT = Object.freeze({
-  PURCHASED_TICKETS: (input) => {
-    `${input}개를 구매했습니다.`
-  }
+  PURCHASED_TICKETS: (input) => `\n${input}개를 구매했습니다.\n`,
 });
 
 const LOTTO = Object.freeze({
@@ -29,6 +29,7 @@ const ERROR = Object.freeze({
   INVALID_AMOUNT: '[ERROR] 구입 금액은 1,000원 단위여야 합니다.',
   EMPTY_QUERY: '[ERROR] 값을 입력해야 합니다.',
   INVALID_INPUT: '[ERROR] 숫자만 입력해야 합니다.',
+  INVALID_LOTTO_COUNT: "[ERROR] 로또 번호는 6개여야 합니다.",
 });
 
 export {
