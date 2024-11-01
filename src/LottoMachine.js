@@ -12,6 +12,10 @@ class LottoMachine {
   #calculateLottoQuantity(purchaseAmount) {
     return purchaseAmount / LOTTO_RULE.AMOUNT_UNIT;
   }
+
+  getLottoQuantity() {
+    return this.#lottoQuantity;
+  }
 }
 
 export default LottoMachine;
