@@ -34,4 +34,5 @@ export const PRIZE_CALCULATOR = {
 
 export const INPUT_VIEW = {
   paymentQuestion: '구입금액을 입력해 주세요.',
+  winningNumbersQuestion: '당첨 번호를 입력해 주세요.',
 };

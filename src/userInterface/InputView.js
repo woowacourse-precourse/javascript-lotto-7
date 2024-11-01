@@ -6,6 +6,14 @@ const inputView = {
     const payment = await Console.readLineAsync(INPUT_VIEW.paymentQuestion);
     return payment;
   },
+
+  askWinningNumbers: async () => {
+    const winningNumbers = await Console.readLineAsync(
+      INPUT_VIEW.winningNumbersQuestion,
+    );
+
+    return winningNumbers;
+  },
 };
 
 export default inputView;
