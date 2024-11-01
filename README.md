@@ -59,6 +59,8 @@
 
 ### 프로젝트 플로우 차트
 
+![image](https://github.com/user-attachments/assets/ab3e5bfb-5409-4de8-98bf-d0cc992ab191)
+
 ## 🛠️ 테스트 케이스 목록
 
 ## 📺 실행 결과
