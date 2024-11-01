@@ -1,4 +1,7 @@
 import ERROR_MESSAGES from './Error/Error.js';
+import defaultSettings from './Config/DefaultSettings.js';
+
+const { lotto } = defaultSettings;
 
 class Lotto {
   #numbers;
@@ -13,20 +16,20 @@ class Lotto {
   }
 
   #validateLength(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== lotto.pickingNumber) {
       throw new Error(ERROR_MESSAGES.lotteryNumber.NOT_ENOUGH_ELEMENT);
     }
   }
 
   #validateNumber(numbers) {
-    if (new Set(numbers).size !== 6) {
+    if (new Set(numbers).size !== lotto.pickingNumber) {
       throw new Error(ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER);
     }
   }
 
   #validateRange(numbers) {
     numbers.forEach((number) => {
-      if (number < 1 || number > 45) {
+      if (number < lotto.minimumNumber || number > lotto.maximumNumber) {
         throw new Error(
           ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED,
         );
