@@ -1,5 +1,5 @@
 export const errorMessage = Object.freeze({
-  prefix: '[ERROR] ',
+  prefix: '[ERROR]',
   invalidAmount: '금액은 숫자로 입력해주세요.',
   negativeAmount: '구매금액은 0보다 커야합니다.',
   divisibleAmount: '구매금액은 1000원 단위로 입력해주세요.',
