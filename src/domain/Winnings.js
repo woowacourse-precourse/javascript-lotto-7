@@ -14,12 +14,12 @@ class Winnings {
     ['6개 일치 (2,000,000,000원)', 0],
   ];
 
-  constructor(lottos, winningNumbers, bonusNumber) {
-    this.#findWinnings(lottos, winningNumbers, bonusNumber);
+  constructor(userLotto, winningNumbers, bonusNumber) {
+    this.#findWinnings(userLotto, winningNumbers, bonusNumber);
   }
 
-  #findWinnings(lottos, winningNumbers, bonusNumber) {
-    lottos.forEach((lotto) => {
+  #findWinnings(userLotto, winningNumbers, bonusNumber) {
+    userLotto.forEach((lotto) => {
       const matchedCount = Winnings.#findMatchedNumber(lotto, winningNumbers);
       const isBonusWin = Winnings.#checkBonus(matchedCount, lotto, bonusNumber);
 
