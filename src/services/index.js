@@ -1,5 +1,6 @@
 import LottoGame from './LottoGame.js';
 import LottoStorage from './LottoStorage.js';
-import Validator from './Validator.js';
+import * as InputValidator from './InputValidator.js';
+import * as LottoValidator from './LottoValidator.js';
 
-export { LottoGame, LottoStorage, Validator };
+export { LottoGame, LottoStorage, LottoValidator, InputValidator };

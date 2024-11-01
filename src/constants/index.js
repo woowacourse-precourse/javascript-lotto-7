@@ -1,5 +1,5 @@
 import { LOTTO_CONFIG } from './lottoConfig.js';
 import { LOTTO_MESSAGES } from './lottoMessages.js';
-import { LOTTO_ERROR_MESSAGES } from './lottoErrorMessages.js';
+import { INPUT_ERROR_MESSAGES, LOTTO_ERROR_MESSAGES } from './errorMessages.js';
 
-export { LOTTO_CONFIG, LOTTO_MESSAGES, LOTTO_ERROR_MESSAGES };
+export { LOTTO_CONFIG, LOTTO_MESSAGES, INPUT_ERROR_MESSAGES, LOTTO_ERROR_MESSAGES };

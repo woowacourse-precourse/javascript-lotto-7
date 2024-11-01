@@ -1,16 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
-import { Validator } from '../services/index.js';
+import { InputValidator } from '../services/index.js';
 import { tryAgain } from '../utils/validateUtils.js';
 
 class ConsoleIO {
-  constructor() {
-    this.validator = new Validator();
-  }
-
   async processMoneyInput(query) {
     return await tryAgain(async () => {
       const moneyString = await this.readInput(query);
-      this.validator.validateMoneyString(moneyString);
+      InputValidator.validateMoneyString(moneyString);
       return Number(moneyString);
     });
   }
