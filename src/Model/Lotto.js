@@ -22,6 +22,10 @@ class Lotto {
     return this.#numbers.filter((number) => winningNumbers.includes(number))
       .length;
   }
+
+  hasBunusNumber(bonusNumber) {
+    return this.#numbers.includes(bonusNumber);
+  }
 }
 
 export default Lotto;
