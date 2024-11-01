@@ -6,7 +6,6 @@ import validateMoney from './Validation/validateMoney.js';
 import { defaultSettings } from './DefaultSettings.js';
 
 import validateLottoNumber from './Validation/validateLottoNumber.js';
-import validateLotteryNotes from './Validation/validateLotteryNotes.js';
 import validateBonusNumber from './Validation/validateBonusNumber.js';
 import RankCalculationService from './RankCalculationService.js';
 import RANKS from './Rank.js';
@@ -15,12 +14,14 @@ import LotteryService from './Service/LotteryService.js';
 
 class App {
   async run() {
+    const lotteryService = new LotteryService(Lotto, defaultSettings);
     const purchaseAmount = await getInputWhileValid(
       validateMoney,
       '구입금액을 입력해 주세요.',
     );
-    const numberOfTickets = validateLotteryNotes(purchaseAmount);
-    const lotteryService = new LotteryService(Lotto, defaultSettings);
+
+    const numberOfTickets = lotteryService.validateLotteryNotes(purchaseAmount);
+
     const purchasedLotteries =
       lotteryService.generateLotteries(numberOfTickets);
 

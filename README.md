@@ -60,6 +60,14 @@ validator
 
 - [x] 발리데이터를 리펙터링 하여, 함수의 줄 수를 줄인다.
 
+APP.js 쪼개기
+
+- [x] 각종 로또 관련한 함수를 구현한 LotteryService를 만든다.
+- [ ] input output을 담당하는 IOService를 만든다.
+- [ ] RankCaluation Service에 로또 담첨금을 계산하게 한다.
+- [ ] Statics service를 통해 statics를 보여준다
+- [ ] 모든 서비스는 DI를 통해 주입한다.
+
 간단한 로또 발매기를 구현 확인한다.
 
 - [] 로또 번호의 숫자 범위는 1~45까지이다.
