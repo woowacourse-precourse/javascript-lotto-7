@@ -1,4 +1,4 @@
-import { CONFIG, PRIZE } from './constants';
+import { CONFIG, PRIZE } from './constants.js';
 
 const INPUT_MESSAGES = Object.freeze({
   PURCHASE_AMOUNT: `구입금액을 입력해 주세요.\n`,
@@ -7,7 +7,7 @@ const INPUT_MESSAGES = Object.freeze({
 });
 
 const OUTPUT_MESSAGES = Object.freeze({
-  LOTTO_AMOUNT: (amount) => `${amount}개를 구매했습니다.`,
+  LOTTO_AMOUNT: (amount) => `\n${amount}개를 구매했습니다.`,
   LOTTO_NUMBERS: (numbers) => `[${numbers.join(', ')}]`,
   WINNING_STATS: `당첨 통계\n---`,
   THREE_MATCH: (count) => `3개 일치 (${PRIZE[5]}) - (${count}개)`,
