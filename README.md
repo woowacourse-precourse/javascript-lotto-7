@@ -87,5 +87,43 @@
           - 로또 당첨 내역 반환 검사
 
 ## 🏛️ 프로젝트 구조
+```
+__tests__
+├── ApplicationTest.js
+├── LottoBonusTest.js
+├── LottoCountTest.js
+├── LottoIssuanceTest.js
+├── LottoRevenueTest.js
+├── LottoStatisticsTest.js
+└── LottoTest.js
+
+src
+├── App.js
+├── constants
+│   └── constants.js
+├── controller
+│   ├── InputController.js
+│   └── LottoController.js
+├── domain
+│   ├── Lotto.js
+│   ├── LottoBonus.js
+│   ├── LottoCount.js
+│   ├── LottoIssuance.js
+│   ├── LottoRevenue.js
+│   └── LottoStatistics.js
+├── index.js
+├── utils
+│   ├── inputPipe.js
+│   ├── parser.js
+│   └── validateCondition.js
+├── validations
+│   ├── BonusNumberValidations.js
+│   ├── CommonValidations.js
+│   ├── LottoNumbersValidations.js
+│   └── LottoPurchasePriceValidations.js
+└── view
+    ├── InputView.js
+    └── OutputView.js
+```
 
 ## 🔗 클래스 다이어그램
