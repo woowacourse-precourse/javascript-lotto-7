@@ -1,5 +1,9 @@
 import { ERROR_MESSAGE, LOTTO_INFORMATIONS } from './lib/constants.js';
-import { intersection } from './lib/utils.js';
+import {
+  getIsAllItemsUnique,
+  getIsArrayLengthMatch,
+  intersection,
+} from './lib/utils.js';
 
 class Lotto {
   #numbers;
@@ -38,7 +42,10 @@ class Lotto {
   }
 
   #validate() {
-    if (this.#numbers.length !== 6) throw new Error(ERROR_MESSAGE.NOT_SIX);
+    if (!getIsArrayLengthMatch(this.#numbers, 6))
+      throw new Error(ERROR_MESSAGE.NOT_SIX);
+    if (!getIsAllItemsUnique(this.#numbers))
+      throw new Error(ERROR_MESSAGE.NOT_UNIQUE);
   }
 
   #getWinningNumberCount(winningNumbers) {
