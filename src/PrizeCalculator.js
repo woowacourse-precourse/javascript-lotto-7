@@ -3,8 +3,11 @@ import { PRIZE_CALCULATOR } from './Constants.js';
 class PrizeCalculator {
   #winningTable;
 
-  constructor(winningTable) {
+  #payment;
+
+  constructor(winningTable, payment) {
     this.#winningTable = winningTable;
+    this.#payment = payment;
   }
 
   #calculatePrize() {
@@ -16,6 +19,10 @@ class PrizeCalculator {
     });
 
     return winningPrize;
+  }
+
+  #calculateProfit(totalPrize) {
+    return (totalPrize - this.#payment) / this.#payment;
   }
 }
 
