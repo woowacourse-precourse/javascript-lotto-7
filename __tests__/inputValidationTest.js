@@ -1,4 +1,8 @@
-import { validateMoney, validateWinningNumber } from '../src/utils/validation';
+import {
+  validateMoney,
+  validateWinningNumber,
+  validateBonusNumber,
+} from '../src/utils/validation';
 import { ERROR_MESSAGES } from '../src/constant/constants';
 
 describe('로또 구입금액 입력 예외 테스트', () => {
@@ -65,6 +69,35 @@ describe('당첨 번호 입력 예외 테스트', () => {
 
     expect(() => validateWinningNumber(numbers)).toThrow(
       ERROR_MESSAGES.WINNING_NUMBER.NOT_A_NUMBER,
+    );
+  });
+});
+
+describe('보너스 번호 입력 예외 테스트', () => {
+  test('보너스 번호가 당첨 번호중 하나와 같다면 예외가 발생한다.', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    const bonusNumber = '6';
+
+    expect(() => validateBonusNumber(bonusNumber, winningNumbers)).toThrow(
+      ERROR_MESSAGES.BONUS_NUMBER.DUPLICATION_NUMBER,
+    );
+  });
+
+  test('보너스 번호가 숫자가 아니라면 예외가 발생한다.', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    const bonusNumber = '-';
+
+    expect(() => validateBonusNumber(bonusNumber, winningNumbers)).toThrow(
+      ERROR_MESSAGES.BONUS_NUMBER.NOT_A_NUMBER,
+    );
+  });
+
+  test('보너스 번호가 1부터 45 사이의 숫자가 아니라면 예외가 발생한다.', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    const bonusNumber = '100';
+
+    expect(() => validateBonusNumber(bonusNumber, winningNumbers)).toThrow(
+      ERROR_MESSAGES.BONUS_NUMBER.OUT_OF_RANGE,
     );
   });
 });

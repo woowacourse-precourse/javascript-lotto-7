@@ -13,6 +13,11 @@ export const ERROR_MESSAGES = {
     OUT_OF_RANGE: '당첨 번호는 1부터 45 사이의 숫자여야 합니다.',
     NOT_A_NUMBER: '당첨 번호는 숫자로 입력해야 합니다.',
   },
+  BONUS_NUMBER: {
+    DUPLICATION_NUMBER: '당첨 번호와 중복되지 않는 숫자여야 합니다.',
+    OUT_OF_RANGE: '보너스 번호는 1부터 45 사이의 숫자여야 합니다.',
+    NOT_A_NUMBER: '보너스 번호는 숫자로 입력해야 합니다.',
+  },
 };
 
 export const LOTTO = {
