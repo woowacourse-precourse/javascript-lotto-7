@@ -19,20 +19,10 @@ class App {
                 this.lotto = new Lotto(input.split(","))
             }
             if (sequence === 3) {//보너스 번호
-                this.lotto.setStatistics(this.integrateLottoNumbers(), Number(input))
+                this.lotto.setStatistics(this.purchasedLottery, Number(input))
             }
             sequence++
         }
-    }
-
-    integrateLottoNumbers() {
-        const integratedLotto = []
-        for (const lotto of this.purchasedLottery) {
-            for (const number of lotto) {
-                integratedLotto.push(number)
-            }
-        }
-        return [...new Set(integratedLotto)]
     }
 
     moneyToLotto(money) {
