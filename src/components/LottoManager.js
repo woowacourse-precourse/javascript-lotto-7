@@ -17,9 +17,10 @@ class LottoManager {
 
   printPurchasedLotto() {
     const lottoList = this.machine.getLottoList();
+    const numberList = lottoList.map((lotto) => lotto.getNumbers());
 
     Output.print(`\n${lottoList.length}개를 구매했습니다.`);
-    Output.printArrayWithComma(lottoList);
+    Output.printArrayWithComma(numberList);
     Output.print('');
   }
 

@@ -23,8 +23,7 @@ class LottoMachine {
   }
 
   getLottoList() {
-    const lottoListNumbers = this.#lottoList.map((lotto) => lotto.getNumbers());
-    return lottoListNumbers;
+    return this.#lottoList;
   }
 }
 
