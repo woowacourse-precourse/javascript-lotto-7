@@ -15,8 +15,12 @@ class App {
     const amountOfLotto = purchaseLotto(amount);
     Console.print(`${amountOfLotto}개를 구매했습니다.`);
 
-    const lotto = new Lotto();
-    Console.print(lotto.getNumbers());
+    const lottos = [];
+    for (let i = 0; i < amountOfLotto; i += 1) {
+      const lotto = new Lotto();
+      lottos.push(lotto.getNumbers());
+      Console.print(lottos[i]);
+    }
   }
 }
 
