@@ -2,7 +2,7 @@ import InputManager from './InputManager.js';
 import { generateMapWithZeroValue } from './lib/utils.js';
 
 class LottoCompany {
-  static #RANKS = [1, 2, 3, 4, 5];
+  static #RANKS = [0, 1, 2, 3, 4, 5];
 
   #winningNumbers;
   #bonusNumber;
