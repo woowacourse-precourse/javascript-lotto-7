@@ -19,7 +19,7 @@ describe('로또 비즈니스 로직 클래스 테스트', () => {
 
   describe('구입 금액에 따른 로또 개수 계산하기', () => {
     test('구입 금액에 해당하는 만큼 로또를 발행한다.', () => {
-      expect((lottoGameService.createLottoQuantity(18000))).toBe(18);
+      expect((lottoGameService.getLottoQuantity(18000))).toBe(18);
     });
   });
 
