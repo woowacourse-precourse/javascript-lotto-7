@@ -6,12 +6,12 @@ class App {
       return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     }
 
-    const input = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n')
-    const parseInput = parseInt(input, 10);
+    const inputPrice = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n')
+    const parseInputPrice = parseInt(inputPrice, 10);
 
     // TODO 유효성 검사 분리
     // TODO 에러 메시지 상수처리
-    const validate = (input) => {
+    const validateInputPrice = (input) => {
       if (typeof input !== 'number') {
         throw new Error('[ERROR] 입력값이 올바르지 않습니다.')
       }
@@ -27,8 +27,8 @@ class App {
       return number / 1000;
     }
 
-    validate(parseInput);
-    const lottoCount = getLottoCount(parseInput);
+    validateInputPrice(parseInputPrice);
+    const lottoCount = getLottoCount(parseInputPrice);
 
     const range = (count, value) => Array(count).fill(value || '');
 
@@ -49,6 +49,24 @@ class App {
     }
 
     printLotto(lottoCount);
+
+    const inputNumber = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    console.log(inputNumber)
+
+    // TODO 유효성 검사 분리
+    // TODO 에러 메시지 상수처리
+    const validateInputNumber = (input) => {
+      // TODO 당첨 번호가 6개가 아닌 경우
+      // if () {
+      //   throw new Error('[ERROR] 당첨 번호는 6개 입력해야 합니다.')
+      // }
+      // TODO 당첨 번호가 1~45까지의 숫자를 벗어난 경우
+      // if () {
+      //   throw new Error('[ERROR] 당첨 번호는 1~45 사이의 숫자만 입력해야 합니다.')
+      // }
+    }
+
+    validateInputNumber(inputNumber);
   }
 }
 
