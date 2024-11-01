@@ -1,4 +1,4 @@
-import { ERROR } from "./util/constant.js";
+import { ERROR, LOTTO } from "./util/constant.js";
 
 class Lotto {
   #numbers;
@@ -9,9 +9,20 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO.COUNT) {
       throw new Error(ERROR.INVALID_LOTTO_COUNT);
-    }
+    };
+
+    numbers.forEach((number) => {
+      if (number < LOTTO.MIN_NUMBER || number > LOTTO.MAX_NUMBER) {
+        throw new Error(ERROR.INVALID_LOTTO_NUMBERS);
+      };
+    });
+
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error(ERROR.DUPLICATE_LOTTO_NUMBERS);
+    };
   }
 
   // TODO: 추가 기능 구현

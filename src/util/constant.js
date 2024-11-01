@@ -29,7 +29,10 @@ const ERROR = Object.freeze({
   INVALID_AMOUNT: '[ERROR] 구입 금액은 1,000원 단위여야 합니다.',
   EMPTY_QUERY: '[ERROR] 값을 입력해야 합니다.',
   INVALID_INPUT: '[ERROR] 숫자만 입력해야 합니다.',
-  INVALID_LOTTO_COUNT: "[ERROR] 로또 번호는 6개여야 합니다.",
+  INVALID_LOTTO_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
+  INVALID_LOTTO_NUMBERS: '[ERROR] 로또 번호는 1 ~ 45 사이여야 합니다.',
+  DUPLICATE_LOTTO_NUMBERS: '[ERROR] 중복된 번호가 있습니다.',
+  INVALID_LOTTO_NUMBERS_INPUT: '[ERROR] 입력한 로또 번호들이 문자열이 아닙니다.',
 });
 
 export {
