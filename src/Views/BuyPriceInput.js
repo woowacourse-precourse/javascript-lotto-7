@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import Output from './Output.js';
+import throwError from '../Utils/throwError.js';
 
 const BuyPriceInput = {
   get: async () => {
@@ -38,11 +38,6 @@ const BuyPriceInput = {
 
     return true;
   },
-};
-
-const throwError = (message) => {
-  Output.error(message);
-  return false;
 };
 
 export default BuyPriceInput;
