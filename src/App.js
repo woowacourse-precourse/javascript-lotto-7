@@ -1,132 +1,33 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import InputView from './views/InputView.js';
+import OutputView from './views/OutputView.js';
+import Lotto from './Lotto.js';
+import LottoModel from './model/LottoModel.js';
+import LottoController from './controller/LottoController.js';
 
 class App {
   async run() {
-    await this.startLotto();
-  }
+    const model = new LottoModel();
+    const lottoController = new LottoController(model);
 
-  async startLotto() {
-    const buyLottoCount = await this.getBuyLottoCount();
-    const randomLottoNumbers = this.getRandomLottoNumbers(buyLottoCount);
-    this.printRandomLottoNumbers(randomLottoNumbers);
-    const pickLottoNumber = await this.getPickLottoNumber();
-    const pickBonusNumber = await this.getBonusLottoNumber();
-    const { lottoNumberMatchCount, bonusNumberMatchCount } = this.compareLottoNumber(
-      randomLottoNumbers,
-      pickBonusNumber,
-      pickLottoNumber
-    );
-    const winningStatistics = this.getWinningStatistics(lottoNumberMatchCount, bonusNumberMatchCount);
-    this.printWinningStatistics(winningStatistics);
-    this.printEarningRate(winningStatistics, buyLottoCount);
-  }
+    // 구입 금액 입력
+    const buyLottoCount = await InputView.getBuyLottoCount();
+    model.setBuyLottoCount(buyLottoCount);
 
-  async getBuyLottoCount() {
-    Console.print('구입금액을 입력해 주세요.');
-    const buyLottoCount = await Console.readLineAsync('');
+    // 랜덤 로또 번호 생성
+    model.generateRandomLottoNumbers();
+    OutputView.printRandomLottoNumbers(model.getRandomLottoNumbers());
 
-    return buyLottoCount;
-  }
+    // 당첨 번호 및 보너스 번호 입력
+    const pickLottoNumber = await InputView.getPickLottoNumber();
+    const pickBonusNumber = await InputView.getBonusLottoNumber();
+    model.setPickLottoNumber(pickLottoNumber);
+    model.setPickBonusNumber(pickBonusNumber);
 
-  getRandomLottoNumbers(buyLottoCount) {
-    const randomLottoNumbers = [];
-
-    for (let index = 0; index < buyLottoCount / 1000; index++) {
-      const lottoNumber = Random.pickUniqueNumbersInRange(1, 45, 6);
-      randomLottoNumbers.push(lottoNumber.sort((a, b) => a - b));
-    }
-
-    return randomLottoNumbers;
-  }
-
-  printRandomLottoNumbers(randomLottoNumbers) {
-    Console.print('');
-    Console.print(`${randomLottoNumbers.length}개를 구매했습니다.`);
-    randomLottoNumbers.forEach((lottoNumber) => Console.print(`[${lottoNumber.join(', ')}]`));
-  }
-
-  async getPickLottoNumber() {
-    Console.print('');
-    Console.print('당첨 번호를 입력해 주세요.');
-    const pickLottoNumber = (await Console.readLineAsync('')).split(',').map((number) => parseInt(number, 10));
-
-    return pickLottoNumber;
-  }
-
-  async getBonusLottoNumber() {
-    Console.print('');
-    Console.print('보너스 번호를 입력해 주세요.');
-    const pickBonusNumber = parseInt(await Console.readLineAsync(''), 10);
-
-    return pickBonusNumber;
-  }
-
-  compareLottoNumber(randomLottoNumbers, pickBonusNumber, pickLottoNumber) {
-    pickLottoNumber.push(pickBonusNumber);
-    const lottoNumberMatchCount = [];
-    let bonusNumberMatchCount = Array(randomLottoNumbers.length).fill(0);
-
-    randomLottoNumbers.forEach((lottoNumber, idx) => {
-      const result = lottoNumber.filter((number) => pickLottoNumber.includes(number)).length;
-
-      if (lottoNumber.filter((number) => pickBonusNumber === number).length === 1) {
-        bonusNumberMatchCount[idx] = 1;
-      }
-
-      lottoNumberMatchCount.push(result);
-    });
-
-    return { lottoNumberMatchCount, bonusNumberMatchCount };
-  }
-
-  getWinningStatistics(lottoNumberMatchCount, bonusNumberMatchCount) {
-    let winningStatistics = [0, 0, 0, 0, 0];
-
-    lottoNumberMatchCount.forEach((matchCount, idx) => {
-      switch (matchCount) {
-        case 3:
-          winningStatistics[0]++;
-          break;
-        case 4:
-          winningStatistics[1]++;
-          break;
-        case 5:
-          winningStatistics[2]++;
-          break;
-        case 6:
-          if (bonusNumberMatchCount[idx] === 1) {
-            winningStatistics[3]++;
-            break;
-          }
-          winningStatistics[4]++;
-          break;
-      }
-    });
-
-    return winningStatistics;
-  }
-  printWinningStatistics(winningStatistics) {
-    Console.print('');
-    Console.print('당첨 통계');
-    Console.print('---');
-    Console.print(`3개 일치 (5,000원) - ${winningStatistics[0]}개`);
-    Console.print(`4개 일치 (50,000원) - ${winningStatistics[1]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${winningStatistics[2]}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningStatistics[3]}개`);
-    Console.print(`6개 일치 (2,000,000,000원) - ${winningStatistics[4]}개`);
-    return winningStatistics;
-  }
-
-  printEarningRate(winningStatistics, buyLottoCount) {
-    const earningRate =
-      ((5000 * winningStatistics[0] +
-        50000 * winningStatistics[1] +
-        1500000 * winningStatistics[2] +
-        30000000 * winningStatistics[3] +
-        2000000000 * winningStatistics[4]) /
-        buyLottoCount) *
-      100;
-    Console.print(`총 수익률은 ${earningRate.toFixed(1).toLocaleString()}%입니다.`);
+    // 당첨 통계 및 수익률 계산
+    const statistics = lottoController.calculateStatistics();
+    const earningRate = lottoController.calculateEarningRate(statistics);
+    OutputView.printWinningStatistics(statistics);
+    OutputView.printEarningRate(earningRate);
   }
 }
 
