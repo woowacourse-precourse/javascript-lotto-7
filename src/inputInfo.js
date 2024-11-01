@@ -43,13 +43,20 @@ class Input {
   }
 
   async WinLottoNumbers() {
-    this.WinNumbers = await Console.readLineAsync(
-      "당첨 번호를 입력해 주세요.\n"
-    );
+    while (true) {
+      try {
+        this.WinNumbers = await Console.readLineAsync(
+          "당첨 번호를 입력해 주세요.\n"
+        );
+        const winNumberArray = this.WinNumbers.split(",");
 
-    const winNumberArray = this.WinNumbers.split(",");
-
-    let lotto = new Lotto(winNumberArray);
+        new Lotto(winNumberArray);
+        Console.print(this.WinNumbers);
+        break;
+      } catch (error) {
+        Console.print("[ERROR] 로또 번호는 6개여야 합니다.");
+      }
+    }
   }
 }
 export default Input;

@@ -23,13 +23,14 @@ class Exception {
   }
 
   validateWinNumbers(numbers, retry = true) {
-    let replayInputWinNumbers = new Input();
     if (numbers.length !== 6) {
-      Console.print("[ERROR] 로또 번호는 6개여야 합니다.");
       if (retry) {
-        replayInputWinNumbers.WinLottoNumbers();
+        throw new Error("[ERROR] 로또 번호는 6개여야 합니다."); // 예외 발생
+      } else {
+        return false; // 테스트 용도로 false 리턴
       }
     }
+    return true;
   }
 }
 export default Exception;
