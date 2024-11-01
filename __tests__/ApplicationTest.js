@@ -1,6 +1,5 @@
 import App from '../src/App.js';
-import { ERROR_MESSAGE } from '../src/constant/errorMessage.js';
-import { MATCH_PRICE } from '../src/constant/system.js';
+import { RANK_PRICE } from '../src/constant/system.js';
 import { mockQuestions, getLogSpy, mockRandoms } from '../src/test/testUtil.js';
 
 describe('로또 테스트', () => {
@@ -39,11 +38,11 @@ describe('로또 테스트', () => {
       '[7, 11, 30, 40, 42, 43]',
       '[2, 13, 22, 32, 38, 45]',
       '[1, 3, 5, 14, 22, 45]',
-      `3개 일치 (${MATCH_PRICE.THREE.toLocaleString()}원) - 1개`,
-      `4개 일치 (${MATCH_PRICE.FOUR.toLocaleString()}원) - 0개`,
-      `5개 일치 (${MATCH_PRICE.FIVE.toLocaleString()}원) - 0개`,
-      `5개 일치, 보너스 볼 일치 (${MATCH_PRICE.FIVE_BONUS.toLocaleString()}원) - 0개`,
-      `6개 일치 (${MATCH_PRICE.SIX.toLocaleString()}원) - 0개`,
+      `3개 일치 (${RANK_PRICE.THREE.toLocaleString()}원) - 1개`,
+      `4개 일치 (${RANK_PRICE.FOUR.toLocaleString()}원) - 0개`,
+      `5개 일치 (${RANK_PRICE.FIVE.toLocaleString()}원) - 0개`,
+      `5개 일치, 보너스 볼 일치 (${RANK_PRICE.FIVE_BONUS.toLocaleString()}원) - 0개`,
+      `6개 일치 (${RANK_PRICE.SIX.toLocaleString()}원) - 0개`,
       '총 수익률은 62.5%입니다.',
     ];
 

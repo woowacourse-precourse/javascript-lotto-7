@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import { MATCH_PRICE, PRICE_RANGE, SEPARATOR } from '../constant/system.js';
+import { RANK_PRICE, PRICE_RANGE, SEPARATOR } from '../constant/system.js';
 import Validator from '../Validator.js';
 import UserModel from '../model/UserModel.js';
 import Lotto from '../Lotto.js';
@@ -25,11 +25,11 @@ export default class LottoService {
 
   getLottosInformation() {
     const lottoLength = this.userModel.getLottos().length;
-    const lottoNumbers = this.userModel
+    const lottoNumbersArray = this.userModel
       .getLottos()
       .map((lotto) => lotto.getNumbers().sort((a, b) => a - b));
 
-    return { lottoLength, lottoNumbers };
+    return { lottoLength, lottoNumbersArray };
   }
 
   createWinningLottoModel(numberString) {
@@ -48,8 +48,11 @@ export default class LottoService {
 
   getStatistics() {
     const rankMap = this.#getRankMap();
+    const winningLottoNumbers = this.winningLottoModel.getNumbers();
+    const bonusNumber = this.winningLottoModel.getBonusNumber();
+
     this.userModel.getLottos().forEach((lotto) => {
-      const rank = this.#calculateRank(lotto, this.winningLottoModel);
+      const rank = this.#getRank(lotto, winningLottoNumbers, bonusNumber);
       if (rank) rankMap.set(rank, rankMap.get(rank) + 1);
     });
 
@@ -57,7 +60,7 @@ export default class LottoService {
   }
 
   getRateOfReturn(rankMap) {
-    const totalPrize = this.#calculateTotalPrize(rankMap);
+    const totalPrize = this.#getTotalPrize(rankMap);
     return ((totalPrize / this.userModel.getPrice()) * 100).toFixed(1);
   }
 
@@ -71,10 +74,8 @@ export default class LottoService {
     ]);
   }
 
-  #calculateRank(lotto, winningLotto) {
+  #getRank(lotto, winningLottoNumbers, bonusNumber) {
     const lottoNumbers = lotto.getNumbers();
-    const winningLottoNumbers = winningLotto.getNumbers();
-    const bonusNumber = winningLotto.getBonusNumber();
 
     const intersectionLottoNumbers = lottoNumbers.filter((number) =>
       winningLottoNumbers.includes(number),
@@ -86,8 +87,8 @@ export default class LottoService {
     return null;
   }
 
-  #calculateTotalPrize(rankMap) {
-    const prizes = Object.values(MATCH_PRICE);
+  #getTotalPrize(rankMap) {
+    const prizes = Object.values(RANK_PRICE);
     let totalPrize = 0;
 
     Array.from(rankMap.values()).forEach((count, index) => {

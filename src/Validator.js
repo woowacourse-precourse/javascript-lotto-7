@@ -28,8 +28,7 @@ export default class Validator {
 
   // 입력 금액 검증
   static #checkNumberPrice(number) {
-    if (Number.isNaN(Number(number)))
-      this.#throwError(ERROR_MESSAGE.NUMBER_PRICE);
+    if (!this.#isInteger(number)) this.#throwError(ERROR_MESSAGE.NUMBER_PRICE);
   }
 
   static #checkMinPrice(number) {
@@ -89,7 +88,7 @@ export default class Validator {
       this.#throwError(ERROR_MESSAGE.DUPLICATE_BONUS_NUMBER);
   }
 
-  // 유틸리티 메서드들
+  // 유틸리티 메서드
   static #throwError(errorMessage) {
     throw new Error(errorMessage);
   }

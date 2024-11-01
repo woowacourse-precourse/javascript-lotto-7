@@ -1,31 +1,31 @@
 import { Console } from '@woowacourse/mission-utils';
 import {
-  MATCH_OUTPUT_MESSAGE,
+  RANK_OUTPUT_MESSAGE,
   OUTPUT_MESSAGE,
 } from '../constant/ouputMessage.js';
 
 export default class OutputView {
-  static printLottosInformation({ lottoLength, lottoNumbers }) {
+  static lottosInformation({ lottoLength, lottoNumbersArray }) {
     Console.print(`\n${lottoLength}${OUTPUT_MESSAGE.LOTTO_LENGTH}`);
-    lottoNumbers.forEach((lottoNumber) => {
-      Console.print(`[${lottoNumber.join(', ')}]`);
+    lottoNumbersArray.forEach((lottoNumbers) => {
+      Console.print(`[${lottoNumbers.join(', ')}]`);
     });
   }
 
-  static printWinningStatistics(lottoRanckMap) {
+  static winningStatistics(lottoRanckMap) {
     const lottoRanks = Array.from(lottoRanckMap.values());
 
     Console.print(OUTPUT_MESSAGE.WINNING_STATISTICS);
-    Object.values(MATCH_OUTPUT_MESSAGE).forEach((message, index) => {
+    Object.values(RANK_OUTPUT_MESSAGE).forEach((message, index) => {
       Console.print(`${message} - ${lottoRanks[index]}개`);
     });
   }
 
-  static printRateOfReturn(rateOfReturn) {
+  static rateOfReturn(rateOfReturn) {
     Console.print(`총 수익률은 ${rateOfReturn.toLocaleString()}%입니다.`);
   }
 
-  static printError(error) {
+  static error(error) {
     Console.print(error);
   }
 }

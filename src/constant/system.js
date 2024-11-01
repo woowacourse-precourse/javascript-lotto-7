@@ -1,4 +1,4 @@
-export const MATCH_PRICE = Object.freeze({
+export const RANK_PRICE = Object.freeze({
   THREE: 5000,
   FOUR: 50000,
   FIVE: 1500000,

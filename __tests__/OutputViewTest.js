@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import OutputView from '../src/view/OuputView';
-import { MATCH_OUTPUT_MESSAGE } from '../src/constant/ouputMessage';
+import { RANK_OUTPUT_MESSAGE } from '../src/constant/ouputMessage';
 
 describe('OuputView 클래스 테스트', () => {
   const spy = jest.spyOn(Console, 'print');
@@ -11,17 +11,17 @@ describe('OuputView 클래스 테스트', () => {
 
   test('로또 정보 출력', () => {
     const lottoLength = 3;
-    const lottoNumbers = [
+    const lottoNumbersArray = [
       [1, 2, 3, 4, 5, 6],
       [2, 3, 4, 5, 6, 7],
       [5, 6, 7, 13, 23, 33],
     ];
 
-    OutputView.printLottosInformation({ lottoLength, lottoNumbers });
+    OutputView.lottosInformation({ lottoLength, lottoNumbersArray });
 
-    lottoNumbers.forEach((numbers) => {
+    lottoNumbersArray.forEach((lottoNumbers) => {
       expect(spy).toHaveBeenCalledWith(
-        expect.stringContaining(numbers.join(', ')),
+        expect.stringContaining(lottoNumbers.join(', ')),
       );
     });
   });
@@ -35,9 +35,9 @@ describe('OuputView 클래스 테스트', () => {
     ]);
 
     const lottoRanks = Array.from(lottoRankMap.values());
-    OutputView.printWinningStatistics(lottoRankMap);
+    OutputView.winningStatistics(lottoRankMap);
 
-    Object.values(MATCH_OUTPUT_MESSAGE).forEach((message, index) => {
+    Object.values(RANK_OUTPUT_MESSAGE).forEach((message, index) => {
       expect(spy).toHaveBeenCalledWith(
         expect.stringContaining(`${message} - ${lottoRanks[index]}개`),
       );

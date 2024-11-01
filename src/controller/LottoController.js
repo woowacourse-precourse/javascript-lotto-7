@@ -23,15 +23,15 @@ export default class LottoController {
         this.#lottoService.createUserModel(price);
         return;
       } catch (e) {
-        OutputView.printError(e.message);
+        OutputView.error(e.message);
       }
     }
   }
 
   #printLottosInfomation() {
-    const { lottoLength, lottoNumbers } =
+    const { lottoLength, lottoNumbersArray } =
       this.#lottoService.getLottosInformation();
-    OutputView.printLottosInformation({ lottoLength, lottoNumbers });
+    OutputView.lottosInformation({ lottoLength, lottoNumbersArray });
   }
 
   async #getWinningNumbers() {
@@ -41,7 +41,7 @@ export default class LottoController {
         this.#lottoService.createWinningLottoModel(numberString);
         return;
       } catch (e) {
-        OutputView.printError(e.message);
+        OutputView.error(e.message);
       }
     }
   }
@@ -53,16 +53,16 @@ export default class LottoController {
         this.#lottoService.appendBonusNumber(bonusNumber);
         return;
       } catch (e) {
-        OutputView.printError(e.message);
+        OutputView.error(e.message);
       }
     }
   }
 
   #printResult() {
     const statistics = this.#lottoService.getStatistics();
-    OutputView.printWinningStatistics(statistics);
+    OutputView.winningStatistics(statistics);
 
     const rateOfReturn = Number(this.#lottoService.getRateOfReturn(statistics));
-    OutputView.printRateOfReturn(rateOfReturn);
+    OutputView.rateOfReturn(rateOfReturn);
   }
 }

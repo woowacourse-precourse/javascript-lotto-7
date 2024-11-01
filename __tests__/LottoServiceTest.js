@@ -1,7 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import LottoService from '../src/service/LottoService.js';
 
-import { MATCH_PRICE, PRICE_RANGE, SEPARATOR } from '../src/constant/system.js';
+import { RANK_PRICE, PRICE_RANGE, SEPARATOR } from '../src/constant/system.js';
 
 function mockRandomRange() {
   Random.pickUniqueNumbersInRange = jest.fn();
@@ -36,7 +36,7 @@ describe('LottoService 클래스 테스트', () => {
   test('로또 정보 가져오기', () => {
     const expected = {
       lottoLength: price / PRICE_RANGE.MIN,
-      lottoNumbers: Array.from({ length: price / PRICE_RANGE.MIN }, () => [
+      lottoNumbersArray: Array.from({ length: price / PRICE_RANGE.MIN }, () => [
         1, 2, 3, 4, 5, 6,
       ]),
     };
@@ -101,7 +101,7 @@ describe('LottoService 클래스 테스트', () => {
     const rate = lottoService.getRateOfReturn(rankObject, price);
 
     expect(rate).toEqual(
-      (((MATCH_PRICE.FOUR + MATCH_PRICE.FIVE) / price) * 100).toFixed(1),
+      (((RANK_PRICE.FOUR + RANK_PRICE.FIVE) / price) * 100).toFixed(1),
     );
   });
 });
