@@ -19,8 +19,10 @@ class Lotto {
     if (new Set(numbers).size !== LOTTO_COUNT) {
       throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
     }
+  }
 
-  // TODO: 추가 기능 구현
+  getLottoNumbers() {
+    return this.#numbers;
   }
 }
 
