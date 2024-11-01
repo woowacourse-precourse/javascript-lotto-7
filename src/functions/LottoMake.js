@@ -1,8 +1,12 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from '../Lotto.js';
 
 export const getLottoBuyCount = (lottoButMoneyInput) => {
   return Math.floor(lottoButMoneyInput / 1000);
+};
+
+export const printLottoBuyCount = (lottoBuyCount) => {
+  Console.print(`\n${lottoBuyCount}개 구매했습니다.`);
 };
 
 const getRandomLottoNumbers = () => {
