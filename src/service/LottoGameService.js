@@ -61,6 +61,12 @@ class LottoGameService {
 
     return rankConditions[matchedCount] || -1;
   }
+
+  increaseRankCount(rank) {
+    if (rank > 0 && rank < 6) {
+      this.prizes[rank].count += 1;
+    }
+  }
 }
 
 export default LottoGameService;
