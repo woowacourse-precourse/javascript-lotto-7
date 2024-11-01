@@ -7,11 +7,10 @@ class App {
     Console.print("");
 
     const { lottoCount, lottoArr } = Lotto.createLotto(purchaseAmount);
-    Console.print(`${lottoCount}개를 구매했습니다.`);
+    this.printLottoResults(lottoCount, lottoArr);
 
-    lottoArr.forEach((lotto) => {
-      Console.print(`[${lotto.numbers.join(", ")}]`);
-    });
+    const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber();
   }
 
   async getPurchaseAmount() {
@@ -36,6 +35,28 @@ class App {
       Console.print("[ERROR] 정상적인 금액을 입력해주세요.");
       return;
     }
+  }
+
+  printLottoResults(lottoCount, lottoArr) {
+    Console.print(`${lottoCount}개를 구매했습니다.`);
+    lottoArr.forEach((lotto) => {
+      Console.print(`[${lotto.numbers.join(", ")}]`);
+    });
+    Console.print("");
+  }
+  async getWinningNumbers() {
+    Console.print("당첨 번호를 입력해 주세요.");
+    const winningNumbersInput = await Console.readLineAsync("");
+    const winningNumbersArr = winningNumbersInput.split(",").map(Number);
+    Console.print("");
+    return winningNumbersArr;
+  }
+
+  async getBonusNumber() {
+    Console.print("보너스 번호를 입력해 주세요.");
+    const bonusNumberInput = await Console.readLineAsync("");
+    Console.print("");
+    return Number(bonusNumberInput);
   }
 }
 export default App;
