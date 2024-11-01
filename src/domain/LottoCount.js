@@ -5,16 +5,16 @@ class LottoCount {
   #lottoCount;
 
   constructor(price) {
-    this.#lottoCount = this.#parseAndValidate(price);
+    this.#validate(price);
+    this.#lottoCount = parser.parseMoneyToLottoCount(price);
   }
 
   getLottoCount() {
     return this.#lottoCount;
   }
 
-  #parseAndValidate(price) {
+  #validate(price) {
     LottoPurchasePriceValidations(price);
-    return parser.parseMoneyToLottoCount(price);
   }
 }
 
