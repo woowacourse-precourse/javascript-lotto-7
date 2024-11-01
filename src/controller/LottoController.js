@@ -9,6 +9,7 @@ import {
 } from '../utils/calculateLottoPrizes.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
 import ValidateWinningNumbers from '../models/ValidateWinningNumbers.js';
+import ValidateBonusNumber from '../models/ValidateBonusNumber.js';
 
 class LottoController {
   #inputView;
@@ -25,12 +26,15 @@ class LottoController {
 
   #validateWinningNumbers;
 
+  #validateBonusNumber;
+
   constructor() {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
     this.#lottos = [];
     this.#validatePurchaseAmount = new ValidatePurchaseAmount();
     this.#validateWinningNumbers = new ValidateWinningNumbers();
+    this.#validateBonusNumber = new ValidateBonusNumber();
   }
 
   async play() {
@@ -53,8 +57,11 @@ class LottoController {
         this.#validateWinningNumbers.validateNumberRange(number),
       );
 
-      this.#bonusNumber = await this.#inputView.readBonusNumber();
-
+      const bonusNumberInput = await this.#inputView.readBonusNumber();
+      this.#bonusNumber = this.#validateBonusNumber.validateBonusNumber(
+        bonusNumberInput,
+        this.#winningNumbers,
+      );
       const matchResults = this.#getMatchResults();
       const statistics = calculateLottoStatistics(matchResults);
       this.#outputView.printMatchResults(statistics);
