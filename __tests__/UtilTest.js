@@ -24,77 +24,77 @@ describe('유틸 함수', () => {
   });
   describe('getIsNumeric', () => {
     test('숫자라면 true를 반환한다.', () => {
-      expect(getIsNumeric(1)).toBe(true);
-      expect(getIsNumeric('1')).toBe(true);
+      expect(getIsNumeric(1)).toBeTruthy();
+      expect(getIsNumeric('1')).toBeTruthy();
     });
     test('숫자가 아니라면 false를 반환한다.', () => {
-      expect(getIsNumeric('a')).toBe(false);
-      expect(getIsNumeric('\\')).toBe(false);
+      expect(getIsNumeric('a')).toBeFalsy();
+      expect(getIsNumeric('\\')).toBeFalsy();
     });
   });
   describe('getIsThousandUnit', () => {
     test('1000의 단위라면 true를 반환한다.', () => {
-      expect(getIsThousandUnit(1000)).toBe(true);
-      expect(getIsThousandUnit(-1000)).toBe(true);
+      expect(getIsThousandUnit(1000)).toBeTruthy();
+      expect(getIsThousandUnit(-1000)).toBeTruthy();
     });
     test('1000의 단위가 아니라면 false를 반환한다.', () => {
-      expect(getIsThousandUnit(1001)).toBe(false);
-      expect(getIsThousandUnit(-1001)).toBe(false);
+      expect(getIsThousandUnit(1001)).toBeFalsy();
+      expect(getIsThousandUnit(-1001)).toBeFalsy();
     });
   });
   describe('getIsPositive', () => {
     test('양수라면 true를 반환한다.', () => {
-      expect(getIsPositive(5)).toBe(true);
+      expect(getIsPositive(5)).toBeTruthy();
     });
     test('양수가 아니라면 false를 반환한다.', () => {
-      expect(getIsPositive(-1)).toBe(false);
-      expect(getIsPositive(0)).toBe(false);
+      expect(getIsPositive(-1)).toBeFalsy();
+      expect(getIsPositive(0)).toBeFalsy();
     });
   });
   describe('getIsArrayLengthMatch', () => {
     test('배열의 길이가 일치한다면 true를 반환한다.', () => {
-      expect(getIsArrayLengthMatch([1, 2, 3], 3)).toBe(true);
-      expect(getIsArrayLengthMatch([], 0)).toBe(true);
+      expect(getIsArrayLengthMatch([1, 2, 3], 3)).toBeTruthy();
+      expect(getIsArrayLengthMatch([], 0)).toBeTruthy();
     });
     test('배열의 길이가 일치하지 않다면 false를 반환한다.', () => {
-      expect(getIsArrayLengthMatch([1, 2, 3], 0)).toBe(false);
-      expect(getIsArrayLengthMatch([], 3)).toBe(false);
+      expect(getIsArrayLengthMatch([1, 2, 3], 0)).toBeFalsy();
+      expect(getIsArrayLengthMatch([], 3)).toBeFalsy();
     });
   });
   describe('getIsAllItemsNumeric', () => {
     test('배열의 모든 값이 숫자라면 true를 반환한다.', () => {
-      expect(getIsAllItemsNumeric([1, 2, 3])).toBe(true);
-      expect(getIsAllItemsNumeric([])).toBe(true);
+      expect(getIsAllItemsNumeric([1, 2, 3])).toBeTruthy();
+      expect(getIsAllItemsNumeric([])).toBeTruthy();
     });
     test('배열의 하나 이상의 값이 숫자가 아니라면 false를 반환한다.', () => {
-      expect(getIsAllItemsNumeric([1, 2, 'a'])).toBe(false);
-      expect(getIsAllItemsNumeric(['a'])).toBe(false);
+      expect(getIsAllItemsNumeric([1, 2, 'a'])).toBeFalsy();
+      expect(getIsAllItemsNumeric(['a'])).toBeFalsy();
     });
   });
   describe('getIsBetweenNumbers', () => {
     test('min과 max사이의 값이라면 true를 반환한다.', () => {
-      expect(getIsBetweenNumbers(5, 0, 10)).toBe(true);
-      expect(getIsBetweenNumbers(0, 0, 10)).toBe(true);
+      expect(getIsBetweenNumbers(5, 0, 10)).toBeTruthy();
+      expect(getIsBetweenNumbers(0, 0, 10)).toBeTruthy();
     });
     test('min과 max사이의 값이 아니라면 false를 반환한다.', () => {
-      expect(getIsBetweenNumbers(-1, 0, 1)).toBe(false);
+      expect(getIsBetweenNumbers(-1, 0, 1)).toBeFalsy();
     });
   });
   describe('getIsAllItemsBetweenNumbers', () => {
     test('모든 값이 min과 max사이의 값이라면 true를 반환한다.', () => {
-      expect(getIsAllItemsBetweenNumbers([1, 2, 3], 0, 10)).toBe(true);
+      expect(getIsAllItemsBetweenNumbers([1, 2, 3], 0, 10)).toBeTruthy();
     });
     test('하나의 값이라도 min과 max사이의 값이 아니라면 false를 반환한다.', () => {
-      expect(getIsAllItemsBetweenNumbers([1, 2, -1], 0, 10)).toBe(false);
+      expect(getIsAllItemsBetweenNumbers([1, 2, -1], 0, 10)).toBeFalsy();
     });
   });
   describe('getIsAllItemsUnique', () => {
     test('중복되는 값이 없다면 true를 반환한다.', () => {
-      expect(getIsAllItemsUnique([1, 2, 3, 4, 5])).toBe(true);
-      expect(getIsAllItemsUnique([])).toBe(true);
+      expect(getIsAllItemsUnique([1, 2, 3, 4, 5])).toBeTruthy();
+      expect(getIsAllItemsUnique([])).toBeTruthy();
     });
     test('중복되는 값이 하나 이상 있다면 false를 반환한다.', () => {
-      expect(getIsAllItemsUnique([1, 1])).toBe(false);
+      expect(getIsAllItemsUnique([1, 1])).toBeFalsy();
     });
   });
   describe('calculateRateOfReturn', () => {
