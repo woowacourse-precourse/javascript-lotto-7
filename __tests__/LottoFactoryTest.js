@@ -41,9 +41,15 @@ describe('LotteryFactory', () => {
 
     expect(lotteries).toHaveLength(lotteryNotes);
   });
+  it('올바르게 맞는 장수의 로또를 만들어야 한다.', () => {
+    const lotteryNotes = 100;
+    const lotteries = lotteryFactory.createLotteries(lotteryNotes);
+
+    expect(lotteries).toHaveLength(lotteryNotes);
+  });
 
   it('로또는 sorting이 완료 된 상태여야 한다.', () => {
-    const lotteryNotes = 1;
+    const lotteryNotes = 5;
     const lotteries = lotteryFactory.createLotteries(lotteryNotes);
 
     lotteries.forEach((lotto) => {

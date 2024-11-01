@@ -38,7 +38,7 @@ export default class RankCalculationService {
     purchasedLotteries.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers();
       if (!Array.isArray(lottoNumbers)) {
-        throw new Error('Invalid lotto numbers format');
+        throw new Error('로또 포맷이 올바르지 않습니다.');
       }
 
       const matchingNumberCount = winningNumbers.filter((number) =>
