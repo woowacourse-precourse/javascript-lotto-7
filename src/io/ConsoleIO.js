@@ -31,11 +31,16 @@ class ConsoleIO {
   }
 
   async readInput(query) {
+    ConsoleIO.printNewline();
     return await Console.readLineAsync(query);
   }
 
-  print(query) {
+  static print(query) {
     Console.print(query);
+  }
+
+  static printNewline() {
+    Console.print('');
   }
 }
 

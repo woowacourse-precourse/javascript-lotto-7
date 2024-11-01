@@ -1,3 +1,4 @@
+import LottoGame from './LottoGame.js';
 import Validator from './Validator.js';
 
-export { Validator };
+export { LottoGame, Validator };

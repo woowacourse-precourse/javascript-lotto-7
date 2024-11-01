@@ -1,14 +1,11 @@
-import { ConsoleIO } from './io/index.js';
+import { LottoGame } from './services/index.js';
 
 class App {
   async run() {
-    const console = new ConsoleIO();
+    const lottoGame = new LottoGame();
 
-    const money = await console.processMoneyInput('');
-    const mainNumbers = await console.processMainInput('');
-    const bonusNumber = await console.processBonusInput('');
-
-    console.print('');
+    await lottoGame.putMoney();
+    await lottoGame.enterNumber();
   }
 }
 

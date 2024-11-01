@@ -1,4 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
+import { ConsoleIO } from '../io/index.js';
 import { LOTTO_CONFIG } from '../constants/index.js';
 
 export const throwError = (message) => {
@@ -9,7 +9,8 @@ export const tryAgain = async (func) => {
   try {
     return await func();
   } catch (error) {
-    Console.print(error.message);
+    ConsoleIO.print(error.message);
+    ConsoleIO.printNewline();
     return await tryAgain(func);
   }
 };
