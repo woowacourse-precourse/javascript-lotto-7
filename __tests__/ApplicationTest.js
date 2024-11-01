@@ -101,29 +101,29 @@ describe('구입 금액 입력 관련 에러 처리', () => {
   test('구입 금액이 비어있는 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processPurchaseAmount('');
-    }).toThrow(Errors.PURCHASE_AMOUNT_EMPTY);
+    }).toThrow(ERRORS.PURCHASE_AMOUNT_EMPTY);
   });
 
   test('구입 금액이 숫자가 아닌 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processPurchaseAmount('one thousand');
-    }).toThrow(Errors.PURCHASE_AMOUNT_NOT_NUMBER);
+    }).toThrow(ERRORS.PURCHASE_AMOUNT_NOT_NUMBER);
   });
 
   test('구입 금액이 0 또는 음수인 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processPurchaseAmount('0');
-    }).toThrow(Errors.PURCHASE_AMOUNT_NEGATIVE);
+    }).toThrow(ERRORS.PURCHASE_AMOUNT_NEGATIVE);
 
     expect(() => {
       new App().processPurchaseAmount('-1000');
-    }).toThrow(Errors.PURCHASE_AMOUNT_NEGATIVE);
+    }).toThrow(ERRORS.PURCHASE_AMOUNT_NEGATIVE);
   });
 
   test('구입 금액이 1,000원 단위가 아닌 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processPurchaseAmount('10500');
-    }).toThrow(Errors.PURCHASE_AMOUNT_INVALID_UNIT);
+    }).toThrow(ERRORS.PURCHASE_AMOUNT_INVALID_UNIT);
   });
 });
 
@@ -131,45 +131,45 @@ describe('당첨 번호 및 보너스 번호 입력 관련 에러 처리', () =>
   test('당첨 번호가 비어있는 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processWinningNumbers('');
-    }).toThrow(Errors.WINNING_NUMBERS_EMPTY);
+    }).toThrow(ERRORS.WINNING_NUMBERS_EMPTY);
   });
 
   test('당첨 번호에 숫자가 아닌 값이 포함된 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processWinningNumbers('1,2,three,4,5,6');
-    }).toThrow(Errors.WINNING_NUMBERS_NOT_NUMBER);
+    }).toThrow(ERRORS.WINNING_NUMBERS_NOT_NUMBER);
   });
 
   test('당첨 번호에 중복된 숫자가 포함된 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processWinningNumbers('1,2,3,3,4,5');
-    }).toThrow(Errors.WINNING_NUMBERS_DUPLICATE);
+    }).toThrow(ERRORS.WINNING_NUMBERS_DUPLICATE);
   });
 
   test('당첨 번호의 개수가 6개가 아닌 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processWinningNumbers('1,2,3,4,5'); // 5개
-    }).toThrow(Errors.WINNING_NUMBERS_INVALID_COUNT);
+    }).toThrow(ERRORS.WINNING_NUMBERS_INVALID_COUNT);
 
     expect(() => {
       new App().processWinningNumbers('1,2,3,4,5,6,7'); // 7개
-    }).toThrow(Errors.WINNING_NUMBERS_INVALID_COUNT);
+    }).toThrow(ERRORS.WINNING_NUMBERS_INVALID_COUNT);
   });
 
   test('보너스 번호가 비어있는 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processBonusNumber('');
-    }).toThrow(Errors.BONUS_NUMBER_EMPTY);
+    }).toThrow(ERRORS.BONUS_NUMBER_EMPTY);
   });
 
   test('보너스 번호가 1~45 범위를 벗어나는 경우 에러가 발생한다.', () => {
     expect(() => {
       new App().processBonusNumber('0');
-    }).toThrow(Errors.BONUS_NUMBER_OUT_OF_RANGE);
+    }).toThrow(ERRORS.BONUS_NUMBER_OUT_OF_RANGE);
 
     expect(() => {
       new App().processBonusNumber('46');
-    }).toThrow(Errors.BONUS_NUMBER_OUT_OF_RANGE);
+    }).toThrow(ERRORS.BONUS_NUMBER_OUT_OF_RANGE);
   });
 
   test('보너스 번호가 당첨 번호와 중복되는 경우 에러가 발생한다.', () => {
@@ -177,6 +177,6 @@ describe('당첨 번호 및 보너스 번호 입력 관련 에러 처리', () =>
       const app = new App();
       app.processWinningNumbers('1,2,3,4,5,6');
       app.processBonusNumber('3'); // 중복된 번호
-    }).toThrow(Errors.BONUS_NUMBER_DUPLICATE);
+    }).toThrow(ERRORS.BONUS_NUMBER_DUPLICATE);
   });
 });
