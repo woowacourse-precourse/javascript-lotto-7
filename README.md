@@ -77,7 +77,7 @@
           - 로또 구입 금액 유효성 검사
           - 로또 구입 개수 반환 검사
 
-      - [ ] **LottoIssuance 테스트**
+      - [x] **LottoIssuance 테스트**
           - 발행된 로또 반환 검사
 
       - [ ] **LottoRevenue 테스트**
