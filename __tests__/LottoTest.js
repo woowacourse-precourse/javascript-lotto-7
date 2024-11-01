@@ -119,7 +119,7 @@ describe('CheckNumber 테스트', ()=>{
     jest.clearAllMocks();
   });
 
-  test('matching numbers count', () => {
+  test('매칭 테스트', () => {
     checkNumber.RandomLottoNumbers = [
         [1,2,3,4,5,6],
         [7,8,9,10,11,12],
