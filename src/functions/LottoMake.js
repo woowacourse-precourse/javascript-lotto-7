@@ -14,7 +14,7 @@ export const makeLotto = () => {
   return new Lotto(lottoNumbers);
 };
 
-const makeLottoArray = (lottoBuyCount) => {
+export const makeLottoArray = (lottoBuyCount) => {
   let lottoArray = [];
 
   for (let i = 0; i < lottoBuyCount; i++) {

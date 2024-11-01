@@ -1,5 +1,5 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
-import { getLottoBuyCount } from './functions/LottoMake.js';
+import { getLottoBuyCount, makeLottoArray } from './functions/LottoMake.js';
 class App {
   async run() {
     try {
@@ -8,7 +8,7 @@ class App {
         '구입금액을 입력해 주세요.\n',
       );
       const lottoBuyCount = getLottoBuyCount(lottoBuyMoneyInput);
-      const lottoArray = [];
+      const lottoArray = makeLottoArray(lottoBuyCount);
 
       // * ==== //
     } catch (error) {}
