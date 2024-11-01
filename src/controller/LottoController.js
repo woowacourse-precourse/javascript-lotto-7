@@ -8,6 +8,7 @@ import {
   calculateTotalPrize,
 } from '../utils/calculateLottoPrizes.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
+import ValidateWinningNumbers from '../models/ValidateWinningNumbers.js';
 
 class LottoController {
   #inputView;
@@ -22,11 +23,14 @@ class LottoController {
 
   #validatePurchaseAmount;
 
+  #validateWinningNumbers;
+
   constructor() {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
     this.#lottos = [];
     this.#validatePurchaseAmount = new ValidatePurchaseAmount();
+    this.#validateWinningNumbers = new ValidateWinningNumbers();
   }
 
   async play() {
@@ -37,7 +41,12 @@ class LottoController {
       this.#lottos = this.#generateLottos(amount);
       this.#outputView.printLottos(amount, this.#lottos);
 
-      this.#winningNumbers = await this.#inputView.readWinningNumbers();
+      const winningNumbersInput = await this.#inputView.readWinningNumbers();
+      this.#validateWinningNumbers.validateWinningNumbersFormat(
+        winningNumbersInput,
+      );
+      this.#winningNumbers = this.#parseWinningNumbers(winningNumbersInput);
+
       this.#bonusNumber = await this.#inputView.readBonusNumber();
 
       const matchResults = this.#getMatchResults();
@@ -50,6 +59,10 @@ class LottoController {
     } catch (error) {
       Console.print(error);
     }
+  }
+
+  #parseWinningNumbers(input) {
+    return input.split(',').map((number) => parseInt(number.trim(), 10));
   }
 
   #generateLottos(amount) {

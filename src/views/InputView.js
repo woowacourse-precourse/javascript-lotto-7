@@ -7,8 +7,7 @@ class InputView {
   }
 
   async readWinningNumbers() {
-    const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-    return input.split(',').map((number) => parseInt(number.trim(), 10));
+    return Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
   }
 
   async readBonusNumber() {
