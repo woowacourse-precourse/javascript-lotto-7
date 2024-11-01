@@ -13,7 +13,7 @@ class LottoMachine {
 
   #calculateAmount() {
     const payment = this.#payment;
-    return payment / LOTTO_MACHINE.unitPice;
+    return payment / LOTTO_MACHINE.unitPrice;
   }
 
   static #draw() {
