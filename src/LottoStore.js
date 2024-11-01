@@ -1,6 +1,7 @@
 import Validator from './utils/Validator.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
+import LottoBundle from './LottoBundle.js';
 
 class LottoStore {
   #amount;
@@ -16,6 +17,9 @@ class LottoStore {
     const userAmount = await LottoStore.#getValidAmount();
     this.#setPurchaseAmount(userAmount);
     this.#printLottoCount();
+
+    const lottoBundle = this.#generateLottos();
+    return lottoBundle;
   }
 
   static async #getValidAmount() {
@@ -58,6 +62,12 @@ class LottoStore {
 
   #getLottoCount() {
     return Math.floor(this.#amount / 1000);
+  }
+
+  #generateLottos() {
+    const lottoBundle = new LottoBundle();
+    lottoBundle.generateLottos(this.#lottoCount);
+    return lottoBundle;
   }
 }
 
