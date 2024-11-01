@@ -40,6 +40,14 @@ class InputHandler {
       throw new Error(COST.REMAINDER);
     }
   }
+
+  static async getWinningNumbers() {
+    const winningNumbersInput = (
+      await Console.readLineAsync(INPUT_MESSAGE.WINNING_NUMBERS)
+    ).trim();
+
+    return winningNumbersInput;
+  }
 }
 
 export default InputHandler;

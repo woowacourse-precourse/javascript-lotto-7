@@ -15,6 +15,8 @@ class App {
       const lotto = new Lotto(element);
       lotto.printNumbers();
     });
+
+    const winningNumbers = InputHandler.getWinningNumbers();
   }
 }
 
