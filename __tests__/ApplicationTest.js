@@ -27,7 +27,7 @@ const runException = async (inputs, errorMessage) => {
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorMessage));
 };
 
-describe('로또 테스트', () => {
+describe('로또 애플리케이션 테스트', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
@@ -50,7 +50,7 @@ describe('로또 테스트', () => {
     });
   });
 
-  describe('예외 테스트', () => {
+  describe('예외 케이스', () => {
     describe('구입 금액', () => {
       test('숫자가 아닌 경우.', async () => {
         await runException(['1000j'], ERROR_MESSAGE.NOT_NUMERIC);
