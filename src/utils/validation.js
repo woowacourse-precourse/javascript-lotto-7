@@ -68,6 +68,6 @@ const checkNumberRange = (numbers) => {
 const checkWinningNumberType = (numbers) => {
   for (let i = 0; i < numbers.length; i++) {
     if (isNaN(numbers[i]))
-      throw new Error(ERROR_MESSAGES.WINNING_NUMBER.OUT_OF_RANGE);
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBER.NOT_A_NUMBER);
   }
 };
