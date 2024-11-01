@@ -1,8 +1,8 @@
-import InputManager from './InputManager';
-import LottoShop from './LottoShop';
-import OutputManager from './OutputManager';
-import { LOTTO_INFORMATIONS } from './lib/constants';
-import { calculateRateOfReturn } from './lib/utils';
+import InputManager from './InputManager.js';
+import LottoShop from './LottoShop.js';
+import OutputManager from './OutputManager.js';
+import { LOTTO_INFORMATIONS } from './lib/constants.js';
+import { calculateRateOfReturn } from './lib/utils.js';
 
 class LottoBuyer {
   #purchasePrice;
