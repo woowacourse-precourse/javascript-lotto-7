@@ -23,12 +23,14 @@ export const getIsAllItemsBetweenNumbers = (array, min, max) =>
 export const getIsAllItemsUnique = (array) =>
   array.length === new Set(array).size;
 
-export const retryWhileCatchError = async (callbackFunction) => {
+export const retryWhileCatchedError = async (callbackFunction) => {
   try {
-    await callbackFunction();
-  } catch (e) {
-    MissionUtils.Console.print(e);
-    await retryWhileCatchError(callbackFunction);
+    return await callbackFunction();
+  } catch (error) {
+    MissionUtils.Console.print(error.message);
+
+    const retried = await retryWhileCatchedError(callbackFunction);
+    return retried;
   }
 };
 
