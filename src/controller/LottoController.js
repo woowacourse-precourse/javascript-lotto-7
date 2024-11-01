@@ -46,6 +46,12 @@ class LottoController {
         winningNumbersInput,
       );
       this.#winningNumbers = this.#parseWinningNumbers(winningNumbersInput);
+      this.#validateWinningNumbers.validateDuplicateNumbers(
+        this.#winningNumbers,
+      );
+      this.#winningNumbers.forEach((number) =>
+        this.#validateWinningNumbers.validateNumberRange(number),
+      );
 
       this.#bonusNumber = await this.#inputView.readBonusNumber();
 
