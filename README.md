@@ -24,11 +24,20 @@
 
 ```
 📦src
- ┣ 📂constants
- ┃ ┗ 📜constants.js
+ ┣ 📂constant
+ ┃ ┣ 📜errorMessage.js
+ ┃ ┣ 📜ioMessage.js
+ ┃ ┗ 📜regex.js
+ ┣ 📂utils
+ ┃ ┣ 📜buyLottos.js
+ ┃ ┣ 📜checkDuplication.js
+ ┃ ┣ 📜checkNumberRange.js
+ ┃ ┣ 📜inputService.js
+ ┃ ┗ 📜outputService.js
  ┣ 📜App.js
  ┣ 📜index.js
- ┗ 📜Lotto.js
+ ┣ 📜Lotto.js
+ ┗ 📜Validator.js
 ```
 
 ### 예외 케이스
