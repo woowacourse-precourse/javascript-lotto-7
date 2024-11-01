@@ -1,3 +1,8 @@
+export const GLOBAL_CONSTANTS = {
+  bonusWinningStandard: 5,
+  winningBonusTag: 'bonus',
+};
+
 export const LOTTO_MACHINE = {
   unitPice: 1000,
   minimumNumber: 1,
@@ -6,8 +11,8 @@ export const LOTTO_MACHINE = {
 };
 
 export const ANALYZER = {
-  winningBonusTag: 'bonus',
-  bonusWinningStandard: 5,
+  winningBonusTag: GLOBAL_CONSTANTS.winningBonusTag,
+  bonusWinningStandard: GLOBAL_CONSTANTS.bonusWinningStandard,
   defaultCount: 0,
   unitCount: 1,
 };
