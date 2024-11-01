@@ -48,7 +48,7 @@ class LottoModel {
     this.#pickBonusNumber = pickBonusNumber;
   }
 
-  getPickLottoNumber() {
+  getPickBonusNumber() {
     return this.#pickBonusNumber;
   }
 }
