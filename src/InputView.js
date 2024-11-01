@@ -5,3 +5,7 @@ const winningNumber = await Console.readLineAsync(
   LOG_MESSAGE.WINNING_NUMBER_MESSAGE
 );
 // winningNuber = '1,2,3,4,5,6'
+const bonusNumber = await Console.readLineAsync(
+  LOG_MESSAGE.BONUS_NUMBER_MESSGE
+);
+// bonusNumber = '7'
