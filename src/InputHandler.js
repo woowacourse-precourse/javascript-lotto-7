@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 export const getPurchaseAmount = async () => {
     while (true) {
@@ -38,17 +39,9 @@ export const getWinningNumbers = async () => {
 
 const validateWinningNumbers = winningNumbers => {
     const parsedWinningNumbers = winningNumbers.split(',').map(Number);
-    const uniqueWinningNumbers = new Set(parsedWinningNumbers);
+    const lotto = new Lotto(parsedWinningNumbers);
 
-    if (parsedWinningNumbers.length !== 6) throw new Error('[ERROR] 6개의 숫자를 입력해주세요.');
-    if (parsedWinningNumbers.length !== uniqueWinningNumbers.size) throw new Error('[ERROR] 중복되는 숫자가 있습니다.');
-
-    parsedWinningNumbers.forEach((num) => {
-        if (isNaN(num)) throw new Error('[ERROR] 숫자가 아닌 값이 있습니다.');
-        if (num < 1 || num > 45) throw new Error('[ERROR] 모든 숫자는 1과 45 사이여야 합니다.');
-    });
-
-    return parsedWinningNumbers;
+    return lotto.getNumbers();
 }
 
 export const getBonusNumber = async (winningNumbers) => {

@@ -1,7 +1,7 @@
 import { getPurchaseAmount, getWinningNumbers, getBonusNumber } from "./InputHandler.js";
 import { displayPurchasedLottoCount, displayGeneratedLottos, displayWinningDetails } from "./OutputHandler.js";
 import { calculateWinningCounts } from "./Calculator.js";
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 
 const LOTTO_NUMBER_COUNT = 6;
 const LOTTO_MIN = 1;
