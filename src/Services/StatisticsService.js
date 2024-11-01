@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-import RANKS from './Rank.js';
 
 export default class StatisticsService {
   constructor(rankCounts, paidAmount) {

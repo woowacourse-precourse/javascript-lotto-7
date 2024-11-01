@@ -2,10 +2,7 @@ export default class RankCalculationService {
   constructor(rank) {
     this.rank = rank;
     this.rankCounts = Object.fromEntries(
-      Object.values(rank).map((rank) => [
-        rank.key,
-        { ticket: 0, prize: rank.prize },
-      ]),
+      Object.values(rank).map(({ key, prize }) => [key, { ticket: 0, prize }]),
     );
   }
 
@@ -35,5 +32,21 @@ export default class RankCalculationService {
 
   getRankCounts() {
     return this.rankCounts;
+  }
+
+  calculateLotteries(purchasedLotteries, winningNumbers, bonusNumber) {
+    purchasedLotteries.forEach((lotto) => {
+      const lottoNumbers = lotto.getNumbers();
+      if (!Array.isArray(lottoNumbers)) {
+        throw new Error('Invalid lotto numbers format');
+      }
+
+      const matchingNumberCount = winningNumbers.filter((number) =>
+        lottoNumbers.includes(number),
+      ).length;
+      const hasBonusNumber = lottoNumbers.includes(bonusNumber);
+
+      this.updateRankCount(matchingNumberCount, hasBonusNumber);
+    });
   }
 }

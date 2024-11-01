@@ -1,6 +1,6 @@
 import { runExceptionTest } from '../src/Test/Test.js';
-import { ERROR_MESSAGES } from '../src/Error.js';
-import validateLotteryNotes from '../src/Validation/validateLotteryNotes.js';
+import { ERROR_MESSAGES } from '../src/Error/Error.js';
+import validateLotteryNotes from '../src/Validation/Domain/validateLotteryNotes.js';
 
 const validateLotteryNotesTestCases = [
   {

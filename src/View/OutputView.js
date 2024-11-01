@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-
 /**
  * 메시지를 콘솔에 출력합니다.
  *
@@ -22,11 +21,6 @@ export function printMessage(message) {
  * printCarPositions([car1, car2]);
  * // car1과 car2의 위치가  형태로 출력됩니다.
  */
-export function printLotteries(lotteries) {
-  lotteries.forEach((lotto) =>
-    printMessage(`${lotto.toString(lotto.getNumbers())}`),
-  );
-}
 
 /**
  * 우승자 목록을 콘솔에 출력합니다.

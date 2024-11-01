@@ -1,6 +1,6 @@
 import { runErrorLogTest } from '../src/Test/Test.js';
-import { ERROR_MESSAGES } from '../src/Error.js';
-import validateBonusNumber from '../src/Validation/validateBonusNumber.js';
+import { ERROR_MESSAGES } from '../src/Error/Error.js';
+import validateBonusNumber from '../src/Validation/Input/validateBonusNumber.js';
 
 const validateBonusNumberTestCases = [
   {

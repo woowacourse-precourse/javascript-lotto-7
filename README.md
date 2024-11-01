@@ -1,72 +1,93 @@
 # javascript-lotto-precourse
 
-첫번째는 구현, 구현, 구현
+주어진 작업들을 단계별로 분류하면 다음과 같이 나눌 수 있습니다.
 
-- [x] 아무 도움 없이 처음부터 끝까지 구현에 성공하고, 테스트도 성공한다. : 2시간 55분 소요로 통과
+---
 
-본격적인 리펙토링
+### 1. **기본 구현 완료**
 
-- [] View, Model, Controller를 구분한다.
+- [x] 아무 도움 없이 처음부터 끝까지 구현에 성공하고, 테스트도 성공한다. (2시간 55분 소요로 통과)
+
+---
+
+### 2. **리팩토링 단계**
+
+#### 2.1 **MVC 구조 적용**
+
+- [ ] View, Model, Controller를 구분한다.
 - [x] View에서 Input, Output을 구분한다.
 - [x] Validation logic을 만들고 분리한다.
 - [x] View에서 Error를 발생하고, 메시지를 재시작하는 로직을 구현해본다.
-- [ ] lotteryNumbers, bonusNumber, paidAmount를 어디에 보관할지 고민해본다.
+- [ ] `lotteryNumbers`, `bonusNumber`, `paidAmount`를 어디에 보관할지 고민해본다.
 
-lotto 클래스
+---
 
-- [] lotto class에 validation을 더 추가한다.
-- [] lotto가 정렬되어있는지 확인한다.
-- [] lotto 클래스의 unit Test를 작성한다.
+### 3. **클래스별 기능 추가 및 테스트**
 
-LotteryFactory 클래스
+#### 3.1 **Lotto 클래스**
 
-- [] lotteryFactory의 validation 더 추가한다
-- [] lotteries의 길이를 확인한다.
-- [] lottoFactory의 unit Test를 작성한다.
+- [ ] Lotto class에 validation을 더 추가한다.
+- [ ] Lotto가 정렬되어있는지 확인한다.
+- [ ] Lotto 클래스의 unit Test를 작성한다.
 
-lotteryNumbers 클래스
+#### 3.2 **LotteryFactory 클래스**
 
-- [x] lotteryNumber가 중복된 수가 있는지 확인한다.
+- [ ] LotteryFactory의 validation 더 추가한다.
+- [ ] Lotteries의 길이를 확인한다.
+- [ ] LotteryFactory의 unit Test를 작성한다.
+
+#### 3.3 **LotteryNumbers 클래스**
+
+- [x] LotteryNumber가 중복된 수가 있는지 확인한다.
 - [x] 정확한 값이 입력되었는지 확인한다.
-- [x] 트림 기능을 넣는것을 고민해본다.
-- [x] 중복자를 검출하는것을 고민해본다.
-- [x] lotteryNumbers의 unitTest를 작성한다
-- [ ] lotteryNumbers의 unitTest를 보충한다.
+- [x] 트림 기능을 넣는 것을 고민해본다.
+- [x] 중복자를 검출하는 것을 고민해본다.
+- [x] LotteryNumbers의 unitTest를 작성한다.
+- [ ] LotteryNumbers의 unitTest를 보충한다.
 
-validateBonusNumber
+#### 3.4 **ValidateBonusNumber**
 
 - [x] 보너스가 중복되는 것을 방지한다.
 - [x] 보너스 넘버 validation의 유닛 테스트를 작성한다.
 
-prizeCaluationService 클래스
+#### 3.5 **RankCalculationService 클래스**
 
-- [] 클래스를 생성한다.
+- [x] 클래스를 생성한다.
+- [ ] 유닛 테스트를 생성한다.
 
-pickRank 클래스
+#### 3.6 **PickRank 클래스**
 
-- [] unit Test를 통해서, 확실히 rank를 받는지 확인한다.
+- [ ] Unit Test를 통해, 확실히 rank를 받는지 확인한다.
 
-lotteryNotes
+#### 3.7 **LotteryNotes**
 
-- [] 발리데이션을 진행한다. parseInt가 잘 먹히는지 확인한다.
+- [ ] Validation을 진행한다. `parseInt`가 잘 적용되는지 확인한다.
 
-발리데이션
+---
 
-- [] Validation logic을 구분하고, 어디에 붙일지 생각해본다
-- [x] validateMoney의 유닛테스트 작성
-- [ ] trim을 도입할지 결정한다.
+### 4. **Validation 관련 작업**
 
-validator
+- [ ] Validation logic을 구분하고, 어디에 붙일지 생각해본다.
+- [x] `validateMoney`의 유닛 테스트 작성
+- [ ] Trim을 도입할지 결정한다.
 
-- [x] 발리데이터를 리펙터링 하여, 함수의 줄 수를 줄인다.
+---
 
-APP.js 쪼개기
+### 5. **Validator 리팩터링**
 
-- [x] 각종 로또 관련한 함수를 구현한 LotteryService를 만든다.
-- [ ] input output을 담당하는 IOService를 만든다.
-- [ ] RankCaluation Service에 로또 담첨금을 계산하게 한다.
-- [ ] Statics service를 통해 statics를 보여준다
-- [ ] 모든 서비스는 DI를 통해 주입한다.
+- [x] Validator를 리팩터링하여 함수의 줄 수를 줄인다.
+
+---
+
+### 6. **App.js 모듈화**
+
+- [x] 각종 로또 관련한 함수를 구현한 `LotteryService`를 만든다.
+- [x] Input/Output을 담당하는 `IOService`를 만든다.
+- [x] `RankCalculationService`에 로또 당첨금을 계산하게 한다.
+- [x] `StatisticsService`를 통해 통계를 보여준다.
+- [ ] 모든 서비스는 DI(Dependency Injection)를 통해 주입한다.
+
+---
 
 간단한 로또 발매기를 구현 확인한다.
 

@@ -1,8 +1,8 @@
-import { printMessage } from '../View/OutputView.js';
-import { isNumber } from '../Util/Regex.js';
-import { ERROR_MESSAGES } from '../Error.js';
-import runValidators from './runValidators.js';
-import { defaultSettings } from '../DefaultSettings.js';
+import { printMessage } from '../../View/OutputView.js';
+import { isNumber } from '../../Util/Regex.js';
+import { ERROR_MESSAGES } from '../../Error/Error.js';
+import runValidators from '../runValidators.js';
+import { defaultSettings } from '../../Config/DefaultSettings.js';
 
 const { lotto } = defaultSettings;
 const validateIsNumber = (input) => {
@@ -31,6 +31,7 @@ const validatePositive = (input) => {
 const validateDivisibleByThousand = (input) => {
   if (Number(input) % lotto.price !== 0) {
     printMessage(ERROR_MESSAGES.money.ONLY_NOTE_ALLOWED);
+    return false;
   }
   return true;
 };

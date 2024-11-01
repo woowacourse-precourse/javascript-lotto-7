@@ -1,21 +1,23 @@
 import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import { printLotteries } from './View/OutputView.js';
-import { getInputWhileValid } from './View/InputView.js';
-import validateMoney from './Validation/validateMoney.js';
-import { defaultSettings } from './DefaultSettings.js';
 
-import validateLottoNumber from './Validation/validateLottoNumber.js';
-import validateBonusNumber from './Validation/validateBonusNumber.js';
-import RankCalculationService from './RankCalculationService.js';
-import RANKS from './Rank.js';
-import StatisticsService from './StatisticsService.js';
-import LotteryService from './Service/LotteryService.js';
+import validateMoney from './Validation/Input/validateMoney.js';
+import { defaultSettings } from './Config/DefaultSettings.js';
+import validateLottoNumber from './Validation/Input/validateLottoNumber.js';
+import validateBonusNumber from './Validation/Input/validateBonusNumber.js';
+import RankCalculationService from './Services/RankCalculationService.js';
+import RANKS from './Model/Rank.js';
+import StatisticsService from './Services/StatisticsService.js';
+import LotteryService from './Services/LotteryService.js';
+import IOService from './Services/IOService.js';
 
 class App {
   async run() {
     const lotteryService = new LotteryService(Lotto, defaultSettings);
-    const purchaseAmount = await getInputWhileValid(
+    const ioService = new IOService();
+    const rankCalculator = new RankCalculationService(RANKS);
+
+    const purchaseAmount = await ioService.getInputWhileValid(
       validateMoney,
       '구입금액을 입력해 주세요.',
     );
@@ -25,37 +27,34 @@ class App {
     const purchasedLotteries =
       lotteryService.generateLotteries(numberOfTickets);
 
-    Console.print(`${numberOfTickets}개를 구매했습니다.`);
-    printLotteries(purchasedLotteries);
+    ioService.printMessage(`${numberOfTickets}개를 구매했습니다.`);
+    ioService.printLotteries(purchasedLotteries);
 
-    const winningNumbers = await getInputWhileValid(
+    const winningNumbers = await ioService.getInputWhileValid(
       validateLottoNumber,
-      '로또 번호를 입력해주세요',
+      '당첨 번호를 입력해 주세요.',
     );
 
-    const bonusNumber = await getInputWhileValid(
+    const bonusNumber = await ioService.getInputWhileValid(
       (input) => validateBonusNumber(input, winningNumbers),
-      '보너스 번호를 입력해보세요: ',
+      '보너스 번호를 입력해 주세요.',
     );
-    const rankCalculator = new RankCalculationService(RANKS);
 
-    purchasedLotteries.forEach((lotto) => {
-      const lottoNumbers = lotto.getNumbers();
-
-      const matchingNumberCount = winningNumbers.filter((number) =>
-        lottoNumbers.includes(number),
-      ).length;
-      const hasBonusNumber = lottoNumbers.includes(bonusNumber);
-
-      rankCalculator.updateRankCount(matchingNumberCount, hasBonusNumber);
-    });
-
+    rankCalculator.calculateLotteries(
+      purchasedLotteries,
+      winningNumbers,
+      bonusNumber,
+    );
     const statistics = new StatisticsService(
       rankCalculator.getRankCounts(),
       purchaseAmount,
     );
-    statistics.printStatistics();
-    statistics.printRevenueRate();
+
+    ioService.printStatistics(rankCalculator.getRankCounts());
+    ioService.printRevenueRate(
+      statistics.calculateTotalRevenue(),
+      purchaseAmount,
+    );
   }
 }
 

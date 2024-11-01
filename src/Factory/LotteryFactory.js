@@ -1,5 +1,4 @@
 import { Random } from '@woowacourse/mission-utils';
-import { defaultSettings } from './DefaultSettings.js';
 
 export default class LotteryFactory {
   #factorySettings;

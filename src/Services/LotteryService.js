@@ -1,5 +1,5 @@
-import LotteryFactory from '../LotteryFactory.js';
-import validateLotteryNotes from '../Validation/validateLotteryNotes.js';
+import LotteryFactory from '../Factory/LotteryFactory.js';
+import validateLotteryNotes from '../Validation/Domain/validateLotteryNotes.js';
 
 export default class LotteryService {
   constructor(lotteryClass, settings) {
