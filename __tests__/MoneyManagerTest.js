@@ -1,6 +1,5 @@
 import MoneyManager from '../src/controller/MoneyManager';
 import { INPUT_ERROR_MESSAGES } from '../src/contents/InputErrorMessages';
-import { MissionUtils } from '@woowacourse/mission-utils';
 
 describe('MoneyManager 클래스 예외 테스트', () => {
   test.each([
@@ -26,3 +25,12 @@ describe('MoneyManager 클래스 예외 테스트', () => {
   });
 });
 
+describe('MoneyManager 클래스 기능 테스트', () => {
+  test.each([{ input: '4000', expectedNum: 4 }])(
+    '로또 티켓 장 수 계산',
+    ({ input, expectedNum }) => {
+      const moneyManager = new MoneyManager(input); // 인스턴스 생성
+      expect(moneyManager.getLottoTicketCount()).toBe(expectedNum); // 로또 티켓 장수 확인
+    },
+  );
+});
