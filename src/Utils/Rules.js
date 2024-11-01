@@ -4,8 +4,16 @@ const Rules = {
     return list.length != set.size;
   },
 
-  isNotRangedValue(numbers) {
+  isNotRangedValueIn(numbers) {
     return numbers.some((number) => number < 1 || number > 45);
+  },
+
+  isNoValueString(string) {
+    return string === '' || string === null || string === undefined;
+  },
+
+  isNotRangedValue(number) {
+    return number < 1 || number > 45;
   },
 };
 

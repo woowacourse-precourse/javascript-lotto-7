@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-const Output = {
+const OutputPrint = {
   message: (message) => {
     Console.print(message);
   },
@@ -8,6 +8,10 @@ const Output = {
   error: (errorMessage) => {
     Console.print(`[ERROR] ${errorMessage}`);
   },
+
+  blankLine: () => {
+    Console.print('');
+  },
 };
 
-export default Output;
+export default OutputPrint;

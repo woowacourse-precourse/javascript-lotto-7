@@ -1,7 +1,8 @@
-import Output from '../Views/Output.js';
+import OutputPrint from '../Views/OutputPrint.js';
 
 const throwError = (message) => {
-  Output.error(message);
+  OutputPrint.error(message);
+  OutputPrint.blankLine();
   return false;
 };
 

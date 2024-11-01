@@ -38,6 +38,10 @@ const BuyPriceInput = {
 
     return true;
   },
+
+  parse: (buyPriceInput) => {
+    return Number(buyPriceInput);
+  },
 };
 
 export default BuyPriceInput;
