@@ -1,0 +1,12 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
+class LottoTicketsGenerator {
+  #generatedLottoNumbers;
+
+  generateSingleTicket() {
+    const uniqueNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return uniqueNumbers.sort((a, b) => a - b);
+  }
+}
+
+export default LottoTicketsGenerator;
