@@ -22,6 +22,7 @@ class LottoPublication {
     this.#publishedLottoList.forEach((lotto) => {
       Console.print(lotto.getNumbers());
     });
+    Console.print('');
   }
 }
 
