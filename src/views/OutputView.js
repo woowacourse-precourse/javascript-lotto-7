@@ -26,6 +26,9 @@ const OutputView = {
   printBonusResult(condition, money, count) {
     MissionUtils.Console.print(`${condition}개 일치, 보너스 볼 일치 (${money}원) - ${count}개`);
   },
+  printReturnRate(rate) {
+    MissionUtils.Console.print(`총 수익률은 ${rate}%입니다.`);
+  },
 };
 
 export default OutputView;
