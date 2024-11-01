@@ -7,19 +7,18 @@ class Input {
     }
 
     async inputValue(message){
+        let value;
         while(true){
-            const value = await Console.readLineAsync(message);
+            value = await Console.readLineAsync(message);
 
-            if(!this._validateValue(value))
-                continue;
-
-            break;
+            if(this._validateValue(value))
+                break;
         }
         this.value = value;
     }
 
     _validateValue(value){
-        this.validate(value);
+        return this.validate(value);
     }
 
     getValue(){
