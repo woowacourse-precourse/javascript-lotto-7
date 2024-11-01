@@ -16,6 +16,9 @@ class App {
         const bonusNumber = await this.getBonusNumber(mainNumbers);
         Console.print(`당첨 번호: ${mainNumbers.join(", ")} + 보너스 번호: ${bonusNumber}`);
 
+        const results = this.checkWinningResults(lottoTickets, mainNumbers, bonusNumber);
+        this.printWinningResults(results);
+
         break;
       } catch (error) {
         Console.print(error.message);
@@ -103,6 +106,51 @@ class App {
     if (mainNumbers.includes(bonusNumber)) {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.");
     }
+  }
+
+  checkWinningResults(lottoTickets, mainNumbers, bonusNumber) {
+    const prizeTiers = {
+      first: { matchCount: 6, prize: 2000000000 },
+      second: { matchCount: 5, hasBonus: true, prize: 30000000 },
+      third: { matchCount: 5, hasBonus: false, prize: 1500000 },
+      fourth: { matchCount: 4, prize: 50000 },
+      fifth: { matchCount: 3, prize: 5000 },
+    };
+
+    const results = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0, totalPrize: 0 };
+    
+    lottoTickets.forEach((ticket) => {
+      const matchCount = ticket.filter((num) => mainNumbers.includes(num)).length;
+      const hasBonus = ticket.includes(bonusNumber);
+
+      if (matchCount === prizeTiers.first.matchCount) {
+        results.first += 1;
+        results.totalPrize += prizeTiers.first.prize;
+      } else if (matchCount === prizeTiers.second.matchCount && hasBonus) {
+        results.second += 1;
+        results.totalPrize += prizeTiers.second.prize;
+      } else if (matchCount === prizeTiers.third.matchCount && hasBonus) {
+        results.third += 1;
+        results.totalPrize += prizeTiers.third.prize;
+      } else if (matchCount === prizeTiers.fourth.matchCount) {
+        results.fourth += 1;
+        results.totalPrize += prizeTiers.fourth.prize;
+      } else if (matchCount === prizeTiers.fifth.matchCount) {
+        results.fifth += 1;
+        results.totalPrize += prizeTiers.fifth.prize;
+      } 
+    });
+    return results;
+  }
+
+  printWinningResults(results) {
+    Console.print("당첨 통계:");
+    Console.print(`1등 (6개 일치): ${results.first}개`);
+    Console.print(`2등 (5개 일치 + 보너스 번호): ${results.second}개`);
+    Console.print(`3등 (5개 일치): ${results.third}개`);
+    Console.print(`4등 (4개 일치): ${results.fourth}개`);
+    Console.print(`5등 (3개 일치): ${results.fifth}개`);
+    Console.print(`총 당첨 금액: ${results.totalPrize}원`);
   }
 }
 
