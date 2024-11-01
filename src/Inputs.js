@@ -4,8 +4,8 @@ class Input {
   async inputMoney() {
     while (true) {
       const input = String(
-    );
-    await Console.readLineAsync("구매할 금액을 입력해주세요.\n")
+        await Console.readLineAsync("구매할 금액을 입력해주세요.\n")
+      );
       const isInvalid = this.#getIsInValid(input);
       if (!isInvalid){
         return input;
