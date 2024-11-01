@@ -1,5 +1,6 @@
 import Lotto from "./Lotto.js";
 import readline from "readline";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
@@ -7,7 +8,6 @@ class App {
       input: process.stdin,
       output: process.stdout,
     });
-    this.lotto = new Lotto();
     this.lottoTickets = [];
   }
 
@@ -16,18 +16,14 @@ class App {
   }
 
   askPurchaseAmount() {
-    this.rl.question("Enter purchase amount: ", (amount) => {
-      this.handlePurchaseAmount(amount);
+    this.rl.question("구매할 금액을 입력하세요(1000의 배수): ", (amount) => {
+      const parsedAmount = parseInt(amount, 10);
+      if (this.isInvalidAmount(parsedAmount)) {
+        MissionUtils.Console.print("[ERROR] 구매 금액은 1000의 배수여야 합니다.");
+        return this.askPurchaseAmount();
+      }
+      this.handlePurchase(parsedAmount);
     });
-  }
-
-  handlePurchaseAmount(amount) {
-    const parsedAmount = parseInt(amount, 10);
-    if (this.isInvalidAmount(parsedAmount)) {
-      console.log("[ERROR] The purchase amount must be a positive multiple of 1,000.");
-      return this.askPurchaseAmount();
-    }
-    this.handlePurchase(parsedAmount);
   }
 
   isInvalidAmount(amount) {
@@ -36,35 +32,40 @@ class App {
 
   handlePurchase(amount) {
     try {
-      this.lottoTickets = this.lotto.purchaseTickets(amount);
+      this.lottoTickets = this.purchaseTickets(amount);
       this.printTickets();
       this.askWinningNumbers();
     } catch (error) {
-      console.log(error.message);
+      MissionUtils.Console.print(error.message);
       this.askPurchaseAmount();
     }
   }
 
+  purchaseTickets(amount) {
+    const ticketCount = amount / 1000;
+    const tickets = [];
+    for (let i = 0; i < ticketCount; i++) {
+      tickets.push(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b));
+    }
+    return tickets;
+  }
+
   printTickets() {
-    console.log(`${this.lottoTickets.length} tickets purchased:`);
-    this.lottoTickets.forEach((ticket, index) => {
-      console.log(`Ticket ${index + 1}:`, ticket);
+    MissionUtils.Console.print(`${this.lottoTickets.length}개를 구매했습니다.`);
+    this.lottoTickets.forEach((ticket) => {
+      MissionUtils.Console.print(`[${ticket.join(", ")}]`);
     });
   }
 
   askWinningNumbers() {
-    this.rl.question("Enter winning numbers (comma-separated): ", (numbers) => {
-      this.handleWinningNumbers(numbers);
+    this.rl.question("당첨 번호를 입력하세요 (콤마로 구분): ", (numbers) => {
+      const winningNumbers = numbers.split(",").map(Number);
+      if (this.isInvalidWinningNumbers(winningNumbers)) {
+        MissionUtils.Console.print("[ERROR] 당첨번호는 1에서 45 사이의 중복되지 않는 숫자여야 합니다.");
+        return this.askWinningNumbers();
+      }
+      this.askBonusNumber(winningNumbers);
     });
-  }
-
-  handleWinningNumbers(numbers) {
-    const winningNumbers = numbers.split(",").map(Number);
-    if (this.isInvalidWinningNumbers(winningNumbers)) {
-      console.log("[ERROR] Winning numbers must be 6 unique numbers between 1 and 45.");
-      return this.askWinningNumbers();
-    }
-    this.askBonusNumber(winningNumbers);
   }
 
   isInvalidWinningNumbers(numbers) {
@@ -76,18 +77,14 @@ class App {
   }
 
   askBonusNumber(winningNumbers) {
-    this.rl.question("Enter bonus number: ", (bonus) => {
-      this.handleBonusNumber(bonus, winningNumbers);
+    this.rl.question("보너스 번호를 입력하세요: ", (bonus) => {
+      const parsedBonus = parseInt(bonus, 10);
+      if (this.isInvalidBonusNumber(parsedBonus, winningNumbers)) {
+        MissionUtils.Console.print("[ERROR] 보너스 번호는 당첨 번호가 아닌 1에서 45 사이의 숫자여야 합니다.");
+        return this.askBonusNumber(winningNumbers);
+      }
+      this.showResults(winningNumbers, parsedBonus);
     });
-  }
-
-  handleBonusNumber(bonus, winningNumbers) {
-    const parsedBonus = parseInt(bonus, 10);
-    if (this.isInvalidBonusNumber(parsedBonus, winningNumbers)) {
-      console.log("[ERROR] Bonus number must be a unique number between 1 and 45, not in the winning numbers.");
-      return this.askBonusNumber(winningNumbers);
-    }
-    this.showResults(winningNumbers, parsedBonus);
   }
 
   isInvalidBonusNumber(bonus, winningNumbers) {
@@ -96,7 +93,13 @@ class App {
 
   showResults(winningNumbers, bonusNumber) {
     const results = this.calculateResults(winningNumbers, bonusNumber);
-    console.log("Lotto Results:", results);
+    MissionUtils.Console.print("당첨 통계");
+    MissionUtils.Console.print("---");
+    MissionUtils.Console.print(
+      `3개 일치 (5,000원) - ${results.fifth}개\n4개 일치 (50,000원) - ${results.fourth}개\n5개 일치 (1,500,000원) - ${results.third}개\n5개 일치, 보너스 볼 일치 (30,000,000원) - ${results.second}개\n6개 일치 (2,000,000,000원) - ${results.first}개`
+    );
+    const profitRate = this.calculateProfitRate(results);
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
     this.rl.close();
   }
 
@@ -118,6 +121,21 @@ class App {
       else if (matchCount === 3) results.fifth++;
     });
     return results;
+  }
+
+  calculateProfitRate(results) {
+    const prizeMoney = {
+      first: 2000000000,
+      second: 30000000,
+      third: 1500000,
+      fourth: 50000,
+      fifth: 5000,
+    };
+    const totalWinnings = Object.entries(results).reduce((sum, [key, count]) => {
+      return sum + count * prizeMoney[key];
+    }, 0);
+    const purchaseAmount = this.lottoTickets.length * 1000;
+    return ((totalWinnings / purchaseAmount) * 100).toFixed(1);
   }
 }
 
