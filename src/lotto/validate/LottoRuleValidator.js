@@ -1,6 +1,6 @@
 import {
   isLessThan,
-  isGreaterThan,
+  isGreaterThanEqualTo,
   isEqualTo
 } from '../../util/Validator.js';
 import CommonValidator from './CommonValidator.js';
@@ -42,7 +42,7 @@ class LottoRuleValidator extends CommonValidator {
   #validateNumberCountInRangeNumberCount = (count, startNumber, endNumber) => {
     const validLottoNumberCount = endNumber - startNumber + 1;
 
-    if (!isGreaterThan(validLottoNumberCount, count)) {
+    if (!isGreaterThanEqualTo(validLottoNumberCount, count)) {
       throw new Error(ERROR_MESSAGE.ERROR_CONFIG_COUNT_GREATER_THAN_ALL_LOTTO_NUMBERS(count, validLottoNumberCount));
     }
   }

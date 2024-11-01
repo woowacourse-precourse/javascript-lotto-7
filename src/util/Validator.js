@@ -22,6 +22,10 @@ export function isGreaterThan(number, compareNumber) {
   return number > compareNumber;
 }
 
+export function isGreaterThanEqualTo(number, compareNumber) {
+  return number >= compareNumber;
+}
+
 export function isLessThan(number, compareNumber) {
   return number < compareNumber;
 }
