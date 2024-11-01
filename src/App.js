@@ -3,6 +3,7 @@ import { Console } from '@woowacourse/mission-utils';
 class App {
   async run() {
     const amount = await this.getAmount();
+    const tickets = this.generateLottoTickets(amount / 1000);
   }
 
   async getAmount() {
@@ -33,6 +34,10 @@ class App {
     }
 
     return amount;
+  }
+
+  generateLottoTickets(count) {
+    Console.print(`\n${count}개를 구매했습니다.`);
   }
 }
 
