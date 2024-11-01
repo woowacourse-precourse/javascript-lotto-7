@@ -86,14 +86,10 @@ class LOTTO_MACHINE {
   }
 
   calculateWinningResult(tickets) {
-    const results = {
-      [WINNER.losing_ticket.rank]: 0,
-      [WINNER.firstWinner.rank]: 0,
-      [WINNER.secondWinner.rank]: 0,
-      [WINNER.thirdWinner.rank]: 0,
-      [WINNER.fourthWinner.rank]: 0,
-      [WINNER.fifthWinner.rank]: 0,
-    };
+    const results = WINNER.reduce((obj, winner) => {
+      obj[winner.rank] = 0;
+      return obj;
+    }, {});
 
     tickets.forEach((ticket) => {
       const rank = ticket.calculateWinningLotto(
@@ -107,12 +103,9 @@ class LOTTO_MACHINE {
   }
 
   calculateTotalReturn(money, results) {
-    const total =
-      results[WINNER.firstWinner.rank] * WINNER.firstWinner.reward +
-      results[WINNER.secondWinner.rank] * WINNER.secondWinner.reward +
-      results[WINNER.thirdWinner.rank] * WINNER.thirdWinner.reward +
-      results[WINNER.fourthWinner.rank] * WINNER.fourthWinner.reward +
-      results[WINNER.fifthWinner.rank] * WINNER.fifthWinner.reward;
+    const total = WINNER.reduce((acc, winner) => {
+      return acc + results[winner.rank] * winner.reward;
+    }, 0);
 
     return Math.round((total / money) * 10000) / 100;
   }

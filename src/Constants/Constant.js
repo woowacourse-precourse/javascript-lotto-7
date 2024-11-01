@@ -45,14 +45,14 @@ const losing_ticket = {
   reward: '0',
 };
 
-const WINNER = {
+const WINNER = [
+  losing_ticket,
   firstWinner,
   secondWinner,
   thirdWinner,
   fourthWinner,
   fifthWinner,
-  losing_ticket,
-};
+];
 
 export {
   LOTTO_NUMBER_STANDARD,

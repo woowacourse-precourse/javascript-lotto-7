@@ -26,35 +26,32 @@ class Output {
     this.lottoTicketNumbers(tickets);
   }
 
-  singleWinningResult(prize, results) {
-    return prize === PRIZE.SECOND_PRIZE
-      ? Console.print(
-          OUTPUT.second_prize(prize.match, prize.reward, results[prize.rank])
-        )
-      : Console.print(
-          OUTPUT.default_prize(prize.match, prize.reward, results[prize.rank])
-        );
+  singleWinningResult(winner, results) {
+    if (winner === WINNER[2]) {
+      console.print(
+        OUTPUT.bonusWinner(winner.match, winner.reward, results[winner.rank])
+      );
+    }
+
+    if (winner !== WINNER[0]) {
+      Console.print(
+        OUTPUT.defaultWinner(winner.match, winner.reward, results[winner.rank])
+      );
+    }
   }
+
   totalWinningResult(results) {
     Console.print(OUTPUT.winningStatistics);
-    const prizeList = [
-      WINNER.fifthWinner,
-      WINNER.fourthWinnerWinner,
-      WINNER.thirdWinner,
-      WINNER.secondWinner,
-      WINNER.firstWinner,
-    ];
-
-    prizeList.forEach((prize) => this.singleWinningResult(prize, results));
+    [...WINNER]
+      .reverse()
+      .forEach((winner) => this.singleWinningResult(winner, results));
   }
 
   totalReturnResult(totalReturn) {
     Console.print(OUTPUT.totalProfit(Math.round(totalReturn * 100) / 100));
   }
 
-  totalResult(result) {
-    const { results, totalReturn } = result;
-
+  totalResult({ results, totalReturn }) {
     this.singleWinningResult(results);
     this.totalReturnResult(totalReturn);
   }

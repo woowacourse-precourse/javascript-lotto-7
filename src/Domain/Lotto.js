@@ -25,15 +25,15 @@ class Lotto {
   }
   compareMatchNumber(matchNumberCount, bonusNumber) {
     const resultTable = {
-      [WINNER.firstWinner.match]: WINNER.firstWinner.rank,
-      [WINNER.secondWinner.match]: this.#numbers.includes(bonusNumber)
-        ? WINNER.secondWinner.rank
-        : WINNER.thirdWinner.rank,
-      [WINNER.fourthWinner.match]: WINNER.fourthWinner.rank,
-      [WINNER.fifthWinner.match]: WINNER.fifthWinner.rank,
+      [WINNER[1].match]: WINNER[1].rank,
+      [WINNER[2].match]: this.#numbers.includes(bonusNumber)
+        ? WINNER[2].rank
+        : WINNER[3].rank,
+      [WINNER[4].match]: WINNER[4].rank,
+      [WINNER[5].match]: WINNER[5].rank,
     };
 
-    return resultTable[matchNumberCount] || WINNER.losing_ticket.rank;
+    return resultTable[matchNumberCount] || WINNER[0].rank;
   }
 
   calculateLottoResult(winningNumbers, bonusNumber) {
