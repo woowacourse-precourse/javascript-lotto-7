@@ -8,4 +8,10 @@ export default class LottoView {
   showPurchasedLottoCount(count) {
     return Console.print(`\n${count}개를 구매했습니다.`);
   }
+
+  showPurchasedLottos(lottos) {
+    lottos.forEach((lotto) => {
+      Console.print(`[${lotto.join(", ")}]`);
+    });
+  }
 }

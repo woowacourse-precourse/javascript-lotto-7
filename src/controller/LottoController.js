@@ -16,5 +16,6 @@ export default class LottoController {
     this.view.showPurchasedLottoCount(lottoCount);
 
     const purchasedLottos = this.purchasedLotto.getPurchasedLottos();
+    this.view.showPurchasedLottos(purchasedLottos);
   }
 }
