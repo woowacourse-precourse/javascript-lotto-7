@@ -72,18 +72,21 @@ describe('Get Number 테스트', ()=>{
   });
 
   test('중복된 번호 없을 때', async () => {
-    const checkNumber = new CheckNumber();
-    let getNumber = new GetNumber(checkNumber);
+    const getNumber = new GetNumber();
     const mockValues = ['1,2,3,4,5,6', '7'];
 
+    // 모의 입력 설정
     Console.readLineAsync.mockResolvedValueOnce(mockValues[0]);
     await getNumber.getWinNumber();
 
     Console.readLineAsync.mockResolvedValueOnce(mockValues[1]);
     await getNumber.getBonusNumber();
 
-    expect(getNumber.bonusAndWinnerNumbers).toEqual([1,2,3,4,5,6,7]);
+    // 기대 결과 검증
+    expect(getNumber.winNumber).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(getNumber.bonusNumber).toEqual([7]);
 });
+
   test('당첨 번호에 중복된 번호 있을 때', async ()=>{
     const mockValues = ['1,2,3,4,5,6', '7']; 
    
@@ -109,10 +112,16 @@ describe('Get Number 테스트', ()=>{
 })
 
 
-describe('CheckNumber 테스트', ()=>{
+describe('CheckNumber 테스트', () => {
   let checkNumber;
+  let mockGetNumber;
+
   beforeEach(() => {
-    checkNumber = new CheckNumber();
+    mockGetNumber = {
+      winNumber: [1, 15, 21, 11, 10, 20],
+      bonusNumber: [6]
+    };
+    checkNumber = new CheckNumber(mockGetNumber);
   });
 
   afterEach(() => {
@@ -121,20 +130,16 @@ describe('CheckNumber 테스트', ()=>{
 
   test('매칭 테스트', () => {
     checkNumber.RandomLottoNumbers = [
-        [1,2,3,4,5,6],
-        [7,8,9,10,11,12],
-        [1,13,14,15,16,17]
+      [1, 2, 3, 4, 5, 6],
+      [7, 8, 9, 10, 11, 12]
     ];
-    checkNumber.winNumber = [1,15,21,11,10,20,17];
 
     const result = checkNumber.checkNumbers();
 
-    expect(result).toEqual([1,2,3]);
+    expect(result).toEqual([[2, true], [2, false]]);
+  });
 });
 
-  
-
-})
 
 
 

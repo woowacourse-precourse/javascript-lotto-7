@@ -5,18 +5,18 @@ import GetNumber from "./GetNumber.js";
 import CheckNumber from "./CheckNumber.js";
 class App {
   constructor(){
-    this.checkNumber = new CheckNumber();
+    this.getNumber = new GetNumber();
+    this.checkNumber = new CheckNumber(this.getNumber);
   }
   async run() {
     const costManager = new CostManager();
     const lottoGenerator = new LottoGenerator(this.checkNumber);
-    const getNumber = new GetNumber(this.checkNumber);
 
     await this.handlePurchaseLottos(costManager, lottoGenerator);
 
-    await this.handleGetWinNumber(getNumber);
+    await this.handleGetWinNumber(this.getNumber);
 
-    await this.handleGetBonusNumber(getNumber);
+    await this.handleGetBonusNumber(this.getNumber);
 
     this.checkNumber.checkNumbers();
   }

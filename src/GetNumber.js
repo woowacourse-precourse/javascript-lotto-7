@@ -1,15 +1,14 @@
 import { Console } from "@woowacourse/mission-utils";
-import CheckNumber from "./CheckNumber.js";
 class GetNumber {
-    constructor(checkNumber) {
-        this.bonusAndWinnerNumbers = [];
-        this.checkNumber = checkNumber;
+    constructor() {
+        this.winNumber = [];
+        this.bonusNumber = [];
     }
 
 
     async getWinNumber() {
-        const WinNumber = await Console.readLineAsync('당첨 번호를 입력해주세요.(,로 구분)');
-        const WinNumberArray = WinNumber.split(',').map(number => Number(number.trim()));
+        const winNumber = await Console.readLineAsync('당첨 번호를 입력해주세요.(,로 구분)');
+        const WinNumberArray = winNumber.split(',').map(number => Number(number.trim()));
         WinNumberArray.forEach(element => {
           this.validateNumberRange(element)
         });
@@ -21,27 +20,21 @@ class GetNumber {
         const BonusNumberArray = [Number(BonusNumber.trim())];
         this.validateNumberRange(BonusNumberArray [0])
         this.validateBonusNumber(BonusNumberArray);
-        this.saveNumbers();
-    }
-
-    saveNumbers() {
-        this.checkNumber.winNumber.push(...this.bonusAndWinnerNumbers);
     }
 
     validateWinNumber(WinNumberArray) {
         if (new Set(WinNumberArray).size !== 6) {
             throw new Error('[ERROR]중복되는 번호 혹은 공백이 있습니다.');
         }
-        this.bonusAndWinnerNumbers = WinNumberArray;
+        this.winNumber = WinNumberArray;
     }
 
     validateBonusNumber(BonusNumberArray) {
         const bonusNumber = BonusNumberArray[0];
-        if(this.bonusAndWinnerNumbers.includes(bonusNumber)){
+        if(this.winNumber.includes(bonusNumber)){
           throw Error('[Error] 당첨 번호와 보너스 번호가 중복되면 안 됩니다.')
         }
-        this.bonusAndWinnerNumbers.push(bonusNumber);
-        return this.bonusAndWinnerNumbers;
+        this.bonusNumber.push(bonusNumber);
     }
 
     validateNumberRange(number){

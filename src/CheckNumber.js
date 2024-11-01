@@ -1,13 +1,22 @@
 class CheckNumber{
-    constructor(){
+    constructor(getNumber){
         this.RandomLottoNumbers=[];
-        this.winNumber=[];
+        this.getNumber=getNumber;
+        this.incluededBonus=false;
     }
 
     checkNumbers(){
-        let matchingNumbers=this.RandomLottoNumbers.map(lottoNumber => lottoNumber.filter(number => this.winNumber.includes(number)));
-        return matchingNumbers.map(numbers=>numbers.length)
+        const bonusNumber = this.getNumber.bonusNumber[0];
+        let bonusAndWinnerNumbers = [...this.getNumber.winNumber, bonusNumber];
+        let matchingNumbers = this.RandomLottoNumbers.map(lottoNumber => 
+            lottoNumber.filter(number => bonusAndWinnerNumbers.includes(number))
+        );
+    
+        return matchingNumbers.map(numbers =>
+            [numbers.length, numbers.includes(bonusNumber)]
+        );
     }
+    
 
 }
 
