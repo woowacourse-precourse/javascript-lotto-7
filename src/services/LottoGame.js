@@ -13,27 +13,35 @@ class LottoGame {
   }
 
   async putMoney() {
-    const money = await this.console.processMoneyInput(LOTTO_MESSAGES.moneyInput);
+    const money = await this.console.processMoneyInput(MESSAGES.moneyInput);
     this.storage.setMoney(money);
 
-    const countOfTickets = money / 1000;
-    ConsoleIO.print(countOfTickets + LOTTO_MESSAGES.howManyBought);
+    this.#countOfTickets = calculateCountOfPurchase(money);
+    ConsoleIO.print(this.#countOfTickets + MESSAGES.howManyBought);
 
-    const tickets = [...Array(countOfTickets)].reduce((acc) => {
-      const numbers = generateLottoNumbers();
-      const lotto = new Lotto(numbers);
-      return [...acc, lotto];
-    }, []);
-
-    this.#tickets = tickets;
+    this.#tickets = this.#issueTickets();
   }
 
   async enterNumber() {
-    const mainNumbers = await this.console.processMainInput(LOTTO_MESSAGES.mainNumbers);
+    const mainNumbers = await this.console.processMainInput(MESSAGES.mainNumbers);
     this.storage.setMainNumbers(mainNumbers);
 
-    const bonusNumber = await this.console.processBonusInput(LOTTO_MESSAGES.bonusNumber);
+    const bonusNumber = await this.console.processBonusInput(MESSAGES.bonusNumber);
     this.storage.setBonusNumber(bonusNumber);
+  }
+
+  presentResult() {
+    this.#makeStatistics();
+    ConsoleIO.print(MESSAGES.winningStatistics);
+  }
+
+  #issueTickets() {
+    const tickets = [...Array(this.#countOfTickets)].reduce((acc) => {
+      const numbers = generateLottoNumbers();
+      return [...acc, new Lotto(numbers)];
+    }, []);
+
+    return tickets;
   }
 }
 

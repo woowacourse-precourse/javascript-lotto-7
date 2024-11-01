@@ -1,5 +1,9 @@
 import { Random } from '@woowacourse/mission-utils';
-import { COUNT_OF_LOTTO_BALLS, MAX_BALL_NUMBER, MIN_BALL_NUMBER } from '../constants/lottoConfig';
+import { COUNT_OF_LOTTO_BALLS, MAX_BALL_NUMBER, MIN_BALL_NUMBER, PRICE_PER_SHEET } from '../constants/lottoConfig';
+
+export const calculateCountOfPurchase = (money) => {
+  return money / PRICE_PER_SHEET;
+};
 
 export const generateNumberInRange = ({ start, end, count = 1 }) => {
   return Random.pickUniqueNumbersInRange(start, end, count);
