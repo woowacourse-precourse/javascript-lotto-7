@@ -23,6 +23,10 @@ class Output {
     Console.print(`${RESULT_MSG.MATCH_RESULT.MATCH_6} - ${result.match6}개`);
   }
 
+  static displayYield(yieldRate) {
+    Console.print(RESULT_MSG.YIELD(yieldRate));
+  }
+
   static displayError(message) {
     throw new Error(`[ERROR] ${message}`);
   }

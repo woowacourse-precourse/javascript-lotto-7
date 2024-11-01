@@ -29,6 +29,8 @@ class App {
     Output.displayWinningNumbersResult(result);
 
     // // 7. 수익률 계산 및 출력
+    const yieldRate = lottoController.calculateYield(purchaseAmount, result);
+    Output.displayYield(yieldRate);
   }
 }
 

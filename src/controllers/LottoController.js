@@ -1,5 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from '../models/Lotto.js';
+import Prize from '../models/Prize.js';
 import ResultChecker from '../models/ResultChecker.js';
 
 class LottoController {
@@ -67,6 +68,17 @@ class LottoController {
    */
   #generateRandomNumbers() {
     return Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+  }
+
+  /**
+   * 총 수익률을 계산합니다.
+   * @param {number} purchaseAmount - 사용자가 입력한 구입 금액
+   * @param {Object} result - 당첨 결과 객체
+   * @returns {number} - 총 수익률
+   */
+  calculateYield(purchaseAmount, result) {
+    const totalPrize = Prize.calculateTotalPrize(result);
+    return ((totalPrize / purchaseAmount) * 100).toFixed(1);
   }
 }
 
