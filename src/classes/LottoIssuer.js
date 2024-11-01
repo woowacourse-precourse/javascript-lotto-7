@@ -11,7 +11,9 @@ class LottoIssuer {
   }
 
   static generateLottoNumbers() {
-    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+      (a, b) => a - b
+    );
 
     return numbers;
   }
@@ -19,7 +21,7 @@ class LottoIssuer {
   static generateLottos(count) {
     return Array(count)
       .fill()
-      .map(() => new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
+      .map(() => new Lotto(this.generateLottoNumbers()));
   }
 }
 

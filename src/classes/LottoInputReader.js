@@ -10,7 +10,10 @@ class LottoInputReader {
 
   static async readWinningNumbers() {
     const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    const winningNumber = input.split(',').map(Number);
+    const winningNumber = input
+      .split(',')
+      .map(Number)
+      .sort((a, b) => a - b);
 
     return winningNumber;
   }
