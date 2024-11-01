@@ -1,7 +1,11 @@
 import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { getLottoBuyCount } from '../src/functions/LottoMake.js';
-import { splitByComma } from '../src/functions/LottoPrize.js';
+import {
+  getLottoPrizeCount,
+  splitByComma,
+} from '../src/functions/LottoPrize.js';
+import Lotto from '../src/Lotto.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -105,8 +109,15 @@ describe('로또 구매 테스트', () => {
 });
 
 describe('로또 당첨 테스트', () => {
-  test('splitByComma() : 문자열이 콤마(,)를 기준으로 배열이 나눠지는가?', () => {
+  test('splitByComma() : 문자열이 콤마(,)를 기준으로 숫자 배열로배열 나눠지는가?', () => {
     const stringInput = '1,2,3,4,5';
-    expect(splitByComma(stringInput)).toEqual(['1', '2', '3', '4', '5']);
+    expect(splitByComma(stringInput)).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  test('getLottoPrizeCount() : 해당 로또의 번호 일치 개수가 알맞게 나오는가?', () => {
+    const lotto = new Lotto(splitByComma('1,2,3,4,5,6'));
+    const lottoPrizeNumbers = [1, 2, 3, 4, 6, 7];
+
+    expect(getLottoPrizeCount(lotto, lottoPrizeNumbers)).toBe(5);
   });
 });
