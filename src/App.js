@@ -12,8 +12,11 @@ class App {
   async run() {
     const money = await InputView.getLottoMoney();
     const lottoStore = new LottoStore(money);
+
     const numbers = await InputView.getWinningNumbers();
     this.lottoPrize.createWinningNumbers(numbers);
+    const bonusNumber = await InputView.getBonusNumber();
+    this.lottoPrize.createBonusNumber(bonusNumber);
   }
 }
 
