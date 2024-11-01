@@ -9,17 +9,29 @@ class LottoController {
     const lottoCount = await InputController.getLottoPurchasePrice();
     OutputView.printLottoPurchaseCount(lottoCount);
 
-    const lottoIssuance = new LottoIssuance(lottoCount);
-    const lottos = lottoIssuance.getIssuedLottos();
-    lottos.forEach((lotto) => OutputView.printLottoIssueDetails(lotto));
-
+    const lottos = this.#createAndPrintLottoIssuance(lottoCount);
     const winningNumbers = await InputController.getWinningNumbers();
     const bonusNumber = await InputController.getBonusNumber(winningNumbers);
 
+    const matchResults = this.#createAndPrintLottoStatistics(lottos, winningNumbers, bonusNumber);
+    this.#createAndPrintLottoRevenue(lottoCount, matchResults);
+  }
+
+  #createAndPrintLottoIssuance(lottoCount) {
+    const lottoIssuance = new LottoIssuance(lottoCount);
+    const lottos = lottoIssuance.getIssuedLottos();
+    lottos.forEach((lotto) => OutputView.printLottoIssueDetails(lotto));
+    return lottos;
+  }
+
+  #createAndPrintLottoStatistics(lottos, winningNumbers, bonusNumber) {
     const lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
     const matchResults = lottoStatistics.getMatchResults();
     OutputView.printWinningDetails(matchResults);
+    return matchResults;
+  }
 
+  #createAndPrintLottoRevenue(lottoCount, matchResults) {
     const lottoRevenue = new LottoRevenue(lottoCount, matchResults);
     const revenue = lottoRevenue.getRevenue();
     OutputView.printRevenue(revenue);
