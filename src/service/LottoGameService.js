@@ -26,6 +26,10 @@ class LottoGameService {
     };
   }
 
+  getLottos() {
+    return [...this.lottos];
+  }
+
   getPrizes() {
     return this.prizes;
   }
