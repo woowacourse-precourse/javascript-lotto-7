@@ -26,12 +26,12 @@ const BasicNumbersInput = {
     }
 
     const isValid = basicNumbers.every((numberString) => {
-      if (Rules.isNoValueString(numberString)) {
-        return throwError('입력하지 않은 숫자가 있습니다.');
-      }
-
       if (isNaN(numberString)) {
         return throwError('문자가 아닌 숫자를 구분자로 구분하여 입력해주세요.');
+      }
+
+      if (Rules.isNoValueString(numberString)) {
+        return throwError('입력하지 않은 숫자가 있습니다.');
       }
 
       const number = Number(numberString);
