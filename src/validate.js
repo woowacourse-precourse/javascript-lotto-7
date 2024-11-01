@@ -1,12 +1,15 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGE } from "./message"
+import { ERROR_MESSAGE } from "./message.js"
 
 
 export const validatePurchaseAmount = {
     validation: (purchaseAmount) => {
-        validatePurchaseAmount.checkDivisibleByThousand(purchaseAmount);
-        validatePurchaseAmount.checkIsNumber(purchaseAmount);
-        validatePurchaseAmount.checkIsPositive(purchaseAmount);
+        const amount = Number(purchaseAmount);
+        return(
+            validatePurchaseAmount.checkDivisibleByThousand(amount) &&
+            validatePurchaseAmount.checkIsNumber(amount) &&
+            validatePurchaseAmount.checkIsPositive(amount)
+        );
     },
 
     checkDivisibleByThousand(value){
