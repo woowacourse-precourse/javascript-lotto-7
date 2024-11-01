@@ -23,15 +23,19 @@ export const getLogSpy = () => {
   return logSpy;
 };
 
-export const runException = async (input, errorMsg = '[ERROR]') => {
+export const runException = async (input, inputOrder = 0, errorMsg = '[ERROR]') => {
   // given
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
+  let INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
+
+  INPUT_NUMBERS_TO_END.splice(inputOrder, 0, input);
+
+  console.log(INPUT_NUMBERS_TO_END);
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  mockQuestions([...INPUT_NUMBERS_TO_END]);
 
   // when
   const app = new App();
@@ -116,6 +120,33 @@ describe('로또 테스트', () => {
     // Price Align Check
     ['1001', ERROR_MSG.priceMisalign],
   ])("[예외 테스트] 로또 구입 금액이 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
-    await runException(input, errorMsg);
+    await runException(input, 0, errorMsg);
+  });
+
+  // 당첨 번호 입력 유효성 검사 TC (우선순위 높은 순으로 정렬)
+  test.each([
+    // empty Check
+    [null, ERROR_MSG.invalidInputData],
+    [undefined, ERROR_MSG.invalidInputData],
+    ['', ERROR_MSG.invalidInputData],
+    ['   ', ERROR_MSG.invalidInputData],
+    // Number Only Check
+    ['abcd', ERROR_MSG.notANumber],
+    ['///', ERROR_MSG.notANumber],
+    ['\\\\\\', ERROR_MSG.notANumber],
+    ['>_<', ERROR_MSG.notANumber],
+    ['--1', ERROR_MSG.notANumber],
+    // Count Check
+    ['1,2,3,4', ERROR_MSG.invalidNumberCount],
+    ['1,2,3,-1', ERROR_MSG.invalidNumberCount],
+    // Range Check
+    ['0,1,2,3,4,5', ERROR_MSG.outOfLottoRange],
+    ['-1,-2,-3,-4,-5,-6', ERROR_MSG.outOfLottoRange],
+    ['1,2,3,4,5,46', ERROR_MSG.outOfLottoRange],
+    ['1,2,3,4,4,100', ERROR_MSG.outOfLottoRange],
+    // Duplicate Check
+    ['1,2,3,4,4,5', ERROR_MSG.duplicateNumber],
+  ])("[예외 테스트] 당첨 번호가 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
+    await runException(input, 1, errorMsg);
   });
 });

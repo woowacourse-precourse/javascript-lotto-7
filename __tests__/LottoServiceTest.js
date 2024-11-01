@@ -7,7 +7,7 @@ describe('로또 서비스 클래스 테스트', () => {
     lottoService = new LottoService();
   });
 
-  test('로또 구매 금액이 1,000단위가 아닐 경우 Error를 발생시킨다.', () => {
+  test('로또 구매 금액이 1000단위가 아닐 경우 Error를 발생시킨다.', () => {
     expect(() => {
       lottoService.setPurcharedAmount(1001);
     }).toThrow('[ERROR]');
