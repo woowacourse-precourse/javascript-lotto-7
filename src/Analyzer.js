@@ -1,3 +1,5 @@
+import { ANALYZER } from './Constants.js';
+
 class Analyzer {
   #lottos;
 
@@ -18,21 +20,18 @@ class Analyzer {
   }
 
   #estimateMatchingNumbers(lotto, winningNumbers) {
-    const WINNING_BONUS_TAG = 'bonus';
     const numbersOfMatched = lotto.countMatchingNumbers(winningNumbers);
 
     if (this.#isBonusWinning(numbersOfMatched, lotto)) {
-      return WINNING_BONUS_TAG;
+      return ANALYZER.winningBonusTag;
     }
 
     return numbersOfMatched;
   }
 
   #isBonusWinning(numbersOfMatched, lotto) {
-    const BONUS_WINNING_STANDARD = 5;
-
     return (
-      numbersOfMatched === BONUS_WINNING_STANDARD &&
+      numbersOfMatched === ANALYZER.bonusWinningStandard &&
       this.#checkIsBonusNumberMatched(lotto)
     );
   }
@@ -43,13 +42,12 @@ class Analyzer {
   }
 
   static #makeWinningTable(matchingNumbers) {
-    const DEFAULT_COUNT = 0;
-    const UNIT_COUNT = 1;
     const winningTable = new Map();
 
     matchingNumbers.forEach((matchedCount) => {
-      const numbersOfLotto = winningTable.get(matchedCount) ?? DEFAULT_COUNT;
-      winningTable.set(matchedCount, numbersOfLotto + UNIT_COUNT);
+      const numbersOfLotto =
+        winningTable.get(matchedCount) ?? ANALYZER.defaultCount;
+      winningTable.set(matchedCount, numbersOfLotto + ANALYZER.unitCount);
     });
 
     return winningTable;

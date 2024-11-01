@@ -4,3 +4,10 @@ export const LOTTO_MACHINE = {
   maximumNumber: 45,
   drawNumbers: 6,
 };
+
+export const ANALYZER = {
+  winningBonusTag: 'bonus',
+  bonusWinningStandard: 5,
+  defaultCount: 0,
+  unitCount: 1,
+};
