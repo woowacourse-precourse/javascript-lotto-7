@@ -1,9 +1,9 @@
-import validateAmount from "../validator/validateAmount.js";
 import { InputView } from "../view/InputView.js";
 import LottoService from "../services/LottoService.js";
 import OutputView from "../view/OutputView.js";
 import validateWinningNumbers from "../validator/validateWinningNumbers.js";
 import validateBonusNumber from "../validator/validateBonusNumber.js";
+import AmountValidator from "../validator/AmountValidator.js";
 
 class LottoController {
   #lottoService;
@@ -27,7 +27,7 @@ class LottoController {
 
   async getValidAmount() {
     const amountInput = await InputView.getLottoAmount();
-    return validateAmount(amountInput);
+    return AmountValidator.validate(amountInput);
   }
 
   async getValidWinningNumbers() {
