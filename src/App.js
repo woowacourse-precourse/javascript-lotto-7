@@ -22,7 +22,7 @@ class App {
 
     const bonusNumber = await InputHandler.getBonusNumber();
 
-    InputHandler.validateBonusNumber(bonusNumber);
+    InputHandler.validateBonusNumber(winningNumbers, bonusNumber);
   }
 }
 

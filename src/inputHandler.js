@@ -71,13 +71,20 @@ class InputHandler {
     return bonusNumber;
   }
 
-  static validateBonusNumber(bonusNumber) {
+  static validateBonusNumber(winningNumbersArray, bonusNumber) {
     this.checkBetween1And45(bonusNumber);
+    this.checkWinningNumberEqualBonusNumber(winningNumbersArray, bonusNumber);
   }
 
   static checkBetween1And45(bonusNumber) {
     if (bonusNumber < 1 || bonusNumber > 45) {
       throw new Error(BONUS_NUMBER.BETWEEN_1_AND_45);
+    }
+  }
+
+  static checkWinningNumberEqualBonusNumber(winningNumbersArray, bonusNumber) {
+    if (winningNumbersArray.includes(bonusNumber)) {
+      throw new Error(BONUS_NUMBER.EQUAL_WINNING_NUMBERS);
     }
   }
 }

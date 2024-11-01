@@ -11,4 +11,5 @@ export const LOTTO_NUMBER = {
 
 export const BONUS_NUMBER = {
   BETWEEN_1_AND_45: "[ERROR] 보너스 번호는 1과 45사이에 있어야 합니다.",
+  EQUAL_WINNING_NUMBERS: "[ERROR] 보너스 번호는 당첨 번호와 같으면 안됩니다.",
 };
