@@ -40,8 +40,23 @@ class Analyzer {
     return lotto.isBonusNumberMatched(bonusNumber);
   }
 
+  static #initMatchingTable() {
+    const matchedCounts = [
+      ...Array.from(
+        { length: ANALYZER.maximumMatched },
+        (arrayLike, index) => index,
+      ),
+      ANALYZER.maximumMatched,
+      ANALYZER.bonusTag,
+    ];
+
+    return new Map(
+      matchedCounts.map((count) => [count, ANALYZER.defaultCount]),
+    );
+  }
+
   static #makeMatchingTable(matchingNumbers) {
-    const matchingTable = new Map();
+    const matchingTable = Analyzer.#initMatchingTable();
 
     matchingNumbers.forEach((matchedCount) => {
       const numbersOfLotto =
