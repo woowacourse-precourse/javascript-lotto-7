@@ -15,6 +15,10 @@ class Amount {
     isValid = isNumber(this.#amount) && isMultipleOfThousand(this.#amount);
     !isValid && throwError(INVALID_AMOUNT);
   }
+
+  getAmount() {
+    return this.#amount;
+  }
 }
 
 export default Amount;
