@@ -17,3 +17,14 @@ describe('당첨번호 입력 유효성 검사', () => {
     );
   });
 });
+
+describe('보너스 번호 입력 유효성 검사', () => {
+  const winningNumbers = [1, 2, 3, 4, 5, 6];
+
+  test('숫자 중복 유효성 검사', () => {
+    const input = '5';
+    expect(() => new App().getBounsNumber(winningNumbers, input)).toThrow(
+      '[ERROR] 중복된 값이 있습니다.'
+    );
+  });
+});
