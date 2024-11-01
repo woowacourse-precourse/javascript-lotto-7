@@ -4,7 +4,8 @@ import { regex } from './constant/regex.js';
 export function validateAmount(input) {
   const amount = parseInt(input.trim(), 10);
 
-  if (!amount) throw new Error(`${errorMessage.prefix} ${errorMessage.invalidAmount}`);
+  if (!amount && amount !== 0)
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidAmount}`);
 
   if (!isValidAmount(amount))
     throw new Error(`${errorMessage.prefix} ${errorMessage.negativeAmount}`);
