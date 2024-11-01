@@ -26,7 +26,17 @@ class Controller {
   }
 
   checkLotto() {
+    const prize = this.models.lottoPrize.getPrize(this.models.lottoStore.getLottos());
+
     this.views.output.printResultHeader();
+    ["fifth", "forth", "third", "second", "first"].forEach((rank) => {
+      const { condition, money, count } = prize[rank];
+      if (rank === "second") {
+        this.views.output.printBonusResult(condition, money.toLocaleString(), count);
+      } else {
+        this.views.output.printResult(condition, money.toLocaleString(), count);
+      }
+    });
   }
 }
 

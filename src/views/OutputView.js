@@ -18,7 +18,13 @@ const OutputView = {
     MissionUtils.Console.print("");
   },
   printResultHeader() {
-    MissionUtils.Console.print("\n당첨 통계\n---\n");
+    MissionUtils.Console.print("\n당첨 통계\n---");
+  },
+  printResult(condition, money, count) {
+    MissionUtils.Console.print(`${condition}개 일치 (${money}원) - ${count}개`);
+  },
+  printBonusResult(condition, money, count) {
+    MissionUtils.Console.print(`${condition}개 일치, 보너스 볼 일치 (${money}원) - ${count}개`);
   },
 };
 
