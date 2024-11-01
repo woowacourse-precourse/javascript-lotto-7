@@ -1,6 +1,6 @@
 import InputView from '../view/InputView.js';
 import OuputView from '../view/OutputView.js';
-import { validateInputMoney } from './validate.js';
+import { validateBonusNumber, validateInputMoney, validateLottoNumbers } from './validate.js';
 
 export const readAndValidateMoney = async () => {
   const inputMoney = await InputView.readMoney();
@@ -13,4 +13,31 @@ export const readAndValidateMoney = async () => {
   }
 
   return Number(inputMoney);
+};
+
+export const readAndValidateWinningNumber = async () => {
+  const inputWinningNumber = await InputView.readWinningNumber();
+  const winningNumber = inputWinningNumber.split(',');
+
+  try {
+    validateLottoNumbers(winningNumber);
+  } catch (error) {
+    OuputView.printMessage(error.message);
+    await readAndValidateWinningNumber();
+  }
+
+  return winningNumber.map(Number);
+};
+
+export const readAndValidateBonusNumber = async (winningNumber) => {
+  const inputBonusNumber = await InputView.readBonusNumber();
+
+  try {
+    validateBonusNumber(winningNumber, inputBonusNumber);
+  } catch (error) {
+    OuputView.printMessage(error.message);
+    await readAndValidateBonusNumber();
+  }
+
+  return Number(inputBonusNumber);
 };
