@@ -1,4 +1,5 @@
 import { printEmptyLine, printPurchaseResult } from './view/OutputPrinter.js';
+import { getWinningLottoNumbersAndBonusNumber } from './LottoWinningNumberReader.js';
 
 class LottoGameExecutor {
 
@@ -20,6 +21,8 @@ class LottoGameExecutor {
     this.#printPurchaseLottos(lottoCount, lottos);
 
     printEmptyLine();
+
+    const { winningNumbers, bonusNumber } = await getWinningLottoNumbersAndBonusNumber();
   }
 
   #printPurchaseLottos(lottoCount, lottos) {

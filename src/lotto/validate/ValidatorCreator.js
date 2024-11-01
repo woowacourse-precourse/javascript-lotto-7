@@ -2,6 +2,7 @@ import { config } from '../../config.js';
 import LottoRuleValidator from './LottoRuleValidator.js';
 import LottoNumberValidator from './LottoNumberValidator.js';
 import PurchaseAmountValidator from './PurchaseAmountValidator.js';
+import WinningNumberValidator from './WinningNumberValidator.js';
 
 const setLottoRule = () => {
   const { lottoConfig } = config;
@@ -31,5 +32,9 @@ export const createLottoNumberValidator = () => new LottoNumberValidator(
 
 export const createPurchaseAmountValidator = () => new PurchaseAmountValidator(
   lottoRule.lottoAmount, lottoRule.maxlottoPurchaseAmount
+);
+
+export const createWinningNumberValidator = () => new WinningNumberValidator(
+  lottoRule.lottoNumberCount, lottoRule.lottoNumberRange
 );
 

@@ -16,10 +16,13 @@ export const ERROR_MESSAGE = Object.freeze({
   ERROR_INCORRECT_LOTTO_NUMBER_COUNT: (inputCount, numberCount) => `${PREFIX_ERROR_MESSAGE} 로또 번호는 ${numberCount}개여야 합니다. (개수 : ${inputCount})`,
   ERROR_NUMBER_OUT_OF_RANGE: (number, startNumber, endNumber) => `${PREFIX_ERROR_MESSAGE} 로또 번호가 범위를 벗어났습니다. (범위: ${startNumber}-${endNumber})`,
   ERROR_DUPLICATE_NUMBER: `${PREFIX_ERROR_MESSAGE} 로또 번호는 중복 될 수 없습니다.`,
+
 });
 
 export const INPUT_MESSAGE = Object.freeze({
   REQUEST_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.\n',
+  REQUEST_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
+  REQUEST_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
 });
 
 export const OUTPUT_MESSAGE = Object.freeze({
