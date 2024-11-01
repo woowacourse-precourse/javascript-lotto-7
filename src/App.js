@@ -30,7 +30,6 @@ class App {
     printLottoList(purchaseCount, lottoList);
 
     const winningNumbers = await getWinningNumbersInput();
-
     new WinningNumbersValidator(winningNumbers).validateWinningNumbers();
 
     const trimWinningNum = trimWinningNumbers(winningNumbers);
