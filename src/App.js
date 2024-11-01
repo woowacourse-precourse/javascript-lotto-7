@@ -15,6 +15,7 @@ class App {
     const lottoStore = new LottoStore(money);
 
     OutputView.printLottoCount(lottoStore.getLottoCount());
+    OutputView.printLottos(lottoStore.getLottos());
 
     const numbers = await InputView.getWinningNumbers();
     this.lottoPrize.createWinningNumbers(numbers);
