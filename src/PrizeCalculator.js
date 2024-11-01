@@ -22,7 +22,11 @@ class PrizeCalculator {
   }
 
   #calculateProfit(totalPrize) {
-    return (totalPrize - this.#payment) / this.#payment;
+    const profit =
+      ((totalPrize - this.#payment) * PRIZE_CALCULATOR.profitRatio) /
+      this.#payment;
+
+    return profit;
   }
 }
 
