@@ -16,9 +16,10 @@ class Output {
 
   static printLottos(lottos) {
     Console.print(`\n${lottos.length}${OUTPUT_MESSAGES.QUANTITY}`);
-    lottos.forEach((lotto) => {
-      Console.print(lotto);
-    });
+    const lottoStrings = lottos
+      .map((lotto) => `[${lotto.join(', ')}]`)
+      .join('\n');
+    Console.print(lottoStrings);
   }
 }
 
