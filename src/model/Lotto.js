@@ -1,4 +1,4 @@
-import LottoValidate from "../validate/LottoValidate.js";
+import Exception from "../util/Exception.js";
 
 class Lotto {
   #numbers;
@@ -9,10 +9,7 @@ class Lotto {
   }
 
   #validate(numbers) {
-    LottoValidate.validateIsNumber(numbers);
-    LottoValidate.validateLottoLength(numbers);
-    LottoValidate.validateLottoDup(numbers);
-    LottoValidate.validateLottoRange(numbers);
+    Exception.lottoValidate(numbers);
   }
 
   getNumber() {

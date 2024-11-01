@@ -1,15 +1,15 @@
-import Lotto from "./Lotto.js";
+import Lotto from "../model/Lotto.js";
 import { LOTTO_DATA } from "../constant/Data.js";
 import { Random } from "@woowacourse/mission-utils";
 
 class GetNumber {
-  purchaseLotto() {
+  static purchaseLotto() {
     return new Lotto(
       Random.pickUniqueNumbersInRange(LOTTO_DATA.minNum, LOTTO_DATA.maxNum, LOTTO_DATA.lottoLength)
     ).getNumber();
   }
 
-  winningLotto(lotto) {
+  static winningLotto(lotto) {
     return new Lotto(lotto.split(",").map((number) => parseInt(number.replace(/ /g, "")))).getNumber();
   }
 }
