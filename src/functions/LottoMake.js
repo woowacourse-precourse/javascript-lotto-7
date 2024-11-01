@@ -6,7 +6,7 @@ export const getLottoBuyCount = (lottoButMoneyInput) => {
 };
 
 export const printLottoBuyCount = (lottoBuyCount) => {
-  Console.print(`\n${lottoBuyCount}개 구매했습니다.`);
+  Console.print(`\n${lottoBuyCount}개를 구매했습니다.`);
 };
 
 const getRandomLottoNumbers = () => {
