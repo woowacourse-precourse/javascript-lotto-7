@@ -79,4 +79,37 @@ export const validateWinnigNum = {
         }
         return true;
     }
-}
+};
+
+export const validateBonusNum = {
+    validation: (bonusNum, winningNum) => {
+        const num = Number(bonusNum);
+        return(
+            validateBonusNum.checkIsNum(num) &&
+            validateBonusNum.checkRange(num) &&
+            validateBonusNum.checkNotInWinnigNum(num, winningNum)
+        );
+    },
+
+    checkIsNum(value){
+        if(isNaN(value)){
+            Console.print(ERROR_MESSAGE.NOT_NUMBER);
+            return false;
+        }
+        return true;
+    },
+    checkRange(value){
+        if(value < 1 || value > 45){
+            Console.print(ERROR_MESSAGE.NOT_RANGE);
+            return false;
+        }
+        return true;
+    },
+    checkNotInWinnigNum(value, winningNum){
+        if(winningNum.includes(value)){
+            Console.print(ERROR_MESSAGE.BONUS_IN_WINNING_NUM);
+            return false;
+        }
+        return true;
+    }
+};
