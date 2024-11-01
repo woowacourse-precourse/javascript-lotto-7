@@ -1,5 +1,22 @@
+import { Console } from "@woowacourse/mission-utils";
+
+import Input from "./Input.js";
+
 class App {
-  async run() {}
+  #money;
+
+  constructor() {
+    this.input = new Input();
+  }
+
+  async run() {
+    try {
+      this.#money = await this.input.getMoney();
+    } catch (error) {
+      Console.print(`[ERROR] ${error.message}`);
+      throw error;
+    }
+  }
 }
 
 export default App;
