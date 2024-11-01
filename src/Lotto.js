@@ -1,6 +1,12 @@
-import {MissionUtils} from "@woowacourse/mission-utils";
+import {Console, MissionUtils} from "@woowacourse/mission-utils";
 
 class Lotto {
+    /*제공된 Lotto 클래스를 사용하여 구현해야 한다.
+    Lotto에 numbers 이외의 필드(인스턴스 변수)를 추가할 수 없다.
+    numbers의 접근 제어자인 #은 변경할 수 없다.
+    Lotto의 패키지를 변경할 수 있다.
+    통계를 내는 클래스 인거 같다
+   */
     #numbers;
 
     constructor(numbers) {
@@ -14,19 +20,23 @@ class Lotto {
         }
     }
 
-
-    purchaseNumbers() { //인자로 몇번인지를 넣자
-        let arr = []
-        for (let i = 0; i < 6; i++) {
-            const sixRandomValues = this.getSixRandomValues()
-            arr.push(sixRandomValues)
+    setStatistics(lottoNumbers, bonusNumber) {
+        let matchCnt = 0
+        let isBonusNumberMatch = false
+        for (const lottoNumber of lottoNumbers) {
+            if (this.#numbers.includes(lottoNumber)) {
+                matchCnt++
+            }
+            if (this.#numbers.includes(bonusNumber)) {
+                isBonusNumberMatch = true
+            }
         }
-        console.log(arr)
-        return arr
+        return this.resultOutput({matchCnt, isBonusNumberMatch})
     }
 
-    getSixRandomValues() {
-        return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    resultOutput({matchCnt, isBonusNumberMatch}) {
+        Console.print(`당첨통계\n---`)
+
     }
 
 
