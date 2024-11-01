@@ -21,6 +21,10 @@ class Output {
       .join('\n');
     Console.print(lottoStrings);
   }
+
+  static printErrorMessage(errorMessage) {
+    Console.print(errorMessage);
+  }
 }
 
 export default Output;
