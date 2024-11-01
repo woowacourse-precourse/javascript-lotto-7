@@ -8,16 +8,13 @@ class App {
             
         const userMoney =  await inputHandler.askUserMoney();
         validateMoney(userMoney);
-        Lotto.issueLottos(userMoney);
+        const issuedLottos = Lotto.issueLottos(userMoney);
 
         const winningNumber =  await inputHandler.askWinningNumbers();
         const bonusNumber = await inputHandler.askBonusNumber();
-        const lotto = new Lotto(winningNumber, bonusNumber);
+        const lotto = new Lotto(issuedLottos, winningNumber, bonusNumber);       
 
-        
-
-        //보너스 번호 받기
-        //보너스 번호 검증
+    
 
         //당첨 내역과 수익률 출력
     }

@@ -34,7 +34,6 @@ const validateWinningNumbers = (winningNumbers) => {
 
 const validateBonusNumber = (winningNumbers, bonusNumber) => {
     isEmpty(bonusNumber);
-    console.log(bonusNumber);
     const verifiedBonusNumber = isNumber(bonusNumber);
     isNegative(verifiedBonusNumber);
     isInRange(verifiedBonusNumber);

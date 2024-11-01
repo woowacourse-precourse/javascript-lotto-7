@@ -5,9 +5,11 @@ import { validateWinningNumbers, validateBonusNumber } from "./Validator.js"
 class Lotto {
     #numbers;
 
-    constructor(numbers, bonusNumber) {
+    constructor(issuedLottos, numbers, bonusNumber) {
         this.#validate(numbers, bonusNumber);
+        this.issuedLottos = issuedLottos;
         this.#numbers = numbers;
+        this.bonusNumber = bonusNumber;
     }
 
     #validate(numbers, bonusNumber) {
@@ -20,21 +22,28 @@ class Lotto {
         return money / GENERALS.LOTTO_PRICE;
     }
     
-    static generateLottoNumbers() {
-        return Random.pickUniqueNumbersInRange(1, 45, 6);
+    static generateLottoNumbers(lottoCount) {
+        const issuedLottos =
+            Array.from({ length: lottoCount }).map(() => {
+                return Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+            })
+
+        return issuedLottos;
     }
     
-    static printLottos(lottoCount) {
-        Console.print(`${lottoCount}개를 구매했습니다.`);
-        Array.from({ length: lottoCount }).forEach(() => {
-            const lottoNumbers = this.generateLottoNumbers().sort((a, b) => a - b);
+    static printLottos(issuedLottos) {
+        Console.print(`${issuedLottos.length}개를 구매했습니다.`);
+        issuedLottos.forEach(lottoNumbers => {
             Console.print(`[${lottoNumbers.join(', ')}]`);
         });
     }
     
     static issueLottos(money) {
         const lottoCount = this.calculateLottoCount(money);
-        this.printLottos(lottoCount);
+        const issuedLottos = this.generateLottoNumbers(lottoCount);
+        this.printLottos(issuedLottos);
+
+        return issuedLottos;
     }
 
 }
