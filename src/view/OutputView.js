@@ -22,6 +22,10 @@ class OutputView {
     );
     printResult(`6개 일치 (2,000,000,000원) - ${matchCounts["6"]}개`);
   }
+
+  static printProfit(profit) {
+    printResult(`총 수익률은 ${profit}%입니다.`);
+  }
 }
 
 export default OutputView;

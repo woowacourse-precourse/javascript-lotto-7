@@ -27,6 +27,7 @@ class App {
     OutputView.printWinningStatistics(matchCounts);
 
     const profit = lottoService.calculateProfit(matchCounts, amount);
+    OutputView.printProfit(profit);
   }
 }
 
