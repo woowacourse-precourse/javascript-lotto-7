@@ -12,10 +12,10 @@ class InputHandler {
         return winningNumbers;
     }
 
-    // async askBonusNumber() {
-    //     const bonusNumber = await Console.readLineAsync(MESSAGES.INPUT.ASK_BONUS_NUMBER);
-    //     return bonusNumber;
-    // }
+    async askBonusNumber() {
+        const bonusNumber = await Console.readLineAsync(MESSAGES.INPUT.ASK_BONUS_NUMBER);
+        return bonusNumber;
+    }
 }
 
 export default InputHandler;

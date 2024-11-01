@@ -2,7 +2,7 @@ const MESSAGES = Object.freeze({
     INPUT: {
         ASK_USER_MONEY: '구입 금액을 입력해 주세요.\n',
         ASK_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
-        // ASK_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
+        ASK_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
     },
     OUTPUT: {
         
@@ -16,6 +16,7 @@ const MESSAGES = Object.freeze({
         NUMBER_OUT_OF_RANGE: '[ERROR] 1~45 범위 안의 숫자를 입력해 주세요!',
         HAS_DUPLICATES: '[ERROR] 중복된 숫자를 입력했어요!',
         NOT_SIX_NUMBERS: '[ERROR] 6개의 숫자를 입력해 주세요! 쉼표(,)로 구분.',
+        BONUSNUMBER_IN_WINNING_NUMBERS: '[ERROR] 보너스 번호가 당첨 번호 중 하나와 중복돼요!',
     },
 });
 

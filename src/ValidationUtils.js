@@ -1,6 +1,7 @@
 import { MESSAGES, GENERALS } from "./Constants.js";
 
 const isNumber = (input) => {
+    input = input.trim();
     if (input === '') {
         throw new Error(MESSAGES.ERROR.NOT_A_NUMBER);
     }
@@ -56,6 +57,12 @@ const hasDuplicates = (numbers) => {
     }
 }
 
+const hasDuplicateWithWinningNumbers = (winningNumbers, bonusNumber) => {
+    if (winningNumbers.includes(bonusNumber)) {
+        throw new Error(MESSAGES.ERROR.BONUSNUMBER_IN_WINNING_NUMBERS);
+    }
+};
+
 export {
     isNumber,
     isEmpty,
@@ -65,4 +72,5 @@ export {
     isInRange,
     isSixNumbers,
     hasDuplicates,
+    hasDuplicateWithWinningNumbers,
 };

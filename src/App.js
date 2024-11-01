@@ -11,7 +11,10 @@ class App {
         Lotto.issueLottos(userMoney);
 
         const winningNumber =  await inputHandler.askWinningNumbers();
-        const lotto = new Lotto(winningNumber);
+        const bonusNumber = await inputHandler.askBonusNumber();
+        const lotto = new Lotto(winningNumber, bonusNumber);
+
+        
 
         //보너스 번호 받기
         //보너스 번호 검증

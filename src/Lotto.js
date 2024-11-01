@@ -1,18 +1,18 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES, GENERALS } from "./Constants.js";
-import { validateWinningNumbers } from "./Validator.js"
+import { validateWinningNumbers, validateBonusNumber } from "./Validator.js"
 
 class Lotto {
     #numbers;
 
-    constructor(numbers) {
-        this.#validate(numbers);
+    constructor(numbers, bonusNumber) {
+        this.#validate(numbers, bonusNumber);
         this.#numbers = numbers;
     }
 
-    #validate(numbers) {
+    #validate(numbers, bonusNumber) {
         validateWinningNumbers(numbers);
-     
+        validateBonusNumber(numbers, bonusNumber);
     }
 
     // TODO: 추가 기능 구현
