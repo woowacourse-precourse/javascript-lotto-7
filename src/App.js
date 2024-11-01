@@ -8,10 +8,17 @@ class App {
 
   #lottos;
 
-  #winnerLotto;
+  #lottoResults;
 
   constructor() {
     this.#lottos = [];
+    this.#lottoResults = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -39,6 +46,25 @@ class App {
     // 5. 보너스 번호를 입력받는다.
     const winnerBonusInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     const winnerBonus = Number(winnerBonusInput);
+
+    // 6. 당첨 통계를 출력한다.
+    // 당첨 통계 계산
+    this.#lottos.forEach((lotto) => {
+      const correctCount = lotto.filter((element) => winnerNumbers.includes(element)).length;
+      const isCorrectBonus = lotto.includes(winnerBonus);
+
+      if (correctCount == 6) {
+        this.#lottoResults[1] += 1;
+      } else if (correctCount == 5 && isCorrectBonus) {
+        this.#lottoResults[2] += 1;
+      } else if (correctCount == 5) {
+        this.#lottoResults[3] += 1;
+      } else if (correctCount == 4) {
+        this.#lottoResults[4] += 1;
+      } else if (correctCount == 3) {
+        this.#lottoResults[5] += 1;
+      }
+    });
   }
 }
 
