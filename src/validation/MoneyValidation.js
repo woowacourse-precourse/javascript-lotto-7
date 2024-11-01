@@ -13,5 +13,9 @@ class MoneyValidation {
   static checkLessThanPrice(money) {
     return Number(money) < LOTTO.LOTTO_PRICE;
   }
+
+  static checkPriceUnit(money) {
+    return !(money % LOTTO.LOTTO_PRICE === 0);
+  }
 }
 export default MoneyValidation;
