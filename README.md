@@ -123,6 +123,63 @@ JavaScript에서는 클래스를 사용하는 방법 이외에도 객체를 만�
   - index.js
 ```
 
+### LottoController.js [로또의 메인이 되는 클래스]
+* lottoProcess
+- 로또의 전체적인 프로세스를 담당하는 함수입니다.
+* getInputPurchaseAmount
+- 사용자에게 '로또 구입 금액'을 입력받아 this.#purchaseLottosCount에 할당합니다.
+* getLottos
+- '로또 구입 금액' / 1000 의 값을 통해 랜덤 로또 함수를 생성하여 this.#lottos에 할당합니다.
+* getInputWinningNumbers
+- 사용자에게 '당첨 금액'을 입력받아 this.#winningNumbers에 할당합니다.
+* getPrizeResult
+- 사용자에게 '보너스 번호'을 입력받아 this.#bonusNumber에 할당합니다.
+* printRacingCarWinners
+- '로또 번호', '당첨 번호', '보너스 번호'를 통해 당첨 내역, 수익율을 계산한 뒤 각각 this.#pize, this.#rateReturn에 할당합니다.
+
+### PurchaseAmount.js [로또 구입 금액 값을 담당하는 클래스]
+* getPurchaseAmount
+- '로또 구입 금액 / 1000'을 #purchaseAmount에 할당하고 유효성 검사를 실행한 뒤 #purchaseAmount / 1000의 값을 리턴합니다.
+* validate
+- 입력받은 '로또 구입 금액'에 대한 각각의 유효성 검사를 실행합니다.
+* formatLottoNumbers
+- 발행된 로또 출력형식을 위한 format 함수입니다.
+
+### Lotto.js [로또 발행 번호 값을 담당하는 클래스]
+* getLottos
+- 구입한 로또 수만큼 1부터 45까지의 6개 숫자를 랜덤으로 생성하여 #numbers에 할당합니다.
+* validate
+- 구입한 로또에 대한 각각의 유효성 검사를 실행합니다.
+
+### WinningNumbers.js [당첨 번호 값을 담당하는 클래스]
+* getWinningNumbers
+- 입력받은 당첨 번호를 오름차순 한 뒤 #winningNumbers에 할당합니다.
+* validate
+- 당첨 번호에 대한 각각의 유효성 검사를 실행합니다.
+
+### BonusNumber.js [보너스 번호 값을 담당하는 클래스]
+* getBonusNumber
+- 입력받은 보너스 번호와 당첨 번호를 통해 보너스 번호를 #bonusNumber에 할당합니다.
+- 보너스 번호에 대한 각각의 유효성 검사를 실행하며, 당첨 번호를 통해 중복 검사를 실행합니다.
+
+### Prize.js [당첨 내역, 수익율 값을 담당하는 클래스]
+* getPrize
+- 로또 발행 번호, 당첨 번호, 보너스 번호를 통해 일치하는 로또 카운트, 일치하는 보너스 번호 카운트를 계산한 뒤 Prize.LOTTO_STATISTICS의 count 값을 증가하여 리턴합니다.
+* getRateReturn
+- prize 데이터를 통해 수익율을 계산합니다.
+* getPrizeRankCounts
+- 로또 카운트, 보너스 번호 카운트를 통해 로또 발행번호와 일치할 시 카운트를 증가시킵니다.
+* incrementRankCount
+- 증가된 카운트를 이용하여 Prize.LOTTO_STATISTICS에 count 값을 증가시킵니다.
+* isRankConditionMet
+- 로또 카운트와, 보너스 카운트를 구분하는 함수입니다.
+
+## 테스트 결과
+<div style="display: flex; flex-direction: row;">
+    <img src="https://github.com/user-attachments/assets/cb3b78bf-157f-4f79-b131-8375ba567279" style="width: 50%;">
+    <img src="https://github.com/user-attachments/assets/1e00f9d2-fafd-472f-8e50-602b2e1b2f38" style="width: 50%;">
+</div>
+
 ## :computer: 커밋 메세지 컨벤션
 ```
 - Allowed <type>
