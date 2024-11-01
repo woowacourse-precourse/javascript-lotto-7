@@ -53,7 +53,7 @@ class App {
     let userPickedNumbers = [];
     userPickedNumbers = this.splitUserPickedNumbers(
       await this.getUserPickedNumbers()
-    );
+    ).map(Number);
   }
   getLottoCost() {
     return MissionUtils.Console.readLineAsync(GUIDE_MESSAGE_INPUT_COST);
