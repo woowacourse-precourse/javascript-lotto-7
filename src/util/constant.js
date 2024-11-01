@@ -31,7 +31,7 @@ const ERROR = Object.freeze({
   INVALID_INPUT: '[ERROR] 숫자만 입력해야 합니다.',
   INVALID_LOTTO_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
   INVALID_LOTTO_NUMBERS: '[ERROR] 로또 번호는 1 ~ 45 사이여야 합니다.',
-  DUPLICATE_LOTTO_NUMBERS: '[ERROR] 중복된 번호가 있습니다.',
+  DUPLICATE_LOTTO_NUMBERS: '[ERROR] 당첨번호에 보너스 번호가 존재합니다.',
   INVALID_LOTTO_NUMBERS_INPUT: '[ERROR] 입력한 로또 번호들이 문자열이 아닙니다.',
 });
 

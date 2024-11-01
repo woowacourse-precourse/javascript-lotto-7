@@ -1,4 +1,5 @@
 import { ERROR, LOTTO } from "./util/constant.js";
+import Validate from "./ValidateInput.js";
 
 class Purchase {
   #amount;
@@ -11,17 +12,9 @@ class Purchase {
   };
 
   #validate(amount) {
-    if (amount === "") {
-      throw new Error(ERROR.EMPTY_QUERY);
-    };
-
-    if (isNaN(amount)) {
-      throw new Error(ERROR.INVALID_INPUT);
-    };
-
-    if (amount % LOTTO.PRICE !== 0) {
-      throw new Error(ERROR.INVALID_AMOUNT);
-    };
+    Validate.validateEmptyInput(amount);
+    Validate.validateNumber(amount);
+    Validate.validateInputAmount(amount);
   };
 
   #calculateTickets() {

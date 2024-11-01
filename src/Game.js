@@ -4,17 +4,25 @@ import { readUserInput } from "./util/input.js";
 import Lotto from "./Lotto.js";
 import { Console } from "@woowacourse/mission-utils";
 import { generateLottoNumbers } from "./util/general.js";
-import ValidateInput from "./ValidateInput.js";
+import Validate from "./ValidateInput.js";
 
 class Game {
 
   static async startGame() {
     try {
+      // validate purchase amount and generate lottos
       const inputAmount = new Purchase(await readUserInput(INPUT.PURCHASE_AMOUNT));
       const tickets = inputAmount.getTicketCount();
-      this.#buyLotto(tickets);
-      const inputWinningNumbers = new ValidateInput(await readUserInput(INPUT.WINNING_NUMBERS));
-      const winningNumbers = inputWinningNumbers.getLottoNumbers();
+      const generatedTickets = this.#buyLotto(tickets);
+
+      // validate winning numbers
+      const inputWinningNumbers = await readUserInput(INPUT.WINNING_NUMBERS);
+      const winningNumbers = Validate.validateWinningNumbers(inputWinningNumbers);
+
+      // validate bonus numbers
+      const inputBonusNumber = await readUserInput(INPUT.BONUS_NUMBER);
+      const bonusNumber = Validate.validateBonus(inputBonusNumber, winningNumbers);
+
     } catch (error) {
       console.error(error.message);
     };
@@ -31,6 +39,7 @@ class Game {
       purchasedLottos.push(lottoNumbers.getNumbers());
     };
     this.#printPurchasedLotto(tickets, purchasedLottos);
+    return purchasedLottos;
   };
 
   static #printPurchasedLotto(tickets, lottoNumbers) {

@@ -1,28 +1,80 @@
-import { ERROR } from "./util/constant.js";
+import { ERROR, LOTTO } from "./util/constant.js";
 
-class ValidateInput {
-  #input;
-  #numbers;
+class Validate {
+  static validateEmptyInput(input) {
+    if (input === "") {
+      throw new Error(ERROR.EMPTY_QUERY);
+    };
+  };
 
-  constructor(input) {
-    this.#validate(input);
-    this.#input = input;
-    this.#numbers = this.#splitNumbers();
-  }
+  static validateInputAmount(input) {
+    if (input % LOTTO.PRICE !== 0) {
+      throw new Error(ERROR.INVALID_AMOUNT);
+    };
+  };
 
-  #validate(input) {
+  static validateString(input) {
     if (typeof input !== 'string') {
       throw new Error(ERROR.INVALID_LOTTO_NUMBERS_INPUT)
-    }
+    };
+  };
+
+  static validateNumber(number) {
+    if (isNaN(number)) {
+      throw new Error(ERROR.INVALID_INPUT)
+    };
   }
 
-  #splitNumbers() {
-    return this.#input.split(',');
+  static splitNumbers(numbers) {
+    return numbers.split(',');
+  };
+
+  static validateLottoNumbersCount(numbers) {
+    if (numbers.length !== LOTTO.COUNT) {
+      throw new Error(ERROR.INVALID_LOTTO_COUNT);
+    };
   }
 
-  getLottoNumbers() {
-    return this.#numbers;
+  static validateLottoRange(number) {
+    if (number < LOTTO.MIN_NUMBER || number > LOTTO.MAX_NUMBER) {
+      throw new Error(ERROR.INVALID_LOTTO_NUMBERS);
+    };
+  }
+
+  static validateWinningNumbers(winningNumbers) {
+    this.validateString(winningNumbers);
+    const numbers = this.splitNumbers(winningNumbers);
+    this.validateNumbersArray(numbers);
+
+    return numbers;
+  }
+
+  static validateNumbersArray(numbers) {
+    this.validateLottoNumbersCount(numbers);
+    numbers.forEach((number) => {
+      this.validateLottoRange(number);
+    });
+
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error(ERROR.DUPLICATE_LOTTO_NUMBERS);
+    };
+  }
+
+  static validateBonus(bonus, winningNumbers) {
+    this.validateEmptyInput(bonus);
+    const number = Number(bonus);
+    this.validateNumber(number);
+    this.validateLottoRange(number);
+
+    winningNumbers.forEach((number) => {
+      if (number === bonus) {
+        throw new Error(ERROR.DUPLICATE_LOTTO_NUMBERS);
+      };
+    });
+
+    return bonus;
   }
 }
 
-export default ValidateInput;
+export default Validate;
