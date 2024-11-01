@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PROGRESS_MESSAGE } from './constants/Message.js';
-import LOTTO_PRIZES from './Constants/LottoPrizes.js';
+import { PROGRESS_MESSAGE } from '../constants/Message.js';
+import LOTTO_PRIZES from '../Constants/LottoPrizes.js';
 
 class OutputHandler {
   static showPurchsedLotto(lottoTickets) {

@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Lotto from '../src/Lotto.js';
-import MoneyToLottos from '../src/MoneyToLottos.js';
+import Lotto from '../src/Model/Lotto.js';
+import MoneyToLottos from '../src/Contoller/MoneyToLottos.js';
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();

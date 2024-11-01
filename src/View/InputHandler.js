@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PROGRESS_MESSAGE } from './constants/Message.js';
+import { PROGRESS_MESSAGE } from '../constants/Message.js';
 
 class InputHandler {
   static async inputPurchaseAmount() {
