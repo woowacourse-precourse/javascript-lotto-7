@@ -24,5 +24,8 @@ export const ERROR_MESSAGE = {
     ),
     DUPLICATION: Object.freeze(
         `${DEFAULT_ERROR_MESSAGE} 번호가 중복되지 않아야 합니다.`
+    ),
+    BONUS_IN_WINNING_NUM: Object.freeze(
+        `${DEFAULT_ERROR_MESSAGE} 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.`
     )
 }
