@@ -29,8 +29,6 @@
 
 - 구매한 로또 개수에 따른 로또 번호를 모두 저장한 배열 관리
 
-=> 아래는 주요 메서드입니다.
-
 - addInputLotto : 배열에 로또 번호 저장
 - setWinningLotto : 우승번호와 보너스 번호 저장
   = getWinningLotto, getBonusNumber : 우승번호와 보너스 번호 반환
