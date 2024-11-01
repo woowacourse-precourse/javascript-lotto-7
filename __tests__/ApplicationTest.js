@@ -1,6 +1,7 @@
 import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { getLottoBuyCount } from '../src/functions/LottoMake.js';
+import { splitByComma } from '../src/functions/LottoPrize.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -100,5 +101,12 @@ describe('로또 테스트', () => {
 describe('로또 구매 테스트', () => {
   test('getLottoButCount() : 로또 개수를 1000원 기준으로 잘 구하는가?', () => {
     expect(getLottoBuyCount(8000)).toBe(8);
+  });
+});
+
+describe('로또 당첨 테스트', () => {
+  test('splitByComma() : 문자열이 콤마(,)를 기준으로 배열이 나눠지는가?', () => {
+    const stringInput = '1,2,3,4,5';
+    expect(splitByComma(stringInput)).toEqual(['1', '2', '3', '4', '5']);
   });
 });
