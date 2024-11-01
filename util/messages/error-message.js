@@ -1,12 +1,3 @@
-const COMMON_MESSAGES = {
-  INPUT: {
-    LOTTO_PRICE: Object.freeze("구입금액을 입력해주세요."),
-    LOTTO_NUMBER: Object.freeze("당첨 번호를 입력해 주세요."),
-    BONUS_NUMBER: Object.freeze("보너스 번호를 입력해 주세요."),
-  },
-  WINNING_STATISTICS: Object.freeze("당첨 통계\n---"),
-};
-
 const DEFAULT_ERROR_MESSAGE = "[ERROR]";
 const ERROR_MESSAGES = {
   PRICE: {
@@ -62,13 +53,4 @@ const ERROR_MESSAGES = {
   },
 };
 
-const EXECUTE_MESSAGE = {
-  LOTTO_RECEIPT: (count) => Object.freeze(`로또 ${count}개를 구매했습니다.`),
-  STATISTIC_PRIZE: ({ matchingNumber, price, count, isBonus }) =>
-    Object.freeze(
-      `${matchingNumber}개 일치${
-        isBonus ?? ", 보너스 볼 일치"
-      } (${price}원) - ${count}개`
-    ),
-  TOTAL_PRIZE_RATE: (rate) => Object.freeze(`총 수익률은 ${rate}%입니다.`),
-};
+export default ERROR_MESSAGES;
