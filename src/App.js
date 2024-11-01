@@ -4,6 +4,7 @@ class App {
   async run() {
     const amount = await this.#readAmount();
     const lottoCount = Math.floor(amount / 1000);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
   }
 
   async #readAmount() {
@@ -11,5 +12,4 @@ class App {
     return Number(input);
   }
 }
-
 export default App;
