@@ -37,3 +37,7 @@ export const INPUT_VIEW = {
   winningNumbersQuestion: '당첨 번호를 입력해 주세요.',
   bonusNumberQuestion: '보너스 번호를 입력해 주세요.',
 };
+
+export const ERROR_MESSAGE = {
+  notNumber: '숫자만 입력 가능합니다.',
+};
