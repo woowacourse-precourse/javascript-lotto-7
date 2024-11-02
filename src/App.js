@@ -10,6 +10,9 @@ import {
 } from './constants/index.js';
 
 class App {
+  #winningNumbers;
+  #bonusNumber;
+
   async run() {
     const lotteryRetailer = new LotteryRetailer();
     const price = await Console.readLineAsync(INPUT_MESSAGE.price);
@@ -17,7 +20,8 @@ class App {
 
     this.#showLottoTickets(tickets);
 
-    const winningNumbers = this.readWinningNumbers();
+    this.#winningNumbers = await this.readWinningNumbers();
+    this.#bonusNumber = await this.readBonusNumber();
   }
 
   async readWinningNumbers() {
@@ -31,6 +35,15 @@ class App {
     this.#validateWinningNumbers(winningNumbers);
 
     return winningNumbers.map(Number);
+  }
+
+  async readBonusNumber() {
+    const bonus = await Console.readLineAsync(INPUT_MESSAGE.bonus);
+    const bonusNumber = Number(bonus.trim());
+
+    this.#validateBonusNumber(bonusNumber);
+
+    return bonusNumber;
   }
 
   #showLottoTickets(tickets) {
@@ -60,6 +73,30 @@ class App {
     if (hasDuplicateNumber) {
       throw Error(ERROR_MESSAGE.winningNumbers.duplicate);
     }
+  }
+
+  #validateBonusNumber(bonusNumber) {
+    if (isNaN(bonusNumber)) {
+      throw Error(ERROR_MESSAGE.bonusNumber.notNumber);
+    }
+
+    const isInvalidRange = LOTTO.isInvalidRange(bonusNumber);
+    if (isInvalidRange) {
+      throw Error(ERROR_MESSAGE.bonusNumber.range);
+    }
+
+    if (this.#isBonusNumberDuplicate(bonusNumber)) {
+      throw Error(ERROR_MESSAGE.bonusNumber.duplicate);
+    }
+  }
+
+  #isBonusNumberDuplicate(bonusNumber) {
+    const winningNumbersWithBonusSet = new Set([
+      ...this.#winningNumbers,
+      bonusNumber,
+    ]);
+
+    return winningNumbersWithBonusSet.size === LOTTO.numberCount;
   }
 }
 

@@ -12,4 +12,10 @@ export const ERROR_MESSAGE = Object.freeze({
     range: '[ERROR] 로또 당첨 번호는 1~45 사이의 숫자를 입력해주세요.',
     duplicate: '[ERROR] 로또 당첨 번호는 중복되지 않는 숫자로 입력해주세요.',
   },
+  bonusNumber: {
+    notNumber: '[ERROR] 보너스 번호는 숫자로 입력해주세요.',
+    range: '[ERROR] 보너스 번호는 1~45 사이의 숫자를 입력해주세요.',
+    duplicate:
+      '[ERROR] 보너스 번호는 당첨 번호에서 나오지 않은 번호로 입력해주세요.',
+  },
 });

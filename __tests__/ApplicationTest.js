@@ -110,4 +110,18 @@ describe('로또 테스트', () => {
       await app.readWinningNumbers();
     }).rejects.toThrow('[ERROR]');
   });
+
+  test.each([['10s'], ['0'], ['46'], ['1']])(
+    '보너스 번호 입력 예외 테스트: %s',
+    async (bonusNumber) => {
+      const winningNumbers = '1,2,3,4,5,6';
+      mockQuestions([winningNumbers, bonusNumber]);
+
+      const app = new App();
+
+      expect(async () => {
+        await app.run();
+      }).rejects.toThrow('[ERROR]');
+    }
+  );
 });
