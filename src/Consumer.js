@@ -42,14 +42,20 @@ class Consumer {
   }
   ///당첨번호 유효성
   CheckWinningNumberInput() {
-    if (!/^[0-9]+(,[0-9]+)*$/.test(winningNumber)) {
+    if (!/^[0-9]+(,\s*[0-9]+)*$/.test(winningNumber)) {
       throw new Error(ERROR_MESSAGE.ONLY_NUMBER_COMMA);
     }
   }
   isWinningNumberLength() {
-    const maxNum = 7;
+    const maxNum = 6;
     if (winningNumber > maxNum) {
       throw new Error(ERROR_MESSAGE.MAX_PRICE);
+    }
+  }
+
+  numberRangeCheck() {
+    if (winningNumber < 1 || 45 < winningNumber) {
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBER_RANGE);
     }
   }
 }
