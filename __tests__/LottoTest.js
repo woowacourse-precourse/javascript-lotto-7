@@ -20,9 +20,16 @@ describe("로또 클래스 테스트", () => {
     const totalCnt = testLotto.getMatchedTotalCnt();
     const matchedNumCnt = testLotto.getMatchedNumberCnt();
     const isBonusMatched = testLotto.getIsMatchedBonusNumber();
+    const rank = testLotto.getRank();
+
+    const testLotto2 = new Lotto([1, 2, 3, 4, 5, 6]);
+    testLotto2.countingMatchedTotalNumbers([11, 12, 13, 14, 15, 16], 17);
+    const rank2 = testLotto2.getRank();
 
     expect(totalCnt).toBe(6);
     expect(matchedNumCnt).toBe(5);
     expect(isBonusMatched).toBe(true);
+    expect(rank.prize).toBe(30000000);
+    expect(rank2.prize).toBe(0);
   });
 });
