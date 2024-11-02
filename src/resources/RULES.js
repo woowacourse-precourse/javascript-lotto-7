@@ -1,0 +1,6 @@
+export default {
+  LOTTO_PRICE: 1000,
+  PICK_RANGE_START: 1,
+  PICK_RANGE_END: 45,
+  TOTAL_PICK_COUNT: 6,
+};
