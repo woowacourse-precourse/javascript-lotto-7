@@ -18,7 +18,7 @@ class App {
     const price = await Console.readLineAsync(INPUT_MESSAGE.price);
     const tickets = lotteryRetailer.issueTicket(price);
 
-    this.#showLottoTickets(tickets);
+    lotteryRetailer.showLottoTickets(tickets);
 
     this.#winningNumbers = await this.readWinningNumbers();
     this.#bonusNumber = await this.readBonusNumber();
@@ -46,12 +46,6 @@ class App {
     this.#validateBonusNumber(bonusNumber);
 
     return bonusNumber;
-  }
-
-  #showLottoTickets(tickets) {
-    Console.print(OUTPUT_MESSAGE.amount(tickets.length));
-    tickets.forEach((ticket) => ticket.show());
-    Console.print('');
   }
 
   #validateWinningNumbers(numbers) {

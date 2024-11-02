@@ -19,6 +19,12 @@ class LotteryRetailer {
     );
   }
 
+  showLottoTickets(tickets) {
+    Console.print(OUTPUT_MESSAGE.amount(tickets.length));
+    tickets.forEach((ticket) => ticket.show());
+    Console.print('');
+  }
+
   issueTicket(price) {
     this.#validatePrice(price);
 
