@@ -14,6 +14,12 @@ export const inputMethod = Object.freeze({
     );
     return winningNumber.split(NUM.SEPARATOR);
   },
+  inputBonusNumber: async function () {
+    const bonusNumber = await Console.readLineAsync(
+      IOMESSAGE.INPUT_BONUS_NUMBER,
+    );
+    return bonusNumber;
+  },
 });
 
 export const outputMethod = (message) => {

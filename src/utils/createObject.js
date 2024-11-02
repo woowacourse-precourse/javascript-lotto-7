@@ -27,7 +27,10 @@ const createObject = {
     return await retry(inputMethod.inputWinningNumber, validationCondition);
   },
 
-  createBonusNumber: async function () {},
+  createBonusNumber: async function () {
+    const validationCondition = Object.values(validation.bonusNumber);
+    return await retry(inputMethod.inputBonusNumber, validationCondition);
+  },
 };
 
 export default createObject;
