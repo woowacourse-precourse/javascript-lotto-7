@@ -2,7 +2,9 @@ import ConsoleView from "./views/ConsoleView.js";
 
 class App {
   async run() {
-    const purchaseAmount = ConsoleView.getPurchaseAmount();
+    const consoleView = new ConsoleView();
+    const purchaseAmount = await consoleView.getPurchaseAmount();
+    consoleView.printLottoCount(purchaseAmount);
   }
 }
 
