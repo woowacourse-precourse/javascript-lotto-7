@@ -28,4 +28,6 @@ const NUMBER_INPUT_ERROR_MESSAGE = Object.freeze({
   ONLY_NUMBER_COMMA: "[ERROR] 숫자와 쉼표만 입력 가능합니다.",
   NUMBER_RANGE: "[ERROR] 1 ~ 45 사이의 숫자만 입력해 주세요.",
   DUPLICATE_NUMBER: "[ERROR] 중복되지 않는 숫자만 입력해 주세요.",
+  DUPLICATE_BONUS_NUMBER:
+    "[ERROR] 당첨 번호에 포함된 숫자는 입력할 수 없습니다.",
 });

@@ -68,4 +68,11 @@ class Consumer {
       throw new Error(NUMBER_INPUT_ERROR_MESSAGE.DUPLICATE_NUMBER);
     }
   }
+
+  // 보너스 번호 유효성 검사
+  isDuplicateBonusNumber() {
+    if (winningNumber.includes(bonusNumber)) {
+      throw new Error(NUMBER_INPUT_ERROR_MESSAGE.DUPLICATE_BONUS_NUMBER);
+    }
+  }
 }
