@@ -1,4 +1,4 @@
-import Validator from './utils/validator.js';
+import Validator from '../utils/validator.js';
 
 class Lotto {
   #numbers;
@@ -10,6 +10,10 @@ class Lotto {
 
   #validate(numbers) {
     Validator.validateLottoNumbers(numbers);
+  }
+
+  getNumber() {
+    return this.#numbers;
   }
 }
 
