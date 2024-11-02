@@ -5,11 +5,12 @@ import { splitLottoNumber } from './Lottos/splitLottoNumber.js';
 import { scan } from './utils/scanner.js';
 import { getWin } from './WinLotto/getWin.js';
 import { printResult } from './WinLotto/getStatistics.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class App {
   async run() {
-    const price = await scan('구입금액을 입력해 주세요.');
-    const lottos = getLottos(getLottoAmount(price));
+    const lottoAmount = await getLottoAmount();
+    const lottos = getLottos(lottoAmount);
 
     const lottoString = await scan('\n당첨 번호를 입력해 주세요.');
     const lotto = splitLottoNumber(lottoString);
@@ -19,7 +20,7 @@ class App {
     const bonusNumber = await scan('\n보너스 번호를 입력해 주세요.');
 
     const gradeArr = getWin(lottos, lotto, Number(bonusNumber));
-    printResult(gradeArr, price);
+    printResult(gradeArr, lottoAmount * 1000);
   }
 }
 

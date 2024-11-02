@@ -10,7 +10,7 @@ export const getLottos = (num) => {
       (a, b) => a - b
     );
     lottos.push(lotto);
-    Console.print(lotto);
+    Console.print('[' + lotto.join(', ') + ']');
   }
   return lottos;
 };
