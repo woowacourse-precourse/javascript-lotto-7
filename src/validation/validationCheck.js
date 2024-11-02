@@ -20,11 +20,3 @@ export const validationCheck = {
         return Number(number);
     }
 }
-
-export const purchasePriceValidation = {
-    isValidPurchasePrice: (purchasePrice) => {
-        purchasePrice = validationCheck.isPositiveNumber(purchasePrice)
-        purchasePrice = validationCheck.isInRange(purchasePrice)
-        return validationCheck.isDividedNumberByValue(purchasePrice, PURCHASE_PRICE.MIN_CURR_UNIT)
-    }
-}
