@@ -1,8 +1,9 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { INPUT_MESSAGES, AMOUNT } from './constants.js';
+import Lotto from './Lotto.js';
 
-class LottoSetting {
-  #numberOfLotto;
+class BuyLotto {
+  #quantityOfLotto;
 
   constructor() {
     this.lottos = [];
@@ -12,8 +13,8 @@ class LottoSetting {
     return await Console.readLineAsync(INPUT_MESSAGES.lottoAmountInput + '\n');
   }
 
-  #countNumberOfLotto(amount) {
-    this.#numberOfLotto = amount / AMOUNT.lottoAmount;
+  #countQuantitiyOfLotto(amount) {
+    this.#quantityOfLotto = amount / AMOUNT.lottoAmount;
   }
 
   #ascendinglottoNumber(lotto) {
@@ -21,26 +22,28 @@ class LottoSetting {
   }
 
   #createRandomLottos() {
-    for (let i = 0; i < this.#numberOfLotto; i++) {
+    for (let i = 0; i < this.#quantityOfLotto; i += 1) {
       const lotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
       this.lottos.push(this.#ascendinglottoNumber(lotto));
     }
   }
 
-  #printLottoQuantityAndLottos() {
-    Console.print('\n');
-    Console.print(`${this.#numberOfLotto}개를 구매했습니다.`);
-    this.lottos.map((lotto) => {
-      Console.print(lotto);
-    });
+  #printLottos() {
+    this.lottos.map((lotto) => Console.print(lotto));
   }
 
-  async settingLotto() {
+  #printLottoQuantity() {
+    Console.print(`\n${this.#quantityOfLotto}개를 구매했습니다.`);
+  }
+
+  async buyLotto() {
     const amount = await this.#getPurchaseAmount();
-    this.#countNumberOfLotto(amount);
+    this.#countQuantitiyOfLotto(amount);
     this.#createRandomLottos();
-    this.#printLottoQuantityAndLottos();
+    this.#printLottoQuantity();
+    this.#printLottos();
+    return this.lottos;
   }
 }
 
-export default LottoSetting;
+export default BuyLotto;
