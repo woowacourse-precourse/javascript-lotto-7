@@ -7,7 +7,7 @@ const outputView = {
   },
 
   printStatisticsHeader: () => {
-    Console.print(OUTPUT_VIEW.winningStatisticsHeader);
+    Console.print(OUTPUT_VIEW.statisticsHeader);
   },
 
   printSeparatingMark: () => {
@@ -22,11 +22,7 @@ const outputView = {
 
   printBonusStatistics: (numbersOfMatched, matchingCount, prize) => {
     Console.print(
-      OUTPUT_VIEW.winningBonusStatistics(
-        numbersOfMatched,
-        matchingCount,
-        prize,
-      ),
+      OUTPUT_VIEW.bonusStatistics(numbersOfMatched, matchingCount, prize),
     );
   },
 
