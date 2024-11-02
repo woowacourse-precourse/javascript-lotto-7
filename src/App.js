@@ -26,13 +26,10 @@ class App {
       bonusNumber
     );
 
-    const totalPrizeMoney =
-      howManyMatch[0] * CONDITIONS.THREE_MATCHING_PRIZES +
-      howManyMatch[1] * CONDITIONS.FOUR_MATCHING_PRIZES +
-      howManyMatch[2] * CONDITIONS.FIVE_MATCHING_PRIZES +
-      howManyMatch[3] * CONDITIONS.FIVE_WITH_BONUS_MATCHING_PRIZES +
-      howManyMatch[4] * CONDITIONS.SIX_MATCHING_PRIZES;
-    const rateOfReturn = ((totalPrizeMoney / +purchaseAmount) * 100).toFixed(1);
+    const rateOfReturn = this.calculateRateOfReturn(
+      howManyMatch,
+      purchaseAmount
+    );
 
     OutputView.printWinningStatistics(howManyMatch, rateOfReturn);
   }
@@ -105,6 +102,17 @@ class App {
     });
 
     return howManyMatch;
+  }
+
+  calculateRateOfReturn(howManyMatch, purchaseAmount) {
+    const totalPrizeMoney =
+      howManyMatch[0] * CONDITIONS.THREE_MATCHING_PRIZES +
+      howManyMatch[1] * CONDITIONS.FOUR_MATCHING_PRIZES +
+      howManyMatch[2] * CONDITIONS.FIVE_MATCHING_PRIZES +
+      howManyMatch[3] * CONDITIONS.FIVE_WITH_BONUS_MATCHING_PRIZES +
+      howManyMatch[4] * CONDITIONS.SIX_MATCHING_PRIZES;
+
+    return ((totalPrizeMoney / +purchaseAmount) * 100).toFixed(1);
   }
 }
 
