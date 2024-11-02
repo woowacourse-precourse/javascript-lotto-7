@@ -29,6 +29,7 @@ class BonusNumberValidator {
     if (!this.isValidateBonusNumberRange(bonusNumber)) {
       throw new Error(ERROR_MESSAGE.NUMBER_RANGE);
     }
+
     return true;
   }
 }

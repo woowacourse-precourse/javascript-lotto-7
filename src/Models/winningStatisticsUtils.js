@@ -25,7 +25,6 @@ const countLottoWinning = (winningNumbers, lottoList, getWinningNumPlusBonusNum)
 const getWinningNumPlusBonus = (winningNum, bonusNum) => {
   const getWinningNumPlusBonusNum = winningNum;
   getWinningNumPlusBonusNum.push(Number(bonusNum));
-
   return getWinningNumPlusBonusNum;
 };
 
@@ -41,7 +40,6 @@ const calculateWinningAmount = () => {
     matchCounts.fiveMatches * 1500000 +
     matchCounts.fiveMatchesAndBonus * 30000000 +
     matchCounts.sixMatches * 2000000000;
-
   return winningAmount;
 };
 

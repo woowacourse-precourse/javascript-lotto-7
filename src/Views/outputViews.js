@@ -10,11 +10,8 @@ const printLottoList = (lottoCount, lottoList) => {
   for (let i = 0; i < lottoCount; i += 1) {
     Console.print(`[${totalLottoList[i].join(', ')}]`);
   }
+
   Console.print('\n');
-};
-// TODO: 출력 순서대로 가독성 있게 변경
-const printRateOfReturn = (rateOfReturn) => {
-  Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
 };
 
 const printWinningAmount = () => {
@@ -29,4 +26,7 @@ const printWinningAmount = () => {
   );
 };
 
+const printRateOfReturn = (rateOfReturn) => {
+  Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+};
 export { printCountPurchaseAmount, printLottoList, printRateOfReturn, printWinningAmount };

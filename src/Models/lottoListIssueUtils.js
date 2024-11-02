@@ -7,6 +7,7 @@ const issueLottoList = (lottoCount) => {
     const sortResult = issueOneLottoList.sort((a, b) => a - b);
     lottoList.push(sortResult);
   }
+
   return lottoList;
 };
 

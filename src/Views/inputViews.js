@@ -3,7 +3,7 @@ import { PurchaseAmountValidator } from '../Controllers/Validator/purchaseAmount
 import { WinningNumbersValidator } from '../Controllers/Validator/winningNumbersValidator.js';
 import { BonusNumberValidator } from '../Controllers/Validator/bonusNumberValidator.js';
 
-class Inputs {
+class Input {
   constructor() {
     this.purchaseAmountValidator = new PurchaseAmountValidator();
     this.winningNumbersValidator = new WinningNumbersValidator();
@@ -63,4 +63,4 @@ class Inputs {
   }
 }
 
-export { Inputs };
+export { Input };

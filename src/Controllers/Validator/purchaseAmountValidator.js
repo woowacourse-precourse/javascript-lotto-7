@@ -26,6 +26,7 @@ class PurchaseAmountValidator {
       this.valid = false;
       throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRICE);
     }
+
     return true;
   }
 }

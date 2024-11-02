@@ -39,18 +39,23 @@ class WinningNumbersValidator {
     if (!this.isWinningNumbersEmptyInput(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.EMPTY_INPUT_WINNING_NUMBERS);
     }
+
     if (!this.isWinningNumbersSixDigits(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
     }
+
     if (!this.isWinningNumbersRange(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.NUMBERS_RANGE);
     }
+
     if (!this.isWinningNumbersFiveComma(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.COMMA_COUNT);
     }
+
     if (!this.isWinningNumberDuplicated(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.UNIQUE_NUMBER);
     }
+    
     return true;
   }
 }
