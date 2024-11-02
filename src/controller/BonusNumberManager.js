@@ -2,25 +2,24 @@ import ValidateNumber from './ValidateNumber';
 import { NUMBER_ERROR_MESSAGES } from '../contents/InputErrorMessages';
 
 class BonusNumber {
-  #number;
-  constructor(number) {
-    this.#validate(number);
-    this.#number = number;
+  #bonusNum;
+  constructor(bonusNum, winningNum) {
+    this.#validate(bonusNum, winningNum);
+    this.#bonusNum = bonusNum;
   }
 
-  #validate(number) {
+  #validate(bonusNum, winningNum) {
     ValidateNumber.checkMissing(
-      number,
+      bonusNum,
       `[ERROR] : ${NUMBER_ERROR_MESSAGES.BonusNumberGuid}`,
     );
     ValidateNumber.validateNumber(
-      number,
+      bonusNum,
       NUMBER_ERROR_MESSAGES.numberOutOfRange,
     );
-  }
-
-  getNumber() {
-    return this.#number; // 내부 메서드를 통해 접근 가능
+    if (winningNum.includes(bonusNum)) {
+      throw new Error(NUMBER_ERROR_MESSAGES.dupicateWinnig);
+    }
   }
 }
 
