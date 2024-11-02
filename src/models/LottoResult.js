@@ -13,6 +13,7 @@ export default class LottoResult {
       },
       {}
     );
+    this.#resultPrice = 0;
   }
 
   getResult() {
@@ -30,6 +31,7 @@ export default class LottoResult {
   saveResult(matchCount, isBonusNumberMatch) {
     if (lottoConfig.WIN_MATCH_COUNTS.includes(matchCount)) {
       let matchKey;
+
       if (matchCount === 5 && isBonusNumberMatch) {
         matchKey = '5개 일치, 보너스 볼 일치';
       } else if (lottoConfig.WIN_MATCH_COUNTS.includes(matchCount)) {
@@ -38,6 +40,7 @@ export default class LottoResult {
 
       if (matchKey && this.#result.hasOwnProperty(matchKey)) {
         this.#result[matchKey]++;
+        this.#resultPrice += lottoConfig.WINNING_PRIZE_MAP[matchKey]
       }
     }
   }
