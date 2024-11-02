@@ -1,12 +1,16 @@
-import { ERRORMESSAGE } from './constants/index.js';
+import { ERRORMESSAGE, NUM } from './constants/index.js';
 
 const validation = Object.freeze({
   /**
    *
    * @param {str} numberStr
    */
-  isNotNumber: function (numbers) {
-    if (isNaN(numbers)) throw new Error(ERRORMESSAGE.ISNOTNUMBER);
+  isNotNumber: function (number) {
+    if (isNaN(number)) throw new Error(ERRORMESSAGE.ISNOTNUMBER);
+  },
+  isNotPositiveNumber: function (number) {
+    if (Number(number) < NUM.MINIMUM_POSITIVE_NUMBER)
+      throw new Error(ERRORMESSAGE.ISNOTPOSITIVENUMBER);
   },
 });
 
