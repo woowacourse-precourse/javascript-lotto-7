@@ -1,30 +1,27 @@
-import LottoService from '../services/LottoService.js';
-import InputLottoView from '../views/InputLottoView.js';
-import OutputLottoView from '../views/OutputLottoView.js';
-
 export default class LottoController {
+  #lottoPurchaser;
+  #winningLotto;
   #inputLottoView;
   #outputLottoView;
-  #lottoService;
 
-  constructor() {
-    this.#inputLottoView = new InputLottoView();
-    this.#outputLottoView = new OutputLottoView();
-    this.#lottoService = new LottoService();
+  constructor(lottoPurchaser, winningLotto, inputLottoView, outPutLottoView) {
+    this.#lottoPurchaser = lottoPurchaser;
+    this.#winningLotto = winningLotto;
+    this.#inputLottoView = inputLottoView;
+    this.#outputLottoView = outPutLottoView;
   }
 
   async run() {
-    const purchasedLottos = await this.#getInputPriceAndPurchaseLottos();
+    await this.#purchaseLottos();
   }
 
-  async #getInputPriceAndPurchaseLottos() {
+  async #purchaseLottos() {
     while (true) {
       try {
         const purchasePrice = await this.#inputLottoView.getInputPrice();
-        this.#lottoService.purchaseLottos(purchasePrice);
-        this.#lottoService.generateLottos(purchasePrice);
+        this.#lottoPurchaser.purchase(purchasePrice);
 
-        return ;
+        return;
       } catch (error) {
         this.#outputLottoView.printMessage(error.message);
       }
