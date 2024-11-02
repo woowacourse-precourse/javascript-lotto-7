@@ -1,5 +1,6 @@
 import Validator from '../../src/utils/Validator';
 import { ERROR_MESSAGES } from '../../src/constants/messages';
+import REGEX from '../../src/constants/regex';
 
 // 유효하지 않은 금액 테스트
 test.each([
@@ -22,5 +23,22 @@ test.each(['1000', '5000', '10000', '50000', '100000'])(
     expect(() => {
       Validator.validateAmount(amount);
     }).not.toThrow();
+  },
+);
+
+// 유효하지 않은 입력 테스트
+test.each([
+  { value: '', regex: REGEX.NUMBER_REGEX, errorMessage: ERROR_MESSAGES.EMPTY_INPUT },
+  { value: 'abc', regex: REGEX.NUMBER_REGEX, errorMessage: ERROR_MESSAGES.INVALID_AMOUNT_INPUT },
+  { value: '123a', regex: REGEX.NUMBER_REGEX, errorMessage: ERROR_MESSAGES.INVALID_AMOUNT_INPUT },
+  {
+    value: '1,2,a',
+    regex: REGEX.NUMBER_AND_COMMA_REGEX,
+    errorMessage: ERROR_MESSAGES.INVALID_WINNING_NUMBER_INPUT,
+  },
+])(
+  '[유효하지 않은 입력 검사] "$value" 입력 시 예외가 발생한다: $errorMessage',
+  ({ value, regex, errorMessage }) => {
+    expect(() => Validator.validateInput(value, regex, errorMessage)).toThrow(errorMessage);
   },
 );
