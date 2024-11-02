@@ -1,7 +1,11 @@
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
+
 export default class BuyLotto {
   #price = 0;
   #winningNumber = [];
   #bonusNumber = 0;
+  #purchaseAmount = 0;
+  #PRICE_OF_A_LOTTO = 1000;
   #PRICE_PROMPT = "구입금액을 입력해 주세요.";
   #WINNING_NUMBER_PROMPT = "당첨 번호를 입력해 주세요.";
   #BONUS_NUMBER_PROMPT = "보너스 번호를 입력해 주세요.";
@@ -11,6 +15,7 @@ export default class BuyLotto {
     Console.print(this.#PRICE_PROMPT);
     this.#price = await Console.readLineAsync("");
     Console.print(this.#EMPTY_STRING);
+    this.#getAmountOfLotto(this.#price);
   }
 
   async enterWinningNumber() {
@@ -25,5 +30,9 @@ export default class BuyLotto {
     Console.print(this.#BONUS_NUMBER_PROMPT);
     this.#bonusNumber = await Console.readLineAsync("");
     Console.print(this.#EMPTY_STRING);
+  }
+
+  #getAmountOfLotto(price) {
+    this.#purchaseAmount = Number(price) / this.#PRICE_OF_A_LOTTO;
   }
 }
