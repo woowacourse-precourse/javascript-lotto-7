@@ -16,11 +16,11 @@ export const PRIZE_MONEY = {
   MISS: 0,
 };
 
-export const MESSAGES = {
+export const UI_MESSAGES = {
   INPUT: {
-    PURCHASE_AMOUNT: "구입금액을 입력해 주세요.",
-    WINNING_NUMBERS: "당첨 번호를 입력해 주세요.",
-    BONUS_NUMBER: "보너스 번호를 입력해 주세요.",
+    PURCHASE_AMOUNT: "구입금액을 입력해 주세요.\n",
+    WINNING_NUMBERS: "당첨 번호를 입력해 주세요.\n",
+    BONUS_NUMBER: "보너스 번호를 입력해 주세요.\n",
   },
   OUTPUT: {
     PURCHASE_COUNT: (count) => `${count}개를 구매했습니다.`,
