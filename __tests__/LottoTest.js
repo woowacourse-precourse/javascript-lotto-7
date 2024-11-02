@@ -1,7 +1,7 @@
 import Lotto from '../src/Lotto';
 import { ERROR } from '../src/constants/Constants.js';
 
-describe('로또 클래스 테스트', () => {
+describe('로또 번호 클래스 예외 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 6, 7]);
