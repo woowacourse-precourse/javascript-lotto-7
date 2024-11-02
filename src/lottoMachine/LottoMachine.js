@@ -2,6 +2,7 @@ import { Input } from './Input.js';
 import { Validation } from './Validation.js';
 import { Calculation } from './Calculation.js';
 import { Output } from './Output.js';
+import { Console } from '@woowacourse/mission-utils';
 
 export class LottoMachine {
   #input;
@@ -16,9 +17,20 @@ export class LottoMachine {
     this.#output = new Output();
   }
 
+  async inputAttemptPurchasePrice() {
+    try {
+      const purchasePrice = await this.#input.getPurchasePrice();
+      this.#validation.validatePurchasePrice(purchasePrice);
+
+      return purchasePrice;
+    } catch (error) {
+      Console.print(error.message);
+      return await this.inputAttemptPurchasePrice();
+    }
+  }
+
   async run() {
-    const purchasePrice = await this.#input.getPurchasePrice();
-    this.#validation.validatePurchasePrice(purchasePrice);
+    const purchasePrice = await this.inputAttemptPurchasePrice();
 
     const lottoTicketCount = this.#calculation.getLottoTicketCount(purchasePrice);
     this.#output.printLottoTicketCount(lottoTicketCount);
