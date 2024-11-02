@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-import { validateUserMoney } from '../validators/InputValidator.js';
+import { validateUserMoney, validateNumber } from '../validators/InputValidator.js';
 
 import parseWinningNumbers from '../utils/parsedWinningNumbers.js';
 
@@ -10,6 +10,7 @@ import { INPUT_ERROR_MESSAGE } from '../constants/message.js';
 export async function getUserMoney() {
   try {
     const userMoney = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
+    validateNumber(userMoney);
     validateUserMoney(userMoney);
     return parseInt(userMoney, 10);
   } catch (error) {
@@ -29,6 +30,7 @@ export async function getWinningNumbers() {
 export async function getBonusNumber() {
   try {
     const bonusNumber = await MissionUtils.Console.readLineAsync(BONUS_NUMBER_PROMPT);
+    validateNumber(bonusNumber);
     return parseInt(bonusNumber, 10);
   } catch (error) {
     throw new Error(INPUT_ERROR_MESSAGE);
