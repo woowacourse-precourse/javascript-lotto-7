@@ -9,12 +9,20 @@ const readLineAsyncMock = (input) => {
   });
 };
 
-const bonusNumberReadLineAsyncMock = (inputs) => {
+const arrReadLineAsyncMock = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
   inputs.reduce((acc, input) => {
     return acc.mockReturnValueOnce(input);
   }, MissionUtils.Console.readLineAsync);
+};
+
+const mapToObject = (map) => {
+  const obj = {};
+  map.forEach((value, key) => {
+    obj[key] = value;
+  });
+  return obj;
 };
 
 /* eslint-disable max-lines-per-function */
@@ -131,7 +139,7 @@ describe('로또 발매기 클래스 테스트', () => {
     ['1,2,3,4,5,6', 6, new Error('[ERROR')],
   ])('보너스번호 입력 메서드', async (input, bonusNumber, expected) => {
     // given
-    bonusNumberReadLineAsyncMock([input, bonusNumber]);
+    arrReadLineAsyncMock([input, bonusNumber]);
     const lottoMachine = new LottoMachine();
     lottoMachine.inputWinningNumbersTestMethod();
 
@@ -143,5 +151,32 @@ describe('로또 발매기 클래스 테스트', () => {
       await lottoMachine.inputBonusNumberTestMethod();
       expect(lottoMachine.bonusNumber).toBe(expected);
     }
+  });
+
+  test.each([
+    [[1, 2, 3, 4, 5, 6], { 1: 1, 2: 0, 3: 0, 4: 0, 5: 0 }], // 6 개 일치 => 1등
+    [[1, 2, 3, 4, 5, 7], { 1: 0, 2: 1, 3: 0, 4: 0, 5: 0 }], // 5 개 일치 + 보너스 번호 => 2등
+    [[1, 2, 3, 4, 5, 10], { 1: 0, 2: 0, 3: 1, 4: 0, 5: 0 }], // 5 개 일치 => 3등
+    [[1, 2, 3, 4, 7, 11], { 1: 0, 2: 0, 3: 0, 4: 1, 5: 0 }], // 4 개 일치 + 보너스 번호 => 4 등
+    [[1, 2, 3, 4, 10, 11], { 1: 0, 2: 0, 3: 0, 4: 1, 5: 0 }], // 4 개 일치 => 4 등
+    [[1, 2, 3, 7, 11, 12], { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1 }], // 3 개 일치 + 보너스 번호 => 5 등
+    [[1, 2, 3, 10, 11, 12], { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1 }], // 3 개 일치 => 5 등
+  ])('당첨 등수계산 메서드', async (inputs, expected) => {
+    // given
+    const LOTTO_NUM = '1,2,3,4,5,6';
+    const BONUS_NUM = 7;
+    arrReadLineAsyncMock([LOTTO_NUM, BONUS_NUM]);
+    const lottoMachine = new LottoMachine();
+    const lotto = new Lotto(inputs);
+    lottoMachine.setLottosTestMethod([lotto]);
+    await lottoMachine.inputWinningNumbersTestMethod();
+    await lottoMachine.inputBonusNumberTestMethod();
+
+    // when
+    lottoMachine.rankLottoResultTestMethod();
+
+    // then
+
+    expect(mapToObject(lottoMachine.rankResultMap)).toEqual(expected);
   });
 });

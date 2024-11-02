@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import rank from './rankInfo.js';
 
 class LottoMachine {
   #amount;
@@ -10,11 +11,20 @@ class LottoMachine {
 
   #bonusNumber;
 
+  #resultRankMap;
+
   constructor() {
     this.#amount = 0;
     this.#lottos = [];
     this.#winningNumbers = 0;
     this.#bonusNumber = 0;
+  }
+
+  initialMap() {
+    this.#resultRankMap = new Map();
+    for (let i = 1; i <= 5; i += 1) {
+      this.#resultRankMap.set(i, 0);
+    }
   }
 
   get amount() {
@@ -33,9 +43,15 @@ class LottoMachine {
     return this.#bonusNumber;
   }
 
+  get rankResultMap() {
+    return this.#resultRankMap;
+  }
+
   async start() {
     await this.#inputPurchaseAmount();
     await this.#inputWinningNumbers();
+    await this.#inputBonusNumber();
+    this.#rankLottoResult();
   }
 
   async #inputPurchaseAmount() {
@@ -117,6 +133,39 @@ class LottoMachine {
     this.#bonusNumber = Number(input);
   }
 
+  #rankLottoResult() {
+    this.initialMap();
+    const lottos = this.#lottos;
+    for (let i = 0; i < lottos.length; i += 1) {
+      const lotto = lottos[i];
+      const matchCnt = this.#countMatchNumber(lotto);
+      this.#updateResultMap(
+        matchCnt,
+        lotto.numbers.includes(this.#bonusNumber),
+      );
+    }
+  }
+
+  #updateResultMap(matchCnt, isBonusNumberMatch) {
+    const resultMap = this.#resultRankMap;
+    let resultRank = rank[matchCnt];
+    if (matchCnt === 5 && isBonusNumberMatch) {
+      resultRank = 2;
+    }
+    resultMap.set(resultRank, resultMap.get(resultRank) + 1);
+  }
+
+  #countMatchNumber(lotto) {
+    const lottoNumbers = lotto.numbers;
+    let cnt = 0;
+    for (let i = 0; i < lottoNumbers.length; i += 1) {
+      if (this.#winningNumbers.includes(lottoNumbers[i])) {
+        cnt += 1;
+      }
+    }
+    return cnt;
+  }
+
   inputPurchaseAmountTestMethod() {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('테스트코드에서만 접근가능');
@@ -136,6 +185,20 @@ class LottoMachine {
       throw new Error('테스트코드에서만 접근가능');
     }
     return this.#inputBonusNumber();
+  }
+
+  setLottosTestMethod(lottos) {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    this.#lottos = lottos;
+  }
+
+  rankLottoResultTestMethod() {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    return this.#rankLottoResult();
   }
 }
 
