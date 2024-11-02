@@ -33,7 +33,7 @@ function printLottoPurchase(lottos) {
   }
 }
 
-async function getWinningNumberArray() {
+async function getTargetLottoArray() {
   const message = '\n당첨 번호를 입력해 주세요.\n';
   const numbers = await MissionUtils.Console.readLineAsync(message);
   const stringArray = numbers.split(',');
@@ -60,6 +60,16 @@ function isIncludeBonusNumber(bonusNumber, lotto) {
 }
 
 // 여러개의 로또들을 받고 몇개 당첨됐는지 object로 정리하는 함수
+function getAllNumberWon(lottos, targetLotto, bonusNumber) {
+  const lottosNumber = Object.keys(lottos).length;
+  const allLottoMatchNumber = {};
+  for (let i = 0; i < lottosNumber; i += 1) {
+    const curMatchNumber = getMatchNumber(lottos[i], targetLotto);
+    allLottoMatchNumber[i] = curMatchNumber;
+    allLottoMatchNumber.bonus = isIncludeBonusNumber(bonusNumber, lottos[i]);
+  }
+  return allLottoMatchNumber;
+}
 
 function printWinningStatistics() {
   MissionUtils.Console.print('당첨 통계');
@@ -73,9 +83,10 @@ class App {
     const lottos = createLottos(cash);
     printLottoPurchase(lottos);
 
-    const winningNumberArray = await getWinningNumberArray();
+    const targetLotto = await getTargetLottoArray();
     const bonusNumber = await getBonusNumber();
-    console.log(getMatchNumber(lottos[0], winningNumberArray));
+    const winStatistics = getAllNumberWon(lottos, targetLotto, bonusNumber);
+    console.log(winStatistics);
   }
 }
 
