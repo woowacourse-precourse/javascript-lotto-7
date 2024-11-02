@@ -59,7 +59,7 @@ class Input {
 			throw new Error(ERROR_MESSAGE.PASSED_WINNING_RANGE);
 		}
 		if (new Set(INPUT_WINNING).size !== INPUT_WINNING.length) {
-			throw new Error(ERROR_MESSAGE.WRONG_DUPLICATE);
+			throw new Error(ERROR_MESSAGE.DUPLICATE_WINNING_NUMBER);
 		}
 	}
 
@@ -83,7 +83,7 @@ class Input {
 			throw new Error(ERROR_MESSAGE.PASSED_BONUS_RANGE);
 		}
 		if (isDuplicate) {
-			throw new Error(ERROR_MESSAGE.WRONG_DUPLICATE);
+			throw new Error(ERROR_MESSAGE.DUPLICATE_WINNING_NUMBER);
 		}
 	}
 }
