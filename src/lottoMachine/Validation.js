@@ -23,15 +23,11 @@ export class Validation {
     }
 
     winningNumArr.forEach((num) => {
-      if (num.trim() === '') {
-        throw new Error('[ERROR] 빈 값이 있습니다.\n');
-      }
-
-      if (Number.isNaN(Number(num)) === true) {
+      if (num === true) {
         throw new Error('[ERROR] 숫자를 입력해 주세요.\n');
       }
 
-      if (Number(num) < 1 || Number(num) > 45) {
+      if (num < 1 || num > 45) {
         throw new Error('[ERROR] 1 ~ 45 사이의 숫자를 입력해 주세요.\n');
       }
     });
