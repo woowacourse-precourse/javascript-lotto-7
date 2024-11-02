@@ -44,10 +44,13 @@ export default class LottoController {
     // 당첨 내역 출력
     this.view.showWinningStatistics(rankingCount);
 
-    // 수익률 계산
-    const rate = new CalculateTotalReturn(
+    // 총 수익률 계산
+    const totalReturnRate = new CalculateTotalReturn(
       purchaseAmount,
       rankingCount
     ).calculateReturnRate();
+
+    // 총 수익률 출력
+    this.view.showTotalReturnRate(totalReturnRate);
   }
 }

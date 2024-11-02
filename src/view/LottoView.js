@@ -32,4 +32,8 @@ export default class LottoView {
       );
     });
   }
+
+  showTotalReturnRate(totalReturnRate) {
+    Console.print(`총 수익률은 ${totalReturnRate}%입니다.`);
+  }
 }
