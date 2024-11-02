@@ -8,6 +8,7 @@ class App {
   #money;
   #lottos;
   #winningNumber;
+  #bonusNumber;
   #output;
 
   constructor() {
@@ -26,6 +27,9 @@ class App {
 
       const numbers = await this.input.getWinningNumbers();
       this.#winningNumber = new Lotto(numbers);
+
+      const bonusNumber = await this.input.getBonusNumber();
+      this.isDuplicateBonus(bonusNumber);
     } catch (error) {
       Console.print(error.message);
       throw error;
@@ -40,6 +44,16 @@ class App {
 
       this.#lottos.push(lotto);
     }
+  }
+
+  // 입력받은 보너스 숫자가 당첨 번호와 중복되는지?
+  isDuplicateBonus(bonusNumber) {
+    for (const number of this.#winningNumber.getNumbers()) {
+      if (number === bonusNumber)
+        throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.");
+    }
+
+    this.#bonusNumber = bonusNumber;
   }
 }
 

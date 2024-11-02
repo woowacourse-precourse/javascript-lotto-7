@@ -15,12 +15,21 @@ class Input {
   }
 
   async getWinningNumbers() {
-    const numbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    const numbers = await Console.readLineAsync(
+      "\n당첨 번호를 입력해 주세요.\n"
+    );
 
     return numbers.split(",").map((number) => {
       number.trim();
       this.validateNumber(number);
     });
+  }
+
+  async getBonusNumber() {
+    const number = await Console.readLineAsync(
+      "보너스 번호를 입력해 주세요.\n"
+    );
+    return this.validateNumber(number);
   }
 
   validateNumber(input) {
