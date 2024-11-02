@@ -4,7 +4,9 @@ class App {
     async run() {
         const inputHandler = new InputHandler();
 
-        await inputHandler.getLottoTryCount();
+        const lottoCount = await inputHandler.getLottoTryCount();
+        console.log(`${lottoCount}개를 구매했습니다.`);
+
         await inputHandler.getJackpotNumbers();
         await inputHandler.getBonusNumber();
     }
