@@ -25,34 +25,28 @@ class Lotto {
     }
   }
 
-  getLottoResult(winningNumbers, bonusNumber) {
+  getLottoRank(winningNumbers, bonusNumber) {
     const winningNumbersArray = [...winningNumbers.split(","), bonusNumber];
 
     const matchedCount = this.#numbers.filter((number) =>
       winningNumbersArray.includes(number.toString())
     ).length;
 
-    if (matchedCount === 3) {
-      return 5;
+    switch (matchedCount) {
+      case 6:
+        if (this.#numbers.includes(Number(bonusNumber))) {
+          return 2;
+        }
+        return 1;
+      case 5:
+        return 3;
+      case 4:
+        return 4;
+      case 3:
+        return 5;
+      default:
+        return 0;
     }
-
-    if (matchedCount === 4) {
-      return 4;
-    }
-
-    if (matchedCount === 5) {
-      return 3;
-    }
-
-    if (matchedCount === 6) {
-      if (this.#numbers.includes(Number(bonusNumber))) {
-        return 2;
-      }
-
-      return 1;
-    }
-
-    return 0;
   }
 }
 

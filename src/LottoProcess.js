@@ -98,7 +98,7 @@ class LottoProcess {
   getWinningRanks() {
     return this.#lottos.reduce(
       (obj, lotto) => {
-        const rank = lotto.getLottoResult(
+        const rank = lotto.getLottoRank(
           this.#winningNumbers,
           this.#bonusNumber
         );
