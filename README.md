@@ -33,6 +33,25 @@
 - 입력한 보너스 번호가 로또 당첨번호에 이미 있는 번호인 경우
 
 ## 📁 파일 구조
+```javascript
+src
+├── constants
+│   └── Constants.js
+├── controller
+│   └── LottoController.js
+├── model
+│   ├── CalculateProfitModel.js
+│   ├── Lotto.js
+│   └── LottoNumbersModel.js
+├── util
+│   └── Validator.js
+└── view
+│   ├── InputView.js
+│   ├── OutputView.js
+├── App.js
+└── index.js
+
+```
 
 ## 📥 설치 및 실행 방법
 
