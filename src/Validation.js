@@ -43,6 +43,13 @@ class Validation {
       throw new Error(ERROR_MESSAGE.notInteger);
     }
   }
+
+  static isNotDuplicated(numbers) {
+    const numberSet = new Set([...numbers]);
+    if (numberSet.size !== numbers.length) {
+      throw new Error(ERROR_MESSAGE.isDuplicated);
+    }
+  }
 }
 
 export default Validation;
