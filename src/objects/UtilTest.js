@@ -10,7 +10,7 @@ import {
   getIsPositive,
   getIsThousandUnit,
   intersection,
-} from '../src/lib/utils';
+} from '../lib/utils';
 
 describe('유틸 함수', () => {
   describe('intersection', () => {

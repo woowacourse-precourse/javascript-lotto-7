@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE } from '../src/lib/constants';
-import Lotto from '../src/Lotto';
+import { ERROR_MESSAGE } from '../lib/constants';
+import { Lotto } from '.';
 
 describe('Lotto', () => {
   describe('예외 케이스', () => {

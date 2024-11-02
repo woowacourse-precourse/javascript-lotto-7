@@ -1,6 +1,6 @@
-import { MOCK_DATA_1 } from '../src/lib/mock/data';
-import { mockRandoms } from '../src/lib/mock/utils';
-import LottoShop from '../src/LottoShop';
+import { MOCK_DATA_1 } from '../lib/mock/data.js';
+import { mockRandoms } from '../lib/mock/utils.js';
+import { LottoShop } from '.';
 
 describe('LottoCompany', () => {
   test('orderLottos', () => {
