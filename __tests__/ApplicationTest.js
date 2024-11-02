@@ -1,6 +1,11 @@
 import App from '../src/App.js';
 import { ERROR_MESSAGE } from '../src/lib/constants.js';
-import { MOCK_DATA_1, MOCK_DATA_2, MOCK_DATA_3 } from '../src/lib/mock/data.js';
+import {
+  MOCK_DATA_1,
+  MOCK_DATA_2,
+  MOCK_DATA_3,
+  MOCK_DATA_4,
+} from '../src/lib/mock/data.js';
 import {
   getLogSpy,
   mockQuestions,
@@ -59,6 +64,22 @@ describe('App', () => {
         await app.run();
 
         Object.values(MOCK_DATA_3.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
+
+      test('1등 8개 당첨', async () => {
+        const logSpy = getLogSpy();
+
+        mockRandoms(MOCK_DATA_4.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA_4.INPUT).flat());
+
+        const app = new App();
+        await app.run();
+
+        Object.values(MOCK_DATA_4.OUTPUT)
           .flat()
           .forEach((log) => {
             expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
