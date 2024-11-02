@@ -25,7 +25,22 @@ export class LottoMachine {
       return purchasePrice;
     } catch (error) {
       Console.print(error.message);
+
       return await this.inputAttemptPurchasePrice();
+    }
+  }
+
+  async inputAttemptWinningNumbers() {
+    try {
+      const winningNumbers = await this.#input.getWinningNumbers();
+      const winningNumArr = winningNumbers.split(',');
+      this.#validation.validateWinningNumbers(winningNumArr);
+
+      return winningNumArr;
+    } catch (error) {
+      Console.print(error.message);
+
+      return await this.inputAttemptWinningNumbers();
     }
   }
 
@@ -37,9 +52,7 @@ export class LottoMachine {
 
     const lottoTicket = this.#output.printLottoTicket(lottoTicketCount);
 
-    const winningNumbers = await this.#input.getWinningNumbers();
-    const winningNumArr = winningNumbers.split(',');
-    this.#validation.validateWinningNumbers(winningNumArr);
+    const winningNumArr = await this.inputAttemptWinningNumbers();
 
     const bonusNumber = await this.#input.getBonusNumber();
     this.#validation.validateBonusNumber(bonusNumber, winningNumArr);
