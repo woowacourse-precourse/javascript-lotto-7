@@ -1,4 +1,5 @@
 import { GAME_SETTINGS, RANK_KEYS, MATCH_COUNT } from '../utils/constants.js';
+import Lotto from './Lotto.js';
 
 class LottoMatcher {
   static checkMatchingNumbers(lottoTickets, winningNumbers) {
@@ -13,7 +14,7 @@ class LottoMatcher {
   }
 
   static checkBonusMatch(lottoTicket, bonusNumber) {
-    return lottoTicket.getNumbers().includes(bonusNumber);
+    return lottoTicket.getNumbers().some((ticket) => ticket === bonusNumber);
   }
 
   static assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {

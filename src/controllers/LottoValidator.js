@@ -14,13 +14,13 @@ class LottoValidator {
     this.#validateInRange(bonusNumber);
     this.#validateBonusNumberUniqueness(winningNumbers, bonusNumber);
 
-    return bonusNumber;
+    return Number(bonusNumber);
   }
 
   static #validateSixNumbers(numbers) {
     const parsedNumbers = numbers
       .split(LOTTO.SEPARATOR)
-      .map((num) => num.trim());
+      .map((num) => Number(num.trim()));
     if (parsedNumbers.length !== LOTTO.WINNING_NUMBERS_COUNT) {
       throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
     }

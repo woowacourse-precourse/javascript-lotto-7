@@ -10,16 +10,15 @@ import {
 
 class App {
   async run() {
+    // TODO: 보너스 번호 매치가 안되는 버그
     const controllers = new LottoControllers();
     const purchaseAmount = await this.getValidPurchaseAmount();
     const lottoTickets = await controllers.issueTickets(purchaseAmount);
-    console.log(Array.isArray(lottoTickets));
 
     const winningNumbers = await this.getValidWinningNumbers(controllers);
 
-    const bonusNumber = await this.getValidBonusNumber(
-      winningNumbers,
-      controllers
+    const bonusNumber = Number(
+      await this.getValidBonusNumber(winningNumbers, controllers)
     );
 
     const rankCounts = controllers.matchLottoTickets(
@@ -57,8 +56,7 @@ class App {
   async getValidBonusNumber(winningNumbers, controllers) {
     try {
       const bonusNumber = await getBonusNumber();
-      controllers.validateBonusNumber(winningNumbers, bonusNumber);
-      return bonusNumber;
+      return controllers.validateBonusNumber(winningNumbers, bonusNumber);
     } catch (error) {
       Console.print(error.message);
       return this.getValidBonusNumber(winningNumbers, controllers);

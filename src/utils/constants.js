@@ -6,6 +6,8 @@ export const MESSAGES = {
 };
 
 export const ERROR_MESSAGES = {
+  INVALID_NUMBER_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
+  DUPLICATE_NUMBER: '[ERROR] 로또 번호에는 중복된 숫자가 없어야 합니다.',
   INVALID_PURCHASE_AMOUNT: '[ERROR] 구입 금액을 숫자로 넣어주세요.',
   PURCHASE_AMOUNT_POSITIVE: '[ERROR] 구입 금액은 0보다 커야 합니다.',
   PURCHASE_AMOUNT_DIVISIBILITY: (unit) =>
@@ -24,7 +26,7 @@ export const GAME_SETTINGS = {
   NEW_LINE: '\n',
   ZERO: 0,
   PERCENTAGE_MULTIPLIER: 100,
-  DECIMAL_PLACES: 2,
+  DECIMAL_PLACES: 1,
 };
 
 export const REGEX = {
