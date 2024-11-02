@@ -22,6 +22,25 @@ class Lotto {
   getLottoNumber() {
     return this.#numbers;
   }
+  
+  compareLotto(winningNumber, bonusNumber) {
+    const rank = [
+      "firstPlace",
+      "thirdPlace",
+      "fourthPlace",
+      "fifthPlace",
+      "blank",
+      "blank",
+      "blank",
+      "secondPlace"
+    ]
+    const count = this.#numbers.filter((value) => winningNumber.includes(value)).length;
+    if(this.#numbers.includes(bonusNumber) && count === 5){
+      return rank[7];
+    }
+    return rank[this.#numbers.length - count];
+  }
+
 
 }
 

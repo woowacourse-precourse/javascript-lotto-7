@@ -10,6 +10,10 @@ class LottoController{
     this.view = new LottoView();
   }
 
+  async play() {
+    await this.issueLotto();
+  }
+
   async issueLotto() {
     const userPrice = await this.inputPrice(); //금액 입력.
     this.getLottoList(userPrice);
@@ -19,6 +23,10 @@ class LottoController{
 
     const bonusNumber = await this.inputBonusNumber(); // 보너스 숫자.
     this.model.setBonusNumber(bonusNumber);
+  }
+
+  async getInformation() {
+    // 당첨 통계 출력 구현
   }
 
   async inputPrice() {

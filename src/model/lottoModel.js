@@ -1,4 +1,4 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../Lotto.js";
 
 class LottoModel{
@@ -13,7 +13,7 @@ class LottoModel{
     this.#bonusNumber;
     this.userDetails = {
       firstPlace : 0,
-      secondePlace : 0,
+      secondPlace : 0,
       thirdPlace : 0,
       fourthPlace : 0,
       fifthPlace : 0
@@ -34,9 +34,6 @@ class LottoModel{
   getLottoList() {
     return this.lottoList;
   }
-  setLottoList(lottoList) { // test를 위한 메서드
-    this.lottoList = lottoList;
-  }
 
   setWinningNumber(numbers) {
     this.#winningNumber = numbers;
@@ -48,10 +45,15 @@ class LottoModel{
     this.#bonusNumber = bonusNumber;
   }
   setWinningStatistics() {
-  
+    this.lottoList.forEach((lotto) => {
+      let lottoRank = lotto.compareLotto(this.#winningNumber, this.#bonusNumber);
+      if(lottoRank in this.userDetails){
+        this.userDetails[lottoRank] += 1;
+      }
+    })
   }
   getStatistics() {
-
+    return this.userDetails;
   }
 
 
