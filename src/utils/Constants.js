@@ -43,6 +43,7 @@ export const INPUT_VIEW = {
 
 export const OUTPUT_VIEW = {
   purchaseAmount: (amount) => `${amount}개를 구매했습니다.`,
+  lotto: (numbersFormation) => `[${numbersFormation}]`,
   statisticsHeader: '당첨 통계',
   separatingMark: '---',
   winningStatistics: (numbersOfMatched, matchingCount, prize) =>
@@ -50,7 +51,7 @@ export const OUTPUT_VIEW = {
   bonusStatistics: (numbersOfMatched, matchingCount, prize) =>
     `${numbersOfMatched}개 일치, 보너스 볼 일치 (${prize}원) - ${matchingCount}개`,
   profit: (profit) => `총 수익률은 ${profit}%입니다.`,
-  lineBreak: '\n',
+  numberSeparator: ', ',
 };
 
 export const VALIDATION = {

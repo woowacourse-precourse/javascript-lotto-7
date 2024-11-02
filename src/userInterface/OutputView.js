@@ -7,8 +7,14 @@ const outputView = {
   },
 
   printLotto: (lottos) => {
-    const numbers = lottos.map((lotto) => lotto.getNumbers());
-    Console.print(numbers.join(OUTPUT_VIEW.lineBreak));
+    const lottoNumbers = lottos.map((lotto) => lotto.getNumbers());
+    const numbersToString = lottoNumbers.map((numbers) =>
+      numbers.join(OUTPUT_VIEW.numberSeparator),
+    );
+
+    numbersToString.forEach((numbers) => {
+      Console.print(OUTPUT_VIEW.lotto(numbers));
+    });
   },
 
   printStatisticsHeader: () => {
