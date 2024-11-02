@@ -7,6 +7,7 @@ class App {
     try {
       const money = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
       new MoneyValidator(money);
+
       const lottoGenerator = new LottoGenerator(money);
       const lottos = lottoGenerator.getLottos();
       const lottosCount = lottoGenerator.lottoCount;
