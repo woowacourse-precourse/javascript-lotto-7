@@ -51,22 +51,32 @@ class App {
     printLotto(lottoCount);
 
     const inputNumber = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    console.log(inputNumber)
+    const trimNumber = inputNumber.toString().trim().split(',');
 
-    // TODO 유효성 검사 분리
-    // TODO 에러 메시지 상수처리
-    const validateInputNumber = (input) => {
-      // TODO 당첨 번호가 6개가 아닌 경우
-      // if () {
-      //   throw new Error('[ERROR] 당첨 번호는 6개 입력해야 합니다.')
-      // }
-      // TODO 당첨 번호가 1~45까지의 숫자를 벗어난 경우
-      // if () {
-      //   throw new Error('[ERROR] 당첨 번호는 1~45 사이의 숫자만 입력해야 합니다.')
-      // }
+    const getParsingNumber = (array) => {
+      return array.map((el) => parseInt(el, 10));
     }
 
-    validateInputNumber(inputNumber);
+    const parseNumber = getParsingNumber(trimNumber);
+    console.log(parseNumber);
+
+    const validateInputNumber = (input) => {
+      if (input.length !== 6) {
+        throw new Error('[ERROR] 당첨 번호는 6개 입력해야 합니다.')
+      }
+      input.forEach((number) => {
+        if (number <= 0 || number >= 46) {
+          throw new Error('[ERROR] 당첨 번호는 1~45 사이의 숫자만 입력해야 합니다.')
+        }
+      });
+      input.forEach((number) => {
+        if (Number.isNaN(number)) {
+          throw new Error('[ERROR] 당첨 번호는 숫자만 입력할 수 있습니다.')
+        }
+      });
+    }
+
+    validateInputNumber(parseNumber);
   }
 }
 
