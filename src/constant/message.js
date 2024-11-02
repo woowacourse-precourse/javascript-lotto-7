@@ -3,5 +3,5 @@ export const viewMessages = {
 };
 
 export const inValidMessages = {
-  NaN: '숫자를 입력해주세요.'
+  NaN: '숫자를 입력해주세요.\n'
 }
