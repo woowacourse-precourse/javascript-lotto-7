@@ -47,6 +47,10 @@ class App {
 
       winningNumberSet.add(number);
     });
+
+    const bonusNumber = await Console.readLineAsync(
+      "보너스 번호를 입력해 주세요."
+    );
   }
 }
 
