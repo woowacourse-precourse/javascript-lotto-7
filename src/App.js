@@ -4,19 +4,11 @@ import InputPrompt from './input-prompt.js';
 class App {
   async run() {
     const purchaseAmount = await InputPrompt.getPurchaseAmount();
-    const ticketCount = purchaseAmount / 1000;
+    const lottoCount = purchaseAmount / 1000;
     Console.print('\n');
-    Console.print(`${ticketCount}개를 구매했습니다.`);
+    Console.print(`${lottoCount}개를 구매했습니다.`);
 
-    let lottoNumberList;
-    for (let i = 1; i <= ticketCount; i++) {
-      lottoNumberList = await Random.pickUniqueNumbersInRange(1, 45, 6);
-      const sortedNumberList = lottoNumberList.sort((a, b) => a - b);
-      lottoNumberList = sortedNumberList;
-      Console.print(sortedNumberList);
-    }
-
-    const game = new Game(ticketCount, lottoNumberList);
+    const game = new Game(lottoCount);
 
     Console.print('\n');
     const winningNumberInput = await InputPrompt.getWinningNumber();
