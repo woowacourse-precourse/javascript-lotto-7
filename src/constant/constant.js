@@ -33,5 +33,6 @@ export const WINNING_NUMBER_MESSAGE = Object.freeze({
 
 export const BONUS_NUMBER_MESSAGE = Object.freeze({
   NOT_RANGE_NUMBER: "보너스 번호는 1부터 45 사이의 숫자여야 합니다.",
-  INVALID_WINNING_NUMBER: "보너스 번호는 양의 정수만 입력이 가능합니다.",
+  INVALID_BONUS_NUMBER: "보너스 번호는 양의 정수만 입력이 가능합니다.",
+  WINNING_IN_BONUS: "보너스 번호는 당첨 번호들을 제외하고 가능합니다.",
 });

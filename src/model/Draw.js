@@ -5,14 +5,14 @@ import {
 } from "../constant/constant.js";
 
 class Draw {
-  #winningNUmbers;
+  #winningNumbers;
   #bonusNumber;
 
-  constructor(winningNUmbers, bonusNumber) {
-    this.#winningNUmbers = winningNUmbers;
+  constructor(winningNumbers, bonusNumber) {
+    this.#winningNumbers = winningNumbers;
     this.#bonusNumber = bonusNumber;
-    this.#validateWinningNumber(winningNUmbers);
-    this.#validateBonusNumber(bonusNumber);
+    this.#validateWinningNumber(winningNumbers);
+    this.#validateBonusNumber(bonusNumber, winningNumbers);
   }
 
   #validateWinningNumber(winningNumbers) {
@@ -55,12 +55,12 @@ class Draw {
     }
   }
 
-  #validateBonusNumber(bonusNumber) {
+  #validateBonusNumber(bonusNumber, winningNumbers) {
     if (!bonusNumber || isNaN(bonusNumber) || bonusNumber <= 0) {
       throw new Error(
         START_ERROR.START_ERROR_MESSAGE +
           " " +
-          BONUS_NUMBER_MESSAGE.INVALID_WINNING_NUMBER
+          BONUS_NUMBER_MESSAGE.INVALID_BONUS_NUMBER
       );
     }
 
@@ -71,10 +71,17 @@ class Draw {
           BONUS_NUMBER_MESSAGE.NOT_RANGE_NUMBER
       );
     }
+    if (winningNumbers.includes(bonusNumber[0])) {
+      throw new Error(
+        START_ERROR.START_ERROR_MESSAGE +
+          " " +
+          BONUS_NUMBER_MESSAGE.WINNING_IN_BONUS
+      );
+    }
   }
 
   getWinningNumber() {
-    return this.#winningNUmbers;
+    return this.#winningNumbers;
   }
 
   getBonusNumber() {

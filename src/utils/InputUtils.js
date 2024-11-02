@@ -35,13 +35,16 @@ class InputUtils {
     }
   }
 
-  static validateBonusNumber(input) {
+  static validateBonusNumber(input, winningNumbers) {
     if (!input || isNaN(input) || input <= 0) {
-      throw new Error(BONUS_NUMBER_MESSAGE.INVALID_WINNING_NUMBER);
+      throw new Error(BONUS_NUMBER_MESSAGE.INVALID_BONUS_NUMBER);
     }
 
     if (input < 1 || input > 45) {
       throw new Error(BONUS_NUMBER_MESSAGE.NOT_RANGE_NUMBER);
+    }
+    if (winningNumbers.includes(input[0])) {
+      throw new Error(BONUS_NUMBER_MESSAGE.WINNING_IN_BONUS);
     }
   }
 }

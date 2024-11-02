@@ -9,6 +9,7 @@ class LottoController {
   #inputView;
   #outputView;
   #draw;
+  #winningNumbers;
 
   constructor() {
     this.#inputView = new InputView();
@@ -57,9 +58,9 @@ class LottoController {
   }
 
   async #startDrawLotto() {
-    const lottoWinningNumber = await this.#getLottoWinningNumber();
+    this.#winningNumbers = await this.#getLottoWinningNumber();
     const lottoBonusNumber = await this.#getLottoBonusNumber();
-    this.#draw = new Draw(lottoWinningNumber, lottoBonusNumber);
+    this.#draw = new Draw(this.#winningNumbers, lottoBonusNumber);
   }
 
   async #getLottoWinningNumber() {
@@ -74,7 +75,7 @@ class LottoController {
   async #getLottoBonusNumber() {
     const bonusNumber = await this.#validInput(
       () => this.#inputView.inputLottoBonuseNumber(),
-      InputUtils.validateBonusNumber
+      (input) => InputUtils.validateBonusNumber(input, this.#winningNumbers)
     );
     return bonusNumber;
   }
