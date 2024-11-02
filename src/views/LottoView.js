@@ -27,9 +27,11 @@ class LottoView {
     return stringArray.map(str => parseInt(str, 10));
   }
 
-  async getBonusNumber() {
+  async getBonusNumber(targetLotto) {
     const message = '\n보너스 번호를 입력해주세요.\n';
-    return this.readLine(message);
+    const bonusNumber = await this.readLine(message);
+    Validator.bonusNumberValidation(bonusNumber, targetLotto);
+    return bonusNumber;
   }
 
   printWinningStatistics(winStatistics) {

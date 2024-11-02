@@ -24,7 +24,7 @@ class LottoController {
 
       // 당첨 번호 입력
       const targetLotto = await this.view.getTargetLottoArray();
-      const bonusNumber = await this.view.getBonusNumber();
+      const bonusNumber = await this.view.getBonusNumber(targetLotto);
 
       // 당첨 계산
       const winStatistics = LottoGame.getAllNumberWon(
