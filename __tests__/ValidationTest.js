@@ -14,4 +14,16 @@ describe('Validation 테스트', () => {
     );
     expect(() => Validation.validateNotEmpty(1000)).not.toThrow();
   });
+
+  test('로또 번호가 6개가 아닌 경우 예외가 발생한다.', () => {
+    expect(() => {
+      Validation.validateSixNumbers([1, 2, 3, 4, 5, 6]);
+    }).not.toThrow();
+    expect(() => Validation.validateSixNumbers([1, 2, 3, 4, 5])).toThrow(
+      '[ERROR] 로또 번호는 6개여야 합니다.'
+    );
+    expect(() => Validation.validateSixNumbers([1, 2, 3, 4, 5, 6, 7])).toThrow(
+      '[ERROR] 로또 번호는 6개여야 합니다.'
+    );
+  });
 });
