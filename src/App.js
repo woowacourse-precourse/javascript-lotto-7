@@ -18,10 +18,7 @@ class App {
     OutputView.printPurchasedLottos(numberOfLottoes, lottoes);
 
     // 당첨 번호를 입력
-    const winningNumbersInput = await InputView.inputWinningNumbers();
-
-    const winningNumberArr = winningNumbersInput.split(",").map(Number);
-    const winningNumbers = new Lotto(winningNumberArr);
+    const winningNumbers = await this.getWinningLotto();
 
     //보너스 번호 입력
     const bonusNumberInput = await InputView.inputBonusNumber();
@@ -94,6 +91,11 @@ class App {
       );
     }
     return lottoes;
+  }
+
+  async getWinningLotto() {
+    const winningNumbersInput = await InputView.inputWinningNumbers();
+    return new Lotto(winningNumbersInput.split(",").map(Number));
   }
 }
 
