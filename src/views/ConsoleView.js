@@ -16,7 +16,7 @@ class ConsoleView {
 
   printLottoNumbers(lottos) {
     for (let index = 0; index < lottos.length; index++) {
-      const numbers = lottos[index].getLottoNumbers();
+      const numbers = lottos[index].LottoNumbers;
       Console.print(numbers);
     }
   }
