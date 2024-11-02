@@ -36,7 +36,8 @@ class GameController {
     this.outputView.printResultHeader();
     const ranking = this.winner.checkRanking(result);
     this.outputView.printGameResult(ranking);
-    this.winner.confirmProfitRate(ranking, cost);
+    const returnRate = this.winner.confirmReturnRate(ranking, cost);
+    this.outputView.printReturnRate(returnRate);
   }
 }
 

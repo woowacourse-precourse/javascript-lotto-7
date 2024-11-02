@@ -12,7 +12,7 @@ class Winner {
     return matchCounts;
   }
 
-  confirmProfitRate(ranks, cost) {
+  confirmReturnRate(ranks, cost) {
     const totalPrize = this.calculateTotalPrizeMoney(ranks);
     return ((totalPrize / cost) * 100).toFixed(1);
   }

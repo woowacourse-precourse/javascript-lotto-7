@@ -11,6 +11,8 @@ const MESSAGE = {
   THIRD_PRIZE_MESSAGE: '5개 일치 (1,500,000원) - ',
   FOURTH_PRIZE_MESSAGE: '4개 일치 (50,000원) - ',
   FIFTH_PRIZE_MESSAGE: '3개 일치 (5,000원) - ',
+
+  RETURN_RATE_PROMPT: '총 수익률은 ',
 };
 
 export default MESSAGE;

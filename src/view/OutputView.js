@@ -34,6 +34,10 @@ class OutputView {
     Console.print(`${MESSAGE.SECOND_PRIZE_MESSAGE}${matchCount[3]}개`);
     Console.print(`${MESSAGE.FIRST_PRIZE_MESSAGE}${matchCount[4]}개`);
   }
+
+  printReturnRate(returnRate) {
+    Console.print(`${MESSAGE.RETURN_RATE_PROMPT}${returnRate}%입니다.`);
+  }
 }
 
 export default OutputView;
