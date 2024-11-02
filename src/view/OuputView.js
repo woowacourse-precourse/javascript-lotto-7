@@ -5,9 +5,9 @@ import {
 } from '../constant/ouputMessage.js';
 
 export default class OutputView {
-  static lottosInformation({ lottoLength, lottoNumbersArray }) {
+  static lottosInformation({ lottoLength, lottosNumberArray }) {
     Console.print(`\n${lottoLength}${OUTPUT_MESSAGE.LOTTO_LENGTH}`);
-    lottoNumbersArray.forEach((lottoNumbers) => {
+    lottosNumberArray.forEach((lottoNumbers) => {
       Console.print(`[${lottoNumbers.join(', ')}]`);
     });
   }

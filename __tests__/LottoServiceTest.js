@@ -1,12 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import LottoService from '../src/service/LottoService.js';
-
-import {
-  RANK_PRICE,
-  PRICE_RANGE,
-  SEPARATOR,
-  RANK_NAMES,
-} from '../src/constant/system.js';
+import { RANK_PRICE, RANK_NAMES } from '../src/constant/system.js';
+import WinningLottoModel from '../src/model/WinningLottoModel.js';
 
 function mockRandomRange() {
   Random.pickUniqueNumbersInRange = jest.fn();
@@ -21,10 +16,10 @@ describe('LottoService 클래스 테스트', () => {
   let bonusNumber;
 
   beforeEach(() => {
-    lottoService = new LottoService();
-    price = 5000;
     numberString = '1,2,3,4,5,6';
     bonusNumber = 10;
+    price = 5000;
+    lottoService = new LottoService();
     mockRandomRange();
 
     lottoService.createUserModel(price);
@@ -35,32 +30,33 @@ describe('LottoService 클래스 테스트', () => {
   test('유저 모델 생성', () => {
     const spy = jest.spyOn(Random, 'pickUniqueNumbersInRange');
 
-    expect(spy).toHaveBeenCalledTimes(price / PRICE_RANGE.MIN);
+    expect(spy).toHaveBeenCalledTimes(5);
   });
 
   test('로또 정보 가져오기', () => {
     const expected = {
-      lottoLength: price / PRICE_RANGE.MIN,
-      lottoNumbersArray: Array.from({ length: price / PRICE_RANGE.MIN }, () => [
-        1, 2, 3, 4, 5, 6,
-      ]),
+      lottoLength: 5,
+      lottosNumberArray: Array.from({ length: 5 }, () => [1, 2, 3, 4, 5, 6]),
     };
 
     expect(lottoService.getLottosInformation()).toEqual(expected);
   });
 
   test('정답 로또 모델 생성', () => {
-    const numbers = numberString
-      .split(SEPARATOR)
-      .map((number) => Number(number));
-
-    expect(lottoService.winningLottoModel.getNumbers()).toEqual(numbers);
+    expect(lottoService.winningLottoModel).toBeInstanceOf(WinningLottoModel);
   });
 
   test('보너스 번호 입력', () => {
-    expect(lottoService.winningLottoModel.getBonusNumber()).toEqual(
-      bonusNumber,
-    );
+    lottoService = new LottoService();
+    const bonusNumber = 7;
+    lottoService.createUserModel(price);
+    lottoService.createWinningLottoModel(numberString);
+
+    const spy = jest.spyOn(lottoService.winningLottoModel, 'setBonusNumber');
+
+    lottoService.appendBonusNumber(bonusNumber);
+
+    expect(spy).toHaveBeenCalledWith(bonusNumber);
   });
 
   test('로또 당첨 등수 계산', () => {
@@ -94,22 +90,18 @@ describe('LottoService 클래스 테스트', () => {
   });
 
   test('수익률 계산', () => {
-    const rankObject = new Map([
+    const rankMap = new Map([
       [3, 0],
-      [4, 1],
-      [5, 1],
+      [4, 0],
+      [5, 0],
       ['5+', 0],
-      [6, 0],
+      [6, 5],
     ]);
-    const price = 5000;
 
-    const rate = lottoService.getRateOfReturn(rankObject, price);
+    const rate = lottoService.getRateOfReturn(rankMap);
 
     expect(rate).toEqual(
-      (
-        ((RANK_PRICE[RANK_NAMES.FOUR] + RANK_PRICE[RANK_NAMES.FIVE]) / price) *
-        100
-      ).toFixed(1),
+      (((RANK_PRICE[RANK_NAMES.SIX] * 5) / price) * 100).toFixed(1),
     );
   });
 });

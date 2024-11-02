@@ -11,15 +11,15 @@ describe('OuputView 클래스 테스트', () => {
 
   test('로또 정보 출력', () => {
     const lottoLength = 3;
-    const lottoNumbersArray = [
+    const lottosNumberArray = [
       [1, 2, 3, 4, 5, 6],
       [2, 3, 4, 5, 6, 7],
       [5, 6, 7, 13, 23, 33],
     ];
 
-    OutputView.lottosInformation({ lottoLength, lottoNumbersArray });
+    OutputView.lottosInformation({ lottoLength, lottosNumberArray });
 
-    lottoNumbersArray.forEach((lottoNumbers) => {
+    lottosNumberArray.forEach((lottoNumbers) => {
       expect(spy).toHaveBeenCalledWith(
         expect.stringContaining(lottoNumbers.join(', ')),
       );
