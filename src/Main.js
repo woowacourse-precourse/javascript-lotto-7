@@ -83,28 +83,21 @@ const Parser = {
 
 export class LottoValidator {
   static validatePurchaseAmount(input) {
-    const purchaseAmount = Parser.parseNumber(input);
-    InputValidator.isNaturalNumber(purchaseAmount);
-    InputValidator.isDivisibleByThousand(purchaseAmount);
-    return purchaseAmount;
+    InputValidator.isNaturalNumber(input);
+    InputValidator.isDivisibleByThousand(input);
   }
   static validateWinningNumbers(inputArray) {
-    const winningNumber = inputArray.map((input) => {
-      const number = Parser.parseNumber(input);
-      InputValidator.isNaturalNumber(number);
-      InputValidator.isLottoRangeNumber(number);
-      return number;
+    inputArray.map((input) => {
+      InputValidator.isNaturalNumber(input);
+      InputValidator.isLottoRangeNumber(input);
     });
-    InputValidator.isWinningLength(winningNumber);
-    InputValidator.isSameNumber(winningNumber);
-    return winningNumber;
+    InputValidator.isWinningLength(inputArray);
+    InputValidator.isSameNumber(inputArray);
   }
   static validateBonusNumber(input) {
-    const bonusNumber = Parser.parseNumber(input);
-    InputValidator.isLottoRangeNumber(bonusNumber);
-    InputValidator.isNaturalNumber(bonusNumber);
-    InputValidator.isLottoRangeNumber(bonusNumber);
-    return bonusNumber;
+    InputValidator.isLottoRangeNumber(input);
+    InputValidator.isNaturalNumber(input);
+    InputValidator.isLottoRangeNumber(input);
   }
   static validateGeneratedLottoNumber(inputArray) {
     inputArray.forEach((number) => {
@@ -134,12 +127,20 @@ const calculateRateOfReturn = (purchaseAmount, winningLottoNumber) => {
 
 const Main = async () => {
   Console.print(MESSAGES.INFO.START_PROGRAM);
+  let purchaseAmount;
+  while (true) {
+    try {
+      const inputPurchaseAmount = await Console.readLineAsync(
+        MESSAGES.INPUT.PURCHASE_AMOUNT,
+      );
+      purchaseAmount = Parser.parseNumber(inputPurchaseAmount);
+      LottoValidator.validatePurchaseAmount(purchaseAmount);
 
-  const inputPurchaseAmount = await Console.readLineAsync(
-    MESSAGES.INPUT.PURCHASE_AMOUNT,
-  );
-  const purchaseAmount =
-    LottoValidator.validatePurchaseAmount(inputPurchaseAmount);
+      break;
+    } catch (error) {
+      Console.print(error.message);
+    }
+  }
   Console.print(MESSAGES.INFO.LINE_BREAK);
   const purchaseNumber = calculatePurchaseNumber(purchaseAmount);
   Console.print(
@@ -157,22 +158,46 @@ const Main = async () => {
   lottoList.forEach((item) => Console.print(item));
 
   Console.print(MESSAGES.INFO.LINE_BREAK);
+  let winningNumbers;
+  while (true) {
+    try {
+      const inputWinningNumbers = await Console.readLineAsync(
+        MESSAGES.INPUT.WINNING_NUMBERS,
+      );
+      winningNumbers = inputWinningNumbers
+        .trim()
+        .split(',')
+        .map((inputWinningNumbers) => Parser.parseNumber(inputWinningNumbers));
 
-  const inputWinningNumbers = await Console.readLineAsync(
-    MESSAGES.INPUT.WINNING_NUMBERS,
-  );
-  const arrayWinningNumbers = inputWinningNumbers.trim().split(',');
-  const winningNumbers =
-    LottoValidator.validateWinningNumbers(arrayWinningNumbers);
+      LottoValidator.validateWinningNumbers(winningNumbers);
+
+      break;
+    } catch (error) {
+      Console.print(error.message);
+    }
+  }
+
   Console.print(MESSAGES.INFO.LINE_BREAK);
-  const inputBonusNumber = await Console.readLineAsync(
-    MESSAGES.INPUT.BONUS_NUMBER,
-  );
+
+  let bonusNumber;
+
+  while (true) {
+    try {
+      const inputBonusNumber = await Console.readLineAsync(
+        MESSAGES.INPUT.BONUS_NUMBER,
+      );
+      bonusNumber = Parser.parseNumber(inputBonusNumber);
+      LottoValidator.validateBonusNumber(bonusNumber);
+      break;
+    } catch (error) {
+      Console.print(error.message);
+    }
+  }
+
   Console.print(MESSAGES.INFO.LINE_BREAK);
   Console.print(MESSAGES.INFO.WINNING_STATISTICS);
   Console.print(MESSAGES.INFO.DASH_SYMBOL);
 
-  const bonusNumber = LottoValidator.validateBonusNumber(inputBonusNumber);
   winningNumbers.push(bonusNumber);
 
   let winningLottoNumber = [0, 0, 0, 0, 0];
