@@ -35,13 +35,7 @@ class ResultController {
     }
 
     printResults(rankCounts, rateOfReturn) {
-        this.outputHandler.printMessage("\n당첨 통계\n---");
-        this.outputHandler.printMessage(`3개 일치 (5,000원) - ${rankCounts[3]}개`);
-        this.outputHandler.printMessage(`4개 일치 (50,000원) - ${rankCounts[4]}개`);
-        this.outputHandler.printMessage(`5개 일치 (1,500,000원) - ${rankCounts[5]}개`);
-        this.outputHandler.printMessage(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${rankCounts[5.5]}개`);
-        this.outputHandler.printMessage(`6개 일치 (2,000,000,000원) - ${rankCounts[6]}개`);
-        this.outputHandler.printMessage(`총 수익률은 ${rateOfReturn}%입니다.`);
+        this.outputHandler.printResults(rankCounts, rateOfReturn);
     }
 
     execute(lottos, winningNumber, bonusNumber, lottoMoney) {
