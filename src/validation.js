@@ -63,6 +63,11 @@ const validation = Object.freeze({
       if (numberArr.some((number) => isNaN(Number(number))))
         throw new Error(ERRORMESSAGE.ISNOTNUMBER);
     },
+
+    isNotInteger: function (numberArr) {
+      if (numberArr.some((number) => Number(number) % 1 !== 0))
+        throw new Error(ERRORMESSAGE.ISNOTINTEGER);
+    },
   },
 });
 

@@ -51,4 +51,11 @@ describe('입력문에 대한 테스트', () => {
   ])('당첨번호는 숫자여야 합니다.', (numberArr) => {
     expect(() => validation.winningNumber.isNotNumber(numberArr)).toThrow();
   });
+
+  test.each([
+    ['1', '2.5', '3', '4', '5', '6'],
+    ['1.2', '1.1', '2', '5', '6.6', '7.9'],
+  ])('당첨번호는 정수여야 합니다.', (numberArr) => {
+    expect(() => validation.winningNumber.isNotInteger(numberArr)).toThrow();
+  });
 });
