@@ -56,6 +56,7 @@ class LottoController {
 
   async #startDrawLotto() {
     const lottoWinningNumber = await this.#getLottoWinningNumber();
+    const bonusNumber = await this.#getLottoBonusNumber();
   }
 
   async #getLottoWinningNumber() {
@@ -65,6 +66,11 @@ class LottoController {
     );
 
     return winningNumber;
+  }
+
+  async #getLottoBonusNumber() {
+    const bonusNumber = await this.#inputView.inputLottoBonuseNumber();
+    return bonusNumber;
   }
 
   async #validInput(inputFunction, validateFunction) {

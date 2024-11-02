@@ -13,6 +13,12 @@ class InputView {
       INPUT_MESSAGE.PROMPT_WINNING_NUMBER
     );
   }
+
+  async inputLottoBonuseNumber() {
+    return MissionUtils.Console.readLineAsync(
+      INPUT_MESSAGE.PEOMPR_BONUS_NUMBER
+    );
+  }
 }
 
 export default InputView;
