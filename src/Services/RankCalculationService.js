@@ -1,3 +1,5 @@
+import ERROR_MESSAGES from '../Error/Error.js';
+
 export default class RankCalculationService {
   constructor(rank) {
     this.rank = rank;
@@ -39,7 +41,7 @@ export default class RankCalculationService {
     purchasedLotteries.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers();
       if (!Array.isArray(lottoNumbers)) {
-        throw new Error('로또 포맷이 올바르지 않습니다.');
+        throw new Error(ERROR_MESSAGES.lotteries.INVALID_LOTTERY_ARRAY);
       }
 
       const matchingNumberCount = winningNumbers.filter((number) =>

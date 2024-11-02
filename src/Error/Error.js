@@ -16,6 +16,9 @@ const ERROR_MESSAGES = Object.freeze({
   note: {
     INVALID_LOTTERY_NOTE_COUNT: `${ERROR_PREFIX}유효하지 않은 로또 구입 개수입니다. 1개 이상의 1,000원 단위로 입력해 주세요.`,
   },
+  lotteries: {
+    INVALID_LOTTERY_ARRAY: `${ERROR_PREFIX}로또 포맷이 올바르지 않습니다.`,
+  },
 });
 
 export default ERROR_MESSAGES;
