@@ -9,6 +9,10 @@ class Input {
   static getWinningNumbers() {
     return Console.readLineAsync(CONSOLE_MESSAGE.winningNumbersInput);
   }
+
+  static getBonusNumber() {
+    return Console.readLineAsync(CONSOLE_MESSAGE.bonusNumberInput);
+  }
 }
 
 export default Input;
