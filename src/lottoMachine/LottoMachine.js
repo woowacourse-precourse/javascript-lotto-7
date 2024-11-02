@@ -3,18 +3,21 @@ import { Validation } from './Validation.js';
 import { Calculation } from './Calculation.js';
 import { Output } from './Output.js';
 import { Console } from '@woowacourse/mission-utils';
+import { Statistics } from './Statistics.js';
 
 export class LottoMachine {
   #input;
   #validation;
   #calculation;
   #output;
+  #statistics;
 
   constructor() {
     this.#input = new Input();
     this.#validation = new Validation();
     this.#calculation = new Calculation();
     this.#output = new Output();
+    this.#statistics = new Statistics();
   }
 
   async inputAttemptPurchasePrice() {
@@ -68,5 +71,7 @@ export class LottoMachine {
     const winningNumArr = await this.inputAttemptWinningNumbers();
 
     const bonusNumber = await this.inputAttemptBonusNumber(winningNumArr);
+
+    const rankCounts = this.#statistics.findWinnerRank(lottoTicket, winningNumArr, bonusNumber);
   }
 }
