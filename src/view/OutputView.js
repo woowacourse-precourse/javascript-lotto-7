@@ -11,12 +11,15 @@ class OutputView {
     const LottoQuantity = this.randomLotto.checkLottoAmount(price);
     Console.print('');
     Console.print(`${LottoQuantity}${MESSAGE.LOTTO_PURCHASE_MESSAGE}`);
+
     return LottoQuantity;
   }
 
   printPurchasedLotteries(quantity) {
     const lotteries = this.randomLotto.createLotto(quantity);
-    lotteries.forEach((lotto) => Console.print(lotto));
+    lotteries.forEach((lotto) => {
+      Console.print(`[${lotto.join(', ')}]`);
+    });
     Console.print('');
 
     return lotteries;
