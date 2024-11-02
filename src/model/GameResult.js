@@ -23,17 +23,17 @@ class GameResult {
 
   calculatePrizeStat(generate_lottos, winning_lotto, bonus_number) {
     generate_lottos.forEach((player_lotto) => {
-      const matching_count = this.sameLottoCheck(player_lotto, winning_lotto);
-      const matching_bonus = this.sameBonusCheck(player_lotto, bonus_number);
+      const matching_count = this.matchingLottoCheck(player_lotto, winning_lotto);
+      const matching_bonus = this.matchingBonusCheck(player_lotto, bonus_number);
       this.prizeStatCheck(matching_count, matching_bonus);
     });
   }
 
-  sameLottoCheck(player_lotto, winning_lotto) {
+  matchingLottoCheck(player_lotto, winning_lotto) {
     return player_lotto.filter((number) => winning_lotto.includes(number)).length;
   }
 
-  sameBonusCheck(player_lotto, bonus_number) {
+  matchingBonusCheck(player_lotto, bonus_number) {
     return player_lotto.includes(parseInt(bonus_number));
   }
 
