@@ -1,5 +1,11 @@
+import rank from './rankInfo.js';
+
 class Lotto {
   #numbers;
+
+  #matchCnt;
+
+  #rank;
 
   constructor(numbers) {
     Lotto.#validate(numbers);
@@ -9,6 +15,14 @@ class Lotto {
 
   get numbers() {
     return this.#numbers;
+  }
+
+  get rank() {
+    return this.#rank;
+  }
+
+  get matchCnt() {
+    return this.#matchCnt;
   }
 
   static #validate(numbers) {
@@ -28,15 +42,29 @@ class Lotto {
     }
   }
 
-  countMatchNumber(winningNumbers) {
+  countMatchNumber(winningNumbers, bonusNumber) {
     let cnt = 0;
+    let isBonusNumberMatch = 0;
     const lottoNumbers = this.#numbers;
     for (let i = 0; i < lottoNumbers.length; i += 1) {
       if (winningNumbers.includes(lottoNumbers[i])) {
         cnt += 1;
       }
     }
-    return cnt;
+    if (this.#numbers.includes(bonusNumber)) {
+      isBonusNumberMatch = true;
+    }
+    this.#matchCnt = cnt;
+    this.#setRank(cnt, isBonusNumberMatch);
+  }
+
+  #setRank(cnt, isBonusNumberMatch) {
+    let resultRank = rank[cnt];
+    if (cnt === 5 && isBonusNumberMatch) {
+      resultRank = 2;
+    }
+    this.#rank = resultRank;
+    return this.#rank;
   }
 }
 

@@ -1,6 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import rank from './rankInfo.js';
 
 class LottoMachine {
   #amount;
@@ -136,23 +135,12 @@ class LottoMachine {
   #rankLottoResult() {
     this.initialMap();
     const lottos = this.#lottos;
+    const resultMap = this.#resultRankMap;
     for (let i = 0; i < lottos.length; i += 1) {
       const lotto = lottos[i];
-      const matchCnt = lotto.countMatchNumber(this.#winningNumbers);
-      this.#updateResultMap(
-        matchCnt,
-        lotto.numbers.includes(this.#bonusNumber),
-      );
+      lotto.countMatchNumber(this.#winningNumbers, this.#bonusNumber);
+      resultMap.set(lotto.rank, resultMap.get(lotto.rank) + 1);
     }
-  }
-
-  #updateResultMap(matchCnt, isBonusNumberMatch) {
-    const resultMap = this.#resultRankMap;
-    let resultRank = rank[matchCnt];
-    if (matchCnt === 5 && isBonusNumberMatch) {
-      resultRank = 2;
-    }
-    resultMap.set(resultRank, resultMap.get(resultRank) + 1);
   }
 
   inputPurchaseAmountTestMethod() {
