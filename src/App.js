@@ -19,6 +19,10 @@ class App {
       return this.getLottoMachine();
     }
   }
+
+  static parsePayment(payment) {
+    return Number(payment);
+  }
 }
 
 export default App;
