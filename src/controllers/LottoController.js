@@ -1,6 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoGame from '../models/LottoGame.js';
 import LottoView from '../views/LottoView.js';
+import Validator from '../utils/Validator.js';
 
 class LottoController {
   constructor() {
@@ -15,9 +16,7 @@ class LottoController {
     try {
       // 구매 금액 입력 및 로또 생성
       const buyCash = await this.view.getCashInHand();
-      if (!LottoGame.cashValidation(buyCash)) {
-        throw new Error('[ERROR] 구입 금액은 1000원 단위여야 합니다.');
-      }
+      Validator.cashValidation(buyCash);
 
       const lottos = this.lottoGame.createLottos(buyCash);
       this.view.printLottoPurchase(lottos);
@@ -40,6 +39,7 @@ class LottoController {
       this.view.printRateOfReturn(rateOfReturn);
     } catch (error) {
       MissionUtils.Console.print(error.message);
+      throw error;
     }
   }
 }

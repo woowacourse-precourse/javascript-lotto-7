@@ -4,14 +4,6 @@ import Lotto from './Lotto.js';
 class LottoGame {
   #lottos = {};
 
-  static cashValidation(string) {
-    const number = parseFloat(string);
-    if (Number.isNaN(number)) return false;
-    const isNotDivided = number % 1000 !== 0;
-    if (isNotDivided) return false;
-    return true;
-  }
-
   createLottos(cash) {
     const numberOfLotto = cash / 1000;
     for (let i = 0; i < numberOfLotto; i += 1) {

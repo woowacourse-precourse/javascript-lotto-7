@@ -1,9 +1,15 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoController from './controllers/LottoController.js';
 
 class App {
   async run() {
-    const controller = new LottoController();
-    await controller.play();
+    try {
+      const controller = new LottoController();
+      await controller.play();
+    } catch (error) {
+      MissionUtils.print(error);
+      throw error;
+    }
   }
 }
 
