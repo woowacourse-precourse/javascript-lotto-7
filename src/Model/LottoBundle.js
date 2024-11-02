@@ -1,5 +1,6 @@
 import Errors from '../Constants/Errors.js';
 import getRandomNumbers from '../Utils/getRandomNumbers.js';
+import { throwError } from '../Utils/handleError.js';
 import Rules from '../Utils/Rules.js';
 import Lotto from './Lotto.js';
 
