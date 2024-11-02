@@ -1,8 +1,8 @@
-import DEFAULT_RULES from './defaultValidator.js';
-import PURCHASE_AMOUNT_RULES from './purchaseAmountValidator.js';
-import LOTTO_NUMBER_LIST_RULES from './lottoNumberListValidator.js';
-import LOTTO_NUMBER_RULES from './lottoNumberValidator.js';
-import BONUS_NUMBER_RULES from './bonusNumberValidator.js';
+import DEFAULT_RULES from './defaultRules.js';
+import PURCHASE_AMOUNT_RULES from './purchaseAmountRules.js';
+import LOTTO_NUMBER_LIST_RULES from './lottoNumberListRules.js';
+import LOTTO_NUMBER_RULES from './lottoNumberRules.js';
+import BONUS_NUMBER_RULES from './bonusNumberRules.js';
 
 export {
   DEFAULT_RULES,

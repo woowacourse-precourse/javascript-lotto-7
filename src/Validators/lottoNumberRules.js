@@ -9,7 +9,7 @@ const LOTTO_NUMBER_RULES = Object.freeze({
   }),
   notInteger: Object.freeze({
     isValid: (input) => Number.isInteger(parseFloat(input, 10)),
-    errorMessage: '로또 번호는 양의 정수만 입력 가능합니다.',
+    errorMessage: '로또 번호는 정수만 입력 가능합니다.',
   }),
   validRange: Object.freeze({
     isValid: (input) => parseInt(input, 10) > 0 && parseInt(input, 10) <= 45,
