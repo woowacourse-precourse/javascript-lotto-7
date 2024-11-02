@@ -37,6 +37,12 @@ class Validation {
       throw new Error(ERROR_MESSAGE.notInRangeNumber);
     }
   }
+
+  static isInteger(number) {
+    if (!Number.isInteger(number)) {
+      throw new Error(ERROR_MESSAGE.notInteger);
+    }
+  }
 }
 
 export default Validation;
