@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../constants/errorMessage';
+import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 
 class Validator {
   static LOTTO_PRICE = 1000;

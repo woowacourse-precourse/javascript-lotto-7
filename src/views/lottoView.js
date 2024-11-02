@@ -1,29 +1,28 @@
 import { Console } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGE } from '../constants/inputMessage';
+import { INPUT_MESSAGE } from '../constants/inputMessage.js';
 
 class LottoView {
   static async InputPurchaseAmount() {
     const purchaseAmountInput = await Console.readLineAsync(
       INPUT_MESSAGE.purchaseAmountPrompt,
     );
-    console.print('\n');
     return purchaseAmountInput;
   }
 
   static async PrintLottos(amount, lottos) {
-    console.print(`${amount}${INPUT_MESSAGE.purchaseMessage}`);
+    Console.print(`${amount}${INPUT_MESSAGE.purchaseMessage}`);
     lottos.forEach((element) => {
-      console.print(element);
-      console.print('\n');
+      Console.print(element);
+      Console.print('\n');
     });
-    console.print('\n');
+    Console.print('\n');
   }
 
   static async InputwinningNumbers() {
     const winningNumberInput = await Console.readLineAsync(
       INPUT_MESSAGE.winningNumbersPrompt,
     );
-    console.print('\n');
+    Console.print('\n');
     return winningNumberInput;
   }
 
@@ -31,7 +30,7 @@ class LottoView {
     const bounusNumberInput = await Console.readLineAsync(
       INPUT_MESSAGE.bonusNumberPrompt,
     );
-    console.print('\n');
+    Console.print('\n');
     return bounusNumberInput;
   }
 
@@ -43,15 +42,15 @@ class LottoView {
     match6Count,
     profitRate,
   }) {
-    console.print(`${INPUT_MESSAGE.winningTotalMessage}\n`);
-    console.print(`${INPUT_MESSAGE.match3Message(match3Count)}\n`);
-    console.print(`${INPUT_MESSAGE.match4Message(match4Count)}\n`);
-    console.print(`${INPUT_MESSAGE.match5Message(match5Count)}\n`);
-    console.print(
+    Console.print(`${INPUT_MESSAGE.winningTotalMessage}\n`);
+    Console.print(`${INPUT_MESSAGE.match3Message(match3Count)}\n`);
+    Console.print(`${INPUT_MESSAGE.match4Message(match4Count)}\n`);
+    Console.print(`${INPUT_MESSAGE.match5Message(match5Count)}\n`);
+    Console.print(
       `${INPUT_MESSAGE.match5WithBonusMessage(match5WithBonusCount)}\n`,
     );
-    console.print(`${INPUT_MESSAGE.match6Message(match6Count)}\n`);
-    console.print(`${INPUT_MESSAGE.totalProfitMessage(profitRate)}\n`);
+    Console.print(`${INPUT_MESSAGE.match6Message(match6Count)}\n`);
+    Console.print(`${INPUT_MESSAGE.totalProfitMessage(profitRate)}\n`);
   }
 }
 
