@@ -13,6 +13,8 @@ class App {
     OutputView.printLottoCount(this.#money);
     this.#lottos = await this.createLottos();
     OutputView.printLottoNumbers(this.#lottos);
+
+    InputView.processWinningNumber();
   }
 
   async createLottos() {
