@@ -1,3 +1,5 @@
+import { LOTTO_ERROR_MESSAGE } from "../utils/Message";
+
 class Lotto {
   #numbers;
 
@@ -8,21 +10,21 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(LOTTO_ERROR_MESSAGE.LENGTH_SIX);
     }
     const set = new Set(numbers);
     if (numbers.length !== set.size) {
-      throw new Error("[ERROR] 중복된 숫자능 불가능 합니다.");
+      throw new Error(LOTTO_ERROR_MESSAGE.DUPLICATION);
     }
     numbers.forEach((num) => {
       if (num < 1 || num > 45) {
-        throw new Error("[ERROR] 로또 번호는 1부터 45까지 입니다.");
+        throw new Error(LOTTO_ERROR_MESSAGE.OUT_OF_RANGE);
       }
       if (Number.isNaN(num)) {
-        throw new Error("[ERRROR] 로또 번호 중 숫자가 아닌 것이 있습니다.");
+        throw new Error(LOTTO_ERROR_MESSAGE.ISNAN);
       }
       if (num === "") {
-        throw new Error("[ERROR] 로또 번호 중 빈칸이 있습니다.");
+        throw new Error(LOTTO_ERROR_MESSAGE.EMPTY);
       }
     });
   }
