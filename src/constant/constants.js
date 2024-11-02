@@ -28,4 +28,5 @@ export const INPUT_MESSAGE = {
   PURCHASE_PRICE: '\n구입금액을 입력해 주세요.',
   WINNING_NUMBER: '\n당첨 번호를 입력해 주세요.',
   BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.',
+  RESULT: '\n당첨 통계\n---',
 };

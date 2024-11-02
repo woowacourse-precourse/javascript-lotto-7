@@ -10,6 +10,7 @@ import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
 import { INPUT_MESSAGE } from '../constant/constants.js';
 import MatchingMachine from '../model/MatchingMachine.js';
+import { prizeByMatchCount } from '../constant/prizeByMatchCount.js';
 
 export default class Controller {
   constructor() {
@@ -26,6 +27,7 @@ export default class Controller {
       await this.getWinningNumberAndBonusNumber();
 
     const result = this.getCalculatedResult(winningNumber, bonusNumber, lottos);
+    this.outputView.printWinningStatistics(result);
   }
 
   async getWinningNumberAndBonusNumber() {

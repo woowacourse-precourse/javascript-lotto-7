@@ -1,9 +1,32 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_PREFIX } from '../constant/constants.js';
+import { ERROR_PREFIX, INPUT_MESSAGE } from '../constant/constants.js';
+import { prizeByMatchCount } from '../constant/prizeByMatchCount.js';
 
 export default class OutputView {
   printError(message) {
     Console.print(`${ERROR_PREFIX} ${message}`);
+  }
+
+  printWinningStatistics(result) {
+    Console.print(INPUT_MESSAGE.RESULT);
+    const StatisticsString = this.#getStatisticsString(result);
+    Console.print(StatisticsString);
+  }
+
+  #getStatisticsString(result) {
+    const matchSummary = [];
+    for (let key in result) {
+      if (key === '2') {
+        matchSummary.push(
+          `${prizeByMatchCount[key].matchCount}개 일치, 보너스 볼 일치 (${prizeByMatchCount[key].moneyString}원) - ${result[key]}개`,
+        );
+        continue;
+      }
+      matchSummary.push(
+        `${prizeByMatchCount[key].matchCount}개 일치 (${prizeByMatchCount[key].moneyString}원) - ${result[key]}개`,
+      );
+    }
+    return matchSummary.reverse().join('\n');
   }
 
   printLottoPurchaseHistory(lottos) {
