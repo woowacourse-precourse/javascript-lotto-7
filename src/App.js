@@ -22,7 +22,8 @@ async function getWinningNumbers() {
       '[ERROR] 당첨 번호는 6개의 숫자와 쉼표로 이루어져야 하며, 각각의 숫자는 중복되지 않는 1~45 사이의 숫자여야 합니다.'
     );
   }
-  return parseWinningNumbers(input);
+
+  return new Lotto(parseWinningNumbers(input));
 }
 
 async function getBonusNumber() {
