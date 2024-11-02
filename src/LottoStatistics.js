@@ -27,18 +27,14 @@ class LottoStatistics {
     const bonusNumber = this.#winningLotto.getBonusNumber();
 
     this.#purchasedLottos.forEach((lotto) => {
-      const matchedNumCount = LottoStatistics.#getMatchedNumCount(
-        lotto,
-        winningNumbers,
-      );
+      const matchedNumCount = LottoStatistics.#getMatchedNumCount(lotto, winningNumbers);
       const hasBonus = LottoStatistics.#hasBonusNumber(lotto, bonusNumber);
       this.#recordMatchedResult(matchedNumCount, hasBonus);
     });
   }
 
   static #getMatchedNumCount(lotto, winningNumbers) {
-    return lotto.getNumbers().filter((num) => winningNumbers.includes(num))
-      .length;
+    return lotto.getNumbers().filter((num) => winningNumbers.includes(num)).length;
   }
 
   static #hasBonusNumber(lotto, bonusNumber) {

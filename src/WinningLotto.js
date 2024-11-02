@@ -1,5 +1,6 @@
 import Lotto from './Lotto.js';
 import Validator from './utils/Validator.js';
+import { ERROR_MESSAGES } from './constants/messages.js';
 
 class WinningLotto extends Lotto {
   #bonusNumber;
@@ -16,7 +17,7 @@ class WinningLotto extends Lotto {
 
   #validateBonusNumber(bonusNumber) {
     this.#checkDuplicateBonusNum(bonusNumber);
-    Validator.checkValidRange(bonusNumber, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
+    Validator.checkValidRange(bonusNumber, 1, 45, ERROR_MESSAGES.INVALID_LOTTO_RANGE);
   }
 
   getBonusNumber() {
@@ -25,7 +26,7 @@ class WinningLotto extends Lotto {
 
   #checkDuplicateBonusNum(bonusNumber) {
     if (this.getNumbers().includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
     }
   }
 }

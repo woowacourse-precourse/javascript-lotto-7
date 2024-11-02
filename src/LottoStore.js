@@ -2,6 +2,7 @@ import Validator from './utils/Validator.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 import LottoBundle from './LottoBundle.js';
+import { PRINT_MESSAGES, ERROR_MESSAGES } from './constants/messages.js';
 
 class LottoStore {
   #amount;
@@ -16,7 +17,7 @@ class LottoStore {
   async purchaseLottos() {
     const userAmount = await LottoStore.#getValidAmount();
     this.#setPurchaseAmount(userAmount);
-    OutputView.printMessage(`\n${this.#lottoCount}개를 구매했습니다.`);
+    OutputView.printMessage(PRINT_MESSAGES.OUTPUT.LOTTO_COUNT(this.#lottoCount));
 
     const lottoBundle = this.#generateLottos();
     OutputView.printLottoBundle(lottoBundle.getLottos());
@@ -26,7 +27,7 @@ class LottoStore {
   static async #getValidAmount() {
     while (true) {
       try {
-        const inputAmount = await InputView.getUserInput('구입금액을 입력해 주세요.\n');
+        const inputAmount = await InputView.getUserInput(PRINT_MESSAGES.INPUT.AMOUNT);
         LottoStore.#validateAmount(inputAmount);
         return inputAmount;
       } catch (error) {
@@ -42,14 +43,14 @@ class LottoStore {
 
   static #validateAmount(amount) {
     Validator.checkIsNull(amount);
-    Validator.checkRegexPattern(amount, /^\d+$/, '금액은 숫자만 입력 가능합니다.');
-    Validator.checkValidRange(amount, 1000, 100000, '금액은 1000원 이상 10만원 이하로 입력 가능합니다.');
+    Validator.checkRegexPattern(amount, /^\d+$/, ERROR_MESSAGES.INVALID_AMOUNT_INPUT);
+    Validator.checkValidRange(amount, 1000, 100000, ERROR_MESSAGES.INVALID_AMOUNT_RANGE);
     LottoStore.#checkThousandUnit(amount);
   }
 
   static #checkThousandUnit(amount) {
     if (amount % 1000 !== 0) {
-      throw new Error('[ERROR] 금액은 1000원 단위로 입력 가능합니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
     }
   }
 
