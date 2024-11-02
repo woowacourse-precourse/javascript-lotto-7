@@ -29,4 +29,5 @@ const printWinningAmount = () => {
 const printRateOfReturn = (rateOfReturn) => {
   Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
 };
+
 export { printPurchaseAmountCount, printLottoList, printRateOfReturn, printWinningAmount };
