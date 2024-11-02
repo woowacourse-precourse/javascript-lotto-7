@@ -72,7 +72,7 @@ class Validator {
     Validator.isNotDivisible(price);
   }
 
-  static winningNumbers(numbers) {
+  static lottoNumbers(numbers) {
     Validator.lengthIsNotEqual(numbers.length, LOTTO.LENGTH_WINNING_NUMBER);
     Validator.defaultNumber(numbers);
     Validator.isInValidNumberRange(numbers);

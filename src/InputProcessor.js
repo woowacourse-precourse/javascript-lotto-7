@@ -17,7 +17,7 @@ class InputProcessor {
   static async winningNumbers() {
     const input = await InputProcessor.get(PROMPT.WINNING_NUMBER_INPUT);
     const winningNumbers = input.split(',');
-    Validator.winningNumbers(winningNumbers);
+    Validator.lottoNumbers(winningNumbers);
     return winningNumbers;
   }
 
