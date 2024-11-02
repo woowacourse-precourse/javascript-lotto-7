@@ -3,7 +3,7 @@ import {
   BONUS_NUMBER_ERROR,
   PURCHASE_AMOUNT_ERROR,
 } from '../constants/errorMessage.js';
-import { ONE_LOTTO_AMOUNT } from '../constants/won.js';
+import { ONE_LOTTO_AMOUNT, PROFITS } from '../constants/won.js';
 import Lotto from '../Lotto.js';
 import { View } from '../view/View.js';
 
@@ -49,6 +49,56 @@ class Controller {
       this.#checkBonusWithWinningnumbers(rawBonus);
       this.#bonus = rawBonus;
     }
+  }
+
+  async calculateStatistics() {
+    const statistics = this.#makeStatistics();
+    const totalProfit = this.#calculateProfit(statistics);
+    const profitRate = Math.round((totalProfit / this.#amount) * 10000) / 100;
+
+    this.view.printStatics(statistics, profitRate);
+  }
+
+  #makeStatistics() {
+    const statistics = [0, 0, 0, 0, 0];
+    const winningNumbers = this.#winning.getNumbers();
+
+    this.#lottos.forEach((lotto) => {
+      const numbers = lotto.getNumbers();
+      let cnt = numbers.reduce(
+        (acc, cur, idx) => (cur === winningNumbers[idx] ? (acc += 1) : acc),
+        0
+      );
+
+      if (cnt === 3) {
+        statistics[0]++;
+      } else if (cnt === 4) {
+        statistics[1]++;
+      } else if (cnt === 5) {
+        if (numbers.includes(Number(this.#bonus))) {
+          statistics[3]++;
+        } else {
+          statistics[2]++;
+        }
+      } else if (cnt === 6) {
+        statistics[4]++;
+      }
+    });
+
+    return statistics;
+  }
+
+  #calculateProfit(statistics) {
+    const [three, four, five, fiveBonus, six] = statistics;
+
+    const totalProfit =
+      three * PROFITS.THREE +
+      four * PROFITS.FOUR +
+      five * PROFITS.FIVE +
+      fiveBonus * PROFITS.FIVE_BONUS +
+      six * PROFITS.SIX;
+
+    return totalProfit;
   }
 
   #validationAmount(amount) {

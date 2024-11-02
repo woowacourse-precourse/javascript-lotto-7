@@ -23,6 +23,17 @@ export class View {
     return input.trim();
   }
 
+  printStatics(statistics, profit) {
+    const [three, four, five, fiveBonus, six] = statistics;
+    Console.print('당첨 통계\n---');
+    Console.print(`3개 일치 (5,000원) - ${three}개`);
+    Console.print(`4개 일치 (50,000원) - ${four}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${five}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${fiveBonus}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${six}개`);
+    Console.print(`총 수익률은 ${profit}%입니다.`);
+  }
+
   printLotto(lotto) {
     Console.print(lotto);
   }

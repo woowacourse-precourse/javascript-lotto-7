@@ -9,6 +9,7 @@ class App {
         await controller.purchaseLotto();
         await controller.setWinningNumbers();
         await controller.setBonusNumber();
+        await controller.calculateStatistics();
 
         break;
       } catch (error) {
