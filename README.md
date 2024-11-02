@@ -25,14 +25,9 @@
 
 <h3>📦 tests<br>┣ 📜 AllLottoTest.js<br>┣ 📜 ApplicationTest.js<br>┣ 📜 LottoTest.js<br>┗ 📜 PurchaseAmountTest.js</h3>
 
-📦 src
-┣ 📂 util
-┃ ┗ 📜 util.js
-┣ 📜 AllLotto.js
-┣ 📜 App.js
-┣ 📜 index.js
-┣ 📜 Lotto.js
-┗ 📜 PurchaseAmount.js
+<h3>
+  📦 src<br>┣ 📂 util<br>┃ ┗ 📜 util.js<br>┣ 📜 AllLotto.js<br>┣ 📜 App.js<br>┣ 📜 index.js<br>┣ 📜 Lotto.js<br>┗ 📜 PurchaseAmount.js
+</h3>
 
 ## ❗ 주의 사항
 
