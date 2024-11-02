@@ -9,3 +9,13 @@ export function validateCost(cost) {
     throw new Error(ERROR.COST_UNIT);
   }
 }
+
+export function validateLotto(numbers) {
+  const checkSet = new Set();
+  numbers.forEach((num) => {
+    if (checkSet.has(num)) {
+      throw new Error(ERROR.LOTTO_REPEAT);
+    }
+    checkSet.add(num);
+  });
+}

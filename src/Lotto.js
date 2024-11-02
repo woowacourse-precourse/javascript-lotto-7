@@ -1,4 +1,5 @@
 import { ERROR } from './constants/Constants.js';
+import { validateLotto } from './utils/Validation.js';
 
 class Lotto {
   #numbers;
@@ -23,12 +24,7 @@ class Lotto {
       throw new Error(ERROR.LOTTO_RANGE);
     }
 
-    const checkSet = new Set(numbers);
-    numbers.forEach((num) => {
-      if (checkSet.has(num)) {
-        throw new Error(ERROR.LOTTO_REPEAT);
-      }
-    });
+    validateLotto(numbers);
   }
 
   getNumbers() {
