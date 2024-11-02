@@ -12,9 +12,9 @@ class Validator {
   }
 
   static validateInputNumber(input) {
-    this.#validateLottoNumber(input);
-    input.forEach((number) => Validator.#validateNumberRange(number));
-    input.forEach((number) => Validator.#validateIsNaN(number));
+    this.validateLottoNumber(input);
+    input.forEach((number) => this.validateNumberRange(number));
+    input.forEach((number) => this.validateIsNaN(number));
   }
 
   static validateBonusNumber(input) {
@@ -24,23 +24,23 @@ class Validator {
   }
 
   static validateParseBonusNumber(input) {
-    this.#validateNumberRange(input);
-    this.#validateIsNaN(input);
+    this.validateNumberRange(input);
+    this.validateIsNaN(input);
   }
 
-  #validateLottoNumber(input) {
+  static validateLottoNumber(input) {
     if (input.length !== 6) {
       throw new Error('[ERROR] 당첨 번호는 6개 입력해야 합니다.')
     }
   }
 
-  #validateNumberRange(number) {
+  static validateNumberRange(number) {
     if (number <= 0 || number >= 46) {
       throw new Error('[ERROR] 보너스 번호는 1~45 사이의 숫자만 입력해야 합니다.')
     }
   }
 
-  #validateIsNaN(number) {
+  static validateIsNaN(number) {
     if (Number.isNaN(number)) {
       throw new Error('[ERROR] 당첨 번호는 숫자만 입력할 수 있습니다.')
     }
