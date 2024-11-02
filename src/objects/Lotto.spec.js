@@ -19,8 +19,10 @@ describe('Lotto', () => {
   describe('정상 케이스', () => {
     const lotto = new Lotto([4, 2, 3, 6, 1, 5]);
 
-    test('로또 번호가 오름차순으로 정렬된다.', () => {
-      expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
+    describe('#sortByAscending', () => {
+      test('로또 번호가 오름차순으로 정렬된다.', () => {
+        expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
+      });
     });
 
     describe('checkWinning', () => {

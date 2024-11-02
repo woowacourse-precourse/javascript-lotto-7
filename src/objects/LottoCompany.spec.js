@@ -5,20 +5,22 @@ import { LottoCompany, LottoShop } from './index.js';
 describe('LottoCompany', () => {
   const lottoCompany = new LottoCompany();
 
-  test('checkWinningLottos', async () => {
-    mockQuestions([
-      MOCK_DATA_1.INPUT.WINNING_NUMBERS,
-      MOCK_DATA_1.INPUT.BONUS_MUMBER,
-    ]);
-    mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
+  describe('checkWinningLottos', () => {
+    test('로또가 담긴 배열을 넘겨주면, 로또 당첨 결과를 반환한다.', async () => {
+      mockQuestions([
+        MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+        MOCK_DATA_1.INPUT.BONUS_MUMBER,
+      ]);
+      mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
 
-    await lottoCompany.draw();
-    const lottos = LottoShop.orderLottos(MOCK_DATA_1.INPUT.PURCHASE_PRICE);
+      await lottoCompany.draw();
+      const lottos = LottoShop.orderLottos(MOCK_DATA_1.INPUT.PURCHASE_PRICE);
 
-    const lottoWinningMap = lottoCompany.checkWinningLottos(lottos);
+      const lottoWinningMap = lottoCompany.checkWinningLottos(lottos);
 
-    lottoWinningMap.forEach((count, rank) => {
-      expect(count).toBe(MOCK_DATA_1.RESULT.RANKS[String(rank)]);
+      lottoWinningMap.forEach((count, rank) => {
+        expect(count).toBe(MOCK_DATA_1.RESULT.RANKS[String(rank)]);
+      });
     });
   });
 });
