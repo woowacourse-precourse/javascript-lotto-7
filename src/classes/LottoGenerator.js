@@ -1,36 +1,45 @@
-import { Console, MissionUtils } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE } from '../constant.js';
+import { MissionUtils } from '@woowacourse/mission-utils';
+import {
+  LOTTO_LENGTH,
+  LOTTO_MAX_NUMBER,
+  LOTTO_MIN_NUMBER,
+  LOTTO_PRICE,
+} from '../constant.js';
 
 class LottoGenerator {
   #lottoCount;
   #lottos;
   constructor(purchasePrice) {
-    this.#lottoCount = Math.floor(purchasePrice / LOTTO_PRICE);
+    this.#lottoCount = this.#calculateLottoCount(purchasePrice);
   }
 
-  // #validate(purchasePrice) {
-
-  // }
-
-  #createLottoNumber() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+  #calculateLottoCount(purchasePrice) {
+    return Math.floor(purchasePrice / LOTTO_PRICE);
   }
 
-  createLotto() {
-    this.#lottos = Array(this.#lottoCount)
-      .fill()
-      .map(() => this.#createLottoNumber());
-  }
-
-  sortLotto(lottos) {
-    return lottos.sort((a, b) => a - b);
+  #generateLottoNumber() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO_MIN_NUMBER,
+      LOTTO_MAX_NUMBER,
+      LOTTO_LENGTH
+    );
   }
 
   get lottoCount() {
     return this.#lottoCount;
   }
 
-  getLottoNumbers() {
+  generateLottos() {
+    this.#lottos = Array(this.#lottoCount)
+      .fill()
+      .map(() => this.#generateLottoNumber());
+  }
+
+  sortLotto(lottos) {
+    return lottos.sort((a, b) => a - b);
+  }
+
+  getLottos() {
     return this.#lottos.map((lotto) => this.sortLotto(lotto));
   }
 }

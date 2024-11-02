@@ -7,15 +7,21 @@ import InputView from './views/InputView.js';
 class App {
   async run() {
     const inputView = new InputView();
-    const purchaseAmount = await inputView.inputPurchaseAmount();
+    const purchasePrice = await inputView.inputPurchaseAmount();
 
-    const lottoManager = new LottoGenerator(purchaseAmount);
+    // 구입 금액으로 로또 생성
+    const lottoManager = new LottoGenerator(purchasePrice);
 
+    // 로또 개수 출력
     Console.print(`\n${lottoManager.lottoCount}개를 구매했습니다.`);
 
-    lottoManager.createLotto();
+    // 로또 개수로 무작위 번호 추첨하여 로또 생성
+    lottoManager.generateLottos();
 
-    const myLottos = lottoManager.getLottoNumbers();
+    // 생성된 로또 가져오기
+    const myLottos = lottoManager.getLottos();
+
+    // 생성된 로또 형식에 맞게 출력
     myLottos.forEach((myLotto) =>
       Console.print(`[${myLotto.toString().split(',').join(', ')}]`)
     );
@@ -34,7 +40,7 @@ class App {
     Console.print('\n당첨 통계\n---');
     lottoGame.displayResults(results);
 
-    lottoGame.calculateLottoPrize(purchaseAmount, results);
+    lottoGame.calculateLottoPrize(purchasePrice, results);
   }
 }
 
