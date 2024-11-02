@@ -1,7 +1,7 @@
 import { validateCost } from '../src/utils/Validation.js';
 import { ERROR } from '../src/constants/Constants.js';
 
-describe('로또 컨트롤 클래스 테스트', () => {
+describe('로또 구매 금액 함수 예외 테스트', () => {
   test('사용자가 입력한 로또 구매 금액이 숫자가 아니면 예외가 발생한다.', () => {
     expect(() => {
       validateCost('10a');
