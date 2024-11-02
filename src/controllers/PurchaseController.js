@@ -1,4 +1,4 @@
-import Validator from '../Validator.js';
+import PurchaseAmountValidator from '../validators/PurchaseAmountValidator.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 
@@ -9,7 +9,7 @@ class PurchaseController {
     try {
       const inputPurchaseAmount = await InputView.getPurchaseAmount();
 
-      Validator.validatePurchaseAmount(inputPurchaseAmount);
+      PurchaseAmountValidator.validate(inputPurchaseAmount);
       this.#purchaseAmount = Number(inputPurchaseAmount);
 
       return this.#purchaseAmount;

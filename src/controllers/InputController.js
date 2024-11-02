@@ -1,4 +1,5 @@
-import Validator from '../Validator.js';
+import BonusNumberValidator from '../validators/BonusNumberValidator.js';
+import WinningNumberValidator from '../validators/WinningNumberValidator.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 
@@ -8,7 +9,7 @@ class InputController {
       const inputWinningNumbers = await InputView.getWinningNumbers();
       const winningNumbers = this.parseWinningNumbers(inputWinningNumbers);
 
-      Validator.validateWinningNumbers(winningNumbers);
+      WinningNumberValidator.validate(winningNumbers);
 
       return winningNumbers;
     } catch (error) {
@@ -23,13 +24,13 @@ class InputController {
       const inputBonusNumber = await InputView.getBonusNumber();
       const bonusNumber = Number(inputBonusNumber);
 
-      Validator.validateBonusNumber(bonusNumber, winningNumbers);
+      BonusNumberValidator.validate(bonusNumber, winningNumbers);
 
       return bonusNumber;
     } catch (error) {
       OutputView.printError(error.message);
 
-      return this.getBonusNumber();
+      return this.getBonusNumber(winningNumbers);
     }
   }
 
