@@ -1,5 +1,3 @@
-import { print, printEmptyLine } from "./util/io.js";
-import EXECUTE_MESSAGE from "./util/messages/execute-message.js";
 import Validate from "./Validate.js";
 
 class Price {
@@ -12,10 +10,6 @@ class Price {
   #validate(price) {
     const validate = new Validate();
     validate.validatePrice(price);
-  }
-
-  get value() {
-    return this.#price;
   }
 
   get lottoCount() {
