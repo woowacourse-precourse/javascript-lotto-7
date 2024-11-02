@@ -1,6 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
 import { getPurchaseAmount } from '../utils/getUserInput.js';
-import { GAME_SETTINGS, ERROR_MESSAGES, REGEX } from '../utils/constants.js';
+import {
+  GAME_SETTINGS,
+  ERROR_MESSAGES,
+  REGEX,
+  LOTTO,
+} from '../utils/constants.js';
 
 export default async function validatePurchaseAmount(purchaseAmount) {
   try {
@@ -40,11 +45,9 @@ function isPositiveNumber(purchaseAmount) {
 
 // TODO: 정상작동하지만 가독성을 위해 분기처리해야할까? 조건문이 길다.
 function isDivisibleByThousand(purchaseAmount) {
-  if (cleanAmount(purchaseAmount) % GAME_SETTINGS.DIVISIBILITY_UNIT !== 0) {
+  if (cleanAmount(purchaseAmount) % LOTTO.TICKET_PRICE !== 0) {
     throw new Error(
-      ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISIBILITY(
-        GAME_SETTINGS.DIVISIBILITY_UNIT
-      )
+      ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISIBILITY(LOTTO.TICKET_PRICE)
     );
   }
 }

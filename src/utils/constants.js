@@ -1,7 +1,8 @@
 export const MESSAGES = {
-  INPUT_AMOUT: '구입금액을 입력해 주세요.\n',
-  INPUT_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
-  INPUT_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
+  INPUT_AMOUT: '구입금액을 입력해 주세요.',
+  INPUT_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
+  INPUT_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
+  TICKET_PURCHASED: '개를 구매했습니다.',
 };
 
 export const ERROR_MESSAGES = {
@@ -19,7 +20,6 @@ export const ERROR_MESSAGES = {
 };
 
 export const GAME_SETTINGS = {
-  DIVISIBILITY_UNIT: 1000,
   EMPTY_STRING: '',
   NEW_LINE: '\n',
   ZERO: 0,
@@ -34,6 +34,7 @@ export const REGEX = {
 export const LOTTO = {
   NUMBER_RANGE: { MIN: 1, MAX: 45 },
   WINNING_NUMBERS_COUNT: 6,
+  TICKET_PRICE: 1000,
   SEPARATOR: ',',
 };
 
