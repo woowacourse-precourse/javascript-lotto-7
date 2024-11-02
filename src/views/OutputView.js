@@ -22,7 +22,7 @@ class OutputView {
 
   static async printFifthPlaceWinner(result) {
     Console.print(
-      `${OUTPUT_MESSAGES.FIFTH_PLACE_WINNER}${result.getFifth()}${
+      `${OUTPUT_MESSAGES.FIFTH_PLACE_WINNER}${result.getFifthPlaceCount()}${
         OUTPUT_MESSAGES.AMOUNT
       }`
     );
@@ -30,7 +30,7 @@ class OutputView {
 
   static async printFourthPlaceWinner(result) {
     Console.print(
-      `${OUTPUT_MESSAGES.FOURTH_PLACE_WINNER}${result.getFourth()}${
+      `${OUTPUT_MESSAGES.FOURTH_PLACE_WINNER}${result.getFourthPlaceCount()}${
         OUTPUT_MESSAGES.AMOUNT
       }`
     );
@@ -38,7 +38,7 @@ class OutputView {
 
   static async printThirdPlaceWinner(result) {
     Console.print(
-      `${OUTPUT_MESSAGES.THIRD_PLACE_WINNER}${result.getThird()}${
+      `${OUTPUT_MESSAGES.THIRD_PLACE_WINNER}${result.getThirdPlaceCount()}${
         OUTPUT_MESSAGES.AMOUNT
       }`
     );
@@ -46,7 +46,7 @@ class OutputView {
 
   static async printSecontPlaceWinner(result) {
     Console.print(
-      `${OUTPUT_MESSAGES.SECOND_PLACE_WINNER}${result.getSecond()}${
+      `${OUTPUT_MESSAGES.SECOND_PLACE_WINNER}${result.getSecondPlaceCount()}${
         OUTPUT_MESSAGES.AMOUNT
       }`
     );
@@ -54,7 +54,7 @@ class OutputView {
 
   static async printFirstPlaceWinner(result) {
     Console.print(
-      `${OUTPUT_MESSAGES.FIRST_PLACE_WINNER}${result.getFirst()}${
+      `${OUTPUT_MESSAGES.FIRST_PLACE_WINNER}${result.getFirstPlaceCount()}${
         OUTPUT_MESSAGES.AMOUNT
       }`
     );
