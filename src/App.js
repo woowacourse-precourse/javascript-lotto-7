@@ -13,10 +13,10 @@ class App {
       Console.print(error.message);
     }
 
-    const List = new LottoGame(amount);
+    const lotto = new LottoGame(amount);
 
-    const quantity = List.lottoQuantity();
-    const lottoList = List.createLottoList();
+    const quantity = lotto.lottoQuantity();
+    const lottoList = lotto.createLottoList();
     printLottoList(quantity, lottoList);
 
     let winNumbers; 
@@ -35,7 +35,7 @@ class App {
       Console.print(error.message);
     }
 
-    const rankList = List.getWholeWinResult(winNumbers, bonusNumber);
+    const rankList = lotto.getWholeWinResult(winNumbers, bonusNumber);
     
     printWinResult(rankList);
     printRateResult(rankList, amount);
