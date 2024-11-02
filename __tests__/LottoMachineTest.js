@@ -1,6 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import LottoMachine from '../src/LottoMachine';
 import Lotto from '../src/Lotto';
+import { ERROR_MESSAGE } from '../src/Constants';
 
 const mockingRandomNumbers = (numbersArray) => {
   Random.pickUniqueNumbersInRange = jest.fn();
@@ -12,6 +13,20 @@ const mockingRandomNumbers = (numbersArray) => {
 };
 
 describe('LottoMachine 클래스 테스트', () => {
+  test.each([
+    ['숫자아님'],
+    ['2천원'],
+    ['2000원'],
+    [null],
+    [undefined],
+    ['$'],
+    ['$2000$'],
+  ])('구입 금액이 숫자가 아닐 때 예외가 발생하는지 테스트', (payment) => {
+    expect(() => new LottoMachine(payment, Lotto)).toThrow(
+      ERROR_MESSAGE.notNumber,
+    );
+  });
+
   test.each([
     [1000, 1],
     [2000, 2],
