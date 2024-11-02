@@ -6,23 +6,63 @@ import Lotto from '../Lotto.js';
 import Money from '../Money.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
+import Rank from '../Rank.js';
+import Profit from '../Profit.js';
 
 class LottoController {
+  async run() {
+    const {
+      lottoMoney,
+      userLotto,
+      winningLottoNumbers,
+      winningLottoBonusNumber,
+    } = await this.prepareLotto();
+
+    const rankCounter = this.playLotto(
+      userLotto,
+      winningLottoNumbers,
+      winningLottoBonusNumber,
+    );
+
+    this.completeLotto(lottoMoney, rankCounter);
+  }
+
   async prepareLotto() {
     const lottoMoney = await this.generateMoney();
     const lottoCounter = this.generateLottoCounter(lottoMoney);
     const userLotto = this.generateUserLotto(lottoCounter);
 
-    const winningNumbers = await this.generateWinningLottoNumbers();
-    const bonusNumber =
-      await this.generateWinningLottoBonusNumber(winningNumbers);
-    console.log(
+    const winningLottoNumbers = await this.generateWinningLottoNumbers();
+    const winningLottoBonusNumber =
+      await this.generateWinningLottoBonusNumber(winningLottoNumbers);
+
+    return {
       lottoMoney,
-      lottoCounter,
       userLotto,
-      winningNumbers,
-      bonusNumber,
-    );
+      winningLottoNumbers,
+      winningLottoBonusNumber,
+    };
+  }
+
+  playLotto(userLotto, winningLottoNumbers, winningLottoBonusNumber) {
+    const rankCounter = [0, 0, 0, 0, 0];
+    userLotto.forEach((lotto) => {
+      const rank = new Rank(
+        winningLottoNumbers.getNumbers(),
+        winningLottoBonusNumber.getBonusNumber(),
+        lotto,
+      );
+
+      if (rank.getRank() !== 6) {
+        rankCounter[5 - rank.getRank()] += 1;
+      }
+    });
+    return rankCounter;
+  }
+
+  completeLotto(lottoMoney, rankCounter) {
+    const profit = new Profit(lottoMoney.getMoney(), rankCounter);
+    OutputView.printLottoStatics(rankCounter, profit.getProfit());
   }
 
   async generateMoney() {
@@ -86,10 +126,6 @@ class LottoController {
     }
     return lottoList;
   }
-
-  playLotto() {}
-
-  completeLotto() {}
 }
 
 export default LottoController;
