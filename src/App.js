@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { PROMPTS } from "./constants.js";
+import { PROMPTS, ERROR_MESSAGES } from "./constants/constants.js";
 
 class App {
   async run() {
@@ -8,6 +8,10 @@ class App {
 
   async getPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync(PROMPTS.PURCHASE_AMOUNT);
+    if (isNaN(purchaseAmount)) {
+      Console.print(ERROR_MESSAGES.INVALID_AMOUNT);
+      return this.getPurchaseAmount();
+    }
     return purchaseAmount;
   }
 }
