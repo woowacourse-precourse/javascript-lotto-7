@@ -44,4 +44,18 @@ describe('Validation 테스트', () => {
       Validation.validateUniqueNumbers([1, 2, 3, 4, 4, 5]);
     }).toThrow('[ERROR] 중복되는 번호가 존재합니다.');
   });
+
+  test('번호가 양의 정수가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      Validation.validatePositiveInteger(5);
+    }).not.toThrow();
+
+    expect(() => {
+      Validation.validatePositiveInteger(6.8);
+    }).toThrow('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
+
+    expect(() => {
+      Validation.validatePositiveInteger(-1);
+    }).toThrow('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
+  });
 });
