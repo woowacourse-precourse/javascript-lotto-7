@@ -1,5 +1,5 @@
 import { ERROR_MSG, LOTTO_NUMBER_RANGE } from '../Constants.js';
-import { checkDuplicate, checkRange } from '../Util.js';
+import { asendingSort, checkDuplicate, checkRange } from '../Util.js';
 
 class Lotto {
   #numbers;
@@ -9,7 +9,7 @@ class Lotto {
     this.validateRange(numbers);
     this.validateDuplicate(numbers);
 
-    this.#numbers = numbers;
+    this.#numbers = asendingSort(numbers);
   }
 
   getNumbers() {
@@ -35,7 +35,5 @@ class Lotto {
       throw Error(ERROR_MSG.duplicateNumber);
     }
   }
-
-  // TODO: 추가 기능 구현
 }
 export default Lotto;

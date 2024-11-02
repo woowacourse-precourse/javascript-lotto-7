@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 
 export default class OutputView {
-  printLotto(lottos) {
+  printPurchasedLotto(lottos) {
     const lottoCount = lottos.length;
     this.print(`\n${lottoCount}개를 구매했습니다.`);
 
@@ -10,9 +10,9 @@ export default class OutputView {
     });
   }
 
-  printWinningInfo(winningInfo) {
-    for (const element in winningInfo) {
-      const info = winningInfo[element];
+  printWinningDetails(winningDetails) {
+    for (const element in winningDetails) {
+      const info = winningDetails[element];
       let matchString = `${info.match}개 일치`;
 
       if (element === '2') {
@@ -23,7 +23,7 @@ export default class OutputView {
     }
   }
 
-  printRateOfReturn(rate) {
+  printWinningRate(rate) {
     this.print(`총 수익률은 ${rate}%입니다.`);
   }
 

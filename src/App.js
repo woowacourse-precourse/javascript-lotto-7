@@ -1,6 +1,6 @@
 import InputView from './View/InputView.js';
 import OutputView from './View/OutView.js';
-import LottoService from '../src/Model/LottoService.js';
+import LottoService from './Model/LottoService.js';
 
 class App {
   constructor() {
@@ -17,12 +17,13 @@ class App {
     await this.collectUserInput(this.requestWinningNumber);
     await this.collectUserInput(this.requestBonusNumber);
 
-    this.printRateOfReturn(this.printWinningNumbers());
+    this.printWinningDetails();
+    this.printWinningRate();
   }
 
   requestLottoPurchaseAmount = async () => {
     const purchaseAmount = await this.inputView.requestPuchaseAmount();
-    this.lottolService.setPurcharedAmount(purchaseAmount);
+    this.lottolService.buyUserLotto(purchaseAmount);
   };
 
   requestWinningNumber = async () => {
@@ -36,20 +37,19 @@ class App {
   };
 
   printLottoNumbers() {
-    this.lottolService.drawLottos();
-    const lottos = this.lottolService.getLottos();
-    this.outputView.printLotto(lottos);
+    const lottos = this.lottolService.getUserLottoNumbers();
+    this.outputView.printPurchasedLotto(lottos);
   }
 
-  printWinningNumbers() {
-    const winningInfo = this.lottolService.getAllWinningDetail();
-    this.outputView.printWinningInfo(winningInfo);
+  printWinningDetails() {
+    const winningInfo = this.lottolService.getWinningDetails();
+    this.outputView.printWinningDetails(winningInfo);
     return winningInfo;
   }
 
-  printRateOfReturn(winningInfo) {
-    const rateOfReturn = this.lottolService.getRateOfReturn(winningInfo);
-    this.outputView.printRateOfReturn(rateOfReturn);
+  printWinningRate(winningInfo) {
+    const rateOfReturn = this.lottolService.getWinningRate(winningInfo);
+    this.outputView.printWinningRate(rateOfReturn);
   }
 
   async collectUserInput(requestCallbackFunc) {
