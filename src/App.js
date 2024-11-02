@@ -14,6 +14,14 @@ const ERROR_MESSAGES = {
 };
 
 class App {
+  #prizes = {
+    3: 5000,
+    4: 50000,
+    5: 1500000,
+    5.5: 30000000,
+    6: 2000000000,
+  };
+
   async #getAmount() {
     MissionUtils.Console.print(PROMPT_MESSAGES.BUY_LOTTO);
     const amount = parseInt(await MissionUtils.Console.readLineAsync(""), 10);
@@ -62,12 +70,32 @@ class App {
     return number;
   }
 
+  #calculateResults(lottos, winningNumbers) {
+    const results = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
+    let totalPrize = 0;
+
+    lottos.forEach((lotto) => {
+      const matchedCount = lotto.matches(winningNumbers.getNumbers());
+
+      if (matchedCount >= 3) {
+        results[matchedCount]++;
+        totalPrize += this.#prizes[matchedCount];
+      }
+    });
+
+    return { results, totalPrize };
+  }
+
   async run() {
     const amount = await this.#getAmount();
     const count = await this.#getCount(amount);
     const lottos = await this.#getLottos(count);
     const winningNumber = await this.#getWinningNumber();
     const bonusNumber = await this.#getBonus();
+    const { results, totalPrize } = this.#calculateResults(
+      lottos,
+      winningNumber
+    );
   }
 }
 
