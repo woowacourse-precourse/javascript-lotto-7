@@ -23,6 +23,12 @@ export function winningLottoValidation(winningLottoInput) {
   return winningLottoArray;
 }
 
+export function bonusLottoValidation(bonusLottoNum) {
+  if (!lottoNumberValidation(bonusLottoNum))
+    throw '로또 번호는 1 ~ 45까지의 숫자만 가능합니다.';
+  return bonusLottoNum;
+}
+
 function lottoNumberValidation(lottoNumber) {
   if (Number(lottoNumber) < 1 || Number(lottoNumber) > 45) return false;
   if (Number(lottoNumber) % 1) return false;
