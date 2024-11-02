@@ -8,14 +8,10 @@ import { USER_MONEY_PROMPT, WINNING_NUMBER_PROMPT, BONUS_NUMBER_PROMPT } from '.
 import { INPUT_ERROR_MESSAGE } from '../constants/message.js';
 
 export async function getUserMoney() {
-  try {
-    const userMoney = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
-    validateNumber(userMoney);
-    validateUserMoney(userMoney);
-    return parseInt(userMoney, 10);
-  } catch (error) {
-    throw new Error(INPUT_ERROR_MESSAGE);
-  }
+  const userMoney = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
+  validateNumber(userMoney);
+  validateUserMoney(userMoney);
+  return parseInt(userMoney, 10);
 }
 
 export async function getWinningNumbers() {
