@@ -15,6 +15,9 @@ class App {
     const matchResults = lottoArr.map((lotto) =>
       this.compareNumbers(lotto.numbers, winningNumbers, bonusNumber)
     );
+
+    const statistics = this.decisionWinning(matchResults);
+    this.printWinningStatistics(statistics);
   }
 
   async getPurchaseAmount() {
@@ -28,13 +31,13 @@ class App {
 
   validateAmount(amount) {
     if (isNaN(amount)) {
-      throw new Error("[ERROR] 금액은 숫자여야 합니다.");
+      Console.print("[ERROR] 금액은 숫자여야 합니다.");
     }
     if (amount % 1000 !== 0) {
-      throw new Error("[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다.");
+      Console.print("[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다.");
     }
     if (amount <= 0) {
-      throw new Error("[ERROR] 정상적인 금액을 입력해주세요.");
+      Console.print("[ERROR] 정상적인 금액을 입력해주세요.");
     }
   }
 
@@ -64,16 +67,14 @@ class App {
 
   validateWinningNumbers(winningNumbers) {
     const uniqueNumbers = new Set(winningNumbers);
-    if (isNaN(amount)) {
-      throw new Error("[ERROR] 금액은 숫자여야 합니다.");
-    }
+
     if (uniqueNumbers.size !== 6) {
-      throw new Error("[ERROR] 중복된 숫자가 포함되어 있습니다.");
+      Console.print("[ERROR] 중복된 숫자가 포함되어 있습니다.");
     }
 
     winningNumbers.forEach((number) => {
       if (number < 1 || number > 45) {
-        throw new Error("[ERROR] 숫자는 1에서 45 사이여야 합니다.");
+        Console.print("[ERROR] 숫자는 1에서 45 사이여야 합니다.");
       }
     });
   }
@@ -104,10 +105,20 @@ class App {
       else if (matchingCount === 4) statistics[4]++;
       else if (matchingCount === 3) statistics[3]++;
     });
+
+    return statistics;
+  }
+
+  printWinningStatistics(statistics) {
+    Console.print("당첨 통계");
+    Console.print("---");
+    Console.print(`3개 일치 (5,000원) - ${statistics[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${statistics[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${statistics[5]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${statistics["5+bonus"]}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${statistics[6]}개`);
   }
 }
 export default App;
-
-// - **당첨 등수 결정**:
-// 번호 일치 개수와 보너스 번호 일치 여부를
-// 바탕으로 당첨 등수(1등~5등)를 결정하는 기능 구현
