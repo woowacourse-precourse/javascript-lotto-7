@@ -9,6 +9,10 @@ import Lotto from '../Lotto.js';
 import BonusNumber from '../validation/BonusNumber.js';
 
 class LottoMachine {
+  #winningNumber;
+
+  #bonusNumber;
+
   async start() {
     const money = await this.handleMoneyInput();
     const numOfLotto = countLotto(money);
@@ -18,7 +22,9 @@ class LottoMachine {
     Output.printLottos(lottoController.lottos);
 
     const winningNumber = await this.handleWinningNumberInput();
+    this.#winningNumber = winningNumber;
     const bonusNumber = await this.handleBonusNumberInput();
+    this.#bonusNumber = bonusNumber;
   }
 
   async handleMoneyInput() {
@@ -52,7 +58,10 @@ class LottoMachine {
     while (true) {
       bonusNumber = await Input.requestBonusNumber();
       try {
-        const validBonusNumber = BonusNumber.validate(bonusNumber);
+        const validBonusNumber = BonusNumber.validate(
+          bonusNumber,
+          this.#winningNumber,
+        );
         return validBonusNumber;
       } catch (error) {
         Console.print(error);
