@@ -15,6 +15,13 @@ class Input {
     );
     return input;
   }
+
+  static async requestBonusNumber() {
+    const input = await Console.readLineAsync(
+      `${LOTTO_MESSAGE.REQUEST_BONUS_NUMBER}\n`,
+    );
+    return input;
+  }
 }
 
 export default Input;
