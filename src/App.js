@@ -1,11 +1,6 @@
 import { Input } from './Views/inputViews.js';
 import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
-import {
-  printPurchaseAmountCount,
-  printLottoList,
-  printRateOfReturn,
-  printWinningAmount,
-} from './Views/outputViews.js';
+import { Output } from './Views/outputViews.js';
 import { issueLottoList } from './Models/lottoListIssueUtils.js';
 import { produceStatistics } from './Models/winningStatisticsUtils.js';
 import { produceRateOfReturn } from './Models/rateOfReturnUtils.js';
@@ -28,12 +23,12 @@ class App {
   async startPurchase() {
     this.purchaseAmount = await new Input().getPurchaseAmountInput();
     this.purchaseCount = countPurchaseAmount(this.purchaseAmount);
-    printPurchaseAmountCount(this.purchaseCount);
+    new Output().printPurchaseAmountCount(this.purchaseCount);
   }
 
   produceLottoList() {
     this.lottoList = issueLottoList(this.purchaseCount);
-    printLottoList(this.purchaseCount, this.lottoList);
+    new Output().printLottoList(this.purchaseCount, this.lottoList);
   }
 
   async getWinningInfo() {
@@ -41,12 +36,12 @@ class App {
     const trimWinningNum = trimWinningNumbers(winningNumbers);
     const bonusNumber = await new Input().getBonusNumberInput();
     produceStatistics(trimWinningNum, bonusNumber, this.lottoList);
-    printWinningAmount();
+    new Output().printWinningAmount();
   }
 
   calculateAndPrintReturnOfRange() {
     const rateOfReturn = produceRateOfReturn(this.purchaseAmount);
-    printRateOfReturn(rateOfReturn);
+    new Output().printRateOfReturn(rateOfReturn);
   }
 }
 
