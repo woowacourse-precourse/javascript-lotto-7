@@ -8,6 +8,7 @@ class RevenueCalculator {
   }
 
   calculateYield() {
+    this.calculateTotalPrize();
     return (this.totalPrize / this.totalSpent) * 100;
   }
 
