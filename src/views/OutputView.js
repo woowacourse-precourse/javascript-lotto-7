@@ -5,6 +5,10 @@ class OutputView {
     MissionUtils.Console.print('');
   }
 
+  static printMessage(message) {
+    MissionUtils.Console.print(message);
+  }
+
   static printLottoCount(lottoCount) {
     MissionUtils.Console.print(`${lottoCount}개를 구매했습니다.`);
   }
