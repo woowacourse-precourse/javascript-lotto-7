@@ -2,16 +2,16 @@
 
 ## 🏄🏼‍♂️ 프로젝트 소개
 
-로또를 구매한 소년에 대한 이야기입니다.
+로또를 구매하는 소년에 대한 이야기입니다.
 
 ```
-오늘은 로또를 구매하는 날입니다. 한 소년이 로또 가게에 가 로또를 구매했습니다.
+오늘은 로또를 구매하는 날입니다. 한 소년이 로또 가게에서 로또를 구매했습니다.
 
 며칠 후 로또를 추첨하는 날이 다가왔습니다. 로또 회사에서는 로또를 추첨을 합니다.
 
-소년은 자신의 로또가 당첨되었는지 확인하기 위해 로또 회사에 다녀옵니다.
+소년은 로또 회사의 당첨 체크 시스템을 이용해 로또 결과를 발급받습니다.
 
-집에 돌아온 소년은 로또로 얻은 수익률을 계산합니다.
+이제 소년은 로또로 얻은 수익률을 계산합니다.
 ```
 
 이렇게 로또를 구매한 소년에 대한 이야기는 끝이 납니다.
@@ -23,55 +23,58 @@
 ```mermaid
 sequenceDiagram
 
-    participant Shop as 로또 가게
-    participant Buyer as 로또 구매자
+sequenceDiagram
+
+    participant LottoShop as 로또 가게
+    participant LottoBuyer as 로또 구매자
     participant Lotto as 로또
-    participant Company as 로또 회사
+    participant LottoCompany as 로또 회사
+    participant LottoResult as 로또 결과
 
-    Note over Buyer,Shop: 1. 로또를  구매한다.
+    Note over LottoBuyer,LottoShop: 1. 로또를  구매한다.
 
-    Buyer->>Shop: "저 로또 구매할게요."
-    Shop<<->>Lotto: 로또 발급
-    Shop->>Buyer: "로또 여기 있습니다."
+    LottoBuyer->>LottoShop: "저 로또 구매할게요."
+    LottoShop<<->>Lotto: 로또 생성
+    LottoShop->>LottoBuyer: "로또 여기 있습니다."
 
-    Note over Company: 2. 로또를 추첨한다.
+    Note over LottoCompany: 2. 로또를 추첨한다.
 
-    Note over Buyer,Company: 3. 로또 당첨을 확인한다.
-    Buyer->>Company: "저 로또 당첨 여부좀 확인할게요."
-    Company<<->>Lotto: 당첨 여부 확인
-    Company->>Buyer: "여기/ 당첨 결과입니다"
+    Note over LottoBuyer,LottoResult: 3. 로또 당첨을 확인한다.
 
-    Note over Buyer: 4. 로또 수익을을 계산한다.
+    LottoBuyer->>LottoCompany: "저 로또 당첨 여부좀 확인할게요."
+    LottoCompany<<->>Lotto: 로또 당첨 여부 확인
+    LottoCompany<<->>LottoResult: 로또 결과 발급
+    LottoCompany->>LottoBuyer: "여기 로또 결과입니다"
+
+    Note over LottoBuyer,LottoResult: 4. 로또 수익을을 계산한다.
+    LottoBuyer<<->> LottoResult: 로또 상금 합계 확인
 
 ```
 
-이 순서도를 코드에 옮긴 것이 [App.js](./src//App.js)입니다.
+이 순서도를 코드에 옮긴 것이 바로 [App.js](./src//App.js)입니다.
 
 ## 코드 설명
 
 ### 클래스
 
-클래스는 두 가지로 나뉩니다. 실제로 이야기에 등장하는 클래스와 이야기를 도와주는 헬퍼 클래스가 있습니다.
+클래스는 세 가지로 나뉩니다.
 
-1. 실제로 이야기에 등장하는 클래스
+1. [App](./src/App.js)
+   1. `App` : 이야기의 전개를 담당합니다.
+2. [실제로 이야기에 등장하는 클래스](./src/objects/)
    1. `LottoBuyer` : 로또를 구매하는 오늘의 주인공입니다.
    2. `LottoCompany` : 로또를 추첨하는 로또 회사입니다.
    3. `LottoShop` : 로또를 판매하는 로또 가게입니다.
    4. `Lotto` : 로또입니다.
-2. 헬퍼 클래스
-   1. `App` : 이야기의 전개를 담당합니다.
-   2. `InputManager` : 사용자로부터 입력을 받습니다.
-   3. `OutputManager` : 사용자에게 결과를 출력합니다.
+3. [헬퍼 클래스](./src/helpers/)
+   1. `InputManager` : 사용자로부터 입력을 받습니다.
+   2. `OutputManager` : 사용자에게 결과를 출력합니다.
 
-현실 세계에서 로또 가게, 로또 회사, 로또는 움직일 수 없는 무생물입니다. 하지만 소프트웨어 세계에 이러한 것들을 옮겨오면서 생명을 불어넣어주었습니다. 즉 이 소프트웨어 세계에서 로또 가게는 직접 로또를 만들기도 하고, 로또 회사는 로또를 추첨하기도 하고, 로또는 로또 당첨 번호를 비교할 수 있습니다.
+현실 세계에서 로또 가게, 로또 회사, 로또는 움직일 수 없는 무생물입니다. 하지만 소프트웨어 세계에 이러한 것들을 옮겨오면서 생명을 불어넣어주었습니다. 다시말해 소프트웨어 세계에서 로또는 로또 당첨 번호를 비교하기도 하고, 로또 결과지는 직접 당첨 결과를 합할 수 있습니다.
 
 ### 테스트
 
-[`__tests__`](/__tests__/) 폴더에서 확인할 수 있습니다. 테스트 코드를 보관합니다.
-
-1. `ApplicationTest` : 애플리케이션 전체에 대한 테스트 코드
-2. `LottoBuyerTest`, `LottoTest`, `LottoCompanyTest`, `LottoShopTest` : 각 클래스에 대한 테스트 코드
-3. `UtilTest` : 유틸 함수에 대한 테스트
+App의 테스트 코드는 [`__tests__`](/__tests__/)폴더에 있고, 그 외의 테스트 코드는 각 파일이 위치한 폴더에 함께 위치해있습니다. 이렇게 테스트 코드 파일과 메인 파일을 함께 둔 이유는 응집성때문입니다. 이 둘이 멀리 떨어져있으면 물리적으로 떨어져 더 손이 안가게되고, 점점 관리를 안하게 될 것이라 판단하여 같은 폴더에 배치했습니다.
 
 ### 라이브러리
 
