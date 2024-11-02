@@ -5,6 +5,7 @@ import { LottoPrintHandler } from "./handler/LottoPrintHandler.js";
 import { LottoNumberInputHandler } from "./handler/LottoNumberInputHandler.js";
 import { WinningLotto } from "./lotto/WinningLotto.js";
 import { LottoResult } from "./result/LottoResult.js";
+import { ResultPrintHandler } from "./handler/ResultPrintHandler.js";
 
 class App {
   #repeatHandler;
@@ -13,6 +14,7 @@ class App {
   #lottoPrintHandler;
   #lottoNumberInputHandler;
   #lottoResult;
+  #resultPrintHandler;
 
   constructor() {
     this.#repeatHandler = new RepeatHandler();
@@ -21,12 +23,14 @@ class App {
     this.#lottoPrintHandler = new LottoPrintHandler();
     this.#lottoNumberInputHandler = new LottoNumberInputHandler();
     this.#lottoResult = new LottoResult();
+    this.#resultPrintHandler = new ResultPrintHandler();
   }
 
   async run() {
     const lottoArr = await this.#repeatHandler.repeatUntilSuccess(async () => await this.#purchaseLotto());
     const winningLotto = await this.#repeatHandler.repeatUntilSuccess(async () => await this.#makeWinningLotto());
     const result = this.#lottoResult.calculateResult(lottoArr, winningLotto);
+    this.#resultPrintHandler.printResult(result)
   }
 
   async #purchaseLotto() {
