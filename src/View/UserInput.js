@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PROGRESS_MESSAGE } from '../constants/Message.js';
 
-class InputHandler {
+class UserInput {
   static async inputPurchaseAmount() {
     return await Console.readLineAsync(
       `${PROGRESS_MESSAGE.ENTER_PURCHASE_AMOUNT}\n`
@@ -19,4 +19,4 @@ class InputHandler {
   }
 }
 
-export default InputHandler;
+export default UserInput;

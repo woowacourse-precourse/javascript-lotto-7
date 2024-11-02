@@ -4,7 +4,7 @@ import {
   PROGRESS_MESSAGE,
 } from '../constants/Message.js';
 
-class OutputHandler {
+class UserOutput {
   static showPurchsedLotto(lottoTickets) {
     Console.print(`${lottoTickets.length}${PROGRESS_MESSAGE.PURCHASE_RESULT}`);
     lottoTickets.forEach((lottoTicket) => {
@@ -24,4 +24,4 @@ class OutputHandler {
   }
 }
 
-export default OutputHandler;
+export default UserOutput;
