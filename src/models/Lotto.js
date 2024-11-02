@@ -9,6 +9,7 @@ class Lotto {
   #validate(numbers) {
     this.#validateLottoLength(numbers);
     this.#validateDuplicateNum(numbers);
+    this.#validateNumberOnly(numbers);
   }
 
   #validateLottoLength(numbers) {
@@ -21,6 +22,13 @@ class Lotto {
     const setNumbers = new Set(numbers);
     if (numbers.length !== setNumbers.size) {
       throw new Error("[ERROR] 로또 번호는 중복없이 입력되어야 합니다.");
+    }
+  }
+
+  #validateNumberOnly(numbers) {
+    const reg = /^[0-9]+$/;
+    if (!reg.test(numbers)) {
+      throw new Error("[ERROR] 로또 번호는 정수로만 입력되어야 합니다.");
     }
   }
 }
