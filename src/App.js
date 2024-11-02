@@ -27,7 +27,6 @@ class App {
     );
 
     const resultList = [];
-
     lottoTickets.forEach((lotto) => {
       const result = lotto.getWinningResult(winningNumber, bonusNumber);
       resultList.push(result);

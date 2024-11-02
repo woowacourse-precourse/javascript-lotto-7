@@ -4,14 +4,13 @@ describe('개수 나누기 ', () => {
   test('정상 케이스', () => {
     const input = [123, 1234, 123, 1231, 1234];
     const expectedOutput = [
-      [123, 2],
-      [1234, 2],
-      [1231, 1],
+      { money: 123, count: 2 },
+      { money: 1234, count: 2 },
+      { money: 1231, count: 1 },
     ];
 
     const result = Statistics.countOccurrences(input);
 
-    // 결과가 예상된 출력과 동일한지 확인
     expect(result).toEqual(expectedOutput);
   });
 
@@ -24,18 +23,18 @@ describe('개수 나누기 ', () => {
     expect(result).toEqual(expectedOutput);
   });
 
-  test('한개 있을 때 테스트 ', () => {
+  test('한 개 있을 때 테스트', () => {
     const input = [123];
-    const expectedOutput = [[123, 1]];
+    const expectedOutput = [{ money: 123, count: 1 }];
 
     const result = Statistics.countOccurrences(input);
 
     expect(result).toEqual(expectedOutput);
   });
 
-  test('한개가 세개만 있는 케이스', () => {
+  test('모두 동일한 요소 테스트', () => {
     const input = [123, 123, 123];
-    const expectedOutput = [[123, 3]];
+    const expectedOutput = [{ money: 123, count: 3 }];
 
     const result = Statistics.countOccurrences(input);
 
