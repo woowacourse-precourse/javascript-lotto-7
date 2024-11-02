@@ -54,6 +54,9 @@ class App {
     if (winningNumberSet.has(Number(bonusNumber))) {
       throw new Error("[ERROR]: 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
+    if (isNaN(bonusNumber)) {
+      throw new Error("[ERROR]: 숫자만 입력가능합니다.");
+    }
   }
 }
 
