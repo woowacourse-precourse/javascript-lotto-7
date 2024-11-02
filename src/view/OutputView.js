@@ -9,7 +9,7 @@ class OutputView {
 
   static printLottoNumbers(lottos) {
     const lottoNumbers = lottos.map(
-      (lotto) => `[${lotto.getNumbers().join(",")}]`
+      (lotto) => `[${lotto.getNumbers().join(", ")}]`
     );
     printResult(lottoNumbers.join("\n"));
   }
