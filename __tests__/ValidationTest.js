@@ -21,6 +21,20 @@ describe('Validation 테스트', () => {
     }).not.toThrow();
   });
 
+  test('구분자를 잘못 사용했을 경우 예외가 발생한다.', () => {
+    expect(() => {
+      Validation.validateCommaSeparatedFormat('1,2,3,4,5,6');
+    }).not.toThrow();
+
+    expect(() => {
+      Validation.validateCommaSeparatedFormat('1,,3,4,5,6');
+    }).toThrow('[ERROR] 구분자가 잘못되었습니다.');
+
+    expect(() => {
+      Validation.validateCommaSeparatedFormat(',2,3,4,5,6');
+    }).toThrow('[ERROR] 구분자가 잘못되었습니다.');
+  });
+
   test('로또 번호가 6개가 아닌 경우 예외가 발생한다.', () => {
     expect(() => {
       Validation.validateSixNumbers([1, 2, 3, 4, 5, 6]);
