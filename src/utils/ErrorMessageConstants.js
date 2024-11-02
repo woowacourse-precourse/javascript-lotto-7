@@ -5,4 +5,5 @@ export const ERROR_MESSAGES = {
   INVALID_PURCHASE_AMOUNT: "[ERROR] 구매 금액은 1,000원 단위여야 합니다.",
   INVALID_NUMBER_FORMAT: "[ERROR] 로또 번호는 숫자여야 합니다.",
   INVALID_BONUS_NUMBER: "[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.",
+  INVALID_POSITIVE_NUMBER: "[ERROR] 로또 번호는 음수가 될 수 없습니다.",
 };
