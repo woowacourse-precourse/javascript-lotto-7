@@ -19,6 +19,16 @@ const outputView = {
       OUTPUT_VIEW.winningStatistics(numbersOfMatched, matchingCount, prize),
     );
   },
+
+  winningBonusStatistics: (numbersOfMatched, matchingCount, prize) => {
+    Console.print(
+      OUTPUT_VIEW.winningBonusStatistics(
+        numbersOfMatched,
+        matchingCount,
+        prize,
+      ),
+    );
+  },
 };
 
 export default outputView;

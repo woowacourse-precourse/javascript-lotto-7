@@ -47,6 +47,8 @@ export const OUTPUT_VIEW = {
   separatingMark: '---',
   winningStatistics: (numbersOfMatched, matchingCount, prize) =>
     `${numbersOfMatched}개 일치 (${prize}원) - ${matchingCount}개`,
+  winningBonusStatistics: (numbersOfMatched, matchingCount, prize) =>
+    `${numbersOfMatched}개 일치, 보너스 볼 일치 (${prize}원) - ${matchingCount}개`,
 };
 
 export const VALIDATION = {
