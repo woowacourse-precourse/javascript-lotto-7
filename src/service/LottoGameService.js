@@ -39,6 +39,10 @@ class LottoGameService {
     return this.prizes;
   }
 
+  generateWinningLotto(winningNumbers) {
+    return new Lotto(winningNumbers);
+  }
+
   generateLotto() {
     const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     return new Lotto(randomNumber);
