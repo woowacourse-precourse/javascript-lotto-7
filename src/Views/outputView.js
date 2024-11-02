@@ -21,14 +21,18 @@ export function printWinResult(rankList) {
 }
 
 export function printRateResult(rankList, amount) {
+    const result = calTotalWinAmount(rankList);
+    const rate = (result / amount * 100).toFixed(1);
+    Console.print(`총 수익률은 ${rate}%입니다.`);
+}
+
+function calTotalWinAmount(rankList) {
     const winAmount = [5000, 50000, 1500000, 30000000, 2000000000];
-    const result = winAmount.reduce((acc, cur, idx) => {
+    return winAmount.reduce((acc, cur, idx) => {
         const rank = 5 - idx;
         const matchCount = getWinCount(rankList, rank);
         return acc + cur * matchCount;
     }, 0);
-    const rate = (result / amount * 100).toFixed(1);
-    Console.print(`총 수익률은 ${rate}%입니다.`);
 }
 
 function getWinCount(result, rank) {
