@@ -3,6 +3,7 @@ class CheckNumber{
         this.RandomLottoNumbers=[];
         this.getNumber=getNumber;
         this.incluededBonus=false;
+        this.matchingResult=[];
     }
 
     checkNumbers(){
@@ -12,7 +13,7 @@ class CheckNumber{
             lottoNumber.filter(number => bonusAndWinnerNumbers.includes(number))
         );
     
-        return matchingNumbers.map(numbers =>
+        this.matchingResult=matchingNumbers.map(numbers =>
             [numbers.length, numbers.includes(bonusNumber)]
         );
     }

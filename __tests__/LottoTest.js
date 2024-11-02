@@ -3,6 +3,7 @@ import { Console,Random } from '@woowacourse/mission-utils';
 import LottoGenerator from '../src/LottoGenerator.js';
 import GetNumber from '../src/GetNumber.js';
 import CheckNumber from '../src/CheckNumber.js';
+import WinningPrizeTable from '../src/WinningPrizeTable.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
@@ -134,9 +135,35 @@ describe('CheckNumber 테스트', () => {
       [7, 8, 9, 10, 11, 12]
     ];
 
-    const result = checkNumber.checkNumbers();
+    checkNumber.checkNumbers();
 
-    expect(result).toEqual([[2, true], [2, false]]);
+    expect(checkNumber.matchingResult).toEqual([[2, true], [2, false]]);
+  });
+});
+
+describe('WinningPrizeTable 테스트', () => {
+  let winningPrizeTable;
+
+  beforeEach(() => {
+      winningPrizeTable = new WinningPrizeTable();
+    
+      jest.spyOn(winningPrizeTable, 'getMatchingResult').mockReturnValue([
+          [3, false],
+          [4, false],
+          [5, false],
+          [5, true],
+          [6, false]
+      ]);
+  });
+
+  test('당첨 내역 업데이트 확인', () => {
+      winningPrizeTable.updateWinningPrizeTable();
+
+      expect(winningPrizeTable.winningPrizeTable['3개 일치 (5,000원)']).toBe(1);
+      expect(winningPrizeTable.winningPrizeTable['4개 일치 (50,000원)']).toBe(1);
+      expect(winningPrizeTable.winningPrizeTable['5개 일치 (1,500,000원)']).toBe(1);
+      expect(winningPrizeTable.winningPrizeTable['5개 일치, 보너스 볼 포함 (30,000,000원)']).toBe(1);
+      expect(winningPrizeTable.winningPrizeTable['6개 일치 (2,000,000,000원)']).toBe(1);
   });
 });
 
