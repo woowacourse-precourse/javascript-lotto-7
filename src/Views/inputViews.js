@@ -10,7 +10,7 @@ class Input {
     this.BonusNumberValidator = new BonusNumberValidator();
 
     this.purchaseAmountMessage = '구입금액을 입력해 주세요.\n';
-    this.winningNumbersMessage = '당첨 번호를 입력해 주세요.\n';
+    this.winningNumbersMessage = '\n당첨 번호를 입력해 주세요.\n';
     this.bonusNumberMessage = '\n보너스 번호를 입력해 주세요.\n';
   }
 
