@@ -4,33 +4,28 @@ import throwError from "../utils/throwError.js";
 
 class Validator {
   static isEmpty(input) {
-    if (!input)
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.EMPTY_INPUT}`);
+    if (!input) throwError(ERROR_MESSAGES.EMPTY_INPUT);
     return input;
   }
 
   static isSeparatedFormat(input, separator = ",") {
     const values = input.split(separator).map((value) => value.trim());
-    if (values.length < 1)
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.INVALID_SEPARATOR}`);
+    if (values.length <= 1) throwError(ERROR_MESSAGES.INVALID_SEPARATOR);
     return values;
   }
 
   static isNumber(input) {
-    if (isNaN(input))
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.NON_NUMERIC}`);
+    if (isNaN(input)) throwError(ERROR_MESSAGES.NON_NUMERIC);
     return Number(input);
   }
 
   static isNagativeNumber(input) {
-    if (input < 0)
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.NEGATIVE_VALUE}`);
+    if (input < 0) throwError(ERROR_MESSAGES.NEGATIVE_VALUE);
     return input;
   }
 
   static isZero(input) {
-    if (input === 0)
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.ZERO_VALUE}`);
+    if (input === 0) throwError(ERROR_MESSAGES.ZERO_VALUE);
     return input;
   }
 
@@ -39,20 +34,19 @@ class Validator {
     min = LOTTO.MIN_NUMBER,
     max = LOTTO.MAX_NUMBER
   ) {
-    if (input < min || input > max)
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.OUT_OF_RANGE}`);
+    if (input < min || input > max) throwError(ERROR_MESSAGES.OUT_OF_RANGE);
     return input;
   }
 
   static isLengthSix(input) {
     if (input.length !== LOTTO.COUNT)
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.INCORRECT_LENGTH}`);
+      throwError(ERROR_MESSAGES.INCORRECT_LENGTH);
     return input;
   }
 
   static isDuplicate(input) {
     if (new Set(input).size !== input.length)
-      throwError(`${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.DUPLICATE_FOUND}`);
+      throwError(ERROR_MESSAGES.DUPLICATE_FOUND);
     return input;
   }
 }
