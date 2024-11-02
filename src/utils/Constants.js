@@ -49,6 +49,7 @@ export const OUTPUT_VIEW = {
     `${numbersOfMatched}개 일치 (${prize}원) - ${matchingCount}개`,
   winningBonusStatistics: (numbersOfMatched, matchingCount, prize) =>
     `${numbersOfMatched}개 일치, 보너스 볼 일치 (${prize}원) - ${matchingCount}개`,
+  profit: (profit) => `총 수익률은 ${profit}%입니다.`,
 };
 
 export const VALIDATION = {

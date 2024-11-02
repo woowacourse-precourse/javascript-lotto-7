@@ -29,6 +29,10 @@ const outputView = {
       ),
     );
   },
+
+  profit: (profit) => {
+    Console.print(OUTPUT_VIEW.profit(profit));
+  },
 };
 
 export default outputView;
