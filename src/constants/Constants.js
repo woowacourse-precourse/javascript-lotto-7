@@ -1,6 +1,6 @@
 export const INPUT = {
   COST: '구입금액을 입력해 주세요.\n',
-  JACKPOT: '당첨 번호를 입력해 주세요.\n',
+  JACKPOT: '\n당첨 번호를 입력해 주세요.\n',
   BONUS: '보너스 번호를 입력해 주세요.\n',
 };
 
