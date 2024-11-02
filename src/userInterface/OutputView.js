@@ -13,6 +13,12 @@ const outputView = {
   separatingMark: () => {
     Console.print(OUTPUT_VIEW.separatingMark);
   },
+
+  winningStatistics: (numbersOfMatched, matchingCount, prize) => {
+    Console.print(
+      OUTPUT_VIEW.winningStatistics(numbersOfMatched, matchingCount, prize),
+    );
+  },
 };
 
 export default outputView;

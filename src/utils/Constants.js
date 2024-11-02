@@ -45,6 +45,8 @@ export const OUTPUT_VIEW = {
   purchaseAmount: (amount) => `${amount}개를 구매했습니다.`,
   winningStatisticsHeader: '당첨 통계',
   separatingMark: '---',
+  winningStatistics: (numbersOfMatched, matchingCount, prize) =>
+    `${numbersOfMatched}개 일치 (${prize}원) - ${matchingCount}개`,
 };
 
 export const VALIDATION = {
