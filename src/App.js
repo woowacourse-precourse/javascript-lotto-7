@@ -10,7 +10,7 @@ class App {
     const lottoMachine = await this.getLottoMachine();
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
-    const winningLottoNumbers = this.makeWinningLottoNumbers(
+    const winningLottoNumbers = App.makeWinningLottoNumbers(
       winningNumbers,
       bonusNumber,
     );
