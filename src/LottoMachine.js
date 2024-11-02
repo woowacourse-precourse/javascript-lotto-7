@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import { getEarningRate } from './Result.js';
 
 class LottoMachine {
   #purchase = 0;
@@ -9,6 +10,7 @@ class LottoMachine {
   #bonusNumber;
   #lottos = [];
   #resultCount = [0, 0, 0, 0, 0];
+  #earningRate = 0;
 
   async play() {
     await this.setPurchase(); // 구입 금액 입력
@@ -17,13 +19,16 @@ class LottoMachine {
     await this.setWinningNumbers(); // 당첨 번호 입력
     await this.setBonusNumber(); // 보너스 번호 입력
 
+    
     // 당첨 확인
-    // lottos 안에 Lotto 마다 numbers 몇개 일치하는지 matchCount 세기
     for (let i = 0; i < this.#lottoCount; i++) {
-      this.checkMatch(this.#lottos[i], this.#resultCount);
+        this.checkMatch(this.#lottos[i], this.#resultCount);
     }
 
-    Console.print(this.#resultCount);
+    this.#earningRate = getEarningRate(this.#resultCount, this.#purchase);
+    
+
+
   }
 
   // 구입 금액 입력
