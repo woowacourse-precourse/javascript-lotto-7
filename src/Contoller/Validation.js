@@ -35,6 +35,12 @@ class Validation {
       throw new Error('[ERROR] 모든 숫자는 1부터 45 사이여야 합니다.');
     }
   }
+
+  static validateUniqueBonusNumber(numbers, bonusNumber) {
+    if (numbers.includes(bonusNumber)) {
+      throw new Error('[ERROR] 당첨번호와 중복되는 번호입니다.');
+    }
+  }
 }
 
 export default Validation;
