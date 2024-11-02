@@ -6,7 +6,12 @@ export default class StatisticsService {
     );
   }
 
+  truncateRate(revenueRate) {
+    return Math.floor(revenueRate * 100) / 100;
+  }
+
   calculateRevenueRate(totalRevenue, paidAmount) {
-    return (totalRevenue / paidAmount) * 100;
+    const revenueRate = (totalRevenue / paidAmount) * 100;
+    return this.truncateRate(revenueRate);
   }
 }
