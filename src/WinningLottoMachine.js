@@ -6,8 +6,10 @@ import WinningLotto from './WinningLotto.js';
 class WinningLottoMachine {
   async createWinningLotto() {
     const winningNumbers = await WinningLottoMachine.#getValidWinningNums();
+    const winningLotto = new WinningLotto(winningNumbers);
     const bonusNumber = await WinningLottoMachine.#getValidBonusNums(winningNumbers);
-    return new WinningLotto(winningNumbers, bonusNumber);
+    winningLotto.setBonusNumber(bonusNumber);
+    return winningLotto;
   }
 
   static async #getValidWinningNums() {
