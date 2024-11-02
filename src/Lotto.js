@@ -13,6 +13,10 @@ class Lotto {
       throw new Error(ERROR.LOTTO_ARRAY_COUNT);
     }
   }
+
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
