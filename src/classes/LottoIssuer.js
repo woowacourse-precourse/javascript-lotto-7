@@ -10,7 +10,7 @@ class LottoIssuer {
     return lottoCount;
   }
 
-  static generateLottoNumbers() {
+  static #generateLottoNumbers() {
     const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
       (a, b) => a - b
     );
@@ -19,9 +19,10 @@ class LottoIssuer {
   }
 
   static generateLottos(count) {
-    return Array(count)
-      .fill()
-      .map(() => new Lotto(this.generateLottoNumbers()));
+    return Array.from(
+      { length: count },
+      () => new Lotto(this.#generateLottoNumbers())
+    );
   }
 }
 
