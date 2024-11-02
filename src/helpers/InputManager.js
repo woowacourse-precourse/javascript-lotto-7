@@ -15,9 +15,15 @@ import {
 class InputManager {
   static #SPLIT_SEPARATOR = ',';
 
+  static async readLineAsync(message) {
+    const response = await MissionUtils.Console.readLineAsync(message);
+
+    return response;
+  }
+
   static async getPurchasePrice() {
     return retryWhileCatchedError(async () => {
-      const rawPurchasePrice = await MissionUtils.Console.readLineAsync(
+      const rawPurchasePrice = await this.readLineAsync(
         INPUT_MESSAGE.PURCHASE_PRICE,
       );
       const purchasePrice = this.#parsePurchasePrice(rawPurchasePrice);
@@ -29,7 +35,7 @@ class InputManager {
 
   static async getWinningNumbers() {
     return retryWhileCatchedError(async () => {
-      const rawWinningNumbers = await MissionUtils.Console.readLineAsync(
+      const rawWinningNumbers = await this.readLineAsync(
         INPUT_MESSAGE.WINNING_NUMBER,
       );
       const winningNumbers = this.#parseWinningNumbers(rawWinningNumbers);
@@ -41,7 +47,7 @@ class InputManager {
 
   static async getBonusNumber(winningNumbers) {
     return retryWhileCatchedError(async () => {
-      const rawBonusNumber = await MissionUtils.Console.readLineAsync(
+      const rawBonusNumber = await this.readLineAsync(
         INPUT_MESSAGE.BONUS_NUMBER,
       );
       const bonusNumber = this.#parseBonusNumber(rawBonusNumber);

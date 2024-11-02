@@ -22,9 +22,9 @@ class OutputManager {
   static printLottoResult(lottosResult) {
     this.print(OUTPUT_MESSAGE.WINNING_STATICS);
 
-    Object.entries(LOTTO_RANK_MAP).forEach(([rawRank, info]) => {
+    Object.entries(LOTTO_RANK_MAP).forEach(([rawRank, lottoInfo]) => {
       const rank = +rawRank;
-      const { winningCount, prizeMoney } = info;
+      const { winningCount, prizeMoney } = lottoInfo;
       const winningLottoCount = lottosResult.getWinningCount(rank);
 
       const bonusNumberString = this.#getBonusNumberString(rank);

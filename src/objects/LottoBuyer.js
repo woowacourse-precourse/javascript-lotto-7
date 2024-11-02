@@ -16,7 +16,7 @@ class LottoBuyer {
   }
 
   checkWinningLotto(lottoCompany) {
-    this.#lottosResult = lottoCompany.checkWinningLottos(this.#lottos);
+    this.#lottosResult = lottoCompany.checkWinningLotto(this.#lottos);
 
     OutputManager.printLottoResult(this.#lottosResult);
   }
