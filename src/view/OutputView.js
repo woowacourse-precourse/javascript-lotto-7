@@ -1,4 +1,33 @@
 import { Console } from "@woowacourse/mission-utils";
+import { WINNING_INDEX, REWARD } from "../constants/Constants.js";
+
+const REWARD_COMMENT = [
+  {
+    matchCount: "3개 일치",
+    price: REWARD.THREE_MATCH,
+    winningCount: WINNING_INDEX.THREE_MATCH,
+  },
+  {
+    matchCount: "4개 일치",
+    price: REWARD.FOUR_MATCH,
+    winningCount: WINNING_INDEX.FOUR_MATCH,
+  },
+  {
+    matchCount: "5개 일치",
+    price: REWARD.FIFTH_MATCH,
+    winningCount: WINNING_INDEX.FIFTH_MATCH,
+  },
+  {
+    matchCount: "5개 일치, 보너스 볼 일치",
+    price: REWARD.FIFTH_BONUS_MATCH,
+    winningCount: WINNING_INDEX.FIFTH_BONUS_MATCH,
+  },
+  {
+    matchCount: "6개 일치",
+    price: REWARD.SIXTH_MATCH,
+    winningCount: WINNING_INDEX.SIXTH_MATCH,
+  },
+];
 
 class OutputView {
   constructor() {}
@@ -13,13 +42,13 @@ class OutputView {
   printWinningCount(winningCount) {
     Console.print("\n당첨 통계");
     Console.print("---");
-    Console.print(`3개 일치 (5,000원) - ${winningCount[0]}개`);
-    Console.print(`4개 일치 (50,000원) - ${winningCount[1]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${winningCount[2]}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCount[4]}개`
+    REWARD_COMMENT.forEach((item) =>
+      Console.print(
+        `${item.matchCount} (${item.price}원) - ${
+          winningCount[item.winningCount]
+        }개`
+      )
     );
-    Console.print(`6개 일치 (2,000,000,000원) - ${winningCount[3]}개`);
   }
   printProfitRate(rate) {
     Console.print(`총 수익률은 ${rate}%입니다.`);

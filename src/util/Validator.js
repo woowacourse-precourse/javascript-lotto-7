@@ -1,3 +1,8 @@
+const MIN_RANGE = 1;
+const MAX_RANGE = 45;
+const VALID_COUNT = 6;
+const VALID_SIZE = 6;
+
 class Validator {
   PRICE_NUMBER_ERROR = "[ERROR] 로또 구입 금액은 숫자만 입력할 수 있습니다.";
   PRICE_NEGATIVE_ERROR = "[ERROR] 로또 구입 금액은 양수로 입력해 주세요.";
@@ -33,7 +38,7 @@ class Validator {
   }
 
   isInRange(value, errorMessage) {
-    const condition = value >= 1 && value <= 45;
+    const condition = value >= MIN_RANGE && value <= MAX_RANGE;
     if (!condition) {
       throw new Error(errorMessage);
     }
@@ -58,14 +63,14 @@ class Validator {
     }
   }
   isAnswerValidCount(intNumbers) {
-    const condition = intNumbers.length == 6;
+    const condition = intNumbers.length == VALID_COUNT;
     if (!condition) {
       throw new Error(this.ANSWER_COUNT_ERROR);
     }
   }
   isAnswerNotDuplicate(intNumbers) {
     const numberSet = new Set(intNumbers);
-    const condition = numberSet.size == 6;
+    const condition = numberSet.size == VALID_SIZE;
     if (!condition) {
       throw new Error(this.ANSWER_DUPLICATE_ERROR);
     }

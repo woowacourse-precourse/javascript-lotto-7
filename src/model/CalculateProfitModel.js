@@ -1,3 +1,5 @@
+import { WINNING_INDEX, REWARD } from "../constants/Constants.js";
+
 class CalculateProfitModel {
   getRate(winningCount, lottoPrice) {
     const profit = this.getProfits(winningCount);
@@ -6,11 +8,11 @@ class CalculateProfitModel {
   }
   getProfits(winningCount) {
     const profits =
-      winningCount[0] * 5000 +
-      winningCount[1] * 50000 +
-      winningCount[2] * 1500000 +
-      winningCount[3] * 200000000 +
-      winningCount[4] * 30000000;
+      winningCount[WINNING_INDEX.THREE_MATCH] * REWARD.THREE_MATCH +
+      winningCount[WINNING_INDEX.FOUR_MATCH] * REWARD.FOUR_MATCH +
+      winningCount[WINNING_INDEX.FIFTH_MATCH] * REWARD.FIFTH_MATCH +
+      winningCount[WINNING_INDEX.SIXTH_MATCH] * REWARD.SIXTH_MATCH +
+      winningCount[WINNING_INDEX.FIFTH_BONUS_MATCH] * REWARD.FIFTH_BONUS_MATCH;
     return profits;
   }
 }

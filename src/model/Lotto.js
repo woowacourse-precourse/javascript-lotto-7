@@ -1,5 +1,10 @@
 import Validator from "../util/Validator.js";
 
+const INVALID_ANSWER_COUNT = 2;
+const SCORE_FOR_BONUS = 5;
+const BONUS_SCORE = 7;
+const WINNING_STATS_OFFSET = 3;
+
 class Lotto {
   #numbers;
 
@@ -16,19 +21,19 @@ class Lotto {
     return intNumbers;
   }
   //정답 개수별 통계
-  CountWinningStats(lottoNumbers, bonusNumber) {
+  countWinningStats(lottoNumbers, bonusNumber) {
     let winningCount = [0, 0, 0, 0, 0];
-    let result = this.CalculateWinningStats(lottoNumbers, bonusNumber);
-    result = result.filter((i) => i > 2);
-    result.map((i) => (winningCount[i - 3] += 1));
+    let result = this.calculateWinningStats(lottoNumbers, bonusNumber);
+    result = result.filter((i) => i > INVALID_ANSWER_COUNT);
+    result.map((i) => (winningCount[i - WINNING_STATS_OFFSET] += 1));
     return winningCount;
   }
   //각 로또 번호 배열별 정답 개수 계산
-  CalculateWinningStats(lottoNumbers, bonusNumber) {
+  calculateWinningStats(lottoNumbers, bonusNumber) {
     let correctScore = [];
     for (let numberArray of lottoNumbers) {
       let winning = this.#numbers.filter((i) => numberArray.includes(i)).length;
-      if (winning == 5) {
+      if (winning == SCORE_FOR_BONUS) {
         winning = this.isGetBonus(numberArray, bonusNumber);
       }
       correctScore.push(winning);
@@ -36,9 +41,9 @@ class Lotto {
     return correctScore;
   }
   isGetBonus(numberArray, bonusNumber) {
-    let winning = 5;
+    let winning = SCORE_FOR_BONUS;
     if (numberArray.includes(bonusNumber)) {
-      winning = 7;
+      winning = BONUS_SCORE;
     }
     return winning;
   }

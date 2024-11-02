@@ -26,7 +26,7 @@ class LottoController {
     return bonusAnswer;
   }
   countWinning(lottoNumbers, bonusAnswer) {
-    const winningCount = this.lotto.CountWinningStats(
+    const winningCount = this.lotto.countWinningStats(
       lottoNumbers,
       bonusAnswer
     );
