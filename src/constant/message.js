@@ -16,4 +16,5 @@ export const inValidMessages = {
   winningLottoCount: `로또 번호는 ${LOTTO_NUMBERS_COUNT}개여야 합니다.`,
   range: `당첨 번호는 ${LOTTO_MIN_NUMBER}~${LOTTO_MAX_NUMBER}사이의 숫자입니다.`,
   duplicate: '로또 번호는 중복을 허용하지 않습니다.',
+  duplicateWithWinningNumbers: '보너스 번호는 이미 당첨 번호에 포함되어있습니다.',
 }

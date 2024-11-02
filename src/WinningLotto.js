@@ -13,11 +13,18 @@ export class WinningLotto extends Lotto {
 
   #validate(bonusNumber) {
     this.#validateRange(bonusNumber);
+    this.#validateDuplicate(bonusNumber);
   }
 
   #validateRange(bonusNumber) {
     if (bonusNumber < LOTTO_MIN_NUMBER || bonusNumber > LOTTO_MAX_NUMBER) {
       throw new Error(inValidMessages.range);
+    }
+  }
+
+  #validateDuplicate(bonusNumber) {
+    if (this.getNumbers().includes(bonusNumber)) {
+      throw new Error(inValidMessages.duplicateWithWinningNumbers);
     }
   }
 }
