@@ -8,6 +8,12 @@ import Validation from './Validation.js';
 class App {
   async run() {
     const lottoMachine = await this.getLottoMachine();
+    const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
+    const winningLottoNumbers = this.makeWinningLottoNumbers(
+      winningNumbers,
+      bonusNumber,
+    );
   }
 
   async getLottoMachine() {
@@ -98,6 +104,10 @@ class App {
     Validation.checkWinningNumbers(bonusNumber, winningNumbers);
 
     return bonusNumber;
+  }
+
+  static makeWinningLottoNumbers(winningNumbers, bonusNumber) {
+    return { numbers: winningNumbers, bonusNumber };
   }
 }
 
