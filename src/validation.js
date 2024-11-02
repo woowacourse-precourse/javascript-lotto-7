@@ -33,9 +33,19 @@ const validation = Object.freeze({
      * @param {Array<string>} numbers
      */
     hasSpace: function (numbers) {
-      const numberArr = numbers.split(',');
+      const numberArr = numbers.split(NUM.SEPARATOR);
       if (numberArr.some((number) => /\s/g.test(number)))
         throw new Error(ERRORMESSAGE.HASSPACE);
+    },
+
+    /**
+     *
+     * @param {Array<string>} numbers
+     */
+    isEmpty: function (numbers) {
+      const numberArr = numbers.split(NUM.SEPARATOR);
+      if (numberArr.some((number) => !number))
+        throw new Error(ERRORMESSAGE.ISEMPTY);
     },
   },
 });
