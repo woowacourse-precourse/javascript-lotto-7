@@ -11,7 +11,12 @@ class Lotto {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }
 
-    // 쉼표 5개로 이루어져있는지 체크
+    // 중복된 번호가 있을 경우 에러 처리
+    const uniqueWinningNumbers = new Set(numbers);
+    if (numbers.length !== uniqueWinningNumbers.size) {
+      throw new Error('[ERROR] 로또 번호는 중복되면 안됩니다.');
+    }
+
     const arr = [...numbers];
     const onlyNumber = arr.filter((number) => number === ',');
     if (onlyNumber.length !== 5) {
