@@ -1,6 +1,6 @@
 import App from '../src/App.js';
 import { ERROR_MESSAGE } from '../src/lib/constants.js';
-import { MOCK_DATA_1 } from '../src/lib/mock/data.js';
+import { MOCK_DATA_1, MOCK_DATA_2 } from '../src/lib/mock/data.js';
 import {
   getLogSpy,
   mockQuestions,
@@ -34,7 +34,7 @@ describe('App', () => {
 
   describe('정상 케이스', () => {
     describe('올바른 데이터를 입력했을 때의 상황을 테스트한다.', () => {
-      test('모킹 데이터', async () => {
+      test('8개의 복권 구매 & 5등 1개 당첨', async () => {
         const logSpy = getLogSpy();
 
         mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
@@ -44,6 +44,23 @@ describe('App', () => {
         await app.run();
 
         Object.values(MOCK_DATA_1.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
+    });
+    describe('80개의 데이터를 입력했을 때의 상황을 테스트한다.', () => {
+      test('80개의 복권 고매 * 5등 10개 당첨', async () => {
+        const logSpy = getLogSpy();
+
+        mockRandoms(MOCK_DATA_2.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA_2.INPUT).flat());
+
+        const app = new App();
+        await app.run();
+
+        Object.values(MOCK_DATA_2.OUTPUT)
           .flat()
           .forEach((log) => {
             expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
