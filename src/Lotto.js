@@ -12,8 +12,8 @@ class Lotto {
     numbers = Random.pickUniqueNumbersInRange(
       MIN_NUMBER,
       MAX_NUMBER,
-      NUMBER_OF_LOTTO_NUMBERS
-    )
+      NUMBER_OF_LOTTO_NUMBERS,
+    ),
   ) {
     this.#validate(numbers);
     this.#numbers = numbers;
