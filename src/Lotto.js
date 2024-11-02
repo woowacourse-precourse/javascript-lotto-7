@@ -13,14 +13,8 @@ class Lotto {
     validate.validateLottoNumbers(numbers);
   }
 
-  // TODO: 추가 기능 구현
   get value() {
     return this.#numbers;
-  }
-
-  matchedCount(lottoNumbers) {
-    return this.#numbers.filter((number) => lottoNumbers.includes(number))
-      .length;
   }
 }
 
