@@ -2,13 +2,14 @@ import Validate from "./Validate.js";
 
 class Bonus {
   #bonusNumber;
-  constructor(bonusNumber) {
+  constructor(bonusNumber, lottoNumbers) {
+    this.#validate(bonusNumber, lottoNumbers);
     this.#bonusNumber = bonusNumber;
   }
 
-  validate(lottoNumbers) {
+  #validate(bonusNumber, lottoNumbers) {
     const validate = new Validate();
-    validate.validateBonusNumber(this.#bonusNumber, lottoNumbers);
+    validate.validateBonusNumber(bonusNumber, lottoNumbers);
   }
 
   get value() {
