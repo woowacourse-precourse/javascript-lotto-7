@@ -2,8 +2,7 @@ import Validator from './utils/Validator.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 import LottoBundle from './LottoBundle.js';
-import { PRINT_MESSAGES, ERROR_MESSAGES } from './constants/messages.js';
-import REGEX from './constants/regex.js';
+import { PRINT_MESSAGES } from './constants/messages.js';
 import { LOTTO_VALUES } from './constants/lottoConstants.js';
 
 class LottoStore {
@@ -30,7 +29,7 @@ class LottoStore {
     while (true) {
       try {
         const inputAmount = await InputView.getUserInput(PRINT_MESSAGES.INPUT.AMOUNT);
-        LottoStore.#validateAmount(inputAmount);
+        Validator.validateAmount(inputAmount);
         return inputAmount;
       } catch (error) {
         OutputView.printError(error);
@@ -41,24 +40,6 @@ class LottoStore {
   #setPurchaseAmount(userAmount) {
     this.#amount = parseInt(userAmount, 10);
     this.#lottoCount = this.#getLottoCount();
-  }
-
-  static #validateAmount(amount) {
-    Validator.checkIsNull(amount);
-    Validator.checkRegexPattern(amount, REGEX.NUMBER_REGEX, ERROR_MESSAGES.INVALID_AMOUNT_INPUT);
-    Validator.checkValidRange(
-      amount,
-      LOTTO_VALUES.MIN_AMOUNT,
-      LOTTO_VALUES.MAX_AMOUNT,
-      ERROR_MESSAGES.INVALID_AMOUNT_RANGE,
-    );
-    LottoStore.#checkThousandUnit(amount);
-  }
-
-  static #checkThousandUnit(amount) {
-    if (amount % LOTTO_VALUES.LOTTO_PRICE !== 0) {
-      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
-    }
   }
 
   #getLottoCount() {
