@@ -48,10 +48,11 @@ class App {
       winningNumberSet.add(number);
     });
 
-    const bonusNumber = await Console.readLineAsync(
+    const inputBonusNumber = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
-    if (winningNumberSet.has(Number(bonusNumber))) {
+    const bonusNumber = Number(inputBonusNumber);
+    if (winningNumberSet.has(bonusNumber)) {
       throw new Error("[ERROR]: 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
     if (isNaN(bonusNumber)) {
@@ -59,6 +60,9 @@ class App {
     }
     if (!Number.isInteger(bonusNumber)) {
       throw new Error("[ERROR]: 정수가 아닌 수는 입력할 수 없습니다.");
+    }
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
     }
   }
 }
