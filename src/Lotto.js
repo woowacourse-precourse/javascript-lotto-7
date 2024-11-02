@@ -10,21 +10,21 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error(ERROR.LOTTO_ARRAY_COUNT);
-    }
-
     numbers.forEach((num) => {
       if (isNaN(num)) {
         throw new Error(ERROR.LOTTO_TYPE);
       }
     });
 
-    if (numbers.some((num) => (num < 1) | (num > 45))) {
-      throw new Error(ERROR.LOTTO_RANGE);
+    if (numbers.length !== 6) {
+      throw new Error(ERROR.LOTTO_ARRAY_COUNT);
     }
 
     validateLotto(numbers);
+
+    if (numbers.some((num) => (num < 1) | (num > 45))) {
+      throw new Error(ERROR.LOTTO_RANGE);
+    }
   }
 
   getNumbers() {
