@@ -3,4 +3,6 @@ export const LOTTO = Object.freeze({
   minNumber: 1,
   maxNumber: 45,
   numberCount: 6,
+  isInvalidRange: (number) =>
+    Number(number) < LOTTO.minNumber || Number(number) > LOTTO.maxNumber,
 });

@@ -91,7 +91,23 @@ describe('로또 테스트', () => {
     });
   });
 
-  test('예외 테스트', async () => {
+  test('로또 구입 금액 입력 예외 테스트', async () => {
     await runException('1000j');
+  });
+
+  test.each([
+    ['1,2,3,4,5'],
+    ['1,2,3,4,5,!'],
+    ['0,2,3,4,5,6'],
+    ['1,2,3,4,5,46'],
+    ['1,1,3,4,5,6'],
+  ])('당첨 번호 입력 예외 테스트: %s', (winningNumbers) => {
+    mockQuestions([winningNumbers]);
+
+    const app = new App();
+
+    expect(async () => {
+      await app.readWinningNumbers();
+    }).rejects.toThrow('[ERROR]');
   });
 });
