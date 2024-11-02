@@ -12,8 +12,9 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
-  // TDOD: 시간이 남으면 public > index.html 항목 구현
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
