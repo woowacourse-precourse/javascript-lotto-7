@@ -78,7 +78,10 @@ class App {
         45,
         6
       );
-      userLottoNumbers.push({ lottoNumbers });
+      const sortedLottoNumbers = lottoNumbers.sort(function (a, b) {
+        return a - b;
+      });
+      userLottoNumbers.push({ sortedLottoNumbers });
     }
     return userLottoNumbers;
   }
