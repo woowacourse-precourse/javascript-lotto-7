@@ -79,6 +79,24 @@ class App {
 
     const inputBonusNumber = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
     const parseBonusNumber = parseInt(inputBonusNumber, 10);
+
+    const validateBonusNumber = (input) => {
+      if (input.includes(',')) {
+        throw new Error('[ERROR] 보너스 번호는 1개 입력해야 합니다.')
+      }
+    }
+
+    const validateParseBonusNumber = (input) => {
+      if (input <= 0 || input >= 46) {
+        throw new Error('[ERROR] 보너스 번호는 1~45 사이의 숫자만 입력해야 합니다.')
+      }
+      if (Number.isNaN(input)) {
+        throw new Error('[ERROR] 보너스 번호는 숫자만 입력할 수 있습니다.')
+      }
+    }
+
+    validateBonusNumber(inputBonusNumber);
+    validateParseBonusNumber(parseBonusNumber);
   }
 }
 
