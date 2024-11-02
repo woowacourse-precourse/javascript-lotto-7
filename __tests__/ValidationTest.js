@@ -58,4 +58,14 @@ describe('Validation 테스트', () => {
       Validation.validatePositiveInteger(-1);
     }).toThrow('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
   });
+
+  test('번호가 1과 45 사이 값이 아니라면 예외가 발생한다.', () => {
+    expect(() => {
+      Validation.validateNumberInRange(30);
+    }).not.toThrow();
+
+    expect(() => {
+      Validation.validateNumberInRange(50);
+    }).toThrow('[ERROR] 모든 숫자는 1부터 45 사이여야 합니다.');
+  });
 });
