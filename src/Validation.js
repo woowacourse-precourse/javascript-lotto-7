@@ -5,13 +5,13 @@ import {
 } from './utils/Constants.js';
 
 class Validation {
-  static validatePayment(payment) {
+  static checkPayment(payment) {
     this.isNumber(payment);
     this.isPositiveNumber(payment);
     this.hasMeetUnitAmount(payment);
   }
 
-  static validateWinningNumbers(numbers) {
+  static checkWinningNumbers(numbers) {
     numbers.forEach((number) => {
       this.isNumber(number);
       this.isInRange(number);

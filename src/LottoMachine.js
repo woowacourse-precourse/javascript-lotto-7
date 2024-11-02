@@ -49,7 +49,7 @@ class LottoMachine {
   }
 
   #validate(payment) {
-    Validation.validatePayment(payment);
+    Validation.checkPayment(payment);
   }
 }
 
