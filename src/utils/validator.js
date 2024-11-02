@@ -21,3 +21,7 @@ export function isLottoRange(array) {
 export function isUnique(array) {
   return new Set(array).size === array.length;
 }
+
+export function isBonusNumberDuplicated(winningNumbers, bonusNumber) {
+  return winningNumbers.includes(Number(bonusNumber));
+}

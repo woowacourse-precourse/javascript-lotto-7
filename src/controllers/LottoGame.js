@@ -38,6 +38,9 @@ class LottoGame {
 
     // 당첨 번호 입력
     await errorHandler(async () => await this.#setWinningNumber());
+
+    // 보너스 번호 입력
+    await errorHandler(async () => await this.setBonusNumber());
   }
 
   async #purchaseLotto() {
@@ -64,6 +67,11 @@ class LottoGame {
   async #setWinningNumber() {
     const inputNumbers = await this.#inputView.getWinningNumber();
     this.#winningNumber = new WinningNumber(inputNumbers);
+  }
+
+  async setBonusNumber() {
+    const bonusNumber = await this.#inputView.getBonusNumber();
+    this.#winningNumber.setBonusNumber(bonusNumber);
   }
 }
 

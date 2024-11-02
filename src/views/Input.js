@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PURCHASE_AMOUNT, WINNING_NUMBER } from '../constants/input.js';
+import { PURCHASE_AMOUNT, WINNING_NUMBER, BONUS_NUMBER } from '../constants/input.js';
 
 class Input {
   async getPurchaseAmount() {
@@ -8,6 +8,10 @@ class Input {
 
   async getWinningNumber() {
     return await this.#getUserInput(WINNING_NUMBER);
+  }
+
+  async getBonusNumber() {
+    return await this.#getUserInput(BONUS_NUMBER);
   }
 
   async #getUserInput(caption) {

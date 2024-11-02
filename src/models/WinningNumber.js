@@ -12,6 +12,7 @@ function setElementsToNumber(array) {
 
 class WinningNumber {
   #winningNumbers;
+  #bonusNumber;
 
   constructor(value) {
     const numbers = parseByComma(value);
@@ -19,6 +20,11 @@ class WinningNumber {
     this.#winningNumbers = setElementsToNumber(numbers);
   }
 
+  setBonusNumber(value) {
+    this.#validateBonusNumber(value);
+    const number = Number(value);
+    this.#bonusNumber = number;
+  }
 
   #validateWinningNumbers(numbers) {
     !validator.isLengthSix(numbers) && throwError(error.LENGTH_NOT_SIX);
@@ -27,6 +33,14 @@ class WinningNumber {
     !validator.isLottoRange(numbers) && throwError(error.NOT_IN_RANGE);
 
     !validator.isUnique(numbers) && throwError(error.DUPLICATED);
+  }
+
+  #validateBonusNumber(number) {
+    !validator.isNumber(number) && throwError(error.NOT_IN_RANGE);
+    !validator.isLottoRange([number]) && throwError(error.NOT_IN_RANGE);
+
+    validator.isBonusNumberDuplicated(this.#winningNumbers, number) &&
+      throwError(error.BONUS_NUMBER_DUPLICATED);
   }
 }
 
