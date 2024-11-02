@@ -33,7 +33,7 @@ export class LottoMachine {
   async inputAttemptWinningNumbers() {
     try {
       const winningNumbers = await this.#input.getWinningNumbers();
-      const winningNumArr = winningNumbers.split(',');
+      const winningNumArr = winningNumbers.split(',').map(Number);
       this.#validation.validateWinningNumbers(winningNumArr);
 
       return winningNumArr;
