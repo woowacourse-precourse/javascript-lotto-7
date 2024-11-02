@@ -9,3 +9,7 @@ export const inputMethod = Object.freeze({
     return purchaseAmount;
   },
 });
+
+export const outputMethod = (message) => {
+  Console.print(message);
+};
