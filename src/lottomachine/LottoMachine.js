@@ -21,10 +21,8 @@ class LottoMachine {
     const lottoController = new LottoController(numOfLotto);
     Output.printLottos(lottoController.lottos);
 
-    const winningNumber = await this.handleWinningNumberInput();
-    this.#winningNumber = winningNumber;
-    const bonusNumber = await this.handleBonusNumberInput();
-    this.#bonusNumber = bonusNumber;
+    this.#winningNumber = await this.handleWinningNumberInput();
+    this.#bonusNumber = await this.handleBonusNumberInput();
   }
 
   async handleMoneyInput() {
