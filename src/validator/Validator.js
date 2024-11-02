@@ -17,6 +17,16 @@ class Validator {
     return Number(input);
   }
 
+  static isNagativeNumber(input) {
+    if (input < 0) throwError("음수");
+    return input;
+  }
+
+  static isZero(input) {
+    if (input === 0) throwError("0");
+    return input;
+  }
+
   static isNumberInRange(input, min = 1, max = 45) {
     if (input < min || input > max)
       throwError(`값은 ${min}부터 ${max} 사이여야 합니다.`);
