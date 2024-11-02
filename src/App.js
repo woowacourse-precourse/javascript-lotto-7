@@ -49,8 +49,11 @@ class App {
     });
 
     const bonusNumber = await Console.readLineAsync(
-      "보너스 번호를 입력해 주세요."
+      "보너스 번호를 입력해 주세요.\n"
     );
+    if (winningNumberSet.has(Number(bonusNumber))) {
+      throw new Error("[ERROR]: 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+    }
   }
 }
 
