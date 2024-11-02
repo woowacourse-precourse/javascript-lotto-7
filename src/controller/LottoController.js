@@ -26,6 +26,8 @@ class LottoController {
       this.#purchase = new Purchase(this.#purchaseAmount);
       this.#tickets = this.#purchase.purchaseTickets();
       await OutputView.printLottoTickets(this.#tickets);
+      this.#lotteryNumbers = this.#purchase.generateLotteryNumbers();
+      await OutputView.printLottoNumbers(this.#tickets, this.#lotteryNumbers);
     } catch (error) {
       Console.print(error);
       await this.#getPurchase();
