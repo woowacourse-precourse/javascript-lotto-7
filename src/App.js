@@ -1,5 +1,6 @@
 import LottoBundle from './Model/LottoBundle.js';
 import Statistic from './Model/Statistic.js';
+import checkAllLotto from './Utils/checkAllLotto.js';
 import LoopWhileValid from './Views/LoopWhileValid.js';
 import OutputPrint from './Views/OutputPrint.js';
 
@@ -13,6 +14,10 @@ class App {
 
     const basicNumbers = await LoopWhileValid.getBasicNumbers();
     const bonusNumber = await LoopWhileValid.getBonusNumbers(basicNumbers);
+
+    checkAllLotto(lottoBundle, basicNumbers, bonusNumber, statistic);
+
+    OutputPrint.statistic(statistic);
   }
 }
 

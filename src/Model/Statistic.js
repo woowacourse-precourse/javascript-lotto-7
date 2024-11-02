@@ -28,6 +28,10 @@ class Statistic {
     );
   }
 
+  getWinningResult() {
+    return this.winningResult;
+  }
+
   getEarningRate() {
     const rate = (this.#getGainPrice() / this.buyPrice) * 100;
     return roundToOne(rate);
