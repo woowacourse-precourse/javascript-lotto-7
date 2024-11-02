@@ -55,7 +55,6 @@ class App {
     this.bonusNumber = await this.getBonusNumber();
 
     return this.numbers.map((number) => {
-      console.log(number);
       const lotto = new Lotto(number);
       return lotto.checkWinningNumbers(lottoNumbers);
     });
