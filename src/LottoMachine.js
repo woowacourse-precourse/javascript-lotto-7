@@ -16,6 +16,14 @@ class LottoMachine {
     const purchaseAmount = await this.inputView.readPurchaseAmount();
     this.generateLottoTickets(purchaseAmount);
     this.outputView.printLottoNumbers(purchaseAmount / 1000, this.#lottos);
+    const winningNumbers = await this.inputView.readWinningNumbers();
+    const bonusNumber = await this.inputView.readBonusNumber(winningNumbers);
+    const totalWinningRank = this.calculateWinningResults(
+      winningNumbers,
+      bonusNumber,
+      this.#lottos
+    );
+    this.outputView.printWinningStatistics(totalWinningRank);
   }
 
   generateLottoNumbers() {
