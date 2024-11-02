@@ -1,5 +1,5 @@
-import Lotto from '../src/controller/Lotto';
-import BonusNumber from '../src/model/BonusNumber.js';
+import Lotto from '../src/controller/Lotto.js';
+import WinningNumbers from '../src/model/WinningNumbers.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 아닌 경우 예외가 발생한다.', () => {
@@ -38,42 +38,41 @@ describe('로또 클래스 테스트', () => {
 
   test('보너스 번호가 빈 입력값인 경우 예외가 발생한다.', () => {
     expect(() => {
-      new BonusNumber('');
+      new WinningNumbers([1, 2, 3, 4, 5, 6], '');
     }).toThrow('[ERROR]');
 
     expect(() => {
-      new BonusNumber(null);
+      new WinningNumbers([1, 2, 3, 4, 5, 6], null);
     }).toThrow('[ERROR]');
   });
 
   test('보너스 번호가 한 개 초과인 경우 예외가 발생한다.', () => {
     expect(() => {
-      new BonusNumber('1,2');
+      new WinningNumbers([1, 2, 3, 4, 5, 6], '1,2');
     }).toThrow('[ERROR]');
 
     expect(() => {
-      new BonusNumber('1,2,3,4,5,6');
+      new WinningNumbers([1, 2, 3, 4, 5, 6], '1,2,3,4,5,6');
     }).toThrow('[ERROR]');
   });
 
   test('보너스 번호가 1이상 45이하 정수가 아닌 경우 예외가 발생한다.', () => {
     expect(() => {
-      new BonusNumber('-1');
+      new WinningNumbers([1, 2, 3, 4, 5, 6], '-1');
     }).toThrow('[ERROR]');
 
     expect(() => {
-      new BonusNumber('2.5');
+      new WinningNumbers([1, 2, 3, 4, 5, 6], '2.5');
     }).toThrow('[ERROR]');
 
     expect(() => {
-      new BonusNumber('46');
+      new WinningNumbers([1, 2, 3, 4, 5, 6], '46');
     }).toThrow('[ERROR]');
   });
 
   test('보너스 번호가 기존 당첨 번호와 중복되는 경우 예외가 발생한다.', () => {
     expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6]);
-      new BonusNumber('4');
+      new WinningNumbers([1, 2, 3, 4, 5, 6], '4');
     }).toThrow('[ERROR]');
   });
 });

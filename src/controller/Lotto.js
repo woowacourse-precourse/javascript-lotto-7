@@ -1,22 +1,14 @@
 import Validator from './Validator.js';
 import { parseNumbers } from '../utils/Parser.js';
-import BonusNumber from '../model/BonusNumber.js';
+import WinningNumbers from '../model/WinningNumbers.js';
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    const bonusNumberInstance = new BonusNumber();
-    const bonusNumber = bonusNumberInstance.getBonusNumber();
-    this.#checkBonusNumberDuplicate(numbers, bonusNumber);
-    Validator.checkWinningNumbers(numbers);
-    this.#numbers = parseNumbers(numbers);
-  }
-
-  #checkBonusNumberDuplicate(numbers, bonusNumber) {
-    if (numbers.includes(bonusNumber)) {
-      throw new Error('[ERROR]');
-    }
+    const winningNumbers = new WinningNumbers(numbers);
+    this.#numbers = winningNumbers.getWinningNumbers();
+    const bonusNumber = winningNumbers.getBonusNumber();
   }
 }
 
