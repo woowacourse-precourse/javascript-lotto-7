@@ -1,5 +1,5 @@
-import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import LottoController from "../src/controller/LottoController.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -19,8 +19,8 @@ const getLogSpy = () => {
 
 const runTest = async (input) => {
   mockQuestions(input);
-  const app = new App();
-  await app.run();
+  const lottoController = new LottoController();
+  await lottoController.getLottoPurchaseAmountTest();
   expect(true).toBe(true);
 };
 
@@ -31,8 +31,8 @@ const runException = async (input) => {
 
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
-  const app = new App();
-  await app.run();
+  const lottoController = new LottoController();
+  await lottoController.getLottoPurchaseAmountTest();
 
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
@@ -47,7 +47,7 @@ describe("로또 구매 금액 입력 테스트 - 성공 케이스", () => {
   });
 });
 
-describe("로또 구매 금액 입력 테스트 - 예외 케이스", () => {
+describe("로또 구매 금액 입력 테스트 - 예외 케이스 및 반복", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });

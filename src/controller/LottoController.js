@@ -93,6 +93,21 @@ class LottoController {
       }
     }
   }
+
+  async startPurchaseLottoTest() {
+    const lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
+    const lottoCount = this.#calculateLottoCount(lottoPurchaseAmount);
+    this.#printLottoCount(lottoCount);
+    this.#generateLottos(lottoCount);
+  }
+
+  async getLottoPurchaseAmountTest() {
+    const [purchaseAmount] = await this.#validInput(
+      () => this.#inputView.inputPurchaseAmount(),
+      InputUtils.validatePurchaseAmount
+    );
+    return purchaseAmount;
+  }
 }
 
 export default LottoController;
