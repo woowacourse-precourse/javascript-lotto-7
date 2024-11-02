@@ -1,3 +1,6 @@
+import { LOTTO_NUMBERS_COUNT } from "./constant/constants.js";
+import { inValidMessages } from "./constant/message.js";
+
 class Lotto {
   #numbers;
 
@@ -7,8 +10,21 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    this.#validateCount(numbers);
+    this.#hasDuplicate(numbers);
+  }
+
+  #validateCount(numbers) {
+    if (numbers.length !== LOTTO_NUMBERS_COUNT) {
+      throw new Error(inValidMessages.winningLottoCount);
+    }
+  }
+
+  #hasDuplicate(numbers) {
+    const set = new Set(numbers);
+    const hasDuplicate = set.size !== LOTTO_NUMBERS_COUNT
+    if (hasDuplicate) {
+      throw new Error(inValidMessages.duplicate);
     }
   }
 
