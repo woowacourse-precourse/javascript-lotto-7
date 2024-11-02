@@ -20,6 +20,14 @@ class WinningNumber {
     this.#winningNumbers = setElementsToNumber(numbers);
   }
 
+  getWinningNumbers() {
+    return this.#winningNumbers;
+  }
+
+  getBonusNumber() {
+    return this.#bonusNumber;
+  }
+
   setBonusNumber(value) {
     this.#validateBonusNumber(value);
     const number = Number(value);
