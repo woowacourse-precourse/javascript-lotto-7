@@ -1,3 +1,5 @@
+import { GAME_SETTINGS, RANK_KEYS, MATCH_COUNT } from '../utils/constants.js';
+
 class LottoMatcher {
   static checkMatchingNumbers(lottoTickets, winningNumbers) {
     return lottoTickets.map((lottoTicket) => {
