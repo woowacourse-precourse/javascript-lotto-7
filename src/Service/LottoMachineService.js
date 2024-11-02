@@ -1,49 +1,37 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
-import Lotto from '../Lotto.js';
 import InputView from '../View/InputView.js';
 import OutputView from '../View/OutputView.js';
-import LottoNumberGenerateService from './LottoNumberGenerateService.js';
+import LottoTicketService from './LottoTicketService.js';
 
 class LottoMachineService {
-  #lottos;
-
   constructor() {
-    this.#lottos = [];
     this.inputView = new InputView();
     this.outputView = new OutputView();
-    this.lottoNumberGenerateService = new LottoNumberGenerateService();
+    this.lottoTicketService = new LottoTicketService();
   }
 
   async run() {
     const purchaseAmount = await this.inputView.readPurchaseAmount();
-    this.generateLottoTickets(purchaseAmount);
-    this.outputView.printLottoNumbers(purchaseAmount / 1000, this.#lottos);
+
+    this.lottoTicketService.generateLottoTickets(purchaseAmount);
+    const lottos = this.lottoTicketService.getLottos();
+
+    this.outputView.printLottoNumbers(purchaseAmount / 1000, lottos);
+
     const winningNumbers = await this.inputView.readWinningNumbers();
     const bonusNumber = await this.inputView.readBonusNumber(winningNumbers);
+
     const totalWinningRank = this.calculateWinningResults(
       winningNumbers,
       bonusNumber,
-      this.#lottos
+      lottos
     );
     const totalReturnRate = this.calculateTotalReturnRate(
       purchaseAmount,
       totalWinningRank
     );
+
     this.outputView.printWinningStatistics(totalWinningRank);
     this.outputView.printTotalReturnRate(totalReturnRate);
-  }
-
-  generateLottoTickets(purchaseAmount) {
-    for (let i = 0; i < purchaseAmount / 1000; i++) {
-      const lottoNumbers =
-        this.lottoNumberGenerateService.generateUniqueLottoNumbers();
-      const lotto = new Lotto(lottoNumbers);
-      this.#lottos.push(lotto);
-    }
-  }
-
-  getLottos() {
-    return this.#lottos;
   }
 
   calculateWinningResults(winningNumbers, bonusNumber, lottos) {
