@@ -14,8 +14,7 @@ class LottoGame {
   }
 
   static getMatchNumber(curLotto, targetLotto) {
-    return curLotto.getNumbers().filter(number => targetLotto.includes(number))
-      .length;
+    return curLotto.filter(number => targetLotto.includes(number)).length;
   }
 
   static addBonusNumber(matchNumber, bonusNumber, lotto, winStatistics) {
