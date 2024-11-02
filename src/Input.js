@@ -25,6 +25,10 @@ class Input {
         return this.value;
     }
 
+    getLottoCount(){
+        return this.value / 1000;
+    }
+
     changeArray(){
         this.value = this.value.split(',').map(Number);
     }
