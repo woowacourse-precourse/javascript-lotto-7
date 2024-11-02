@@ -5,6 +5,7 @@ import Output from '../views/Output.js';
 import { LOTTO_PRICE } from '../constants/numbers.js';
 import getRandomValues from '../utils/getRandomValues.js';
 import Lotto from '../models/Lotto.js';
+import WinningNumber from '../models/WinningNumber.js';
 
 function calculateLottoCount(amount) {
   return Math.floor(amount / LOTTO_PRICE);
@@ -16,6 +17,7 @@ class LottoGame {
   #amountModel;
   #lottoCount;
   #lottos = [];
+  #winningNumber;
 
   constructor() {
     this.#inputView = new Input();
@@ -33,6 +35,9 @@ class LottoGame {
     // 로또 구매
     this.#lottos = this.#generateLottos(this.#lottoCount);
     this.#outputView.printLottos(this.#lottos);
+
+    // 당첨 번호 입력
+    await errorHandler(async () => await this.#setWinningNumber());
   }
 
   async #purchaseLotto() {
@@ -54,6 +59,11 @@ class LottoGame {
     const numbers = getRandomValues();
     const lotto = new Lotto(numbers);
     return lotto;
+  }
+
+  async #setWinningNumber() {
+    const inputNumbers = await this.#inputView.getWinningNumber();
+    this.#winningNumber = new WinningNumber(inputNumbers);
   }
 }
 
