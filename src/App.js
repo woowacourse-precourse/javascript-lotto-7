@@ -12,13 +12,17 @@ class App {
   async run() {
     await this.collectUserInput(this.requestLottoPurchaseAmount);
 
-    this.printLottoNumbers();
+    const lottos = this.lottolService.getUserLottoNumbers();
+    this.outputView.printPurchasedLotto(lottos);
 
     await this.collectUserInput(this.requestWinningNumber);
     await this.collectUserInput(this.requestBonusNumber);
 
-    this.printWinningDetails();
-    this.printWinningRate();
+    const winningInfo = this.lottolService.getWinningDetails();
+    this.outputView.printWinningDetails(winningInfo);
+
+    const rateOfReturn = this.lottolService.getWinningRate(winningInfo);
+    this.outputView.printWinningRate(rateOfReturn);
   }
 
   requestLottoPurchaseAmount = async () => {
@@ -35,22 +39,6 @@ class App {
     const bonusNumber = await this.inputView.requestBonusNum();
     this.lottolService.setBonusNumber(bonusNumber);
   };
-
-  printLottoNumbers() {
-    const lottos = this.lottolService.getUserLottoNumbers();
-    this.outputView.printPurchasedLotto(lottos);
-  }
-
-  printWinningDetails() {
-    const winningInfo = this.lottolService.getWinningDetails();
-    this.outputView.printWinningDetails(winningInfo);
-    return winningInfo;
-  }
-
-  printWinningRate(winningInfo) {
-    const rateOfReturn = this.lottolService.getWinningRate(winningInfo);
-    this.outputView.printWinningRate(rateOfReturn);
-  }
 
   async collectUserInput(requestCallbackFunc) {
     while (true) {
