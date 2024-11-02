@@ -31,69 +31,63 @@ const validation = Object.freeze({
   winningNumber: {
     /**
      *
-     * @param {string} numbers
+     * @param {Array<string>} numberArr
      */
-    isWrongLength: function (numbers) {
-      const numberArr = numbers.split(`${NUM.SEPARATOR}`);
+    isWrongLength: function (numberArr) {
       if (numberArr.length !== NUM.LOTTO_NUMBER_COUNT)
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISWRONGLENGTH);
     },
+
     /**
      *
-     * @param {string} numbers
+     * @param {Array<string>} numberArr
      */
-    hasSpace: function (numbers) {
-      const numberArr = numbers.split(`${NUM.SEPARATOR}`);
+    hasSpace: function (numberArr) {
       if (numberArr.some((number) => /\s/g.test(number)))
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.HASSPACE);
     },
 
     /**
      *
-     * @param {string} numbers
+     * @param {Array<string>} numberArr
      */
-    isEmpty: function (numbers) {
-      const numberArr = numbers.split(`${NUM.SEPARATOR}`);
+    isEmpty: function (numberArr) {
       if (numberArr.some((number) => !number))
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISEMPTY);
     },
 
     /**
      *
-     * @param {string} numbers
+     * @param {Array<string>} numberArr
      */
-    isNotInRange: function (numbers) {
-      const numberArr = numbers.split(`${NUM.SEPARATOR}`);
+    isNotInRange: function (numberArr) {
       if (numberArr.some((number) => Number(number) < 1 || Number(number) > 45))
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISNOTINRANGE);
     },
 
     /**
      *
-     * @param {string} numbers
+     * @param {Array<string>} numberArr
      */
-    isNotNumber: function (numbers) {
-      const numberArr = numbers.split(`${NUM.SEPARATOR}`);
+    isNotNumber: function (numberArr) {
       if (numberArr.some((number) => isNaN(Number(number))))
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISNOTNUMBER);
     },
 
     /**
      *
-     * @param {string} numbers
+     * @param {Array<string>} numberArr
      */
-    isNotInteger: function (numbers) {
-      const numberArr = numbers.split(`${NUM.SEPARATOR}`);
+    isNotInteger: function (numberArr) {
       if (numberArr.some((number) => Number(number) % 1 !== 0))
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISNOTINTEGER);
     },
 
     /**
      *
-     * @param {string} numbers
+     * @param {Array<string>} numberArr
      */
-    isNotDuplicate: function (numbers) {
-      const numberArr = numbers.split(`${NUM.SEPARATOR}`);
+    isNotDuplicate: function (numberArr) {
       const numberSet = new Set(numberArr);
       if (numberArr.length !== numberSet.size)
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISNOTDUPLICATE);
