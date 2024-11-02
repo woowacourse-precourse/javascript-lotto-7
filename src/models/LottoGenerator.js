@@ -17,7 +17,7 @@ export default class LottoGenerator {
 
     const lottos = this.#generateLottos(lottoCount);
 
-    return lottos;
+    return [lottoCount, lottos];
   }
 
   #generateLottos(lottoCount) {
@@ -27,8 +27,15 @@ export default class LottoGenerator {
         this.#LOTTO_MAX_NUMBER,
         this.#LOTTO_NUM_COUNT
       );
-      return new Lotto(numbers);
+
+      const sortedNumbers = this.#sortNumbers(numbers);
+
+      return new Lotto(sortedNumbers);
     });
+  }
+
+  #sortNumbers(numbers) {
+    return numbers.sort((a, b) => a - b);
   }
 
   #validtePurchasePrice(purchasePrice) {

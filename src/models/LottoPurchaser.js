@@ -1,14 +1,23 @@
-import LottoGenerator from "./LottoGenerator.js"
+import LottoGenerator from './LottoGenerator.js';
 
 export default class LottoPurchaser {
-    #purchasePrice
-    #lottoResult
-    #lottos
+  #purchasePrice;
+  #lottoCount;
+  #lottos;
+  #lottoResult;
 
-    purchase(purchasePrice){
-        // TODO : 생성자 코드 수정 고려해보기
-        const lottoGenerator = new LottoGenerator();
+  getLottoCount() {
+    return this.#lottoCount;
+  }
 
-        this.#lottos = lottoGenerator.generate(purchasePrice)
-    }
+  getLottos() {
+    return this.#lottos;
+  }
+
+  purchase(purchasePrice) {
+    // TODO : 생성자 코드 수정 고려해보기
+    const lottoGenerator = new LottoGenerator();
+
+    [this.#lottoCount, this.#lottos] = lottoGenerator.generate(purchasePrice);
+  }
 }

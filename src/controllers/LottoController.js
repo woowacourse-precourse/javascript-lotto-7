@@ -13,6 +13,7 @@ export default class LottoController {
 
   async run() {
     await this.#purchaseLottos();
+    this.#outputLottoView.printPurchasedLottosInfo(this.#lottoPurchaser)
   }
 
   async #purchaseLottos() {
