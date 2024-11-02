@@ -1,15 +1,10 @@
-import { Console } from '@woowacourse/mission-utils';
-import Input from './View/Input.js';
+import GameController from './Controller/GameController.js';
 
 class App {
   async run() {
-    const input = await Input.getPurchaseAmount();
-    const winningNumbers = await Input.getWinningNumbers();
-    const bonusNumber = await Input.getBonusNumber();
+    const controller = new GameController();
 
-    Console.print(input);
-    Console.print(winningNumbers);
-    Console.print(bonusNumber);
+    await controller.init();
   }
 }
 

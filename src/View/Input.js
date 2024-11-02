@@ -1,17 +1,17 @@
-import { Console } from '@woowacourse/mission-utils';
 import { CONSOLE_MESSAGE } from '../constant/message.js';
+import { repeatUtilComplete } from '../util/input.js';
 
 class Input {
   static getPurchaseAmount() {
-    return Console.readLineAsync(CONSOLE_MESSAGE.purchaseAmountInput);
+    return repeatUtilComplete(CONSOLE_MESSAGE.purchaseAmountInput);
   }
 
   static getWinningNumbers() {
-    return Console.readLineAsync(CONSOLE_MESSAGE.winningNumbersInput);
+    return repeatUtilComplete(CONSOLE_MESSAGE.winningNumbersInput);
   }
 
   static getBonusNumber() {
-    return Console.readLineAsync(CONSOLE_MESSAGE.bonusNumberInput);
+    return repeatUtilComplete(CONSOLE_MESSAGE.bonusNumberInput);
   }
 }
 
