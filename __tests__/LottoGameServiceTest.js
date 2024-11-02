@@ -75,6 +75,13 @@ describe('로또 비즈니스 로직 클래스 테스트', () => {
         expect(lottoGameService.getPayoutPercentage(5000, 61500000)).toBe(1230000);
         expect(lottoGameService.getPayoutPercentage(17000, 5000)).toBe(29.411764705882355);
       });
+      test('수익률은 소수점 둘째 자리에서 반올림한다.', () => {
+        expect(lottoGameService.roundNumber(100.05)).toBeCloseTo(100.0);
+        expect(lottoGameService.roundNumber(51.531232)).toBeCloseTo(51.5);
+        expect(lottoGameService.roundNumber(1000000.0121323)).toBeCloseTo(1000000.0);
+        expect(lottoGameService.roundNumber(0.2312323)).toBeCloseTo(0.2);
+        expect(lottoGameService.roundNumber(500)).toBeCloseTo(500);
+      });
     });
   });
 });
