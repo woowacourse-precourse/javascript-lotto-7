@@ -17,12 +17,20 @@ export const LOTTO_RESULT = Object.freeze({
 });
 
 export const RANK = [
-    "firstPlace",
-    "thirdPlace",
-    "fourthPlace",
-    "fifthPlace",
-    "blank",
-    "blank",
-    "blank",
-    "secondPlace",
+  "firstPlace",
+  "thirdPlace",
+  "fourthPlace",
+  "fifthPlace",
+  "blank",
+  "blank",
+  "blank",
+  "secondPlace",
 ];
+
+export const PRICE = {
+  firstPlace : 2000000000,
+  secondPlace : 30000000,
+  thirdPlace : 1500000,
+  fourthPlace : 50000,
+  fifthPlace : 5000
+}

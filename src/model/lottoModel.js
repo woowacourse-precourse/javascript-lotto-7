@@ -1,5 +1,6 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../Lotto.js";
+import { PRICE } from "../constants/lottoDetails.js";
 
 class LottoModel{
   #userPrice
@@ -54,6 +55,15 @@ class LottoModel{
   }
   getStatistics() {
     return this.userDetails;
+  }
+
+  calculateProfit() {
+    let total = 0;
+    for (const [key, count] of Object.entries(this.userDetails)) {
+      total += PRICE[key]*count;
+    };
+    const profit = (total/this.#userPrice)*100;
+    return Math.round(profit*100)/100;
   }
 }
 
