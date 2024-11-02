@@ -27,10 +27,12 @@ class App {
     // - 발행한 로또 수량을 출력한다.
     this.print(`${lottoCount}개를 구매했습니다.`);
 
-    // - 발행한 로또 번호를 출력한다.
-    this.printLottos(lottosArray);
-
     // - 로또 번호는 오름차순으로 정렬하여 보여준다.
+    const sortedLottosArray = this.getSortedLottosArray(lottosArray);
+
+    // - 발행한 로또 번호를 출력한다.
+    this.printLottos(sortedLottosArray);
+
     // - 사용자가 구매한 로또 번호와 당첨 번호를 비교한다.
     // - 당첨 내역을 출력한다.
     // - 수익률을 출력한다.
@@ -83,6 +85,18 @@ class App {
         .map((lotto) => `[${lotto}]`)
         .join('\n'),
     );
+  }
+
+  getSortedLottosArray(lottosArray) {
+    const sortedLottosArray = [];
+
+    lottosArray.forEach((lottos) => {
+      const sorted = [...lottos].sort((a, b) => a - b);
+
+      sortedLottosArray.push(sorted);
+    });
+
+    return sortedLottosArray;
   }
 }
 
