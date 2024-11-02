@@ -1,4 +1,5 @@
 import LottoList from "../src/LottoList.js";
+import { Random } from "@woowacourse/mission-utils";
 
 describe("LottoList 테스트", () => {
   test("예산 입력 테스트 1: 정상입력", () => {
@@ -17,4 +18,13 @@ describe("LottoList 테스트", () => {
       new LottoList("string");
     }).toThrow("[Error] : 금액은 1000원 단위입니다");
   });
+
+  test("예산 입력 테스트 3: 문자열(NaN)", () => {
+    expect(() => {
+      new LottoList("string");
+    }).toThrow("[Error] : 금액은 1000원 단위입니다");
+  });
+
+
+
 });
