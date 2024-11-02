@@ -2,13 +2,20 @@ import Input from './Input.js';
 import Output from './Output.js';
 import LottoMachine from './LottoMachine.js';
 import Lotto from './Lotto.js';
-import { validatePurchaseAmount } from './util/validator.js';
+import LottoCenter from './LottoCenter.js';
+import {
+  validatePurchaseAmount,
+  validateWinningNumbers,
+  validateBonusNumber,
+} from './util/validator.js';
 
 class App {
   async run() {
     const { lottos, purchaseAmount } = await this.#buyLottos();
 
     Output.printLottos(lottos.map((lotto) => lotto.getNumbers()));
+
+    const rankCounts = await this.#checkWinningResult(lottos);
   }
 
   async #tryInput(inputFunction) {
@@ -27,6 +34,18 @@ class App {
     return purchaseAmount;
   }
 
+  async #tryWinningNumbers() {
+    const winningNumbers = await Input.getWinningNumbersInput();
+    validateWinningNumbers(winningNumbers);
+    return winningNumbers;
+  }
+
+  async #tryBonusNumber(winningNumbers) {
+    const bonusNumber = await Input.getBonusNumberInput();
+    validateBonusNumber(bonusNumber, winningNumbers);
+    return bonusNumber;
+  }
+
   async #buyLottos() {
     const purchaseAmount = await this.#tryInput(
       this.#tryPurchaseAmount.bind(this),
@@ -35,6 +54,33 @@ class App {
     const lottos = lottoMachine.getLottos().map((lotto) => new Lotto(lotto));
 
     return { lottos, purchaseAmount };
+  }
+
+  #getRankCounts(ranks) {
+    const rankCounts = Array(6).fill(0);
+
+    ranks.forEach((rank) => {
+      rankCounts[rank] += 1;
+    });
+
+    return rankCounts;
+  }
+
+  async #checkWinningResult(lottos) {
+    const winningNumbers = await this.#tryInput(
+      this.#tryWinningNumbers.bind(this),
+    );
+    const bonusNumber = await this.#tryInput(() =>
+      this.#tryBonusNumber(winningNumbers),
+    );
+
+    const lottoCenter = new LottoCenter(winningNumbers, bonusNumber);
+    const winningRanks = lottoCenter.getWinningRanks(
+      lottos.map((lotto) => lotto.getNumbers()),
+    );
+    const rankCounts = this.#getRankCounts(winningRanks);
+
+    return rankCounts;
   }
 }
 
