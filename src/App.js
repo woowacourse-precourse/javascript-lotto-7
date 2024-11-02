@@ -8,6 +8,9 @@ class App {
     const purchaseAmount = await this.getPurchaseAmount();
     const lottoCount = purchaseAmount / 1000;
     const lottoTickets = LottoGenerator.generateTickets(lottoCount);
+
+    Output.printCountOfLotto(lottoCount);
+    Output.printLotto(lottoTickets);
   }
 
   async getPurchaseAmount() {
