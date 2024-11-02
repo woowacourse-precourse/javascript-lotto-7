@@ -9,7 +9,13 @@ class AmountValidator extends Validator {
   }
 
   static validate(input) {
-    return _pipe(this.isEmpty, this.isNumber, this.isMultipleOfThousand)(input);
+    return _pipe(
+      this.isEmpty,
+      this.isNumber,
+      this.isNagativeNumber,
+      this.isZero,
+      this.isMultipleOfThousand
+    )(input);
   }
 }
 
