@@ -1,4 +1,4 @@
-    export const LOTTO = {
+    export const LOTTO_INFO = {
         LOTTO_TICKET_PRICE : 1000,
         PRIZE : {
             PRIZE_ONE_NUMBER_MATCHES : 0,
