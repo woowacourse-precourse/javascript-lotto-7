@@ -38,4 +38,8 @@ describe("입력 검증 테스트", () => {
   test("구입 금액이 1,000원 단위가 아닌 경우", async () => {
     await runException("1500");
   });
+
+  test("구입 금액이 1,000원 미만인 경우", async () => {
+    await runException("500");
+  });
 });

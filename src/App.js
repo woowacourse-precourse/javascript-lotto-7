@@ -14,6 +14,11 @@ class App {
       return this.getPurchaseAmount();
     }
 
+    if (Number(purchaseAmount) < 1000) {
+      Console.print(ERROR_MESSAGES.MINIMUM_AMOUNT);
+      return this.getPurchaseAmount();
+    }
+
     if (Number(purchaseAmount) % 1000 !== 0) {
       Console.print(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
       return this.getPurchaseAmount();
