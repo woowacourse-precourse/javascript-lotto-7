@@ -7,6 +7,7 @@ const INPUT_MESSAGE = Object.freeze({
 const OUTPUT_MESSAGE = Object.freeze({
   LOTTO_COUNT: (cnt) => `\n${cnt}개를 구매했습니다.`,
   LOTTO_STATISTICS: "\n당첨 통계\n---",
+  COUNT: "개",
   PROFIT: (profit) => `총 수익률은 ${profit}%입니다.`,
 });
 

@@ -1,4 +1,5 @@
 import { OUTPUT_MESSAGE } from "../constants/messages.js";
+import RANKS from "../constants/rank.js";
 import { printResult } from "../utils/util.js";
 
 class OutputView {
@@ -15,13 +16,11 @@ class OutputView {
 
   static printWinningStatistics(matchCounts) {
     printResult(OUTPUT_MESSAGE.LOTTO_STATISTICS);
-    printResult(`3개 일치 (5,000원) - ${matchCounts["3"]}개`);
-    printResult(`4개 일치 (50,000원) - ${matchCounts["4"]}개`);
-    printResult(`5개 일치 (1,500,000원) - ${matchCounts["5"]}개`);
-    printResult(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCounts["bonus"]}개`
-    );
-    printResult(`6개 일치 (2,000,000,000원) - ${matchCounts["6"]}개`);
+    Object.keys(RANKS).forEach((key) => {
+      const rank = RANKS[key];
+      const count = matchCounts[rank.match] || 0;
+      printResult(`${rank.message}${count}${OUTPUT_MESSAGE.COUNT}`);
+    });
   }
 
   static printProfit(profit) {
