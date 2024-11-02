@@ -21,7 +21,7 @@ describe('LottoMachine 클래스 테스트', () => {
     [undefined],
     ['$'],
     ['$2000$'],
-  ])('구입 금액이 숫자가 아닐 때 예외가 발생하는지 테스트', (payment) => {
+  ])('구입 금액이 숫자가 아닐 때 예외가 발생하는지 테스트 (%s)', (payment) => {
     expect(() => new LottoMachine(payment, Lotto)).toThrow(
       ERROR_MESSAGE.notNumber,
     );
