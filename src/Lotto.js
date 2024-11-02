@@ -49,32 +49,20 @@ class Lotto {
     return lottoResult;
   }
 
+  static matchNumbers(lotteries, userLotto) {
+    return lotteries.map(
+      (lotto) => lotto.filter((num) => userLotto.includes(num)).length,
+    );
+  }
+
   static matchNumber(lotteries, userLotto) {
-    let result = [];
-    lotteries.forEach((lotto) => {
-      let count = 0;
-      lotto.forEach((num) => {
-        if (userLotto.includes(num)) {
-          count++;
-        }
-      });
-      result.push(count);
-    });
-    return result;
+    return lotteries.map(
+      (lotto) => lotto.filter((num) => userLotto.includes(num)).length,
+    );
   }
 
   static matchBonusNumber(lotteries, userBonus) {
-    let result = [];
-    lotteries.forEach((lotto) => {
-      let match = false;
-      lotto.forEach((num) => {
-        if (userBonus === num) {
-          match = true;
-        }
-      });
-      result.push(match);
-    });
-    return result;
+    return lotteries.map((lotto) => lotto.filter((num) => userBonus === num));
   }
 }
 export default Lotto;
