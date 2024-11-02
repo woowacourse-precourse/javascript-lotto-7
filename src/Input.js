@@ -64,11 +64,11 @@ class Input {
 		}
 	}
 
-	async getBonusNumber() {
+	async getBonusNumber(winningNumber) {
 		while (true) {
 			try {
 				const BONUS_NUMBER = await userInput(PROMPT.LOTTO_BONUS_NUMBER);
-				await this.validateBonusNumber(BONUS_NUMBER);
+				await this.validateBonusNumber(winningNumber, BONUS_NUMBER);
 				return BONUS_NUMBER;
 			} catch (error) {
 				printOutput(error.message);
@@ -76,11 +76,16 @@ class Input {
 		}
 	}
 
-	async validateBonusNumber(bonusNumber) {
+	async validateBonusNumber(winningNumber, bonusNumber) {
 		const INPUT_WINNING = parseInt(bonusNumber, 10);
+		const isDuplicate = winningNumber.includes(bonusNumber);
 
 		if (INPUT_WINNING < 1 || INPUT_WINNING > 45) {
 			throw new Error(ERROR_MESSAGE.PASSED_BONUS_RANGE);
+		}
+
+		if (isDuplicate) {
+			throw new Error(ERROR_MESSAGE.WRONG_DUPLICATE);
 		}
 	}
 }

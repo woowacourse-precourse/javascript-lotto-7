@@ -31,7 +31,9 @@ class App {
 		this.#lottoNumbers = await this.#getLotto();
 
 		this.#winningNumber = await this.userInput.getWinningNumber();
-		this.#bonusNumber = await this.userInput.getBonusNumber();
+		this.#bonusNumber = await this.userInput.getBonusNumber(
+			this.#winningNumber
+		);
 		this.#winningMap = this.#getWinningCount();
 
 		await this.#printWinningCount();

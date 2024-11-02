@@ -28,4 +28,5 @@ export const ERROR_MESSAGE = {
 	WRONG_WINNING_DIGIT: `[ERROR] 당첨 번호는 6자리 숫자입니다.`,
 	PASSED_WINNING_RANGE: `[ERROR] 당첨 번호의 범위는 ${LOTTO_MIN_NUMBER}에서 ${LOTTO_MAX_NUMBER}까지 입니다.`,
 	PASSED_BONUS_RANGE: `[ERROR] 보너스 번호의 범위는 ${LOTTO_MIN_NUMBER}에서 ${LOTTO_MAX_NUMBER}까지 입니다.`,
+	WRONG_DUPLICATE: `[ERROR] 당첨 번호에 중복된 번호가 있습니다.`,
 };
