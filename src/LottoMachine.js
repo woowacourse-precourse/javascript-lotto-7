@@ -1,6 +1,6 @@
-import { Console } from '@woowacourse/mission-utils';
-import { Random } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
+import { Console } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class LottoMachine {
   #purchase = 0;
@@ -12,24 +12,26 @@ class LottoMachine {
   async play() {
     await this.setPurchase(); // 구입 금액 입력
     this.setLottoCount(); // 로또 개수 구하기
-    // 로또 발행
-    this.makeLotto();
+    this.makeLotto(); // 로또 발행
+    this.setWinningNumbers();       // 당첨 번호 입력
+    // 보너스
+    this.setBonusNumber();
   }
 
   // 구입 금액 입력
   async setPurchase() {
-    const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
     this.#validatePurchase(input);
     this.#purchase = input;
   }
 
   #validatePurchase(purchase) {
     if (purchase % 1000 !== 0) {
-      throw new Error('[ERROR] 구입 금액은 1000으로 나누어 떨어져야 합니다.');
+      throw new Error("[ERROR] 구입 금액은 1000으로 나누어 떨어져야 합니다.");
     }
 
     if (isNaN(purchase)) {
-      throw new Error('[ERROR] 구입 금액은 숫자여야 합니다.');
+      throw new Error("[ERROR] 구입 금액은 숫자여야 합니다.");
     }
   }
 
@@ -53,6 +55,32 @@ class LottoMachine {
   getRandomNumber() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
   }
+
+  // 당첨 번호 입력
+  async setWinningNumbers() {
+    const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    const numbers = input.split(",").map(Number);
+    this.#validateWinningNumbers(numbers);
+    this.#winningNumbers = numbers;
+  }
+
+  #validateWinningNumbers(numbers) {
+    if (numbers.length !== 6) {
+      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    }
+    for (let i = 0; i < numbers.length; i++) {
+      if (isNaN(numbers[i])) {
+        throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+      }
+      if (numbers[i] < 1 || numbers[i] > 45) {
+        throw new Error("[ERROR] 로또 번호의 범위는 1~45까지입니다.");
+      }
+    }
+    if (numbers.filter((num, index) => numbers.indexOf(num) !== index).length > 0) {
+      throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
+    }
+  }
+  
 }
 
 export default LottoMachine;
