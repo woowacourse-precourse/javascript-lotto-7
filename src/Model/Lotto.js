@@ -1,4 +1,4 @@
-import Rules from '../Utils/Rules';
+import Rules from '../Utils/Rules.js';
 
 class Lotto {
   #numbers;
@@ -25,6 +25,10 @@ class Lotto {
 
   getNumbers() {
     return this.#numbers;
+  }
+
+  getPrintString() {
+    return `[${this.#numbers.join(', ')}]`;
   }
 }
 
