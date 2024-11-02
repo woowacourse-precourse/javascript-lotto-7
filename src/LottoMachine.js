@@ -2,8 +2,9 @@ class LottoMachine {
   #amount;
 
   constructor(input) {
-    this.#validate(Number(input));
-    this.#amount = Number(input);
+    const inputNumber = Number(input);
+    this.#validate(inputNumber);
+    this.#amount = inputNumber / 1000;
   }
 
   #validate(number) {
@@ -13,6 +14,10 @@ class LottoMachine {
     if (number % 1000 !== 0) {
       throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력할 수 있습니다.");
     }
+  }
+
+  getTicketAmountString() {
+    return `${this.#amount}개를 구매했습니다.`;
   }
 }
 
