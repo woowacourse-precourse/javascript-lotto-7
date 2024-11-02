@@ -14,6 +14,10 @@ export default class LottoResult{
         this.#purchasePrice = purchasePrice
     }
 
+    getPurechasePrice(){
+        return this.#purchasePrice;
+    }
+
     #validtePurchasePrice(purchasePrice){
         this.#validatePositiveNumber(purchasePrice)
         this.#validateThousandUnit(purchasePrice)

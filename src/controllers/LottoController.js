@@ -14,7 +14,7 @@ export default class LottoController {
   }
 
   async run() {
-    await this.#getInputPriceAndPurchaseLottos();
+    const purchasedLottos = await this.#getInputPriceAndPurchaseLottos();
   }
 
   async #getInputPriceAndPurchaseLottos() {
@@ -22,8 +22,9 @@ export default class LottoController {
       try {
         const purchasePrice = await this.#inputLottoView.getInputPrice();
         this.#lottoService.purchaseLottos(purchasePrice);
+        this.#lottoService.generateLottos(purchasePrice);
 
-        return
+        return ;
       } catch (error) {
         this.#outputLottoView.printMessage(error.message);
       }
