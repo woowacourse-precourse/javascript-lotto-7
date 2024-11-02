@@ -1,12 +1,15 @@
+import Lotto from '../models/Lotto.js';
 import Money from '../models/Money.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 
 class LottoController {
   #lottoCount;
+  #lottos;
 
   async run() {
     await this.getLottoCount();
+    await this.getLotto();
   }
 
   async getLottoCount() {
@@ -14,6 +17,12 @@ class LottoController {
     this.#lottoCount = new Money(moneyInput).calculateLottoCount();
     OutputView.printNewLine();
     OutputView.printLottoCount(this.#lottoCount);
+  }
+
+  async getLotto() {
+    this.#lottos = Lotto.getPurchaesdLotto(this.#lottoCount);
+    this.#lottos.forEach((lotto) => OutputView.printMessage(lotto.convertNumbersToString()));
+    OutputView.printNewLine();
   }
 }
 
