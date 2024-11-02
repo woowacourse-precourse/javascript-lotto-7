@@ -9,6 +9,19 @@ class App {
       let count = amount / 1000;
       Console.print(`\n${count}개를 구매했습니다.`);
 
+      let lottoArray = [];
+      let lotto;
+      for (let i = 0; i < count; i++) {
+        lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
+        lotto.sort();
+        let sortedLotto = lotto.getNumbers();
+        lottoArray.push(sortedLotto);
+      }
+      
+      lottoArray.map((value) => {
+        Console.print(value);
+      })
+
       let answerNum = await Console.readLineAsync(
         '당첨 번호를 입력해 주세요.\n'
       );
