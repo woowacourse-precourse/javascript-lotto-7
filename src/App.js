@@ -18,6 +18,12 @@ class App {
 
     const statistics = this.decisionWinning(matchResults);
     this.printWinningStatistics(statistics);
+
+    const totalProfitRate = this.calculateTotalProfitRate(
+      statistics,
+      purchaseAmount
+    );
+    this.printTotalProfitRate(totalProfitRate);
   }
 
   async getPurchaseAmount() {
@@ -31,13 +37,13 @@ class App {
 
   validateAmount(amount) {
     if (isNaN(amount)) {
-      Console.print("[ERROR] 금액은 숫자여야 합니다.");
+      throw new Error("[ERROR] 금액은 숫자여야 합니다.");
     }
     if (amount % 1000 !== 0) {
-      Console.print("[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다.");
+      throw new Error("[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다.");
     }
     if (amount <= 0) {
-      Console.print("[ERROR] 정상적인 금액을 입력해주세요.");
+      throw new Error("[ERROR] 정상적인 금액을 입력해주세요.");
     }
   }
 
@@ -69,12 +75,12 @@ class App {
     const uniqueNumbers = new Set(winningNumbers);
 
     if (uniqueNumbers.size !== 6) {
-      Console.print("[ERROR] 중복된 숫자가 포함되어 있습니다.");
+      throw new Error("[ERROR] 중복된 숫자가 포함되어 있습니다.");
     }
 
     winningNumbers.forEach((number) => {
       if (number < 1 || number > 45) {
-        Console.print("[ERROR] 숫자는 1에서 45 사이여야 합니다.");
+        throw new Error("[ERROR] 숫자는 1에서 45 사이여야 합니다.");
       }
     });
   }
@@ -119,6 +125,23 @@ class App {
       `5개 일치, 보너스 볼 일치 (30,000,000원) - ${statistics["5+bonus"]}개`
     );
     Console.print(`6개 일치 (2,000,000,000원) - ${statistics[6]}개`);
+  }
+
+  calculateTotalProfitRate(statistics, purchaseAmount) {
+    const winnings =
+      statistics[3] * 5000 +
+      statistics[4] * 50000 +
+      statistics[5] * 1500000 +
+      statistics["5+bonus"] * 30000000 +
+      statistics[6] * 2000000000;
+    const totalProfitRate = (winnings / purchaseAmount) * 100;
+
+    return totalProfitRate;
+  }
+
+  printTotalProfitRate(totalProfitRate) {
+    const roundedProfitRate = totalProfitRate.toFixed(1);
+    Console.print(`총 수익률은 ${roundedProfitRate}%입니다.`);
   }
 }
 export default App;
