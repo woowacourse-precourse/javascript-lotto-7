@@ -44,7 +44,7 @@ describe("입력 테스트" , () => {
   test("로또 보너스 번호 입력 테스트", async () => {
     mockQuestions(["31"]);
     const bonus = await lotto.getBonusNumber();
-    expect(bonus).toEqual("31");
+    expect(bonus).toEqual(31);
   });
 
   test("잘못된 구입 금액 입력 테스트", async () => {
@@ -62,4 +62,13 @@ describe("입력 테스트" , () => {
     expect(logspy).toHaveBeenCalledWith("[ERROR] : 로또 번호는 1부터 45 사이의 숫자이어야 합니다.");
     expect(numbers).toEqual([1, 2, 3, 5, 6, 7]);
   })
+
+  test("잘못된 보너스 번호 입력 테스트", async () => {
+    const logspy = getLogSpy();
+    mockQuestions(["2.5", "7"]);
+    const number = await lotto.getBonusNumber();
+    expect(logspy).toHaveBeenCalledWith("[ERROR] : 로또 번호는 정수이어야 합니다.");
+    expect(number).toEqual(7);
+  })
+
 })

@@ -16,6 +16,7 @@ class Lotto {
   async start() {
     const ticketAmount = await this.purchasedTicketAmount();
     const generatedTickets = this.printTickets(ticketAmount);
+    await this.getWinningSet();
   }
 
   async purchasedTicketAmount() {
@@ -49,7 +50,11 @@ class Lotto {
     })
     return generatedLottoTickets;
   }
-  
+
+  async getWinningSet() {
+    this.#numbers.winningNumbers = await this.getLottoNumbers();
+    this.#numbers.bonusNumber = await this.getBonusNumber();
+  }
   async getLottoNumbers() {
     while(true) {
       try {
@@ -65,7 +70,9 @@ class Lotto {
   async getBonusNumber() {
     while(true) {
       try {
-        const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요");
+        const rawbonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요");
+        const bonusNumber = Number(rawbonusNumber);
+        LottoValidator.checkEachNumber(bonusNumber);
         return bonusNumber;
       } catch(error) {
         Console.print(error.message);
