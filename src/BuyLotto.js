@@ -1,5 +1,6 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Validator from "./Validator.js";
+import Lotto from "./Lotto.js";
 
 export default class BuyLotto {
   #validator;
@@ -12,6 +13,7 @@ export default class BuyLotto {
   #PRICE_PROMPT = "구입금액을 입력해 주세요.";
   #WINNING_NUMBER_PROMPT = "당첨 번호를 입력해 주세요.";
   #BONUS_NUMBER_PROMPT = "보너스 번호를 입력해 주세요.";
+  #PURCHASE_LOTTO_PROMPT = "개를 구매했습니다.";
   #EMPTY_STRING = "";
 
   constructor() {
@@ -32,7 +34,8 @@ export default class BuyLotto {
     Console.print(this.#WINNING_NUMBER_PROMPT);
     this.input = await Console.readLineAsync("");
     this.#validator.validateWinningNumber(this.input);
-    this.#winningNumber = this.input.split(",").map(Number);
+    this.#winningNumber = new Lotto(this.input.split(",").map(Number));
+
     Console.print(this.#EMPTY_STRING);
     await this.enterBonusNumber();
   }
@@ -47,12 +50,16 @@ export default class BuyLotto {
 
   #getAmountOfLotto(price) {
     this.#purchaseAmount = Number(price) / this.#PRICE_OF_A_LOTTO;
-    this.#getLottoNumbers(this.#purchaseAmount);
+    this.#generateLottoTickets(this.#purchaseAmount);
   }
 
-  #getLottoNumbers(purchaseAmount) {
+  #generateLottoTickets(purchaseAmount) {
     for (let i = 0; i < purchaseAmount; i += 1) {
-      let randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(
+        1,
+        45,
+        6
+      );
       this.#purchasedLotto.push(randomNumber);
       this.#validator.validateDuplicateNumber(randomNumber);
     }
@@ -60,7 +67,7 @@ export default class BuyLotto {
   }
 
   #printLottoNumbers(purchaseAmount) {
-    Console.print(`${purchaseAmount}개를 구매했습니다.`);
+    Console.print(`${purchaseAmount}${this.#PURCHASE_LOTTO_PROMPT}`);
     this.#purchasedLotto.forEach((array) => {
       const sortedArray = this.#sortLottoNumbers(array);
       Console.print(sortedArray);
@@ -71,5 +78,4 @@ export default class BuyLotto {
   #sortLottoNumbers(array) {
     return array.slice().sort((a, b) => a - b);
   }
-  
 }
