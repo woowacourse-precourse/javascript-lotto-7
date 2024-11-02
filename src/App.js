@@ -2,7 +2,7 @@ import LottoChecker from './classes/LottoChecker.js';
 import LottoInputReader from './classes/LottoInputReader.js';
 import LottoIssuer from './classes/LottoIssuer.js';
 import LottoOutputWriter from './classes/LottoOutputWriter.js';
-import RevenueCalculator from './classes/RevenueCalculator.js';
+import LottoRevenueCalculator from './classes/LottoRevenueCalculator.js';
 
 class App {
   async run() {
@@ -23,7 +23,7 @@ class App {
     );
     LottoOutputWriter.printWinningResults(winningResult);
 
-    const totalYield = RevenueCalculator.calculateYield(
+    const totalYield = LottoRevenueCalculator.cal(
       lottoPurchaseAmount,
       winningResult
     );
