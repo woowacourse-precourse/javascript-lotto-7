@@ -5,8 +5,10 @@ const OutputView = {
     Console.print(`${tickets}개를 구매했습니다.`);
   },
 
-  printLottoNumbers(numbers) {
-    Console.print(`[${numbers}]\n`);
+  printLottoNumbers(tickets, numbers) {
+    for (let i = 0; i < tickets; i++) {
+      Console.print(`[${numbers[i]}]`);
+    }
   },
 
   printWinningResult(ranks, profitRate) {
