@@ -1,5 +1,4 @@
 import { Console, Random } from "@woowacourse/mission-utils"
-import CheckNumber from "./CheckNumber.js";
 
 class LottoGenerator{
     constructor(checkNumber){

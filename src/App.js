@@ -3,22 +3,27 @@ import CostManager from "./CostManager.js";
 import LottoGenerator from "./LottoGenerator.js";
 import GetNumber from "./GetNumber.js";
 import CheckNumber from "./CheckNumber.js";
+import WinningPrizeTable from "./WinningPrizeTable.js";
+import PrintResult from "./PrintResult.js";
+
 class App {
-  constructor(){
+  constructor() {
     this.getNumber = new GetNumber();
     this.checkNumber = new CheckNumber(this.getNumber);
   }
+
   async run() {
     const costManager = new CostManager();
     const lottoGenerator = new LottoGenerator(this.checkNumber);
+    const winningPrizeTable = new WinningPrizeTable(this.checkNumber);
+    const printResult = new PrintResult(winningPrizeTable);
 
     await this.handlePurchaseLottos(costManager, lottoGenerator);
-
     await this.handleGetWinNumber(this.getNumber);
-
     await this.handleGetBonusNumber(this.getNumber);
 
-    this.checkNumber.checkNumbers();
+    winningPrizeTable.updateWinningPrizeTable();
+    printResult.printingResult();
   }
 
   async handlePurchaseLottos(costManager, lottoGenerator) {

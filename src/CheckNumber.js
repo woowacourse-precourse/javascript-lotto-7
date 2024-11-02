@@ -16,6 +16,7 @@ class CheckNumber{
         this.matchingResult=matchingNumbers.map(numbers =>
             [numbers.length, numbers.includes(bonusNumber)]
         );
+
     }
     
 

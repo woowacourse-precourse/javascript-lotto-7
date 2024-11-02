@@ -4,6 +4,7 @@ import LottoGenerator from '../src/LottoGenerator.js';
 import GetNumber from '../src/GetNumber.js';
 import CheckNumber from '../src/CheckNumber.js';
 import WinningPrizeTable from '../src/WinningPrizeTable.js';
+import PrintResult from '../src/PrintResult.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
@@ -143,21 +144,27 @@ describe('CheckNumber 테스트', () => {
 
 describe('WinningPrizeTable 테스트', () => {
   let winningPrizeTable;
+  let mockCheckNumber;
 
   beforeEach(() => {
-      winningPrizeTable = new WinningPrizeTable();
-    
-      jest.spyOn(winningPrizeTable, 'getMatchingResult').mockReturnValue([
-          [3, false],
-          [4, false],
-          [5, false],
-          [5, true],
-          [6, false]
-      ]);
+      mockCheckNumber = {
+          checkNumbers: jest.fn(),  
+          matchingResult: [          
+              [3, false],
+              [4, false],
+              [5, false],
+              [5, true],
+              [6, false]
+          ]
+      };
+
+      winningPrizeTable = new WinningPrizeTable(mockCheckNumber);
   });
 
   test('당첨 내역 업데이트 확인', () => {
       winningPrizeTable.updateWinningPrizeTable();
+
+      expect(mockCheckNumber.checkNumbers).toHaveBeenCalled();
 
       expect(winningPrizeTable.winningPrizeTable['3개 일치 (5,000원)']).toBe(1);
       expect(winningPrizeTable.winningPrizeTable['4개 일치 (50,000원)']).toBe(1);
@@ -167,8 +174,40 @@ describe('WinningPrizeTable 테스트', () => {
   });
 });
 
+describe('PrintResult', () => {
+  let printResult;
+  let winningPrizeTableMock;
 
+  beforeEach(() => {
+      winningPrizeTableMock = {
+          winningPrizeTable: {
+              '3개 일치 (5,000원)': 1,
+              '4개 일치 (50,000원)': 0,
+              '5개 일치 (1,500,000원)': 2,
+              '5개 일치, 보너스 볼 포함 (30,000,000원)': 0,
+              '6개 일치 (2,000,000,000원)': 1,
+          }
+      };
 
+      printResult = new PrintResult(winningPrizeTableMock);
+  });
+
+  it('당첨 통계 올바르게 출력', () => {
+      const consoleSpy = jest.spyOn(Console, 'print').mockImplementation();
+
+      printResult.printingResult();
+
+      expect(consoleSpy).toHaveBeenCalledTimes(6);
+      expect(consoleSpy).toHaveBeenCalledWith('\n당첨 통계\n---');
+      expect(consoleSpy).toHaveBeenCalledWith('3개 일치 (5,000원) - 1개');
+      expect(consoleSpy).toHaveBeenCalledWith('4개 일치 (50,000원) - 0개');
+      expect(consoleSpy).toHaveBeenCalledWith('5개 일치 (1,500,000원) - 2개');
+      expect(consoleSpy).toHaveBeenCalledWith('5개 일치, 보너스 볼 포함 (30,000,000원) - 0개');
+      expect(consoleSpy).toHaveBeenCalledWith('6개 일치 (2,000,000,000원) - 1개');
+
+      consoleSpy.mockRestore();
+  });
+});
 
 /*describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
