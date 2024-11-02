@@ -1,5 +1,6 @@
 // gameTest.js
 import Game from "../src/Game";
+import Lotto from "../src/Lotto";
 
 describe("Game 클래스 - purchaseLotto 메서드", () => {
   let game;
@@ -35,5 +36,37 @@ describe ("Game 클래스 - generateLotto 메서드", () =>{
             });
           });
     });
+
+});
+
+
+describe ("Game 클래스 - checkLottoResult 메서드", () =>{
+  let game;
+
+  beforeEach(() =>{
+      game = new Game();
+  });
+
+  test.each([
+    // [lotto numbers, expected]
+    [[8, 21, 23, 41, 42, 43], [[1, 0, 0, 0, 0, 0], [0]]],
+    [[3, 5, 11, 16, 32, 38], [[0, 1, 0, 0, 0, 0], [0]]],
+    [[7, 11, 16, 35, 36, 44], [[1, 0, 0, 0, 0, 1], [0]]],
+    [[1, 8, 11, 31, 41, 42], [[1, 0, 0, 0, 0, 0], [0]]],
+    [[13, 14, 16, 38, 42, 45], [[1, 0, 0, 0, 0, 0], [0]]],
+    [[7, 11, 30, 40, 42, 43], [[1, 0, 0, 0, 0, 0], [0]]],
+    [[2, 13, 22, 32, 38, 45], [[1, 0, 0, 0, 0, 0], [0]]],
+    [[1, 3, 5, 14, 22, 45], [[0, 0, 1, 0, 0, 0], [0]]],
+])(
+  "checkLottoResult 테스트 입력받은 로또 %p 기대결과 %j ",
+  (lottoNumbers, expected) => {
+      const lotto = new Lotto(lottoNumbers);
+      const winningNumber = [1,2,3,4,5,6]
+      const bonusNumber = 7;
+
+      const lottoResult = game.checkLottoResult([lotto], winningNumber, bonusNumber);
+      expect(lottoResult).toEqual(expected);
+  }
+);
 
 });
