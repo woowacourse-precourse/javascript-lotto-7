@@ -65,11 +65,22 @@ class Input {
 	}
 
 	async getBonusNumber() {
-		try {
-			const BONUS_NUMBER = await userInput(PROMPT.LOTTO_BONUS_NUMBER);
-			return BONUS_NUMBER;
-		} catch (error) {
-			console.log(error.message);
+		while (true) {
+			try {
+				const BONUS_NUMBER = await userInput(PROMPT.LOTTO_BONUS_NUMBER);
+				await this.validateBonusNumber(BONUS_NUMBER);
+				return BONUS_NUMBER;
+			} catch (error) {
+				printOutput(error.message);
+			}
+		}
+	}
+
+	async validateBonusNumber(bonusNumber) {
+		const INPUT_WINNING = parseInt(bonusNumber, 10);
+
+		if (INPUT_WINNING < 1 || INPUT_WINNING > 45) {
+			throw new Error(ERROR_MESSAGE.PASSED_BONUS_RANGE);
 		}
 	}
 }
