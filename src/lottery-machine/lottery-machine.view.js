@@ -5,6 +5,7 @@ class LotteryMachineView {
   static QUERY = Object.freeze({
     GET_LOTTERY_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
     GET_LOTTERY_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
+    GET_LOTTERY_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
   });
 
   /**
@@ -26,8 +27,22 @@ class LotteryMachineView {
     return this.#parse(result);
   }
 
+  /**
+   *
+   * @returns {Promise<string>}
+   */
   async getLotteryWinningNumbers() {
     const result = await input(LotteryMachineView.QUERY.GET_LOTTERY_WINNING_NUMBERS);
+
+    return this.#parse(result);
+  }
+
+  /**
+   *
+   * @returns {Promise<string>}
+   */
+  async getLotteryBonusNumber() {
+    const result = await input(LotteryMachineView.QUERY.GET_LOTTERY_BONUS_NUMBER);
 
     return this.#parse(result);
   }
