@@ -10,6 +10,11 @@ const isValidRange = (numbers, min, max) =>
   numbers.every((num) => num >= min && num <= max);
 const isUniqueNumbers = (numbers) => new Set(numbers).size === numbers.length;
 
+const isUniqueBonusNumber = (bonusNumber, winningNumbers) =>
+  !winningNumbers.includes(bonusNumber);
+const isValidBonusNumberRange = (bonusNumber, min, max) =>
+  bonusNumber >= min && bonusNumber <= max;
+
 export const validatePurchaseAmount = (amount) => {
   if (!isPositiveNumber(amount)) {
     throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
@@ -30,5 +35,26 @@ export const validateLottoNumbers = (numbers) => {
   }
   if (!isUniqueNumbers(numbers)) {
     throw new Error(ERROR_MESSAGES.DUPLICATED_WINNING_NUMBER);
+  }
+};
+
+export const validateBonusNumber = (bonusNumber, winningNumbers) => {
+  if (!isValidLength(bonusNumber.split(','), CONFIG.BONUS_NUMBER_COUNT)) {
+    throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_COUNT);
+  }
+  if (!isPositiveNumber(bonusNumber)) {
+    throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
+  }
+  if (
+    !isValidBonusNumberRange(
+      bonusNumber,
+      CONFIG.LOTTO_MIN_NUMBER,
+      CONFIG.LOTTO_MAX_NUMBER
+    )
+  ) {
+    throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER);
+  }
+  if (!isUniqueBonusNumber(Number(bonusNumber), winningNumbers)) {
+    throw new Error(ERROR_MESSAGES.DUPLICATED_BONUS_NUMBER);
   }
 };
