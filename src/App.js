@@ -25,6 +25,8 @@ class App {
     const lottosArray = this.getLottosArray(lottoCount);
 
     // - 발행한 로또 수량을 출력한다.
+    this.print(`${lottoCount}개를 구매했습니다.`);
+
     // - 발행한 로또 번호를 출력한다.
     // - 로또 번호는 오름차순으로 정렬하여 보여준다.
     // - 사용자가 구매한 로또 번호와 당첨 번호를 비교한다.
@@ -66,6 +68,10 @@ class App {
     }
 
     return lottos;
+  }
+
+  print(message) {
+    Console.print(message);
   }
 }
 
