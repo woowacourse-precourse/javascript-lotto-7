@@ -11,14 +11,7 @@ class App {
   async run() {
     // 구입금액을 입력해주세요.
     const purchaseAmount = await InputView.inputMoney();
-
-    if (+purchaseAmount % CONDITIONS.ONE_LOTTO_PRICE !== 0) {
-      throw new Error(ERRORS.NOT_1000_WON);
-    }
-
-    if (+purchaseAmount <= 0) {
-      throw new Error(ERRORS.NOT_ENOUGH_MONEY);
-    }
+    this.validatePurchaseAmount(purchaseAmount);
 
     // ~개를 구매했습니다.
 
