@@ -1,6 +1,4 @@
-import { LOTTO_CONFIG, MESSAGES } from '../constants/index.js';
-import { COUNT } from '../constants/lottoConfig.js';
-import { PRIZE_MESSAGES } from '../constants/messages.js';
+import { MESSAGES, PRIZE_MESSAGES } from '../constants/index.js';
 import { ConsoleIO } from '../io/index.js';
 import { Lotto, Prize } from '../models/index.js';
 import { calculateCountOfPurchase, generateLottoNumbers } from '../utils/LottoUtils.js';
@@ -37,6 +35,8 @@ class LottoGame {
   presentResult() {
     const earningsRate = this.#makeStatistics();
     this.#printStatistics();
+    ConsoleIO.print(earningsRate);
+    ConsoleIO.print(MESSAGES.earningsRateIs(earningsRate));
   }
 
   #issueTickets() {
@@ -72,8 +72,7 @@ class LottoGame {
   #calculateEarningsRate() {
     const totalPrizeMoney = this.prize.getPrizeMoney();
     const investmentMoney = this.storage.getMoney();
-
-    return (totalPrizeMoney / investmentMoney).toFixed(2);
+    return ((totalPrizeMoney / investmentMoney) * 100).toFixed(1);
   }
 
   #printStatistics() {
@@ -81,7 +80,7 @@ class LottoGame {
 
     ConsoleIO.print(MESSAGES.winningStatistics);
     for (const [rankingName, count] of Object.entries(prizeCount)) {
-      ConsoleIO.print(PRIZE_MESSAGES[rankingName] + count + COUNT);
+      ConsoleIO.print(PRIZE_MESSAGES.howManyMatchAndCount(rankingName, count));
     }
   }
 }

@@ -14,5 +14,3 @@ export const MATCH_COUNT = Object.freeze({
 });
 
 export const COUNT_OF_RANKING = 5;
-
-export const COUNT = '개';

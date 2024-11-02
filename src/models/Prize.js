@@ -44,6 +44,8 @@ class Prize {
         return 30_000_000;
       case 1:
         return 2_000_000_000;
+      default:
+        return 0;
     }
   }
 
