@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import { OUTPUT_MESSAGE } from './constants/index.js';
+import { MATCHING_COUNT, OUTPUT_MESSAGE, PRIZE } from './constants/index.js';
 
 class OutputView {
   showLottoTickets(tickets) {
