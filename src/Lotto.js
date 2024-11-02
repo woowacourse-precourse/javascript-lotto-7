@@ -11,7 +11,7 @@ class Lotto {
   }
 
   show() {
-    Console.print(this.#numbers);
+    Console.print(`[${this.#numbers.join(', ')}]`);
   }
 
   match(winningNumbers, bonusNumber) {
@@ -31,7 +31,7 @@ class Lotto {
 
     const isInvalidRange = numbers.some(LOTTO.isInvalidRange);
     if (isInvalidRange) {
-      throw Error(ERROR_MESSAGE.lotto.range);
+      throw new Error(ERROR_MESSAGE.lotto.range);
     }
 
     const set = new Set(numbers);
