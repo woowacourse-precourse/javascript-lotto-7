@@ -28,7 +28,7 @@ export const runException = async (input, inputOrder = 0, errorMsg = '[ERROR]') 
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  let INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
+  const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
   INPUT_NUMBERS_TO_END.splice(inputOrder, 0, input);
 
@@ -98,31 +98,6 @@ describe('로또 테스트', () => {
     await runException('1000j');
   });
 
-  // 로또 구입 금액 입력 유효성 검사 TC (우선순위 높은 순으로 정렬)
-  test.each([
-    // empty Check
-    [null, ERROR_MSG.invalidInputData],
-    [undefined, ERROR_MSG.invalidInputData],
-    ['', ERROR_MSG.invalidInputData],
-    [' ', ERROR_MSG.invalidInputData],
-    // Number Only Check
-    ['abcd', ERROR_MSG.notANumber],
-    ['///', ERROR_MSG.notANumber],
-    ['\\\\\\', ERROR_MSG.notANumber],
-    ['>_<', ERROR_MSG.notANumber],
-    ['--1', ERROR_MSG.notANumber],
-    // Range Check
-    ['0', ERROR_MSG.outOfAmountRange],
-    ['1', ERROR_MSG.outOfAmountRange],
-    ['123', ERROR_MSG.outOfAmountRange],
-    ['1000000000', ERROR_MSG.outOfAmountRange],
-    ['100000000001', ERROR_MSG.outOfAmountRange],
-    // Price Align Check
-    ['1001', ERROR_MSG.priceMisalign],
-  ])("[예외 테스트] 로또 구입 금액이 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
-    await runException(input, 0, errorMsg);
-  });
-
   // 당첨 번호 입력 유효성 검사 TC (우선순위 높은 순으로 정렬)
   test.each([
     // empty Check
@@ -173,5 +148,54 @@ describe('로또 테스트', () => {
     ['1', ERROR_MSG.duplicateNumber],
   ])("[예외 테스트] 보너스 번호가 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
     await runException(input, 2, errorMsg);
+  });
+});
+
+describe('로또 구매', () => {
+  test('구매 수량만큼 로또 번호를 오름차순으로 출력한다.', async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockQuestions(['2000', '1,2,3,4,5,6', '7']);
+    mockRandoms([
+      [13, 34, 5, 14, 22, 45],
+      [3, 15, 11, 32, 20, 38],
+    ]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    const logs = ['2개를 구매했습니다.', '[5, 13, 14, 22, 34, 45]', '[3, 11, 15, 20, 32, 38]'];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  // 로또 구입 금액 입력 유효성 검사 TC (우선순위 높은 순으로 정렬)
+  test.each([
+    // empty Check
+    [null, ERROR_MSG.invalidInputData],
+    [undefined, ERROR_MSG.invalidInputData],
+    ['', ERROR_MSG.invalidInputData],
+    [' ', ERROR_MSG.invalidInputData],
+    // Number Only Check
+    ['abcd', ERROR_MSG.notANumber],
+    ['///', ERROR_MSG.notANumber],
+    ['\\\\\\', ERROR_MSG.notANumber],
+    ['>_<', ERROR_MSG.notANumber],
+    ['--1', ERROR_MSG.notANumber],
+    // Range Check
+    ['0', ERROR_MSG.outOfAmountRange],
+    ['1', ERROR_MSG.outOfAmountRange],
+    ['123', ERROR_MSG.outOfAmountRange],
+    ['1000000000', ERROR_MSG.outOfAmountRange],
+    ['100000000001', ERROR_MSG.outOfAmountRange],
+    // Price Align Check
+    ['1001', ERROR_MSG.priceMisalign],
+  ])("[예외 테스트] 로또 구입 금액이 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
+    await runException(input, 0, errorMsg);
   });
 });
