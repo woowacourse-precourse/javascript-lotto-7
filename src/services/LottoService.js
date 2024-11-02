@@ -1,26 +1,44 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from '../models/Lotto.js';
 import { Console } from '@woowacourse/mission-utils';
+import {
+  FIFTH_PRIZE,
+  FIRST_PRIZE,
+  FOURTH_PRIZE,
+  LOTTO_MAX_NUMBER,
+  LOTTO_MIN_NUMBER,
+  LOTTO_NUMBERS_LENGTH,
+  MATCH_COUNT_FIFTH_PRIZE,
+  MATCH_COUNT_FOURTH_PRIZE,
+  MATCH_COUNT_FIRST_PRIZE,
+  MATCH_COUNT_SECOND_PRIZE,
+  SECOND_PRIZE,
+  THIRD_PRIZE,
+} from '../constants/constraints.js';
 
 class LottoService {
   getGeneratedLottos(lottoAmount) {
     return Array.from({ length: lottoAmount }, () => {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      const numbers = Random.pickUniqueNumbersInRange(
+        LOTTO_MIN_NUMBER,
+        LOTTO_MAX_NUMBER,
+        LOTTO_NUMBERS_LENGTH,
+      );
       return new Lotto(numbers);
     });
   }
 
   caculatePrize(matchCount, isBonusNumberMatched) {
     const prizeCriteria = {
-      6: () => 2000000000,
-      5: () => {
+      [MATCH_COUNT_FIRST_PRIZE]: () => FIRST_PRIZE,
+      [MATCH_COUNT_SECOND_PRIZE]: () => {
         if (isBonusNumberMatched) {
-          return 30000000;
+          return SECOND_PRIZE;
         }
-        return 1500000;
+        return THIRD_PRIZE;
       },
-      4: () => 50000,
-      3: () => 5000,
+      [MATCH_COUNT_FOURTH_PRIZE]: () => FOURTH_PRIZE,
+      [MATCH_COUNT_FIFTH_PRIZE]: () => FIFTH_PRIZE,
     };
 
     const prizeAmount = prizeCriteria[matchCount];
@@ -33,10 +51,10 @@ class LottoService {
 
   calculateLottoResults(lottos, winningNumbers, bonusNumber) {
     const matchCounts = {
-      3: 0,
-      4: 0,
-      5: 0,
-      6: 0,
+      [MATCH_COUNT_FIFTH_PRIZE]: 0,
+      [MATCH_COUNT_FOURTH_PRIZE]: 0,
+      [MATCH_COUNT_SECOND_PRIZE]: 0,
+      [MATCH_COUNT_FIRST_PRIZE]: 0,
       bonus: 0,
     };
     const incrementMatchCount = (key) => matchCounts[key]++;
@@ -47,10 +65,13 @@ class LottoService {
 
     const updateMatchCount = (matchCount, isBonusNumberMatched) => {
       const prize = {
-        3: () => incrementMatchCount(3),
-        4: () => incrementMatchCount(4),
-        5: () => bonusHandlers[isBonusNumberMatched](),
-        6: () => incrementMatchCount(6),
+        [MATCH_COUNT_FIFTH_PRIZE]: () =>
+          incrementMatchCount(MATCH_COUNT_FIFTH_PRIZE),
+        [MATCH_COUNT_FOURTH_PRIZE]: () =>
+          incrementMatchCount(MATCH_COUNT_FOURTH_PRIZE),
+        [MATCH_COUNT_SECOND_PRIZE]: () => bonusHandlers[isBonusNumberMatched](),
+        [MATCH_COUNT_FIRST_PRIZE]: () =>
+          incrementMatchCount(MATCH_COUNT_FIRST_PRIZE),
       };
 
       const updateMatchCount = prize[matchCount];

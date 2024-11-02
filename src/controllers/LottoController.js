@@ -17,14 +17,15 @@ class LottoController {
   async startLotto() {
     const purchaseCost = await this.inputView.getPurchaseCost();
     InputValidator.validatePurchaseCost(purchaseCost);
+
     const lottoAmount = calculateLottoAmount(Number(purchaseCost));
 
-    //Lotto.js에서 자체 validator 돌려야 함
     const generatedLottos = this.service.getGeneratedLottos(lottoAmount);
     this.outputView.printPurchasedLotto(generatedLottos);
 
     const winningNumbers = await this.inputView.getWinningNumbers();
     InputValidator.validateNumbers(winningNumbers);
+
     const bonusNumber = await this.inputView.getBonusNumber();
     InputValidator.validateBonusNumber(bonusNumber, winningNumbers);
 
