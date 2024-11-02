@@ -1,4 +1,5 @@
 import OutputView from './view/OutputView.js';
+import { LOTTO_PRIZES, MIN_MATCH_FOR_PRIZE, FIVE_BONUS_KEY } from './constants/lottoConstants.js';
 
 class LottoStatistics {
   #purchasedLottos;
@@ -14,11 +15,11 @@ class LottoStatistics {
     this.#winningLotto = winningLotto;
     this.#purchaseAmount = purchaseAmount;
     this.#winningStatistics = {
-      3: { count: 0, prize: 5000 },
-      4: { count: 0, prize: 50000 },
-      5: { count: 0, prize: 1500000 },
-      6: { count: 0, prize: 2000000000 },
-      '5bonus': { count: 0, prize: 30000000 },
+      3: { count: 0, prize: LOTTO_PRIZES.THREE_MATCH },
+      4: { count: 0, prize: LOTTO_PRIZES.FOUR_MATCH },
+      5: { count: 0, prize: LOTTO_PRIZES.FIVE_MATCH },
+      6: { count: 0, prize: LOTTO_PRIZES.SIX_MATCH },
+      [FIVE_BONUS_KEY]: { count: 0, prize: LOTTO_PRIZES.FIVE_BONUS_MATCH },
     };
   }
 
@@ -43,10 +44,10 @@ class LottoStatistics {
 
   #recordMatchedResult(matchedNumCount, hasBonus) {
     if (matchedNumCount === 5 && hasBonus) {
-      this.#winningStatistics['5bonus'].count += 1;
+      this.#winningStatistics[FIVE_BONUS_KEY].count += 1;
       return;
     }
-    if (matchedNumCount >= 3) {
+    if (matchedNumCount >= MIN_MATCH_FOR_PRIZE) {
       this.#winningStatistics[matchedNumCount].count += 1;
     }
   }

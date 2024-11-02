@@ -1,3 +1,5 @@
+import { FIVE_BONUS_KEY } from './lottoConstants.js';
+
 const PRINT_MESSAGES = Object.freeze({
   INPUT: Object.freeze({
     AMOUNT: '구입금액을 입력해 주세요.',
@@ -29,7 +31,7 @@ const STATISTICS_MESSAGES = Object.freeze({
   THREE: { message: '3개 일치 (5,000원)', key: 3 },
   FOUR: { message: '4개 일치 (50,000원)', key: 4 },
   FIVE: { message: '5개 일치 (1,500,000원)', key: 5 },
-  FIVE_BONUS: { message: '5개 일치, 보너스 볼 일치 (30,000,000원)', key: '5bonus' },
+  FIVE_BONUS: { message: '5개 일치, 보너스 볼 일치 (30,000,000원)', key: FIVE_BONUS_KEY },
   SIX: { message: '6개 일치 (2,000,000,000원)', key: 6 },
 });
 

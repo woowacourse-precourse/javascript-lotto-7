@@ -1,5 +1,6 @@
 import Validator from './utils/Validator.js';
 import { ERROR_MESSAGES } from './constants/messages.js';
+import { LOTTO_VALUES } from './constants/lottoConstants.js';
 
 class Lotto {
   #numbers;
@@ -12,7 +13,12 @@ class Lotto {
   #validate(numbers) {
     Lotto.#checkValidLength(numbers);
     numbers.forEach((num) => {
-      Validator.checkValidRange(num, 1, 45, ERROR_MESSAGES.INVALID_LOTTO_RANGE);
+      Validator.checkValidRange(
+        num,
+        LOTTO_VALUES.MIN_NUMBER,
+        LOTTO_VALUES.MAX_NUMBER,
+        ERROR_MESSAGES.INVALID_LOTTO_RANGE,
+      );
     });
     Lotto.#checkDuplicateNum(numbers);
   }
@@ -29,7 +35,8 @@ class Lotto {
   }
 
   static #checkValidLength(numbers) {
-    if (numbers.length !== 6) throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT);
+    if (numbers.length !== LOTTO_VALUES.LOTTO_COUNT)
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT);
   }
 }
 

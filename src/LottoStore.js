@@ -4,6 +4,7 @@ import OutputView from './view/OutputView.js';
 import LottoBundle from './LottoBundle.js';
 import { PRINT_MESSAGES, ERROR_MESSAGES } from './constants/messages.js';
 import REGEX from './constants/regex.js';
+import { LOTTO_VALUES } from './constants/lottoConstants.js';
 
 class LottoStore {
   #amount;
@@ -45,12 +46,17 @@ class LottoStore {
   static #validateAmount(amount) {
     Validator.checkIsNull(amount);
     Validator.checkRegexPattern(amount, REGEX.NUMBER_REGEX, ERROR_MESSAGES.INVALID_AMOUNT_INPUT);
-    Validator.checkValidRange(amount, 1000, 100000, ERROR_MESSAGES.INVALID_AMOUNT_RANGE);
+    Validator.checkValidRange(
+      amount,
+      LOTTO_VALUES.MIN_AMOUNT,
+      LOTTO_VALUES.MAX_AMOUNT,
+      ERROR_MESSAGES.INVALID_AMOUNT_RANGE,
+    );
     LottoStore.#checkThousandUnit(amount);
   }
 
   static #checkThousandUnit(amount) {
-    if (amount % 1000 !== 0) {
+    if (amount % LOTTO_VALUES.LOTTO_PRICE !== 0) {
       throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
     }
   }
@@ -60,7 +66,7 @@ class LottoStore {
   }
 
   #getLottoCount() {
-    return Math.floor(this.#amount / 1000);
+    return Math.floor(this.#amount / LOTTO_VALUES.LOTTO_PRICE);
   }
 
   #generateLottos() {

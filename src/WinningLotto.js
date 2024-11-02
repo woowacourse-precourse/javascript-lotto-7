@@ -1,6 +1,7 @@
 import Lotto from './Lotto.js';
 import Validator from './utils/Validator.js';
 import { ERROR_MESSAGES } from './constants/messages.js';
+import { LOTTO_VALUES } from './constants/lottoConstants.js';
 
 class WinningLotto extends Lotto {
   #bonusNumber;
@@ -17,7 +18,12 @@ class WinningLotto extends Lotto {
 
   #validateBonusNumber(bonusNumber) {
     this.#checkDuplicateBonusNum(bonusNumber);
-    Validator.checkValidRange(bonusNumber, 1, 45, ERROR_MESSAGES.INVALID_LOTTO_RANGE);
+    Validator.checkValidRange(
+      bonusNumber,
+      LOTTO_VALUES.MIN_NUMBER,
+      LOTTO_VALUES.MAX_NUMBER,
+      ERROR_MESSAGES.INVALID_LOTTO_RANGE,
+    );
   }
 
   getBonusNumber() {
