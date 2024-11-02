@@ -59,6 +59,7 @@ class LottoMachine {
     await this.#inputBonusNumber();
     this.#rankLottoResult();
     this.#calculateYieldRate();
+    this.#printResult();
   }
 
   async #inputPurchaseAmount() {
@@ -184,6 +185,28 @@ class LottoMachine {
     return this.#inputBonusNumber();
   }
 
+  #printResult() {
+    MissionUtils.Console.print('당첨 통계');
+    MissionUtils.Console.print('---');
+    this.#printCalculateResult();
+  }
+
+  #printCalculateResult() {
+    const MESSAGE_ARR = [
+      '3개 일치 (5,000원) - ',
+      '4개 일치 (50,000원) - ',
+      '5개 일치 (1,500,000원) - ',
+      '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
+      '6개 일치 (2,000,000,000원) - ',
+    ];
+    for (let i = 5; i > 0; i -= 1) {
+      MissionUtils.Console.print(
+        `${MESSAGE_ARR[MESSAGE_ARR.length - i]}${this.#resultRankMap.get(i)}개`,
+      );
+    }
+    MissionUtils.Console.print(`총 수익률은 ${this.#yield}%입니다.`);
+  }
+
   setLottosTestMethod(lottos) {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('테스트코드에서만 접근가능');
@@ -210,6 +233,27 @@ class LottoMachine {
       throw new Error('테스트코드에서만 접근가능');
     }
     this.#amount = amount;
+  }
+
+  setResultRankMapTestMethod(map) {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    this.#resultRankMap = map;
+  }
+
+  setYieldTestMethod(value) {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    this.#yield = value;
+  }
+
+  printResultTestMethod() {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    return this.#printResult();
   }
 }
 

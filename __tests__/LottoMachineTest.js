@@ -209,4 +209,40 @@ describe('로또 발매기 클래스 테스트', () => {
     // then
     expect(lottoMachine.yield).toBe(YIELD);
   });
+
+  test('당첨 통계 출력 메서드', () => {
+    // given
+    const logSpy = getLogSpy();
+    const RESULT_MAP = new Map([
+      [1, 0],
+      [2, 0],
+      [3, 0],
+      [4, 0],
+      [5, 1],
+    ]);
+
+    const YIELD = 62.5;
+    const lottoMachine = new LottoMachine();
+    lottoMachine.setResultRankMapTestMethod(RESULT_MAP);
+    lottoMachine.setYieldTestMethod(YIELD);
+
+    // when
+    lottoMachine.printResultTestMethod();
+
+    // then
+    const logs = [
+      '당첨 통계',
+      '---',
+      '3개 일치 (5,000원) - 1개',
+      '4개 일치 (50,000원) - 0개',
+      '5개 일치 (1,500,000원) - 0개',
+      '5개 일치, 보너스 볼 일치 (30,000,000원) - 0개',
+      '6개 일치 (2,000,000,000원) - 0개',
+      '총 수익률은 62.5%입니다.',
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
 });
