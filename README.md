@@ -23,11 +23,7 @@
 
 ## 📂 폴더 구조
 
-<h3>📦 tests</h3>
-<h4>┣ 📜 AllLottoTest.js</h4>
-<h4>┣ 📜 ApplicationTest.js</h4>
-<h4>┣ 📜 LottoTest.js</h4>
-<h4>┗ 📜 PurchaseAmountTest.js</h4>
+<h3>📦 tests<br>┣ 📜 AllLottoTest.js<br>┣ 📜 ApplicationTest.js<br>┣ 📜 LottoTest.js<br>┗ 📜 PurchaseAmountTest.js</h3>
 
 📦 src
 ┣ 📂 util
