@@ -45,6 +45,6 @@ export const VALIDATION = {
 };
 
 export const ERROR_MESSAGE = {
-  notNumber: '숫자만 입력 가능합니다.',
-  notPositiveNumber: '구입 금액은 양수만 가능합니다.',
+  notNumber: '[ERROR] 숫자만 입력 가능합니다.',
+  notPositiveNumber: '[ERROR] 구입 금액은 양수만 가능합니다.',
 };
