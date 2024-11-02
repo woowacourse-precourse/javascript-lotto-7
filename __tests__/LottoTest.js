@@ -19,4 +19,14 @@ describe('로또 번호 클래스 예외 테스트', () => {
       new Lotto([0, 1, 2, 45, 46, 99]);
     }).toThrow(ERROR.LOTTO_RANGE);
   });
+
+  test('로또 번호에 숫자가 아닌 값이 들어가면 예외가 발생한다.', () => {
+    expect(() => {
+      new Lotto([1, 2, '@', 3, 4, 5]);
+    }).toThrow(ERROR.LOTTO_TYPE);
+
+    expect(() => {
+      new Lotto([1, 2, , 3, 4, 5]);
+    });
+  });
 });
