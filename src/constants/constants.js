@@ -4,6 +4,8 @@ export const INPUT_MESSAGE = {
 
 export const LOTTO_MESSAGE = {
   LOTTO_NUMBER_ERROR_MESSAGE: '[ERROR] 로또 번호는 6개여야 합니다.',
+  LOTTO_WINNING_NUMBER_MESSAGE: '당첨 번호를 입력해 주세요.\n',
+  LOTTO_BONUS_WINNING_NUMBER_MESSAGE: '보너스 번호를 입력해 주세요.\n',
 };
 export const MIN_NUMBER = 1;
 export const MAX_NUMBER = 45;
