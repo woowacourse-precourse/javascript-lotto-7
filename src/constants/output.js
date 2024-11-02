@@ -1,7 +1,7 @@
 import { prettyNumber } from '../utils/prettyNumber.js';
 
 export const OUTPUT_MESSAGE = Object({
-  amount: (amount) => `\n${amount}개를 구매했습니다.`,
+  amount: (amount) => `${amount}개를 구매했습니다.`,
   statistics: '\n당첨 통계\n---',
   statisticsDetail: ({ prize, matchingCount, lotteryPrize, winningCount }) =>
     `${matchingCount}개 일치${

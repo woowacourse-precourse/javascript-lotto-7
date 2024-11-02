@@ -1,19 +1,12 @@
-import { Console } from '@woowacourse/mission-utils';
-
 import LotteryRetailer from './LotteryRetailer.js';
-
-import {
-  ERROR_MESSAGE,
-  INPUT_MESSAGE,
-  LOTTO,
-  OUTPUT_MESSAGE,
-} from './constants/index.js';
 
 class App {
   #inputView;
+  #outputView;
 
-  constructor(inputView) {
+  constructor(inputView, outputView) {
     this.#inputView = inputView;
+    this.#outputView = outputView;
   }
 
   async run() {
@@ -21,12 +14,18 @@ class App {
     const purchasePrice = await this.#inputView.readPurchasePrice();
     const tickets = lotteryRetailer.issueTicket(purchasePrice);
 
-    lotteryRetailer.showLottoTickets(tickets);
+    this.#outputView.showLottoTickets(tickets);
 
     const winningNumbers = await this.#inputView.readWinningNumbers();
     const bonus = await this.#inputView.readBonusNumber(winningNumbers);
 
-    lotteryRetailer.showWinningResult(tickets, winningNumbers);
+    const ticketCountForPrize = lotteryRetailer.evaluateTicketWinnings(
+      tickets,
+      winningNumbers,
+      bonus
+    );
+    this.#outputView.showWinningStatistics(ticketCountForPrize);
+
     lotteryRetailer.showLotteryYield(purchasePrice, tickets);
   }
 }

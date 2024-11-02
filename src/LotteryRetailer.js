@@ -11,7 +11,7 @@ import {
 } from './constants/index.js';
 
 class LotteryRetailer {
-  static pickLottoNumber() {
+  pickLottoNumber() {
     return Random.pickUniqueNumbersInRange(
       LOTTO.minNumber,
       LOTTO.maxNumber,
@@ -19,33 +19,24 @@ class LotteryRetailer {
     );
   }
 
-  showLottoTickets(tickets) {
-    Console.print(OUTPUT_MESSAGE.amount(tickets.length));
-    tickets.forEach((ticket) => ticket.show());
-    Console.print('');
-  }
-
-  issueTicket(price) {
+  issueTicket(purchasePrice) {
     const tickets = [];
-    const amount = price / LOTTO.ticketPrice;
+    const amount = purchasePrice / LOTTO.ticketPrice;
 
     for (let i = 0; i < amount; i++) {
-      const ticket = new Lotto(LotteryRetailer.pickLottoNumber());
+      const ticket = new Lotto(this.pickLottoNumber());
       tickets.push(ticket);
     }
 
     return tickets;
   }
 
-  showWinningResult(tickets, winningNumbers) {
-    const prize = this.#evaluateTicketWinnings(tickets, winningNumbers);
-    this.#showWinningStats(prize);
-  }
+  evaluateTicketWinnings(tickets, winningNumbers, bonus) {
+    const matchResults = tickets.map((ticket) =>
+      ticket.match(winningNumbers, bonus)
+    );
 
-  #evaluateTicketWinnings(tickets, winningNumbers) {
-    const matchResults = tickets.map((ticket) => ticket.match(winningNumbers));
-
-    const prize = {
+    const ticketCountForPrize = {
       fifth: matchResults //
         .filter(({ matchingCount }) => matchingCount === 3).length,
       fourth: matchResults //
@@ -60,22 +51,7 @@ class LotteryRetailer {
         .filter(({ matchingCount }) => matchingCount === 6).length,
     };
 
-    return prize;
-  }
-
-  #showWinningStats(prize) {
-    Console.print(OUTPUT_MESSAGE.statistics);
-
-    Object.entries(prize).forEach(([key, value]) => {
-      Console.print(
-        OUTPUT_MESSAGE.statisticsDetail({
-          prize: key,
-          matchingCount: MATCHING_COUNT[key],
-          lotteryPrize: PRIZE[key],
-          winningCount: value,
-        })
-      );
-    });
+    return ticketCountForPrize;
   }
 }
 
