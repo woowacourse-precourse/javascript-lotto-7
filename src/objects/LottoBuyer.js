@@ -1,13 +1,12 @@
-import LottoShop from './LottoShop.js';
-import { calculateRateOfReturn } from '../lib/utils.js';
 import { InputManager, OutputManager } from '../helpers/index.js';
-import Lotto from './Lotto.js';
+import { calculateRateOfReturn } from '../lib/utils.js';
+import LottoShop from './LottoShop.js';
 
 class LottoBuyer {
   #purchasePrice;
   #lottos;
 
-  #winningLottoMap;
+  #lottosResult;
 
   async purchaseLottos() {
     this.#purchasePrice = await InputManager.getPurchasePrice();
@@ -17,26 +16,19 @@ class LottoBuyer {
   }
 
   checkWinningLotto(lottoCompany) {
-    this.#winningLottoMap = lottoCompany.checkWinningLottos(this.#lottos);
+    this.#lottosResult = lottoCompany.checkWinningLottos(this.#lottos);
 
-    OutputManager.printWinningStatics(this.#winningLottoMap);
+    OutputManager.printLottoResult(this.#lottosResult);
   }
 
   calculateReturn() {
-    const lottoWinningMoney = this.#sumLottoWinningMoney();
+    const lottoPrizeMoney = this.#lottosResult.getTotalPrizeMoney();
 
     const rateOfReturn = parseFloat(
-      calculateRateOfReturn(lottoWinningMoney, this.#purchasePrice).toFixed(2),
+      calculateRateOfReturn(lottoPrizeMoney, this.#purchasePrice).toFixed(2),
     );
 
     OutputManager.printRateOfReturn(rateOfReturn);
-  }
-
-  #sumLottoWinningMoney() {
-    return [...this.#winningLottoMap.entries()].reduce(
-      (sum, [rank, count]) => Lotto.getPrizeMoney(rank) * count + sum,
-      0,
-    );
   }
 }
 

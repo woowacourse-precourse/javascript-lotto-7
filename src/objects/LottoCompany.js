@@ -1,8 +1,7 @@
 import { InputManager } from '../helpers/index.js';
+import LottosResult from './LottosResult.js';
 
 class LottoCompany {
-  static #RANKS = [1, 2, 3, 4, 5];
-
   #winningNumbers;
   #bonusNumber;
 
@@ -12,16 +11,14 @@ class LottoCompany {
   }
 
   checkWinningLottos(lottos) {
-    const lottoWinningMap = LottoCompany.#generateBlankLottos(
-      LottoCompany.#RANKS,
-    );
+    const lottosResult = new LottosResult();
+
     lottos.forEach((lotto) => {
       const rank = lotto.checkWinning(this.#winningNumbers, this.#bonusNumber);
-      if (lottoWinningMap.has(rank))
-        lottoWinningMap.set(rank, lottoWinningMap.get(rank) + 1);
+      lottosResult.addWinning(rank);
     });
 
-    return lottoWinningMap;
+    return lottosResult;
   }
 
   static #generateBlankLottos(keyArray) {

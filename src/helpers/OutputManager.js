@@ -19,13 +19,13 @@ class OutputManager {
     });
   }
 
-  static printWinningStatics(rankCountMap) {
+  static printLottoResult(lottosResult) {
     this.print(OUTPUT_MESSAGE.WINNING_STATICS);
 
     Object.entries(LOTTO_RANK_MAP).forEach(([rawRank, info]) => {
       const rank = +rawRank;
       const { winningCount, prizeMoney } = info;
-      const winningLottoCount = rankCountMap.get(rank);
+      const winningLottoCount = lottosResult.getWinningCount(rank);
 
       const bonusNumberString = this.#getBonusNumberString(rank);
       const winningLottoOutput = `${winningCount}개 일치${bonusNumberString} (${prizeMoney.toLocaleString(

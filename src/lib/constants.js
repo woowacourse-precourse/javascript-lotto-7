@@ -10,11 +10,11 @@ export const OUTPUT_MESSAGE = {
 };
 
 export const LOTTO_RANK_MAP = {
-  1: { winningCount: 6, isBonusMatch: false, prizeMoney: 2_000_000_000 },
-  2: { winningCount: 5, isBonusMatch: true, prizeMoney: 30_000_000 },
-  3: { winningCount: 5, isBonusMatch: false, prizeMoney: 1_500_000 },
-  4: { winningCount: 4, isBonusMatch: false, prizeMoney: 50_000 },
   5: { winningCount: 3, isBonusMatch: false, prizeMoney: 5_000 },
+  4: { winningCount: 4, isBonusMatch: false, prizeMoney: 50_000 },
+  3: { winningCount: 5, isBonusMatch: false, prizeMoney: 1_500_000 },
+  2: { winningCount: 5, isBonusMatch: true, prizeMoney: 30_000_000 },
+  1: { winningCount: 6, isBonusMatch: false, prizeMoney: 2_000_000_000 },
 };
 
 export const LOTTO = {

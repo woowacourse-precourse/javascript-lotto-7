@@ -1,8 +1,4 @@
-import {
-  ERROR_MESSAGE,
-  LOTTO_INFORMATIONS,
-  LOTTO_RANK_MAP,
-} from '../lib/constants.js';
+import { ERROR_MESSAGE, LOTTO_RANK_MAP } from '../lib/constants.js';
 import {
   getIsAllItemsUnique,
   getIsArrayLengthMatch,

@@ -16,9 +16,9 @@ describe('LottoCompany', () => {
       await lottoCompany.draw();
       const lottos = LottoShop.orderLottos(MOCK_DATA_1.INPUT.PURCHASE_PRICE);
 
-      const lottoWinningMap = lottoCompany.checkWinningLottos(lottos);
+      const lottosResult = lottoCompany.checkWinningLottos(lottos);
 
-      lottoWinningMap.forEach((count, rank) => {
+      lottosResult.forEach((count, rank) => {
         expect(count).toBe(MOCK_DATA_1.RESULT.RANKS[String(rank)]);
       });
     });
