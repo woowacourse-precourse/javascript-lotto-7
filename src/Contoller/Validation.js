@@ -16,6 +16,13 @@ class Validation {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }
   }
+
+  static validateUniqueNumbers(numbers) {
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error('[ERROR] 중복되는 번호가 존재합니다.');
+    }
+  }
 }
 
 export default Validation;
