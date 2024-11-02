@@ -14,6 +14,21 @@ class App {
     // - 입력한 당첨 번호에서 중복된 것이 있는 경우 예외 처리한다.
     // - 입력한 당첨 번호가 1~45 사이의 숫자가 아닌 경우 예외 처리한다.
 
+    // - 구입 금액에 따라 발행할 로또 개수가 몇 개인지 구한다.
+    const lottoCount = this.getLottoCount(price);
+
+    // - 로또를 발행한다.
+    const lottosArray = this.getLottosArray(lottoCount);
+
+    // - 로또 번호는 오름차순으로 정렬하여 보여준다.
+    const sortedLottosArray = this.getSortedLottosArray(lottosArray);
+
+    // - 발행한 로또 수량을 출력한다.
+    this.print(`\n${lottoCount}개를 구매했습니다.`);
+
+    // - 발행한 로또 번호를 출력한다.
+    this.printLottos(sortedLottosArray);
+
     // - 당첨 번호 6개를 입력받는다.
     const winningNumbersString = await this.readWinningNumbersString();
 
@@ -24,21 +39,6 @@ class App {
     const bonusNumberString = await this.readBonusNumberString();
     const bounusNumber = Number(bonusNumberString);
 
-    // - 구입 금액에 따라 발행할 로또 개수가 몇 개인지 구한다.
-    const lottoCount = this.getLottoCount(price);
-
-    // - 로또를 발행한다.
-    const lottosArray = this.getLottosArray(lottoCount);
-
-    // - 발행한 로또 수량을 출력한다.
-    this.print(`${lottoCount}개를 구매했습니다.`);
-
-    // - 로또 번호는 오름차순으로 정렬하여 보여준다.
-    const sortedLottosArray = this.getSortedLottosArray(lottosArray);
-
-    // - 발행한 로또 번호를 출력한다.
-    this.printLottos(sortedLottosArray);
-
     // - 각 로또에 대해 일치하는 개수를 구한다.
     const matchedCountArray = this.getMatchedCountInLottos(sortedLottosArray, winnigNumbersArray, bounusNumber);
 
@@ -46,6 +46,7 @@ class App {
     const matchedCountPerMatchOption = this.getMatchedCountPerMatchOption(matchedCountArray);
 
     // - 당첨 내역을 출력한다.
+    this.print('\n당첨 통계\n---');
     this.printWinningResult(matchedCountPerMatchOption);
 
     // - 수익률을 출력한다.
@@ -57,7 +58,7 @@ class App {
   }
 
   readWinningNumbersString() {
-    return Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    return Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
   }
 
   getWinningNumberArray(numbersString) {
@@ -65,7 +66,7 @@ class App {
   }
 
   readBonusNumberString() {
-    return Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    return Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
   }
 
   getUniqueRandomNumbersArray() {
@@ -174,12 +175,13 @@ class App {
     const matchResults = [];
 
     matchedCountPerMatchOption.forEach(({ count, matchedCount, isBonus, prize }) => {
+      const formatedPrice = this.formatPrice(prize);
       if (isBonus) {
-        matchResults.push(`${count}개 일치, 보너스 볼 일치 (${prize}원) - ${matchedCount}개`);
+        matchResults.push(`${count}개 일치, 보너스 볼 일치 (${formatedPrice}) - ${matchedCount}개`);
         return;
       }
 
-      matchResults.push(`${count}개 일치 (${prize}원) - ${matchedCount}개`);
+      matchResults.push(`${count}개 일치 (${formatedPrice}) - ${matchedCount}개`);
     });
 
     this.print(matchResults.join('\n'));
@@ -201,6 +203,10 @@ class App {
     if (!Number(priceString)) {
       throw new Error('[ERROR] 구매 금액이 숫자가 아닙니다.');
     }
+  }
+
+  formatPrice(price) {
+    return `${price.toLocaleString()}원`;
   }
 }
 
