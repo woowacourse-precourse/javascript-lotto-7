@@ -1,6 +1,5 @@
 import {
   calculateRateOfReturn,
-  generateMapWithZeroValue,
   getIsAllItemsBetweenNumbers,
   getIsAllItemsNumeric,
   getIsAllItemsUnique,
@@ -100,19 +99,6 @@ describe('유틸 함수', () => {
   describe('calculateRateOfReturn', () => {
     test('수익률을 반환한다.', () => {
       expect(calculateRateOfReturn(1000, 5000)).toBe(20);
-    });
-  });
-  describe('generateMapWithZeroValue', () => {
-    test('주어진 인자의 값을 key로, 0을 value로 가진 Map을 반환한다.', () => {
-      expect(generateMapWithZeroValue([1, 2, 3, 4, 5])).toEqual(
-        new Map([
-          [1, 0],
-          [2, 0],
-          [3, 0],
-          [4, 0],
-          [5, 0],
-        ]),
-      );
     });
   });
 });

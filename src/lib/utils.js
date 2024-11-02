@@ -34,8 +34,5 @@ export const retryWhileCatchedError = async (callbackFunction) => {
   }
 };
 
-export const calculateRateOfReturn = (winningPrice, usedPrice) =>
-  (winningPrice / usedPrice) * 100;
-
-export const generateMapWithZeroValue = (keyArray) =>
-  new Map(keyArray.map((key) => [key, 0]));
+export const calculateRateOfReturn = (prizeMoney, usedPrice) =>
+  (prizeMoney / usedPrice) * 100;

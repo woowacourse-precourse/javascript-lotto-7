@@ -1,5 +1,4 @@
 import { InputManager } from '../helpers/index.js';
-import { generateMapWithZeroValue } from '../lib/utils.js';
 
 class LottoCompany {
   static #RANKS = [1, 2, 3, 4, 5];
@@ -13,7 +12,9 @@ class LottoCompany {
   }
 
   checkWinningLottos(lottos) {
-    const lottoWinningMap = generateMapWithZeroValue(LottoCompany.#RANKS);
+    const lottoWinningMap = LottoCompany.#generateBlankLottos(
+      LottoCompany.#RANKS,
+    );
     lottos.forEach((lotto) => {
       const rank = lotto.checkWinning(this.#winningNumbers, this.#bonusNumber);
       if (lottoWinningMap.has(rank))
@@ -21,6 +22,10 @@ class LottoCompany {
     });
 
     return lottoWinningMap;
+  }
+
+  static #generateBlankLottos(keyArray) {
+    return new Map(keyArray.map((key) => [key, 0]));
   }
 }
 
