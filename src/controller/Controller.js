@@ -65,10 +65,7 @@ class Controller {
 
     this.#lottos.forEach((lotto) => {
       const numbers = lotto.getNumbers();
-      let cnt = numbers.reduce(
-        (acc, cur, idx) => (cur === winningNumbers[idx] ? (acc += 1) : acc),
-        0
-      );
+      let cnt = numbers.filter((num) => winningNumbers.includes(num)).length;
 
       if (cnt === 3) {
         statistics[0]++;
