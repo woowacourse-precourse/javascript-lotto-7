@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import errorMessages from "./constants/errorMessages.js";
+import errorMessages from "../constants/errorMessages.js";
 import Lotto from "./Lotto.js";
-import { LOTTO_PRICE_UNIT } from "./constants/lottoConstants.js";
+import { LOTTO_PRICE_UNIT } from "../constants/lottoConstants.js";
 
 class PurchasedLotto {
   constructor(purchaseAmount) {

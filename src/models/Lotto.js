@@ -1,5 +1,5 @@
-import errorMessages from "./constants/errorMessages.js";
-import Validator from "./utils/Validator.js";
+import errorMessages from "../constants/errorMessages.js";
+import Validator from "../utils/Validator.js";
 
 class Lotto {
   #numbers;

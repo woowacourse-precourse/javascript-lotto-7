@@ -1,9 +1,8 @@
-import errorMessages from "./constants/errorMessages.js";
-import Lotto from "./Lotto.js";
-import PurchasedLotto from "./PurchasedLotto.js";
+import errorMessages from "../constants/errorMessages.js";
+import Lotto from "../models/Lotto.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-class LottoService {
+class LottoController {
   constructor(winningNumbers, bonusNum, purchasedLotto) {
     const nums = this.#splitNumsByComma(winningNumbers);
     this.winningNumbers = new Lotto(this.#convertStringToNumber(nums));
@@ -85,4 +84,4 @@ class LottoService {
   }
 }
 
-export default LottoService;
+export default LottoController;

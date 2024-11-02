@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import PurchasedLotto from "./PurchasedLotto.js";
-import LottoService from "./LottoService.js";
+import PurchasedLotto from "./models/PurchasedLotto.js";
+import LottoController from "./controllers/LottoController.js";
 import Validator from "./utils/Validator.js";
 class App {
   async run() {
@@ -26,13 +26,13 @@ class App {
         "보너스 번호를 입력해 주세요.\n"
       );
 
-      const lottoService = new LottoService(
+      const lottoController = new LottoController(
         lottoNumbers,
         lottoBonusNumber,
         lottoTickes
       );
 
-      lottoService.start();
+      lottoController.start();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       throw error;
