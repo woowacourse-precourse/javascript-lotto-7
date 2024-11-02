@@ -16,36 +16,35 @@ class LottoView {
     });
   }
 
-  static async InputwinningNumbers() {
+  static async InputWinningNumbers() {
     const winningNumberInput = await Console.readLineAsync(
       INPUT_MESSAGE.winningNumbersPrompt,
     );
     return winningNumberInput;
   }
 
-  static async InputbounusNumber() {
-    const bounusNumberInput = await Console.readLineAsync(
+  static async InputBonusNumber() {
+    const bonusNumberInput = await Console.readLineAsync(
       INPUT_MESSAGE.bonusNumberPrompt,
     );
-    return bounusNumberInput;
+    return bonusNumberInput;
   }
 
-  static PrintWinningStatistics({
-    match3Count,
-    match4Count,
-    match5Count,
-    match5WithBonusCount,
-    match6Count,
-    profitRate,
-  }) {
+  static PrintWinningStatistics(rankCounts, profitRate) {
     Console.print(`${INPUT_MESSAGE.winningTotalMessage}\n`);
-    Console.print(`${INPUT_MESSAGE.match3Message(match3Count)}\n`);
-    Console.print(`${INPUT_MESSAGE.match4Message(match4Count)}\n`);
-    Console.print(`${INPUT_MESSAGE.match5Message(match5Count)}\n`);
-    Console.print(
-      `${INPUT_MESSAGE.match5WithBonusMessage(match5WithBonusCount)}\n`,
-    );
-    Console.print(`${INPUT_MESSAGE.match6Message(match6Count)}\n`);
+
+    const rankMessages = [
+      INPUT_MESSAGE.match3Message(rankCounts[3]),
+      INPUT_MESSAGE.match4Message(rankCounts[4]),
+      INPUT_MESSAGE.match5Message(rankCounts[5]),
+      INPUT_MESSAGE.match5WithBonusMessage(rankCounts[5.5]),
+      INPUT_MESSAGE.match6Message(rankCounts[6]),
+    ];
+
+    rankMessages.forEach((message) => {
+      Console.print(`${message}`);
+    });
+
     Console.print(`${INPUT_MESSAGE.totalProfitMessage(profitRate)}\n`);
   }
 }
