@@ -21,6 +21,8 @@ class App {
     const winningNumbers = await Console.readLineAsync(
       "당첨 번호를 입력해 주세요."
     );
+    const winningNumber = winningNumbers.split(",");
+    console.log(winningNumber);
   }
 }
 
