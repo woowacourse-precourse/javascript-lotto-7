@@ -23,7 +23,7 @@ describe('LottoMachine 클래스 테스트', () => {
     ['$'],
     ['$2000$'],
   ])('구입 금액이 숫자가 아닐 때 예외가 발생하는지 테스트 (%s)', (payment) => {
-    const parsedPayment = Utils.parsingNumber(payment);
+    const parsedPayment = Utils.parsingToNumber(payment);
 
     expect(() => new LottoMachine(parsedPayment, Lotto)).toThrow(
       ERROR_MESSAGE.notNumber,

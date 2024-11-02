@@ -1,5 +1,5 @@
 const Utils = {
-  parsingNumber: (input) => {
+  parsingToNumber: (input) => {
     if (input === null) {
       return NaN;
     }

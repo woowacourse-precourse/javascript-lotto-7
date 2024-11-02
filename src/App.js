@@ -23,7 +23,7 @@ class App {
 
   static async getPayment() {
     const payment = await inputView.askPayment();
-    const parsedPayment = Utils.parsingNumber(payment);
+    const parsedPayment = Utils.parsingToNumber(payment);
     return parsedPayment;
   }
 }

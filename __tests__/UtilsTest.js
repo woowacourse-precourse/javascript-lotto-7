@@ -13,7 +13,7 @@ describe('Utils 함수 테스트', () => {
     ['$', NaN],
     ['$2000$', NaN],
   ])('input값을 숫자로 형 변환하는 함수 테스트', (inputs, expected) => {
-    const parsedInput = Utils.parsingNumber(inputs);
+    const parsedInput = Utils.parsingToNumber(inputs);
 
     expect(parsedInput).toBe(expected);
   });
