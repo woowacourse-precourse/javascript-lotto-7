@@ -35,7 +35,7 @@ class App {
 
   async getWinningNumbers() {
     try {
-      const numbers = await App.getWinningNumbers();
+      const numbers = await App.getWinningNumbersInput();
       const validWinningNumbers = App.validateWinningNumbers(numbers);
       return validWinningNumbers;
     } catch (error) {
@@ -45,7 +45,7 @@ class App {
     }
   }
 
-  static async getWinningNumbers() {
+  static async getWinningNumbersInput() {
     const winningNumbers = await inputView.askWinningNumbers();
     const parsedNumbers = this.parsingWinningNumbers(winningNumbers);
     return parsedNumbers;
