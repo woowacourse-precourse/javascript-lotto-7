@@ -17,7 +17,10 @@ class Lotto {
       throw new Error('[ERROR] 로또 번호는 중복되면 안됩니다.');
     }
 
-
+    const allNumbersCheck = numbers.every((element) => typeof element === 'number');
+    if (allNumbersCheck !== true) {
+      throw new Error('[ERROR] 모든 로또 번호가 숫자가 아닙니다.');
+    }
   }
 }
 
