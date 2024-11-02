@@ -7,6 +7,7 @@ export default class BuyLotto {
   #winningNumber = [];
   #bonusNumber = 0;
   #purchaseAmount = 0;
+  #purchasedLotto = [];
   #PRICE_OF_A_LOTTO = 1000;
   #PRICE_PROMPT = "구입금액을 입력해 주세요.";
   #WINNING_NUMBER_PROMPT = "당첨 번호를 입력해 주세요.";
@@ -15,6 +16,7 @@ export default class BuyLotto {
 
   constructor() {
     this.#validator = new Validator();
+    let input;
   }
 
   async enterLottoPrice() {
@@ -24,28 +26,37 @@ export default class BuyLotto {
     this.#getAmountOfLotto(this.#inputPrice);
     this.#validator.validatePrice(this.#inputPrice, this.#PRICE_OF_A_LOTTO);
     await this.enterWinningNumber();
-    await this.enterBonusNumber();
   }
 
   async enterWinningNumber() {
-    let input;
     Console.print(this.#WINNING_NUMBER_PROMPT);
-    input = await Console.readLineAsync("");
-    this.#validator.validateWinningNumber(input);
-    this.#winningNumber = input.split(",").map(Number);
+    this.input = await Console.readLineAsync("");
+    this.#validator.validateWinningNumber(this.input);
+    this.#winningNumber = this.input.split(",").map(Number);
     Console.print(this.#EMPTY_STRING);
+    await this.enterBonusNumber();
   }
 
   async enterBonusNumber() {
-    let input;
     Console.print(this.#BONUS_NUMBER_PROMPT);
-    input = await Console.readLineAsync("");
-    this.#validator.validateBonusNumnber(input);
-    this.#bonusNumber = Number(input);
+    this.input = await Console.readLineAsync("");
+    this.#validator.validateBonusNumnber(this.input);
+    this.#bonusNumber = Number(this.input);
     Console.print(this.#EMPTY_STRING);
   }
 
   #getAmountOfLotto(price) {
     this.#purchaseAmount = Number(price) / this.#PRICE_OF_A_LOTTO;
+    this.#getLottoNumbers(this.#purchaseAmount);
+  }
+
+  #getLottoNumbers(purchaseAmount) {
+    for (let i = 0; i < purchaseAmount; i += 1) {
+      let randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      this.#purchasedLotto.push(randomNumber);
+      this.#validator.validateDuplicateNumber(randomNumber);
+    }
+    Console.print(this.#purchasedLotto);
+    
   }
 }

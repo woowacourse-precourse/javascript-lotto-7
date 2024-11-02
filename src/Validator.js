@@ -5,6 +5,7 @@ export default class Validator {
   #REGEX_WITHOUT_COMMA = /[^\w,]/;
   #BONUS_NUMBER_ERROR =
     "[ERROR] 보너스 번호는 1부터 45 사이의 정수여야 합니다.";
+  #DUPLICATE_NUMBER_ERROR = "[ERROR] 중복되지 않는 숫자를 입력해야 합니다.";
 
   validatePrice(inputPrice, lottoPrice) {
     this.validateInteger(inputPrice, this.#PRICE_ERROR);
@@ -26,14 +27,13 @@ export default class Validator {
   validateWinningNumber(input) {
     this.validateSeparator(input);
     let winningNumber = input.split(",");
-    {
-      if (winningNumber.length !== 6) {
-        throw new Error(this.#NUMBERS_LENGTH_ERROR);
-      }
-      winningNumber.forEach((element) => {
-        Number(this.validateNumberRange(element, this.#NUMBERS_RANGE_ERROR));
-      });
+    this.validateDuplicateNumber(winningNumber)
+    if (winningNumber.length !== 6) {
+      throw new Error(this.#NUMBERS_LENGTH_ERROR);
     }
+    winningNumber.forEach((element) => {
+      Number(this.validateNumberRange(element, this.#NUMBERS_RANGE_ERROR));
+    });
   }
 
   validateSeparator(input) {
@@ -50,6 +50,12 @@ export default class Validator {
   validateNumberRange(number, errorMessage) {
     if (number < 1 || number > 45) {
       throw new Error(errorMessage);
+    }
+  }
+
+  validateDuplicateNumber(array) {
+    if (array.some((item, index) => array.indexOf(item) !== index)) {
+      throw new Error(this.#DUPLICATE_NUMBER_ERROR);
     }
   }
 
