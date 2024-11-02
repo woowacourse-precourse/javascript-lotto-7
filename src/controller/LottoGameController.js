@@ -3,6 +3,7 @@ import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import { INPUT_MESSAGES } from '../constants/messages.js';
 import {
+  validateBonusNumber,
   validateLottoNumbers,
   validatePurchaseAmount,
 } from '../util/validators.js';
@@ -16,6 +17,7 @@ class LottoGameController {
     this.#printLottoNumbers();
 
     const winningNumbers = await this.#getWinningNumbers();
+    const bonusNumber = await this.#getBonusNumber(winningNumbers);
   }
 
   #createLottoGame(purchaseAmount) {
@@ -58,6 +60,19 @@ class LottoGameController {
     } catch (error) {
       OutputView.print(error.message);
       return this.#getWinningNumbers();
+    }
+  }
+
+  async #getBonusNumber(winningNumbers) {
+    try {
+      const bonusNumber = await InputView.readUserInput(
+        INPUT_MESSAGES.BONUS_NUMBER
+      );
+      validateBonusNumber(bonusNumber, winningNumbers);
+      return Number(bonusNumber);
+    } catch (error) {
+      OutputView.print(error.message);
+      return this.#getBonusNumber(winningNumbers);
     }
   }
 }
