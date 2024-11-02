@@ -1,7 +1,8 @@
 import Input from "./utils/Input.js";
-import Validator from "./utils/Validator.js";
+import Lotto from "./Lotto.js";
 import LottoGenerator from "./utils/LottoGenerator.js";
 import Output from "./utils/Output.js";
+import Validator from "./utils/Validator.js";
 
 class App {
   async run() {
@@ -13,31 +14,37 @@ class App {
     Output.printLotto(lottoTickets);
 
     const winningNumbers = await this.getWinningNumbers();
+    const winningLotto = new Lotto(winningNumbers);
   }
 
   async getPurchaseAmount() {
     let purchaseAmount;
-
     while (true) {
-      purchaseAmount = await Input.purchaseAmount();
-
-      const isValidPrice =
-        Validator.isNumber(purchaseAmount) &&
-        Validator.isAboveMinimum(purchaseAmount) &&
+      try {
+        purchaseAmount = await Input.purchaseAmount();
+        Validator.isNumber(purchaseAmount);
+        Validator.isAboveMinimum(purchaseAmount);
         Validator.isThousandUnit(purchaseAmount);
-
-      if (isValidPrice) {
         break;
+      } catch (error) {
+        Output.printError(error.message);
       }
     }
     return purchaseAmount;
   }
 
   async getWinningNumbers() {
-    const winningNumbersInput = await Input.winningNumbers();
-    const winningNumbers = winningNumbersInput
-      .split(",")
-      .map((num) => num.trim());
+    let winningNumbers;
+    while (true) {
+      try {
+        const winningNumbersInput = await Input.winningNumbers();
+        const lotto = new Lotto(winningNumbersInput);
+        winningNumbers = lotto.getNumbers();
+        break;
+      } catch (error) {
+        Output.printError(error.message);
+      }
+    }
     return winningNumbers;
   }
 }

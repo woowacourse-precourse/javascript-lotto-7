@@ -18,6 +18,7 @@ const getLogSpy = () => {
 const runException = async (input) => {
   const logSpy = getLogSpy();
   const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
   const app = new App();
@@ -31,15 +32,15 @@ describe("입력 검증 테스트", () => {
     jest.restoreAllMocks();
   });
 
-  test("구입 금액에 숫자가 아닌 값이 입력된 경우", async () => {
+  test("구입 금액에 숫자가 아닌 값이 입력된 경우 예외가 발생한다.", async () => {
     await runException("woowa");
   });
 
-  test("구입 금액이 1,000원 단위가 아닌 경우", async () => {
+  test("구입 금액이 1,000원 단위가 아닌 경우 예외가 발생한다.", async () => {
     await runException("1500");
   });
 
-  test("구입 금액이 1,000원 미만인 경우", async () => {
+  test("구입 금액이 1,000원 미만인 경우 예외가 발생한다.", async () => {
     await runException("500");
   });
 });

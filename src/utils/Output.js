@@ -11,6 +11,10 @@ const Output = {
       Console.print(MESSAGES.LOTTO_NUMBERS(ticket));
     });
   },
+
+  printError(errorMessage) {
+    Console.print(errorMessage);
+  },
 };
 
 export default Output;

@@ -5,7 +5,7 @@ class Validator {
   static isNumber(value) {
     if (isNaN(value)) {
       Console.print(ERROR_MESSAGES.INVALID_AMOUNT);
-      return false;
+      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT);
     }
     return true;
   }
@@ -13,7 +13,7 @@ class Validator {
   static isAboveMinimum(value, minimum = 1000) {
     if (Number(value) < minimum) {
       Console.print(ERROR_MESSAGES.MINIMUM_AMOUNT);
-      return false;
+      throw new Error(ERROR_MESSAGES.MINIMUM_AMOUNT);
     }
     return true;
   }
@@ -21,7 +21,7 @@ class Validator {
   static isThousandUnit(value) {
     if (Number(value) % 1000 !== 0) {
       Console.print(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
-      return false;
+      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
     }
     return true;
   }
