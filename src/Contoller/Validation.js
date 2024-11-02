@@ -23,6 +23,12 @@ class Validation {
       throw new Error('[ERROR] 중복되는 번호가 존재합니다.');
     }
   }
+
+  static validatePositiveInteger(number) {
+    if (!(Number.isInteger(number) && number > 0)) {
+      throw new Error('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
+    }
+  }
 }
 
 export default Validation;
