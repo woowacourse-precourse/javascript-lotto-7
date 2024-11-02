@@ -8,7 +8,7 @@ class LottoBundle {
 
   constructor(purchaseCount) {
     this.#validate(purchaseCount);
-    this.#lottoList = this.createList(purchaseCount);
+    this.#lottoList = this.#createList(purchaseCount);
   }
 
   #validate(purchaseCount) {
@@ -16,8 +16,7 @@ class LottoBundle {
       throwError(Errors.PurchaseCount.NOT_NUMBER_VALUE);
   }
 
-  // number => Lotto[]
-  createList(purchaseCount) {
+  #createList(purchaseCount) {
     return Array.from(
       { length: purchaseCount },
       () => new Lotto(getRandomNumbers())

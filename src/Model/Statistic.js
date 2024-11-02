@@ -5,10 +5,13 @@ import roundToOne from '../Utils/roundToOne.js';
 import Rules from '../Utils/Rules.js';
 
 class Statistic {
+  #buyPrice;
+  #winningResult;
+
   constructor(buyPrice) {
     this.#validate(buyPrice);
-    this.buyPrice = buyPrice;
-    this.winningResult = {
+    this.#buyPrice = buyPrice;
+    this.#winningResult = {
       first: 0,
       second: 0,
       third: 0,
@@ -29,26 +32,26 @@ class Statistic {
       throwError(Errors.BuyPrice.NOT_UNIT_NUMBER);
   }
 
-  addWinningCount(prizeName) {
-    this.winningResult[prizeName] += 1;
-  }
-
-  #getGainPrice() {
+  #calculateGainPrice() {
     return (
-      this.winningResult.first * PrizeMoney.FIRST +
-      this.winningResult.second * PrizeMoney.SECOND +
-      this.winningResult.third * PrizeMoney.THIRD +
-      this.winningResult.fourth * PrizeMoney.FOURTH +
-      this.winningResult.fifth * PrizeMoney.FIFTH
+      this.#winningResult.first * PrizeMoney.FIRST +
+      this.#winningResult.second * PrizeMoney.SECOND +
+      this.#winningResult.third * PrizeMoney.THIRD +
+      this.#winningResult.fourth * PrizeMoney.FOURTH +
+      this.#winningResult.fifth * PrizeMoney.FIFTH
     );
   }
 
+  addWinningCount(prizeName) {
+    this.#winningResult[prizeName] += 1;
+  }
+
   getWinningResult() {
-    return this.winningResult;
+    return this.#winningResult;
   }
 
   getEarningRate() {
-    const rate = (this.#getGainPrice() / this.buyPrice) * 100;
+    const rate = (this.#calculateGainPrice() / this.#buyPrice) * 100;
     return roundToOne(rate);
   }
 }
