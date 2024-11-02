@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { matchCounts } from '../Models/winningStatisticsUtils.js';
+import { matchCount } from '../Models/winningStatisticsUtils.js';
 
 class Output {
   printPurchaseCount = (purchaseCount) => {
@@ -17,11 +17,11 @@ class Output {
     Console.print(
       `\n당첨 통계\n` +
         `---\n` +
-        `3개 일치 (5,000원) - ${matchCounts.threeMatches}개\n` +
-        `4개 일치 (50,000원) - ${matchCounts.fourMatches}개\n` +
-        `5개 일치 (1,500,000원) - ${matchCounts.fiveMatches}개\n` +
-        `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCounts.fiveMatchesAndBonus}개\n` +
-        `6개 일치 (2,000,000,000원) - ${matchCounts.sixMatches}개`,
+        `3개 일치 (5,000원) - ${matchCount.threeMatch}개\n` +
+        `4개 일치 (50,000원) - ${matchCount.fourMatch}개\n` +
+        `5개 일치 (1,500,000원) - ${matchCount.fiveMatch}개\n` +
+        `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCount.fiveAndBonusMatch}개\n` +
+        `6개 일치 (2,000,000,000원) - ${matchCount.sixMatch}개`,
     );
   };
 

@@ -2,7 +2,7 @@ import { Input } from './Views/inputViews.js';
 import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
 import { Output } from './Views/outputViews.js';
 import { issueLottoList } from './Models/lottoListIssueUtils.js';
-import { produceStatistics } from './Models/winningStatisticsUtils.js';
+import { WinningStatistics } from './Models/winningStatisticsUtils.js';
 import { produceRateOfReturn } from './Models/rateOfReturnUtils.js';
 import { trimWinningNumbers } from './Models/winningNumbersUtils.js';
 
@@ -35,7 +35,7 @@ class App {
     const winningNumbers = await new Input().getWinningNumbersInput();
     const trimWinningNum = trimWinningNumbers(winningNumbers);
     const bonusNumber = await new Input().getBonusNumberInput();
-    produceStatistics(trimWinningNum, bonusNumber, this.lottoList);
+    new WinningStatistics().produceStatistics(trimWinningNum, bonusNumber, this.lottoList);
     new Output().printWinningAmount();
   }
 

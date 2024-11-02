@@ -1,7 +1,7 @@
-import { calculateWinningAmount } from './winningStatisticsUtils.js';
+import { WinningStatistics } from './winningStatisticsUtils.js';
 
 const produceRateOfReturn = (purchasePrice) => {
-  const winningAmount = calculateWinningAmount();
+  const winningAmount = new WinningStatistics().calculateWinningAmount();
   const rateOfReturn = ((winningAmount / purchasePrice) * 100).toFixed(1);
   return rateOfReturn;
 };
