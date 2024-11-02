@@ -1,12 +1,15 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
+import { validateUserMoney } from '../validators/InputValidator';
+
 import { USER_MONEY_PROMPT, WINNING_NUMBER_PROMPT, BONUS_NUMBER_PROMPT } from '../constants/prompts.js';
 import { INPUT_ERROR_MESSAGE } from '../constants/message.js';
 
 export async function getUserMoney() {
   try {
     const userMoney = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
-    return userMoney;
+    validateUserMoney(userMoney);
+    return parseInt(userMoney, 10);
   } catch (error) {
     throw new Error(INPUT_ERROR_MESSAGE);
   }
