@@ -3,6 +3,7 @@ import Output from './Output.js';
 import LottoMachine from './LottoMachine.js';
 import Lotto from './Lotto.js';
 import LottoCenter from './LottoCenter.js';
+import Bank from './Bank.js';
 import {
   validatePurchaseAmount,
   validateWinningNumbers,
@@ -16,6 +17,7 @@ class App {
     Output.printLottos(lottos.map((lotto) => lotto.getNumbers()));
 
     const rankCounts = await this.#checkWinningResult(lottos);
+    const totalWinningPrize = this.#checkTotalWinningPrize(rankCounts);
   }
 
   async #tryInput(inputFunction) {
@@ -81,6 +83,13 @@ class App {
     const rankCounts = this.#getRankCounts(winningRanks);
 
     return rankCounts;
+  }
+
+  #checkTotalWinningPrize(rankCounts) {
+    const bank = new Bank(rankCounts);
+    const totalWinningPrize = bank.getTotalWinningPrize();
+
+    return totalWinningPrize;
   }
 }
 
