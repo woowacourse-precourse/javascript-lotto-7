@@ -17,6 +17,10 @@ class App {
     if (purchaseAmount === "") {
       throw new Error("[ERROR]: 구입 금액에 빈 문자열을 입력할 수 없습니다.");
     }
+
+    const winningNumbers = await Console.readLineAsync(
+      "당첨 번호를 입력해 주세요."
+    );
   }
 }
 
