@@ -71,6 +71,10 @@ describe('로또 비즈니스 로직 클래스 테스트', () => {
         };
         expect(lottoGameService.getTotalPrize(prizes)).toBe(61500000);
       });
+      test('수익률을 구한다', () => {
+        expect(lottoGameService.getPayoutPercentage(5000, 61500000)).toBe(1230000);
+        expect(lottoGameService.getPayoutPercentage(17000, 5000)).toBe(29.411764705882355);
+      });
     });
   });
 });
