@@ -7,7 +7,9 @@ import LOTTO from "../constants/lotto.js";
 class AmountValidator extends Validator {
   static isMultipleOfThousand(input) {
     if (input % LOTTO.AMOUNT_UNIT !== 0)
-      throwError(ERROR_MESSAGES.NOT_MULTIPLE_OF_THOUSAND);
+      throwError(
+        `${ERROR_MESSAGES.HEADER}${ERROR_MESSAGES.NOT_MULTIPLE_OF_THOUSAND}`
+      );
     return input;
   }
 

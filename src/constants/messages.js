@@ -12,6 +12,7 @@ const OUTPUT_MESSAGE = Object.freeze({
 });
 
 const ERROR_MESSAGES = Object.freeze({
+  HEADER: "[ERROR] ",
   EMPTY_INPUT: "입력값이 없습니다.",
   NEGATIVE_NUMBER: "입력값에 음수가 포함되어 있습니다.",
   ZERO_VALUE: "입력값이 0입니다.",
