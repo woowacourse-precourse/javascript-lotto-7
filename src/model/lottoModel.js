@@ -11,6 +11,13 @@ class LottoModel{
     this.lottoList = [];
     this.#winningNumber = [];
     this.#bonusNumber;
+    this.userDetails = {
+      firstPlace : 0,
+      secondePlace : 0,
+      thirdPlace : 0,
+      fourthPlace : 0,
+      fifthPlace : 0
+    }
   }
   setPrice(price) {
     this.#userPrice = price;
@@ -37,7 +44,9 @@ class LottoModel{
   setBonusNumber(bonusNumber) {
     this.#bonusNumber = bonusNumber;
   }
+  setWinningStatistics() {
 
+  }
 
 
 }
