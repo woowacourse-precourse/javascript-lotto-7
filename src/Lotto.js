@@ -1,11 +1,9 @@
-import { Random } from '@woowacourse/mission-utils'
-
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = numbers.sort((a, b) => a - b);
   }
 
   #validate(numbers) {
@@ -14,21 +12,8 @@ class Lotto {
     }
   }
 
-  generateLotto(lottoAmount){
-    const purchasedLotto = [];
-    for(let i = 0 ; i < lottoAmount; i++){
-      const sortedNumbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
-      purchasedLotto.push(sortedNumbers);
-    }
-    return purchasedLotto;
-  }
-
-  isEqual(numbers)
-  {
-    if(JSON.stringify(numbers) === JSON.stringify(this.#numbers)){
-      return true;
-    }
-    return false;
+  toString() {
+    return `[${this.#numbers.join(',')}]`;
   }
 }
 
