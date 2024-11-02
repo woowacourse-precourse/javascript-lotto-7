@@ -22,6 +22,12 @@ const createObject = {
     outputMethod('\n');
     return myLotto;
   },
+  createWinningNumber: async function () {
+    const validationCondition = Object.values(validation.winningNumber);
+    return await retry(inputMethod.inputWinningNumber, validationCondition);
+  },
+
+  createBonusNumber: async function () {},
 };
 
 export default createObject;

@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { IOMESSAGE } from '../constants/index.js';
+import { IOMESSAGE, NUM } from '../constants/index.js';
 
 export const inputMethod = Object.freeze({
   inputPurchaseAmount: async function () {
@@ -12,7 +12,7 @@ export const inputMethod = Object.freeze({
     const winningNumber = await Console.readLineAsync(
       IOMESSAGE.INPUT_LOTTO_NUMBER,
     );
-    return winningNumber;
+    return winningNumber.split(NUM.SEPARATOR);
   },
 });
 
