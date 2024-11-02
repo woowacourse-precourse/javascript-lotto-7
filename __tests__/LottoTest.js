@@ -38,7 +38,7 @@ describe("로또 클래스 테스트", () => {
     }).toThrow(ERROR_MESSAGE.ANSWER_RANGE_ERROR);
   });
 
-  test("당첨 통계를 계산하고 출력한다", () => {
+  test("당첨 통계를 계산한다", () => {
     const lotto = new Lotto([1, 3, 5, 2, 13, 22]);
     const expectAnswer = [1, 1, 0, 0, 0];
     const testAnswer = lotto.countWinningStats(LOTTO_NUMBERS, BONUS_NUMBERS);
