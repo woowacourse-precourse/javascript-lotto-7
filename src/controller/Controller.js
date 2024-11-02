@@ -17,16 +17,11 @@ class Controller {
     this.view = new View();
   }
 
-  async start() {
-    await this.#purchaseLotto();
-    await this.#setWinningNumbers();
-    await this.#setBonusNumber();
-  }
-
-  async #purchaseLotto() {
+  async purchaseLotto() {
     if (this.#amount === null) {
-      this.#amount = await this.view.promptPurchaseAmount();
-      this.#validationAmount(this.#amount);
+      const rawAmount = await this.view.promptPurchaseAmount();
+      this.#validationAmount(rawAmount);
+      this.#amount = rawAmount;
 
       const lottoCount = this.#amount / ONE_LOTTO_AMOUNT;
       this.view.promptPurchaseLotto(lottoCount);
@@ -40,18 +35,19 @@ class Controller {
     }
   }
 
-  async #setWinningNumbers() {
+  async setWinningNumbers() {
     if (this.#winning === null) {
       const rawInput = await this.view.promptWinningNumbers();
       this.#winning = new Lotto(this.#parseNumbers(rawInput));
     }
   }
 
-  async #setBonusNumber() {
+  async setBonusNumber() {
     if (this.#bonus === null) {
-      this.#bonus = await this.view.promptBonusNumber();
-      this.#validationBonus(this.#bonus);
-      this.#checkBonusWithWinningnumbers(this.#bonus);
+      const rawBonus = await this.view.promptBonusNumber();
+      this.#validationBonus(rawBonus);
+      this.#checkBonusWithWinningnumbers(rawBonus);
+      this.#bonus = rawBonus;
     }
   }
 

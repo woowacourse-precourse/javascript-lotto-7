@@ -6,7 +6,9 @@ class App {
 
     while (true) {
       try {
-        await controller.start();
+        await controller.purchaseLotto();
+        await controller.setWinningNumbers();
+        await controller.setBonusNumber();
 
         break;
       } catch (error) {
