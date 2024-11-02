@@ -7,12 +7,20 @@ export default class LottoPurchaser {
   #lottos;
   #lottoResult;
 
+  getPurchasePrice(){
+    return this.#purchasePrice
+  }
+
   getLottoCount() {
     return this.#lottoCount;
   }
 
   getLottos() {
     return this.#lottos;
+  }
+
+  getLottoResult(){
+    return this.#lottoResult
   }
 
   purchase(purchasePrice) {
@@ -24,10 +32,10 @@ export default class LottoPurchaser {
     this.#lottoResult = new LottoResult();
   }
 
-  compareLottosWithWinningLotto(){
-    // 당첨 로또 가져오기
+  compareLottosWithWinningLotto(winningLotto){
+    
     // 당첨 로또랑 비교
     // 당첨 로또 결과값 설정하기
-    
+
   }
 }

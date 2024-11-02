@@ -18,7 +18,6 @@ export default class LottoController {
     await this.#decideWinningLotto();
 
     this.#generateLottoResult();
-    
   }
 
   async #purchaseLottos() {
@@ -67,7 +66,11 @@ export default class LottoController {
     }
   }
 
-  #generateLottoResult(){
-
+  #generateLottoResult() {
+    this.#lottoPurchaser.compareLottosWithWinningLotto(this.#winningLotto);
+    
+    this.#outputLottoView.printLottoResult(
+      this.#lottoPurchaser.getLottoResult()
+    );
   }
 }
