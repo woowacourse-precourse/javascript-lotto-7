@@ -15,12 +15,10 @@ class App {
     try {
       const lottoMoney = await this.inputHandler.getLottoMoney();
       const lottos = this.lottoController.generateLottos(lottoMoney);
-      this.outputHandler.printLottos(lottos);
 
       const winningNumber = await this.inputHandler.getWinningNumber();
 
       const bonusNumber = await this.inputHandler.getBonusNumber(winningNumber);
-
       this.resultController.execute(lottos, winningNumber, bonusNumber, lottoMoney);
     }
     catch (error) {
