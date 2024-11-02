@@ -1,30 +1,31 @@
 import { checkMatchingNumbers, checkBonusMatch } from './winningNumbers.js';
 
 export const lottoReward = {
-  3: {
+  threeMatch: {
     prize: 5000,
     label: '3개 일치 (5,000원)',
-    key: '3',
+    key: 3,
   },
-  4: {
+  fourMatch: {
     prize: 50000,
     label: '4개 일치 (50,000원)',
-    key: '4',
+    key: 4,
   },
-  5: {
+  fiveMatch: {
     prize: 1500000,
     label: '5개 일치 (1,500,000원)',
-    key: '5',
+    key: 5,
   },
-  '5+': {
+  fiveWithBonusMatch: {
     prize: 30000000,
     label: '5개 일치, 보너스 볼 일치 (30,000,000원)',
-    key: '5+',
+    key: 5,
+    isBonus: true,
   },
-  6: {
+  sixMatch: {
     prize: 2000000000,
     label: '6개 일치 (2,000,000,000원)',
-    key: '6',
+    key: 6,
   },
 };
 
@@ -32,27 +33,37 @@ export const lottoReward = {
 
 function assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
   const rankCounts = {
-    3: 0,
-    4: 0,
-    5: 0,
-    '5+': 0,
-    6: 0,
+    threeMatch: 0,
+    fourMatch: 0,
+    fiveMatch: 0,
+    fiveWithBonusMatch: 0,
+    sixMatch: 0,
   };
-
   const matchNumbersArray = checkMatchingNumbers(lottoTickets, winningNumbers);
+
   matchNumbersArray.forEach((matchCount, index) => {
+    const rewardKey = null;
+
     if (matchCount === 6) {
-      rankCounts[6]++;
-      return;
+      rewardKey = 'sixMatch';
+    }
+    if (matchCount === 5) {
+      const bonusMatch = checkBonusMatch(lottoTickets[index], bonusNumber);
+      if (bonusMatch) {
+        rewardKey = 'fiveWithBonusMatch';
+      } else {
+        rewardKey = 'fiveMatch';
+      }
+    }
+    if (matchCount === 4) {
+      rewardKey = 'fourMatch';
+    }
+    if (matchCount === 3) {
+      rewardKey = 'threeMatch';
     }
 
-    if (matchCount === 5 && checkBonusMatch(lottoTickets[index], bonusNumber)) {
-      rankCounts['5+']++;
-      return;
-    }
-
-    if (lottoReward[matchCount] !== undefined) {
-      rankCounts[matchCount]++;
+    if (rewardKey) {
+      rankCounts[rewardKey]++;
     }
   });
 
