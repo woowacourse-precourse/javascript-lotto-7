@@ -14,6 +14,12 @@ class WinningNumbersValidator {
     return winningNumber.split(',').map((x) => x.trim()).length === 6;
   }
 
+  isWinningNumbersRange(winningNumber) {
+    const arr = winningNumber.split(',').map((x) => x.trim());
+    const result = arr.every((range) => range > 0 && range < 46);
+    return result;
+  }
+
   isWinningNumbersFiveComma(winningNumber) {
     const arr = [...winningNumber];
     const onlyNumber = arr.filter((number) => number === ',');
@@ -21,7 +27,10 @@ class WinningNumbersValidator {
   }
 
   isWinningNumberDuplicated(winningNumber) {
-    const onlyNumber = winningNumber.split(',').map((x) => x.trim()).filter((number) => !isNaN(number) === true);
+    const onlyNumber = winningNumber
+      .split(',')
+      .map((x) => x.trim())
+      .filter((number) => !isNaN(number) === true);
     const uniqueWinningNumbers = new Set(onlyNumber);
     return onlyNumber.length === uniqueWinningNumbers.size;
   }
@@ -32,6 +41,9 @@ class WinningNumbersValidator {
     }
     if (!this.isWinningNumbersSixDigits(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
+    }
+    if (!this.isWinningNumbersRange(winningNumbers)) {
+      throw new Error(ERROR_MESSAGE.NUMBERS_RANGE);
     }
     if (!this.isWinningNumbersFiveComma(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.COMMA_COUNT);
