@@ -8,4 +8,8 @@ describe('입력문에 대한 테스트', () => {
       expect(() => validation.isNotNumber(numberStr)).toThrow();
     },
   );
+
+  test.each(['-100', '0'])('양수만 입력해야 한다.', (numberStr) => {
+    expect(() => validation.isNotPositiveNumber(numberStr)).toThrow();
+  });
 });
