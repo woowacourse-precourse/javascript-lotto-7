@@ -14,6 +14,7 @@ import {
   MATCH_COUNT_SECOND_PRIZE,
   SECOND_PRIZE,
   THIRD_PRIZE,
+  BONUS_MATCH_COUNT,
 } from '../constants/constraints.js';
 
 class LottoService {
@@ -55,7 +56,7 @@ class LottoService {
       [MATCH_COUNT_FOURTH_PRIZE]: 0,
       [MATCH_COUNT_SECOND_PRIZE]: 0,
       [MATCH_COUNT_FIRST_PRIZE]: 0,
-      bonus: 0,
+      [BONUS_MATCH_COUNT]: 0,
     };
     const incrementMatchCount = (key) => matchCounts[key]++;
     const bonusHandlers = {
