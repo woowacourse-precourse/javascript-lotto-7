@@ -84,6 +84,7 @@ class App {
         return this.askBonusNumber(winningNumbers);
       }
       this.showResults(winningNumbers, parsedBonus);
+      this.rl.close();
     });
   }
 
@@ -100,7 +101,6 @@ class App {
     );
     const profitRate = this.calculateProfitRate(results);
     MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
-    this.rl.close();
   }
 
   calculateResults(winningNumbers, bonusNumber) {
