@@ -1,5 +1,4 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
 
 const AMOUNT_PER_MATCH = {
     '3': 5000,
@@ -57,11 +56,9 @@ class AllLotto {
 
         if (isNaN(numBonus)) {
             await MissionUtils.Console.print("[ERROR] 보너스 번호는 숫자로 입력해야 합니다.");
-            // throw new Error("[ERROR] 보너스 번호는 숫자로 입력해야 합니다.");
         }
         if (numBonus < 1 || numBonus > 45) {
             await MissionUtils.Console.print("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
-            // throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
     }
 
