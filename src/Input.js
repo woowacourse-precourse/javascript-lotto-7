@@ -53,6 +53,10 @@ class Input {
 		if (INPUT_WINNING.length !== 6) {
 			throw new Error(ERROR_MESSAGE.WRONG_WINNING_DIGIT);
 		}
+
+		if (INPUT_WINNING.some((number) => number < 1 || number > 45)) {
+			throw new Error(ERROR_MESSAGE.PASSED_WINNING_RANGE);
+		}
 	}
 
 	async getBonusNumber() {
