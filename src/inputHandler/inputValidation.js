@@ -6,3 +6,13 @@ export function purchaseAmountValidation(purchaseAmount) {
 
   return Number(purchaseAmount) / 1000;
 }
+
+export function winningLottoValidation(winningLottoArray) {
+  if (
+    winningLottoArray.filter((lottoNum) => !lottoNumberValidation(lottoNum))
+      .length > 0
+  )
+    throw '로또 번호는 1 ~ 45까지의 숫자만 가능합니다.';
+  if (winningLottoArray.length !== 6) throw '당첨번호는 6자리로 입력해주세요';
+  return testArr;
+}
