@@ -4,16 +4,16 @@ import LottoValidator from '../utils/LottoValidator.js';
 import InputView from '../views/InputView.js';
 
 class InputController {
-  static async getValidPurchaseNumber() {
+  static async getValidPurchaseAmount() {
     try {
       const input = await InputView.inputPurchaseAmount();
       const purchaseAmount = Parser.parseNumber(input);
       LottoValidator.validatePurchaseAmount(purchaseAmount);
-      const purchaseNumber = purchaseAmount / 1000;
-      return { purchaseAmount, purchaseNumber };
+      //const purchaseNumber = purchaseAmount / 1000;
+      return purchaseAmount;
     } catch (error) {
       Console.print(error.message);
-      return InputController.getValidPurchaseNumber();
+      return InputController.getValidPurchaseAmount();
     }
   }
 

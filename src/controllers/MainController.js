@@ -1,44 +1,29 @@
-import LottoController from './LottoController.js';
 import InputController from './inputController.js';
 import OutputView from '../views/OutputView.js';
-import { calculateRateOfReturn } from '../utils/calculateRateOfReturn.js';
+import LottoManager from '../models/LottoManager.js';
 
 class MainController {
-  purchaseAmount = 0;
-  purchaseNumber = 0;
-  lottoList = [];
-  winningNumbers = [];
-  bonusNumber = 0;
-
   async start() {
-    const { purchaseAmount, purchaseNumber } =
-      await InputController.getValidPurchaseNumber();
-    this.purchaseAmount = purchaseAmount;
-    this.purchaseNumber = purchaseNumber;
+    const purchaseAmount = await InputController.getValidPurchaseAmount();
 
-    OutputView.printPurchaseNumber(this.purchaseNumber);
+    const lottoManager = new LottoManager(purchaseAmount);
+
+    OutputView.printPurchaseNumber(lottoManager.purchaseNumber);
     OutputView.printLineBreak();
 
-    this.lottoList = LottoController.generateLotto(this.purchaseNumber);
-    OutputView.printLottoList(this.lottoList);
+    OutputView.printLottoList(lottoManager.lottoList);
 
-    this.winningNumbers = await InputController.getValidWinningNumbers();
+    const winningNumbers = await InputController.getValidWinningNumbers();
     OutputView.printLineBreak();
 
-    this.bonusNumber = await InputController.getValidBonusNumber();
-    this.winningNumbers.push(this.bonusNumber);
+    const bonusNumber = await InputController.getValidBonusNumber();
 
-    const winningLottoNumber = LottoController.getWinningLottoNumber(
-      this.lottoList,
-      this.winningNumbers,
-      this.bonusNumber,
-    );
-    OutputView.printWinningStatistics(winningLottoNumber);
+    lottoManager.setWinningNumbers(winningNumbers, bonusNumber);
 
-    const rateOfReturn = calculateRateOfReturn(
-      this.purchaseAmount,
-      winningLottoNumber,
-    );
+    const winningLottoCounts = lottoManager.getWinningLottoCounts();
+    OutputView.printWinningStatistics(winningLottoCounts);
+
+    const rateOfReturn = lottoManager.calculateRateOfReturn();
     OutputView.printRateOfReturn(rateOfReturn);
   }
 }
