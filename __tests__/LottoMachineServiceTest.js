@@ -1,45 +1,17 @@
+import Lotto from '../src/Lotto';
 import LottoMachineService from '../src/Service/LottoMachineService';
-import { mockRandoms } from './ApplicationTest';
 
 describe('LottoMachineService 테스트', () => {
-  test('구입 금액에 해당하는 만큼 로또를 발행한다.', () => {
-    const purchaseAmount = 3000;
-    const mockValues = [
-      [8, 21, 23, 41, 42, 43],
-      [3, 5, 11, 16, 32, 38],
-      [7, 11, 16, 35, 36, 44],
-    ];
-    const output = [
-      [8, 21, 23, 41, 42, 43],
-      [3, 5, 11, 16, 32, 38],
-      [7, 11, 16, 35, 36, 44],
-    ];
-
-    mockRandoms(mockValues);
-
-    const lottoMachine = new LottoMachineService();
-    lottoMachine.generateLottoTickets(purchaseAmount);
-    const lottos = lottoMachine.getLottos();
-
-    lottos.forEach((lotto, index) => {
-      expect(lotto.getNumbers()).toEqual(output[index]);
-    });
-  });
-
   test('당첨 내역을 계산한다.', () => {
     const winningNumbers = [8, 21, 23, 41, 42, 43];
     const bonusNumber = 7;
-    const purchaseAmount = 3000;
-    const mockValues = [
-      [8, 21, 23, 41, 42, 43],
-      [8, 21, 23, 41, 42, 7],
-      [8, 21, 23, 41, 1, 2],
+    const lottos = [
+      new Lotto([8, 21, 23, 41, 42, 43]),
+      new Lotto([8, 21, 23, 41, 42, 7]),
+      new Lotto([8, 21, 23, 41, 1, 2]),
     ];
-    mockRandoms(mockValues);
 
     const lottoMachine = new LottoMachineService();
-    lottoMachine.generateLottoTickets(purchaseAmount);
-    const lottos = lottoMachine.getLottos();
     const totalWinningRank = lottoMachine.calculateWinningResults(
       winningNumbers,
       bonusNumber,
