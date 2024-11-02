@@ -1,4 +1,4 @@
-import ErrorMessages from "../constant/ErrorMessage";
+import ErrorMessages from "../constant/ErrorMessage.js";
 
 class WinningNumberValidator {
     checkWinningNumberIsDuplicated(winningNumber) {
