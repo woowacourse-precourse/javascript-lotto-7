@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Validator from "./Validator.js";
 
 class App {
   async run() {
@@ -9,25 +10,11 @@ class App {
     const inputPrice = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n')
     const parseInputPrice = parseInt(inputPrice, 10);
 
-    // TODO 유효성 검사 분리
-    // TODO 에러 메시지 상수처리
-    const validateInputPrice = (input) => {
-      if (typeof input !== 'number') {
-        throw new Error('[ERROR] 입력값이 올바르지 않습니다.')
-      }
-      if (input < 1000) {
-        throw new Error('[ERROR] 최소 1,000원 이상 입력해야 합니다.')
-      }
-      if (input % 1000 !== 0) {
-        throw new Error('[ERROR] 입력값이 1,000원 단위로 나누어 떨어지지 않습니다.')
-      }
-    }
-
     const getLottoCount = (number) => {
       return number / 1000;
     }
 
-    validateInputPrice(parseInputPrice);
+    Validator.validateInputPrice(parseInputPrice);
     const lottoCount = getLottoCount(parseInputPrice);
 
     const range = (count, value) => Array(count).fill(value || '');
@@ -37,7 +24,7 @@ class App {
     const getSortNumber = (array) => array.sort(compareNumbers);
 
     const printLotto = (count) => {
-      MissionUtils.Console.print(`${lottoCount}개를 구매했습니다.\n`);
+      MissionUtils.Console.print(`\n${lottoCount}개를 구매했습니다.`);
 
       const totalLottoArray = range(count, []);
 
@@ -50,7 +37,7 @@ class App {
 
     printLotto(lottoCount);
 
-    const inputNumber = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const inputNumber = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
     const trimNumber = inputNumber.toString().trim().split(',');
 
     const getParsingNumber = (array) => {
@@ -59,44 +46,13 @@ class App {
 
     const parseNumber = getParsingNumber(trimNumber);
 
-    const validateInputNumber = (input) => {
-      if (input.length !== 6) {
-        throw new Error('[ERROR] 당첨 번호는 6개 입력해야 합니다.')
-      }
-      input.forEach((number) => {
-        if (number <= 0 || number >= 46) {
-          throw new Error('[ERROR] 당첨 번호는 1~45 사이의 숫자만 입력해야 합니다.')
-        }
-      });
-      input.forEach((number) => {
-        if (Number.isNaN(number)) {
-          throw new Error('[ERROR] 당첨 번호는 숫자만 입력할 수 있습니다.')
-        }
-      });
-    }
+    Validator.validateInputNumber(parseNumber);
 
-    validateInputNumber(parseNumber);
-
-    const inputBonusNumber = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const inputBonusNumber = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     const parseBonusNumber = parseInt(inputBonusNumber, 10);
 
-    const validateBonusNumber = (input) => {
-      if (input.includes(',')) {
-        throw new Error('[ERROR] 보너스 번호는 1개 입력해야 합니다.')
-      }
-    }
-
-    const validateParseBonusNumber = (input) => {
-      if (input <= 0 || input >= 46) {
-        throw new Error('[ERROR] 보너스 번호는 1~45 사이의 숫자만 입력해야 합니다.')
-      }
-      if (Number.isNaN(input)) {
-        throw new Error('[ERROR] 보너스 번호는 숫자만 입력할 수 있습니다.')
-      }
-    }
-
-    validateBonusNumber(inputBonusNumber);
-    validateParseBonusNumber(parseBonusNumber);
+    Validator.validateBonusNumber(inputBonusNumber);
+    Validator.validateParseBonusNumber(parseBonusNumber);
   }
 }
 
