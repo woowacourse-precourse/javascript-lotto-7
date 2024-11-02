@@ -18,6 +18,12 @@ class Controller {
   }
 
   async start() {
+    await this.#purchaseLotto();
+    await this.#setWinningNumbers();
+    await this.#setBonusNumber();
+  }
+
+  async #purchaseLotto() {
     if (this.#amount === null) {
       this.#amount = await this.view.promptPurchaseAmount();
       this.#validationAmount(this.#amount);
@@ -32,12 +38,16 @@ class Controller {
 
       this.#lottos.forEach((lotto) => this.view.printLotto(lotto.getNumbers()));
     }
+  }
 
+  async #setWinningNumbers() {
     if (this.#winning === null) {
       const rawInput = await this.view.promptWinningNumbers();
       this.#winning = new Lotto(this.#parseNumbers(rawInput));
     }
+  }
 
+  async #setBonusNumber() {
     if (this.#bonus === null) {
       this.#bonus = await this.view.promptBonusNumber();
       this.#validationBonus(this.#bonus);
