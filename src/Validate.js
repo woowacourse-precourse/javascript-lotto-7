@@ -1,4 +1,4 @@
-import { CONSTANT_LOTTO, EMPTY_STRING, ZERO } from "./util/const.js";
+import { CONSTANT_LOTTO, EMPTY_STRING, NUMBERS } from "./util/const.js";
 import ERROR_MESSAGES from "./util/messages/error-message.js";
 import REGEX from "./util/regex.js";
 import { isNotANumber, isOutOfRange } from "./util/util.js";
@@ -44,7 +44,7 @@ class Validate {
     }
   }
   #PriceDivide(price) {
-    if (price % CONSTANT_LOTTO.PRICE !== ZERO) {
+    if (price % CONSTANT_LOTTO.PRICE !== NUMBERS.ZERO) {
       throw new Error(ERROR_MESSAGES.PRICE.WRONG);
     }
   }
@@ -101,7 +101,8 @@ class Validate {
     }
   }
   #BonusNumberDuplicate(bonusNumber, lottoNumbers) {
-    if (lottoNumbers.includes(bonusNumber)) {
+    const lottoNumbersArray = lottoNumbers.split(",");
+    if (lottoNumbersArray.includes(bonusNumber)) {
       throw new Error(ERROR_MESSAGES.BONUS.DUPLICATED);
     }
   }
