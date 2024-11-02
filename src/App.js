@@ -1,12 +1,14 @@
 import UserInput from './Input.js';
 import Game from './Game.js';
 import DisplayOutput from './DisplayOutput.js';
+import Lotto from './Lotto.js';
 class App {
 
   constructor(){
     this.userInput = new UserInput();
     this.displayOutput = new DisplayOutput();
     this.game = new Game();
+    // this.lotto = new Lotto();
   }
   async run() {
 
@@ -17,8 +19,11 @@ class App {
     this.displayOutput.displayPaidLotto(lottoTickets);
 
     // display pucharased lotto
-    const lotto = this.game.generateLotto(lottoTickets);
-    this.displayOutput.displayLotto(lotto);
+    const lottoPackage = this.game.generateLotto(lottoTickets);
+
+
+    this.displayOutput.displayLotto(lottoPackage);
+
 
     const winngingNumber = await this.userInput.getWinningNumber();
     const splitWinningNumbers = this.game.splitWinningNumbers(winngingNumber);
@@ -27,7 +32,8 @@ class App {
     
 
 
-    const lottoReult = this.game.checkLottoResult(lotto, splitWinningNumbers, bonusNumber)
+    const lottoReult = this.game.checkLottoResult(lottoPackage, splitWinningNumbers, bonusNumber)
+    console.log(lottoReult);
 
     this.displayOutput.displayLottoResult(lottoReult);
 

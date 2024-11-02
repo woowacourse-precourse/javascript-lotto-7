@@ -8,10 +8,10 @@ class DisplayOutput {
         MissionUtils.Console.print(`${number}개를 구매했습니다.`);
     }
 
-    displayLotto (lotto){
+    displayLotto (lottoPackage){
 
-        for (const lottoNumbers of lotto) {
-            MissionUtils.Console.print(lottoNumbers);
+        for (const lotto of lottoPackage) {
+            MissionUtils.Console.print( lotto.getLottoNumbers());
         }
         MissionUtils.Console.print("\n");
     }

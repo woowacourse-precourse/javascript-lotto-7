@@ -2,6 +2,7 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import UserInput from "./Input.js";
 import DisplayOutput from "./DisplayOutput.js";
 import { LOTTO } from "./constants.js";
+import Lotto from "./Lotto.js";
 
 class Game {
 
@@ -14,9 +15,10 @@ class Game {
         const lottos = [];
 
         for (let i = 0; i < count; i++) {
-            const lotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-            lottos.push(lotto.sort((a,b) => a-b));
-          }
+            const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+            const lotto = new Lotto(lottoNumbers);
+            lottos.push(lotto);
+        }
 
         return lottos;
     }
@@ -51,8 +53,8 @@ class Game {
         const orderedWinningNumber = winningNumber.sort((a,b) => a-b);
 
         for ( const lottoNumbers of lotto ){
-            const orderedLottoNumber = lottoNumbers.sort((a,b) => a-b );
-            const bunusFlag = orderedLottoNumber.includes(bonusNumber);
+            console.log(`lottoNumbers: ${lottoNumbers} type: ${typeof lottoNumbers}`);
+            const bunusFlag = lottoNumbers.includes(bonusNumber);
 
             const matchedCount = this.countMatchingNumber(orderedWinningNumber, orderedLottoNumber);
             this.updateWinnerrReult(lottoReult, matchedCount, bunusFlag);
