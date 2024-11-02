@@ -10,6 +10,12 @@ class OutputHandler {
     const formattedCount = lottoCount.toLocaleString();
     Console.print(`\n${formattedCount}${OUTPUT_MESSAGE.PURCHASED_COUNT}`);
   }
+
+  printLottoTickets(lottoTickets) {
+    lottoTickets.forEach(ticket => {
+      Console.print(ticket.toString());
+    });
+  }
 }
 
 export default OutputHandler;

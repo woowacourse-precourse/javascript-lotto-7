@@ -20,6 +20,7 @@ class LottoManager {
       const lottoCount = this.#calculateLottoCount(amount);
       this.#outputHandler.printLottoCount(lottoCount);
       const lottoTickets = this.#generateLottoTickets(lottoCount);
+      this.#outputHandler.printLottoTickets(lottoTickets);
     } catch (error) {
       throw error;
     }
@@ -48,8 +49,6 @@ class LottoManager {
         LOTTO_NUMBER_MAX,
         LOTTO_NUMBER_COUNT
       );
-
-      lottoNumbers.sort((a, b) => a - b);
       const lottoTicket = new Lotto(lottoNumbers);
       LottoTickets.push(lottoTicket);
     }
