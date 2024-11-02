@@ -1,4 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   async run() {
@@ -15,6 +15,8 @@ class App {
     const bonusNumberString = await this.readBonusNumberString();
 
     // - 1~45 사이의 중복되지 않는 6개 숫자를 랜덤으로 뽑는다.
+    const uniqueRandomNumbersArray = this.getUniqueRandomNumbersArray();
+
     // - 구입 금액에 따라 발행할 로또 개수가 몇 개인지 구한다.
     // - 로또를 발행한다.
     // - 발행한 로또 수량을 출력한다.
@@ -40,6 +42,10 @@ class App {
 
   readBonusNumberString() {
     return Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+  }
+
+  getUniqueRandomNumbersArray() {
+    return Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 }
 
