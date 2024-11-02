@@ -6,9 +6,9 @@ class Output {
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
   };
 
-  printLottoList = (lottoCount, lottoList) => {
+  printLottoList = (purchaseCount, lottoList) => {
     const totalLottoList = lottoList;
-    for (let i = 0; i < lottoCount; i += 1) {
+    for (let i = 0; i < purchaseCount; i += 1) {
       Console.print(`[${totalLottoList[i].join(', ')}]`);
     }
   };
