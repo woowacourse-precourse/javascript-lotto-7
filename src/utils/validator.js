@@ -1,15 +1,22 @@
+import {
+  LOTTO_PRICE,
+  LOTTO_NUMBER_COUNT,
+  LOTTO_NUMBER_MIN,
+  LOTTO_NUMBER_MAX,
+} from '../constants/numbers.js';
+
 export function isInteger(value) {
   const number = Number(value);
   if (Number.isNaN(number)) return false;
   return number === parseInt(value, 10);
 }
 
-export function isMultipleOfThousand(value) {
-  return Number(value) % 1000 === 0;
+export function isMultipleOfLottoPrice(value) {
+  return Number(value) % LOTTO_PRICE === 0;
 }
 
-export function isLengthSix(array) {
-  return array.length === 6;
+export function isLengthLottoCount(array) {
+  return array.length === LOTTO_NUMBER_COUNT;
 }
 
 export function isAllInteger(array) {
@@ -17,7 +24,7 @@ export function isAllInteger(array) {
 }
 
 export function isLottoRange(array) {
-  return array.every((value) => value >= 1 && value <= 45);
+  return array.every((value) => value >= LOTTO_NUMBER_MIN && value <= LOTTO_NUMBER_MAX);
 }
 
 export function isUnique(array) {

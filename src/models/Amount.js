@@ -1,4 +1,4 @@
-import { isInteger, isMultipleOfThousand } from '../utils/validator.js';
+import { isInteger, isMultipleOfLottoPrice } from '../utils/validator.js';
 import throwError from '../utils/throwError.js';
 import { INVALID_AMOUNT } from '../constants/error.js';
 
@@ -12,7 +12,7 @@ class Amount {
 
   #validateAmount() {
     let isValid = true;
-    isValid = isInteger(this.#amount) && isMultipleOfThousand(this.#amount);
+    isValid = isInteger(this.#amount) && isMultipleOfLottoPrice(this.#amount);
     !isValid && throwError(INVALID_AMOUNT);
   }
 

@@ -35,7 +35,7 @@ class WinningNumber {
   }
 
   #validateWinningNumbers(numbers) {
-    !validator.isLengthSix(numbers) && throwError(error.LENGTH_NOT_SIX);
+    !validator.isLengthLottoCount(numbers) && throwError(error.LENGTH_NOT_SIX);
 
     !validator.isAllInteger(numbers) && throwError(error.NOT_IN_RANGE);
     !validator.isLottoRange(numbers) && throwError(error.NOT_IN_RANGE);
