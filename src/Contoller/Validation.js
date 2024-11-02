@@ -29,6 +29,12 @@ class Validation {
       throw new Error('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
     }
   }
+
+  static validateNumberInRange(number) {
+    if (!(number >= 1 && number <= 45)) {
+      throw new Error('[ERROR] 모든 숫자는 1부터 45 사이여야 합니다.');
+    }
+  }
 }
 
 export default Validation;
