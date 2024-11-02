@@ -11,7 +11,7 @@ class InputView {
 
   async readPurchaseAmount() {
     const purchaseAmountInput = await this.readInput(
-      '구입금액을 입력해 주세요.'
+      '구입금액을 입력해 주세요.\n'
     );
 
     this.validatePurchaseAmount(purchaseAmountInput);
@@ -39,7 +39,7 @@ class InputView {
 
   async readWinningNumbers() {
     const winningNumbersInput = await this.readInput(
-      '당첨 번호를 입력해 주세요.'
+      '당첨 번호를 입력해 주세요.\n'
     );
 
     if (winningNumbersInput.trim() === '') {
@@ -78,7 +78,7 @@ class InputView {
 
   async readBonusNumber(winningNumbers) {
     const bonusNumberInput = await this.readInput(
-      '보너스 번호를 입력해 주세요.'
+      '보너스 번호를 입력해 주세요.\n'
     );
 
     this.validateBonusNumber(winningNumbers, bonusNumberInput);

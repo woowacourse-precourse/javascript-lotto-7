@@ -1,11 +1,21 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Lotto from './Lotto';
+import Lotto from './Lotto.js';
+import InputView from './View/InputView.js';
+import OutputView from './View/OutputView.js';
 
 class LottoMachine {
   #lottos;
 
   constructor() {
     this.#lottos = [];
+    this.inputView = new InputView();
+    this.outputView = new OutputView();
+  }
+
+  async run() {
+    const purchaseAmount = await this.inputView.readPurchaseAmount();
+    this.generateLottoTickets(purchaseAmount);
+    this.outputView.printLottoNumbers(purchaseAmount / 1000, this.#lottos);
   }
 
   generateLottoNumbers() {
