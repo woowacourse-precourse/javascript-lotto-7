@@ -12,14 +12,14 @@ class Revenue {
 
   #total;
 
-  constructor(winningDetails) {
-    this.#calculateRevenue(winningDetails);
+  constructor(winningList) {
+    this.#calculateRevenue(winningList);
   }
 
-  #calculateRevenue(winningDetails) {
+  #calculateRevenue(winningList) {
     this.#total = Revenue.#REVENUE_LIST.reduce(
       (accumulation, currentElement, index) => {
-        const matchedCount = winningDetails[index][VALUES.index.detailValue];
+        const matchedCount = winningList[index][VALUES.index.detailValue];
 
         return accumulation + currentElement * matchedCount;
       },
