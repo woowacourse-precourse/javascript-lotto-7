@@ -13,7 +13,7 @@ describe('당첨번호 입력 Validate 테스트', () => {
     expect(BasicNumbersInput.validate('1,2,3,4,5')).toEqual(false);
   });
 
-  test('당첨 번호에는 중복을 넣을 수 없습니다..', () => {
+  test('당첨 번호에는 중복을 넣을 수 없습니다.', () => {
     expect(BasicNumbersInput.validate('1,2,3,4,5,5')).toEqual(false);
   });
 
