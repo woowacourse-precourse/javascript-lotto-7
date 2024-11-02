@@ -15,6 +15,7 @@ class LottoManager {
     try {
       const amount = await this.#buyLotto();
       const lottoCount = this.#calculateLottoCount(amount);
+      this.#outputHandler.printLottoCount(lottoCount);
     } catch (error) {
       throw error;
     }
