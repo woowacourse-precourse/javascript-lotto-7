@@ -1,6 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import OutputProcessor from './OutputProcessor.js';
+import { LOTTO } from './constants/lotto.js';
 
 class Generator {
   #numbers = [];
@@ -21,7 +22,7 @@ class Generator {
   }
 
   #draw() {
-    this.#numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    this.#numbers = Random.pickUniqueNumbersInRange(LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER, LOTTO.LENGTH_WINNING_NUMBER);
   }
 
   #history() {
