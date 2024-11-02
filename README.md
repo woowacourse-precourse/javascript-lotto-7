@@ -30,68 +30,6 @@
 5. **보너스 번호 입력**: 보너스 번호 1개를 입력합니다. (예: `7`)
 6. **당첨 결과 출력**: 당첨 내역과 수익률을 확인합니다.
 
-## 프로그램 구조
-
-이 프로그램은 **LottoController** 클래스를 중심으로 구성되어 있으며, 여러 서비스 객체들과 협력하여 로또 발매와 당첨 결과 계산 등의 기능을 수행합니다.
-
-### LottoController 클래스
-
-`LottoController`는 프로그램의 흐름을 제어하는 컨트롤러 역할을 합니다. 주요 메서드와 그 역할은 다음과 같습니다:
-
-- **run()**: 프로그램의 전체 실행 흐름을 제어합니다.
-- **getPurchaseAmount()**: 사용자로부터 구입 금액을 입력받습니다.
-- **purchaseLotteries(purchaseAmount)**: 입력된 금액만큼 로또를 발행하고 출력합니다.
-- **getWinningNumbers()**: 당첨 번호 6개를 입력받습니다.
-- **getBonusNumber(winningNumbers)**: 보너스 번호 1개를 입력받습니다.
-- **calculateResults(purchasedLotteries, winningNumbers, bonusNumber)**: 구매한 로또와 당첨 번호를 비교하여 등수를 계산합니다.
-- **displayResults(rankCounts, purchaseAmount)**: 당첨 내역과 수익률을 출력합니다.
-
-### 서비스 구성 요소
-
-- **lotteryService**: 로또 발행과 관련된 로직을 처리합니다.
-  - `calculateNumberOfNotes(purchaseAmount)`: 구입 금액에 따른 로또 장수 계산
-  - `generateLotteries(numberOfTickets)`: 로또 번호 생성
-- **ioService**: 입출력과 관련된 작업을 담당합니다.
-  - `getInputWhileValid(validationFunction, messageFunction)`: 유효한 입력을 받을 때까지 반복하여 입력 요청
-  - `printMessage(message)`: 메시지 출력
-  - `printLotteries(lotteries)`: 구매한 로또 번호 출력
-  - `printStatistics(rankCounts)`: 당첨 통계 출력
-  - `printRevenueRate(revenueRate)`: 수익률 출력
-  - `systemMessages`: 사용자에게 보여줄 메시지 모음
-- **rankCalculator**: 당첨 결과를 계산합니다.
-  - `calculateLotteries(purchasedLotteries, winningNumbers, bonusNumber)`: 각 로또의 당첨 등수 계산
-  - `getRankCounts()`: 등수별 당첨 개수 반환
-- **validationService**: 입력된 값의 유효성을 검증합니다.
-  - `isValidMoney(input)`: 금액의 유효성 검사
-  - `isValidLottoNumber(input)`: 로또 번호의 유효성 검사
-  - `isValidBonusNumber(input, winningNumbers)`: 보너스 번호의 유효성 검사
-- **statisticsService**: 통계와 관련된 계산을 수행합니다.
-  - `calculateTotalRevenue(rankCounts, purchaseAmount)`: 총 당첨 금액 계산
-  - `calculateRevenueRate(totalRevenue, purchaseAmount)`: 수익률 계산
-
-### 프로그램 흐름
-
-1. **구입 금액 입력**
-   - `getPurchaseAmount()` 메서드를 통해 사용자가 구입 금액을 입력합니다.
-   - `validationService.isValidMoney`를 사용하여 입력된 금액의 유효성을 검사합니다.
-2. **로또 발행**
-   - `purchaseLotteries(purchaseAmount)` 메서드를 통해 로또를 발행합니다.
-   - `lotteryService.calculateNumberOfNotes`를 사용하여 구매할 로또 장수를 계산합니다.
-   - `lotteryService.generateLotteries`를 통해 로또 번호를 생성합니다.
-3. **당첨 번호 입력**
-   - `getWinningNumbers()` 메서드를 통해 당첨 번호 6개를 입력받습니다.
-   - `validationService.isValidLottoNumber`를 사용하여 당첨 번호의 유효성을 검사합니다.
-4. **보너스 번호 입력**
-   - `getBonusNumber(winningNumbers)` 메서드를 통해 보너스 번호 1개를 입력받습니다.
-   - `validationService.isValidBonusNumber`를 사용하여 보너스 번호의 유효성을 검사합니다.
-5. **당첨 결과 계산**
-   - `calculateResults(purchasedLotteries, winningNumbers, bonusNumber)` 메서드를 통해 당첨 결과를 계산합니다.
-   - `rankCalculator.calculateLotteries`를 사용하여 각 로또의 당첨 등수를 계산합니다.
-6. **결과 출력**
-   - `displayResults(rankCounts, purchaseAmount)` 메서드를 통해 당첨 내역과 수익률을 출력합니다.
-   - `statisticsService.calculateTotalRevenue`와 `statisticsService.calculateRevenueRate`를 사용하여 총 당첨 금액과 수익률을 계산합니다.
-   - `ioService.printStatistics`와 `ioService.printRevenueRate`를 통해 결과를 출력합니다.
-
 ## 예시
 
 ```
@@ -143,72 +81,113 @@
 
 - 당첨 결과와 수익률을 출력한 후 프로그램이 종료됩니다.
 
-## 라이선스
-
-- 이 프로그램은 MIT 라이선스에 따라 배포됩니다.
-
-# 프로그램 구조
+## 프로그램 구조
 
 이 프로그램은 **MVC 패턴**과 유사한 구조로 구성되어 있으며, 각 컴포넌트는 다음과 같은 역할을 합니다.
 
-## 컨트롤러 (Controller)
+### 컨트롤러 (Controller)
 
 - **LottoController**: 프로그램의 전반적인 흐름을 제어하는 역할을 합니다. 사용자 입력을 받아 로직을 처리하고, 결과를 출력합니다.
 
-## 서비스 (Services)
+#### LottoController 클래스 주요 메서드
 
-- **lotteryService**: 로또 번호 생성 및 로또 구매와 관련된 기능을 제공합니다.
+- **run()**: 프로그램의 전체 실행 흐름을 제어합니다.
+- **getPurchaseAmount()**: 사용자로부터 구입 금액을 입력받습니다.
+- **purchaseLotteries(purchaseAmount)**: 입력된 금액만큼 로또를 발행하고 출력합니다.
+- **getWinningNumbers()**: 당첨 번호 6개를 입력받습니다.
+- **getBonusNumber(winningNumbers)**: 보너스 번호 1개를 입력받습니다.
+- **calculateResults(purchasedLotteries, winningNumbers, bonusNumber)**: 구매한 로또와 당첨 번호를 비교하여 등수를 계산합니다.
+- **displayResults(rankCounts, purchaseAmount)**: 당첨 내역과 수익률을 출력합니다.
+
+### 서비스 (Services)
+
+- **lotteryService**: 로또 번호 생성 및 구매와 관련된 기능을 제공합니다.
+  - `calculateNumberOfNotes(purchaseAmount)`: 구입 금액에 따른 로또 장수 계산
+  - `generateLotteries(numberOfTickets)`: 로또 번호 생성
 - **validationService**: 사용자 입력의 유효성을 검증하는 기능을 제공합니다.
+  - `isValidMoney(input)`: 금액의 유효성 검사
+  - `isValidLottoNumber(input)`: 로또 번호의 유효성 검사
+  - `isValidBonusNumber(input, winningNumbers)`: 보너스 번호의 유효성 검사
 - **rankCalculator**: 구매한 로또와 당첨 번호를 비교하여 등수를 계산합니다.
+  - `calculateLotteries(purchasedLotteries, winningNumbers, bonusNumber)`: 각 로또의 당첨 등수 계산
+  - `getRankCounts()`: 등수별 당첨 개수 반환
 - **statisticsService**: 당첨 통계와 수익률을 계산합니다.
+  - `calculateTotalRevenue(rankCounts, purchaseAmount)`: 총 당첨 금액 계산
+  - `calculateRevenueRate(totalRevenue, purchaseAmount)`: 수익률 계산
 
-## 입출력 (I/O)
+### 입출력 (I/O)
 
 - **ioService**: 사용자와의 상호 작용을 담당합니다. 입력을 받고 출력을 제공합니다.
+  - `getInputWhileValid(validationFunction, messageFunction)`: 유효한 입력을 받을 때까지 반복하여 입력 요청
+  - `printMessage(message)`: 메시지 출력
+  - `printLotteries(lotteries)`: 구매한 로또 번호 출력
+  - `printStatistics(rankCounts)`: 당첨 통계 출력
+  - `printRevenueRate(revenueRate)`: 수익률 출력
+  - `systemMessages`: 사용자에게 보여줄 메시지 모음
 
 ## 프로그램 흐름 상세 설명
 
-1. **사용자에게 구입 금액을 입력받습니다.**
-   - `ioService`를 통해 입력을 받고, `validationService.isValidMoney`로 유효성을 검사합니다.
-2. **로또를 구매합니다.**
-   - `lotteryService`를 사용하여 구매 가능한 로또 장수를 계산하고, 로또 번호를 생성합니다.
-   - 생성된 로또 번호를 `ioService.printLotteries`를 통해 출력합니다.
-3. **당첨 번호와 보너스 번호를 입력받습니다.**
-   - `ioService`를 통해 당첨 번호와 보너스 번호를 입력받고, `validationService`를 통해 유효성을 검사합니다.
-4. **당첨 결과를 계산합니다.**
-   - `rankCalculator`를 사용하여 각 로또의 당첨 등수를 계산하고, 등수별 당첨 개수를 집계합니다.
-5. **당첨 통계와 수익률을 출력합니다.**
-   - `statisticsService`를 사용하여 총 당첨 금액과 수익률을 계산합니다.
-   - `ioService`를 통해 결과를 출력합니다.
+1. **구입 금액 입력**
+   - `getPurchaseAmount()` 메서드를 통해 사용자가 구입 금액을 입력합니다.
+   - `validationService.isValidMoney`를 사용하여 입력된 금액의 유효성을 검사합니다.
+2. **로또 발행**
+   - `purchaseLotteries(purchaseAmount)` 메서드를 통해 로또를 발행합니다.
+   - `lotteryService.calculateNumberOfNotes`를 사용하여 구매할 로또 장수를 계산합니다.
+   - `lotteryService.generateLotteries`를 통해 로또 번호를 생성합니다.
+3. **당첨 번호와 보너스 번호 입력**
+   - `getWinningNumbers()` 메서드를 통해 당첨 번호 6개를 입력받습니다.
+   - `validationService.isValidLottoNumber`를 사용하여 당첨 번호의 유효성을 검사합니다.
+   - `getBonusNumber(winningNumbers)` 메서드를 통해 보너스 번호 1개를 입력받습니다.
+   - `validationService.isValidBonusNumber`를 사용하여 보너스 번호의 유효성을 검사합니다.
+4. **당첨 결과 계산**
+   - `calculateResults(purchasedLotteries, winningNumbers, bonusNumber)` 메서드를 통해 당첨 결과를 계산합니다.
+   - `rankCalculator.calculateLotteries`를 사용하여 각 로또의 당첨 등수를 계산하고, 등수별 당첨 개수를 집계합니다.
+5. **결과 출력**
+   - `displayResults(rankCounts, purchaseAmount)` 메서드를 통해 당첨 내역과 수익률을 출력합니다.
+   - `statisticsService.calculateTotalRevenue`와 `statisticsService.calculateRevenueRate`를 사용하여 총 당첨 금액과 수익률을 계산합니다.
+   - `ioService.printStatistics`와 `ioService.printRevenueRate`를 통해 결과를 출력합니다.
 
-## 각 컴포넌트의 역할
+## 클래스 설명
 
-- **LottoController**
-  - 프로그램 실행의 진입점이며, 전체적인 흐름을 관리합니다.
-- **lotteryService**
-  - 로또 번호 생성 로직을 포함합니다.
-  - 구입 금액에 따른 로또 장수 계산을 담당합니다.
-- **validationService**
-  - 입력된 값들이 유효한지 검증합니다.
-  - 숫자의 범위, 중복 여부 등을 확인합니다.
-- **rankCalculator**
-  - 구매한 로또 번호와 당첨 번호를 비교하여 일치하는 번호의 개수를 세고, 당첨 등수를 결정합니다.
-- **statisticsService**
-  - 등수별 당첨 횟수를 기반으로 총 당첨 금액과 수익률을 계산합니다.
-- **ioService**
-  - 사용자로부터 입력을 받고, 결과를 출력합니다.
-  - 에러 메시지 출력 및 재입력 요청 등의 기능을 포함합니다.
+### Lotto 클래스
+
+`Lotto` 클래스는 로또 번호의 생성과 유효성 검증을 담당하는 핵심 컴포넌트입니다. 주요 기능은 다음과 같습니다:
+
+- **로또 번호 저장**: 생성된 로또 번호를 내부에 저장하고 관리합니다.
+- **유효성 검증**: 입력된 번호 배열에 대해 다양한 검증을 수행하여 번호의 무결성을 보장합니다.
+  - 번호 개수 검증: 로또 번호는 정확히 6개여야 합니다.
+  - 데이터 타입 검증: 모든 번호는 정수형 숫자여야 합니다.
+  - 번호 범위 검증: 각 번호는 1부터 45 사이여야 합니다.
+  - 중복 번호 검증: 중복된 번호가 없어야 합니다.
+- **번호 출력 및 접근**:
+  - `toString()` 메서드를 통해 로또 번호를 문자열로 표현합니다.
+  - `getNumbers()` 메서드를 통해 내부의 번호 배열을 가져올 수 있습니다.
+
+### Notes 클래스
+
+`Notes` 클래스는 사용자가 입력한 금액에 따라 구매할 로또 장수를 계산하고 관리하는 역할을 합니다. 주요 기능은 다음과 같습니다:
+
+- **로또 장수 계산**: 입력된 금액(`paidAmount`)을 기반으로 로또 한 장의 가격(1,000원)으로 나누어 구매 가능한 로또 장수를 계산합니다.
+- **유효성 검증**:
+  - 숫자 형식 검증: 계산된 로또 장수가 숫자인지 확인합니다.
+  - 양수 검증: 로또 장수가 0보다 큰 양수인지 확인합니다.
+- **로또 장수 반환**: `getNotes()` 메서드를 통해 계산된 로또 장수를 외부로 제공합니다.
 
 ## 예외 처리
 
 - 모든 사용자 입력 단계에서 입력값의 유효성을 검사합니다.
 - 유효하지 않은 입력이 들어올 경우, 해당 단계부터 다시 입력을 받습니다.
 - 에러 메시지는 "[ERROR]"로 시작하며, 사용자가 이해하기 쉽게 작성됩니다.
+- Input Validation에는 다시 시도 로직이 적용되지만, Domain Validation의 경우에는 에러를 던져 즉시 프로그램을 종료합니다.
+- 예를 들어, 일반적인 상황에서는 Input Validation에서 Validation이 되지만, Notes나, Lotto 클래스에서 validation이 실패하면 즉시 에러를 던져 프로그램을 종료합니다.
 
-## 개발 및 확장성
+## 테스트
 
-- 각 기능이 모듈화되어 있어 유지보수와 확장이 용이합니다.
-- 새로운 기능 추가 시 관련된 서비스나 컴포넌트를 추가하여 기능을 확장할 수 있습니다.
+- validation 함수, 서비스, 모델 클래스 각각 Unit test를 작성해 프로그램을 견고하게 만들었습니다.
+- `validateBounsNumber` , `validateLottoNumber`, `validateMoney` 같은 validation 로직에는 각각 유닛 테스트를 구현했습니다.
+- `Lotto`, `Notes` 같은 클래스에는 각각 유닛 테스트를 구현했습니다.
+- `LotteryService` 와 `RankCalculationService` 에 각각 유닛 테스트를 구현했습니다.
+-
 
 ## 체크리스트
 
