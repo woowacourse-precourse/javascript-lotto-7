@@ -34,4 +34,14 @@ describe('Validation 테스트', () => {
       Validation.validateSixNumbers([1, 2, 3, 4, 5, 6, 7]);
     }).toThrow('[ERROR] 로또 번호는 6개여야 합니다.');
   });
+
+  test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
+    expect(() => {
+      Validation.validateUniqueNumbers([1, 2, 3, 4, 5, 6]);
+    }).not.toThrow();
+
+    expect(() => {
+      Validation.validateUniqueNumbers([1, 2, 3, 4, 4, 5]);
+    }).toThrow('[ERROR] 중복되는 번호가 존재합니다.');
+  });
 });
