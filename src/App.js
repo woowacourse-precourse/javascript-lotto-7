@@ -18,7 +18,11 @@ class App {
   }
 
   validatePurchaseAmount(purchaseAmount) {
-    if (isNaN(parseInt(purchaseAmount)) || purchaseAmount.trim() === '') {
+    if (!purchaseAmount || purchaseAmount.trim() === '') {
+      throw new Error('[ERROR] 구입 금액은 숫자로 입력해 주세요.');
+    }
+
+    if (!/^\d+$/.test(purchaseAmount)) {
       throw new Error('[ERROR] 구입 금액은 숫자로 입력해 주세요.');
     }
 
@@ -30,10 +34,8 @@ class App {
   }
 
   createLottoNumbers(purchaseAmount) {
-    // 발행할 로또 수 계산
     const amount = purchaseAmount / 1000;
 
-    // 로또 수 만큼 랜덤 숫자 만들기
     for (let i = 0; i < amount; i++) {
       const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
       this.numbers = [...this.numbers, numbers];
@@ -45,10 +47,18 @@ class App {
   async getWinningNumbers() {
     const numbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
     const lottoNumbers = numbers.split(',').map((number) => parseInt(number));
-    const lotto = new Lotto(lottoNumbers);
-    this.bonusNumber = await this.getBonusNumber(); // 보너스 번호 입력 받기
 
-    return this.numbers.map((number) => lotto.checkWinningNumbers(number));
+    if (lottoNumbers.some((num) => isNaN(num) || num < 1 || num > 45)) {
+      throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
+    }
+
+    this.bonusNumber = await this.getBonusNumber();
+
+    return this.numbers.map((number) => {
+      console.log(number);
+      const lotto = new Lotto(number);
+      return lotto.checkWinningNumbers(lottoNumbers);
+    });
   }
 
   getMatchResult(matchNumbers) {
@@ -123,14 +133,19 @@ class App {
   }
 
   async run() {
-    const purchaseAmount = await this.getPurchaseAmount();
-    const amount = this.createLottoNumbers(purchaseAmount);
-    const winningNumbers = await this.getWinningNumbers();
-    const matchResult = this.getMatchResult(winningNumbers);
-    const log = this.printLog(matchResult);
-    const returnRate = this.calculateReturnRate(matchResult, purchaseAmount);
+    try {
+      const purchaseAmount = await this.getPurchaseAmount();
 
-    Console.print(`총 수익률은 ${returnRate}%입니다.`);
+      this.createLottoNumbers(purchaseAmount);
+      const winningNumbers = await this.getWinningNumbers();
+      const matchResult = this.getMatchResult(winningNumbers);
+      this.printLog(matchResult);
+
+      const returnRate = this.calculateReturnRate(matchResult, purchaseAmount);
+      Console.print(`총 수익률은 ${returnRate}%입니다.`);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 
