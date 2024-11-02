@@ -38,3 +38,30 @@ describe('당첨 번호 유효성 검사', () => {
     );
   });
 });
+
+describe('보너스 번호 유효성 검사', () => {
+  test('보너스 번호가 숫자가 아닐 시 예외 발생', () => {
+    const input = 'a';
+    expect(() => new LOTTO_MACHINE().setBonusNumber(Number(input))).toThrow(
+      `[ERROR] 숫자를 입력해 주십시오.`
+    );
+  });
+
+  test('보너스 번호가 범위를 벗어날 시 예외 발생', () => {
+    const input = '56';
+    expect(() => new LOTTO_MACHINE().setBonusNumber(Number(input))).toThrow(
+      `[ERROR] 1 ~ 45 사이의 숫자를 입력해 주십시오`
+    );
+  });
+
+  test('보너스 번호가 당첨 번호와 중복일 시 예외 발생', () => {
+    const input = '6';
+
+    const lottomachine = new LOTTO_MACHINE();
+    lottomachine.setWinningNumbers('1,2,3,4,5,6');
+
+    expect(() => lottomachine.setBonusNumber(Number(input))).toThrow(
+      `[ERROR] 당첨 번호와 중복된 값이 있습니다.`
+    );
+  });
+});
