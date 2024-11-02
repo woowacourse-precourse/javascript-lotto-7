@@ -1,4 +1,5 @@
 import LottoControllers from './controllers/LottoController.js';
+import LottoValidator from './controllers/LottoValidator.js';
 import PurchaseValidator from './controllers/PurchaseValidator.js';
 import { Console } from '@woowacourse/mission-utils';
 import {
@@ -10,9 +11,9 @@ import {
 class App {
   async run() {
     const controllers = new LottoControllers();
-
     const purchaseAmount = await this.getValidPurchaseAmount();
-    const lottoTickets = controllers.issueTickets(purchaseAmount);
+    const lottoTickets = await controllers.issueTickets(purchaseAmount);
+    console.log(Array.isArray(lottoTickets));
 
     const winningNumbers = await this.getValidWinningNumbers(controllers);
 
@@ -43,14 +44,13 @@ class App {
     }
   }
 
-  async getValidWinningNumbers(controllers) {
+  async getValidWinningNumbers() {
     try {
       const winningNumbers = await getWinningNumbers();
-      controllers.validateWinningNumbers(winningNumbers);
-      return winningNumbers;
+      return LottoValidator.validateWinningNumber(winningNumbers);
     } catch (error) {
       Console.print(error.message);
-      return this.getValidWinningNumbers(controllers);
+      return this.getValidWinningNumbers();
     }
   }
 

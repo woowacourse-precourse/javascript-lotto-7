@@ -8,14 +8,13 @@ class LottoIssuer {
     const lottoTickets = [];
 
     for (let i = GAME_SETTINGS.ZERO; i < ticketCount; i++) {
-      const ticket = Random.pickUniqueNumbersInRange(
+      const ticketNumbers = Random.pickUniqueNumbersInRange(
         LOTTO.NUMBER_RANGE.MIN,
         LOTTO.NUMBER_RANGE.MAX,
         LOTTO.WINNING_NUMBERS_COUNT
       ).sort((a, b) => a - b);
 
-      const lottoTicket = new Lotto(ticket);
-      lottoTickets.push(lottoTicket);
+      lottoTickets.push(new Lotto(ticketNumbers));
     }
 
     Console.print(`${ticketCount}${MESSAGES.TICKET_PURCHASED}`);

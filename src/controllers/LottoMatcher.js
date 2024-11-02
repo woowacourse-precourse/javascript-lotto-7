@@ -1,5 +1,4 @@
 import { GAME_SETTINGS, RANK_KEYS, MATCH_COUNT } from '../utils/constants.js';
-import Lotto from './Lotto.js';
 
 class LottoMatcher {
   static checkMatchingNumbers(lottoTickets, winningNumbers) {
@@ -26,7 +25,7 @@ class LottoMatcher {
       [RANK_KEYS.SIX_MATCH]: GAME_SETTINGS.ZERO,
     };
 
-    const matchNumbersArray = checkMatchingNumbers(
+    const matchNumbersArray = this.checkMatchingNumbers(
       lottoTickets,
       winningNumbers
     );
@@ -38,7 +37,10 @@ class LottoMatcher {
         rewardKey = RANK_KEYS.SIX_MATCH;
       }
       if (matchCount === MATCH_COUNT.FIVE) {
-        const bonusMatch = checkBonusMatch(lottoTickets[index], bonusNumber);
+        const bonusMatch = this.checkBonusMatch(
+          lottoTickets[index],
+          bonusNumber
+        );
         if (bonusMatch) {
           rewardKey = RANK_KEYS.FIVE_WITH_BONUS_MATCH;
         } else {

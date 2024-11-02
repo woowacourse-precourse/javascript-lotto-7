@@ -57,7 +57,8 @@ class LottoValidator {
   }
 
   static #validateBonusNumberUniqueness(winningNumbers, bonusNumber) {
-    if (winningNumbers.includes(Number(bonusNumber))) {
+    const parsedWinningNumbers = winningNumbers.map(Number);
+    if (parsedWinningNumbers.includes(Number(bonusNumber))) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
     }
   }

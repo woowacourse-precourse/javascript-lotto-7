@@ -1,10 +1,10 @@
-import PurchaseValidator from './PurchaseValidator.js';
 import Lotto from './Lotto.js';
 import LottoValidator from './LottoValidator.js';
 import LottoIssuer from './LottoIssuer.js';
 import LottoMatcher from './LottoMatcher.js';
 import ProfitCalculator from './ProfitCalculator.js';
 import { LOTTO_REWARD, GAME_SETTINGS } from '../utils/constants.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class LottoControllers {
   createLotto(numbers, bonusNumber) {
@@ -23,6 +23,14 @@ class LottoControllers {
       winningNumbers,
       bonusNumber
     );
+  }
+
+  validateWinningNumbers(numbers) {
+    LottoValidator.validateWinningNumber(numbers);
+  }
+
+  validateBonusNumber(winningNumbers, bonusNumber) {
+    LottoValidator.validateBonusNumber(winningNumbers, bonusNumber);
   }
 
   displayResults(rankCounts) {
