@@ -46,6 +46,7 @@ export const VALIDATION = {
   unitPrice: GLOBAL_CONSTANTS.unitPrice,
   minimumNumber: GLOBAL_CONSTANTS.minimumNumber,
   maximumNumber: GLOBAL_CONSTANTS.maximumNumber,
+  drawNumbers: GLOBAL_CONSTANTS.drawNumbers,
 };
 
 export const UTILS = {

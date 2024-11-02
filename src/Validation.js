@@ -18,6 +18,7 @@ class Validation {
       this.isInteger(number);
     });
 
+    this.isValidNumberCount(numbers);
     this.isNotDuplicated(numbers);
   }
 
@@ -58,6 +59,12 @@ class Validation {
     const numberSet = new Set([...numbers]);
     if (numberSet.size !== numbers.length) {
       throw new Error(ERROR_MESSAGE.isDuplicated);
+    }
+  }
+
+  static isValidNumberCount(numbers) {
+    if (numbers.length !== VALIDATION.drawNumbers) {
+      throw new Error(ERROR_MESSAGE.notValidNumberCount);
     }
   }
 }
