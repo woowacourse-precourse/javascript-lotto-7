@@ -41,4 +41,5 @@ export const ERROR = {
   COST_TYPE: '[ERROR] 구매 금액은 숫자만 입력 가능합니다.',
   LOTTO_RANGE: '[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.',
   LOTTO_ARRAY_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
+  LOTTO_TYPE: '[ERROR] 숫자와 쉼표가 아닌 잘못된 값이 입력되었습니다.',
 };
