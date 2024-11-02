@@ -1,14 +1,14 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import LottoMachine from '../src/LottoMachine';
-import Lotto from '../src/Lotto';
-import { mockRandoms, getLogSpy } from './ApplicationTest';
+import LottoMachine from '../src/LottoMachine.js';
+import Lotto from '../src/Lotto.js';
+import { mockRandoms, getLogSpy } from './ApplicationTest.js';
 
-const inputPurchaseAmountMockQuestion = (input) => {
+const readLineAsyncMock = (input) => {
   MissionUtils.Console.readLineAsync = jest.fn().mockImplementation(() => {
     return Promise.resolve(input);
   });
 };
-
+/* eslint-disable max-lines-per-function */
 describe('로또 발매기 클래스 테스트', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -19,17 +19,18 @@ describe('로또 발매기 클래스 테스트', () => {
     [8001, new Error('[ERROR]')],
   ])('구입금액 입력검증 테스트', async (input, expected) => {
     // given
-    const lottoMachine = new LottoMachine();
-    inputPurchaseAmountMockQuestion(input);
+    readLineAsyncMock(input);
 
     if (expected instanceof Error) {
-      // when, then: 비동기 에러 검증
-      await expect(lottoMachine.inputPurchaseAmount()).rejects.toThrow(
-        '[ERROR]',
-      );
+      // when, then
+      const lottoMachine = new LottoMachine();
+      await expect(
+        lottoMachine.InputPurchaseAmountTestMethod(),
+      ).rejects.toThrow('[ERROR]');
     } else {
       // when
-      await lottoMachine.inputPurchaseAmount();
+      const lottoMachine = new LottoMachine();
+      await lottoMachine.InputPurchaseAmountTestMethod();
 
       // then
       expect(lottoMachine.amount).toBe(expected);
@@ -37,16 +38,16 @@ describe('로또 발매기 클래스 테스트', () => {
   });
 
   test('금액에 맞게 로또 생성 테스트', async () => {
-    //given
+    // given
     const AMOUNT = 8000;
-    inputPurchaseAmountMockQuestion(AMOUNT);
+    readLineAsyncMock(AMOUNT);
 
-    //when
+    // when
     const lottoMachine = new LottoMachine();
-    //내부적으로 #generateLotto() 실행
-    await lottoMachine.inputPurchaseAmount();
+    // 내부적으로 #generateLotto() 실행
+    await lottoMachine.InputPurchaseAmountTestMethod();
 
-    //then
+    // then
     expect(lottoMachine.lottos.length).toBe(AMOUNT / 1000);
     lottoMachine.lottos.forEach((lotto) => {
       expect(lotto).toBeInstanceOf(Lotto);
@@ -54,9 +55,9 @@ describe('로또 발매기 클래스 테스트', () => {
   });
 
   test('발매된 로또 출력 테스트', async () => {
-    //given
+    // given
     const AMOUNT = 8000;
-    inputPurchaseAmountMockQuestion(AMOUNT);
+    readLineAsyncMock(AMOUNT);
     mockRandoms([
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
@@ -69,12 +70,12 @@ describe('로또 발매기 클래스 테스트', () => {
     ]);
     const logSpy = getLogSpy();
 
-    //when
+    // when
     const lottoMachine = new LottoMachine();
-    //내부적으로 #printLottos() 실행
-    await lottoMachine.inputPurchaseAmount();
+    // 내부적으로 #printLottos() 실행
+    await lottoMachine.InputPurchaseAmountTestMethod();
 
-    //then
+    // then
     const logs = [
       '8개를 구매했습니다.',
       '[8, 21, 23, 41, 42, 43]',
@@ -89,5 +90,30 @@ describe('로또 발매기 클래스 테스트', () => {
     logs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
+  });
+
+  test.each([
+    ['1,2,3,4,5,6', [1, 2, 3, 4, 5, 6]],
+    ['1, 2,3,4,5,6', new Error('[ERROR]')],
+    ['1,2,3$,4,5,6', new Error('[ERROR')],
+    ['1,2,2,3,4,5', new Error('[ERROR]')],
+    ['1,2,46,3,4,5', new Error('[ERROR]')],
+    ['1,2,0,3,4,5', new Error('[ERROR]')],
+  ])('당첨번호 입력 테스트', async (input, expected) => {
+    // given
+    readLineAsyncMock(input);
+    const lottoMachine = new LottoMachine();
+
+    if (expected instanceof Error) {
+      // when, then
+      await expect(
+        lottoMachine.InputWinningNumbersTestMethod(),
+      ).rejects.toThrow('[ERROR]');
+    } else {
+      // when, then
+
+      await lottoMachine.InputWinningNumbersTestMethod();
+      expect(lottoMachine.winningNumbers).toEqual(expected);
+    }
   });
 });
