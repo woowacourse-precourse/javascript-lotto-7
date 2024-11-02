@@ -8,11 +8,11 @@ const printCountPurchaseAmount = (purchaseCount) => {
 const printLottoList = (lottoCount, lottoList) => {
   const totalLottoList = lottoList;
   for (let i = 0; i < lottoCount; i += 1) {
-    Console.print(totalLottoList[i]);
+    Console.print(`[${totalLottoList[i].join(', ')}]`);
   }
   Console.print('\n');
 };
-
+// TODO: 출력 순서대로 가독성 있게 변경
 const printRateOfReturn = (rateOfReturn) => {
   Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
 };
