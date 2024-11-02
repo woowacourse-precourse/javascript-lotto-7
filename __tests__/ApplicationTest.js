@@ -136,6 +136,11 @@ describe("로또 테스트", () => {
       test("숫자가 아닌 경우", async () => {
         await runBonusNumbersException(["1000", "1,2,3,4,5,6", "7j"]);
       });
+      test.each([
+        "46", "0",
+      ])("1부터 45 사이의 숫자가 아닌 경우 에러 반환", async (number) => {
+        await runBonusNumbersException(["1000", "1,2,3,4,5,6", number]);
+      });
     });
   });
 });
