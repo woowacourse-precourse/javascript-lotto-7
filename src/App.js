@@ -1,5 +1,4 @@
-import LottoBuyer from './LottoBuyer.js';
-import LottoCompany from './LottoCompany.js';
+import { LottoBuyer, LottoCompany } from './objects';
 
 class App {
   #lottoBuyer;

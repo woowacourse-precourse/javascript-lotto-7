@@ -1,7 +1,6 @@
-import { MOCK_DATA_1 } from '../src/lib/mock/data';
-import { mockQuestions, mockRandoms } from '../src/lib/mock/utils';
-import LottoCompany from '../src/LottoCompany';
-import LottoShop from '../src/LottoShop';
+import { MOCK_DATA_1 } from '../src/lib/mock/data.js';
+import { mockQuestions, mockRandoms } from '../src/lib/mock/utils.js';
+import { LottoCompany, LottoShop } from '../src/objects/index.js';
 
 describe('LottoCompany', () => {
   const lottoCompany = new LottoCompany();

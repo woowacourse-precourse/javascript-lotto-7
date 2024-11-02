@@ -54,6 +54,7 @@ describe('App', () => {
             expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
           });
       });
+
       test('1등 1개 & 5등 1개당첨', async () => {
         const logSpy = getLogSpy();
 

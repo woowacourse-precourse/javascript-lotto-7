@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, INPUT_MESSAGE, LOTTO } from './lib/constants.js';
+import { ERROR_MESSAGE, INPUT_MESSAGE, LOTTO } from '../lib/constants.js';
 import {
   getIsAllItemsBetweenNumbers,
   getIsAllItemsNumeric,
@@ -10,7 +10,7 @@ import {
   getIsPositive,
   getIsThousandUnit,
   retryWhileCatchedError,
-} from './lib/utils.js';
+} from '../lib/utils.js';
 
 class InputManager {
   static #SPLIT_SEPARATOR = ',';

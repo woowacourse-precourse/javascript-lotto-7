@@ -4,9 +4,9 @@ import {
   mockRandoms,
 } from '../src/lib/mock/utils.js';
 import { MOCK_DATA_1 } from '../src/lib/mock/data.js';
-import LottoBuyer from '../src/LottoBuyer.js';
-import LottoCompany from '../src/LottoCompany.js';
-import LottoShop from '../src/LottoShop.js';
+import LottoBuyer from '../src/objects/LottoBuyer.js';
+import LottoCompany from '../src/objects/LottoCompany.js';
+import LottoShop from '../src/objects/LottoShop.js';
 
 describe('LottoBuyer', () => {
   const lottoBuyer = new LottoBuyer();

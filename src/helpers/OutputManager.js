@@ -3,7 +3,7 @@ import {
   OUTPUT_MESSAGE,
   LOTTO_INFORMATIONS,
   WINNING_PRICE_MAP,
-} from './lib/constants.js';
+} from '../lib/constants.js';
 
 class OutputManager {
   static print(message) {

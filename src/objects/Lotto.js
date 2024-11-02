@@ -1,9 +1,9 @@
-import { ERROR_MESSAGE, LOTTO_INFORMATIONS } from './lib/constants.js';
+import { ERROR_MESSAGE, LOTTO_INFORMATIONS } from '../lib/constants.js';
 import {
   getIsAllItemsUnique,
   getIsArrayLengthMatch,
   intersection,
-} from './lib/utils.js';
+} from '../lib/utils.js';
 
 class Lotto {
   #numbers;
