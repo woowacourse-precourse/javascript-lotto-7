@@ -1,5 +1,14 @@
 import Lotto from "../src/model/Lotto.js";
-
+import Validator from "../src/util/Validator.js";
+describe(() => {
+  test("구입 금액에 숫자가 아닌 문자가 포함된 경우 예외가 발생한다", () => {
+    //when
+    const validator = new Validator();
+    expect(() => {
+      this.validator.isPriceNumber();
+    }).thThrow("[ERROR]");
+  });
+});
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
     expect(() => {
