@@ -36,6 +36,7 @@ class App {
 
 		await this.#printWinningCount();
 		this.#winningRate = await this.#getTotalWinnings();
+		this.#printWinningRate();
 	}
 
 	async #calculateLottoCount() {
@@ -107,6 +108,10 @@ class App {
 		}
 
 		return ((totalWinnings / this.#lottoMoney) * 100).toFixed(1);
+	}
+
+	async #printWinningRate() {
+		printOutput(PROMPT.LOTTO_WINNING_RATE(this.#winningRate));
 	}
 }
 
