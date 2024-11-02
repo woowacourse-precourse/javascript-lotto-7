@@ -22,7 +22,6 @@ async function getWinningNumbers() {
       '[ERROR] 당첨 번호는 6개의 숫자와 쉼표로 이루어져야 하며, 각각의 숫자는 중복되지 않는 1~45 사이의 숫자여야 합니다.'
     );
   }
-
   return new Lotto(parseWinningNumbers(input));
 }
 
@@ -59,6 +58,22 @@ function parseWinningNumbers(input) {
     .sort((a, b) => a - b);
 }
 
+function matchingPlace(lottos, winningNumbers, bonusNumber) {
+  let places = [0, 0, 0, 0, 0];
+  let myLotto = winningNumbers.getLottoNumber();
+  lottos.forEach((lotto) => {
+    let diff = myLotto.filter((el) => lotto.getLottoNumber().includes(el));
+
+    if (diff.length === 3) places[0] += 1;
+    else if (diff.length === 4) places[1] += 1;
+    else if (diff.length === 5 && lotto.getLottoNumber().includes(bonusNumber))
+      places[3] += 1;
+    else if (diff.length === 5) places[2] += 1;
+    else if (diff.length === 6) places[4] += 1;
+  });
+  return places;
+}
+
 // 출력 모듈
 
 function printLottos(lottos) {
@@ -68,8 +83,9 @@ function printLottos(lottos) {
   });
 }
 
-function printResult(lottos, myLotto, bonusNumber) {
+function printResult(lottos, winningNumbers, bonusNumber) {
   Console.print('\n당첨 통계\n---\n');
+  console.log(matchingPlace(lottos, winningNumbers, bonusNumber));
 }
 
 // 검사 모듈
@@ -81,7 +97,6 @@ function validatePurchaseAmount(input) {
 
 function validateWinningNumbers(input) {
   const numbers = parseWinningNumbers(input);
-  console.log(numbers);
   if (
     !numbers.some((x) => isNaN(x)) &&
     numbers.length === 6 &&
