@@ -9,7 +9,7 @@ export default function (inputMoney) {
       new Lotto(
         Random.pickUniqueNumbersInRange(
           RULES.PICK_RANGE_START,
-          RULES.LOTTO_PRICE,
+          RULES.PICK_RANGE_END,
           RULES.TOTAL_PICK_COUNT,
         ),
       ),
