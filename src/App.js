@@ -54,26 +54,39 @@ function getMatchNumber(curLotto, targetLotto) {
   }
   return matchNumber;
 }
-
-function isIncludeBonusNumber(bonusNumber, lotto) {
-  return lotto.filter(number => number === bonusNumber);
+// 함수 내부에서 object 수정하는거 나중에 리팩토링 해야함.
+function addBonusNumber(matchNumber, bonusNumber, lotto, winStatistics) {
+  const haveBonus = lotto.filter(number => number === bonusNumber);
+  if (matchNumber === 5 && haveBonus) {
+    winStatistics.bonus += 1;
+    winStatistics[5] -= 1;
+  }
 }
 
 // 여러개의 로또들을 받고 몇개 당첨됐는지 object로 정리하는 함수
 function getAllNumberWon(lottos, targetLotto, bonusNumber) {
   const lottosNumber = Object.keys(lottos).length;
-  const allLottoMatchNumber = {};
+  const winStatistics = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, bonus: 0 };
   for (let i = 0; i < lottosNumber; i += 1) {
     const curMatchNumber = getMatchNumber(lottos[i], targetLotto);
-    allLottoMatchNumber[i] = curMatchNumber;
-    allLottoMatchNumber.bonus = isIncludeBonusNumber(bonusNumber, lottos[i]);
+    winStatistics[curMatchNumber] += 1;
+    addBonusNumber(curMatchNumber, bonusNumber, lottos[i], winStatistics);
   }
-  return allLottoMatchNumber;
+  return winStatistics;
 }
 
-function printWinningStatistics() {
+function printWinningStatistics(winStatistics) {
   MissionUtils.Console.print('당첨 통계');
   MissionUtils.Console.print('---');
+  MissionUtils.Console.print(`3개 일치 (5,000원) - ${winStatistics[3]}개`);
+  MissionUtils.Console.print(`4개 일치 (50,000원) - ${winStatistics[4]}개`);
+  MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${winStatistics[5]}개`);
+  MissionUtils.Console.print(
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winStatistics[5] * winStatistics.bonus}개`,
+  );
+  MissionUtils.Console.print(
+    `6개 일치 (2,000,000,000원) - ${winStatistics[3]}개`,
+  );
 }
 
 class App {
