@@ -27,7 +27,7 @@ describe("보너스 번호 입력 테스트", () => {
     test("보너스 번호가 공백인 경우", () => {
         const bonusNumberValidator = new BonusNumberValidator();
         expect(() => bonusNumberValidator.validateBonusNumber(" ")).toThrow(
-            "[ERROR] 보너스 번호는 공백일 수 없습니다."
+            "[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다."
         );
     });
 

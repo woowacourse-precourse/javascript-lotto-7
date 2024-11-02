@@ -6,10 +6,7 @@ class OutputHandler {
         lottos.forEach((lotto) => {
             Console.print(`[${lotto.getNumbers().join(", ")}]`);
         });
-    }
-
-    printWinningNumber(winningNumber) {
-        Console.print(`당첨 번호: ${winningNumber.join(", ")}`);
+        Console.print("");
     }
 }
 

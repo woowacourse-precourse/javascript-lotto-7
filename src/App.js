@@ -1,12 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
-import LottoMoneyValidator from "./validator/LottoMoneyValidator.js";
 import Lotto from "./Lotto.js";
 import InputHandler from "./handler/InputHandler.js"
 import OutputHandler from "./handler/OutputHandler.js";
 
 class App {
   constructor() {
-    this.lottoMoneyValidator = new LottoMoneyValidator();
     this.inputHandler = new InputHandler();
     this.outputHandler = new OutputHandler();
   }
@@ -15,10 +13,10 @@ class App {
       const lottoMoney = await this.inputHandler.getLottoMoney();
       const lottos = this.generateLottos(lottoMoney / 1000);
       this.outputHandler.printLottos(lottos);
+
       const winningNumber = await this.inputHandler.getWinningNumber();
-      this.outputHandler.printWinningNumber(winningNumber);
-      const bonusNumber = await this.inputHandler.getBonusNumber();
-      Console.print({ bonusNumber });
+
+      const bonusNumber = await this.inputHandler.getBonusNumber(winningNumber);
     }
     catch (error) {
       Console.print(error.message);
