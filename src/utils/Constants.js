@@ -56,7 +56,8 @@ export const UTILS = {
 export const ERROR_MESSAGE = {
   notNumber: '[ERROR] 숫자만 입력 가능합니다.',
   notPositiveNumber: '[ERROR] 구입 금액은 양수만 가능합니다.',
-  notInRangeNumber: `[ERROR] 당첨 번호는 ${VALIDATION.minimumNumber} 이상 ${VALIDATION.maximumNumber} 이하의 숫자만 가능합니다.`,
-  notInteger: '[Error] 당첨 번호는 정수만 가능합니다.',
-  isDuplicated: '[Error] 당첨 번호는 서로 중복될 수 없습니다.',
+  notInRangeNumber: `[ERROR] 당첨 번호와 보너스 번호는 ${VALIDATION.minimumNumber} 이상 ${VALIDATION.maximumNumber} 이하의 숫자만 가능합니다.`,
+  notInteger: '[Error] 당첨 번호와 보너스 번호는 정수만 가능합니다.',
+  isDuplicated:
+    '[Error] 각 당첨 번호와 보너스 번호들은 서로 중복될 수 없습니다.',
 };
