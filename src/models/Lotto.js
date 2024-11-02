@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import { LottoValidator } from './Main.js';
+import LottoValidator from '../utils/LottoValidator.js';
 
 class Lotto {
   #numbers;
@@ -12,7 +12,6 @@ class Lotto {
     LottoValidator.validateGeneratedLottoNumber(numbers);
   }
 
-  // TODO: 추가 기능 구현
   static generateLottoNumber() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
   }

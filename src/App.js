@@ -1,7 +1,8 @@
-import Main from './Main.js';
+import MainController from './controllers/MainController.js';
 class App {
   async run() {
-    Main();
+    const main = new MainController();
+    await main.start();
   }
 }
 
