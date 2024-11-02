@@ -68,4 +68,15 @@ describe('Validation 테스트', () => {
       Validation.validateNumberInRange(50);
     }).toThrow('[ERROR] 모든 숫자는 1부터 45 사이여야 합니다.');
   });
+
+  test('보너스 번호가 입력한 당첨 번호와 중복되면 예외가 발생한다.', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    expect(() => {
+      Validation.validateUniqueBonusNumber(winningNumbers, 7);
+    }).not.toThrow();
+
+    expect(() => {
+      Validation.validateUniqueBonusNumber(winningNumbers, 3);
+    }).toThrow('[ERROR] 당첨번호와 중복되는 번호입니다.');
+  });
 });
