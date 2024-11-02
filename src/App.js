@@ -1,12 +1,13 @@
 import Validator from './utils/Validator.js';
-import Handler from './utils/Handler.js';
+import InputHandler from './utils/InputHandler.js';
 import Ticket from './Lotto/Ticket.js';
 import Lotto from './Lotto/Lotto.js';
 import Statistics from './utils/Statistics.js';
+import OutputHandler from './utils/OutputHandler.js';
 
 class App {
   async run() {
-    const money = await Handler.validateInputHandler(
+    const money = await InputHandler.validateInputHandler(
       '구입금액을 입력해 주세요.',
       Validator.validateMoney,
     );
@@ -18,20 +19,22 @@ class App {
       lottoTickets.push(new Lotto(numbers));
     });
 
-    const winningNumber = await Handler.validateInputHandler(
+    const winningNumber = await InputHandler.validateInputHandler(
       '당첨 번호를 입력해 주세요.',
       Validator.validateLotto,
     );
-    const bonusNumber = await Handler.validateInputHandler(
+    const bonusNumber = await InputHandler.validateInputHandler(
       '보너스 번호를 입력해 주세요.',
       (input) => Validator.validateBonusNumber(input, winningNumber),
     );
 
-    const resultList = [];
+    const rankList = [];
     lottoTickets.forEach((lotto) => {
       const result = lotto.getWinningResult(winningNumber, bonusNumber);
-      resultList.push(result);
+      rankList.push(result);
     });
+    OutputHandler.printResultOutPut(Statistics.countOccurrences(rankList));
+    OutputHandler.printProfitRate(rankList);
   }
 }
 
