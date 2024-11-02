@@ -16,7 +16,7 @@ class LottoMachine {
   async start() {
     const money = await this.handleMoneyInput();
     const numOfLotto = countLotto(money);
-    Console.print(LOTTO_MESSAGE.PRINT_LOTTO_COUNT(numOfLotto));
+    Output.printNumOfLotto(numOfLotto);
 
     const lottoController = new LottoController(numOfLotto);
     Output.printLottos(lottoController.lottos);
