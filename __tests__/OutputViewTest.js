@@ -30,6 +30,7 @@ describe('OutputView 테스트', () => {
   test('당첨 통계를 출력한다.', async () => {
     const logSpy = getLogSpy();
     const totalWinningRank = [1, 0, 0, 2, 0];
+
     const outputView = new OutputView();
     outputView.printWinningStatistics(totalWinningRank);
 
@@ -42,6 +43,20 @@ describe('OutputView 테스트', () => {
       '5개 일치, 보너스 볼 일치 (30,000,000원) - 0개',
       '6개 일치 (2,000,000,000원) - 1개',
     ];
+
+    logs.forEach(log => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test('총 수익률을 출력한다.', async () => {
+    const logSpy = getLogSpy();
+    const totalReturnRate = 62.5;
+
+    const outputView = new OutputView();
+    outputView.printTotalReturnRate(totalReturnRate);
+
+    const logs = ['총 수익률은 62.5%입니다.'];
 
     logs.forEach(log => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
