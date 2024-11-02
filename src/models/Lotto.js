@@ -16,7 +16,7 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== LOTTO_COUNT) {
-      throw new LottoNumbersError("로또 번호는 총 6개여야 합니다.");
+      throw new LottoNumbersError("로또 번호는 총 6개여야 합니다.\n6개의 번호를 쉼표(,)를 기준으로 구분해서 입력해주세요.\n예시) 1,2,3,4,5,6");
     }
     if (new Set(numbers).size !== LOTTO_COUNT) {
       throw new LottoNumbersError("중복된 숫자가 있습니다.");
