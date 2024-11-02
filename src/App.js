@@ -30,7 +30,7 @@ class App {
 
     this.#validateWinningNumbers(winningNumbers);
 
-    return winningNumbers;
+    return winningNumbers.map(Number);
   }
 
   #showLottoTickets(tickets) {
