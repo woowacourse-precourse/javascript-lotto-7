@@ -1,4 +1,4 @@
-import { LOTTO_REWARD } from '../src/Constants/lottoConstants.js';
+import { LOTTO_REWARD, LOTTO_PRICE } from '../src/Constants/lottoConstants.js';
 import LottoResultAnalysis from '../src/Contoller/LottoResultAnalysis.js';
 import Lotto from '../src/Model/Lotto.js';
 
@@ -36,5 +36,29 @@ describe('LottoResultAnaysis 테스트', () => {
     const expectedProfitRate = LOTTO_REWARD.SECOND + LOTTO_REWARD.THIRD;
 
     expect(lottoResultAnalysis.rewardSum).toEqual(expectedProfitRate);
+  });
+
+  test('올바른 수익률을 계산한다.', () => {
+    const lottoTickets = [
+      new Lotto([1, 2, 3, 4, 5, 6]),
+      new Lotto([1, 2, 3, 4, 5, 7]),
+      new Lotto([1, 2, 3, 4, 5, 9]),
+    ];
+
+    lottoTickets.forEach((ticket) => {
+      const rank = lottoResultAnalysis.checkRank(ticket);
+      lottoResultAnalysis.updateWinningStatus(rank);
+    });
+
+    const expectedRewardSum =
+      LOTTO_REWARD.FIRST + LOTTO_REWARD.SECOND + LOTTO_REWARD.THIRD;
+    const expectedProfitRate = (
+      (expectedRewardSum / (lottoTickets.length * LOTTO_PRICE)) *
+      100
+    ).toFixed(1);
+
+    expect(lottoResultAnalysis.calculateProfitRate(lottoTickets)).toEqual(
+      expectedProfitRate
+    );
   });
 });
