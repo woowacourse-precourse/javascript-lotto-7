@@ -18,6 +18,10 @@ class App {
 
     const rankCounts = await this.#checkWinningResult(lottos);
     const totalWinningPrize = this.#checkTotalWinningPrize(rankCounts);
+    const profitRate = this.#calculateProfitRate(
+      totalWinningPrize,
+      purchaseAmount,
+    );
   }
 
   async #tryInput(inputFunction) {
@@ -90,6 +94,10 @@ class App {
     const totalWinningPrize = bank.getTotalWinningPrize();
 
     return totalWinningPrize;
+  }
+
+  #calculateProfitRate(totalWinningPrize, purchaseAmount) {
+    return (totalWinningPrize / purchaseAmount) * 100;
   }
 }
 
