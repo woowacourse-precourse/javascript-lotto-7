@@ -10,7 +10,7 @@ class App {
 
     const lottoManager = new LottoManager(parseStringToNumber(inputs));
     lottoManager.printPurchasedLotto();
-    await lottoManager.inputWinningLotto();
+    await lottoManager.setWinningLotto();
     lottoManager.printLottoResult();
   }
 }

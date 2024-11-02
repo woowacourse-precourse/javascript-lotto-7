@@ -67,7 +67,7 @@ class LottoManager {
     return matchObj;
   }
 
-  async inputWinningLotto() {
+  async setWinningLotto() {
     const lottoWinningNumbers = getValidValue(
       await InputRepeat(INPUT.LOTTO_WINNING_NUMBERS, validateLotto),
       RULES.DELIMITER,
