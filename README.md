@@ -45,12 +45,14 @@
     - [x] 1,45,6
     - [x] 당첨금
 
-- [ ] views 폴더
+- [x] views 폴더
   - [x] InputViews.js
     - [x] 구입 금액 입력
     - [x] 당첨 번호 입력
     - [x] 보너스 번호 입력
-  - [ ] OutputViews.js
+  - [x] OutputViews.js
+    - [x] 구매한 로또 수량과 번호 출력
+    - [x] 당첨 통계와 수익률 출력
 
 구입금액을 입력해 주세요.
 8000
