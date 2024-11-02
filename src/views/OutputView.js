@@ -24,3 +24,7 @@ export function printPrizes(prizes) {
     MissionUtils.Console.print(`${prize.matchCount}개 일치${BONUS_MESSAGE} (${prize.money.toLocaleString()}원) - ${prize.count}개`);
   }
 }
+
+export function printPayoutPercentage(payoutPercentage) {
+  MissionUtils.Console.print(`총 수익률은 ${payoutPercentage}%입니다.`);
+}
