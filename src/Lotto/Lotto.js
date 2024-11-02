@@ -10,8 +10,8 @@ class Lotto {
 
   getWinningResult(winningNumber, bonusNumber) {
     const compareCount = this.ompareWinningNumbersCount(winningNumber);
-    const winningMoney = this.setWinningMoney(compareCount, bonusNumber);
-    return winningMoney;
+    const rank = this.setWinningRank(compareCount, bonusNumber);
+    return rank;
   }
 
   compareWinningNumbersCount(winningNumbers) {
@@ -21,19 +21,19 @@ class Lotto {
     return matchingNumbers.length;
   }
 
-  setWinningMoney(compareCount, bonusNumber) {
+  setWinningRank(compareCount, bonusNumber) {
     if (compareCount === 5 && this.#numbers.includes(bonusNumber)) {
-      return '30,000,000원';
+      return 2;
     }
     switch (compareCount) {
       case 3:
-        return '5,000원';
+        return 5;
       case 4:
-        return '50,000원';
+        return 4;
       case 5:
-        return '1,500,000원';
+        return 3;
       case 6:
-        return '2,000,000,000원';
+        return 1;
       default:
         return 0;
     }

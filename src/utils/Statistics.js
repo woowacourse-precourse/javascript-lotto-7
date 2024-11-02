@@ -1,15 +1,17 @@
 class Statistics {
   static countOccurrences(arr) {
-    const result = [];
-    arr.forEach((money) => {
-      result.push([money, 1]);
-      if (result[0] === money) {
-        result.push([money, 1]);
-      }
+    const frequencyMap = {};
+
+    // 각 값의 빈도 계산
+    arr.forEach((value) => {
+      frequencyMap[value] = (frequencyMap[value] || 0) + 1;
     });
+
+    // 빈도 맵을 [{ money, count }] 형식의 배열로 변환
+    return Object.entries(frequencyMap).map(([key, count]) => ({
+      money: key, // 문자열 그대로 반환
+      count,
+    }));
   }
 }
-
-// 사용 예시
-const result = Statistics.countOccurrences([123, 1234, 123, 1231, 1234]);
-console.log(result); // [[123, 2], [1234, 2], [1231, 1]]
+export default Statistics;

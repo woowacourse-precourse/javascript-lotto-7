@@ -2,6 +2,7 @@ import Validator from './utils/Validator.js';
 import Handler from './utils/Handler.js';
 import Ticket from './Lotto/Ticket.js';
 import Lotto from './Lotto/Lotto.js';
+import Statistics from './utils/Statistics.js';
 
 class App {
   async run() {

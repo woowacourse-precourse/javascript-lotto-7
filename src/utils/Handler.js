@@ -9,6 +9,8 @@ class Handler {
     Console.print(output);
   }
 
+  static setResultOutPut(moneyAndCount) {}
+
   async validateInputHandler(message, validator) {
     while (true) {
       try {
