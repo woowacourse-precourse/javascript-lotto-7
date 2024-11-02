@@ -11,6 +11,16 @@ class Validation {
     }
   }
 
+  static validateCommaSeparatedFormat(numbers) {
+    if (
+      numbers.includes(',,') ||
+      numbers.startsWith(',') ||
+      numbers.endsWith(',')
+    ) {
+      throw new Error('[ERROR] 구분자가 잘못되었습니다.');
+    }
+  }
+
   static validateSixNumbers(numbers) {
     if (numbers.length !== 6) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
