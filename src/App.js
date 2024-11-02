@@ -1,5 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
-import { purchaseAmountValidation } from './inputHandler/inputValidation';
+import {
+  purchaseAmountValidation,
+  winningLottoValidation,
+} from './inputHandler/inputValidation';
 
 class App {
   async readPurchaseAmount() {
@@ -9,8 +12,17 @@ class App {
     purchaseAmountValidation(purchaseAmount);
   }
 
+  async readWinningLotto() {
+    const winningLottoInput = await Console.readLineAsync(
+      '당첨 번호를 입력해 주세요.\n',
+    );
+    const winningLottoArray = winningLottoInput.split(',');
+    winningLottoValidation(winningLottoArray);
+  }
+
   async run() {
     const purchaseAmount = await this.readPurchaseAmount();
+    const winningLotto = await this.readWinningLotto();
   }
 }
 
