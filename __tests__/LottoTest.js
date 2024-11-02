@@ -15,4 +15,15 @@ describe('로또 클래스 테스트', () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test('getNumbers()', () => {
+    //given
+    const mockNumbers = [1, 2, 3, 4, 5, 6];
+    const lotto = new Lotto(mockNumbers);
+
+    //when
+    const result = lotto.getNumbers();
+
+    //then
+    expect(result).toEqual(mockNumbers);
+  });
 });
