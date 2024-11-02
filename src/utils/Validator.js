@@ -1,7 +1,7 @@
 import ERROR_MESSAGES from '../consts/ErrorMessage.js';
 
 class Validator {
-  static validateWinningNumbers(numbers) {
+  static validateLotto(numbers) {
     if (numbers.length !== 6) {
       throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_LENGTH);
     }

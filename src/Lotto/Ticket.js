@@ -1,17 +1,11 @@
 import { Random } from '@woowacourse/mission-utils';
-import Handler from '../utils/Handler.js';
-import Validator from '../utils/Validator.js';
 
 class Ticket {
   #tickets = 0;
 
   #countTicek = [];
 
-  async initiatePurchase() {
-    const money = await Handler.validateInputHandler(
-      '구입금액을 입력해 주세요.',
-      Validator.validateMoney,
-    );
+  constructor(money) {
     this.#initTicketCount(money);
     for (let i; i < this.#countTicek; i += 1) {
       this.#tickets.push(this.#purchaseTicket());
