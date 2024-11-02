@@ -60,4 +60,5 @@ export const ERROR_MESSAGE = {
   notInteger: '[ERROR] 당첨 번호와 보너스 번호는 정수만 가능합니다.',
   isDuplicated:
     '[ERROR] 각 당첨 번호와 보너스 번호들은 서로 중복될 수 없습니다.',
+  notValidNumberCount: `[ERROR] 번호는 ${VALIDATION.drawNumbers}개로 입력해주세요.`,
 };
