@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { matchCounts } from '../Models/winningStatisticsUtils.js';
 
-const printCountPurchaseAmount = (purchaseCount) => {
+const printPurchaseAmountCount = (purchaseCount) => {
   Console.print(`\n${purchaseCount}개를 구매했습니다.`);
 };
 
@@ -29,4 +29,4 @@ const printWinningAmount = () => {
 const printRateOfReturn = (rateOfReturn) => {
   Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
 };
-export { printCountPurchaseAmount, printLottoList, printRateOfReturn, printWinningAmount };
+export { printPurchaseAmountCount, printLottoList, printRateOfReturn, printWinningAmount };
