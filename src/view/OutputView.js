@@ -12,12 +12,8 @@ class OutputView {
 
   static printLottoBundle(lottoBundle) {
     lottoBundle.forEach((lotto) => {
-      Console.print(OutputView.formatLottoNumbers(lotto.getNumbers()));
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
     });
-  }
-
-  static formatLottoNumbers(numbers) {
-    return `[${numbers.join(', ')}]`;
   }
 
   static printResult(winningStatistics, rangeOfReturn) {

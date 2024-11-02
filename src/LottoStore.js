@@ -39,7 +39,7 @@ class LottoStore {
   }
 
   #setPurchaseAmount(userAmount) {
-    this.#amount = LottoStore.#parseAmount(userAmount);
+    this.#amount = parseInt(userAmount, 10);
     this.#lottoCount = this.#getLottoCount();
   }
 
@@ -59,10 +59,6 @@ class LottoStore {
     if (amount % LOTTO_VALUES.LOTTO_PRICE !== 0) {
       throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
     }
-  }
-
-  static #parseAmount(amount) {
-    return parseInt(amount, 10);
   }
 
   #getLottoCount() {
