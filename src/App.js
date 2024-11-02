@@ -1,17 +1,17 @@
-import { InputHandler } from "./handler/InputHandler.js";
 import { RepeatHandler } from "./handler/RepeatHandler.js";
+import { PriceInputHandler } from "./handler/PriceInputHandler.js";
 
 class App {
-  #inputHandler;
   #repeatHandler;
+  #priceInputHandler;
 
   constructor() {
-    this.#inputHandler = new InputHandler();
     this.#repeatHandler = new RepeatHandler();
+    this.#priceInputHandler = new PriceInputHandler();
   }
 
   async run() {
-    const input = await this.#repeatHandler.repeatUntilSuccess(async () => await this.#inputHandler.readNumber());
+    const input = await this.#repeatHandler.repeatUntilSuccess(async () => await this.#priceInputHandler.readPrice());
     console.log(input);
   }
 }
