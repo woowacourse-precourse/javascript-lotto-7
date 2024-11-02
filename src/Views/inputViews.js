@@ -3,68 +3,66 @@ import { PurchaseAmountValidator } from '../Controllers/Validator/purchaseAmount
 import { WinningNumbersValidator } from '../Controllers/Validator/winningNumbersValidator.js';
 import { BonusNumberValidator } from '../Controllers/Validator/bonusNumberValidator.js';
 
-class PurchaseAmountInput {
+class Inputs {
   constructor() {
     this.purchaseAmount = 0;
-    this.isValid = 0;
-    this.validator = new PurchaseAmountValidator();
+    this.winningNumbers = 0;
+    this.bonusNumber = 0;
+    this.purchaseAmountValidator = new PurchaseAmountValidator();
+    this.winningNumbersValidator = new WinningNumbersValidator();
+    this.BonusNumberValidator = new BonusNumberValidator();
   }
 
   async getPurchaseAmountInput() {
     while (true) {
       try {
         this.purchaseAmount = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-        const trueCheck = this.validator.validatePurchaseAmount(this.purchaseAmount);
-        if (trueCheck === true) {
-          return this.purchaseAmount;
-        }
+        return this.validatePurchaseAmount();
       } catch (e) {
         Console.print(e.message);
       }
     }
   }
-}
 
-class WinningNumbersInput {
-  constructor() {
-    this.winningNumbers = 0;
-    this.validator = new WinningNumbersValidator();
+  validatePurchaseAmount() {
+    if (this.purchaseAmountValidator.validatePurchaseAmount(this.purchaseAmount)) {
+      return this.purchaseAmount;
+    }
   }
 
   async getWinningNumbersInput() {
     while (true) {
       try {
         this.winningNumbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-        const trueCheck = this.validator.validateWinningNumbers(this.winningNumbers);
-        if (trueCheck === true) {
-          return this.winningNumbers;
-        }
+        return validateWinningNumbers();
       } catch (e) {
         Console.print(e.message);
       }
     }
   }
-}
 
-class BonusNumberInput {
-  constructor() {
-    this.bonusNumber = 0;
-    this.validator = new BonusNumberValidator();
+  validateWinningNumbers() {
+    if (this.winningNumbersValidator.validateWinningNumbers(this.winningNumbers)) {
+      return this.winningNumbers;
+    }
   }
 
   async getBonusNumberInput() {
     while (true) {
       try {
         this.bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-        const trueCheck = this.validator.validateBonusNumber(this.bonusNumber);
-        if (trueCheck === true) {
-          return this.bonusNumber;
-        }
+        validateBonusNumber();
       } catch (e) {
         Console.print(e.message);
       }
     }
   }
+
+  validateBonusNumber() {
+    if (this.BonusNumberValidator.validateBonusNumber(this.bonusNumber)) {
+      return this.bonusNumber;
+    }
+  }
 }
 
-export { PurchaseAmountInput, WinningNumbersInput, BonusNumberInput };
+export { Inputs };

@@ -1,4 +1,4 @@
-import { PurchaseAmountInput, WinningNumbersInput, BonusNumberInput } from './Views/inputViews.js';
+import { Inputs } from './Views/inputViews.js';
 import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
 import {
   printCountPurchaseAmount,
@@ -13,20 +13,19 @@ import { trimWinningNumbers } from './Models/winningNumbersUtils.js';
 
 class App {
   async run() {
-    const purchaseAmount = await new PurchaseAmountInput().getPurchaseAmountInput();
-
+    const purchaseAmount = await new Inputs().getPurchaseAmountInput();
     const purchaseCount = countPurchaseAmount(purchaseAmount);
+    
     printCountPurchaseAmount(purchaseCount);
-
     const lottoList = issueLottoList(purchaseCount);
     printLottoList(purchaseCount, lottoList);
 
-    const winningNumbers = await new WinningNumbersInput().getWinningNumbersInput();
+    const winningNumbers = await new Inputs().getWinningNumbersInput();
     const trimWinningNum = trimWinningNumbers(winningNumbers);
 
-    const bonusNumber = await new BonusNumberInput().getBonusNumberInput();
-
+    const bonusNumber = await new Inputs().getBonusNumberInput();
     produceStatistics(trimWinningNum, bonusNumber, lottoList);
+
     printWinningAmount();
 
     const rateOfReturn = produceRateOfReturn(purchaseAmount);
