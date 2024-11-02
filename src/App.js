@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import Lotto from './classes/Lotto.js';
 import LottoGenerator from './classes/LottoGenerator.js';
 import LottoGame from './classes/LottoGame.js';
+import LottoCalculator from './classes/LottoCalculator.js';
 import InputView from './views/InputView.js';
 
 class App {
@@ -41,16 +42,16 @@ class App {
     const bonusNumber = await inputView.inputBonusNumber();
 
     // 로또 추첨 시작(내가 구매한 로또, 로또 당첨 번호, 보너스 번호)
-    const lottoGame = new LottoGame(myLottos, winningLotto, bonusNumber);
+    const lottoGame = new LottoGame(
+      myLottos,
+      winningLotto,
+      bonusNumber,
+      purchasePrice
+    );
 
-    // 로또 추첨
-    const results = lottoGame.drawLotto();
     Console.print('\n당첨 통계\n---');
-    // 로또 결과 출력
-    lottoGame.displayResults(results);
-
-    // 로또 수익률 계산 출력
-    lottoGame.calculateLottoPrize(purchasePrice, results);
+    //  로또 추첨, 로또 결과 출력 (분리 필요성)
+    const results = lottoGame.drawLotto();
   }
 }
 
