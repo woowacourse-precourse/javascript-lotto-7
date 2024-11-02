@@ -9,8 +9,8 @@ class GameOutput {
   }
 
   printGameResult(result) {
-    const REGEX = /\B(?=(\d{3})+(?!\d))/g;
-    const format_benefit_rate = result.benefitRate.toString().replace(REGEX, ",");
+    const FORMAT_REGEX = /\B(?=(\d{3})+(?!\d))/g;
+    const format_benefit_rate = result.benefitRate.toString().replace(FORMAT_REGEX, ",");
     Console.print(MESSAGE.OUTPUT.RESULT_HEADER);
     Console.print(`${MESSAGE.OUTPUT.RESULT.FIFTH} - ${result.prizeStat.prizeFifth}개`);
     Console.print(`${MESSAGE.OUTPUT.RESULT.FOURTH} - ${result.prizeStat.prizeFourth}개`);

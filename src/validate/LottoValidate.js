@@ -3,7 +3,12 @@ import { LOTTO_DATA } from "../constant/Data.js";
 
 class LottoValidate {
   static validateIsNumber(lotto) {
-    if (lotto.some((number) => isNaN(number))) throw new Error(ERROR_MESSAGE.LOTTO.ERROR_LOTTO_NON_NUMBER);
+    const NUM_REGEX = /^[0-9\s]*$/;
+    if (lotto.some((number) => !NUM_REGEX.test(number))) throw new Error(ERROR_MESSAGE.LOTTO.ERROR_LOTTO_NON_NUMBER);
+  }
+
+  static validateIsNull(lotto) {
+    if (lotto.some((element) => element === "")) throw new Error(ERROR_MESSAGE.LOTTO.ERROR_LOTTO_NULL);
   }
 
   static validateLottoLength(lotto) {

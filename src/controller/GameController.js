@@ -58,7 +58,7 @@ class GameController {
     while (true) {
       try {
         const winning_lotto = await this.#gameInput.readWinningLotto();
-        return GetNumber.winningLotto(winning_lotto);
+        return GetNumber.winningLotto(winning_lotto).map((number) => parseInt(number));
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
       }

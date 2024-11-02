@@ -17,6 +17,7 @@ class Exception {
 
   static lottoValidate(lotto) {
     LottoValidate.validateIsNumber(lotto);
+    LottoValidate.validateIsNull(lotto);
     LottoValidate.validateLottoLength(lotto);
     LottoValidate.validateLottoDup(lotto);
     LottoValidate.validateLottoRange(lotto);

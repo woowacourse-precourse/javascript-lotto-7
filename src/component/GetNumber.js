@@ -10,7 +10,7 @@ class GetNumber {
   }
 
   static winningLotto(lotto) {
-    return new Lotto(lotto.split(",").map((number) => parseInt(number.replace(/ /g, "")))).getNumber();
+    return new Lotto(lotto.split(",").map((number) => number.replace(/ /g, ""))).getNumber();
   }
 }
 
