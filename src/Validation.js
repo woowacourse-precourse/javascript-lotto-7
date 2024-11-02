@@ -28,6 +28,15 @@ class Validation {
       throw new Error(ERROR_MESSAGE.notPositiveNumber);
     }
   }
+
+  static isInRange(number) {
+    if (
+      number < GLOBAL_CONSTANTS.minimumNumber ||
+      number > GLOBAL_CONSTANTS.maximumNumber
+    ) {
+      throw new Error(ERROR_MESSAGE.notInRangeNumber);
+    }
+  }
 }
 
 export default Validation;

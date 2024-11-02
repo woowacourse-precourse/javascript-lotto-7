@@ -3,12 +3,14 @@ export const GLOBAL_CONSTANTS = {
   bonusTag: 'bonus',
   drawNumbers: 6,
   unitPrice: 1000,
+  minimumNumber: 1,
+  maximumNumber: 45,
 };
 
 export const LOTTO_MACHINE = {
   unitPrice: GLOBAL_CONSTANTS.unitPrice,
-  minimumNumber: 1,
-  maximumNumber: 45,
+  minimumNumber: GLOBAL_CONSTANTS.minimumNumber,
+  maximumNumber: GLOBAL_CONSTANTS.maximumNumber,
   drawNumbers: GLOBAL_CONSTANTS.drawNumbers,
 };
 
@@ -42,6 +44,8 @@ export const INPUT_VIEW = {
 export const VALIDATION = {
   mustOverage: 0,
   unitPrice: GLOBAL_CONSTANTS.unitPrice,
+  minimumNumber: GLOBAL_CONSTANTS.minimumNumber,
+  maximumNumber: GLOBAL_CONSTANTS.maximumNumber,
 };
 
 export const UTILS = {
@@ -51,4 +55,5 @@ export const UTILS = {
 export const ERROR_MESSAGE = {
   notNumber: '[ERROR] 숫자만 입력 가능합니다.',
   notPositiveNumber: '[ERROR] 구입 금액은 양수만 가능합니다.',
+  notInRangeNumber: `[ERROR] 당첨 번호는 ${VALIDATION.minimumNumber} 이상 ${VALIDATION.maximumNumber} 이하의 숫자만 가능합니다.`,
 };
