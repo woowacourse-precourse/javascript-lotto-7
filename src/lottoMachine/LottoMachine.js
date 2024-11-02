@@ -1,22 +1,30 @@
-import { Calculation } from './Calculation.js';
 import { Input } from './Input.js';
-import { Output } from './Output.js';
 import { Validation } from './Validation.js';
+import { Calculation } from './Calculation.js';
+import { Output } from './Output.js';
 
 export class LottoMachine {
+  #input;
+  #validation;
+  #calculation;
+  #output;
+
+  constructor() {
+    this.#input = new Input();
+    this.#validation = new Validation();
+    this.#calculation = new Calculation();
+    this.#output = new Output();
+  }
+
   async run() {
-    const input = new Input();
-    const validation = new Validation();
-    const calculation = new Calculation();
-    const output = new Output();
+    const purchasePrice = await this.#input.getPurchasePrice();
+    this.#validation.validatePurchasePrice(purchasePrice);
 
-    const purchasePrice = await input.getPurchasePrice();
-    validation.validatePurchasePrice(purchasePrice);
-    const lottoTicketCount = calculation.getLottoTicketCount(purchasePrice);
-    output.printLottoTicketCount(lottoTicketCount);
-    const lottoTicket = output.printLottoTicket(lottoTicketCount);
+    const lottoTicketCount = this.#calculation.getLottoTicketCount(purchasePrice);
+    this.#output.printLottoTicketCount(lottoTicketCount);
 
-    const winningNumbers = await input.getWinningNumbers();
-    const bonusNumber = await input.getBonusNumber();
+    const lottoTicket = this.#output.printLottoTicket(lottoTicketCount);
+    const winningNumbers = await this.#input.getWinningNumbers();
+    const bonusNumber = await this.#input.getBonusNumber();
   }
 }
