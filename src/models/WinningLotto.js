@@ -1,7 +1,8 @@
+import Lotto from './Lotto.js';
 import { lottoConfig } from './lottoConfig.js';
 
 export default class WinningLotto {
-  #mainNumbers;
+  #mainLotto;
   #bonusNumber;
   #ERROR_MESSAGE = {
     INVALID_NUMBER_RANGE: `[ERROR] 번호의 범위는 ${lottoConfig.LOTTO_MIN_NUMBER}~${lottoConfig.LOTTO_MAX_NUMBER}여야합니다.\n`,
@@ -9,9 +10,9 @@ export default class WinningLotto {
     BONUS_NUMBER_DUPLICATION: '[ERROR] 보너스 번호가 당첨번호와 중복됩니다.\n',
   };
 
-  setMainNumbers(mainNumbers) {
+  setMainLotto(mainNumbers) {
     this.#validateMainNumbers(mainNumbers);
-    this.#mainNumbers = mainNumbers;
+    this.#mainLotto = new Lotto(mainNumbers);
   }
 
   setBonusNumber(bonusNumber) {
@@ -19,8 +20,8 @@ export default class WinningLotto {
     this.#bonusNumber = bonusNumber;
   }
 
-  getMainNumbers() {
-    return this.#mainNumbers;
+  getMainLotto() {
+    return this.#mainLotto;
   }
 
   getBonusNumber() {
@@ -50,13 +51,16 @@ export default class WinningLotto {
 
   #checkMainNumbersDuplication(mainNumbers) {
     const uniqueNumbers = new Set(mainNumbers);
+    
     if (uniqueNumbers.size !== lottoConfig.LOTTO_NUM_COUNT) {
       throw new Error(this.#ERROR_MESSAGE.MAIN_NUMBER_DUPLICATION);
     }
   }
 
   #checkBonusNumberDuplication(bonusNumber) {
-    const uniqueNumbers = new Set([...this.#mainNumbers, bonusNumber]);
+    const mainNumbers = this.#mainLotto.getNumbers()
+    const uniqueNumbers = new Set([...mainNumbers, bonusNumber]);
+
     if (
       uniqueNumbers.size !==
       lottoConfig.LOTTO_NUM_COUNT + lottoConfig.LOTTO_BOUNS_NUMBER_COUNT

@@ -11,6 +11,10 @@ export default class LottoPurchaser {
     return this.#purchasePrice
   }
 
+  setPurchasePrice(purchasePrice){
+    this.#purchasePrice = purchasePrice
+  }
+
   getLottoCount() {
     return this.#lottoCount;
   }
@@ -26,13 +30,14 @@ export default class LottoPurchaser {
   purchase(purchasePrice) {
     // TODO : 생성자 코드 수정 고려해보기
     const lottoGenerator = new LottoGenerator();
-    this.#purchasePrice = purchasePrice
 
     [this.#lottoCount, this.#lottos] = lottoGenerator.generate(purchasePrice);
+    this.#purchasePrice = purchasePrice;
     this.#lottoResult = new LottoResult();
   }
 
   compareLottosWithWinningLotto(winningLotto){
+    const mainLotto = winningLotto.getMainLotto();
     
     // 당첨 로또랑 비교
     // 당첨 로또 결과값 설정하기

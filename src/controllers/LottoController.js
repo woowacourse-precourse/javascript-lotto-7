@@ -43,7 +43,7 @@ export default class LottoController {
       try {
         const winningLottoMainNumbers =
           await this.#inputLottoView.getInputWinningLottoMainNumbers();
-        this.#winningLotto.setMainNumbers(winningLottoMainNumbers);
+        this.#winningLotto.setMainLotto(winningLottoMainNumbers);
 
         return;
       } catch (error) {
@@ -68,7 +68,7 @@ export default class LottoController {
 
   #generateLottoResult() {
     this.#lottoPurchaser.compareLottosWithWinningLotto(this.#winningLotto);
-    
+
     this.#outputLottoView.printLottoResult(
       this.#lottoPurchaser.getLottoResult()
     );
