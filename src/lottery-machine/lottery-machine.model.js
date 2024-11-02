@@ -6,6 +6,9 @@ class LotteryMachineModel {
   /** @type {Array<number>} */
   #winningNumbers;
 
+  /** @type {number} */
+  #bonusNumber;
+
   /**
    *
    * @param {number} purchaseAmount
@@ -16,10 +19,26 @@ class LotteryMachineModel {
 
   /**
    *
+   * @returns {Array<number>}
+   */
+  getWinningNumbers() {
+    return this.#winningNumbers;
+  }
+
+  /**
+   *
    * @param {Array<number>} winningNumbers
    */
   setWinningNumbers(winningNumbers) {
     this.#winningNumbers = winningNumbers;
+  }
+
+  /**
+   *
+   * @param {number} bonusNumber
+   */
+  setBonusNumber(bonusNumber) {
+    this.#bonusNumber = bonusNumber;
   }
 }
 

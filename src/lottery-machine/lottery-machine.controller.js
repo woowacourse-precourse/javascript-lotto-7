@@ -23,6 +23,9 @@ class LotteryMachineController {
 
     const winningNumbers = await this.#lotteryMachineView.getLotteryWinningNumbers();
     this.#lotteryMachineService.inputWinningNumbers(winningNumbers);
+
+    const bonusNumber = await this.#lotteryMachineView.getLotteryBonusNumber();
+    this.#lotteryMachineService.inputBonusNumber(bonusNumber);
   }
 }
 

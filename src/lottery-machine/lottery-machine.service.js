@@ -4,6 +4,7 @@ import WinningNumbersValidationStrategy from '../validation/winning-numbers-vali
 import ValidationContext from '../validation/validation.context.js';
 
 import LotteryMachineModel from './lottery-machine.model.js';
+import BonusNumberValidationStrategy from '../validation/bonus-number-validation.strategy.js';
 
 class LotteryMachineService {
   /** @type {LotteryMachineModel} */
@@ -64,6 +65,31 @@ class LotteryMachineService {
     );
 
     this.#lotteryMachineModel.setWinningNumbers(this.#parseWinningNumbers(winningNumbers));
+  }
+
+  /**
+   *
+   * @param {string} bonusNumber
+   * @returns {number}
+   */
+  #parseBonusNumber(bonusNumber) {
+    return Number(bonusNumber);
+  }
+
+  /**
+   *
+   * @param {string} bonusNumber
+   */
+  inputBonusNumber(bonusNumber) {
+    this.#lotteryMachineValidator.validate(
+      new BonusNumberValidationStrategy(
+        bonusNumber,
+        this.#parseBonusNumber,
+        this.#lotteryMachineModel.getWinningNumbers(),
+      ),
+    );
+
+    this.#lotteryMachineModel.setBonusNumber(this.#parseBonusNumber(bonusNumber));
   }
 }
 
