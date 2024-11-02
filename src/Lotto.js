@@ -18,6 +18,10 @@ class Lotto {
   //     throw new Error("[ERROR] 입력값은 1과 45 사이의 숫자여야 합니다.");
   //   return true;
   // }
+
+  getLotto() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
