@@ -1,9 +1,13 @@
-function toPurchaseAmountNumber(amout) {
-  return Number(amout);
+import { LOTTO } from './constants.js';
+
+function toPurchaseAmountNumber(amount) {
+  return Number(amount);
 }
 
 function parseWinningNumbers(numbers) {
-  const winningNumbers = numbers.split(',').map((e) => Number(e.trim()));
+  const winningNumbers = numbers
+    .split(LOTTO.SEPARATOR)
+    .map((e) => Number(e.trim()));
 
   return [...winningNumbers];
 }
