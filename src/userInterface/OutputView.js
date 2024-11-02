@@ -2,25 +2,25 @@ import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT_VIEW } from '../utils/Constants.js';
 
 const outputView = {
-  purchaseAmount: (amount) => {
+  printPurchaseAmount: (amount) => {
     Console.print(OUTPUT_VIEW.purchaseAmount(amount));
   },
 
-  winningStatisticsHeader: () => {
+  printStatisticsHeader: () => {
     Console.print(OUTPUT_VIEW.winningStatisticsHeader);
   },
 
-  separatingMark: () => {
+  printSeparatingMark: () => {
     Console.print(OUTPUT_VIEW.separatingMark);
   },
 
-  winningStatistics: (numbersOfMatched, matchingCount, prize) => {
+  printWinningStatistics: (numbersOfMatched, matchingCount, prize) => {
     Console.print(
       OUTPUT_VIEW.winningStatistics(numbersOfMatched, matchingCount, prize),
     );
   },
 
-  winningBonusStatistics: (numbersOfMatched, matchingCount, prize) => {
+  printBonusStatistics: (numbersOfMatched, matchingCount, prize) => {
     Console.print(
       OUTPUT_VIEW.winningBonusStatistics(
         numbersOfMatched,
@@ -30,7 +30,7 @@ const outputView = {
     );
   },
 
-  profit: (profit) => {
+  printProfit: (profit) => {
     Console.print(OUTPUT_VIEW.profit(profit));
   },
 };
