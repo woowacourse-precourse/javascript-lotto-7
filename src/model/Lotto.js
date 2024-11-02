@@ -1,3 +1,5 @@
+import { LOTTO_ERROR_MESSAGE } from "../constant/constant.js";
+
 class Lotto {
   #numbers;
 
@@ -9,13 +11,13 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(LOTTO_ERROR_MESSAGE.NOT_SIX_NUMBER);
     }
     if (numbers.some((num) => num < 1 || num > 45)) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      throw new Error(LOTTO_ERROR_MESSAGE.NOT_RANGE_NUMBER);
     }
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[ERROR] 로또 번호에 중복된 숫자가 포함될 수 없습니다.");
+      throw new Error(LOTTO_ERROR_MESSAGE.NOT_SAME_NUMBER);
     }
   }
 
