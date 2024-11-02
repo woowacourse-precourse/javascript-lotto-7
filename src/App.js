@@ -10,7 +10,7 @@ class App {
 
   async getLottoMachine() {
     try {
-      const payment = await inputView.askPayment();
+      const payment = await App.getPayment();
       const lottoMachine = new LottoMachine(payment, Lotto);
       return lottoMachine;
     } catch (error) {
@@ -18,6 +18,11 @@ class App {
 
       return this.getLottoMachine();
     }
+  }
+
+  static async getPayment() {
+    const payment = await inputView.askPayment();
+    return this.parsePayment(payment);
   }
 
   static parsePayment(payment) {
