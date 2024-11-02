@@ -12,11 +12,10 @@ class App {
 
         const winningNumber =  await inputHandler.askWinningNumbers();
         const bonusNumber = await inputHandler.askBonusNumber();
-        const lotto = new Lotto(issuedLottos, winningNumber, bonusNumber);       
-
-    
-
-        //당첨 내역과 수익률 출력       
+        const lotto = new Lotto(issuedLottos, winningNumber, bonusNumber);  
+        
+        const result = lotto.calculateResult();
+        lotto.printLottoSummary(result, userMoney);     
     }
 }
 
