@@ -18,7 +18,7 @@ const ERROR_MESSAGE = {
   // bonusNumberError
   EMPTY_INPUT_BONUS_NUMBER: `${ERROR} 빈값입니다. \n${BONUS_NUMBER_MESSAGE}`,
   NUMBER_TYPE: `${ERROR} 숫자가 아닙니다. \n${BONUS_NUMBER_MESSAGE}`,
-  ONE_DIGIT_NUMBER: `${ERROR} 입력하신 보너스번호는 한 자리의 숫자가 아닙니다. \n${BONUS_NUMBER_MESSAGE}`,
+  NUMBER_RANGE: `${ERROR}입력하신 보너스번호는 1부터 45 까지의 숫자가 아닙니다.\n${BONUS_NUMBER_MESSAGE}`,
 };
 
 export { ERROR_MESSAGE };

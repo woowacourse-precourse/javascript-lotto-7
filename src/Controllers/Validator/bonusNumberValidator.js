@@ -13,8 +13,8 @@ class BonusNumberValidator {
     return !isNaN(bonusNumber);
   }
 
-  isValidateLengthBonusNumber(bonusNumber) {
-    return bonusNumber.length === 1;
+  isValidateBonusNumberRange(bonusNumber) {
+    return bonusNumber > 0 && bonusNumber < 46;
   }
 
   validateBonusNumber(bonusNumber) {
@@ -26,8 +26,8 @@ class BonusNumberValidator {
       throw new Error(ERROR_MESSAGE.NUMBER_TYPE);
     }
 
-    if (!this.isValidateLengthBonusNumber(bonusNumber)) {
-      throw new Error(ERROR_MESSAGE.ONE_DIGIT_NUMBER);
+    if (!this.isValidateBonusNumberRange(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.NUMBER_RANGE);
     }
     return true;
   }
