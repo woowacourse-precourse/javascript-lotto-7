@@ -1,5 +1,8 @@
 class Validator {
   validatePurchaseAmount(purchaseAmount) {
+    if (!purchaseAmount) {
+      throw new Error("[ERROR] 구매 금액을 입력해 주세요.");
+    }
     if (isNaN(purchaseAmount)) {
       throw new Error("[ERROR] 로또 구매 금액은 숫자여야 합니다.");
     }
