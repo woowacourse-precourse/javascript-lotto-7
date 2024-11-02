@@ -3,7 +3,6 @@ import Lotto from './Lotto.js';
 class App {
   async run() {
     try {
-      
       const CORRECT_NUMBER = [3,4,5,7,6];
       const CORRECT_MESSAGE = [
         '3개 일치 (5,000원) -', 
@@ -18,6 +17,15 @@ class App {
       let amount = await Console.readLineAsync(
         '구입금액을 입력해 주세요.\n'
       );
+      if (isNaN(amount)) 
+        throw new Error('[ERROR] 구입 금액은 숫자여야 합니다.');
+
+      if (amount%1000 != 0)
+        throw new Error('[ERROR] 구입 금액은 1,000원으로 나누어 떨어져야 합니다.');
+
+      // if (amount < 1 || amount > 45)
+      //   throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
+
       let count = amount / 1000;
       Console.print(`\n${count}개를 구매했습니다.`);
 
@@ -37,10 +45,21 @@ class App {
         '\n당첨 번호를 입력해 주세요.\n'
       );
       answerNum = answerNum.split(',').map(num => Number(num.trim()));
+      if (!answerNum.every(num => !isNaN(num))) {
+        throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+      }
+      if (answerNum.length !== 6) {
+        throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      }
 
       let bonusNum = await Console.readLineAsync(
         '\n보너스 번호를 입력해 주세요.\n'
       );
+      if (isNaN(bonusNum)) 
+        throw new Error('[ERROR] 보너스 번호는 숫자여야 합니다.');
+      if (!answerNum.includes(bonusNum))
+        throw new Error('[ERROR] 보너스 번호와 당첨 번호는 중복되지 않아야 합니다.');
+
       bonusNum = Number(bonusNum);
 
       Console.print('\n당첨 통계\n---');
