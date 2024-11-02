@@ -1,45 +1,46 @@
+import ERROR_MESSAGES from "../constants/messages";
 import throwError from "../utils/throwError";
 
 class Validator {
   static isEmpty(input) {
-    if (!input) throwError("빈 값");
+    if (!input) throwError(ERROR_MESSAGES.EMPTY_INPUT);
     return input;
   }
 
   static isSeparatedFormat(input, separator = ",") {
     const values = input.split(separator).map((value) => value.trim());
-    if (values.length < 1) throwError("입력 형식이 잘못됐습니다.");
+    if (values.length < 1) throwError(ERROR_MESSAGES.INVALID_SEPARATOR);
     return values;
   }
 
   static isNumber(input) {
-    if (isNaN(input)) throwError("숫자 타입 아님");
+    if (isNaN(input)) throwError(ERROR_MESSAGES.NON_NUMERIC);
     return Number(input);
   }
 
   static isNagativeNumber(input) {
-    if (input < 0) throwError("음수");
+    if (input < 0) throwError(ERROR_MESSAGES.NEGATIVE_VALUE);
     return input;
   }
 
   static isZero(input) {
-    if (input === 0) throwError("0");
+    if (input === 0) throwError(ERROR_MESSAGES.ZERO_VALUE);
     return input;
   }
 
   static isNumberInRange(input, min = 1, max = 45) {
-    if (input < min || input > max)
-      throwError(`값은 ${min}부터 ${max} 사이여야 합니다.`);
+    if (input < min || input > max) throwError(ERROR_MESSAGES.OUT_OF_RANGE);
     return input;
   }
 
   static isLengthSix(input) {
-    if (input.length !== 6) throwError("로또 번호는 6개의 숫자여야 합니다.");
+    if (input.length !== 6) throwError(ERROR_MESSAGES.INCORRECT_LENGTH);
     return input;
   }
 
   static isDuplicate(input) {
-    if (new Set(input).size !== input.length) throw new Error("중복");
+    if (new Set(input).size !== input.length)
+      throw new Error(ERROR_MESSAGES.DUPLICATE_FOUND);
     return input;
   }
 }
