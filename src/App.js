@@ -74,6 +74,19 @@ function matchingPlace(lottos, winningNumbers, bonusNumber) {
   return places;
 }
 
+function getProfit(result, amount) {
+  let sum = 0;
+  sum =
+    sum +
+    result[0] * 5000 +
+    result[1] * 50000 +
+    result[2] * 1500000 +
+    result[3] * 30000000 +
+    result[4] * 2000000000;
+  sum /= amount * 1000;
+  return sum.toFixed(1);
+}
+
 // 출력 모듈
 
 function printLottos(lottos) {
@@ -85,7 +98,13 @@ function printLottos(lottos) {
 
 function printResult(lottos, winningNumbers, bonusNumber) {
   Console.print('\n당첨 통계\n---\n');
-  console.log(matchingPlace(lottos, winningNumbers, bonusNumber));
+  let result = matchingPlace(lottos, winningNumbers, bonusNumber);
+  Console.print(`3개 일치 (5,000원) - ${result[0]}개\n`);
+  Console.print(`4개 일치 (50,000원) - ${result[1]}개\n`);
+  Console.print(`5개 일치 (1,500,000원) - ${result[2]}개\n`);
+  Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result[3]}개\n`);
+  Console.print(`3개 일치 (2,000,000,000원) - ${result[4]}개\n`);
+  Console.print(`총 수익률은 ${getProfit(result, lottos.length)}%입니다.`);
 }
 
 // 검사 모듈
@@ -124,6 +143,7 @@ class App {
     printLottos(lottos);
     let winningNumbers = await getWinningNumbers();
     let bonusNumber = await getBonusNumber(winningNumbers);
+    printResult(lottos, winningNumbers, bonusNumber);
   }
 }
 
