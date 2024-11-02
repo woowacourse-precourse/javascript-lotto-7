@@ -1,18 +1,23 @@
-import { readUserInput } from './util/missionUtil.js';
+import { printResult, readUserInput } from './util/missionUtil.js';
 import { MONEY_MESSAGES } from './util/constant.js';
 
 class InputView {
-  async processMoney() {
-    const money = await this.readInputMoney();
-    this.validateMoney(money.trim(''));
-    return money.trim('');
+  static async processMoney() {
+    try {
+      const money = await this.readInputMoney();
+      this.validateMoney(money.trim(''));
+      return money.trim('');
+    } catch (error) {
+      printResult(error.message);
+      return await this.processMoney();
+    }
   }
 
-  async readInputMoney() {
+  static async readInputMoney() {
     return await readUserInput(MONEY_MESSAGES.question);
   }
 
-  validateMoney(money) {
+  static validateMoney(money) {
     const moneyNumber = Number(money);
 
     if (Number.isNaN(moneyNumber))

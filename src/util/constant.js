@@ -1,3 +1,10 @@
+export const LOTTO_CONSTANTS = Object.freeze({
+  price: 1000,
+  minLottoNumber: 1,
+  maxLottoNumber: 45,
+  length: 6,
+});
+
 export const MONEY_MESSAGES = Object.freeze({
   question: '구입금액을 입력해 주세요.\n',
   error: {
@@ -23,4 +30,9 @@ export const BONUS_NUMBER_MESSAGE = Object.freeze({
     notNumber: '[ERROR] 숫자를 입력해주세요.',
     notInRange: '[ERROR] 번호의 범위는 1 ~ 45 이어야 합니다.',
   },
+});
+
+export const OUTPUT_MESSAGE = Object.freeze({
+  buyLotto: (money) => `\n${money}개를 구매했습니다.`,
+  lottoNumbers: (number) => `[${number.join(', ')}]`,
 });
