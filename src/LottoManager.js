@@ -1,4 +1,5 @@
 import InputHandler from "./InputHandler.js";
+import { LOTTO_PRICE } from "./lottoConstants.js";
 import OutputHandler from "./OutputHandler.js";
 
 class LottoManager {
@@ -13,6 +14,7 @@ class LottoManager {
   async start() {
     try {
       const amount = await this.#buyLotto();
+      const lottoCount = this.#calculateLottoCount(amount);
     } catch (error) {
       throw error;
     }
@@ -27,6 +29,10 @@ class LottoManager {
         this.#outputHandler.printErrorMessage(error.message);
       }
     }
+  }
+
+  #calculateLottoCount(amount) {
+    return amount / LOTTO_PRICE;
   }
 }
 
