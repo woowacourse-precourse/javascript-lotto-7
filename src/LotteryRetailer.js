@@ -16,8 +16,8 @@ class LotteryRetailer {
   issueTicket(price) {
     this.#validatePrice(price);
 
+    const tickets = [];
     const amount = price / LOTTO.ticketPrice;
-    let tickets = [];
 
     for (let i = 0; i < amount; i++) {
       const ticket = new Lotto(LotteryRetailer.pickLottoNumber());
