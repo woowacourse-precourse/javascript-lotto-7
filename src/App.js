@@ -9,15 +9,19 @@ class App {
   async getPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
 
-    if (!this.validatePurchaseAmount(Number(purchaseAmount))) {
+    if (!this.validatePurchaseAmount(purchaseAmount)) {
       return;
     }
 
-    return purchaseAmount;
+    return parseInt(purchaseAmount);
   }
 
   validatePurchaseAmount(purchaseAmount) {
-    if (purchaseAmount % 1000 !== 0) {
+    if (isNaN(parseInt(purchaseAmount)) || purchaseAmount.trim() === '') {
+      throw new Error('[ERROR] 구입 금액은 숫자로 입력해 주세요.');
+    }
+
+    if (parseInt(purchaseAmount) % 1000 !== 0) {
       throw new Error('[ERROR] 구입 금액을 1,000원 단위로 입력해 주세요.');
     }
 
@@ -39,7 +43,7 @@ class App {
 
   async getWinningNumbers() {
     const numbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    const lottoNumbers = numbers.split(',').map((number) => Number(number));
+    const lottoNumbers = numbers.split(',').map((number) => parseInt(number));
     const lotto = new Lotto(lottoNumbers);
   }
 
