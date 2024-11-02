@@ -7,7 +7,7 @@ async function getPurchaseAmount() {
   while (true) {
     input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
     if (validatePurchaseAmount(input)) break;
-    Console.print('[ERROR] 구입금액은 1,000원 단위여야 합니다!!');
+    Console.print('[ERROR] 구입금액은 1,000원 단위여야 합니다.');
   }
   return Number(input);
 }
@@ -21,8 +21,17 @@ async function getWinningNumbers() {
       '[ERROR] 당첨 번호는 6개의 숫자와 쉼표로 이루어져야 하며, 각각의 숫자는 1~45 사이의 숫자여야 합니다.'
     );
   }
-  console.log(typeof input);
   return parseWinningNums(input);
+}
+
+async function getBonusNumber() {
+  let input = '';
+  while (true) {
+    input = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    if (validateBonusNumber(input)) break;
+    Console.print('[ERROR] 보너스 번호는 1~45 사이의 숫자여야 합니다.');
+  }
+  return Number(input);
 }
 
 // 생성 모듈
@@ -50,7 +59,7 @@ function printLottos(lottos) {
   });
 }
 
-// 예외 처리 모듈
+// 검사 모듈
 
 function validatePurchaseAmount(input) {
   const num = Number(input);
@@ -67,6 +76,11 @@ function validateWinningNumbers(input) {
     return true;
 }
 
+function validateBonusNumber(input) {
+  const number = Number(input);
+  if (!isNaN(number) && number >= 1 && number <= 45) return true;
+}
+
 class App {
   async run() {
     let seedMoney = await getPurchaseAmount();
@@ -74,6 +88,7 @@ class App {
     let lottos = generateLottos(amountOfLottos);
     printLottos(lottos);
     let winningNumbers = await getWinningNumbers();
+    let bonusNumber = await getBonusNumber();
   }
 }
 
