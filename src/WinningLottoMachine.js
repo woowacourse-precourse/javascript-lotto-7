@@ -42,13 +42,7 @@ class WinningLottoMachine {
       /^\d+(,\d+)*$/,
       '당첨 번호는 숫자만 입력 가능하며 쉼표(,)를 기준으로 구분합니다.',
     );
-    const splitNums = WinningLottoMachine.#splitByComma(winningNumbers);
-    WinningLottoMachine.#checkValidLength(splitNums);
-    splitNums.forEach((num) => {
-      Validator.checkValidRange(num, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
-    });
-    WinningLottoMachine.#checkDuplicateNum(splitNums);
-    return splitNums;
+    return WinningLottoMachine.#splitByComma(winningNumbers);
   }
 
   static #validateBonusNumber(bonusNumber, winningNumbers) {
@@ -60,17 +54,6 @@ class WinningLottoMachine {
 
   static #splitByComma(inputString) {
     return inputString.split(',');
-  }
-
-  static #checkValidLength(splitNums) {
-    if (splitNums.length !== 6) throw new Error('[ERROR] 당첨 번호는 6개의 숫자를 입력해야 합니다.');
-  }
-
-  static #checkDuplicateNum(splitNums) {
-    const uniqueNums = new Set(splitNums);
-    if (uniqueNums.size !== splitNums.length) {
-      throw new Error('[ERROR] 당첨 번호는 중복된 숫자를 포함할 수 없습니다.');
-    }
   }
 
   static #checkDuplicateBonusNum(bonusNumber, winningNumbers) {
