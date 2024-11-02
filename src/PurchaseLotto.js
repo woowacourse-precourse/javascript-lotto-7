@@ -10,3 +10,9 @@ export function purchaseLotto(purchaseCount) {
   }
   return lottoList;
 }
+
+export function printPurchasedLotto(lottoList) {
+  lottoList.forEach((lotto) => {
+    lotto.printNumbers();
+  });
+}
