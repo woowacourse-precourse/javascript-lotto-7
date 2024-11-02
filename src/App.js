@@ -1,4 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 // 입력 모듈
 
@@ -39,7 +40,9 @@ async function getBonusNumber() {
 function generateLottos(amount) {
   let array = [];
   for (let i = 0; i < amount; i++) {
-    array.push(Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b));
+    array.push(
+      new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b))
+    );
   }
   return array;
 }
@@ -58,7 +61,7 @@ function parseWinningNumbers(input) {
 function printLottos(lottos) {
   Console.print(`\n${lottos.length}개를 구매했습니다.`);
   lottos.forEach((el) => {
-    Console.print(el);
+    Console.print(el.getLottoNumber());
   });
 }
 
