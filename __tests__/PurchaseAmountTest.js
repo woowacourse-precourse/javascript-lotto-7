@@ -65,7 +65,7 @@ describe("구입금액 테스트", () => {
     test("그 외 다양한 올바른 구입금액이 입력되면 객체가 정상 생성된다.", () => {
         [1000, 5000, 25000, 33000].forEach(amount => {
             expect(() => {
-                new PurchaseAmount(3000);
+                new PurchaseAmount(amount);
             }).not.toThrow();
         });
     });
