@@ -58,7 +58,6 @@ class App {
     }
 
     const parseNumber = getParsingNumber(trimNumber);
-    console.log(parseNumber);
 
     const validateInputNumber = (input) => {
       if (input.length !== 6) {
@@ -77,6 +76,9 @@ class App {
     }
 
     validateInputNumber(parseNumber);
+
+    const inputBonusNumber = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const parseBonusNumber = parseInt(inputBonusNumber, 10);
   }
 }
 
