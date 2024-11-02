@@ -3,6 +3,7 @@ import MESSAGES from "./constants/Messages.js";
 import ERRORS from "./constants/Errors.js";
 import CONDITIONS from "./constants/Conditions.js";
 import InputView from "./views/InputViews.js";
+import OutputView from "./views/OutputViews.js";
 import { Console } from "@woowacourse/mission-utils";
 import { Random } from "@woowacourse/mission-utils";
 
@@ -22,7 +23,6 @@ class App {
     // ~개를 구매했습니다.
 
     const numberOfLottoes = +purchaseAmount / CONDITIONS.ONE_LOTTO_PRICE;
-    Console.print(`${numberOfLottoes}${MESSAGES.BUY_LOTTO}`);
 
     const lottoes = [];
 
@@ -35,9 +35,9 @@ class App {
         )
       );
       lottoes[i].sort((a, b) => a - b);
-      Console.print(`[${lottoes[i].join(", ")}]`);
     }
-    Console.print("");
+
+    OutputView.printPurchasedLottos(numberOfLottoes, lottoes);
 
     // 당첨 번호를 입력
     const winningNumbersInput = await InputView.inputWinningNumbers();
@@ -89,24 +89,7 @@ class App {
       howManyMatch[4] * CONDITIONS.SIX_MATCHING_PRIZES;
     const rateOfReturn = ((totalPrizeMoney / +purchaseAmount) * 100).toFixed(1);
 
-    Console.print(MESSAGES.WON_STATISTICS);
-    Console.print(MESSAGES.DIVIDING_LINE);
-    Console.print(
-      `${MESSAGES.MATCHED_THREE}${howManyMatch[0]}${MESSAGES.COUNT}`
-    );
-    Console.print(
-      `${MESSAGES.MATCHED_FOUR}${howManyMatch[1]}${MESSAGES.COUNT}`
-    );
-    Console.print(
-      `${MESSAGES.MATCHED_FIVE}${howManyMatch[2]}${MESSAGES.COUNT}`
-    );
-    Console.print(
-      `${MESSAGES.MATCHED_FIVE_WITH_BONUS}${howManyMatch[3]}${MESSAGES.COUNT}`
-    );
-    Console.print(`${MESSAGES.MATCHED_SIX}${howManyMatch[4]}${MESSAGES.COUNT}`);
-    Console.print(
-      `${MESSAGES.TOTAL_RATE_OF_RETURN}${rateOfReturn}${MESSAGES.PERCENT}`
-    );
+    OutputView.printWinningStatistics(howManyMatch, rateOfReturn);
   }
 }
 

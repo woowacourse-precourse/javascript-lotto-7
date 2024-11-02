@@ -1,17 +1,17 @@
 import { Console } from "@woowacourse/mission-utils";
-import MESSAGES from "./constants/Messages.js";
+import MESSAGES from "../constants/Messages.js";
 
 class OutputView {
   static printPurchasedLottos(numberOfLottoes, lottoes) {
-    Console.print(`${numberOfLottoes}${MESSAGES.BUY_LOTTO}`);
+    Console.print(`\n${numberOfLottoes}${MESSAGES.BUY_LOTTO}`);
 
     lottoes.forEach((lotto) => {
       Console.print(`[${lotto.join(", ")}]`);
     });
-    Console.print("");
   }
 
   static printWinningStatistics(howManyMatch, rateOfReturn) {
+    Console.print("");
     Console.print(MESSAGES.WON_STATISTICS);
     Console.print(MESSAGES.DIVIDING_LINE);
     Console.print(

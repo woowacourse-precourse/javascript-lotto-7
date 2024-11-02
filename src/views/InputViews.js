@@ -1,17 +1,17 @@
 import { Console } from "@woowacourse/mission-utils";
-import MESSAGES from "./constants/Messages.js";
+import MESSAGES from "../constants/Messages.js";
 
 class InputView {
   static inputMoney() {
-    return Console.readLineAsync(`${MESSAGES.INPUT_MONEY}\n`);
+    return Console.readLineAsync(`${MESSAGES.INPUT_MONEY}`);
   }
 
   static inputWinningNumbers() {
-    return Console.readLineAsync(`${MESSAGES.INPUT_WINNING_NUMBERS}\n`);
+    return Console.readLineAsync(`\n${MESSAGES.INPUT_WINNING_NUMBERS}`);
   }
 
   static inputBonusNumber() {
-    return Console.readLineAsync(`${MESSAGES.INPUT_BONUS_NUMBER}\n`);
+    return Console.readLineAsync(`\n${MESSAGES.INPUT_BONUS_NUMBER}`);
   }
 }
 

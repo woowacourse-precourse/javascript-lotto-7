@@ -1,4 +1,4 @@
-import CONDITIONS from "./constants/Conditions.js";
+import CONDITIONS from "./Conditions.js";
 
 const ERRORS = Object.freeze({
   NOT_1000_WON: `[ERROR] ${CONDITIONS.ONE_LOTTO_PRICE}원단위로 구매해주세요.`,
