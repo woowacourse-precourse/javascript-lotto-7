@@ -1,7 +1,8 @@
 import { LOTTO_PRICE } from "./constants.js";
 
 export const viewMessages = {
-  price: '구입금액을 입력해주세요.\n'
+  price: '구입금액을 입력해주세요.\n',
+  count: '개를 구매했습니다.',
 };
 
 export const inValidMessages = {
