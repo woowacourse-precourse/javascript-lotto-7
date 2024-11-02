@@ -3,29 +3,29 @@ import { WINNING_INDEX, REWARD } from "../constants/Constants.js";
 
 const REWARD_COMMENT = [
   {
-    matchCount: "3개 일치",
-    price: REWARD.THREE_MATCH,
-    winningCount: WINNING_INDEX.THREE_MATCH,
+    MATCH_COUNT: "3개 일치",
+    PRICE: REWARD.THREE_MATCH,
+    WINNING_COUNT: WINNING_INDEX.THREE_MATCH,
   },
   {
-    matchCount: "4개 일치",
-    price: REWARD.FOUR_MATCH,
-    winningCount: WINNING_INDEX.FOUR_MATCH,
+    MATCH_COUNT: "4개 일치",
+    PRICE: REWARD.FOUR_MATCH,
+    WINNING_COUNT: WINNING_INDEX.FOUR_MATCH,
   },
   {
-    matchCount: "5개 일치",
-    price: REWARD.FIFTH_MATCH,
-    winningCount: WINNING_INDEX.FIFTH_MATCH,
+    MATCH_COUNT: "5개 일치",
+    PRICE: REWARD.FIFTH_MATCH,
+    WINNING_COUNT: WINNING_INDEX.FIFTH_MATCH,
   },
   {
-    matchCount: "5개 일치, 보너스 볼 일치",
-    price: REWARD.FIFTH_BONUS_MATCH,
-    winningCount: WINNING_INDEX.FIFTH_BONUS_MATCH,
+    MATCH_COUNT: "5개 일치, 보너스 볼 일치",
+    PRICE: REWARD.FIFTH_BONUS_MATCH,
+    WINNING_COUNT: WINNING_INDEX.FIFTH_BONUS_MATCH,
   },
   {
-    matchCount: "6개 일치",
-    price: REWARD.SIXTH_MATCH,
-    winningCount: WINNING_INDEX.SIXTH_MATCH,
+    MATCH_COUNT: "6개 일치",
+    PRICE: REWARD.SIXTH_MATCH,
+    WINNING_COUNT: WINNING_INDEX.SIXTH_MATCH,
   },
 ];
 
@@ -44,8 +44,8 @@ class OutputView {
     Console.print("---");
     REWARD_COMMENT.forEach((item) =>
       Console.print(
-        `${item.matchCount} (${item.price}원) - ${
-          winningCount[item.winningCount]
+        `${item.MATCH_COUNT} (${item.PRICE}원) - ${
+          winningCount[item.WINNING_COUNT]
         }개`
       )
     );
