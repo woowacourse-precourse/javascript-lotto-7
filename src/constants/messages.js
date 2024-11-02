@@ -16,6 +16,12 @@ const ERROR_MESSAGE = {
     '[ERROR] 보너스 번호는 1이상 45이하 정수이어야 합니다.',
   INVALID_BONUS_NUMBER_DUPLICATE:
     '[ERROR] 보너스 번호는 기존 당첨 번호와 중복될 수 없습니다.',
+  INVALID_EMPTY_PURCHASE_AMOUNT:
+    '[ERROR] 로또 구입 금액은 반드시 입력해야 합니다.',
+  INVALID_PURCHASE_AMOUNT_RANGE:
+    '[ERROR] 로또 구입 금액은 1,000원 이상이어야 합니다.',
+  INVALID_PURCHASE_AMOUNT_DIVISIBLE_BY_THOUSAND:
+    '[ERROR] 로또 구입 금액은 1,000원으로 나누어 떨어져야 합니다.',
 };
 
 export { INPUT_MESSAGE, ERROR_MESSAGE };

@@ -75,4 +75,34 @@ describe('로또 클래스 테스트', () => {
       new WinningNumbers([1, 2, 3, 4, 5, 6], '4');
     }).toThrow('[ERROR]');
   });
+
+  test('로또 구입 금액이 빈 입력값인 경우 예외가 발생한다.', () => {
+    expect(() => {
+      Lotto.initializePurchaseAmount('');
+    }).toThrow('[ERROR]');
+  });
+
+  test('로또 구입 금액이 1,000원 이상, 1,000,000원 이하 범위를 벗어나는 경우 예외가 발생한다.', () => {
+    expect(() => {
+      Lotto.initializePurchaseAmount('-2000');
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      Lotto.initializePurchaseAmount('500');
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      Lotto.initializePurchaseAmount('1500000');
+    }).toThrow('[ERROR]');
+  });
+
+  test('로또 구입 금액이 1,000원으로 나누어 떨어지지 않는 경우.', () => {
+    expect(() => {
+      Lotto.initializePurchaseAmount('1500');
+    }).toThrow('[ERROR]');
+
+    expect(() => {
+      Lotto.initializePurchaseAmount('1000001');
+    }).toThrow('[ERROR]');
+  });
 });

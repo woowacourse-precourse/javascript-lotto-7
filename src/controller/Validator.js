@@ -5,9 +5,12 @@ class Validator {
   static #WINNING_NUMBER_COUNT = 6;
   static #NUMBER_MIN = 1;
   static #NUMBER_MAX = 45;
-  static #BONUS_NUMBER_EMPTY_STRING = '';
   static #BONUS_NUMBER_MIN_LENGTH = 1;
   static #WINNING_NUMBERS;
+  static #EMPTY_STRING = '';
+  static #PURCHASE_AMOUNT_MIN = 1000;
+  static #PURCHASE_AMOUNT_MAX = 1000000;
+  static #PURCHASE_DIVISION_UNIT = 1000;
 
   constructor() {}
 
@@ -23,6 +26,12 @@ class Validator {
     Validator.#checkBonusNumberCount(bonusNumber);
     Validator.#checkBonusNumberRange(bonusNumber);
     Validator.#checkBonusNumberDuplicate(bonusNumber);
+  }
+
+  static checkPurchaseAmount(amount) {
+    Validator.#checkPurchaseAmountEmptyInput(amount);
+    Validator.#checkPurchaseAmountRange(amount);
+    Validator.#checkPurchaseAmountPositive(amount);
   }
 
   static #checkWinningNumberCount(numbers) {
@@ -51,7 +60,7 @@ class Validator {
   }
 
   static #checkBonusNumberEmptyInput(number) {
-    if (!number || number.trim() === Validator.#BONUS_NUMBER_EMPTY_STRING) {
+    if (!number || number.trim() === Validator.#EMPTY_STRING) {
       throw new Error(ERROR_MESSAGE.INVALID_EMPTY_BONUS_NUMBER);
     }
   }
@@ -76,6 +85,31 @@ class Validator {
   static #checkBonusNumberDuplicate(bonusNumber) {
     if (Validator.#WINNING_NUMBERS.includes(bonusNumber)) {
       throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_DUPLICATE);
+    }
+  }
+
+  static #checkPurchaseAmountEmptyInput(amount) {
+    if (!amount || amount.trim() === Validator.#EMPTY_STRING) {
+      throw new Error(ERROR_MESSAGE.INVALID_EMPTY_PURCHASE_AMOUNT);
+    }
+  }
+
+  static #checkPurchaseAmountRange(amount) {
+    const price = Number.parseInt(amount);
+    if (
+      price < Validator.#PURCHASE_AMOUNT_MIN ||
+      price > Validator.#PURCHASE_AMOUNT_MAX
+    ) {
+      throw new Error(ERROR_MESSAGE.INVALID_PURCHASE_AMOUNT_RANGE);
+    }
+  }
+
+  static #checkPurchaseAmountPositive(amount) {
+    const price = Number.parseInt(amount);
+    if (!Number.isInteger(price / Validator.#PURCHASE_DIVISION_UNIT)) {
+      throw new Error(
+        ERROR_MESSAGE.INVALID_PURCHASE_AMOUNT_DIVISIBLE_BY_THOUSAND
+      );
     }
   }
 }
