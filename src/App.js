@@ -76,16 +76,16 @@ class App {
   async getBonusNumber(winningNumbers) {
     try {
       const bonusNumber = await App.getBonusNumberInput();
-      const validWinningNumbers = App.validateBonusNumber(
+      const validBonusNumber = App.validateBonusNumber(
         bonusNumber,
         winningNumbers,
       );
 
-      return validWinningNumbers;
+      return validBonusNumber;
     } catch (error) {
       Console.print(error.message);
 
-      return this.getWinningNumbers();
+      return this.getBonusNumber();
     }
   }
 
@@ -101,7 +101,7 @@ class App {
   }
 
   static validateBonusNumber(bonusNumber, winningNumbers) {
-    Validation.checkWinningNumbers(bonusNumber, winningNumbers);
+    Validation.checkBonusNumber(bonusNumber, winningNumbers);
 
     return bonusNumber;
   }
