@@ -7,16 +7,20 @@ class RevenueCalculator {
     this.winningResults = winningResults;
   }
 
-  calculateYield() {
-    this.calculateTotalPrize();
-    return (this.totalPrize / this.totalSpent) * 100;
+  calculateYield(totalSpent, winningResults) {
+    const totalPrize = this.#calculateTotalPrize(winningResults);
+
+    return (totalPrize / totalSpent) * 100;
   }
 
-  calculateTotalPrize() {
-    this.totalPrize = this.winningResults.reduce((total, count, index) => {
+  #calculateTotalPrize(winningResults) {
+    const totalPrize = winningResults.reduce((total, count, index) => {
       const prize = LottoChecker.PRIZE_TIERS[index].prize;
+
       return total + count * prize;
     }, 0);
+
+    return totalPrize;
   }
 }
 
