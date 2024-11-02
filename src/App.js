@@ -35,7 +35,10 @@ class App {
     this.printLottos(sortedLottosArray);
 
     // - 각 로또에 대해 일치하는 개수를 구한다.
-    const matchedNumberCounts = this.getMatchedNumberCounts(sortedLottosArray, winnigNumbersArray, bounusNumber);
+    const matchedCountArray = this.getMatchedCountInLottos(sortedLottosArray, winnigNumbersArray, bounusNumber);
+
+    // - 당첨 기준에 일치하는 로또의 개수를 구한다.
+    const matchedCountPerMatchOption = this.getMatchedCountPerMatchOption(matchedCountArray);
 
     // - 당첨 내역을 출력한다.
     // - 수익률을 출력한다.
@@ -102,16 +105,20 @@ class App {
     return sortedLottosArray;
   }
 
-  getMatchedNumberCounts(lottosArray, winnigNumbersArray, bounusNumber) {
-    const matchedNumberCounts = {};
+  getMatchedCountInLottos(lottosArray, winnigNumbersArray, bounusNumber) {
+    const matchedCountArray = [];
 
     lottosArray.forEach((lotto) => {
-      const matchedCount = this.getMatchedCountInLotto(lotto, winnigNumbersArray, bounusNumber);
+      const { totalMatchedCount, isBonusMatched } = this.getMatchedCountInLotto(
+        lotto,
+        winnigNumbersArray,
+        bounusNumber,
+      );
 
-      matchedNumberCounts[matchedCount] = matchedNumberCounts[matchedCount] + 1 || 1;
+      matchedCountArray.push({ totalMatchedCount, isBonusMatched });
     });
 
-    return matchedNumberCounts;
+    return matchedCountArray;
   }
 
   getMatchedCountInLotto(lotto, winnigNumbersArray, bounusNumber) {
@@ -119,7 +126,7 @@ class App {
     const isBonusMatched = lotto.includes(bounusNumber);
     const totalMatchedCount = this.getTotalMatchedCount(matchedCount, isBonusMatched);
 
-    return totalMatchedCount;
+    return { totalMatchedCount, isBonusMatched };
   }
 
   getMatchedCount(lotto, winnigNumbersArray) {
@@ -132,6 +139,28 @@ class App {
     }
 
     return matchedCount;
+  }
+
+  getMatchedCountPerMatchOption(matchedCountArray) {
+    const matchOptions = [
+      { count: 3, isBonus: false, prize: 5000 },
+      { count: 4, isBonus: false, prize: 50_000 },
+      { count: 5, isBonus: false, prize: 1_500_000 },
+      { count: 5, isBonus: true, prize: 30_000_000 },
+      { count: 6, isBonus: false, prize: 2_000_000_000 },
+    ];
+
+    const matchedCountPerMatchOption = new Map();
+
+    matchOptions.forEach(({ count, isBonus }) => {
+      const matchedCount = matchedCountArray.filter(
+        ({ totalMatchedCount, isBonusMatched }) => totalMatchedCount === count && isBonusMatched === isBonus,
+      ).length;
+
+      matchedCountPerMatchOption.set(count, matchedCount);
+    });
+
+    return matchedCountPerMatchOption;
   }
 }
 
