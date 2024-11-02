@@ -1,5 +1,9 @@
 import { printResult, readUserInput } from './util/missionUtil.js';
-import { MONEY_MESSAGES, WINNING_NUMBER_MESSAGE } from './util/constant.js';
+import {
+  MONEY_MESSAGES,
+  WINNING_NUMBER_MESSAGE,
+  LOTTO_CONSTANTS,
+} from './util/constant.js';
 
 class InputView {
   static async processMoney() {
@@ -40,9 +44,11 @@ class InputView {
     const winningNumberSet = new Set(winningNumber);
     const isNotNumber = winningNumber.some((number) => isNaN(number));
     const isIncludeBlank = winningNumber.some((number) => number === '');
-    if (numbers.length === 0) {
-      throw new Error(WINNING_NUMBER_MESSAGE.error.notEmpty);
-    }
+    const isNotInRange = winningNumber.some(
+      (number) =>
+        number < LOTTO_CONSTANTS.minLottoNumber ||
+        number > LOTTO_CONSTANTS.maxLottoNumber
+    );
     if (isNotNumber) {
       throw new Error(WINNING_NUMBER_MESSAGE.error.notNumber);
     }
@@ -54,6 +60,9 @@ class InputView {
     }
     if (winningNumberSet.size !== winningNumber.length) {
       throw new Error(WINNING_NUMBER_MESSAGE.error.notDuplcate);
+    }
+    if (isNotInRange) {
+      throw new Error(WINNING_NUMBER_MESSAGE.error.notInRange);
     }
   }
 }
