@@ -24,6 +24,9 @@ export default class LottoController {
       winningNumbers,
       bonusNumber,
     );
+    // 시연용 코드
+    // this.displayRank(rankCounts);
+
     this.displayResults(rankCounts, purchaseAmount);
   }
 
@@ -77,5 +80,10 @@ export default class LottoController {
     this.ioService.printRevenueRate(
       this.statisticsService.calculateRevenueRate(totalRevenue, purchaseAmount),
     );
+  }
+
+  // 시연용 코드
+  displayRank(rankCounts) {
+    console.log(rankCounts);
   }
 }

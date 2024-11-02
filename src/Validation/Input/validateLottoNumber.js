@@ -16,19 +16,18 @@ const validateLength = (input) => {
   return true;
 };
 
-const validateUniqueNumbers = (input) => {
-  const numbers = input.split(',').map((num) => num.trim());
-  if (new Set(numbers).size !== lotto.pickingNumber) {
-    printMessage(lotteryNumber.DUPLICATED_NUMBER);
-    return false;
-  }
-  return true;
-};
-
 const validateIsNumber = (input) => {
   const numbers = input.split(',').map((num) => num.trim());
   if (!numbers.every((number) => isNumber.test(number))) {
     printMessage(lotteryNumber.ONLY_NUMBER_ALLOWED);
+    return false;
+  }
+  return true;
+};
+const validateUniqueNumbers = (input) => {
+  const numbers = input.split(',').map((num) => num.trim());
+  if (new Set(numbers).size !== lotto.pickingNumber) {
+    printMessage(lotteryNumber.DUPLICATED_NUMBER);
     return false;
   }
   return true;
@@ -52,8 +51,8 @@ const validateRange = (input) => {
 export default function validateLottoNumber(input) {
   const validators = [
     validateLength,
-    validateUniqueNumbers,
     validateIsNumber,
+    validateUniqueNumbers,
     validateRange,
   ];
 

@@ -83,7 +83,7 @@
 
 ## 프로그램 구조
 
-이 프로그램은 **MVC 패턴**과 유사한 구조로 구성되어 있으며, 각 컴포넌트는 다음과 같은 역할을 합니다.
+이 프로그램은 **MVC 패턴**과 '유사한' 구조로 구성되어 있으며, 각 컴포넌트는 다음과 같은 역할을 합니다.
 
 ### 컨트롤러 (Controller)
 
@@ -133,7 +133,8 @@
 2. **로또 발행**
    - `purchaseLotteries(purchaseAmount)` 메서드를 통해 로또를 발행합니다.
    - `lotteryService.calculateNumberOfNotes`를 사용하여 구매할 로또 장수를 계산합니다.
-   - `lotteryService.generateLotteries`를 통해 로또 번호를 생성합니다.
+   - `lotteryService.generateLotteries`를 통해 로또를 purchaseAmount 만큼 생성합니다.
+   - `ioService.printLotteries(purchaseLotteries)`를 통해 구매한 로또 번호를 모두 출력합니다.
 3. **당첨 번호와 보너스 번호 입력**
    - `getWinningNumbers()` 메서드를 통해 당첨 번호 6개를 입력받습니다.
    - `validationService.isValidLottoNumber`를 사용하여 당첨 번호의 유효성을 검사합니다.
