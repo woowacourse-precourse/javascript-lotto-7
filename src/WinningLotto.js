@@ -1,6 +1,6 @@
 import { scan } from './utils/scanner.js';
 
-class WinnintLotto {
+class WinningLotto {
   winningLottoNumber;
 
   async splitLotto() {
@@ -14,4 +14,4 @@ class WinnintLotto {
   }
 }
 
-export default WinnintLotto;
+export default WinningLotto;

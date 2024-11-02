@@ -12,7 +12,6 @@ class Lotto {
     this.validateDuplicate(numbers);
   }
 
-  // TODO: 추가 기능 구현
   validateIsRangeNumber(numbers) {
     numbers.forEach((num) => {
       if (!(num >= 1 && num <= 45)) {
