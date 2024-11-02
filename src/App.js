@@ -8,14 +8,14 @@ import {
   parseWinningNumbers,
   parseBonusNumber,
 } from './utils/parseUserInput.js';
-import validatePurchaseAmount from './validation/validateAmount.js';
+import validatePurchaseAmount from './validation/amount.js';
 import {
   validateWinningNumbers,
   validateBonusNumber,
-} from './validation/validateLottoNumbers.js';
-import issueLottoTickets from './controllers/lottoDisplay.js';
+} from './validation/lottoNumbers.js';
+import issueLottoTickets from './services/lottoDisplay.js';
 import { Console } from '@woowacourse/mission-utils';
-import { assignLottoRank, displayResults } from './controllers/winningRank.js';
+import { assignLottoRank, displayResults } from './services/winningRank.js';
 import calculateProfitRate from './services/calculateProfit.js';
 
 class App {

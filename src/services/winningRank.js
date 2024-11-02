@@ -28,6 +28,8 @@ export const lottoReward = {
   },
 };
 
+// NaN
+
 function assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
   const rankCounts = {
     3: 0,
@@ -58,10 +60,9 @@ function assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
 }
 
 function displayResults(rankCounts) {
-  Object.keys(lottoReward).forEach((key) => {
-    const label = lottoReward[key].label;
-    console.log(`${label} - ${rankCounts[key] || 0}개`);
-  });
+  for (const [key, value] of Object.entries(lottoReward)) {
+    console.log(`${value.label} - ${rankCounts[key] || 0}개`);
+  }
 }
 
 export { assignLottoRank, displayResults };

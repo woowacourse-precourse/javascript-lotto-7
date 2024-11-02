@@ -14,3 +14,5 @@ export default function issueLottoTickets(purchaseAmount) {
 
   return lottoTickets;
 }
+
+// TODO: 배열 정렬
