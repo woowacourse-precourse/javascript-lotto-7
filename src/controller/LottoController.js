@@ -30,7 +30,7 @@ class LottoController {
     try {
       const input = await InputView.inputBonusNumber();
       this.#bonusNumber = Number(input);
-      return new BonusNumber(this.#bonusNumber);
+      return new BonusNumber(this.#bonusNumber, this.#winningLottoNumbers);
     } catch (error) {
       Console.print(error);
       await this.#getBonusNumber();
