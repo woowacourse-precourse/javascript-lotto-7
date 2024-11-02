@@ -14,8 +14,12 @@ class App {
     }
 
     Console.print('\n');
-    const winningNumberInput = await Console.readLineAsync('당첨 번호를 입력해 주세요\n');
+    const winningNumberInput = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
     const winningNumberList = winningNumberInput.split(',').map((number) => parseInt(number));
+
+    Console.print('\n');
+    const bonusNumberInput = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const bonusNumber = parseInt(bonusNumberInput);
   }
 }
 export default App;
