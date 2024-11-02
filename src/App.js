@@ -26,20 +26,30 @@ class App {
       Console.print(`[${myLotto.toString().split(',').join(', ')}]`)
     );
 
+    // 로또 당첨 번호 입력
     const winningNumbersInput = await inputView.inputWinningNumbers();
+
+    // 입력된 당첨 번호 숫자로 파싱
     const winningNumbers = winningNumbersInput
       .split(',')
       .map((lottoNumber) => parseInt(lottoNumber));
 
+    // 당첨 번호 객체 생성 및 검증
     const winningLotto = new Lotto(winningNumbers);
 
+    // 보너스 번호 입력
     const bonusNumber = await inputView.inputBonusNumber();
 
+    // 로또 추첨 시작(내가 구매한 로또, 로또 당첨 번호, 보너스 번호)
     const lottoGame = new LottoGame(myLottos, winningLotto, bonusNumber);
+
+    // 로또 추첨
     const results = lottoGame.drawLotto();
     Console.print('\n당첨 통계\n---');
+    // 로또 결과 출력
     lottoGame.displayResults(results);
 
+    // 로또 수익률 계산 출력
     lottoGame.calculateLottoPrize(purchasePrice, results);
   }
 }

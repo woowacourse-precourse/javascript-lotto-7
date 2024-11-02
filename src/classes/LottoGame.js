@@ -1,29 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 import { LOTTO_PRIZE } from '../constant.js';
+import LottoMatcher from './LottoMatcher.js';
 
 class LottoGame {
   constructor(myLottos, winningLotto, bonusNumber) {
-    this.myLottos = myLottos;
-    this.winningLotto = winningLotto;
-    this.bonusNumber = bonusNumber;
-  }
-
-  matchLottoNumber() {
-    const winningNumber = this.winningLotto.lottoNumber;
-    return this.myLottos.map((myLotto) =>
-      myLotto.filter((lottoNumber) => winningNumber.includes(lottoNumber))
-    );
-  }
-  matchLottoCount(matchNumbers) {
-    return matchNumbers.map((number) => number.length);
-  }
-
-  matchBonus(myLottos, bonusNumber) {
-    // 보너스 번호 일치 하는 배열
-    const bonusMatches = myLottos.map((lotto) =>
-      lotto.filter((number) => number === Number(bonusNumber))
-    );
-    return bonusMatches.map((bonus) => bonus.length === 1);
+    this.lottoMatcher = new LottoMatcher(myLottos, winningLotto, bonusNumber);
   }
 
   matchResults(matchCount, bonusMatch) {
@@ -66,12 +47,15 @@ class LottoGame {
 
   drawLotto() {
     // 각 로또당 맞춘 번호 배열
-    const myNumbers = this.matchLottoNumber(this.myLottos);
+    const myNumbers = this.lottoMatcher.matchLottoNumber(this.myLottos);
 
-    const bonusMatch = this.matchBonus(this.myLottos, this.bonusNumber);
+    const bonusMatch = this.lottoMatcher.matchBonus(
+      this.myLottos,
+      this.bonusNumber
+    );
 
     // 각 로또당 몇개 맞췄는지
-    const matchCount = this.matchLottoCount(myNumbers);
+    const matchCount = this.lottoMatcher.matchLottoCount(myNumbers);
 
     return this.matchResults(matchCount, bonusMatch);
   }
