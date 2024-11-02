@@ -3,6 +3,15 @@ import Lotto from './Lotto.js';
 class App {
   async run() {
     try {
+      
+      const CORRECT_NUMBER = [3,4,5,7,6];
+      const CORRECT_MESSAGE = [
+        '3개 일치 (5,000원) -', 
+        '4개 일치 (50,000원) -',
+        '5개 일치 (1,500,000원) -',
+        '5개 일치, 보너스 볼 일치 (30,000,000원) -',
+        '6개 일치 (2,000,000,000원) -'
+      ];
       let amount = await Console.readLineAsync(
         '구입금액을 입력해 주세요.\n'
       );
@@ -29,14 +38,23 @@ class App {
       let bonusNum = await Console.readLineAsync(
         '\n보너스 번호를 입력해 주세요.\n'
       );
+      bonusNum = Number(bonusNum);
 
-      Console.print('당첨 통계\n ---\n');
+      Console.print('\n당첨 통계\n---\n');
 
+      let correctNumArray = [];
       lottoArray.map((value) => {
-        Console.print(`${value.compare(answerNum)}개 일치`);
+        correctNumArray.push(value.compare(answerNum, bonusNum));
       })
 
+      Console.print(correctNumArray);
 
+      for (let i = 0; i < CORRECT_NUMBER.length; i++) {
+        let count = 0;
+        if (correctNumArray.includes(CORRECT_NUMBER[i]) != 0)
+          count = correctNumArray.filter(num => num == CORRECT_NUMBER[i]).length;
+        Console.print(`${CORRECT_MESSAGE[i]} ${count}개`);
+      }
 
     } catch (error) {
       throw new Error(error);
