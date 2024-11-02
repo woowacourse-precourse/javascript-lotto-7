@@ -3,7 +3,7 @@ import { Console } from '@woowacourse/mission-utils';
 export default class InputLottoView {
   #INPUT_MESSAGE = {
     PURCHASE_PRICE: '구입금액을 입력해 주세요.\n',
-    WINNGING_LOTTO_MAIN_NUMBERS: '당첨 번호를 입력해 주세요.\n',
+    WINNGING_LOTTO_MAIN_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
   };
   #ERROR_MESSAGE = {
     INVALID_NUMBER: '[ERROR] 숫자를 입력해주세요.\n',
