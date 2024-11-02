@@ -9,14 +9,14 @@ export default class LottoController {
   }
 
   async run() {
-    await this.#getPrice();
+    await this.#handleInputPrice();
     this.#printLottosInfomation();
-    await this.#getWinningNumbers();
-    await this.#getBonusNumber();
-    this.#printResult();
+    await this.#handleInputWinningNumbers();
+    await this.#handleInputBonusNumber();
+    this.#printLottoResult();
   }
 
-  async #getPrice() {
+  async #handleInputPrice() {
     while (true) {
       try {
         const price = Number(await InputView.price());
@@ -34,7 +34,7 @@ export default class LottoController {
     OutputView.lottosInformation({ lottoLength, lottoNumbersArray });
   }
 
-  async #getWinningNumbers() {
+  async #handleInputWinningNumbers() {
     while (true) {
       try {
         const numberString = await InputView.winningNumbers();
@@ -46,11 +46,11 @@ export default class LottoController {
     }
   }
 
-  async #getBonusNumber() {
+  async #handleInputBonusNumber() {
     while (true) {
       try {
         const bonusNumber = Number(await InputView.bonusNumber());
-        this.#lottoService.appendBonusNumber(bonusNumber);
+        this.#lottoService.setBonusNumber(bonusNumber);
         return;
       } catch (e) {
         OutputView.error(e.message);
@@ -58,8 +58,8 @@ export default class LottoController {
     }
   }
 
-  #printResult() {
-    const statistics = this.#lottoService.getStatistics();
+  #printLottoResult() {
+    const statistics = this.#lottoService.getWinningStatistics();
     OutputView.winningStatistics(statistics);
 
     const rateOfReturn = Number(this.#lottoService.getRateOfReturn(statistics));

@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 import LottoService from '../src/service/LottoService.js';
-import { RANK_PRICE, RANK_NAMES } from '../src/constant/system.js';
+import { RANK_PRICE, RANK_NAME } from '../src/constant/system.js';
 import WinningLottoModel from '../src/model/WinningLottoModel.js';
 
 function mockRandomRange() {
@@ -24,7 +24,7 @@ describe('LottoService 클래스 테스트', () => {
 
     lottoService.createUserModel(price);
     lottoService.createWinningLottoModel(numberString);
-    lottoService.appendBonusNumber(bonusNumber);
+    lottoService.setBonusNumber(bonusNumber);
   });
 
   test('유저 모델 생성', () => {
@@ -54,7 +54,7 @@ describe('LottoService 클래스 테스트', () => {
 
     const spy = jest.spyOn(lottoService.winningLottoModel, 'setBonusNumber');
 
-    lottoService.appendBonusNumber(bonusNumber);
+    lottoService.setBonusNumber(bonusNumber);
 
     expect(spy).toHaveBeenCalledWith(bonusNumber);
   });
@@ -84,9 +84,9 @@ describe('LottoService 클래스 테스트', () => {
 
     lottoService.createUserModel(price);
     lottoService.createWinningLottoModel(numberString);
-    lottoService.appendBonusNumber(bonusNumber);
+    lottoService.setBonusNumber(bonusNumber);
 
-    expect(lottoService.getStatistics()).toEqual(expected);
+    expect(lottoService.getWinningStatistics()).toEqual(expected);
   });
 
   test('수익률 계산', () => {
@@ -101,7 +101,7 @@ describe('LottoService 클래스 테스트', () => {
     const rate = lottoService.getRateOfReturn(rankMap);
 
     expect(rate).toEqual(
-      (((RANK_PRICE[RANK_NAMES.SIX] * 5) / price) * 100).toFixed(1),
+      (((RANK_PRICE[RANK_NAME.SIX] * 5) / price) * 100).toFixed(1),
     );
   });
 });

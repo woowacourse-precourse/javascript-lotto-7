@@ -1,5 +1,5 @@
 import Lotto from '../Lotto.js';
-import { RANK_NAMES } from '../constant/system.js';
+import { RANK_NAME } from '../constant/system.js';
 import Validator from '../Validator.js';
 
 export default class WinningLottoModel extends Lotto {
@@ -26,15 +26,15 @@ export default class WinningLottoModel extends Lotto {
   }
 
   #determineRank(matchCount, lottoNumbers) {
-    if (matchCount === RANK_NAMES.SIX) return RANK_NAMES.SIX;
+    if (matchCount === RANK_NAME.SIX) return RANK_NAME.SIX;
     if (
-      matchCount === RANK_NAMES.FIVE &&
+      matchCount === RANK_NAME.FIVE &&
       lottoNumbers.includes(this.#bonusNumber)
     )
-      return RANK_NAMES.FIVE_BONUS;
-    if (matchCount === RANK_NAMES.FIVE) return RANK_NAMES.FIVE;
-    if (matchCount === RANK_NAMES.FOUR) return RANK_NAMES.FOUR;
-    if (matchCount === RANK_NAMES.THREE) return RANK_NAMES.THREE;
+      return RANK_NAME.FIVE_BONUS;
+    if (matchCount === RANK_NAME.FIVE) return RANK_NAME.FIVE;
+    if (matchCount === RANK_NAME.FOUR) return RANK_NAME.FOUR;
+    if (matchCount === RANK_NAME.THREE) return RANK_NAME.THREE;
     return null;
   }
 }

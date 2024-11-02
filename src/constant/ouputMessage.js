@@ -1,4 +1,4 @@
-import { RANK_PRICE, RANK_NAMES } from './system.js';
+import { RANK_PRICE, RANK_NAME } from './system.js';
 
 export const OUTPUT_MESSAGE = Object.freeze({
   WINNING_STATISTICS: '\n당첨 통계\n---',
@@ -6,9 +6,9 @@ export const OUTPUT_MESSAGE = Object.freeze({
 });
 
 export const RANK_OUTPUT_MESSAGE = Object.freeze({
-  [RANK_NAMES.THREE]: `${RANK_NAMES.THREE}개 일치 (${RANK_PRICE[RANK_NAMES.THREE].toLocaleString()}원)`,
-  [RANK_NAMES.FOUR]: `${RANK_NAMES.FOUR}개 일치 (${RANK_PRICE[RANK_NAMES.FOUR].toLocaleString()}원)`,
-  [RANK_NAMES.FIVE]: `${RANK_NAMES.FIVE}개 일치 (${RANK_PRICE[RANK_NAMES.FIVE].toLocaleString()}원)`,
-  [RANK_NAMES.FIVE_BONUS]: `${RANK_NAMES.FIVE}개 일치, 보너스 볼 일치 (${RANK_PRICE[RANK_NAMES.FIVE_BONUS].toLocaleString()}원)`,
-  [RANK_NAMES.SIX]: `${RANK_NAMES.SIX}개 일치 (${RANK_PRICE[RANK_NAMES.SIX].toLocaleString()}원)`,
+  [RANK_NAME.THREE]: `${RANK_NAME.THREE}개 일치 (${RANK_PRICE[RANK_NAME.THREE].toLocaleString()}원)`,
+  [RANK_NAME.FOUR]: `${RANK_NAME.FOUR}개 일치 (${RANK_PRICE[RANK_NAME.FOUR].toLocaleString()}원)`,
+  [RANK_NAME.FIVE]: `${RANK_NAME.FIVE}개 일치 (${RANK_PRICE[RANK_NAME.FIVE].toLocaleString()}원)`,
+  [RANK_NAME.FIVE_BONUS]: `${RANK_NAME.FIVE}개 일치, 보너스 볼 일치 (${RANK_PRICE[RANK_NAME.FIVE_BONUS].toLocaleString()}원)`,
+  [RANK_NAME.SIX]: `${RANK_NAME.SIX}개 일치 (${RANK_PRICE[RANK_NAME.SIX].toLocaleString()}원)`,
 });

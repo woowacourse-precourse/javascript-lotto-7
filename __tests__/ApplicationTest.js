@@ -1,5 +1,5 @@
 import App from '../src/App.js';
-import { RANK_PRICE, RANK_NAMES } from '../src/constant/system.js';
+import { RANK_PRICE, RANK_NAME } from '../src/constant/system.js';
 import { mockQuestions, getLogSpy, mockRandoms } from '../src/test/testUtil.js';
 
 describe('로또 테스트', () => {
@@ -38,11 +38,11 @@ describe('로또 테스트', () => {
       '[7, 11, 30, 40, 42, 43]',
       '[2, 13, 22, 32, 38, 45]',
       '[1, 3, 5, 14, 22, 45]',
-      `${RANK_NAMES.THREE}개 일치 (${RANK_PRICE[RANK_NAMES.THREE].toLocaleString()}원) - 1개`,
-      `${RANK_NAMES.FOUR}개 일치 (${RANK_PRICE[RANK_NAMES.FOUR].toLocaleString()}원) - 0개`,
-      `${RANK_NAMES.FIVE}개 일치 (${RANK_PRICE[RANK_NAMES.FIVE].toLocaleString()}원) - 0개`,
-      `${RANK_NAMES.FIVE}개 일치, 보너스 볼 일치 (${RANK_PRICE[RANK_NAMES.FIVE_BONUS].toLocaleString()}원) - 0개`,
-      `${RANK_NAMES.SIX}개 일치 (${RANK_PRICE[RANK_NAMES.SIX].toLocaleString()}원) - 0개`,
+      `${RANK_NAME.THREE}개 일치 (${RANK_PRICE[RANK_NAME.THREE].toLocaleString()}원) - 1개`,
+      `${RANK_NAME.FOUR}개 일치 (${RANK_PRICE[RANK_NAME.FOUR].toLocaleString()}원) - 0개`,
+      `${RANK_NAME.FIVE}개 일치 (${RANK_PRICE[RANK_NAME.FIVE].toLocaleString()}원) - 0개`,
+      `${RANK_NAME.FIVE}개 일치, 보너스 볼 일치 (${RANK_PRICE[RANK_NAME.FIVE_BONUS].toLocaleString()}원) - 0개`,
+      `${RANK_NAME.SIX}개 일치 (${RANK_PRICE[RANK_NAME.SIX].toLocaleString()}원) - 0개`,
       '총 수익률은 62.5%입니다.',
     ];
 
