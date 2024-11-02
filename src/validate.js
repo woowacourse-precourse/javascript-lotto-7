@@ -12,6 +12,7 @@ export class Validator {
 
    static validateWinningNumber(winningNumbers) {
       const numbers = winningNumbers.split(',').map(Number);
+      this.validateLottoNumbers(numbers);
       return numbers;
    }
 
