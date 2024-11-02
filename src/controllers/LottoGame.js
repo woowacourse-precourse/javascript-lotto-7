@@ -1,13 +1,8 @@
-import errorHandler from '../utils/errorHandler.js';
-import Amount from '../models/Amount.js';
-import Input from '../views/Input.js';
-import Output from '../views/Output.js';
+import { Amount, Lotto, WinningNumber, LottoResult, ProfitRate } from '../models/index.js';
+import { Input, Output } from '../views/index.js';
 import { LOTTO_PRICE } from '../constants/numbers.js';
 import getRandomValues from '../utils/getRandomValues.js';
-import Lotto from '../models/Lotto.js';
-import WinningNumber from '../models/WinningNumber.js';
-import LottoResult from '../models/LottoResult.js';
-import ProfitRate from '../models/ProfitRate.js';
+import errorHandler from '../utils/errorHandler.js';
 
 function calculateLottoCount(amount) {
   return Math.floor(amount / LOTTO_PRICE);
