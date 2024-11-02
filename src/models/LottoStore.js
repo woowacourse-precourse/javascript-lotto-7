@@ -28,7 +28,9 @@ class LottoStore {
 
   #validate(money) {
     if (!Validates.isNumber(money)) throw new MoneyError("숫자만 입력 가능합니다.");
+    if (Number(money) < this.LOTTO_PRICE) throw new MoneyError("최소 구매 금액은 1000원입니다.");
     if (Number(money) % this.LOTTO_PRICE) throw new MoneyError("1000원 단위로 구입 가능합니다.");
+
     return money;
   }
 

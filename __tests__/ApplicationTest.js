@@ -116,6 +116,11 @@ describe("로또 테스트", () => {
       test("1000원으로 나누어 떨어지지 않는 경우 에러 반환", async () => {
         await runMoneyException("1500");
       });
+      test.each([
+        "0", "500",
+      ])("1000원 미만인 경우 에러 반환", async (num) => {
+        await runMoneyException(num);
+      });
     });
     describe("당첨 번호가", () => {
       test("숫자가 아닌 경우", async () => {
