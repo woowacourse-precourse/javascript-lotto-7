@@ -19,6 +19,9 @@ class App {
         const results = this.checkWinningResults(lottoTickets, mainNumbers, bonusNumber);
         this.printWinningResults(results);
 
+        const yieldRate = this.calculateYield(results.totalPrize, amount);
+        Console.print(`총 수익률: ${yieldRate}%`);
+
         break;
       } catch (error) {
         Console.print(error.message);
@@ -141,6 +144,11 @@ class App {
       } 
     });
     return results;
+  }
+
+  calculateYield(totalPrize, purchaseAmount) {
+    const yieldRate = (totalPrize / purchaseAmount) * 100;
+    return yieldRate.toFixed(2);
   }
 
   printWinningResults(results) {
