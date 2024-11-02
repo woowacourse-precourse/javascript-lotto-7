@@ -1,4 +1,4 @@
-import { LOTTO_REWARD } from '../Constants/lottoConstants.js';
+import { LOTTO_PRICE, LOTTO_REWARD } from '../Constants/lottoConstants.js';
 
 class LottoResultAnalysis {
   constructor(winningNumbers, bonusNumber) {
@@ -28,6 +28,13 @@ class LottoResultAnalysis {
       this.rewardSum +=
         LOTTO_REWARD[['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH'][rank - 1]];
     }
+  }
+
+  calculateProfitRate(lottoTickets) {
+    return (
+      (this.rewardSum / (lottoTickets.length * LOTTO_PRICE)) *
+      100
+    ).toFixed(1);
   }
 }
 
