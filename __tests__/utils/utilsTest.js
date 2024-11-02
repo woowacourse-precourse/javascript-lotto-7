@@ -1,5 +1,19 @@
 import utils from '../../src/utils/utils.js';
 
+describe('sortRandoms 메서드 테스트', () => {
+  test('정렬되지 않은 배열을 오름차순으로 정렬한다.', () => {
+    // given
+    const INPUT = [5, 3, 2, 4, 1];
+    const OUTPUT = [1, 2, 3, 4, 5];
+
+    // when
+    const randoms = utils.sortRandoms(INPUT);
+
+    // then
+    expect(randoms).toEqual(OUTPUT);
+  });
+});
+
 describe('convertNumberFormat 메서드 테스트', () => {
   test.each([
     [123456789, '123,456,789'],
@@ -52,4 +66,38 @@ describe('convertNumberFormat 메서드 테스트', () => {
       expect(string).toBe(output);
     },
   );
+});
+
+describe('유효성 검사 테스트', () => {
+  test('빈 문자열이면 에러가 발생한다.', () => {
+    // given
+    const INPUT = '';
+
+    // then
+    expect(() => utils.validateEmpty(INPUT)).toThrow();
+  });
+
+  test('숫자 형태가 아니면 에러가 발생한다.', () => {
+    // given
+    const INPUT = '1e1';
+
+    // then
+    expect(() => utils.validateNumber(INPUT)).toThrow();
+  });
+
+  test('정수가 아니면 에러가 발생한다.', () => {
+    // given
+    const INPUT = 1n;
+
+    // then
+    expect(() => utils.validateSafeInteger(INPUT)).toThrow();
+  });
+
+  test('1~45가 아니면 에러가 발생한다.', () => {
+    // given
+    const INPUT = 46;
+
+    // then
+    expect(() => utils.validateRange(INPUT)).toThrow();
+  });
 });
