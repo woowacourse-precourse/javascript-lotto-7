@@ -30,16 +30,16 @@ class BuyLotto {
   }
 
   #printLottoQuantity() {
-    Console.print(`\n${this.#quantityOfLotto}개를 구매했습니다.`);
+    Console.print(`${this.#quantityOfLotto}개를 구매했습니다.`);
   }
 
   async buyLotto() {
-    const amount = await this.#getPurchaseAmount();
-    this.#countQuantitiyOfLotto(amount);
+    const purchasedAmount = await this.#getPurchaseAmount();
+    this.#countQuantitiyOfLotto(purchasedAmount);
     this.#createRandomLottos();
     this.#printLottoQuantity();
     this.#printLottos();
-    return this.lottos;
+    return [this.lottos, purchasedAmount];
   }
 }
 

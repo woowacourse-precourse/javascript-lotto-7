@@ -2,13 +2,16 @@ import BuyLotto from './BuyLotto.js';
 import LottoResult from './LottoResult.js';
 import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT_MESSAGES, SIGNS } from './constants.js';
+import LottoReturn from './LottoReturn.js';
 
 class App {
   async run() {
     const buyLotto = new BuyLotto();
-    const lottos = await buyLotto.buyLotto();
+    const [lottos, parchasedAmount] = await buyLotto.buyLotto();
     const lottoResult = new LottoResult(lottos);
     const result = await lottoResult.lottoResult();
+
+    const lottoReturn = new LottoReturn(parchasedAmount, result);
 
     Console.print(OUTPUT_MESSAGES.matchStatistics);
     Console.print(SIGNS.threeHyphen);
@@ -29,6 +32,7 @@ class App {
         result[6] +
         '개'
     );
+    Console.print('총 수익률은 ' + lottoReturn.caculateReturn() + '%입니다.');
   }
 }
 

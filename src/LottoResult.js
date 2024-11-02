@@ -66,6 +66,7 @@ class LottoResult {
     this.#lottoWinningNumbers = winningNumbers.split(',');
     this.#lottoBonusNumber = await this.#getBonusNumbers();
     this.#getWinningResult();
+    return this.winningRank;
   }
 }
 
