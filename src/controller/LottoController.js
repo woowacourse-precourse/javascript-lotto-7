@@ -1,8 +1,8 @@
-import { Console } from "@woowacourse/mission-utils";
+import InputView from "../view/InputView.js";
 
 class LottoController {
-  execute() {
-    Console.print("test");
+  async execute() {
+    const purchaseMoney = await InputView.enterPurchaseMoney();
   }
 }
 
