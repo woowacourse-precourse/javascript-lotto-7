@@ -40,7 +40,7 @@ describe('LottoGame', () => {
     jest.restoreAllMocks();
   });
 
-  test('getLottos()', () => {
+  test('setLottos() & getLottos()', () => {
     // given
     const mockLottos = [
       [8, 21, 23, 41, 42, 43],
@@ -53,17 +53,6 @@ describe('LottoGame', () => {
 
     // then
     expect(lottoGame.getLottos()).toEqual(expectedLottos);
-  });
-
-  test('setLottos()', () => {
-    // given
-    const mockLottos = [new Lotto([1, 2, 3, 4, 5, 6])];
-
-    // when
-    lottoGame.setLottos(mockLottos);
-
-    // then
-    expect(lottoGame.getLottos()).toEqual(mockLottos);
   });
 
   test('displayLottos()', () => {
