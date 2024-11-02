@@ -29,4 +29,4 @@ const getMessagesByStatistics = (awards, count) => {
   }
 };
 
-export { GAME_MESSAGE, getMessagesByStatistics, getDefaultMessages };
+export { GAME_MESSAGE, getMessagesByStatistics };
