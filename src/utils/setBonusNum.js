@@ -21,6 +21,7 @@ export async function setBonusNum(answerNum) {
 
     return bonusNum;
   } catch (error) {
-    throw error;
+    Console.print(error.message);
+    return setBonusNum(answerNum);
   }
 }

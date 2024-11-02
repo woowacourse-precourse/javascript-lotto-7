@@ -23,6 +23,7 @@ export async function setAnswerNum() {
 
     return answerNum;
   } catch (error) {
-    throw error;
+    Console.print(error.message);
+    return setAnswerNum();
   }
 }
