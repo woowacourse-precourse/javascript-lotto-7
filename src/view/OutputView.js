@@ -13,6 +13,10 @@ export default class OutputView {
     Console.print(StatisticsString);
   }
 
+  printProfitRate(profitRate) {
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
+
   #getStatisticsString(result) {
     const matchSummary = [];
     for (let key in result) {

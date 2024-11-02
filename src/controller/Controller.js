@@ -28,6 +28,19 @@ export default class Controller {
 
     const result = this.getCalculatedResult(winningNumber, bonusNumber, lottos);
     this.outputView.printWinningStatistics(result);
+    const per = this.calculateProfitRate(paidMoney, result);
+    this.outputView.printProfitRate(per);
+  }
+
+  calculateProfitRate(paidMoney, result) {
+    let sum = 0;
+    for (let key in result) {
+      if (result[key] > 0) {
+        sum += prizeByMatchCount[key].money;
+      }
+    }
+
+    return ((sum / paidMoney) * 100).toFixed(1);
   }
 
   async getWinningNumberAndBonusNumber() {
