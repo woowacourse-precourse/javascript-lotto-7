@@ -1,12 +1,14 @@
+import InputView from './InputView.js';
+import OutputView from './OutputView.js';
 import LotteryRetailer from './LotteryRetailer.js';
 
 class App {
   #inputView;
   #outputView;
 
-  constructor(inputView, outputView) {
-    this.#inputView = inputView;
-    this.#outputView = outputView;
+  constructor() {
+    this.#inputView = new InputView();
+    this.#outputView = new OutputView();
   }
 
   async run() {

@@ -78,7 +78,7 @@ describe('로또 테스트', () => {
     });
   });
 
-  test('로또 구입 금액 입력 예외 테스트', async () => {
+  test('예외 테스트', async () => {
     await runException('1000j');
   });
 });
