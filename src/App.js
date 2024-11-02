@@ -31,6 +31,8 @@ class App {
 		this.#winningNumber = await this.userInput.getWinningNumber();
 		this.#bonusNumber = await this.userInput.getBonusNumber();
 		this.#winningMap = this.#getWinningCount();
+
+		await this.#printWinningCount();
 	}
 
 	async #calculateLottoCount() {
@@ -86,6 +88,10 @@ class App {
 			}
 		});
 		return winningCountMap;
+	}
+
+	async #printWinningCount() {
+		printOutput(PROMPT.LOTTO_WINNING_COUNT(this.#winningMap));
 	}
 }
 
