@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import inputView from './userInterface/InputView.js';
 import Lotto from './Lotto.js';
 import LottoMachine from './LottoMachine.js';
+import Utils from './utils/Utils.js';
 
 class App {
   async run() {
@@ -22,11 +23,8 @@ class App {
 
   static async getPayment() {
     const payment = await inputView.askPayment();
-    return this.parsePayment(payment);
-  }
-
-  static parsePayment(payment) {
-    return Number(payment);
+    const parsedPayment = Utils.parsingNumber(payment);
+    return parsedPayment;
   }
 }
 
