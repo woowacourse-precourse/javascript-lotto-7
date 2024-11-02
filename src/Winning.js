@@ -1,3 +1,5 @@
+import { Console } from '@woowacourse/mission-utils';
+
 class Winning {
   gradeArray;
 
@@ -8,13 +10,14 @@ class Winning {
     winningLottoNumber.pop();
     this.winningLotto = winningLottoNumber;
 
-    this.findWinningLottos(lottos);
+    this.findWinningLottos();
   }
 
-  findWinningLottos(lottos) {
+  findWinningLottos() {
     this.gradeArray = new Array(6).fill(0);
-    lottos.forEach((lotto) => {
+    this.lottos.forEach((lotto) => {
       this.gradeArray[this.findWinningCycle(lotto)]++;
+      this.matchCount = 0;
     });
   }
 
@@ -24,13 +27,13 @@ class Winning {
     });
 
     if (this.matchCount === 5)
-      if (this.winningLotto.indexOf(this.bonusNumber) > -1) return 2;
+      if (lotto.indexOf(this.bonusNumber) > -1) return 2;
 
-    return this.getGrade(this.matchCount);
+    return this.getGrade();
   }
 
-  getGrade(agreementCount) {
-    switch (agreementCount) {
+  getGrade() {
+    switch (this.matchCount) {
       case 6:
         return 1;
       case 5:

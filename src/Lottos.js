@@ -2,7 +2,7 @@ import { Console, Random } from '@woowacourse/mission-utils';
 import { scan } from './utils/scanner.js';
 
 class Lottos {
-  #lottoAmount;
+  lottoAmount;
   lottos;
 
   constructor() {
@@ -13,7 +13,7 @@ class Lottos {
     try {
       const price = await scan('구입금액을 입력해 주세요.');
       if (price % 1000 === 0) {
-        this.lottoAmount = price / 1000;
+        this.lottoAmount = Number(price / 1000);
         return;
       }
       throw new Error('[ERROR] 구입 금액은 1,000원 단위로 입력해주세요.');
