@@ -15,7 +15,14 @@ class GameController {
   async #getValidatedPurchaseAmount() {
     const validatePurchaseAmount = Input.getPurchaseAmount();
 
-    return validatePurchaseAmount((input) => input);
+    return validatePurchaseAmount((input) => {
+      const amount = +input;
+      if (Number.isNaN(amount)) {
+        throw new Error('숫자를 입력해주세요.');
+      }
+
+      return amount;
+    });
   }
 
   async #getValidatedWinningNumbers() {
