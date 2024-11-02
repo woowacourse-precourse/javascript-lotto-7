@@ -10,4 +10,5 @@ export const PURCHASE_PRICE = {
 
 export const INSTRUCTION = {
     GET_PURCHASE_PRICE: "구입금액을 입력해 주세요.\n",
+    PRINT_LOTTO_AMOUNT: (lottoAmount) => `${lottoAmount}개를 구매했습니다.\n`,
 }

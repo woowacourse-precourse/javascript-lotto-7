@@ -6,5 +6,9 @@ export const purchasePriceUtils = {
         purchasePrice = validationCheck.isPositiveNumber(purchasePrice)
         purchasePrice = validationCheck.isInRange(purchasePrice)
         return validationCheck.isDividedNumberByValue(purchasePrice, PURCHASE_PRICE.MIN_CURR_UNIT)
+    },
+
+    getLottoAmount(purchasePrice) {
+        return purchasePrice / PURCHASE_PRICE.MIN_CURR_UNIT;
     }
 }
