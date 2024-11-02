@@ -42,3 +42,11 @@ test.each([
     expect(() => Validator.validateInput(value, regex, errorMessage)).toThrow(errorMessage);
   },
 );
+
+// 유효한 입력 테스트
+test.each([
+  { value: '123', regex: REGEX.NUMBER_REGEX },
+  { value: '1,2,3', regex: REGEX.NUMBER_AND_COMMA_REGEX },
+])('[유효한 입력 검사] "$value"시 예외가 발생하지 않는다', ({ value, regex }) => {
+  expect(() => Validator.validateInput(value, regex, null)).not.toThrow();
+});
