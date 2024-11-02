@@ -1,13 +1,13 @@
-import LottoMachine from '../src/LottoMachine';
+import LottoMachineService from '../src/Service/LottoMachineService';
 import { mockRandoms } from './ApplicationTest';
 
-describe('LottoMachine 테스트', () => {
+describe('LottoMachineService 테스트', () => {
   test('1~45 사이의 중복되지 않는 6개의 숫자를 뽑는다.', () => {
     const mockValues = [[8, 21, 23, 41, 42, 43]];
 
     mockRandoms(mockValues);
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     const lottoNumbers = lottoMachine.generateLottoNumbers();
 
     expect(lottoNumbers).toHaveLength(6);
@@ -33,7 +33,7 @@ describe('LottoMachine 테스트', () => {
 
     mockRandoms(mockValues);
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     lottoMachine.generateLottoTickets(purchaseAmount);
     const lottos = lottoMachine.getLottos();
 
@@ -53,7 +53,7 @@ describe('LottoMachine 테스트', () => {
     ];
     mockRandoms(mockValues);
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     lottoMachine.generateLottoTickets(purchaseAmount);
     const lottos = lottoMachine.getLottos();
     const totalWinningRank = lottoMachine.calculateWinningResults(
@@ -74,7 +74,7 @@ describe('LottoMachine 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 42, 43];
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     const winningRank = lottoMachine.calculateWinningResult(
       winningNumbers,
       bonusNumber,
@@ -89,7 +89,7 @@ describe('LottoMachine 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 42, 7];
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     const winningRank = lottoMachine.calculateWinningResult(
       winningNumbers,
       bonusNumber,
@@ -104,7 +104,7 @@ describe('LottoMachine 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 42, 2];
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     const winningRank = lottoMachine.calculateWinningResult(
       winningNumbers,
       bonusNumber,
@@ -119,7 +119,7 @@ describe('LottoMachine 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 1, 2];
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     const winningRank = lottoMachine.calculateWinningResult(
       winningNumbers,
       bonusNumber,
@@ -134,7 +134,7 @@ describe('LottoMachine 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 1, 2, 3];
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     const winningRank = lottoMachine.calculateWinningResult(
       winningNumbers,
       bonusNumber,
@@ -149,7 +149,7 @@ describe('LottoMachine 테스트', () => {
     const totalWinningRank = [0, 0, 0, 0, 1];
     const output = 62.5;
 
-    const lottoMachine = new LottoMachine();
+    const lottoMachine = new LottoMachineService();
     const totalReturnRate = lottoMachine.calculateTotalReturnRate(
       purchaseAmount,
       totalWinningRank

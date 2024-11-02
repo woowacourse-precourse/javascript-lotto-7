@@ -1,9 +1,9 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
-import InputView from './View/InputView.js';
-import OutputView from './View/OutputView.js';
+import Lotto from '../Lotto.js';
+import InputView from '../View/InputView.js';
+import OutputView from '../View/OutputView.js';
 
-class LottoMachine {
+class LottoMachineService {
   #lottos;
 
   constructor() {
@@ -113,4 +113,4 @@ class LottoMachine {
   }
 }
 
-export default LottoMachine;
+export default LottoMachineService;
