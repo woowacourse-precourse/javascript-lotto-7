@@ -7,7 +7,7 @@ describe('구입 금액 검증 테스트, 정상 테스트', () => {
     const lottoController = new LottoController();
     lottoController.setPurchaseAmount(5000);
     const purchaseAmount = lottoController.getPurchaseAmount();
-    expect(purchaseAmountValidator(purchaseAmount)).toBeTruthy();
+    expect(purchaseAmountValidator(purchaseAmount)).not.toThrow();
   });
 });
 
