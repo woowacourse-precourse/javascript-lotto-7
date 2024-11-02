@@ -8,6 +8,8 @@ class App {
 
     const userLottoAmount = this.computeLottoForPurchase();
     const winningNumbers = this.separateString(userWinningNumber, ',');
+    
+    this.validateNotSatisfyThousandUnits(userPurchaseAmount);
   }
 
   async getPurchaseAmount(){
@@ -30,6 +32,11 @@ class App {
     return string.split(separator);
   }
 
+  validateNotSatisfyThousandUnits(purchaseAmount){
+    if(purchaseAmount%1000 !== 0){
+      throw new Error('[ERROR]구입 금액 에러, 1000원 단위 금액을 입력해주세요.')
+    }
+  }
 }
 
 export default App;
