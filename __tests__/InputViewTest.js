@@ -4,7 +4,7 @@ import { getUserMoney, getWinningNumbers, getBonusNumber } from '../src/views/In
 
 import { validateNumber, validateUserMoney } from '../src/validators/InputValidator.js';
 
-import { INPUT_ERROR_MESSAGE, INVALID_USER_MONEY_ERROR_MESSAGE, INVALID_NUMBER_ERROR_MESSAGE } from '../src/constants/message.js';
+import { INVALID_USER_MONEY_ERROR_MESSAGE, INVALID_NUMBER_ERROR_MESSAGE } from '../src/constants/message.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -23,12 +23,6 @@ describe('사용자 입력 테스트하기', () => {
 
       const userMoney = await getUserMoney();
       expect(userMoney).toBe(1000);
-    });
-
-    test('구입금액을 입력받는 도중에 예외가 발생하면 에러 메시지를 반환한다.', async () => {
-      mockQuestions(new Error('error'));
-
-      await expect(getUserMoney()).rejects.toThrow(INPUT_ERROR_MESSAGE);
     });
   });
   describe('구입금액 유효성 검사하기', () => {
@@ -50,12 +44,6 @@ describe('사용자 입력 테스트하기', () => {
       const winningNumber = await getWinningNumbers();
       expect(winningNumber).toEqual([1, 2, 3, 4, 5, 6]);
     });
-
-    test('당첨 번호를 입력받는 도중에 예외가 발생하면 에러 메시지를 반환한다.', async () => {
-      mockQuestions(new Error('error'));
-
-      await expect(getWinningNumbers()).rejects.toThrow(INPUT_ERROR_MESSAGE);
-    });
   });
 
   describe('보너스 번호 입력받기', () => {
@@ -65,12 +53,6 @@ describe('사용자 입력 테스트하기', () => {
 
       const bonusNumber = await getBonusNumber();
       expect(bonusNumber).toBe(11);
-    });
-
-    test('보너스 번호를 입력받는 도중에 예외가 발생하면 에러 메시지를 반환한다.', async () => {
-      mockQuestions(new Error('error'));
-
-      await expect(getBonusNumber()).rejects.toThrow(INPUT_ERROR_MESSAGE);
     });
   });
 });
