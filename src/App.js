@@ -1,13 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
-import LottoGenerator from './LottoGenerator.js';
-import LottoGame from './LottoGame.js';
+import Lotto from './classes/Lotto.js';
+import LottoGenerator from './classes/LottoGenerator.js';
+import LottoGame from './classes/LottoGame.js';
+import InputView from './views/InputView.js';
 
 class App {
   async run() {
-    const purchaseAmount = await Console.readLineAsync(
-      '구입금액을 입력해 주세요.\n'
-    );
+    const inputView = new InputView();
+    const purchaseAmount = await inputView.inputPurchaseAmount();
 
     const lottoManager = new LottoGenerator(purchaseAmount);
 
@@ -20,18 +20,14 @@ class App {
       Console.print(`[${myLotto.toString().split(',').join(', ')}]`)
     );
 
-    const winningNumbersInput = await Console.readLineAsync(
-      '\n당첨 번호를 입력해 주세요.\n'
-    );
+    const winningNumbersInput = await inputView.inputWinningNumbers();
     const winningNumbers = winningNumbersInput
       .split(',')
       .map((lottoNumber) => parseInt(lottoNumber));
 
     const winningLotto = new Lotto(winningNumbers);
 
-    const bonusNumber = await Console.readLineAsync(
-      '\n보너스 번호를 입력해 주세요.\n'
-    );
+    const bonusNumber = await inputView.inputBonusNumber();
 
     const lottoGame = new LottoGame(myLottos, winningLotto, bonusNumber);
     const results = lottoGame.drawLotto();

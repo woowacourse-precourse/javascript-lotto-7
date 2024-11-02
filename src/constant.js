@@ -21,4 +21,3 @@ export const LOTTO_PRIZE = [
   },
 ];
 export const LOTTO_PRICE = 1000;
-

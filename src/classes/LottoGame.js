@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_PRIZE } from './constant.js';
+import { LOTTO_PRIZE } from '../constant.js';
 
 class LottoGame {
   constructor(myLottos, winningLotto, bonusNumber) {

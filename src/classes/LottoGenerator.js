@@ -1,5 +1,5 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE } from './constant.js';
+import { LOTTO_PRICE } from '../constant.js';
 
 class LottoGenerator {
   #lottoCount;
