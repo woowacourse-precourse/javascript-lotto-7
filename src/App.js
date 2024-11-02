@@ -45,6 +45,22 @@ class App {
     const numbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
     const lottoNumbers = numbers.split(',').map((number) => parseInt(number));
     const lotto = new Lotto(lottoNumbers);
+    const bonusNumber = await this.getBonusNumber(); // 보너스 번호 입력 받기
+  }
+
+  async getBonusNumber() {
+    const bonusNumber = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+
+    if (
+      isNaN(parseInt(bonusNumber)) ||
+      bonusNumber.trim() === '' ||
+      parseInt(bonusNumber) < 1 ||
+      parseInt(bonusNumber) > 45
+    ) {
+      throw new Error('[ERROR] 1 ~ 45 사이의 숫자로 입력해 주세요.');
+    }
+
+    return parseInt(bonusNumber);
   }
 
   async run() {
