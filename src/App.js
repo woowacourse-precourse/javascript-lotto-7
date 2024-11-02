@@ -1,10 +1,8 @@
 import Lotto from "./Lotto.js";
-import MESSAGES from "./constants/Messages.js";
 import ERRORS from "./constants/Errors.js";
 import CONDITIONS from "./constants/Conditions.js";
 import InputView from "./views/InputViews.js";
 import OutputView from "./views/OutputViews.js";
-import { Console } from "@woowacourse/mission-utils";
 import { Random } from "@woowacourse/mission-utils";
 
 class App {
