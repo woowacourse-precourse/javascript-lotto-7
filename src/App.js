@@ -15,7 +15,7 @@ class App {
     );
     const ticket = new Ticket(money);
     const ticketNumbers = ticket.getTickets();
-
+    Handler.print(`${ticketNumbers.length}개를 구매했습니다.`);
     Handler.print(ticketNumbers);
 
     const lottoTickets = [];

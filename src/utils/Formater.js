@@ -4,7 +4,8 @@ class Formatter {
     rankAndCount.forEach((rankNcount) => {
       const money = this.setOutputMoney(rankNcount.rank);
       const count = this.setOutputCount(rankNcount.rank);
-      outputString += `${count} (${money}) - ${rankNcount.count}개\n`;
+      if (money && count)
+        outputString += `${count} (${money}) - ${rankNcount.count}개\n`;
     });
     return outputString;
   }
@@ -26,7 +27,7 @@ class Formatter {
       case 5:
         return '5,000원';
       default:
-        return '0원';
+        return false;
     }
   }
 
@@ -43,7 +44,7 @@ class Formatter {
       case 5:
         return '3개 일치';
       default:
-        return '0개 일치';
+        return false;
     }
   }
 }

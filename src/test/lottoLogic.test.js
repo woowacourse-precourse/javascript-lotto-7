@@ -9,19 +9,6 @@ describe('로또 클래스 테스트', () => {
     lotto = new Lotto([1, 2, 3, 4, 5, 6]);
   });
 
-  test('문제 없는 케이스', () => {
-    expect(() => new Lotto([1, 2, 3, 4, 5, 6])).not.toThrow();
-  });
-
-  test('유효성 검사 실패 시 예외 발생', () => {
-    Validator.validateLotto = jest.fn(() => {
-      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_DUPLICATE);
-    });
-    expect(() => new Lotto([1, 2, 3, 4, 5, 5])).toThrow(
-      ERROR_MESSAGES.WINNING_NUMBERS_DUPLICATE,
-    );
-  });
-
   test('compareWinningNumbersCount 함수 테스트', () => {
     expect(lotto.compareWinningNumbersCount([1, 2, 3, 10, 11, 12])).toBe(3);
     expect(lotto.compareWinningNumbersCount([1, 2, 3, 4, 5, 6])).toBe(6);
@@ -44,5 +31,17 @@ describe('로또 클래스 테스트', () => {
     expect(lotto.setWinningRank(5, 6)).toBe(2); // 5개 일치 + 보너스 번호
     expect(lotto.setWinningRank(6, 7)).toBe(1); // 6개 일치
     expect(lotto.setWinningRank(2, 7)).toBe(0); // 2개 이하 일치
+  });
+  test('문제 없는 케이스', () => {
+    expect(() => new Lotto([1, 2, 3, 4, 5, 6])).not.toThrow();
+  });
+
+  test('유효성 검사 실패 시 예외 발생', () => {
+    Validator.validateLotto = jest.fn(() => {
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_DUPLICATE);
+    });
+    expect(() => new Lotto([1, 2, 3, 4, 5, 5])).toThrow(
+      ERROR_MESSAGES.WINNING_NUMBERS_DUPLICATE,
+    );
   });
 });

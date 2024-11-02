@@ -45,6 +45,9 @@ class Validator {
   }
 
   static validateBonusNumber(bonusNumber, winningNumbers) {
+    if (!/^\d+$/.test(bonusNumber)) {
+      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
+    }
     const parsedBonusNumber = parseInt(bonusNumber, 10);
 
     if (
