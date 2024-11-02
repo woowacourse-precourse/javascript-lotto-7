@@ -1,4 +1,5 @@
 export const LOTTO_MONEY = 1000;
+export const LOTTO_MAX_MONEY = 100000;
 export const LOTTO_MIN_NUMBER = 1;
 export const LOTTO_MAX_NUMBER = 45;
 export const LOTTO_LENGTH = 6;
@@ -22,4 +23,6 @@ export const PRIZE_MAP = {
 
 export const ERROR_MESSAGE = {
 	WRONG_UNIT: `[ERROR] 구입금액을 ${LOTTO_MONEY}원 단위로 입력되지 않았습니다.`,
+	WRONG_CHARACTER: `[ERROR] 잘못된 문자가 입력되었습니다.`,
+	PASSED_BUY_LIMIT: `[ERROR] 구입한도 ${LOTTO_MAX_MONEY}원을 초과하였습니다.`,
 };

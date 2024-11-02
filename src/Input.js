@@ -1,4 +1,9 @@
-import { ERROR_MESSAGE, LOTTO_MONEY, PROMPT } from "./constant.js";
+import {
+	ERROR_MESSAGE,
+	LOTTO_MAX_MONEY,
+	LOTTO_MONEY,
+	PROMPT,
+} from "./constant.js";
 import { printOutput, userInput } from "./missionUtils.js";
 
 class Input {
@@ -23,6 +28,10 @@ class Input {
 
 		if (Number.isNaN(INPUT_NUMBER)) {
 			throw new Error(ERROR_MESSAGE.WRONG_CHARACTER);
+		}
+
+		if (INPUT_NUMBER > LOTTO_MAX_MONEY) {
+			throw new Error(ERROR_MESSAGE.PASSED_BUY_LIMIT);
 		}
 	}
 
