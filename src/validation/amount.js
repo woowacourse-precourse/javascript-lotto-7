@@ -33,7 +33,7 @@ function cleanAmount(purchaseAmount) {
 }
 
 function isPositiveNumber(purchaseAmount) {
-  if (cleanAmount(purchaseAmount) <= 0) {
+  if (cleanAmount(purchaseAmount) <= GAME_SETTINGS.ZERO) {
     throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_POSITIVE);
   }
 }

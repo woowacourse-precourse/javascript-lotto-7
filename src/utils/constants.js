@@ -1,13 +1,7 @@
-export const LOTTO = {
-  NUMBER_RANGE: { MIN: 1, MAX: 45 },
-  WINNING_NUMBERS_COUNT: 6,
-  SEPARATOR: ',',
-};
-
 export const MESSAGES = {
-  INPUT_AMOUT: '구입금액을 입력해 주세요.',
-  INPUT_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
-  INPUT_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
+  INPUT_AMOUT: '구입금액을 입력해 주세요.\n',
+  INPUT_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
+  INPUT_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
 };
 
 export const ERROR_MESSAGES = {
@@ -24,10 +18,65 @@ export const ERROR_MESSAGES = {
     '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
 };
 
-export const GAME_SETTINGS = { DIVISIBILITY_UNIT: 1000, EMPTY_STRING: '' };
+export const GAME_SETTINGS = {
+  DIVISIBILITY_UNIT: 1000,
+  EMPTY_STRING: '',
+  NEW_LINE: '\n',
+  ZERO: 0,
+};
 
 export const REGEX = {
   NO_COMMA_NUMBER_REGEX: /^\d+$/,
   THOUSANDS_COMMA_REGEX: /^\d{1,3}(,\d{3})*$/,
   COMMA_REGEX: /,/g,
+};
+
+export const LOTTO = {
+  NUMBER_RANGE: { MIN: 1, MAX: 45 },
+  WINNING_NUMBERS_COUNT: 6,
+  SEPARATOR: ',',
+};
+
+export const RANK_KEYS = {
+  THREE_MATCH: 'threeMatch',
+  FOUR_MATCH: 'fourMatch',
+  FIVE_MATCH: 'fiveMatch',
+  FIVE_WITH_BONUS_MATCH: 'fiveWithBonusMatch',
+  SIX_MATCH: 'sixMatch',
+};
+
+export const LOTTO_REWARD = {
+  [RANK_KEYS.THREE_MATCH]: {
+    prize: 5000,
+    label: '3개 일치 (5,000원)',
+    key: 3,
+  },
+  [RANK_KEYS.FOUR_MATCH]: {
+    prize: 50000,
+    label: '4개 일치 (50,000원)',
+    key: 4,
+  },
+  [RANK_KEYS.FIVE_MATCH]: {
+    prize: 1500000,
+    label: '5개 일치 (1,500,000원)',
+    key: 5,
+  },
+  [RANK_KEYS.FIVE_WITH_BONUS_MATCH]: {
+    prize: 30000000,
+    label: '5개 일치, 보너스 볼 일치 (30,000,000원)',
+    key: 5,
+    isBonus: true,
+  },
+  [RANK_KEYS.SIX_MATCH]: {
+    prize: 2000000000,
+    label: '6개 일치 (2,000,000,000원)',
+    key: 6,
+  },
+};
+
+export const MATCH_COUNT = {
+  THREE: 3,
+  FOUR: 4,
+  FIVE: 5,
+  SIX: 6,
 };

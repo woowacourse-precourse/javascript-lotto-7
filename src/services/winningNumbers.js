@@ -14,5 +14,3 @@ function checkBonusMatch(lottoTicket, bonusNumber) {
 }
 
 export { checkMatchingNumbers, checkBonusMatch };
-
-// TODO: winningRank와 파일 하나로 관리 lottoResult

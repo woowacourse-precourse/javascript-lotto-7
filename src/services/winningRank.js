@@ -1,65 +1,41 @@
 import { checkMatchingNumbers, checkBonusMatch } from './winningNumbers.js';
-
-export const lottoReward = {
-  threeMatch: {
-    prize: 5000,
-    label: '3개 일치 (5,000원)',
-    key: 3,
-  },
-  fourMatch: {
-    prize: 50000,
-    label: '4개 일치 (50,000원)',
-    key: 4,
-  },
-  fiveMatch: {
-    prize: 1500000,
-    label: '5개 일치 (1,500,000원)',
-    key: 5,
-  },
-  fiveWithBonusMatch: {
-    prize: 30000000,
-    label: '5개 일치, 보너스 볼 일치 (30,000,000원)',
-    key: 5,
-    isBonus: true,
-  },
-  sixMatch: {
-    prize: 2000000000,
-    label: '6개 일치 (2,000,000,000원)',
-    key: 6,
-  },
-};
-
-// NaN
+import { Console } from '@woowacourse/mission-utils';
+import {
+  GAME_SETTINGS,
+  LOTTO_REWARD,
+  RANK_KEYS,
+  MATCH_COUNT,
+} from '../utils/constants.js';
 
 function assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
   const rankCounts = {
-    threeMatch: 0,
-    fourMatch: 0,
-    fiveMatch: 0,
-    fiveWithBonusMatch: 0,
-    sixMatch: 0,
+    [RANK_KEYS.THREE_MATCH]: GAME_SETTINGS.ZERO,
+    [RANK_KEYS.FOUR_MATCH]: GAME_SETTINGS.ZERO,
+    [RANK_KEYS.FIVE_MATCH]: GAME_SETTINGS.ZERO,
+    [RANK_KEYS.FIVE_WITH_BONUS_MATCH]: GAME_SETTINGS.ZERO,
+    [RANK_KEYS.SIX_MATCH]: GAME_SETTINGS.ZERO,
   };
   const matchNumbersArray = checkMatchingNumbers(lottoTickets, winningNumbers);
 
   matchNumbersArray.forEach((matchCount, index) => {
     let rewardKey = null;
 
-    if (matchCount === 6) {
-      rewardKey = 'sixMatch';
+    if (matchCount === MATCH_COUNT.SIX) {
+      rewardKey = RANK_KEYS.SIX_MATCH;
     }
-    if (matchCount === 5) {
+    if (matchCount === MATCH_COUNT.FIVE) {
       const bonusMatch = checkBonusMatch(lottoTickets[index], bonusNumber);
       if (bonusMatch) {
-        rewardKey = 'fiveWithBonusMatch';
+        rewardKey = RANK_KEYS.FIVE_WITH_BONUS_MATCH;
       } else {
-        rewardKey = 'fiveMatch';
+        rewardKey = RANK_KEYS.FIVE_MATCH;
       }
     }
-    if (matchCount === 4) {
-      rewardKey = 'fourMatch';
+    if (matchCount === MATCH_COUNT.FOUR) {
+      rewardKey = RANK_KEYS.FOUR_MATCH;
     }
-    if (matchCount === 3) {
-      rewardKey = 'threeMatch';
+    if (matchCount === MATCH_COUNT.THREE) {
+      rewardKey = RANK_KEYS.THREE_MATCH;
     }
 
     if (rewardKey) {
@@ -71,8 +47,10 @@ function assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
 }
 
 function displayResults(rankCounts) {
-  for (const [key, value] of Object.entries(lottoReward)) {
-    console.log(`${value.label} - ${rankCounts[key] || 0}개`);
+  for (const [key, value] of Object.entries(LOTTO_REWARD)) {
+    Console.print(
+      `${value.label} - ${rankCounts[key] || GAME_SETTINGS.ZERO}개`
+    );
   }
 }
 
