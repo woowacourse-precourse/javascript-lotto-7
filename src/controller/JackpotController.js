@@ -3,7 +3,7 @@ import { Console } from '@woowacourse/mission-utils';
 import Lotto from '../Lotto.js';
 import Validators from '../utils/Validation.js';
 
-class MatchController {
+class JackpotController {
   constructor() {
     this.jackpot = [];
   }
@@ -37,4 +37,4 @@ class MatchController {
   }
 }
 
-export default MatchController;
+export default JackpotController;

@@ -1,4 +1,4 @@
-import MatchController from './controller/MatchController.js';
+import JackpotController from './controller/JackpotController.js';
 import TicketController from './controller/TicketController.js';
 
 class App {
@@ -6,7 +6,7 @@ class App {
     const ticket = new TicketController();
     await ticket.getTicket();
 
-    const jackpot = new MatchController();
+    const jackpot = new JackpotController();
     await jackpot.getJackpot();
   }
 }
