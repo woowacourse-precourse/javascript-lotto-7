@@ -1,18 +1,15 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { INPUT_MESSAGE } from "./constants/message.js";
-import Validate from "./utils/validate.js";
+import Validate from "./Validate.js";
+import Input from "./Input.js";
 
 class App {
   async run() {
     try {
-      const purchaseAmount = await Console.readLineAsync(
-        INPUT_MESSAGE.PURCHASE_AMOUNT
-      );
+      const { purchaseAmount } = await Input.getPurchaseAmount();
+      Validate.checkPurchaseAmount(purchaseAmount);
 
-      Validate.checkPurchaseAmount(Number(purchaseAmount));
-
-      const lottoCount = Number(purchaseAmount) / 1000;
+      const lottoCount = purchaseAmount / 1000;
 
       Console.print(`${lottoCount}개를 구매했습니다.`);
 
@@ -26,21 +23,11 @@ class App {
         return new Lotto(myLottoNumber);
       });
 
-      // lotto number input
-      const lottoNumber = await Console.readLineAsync(
-        INPUT_MESSAGE.LOTTO_NUMBER
-      );
+      const { myLottoNumbers } = await Input.getLottoNumber();
+      Validate.checkLottoNumbers([...myLottoNumbers]);
 
-      const lottoArray = new Set(lottoNumber.split(",").map(Number));
-
-      Validate.checkLottoNumbers([...lottoArray]);
-
-      // bonus number input
-      const bonusNumber = await Console.readLineAsync(
-        INPUT_MESSAGE.BONUS_NUMBER
-      );
-
-      Validate.checkBonusNumber(Number(bonusNumber), lottoArray);
+      const { bonusNumber } = await Input.getBonusNumber();
+      Validate.checkBonusNumber(bonusNumber, myLottoNumbers);
     } catch (error) {
       console.log(`[ERROR] ${error.message}`);
     }
