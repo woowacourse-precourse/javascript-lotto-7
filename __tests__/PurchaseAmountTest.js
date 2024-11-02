@@ -1,7 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import PurchaseAmount from "../src/PurchaseAmount";
 
-// 로그 출력을 감시하기 위한 스파이 함수
 const getLogSpy = () => {
     const logSpy = jest.spyOn(MissionUtils.Console, "print");
     return logSpy;
