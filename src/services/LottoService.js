@@ -1,3 +1,4 @@
+import RANKS from "../constants/rank.js";
 import Lotto from "../model/Lotto.js";
 import generateLandomNumber from "../utils/generateLandomNum.js";
 
@@ -54,16 +55,9 @@ class LottoService {
   }
 
   calculateProfit(matchCounts, amount) {
-    const prizeMapping = {
-      3: 5000,
-      4: 50000,
-      5: 1500000,
-      bonus: 30000000,
-      6: 2000000000,
-    };
-
     const prize = Object.keys(matchCounts).reduce((total, key) => {
-      return total + (matchCounts[key] * prizeMapping[key] || 0);
+      const rank = RANKS[Object.keys(RANKS).find((r) => RANKS[r].match == key)];
+      return total + matchCounts[key] * (rank ? rank.prize : 0);
     }, 0);
 
     return ((prize / amount) * 100).toFixed(1);
