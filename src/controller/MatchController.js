@@ -1,4 +1,4 @@
-import { INPUT } from '../constants/Constants';
+import { INPUT } from '../constants/Constants.js';
 
 class MatchController {
   constructor() {}
