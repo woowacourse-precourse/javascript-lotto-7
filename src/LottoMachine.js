@@ -1,6 +1,6 @@
-import { Console } from "@woowacourse/mission-utils";
-import { Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+import { Console } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class LottoMachine {
   #purchase = 0;
@@ -8,38 +8,38 @@ class LottoMachine {
   #winningNumbers = [];
   #bonusNumber;
   #lottos = [];
-  #resultCount = [0,0,0,0,0];
-
+  #resultCount = [0, 0, 0, 0, 0];
 
   async play() {
     await this.setPurchase(); // 구입 금액 입력
     this.setLottoCount(); // 로또 개수 구하기
     this.makeLotto(); // 로또 발행
-    await this.setWinningNumbers();       // 당첨 번호 입력
-    await this.setBonusNumber();        // 보너스 번호 입력
+    await this.setWinningNumbers(); // 당첨 번호 입력
+    await this.setBonusNumber(); // 보너스 번호 입력
 
     // 당첨 확인
     // lottos 안에 Lotto 마다 numbers 몇개 일치하는지 matchCount 세기
-    for(let i = 0; i<this.#lottoCount; i++){
-        this.checkMatch(this.#lottos[i], this.#resultCount);
+    for (let i = 0; i < this.#lottoCount; i++) {
+      this.checkMatch(this.#lottos[i], this.#resultCount);
     }
-    
+
+    Console.print(this.#resultCount);
   }
 
   // 구입 금액 입력
   async setPurchase() {
-    const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
     this.#validatePurchase(input);
     this.#purchase = input;
   }
 
   #validatePurchase(purchase) {
     if (purchase % 1000 !== 0) {
-      throw new Error("[ERROR] 구입 금액은 1000으로 나누어 떨어져야 합니다.");
+      throw new Error('[ERROR] 구입 금액은 1000으로 나누어 떨어져야 합니다.');
     }
 
     if (isNaN(purchase)) {
-      throw new Error("[ERROR] 구입 금액은 숫자여야 합니다.");
+      throw new Error('[ERROR] 구입 금액은 숫자여야 합니다.');
     }
   }
 
@@ -66,31 +66,31 @@ class LottoMachine {
 
   // 당첨 번호 입력
   async setWinningNumbers() {
-    const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
-    const numbers = input.split(",").map(Number);
+    const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const numbers = input.split(',').map(Number);
     this.#validateWinningNumbers(numbers);
     this.#winningNumbers = numbers;
   }
 
   #validateWinningNumbers(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }
     for (let i = 0; i < numbers.length; i++) {
       if (isNaN(numbers[i])) {
-        throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+        throw new Error('[ERROR] 로또 번호는 숫자여야 합니다.');
       }
       if (numbers[i] < 1 || numbers[i] > 45) {
-        throw new Error("[ERROR] 로또 번호의 범위는 1~45까지입니다.");
+        throw new Error('[ERROR] 로또 번호의 범위는 1~45까지입니다.');
       }
     }
     if (numbers.filter((num, index) => numbers.indexOf(num) !== index).length > 0) {
-      throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
+      throw new Error('[ERROR] 로또 번호는 중복이 없어야 합니다.');
     }
   }
 
-  async setBonusNumber(){
-    let input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+  async setBonusNumber() {
+    let input = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
     input = parseInt(input);
     this.#validateBonusNumber(input);
     this.#bonusNumber = input;
@@ -98,43 +98,51 @@ class LottoMachine {
 
   #validateBonusNumber(bonus) {
     if (isNaN(bonus)) {
-    throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+      throw new Error('[ERROR] 로또 번호는 숫자여야 합니다.');
     }
     if (bonus < 1 || bonus > 45) {
-    throw new Error("[ERROR] 로또 번호의 범위는 1~45까지입니다.");
+      throw new Error('[ERROR] 로또 번호의 범위는 1~45까지입니다.');
     }
     if (this.#winningNumbers.includes(bonus)) {
-      throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
+      throw new Error('[ERROR] 로또 번호는 중복이 없어야 합니다.');
     }
   }
 
-  checkMatch(myNumbers, resultCount){
+  checkMatch(myNumbers, resultCount) {
     // 일치 개수 구하기
     const matchCount = this.isMatch(myNumbers);
     // 보너스 일치하는지 구하기
     const bonusMatch = this.isBonus(myNumbers);
 
-
+    if (matchCount == 6) {
+      resultCount[0]++;
+    } else if (matchCount == 5 && bonusMatch) {
+      resultCount[1]++;
+    } else if (matchCount == 5 && !bonusMatch) {
+      resultCount[2]++;
+    } else if (matchCount == 4) {
+      resultCount[3]++;
+    } else if (matchCount == 3) {
+      resultCount[4]++;
+    }
   }
 
-  isMatch(myNumbers){
+  isMatch(myNumbers) {
     let matchCount = 0;
-    for(let i = 0; i<6; i++){
-        if(this.#winningNumbers.includes(myNumbers[i])){
-            matchCount ++;
-        }
+    for (let i = 0; i < 6; i++) {
+      if (this.#winningNumbers.includes(myNumbers[i])) {
+        matchCount++;
+      }
     }
     return matchCount;
   }
 
-  isBonus(myNumbers){
-    if(myNumbers.includes(this.#bonusNumber)){
-        return true;
+  isBonus(myNumbers) {
+    if (myNumbers.includes(this.#bonusNumber)) {
+      return true;
     }
     return false;
   }
-
-
 }
 
 export default LottoMachine;
