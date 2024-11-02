@@ -16,5 +16,5 @@ export async function getBonusWinningNumber() {
   const bonusWinningNumber = await Console.readLineAsync(
     LOTTO_MESSAGE.LOTTO_BONUS_WINNING_NUMBER_MESSAGE,
   );
-  return bonusWinningNumber;
+  return Number(bonusWinningNumber);
 }
