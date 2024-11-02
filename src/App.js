@@ -26,6 +26,9 @@ class App {
       if (isNaN(number)) {
         throw new Error("[ERROR]: 숫자만 입력가능합니다.");
       }
+      if (!Number.isInteger(number)) {
+        throw new Error("[ERROR]: 정수가 아닌 수는 입력할 수 없습니다.");
+      }
     });
   }
 }
