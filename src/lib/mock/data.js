@@ -1,4 +1,4 @@
-const MOCKDATA = {
+const MOCK_DATA = {
   OUTPUT: {
     PURCHASE: [
       '8개를 구매했습니다.',
@@ -54,4 +54,4 @@ const MOCKDATA = {
   },
 };
 
-export default MOCKDATA;
+export default MOCK_DATA;

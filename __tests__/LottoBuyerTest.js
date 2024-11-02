@@ -3,7 +3,7 @@ import {
   mockQuestions,
   mockRandoms,
 } from '../src/lib/mock/utils.js';
-import MOCKDATA from '../src/lib/mock/data.js';
+import MOCK_DATA from '../src/lib/mock/data.js';
 import LottoBuyer from '../src/LottoBuyer.js';
 import LottoCompany from '../src/LottoCompany.js';
 import LottoShop from '../src/LottoShop.js';
@@ -20,12 +20,12 @@ describe('LottoBuyer', () => {
   test('purchaseLottos', async () => {
     const logSpy = getLogSpy();
 
-    mockRandoms(MOCKDATA.RANDOM.LOTTO_NUMBERS);
-    mockQuestions([MOCKDATA.INPUT.PURCHASE_PRICE]);
+    mockRandoms(MOCK_DATA.RANDOM.LOTTO_NUMBERS);
+    mockQuestions([MOCK_DATA.INPUT.PURCHASE_PRICE]);
 
     await lottoBuyer.purchaseLottos(lottoShop);
 
-    MOCKDATA.OUTPUT.PURCHASE.forEach((log) => {
+    MOCK_DATA.OUTPUT.PURCHASE.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
@@ -47,7 +47,7 @@ describe('LottoBuyer', () => {
 
     lottoBuyer.checkWinningLotto(lottoCompany);
 
-    MOCKDATA.OUTPUT.WINNING_STATIC.forEach((log) => {
+    MOCK_DATA.OUTPUT.WINNING_STATIC.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });

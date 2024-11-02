@@ -1,6 +1,6 @@
 import App from '../src/App.js';
 import { ERROR_MESSAGE } from '../src/lib/constants.js';
-import MOCKDATA from '../src/lib/mock/data.js';
+import MOCK_DATA from '../src/lib/mock/data.js';
 import {
   getLogSpy,
   mockQuestions,
@@ -13,12 +13,12 @@ const runException = async (inputs, errorMessage) => {
   const inputNumbersToEndStartIndex = inputs.length - 1;
 
   const INPUT_NUMBERS_TO_END = [
-    MOCKDATA.INPUT.PURCHASE_PRICE,
-    MOCKDATA.INPUT.WINNING_NUMBERS,
-    MOCKDATA.INPUT.BONUS_MUMBER,
+    MOCK_DATA.INPUT.PURCHASE_PRICE,
+    MOCK_DATA.INPUT.WINNING_NUMBERS,
+    MOCK_DATA.INPUT.BONUS_MUMBER,
   ].slice(inputNumbersToEndStartIndex, 3);
 
-  mockRandoms(MOCKDATA.RANDOM.LOTTO_NUMBERS);
+  mockRandoms(MOCK_DATA.RANDOM.LOTTO_NUMBERS);
   mockQuestions([...inputs, ...INPUT_NUMBERS_TO_END]);
 
   const app = new App();
@@ -37,13 +37,13 @@ describe('App', () => {
       test('모킹 데이터', async () => {
         const logSpy = getLogSpy();
 
-        mockRandoms(MOCKDATA.RANDOM.LOTTO_NUMBERS);
-        mockQuestions(Object.values(MOCKDATA.INPUT).flat());
+        mockRandoms(MOCK_DATA.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA.INPUT).flat());
 
         const app = new App();
         await app.run();
 
-        Object.values(MOCKDATA.OUTPUT)
+        Object.values(MOCK_DATA.OUTPUT)
           .flat()
           .forEach((log) => {
             expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
@@ -68,27 +68,27 @@ describe('App', () => {
     describe('입력된 당첨 번호가 올바르지 않은 경우 예외를 처리한다.', () => {
       test('6개의 숫자보다 적거나 많게 입력한 경우', async () => {
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, '1,2,3'],
+          [MOCK_DATA.INPUT.PURCHASE_PRICE, '1,2,3'],
           ERROR_MESSAGE.NOT_SIX,
         );
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,6,7,8'],
+          [MOCK_DATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,6,7,8'],
           ERROR_MESSAGE.NOT_SIX,
         );
       });
       test('하나의 숫자라도 1~45 사이의 숫자가 아닌 경우', async () => {
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,90'],
+          [MOCK_DATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,90'],
           ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
         );
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,-10'],
+          [MOCK_DATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,-10'],
           ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
         );
       });
       test('중복된 숫자를 입력했을 경우', async () => {
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,5'],
+          [MOCK_DATA.INPUT.PURCHASE_PRICE, '1,2,3,4,5,5'],
           ERROR_MESSAGE.NOT_UNIQUE,
         );
       });
@@ -97,23 +97,35 @@ describe('App', () => {
     describe('입력된 보너스 번호가 올바르지 않은 경우 예외를 처리한다.', () => {
       test('입력한 값이 숫자가 아닌 경우', async () => {
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, MOCKDATA.INPUT.WINNING_NUMBERS, 'a'],
+          [
+            MOCK_DATA.INPUT.PURCHASE_PRICE,
+            MOCK_DATA.INPUT.WINNING_NUMBERS,
+            'a',
+          ],
           ERROR_MESSAGE.NOT_NUMERIC,
         );
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, MOCKDATA.INPUT.WINNING_NUMBERS, '\\'],
+          [
+            MOCK_DATA.INPUT.PURCHASE_PRICE,
+            MOCK_DATA.INPUT.WINNING_NUMBERS,
+            '\\',
+          ],
           ERROR_MESSAGE.NOT_NUMERIC,
         );
       });
       test('1~45 사이의 숫자가 아닌 경우', async () => {
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, MOCKDATA.INPUT.WINNING_NUMBERS, '90'],
+          [
+            MOCK_DATA.INPUT.PURCHASE_PRICE,
+            MOCK_DATA.INPUT.WINNING_NUMBERS,
+            '90',
+          ],
           ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
         );
         await runException(
           [
-            MOCKDATA.INPUT.PURCHASE_PRICE,
-            MOCKDATA.INPUT.WINNING_NUMBERS,
+            MOCK_DATA.INPUT.PURCHASE_PRICE,
+            MOCK_DATA.INPUT.WINNING_NUMBERS,
             '-10',
           ],
           ERROR_MESSAGE.NOT_POSITIVE,
@@ -121,7 +133,11 @@ describe('App', () => {
       });
       test('로또 번호와 중복되는 번호가 있는 경우', async () => {
         await runException(
-          [MOCKDATA.INPUT.PURCHASE_PRICE, MOCKDATA.INPUT.WINNING_NUMBERS, '6'],
+          [
+            MOCK_DATA.INPUT.PURCHASE_PRICE,
+            MOCK_DATA.INPUT.WINNING_NUMBERS,
+            '6',
+          ],
           ERROR_MESSAGE.NOT_UNIQUE,
         );
       });
