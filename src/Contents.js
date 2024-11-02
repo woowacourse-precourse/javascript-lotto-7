@@ -23,9 +23,9 @@ const PRICE_ERROR_MESSAGE = Object.freeze({
   MAX_PRICE: "[ERROR] 최대 단위는 100,000원입니다.",
 });
 
-const WINNING_NUMBER_ERROR_MESSAGE = Object.freeze({
+const NUMBER_INPUT_ERROR_MESSAGE = Object.freeze({
   INCORRECT_COUNT_NUMBER: "[ERROR] 쉼표로 구분한 숫자 6개를 입력해 주세요.",
   ONLY_NUMBER_COMMA: "[ERROR] 숫자와 쉼표만 입력 가능합니다.",
-  WINNING_NUMBER_RANGE: "[ERROR] 1 ~ 45 사이의 숫자만 입력해 주세요..",
+  NUMBER_RANGE: "[ERROR] 1 ~ 45 사이의 숫자만 입력해 주세요..",
   DUPLICATE_NUMBER: "[ERROR] 중복되지 않는 숫자만 입력해 주세요.",
 });

@@ -56,7 +56,7 @@ class Consumer {
 
   numberRangeCheck() {
     if (winningNumber < 1 || 45 < winningNumber) {
-      throw new Error(WINNING_NUMBER_ERROR_MESSAGE.WINNING_NUMBER_RANGE);
+      throw new Error(NUMBER_INPUT_ERROR_MESSAGE.NUMBER_RANGE);
     }
   }
 
