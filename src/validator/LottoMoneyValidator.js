@@ -1,25 +1,27 @@
+import ErrorMessages from "../constant/ErrorMessage";
+
 class LottoMoneyValidator {
     checkMoneyIsMultipleOfThousand(lottoMoney) {
         if (lottoMoney % 1000 !== 0) {
-            throw new Error("[ERROR] 로또 구입 금액은 1000원 단위여야 합니다.");
+            throw new Error(ErrorMessages.LOTTO_MONEY_MULTIPLE_THOUSAND);
         }
     }
 
     checkMoneyIsAtLeastThousand(lottoMoney) {
         if (lottoMoney < 1000) {
-            throw new Error("[ERROR] 로또 구입 금액은 1000원 이상이어야 합니다.");
+            throw new Error(ErrorMessages.LOTTO_MONEY_POSITIVE);
         }
     }
 
     checkMoneyIsEmpty(lottoMoney) {
         if (String(lottoMoney).trim() === "") {
-            throw new Error("[ERROR] 로또 구입 금액은 공백일 수 없습니다.");
+            throw new Error(ErrorMessages.LOTTO_MONEY_MUST_NUMBER);
         }
     }
 
     checkMoneyIsNumber(lottoMoney) {
         if (isNaN(lottoMoney)) {
-            throw new Error("[ERROR] 로또 구입 금액은 숫자여야 합니다.");
+            throw new Error(ErrorMessages.LOTTO_MONEY_MUST_NUMBER);
         }
     }
 
