@@ -62,6 +62,10 @@ class Input {
 		if (INPUT_WINNING.some((number) => number < 1 || number > 45)) {
 			throw new Error(ERROR_MESSAGE.PASSED_WINNING_RANGE);
 		}
+
+		if (new Set(INPUT_WINNING).size !== INPUT_WINNING.length) {
+			throw new Error(ERROR_MESSAGE.WRONG_DUPLICATE);
+		}
 	}
 
 	async getBonusNumber(winningNumber) {
