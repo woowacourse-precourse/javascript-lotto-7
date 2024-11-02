@@ -1,5 +1,5 @@
-import { Console } from "@woowacourse/mission-utils";
-import { PROMPTS, ERROR_MESSAGES } from "./constants/constants.js";
+import Input from "./utils/Input.js";
+import Validator from "./utils/Validator.js";
 
 class App {
   async run() {
@@ -7,21 +7,19 @@ class App {
   }
 
   async getPurchaseAmount() {
-    const purchaseAmount = await Console.readLineAsync(PROMPTS.PURCHASE_AMOUNT);
+    let purchaseAmount;
 
-    if (isNaN(purchaseAmount)) {
-      Console.print(ERROR_MESSAGES.INVALID_AMOUNT);
-      return this.getPurchaseAmount();
-    }
+    while (true) {
+      purchaseAmount = await Input.purchaseAmount();
 
-    if (Number(purchaseAmount) < 1000) {
-      Console.print(ERROR_MESSAGES.MINIMUM_AMOUNT);
-      return this.getPurchaseAmount();
-    }
+      const isValidPrice =
+        Validator.isNumber(purchaseAmount) &&
+        Validator.isAboveMinimum(purchaseAmount) &&
+        Validator.isThousandUnit(purchaseAmount);
 
-    if (Number(purchaseAmount) % 1000 !== 0) {
-      Console.print(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
-      return this.getPurchaseAmount();
+      if (isValidPrice) {
+        break;
+      }
     }
 
     return purchaseAmount;
