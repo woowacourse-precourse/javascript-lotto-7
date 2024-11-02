@@ -11,30 +11,17 @@ import Profit from '../Profit.js';
 
 class LottoController {
   async run() {
-    const {
-      lottoMoney,
-      userLotto,
-      winningLottoNumbers,
-      winningLottoBonusNumber,
-    } = await this.prepareLotto();
+    const { lottoMoney, userLotto, winningLottoNumbers, winningLottoBonusNumber } =
+      await this.prepareLotto();
 
-    const rankCounter = this.playLotto(
-      userLotto,
-      winningLottoNumbers,
-      winningLottoBonusNumber,
-    );
+    const rankCounter = this.playLotto(userLotto, winningLottoNumbers, winningLottoBonusNumber);
 
     this.completeLotto(lottoMoney, rankCounter);
   }
 
   async prepareLotto() {
-    const lottoMoney = await this.generateMoney();
-    const lottoCounter = this.generateLottoCounter(lottoMoney);
-    const userLotto = this.generateUserLotto(lottoCounter);
-
-    const winningLottoNumbers = await this.generateWinningLottoNumbers();
-    const winningLottoBonusNumber =
-      await this.generateWinningLottoBonusNumber(winningLottoNumbers);
+    const { lottoMoney, userLotto } = await this.generateUserLotto();
+    const { winningLottoNumbers, winningLottoBonusNumber } = await this.generateWinningLotto();
 
     return {
       lottoMoney,
@@ -65,12 +52,24 @@ class LottoController {
     OutputView.printLottoStatics(rankCounter, profit.getProfit());
   }
 
+  async generateUserLotto() {
+    const lottoMoney = await this.generateMoney();
+    const lottoCount = this.generateLottoCount(lottoMoney);
+    const userLotto = this.generateRandomLotto(lottoCount);
+    return { lottoMoney, userLotto };
+  }
+
+  async generateWinningLotto() {
+    const winningLottoNumbers = await this.generateWinningLottoNumbers();
+    const winningLottoBonusNumber = await this.generateWinningLottoBonusNumber(winningLottoNumbers);
+    return { winningLottoNumbers, winningLottoBonusNumber };
+  }
+
   async generateMoney() {
     let lottoMoney;
     let lottoMoneyRepeater = true;
     while (lottoMoneyRepeater) {
       try {
-        // 사용자 로또 횟수 발행
         const inputMoney = await InputView.readMoney();
         lottoMoney = new Money(inputMoney);
         lottoMoneyRepeater = false;
@@ -111,13 +110,13 @@ class LottoController {
     return bonusLotto;
   }
 
-  generateLottoCounter(lottoMoney) {
-    const lottoCounter = lottoMoney.getMoney() / MONEY_UNIT;
-    OutputView.printLottoCounter(lottoCounter);
-    return lottoCounter;
+  generateLottoCount(lottoMoney) {
+    const lottoCount = lottoMoney.getMoney() / MONEY_UNIT;
+    OutputView.printLottoCounter(lottoCount);
+    return lottoCount;
   }
 
-  generateUserLotto(lottoCounter) {
+  generateRandomLotto(lottoCounter) {
     const lottoList = [];
     for (let i = 0; i < lottoCounter; i++) {
       const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
