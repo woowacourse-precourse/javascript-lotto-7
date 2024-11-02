@@ -19,24 +19,7 @@ class App {
 
     // 당첨 번호를 입력
     const winningNumbers = await this.getWinningLotto();
-
-    //보너스 번호 입력
-    const bonusNumberInput = await InputView.inputBonusNumber();
-    const bonusNumber = +bonusNumberInput;
-
-    if (winningNumberArr.includes(bonusNumber)) {
-      throw new Error(ERRORS.NOT_BONUS_NUMBER);
-    }
-
-    if (
-      !(
-        bonusNumber >= CONDITIONS.START_NUM &&
-        bonusNumber <= CONDITIONS.END_NUM &&
-        Number.isInteger(bonusNumber)
-      )
-    ) {
-      throw new Error(ERRORS.NOT_1_TO_45);
-    }
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
 
     const howManyMatch = [0, 0, 0, 0, 0];
     for (let i = 0; i < numberOfLottoes; i++) {
@@ -96,6 +79,28 @@ class App {
   async getWinningLotto() {
     const winningNumbersInput = await InputView.inputWinningNumbers();
     return new Lotto(winningNumbersInput.split(",").map(Number));
+  }
+
+  async getBonusNumber(winningLotto) {
+    const bonusNumber = +(await InputView.inputBonusNumber());
+    this.validateBonusNumber(bonusNumber, winningLotto);
+    return bonusNumber;
+  }
+
+  validateBonusNumber(bonusNumber, winningLotto) {
+    if (winningLotto.contains(bonusNumber)) {
+      throw new Error(ERRORS.NOT_BONUS_NUMBER);
+    }
+
+    if (
+      !(
+        bonusNumber >= CONDITIONS.START_NUM &&
+        bonusNumber <= CONDITIONS.END_NUM &&
+        Number.isInteger(bonusNumber)
+      )
+    ) {
+      throw new Error(ERRORS.NOT_1_TO_45);
+    }
   }
 }
 
