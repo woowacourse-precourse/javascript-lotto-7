@@ -56,7 +56,20 @@ export default class BuyLotto {
       this.#purchasedLotto.push(randomNumber);
       this.#validator.validateDuplicateNumber(randomNumber);
     }
-    Console.print(this.#purchasedLotto);
-    
+    this.#printLottoNumbers(purchaseAmount);
   }
+
+  #printLottoNumbers(purchaseAmount) {
+    Console.print(`${purchaseAmount}개를 구매했습니다.`);
+    this.#purchasedLotto.forEach((array) => {
+      const sortedArray = this.#sortLottoNumbers(array);
+      Console.print(sortedArray);
+    });
+    Console.print(this.#EMPTY_STRING);
+  }
+
+  #sortLottoNumbers(array) {
+    return array.slice().sort((a, b) => a - b);
+  }
+  
 }
