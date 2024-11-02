@@ -96,7 +96,7 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test('로또 구입 금액이 1,000원으로 나누어 떨어지지 않는 경우.', () => {
+  test('로또 구입 금액이 1,000원으로 나누어 떨어지지 않는 경우 예외가 발생한다.', () => {
     expect(() => {
       Lotto.initializePurchaseAmount('1500');
     }).toThrow('[ERROR]');
@@ -104,5 +104,15 @@ describe('로또 클래스 테스트', () => {
     expect(() => {
       Lotto.initializePurchaseAmount('1000001');
     }).toThrow('[ERROR]');
+  });
+
+  test('로또 티켓 생성 함수 테스트', () => {
+    expect(() => {
+      Lotto.makeLottoTickets(1);
+    }).not.toThrow();
+
+    expect(() => {
+      Lotto.makeLottoTickets(100);
+    }).not.toThrow();
   });
 });
