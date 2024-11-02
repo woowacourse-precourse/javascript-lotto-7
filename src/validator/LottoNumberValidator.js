@@ -18,7 +18,6 @@ export class LottoNumberValidator {
     ) {
       throw new Error(ERROR_MESSAGES.INVALID_NUMBER_FORMAT);
     }
-    numbers.forEach(this.validatePositiveNumber);
   }
 
   // 로또 개수가 6개인지 검증
