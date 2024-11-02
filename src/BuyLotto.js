@@ -17,19 +17,16 @@ class BuyLotto {
     this.#quantityOfLotto = amount / AMOUNT.lottoAmount;
   }
 
-  #ascendinglottoNumber(lotto) {
-    return lotto.sort((a, b) => a - b);
-  }
-
   #createRandomLottos() {
     for (let i = 0; i < this.#quantityOfLotto; i += 1) {
-      const lotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-      this.lottos.push(this.#ascendinglottoNumber(lotto));
+      const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      const lotto = new Lotto(numbers);
+      this.lottos.push(lotto.createLotto());
     }
   }
 
   #printLottos() {
-    this.lottos.map((lotto) => Console.print(lotto));
+    this.lottos.forEach((lotto) => Console.print(lotto));
   }
 
   #printLottoQuantity() {

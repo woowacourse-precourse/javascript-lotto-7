@@ -1,9 +1,9 @@
-import LottoSetting from './LottoSetting.js';
+import BuyLotto from './BuyLotto.js';
 
 class App {
   async run() {
-    const lottoSetting = new LottoSetting();
-    await lottoSetting.settingLotto();
+    const buyLotto = new BuyLotto();
+    const lottos = await buyLotto.buyLotto();
   }
 }
 
