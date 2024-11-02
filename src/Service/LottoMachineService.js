@@ -2,6 +2,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from '../Lotto.js';
 import InputView from '../View/InputView.js';
 import OutputView from '../View/OutputView.js';
+import LottoNumberGenerateService from './LottoNumberGenerateService.js';
 
 class LottoMachineService {
   #lottos;
@@ -10,6 +11,7 @@ class LottoMachineService {
     this.#lottos = [];
     this.inputView = new InputView();
     this.outputView = new OutputView();
+    this.lottoNumberGenerateService = new LottoNumberGenerateService();
   }
 
   async run() {
@@ -31,13 +33,10 @@ class LottoMachineService {
     this.outputView.printTotalReturnRate(totalReturnRate);
   }
 
-  generateLottoNumbers() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-  }
-
   generateLottoTickets(purchaseAmount) {
     for (let i = 0; i < purchaseAmount / 1000; i++) {
-      const lottoNumbers = this.generateLottoNumbers();
+      const lottoNumbers =
+        this.lottoNumberGenerateService.generateUniqueLottoNumbers();
       const lotto = new Lotto(lottoNumbers);
       this.#lottos.push(lotto);
     }
