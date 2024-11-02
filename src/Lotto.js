@@ -16,6 +16,11 @@ class Lotto {
     if (new Set(numbers).size !== numbers.length) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBERS);
     }
+    numbers.forEach((number) => {
+      if (number < 1 || number > 45) {
+        throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
+      }
+    });
   }
 
   static generateLottoNumbers(count) {
