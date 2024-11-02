@@ -13,9 +13,8 @@ class LottoMachine {
     await this.setPurchase(); // 구입 금액 입력
     this.setLottoCount(); // 로또 개수 구하기
     this.makeLotto(); // 로또 발행
-    this.setWinningNumbers();       // 당첨 번호 입력
-    // 보너스
-    this.setBonusNumber();
+    await this.setWinningNumbers();       // 당첨 번호 입력
+    await this.setBonusNumber();        // 보너스 번호 입력
   }
 
   // 구입 금액 입력
@@ -80,7 +79,26 @@ class LottoMachine {
       throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
     }
   }
-  
+
+  async setBonusNumber(){
+    let input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    input = parseInt(input);
+    this.#validateBonusNumber(input);
+    this.#bonusNumber = input;
+  }
+
+  #validateBonusNumber(bonus) {
+    if (isNaN(bonus)) {
+    throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+    }
+    if (bonus < 1 || bonus > 45) {
+    throw new Error("[ERROR] 로또 번호의 범위는 1~45까지입니다.");
+    }
+    if (this.#winningNumbers.includes(bonus)) {
+      throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
+    }
+  }
+
 }
 
 export default LottoMachine;
