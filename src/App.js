@@ -22,6 +22,8 @@ class App {
       totalWinningPrize,
       purchaseAmount,
     );
+
+    Output.printWinningResult(rankCounts, profitRate);
   }
 
   async #tryInput(inputFunction) {
