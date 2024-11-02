@@ -41,7 +41,7 @@
   },
   "overrides": [
     {
-      "files": ["test/**", "__tests__/**"],
+      "files": ["test/**"],
       "plugins": ["jest"],
       "extends": ["plugin:jest/recommended"],
       "rules": { "jest/prefer-expect-assertions": "off" }

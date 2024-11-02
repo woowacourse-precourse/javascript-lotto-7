@@ -1,10 +1,11 @@
 // @ts-check
-import { input } from '../lib/view';
+import { input } from '../lib/view.js';
 
 class LotteryMachineView {
   static QUERY = Object.freeze({
     GET_LOTTERY_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
   });
+
   /**
    *
    * @returns {Promise<string>}
