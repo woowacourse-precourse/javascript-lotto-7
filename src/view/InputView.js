@@ -6,6 +6,10 @@ class InputView {
     return await InputView.#readInput(INPUT_MESSAGE.LOTTO_WINNING_NUMBERS);
   }
 
+  static async readBonusNumber() {
+    return await InputView.#readInput(INPUT_MESSAGE.LOTTO_BONUS_NUMBER);
+  }
+
   static #readInput(input) {
     return Console.readLineAsync(input);
   }

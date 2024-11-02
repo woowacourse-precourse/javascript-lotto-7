@@ -19,4 +19,22 @@ describe('InputView 클래스 테스트', () => {
       expect(numbers).toBe('1, 2, 3, 4, 5, 6');
     });
   });
+
+  test('사용자로부터 입력된 보너스 번호가 올바르게 반환된다.', () => {
+    Console.readLine.mockImplementationOnce((_, callback) => {
+      callback('5');
+    });
+
+    InputView.readBonusNumber((numbers) => {
+      expect(numbers).toBe('5');
+    });
+
+    Console.readLine.mockImplementationOnce((_, callback) => {
+      callback('25');
+    });
+
+    InputView.readBonusNumber((numbers) => {
+      expect(numbers).toBe('25');
+    });
+  });
 });
