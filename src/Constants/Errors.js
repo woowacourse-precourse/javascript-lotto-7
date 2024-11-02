@@ -40,6 +40,10 @@ const Errors = Object.freeze({
     IS_DUPLICATE_VALUE: '로또 번호는 중복이 없어야 합니다.',
     NOT_RANGED_VALUE: '로또 번호는 1부터 45 사이의 숫자이어야 합니다.',
   },
+
+  PurchaseCount: {
+    NOT_NUMBER_VALUE: '구매 횟수는 숫자로 구성되어야 합니다.',
+  },
 });
 
 export default Errors;

@@ -1,5 +1,5 @@
 import { OutputComment } from '../Constants/display.js';
-import ErrorMessages from '../Constants/Errors.js';
+import Errors from '../Constants/Errors.js';
 import { throwError } from '../Utils/handleError.js';
 import Rules from '../Utils/Rules.js';
 
@@ -13,13 +13,13 @@ class Lotto {
 
   #validate(numbers) {
     if (Rules.isWrongLength(numbers, 6))
-      throwError(ErrorMessages.Lotto.IS_WRONG_LENGTH);
+      throwError(Errors.Lotto.IS_WRONG_LENGTH);
     if (Rules.isNotNumberInNumbers(numbers))
-      throwError(ErrorMessages.Lotto.NOT_NUMBER_VALUE);
+      throwError(Errors.Lotto.NOT_NUMBER_VALUE);
     if (Rules.isDuplicatedValue(numbers))
-      throwError(ErrorMessages.Lotto.IS_DUPLICATE_VALUE);
+      throwError(Errors.Lotto.IS_DUPLICATE_VALUE);
     if (Rules.isNotRangedValueInNumbers(numbers))
-      throwError(ErrorMessages.Lotto.NOT_RANGED_VALUE);
+      throwError(Errors.Lotto.NOT_RANGED_VALUE);
   }
 
   getNumbers() {

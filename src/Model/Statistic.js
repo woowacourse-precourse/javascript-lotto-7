@@ -1,8 +1,12 @@
+import BuyPriceConfig from '../Constants/buyPriceConfig.js';
+import Errors from '../Constants/Errors.js';
 import { PrizeMoney } from '../Constants/prizeConfig.js';
 import roundToOne from '../Utils/roundToOne.js';
+import Rules from '../Utils/Rules.js';
 
 class Statistic {
   constructor(buyPrice) {
+    this.#validate(buyPrice);
     this.buyPrice = buyPrice;
     this.winningResult = {
       first: 0,
@@ -12,6 +16,17 @@ class Statistic {
       fifth: 0,
       miss: 0,
     };
+  }
+
+  #validate(buyPrice) {
+    if (Rules.isNotNumber(buyPrice))
+      throwError(Errors.BuyPrice.NOT_NUMBER_INPUT);
+    if (Rules.isLessThanMin(buyPrice, BuyPriceConfig.Min.VALUE))
+      throwError(Errors.BuyPrice.LESS_THAN_MIN);
+    if (Rules.isMoreThanMax(buyPrice, BuyPriceConfig.Max.VALUE))
+      throwError(Errors.BuyPrice.MORE_THAN_MAX);
+    if (Rules.isRestWhenDivided(buyPrice, BuyPriceConfig.Unit.VALUE))
+      throwError(Errors.BuyPrice.NOT_UNIT_NUMBER);
   }
 
   addWinningCount(prizeName) {
