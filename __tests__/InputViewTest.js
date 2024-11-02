@@ -47,12 +47,12 @@ describe('사용자 입력 테스트하기', () => {
     });
 
     describe('보너스 번호 입력받기', () => {
-      test('정상적으로 보너스 번호를 입력받는다', async () => {
+      test('보너스 번호를 정수로 입력받는다', async () => {
         const inputs = ['11'];
         mockQuestions(inputs);
 
         const bonusNumber = await getBonusNumber();
-        expect(bonusNumber).toBe('11');
+        expect(bonusNumber).toBe(11);
       });
     });
 
