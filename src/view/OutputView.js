@@ -25,6 +25,10 @@ const OutputView = {
   printTotalRevenue(rate) {
     Console.print(OUTPUT_MESSAGES.TOTAL_REVENUE(rate));
   },
+
+  print(message) {
+    Console.print(message);
+  },
 };
 
 export default OutputView;

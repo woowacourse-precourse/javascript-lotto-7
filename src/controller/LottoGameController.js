@@ -1,19 +1,29 @@
-import { INPUT_MESSAGES } from '../constants/messages.js';
 import LottoGame from '../model/LottoGame.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
+import { INPUT_MESSAGES } from '../constants/messages.js';
+import { validatePurchaseAmount } from '../util/validators.js';
 
 class LottoGameController {
   #lottoGame;
 
   async play() {
-    const purchaseAmount = await this.getPurchaseAmount();
+    const purchaseAmount = await this.#getPurchaseAmount();
     this.#createLottoGame(purchaseAmount);
     this.#printLottoNumbers();
   }
 
-  async getPurchaseAmount() {
-    return await InputView.readUserInput(INPUT_MESSAGES.PURCHASE_AMOUNT);
+  async #getPurchaseAmount() {
+    try {
+      const purchaseAmount = await InputView.readUserInput(
+        INPUT_MESSAGES.PURCHASE_AMOUNT
+      );
+      validatePurchaseAmount(purchaseAmount);
+      return purchaseAmount;
+    } catch (error) {
+      OutputView.print(error.message);
+      return this.#getPurchaseAmount();
+    }
   }
 
   #createLottoGame(purchaseAmount) {
