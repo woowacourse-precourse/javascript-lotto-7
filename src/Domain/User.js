@@ -12,6 +12,7 @@ class User {
   #validateMoney(money) {
     basicValidation.validateInputBlank(money);
     basicValidation.validateInputNumberType(money);
+    basicValidation.validateInputPossiblePurchase(money);
     basicValidation.validatePurchaseUnit(money);
   }
 

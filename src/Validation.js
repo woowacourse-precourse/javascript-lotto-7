@@ -6,6 +6,7 @@ import {
 import {
   LOTTO_PRICE_UNIT,
   LOTTO_NUMBER_STANDARD,
+  PURCHASE_MONEY_INITIAL_VALUE,
 } from './Constants/Constant.js';
 
 class basicValidation {
@@ -18,6 +19,12 @@ class basicValidation {
   static validateInputNumberType(input) {
     if (Number.isNaN(input)) {
       throw new Error(BASIC_ERROR.invalidType);
+    }
+  }
+
+  static validateInputPossiblePurchase(input) {
+    if (input <= PURCHASE_MONEY_INITIAL_VALUE) {
+      throw new Error(BASIC_ERROR.invalidPossiblePurchase);
     }
   }
 
