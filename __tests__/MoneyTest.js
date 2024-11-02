@@ -1,3 +1,5 @@
+import validateMoney from '../src/models/validations/MoneyInputValidator';
+
 describe('구입 금액 테스트', () => {
   const money = 3000;
 
