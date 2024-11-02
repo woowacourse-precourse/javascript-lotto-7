@@ -11,6 +11,9 @@ class App {
     if (purchaseAmount < 0) {
       throw new Error("[ERROR]: 구입 금액은 음수를 입력할 수 없습니다.");
     }
+    if (purchaseAmount % 1000 !== 0 && purchaseAmount !== 0) {
+      throw new Error("[ERROR]: 구입 금액은 1,000원 단위로 입력 가능합니다.");
+    }
   }
 }
 
