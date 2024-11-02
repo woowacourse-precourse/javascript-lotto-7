@@ -11,6 +11,16 @@ const IO_MESSAGE = Object.freeze({
   INPUT_USER_MONEY: '구입금액을 입력해 주세요.\n',
   INPUT_WINNING_NUMBER: '당첨 번호를 입력해 주세요.\n',
   INPUT_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
+  OUTPUT_LOTTERY_REPORT_ANNOUNCE: '당첨 통계\n---',
+  OUTPUT_LOTTERY_REPORT_PRIZE: Object.freeze(
+    [
+      `6개 일치 (${LOTTERY.PRIZE[1].toLocaleString('ko-KR')}원) - `,
+      `5개 일치, 보너스 볼 일치 (${LOTTERY.PRIZE[2].toLocaleString('ko-KR')}원) - `,
+      `5개 일치 (${LOTTERY.PRIZE[3].toLocaleString('ko-KR')}원) - `,
+      `4개 일치 (${LOTTERY.PRIZE[4].toLocaleString('ko-KR')}원) - `,
+      `3개 일치 (${LOTTERY.PRIZE[5].toLocaleString('ko-KR')}원) - `,
+    ],
+  ),
 });
 
 const ERROR_MESSAGE = Object.freeze({
