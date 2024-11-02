@@ -1,3 +1,5 @@
+import Validator from '../utils/Validator.js';
+
 class LottoView {
   constructor(outputFunction, inputFunction) {
     this.print = outputFunction;
@@ -11,15 +13,16 @@ class LottoView {
 
   printLottoPurchase(lottos) {
     const lottosNumber = Object.keys(lottos).length;
-    this.print(`\n${lottosNumber}개를 구매했습니다.`);
+    this.print(`${lottosNumber}개를 구매했습니다.`);
     for (let i = 0; i < lottosNumber; i += 1) {
-      this.print(lottos[i]);
+      this.print(`[${lottos[i].join(', ')}]`);
     }
   }
 
   async getTargetLottoArray() {
     const message = '\n당첨 번호를 입력해 주세요.\n';
     const numbers = await this.readLine(message);
+    Validator.targetLottoValidation(numbers);
     const stringArray = numbers.split(',');
     return stringArray.map(str => parseInt(str, 10));
   }

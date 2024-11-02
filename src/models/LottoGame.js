@@ -14,11 +14,8 @@ class LottoGame {
   }
 
   static getMatchNumber(curLotto, targetLotto) {
-    let matchNumber = 0;
-    for (let i = 0; i < curLotto.length; i += 1) {
-      if (targetLotto[i] === curLotto[i]) matchNumber += 1;
-    }
-    return matchNumber;
+    return curLotto.getNumbers().filter(number => targetLotto.includes(number))
+      .length;
   }
 
   static addBonusNumber(matchNumber, bonusNumber, lotto, winStatistics) {
