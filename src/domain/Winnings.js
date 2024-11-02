@@ -76,11 +76,17 @@ class Winnings {
     return details;
   }
 
-  getWinningStats() {
+  #getWinningStats() {
     const { division } = VALUES;
     const winningStats = this.#getWinningDetails().join(division);
 
     return winningStats;
+  }
+
+  getWinningsInfo() {
+    const winningStats = this.#getWinningStats();
+
+    return { winningStats, winningList: this.#winningList };
   }
 }
 

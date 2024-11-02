@@ -9,18 +9,26 @@ describe('당첨 내역 테스트', () => {
     ];
     const WINNING_NUMBERS = [1, 7, 13, 14, 15, 16];
     const BONUS_NUMBER = 17;
-    const OUTPUT =
+    const STATS =
       '3개 일치 (5,000원) - 0개\n4개 일치 (50,000원) - 0개\n5개 일치 (1,500,000원) - 0개\n5개 일치, 보너스 볼 일치 (30,000,000원) - 0개\n6개 일치 (2,000,000,000원) - 0개';
+    const LIST = [
+      ['3개 일치 (5,000원)', 0],
+      ['4개 일치 (50,000원)', 0],
+      ['5개 일치 (1,500,000원)', 0],
+      ['5개 일치, 보너스 볼 일치 (30,000,000원)', 0],
+      ['6개 일치 (2,000,000,000원)', 0],
+    ];
 
     // when
-    const winningDetails = new Winnings(
+    const { winningStats, winningList } = new Winnings(
       LOTTOS,
       WINNING_NUMBERS,
       BONUS_NUMBER,
-    ).getWinningStats();
+    ).getWinningsInfo();
 
     // then
-    expect(winningDetails).toBe(OUTPUT);
+    expect(winningStats).toBe(STATS);
+    expect(winningList).toStrictEqual(LIST);
   });
 
   test.each([
@@ -32,18 +40,26 @@ describe('당첨 내역 테스트', () => {
     (lottos, winningNumbers) => {
       // given
       const BONUS_NUMBER = 17;
-      const OUTPUT =
+      const STATS =
         '3개 일치 (5,000원) - 1개\n4개 일치 (50,000원) - 0개\n5개 일치 (1,500,000원) - 0개\n5개 일치, 보너스 볼 일치 (30,000,000원) - 0개\n6개 일치 (2,000,000,000원) - 0개';
+      const LIST = [
+        ['3개 일치 (5,000원)', 1],
+        ['4개 일치 (50,000원)', 0],
+        ['5개 일치 (1,500,000원)', 0],
+        ['5개 일치, 보너스 볼 일치 (30,000,000원)', 0],
+        ['6개 일치 (2,000,000,000원)', 0],
+      ];
 
       // when
-      const winningDetails = new Winnings(
+      const { winningStats, winningList } = new Winnings(
         lottos,
         winningNumbers,
         BONUS_NUMBER,
-      ).getWinningStats();
+      ).getWinningsInfo();
 
       // then
-      expect(winningDetails).toBe(OUTPUT);
+      expect(winningStats).toBe(STATS);
+      expect(winningList).toStrictEqual(LIST);
     },
   );
 
@@ -56,18 +72,26 @@ describe('당첨 내역 테스트', () => {
     (lottos, winningNumbers) => {
       // given
       const BONUS_NUMBER = 17;
-      const OUTPUT =
+      const STATS =
         '3개 일치 (5,000원) - 0개\n4개 일치 (50,000원) - 1개\n5개 일치 (1,500,000원) - 0개\n5개 일치, 보너스 볼 일치 (30,000,000원) - 0개\n6개 일치 (2,000,000,000원) - 0개';
+      const LIST = [
+        ['3개 일치 (5,000원)', 0],
+        ['4개 일치 (50,000원)', 1],
+        ['5개 일치 (1,500,000원)', 0],
+        ['5개 일치, 보너스 볼 일치 (30,000,000원)', 0],
+        ['6개 일치 (2,000,000,000원)', 0],
+      ];
 
       // when
-      const winningDetails = new Winnings(
+      const { winningStats, winningList } = new Winnings(
         lottos,
         winningNumbers,
         BONUS_NUMBER,
-      ).getWinningStats();
+      ).getWinningsInfo();
 
       // then
-      expect(winningDetails).toBe(OUTPUT);
+      expect(winningStats).toBe(STATS);
+      expect(winningList).toStrictEqual(LIST);
     },
   );
 
@@ -80,18 +104,26 @@ describe('당첨 내역 테스트', () => {
     (lottos, winningNumbers) => {
       // given
       const BONUS_NUMBER = 17;
-      const OUTPUT =
+      const STATS =
         '3개 일치 (5,000원) - 0개\n4개 일치 (50,000원) - 0개\n5개 일치 (1,500,000원) - 1개\n5개 일치, 보너스 볼 일치 (30,000,000원) - 0개\n6개 일치 (2,000,000,000원) - 0개';
+      const LIST = [
+        ['3개 일치 (5,000원)', 0],
+        ['4개 일치 (50,000원)', 0],
+        ['5개 일치 (1,500,000원)', 1],
+        ['5개 일치, 보너스 볼 일치 (30,000,000원)', 0],
+        ['6개 일치 (2,000,000,000원)', 0],
+      ];
 
       // when
-      const winningDetails = new Winnings(
+      const { winningStats, winningList } = new Winnings(
         lottos,
         winningNumbers,
         BONUS_NUMBER,
-      ).getWinningStats();
+      ).getWinningsInfo();
 
       // then
-      expect(winningDetails).toBe(OUTPUT);
+      expect(winningStats).toBe(STATS);
+      expect(winningList).toStrictEqual(LIST);
     },
   );
 
@@ -104,18 +136,26 @@ describe('당첨 내역 테스트', () => {
     (lottos, winningNumbers) => {
       // given
       const BONUS_NUMBER = 17;
-      const OUTPUT =
+      const STATS =
         '3개 일치 (5,000원) - 0개\n4개 일치 (50,000원) - 0개\n5개 일치 (1,500,000원) - 0개\n5개 일치, 보너스 볼 일치 (30,000,000원) - 1개\n6개 일치 (2,000,000,000원) - 0개';
+      const LIST = [
+        ['3개 일치 (5,000원)', 0],
+        ['4개 일치 (50,000원)', 0],
+        ['5개 일치 (1,500,000원)', 0],
+        ['5개 일치, 보너스 볼 일치 (30,000,000원)', 1],
+        ['6개 일치 (2,000,000,000원)', 0],
+      ];
 
       // when
-      const winningDetails = new Winnings(
+      const { winningStats, winningList } = new Winnings(
         lottos,
         winningNumbers,
         BONUS_NUMBER,
-      ).getWinningStats();
+      ).getWinningsInfo();
 
       // then
-      expect(winningDetails).toBe(OUTPUT);
+      expect(winningStats).toBe(STATS);
+      expect(winningList).toStrictEqual(LIST);
     },
   );
 
@@ -128,18 +168,26 @@ describe('당첨 내역 테스트', () => {
     (lottos, winningNumbers) => {
       // given
       const BONUS_NUMBER = 17;
-      const OUTPUT =
+      const STATS =
         '3개 일치 (5,000원) - 0개\n4개 일치 (50,000원) - 0개\n5개 일치 (1,500,000원) - 0개\n5개 일치, 보너스 볼 일치 (30,000,000원) - 0개\n6개 일치 (2,000,000,000원) - 1개';
+      const LIST = [
+        ['3개 일치 (5,000원)', 0],
+        ['4개 일치 (50,000원)', 0],
+        ['5개 일치 (1,500,000원)', 0],
+        ['5개 일치, 보너스 볼 일치 (30,000,000원)', 0],
+        ['6개 일치 (2,000,000,000원)', 1],
+      ];
 
       // when
-      const winningDetails = new Winnings(
+      const { winningStats, winningList } = new Winnings(
         lottos,
         winningNumbers,
         BONUS_NUMBER,
-      ).getWinningStats();
+      ).getWinningsInfo();
 
       // then
-      expect(winningDetails).toBe(OUTPUT);
+      expect(winningStats).toBe(STATS);
+      expect(winningList).toStrictEqual(LIST);
     },
   );
   test('발행한 로또 수가 여섯 개고, 일치하는 숫자가 순서대로 2개, 3개, 3개, 4개, 5개, 5개에 보너스 일치면 해당 내역이 알맞게 적용되어 반환된다.', () => {
@@ -154,17 +202,25 @@ describe('당첨 내역 테스트', () => {
     ];
     const WINNING_NUMBERS = [7, 10, 17, 20, 27, 37];
     const BONUS_NUMBER = 40;
-    const OUTPUT =
+    const STATS =
       '3개 일치 (5,000원) - 2개\n4개 일치 (50,000원) - 1개\n5개 일치 (1,500,000원) - 1개\n5개 일치, 보너스 볼 일치 (30,000,000원) - 1개\n6개 일치 (2,000,000,000원) - 0개';
+    const LIST = [
+      ['3개 일치 (5,000원)', 2],
+      ['4개 일치 (50,000원)', 1],
+      ['5개 일치 (1,500,000원)', 1],
+      ['5개 일치, 보너스 볼 일치 (30,000,000원)', 1],
+      ['6개 일치 (2,000,000,000원)', 0],
+    ];
 
     // when
-    const winningDetails = new Winnings(
+    const { winningStats, winningList } = new Winnings(
       LOTTOS,
       WINNING_NUMBERS,
       BONUS_NUMBER,
-    ).getWinningStats();
+    ).getWinningsInfo();
 
     // then
-    expect(winningDetails).toBe(OUTPUT);
+    expect(winningStats).toBe(STATS);
+    expect(winningList).toStrictEqual(LIST);
   });
 });
