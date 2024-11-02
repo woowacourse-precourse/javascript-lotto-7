@@ -35,7 +35,7 @@ class LottoBuyer {
 
   #sumLottoWinningMoney() {
     return [...this.#winningLottoMap.entries()].reduce(
-      (sum, [rank, count]) => WINNING_PRICE_MAP[rank] ?? 0 * count + sum,
+      (sum, [rank, count]) => WINNING_PRICE_MAP[rank] * count + sum,
       0,
     );
   }
