@@ -22,7 +22,7 @@ function validatePriceOverUnit(price) {
 }
 
 export default function validatePrice(price) {
-  if (!price) {
+  if (typeof price === 'string' && price.trim().length === 0) {
     throw new Error(ERROR_MESSAGE.LOTTO_PRICE);
   }
 

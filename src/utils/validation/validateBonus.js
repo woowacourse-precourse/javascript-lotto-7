@@ -19,7 +19,7 @@ function validateBonusNumber(bonusNumber) {
 }
 
 export default function validateBonus(bonusNumber, winningLotto) {
-  if (!bonusNumber) {
+  if (typeof bonusNumber === 'string' && bonusNumber.trim().length === 0) {
     throw new Error(ERROR_MESSAGE.INVALID_NOT_NUMBER);
   }
 

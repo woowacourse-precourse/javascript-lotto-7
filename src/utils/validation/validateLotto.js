@@ -32,7 +32,7 @@ function validateLottoNumbers(numbers) {
 }
 
 export default function validateLotto(numbers) {
-  if (!numbers) {
+  if (typeof numbers === 'string' && numbers.trim().length === 0) {
     throw new Error(ERROR_MESSAGE.INVALID_NOT_NUMBER);
   }
 
