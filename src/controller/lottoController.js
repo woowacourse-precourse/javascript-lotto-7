@@ -30,13 +30,15 @@ class LottoController{
     this.model.setWinningStatistics();
     this.view.printResultMessage();
     this.view.printUserRank(this.model.getStatistics());
+    const profit = this.model.calculateProfit();
+    this.view.printProfit(profit);
   }
 
   async inputPrice() {
     let isValid = false;
     let price;
     do {
-      price = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+      price = await Console.readLineAsync("구입금액을 입력해 주세요.");
       isValid = this.validateUserPrice(price);
     } while (!isValid);
     return price;

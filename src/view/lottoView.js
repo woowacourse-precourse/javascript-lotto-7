@@ -3,9 +3,9 @@ import { LOTTO_RESULT } from "../constants/lottoDetails.js";
 
 class LottoView {
   printLottoList(lottoList) {
-    Console.print(`\n${lottoList.length}개를 구매했습니다.`)
+    Console.print(`\n${lottoList.length}개를 구매했습니다.`);
     for (let lotto of lottoList){
-      Console.print(lotto.getLottoNumber());
+      Console.print(`[${lotto.getLottoNumber().join(', ')}]`);
     };
   };
 
