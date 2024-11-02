@@ -10,12 +10,14 @@ class LottoController{
     this.view = new LottoView();
   }
 
-  async play() {
-    const userPrice = await this.inputPrice();
+  async issueLotto() {
+    const userPrice = await this.inputPrice(); //금액 입력.
     this.getLottoList(userPrice);
-    const winningNumber = await this.inputWinningNumber();
+
+    const winningNumber = await this.inputWinningNumber(); // 당첨번호 입력
     this.model.setWinningNumber(winningNumber);
-    const bonusNumber = await this.inputBonusNumber();
+
+    const bonusNumber = await this.inputBonusNumber(); // 보너스 숫자.
     this.model.setBonusNumber(bonusNumber);
   }
 

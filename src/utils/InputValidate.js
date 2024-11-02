@@ -26,7 +26,7 @@ class InputValidate{
       }
     }
   }
-  DuplicateLottoNumber(input) {
+  duplicateLottoNumber(input) {
     const noDuplicate = new Set(input);
     if(input.length !== noDuplicate.size){
         throw new Error("[ERROR] 당첨번호는 중복없이 입력해야 합니다.");
@@ -80,7 +80,7 @@ class InputValidate{
       this.inputExist(input);
       this.lottoNumberRange(input);
       this.lottoNumberLength(input);
-      this.DuplicateLottoNumber(input);
+      this.duplicateLottoNumber(input);
       this.lottoNumberType(input);    
       return null;  
     } catch(error) {

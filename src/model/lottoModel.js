@@ -1,4 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "../Lotto.js";
 
 class LottoModel{
   #userPrice
@@ -18,8 +19,9 @@ class LottoModel{
   generateLottoNumber() {
     const numberOfLotto = this.#userPrice/1000;
     for (let i = 0; i < numberOfLotto; i++) {
-      let number = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-      this.lottoList.push((number).sort((a, b) => a - b));
+      let number = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+      let lotto = new Lotto(number);
+      this.lottoList.push(lotto);
     }
   }
   getLottoList() {
