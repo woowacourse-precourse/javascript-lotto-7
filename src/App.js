@@ -1,12 +1,20 @@
-import { Console } from '@woowacourse/mission-utils'
+import { Console } from "@woowacourse/mission-utils";
 import MoneyValidator from "./MoneyValidator.js";
+import LottoGenerator from "./LottoGenerator.js";
 
 class App {
   async run() {
     try {
-      const money = await Console.readLineAsync('구입 금액을 입력해 주세요.\n');
-      const moneyValidate = new MoneyValidator(money);
-    } catch(error) {
+      const money = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
+      new MoneyValidator(money);
+      const lottoGenerator = new LottoGenerator(money);
+      const lottos = lottoGenerator.getLottos();
+      const lottosCount = lottoGenerator.lottoCount;
+      Console.print(`\n${lottosCount}개를 구매했습니다.`);
+      lottos.map(lotto => {
+        Console.print(lotto.sort((a, b) => a - b));
+      });
+    } catch (error) {
       throw new Error(error);
     }
   }
