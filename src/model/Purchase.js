@@ -1,7 +1,9 @@
+import { Random } from '@woowacourse/mission-utils';
+
 class Purchase {
   #amount;
   #tickets;
-  #lotteryNumbers;
+  #lotteryNumbers = [];
 
   constructor(amount) {
     this.#validate(amount);
@@ -20,6 +22,14 @@ class Purchase {
 
   purchaseTickets(amount) {
     return this.#tickets;
+  }
+
+  generateLotteryNumbers() {
+    for (let i = 0; i < this.#tickets; i++) {
+      let numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      this.#lotteryNumbers[i] = numbers.sort((a, b) => a - b).join(', ');
+    }
+    return this.#lotteryNumbers;
   }
 }
 
