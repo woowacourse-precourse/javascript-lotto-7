@@ -1,7 +1,6 @@
 export default class RankingModel {
   constructor(purchasedLotto, lotto, bonus) {
     this.purchasedLotto = purchasedLotto;
-    console.log(purchasedLotto);
     this.winningLotto = [];
     this.matchingCount = [0, 0, 0, 0, 0];
     this.setWinningLotto(lotto, bonus);

@@ -39,5 +39,8 @@ export default class LottoController {
 
     // 당첨 내역 결과
     const rankingCount = rankingModel.countMatch();
+
+    // 당첨 내역 출력
+    this.view.showWinningStatistics(rankingCount);
   }
 }

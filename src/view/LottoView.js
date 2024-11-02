@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import { REWARDS } from "../config/constants.js";
 
 export default class LottoView {
   async getPurchaseAmount() {
@@ -21,5 +22,14 @@ export default class LottoView {
 
   async getWinningLottoBonusNumbers() {
     return await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+  }
+
+  showWinningStatistics(matchCounts) {
+    Console.print("\n당첨 통계\n---");
+    REWARDS.forEach((reward, index) => {
+      Console.print(
+        `${reward.count} (${reward.prize}) - ${matchCounts[index]}개`
+      );
+    });
   }
 }
