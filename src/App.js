@@ -3,6 +3,18 @@ import { CONSOLE_MESSAGES } from "./constant.js";
 import Lotto from './Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
 
+const checkWinning = (boughtLotto, winNumber, bonusNumber) => {
+  const answerArray = winNumber.split(',').map(Number).sort((a, b) => a - b);
+  const correctArray = [];
+  boughtLotto.forEach(lotto => {
+    const myLotto = lotto.getNumbers();
+    let count = answerArray.filter(item =>
+      myLotto.includes(item)).length;
+      correctArray.push(count);
+  })
+  return correctArray.filter(item => item > 2)
+}
+
 class App {
   async run() {
     const purchasePrice = await Console.readLineAsync(CONSOLE_MESSAGES.buyPrice);
@@ -26,6 +38,7 @@ class App {
 
     const winNumber = await Console.readLineAsync(CONSOLE_MESSAGES.winNumber);
     const bonusNumber = await Console.readLineAsync(CONSOLE_MESSAGES.bonusNumber);
+    const wonRecord = checkWinning(boughtLotto, winNumber, bonusNumber);
   }
 }
 
