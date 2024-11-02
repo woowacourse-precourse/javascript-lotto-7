@@ -70,9 +70,12 @@ export default class LottoController {
 
   displayResults(rankCounts, purchaseAmount) {
     this.ioService.printStatistics(rankCounts);
-    this.ioService.printRevenueRate(
-      this.statisticsService.calculateTotalRevenue(rankCounts, purchaseAmount),
+    const totalRevenue = this.statisticsService.calculateTotalRevenue(
+      rankCounts,
       purchaseAmount,
+    );
+    this.ioService.printRevenueRate(
+      this.statisticsService.calculateRevenueRate(totalRevenue, purchaseAmount),
     );
   }
 }

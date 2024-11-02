@@ -5,4 +5,8 @@ export default class StatisticsService {
       0,
     );
   }
+
+  calculateRevenueRate(totalRevenue, paidAmount) {
+    return (totalRevenue / paidAmount) * 100;
+  }
 }
