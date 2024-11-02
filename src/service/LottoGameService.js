@@ -30,8 +30,9 @@ class LottoGameService {
     return [...this.lottos];
   }
 
-  setLottos(lottos) {
-    this.lottos = lottos;
+  setLottos(userMoney) {
+    const quantity = this.getLottoQuantity(userMoney);
+    this.lottos = this.generateLottos(quantity);
   }
 
   getPrizes() {
