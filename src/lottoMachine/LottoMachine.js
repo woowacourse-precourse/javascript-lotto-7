@@ -44,6 +44,19 @@ export class LottoMachine {
     }
   }
 
+  async inputAttemptBonusNumber(winningNumArr) {
+    try {
+      const bonusNumber = await this.#input.getBonusNumber();
+      this.#validation.validateBonusNumber(bonusNumber, winningNumArr);
+
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+
+      return await this.inputAttemptBonusNumber(winningNumArr);
+    }
+  }
+
   async run() {
     const purchasePrice = await this.inputAttemptPurchasePrice();
 
@@ -54,7 +67,6 @@ export class LottoMachine {
 
     const winningNumArr = await this.inputAttemptWinningNumbers();
 
-    const bonusNumber = await this.#input.getBonusNumber();
-    this.#validation.validateBonusNumber(bonusNumber, winningNumArr);
+    const bonusNumber = await this.inputAttemptBonusNumber(winningNumArr);
   }
 }
