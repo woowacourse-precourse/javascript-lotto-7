@@ -138,7 +138,7 @@ class LottoMachine {
     const lottos = this.#lottos;
     for (let i = 0; i < lottos.length; i += 1) {
       const lotto = lottos[i];
-      const matchCnt = this.#countMatchNumber(lotto);
+      const matchCnt = lotto.countMatchNumber(this.#winningNumbers);
       this.#updateResultMap(
         matchCnt,
         lotto.numbers.includes(this.#bonusNumber),
@@ -153,17 +153,6 @@ class LottoMachine {
       resultRank = 2;
     }
     resultMap.set(resultRank, resultMap.get(resultRank) + 1);
-  }
-
-  #countMatchNumber(lotto) {
-    const lottoNumbers = lotto.numbers;
-    let cnt = 0;
-    for (let i = 0; i < lottoNumbers.length; i += 1) {
-      if (this.#winningNumbers.includes(lottoNumbers[i])) {
-        cnt += 1;
-      }
-    }
-    return cnt;
   }
 
   inputPurchaseAmountTestMethod() {

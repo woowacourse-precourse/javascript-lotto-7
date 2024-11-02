@@ -27,6 +27,17 @@ class Lotto {
       checked[numbers[i]] = true;
     }
   }
+
+  countMatchNumber(winningNumbers) {
+    let cnt = 0;
+    const lottoNumbers = this.#numbers;
+    for (let i = 0; i < lottoNumbers.length; i += 1) {
+      if (winningNumbers.includes(lottoNumbers[i])) {
+        cnt += 1;
+      }
+    }
+    return cnt;
+  }
 }
 
 export default Lotto;
