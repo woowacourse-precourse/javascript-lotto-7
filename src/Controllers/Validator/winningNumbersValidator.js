@@ -6,27 +6,27 @@ class WinningNumbersValidator {
     // this.parsedWinningNumbers = this.winningNumber.split(',').map((x) => x.trim());
   }
 
-  isWinningNumbersEmptyInput(winningNumbers) {
+  isValidEmptyInput(winningNumbers) {
     return winningNumbers !== '';
   }
 
-  isWinningNumbersSixDigits(winningNumber) {
+  isValidSixDigits(winningNumber) {
     return winningNumber.split(',').map((x) => x.trim()).length === 6;
   }
 
-  isWinningNumbersRange(winningNumber) {
+  isValidNumbersRange(winningNumber) {
     const arr = winningNumber.split(',').map((x) => x.trim());
     const result = arr.every((range) => range > 0 && range < 46);
     return result;
   }
 
-  isWinningNumbersFiveComma(winningNumber) {
+  isValidFiveComma(winningNumber) {
     const arr = [...winningNumber];
     const onlyNumber = arr.filter((number) => number === ',');
     return onlyNumber.length === 5;
   }
 
-  isWinningNumberDuplicated(winningNumber) {
+  isValidNumberDuplicated(winningNumber) {
     const onlyNumber = winningNumber
       .split(',')
       .map((x) => x.trim())
@@ -36,23 +36,23 @@ class WinningNumbersValidator {
   }
 
   validateWinningNumbers(winningNumbers) {
-    if (!this.isWinningNumbersEmptyInput(winningNumbers)) {
+    if (!this.isValidEmptyInput(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.EMPTY_INPUT_WINNING_NUMBERS);
     }
 
-    if (!this.isWinningNumbersSixDigits(winningNumbers)) {
+    if (!this.isValidSixDigits(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
     }
 
-    if (!this.isWinningNumbersRange(winningNumbers)) {
+    if (!this.isValidNumbersRange(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.NUMBERS_RANGE);
     }
 
-    if (!this.isWinningNumbersFiveComma(winningNumbers)) {
+    if (!this.isValidFiveComma(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.COMMA_COUNT);
     }
 
-    if (!this.isWinningNumberDuplicated(winningNumbers)) {
+    if (!this.isValidNumberDuplicated(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.UNIQUE_NUMBER);
     }
     
