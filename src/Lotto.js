@@ -15,8 +15,20 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== LOTTO.numberCount) {
+    const invalidLength = numbers.length !== LOTTO.numberCount;
+    if (invalidLength) {
       throw new Error(ERROR_MESSAGE.lotto.number);
+    }
+
+    const isInvalidRange = numbers.some(LOTTO.isInvalidRange);
+    if (isInvalidRange) {
+      throw Error(ERROR_MESSAGE.lotto.range);
+    }
+
+    const set = new Set(numbers);
+    const hasDuplicateNumber = set.size < LOTTO.numberCount;
+    if (hasDuplicateNumber) {
+      throw new Error(ERROR_MESSAGE.lotto.duplicate);
     }
   }
 }
