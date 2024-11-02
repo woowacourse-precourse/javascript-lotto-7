@@ -32,11 +32,11 @@ export async function getWinningNumbers() {
   }
 }
 
-export async function getBonusNumber() {
+export async function getBonusNumber(winningNumbers) {
   try {
     const bonusNumber = await MissionUtils.Console.readLineAsync(BONUS_NUMBER_PROMPT);
     validateNumber(bonusNumber);
-    validateBonusNumber(bonusNumber);
+    validateBonusNumber(parseInt(bonusNumber, 10), winningNumbers);
     return parseInt(bonusNumber, 10);
   } catch (error) {
     MissionUtils.Console.print(error.message);
