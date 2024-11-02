@@ -4,11 +4,11 @@ class Lotto {
   constructor(numbers) {
     if (
       this.#validate(numbers) &
-      this.#areNumbers(numbers) &
-      this.#between1And46(numbers) &
+      this.#numbers1to45(numbers) &
       this.#noRepeats(numbers)
-    )
-      this.#numbers = numbers;
+    ) {
+      this.#numbers = number;
+    }
   }
 
   #validate(numbers) {
@@ -17,21 +17,11 @@ class Lotto {
     }
   }
 
-  // 입력한 것들이 숫자인지 확인한다
-  #areNumbers(numbers) {
-    for (let number of numbers) {
-      if (!!isNaN(number)) {
-        throw new Error("[ERROR] 로또 번호는 숫자이어야 합니다.");
-      }
-    }
-    return true;
-  }
-
   // 입력한 숫자들이 1에서 45까지인지 확인한다
-  #between1And46(numbers) {
+  #numbers1to45(numbers) {
     // 입력한 것들이 숫자인지 확인한다
     for (let number of numbers) {
-      if ((number < 1) | (number > 45)) {
+      if (!Number.isInteger(number) | (number < 1) | (number > 45)) {
         throw new Error("[ERROR] 로또 번호는 1에서 45까지 숫자이어야 합니다.");
       }
     }
