@@ -6,6 +6,14 @@ class App {
     const priceString = await this.readPriceString();
     const price = Number(priceString);
 
+    // - 구입 금액이 숫자가 아닐 경우 예외 처리한다.
+    this.validatePriceString(priceString);
+
+    // - 구입 금액이 0보다 작거나 같을 경우 예외 처리한다.
+    // - 구입 금액이 1,000원으로 나누어 떨어지지 않는 경우 예외 처리한다.
+    // - 입력한 당첨 번호에서 중복된 것이 있는 경우 예외 처리한다.
+    // - 입력한 당첨 번호가 1~45 사이의 숫자가 아닌 경우 예외 처리한다.
+
     // - 당첨 번호 6개를 입력받는다.
     const winningNumbersString = await this.readWinningNumbersString();
 
@@ -15,9 +23,6 @@ class App {
     // - 보너스 번호 1개를 입력받는다.
     const bonusNumberString = await this.readBonusNumberString();
     const bounusNumber = Number(bonusNumberString);
-
-    // - 1~45 사이의 중복되지 않는 6개 숫자를 랜덤으로 뽑는다.
-    const uniqueRandomNumbersArray = this.getUniqueRandomNumbersArray();
 
     // - 구입 금액에 따라 발행할 로또 개수가 몇 개인지 구한다.
     const lottoCount = this.getLottoCount(price);
@@ -45,8 +50,6 @@ class App {
 
     // - 수익률을 출력한다.
     this.printRateOfReturn(matchedCountPerMatchOption, price);
-
-    // - 수익률은 소수점 둘째 자리에서 반올림한다.
   }
 
   readPriceString() {
@@ -192,6 +195,12 @@ class App {
     const rateOfReturn = Math.floor((totalPrize / price) * 100).toFixed(1);
 
     this.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+  }
+
+  validatePriceString(priceString) {
+    if (!Number(priceString)) {
+      throw new Error('[ERROR] 구매 금액이 숫자가 아닙니다.');
+    }
   }
 }
 
