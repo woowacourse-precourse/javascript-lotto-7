@@ -6,8 +6,12 @@ class App {
     try {
       let input = await MissionUtils.Console.readLineAsync('구입 금액을 입력해 주세요.\n');
       const PURCHASE = Lotto.checkPurchase(input);
-      MissionUtils.Console.print(PURCHASE);
-      // buyLottos()
+      // MissionUtils.Console.print(PURCHASE);
+      const TICKETS = Lotto.buyLottos(PURCHASE);
+
+      // TICKETS.forEach((value) => {
+      //   console.log(value.getters())
+      // })
       // const lotto = new Lotto();
       // const WINNUMS = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
       // MissionUtils.Console.print("");
