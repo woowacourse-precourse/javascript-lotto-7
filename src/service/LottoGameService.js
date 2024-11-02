@@ -102,6 +102,12 @@ class LottoGameService {
   getPayoutPercentage(userMoney, totalPrize) {
     return (totalPrize / userMoney) * 100;
   }
+
+  getRoundedPayoutPercentage(userMoney) {
+    const totalPrize = this.getTotalPrize(this.prizes);
+    const payoutPercentage = this.getPayoutPercentage(userMoney, totalPrize);
+    return this.roundNumber(payoutPercentage);
+  }
 }
 
 export default LottoGameService;
