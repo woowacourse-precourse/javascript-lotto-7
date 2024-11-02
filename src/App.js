@@ -8,6 +8,9 @@ class App {
     if (purchaseAmount === 0) {
       throw new Error("[ERROR]: 구입 금액은 0을 입력할 수 없습니다.");
     }
+    if (purchaseAmount < 0) {
+      throw new Error("[ERROR]: 구입 금액은 음수를 입력할 수 없습니다.");
+    }
   }
 }
 
