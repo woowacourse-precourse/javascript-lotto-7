@@ -27,6 +27,8 @@ class App {
         "[ERROR]: 당첨 번호 입력은 6개의 숫자를 입력해야 합니다."
       );
     }
+    const winningNumberSet = new Set();
+
     winningNumber.forEach((num) => {
       const number = Number(num);
 
@@ -39,6 +41,8 @@ class App {
       if (number < 1 || number > 45) {
         throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
       }
+
+      winningNumberSet.add(number);
     });
   }
 }
