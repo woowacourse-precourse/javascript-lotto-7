@@ -64,6 +64,7 @@
  ┃ ┗ 📜error.js
  ┣ 📂utils
  ┃ ┗ 📜statistics.js
+ ┃ ┗ 📜validator.js
  ┣ 📂views
  ┃ ┣ 📜input.js
  ┃ ┗ 📜output.js
