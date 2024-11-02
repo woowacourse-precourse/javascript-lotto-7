@@ -49,6 +49,11 @@ class Input {
 
 	async validateWinningNumber(winningNumber) {
 		const INPUT_WINNING = winningNumber.split(",");
+		const validPattern = /^[0-9,]+$/;
+
+		if (!validPattern.test(winningNumber)) {
+			throw new Error(ERROR_MESSAGE.WRONG_CHARACTER);
+		}
 
 		if (INPUT_WINNING.length !== 6) {
 			throw new Error(ERROR_MESSAGE.WRONG_WINNING_DIGIT);
