@@ -5,6 +5,7 @@ import {
 	LOTTO_MAX_NUMBER,
 	LOTTO_MIN_NUMBER,
 	LOTTO_MONEY,
+	PRIZE_MAP,
 	PROMPT,
 } from "./constant.js";
 import { printOutput, randomNumbersInRange } from "./missionUtils.js";
@@ -16,6 +17,7 @@ class App {
 	#winningNumber;
 	#bonusNumber;
 	#winningMap;
+	#winningRate;
 
 	constructor() {
 		this.userInput = new Input();
@@ -33,6 +35,7 @@ class App {
 		this.#winningMap = this.#getWinningCount();
 
 		await this.#printWinningCount();
+		this.#winningRate = await this.#getTotalWinnings();
 	}
 
 	async #calculateLottoCount() {
@@ -92,6 +95,18 @@ class App {
 
 	async #printWinningCount() {
 		printOutput(PROMPT.LOTTO_WINNING_COUNT(this.#winningMap));
+	}
+
+	async #getTotalWinnings() {
+		let totalWinnings = 0;
+
+		for (const rank in this.#winningMap) {
+			if (PRIZE_MAP[rank]) {
+				totalWinnings += this.#winningMap[rank] * PRIZE_MAP[rank];
+			}
+		}
+
+		return ((totalWinnings / this.#lottoMoney) * 100).toFixed(1);
 	}
 }
 

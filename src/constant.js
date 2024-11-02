@@ -11,3 +11,10 @@ export const PROMPT = {
 	LOTTO_WINNING_COUNT: (winningMap) =>
 		`\n당첨 통계\n---\n3개 일치 (5,000원) - ${winningMap["5rank"]}개\n4개 일치 (50,000원) - ${winningMap["4rank"]}개\n5개 일치 (1,500,000원) - ${winningMap["3rank"]}개\n5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningMap["2rank"]}개\n6개 일치 (2,000,000,000원) - ${winningMap["1rank"]}개`,
 };
+export const PRIZE_MAP = {
+	"5rank": 5000,
+	"4rank": 50000,
+	"3rank": 150000,
+	"2rank": 30000000,
+	"1rank": 2000000000,
+};
