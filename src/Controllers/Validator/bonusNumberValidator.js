@@ -5,41 +5,32 @@ class BonusNumberValidator {
     this.bonusNumber = bonusNumber;
   }
 
-  isBonusNumberEmptyInput() {
-    return this.bonusNumber !== '';
+  isValidEmptyInput(bonusNumber) {
+    return bonusNumber !== '';
   }
 
-  isValidateNumberBonusNumber() {
-    const regex = /\d/i;
-    return regex.test(this.bonusNumber);
+  isValidNumberBonusNumber(bonusNumber) {
+    return !isNaN(bonusNumber);
   }
 
-  validateBonusNumber() {
-    if (!this.isBonusNumberEmptyInput(this.bonusNumber)) {
+  isValidateLengthBonusNumber(bonusNumber) {
+    return bonusNumber.length === 1;
+  }
+
+  validateBonusNumber(bonusNumber) {
+    if (!this.isValidEmptyInput(bonusNumber)) {
       throw new Error(ERROR_MESSAGE.EMPTY_INPUT_BONUS_NUMBER);
     }
 
-    if (!this.isValidateNumberBonusNumber(this.bonusNumber)) {
+    if (!this.isValidNumberBonusNumber(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.NUMBER_TYPE);
+    }
+
+    if (!this.isValidateLengthBonusNumber(bonusNumber)) {
       throw new Error(ERROR_MESSAGE.ONE_DIGIT_NUMBER);
     }
+    return true;
   }
 }
 
 export { BonusNumberValidator };
-
-// const isBonusNumberEmptyInput = (BonusNumber) => BonusNumber !== '';
-
-// // TODO: 리펙토링. 오류 단위 더 디테일하게 변경
-// const isValidateNumberBonusNumber = (BonusNumber) => {
-//   const regex = /\d/i;
-//   return regex.test(BonusNumber);
-// };
-
-// const validateBonusNumber = (BonusNumber) => {
-//   if (!isBonusNumberEmptyInput(BonusNumber)) {
-//     throw new Error(ERROR_MESSAGE.EMPTY_INPUT_BONUS_NUMBER);
-//   }
-
-//   if (!isValidateNumberBonusNumber(BonusNumber)) {
-//     throw new Error(ERROR_MESSAGE.ONE_DIGIT_NUMBER);
-//   }

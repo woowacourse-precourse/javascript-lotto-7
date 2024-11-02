@@ -1,44 +1,45 @@
 import { ERROR_MESSAGE } from '../../Constants/errorMessages.js';
 
 class WinningNumbersValidator {
-  constructor(winningNumber) {
-    this.winningNumber = winningNumber;
-    this.parsedWinningNumbers = this.winningNumber.split(',').map((x) => x.trim());
+  constructor() {
+    this.winningNumber = 0;
+    // this.parsedWinningNumbers = this.winningNumber.split(',').map((x) => x.trim());
   }
 
-  isWinningNumbersEmptyInput() {
-    return this.parsedWinningNumbers.length === 6;
+  isWinningNumbersEmptyInput(winningNumbers) {
+    return winningNumbers !== '';
   }
 
-  isWinningNumbersSixDigits() {
-    return this.parsedWinningNumbers.length === 6;
+  isWinningNumbersSixDigits(winningNumber) {
+    return winningNumber.split(',').map((x) => x.trim()).length === 6;
   }
 
-  isWinningNumbersFiveComma() {
-    const arr = [...this.winningNumber];
+  isWinningNumbersFiveComma(winningNumber) {
+    const arr = [...winningNumber];
     const onlyNumber = arr.filter((number) => number === ',');
     return onlyNumber.length === 5;
   }
 
-  isWinningNumberDuplicated() {
-    const onlyNumber = this.parsedWinningNumbers.filter((number) => !isNaN(number) === true);
+  isWinningNumberDuplicated(winningNumber) {
+    const onlyNumber = winningNumber.split(',').map((x) => x.trim()).filter((number) => !isNaN(number) === true);
     const uniqueWinningNumbers = new Set(onlyNumber);
     return onlyNumber.length === uniqueWinningNumbers.size;
   }
 
-  validateWinningNumbers() {
-    if (!this.isWinningNumbersEmptyInput(this.winningNumber)) {
+  validateWinningNumbers(winningNumbers) {
+    if (!this.isWinningNumbersEmptyInput(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.EMPTY_INPUT_WINNING_NUMBERS);
     }
-    if (!this.isWinningNumbersSixDigits(this.winningNumber)) {
+    if (!this.isWinningNumbersSixDigits(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
     }
-    if (!this.isWinningNumbersFiveComma(this.winningNumber)) {
+    if (!this.isWinningNumbersFiveComma(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.COMMA_COUNT);
     }
-    if (!this.isWinningNumberDuplicated(this.winningNumber)) {
+    if (!this.isWinningNumberDuplicated(winningNumbers)) {
       throw new Error(ERROR_MESSAGE.UNIQUE_NUMBER);
     }
+    return true;
   }
 }
 
