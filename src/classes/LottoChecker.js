@@ -1,4 +1,3 @@
-import LottoIssuer from './LottoIssuer.js';
 
 class LottoChecker {
   static PRIZE_TIERS = [
@@ -6,7 +5,7 @@ class LottoChecker {
     { tier: 1, matchCount: 5, bonus: true, prize: 30000000 },
     { tier: 2, matchCount: 5, bonus: false, prize: 1500000 },
     { tier: 3, matchCount: 4, bonus: false, prize: 50000 },
-    { tier: 4, matchCount: 3, bonus: false, prize: 5000 },
+    { tier: 4, matchCount: 3, bonus :  false, prize: 5000 },
   ];
 
   constructor(winningNumbers, bonusNumber) {
