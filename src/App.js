@@ -70,14 +70,18 @@ class App {
     return number;
   }
 
-  #calculateResults(lottos, winningNumbers) {
+  #calculateResults(lottos, winningNumbers, bonusNumber) {
     const results = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
     let totalPrize = 0;
 
     lottos.forEach((lotto) => {
       const matchedCount = lotto.matches(winningNumbers.getNumbers());
+      const hasBonus = lotto.includesBonus(bonusNumber);
 
-      if (matchedCount >= 3) {
+      if (matchedCount === 5 && hasBonus) {
+        results[5.5]++;
+        totalPrize += this.#prizes[5.5];
+      } else if (matchedCount >= 3) {
         results[matchedCount]++;
         totalPrize += this.#prizes[matchedCount];
       }
@@ -94,7 +98,8 @@ class App {
     const bonusNumber = await this.#getBonus();
     const { results, totalPrize } = this.#calculateResults(
       lottos,
-      winningNumber
+      winningNumber,
+      bonusNumber
     );
   }
 }
