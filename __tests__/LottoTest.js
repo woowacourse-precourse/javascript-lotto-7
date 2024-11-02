@@ -24,9 +24,5 @@ describe('로또 번호 클래스 예외 테스트', () => {
     expect(() => {
       new Lotto([1, 2, '@', 3, 4, 5]);
     }).toThrow(ERROR.LOTTO_TYPE);
-
-    expect(() => {
-      new Lotto([1, 2, , 3, 4, 5]);
-    });
   });
 });

@@ -1,5 +1,5 @@
 import { ERROR } from './constants/Constants.js';
-import { validateLotto } from './utils/Validation.js';
+import Validators from './utils/Validation.js';
 
 class Lotto {
   #numbers;
@@ -20,7 +20,7 @@ class Lotto {
       throw new Error(ERROR.LOTTO_ARRAY_COUNT);
     }
 
-    validateLotto(numbers);
+    Validators.checkLotto(numbers);
 
     if (numbers.some((num) => (num < 1) | (num > 45))) {
       throw new Error(ERROR.LOTTO_RANGE);

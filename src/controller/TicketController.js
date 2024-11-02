@@ -1,11 +1,7 @@
 import { INPUT, OUTPUT } from '../constants/Constants.js';
 import { ticketCount } from '../utils/Calculation.js';
 import { Console } from '@woowacourse/mission-utils';
-import {
-  validateCost,
-  validateInteger,
-  validateNumber,
-} from '../utils/Validation.js';
+import Validators from '../utils/Validation.js';
 import { ticketArray } from '../utils/Random.js';
 
 class TicketController {
@@ -22,9 +18,8 @@ class TicketController {
   }
 
   validation(cost) {
-    validateNumber(cost);
-    validateInteger(cost);
-    validateCost(cost);
+    Validators.checkNumber(cost);
+    Validators.checkCost(cost);
   }
 
   async displayTicketCount() {

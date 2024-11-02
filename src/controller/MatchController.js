@@ -1,11 +1,7 @@
 import { INPUT } from '../constants/Constants.js';
 import { Console } from '@woowacourse/mission-utils';
 import Lotto from '../Lotto.js';
-import {
-  validateInteger,
-  validateNumber,
-  validateRange,
-} from '../utils/Validation.js';
+import Validators from '../utils/Validation.js';
 
 class MatchController {
   constructor() {
@@ -30,9 +26,8 @@ class MatchController {
   }
 
   validateBonus(number) {
-    validateNumber(number);
-    validateInteger(number);
-    validateRange(number);
+    Validators.checkNumber(number);
+    Validators.checkRange(number);
   }
 
   async getJackpot() {
