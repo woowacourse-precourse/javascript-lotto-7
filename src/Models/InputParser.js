@@ -31,12 +31,13 @@ class InputParser {
     return splitInput;
   }
 
-  static purchaseAmount(input) {
+  static purchaseCount(input) {
     const trimInput = this.#default(input);
     validator(trimInput, PURCHASE_AMOUNT_RULES);
 
     const purchaseAmount = parseInt(trimInput, 10);
-    return purchaseAmount;
+    const purchaseCount = Math.floor(purchaseAmount / 1000);
+    return purchaseCount;
   }
 
   static winningNumbers(input) {
