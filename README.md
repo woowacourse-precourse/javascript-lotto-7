@@ -23,8 +23,6 @@
 ```mermaid
 sequenceDiagram
 
-sequenceDiagram
-
     participant LottoShop as 로또 가게
     participant LottoBuyer as 로또 구매자
     participant Lotto as 로또
@@ -179,3 +177,65 @@ App의 테스트 코드는 [`__tests__`](/__tests__/)폴더에 있고, 그 외�
 1. 사용자가 입력된 값이 잘못되었을 경우 에러 출력 후, 다시 입력을 받는다.
 2. Lotto클래스를 사용하여 구현해야한다.
 3. Lotoo 클래스에 numbers이외의 필드(인스턴스 변수)를 추가할 수 없다.
+
+## 클래스 다이어그램
+
+### App 입장에서 본 클래스 다이어그램
+
+```mermaid
+classDiagram
+  App --> LottoBuyer : 1. 로또 구매하세요
+  App --> LottoCompany : 2. 로또 추첨하세요.
+  App --> LottoBuyer : 3. 로또 결과 알아오세요.
+  App --> LottoBuyer : 4. 로또 수익률 알아오세요.
+
+	class App{
+	  #lottoBuyer
+	  #lottoCompany
+  }
+  class LottoBuyer{
+	  purchaseLottos()
+	  checkWinningLotto()
+	  calculateReturn()
+  }
+  class LottoCompany{
+	  draw()
+	  checkWinningLotto
+  }
+```
+
+### 객체들 입장에서 본 클래스 다이어그램
+
+```mermaid
+classDiagram
+  LottoBuyer --> LottoShop : 로또 구매할게요
+  LottoBuyer --> LottoCompany : 로또 결과 알려주세요
+  LottoCompany --> Lotto : 로또 순위 알려주세요
+  LottoBuyer --> LottoResult : 로또 상금 알려주세요
+  LottoResult --> Lotto : 로또 정보 알려주세요
+
+  class LottoBuyer{
+	  purchaseLottos()
+	  checkWinningLotto()
+	  calculateReturn()
+  }
+  class LottoCompany{
+	  draw()
+	  checkWinningLotto
+  }
+  class Lotto{
+	  checkWinning()
+	  getRankInfo()
+	  getPrizeMoney()
+  }
+  class LottoResult{
+	  #lottoResult
+
+	  addWinning()
+	  getWinningCount()
+	  getTotalPrizeMoney()
+  }
+  class LottoShop{
+	  orderLottos()
+  }
+```
