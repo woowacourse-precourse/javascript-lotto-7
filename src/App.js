@@ -10,14 +10,40 @@ class App {
     const output = new Output();
 
     try {
-      const purchaseAmount = await input.inputPurchaseAmount();
+      let purchaseAmount;
+      while (true) {
+        try {
+          purchaseAmount = await input.inputPurchaseAmount();
+          break;
+        } catch (error) {
+          MissionUtils.Console.print(error.message);
+        }
+      }
+
       const count = purchaseAmount / 1000;
 
       const purchaseNumbers = Lotto.generateLottoNumbers(count);
       output.showPurchaseNumbers(count, purchaseNumbers);
 
-      const winningNumbers = await input.inputWinningNumbers();
-      const bonusNumber = await input.inputBonusNumber(winningNumbers);
+      let winningNumbers;
+      while (true) {
+        try {
+          winningNumbers = await input.inputWinningNumbers();
+          break;
+        } catch (error) {
+          MissionUtils.Console.print(error.message);
+        }
+      }
+
+      let bonusNumber;
+      while (true) {
+        try {
+          bonusNumber = await input.inputBonusNumber(winningNumbers);
+          break;
+        } catch (error) {
+          MissionUtils.Console.print(error.message);
+        }
+      }
 
       const statistics = calculateStatistics(
         purchaseNumbers,
