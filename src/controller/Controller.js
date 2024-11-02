@@ -14,21 +14,36 @@ export default class Controller {
   constructor() {
     this.inputView = new InputView();
     this.outputView = new OutputView();
-    this.winningNumber = [];
   }
 
   async start() {
     const paidMoney = await this.getMoney();
+    const lottos = this.getLottos(paidMoney);
+    this.outputView.printLottoPurchaseHistory(lottos);
+
+    const { winningNumber, bonusNumber } =
+      this.getWinningNumberAndBonusNumber();
+  }
+
+  async getWinningNumberAndBonusNumber() {
+    const winningNumberInput = await this.getWinningNumber();
+    const winningNumber = winningNumberInput
+      .split(',')
+      .map((number) => +number);
+    const bonusNumberInput = await this.getBonusNumber(winningNumber);
+    const bonusNumber = Number(bonusNumberInput);
+
+    return {
+      winningNumber,
+      bonusNumber,
+    };
+  }
+
+  async getLottos(paidMoney) {
     const lottoCount = paidMoney / LOTTO.LOTTO_PRICE;
     const lottos = this.generateLottos(lottoCount);
-    const lottosNumber = lottos.map((lotto) =>
-      lotto.getNumbers().sort((a, b) => a - b),
-    );
 
-    this.outputView.printLottoPurchaseHistory(lottosNumber);
-
-    this.winningNumber = await this.getWinningNumber();
-    const bonusNumber = await this.getBonusNumber();
+    return lottos.map((lotto) => lotto.getNumbers().sort((a, b) => a - b));
   }
 
   generateLottos(lottoCount) {
@@ -41,10 +56,10 @@ export default class Controller {
     return new Lotto(lottoNumbers);
   }
 
-  async getBonusNumber() {
+  async getBonusNumber(winningNumber) {
     try {
       const input = await this.inputView.getInput(INPUT_MESSAGE.BONUS_NUMBER);
-      validateBonusNumber(input, this.winningNumber);
+      validateBonusNumber(input, winningNumber);
 
       return input;
     } catch (error) {
