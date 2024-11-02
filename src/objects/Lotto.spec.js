@@ -16,32 +16,36 @@ describe('Lotto', () => {
     });
   });
 
-  describe('정상적인 케이스', () => {
+  describe('정상 케이스', () => {
     const lotto = new Lotto([4, 2, 3, 6, 1, 5]);
 
     test('로또 번호가 오름차순으로 정렬된다.', () => {
       expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
     });
 
-    test('로또 번호가 0개에서 2개 사이 당첨 될 경우 undefined를 반환한다.', () => {
-      expect(lotto.checkWinning([11, 12, 13, 14, 15, 16], 20)).toBeUndefined();
-      expect(lotto.checkWinning([1, 11, 12, 13, 14, 15], 20)).toBeUndefined();
-      expect(lotto.checkWinning([1, 2, 11, 12, 13, 14], 20)).toBeUndefined();
-    });
-    test('로또 번호가 3개 당첨 될 경우 5를 반환한다.', () => {
-      expect(lotto.checkWinning([1, 2, 3, 11, 12, 13], 20)).toBe(5);
-    });
-    test('로또 번호가 4개 당첨 될 경우 4를 반환한다.', () => {
-      expect(lotto.checkWinning([1, 2, 3, 4, 11, 12], 20)).toBe(4);
-    });
-    test('로또 번호가 5개 당첨 될 경우 3를 반환한다.', () => {
-      expect(lotto.checkWinning([1, 2, 3, 4, 5, 11], 20)).toBe(3);
-    });
-    test('로또 번호가 5개 당첨 되고 보너스 번호까지 당첨될 경우 2를 반환한다.', () => {
-      expect(lotto.checkWinning([1, 2, 3, 4, 5, 11], 6)).toBe(2);
-    });
-    test('로또 번호가 6개 당첨 될 경우 1를 반환한다.', () => {
-      expect(lotto.checkWinning([1, 2, 3, 4, 5, 6], 20)).toBe(1);
+    describe('checkWinning', () => {
+      test('로또 번호가 0개에서 2개 사이 당첨 될 경우 undefined를 반환한다.', () => {
+        expect(
+          lotto.checkWinning([11, 12, 13, 14, 15, 16], 20),
+        ).toBeUndefined();
+        expect(lotto.checkWinning([1, 11, 12, 13, 14, 15], 20)).toBeUndefined();
+        expect(lotto.checkWinning([1, 2, 11, 12, 13, 14], 20)).toBeUndefined();
+      });
+      test('로또 번호가 3개 당첨 될 경우 5를 반환한다.', () => {
+        expect(lotto.checkWinning([1, 2, 3, 11, 12, 13], 20)).toBe(5);
+      });
+      test('로또 번호가 4개 당첨 될 경우 4를 반환한다.', () => {
+        expect(lotto.checkWinning([1, 2, 3, 4, 11, 12], 20)).toBe(4);
+      });
+      test('로또 번호가 5개 당첨 될 경우 3를 반환한다.', () => {
+        expect(lotto.checkWinning([1, 2, 3, 4, 5, 11], 20)).toBe(3);
+      });
+      test('로또 번호가 5개 당첨 되고 보너스 번호까지 당첨될 경우 2를 반환한다.', () => {
+        expect(lotto.checkWinning([1, 2, 3, 4, 5, 11], 6)).toBe(2);
+      });
+      test('로또 번호가 6개 당첨 될 경우 1를 반환한다.', () => {
+        expect(lotto.checkWinning([1, 2, 3, 4, 5, 6], 20)).toBe(1);
+      });
     });
   });
 });
