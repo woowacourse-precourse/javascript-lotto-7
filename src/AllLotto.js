@@ -76,7 +76,6 @@ class AllLotto {
 
     #countMatches(userNumbers) {
         const winningNumbers = this.#winningLotto;
-        console.log(winningNumbers.filter((num) => userNumbers.includes(num)));
         return winningNumbers.filter((num) => userNumbers.includes(num)).length;
     }
 
