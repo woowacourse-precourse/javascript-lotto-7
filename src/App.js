@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
@@ -64,6 +64,23 @@ class App {
     if (bonusNumber < 1 || bonusNumber > 45) {
       throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
     }
+
+    const userLottoNumbers = this.generateLotto(purchaseAmount);
+    console.log(userLottoNumbers);
+  }
+
+  generateLotto(purchaseAmount) {
+    const lottoCount = purchaseAmount / 1000;
+    let userLottoNumbers = [];
+    for (let i = 0; i < lottoCount; i++) {
+      const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
+        1,
+        45,
+        6
+      );
+      userLottoNumbers.push({ lottoNumbers });
+    }
+    return userLottoNumbers;
   }
 }
 
