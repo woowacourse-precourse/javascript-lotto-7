@@ -16,4 +16,10 @@ describe('로또묶음 클래스 테스트', () => {
       lottoBundle.getList().some((lotto) => !(lotto instanceof Lotto))
     ).toBe(false);
   });
+
+  test('로또 묶음을 만들 땐 로또의 개수를 숫자로 입력해야 한다.', () => {
+    expect(() => {
+      new LottoBundle('MinSungJe');
+    }).toThrow('[ERROR]');
+  });
 });
