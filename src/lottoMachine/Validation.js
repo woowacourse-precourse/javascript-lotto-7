@@ -19,20 +19,20 @@ export class Validation {
 
   validateWinningNumbers(winningNumArr) {
     if (winningNumArr.length > 6 || winningNumArr.length < 6) {
-      throw new Error('[ERROR] 숫자는 6개를 입력해 주세요.');
+      throw new Error('[ERROR] 숫자는 6개를 입력해 주세요.\n');
     }
 
     winningNumArr.forEach((num) => {
       if (num.trim() === '') {
-        throw new Error('[ERROR] 값을 입력해 주세요.');
+        throw new Error('[ERROR] 빈 값이 있습니다.\n');
       }
 
       if (Number.isNaN(Number(num)) === true) {
-        throw new Error('[ERROR] 숫자를 입력해 주세요.');
+        throw new Error('[ERROR] 숫자를 입력해 주세요.\n');
       }
 
       if (Number(num) < 1 || Number(num) > 45) {
-        throw new Error('[ERROR] 1 ~ 45 사이의 숫자를 입력해 주세요.');
+        throw new Error('[ERROR] 1 ~ 45 사이의 숫자를 입력해 주세요.\n');
       }
     });
 
@@ -52,12 +52,12 @@ export class Validation {
     }
 
     if (Number(bonusNumber) < 1 || Number(bonusNumber) > 45) {
-      throw new Error('[ERROR] 1 ~ 45 사이의 숫자를 입력해 주세요.');
+      throw new Error('[ERROR] 1 ~ 45 사이의 숫자를 입력해 주세요.\n');
     }
 
     winningNumArr.forEach((num) => {
       if (Number(num) === Number(bonusNumber)) {
-        throw new Error('[ERROR] 당첨 번호와 중복되지 않는 숫자를 입력해 주세요.');
+        throw new Error('[ERROR] 당첨 번호와 중복되지 않는 숫자를 입력해 주세요.\n');
       }
     });
   }
