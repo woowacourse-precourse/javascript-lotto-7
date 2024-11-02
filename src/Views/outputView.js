@@ -26,7 +26,7 @@ export function printRateResult(rankList, amount) {
         const rank = 5 - idx;
         const matchCount = getWinCount(rankList, rank);
         return acc + cur * matchCount;
-    })
+    }, 0);
     const rate = (result / amount * 100).toFixed(1);
     Console.print(`총 수익률은 ${rate}%입니다.`);
 }
