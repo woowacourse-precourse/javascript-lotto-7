@@ -15,6 +15,7 @@ class LottoController {
 
   async run() {
     await this.#startPurchaseLotto();
+    await this.#startDrawLotto();
   }
 
   async #startPurchaseLotto() {
@@ -65,6 +66,15 @@ class LottoController {
 
   #printLottoNumbers(lotto) {
     this.#outputView.outputLottoNumbers(lotto);
+  }
+
+  async #startDrawLotto() {
+    const lottoWinningNumber = await this.#getLottoWinningNumber();
+  }
+
+  async #getLottoWinningNumber() {
+    const winningNumber = await this.#inputView.inputLottoWinningNumber();
+    return winningNumber;
   }
 }
 

@@ -7,6 +7,12 @@ class InputView {
       INPUT_MESSAGE.PROMPT_PURCHASE_AMOUNT
     );
   }
+
+  async inputLottoWinningNumber() {
+    return MissionUtils.Console.readLineAsync(
+      INPUT_MESSAGE.PROMPT_WINNING_NUMBER
+    );
+  }
 }
 
 export default InputView;
