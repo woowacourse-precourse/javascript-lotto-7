@@ -27,19 +27,21 @@ class App {
     return enteredNumbers.split(',');
   }
 
-  /*
-  async getBonusNumbers() {
-    Console.print('\n보너스 번호를 입력해주세요.');
-    const bonusNumber = await Console.readLineAsync('');
-    if(!(1<=bonusNumber && bonusNumber<=45)){
-      throw new Error("[ERROR] 1부터 45 범위 내의 번호 1개를 입력해주세요.");
-    }
-    return bonusNumber;
+  playLotto(nums, bnum, pickedNumsArr){
+    const winResult = [];
+    const totalNums = [...nums,bnum];
+
+    pickedNumsArr.forEach(pickedNums => {
+      const winNums = pickedNums.filter((pickedNum)=>{
+        return totalNums.includes(pickedNum); //1,2,3
+      });
+      winResult.push(winNums);
+    })
+    //winResult = [[],[1,2,3],[2,4,3,5,2,1,9]]
+    return winResult;
   }
 
-  playLotto(nums, bnum, pickednums){
-    for()
-  }*/
+
 }
 
 export default App;

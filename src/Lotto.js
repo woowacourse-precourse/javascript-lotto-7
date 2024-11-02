@@ -20,7 +20,8 @@ class Lotto {
   }
 
   getNumbers(){
-    return this.#numbers;
+    const numbers = this.#numbers.map(number =>  Number(number));
+    return numbers;
   }
 
   async getBonusNumbers() {
@@ -29,7 +30,7 @@ class Lotto {
     if(!(1<=bonusNumber && bonusNumber<=45)){
       throw new Error("[ERROR] 1부터 45 범위 내의 번호 1개를 입력해주세요.");
     }
-    return bonusNumber;
+    return Number(bonusNumber);
   }
 }
 
