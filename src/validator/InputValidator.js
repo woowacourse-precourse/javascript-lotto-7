@@ -11,7 +11,7 @@ class InputValidator {
     }
   }
 
-  static validateWinningNumbers(numbers) {
+  static validateNumbers(numbers) {
     if (numbers.some((num) => num === null)) {
       throw new Error('[ERROR] 당첨 번호는 숫자 6개이어야 합니다.');
     }

@@ -24,7 +24,7 @@ class LottoController {
     this.outputView.printPurchasedLotto(generatedLottos);
 
     const winningNumbers = await this.inputView.getWinningNumbers();
-    InputValidator.validateWinningNumbers(winningNumbers);
+    InputValidator.validateNumbers(winningNumbers);
     const bonusNumber = await this.inputView.getBonusNumber();
     InputValidator.validateBonusNumber(bonusNumber, winningNumbers);
 
