@@ -7,9 +7,10 @@ class App {
     try {
       const draw = new Draw(await this.payingMoney());
       const pickedNumbers = draw.getPickedNumbers();
-      const winningNumbers = new Lotto(await this.enteringNumbers()).getNumbers();
-      const bonusNumber = await this.getBonusNumbers();
-      this.playLotto(winningNumbers, bonusNumber);
+      const lotto = new Lotto(await this.enteringLottoNumbers());
+      const lottoNumbers = lotto.getNumbers();
+      const bonusNumber = await lotto.getBonusNumbers();
+      this.playLotto(lottoNumbers, bonusNumber, pickedNumbers);
     } catch (error) {
       Console.print(error.message);
     }
@@ -20,12 +21,13 @@ class App {
     return Number(await Console.readLineAsync(''));
   }
 
-  async enteringNumbers() {
+  async enteringLottoNumbers() {
     Console.print('당첨 번호를 입력해 주세요.');
     const enteredNumbers = await Console.readLineAsync('');
     return enteredNumbers.split(',');
   }
 
+  /*
   async getBonusNumbers() {
     Console.print('\n보너스 번호를 입력해주세요.');
     const bonusNumber = await Console.readLineAsync('');
@@ -35,9 +37,9 @@ class App {
     return bonusNumber;
   }
 
-  playLotto(arr, num){
-    
-  }
+  playLotto(nums, bnum, pickednums){
+    for()
+  }*/
 }
 
 export default App;
