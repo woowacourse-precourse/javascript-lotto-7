@@ -24,8 +24,17 @@ class App {
         Console.print(arr);
     });
 
-    const winningNumbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.");
-  }
+    const winningNumbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+
+    const matchCounts = lottoArr.map(lottoNumbers => {
+      // 당첨 번호와 비교하여 일치하는 번호 필터링
+      const matchedNumbers = lottoNumbers.filter(num => winningNumbers.includes(num));
+      return matchedNumbers.length; // 일치하는 번호의 개수 반환
+    });
+
+    Console.print(`당첨 통계\n---\n${matchCounts}개 일치 (${})`)
+    }
 }
 
 export default App;
