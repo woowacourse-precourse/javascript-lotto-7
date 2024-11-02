@@ -63,6 +63,4 @@ Lotto 클래스의 용도를 처음 사용자로 부터 입력받은 초기 로�
 초기 패키지 의존성 문제를 해결하는 과정에서 package-lock.json을 수정했고 이를 다시 원상 복귀하였음
 
 ## 문제를 풀고 나서...
-문제를 풀고나서 claude에 코드를 올려 리팩터링을 부탁했다. claude는 LottoManager, InputManager, ResultManager로 나누어 LottoManager는 로또 생성과 관리를 담당하는 클래스로 InputManager는 사용자 입력 처리와 검증을 담당하는 클래스로 ResultManager는 당첨 결과 계산과 출력을 담당하여 리팩터링을 하였다.
-
-로또 관련 상수들은 
+문제를 풀고나서 claude에 코드를 올려 리팩터링을 부탁했다. claude는 LottoManager, InputManager, ResultManager로 나누어 LottoManager는 로또 생성과 관리를 담당하는 클래스로 InputManager는 사용자 입력 처리와 검증을 담당하는 클래스로 ResultManager는 당첨 결과 계산과 출력을 담당하여 리팩터링했다. 이 코드를 그대로 복사하는 것은 의미가 없으므로 이 코드를 통해 따로 디자인 패턴을 공부하여 다음 과제에 적용할 것이다.
