@@ -7,11 +7,19 @@ const PLEASE_INPUT_RIGHT_NUMBER =
     "[ERROR] 로또 번호는 1 ~ 45 사이의 숫자여야 합니다.";
 
 const PLEASE_INPUT_RIGHT_COST =
-    "[ERROR] 구입금액을 올바른 단위로 입력해주세요.";
+    "[ERROR] 구입 금액을 올바른 단위로 입력해주세요.";
+
+const PLEASE_INPUT_RIGHT_WIN_NUMBERS =
+    "[ERROR] 당첨 번호를 올바른 단위로 입력해주세요.";
+
+const PLEASE_INPUT_RIGHT_BONUS_NUMBER =
+    "[ERROR] 올바른 보너슨 번호를 입력해주세요.";
 
 export {
     PLEASE_INPUT_UNIQUE_NUMBER,
     PLEASE_INPUT_RIGHT_NUMBER,
     BUYING_COST_REG_EXP,
     PLEASE_INPUT_RIGHT_COST,
+    PLEASE_INPUT_RIGHT_WIN_NUMBERS,
+    PLEASE_INPUT_RIGHT_BONUS_NUMBER,
 };
