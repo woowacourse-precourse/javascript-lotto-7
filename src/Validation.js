@@ -22,6 +22,13 @@ class Validation {
     this.isNotDuplicated(numbers);
   }
 
+  static checkBonusNumber(bonusNumber, winningNumbers) {
+    this.isNumber(bonusNumber);
+    this.isInRange(bonusNumber);
+    this.isInteger(bonusNumber);
+    this.isNotDuplicated([...winningNumbers, bonusNumber]);
+  }
+
   static isNumber(input) {
     if (Number.isNaN(input)) {
       throw new Error(ERROR_MESSAGE.notNumber);
