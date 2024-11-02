@@ -8,33 +8,33 @@
 - 발행한 로또 수량 및 로또 번호 리스트를 오름차순으로 출력
 - 일치한 숫자의 개수를 기반으로 당첨 내역을 출력
 - 총 수익률을 소수점 둘째 자리에서 반올림하여 출력
+
+- ❗로또 번호의 개수가 6개가 넘어가면 예외 처리
+- ❗로또 번호 숫자가 1보다 작거나 45보다 크면 예외 처리
+- ❗로또 번호로 숫자가 아닌 문자를 입력하면 예외 처리
 - ❗1000원으로 나누어 떨어지지 않으면 예외 처리
 - ❗중복된 숫자 입력 시 예외 처리
+- ❗구입 금액을 숫자로 입력하지 않으면 예외 처리
+- ❗구입 금액을 0보다 크게 입력하지 않으면 예외 처리
+- ❗보너스 번호 입력 시 숫자로 입력하지 않으면 예외 처리
+- ❗보너스 번호는 1보다 작거나 45보다 크면 예외 처리
 
-## ⬆️ 클래스
+## 폴더 구조
 
-### ➡️ Lotto
+📦**tests**
+┣ 📜AllLottoTest.js
+┣ 📜ApplicationTest.js
+┣ 📜LottoTest.js
+┗ 📜PurchaseAmountTest.js
 
-- 로또 배열 저장
-- 로또 배열 검증 메서드
-- 오름차순 정렬 메서드
-- 보너스 번호 입력 및 추가, 출력 메서드
-
-### ➡️ PurchaseAmount
-
-- 구입금액 검증
-- 로또 구매 개수 반환 및 출력 메서드
-
-### ➡️ AllLotto
-
-- 구매한 로또 개수에 따른 로또 번호를 모두 저장한 배열 관리
-
-- addInputLotto : 배열에 로또 번호 저장
-- setWinningLotto : 우승번호와 보너스 번호 저장
-  = getWinningLotto, getBonusNumber : 우승번호와 보너스 번호 반환
-- compareLottos : 일치하는 숫자 개수 비교
-- printAllLotto : 모든 구매한 로또를 출력
-- printWinningResult : 당첨 여부 관련 출력
+📦**src**
+┣ 📂util
+┃ ┗ 📜util.js
+┣ 📜AllLotto.js
+┣ 📜App.js
+┣ 📜index.js
+┣ 📜Lotto.js
+┗ 📜PurchaseAmount.js
 
 ## ❗ 주의 사항
 
