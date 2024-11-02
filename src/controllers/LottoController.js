@@ -14,10 +14,7 @@ class LottoControllers {
   }
 
   async issueTickets(purchaseAmount) {
-    const validPurchaseAmount = await PurchaseValidator.validate(
-      purchaseAmount
-    );
-    return LottoIssuer.issueLottoTickets(validPurchaseAmount);
+    return LottoIssuer.issueLottoTickets(purchaseAmount);
   }
 
   matchLottoTickets(lottoTickets, winningNumbers, bonusNumber) {
