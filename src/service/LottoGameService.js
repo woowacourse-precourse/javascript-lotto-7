@@ -83,6 +83,14 @@ class LottoGameService {
       this.increaseRankCount(rank);
     });
   }
+
+  getTotalPrize(prizes) {
+    let totalPrize = 0;
+    for (const [_, prize] of Object.entries(prizes)) {
+      totalPrize += prize.money * prize.count;
+    }
+    return totalPrize;
+  }
 }
 
 export default LottoGameService;
