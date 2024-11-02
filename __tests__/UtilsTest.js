@@ -8,7 +8,7 @@ describe('Utils 함수 테스트', () => {
     ['-21', -21],
     ['숫자', NaN],
     ['2000원', NaN],
-    [null, null],
+    [null, NaN],
     [undefined, NaN],
     ['$', NaN],
     ['$2000$', NaN],
