@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from "../constants/Message.js";
+
 class Lotto {
   #numbers;
 
@@ -14,21 +16,21 @@ class Lotto {
 
   #validateLottoLength(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(ERROR_MESSAGE.INVALID_LOTTO_LENGTH);
     }
   }
 
   #validateDuplicateNum(numbers) {
     const setNumbers = new Set(numbers);
     if (numbers.length !== setNumbers.size) {
-      throw new Error("[ERROR] 로또 번호는 중복없이 입력되어야 합니다.");
+      throw new Error(ERROR_MESSAGE.INVALID_DUPLICATE_NUMBER);
     }
   }
 
   #validateNumberOnly(numbers) {
     const reg = /^[0-9]+$/;
     if (!reg.test(numbers)) {
-      throw new Error("[ERROR] 로또 번호는 정수로만 입력되어야 합니다.");
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_ONLY);
     }
   }
 }
