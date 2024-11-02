@@ -1,6 +1,6 @@
 import { MOCK_DATA_1 } from '../lib/mock/data.js';
 import { mockQuestions, mockRandoms } from '../lib/mock/utils.js';
-import { LottoCompany, LottoShop } from './index.js';
+import { LottoCompany, LottoShop } from '.';
 
 describe('LottoCompany', () => {
   const lottoCompany = new LottoCompany();
@@ -16,10 +16,10 @@ describe('LottoCompany', () => {
       await lottoCompany.draw();
       const lottos = LottoShop.orderLottos(MOCK_DATA_1.INPUT.PURCHASE_PRICE);
 
-      const LottoResult = lottoCompany.checkWinningLotto(lottos);
+      const lottoResult = lottoCompany.checkWinningLotto(lottos);
 
       Object.entries(MOCK_DATA_1.RESULT.RANKS).forEach(([rank, count]) => {
-        expect(LottoResult.getWinningCount(+rank)).toBe(count);
+        expect(lottoResult.getWinningCount(+rank)).toBe(count);
       });
     });
   });

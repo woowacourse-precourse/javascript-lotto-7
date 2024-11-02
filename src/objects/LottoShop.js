@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { LOTTO } from '../lib/constants.js';
-import Lotto from './Lotto.js';
+import { Lotto } from '.';
 
 class LottoShop {
   static orderLottos(purchasePrice) {

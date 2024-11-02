@@ -1,6 +1,6 @@
-import { InputManager, OutputManager } from '../helpers/index.js';
+import { InputManager, OutputManager } from '../helpers';
 import { calculateRateOfReturn } from '../lib/utils.js';
-import LottoShop from './LottoShop.js';
+import { LottoShop } from '.';
 
 class LottoBuyer {
   #purchasePrice;

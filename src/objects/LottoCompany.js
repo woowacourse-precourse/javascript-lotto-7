@@ -1,5 +1,5 @@
-import { InputManager } from '../helpers/index.js';
-import LottoResult from './LottoResult.js';
+import { InputManager } from '../helpers';
+import { LottoResult } from '.';
 
 class LottoCompany {
   #winningNumbers;
