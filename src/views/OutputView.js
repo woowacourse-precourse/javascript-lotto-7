@@ -44,7 +44,7 @@ class OutputView {
     );
   }
 
-  static async printSecontPlaceWinner(result) {
+  static async printSecondPlaceWinner(result) {
     Console.print(
       `${OUTPUT_MESSAGES.SECOND_PLACE_WINNER}${result.getSecondPlaceCount()}${
         OUTPUT_MESSAGES.AMOUNT
