@@ -2,7 +2,7 @@ export const REWARD = {
   THREE_MATCH: 5000,
   FOUR_MATCH: 50000,
   FIFTH_MATCH: 1500000,
-  SIXTH_MATCH: 200000000,
+  SIXTH_MATCH: 2000000000,
   FIFTH_BONUS_MATCH: 30000000,
 };
 export const WINNING_INDEX = {
@@ -12,7 +12,6 @@ export const WINNING_INDEX = {
   SIXTH_MATCH: 3,
   FIFTH_BONUS_MATCH: 4,
 };
-
 export const ERROR_MESSAGE = {
   PRICE_NUMBER_ERROR: "[ERROR] 로또 구입 금액은 숫자만 입력할 수 있습니다.",
   PRICE_NEGATIVE_ERROR: "[ERROR] 로또 구입 금액은 양수로 입력해 주세요.",

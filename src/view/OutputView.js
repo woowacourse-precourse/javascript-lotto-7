@@ -44,7 +44,7 @@ class OutputView {
     Console.print("---");
     REWARD_COMMENT.forEach((item) =>
       Console.print(
-        `${item.MATCH_COUNT} (${item.PRICE}원) - ${
+        `${item.MATCH_COUNT} (${item.PRICE.toLocaleString()}원) - ${
           winningCount[item.WINNING_COUNT]
         }개`
       )

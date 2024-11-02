@@ -1,27 +1,28 @@
+import { ERROR_MESSAGE } from "../src/constants/Constants.js";
 import Lotto from "../src/model/Lotto.js";
-import Validator from "../src/util/Validator.js";
-describe(() => {
-  test("구입 금액에 숫자가 아닌 문자가 포함된 경우 예외가 발생한다", () => {
-    //when
-    const validator = new Validator();
-    expect(() => {
-      this.validator.isPriceNumber();
-    }).thThrow("[ERROR]");
-  });
-});
+
 describe("로또 클래스 테스트", () => {
-  test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
+  test("로또 번호에 숫자가 아닌 문자가 포함된 경우 예외가 발생한다.", () => {
     expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow("[ERROR]");
+      new Lotto([1, 2, 3, 4, 5, 8, "a"]);
+    }).toThrow(ERROR_MESSAGE.ANSWER_NUMBER_ERROR);
   });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
+  test("로또 번호의 개수가 6개가 아닐 경우 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 6, 7]);
+    }).toThrow(ERROR_MESSAGE.ANSWER_COUNT_ERROR);
+  });
+
   test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow("[ERROR]");
+    }).toThrow(ERROR_MESSAGE.ANSWER_DUPLICATE_ERROR);
   });
 
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("로또 번호가 1~45 사이 숫자가 아닌 경우 예외가 발생한다", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 71]);
+    }).toThrow(ERROR_MESSAGE.ANSWER_RANGE_ERROR);
+  });
 });
