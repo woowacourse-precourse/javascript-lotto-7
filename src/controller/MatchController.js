@@ -22,6 +22,11 @@ class MatchController {
     const checkLotto = new Lotto(numbers);
     return checkLotto;
   }
+
+  async getJackpot() {
+    await this.setJackpot();
+    await this.setBonusJackpot();
+  }
 }
 
 export default MatchController;

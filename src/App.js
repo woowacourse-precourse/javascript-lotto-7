@@ -7,7 +7,7 @@ class App {
     await ticket.getTicket();
 
     const jackpot = new MatchController();
-    await jackpot.setJackpot();
+    await jackpot.getJackpot();
   }
 }
 
