@@ -1,9 +1,13 @@
+import LottoController from '../../../src/components/LottoController.js';
+
 const ERROR = '[ERROR]';
 
 describe('구입 금액 검증 테스트, 정상 테스트', () => {
   test('구입 금액 : 5000원 ', () => {
-    const purchaseAmount = 5000;
-    expect(purchaseAmountValidator(5000)).toBeTruthy();
+    const lottoController = new LottoController();
+    lottoController.setPurchaseAmount(5000);
+    const purchaseAmount = lottoController.getPurchaseAmount();
+    expect(purchaseAmountValidator(purchaseAmount)).toBeTruthy();
   });
 });
 
