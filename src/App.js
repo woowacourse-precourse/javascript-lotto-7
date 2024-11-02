@@ -5,12 +5,11 @@ import WinningLottoMachine from './WinningLottoMachine.js';
 class App {
   constructor() {
     this.lottoStore = new LottoStore();
-    this.winningLottoMachine = new WinningLottoMachine();
   }
 
   async run() {
     const purchasedLottos = await this.lottoStore.purchaseLottos();
-    const winningLotto = await this.winningLottoMachine.createWinningLotto();
+    const winningLotto = await WinningLottoMachine.createWinningLotto();
     const statistics = new LottoStatistics(
       purchasedLottos.getLottos(),
       winningLotto,

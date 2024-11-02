@@ -6,7 +6,7 @@ import { PRINT_MESSAGES, ERROR_MESSAGES } from './constants/messages.js';
 import REGEX from './constants/regex.js';
 
 class WinningLottoMachine {
-  async createWinningLotto() {
+  static async createWinningLotto() {
     const winningLotto = await WinningLottoMachine.#getValidWinningLotto();
     await WinningLottoMachine.#setValidBonusNums(winningLotto);
     return winningLotto;
