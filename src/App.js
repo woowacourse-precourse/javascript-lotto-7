@@ -8,15 +8,16 @@ class App {
     Console.print('\n');
     Console.print(`${lottoCount}개를 구매했습니다.`);
 
-    const game = new Game(lottoCount);
-
     Console.print('\n');
     const winningNumberInput = await InputPrompt.getWinningNumber();
-    const winningNumberList = winningNumberInput.split(',').map((number) => parseInt(number));
+    const winningNumbers = winningNumberInput.split(',').map((number) => parseInt(number));
 
     Console.print('\n');
     const bonusNumberInput = await InputPrompt.getBonusNumber();
     const bonusNumber = parseInt(bonusNumberInput);
+
+    const game = new Game(lottoCount, winningNumbers, bonusNumber);
+    game.play();
   }
 }
 export default App;

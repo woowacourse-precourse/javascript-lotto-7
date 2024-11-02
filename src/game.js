@@ -1,9 +1,11 @@
 import Lotto from './Lotto.js';
 
 class Game {
-  constructor(lottoCount) {
+  constructor(lottoCount, winningNumbers, bonusNumber) {
     this.lottoCount = lottoCount;
     this.lottos = [];
+    this.winningLotto = new Lotto(winningNumbers);
+    this.bonusNumber = bonusNumber;
   }
 
   async createLotto() {
@@ -11,6 +13,10 @@ class Game {
       const numbers = await Random.pickUniqueNumbersInRange(1, 45, 6);
       lottos.push[new Lotto(numbers)];
     }
+  }
+
+  play() {
+    this.createLotto();
   }
 }
 
