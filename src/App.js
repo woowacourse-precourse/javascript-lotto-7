@@ -29,11 +29,8 @@ class App {
     const splitWinningNumbers = this.game.splitWinningNumbers(winngingNumber);
 
     const bonusNumber = await this.userInput.getBonusNumber();
-    
-
 
     const lottoReult = this.game.checkLottoResult(lottoPackage, splitWinningNumbers, bonusNumber)
-    console.log(lottoReult);
 
     this.displayOutput.displayLottoResult(lottoReult);
 
