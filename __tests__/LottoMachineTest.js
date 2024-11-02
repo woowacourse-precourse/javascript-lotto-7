@@ -65,3 +65,15 @@ describe('보너스 번호 유효성 검사', () => {
     );
   });
 });
+
+describe('금액별 구입 기능 검사', () => {
+  test('1000원 입력 시 1장 구매', () => {
+    const money = 1000;
+    expect(new LOTTO_MACHINE().purchaseLottoTickets(money)).toHaveLength(1);
+  });
+
+  test('5000원 입력 시 5장 구매', () => {
+    const money = 5000;
+    expect(new LOTTO_MACHINE().purchaseLottoTickets(money)).toHaveLength(5);
+  });
+});
