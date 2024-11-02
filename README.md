@@ -187,7 +187,7 @@
 - validation 함수, 서비스, 모델 클래스 각각 Unit test를 작성해 프로그램을 견고하게 만들었습니다.
 - `validateBounsNumber` , `validateLottoNumber`, `validateMoney` 같은 validation 로직에는 각각 유닛 테스트를 구현했습니다.
 - `Lotto`, `Notes` 같은 클래스에는 각각 유닛 테스트를 구현했습니다.
-- `LotteryService` 와 `RankCalculationService` 에 각각 유닛 테스트를 구현했습니다.
+- `LotteryService` 와 `RankCalculationService`, `StatisticsService` 에 각각 유닛 테스트를 구현했습니다.
 -
 
 ## 체크리스트
