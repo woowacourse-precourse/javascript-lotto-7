@@ -41,4 +41,24 @@ export class Validation {
       throw new Error('[ERROR] 중복되지 않는 숫자를 입력해 주세요.');
     }
   }
+
+  validateBonusNumber(bonusNumber, winningNumArr) {
+    if (bonusNumber === '' || bonusNumber === ' ') {
+      throw new Error('[ERROR] 값을 입력해 주세요.\n');
+    }
+
+    if (Number.isNaN(Number(bonusNumber)) === true) {
+      throw new Error('[ERROR] 숫자만 입력해 주세요.\n');
+    }
+
+    if (Number(bonusNumber) < 1 || Number(bonusNumber) > 45) {
+      throw new Error('[ERROR] 1 ~ 45 사이의 숫자를 입력해 주세요.');
+    }
+
+    winningNumArr.forEach((num) => {
+      if (Number(num) === Number(bonusNumber)) {
+        throw new Error('[ERROR] 당첨 번호와 중복되지 않는 숫자를 입력해 주세요.');
+      }
+    });
+  }
 }

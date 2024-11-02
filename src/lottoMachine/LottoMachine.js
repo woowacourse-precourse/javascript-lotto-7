@@ -42,5 +42,6 @@ export class LottoMachine {
     this.#validation.validateWinningNumbers(winningNumArr);
 
     const bonusNumber = await this.#input.getBonusNumber();
+    this.#validation.validateBonusNumber(bonusNumber, winningNumArr);
   }
 }
