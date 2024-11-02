@@ -1,4 +1,4 @@
-# 🥇 로또 (우아한 프리코스 3차 과제) | url[노션 정리]('https://almond-drip-5f0.notion.site/3-126221c9c5138176b3caca70b1bf4a0b');
+# 🥇 로또 (우아한 프리코스 3차 과제) | [노션 정리](https://almond-drip-5f0.notion.site/3-126221c9c5138176b3caca70b1bf4a0b)
 
 ## 🧑‍🎨 기능 목록
 
