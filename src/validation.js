@@ -32,8 +32,7 @@ const validation = Object.freeze({
      *
      * @param {Array<string>} numbers
      */
-    hasSpace: function (numbers) {
-      const numberArr = numbers.split(NUM.SEPARATOR);
+    hasSpace: function (numberArr) {
       if (numberArr.some((number) => /\s/g.test(number)))
         throw new Error(ERRORMESSAGE.HASSPACE);
     },
@@ -42,10 +41,18 @@ const validation = Object.freeze({
      *
      * @param {Array<string>} numbers
      */
-    isEmpty: function (numbers) {
-      const numberArr = numbers.split(NUM.SEPARATOR);
+    isEmpty: function (numberArr) {
       if (numberArr.some((number) => !number))
         throw new Error(ERRORMESSAGE.ISEMPTY);
+    },
+
+    /**
+     *
+     * @param {Array<string>} numbers
+     */
+    isNotInRange: function (numberArr) {
+      if (numberArr.some((number) => Number(number) < 1 || Number(number) > 45))
+        throw new Error(ERRORMESSAGE.ISNOTINRANGE);
     },
   },
 });
