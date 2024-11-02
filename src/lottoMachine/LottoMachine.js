@@ -36,7 +36,11 @@ export class LottoMachine {
     this.#output.printLottoTicketCount(lottoTicketCount);
 
     const lottoTicket = this.#output.printLottoTicket(lottoTicketCount);
+
     const winningNumbers = await this.#input.getWinningNumbers();
+    const winningNumArr = winningNumbers.split(',');
+    this.#validation.validateWinningNumbers(winningNumArr);
+
     const bonusNumber = await this.#input.getBonusNumber();
   }
 }
