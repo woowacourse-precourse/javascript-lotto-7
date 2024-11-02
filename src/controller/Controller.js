@@ -9,6 +9,7 @@ import Lotto from '../Lotto.js';
 import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
 import { INPUT_MESSAGE } from '../constant/constants.js';
+import MatchingMachine from '../model/MatchingMachine.js';
 
 export default class Controller {
   constructor() {
@@ -18,11 +19,13 @@ export default class Controller {
 
   async start() {
     const paidMoney = await this.getMoney();
-    const lottos = this.getLottos(paidMoney);
+    const lottos = await this.getLottos(paidMoney);
     this.outputView.printLottoPurchaseHistory(lottos);
 
     const { winningNumber, bonusNumber } =
-      this.getWinningNumberAndBonusNumber();
+      await this.getWinningNumberAndBonusNumber();
+
+    const result = this.getCalculatedResult(winningNumber, bonusNumber, lottos);
   }
 
   async getWinningNumberAndBonusNumber() {
@@ -37,6 +40,17 @@ export default class Controller {
       winningNumber,
       bonusNumber,
     };
+  }
+
+  getCalculatedResult(winningNumber, bonusNumber, lottos) {
+    const matchingMachine = new MatchingMachine(
+      winningNumber,
+      bonusNumber,
+      lottos,
+    );
+    matchingMachine.matchLotto();
+
+    return matchingMachine.getResult();
   }
 
   async getLottos(paidMoney) {
