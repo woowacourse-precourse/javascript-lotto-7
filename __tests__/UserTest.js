@@ -14,4 +14,18 @@ describe('구입 금액 유효성 검사', () => {
       '[ERROR] 숫자를 입력해 주십시오.'
     );
   });
+
+  test('구입 금액이 0일 시 예외 발생', () => {
+    const input = '0';
+    expect(() => new User().setMoney(Number(input))).toThrow(
+      '[ERROR] 금액은 1000원 이상부터 가능합니다.'
+    );
+  });
+
+  test('구입 금액이 음수일 시 예외 발생', () => {
+    const input = '-1000';
+    expect(() => new User().setMoney(Number(input))).toThrow(
+      '[ERROR] 금액은 1000원 이상부터 가능합니다.'
+    );
+  });
 });
