@@ -85,21 +85,43 @@ function printWinningStatistics(winStatistics) {
     `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winStatistics.bonus}개`,
   );
   MissionUtils.Console.print(
-    `6개 일치 (2,000,000,000원) - ${winStatistics[3]}개`,
+    `6개 일치 (2,000,000,000원) - ${winStatistics[6]}개`,
   );
 }
 
+// 이부분 상수로 만들어서 for문으로 간략화 시킬수있을듯
+function getGetCash(winStatistics) {
+  let curCash = 0;
+  curCash += winStatistics[3] * 5000;
+  curCash += winStatistics[4] * 50000;
+  curCash += winStatistics[5] * 1500000;
+  curCash += winStatistics.bonus * 30000000;
+  curCash += winStatistics[6] * 2000000000;
+  return curCash;
+}
+
+function getRateOfReturn(buyCash, getCash) {
+  if (getCash === 0) return 0;
+  const rateOfReturn = ((getCash / buyCash) * 100).toFixed(1);
+  return rateOfReturn;
+}
+
+function printRateOfReturn(rateOfReturn) {
+  MissionUtils.Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+}
 class App {
   async run() {
-    const cash = await getCashInHand();
-    cashValidation(cash);
-    const lottos = createLottos(cash);
+    const buyCash = await getCashInHand();
+    cashValidation(buyCash);
+    const lottos = createLottos(buyCash);
     printLottoPurchase(lottos);
 
     const targetLotto = await getTargetLottoArray();
     const bonusNumber = await getBonusNumber();
     const winStatistics = getAllNumberWon(lottos, targetLotto, bonusNumber);
     printWinningStatistics(winStatistics);
+    const getCash = getGetCash(winStatistics);
+    const rateOfReturn = getRateOfReturn(buyCash, getCash);
   }
 }
 
