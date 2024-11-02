@@ -1,58 +1,69 @@
+import LottoControllers from './controllers/LottoController.js';
+import { Console } from '@woowacourse/mission-utils';
 import {
   getPurchaseAmount,
   getWinningNumbers,
   getBonusNumber,
 } from './utils/getUserInput.js';
-import {
-  toPurchaseAmountNumber,
-  parseWinningNumbers,
-  parseBonusNumber,
-} from './utils/parseUserInput.js';
-import validatePurchaseAmount from './validation/amount.js';
-import {
-  validateWinningNumbers,
-  validateBonusNumber,
-} from './validation/lottoNumbers.js';
-import issueLottoTickets from './services/lottoDisplay.js';
-import { Console } from '@woowacourse/mission-utils';
-import { assignLottoRank, displayResults } from './services/winningRank.js';
-import calculateProfitRate from './services/calculateProfit.js';
+import validatePurchaseAmount from './validation/validatePurchaseAmount.js';
 
 class App {
   async run() {
-    // 구입 금액 입력 및 검증
-    const amount = await getPurchaseAmount();
-    await validatePurchaseAmount(amount);
-    const purchaseAmount = toPurchaseAmountNumber(amount);
+    const controllers = new LottoControllers();
 
-    // 로또 출력
-    const lottoTickets = issueLottoTickets(purchaseAmount);
+    const purchaseAmount = await this.getValidPurchaseAmount();
 
-    // 당첨 번호 입력 및 검증
-    const winningNumbers = await getWinningNumbers();
-    const winningNumbersArray = await validateWinningNumbers(winningNumbers);
+    const lottoTickets = controllers.issueTickets(purchaseAmount);
 
-    // 보너스 번호 입력 및 검증
-    const bonusNumber = await getBonusNumber();
-    const validateNumber = await validateBonusNumber(
-      winningNumbersArray,
+    const winningNumbers = await this.getValidWinningNumbers(controllers);
+
+    const bonusNumber = await this.getValidBonusNumber(
+      winningNumbers,
+      controllers
+    );
+
+    const rankCounts = controllers.matchLottoTickets(
+      lottoTickets,
+      winningNumbers,
       bonusNumber
     );
-    const toBonusNumber = parseBonusNumber(validateNumber);
 
-    // 당첨 결과 확인
-    const rankCounts = assignLottoRank(
-      lottoTickets,
-      winningNumbersArray,
-      toBonusNumber
-    );
+    controllers.displayResults(rankCounts);
 
-    // 결과 출력
-    displayResults(rankCounts);
-
-    // 수익률 계산 및 출력
-    const profitRate = calculateProfitRate(rankCounts, purchaseAmount);
+    const profitRate = controllers.calculateProfit(rankCounts, purchaseAmount);
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
+
+  async getValidPurchaseAmount() {
+    try {
+      const amount = await getPurchaseAmount();
+      return await validatePurchaseAmount(amount);
+    } catch (error) {
+      Console.print(error.message);
+      return this.getValidPurchaseAmount();
+    }
+  }
+
+  async getValidWinningNumbers(controllers) {
+    try {
+      const winningNumbers = await getWinningNumbers();
+      controllers.validateWinningNumbers(winningNumbers);
+      return winningNumbers;
+    } catch (error) {
+      Console.print(error.message);
+      return this.getValidWinningNumbers(controllers);
+    }
+  }
+
+  async getValidBonusNumber(winningNumbers, controllers) {
+    try {
+      const bonusNumber = await getBonusNumber();
+      controllers.validateBonusNumber(winningNumbers, bonusNumber);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+      return this.getValidBonusNumber(winningNumbers, controllers);
+    }
   }
 }
 
