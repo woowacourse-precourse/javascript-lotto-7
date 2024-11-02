@@ -14,6 +14,7 @@ class App {
 
     // - 보너스 번호 1개를 입력받는다.
     const bonusNumberString = await this.readBonusNumberString();
+    const bounusNumber = Number(bonusNumberString);
 
     // - 1~45 사이의 중복되지 않는 6개 숫자를 랜덤으로 뽑는다.
     const uniqueRandomNumbersArray = this.getUniqueRandomNumbersArray();
@@ -33,7 +34,9 @@ class App {
     // - 발행한 로또 번호를 출력한다.
     this.printLottos(sortedLottosArray);
 
-    // - 사용자가 구매한 로또 번호와 당첨 번호를 비교한다.
+    // - 각 로또에 대해 일치하는 개수를 구한다.
+    const matchedNumberCounts = this.getMatchedNumberCounts(sortedLottosArray, winnigNumbersArray, bounusNumber);
+
     // - 당첨 내역을 출력한다.
     // - 수익률을 출력한다.
     // - 수익률은 소수점 둘째 자리에서 반올림한다.
@@ -97,6 +100,38 @@ class App {
     });
 
     return sortedLottosArray;
+  }
+
+  getMatchedNumberCounts(lottosArray, winnigNumbersArray, bounusNumber) {
+    const matchedNumberCounts = {};
+
+    lottosArray.forEach((lotto) => {
+      const matchedCount = this.getMatchedCountInLotto(lotto, winnigNumbersArray, bounusNumber);
+
+      matchedNumberCounts[matchedCount] = matchedNumberCounts[matchedCount] + 1 || 1;
+    });
+
+    return matchedNumberCounts;
+  }
+
+  getMatchedCountInLotto(lotto, winnigNumbersArray, bounusNumber) {
+    const matchedCount = this.getMatchedCount(lotto, winnigNumbersArray);
+    const isBonusMatched = lotto.includes(bounusNumber);
+    const totalMatchedCount = this.getTotalMatchedCount(matchedCount, isBonusMatched);
+
+    return totalMatchedCount;
+  }
+
+  getMatchedCount(lotto, winnigNumbersArray) {
+    return lotto.filter((number) => winnigNumbersArray.includes(number)).length;
+  }
+
+  getTotalMatchedCount(matchedCount, isBonusMatched) {
+    if (isBonusMatched) {
+      return matchedCount + 1;
+    }
+
+    return matchedCount;
   }
 }
 
