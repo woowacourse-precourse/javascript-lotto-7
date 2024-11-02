@@ -1,5 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import LottoRanker from "./LottoRanker.js";
 
 class App {
   async getPayment() {
@@ -11,7 +12,7 @@ class App {
 
   async getWinningNumbers() {
     const numbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
-    return numbers.split(",");
+    return numbers.split(",").map((num) => Number(num.trim()));
   }
 
   async getBonusNumber() {
@@ -52,9 +53,26 @@ class App {
 
     const winningNums = await this.getWinningNumbers();
     const winningLotto = new Lotto(winningNums);
+    const number = winningLotto.getNumbers();
     const bonusNum = await this.getBonusNumber();
 
-    new Winning();
+    const winning = {
+      3: 0,
+      4: 0,
+      5: 0,
+      5.5: 0,
+      6: 0,
+    };
+
+    const matchNums = new LottoRanker(number, bonusNum);
+    for (let i = 0; i < amount; i++) {
+      const num = matchNums.findMatches(lotto[i]);
+      if (winning.hasOwnProperty(num)) {
+        winning[num]++;
+      }
+    }
+
+    Console.print(winning);
   }
 }
 
