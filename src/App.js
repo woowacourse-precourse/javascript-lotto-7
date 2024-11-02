@@ -22,6 +22,8 @@ class App {
     const lottoCount = this.getLottoCount(price);
 
     // - 로또를 발행한다.
+    const lottosArray = this.getLottosArray(lottoCount);
+
     // - 발행한 로또 수량을 출력한다.
     // - 발행한 로또 번호를 출력한다.
     // - 로또 번호는 오름차순으로 정렬하여 보여준다.
@@ -53,6 +55,17 @@ class App {
 
   getLottoCount(price) {
     return Math.floor(price / 1000);
+  }
+
+  getLottosArray(lottoCount) {
+    const lottos = [];
+
+    for (let i = 0; i < lottoCount; i += 1) {
+      const lotto = this.getUniqueRandomNumbersArray();
+      lottos.push(lotto);
+    }
+
+    return lottos;
   }
 }
 
