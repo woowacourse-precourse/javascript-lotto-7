@@ -14,5 +14,15 @@ class LottoController {
       this.lottos.push(new LottoTicket(generateLotto()));
     }
   }
+
+  // 각 로또 티켓들이 얼마의 matchcount를 가졌는지
+  checkNumberMatch(winningNumbers) {
+    this.lottos.forEach((lotto) => lotto.calculateMatchCount(winningNumbers));
+  }
+
+  // 각 로또 티켓들이 얼마의 bonusCount를 가졌는지
+  checkBonusMatch(bonusNumber) {
+    this.lottos.forEach((lotto) => lotto.calculateBonusCount(bonusNumber));
+  }
 }
 export default LottoController;

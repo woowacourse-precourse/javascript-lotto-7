@@ -9,20 +9,30 @@ import Lotto from '../Lotto.js';
 import BonusNumber from '../validation/BonusNumber.js';
 
 class LottoMachine {
-  #winningNumber;
+  winningNumbers;
 
-  #bonusNumber;
+  bonusNumber;
+
+  money;
+
+  constructor() {
+    this.result = {};
+  }
 
   async start() {
-    const money = await this.handleMoneyInput();
+    const money = await this.handleMoneyInput(); // TODO : this.money로 변경
     const numOfLotto = countLotto(money);
     Output.printNumOfLotto(numOfLotto);
 
     const lottoController = new LottoController(numOfLotto);
     Output.printLottos(lottoController.lottos);
 
-    this.#winningNumber = await this.handleWinningNumberInput();
-    this.#bonusNumber = await this.handleBonusNumberInput();
+    this.winningNumbers = await this.handleWinningNumberInput();
+    this.bonusNumber = await this.handleBonusNumberInput();
+
+    // controller를 사용해서 매칭 시작
+    lottoController.checkNumberMatch(this.winningNumbers);
+    lottoController.checkBonusMatch(this.bonusNumber);
   }
 
   async handleMoneyInput() {
@@ -58,7 +68,7 @@ class LottoMachine {
       try {
         const validBonusNumber = BonusNumber.validate(
           bonusNumber,
-          this.#winningNumber,
+          this.winningNumbers,
         );
         return validBonusNumber;
       } catch (error) {
