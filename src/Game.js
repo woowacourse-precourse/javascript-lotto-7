@@ -23,6 +23,9 @@ class Game {
       const inputBonusNumber = await readUserInput(INPUT.BONUS_NUMBER);
       const bonusNumber = Validate.validateBonus(inputBonusNumber, winningNumbers);
 
+      // match winning numbers and purchased lotto numbers
+      this.#matchNumbers(generatedTickets, winningNumbers, bonusNumber);
+
     } catch (error) {
       console.error(error.message);
     };
@@ -48,6 +51,12 @@ class Game {
       Console.print(numbers);
     });
   };
+
+  static #matchNumbers(ticketNumbers, winningNumbers, bonusNumber) {
+    console.log('ticket numbers', ticketNumbers);
+    console.log('winning numbers', winningNumbers);
+    console.log('bonus number', bonusNumber);
+  }
 };
 
 export default Game;

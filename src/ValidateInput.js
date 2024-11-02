@@ -57,9 +57,9 @@ class Validate {
 
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== numbers.length) {
-      throw new Error(ERROR.DUPLICATE_LOTTO_NUMBERS);
+      throw new Error(ERROR.NUMBER_EXISTS);
     };
-  }
+  };
 
   static validateBonus(bonus, winningNumbers) {
     this.validateEmptyInput(bonus);
@@ -74,7 +74,7 @@ class Validate {
     });
 
     return bonus;
-  }
-}
+  };
+};
 
 export default Validate;
