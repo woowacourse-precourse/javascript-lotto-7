@@ -8,6 +8,8 @@ class LottoMachine {
   #winningNumbers = [];
   #bonusNumber;
   #lottos = [];
+  #resultCount = [0,0,0,0,0];
+
 
   async play() {
     await this.setPurchase(); // 구입 금액 입력
@@ -15,6 +17,13 @@ class LottoMachine {
     this.makeLotto(); // 로또 발행
     await this.setWinningNumbers();       // 당첨 번호 입력
     await this.setBonusNumber();        // 보너스 번호 입력
+
+    // 당첨 확인
+    // lottos 안에 Lotto 마다 numbers 몇개 일치하는지 matchCount 세기
+    for(let i = 0; i<this.#lottoCount; i++){
+        this.checkMatch(this.#lottos[i], this.#resultCount);
+    }
+    
   }
 
   // 구입 금액 입력
@@ -98,6 +107,33 @@ class LottoMachine {
       throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
     }
   }
+
+  checkMatch(myNumbers, resultCount){
+    // 일치 개수 구하기
+    const matchCount = this.isMatch(myNumbers);
+    // 보너스 일치하는지 구하기
+    const bonusMatch = this.isBonus(myNumbers);
+
+
+  }
+
+  isMatch(myNumbers){
+    let matchCount = 0;
+    for(let i = 0; i<6; i++){
+        if(this.#winningNumbers.includes(myNumbers[i])){
+            matchCount ++;
+        }
+    }
+    return matchCount;
+  }
+
+  isBonus(myNumbers){
+    if(myNumbers.includes(this.#bonusNumber)){
+        return true;
+    }
+    return false;
+  }
+
 
 }
 
