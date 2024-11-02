@@ -5,6 +5,8 @@ export default class OutputLottoView {
   #OUTPUT_MESSAGE = {
     NOTIFY_PURCHASED_LOTTO_COUNT: '개를 구매했습니다.',
     LOTTO_RESULT_START: '\n당첨 통계\n---',
+    EARNING_RATE_START : '총 수익률은 ',
+    EARNING_RATE_END : '%입니다.'
   };
 
   printMessage(message) {
@@ -36,8 +38,10 @@ export default class OutputLottoView {
     });
   }
 
-  printProfitRate(){
+  printEarningRate(lottoResult){
+    const earningRate = lottoResult.getEarningRate();
 
+    Console.print(`${this.#OUTPUT_MESSAGE.EARNING_RATE_START}${earningRate}${this.#OUTPUT_MESSAGE.EARNING_RATE_END}`)
   }
 
   #transformToFormat(condition,count){

@@ -53,8 +53,17 @@ export default class LottoPurchaser {
         winningLottoBonusNumber
       );
 
-      this.#lottoResult.saveResult(matchCount,isBonusNumberMatch);
+      this.#lottoResult.saveResult(matchCount, isBonusNumberMatch);
     });
+  }
+
+  calculateEarningRate() {
+    const resultPrice = this.#lottoResult.getResultPrice();
+
+    const earningRate = resultPrice / this.#purchasePrice * 100;
+    const roundedEarningRate = parseFloat(earningRate.toFixed(1));
+
+    this.#lottoResult.setEarningRate(roundedEarningRate);
   }
 
   #getMatchCount(lottoNumbers, winningLottoMainNumbers) {
@@ -64,6 +73,6 @@ export default class LottoPurchaser {
   }
 
   #getBonusNumberMatch(lottoNumbers, winningLottoBonusNumber) {
-    return lottoNumbers.includes(winningLottoBonusNumber)
+    return lottoNumbers.includes(winningLottoBonusNumber);
   }
 }

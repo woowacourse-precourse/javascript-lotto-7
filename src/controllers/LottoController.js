@@ -68,9 +68,11 @@ export default class LottoController {
 
   #generateLottoResult() {
     this.#lottoPurchaser.compareLottosWithWinningLotto(this.#winningLotto);
+    this.#lottoPurchaser.calculateEarningRate()
 
-    this.#outputLottoView.printLottoResult(
-      this.#lottoPurchaser.getLottoResult()
-    );
+    const lottoResult = this.#lottoPurchaser.getLottoResult();
+
+    this.#outputLottoView.printLottoResult(lottoResult);
+    this.#outputLottoView.printEarningRate(lottoResult);
   }
 }

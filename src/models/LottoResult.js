@@ -2,7 +2,7 @@ import { lottoConfig } from './lottoConfig.js';
 
 export default class LottoResult {
   #resultPrice;
-  #profitRate;
+  #earningRate;
   #result;
 
   constructor() {
@@ -20,8 +20,12 @@ export default class LottoResult {
     return this.#result;
   }
 
-  getProfitRate() {
-    return this.#profitRate;
+  getEarningRate() {
+    return this.#earningRate;
+  }
+
+  setEarningRate(earningRate){
+    this.#earningRate= earningRate
   }
 
   getResultPrice() {
