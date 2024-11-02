@@ -31,7 +31,8 @@ class Consumer {
   }
 
   getLottoCount() {
-    lottoCount = price / 1000;
+    lottoCount = parseInt(price / 1000, 10);
+    return lottoCount;
   }
 
   getOrderLotto() {
