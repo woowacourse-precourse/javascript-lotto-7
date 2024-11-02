@@ -26,9 +26,11 @@ class App {
       (input) => Validator.validateBonusNumber(input, winningNumber),
     );
 
+    const resultList = [];
+
     lottoTickets.forEach((lotto) => {
       const result = lotto.getWinningResult(winningNumber, bonusNumber);
-      if (result) Handler.output(result);
+      resultList.push(result);
     });
   }
 }
