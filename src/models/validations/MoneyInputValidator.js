@@ -1,4 +1,5 @@
 import ERROR_MESSAGES from '../../constants/Constant.js';
+import MagicNumber from '../../constants/MagicNumber.js';
 
 const isNumeric = input => {
   if (Number.isNaN(Number(input))) {
@@ -13,7 +14,7 @@ const isEmpty = input => {
 };
 
 const isAmountInThousand = input => {
-  if (input % 1000 !== 0) {
+  if (input % MagicNumber.PURCHASE_UNIT !== 0) {
     throw new Error(ERROR_MESSAGES.MONEY_UNIT);
   }
 };
