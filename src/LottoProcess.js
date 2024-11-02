@@ -1,7 +1,9 @@
 import {
   LOTTO_NUM_LENGTH,
   LOTTO_PRICE,
+  PRIZE_MONEY,
   RANDOM_RANGE,
+  RANK_MESSAGES,
 } from "./lib/constants.js";
 import {
   handleBonusNumber,
@@ -12,26 +14,20 @@ import Lotto from "./Lotto.js";
 
 class LottoProcess {
   #price;
-  #lottos;
+  #lottos = [];
   #winningNumbers;
   #bonusNumber;
 
   constructor(io, random) {
     this.io = io;
     this.random = random;
-    this.#price = 0;
-    this.#lottos = [];
-    this.#winningNumbers = [];
-    this.#bonusNumber = 0;
   }
 
   async runProcess() {
     await this.setPrice();
-    const lottoCounts = this.calculateLottoCounts(this.#price);
-    this.buyLottos(lottoCounts);
+    this.buyLottos();
     await this.setWinningNumbers();
     await this.setBonusNumber();
-
     this.announceResult();
   }
 
@@ -41,27 +37,24 @@ class LottoProcess {
     } while (!handlePrice(this.#price));
   }
 
-  calculateLottoCounts(price) {
-    const lottoCounts = Math.trunc(Number(price) / LOTTO_PRICE);
+  buyLottos() {
+    const lottoCounts = Math.trunc(Number(this.#price) / LOTTO_PRICE);
     this.io.print(lottoCounts + "개를 구매했습니다.");
 
-    return lottoCounts;
+    this.#lottos = Array.from({ length: lottoCounts }, () =>
+      this.createLotto()
+    );
   }
 
-  buyLottos(lottoCounts) {
-    for (let i = 0; i < lottoCounts; i += 1) {
-      const randomNumbers = this.random(
-        RANDOM_RANGE.min,
-        RANDOM_RANGE.max,
-        LOTTO_NUM_LENGTH
-      );
-
-      const lotto = new Lotto(randomNumbers);
-
-      this.io.print(`[${randomNumbers.sort((a, b) => a - b).join(", ")}]`);
-
-      this.#lottos = [...this.#lottos, lotto];
-    }
+  createLotto() {
+    const randomNumbers = this.random(
+      RANDOM_RANGE.min,
+      RANDOM_RANGE.max,
+      LOTTO_NUM_LENGTH
+    );
+    const lotto = new Lotto(randomNumbers);
+    this.io.print(`[${randomNumbers.sort((a, b) => a - b).join(", ")}]`);
+    return lotto;
   }
 
   async setWinningNumbers() {
@@ -80,17 +73,25 @@ class LottoProcess {
 
   announceResult() {
     const winningRanks = this.getWinningRanks();
-    const percentage = this.calculatePercentage(winningRanks, this.#price);
+    const percentage = this.calculatePercentage(winningRanks);
 
     this.io.print("당첨 통계\n");
     this.io.print("---");
-    this.io.print(`3개 일치 (5,000원) - ${winningRanks["5"]}개`);
-    this.io.print(`4개 일치 (50,000원) - ${winningRanks["4"]}개`);
-    this.io.print(`5개 일치 (1,500,000원) - ${winningRanks["3"]}개`);
-    this.io.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningRanks["2"]}개`
-    );
-    this.io.print(`6개 일치 (2,000,000,000원) - ${winningRanks["1"]}개`);
+
+    RANK_MESSAGES.forEach(({ matchCount, rank, matchBonus }) => {
+      let message = `${matchCount}개 일치`;
+
+      if (matchBonus) {
+        message += ", 보너스 볼 일치";
+      }
+
+      message += ` (${PRIZE_MONEY[rank].toLocaleString()}원) - ${
+        winningRanks[rank]
+      }개`;
+
+      this.io.print(message);
+    });
+
     this.io.print(`총 수익률은 ${percentage}%입니다.`);
   }
 
@@ -112,15 +113,13 @@ class LottoProcess {
     );
   }
 
-  calculatePercentage(winningRanks, price) {
-    const prizeMoney =
-      winningRanks["1"] * 2000000000 +
-      winningRanks["2"] * 30000000 +
-      winningRanks["3"] * 1500000 +
-      winningRanks["4"] * 50000 +
-      winningRanks["5"] * 5000;
+  calculatePercentage(winningRanks) {
+    const totalPrize = Object.entries(PRIZE_MONEY).reduce(
+      (sum, [rank, prize]) => sum + prize * winningRanks[rank],
+      0
+    );
 
-    return Math.round((prizeMoney / Number(price)) * 10000) / 100;
+    return Math.round((totalPrize / Number(this.#price)) * 10000) / 100;
   }
 }
 
