@@ -1,20 +1,19 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES, LOTTERY } from "./Constants.js";
-import { validateWinningNumbers, validateBonusNumber } from "./Validator.js"
+import { hasDuplicateWithWinningNumbers } from "./ValidationUtils.js"
 
 class Lotto {
     #numbers;
 
     constructor(issuedLottos, numbers, bonusNumber) {
-        this.#validate(numbers, bonusNumber);
         this.issuedLottos = issuedLottos;
         this.#numbers = numbers;
         this.bonusNumber = bonusNumber;
+        this.#validate();
     }
 
-    #validate(numbers, bonusNumber) {
-        validateWinningNumbers(numbers);
-        validateBonusNumber(numbers, bonusNumber);
+    #validate() {
+        hasDuplicateWithWinningNumbers(this.#numbers, this.bonusNumber);
     }
 
     // TODO: 추가 기능 구현
@@ -76,7 +75,7 @@ class Lotto {
     
         return result;
     }
-    
+
     formatResult(result) {
         const prizeDetails = [
             { label: MESSAGES.OUTPUT.MATCH_THREE, count: result[3] || 0 },

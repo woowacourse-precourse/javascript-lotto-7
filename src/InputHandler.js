@@ -1,20 +1,39 @@
 import { Console } from "@woowacourse/mission-utils";
 import { MESSAGES } from "./Constants.js";
+import { validateMoney, validateWinningNumbers, validateBonusNumber } from "./Validator.js";
 
 class InputHandler {
     async askUserMoney() {
-        const userMoney = await Console.readLineAsync(MESSAGES.INPUT.ASK_USER_MONEY);
-        return userMoney;
+        try {
+            const userMoney = await Console.readLineAsync(MESSAGES.INPUT.ASK_USER_MONEY);
+            validateMoney(userMoney);
+            return userMoney;
+        } catch (error) {
+            Console.print(error.message);
+            return this.askUserMoney();
+        }
     }
 
     async askWinningNumbers() {
-        const winningNumbers = await Console.readLineAsync(MESSAGES.INPUT.ASK_WINNING_NUMBERS);
-        return winningNumbers;
+        try {
+            const winningNumbers = await Console.readLineAsync(MESSAGES.INPUT.ASK_WINNING_NUMBERS);
+            validateWinningNumbers(winningNumbers);
+            return winningNumbers;
+        } catch (error) {
+            Console.print(error.message);
+            return this.askWinningNumbers();
+        }
     }
 
     async askBonusNumber() {
-        const bonusNumber = await Console.readLineAsync(MESSAGES.INPUT.ASK_BONUS_NUMBER);
-        return bonusNumber;
+        try {
+            const bonusNumber = await Console.readLineAsync(MESSAGES.INPUT.ASK_BONUS_NUMBER);
+            validateBonusNumber(bonusNumber);
+            return bonusNumber;
+        } catch (error) {
+            Console.print(error.message);
+            return this.askBonusNumber();
+        }
     }
 }
 

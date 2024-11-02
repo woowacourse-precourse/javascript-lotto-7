@@ -1,6 +1,6 @@
 import Lotto from "./Lotto.js"
 import InputHandler from "./InputHandler.js";
-import { validateMoney, validateWinningNumbers } from "./Validator.js";
+import { validateMoney, validateWinningNumbers, validateBonusNumber } from "./Validator.js";
 
 class App {
     async run() {
@@ -12,10 +12,14 @@ class App {
 
         const winningNumber =  await inputHandler.askWinningNumbers();
         const bonusNumber = await inputHandler.askBonusNumber();
-        const lotto = new Lotto(issuedLottos, winningNumber, bonusNumber);  
-        
+
+        const lotto = new Lotto(issuedLottos, winningNumber, bonusNumber);
+        this.printResult(lotto, userMoney);
+    }
+
+    printResult(lotto, userMoney) {
         const result = lotto.calculateResult();
-        lotto.printLottoSummary(result, userMoney);     
+        lotto.printLottoSummary(result, userMoney);  
     }
 }
 
