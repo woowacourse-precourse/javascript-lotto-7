@@ -14,7 +14,9 @@ import {
   validateBonusNumber,
 } from './validation/validateLottoNumbers.js';
 import issueLottoTickets from './controllers/lottoDisplay.js';
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
+import { assignLottoRank, displayResults } from './controllers/winningRank.js';
+import calculateProfitRate from './services/calculateProfit.js';
 
 class App {
   async run() {
@@ -35,6 +37,20 @@ class App {
     const bonusNumber = await getBonusNumber();
     validateBonusNumber(winningNumbersArray, bonusNumber);
     const toBonusNumber = parseBonusNumber(bonusNumber);
+
+    // 당첨 결과 확인
+    const rankCounts = assignLottoRank(
+      lottoTickets,
+      winningNumbersArray,
+      toBonusNumber
+    );
+
+    // 결과 출력
+    displayResults(rankCounts);
+
+    // 수익률 계산 및 출력
+    const profitRate = calculateProfitRate(rankCounts, purchaseAmount);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 

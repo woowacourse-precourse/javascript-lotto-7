@@ -1,6 +1,6 @@
 import { checkMatchingNumbers, checkBonusMatch } from './winningNumbers.js';
 
-const lottoReward = {
+export const lottoReward = {
   3: {
     prize: 5000,
     label: '3개 일치 (5,000원)',

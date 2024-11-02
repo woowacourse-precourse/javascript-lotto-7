@@ -1,4 +1,4 @@
-import { lottoReward } from './path/to/lottoRewardFile.js';
+import { lottoReward } from '../controllers/winningRank.js';
 
 export default function calculateProfitRate(rankCounts, purchaseAmount) {
   const profit = Object.keys(rankCounts).reduce((acc, key) => {

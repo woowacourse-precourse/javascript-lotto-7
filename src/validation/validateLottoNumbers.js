@@ -1,13 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { getWinningNumbers, getBonusNumber } from '../utils/getUserInput.js';
 
-// export default async function validateLottotNumbers() {
-//   const winningNumbers = await getValidateWinningNumbers();
-//   const bonusNumber = await getValidateBonusNumber();
-
-//   return { winningNumbers, bonusNumber };
-// }
-
 async function validateWinningNumbers(winningNumbers) {
   try {
     const parsedWinningNumbers = validateSixNumbers(winningNumbers);
