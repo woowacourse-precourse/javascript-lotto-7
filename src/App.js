@@ -17,6 +17,9 @@ class App {
 
     const userLotteryNumbers = await handleLotteryNumInput();
     const bonusLotteryNumber = await handleBonusLotteryNum(userLotteryNumbers);
+
+    const usersLottery = userLotteryNumbers.map(num => Number(num));
+    this.startLotto(lotteriesToCompare, usersLottery, bonusLotteryNumber);
   }
 
   makeLotteries(counts) {
@@ -30,6 +33,12 @@ class App {
       return new Lotto(randomNums);
     });
   }
+
+  startLotto(lotteries, users, bonus) {
+    const matches = lotteries.map(lotto => {
+      return lotto.getLotteryMatches(users);
+    });
+  };
 }
 
 export default App;
