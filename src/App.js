@@ -4,6 +4,7 @@ import Lotto from "./Lotto.js";
 const PROMPT_MESSAGES = {
   BUY_LOTTO: "구입금액을 입력해 주세요.",
   PURCHASED_COUNT: (count) => `\n${count}개를 구매했습니다.`,
+  WINNING_NUMBERS: "\n당첨 번호를 입력해주세요.",
 };
 
 const ERROR_MESSAGES = {
@@ -44,10 +45,17 @@ class App {
     return lottos;
   }
 
+  async #getWinningNumber() {
+    MissionUtils.Console.print(PROMPT_MESSAGES.WINNING_NUMBERS);
+    const input = await MissionUtils.Console.readLineAsync("");
+    return new Lotto(input.split(",").map(Number));
+  }
+
   async run() {
     const amount = await this.#getAmount();
     const count = await this.#getCount(amount);
     const lottos = await this.#getLottos(count);
+    const winningNumber = await this.#getWinningNumber();
   }
 }
 
