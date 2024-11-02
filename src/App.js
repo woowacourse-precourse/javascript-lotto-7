@@ -7,24 +7,24 @@ class App {
       try {
         amount = await this.getPurchaseAmount();
         this.validatePurchaseAmount(amount);
-        Console.print(`구입 금액: ${amount}원`);
+        Console.print(`구입 금액: ${amount}원\n`);
 
         const lottoTickets = this.generateLottos(amount);
         this.printLottos(lottoTickets);
 
         const mainNumbers = await this.getMainNumbers();
         const bonusNumber = await this.getBonusNumber(mainNumbers);
-        Console.print(`당첨 번호: ${mainNumbers.join(", ")} + 보너스 번호: ${bonusNumber}`);
+        Console.print(`\n당첨 번호: ${mainNumbers.join(", ")} + 보너스 번호: ${bonusNumber}\n`);
 
         const results = this.checkWinningResults(lottoTickets, mainNumbers, bonusNumber);
         this.printWinningResults(results);
 
         const yieldRate = this.calculateYield(results.totalPrize, amount);
-        Console.print(`총 수익률은 ${yieldRate}%입니다.`);
+        Console.print(`총 수익률은 ${yieldRate}%입니다.\n`);
 
         break;
       } catch (error) {
-        Console.print(error.message);
+        Console.print(`${error.message}\n`);
       }
     }
   }
@@ -37,7 +37,7 @@ class App {
         this.validatePurchaseAmount(amount);
         return amount;
       } catch (error) {
-        Console.print(error.message);
+        Console.print(`${error.message}\n`);
       }
     }
   }
@@ -68,13 +68,13 @@ class App {
   async getMainNumbers() {
     while (true) {
       try {
-        const mainInput = await Console.readLineAsync("당첨 번호를 입력해 주세요. (쉼표로 구분하여 6개의 번호 입력)\n");
+        const mainInput = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
         const mainNumbers = mainInput.split(",").map((num) => Number(num.trim()));
 
         this.validateMainNumbers(mainNumbers);
         return mainNumbers;
       } catch (error) {
-        Console.print(error.message);
+        Console.print(`${error.message}\n`);
       }
     }
   }
@@ -88,7 +88,7 @@ class App {
         this.validateBonusNumbers(bonusNumber, mainNumbers);
         return bonusNumber;
       } catch (error) {
-        Console.print(error.message);
+        Console.print(`${error.message}\n`);
       }
     }
   }
@@ -158,7 +158,7 @@ class App {
     Console.print(`4개 일치 (50,000원) - ${results.fourth}개`);
     Console.print(`5개 일치 (1,500,000원) - ${results.third}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results.second}개`);
-    Console.print(`6개 일치 (2,000,000,000원) - ${results.first}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${results.first}개\n`);
   }
 }
 
