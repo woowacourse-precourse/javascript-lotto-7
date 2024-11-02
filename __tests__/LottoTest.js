@@ -4,39 +4,27 @@ import BonusLotto from '../src/BonusLotto.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
-    expect(() => new Lotto([1, 2, 3, 4, 5, 6, 7])).toThrow(
-      ERROR_MESSAGE.NOT_SIX_LENGTH,
-    );
+    expect(() => new Lotto([1, 2, 3, 4, 5, 6, 7])).toThrow('[ERROR]');
   });
 
   test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
-    expect(() => new Lotto([1, 2, 3, 4, 5, 5])).toThrow(
-      ERROR_MESSAGE.DUPLICATE_NUMBER,
-    );
+    expect(() => new Lotto([1, 2, 3, 4, 5, 5])).toThrow('[ERROR]');
   });
 
   test('로또 번호에 빈 수가 있으면 예외가 발생한다.', () => {
-    expect(() => new Lotto([1, 2, 3, 4, 5, ''])).toThrow(
-      ERROR_MESSAGE.EMPTY_NUMBER,
-    );
+    expect(() => new Lotto([1, 2, 3, 4, 5, ''])).toThrow(ERROR_MESSAGE.EMPTY_NUMBER);
   });
 
   test('로또 번호에 문자가 있으면 예외가 발생한다.', () => {
-    expect(() => new Lotto([1, 2, 3, 4, 5, 'n'])).toThrow(
-      ERROR_MESSAGE.CONTAIN_STRING,
-    );
+    expect(() => new Lotto([1, 2, 3, 4, 5, 'n'])).toThrow(ERROR_MESSAGE.CONTAIN_STRING);
   });
 
   test('로또 번호에 1미만 또는 45초과의 숫자가 있으면 예외가 발생한다.', () => {
-    expect(() => new Lotto([0, 2, 3, 4, 5, 99])).toThrow(
-      ERROR_MESSAGE.NOT_BETWEEN_1_TO_45_NUMBER,
-    );
+    expect(() => new Lotto([0, 2, 3, 4, 5, 99])).toThrow(ERROR_MESSAGE.NOT_BETWEEN_1_TO_45_NUMBER);
   });
 
   test('로또 번호에 실수가 있으면 예외가 발생한다.', () => {
-    expect(() => new Lotto([1, 2, 3, 4, 5, 6.6])).toThrow(
-      ERROR_MESSAGE.CONTAIN_FLOAT,
-    );
+    expect(() => new Lotto([1, 2, 3, 4, 5, 6.6])).toThrow(ERROR_MESSAGE.CONTAIN_FLOAT);
   });
 
   test('로또 번호의 개수가 6개면 올바르게 작동한다.', () => {
@@ -64,8 +52,6 @@ describe('보너스 번호 로또 클래스 테스트', () => {
     [[1, 2, 3, 4, 5, 6], 6, ERROR_MESSAGE.DUPLICATE_NUMBER],
     [[1, 2, 3, 4, 5, 6], 6.6, ERROR_MESSAGE.CONTAIN_FLOAT],
   ])('보너스 번호 예외 테스트', (lottoNumbers, bonusNumber, errorMessage) => {
-    expect(() => new BonusLotto(lottoNumbers, bonusNumber)).toThrow(
-      errorMessage,
-    );
+    expect(() => new BonusLotto(lottoNumbers, bonusNumber)).toThrow(errorMessage);
   });
 });

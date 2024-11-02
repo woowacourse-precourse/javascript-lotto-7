@@ -1,5 +1,4 @@
 import { Random } from '@woowacourse/mission-utils';
-
 import BonusLotto from '../BonusLotto.js';
 import MONEY_UNIT from '../constants/lottoStandard.js';
 import Lotto from '../Lotto.js';

@@ -28,9 +28,8 @@ class Profit {
   }
 
   #calculateProfit(initialMoney) {
-    this.#profit = Number(
-      ((this.#winningMoney / initialMoney) * 100).toFixed(1),
-    );
+    const notSplitProfit = ((this.#winningMoney / initialMoney) * 100).toFixed(1);
+    this.#profit = notSplitProfit.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
   }
 
   getProfit() {
