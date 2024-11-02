@@ -11,6 +11,10 @@ class NumberValidate {
     if (input < LOTTO_DATA.lottoPrice) throw new Error(ERROR_MESSAGE.NUMBER.ERROR_SMALL_NUMBER);
   }
 
+  static validateBigNumber(input) {
+    if (input > LOTTO_DATA.bigNum) throw new Error(ERROR_MESSAGE.NUMBER.ERROR_BIG_NUMBER);
+  }
+
   static validateDivideThousand(input) {
     if (input % LOTTO_DATA.lottoPrice !== 0) throw new Error(ERROR_MESSAGE.NUMBER.ERROR_DIVIDE_THOUSAND);
   }

@@ -13,6 +13,12 @@ describe("사용자 금액 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
+  test.each([["1000000001"], ["99999999999"]])("너무 큰 값을 입력한 경우", async (input) => {
+    expect(() => {
+      NumberValidate.validateBigNumber(input);
+    }).toThrow("[ERROR]");
+  });
+
   test.each([["1001"], ["4444"], ["8999"]])("1000으로 나누어 떨어지지 않는 경우", async (input) => {
     expect(() => {
       NumberValidate.validateDivideThousand(input);
