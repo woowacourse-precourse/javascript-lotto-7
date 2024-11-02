@@ -1,4 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 import { GAME_SETTINGS, LOTTO, MESSAGES } from '../utils/constants.js';
 
 class LottoIssuer {
@@ -12,7 +13,9 @@ class LottoIssuer {
         LOTTO.NUMBER_RANGE.MAX,
         LOTTO.WINNING_NUMBERS_COUNT
       ).sort((a, b) => a - b);
-      lottoTickets.push(ticket);
+
+      const lottoTicket = new Lotto(ticket);
+      lottoTickets.push(lottoTicket);
     }
 
     Console.print(`${ticketCount}${MESSAGES.TICKET_PURCHASED}`);

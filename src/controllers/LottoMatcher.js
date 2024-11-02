@@ -1,9 +1,10 @@
 import { GAME_SETTINGS, RANK_KEYS, MATCH_COUNT } from '../utils/constants.js';
+import Lotto from './Lotto.js';
 
 class LottoMatcher {
   static checkMatchingNumbers(lottoTickets, winningNumbers) {
     return lottoTickets.map((lottoTicket) => {
-      const ticketSet = new Set(lottoTicket);
+      const ticketSet = new Set(lottoTicket.getNumbers());
       const commonNumbers = winningNumbers.filter((number) =>
         ticketSet.has(number)
       );
@@ -13,7 +14,7 @@ class LottoMatcher {
   }
 
   static checkBonusMatch(lottoTicket, bonusNumber) {
-    return lottoTicket.some((ticket) => ticket === bonusNumber);
+    return lottoTicket.getNumbers().includes(bonusNumber);
   }
 
   static assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
