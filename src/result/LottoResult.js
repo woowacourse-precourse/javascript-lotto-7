@@ -52,11 +52,9 @@ export class LottoResult {
     this.#addResultCount(matchCount);
   }
 
-
   #addResultCount(matchCount) {
     Object.values(this.#results).find((result) => {
       if (result.getResult().match === matchCount) {
-        console.log(result.getResult().price);
         result.addCount();
       }
     })

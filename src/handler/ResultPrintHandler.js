@@ -4,8 +4,9 @@ export class ResultPrintHandler {
   message = `\n당첨 통계\n---\n`;
   bonusMessage = `, 보너스 볼 일치`;
 
-  printResult(lottoResult) {
+  printResult(lottoResult, rewardRate) {
     this.message += this.#price(lottoResult);
+    this.message += `총 수익률은 ${rewardRate}%입니다.`;
     MissionUtils.Console.print(this.message)
   }
 
