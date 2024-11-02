@@ -14,22 +14,29 @@ class App {
       for (let i = 0; i < count; i++) {
         lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
         lotto.sort();
-        let sortedLotto = lotto.getNumbers();
-        lottoArray.push(sortedLotto);
+        lottoArray.push(lotto);
       }
       
       lottoArray.map((value) => {
-        Console.print(value);
+        Console.print(value.getNumbers());
       })
 
       let answerNum = await Console.readLineAsync(
-        '당첨 번호를 입력해 주세요.\n'
+        '\n당첨 번호를 입력해 주세요.\n'
       );
-      answerNum = answerNum.split(',').map(num => num.trim());
+      answerNum = answerNum.split(',').map(num => Number(num.trim()));
 
       let bonusNum = await Console.readLineAsync(
-        '보너스 번호를 입력해 주세요.\n'
+        '\n보너스 번호를 입력해 주세요.\n'
       );
+
+      Console.print('당첨 통계\n ---\n');
+
+      lottoArray.map((value) => {
+        Console.print(`${value.compare(answerNum)}개 일치`);
+      })
+
+
 
     } catch (error) {
       throw new Error(error);

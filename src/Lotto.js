@@ -20,6 +20,15 @@ class Lotto {
     return this.#numbers;
   }
 
+  compare(answerNum) {
+    let count = 0;
+    answerNum.map((value) => {
+      if (this.#numbers.includes(value))
+        count++;
+    })
+    return count;
+  }
+
   // TODO: 추가 기능 구현
 }
 
