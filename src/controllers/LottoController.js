@@ -32,7 +32,7 @@ export default class LottoController {
 
   async #decideWinningLotto() {
     await this.#decideWinningLottoMainNumbers();
-    // await this.#decideWinningLottoBonusNumber();
+    await this.#decideWinningLottoBonusNumber();
   }
 
   async #decideWinningLottoMainNumbers() {

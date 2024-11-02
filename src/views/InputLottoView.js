@@ -3,7 +3,8 @@ import { Console } from '@woowacourse/mission-utils';
 export default class InputLottoView {
   #INPUT_MESSAGE = {
     PURCHASE_PRICE: '구입금액을 입력해 주세요.\n',
-    WINNGING_LOTTO_MAIN_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
+    WINNING_LOTTO_MAIN_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
+    WINNING_LOTTO_BOUNS_NUMBER: '\n보너스 번호를 입력해 주세요.\n'
   };
   #ERROR_MESSAGE = {
     INVALID_NUMBER: '[ERROR] 숫자를 입력해주세요.\n',
@@ -25,7 +26,7 @@ export default class InputLottoView {
 
   async getInputWinningLottoMainNumbers() {
     const mainNumbersString = await Console.readLineAsync(
-      this.#INPUT_MESSAGE.WINNGING_LOTTO_MAIN_NUMBERS
+      this.#INPUT_MESSAGE.WINNING_LOTTO_MAIN_NUMBERS
     );
 
     this.#validateWinningLottoMainNumbers(mainNumbersString);
@@ -35,7 +36,15 @@ export default class InputLottoView {
     return mainNumbers;
   }
 
-  async getInputWinningLottoBonusNumber() {}
+  async getInputWinningLottoBonusNumber() {
+    const bonusNumber = await Console.readLineAsync(
+      this.#INPUT_MESSAGE.WINNING_LOTTO_BOUNS_NUMBER
+    );
+
+    this.#validateBonusNumber(bonusNumber);
+
+    return Number(bonusNumber);
+  }
 
   #splitAndSortNumbers(string) {
     return string
@@ -51,6 +60,12 @@ export default class InputLottoView {
 
   #validateWinningLottoMainNumbers(mainNumbersString) {
     this.#validateCommaSeparatedNumbers(mainNumbersString);
+    this.#validateBlank(mainNumbersString);
+  }
+
+  #validateBonusNumber(bonusNumber){
+    this.#validateNumber(bonusNumber);
+    this.#validateBlank(bonusNumber);
   }
 
   #validateNumber(input) {
