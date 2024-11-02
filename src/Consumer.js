@@ -1,5 +1,7 @@
 import { Random } from "@woowacourse/mission-utils";
 
+const MIN_PRICE = 1000;
+
 class Consumer {
   #lottoTickets = [];
 
@@ -13,20 +15,21 @@ class Consumer {
   }
 
   isUnitOfPrice() {
-    if (!(price % 1000 === 0)) {
+    if (!(price % MIN_PRICE === 0)) {
       throw new Error(PRICE_ERROR_MESSAGE.PRICE_INCORRECT);
     }
   }
 
   minPrice() {
-    if (price < 1000) {
-      throw new Error(PRICE_ERROR_MESSAGE.MIN_PRICE);
+    if (price < MIN_PRICE) {
+      throw new Error(PRICE_ERROR_MESSAGE.MIN_PRICE_MESSAGE);
     }
   }
 
   maxPrice() {
-    if (100000 < price) {
-      throw new Error(PRICE_ERROR_MESSAGE.MAX_PRICE);
+    const MAX_PRICE = 100000;
+    if (MAX_PRICE < price) {
+      throw new Error(PRICE_ERROR_MESSAGE.MAX_PRICE_MESSAGE);
     }
   }
 
@@ -50,15 +53,17 @@ class Consumer {
   }
 
   isWinningNumberLength() {
-    const maxNum = 6;
-    if (winningNumber.length !== maxNum) {
+    const MAX_WINNING_NUMBER_LENGTH = 6;
+    if (winningNumber.length !== MAX_WINNING_NUMBER_LENGTH) {
       throw new Error(NUMBER_INPUT_ERROR_MESSAGE.INCORRECT_NUMBER_COUNT);
     }
   }
 
   numberRangeCheck() {
     // 보너스 번호 범위도 여기서 함
-    if (winningNumber < 1 || 45 < winningNumber) {
+    const MIN_NUMBER = 1;
+    const MAX_NUMBER = 45;
+    if (winningNumber < MIN_NUMBER || MAX_NUMBER < winningNumber) {
       throw new Error(NUMBER_INPUT_ERROR_MESSAGE.NUMBER_RANGE);
     }
   }
