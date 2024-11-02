@@ -1,13 +1,16 @@
 import InputView from '../view/InputView.js';
+import LottoMachine from '../model/LottoMachine.js';
 
 class LottoGameController {
+  #lottoMachine;
 
   async startGame() {
     await this.#initializeGame();
   }
 
   async #initializeGame() {
-    await InputView.getPurchaseAmount();
+    const purchaseAmount = await InputView.getPurchaseAmount();
+    this.#lottoMachine = new LottoMachine(purchaseAmount); 
   }
 
 }
