@@ -35,7 +35,7 @@ export class View {
   }
 
   printLotto(lotto) {
-    Console.print(lotto);
+    Console.print(`[${lotto.join(', ')}]`);
   }
 
   printErrorMessage(message) {
