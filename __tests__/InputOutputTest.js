@@ -22,4 +22,11 @@ describe('입력문에 대한 테스트', () => {
       ).toThrow();
     },
   );
+
+  test.each([['1,2,3, 4,5,6'], ['1,2,3,4,5,6 '], ['1 ,2,3,4,5,6']])(
+    '당첨번호가 띄어쓰기가 되면 안된다.',
+    (numberArr) => {
+      expect(() => validation.winningNumber.hasSpace(numberArr)).toThrow();
+    },
+  );
 });
