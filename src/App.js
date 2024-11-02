@@ -3,7 +3,7 @@ import { Console } from "@woowacourse/mission-utils";
 class App {
   async run() {
     const purchaseAmount = await Console.readLineAsync(
-      "구입금액을 입력해 주세요"
+      "구입금액을 입력해 주세요\n"
     );
     if (purchaseAmount === 0) {
       throw new Error("[ERROR]: 구입 금액은 0을 입력할 수 없습니다.");
@@ -19,10 +19,14 @@ class App {
     }
 
     const winningNumbers = await Console.readLineAsync(
-      "당첨 번호를 입력해 주세요."
+      "당첨 번호를 입력해 주세요.\n"
     );
     const winningNumber = winningNumbers.split(",");
-
+    if (winningNumber.length !== 6) {
+      throw new Error(
+        "[ERROR]: 당첨 번호 입력은 6개의 숫자를 입력해야 합니다."
+      );
+    }
     winningNumber.forEach((num) => {
       const number = Number(num);
 
