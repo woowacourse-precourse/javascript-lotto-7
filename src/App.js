@@ -21,7 +21,7 @@ async function getWinningNumbers() {
       '[ERROR] 당첨 번호는 6개의 숫자와 쉼표로 이루어져야 하며, 각각의 숫자는 1~45 사이의 숫자여야 합니다.'
     );
   }
-  return parseWinningNums(input);
+  return parseWinningNumbers(input);
 }
 
 async function getBonusNumber() {
@@ -46,7 +46,7 @@ function generateLottos(amount) {
 
 // 처리 모듈
 
-function parseWinningNums(input) {
+function parseWinningNumbers(input) {
   return input
     .split(',')
     .map((e) => Number(e))
@@ -62,6 +62,10 @@ function printLottos(lottos) {
   });
 }
 
+function printResult(lottos, myLotto, bonusNumber) {
+  Console.print('\n당첨 통계\n---\n');
+}
+
 // 검사 모듈
 
 function validatePurchaseAmount(input) {
@@ -70,7 +74,7 @@ function validatePurchaseAmount(input) {
 }
 
 function validateWinningNumbers(input) {
-  const numbers = parseWinningNums(input);
+  const numbers = parseWinningNumbers(input);
   if (
     !numbers.some((x) => isNaN(x)) &&
     numbers.length === 6 &&
