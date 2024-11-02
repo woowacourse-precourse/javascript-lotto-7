@@ -141,6 +141,9 @@ describe("로또 테스트", () => {
       ])("1부터 45 사이의 숫자가 아닌 경우 에러 반환", async (number) => {
         await runBonusNumbersException(["1000", "1,2,3,4,5,6", number]);
       });
+      test("당첨 번호와 중복되는 경우 에러 반환", async () => {
+        await runBonusNumbersException(["1000", "1,2,3,4,5,6", "6"]);
+      });
     });
   });
 });

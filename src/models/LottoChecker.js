@@ -15,6 +15,7 @@ class LottoChecker {
   #validateBonusNumber(number) {
     if (!Validates.isNumber(number)) throw new BonusNumberError("숫자만 입력 가능합니다.");
     if (!Validates.isRangeOk(+number)) throw new BonusNumberError("1부터 45까지의 숫자만 입력 가능합니다.");
+    if (this.#winningNumbers[number]) throw new BonusNumberError("당첨 번호와 중복될 수 없습니다.");
   }
 
   createWinningNumbers(numbers) {
