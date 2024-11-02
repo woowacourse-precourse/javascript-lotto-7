@@ -6,13 +6,12 @@ class OutputView {
     Console.print(`\n${numberOfLottoes}${MESSAGES.BUY_LOTTO}`);
 
     lottoes.forEach((lotto) => {
-      Console.print(`[${lotto.join(", ")}]`);
+      Console.print(lotto.toString());
     });
   }
 
   static printWinningStatistics(howManyMatch, rateOfReturn) {
-    Console.print("");
-    Console.print(MESSAGES.WON_STATISTICS);
+    Console.print(`\n${MESSAGES.WON_STATISTICS}`);
     Console.print(MESSAGES.DIVIDING_LINE);
     Console.print(
       `${MESSAGES.MATCHED_THREE}${howManyMatch[0]}${MESSAGES.COUNT}`
@@ -30,6 +29,10 @@ class OutputView {
     Console.print(
       `${MESSAGES.TOTAL_RATE_OF_RETURN}${rateOfReturn}${MESSAGES.PERCENT}`
     );
+  }
+
+  static printError(message) {
+    Console.print(message);
   }
 }
 
