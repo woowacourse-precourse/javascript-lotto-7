@@ -1,31 +1,7 @@
 import Lotto from "./Lotto.js";
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { Console } from '@woowacourse/mission-utils';
-
-const message = {
-  price: "구매금액을 입력해 주세요.\n",
-  correctNumber: "당첨 번호를 입력해 주세요.\n",
-  bonusNumber: "보너스 번호를 입력해 주세요.\n",
-  match: {
-    '3': '3개 일치 (5,000원) - ',
-    '4': '4개 일치 (50,000원) - ',
-    '5': '5개 일치 (1,500,000원) - ',
-    '5b': '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
-    '6': '6개 일치 (2,000,000,000원) - '
-  }
-}
-
-const errorMassage = {
-  price: {
-    isNotNumber: "[ERROR] 로또 가격은 숫자이어야 합니다",
-    invalidNumber: "[ERROR] 로또 가격은 1000으로 나누어 떨어져야 합니다",
-  },
-  bonusNumber: {
-    isNotNumber: "[ERROR] 보너스 번호는 숫자이어야 합니다",
-    invalidRange: "[ERROR] 보너스 번호는 1과 45사이의 숫자이어야합니다",
-    isNotUniqueNumber: "[ERROR] 보너스 번호는 로또번호와 겹치지 않는 숫자이어야 합니다",
-  },
-}
+import { message, errorMassage } from "./info.js";
 
 class App {
   constructor() {
@@ -34,16 +10,7 @@ class App {
     this.bonusNumber = 0;
     this.generatedNumbers = [];
     this.correctNumber = null;
-    this.result = {
-      '0': 0,
-      '1': 0,
-      '2': 0,
-      '3': 0,
-      '4': 0,
-      '5': 0,
-      '5b': 0,
-      '6': 0,
-    }
+    this.result = { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '5b': 0, '6': 0 }
   }
 
   async run() {
@@ -57,7 +24,6 @@ class App {
     await this.infoNLottoAndLottoNumbers();
     await this.inputNumberString();
     await this.inputBonusNumber();
-
     await this.printResult();
   }
 
@@ -67,11 +33,11 @@ class App {
       try {
         this.price = await Console.readLineAsync(message.price);
         await Console.print('');
-        this.isValidPrice(this.price);  // 유효성 검사
+        this.isValidPrice(this.price);
         this.nLotto = this.price / 1000;
-        valid = true;  // 유효한 입력이면 반복 종료
+        valid = true;
       } catch (error) {
-        await Console.print(error.message);  // 에러 메시지 출력
+        await Console.print(error.message);
       }
     }
   }
@@ -82,7 +48,7 @@ async inputNumberString() {
     try {
       const input = await Console.readLineAsync(message.correctNumber);
       await Console.print('');
-      this.correctNumber = new Lotto(input.split(','));  // Lotto 객체 생성 시 유효성 검사 발생
+      this.correctNumber = new Lotto(input.split(','));
       valid = true;
     } catch (error) {
       await Console.print(error.message);
@@ -105,9 +71,7 @@ async inputNumberString() {
   }
 
   isValidPrice(price) {
-    /// price는 1000으로 나누어 떨어져야 함
-    /// 0 또는 양의 정수임
-    if(isNaN(Number(price))) { /// 숫자가 아님
+    if(isNaN(Number(price))) {
       throw new Error(errorMassage.price.isNotNumber);
     }
     
@@ -122,7 +86,7 @@ async inputNumberString() {
       throw new Error(errorMassage.bonusNumber.isNotNumber);
     }
 
-    if(bonusNumber < 1 || bonusNumber > 45) { /// 로또번호 범위 넘어섬
+    if(bonusNumber < 1 || bonusNumber > 45) {
       throw new Error(errorMassage.bonusNumber.invalidRange);
     }
   
