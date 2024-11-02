@@ -5,6 +5,7 @@ class App {
         const inputHandler = new InputHandler();
 
         await inputHandler.getLottoTryCount();
+        await inputHandler.getJackpotNumbers();
     }
 }
 

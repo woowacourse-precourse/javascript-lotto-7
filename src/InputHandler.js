@@ -28,6 +28,40 @@ class InputHandler {
     //  입력 시 쉼표를 기준으로 값을 분리하고, 공백도 제거
     //  중복 제거
     //  숫자 범위가 1부터 45 사이인지 확인 (0이하 or 46이상이면 ERROR)
+    async getJackpotNumbers() {
+        const input = await Console.readLineAsync("당첨 번호를 쉼표(,)를 기준으로 구분하여 입력해 주세요.\n");
+        const inputjackpot = this.parseNumbers(input);
+        const inputjackpotNumbers = this.validateDuplicateNumbers(inputjackpot);
+        const jackpotNumbers = this.validateNumberRange(inputjackpotNumbers);
+
+        console.log(`당첨 번호 배열: ${jackpotNumbers}`);
+    }
+
+    parseNumbers(inputNumbers) {
+        return inputNumbers
+            .split(",")
+            .map(num => num.trim())
+            .filter(num => num)
+            .map(num => parseInt(num, 10));
+    }
+
+    validateDuplicateNumbers(inputNumbers) {
+        const resultNumbers = [...new Set(inputNumbers)];
+        if (resultNumbers.length !== 6) {
+            throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+        }
+        return resultNumbers;
+    }
+
+    validateNumberRange(inputNumbers) {
+        inputNumbers.forEach(num => {
+            if (num < 1 || num > 45) {
+                throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+            }
+        });
+        return inputNumbers;
+    }
+
     //  3. 보너스 번호 입력받기
     //  숫자 범위가 1부터 45 사이인지 확인 (0이하 or 46이상이면 ERROR)
 }
