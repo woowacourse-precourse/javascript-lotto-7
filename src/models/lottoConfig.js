@@ -3,4 +3,5 @@ export const lottoConfig = {
   LOTTO_MAX_NUMBER: 45,
   LOTTO_NUM_COUNT: 6,
   LOTTO_PRICE: 1000,
+  LOTTO_BOUNS_NUMBER_COUNT: 1,
 };

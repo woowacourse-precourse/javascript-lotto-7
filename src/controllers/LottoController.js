@@ -54,6 +54,7 @@ export default class LottoController {
       try {
         const winningLottoBonusNumber =
           await this.#inputLottoView.getInputWinningLottoBonusNumber();
+        this.#winningLotto.setBonusNumber(winningLottoBonusNumber);
 
         return;
       } catch (error) {
