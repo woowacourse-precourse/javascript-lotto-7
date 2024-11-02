@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import App from "../src/App.js";
+import { ERROR_HEADER, ERROR_TITLE } from "../src/constants/errorMessage.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -25,7 +26,7 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async () => {
+const runException = async (errorTitle) => {
   // given
   const logSpy = getLogSpy();
 
@@ -37,25 +38,25 @@ const runException = async () => {
   await app.run();
 
   // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(`${ERROR_HEADER} ${errorTitle}`));
 };
 
 const runMoneyException = async (input) => {
   const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
-  runException();
+  runException(ERROR_TITLE.money);
 };
 
 const runWinningNumbersException = async (input) => {
   const INPUT_NUMBERS_TO_END = ["1,2,3,4,5,6", "7"];
   mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
-  runException();
+  runException(ERROR_TITLE.lottoNumbers);
 };
 
 const runBonusNumbersException = async (input) => {
   const INPUT_NUMBERS_TO_END = ["7"];
   mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
-  runException();
+  runException(ERROR_TITLE.bonusNumber);
 };
 
 describe("로또 테스트", () => {

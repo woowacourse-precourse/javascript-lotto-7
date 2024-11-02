@@ -1,4 +1,6 @@
 import { LOTTO_COUNT } from "../constants/lottoValue.js";
+import LottoNumbersError from "../errors/LottoNumbersError.js";
+import Validates from "../validates/Validates.js";
 
 class Lotto {
   #numbers;
@@ -14,11 +16,14 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== LOTTO_COUNT) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new LottoNumbersError("로또 번호는 총 6개여야 합니다.");
     }
     if (new Set(numbers).size !== LOTTO_COUNT) {
-      throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+      throw new LottoNumbersError("중복된 숫자가 있습니다.");
     }
+    numbers.forEach((number) => {
+      if (!Validates.isNumber(number)) throw new LottoNumbersError("숫자만 입력 가능합니다.");
+    });
   }
 
   #sortLottoNumbers() {

@@ -1,4 +1,6 @@
 import Validates from "../validates/Validates.js";
+import Lotto from "./Lotto.js";
+import BonusNumberError from "../errors/BonusNumberError.js";
 
 class LottoChecker {
   #winningNumbers;
@@ -10,17 +12,13 @@ class LottoChecker {
     this.#bonusNumber = 0;
   }
 
-  #validateWinningNumbers(number) {
-    if (!Validates.isNumber(number)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
-  }
-
   #validateBonusNumber(number) {
-    if (!Validates.isNumber(number)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
+    if (!Validates.isNumber(number)) throw new BonusNumberError("숫자만 입력 가능합니다.");
   }
 
   createWinningNumbers(numbers) {
-    numbers.split(",").forEach((number) => {
-      this.#validateWinningNumbers(number);
+    const lotto = new Lotto(numbers.split(","));
+    lotto.getLottoNumbers().forEach((number) => {
       this.#winningNumbers[number] = true;
     });
   }
