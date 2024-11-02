@@ -23,6 +23,10 @@ class Lotto {
       throw new Error('[ERROR] 로또 번호는 중복되지 않은 숫자로 입력해야 합니다.');
     }
   }
+
+  checkWinningNumbers(randomNumbers) {
+    return randomNumbers.filter((number) => this.#numbers.includes(number));
+  }
 }
 
 export default Lotto;
