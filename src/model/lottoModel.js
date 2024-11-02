@@ -34,6 +34,9 @@ class LottoModel{
   getLottoList() {
     return this.lottoList;
   }
+  setLottoList(lottoList) { // test를 위한 메서드
+    this.lottoList = lottoList;
+  }
 
   setWinningNumber(numbers) {
     this.#winningNumber = numbers;
@@ -45,6 +48,9 @@ class LottoModel{
     this.#bonusNumber = bonusNumber;
   }
   setWinningStatistics() {
+  
+  }
+  getStatistics() {
 
   }
 
