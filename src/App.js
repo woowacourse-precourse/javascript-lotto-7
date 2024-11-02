@@ -41,6 +41,8 @@ class App {
     const matchedCountPerMatchOption = this.getMatchedCountPerMatchOption(matchedCountArray);
 
     // - 당첨 내역을 출력한다.
+    this.printWinningResult(matchedCountPerMatchOption);
+
     // - 수익률을 출력한다.
     // - 수익률은 소수점 둘째 자리에서 반올림한다.
   }
@@ -150,17 +152,32 @@ class App {
       { count: 6, isBonus: false, prize: 2_000_000_000 },
     ];
 
-    const matchedCountPerMatchOption = new Map();
+    const matchedCountPerMatchOption = [];
 
-    matchOptions.forEach(({ count, isBonus }) => {
+    matchOptions.forEach(({ count, isBonus, prize }) => {
       const matchedCount = matchedCountArray.filter(
         ({ totalMatchedCount, isBonusMatched }) => totalMatchedCount === count && isBonusMatched === isBonus,
       ).length;
 
-      matchedCountPerMatchOption.set(count, matchedCount);
+      matchedCountPerMatchOption.push({ count, matchedCount, isBonus, prize });
     });
 
     return matchedCountPerMatchOption;
+  }
+
+  printWinningResult(matchedCountPerMatchOption) {
+    const matchResults = [];
+
+    matchedCountPerMatchOption.forEach(({ count, matchedCount, isBonus, prize }) => {
+      if (isBonus) {
+        matchResults.push(`${count}개 일치, 보너스 볼 일치 (${prize}원) - ${matchedCount}개`);
+        return;
+      }
+
+      matchResults.push(`${count}개 일치 (${prize}원) - ${matchedCount}개`);
+    });
+
+    this.print(matchResults.join('\n'));
   }
 }
 
