@@ -23,4 +23,10 @@ describe('BonusNumber 클래스 예외 테스트', () => {
       new BonusNumber(input);
     }).toThrow(expectedError);
   });
+
+  test('당첨번호와 겹치는면 예외', () => {
+    expect(() => {
+      new BonusNumber(5, [1, 2, 3, 4, 5, 6, 7]);
+    }).toThrow(NUMBER_ERROR_MESSAGES.dupicateWinnig);
+  });
 });
