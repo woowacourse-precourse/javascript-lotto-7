@@ -1,5 +1,5 @@
 import { OutputComment } from '../Constants/display.js';
-import ErrorMessages from '../Constants/ErrorMessages.js';
+import ErrorMessages from '../Constants/Errors.js';
 import { throwError } from '../Utils/handleError.js';
 import Rules from '../Utils/Rules.js';
 
