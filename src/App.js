@@ -22,7 +22,11 @@ class App {
       "당첨 번호를 입력해 주세요."
     );
     const winningNumber = winningNumbers.split(",");
-    console.log(winningNumber);
+    winningNumber.forEach((number) => {
+      if (isNaN(number)) {
+        throw new Error("[ERROR]: 숫자만 입력가능합니다.");
+      }
+    });
   }
 }
 
