@@ -1,58 +1,26 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import Validator from "./Validator.js";
+import View from "./View.js";
 
 class App {
   async run() {
-    const getLottoNumber = () => {
-      return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    }
+    const {
+      inputPrice,
+      parseNumber,
+      parseBonusNumber
+    } = await this.readLineLottoInputs();
 
-    const inputPrice = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n')
-    const parseInputPrice = parseInt(inputPrice, 10);
+    const getLottoCount = (number) => number / 1000;
 
-    const getLottoCount = (number) => {
-      return number / 1000;
-    }
+    const lottoCount = getLottoCount(inputPrice);
 
-    Validator.validateInputPrice(parseInputPrice);
-    const lottoCount = getLottoCount(parseInputPrice);
+    View.printLotto(lottoCount);
+  }
 
-    const range = (count, value) => Array(count).fill(value || '');
+  async readLineLottoInputs() {
+    const inputPrice = await View.readLinePrice();
+    const parseNumber = await View.readLineNumber();
+    const parseBonusNumber = await View.readLineBonusNumber();
 
-    const compareNumbers = (a, b) => a - b;
-
-    const getSortNumber = (array) => array.sort(compareNumbers);
-
-    const printLotto = (count) => {
-      MissionUtils.Console.print(`\n${lottoCount}개를 구매했습니다.`);
-
-      const totalLottoArray = range(count, []);
-
-      const createLotto = totalLottoArray.map(() => {
-        const lotto = getLottoNumber();
-        const result = getSortNumber(lotto);
-        MissionUtils.Console.print(`[${result}]`);
-      });
-    }
-
-    printLotto(lottoCount);
-
-    const inputNumber = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-    const trimNumber = inputNumber.toString().trim().split(',');
-
-    const getParsingNumber = (array) => {
-      return array.map((el) => parseInt(el, 10));
-    }
-
-    const parseNumber = getParsingNumber(trimNumber);
-
-    Validator.validateInputNumber(parseNumber);
-
-    const inputBonusNumber = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-    const parseBonusNumber = parseInt(inputBonusNumber, 10);
-
-    Validator.validateBonusNumber(inputBonusNumber);
-    Validator.validateParseBonusNumber(parseBonusNumber);
+    return { inputPrice, parseNumber, parseBonusNumber }
   }
 }
 
