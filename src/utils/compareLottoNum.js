@@ -1,4 +1,3 @@
-
 export function compareLottoNum(lottoArray, answerNum, bonusNum) {
   let correctLottoArray = [];
 

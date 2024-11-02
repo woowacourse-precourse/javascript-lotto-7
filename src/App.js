@@ -20,7 +20,7 @@ class App {
       Console.print(`\n${count}개를 구매했습니다.`);
 
       let lottoArray = generateLottoNum(count);
-      
+
       printLottoNumbers(lottoArray);
 
       let answerNum = await setAnswerNum();
@@ -28,10 +28,14 @@ class App {
 
       let correctLottoArray = compareLottoNum(lottoArray, answerNum, bonusNum);
 
-      let revenue = printWinningStatistics(correctLottoArray, CORRECT_NUMBER, CORRECT_MESSAGE, MONEY)
+      let revenue = printWinningStatistics(
+        correctLottoArray,
+        CORRECT_NUMBER,
+        CORRECT_MESSAGE,
+        MONEY
+      );
       console.log(revenue);
       printRevenue(revenue, amount);
-
     } catch (error) {
       throw error;
     }
