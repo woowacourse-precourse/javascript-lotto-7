@@ -1,0 +1,20 @@
+import { REWARD_PRIZES } from "../config/constants.js";
+
+export default class CalculateTotalReturn {
+  constructor(purchaseAmount, rankingCount) {
+    this.purchaseAmount = purchaseAmount;
+    this.rankingCount = rankingCount;
+  }
+
+  calculateTotalWinnings() {
+    return this.rankingCount.reduce((total, count, index) => {
+      return total + count * REWARD_PRIZES[index];
+    }, 0);
+  }
+
+  calculateReturnRate() {
+    const totalWinnings = this.calculateTotalWinnings();
+    const returnRate = (totalWinnings / this.purchaseAmount) * 100;
+    return Math.round(returnRate * 100) / 100;
+  }
+}
