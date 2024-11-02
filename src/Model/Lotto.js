@@ -12,18 +12,14 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (Rules.isWrongLength(numbers, 6))
       throwError(ErrorMessages.Lotto.IS_WRONG_LENGTH);
-    }
-    if (numbers.some((number) => isNaN(number))) {
+    if (Rules.isNotNumberInNumbers(numbers))
       throwError(ErrorMessages.Lotto.NOT_NUMBER_VALUE);
-    }
-    if (Rules.isDuplicatedValue(numbers)) {
+    if (Rules.isDuplicatedValue(numbers))
       throwError(ErrorMessages.Lotto.IS_DUPLICATE_VALUE);
-    }
-    if (Rules.isNotRangedValueIn(numbers)) {
+    if (Rules.isNotRangedValueInNumbers(numbers))
       throwError(ErrorMessages.Lotto.NOT_RANGED_VALUE);
-    }
   }
 
   getNumbers() {

@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PrizeDescription } from '../Constants/prizeConfig.js';
-import ErrorMessages from '../Constants/ErrorMessages.js';
+import Errors from '../Constants/Errors.js';
 import { OutputComment } from '../Constants/display.js';
 
 const OutputPrint = {
@@ -9,7 +9,7 @@ const OutputPrint = {
   },
 
   error: (errorMessage) => {
-    Console.print(`${ErrorMessages.PREFIX} ${errorMessage}`);
+    Console.print(`${Errors.PREFIX} ${errorMessage}`);
   },
 
   blankLine: () => {

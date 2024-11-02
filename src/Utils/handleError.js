@@ -1,8 +1,8 @@
-import ErrorMessages from '../Constants/ErrorMessages.js';
+import Errors from '../Constants/Errors.js';
 import OutputPrint from '../Views/OutputPrint.js';
 
 export const throwError = (message) => {
-  throw new Error(`${ErrorMessages.PREFIX} ${message}`);
+  throw new Error(`${Errors.PREFIX} ${message}`);
 };
 
 export const printErrorAndFalse = (message) => {

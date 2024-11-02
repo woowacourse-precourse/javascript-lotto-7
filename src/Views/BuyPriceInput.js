@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { printErrorAndFalse } from '../Utils/handleError.js';
 import Rules from '../Utils/Rules.js';
-import ErrorMessages from '../Constants/ErrorMessages.js';
+import Errors from '../Constants/Errors.js';
 import { InputComment } from '../Constants/display.js';
 import BuyPriceConfig from '../Constants/buyPriceConfig.js';
 
@@ -12,27 +12,18 @@ const BuyPriceInput = {
   },
 
   validate: (buyPriceInput) => {
-    if (Rules.isNoValueString(buyPriceInput)) {
-      return printErrorAndFalse(ErrorMessages.BuyPrice.NO_INPUT);
-    }
+    if (Rules.isNoValueString(buyPriceInput))
+      return printErrorAndFalse(Errors.BuyPrice.NO_INPUT);
 
     const buyPrice = Number(buyPriceInput);
-
-    if (isNaN(buyPrice)) {
-      return printErrorAndFalse(ErrorMessages.BuyPrice.NOT_NUMBER_INPUT);
-    }
-
-    if (buyPrice < BuyPriceConfig.Min.VALUE) {
-      return printErrorAndFalse(ErrorMessages.BuyPrice.LESS_THAN_MIN);
-    }
-
-    if (buyPrice >= BuyPriceConfig.Max.VALUE) {
-      return printErrorAndFalse(ErrorMessages.BuyPrice.MORE_THAN_MAX);
-    }
-
-    if (buyPrice % BuyPriceConfig.Unit.VALUE !== 0) {
-      return printErrorAndFalse(ErrorMessages.BuyPrice.NOT_UNIT_NUMBER);
-    }
+    if (Rules.isNotNumber(buyPriceInput))
+      return printErrorAndFalse(Errors.BuyPrice.NOT_NUMBER_INPUT);
+    if (Rules.isLessThanMin(buyPrice, BuyPriceConfig.Min.VALUE))
+      return printErrorAndFalse(Errors.BuyPrice.LESS_THAN_MIN);
+    if (Rules.isMoreThanMax(buyPrice, BuyPriceConfig.Max.VALUE))
+      return printErrorAndFalse(Errors.BuyPrice.MORE_THAN_MAX);
+    if (Rules.isRestWhenDivided(buyPrice, BuyPriceConfig.Unit.VALUE))
+      return printErrorAndFalse(Errors.BuyPrice.NOT_UNIT_NUMBER);
 
     return true;
   },
