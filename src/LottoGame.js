@@ -87,8 +87,12 @@ class LottoGame {
 
     for (const key in result) {
       if (result.hasOwnProperty(key)) {
+        let matchMessage = `${key}개 일치`;
+        if (key === '5.5') {
+          matchMessage += ', 보너스 볼 일치';
+        }
         Console.print(
-          `${key}개 일치${key === '5.5' ? ', 보너스 볼 일치' : ''} (${prizeMapping[key].toLocaleString()}원) - ${result[key]}개`,
+          `${matchMessage} (${prizeMapping[key].toLocaleString()}원) - ${result[key]}개`,
         );
       }
     }
