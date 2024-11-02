@@ -12,7 +12,6 @@ export function winningLottoValidation(winningLottoInput) {
     throw '당첨 번호 6자리 숫자를 쉽표로 구분하여 입력해 주세요';
   const winningLottoArray = winningLottoInput.split(',');
   winningLottoArray.map((lottoNum) => {
-    console.log(lottoNum);
     if (isNaN(lottoNum)) throw '당첨번호는 숫자만 입력해주세요';
     if (!lottoNumberValidation(lottoNum))
       throw '당첨번호는 1 ~ 45까지의 숫자만 가능합니다.';
@@ -23,9 +22,11 @@ export function winningLottoValidation(winningLottoInput) {
   return winningLottoArray;
 }
 
-export function bonusLottoValidation(bonusLottoNum) {
+export function bonusLottoValidation(bonusLottoNum, winningLotto) {
   if (!lottoNumberValidation(bonusLottoNum))
     throw '로또 번호는 1 ~ 45까지의 숫자만 가능합니다.';
+  if (winningLotto.find((lottoNum) => lottoNum === bonusLottoNum))
+    throw '보너스 번호는 당첨번호와 중복될 수 없습니다.';
   return bonusLottoNum;
 }
 

@@ -22,19 +22,19 @@ class App {
     return winningLottoValidation(winningLottoInput);
   }
 
-  async readBonusLotto() {
+  async readBonusLotto(winningLotto) {
     const bonusLotto = await Console.readLineAsync(
       '보너스 번호를 입력해 주세요.\n',
     );
 
-    return bonusLottoValidation(bonusLotto);
+    return bonusLottoValidation(bonusLotto, winningLotto);
   }
 
   async run() {
     try {
       const purchaseAmount = await this.readPurchaseAmount();
       const winningLotto = await this.readWinningLotto();
-      const bonusLotto = await this.readBonusLotto();
+      const bonusLotto = await this.readBonusLotto(winningLotto);
     } catch (error) {
       throw new Error('[ERROR] ' + error);
     }
