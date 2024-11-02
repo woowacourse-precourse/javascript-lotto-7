@@ -8,6 +8,8 @@ const AMOUNT_PER_MATCH = {
     '6': 2000000000,
 }
 
+let ERROR_FLAG = 0;
+
 const KEYS_ARR = ['3', '4', '5', '5+', '6'];
 
 class AllLotto {
@@ -56,9 +58,11 @@ class AllLotto {
 
         if (isNaN(numBonus)) {
             await MissionUtils.Console.print("[ERROR] 보너스 번호는 숫자로 입력해야 합니다.");
+            ERROR_FLAG = 1;
         }
         if (numBonus < 1 || numBonus > 45) {
-            await MissionUtils.Console.print("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+            await MissionUtils.Console.print("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+            ERROR_FLAG = 1;
         }
     }
 
@@ -113,6 +117,7 @@ class AllLotto {
     }
 
     async printWinningResult() {
+        if (ERROR_FLAG === 1) return;
         this.#calculatePurchaseAmount();
         await this.compareLottos();
         this.#calculateTotalAvenue();

@@ -1,5 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
 
+const ERROR_MESSAGES = {
+  notANumber: "[ERROR] 로또 번호는 숫자로 입력해야 합니다.",
+  incorrectLength: "[ERROR] 로또 번호는 6개여야 합니다.",
+  duplicateNumbers: "[ERROR] 중복된 숫자가 존재하지 않아야 합니다.",
+  outOfRange: "[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다."
+};
+
 class Lotto {
   #numbers;
 
@@ -18,27 +25,27 @@ class Lotto {
   #validateIsNumber(numbers) {
     numbers.forEach((val) => {
       if (isNaN(val)) {
-        throw new Error("[ERROR] 로또 번호는 숫자로 입력해야 합니다.");
+        throw new Error(ERROR_MESSAGES.notANumber);
       }
     });
   }
 
   #validateLength(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(ERROR_MESSAGES.incorrectLength);
     }
   }
 
   #validateOnlyUnique(numbers) {
     if (!this.#isOnlyUnique(numbers)) {
-      throw new Error("[ERROR] 중복된 숫자가 존재하지 않아야 합니다.");
+      throw new Error(ERROR_MESSAGES.duplicateNumbers);
     }
   }
 
   #validateNumRange(numbers) {
     numbers.forEach((val) => {
       if (val < 1 || val > 45) {
-        throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+        throw new Error(ERROR_MESSAGES.outOfRange);
       }
     });
   }
