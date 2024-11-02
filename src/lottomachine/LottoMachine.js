@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import Input from '../view/Input.js';
+import Output from '../view/Output.js';
 import Money from '../validation/Money.js';
 import { countLotto } from '../utils/index.js';
 import LOTTO_MESSAGE from '../constants/LottoMessage.js';
@@ -13,6 +14,7 @@ class LottoMachine {
 
     // 갯수 만큼 로또를 발행
     const lottoController = new LottoController(numOfLotto);
+    Output.printLottos(lottoController.lottos);
   }
 
   async handleMoneyInput() {
