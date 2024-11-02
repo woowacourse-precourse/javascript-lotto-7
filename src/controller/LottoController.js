@@ -1,7 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-
+import LottoView from "../view/LottoView";
 class LottoController {
-  constructor() {}
+  constructor() {
+    this.view = new LottoView();
+  }
 
   async init() {}
 }
