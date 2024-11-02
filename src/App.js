@@ -3,7 +3,8 @@ import { Console, Random } from '@woowacourse/mission-utils';
 class App {
   async run() {
     // - 로또 구입 금액을 입력받는다.
-    const price = await this.readPrice();
+    const priceString = await this.readPriceString();
+    const price = Number(priceString);
 
     // - 당첨 번호 6개를 입력받는다.
     const winningNumbersString = await this.readWinningNumbersString();
@@ -18,6 +19,8 @@ class App {
     const uniqueRandomNumbersArray = this.getUniqueRandomNumbersArray();
 
     // - 구입 금액에 따라 발행할 로또 개수가 몇 개인지 구한다.
+    const lottoCount = this.getLottoCount(price);
+
     // - 로또를 발행한다.
     // - 발행한 로또 수량을 출력한다.
     // - 발행한 로또 번호를 출력한다.
@@ -28,7 +31,7 @@ class App {
     // - 수익률은 소수점 둘째 자리에서 반올림한다.
   }
 
-  readPrice() {
+  readPriceString() {
     return Console.readLineAsync('구입금액을 입력해 주세요.\n');
   }
 
@@ -46,6 +49,10 @@ class App {
 
   getUniqueRandomNumbersArray() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
+
+  getLottoCount(price) {
+    return Math.floor(price / 1000);
   }
 }
 
