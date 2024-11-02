@@ -3,6 +3,7 @@ import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 import LottoBundle from './LottoBundle.js';
 import { PRINT_MESSAGES, ERROR_MESSAGES } from './constants/messages.js';
+import REGEX from './constants/regex.js';
 
 class LottoStore {
   #amount;
@@ -43,7 +44,7 @@ class LottoStore {
 
   static #validateAmount(amount) {
     Validator.checkIsNull(amount);
-    Validator.checkRegexPattern(amount, /^\d+$/, ERROR_MESSAGES.INVALID_AMOUNT_INPUT);
+    Validator.checkRegexPattern(amount, REGEX.NUMBER_REGEX, ERROR_MESSAGES.INVALID_AMOUNT_INPUT);
     Validator.checkValidRange(amount, 1000, 100000, ERROR_MESSAGES.INVALID_AMOUNT_RANGE);
     LottoStore.#checkThousandUnit(amount);
   }

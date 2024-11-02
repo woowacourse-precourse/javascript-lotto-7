@@ -3,6 +3,7 @@ import OutputView from './view/OutputView.js';
 import Validator from './utils/Validator.js';
 import WinningLotto from './WinningLotto.js';
 import { PRINT_MESSAGES, ERROR_MESSAGES } from './constants/messages.js';
+import REGEX from './constants/regex.js';
 
 class WinningLottoMachine {
   async createWinningLotto() {
@@ -40,7 +41,7 @@ class WinningLottoMachine {
     Validator.checkIsNull(winningNumbers);
     Validator.checkRegexPattern(
       winningNumbers,
-      /^\d+(,\d+)*$/,
+      REGEX.NUMBER_AND_COMMA_REGEX,
       ERROR_MESSAGES.INVALID_WINNING_NUMBER_INPUT,
     );
     return winningNumbers.split(',');
@@ -48,7 +49,11 @@ class WinningLottoMachine {
 
   static #validateBonusNumber(bonusNumber) {
     Validator.checkIsNull(bonusNumber);
-    Validator.checkRegexPattern(bonusNumber, /^\d+$/, ERROR_MESSAGES.INVALID_BONUS_NUMBER_INPUT);
+    Validator.checkRegexPattern(
+      bonusNumber,
+      REGEX.NUMBER_REGEX,
+      ERROR_MESSAGES.INVALID_BONUS_NUMBER_INPUT,
+    );
   }
 }
 
