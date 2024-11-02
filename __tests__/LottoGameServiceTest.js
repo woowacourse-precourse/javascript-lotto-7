@@ -49,5 +49,28 @@ describe('로또 비즈니스 로직 클래스 테스트', () => {
       lottoGameService.increaseRankCount(1);
       expect(lottoGameService.getPrizes()[1].count).toBe(1);
     });
+
+    describe('수익률을 계산하기', () => {
+      test('전체 수익을 구한다', () => {
+        const prizes = {
+          1: {
+            matchCount: 6, bonus: false, money: 2000000000, count: 0,
+          },
+          2: {
+            matchCount: 5, bonus: true, money: 30000000, count: 2,
+          },
+          3: {
+            matchCount: 5, bonus: false, money: 1500000, count: 1,
+          },
+          4: {
+            matchCount: 4, bonus: false, money: 50000, count: 0,
+          },
+          5: {
+            matchCount: 3, bonus: false, money: 5000, count: 0,
+          },
+        };
+        expect(lottoGameService.getTotalPrize(prizes)).toBe(61500000);
+      });
+    });
   });
 });
