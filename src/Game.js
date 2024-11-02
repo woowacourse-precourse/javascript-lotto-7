@@ -47,16 +47,16 @@ class Game {
 
     }
 
-    checkLottoResult ( lotto , winningNumber, bonusNumber) {
+    checkLottoResult ( lottoPackage , winningNumber, bonusNumber) {
         // First Array normal winners, second array bouns winners
         const lottoReult = [Array(6).fill(0), [0]];
         const orderedWinningNumber = winningNumber.sort((a,b) => a-b);
 
-        for ( const lottoNumbers of lotto ){
-            console.log(`lottoNumbers: ${lottoNumbers} type: ${typeof lottoNumbers}`);
+        for ( const lotto of lottoPackage ){
+            const lottoNumbers = lotto.getLottoNumbers();
             const bunusFlag = lottoNumbers.includes(bonusNumber);
 
-            const matchedCount = this.countMatchingNumber(orderedWinningNumber, orderedLottoNumber);
+            const matchedCount = this.countMatchingNumber(orderedWinningNumber, lottoNumbers);
             this.updateWinnerrReult(lottoReult, matchedCount, bunusFlag);
         }
         return lottoReult;
