@@ -41,16 +41,13 @@ class LottoChecker {
 
   checkLotto(lotto) {
     let isMatchBonus = false;
-    const winningCount = lotto.reduce(
-      (count, number) => {
-        if (this.isBonusNumber(number)) {
-          isMatchBonus = true;
-          return count;
-        }
-        return count + this.isWinningNumber(number);
-      },
-      0,
-    );
+    const winningCount = lotto.reduce((count, number) => {
+      if (this.isBonusNumber(number)) {
+        isMatchBonus = true;
+        return count;
+      }
+      return count + this.isWinningNumber(number);
+    }, 0);
     return { winningCount, isMatchBonus };
   }
 }
