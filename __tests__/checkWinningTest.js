@@ -1,6 +1,6 @@
-// - 4. 로또 당첨 여부 확인
-
 import checkWinning from '../src/Utils/checkWinning';
+
+// - 4. 로또 당첨 여부 확인
 
 //   - 당첨번호(+보너스번호)가 주어졌을 때 로또 번호와 비교해 몇 등인지 판단
 
