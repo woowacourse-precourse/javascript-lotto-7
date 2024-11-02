@@ -10,28 +10,22 @@ class Payment {
 
   #payment;
 
-  constructor(payment) {
-    this.#payment = Number(payment);
-    this.#validate(payment);
+  constructor(paymentInput) {
+    this.#payment = Number(paymentInput);
+    this.#validate(paymentInput);
   }
 
-  #validate(payment) {
-    utils.validateEmpty(payment);
-    Payment.#validateNumber(payment);
-    this.#validateSafeInteger();
+  #validate(paymentInput) {
+    utils.validateEmpty(paymentInput);
+    Payment.#validateNumber(paymentInput);
+    utils.validateSafeInteger(this.#payment);
     this.#validateRange();
     this.#validateUnit();
   }
 
-  static #validateNumber(payment) {
-    if (VALUES.notNumberFormat.test(payment)) {
+  static #validateNumber(paymentInput) {
+    if (VALUES.format.notNumber.test(paymentInput)) {
       throw new Error(MESSAGES.notNumber);
-    }
-  }
-
-  #validateSafeInteger() {
-    if (!Number.isSafeInteger(this.#payment)) {
-      throw new Error(MESSAGES.notInteger);
     }
   }
 

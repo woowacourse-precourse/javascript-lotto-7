@@ -1,7 +1,8 @@
 const VALUES = {
   price: 1000,
-  notNumberFormat: /(?!^[+-])[^\d]/,
+  format: { notNumber: /(?!^[+-])[^\d]/ },
   index: { detailValue: 1 },
+  range: { start: 1, end: 45, size: 6 },
 };
 
 export default VALUES;

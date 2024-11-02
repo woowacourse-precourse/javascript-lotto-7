@@ -1,9 +1,8 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import utils from '../utils/utils.js';
 import VALUES from '../constants/values.js';
 
 class UserLotto {
-  static #RANGE = { start: 1, end: 45, number: 6 };
-
   #lottoCount = 0;
 
   #userLotto = [];
@@ -18,24 +17,20 @@ class UserLotto {
   }
 
   static #getRandoms() {
-    const { start, end, number } = UserLotto.#RANGE;
+    const { start, end, size } = VALUES.range;
     const randoms = MissionUtils.Random.pickUniqueNumbersInRange(
       start,
       end,
-      number,
+      size,
     );
 
     return randoms;
   }
 
-  static #sortRandoms(randoms) {
-    return randoms.sort((first, later) => first - later);
-  }
-
   #issueUserLotto() {
     for (let index = 0; index < this.#lottoCount; index += 1) {
       const randoms = UserLotto.#getRandoms();
-      const lotto = UserLotto.#sortRandoms(randoms);
+      const lotto = utils.sortRandoms(randoms);
 
       this.#userLotto.push(lotto);
     }
