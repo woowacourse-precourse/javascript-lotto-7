@@ -31,12 +31,12 @@ describe('사용자 입력 테스트하기', () => {
       await expect(getUserMoney()).rejects.toThrow(INPUT_ERROR_MESSAGE);
     });
     describe('당첨 번호 입력받기', () => {
-      test('정상적으로 당첨 번호를 입력받는다', async () => {
+      test('당첨 번호를 정수 배열로 입력받는다', async () => {
         const inputs = ['1, 2, 3, 4, 5, 6'];
         mockQuestions(inputs);
 
         const winningNumber = await getWinningNumbers();
-        expect(winningNumber).toBe('1, 2, 3, 4, 5, 6');
+        expect(winningNumber).toEqual([1, 2, 3, 4, 5, 6]);
       });
 
       test('당첨 번호를 입력받는 도중에 예외가 발생하면 에러 메시지를 반환한다.', async () => {
