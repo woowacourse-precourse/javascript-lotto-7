@@ -20,7 +20,7 @@ class App {
         this.printWinningResults(results);
 
         const yieldRate = this.calculateYield(results.totalPrize, amount);
-        Console.print(`총 수익률: ${yieldRate}%`);
+        Console.print(`총 수익률은 ${yieldRate}%입니다.`);
 
         break;
       } catch (error) {
@@ -148,17 +148,17 @@ class App {
 
   calculateYield(totalPrize, purchaseAmount) {
     const yieldRate = (totalPrize / purchaseAmount) * 100;
-    return yieldRate.toFixed(2);
+    return yieldRate.toFixed(1);
   }
 
   printWinningResults(results) {
-    Console.print("당첨 통계:");
-    Console.print(`1등 (6개 일치): ${results.first}개`);
-    Console.print(`2등 (5개 일치 + 보너스 번호): ${results.second}개`);
-    Console.print(`3등 (5개 일치): ${results.third}개`);
-    Console.print(`4등 (4개 일치): ${results.fourth}개`);
-    Console.print(`5등 (3개 일치): ${results.fifth}개`);
-    Console.print(`총 당첨 금액: ${results.totalPrize}원`);
+    Console.print("당첨 통계");
+    Console.print("---");
+    Console.print(`3개 일치 (5,000원) - ${results.fifth}개`);
+    Console.print(`4개 일치 (50,000원) - ${results.fourth}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results.third}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results.second}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${results.first}개`);
   }
 }
 
