@@ -61,14 +61,18 @@ class App {
 		printOutput(PROMPT.LOTTO_NUMBERS(lottos));
 	}
 
-	#getWinningCount() {
-		const winningCountMap = {
+	#setWinningCountMap() {
+		return {
 			"5rank": 0,
 			"4rank": 0,
 			"3rank": 0,
 			"2rank": 0,
 			"1rank": 0,
 		};
+	}
+
+	#getWinningCount() {
+		const winningCountMap = this.#setWinningCountMap();
 
 		this.#lottoNumbers.forEach((lottoNumber) => {
 			const lotto = new Lotto(lottoNumber);
