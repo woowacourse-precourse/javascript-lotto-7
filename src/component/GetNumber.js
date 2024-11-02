@@ -3,7 +3,7 @@ import { LOTTO_DATA } from "../constant/Data.js";
 import { Random } from "@woowacourse/mission-utils";
 
 class GetNumber {
-  static purchaseLotto() {
+  static generateLottos() {
     return new Lotto(
       Random.pickUniqueNumbersInRange(LOTTO_DATA.minNum, LOTTO_DATA.maxNum, LOTTO_DATA.lottoLength)
     ).getNumber();

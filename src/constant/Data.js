@@ -21,7 +21,7 @@ const PRIZE_CHECK = Object.freeze({
   [PRIZE_NAME.fifth]: 3,
 });
 
-const PRIZE_MONEY = Object.freeze({
+const PRIZE_AMOUNT = Object.freeze({
   [PRIZE_NAME.first]: 2000000000,
   [PRIZE_NAME.second]: 30000000,
   [PRIZE_NAME.third]: 1500000,
@@ -29,4 +29,4 @@ const PRIZE_MONEY = Object.freeze({
   [PRIZE_NAME.fifth]: 5000,
 });
 
-export { LOTTO_DATA, PRIZE_NAME, PRIZE_CHECK, PRIZE_MONEY };
+export { LOTTO_DATA, PRIZE_NAME, PRIZE_CHECK, PRIZE_AMOUNT };

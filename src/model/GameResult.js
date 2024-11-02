@@ -1,4 +1,4 @@
-import { PRIZE_NAME, PRIZE_CHECK, PRIZE_MONEY } from "../constant/Data.js";
+import { PRIZE_NAME, PRIZE_CHECK, PRIZE_AMOUNT } from "../constant/Data.js";
 
 class GameResult {
   #prizeStat;
@@ -14,18 +14,18 @@ class GameResult {
     this.#benefitRate = "";
   }
 
-  gameResult(money, new_lotto, winning_lotto, bonus) {
-    this.addPrizeStat(new_lotto, winning_lotto, bonus);
-    this.addTotalMoney();
-    this.addBenefitRate(money);
+  gameResult(amount, generate_lottos, winning_lotto, bonus_number) {
+    this.calculatePrizeStat(generate_lottos, winning_lotto, bonus_number);
+    this.calculateTotalMoney();
+    this.calculateBenefitRate(amount);
     return { prizeStat: this.#prizeStat, benefitRate: this.#benefitRate };
   }
 
-  addPrizeStat(new_lotto, winning_lotto, bonus) {
-    new_lotto.forEach((player_lotto) => {
-      const same_lotto_count = this.sameLottoCheck(player_lotto, winning_lotto);
-      const same_bonus = this.sameBonusCheck(player_lotto, bonus);
-      this.prizeStatCheck(same_lotto_count, same_bonus);
+  calculatePrizeStat(generate_lottos, winning_lotto, bonus_number) {
+    generate_lottos.forEach((player_lotto) => {
+      const matching_count = this.sameLottoCheck(player_lotto, winning_lotto);
+      const matching_bonus = this.sameBonusCheck(player_lotto, bonus_number);
+      this.prizeStatCheck(matching_count, matching_bonus);
     });
   }
 
@@ -33,26 +33,26 @@ class GameResult {
     return player_lotto.filter((number) => winning_lotto.includes(number)).length;
   }
 
-  sameBonusCheck(player_lotto, bonus) {
-    return player_lotto.includes(parseInt(bonus));
+  sameBonusCheck(player_lotto, bonus_number) {
+    return player_lotto.includes(parseInt(bonus_number));
   }
 
-  prizeStatCheck(same_lotto_count, same_bonus) {
-    if (same_lotto_count === PRIZE_CHECK.prizeFirst) ++this.#prizeStat[PRIZE_NAME.first];
-    if (same_lotto_count === PRIZE_CHECK.prizeSecond && same_bonus) ++this.#prizeStat[PRIZE_NAME.second];
-    if (same_lotto_count === PRIZE_CHECK.prizeThird && !same_bonus) ++this.#prizeStat[PRIZE_NAME.third];
-    if (same_lotto_count === PRIZE_CHECK.prizeFourth) ++this.#prizeStat[PRIZE_NAME.fourth];
-    if (same_lotto_count === PRIZE_CHECK.prizeFifth) ++this.#prizeStat[PRIZE_NAME.fifth];
+  prizeStatCheck(matching_count, matching_bonus) {
+    if (matching_count === PRIZE_CHECK.prizeFirst) ++this.#prizeStat[PRIZE_NAME.first];
+    if (matching_count === PRIZE_CHECK.prizeSecond && matching_bonus) ++this.#prizeStat[PRIZE_NAME.second];
+    if (matching_count === PRIZE_CHECK.prizeThird && !matching_bonus) ++this.#prizeStat[PRIZE_NAME.third];
+    if (matching_count === PRIZE_CHECK.prizeFourth) ++this.#prizeStat[PRIZE_NAME.fourth];
+    if (matching_count === PRIZE_CHECK.prizeFifth) ++this.#prizeStat[PRIZE_NAME.fifth];
   }
 
-  addTotalMoney() {
+  calculateTotalMoney() {
     this.#prizeTotalMoney = Object.keys(this.#prizeStat).reduce((total, prize) => {
-      return total + PRIZE_MONEY[prize] * this.#prizeStat[prize];
+      return total + PRIZE_AMOUNT[prize] * this.#prizeStat[prize];
     }, 0);
   }
 
-  addBenefitRate(money) {
-    this.#benefitRate = ((this.#prizeTotalMoney / money) * 100).toFixed(1);
+  calculateBenefitRate(amount) {
+    this.#benefitRate = ((this.#prizeTotalMoney / amount) * 100).toFixed(1);
   }
 }
 

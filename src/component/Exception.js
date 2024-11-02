@@ -2,7 +2,7 @@ import NumberValidate from "../validate/NumberValidate.js";
 import LottoValidate from "../validate/LottoValidate.js";
 
 class Exception {
-  static purchaseMoneyValidate(money) {
+  static amountValidate(money) {
     NumberValidate.validateNonNumber(money);
     NumberValidate.validateSmallNumber(money);
     NumberValidate.validateDivideThousand(money);

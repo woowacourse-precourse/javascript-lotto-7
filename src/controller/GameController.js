@@ -17,44 +17,44 @@ class GameController {
   }
 
   async startGame() {
-    const money = await this.#purchaseMoneyInput();
-    const new_lotto = await this.#getLotto(money);
-    this.#gameOutput.printNewLotto(new_lotto);
+    const amount = await this.#amountInput();
+    const generate_lottos = await this.#generateLottos(amount);
+    this.#gameOutput.printGenerateLottos(generate_lottos);
 
-    const winning_lotto = await this.#winningLotto();
-    const bonus = await this.#bonusNumber(winning_lotto);
+    const winning_lotto = await this.#getWinningNumbers();
+    const bonus_number = await this.#getBonusNumber(winning_lotto);
 
-    const result = this.#gameResult.gameResult(money, new_lotto, winning_lotto, bonus);
+    const result = this.#gameResult.gameResult(amount, generate_lottos, winning_lotto, bonus_number);
     this.#gameOutput.printGameResult(result);
   }
 
-  async #purchaseMoneyInput() {
+  async #amountInput() {
     while (true) {
       try {
-        const money = await this.#gameInput.readPurchaseMoney();
-        Exception.purchaseMoneyValidate(money);
-        return money;
+        const amount = await this.#gameInput.readAmount();
+        Exception.amountValidate(amount);
+        return amount;
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
       }
     }
   }
 
-  async #getLotto(money) {
-    const purchase_lotto = this.#purchaseLotto(money);
-    const new_lotto = this.#newLotto(purchase_lotto);
-    return new_lotto;
+  async #generateLottos(amount) {
+    const amount_to_lotto = this.#calculateLottoCount(amount);
+    const generate_lottos = this.#createLotto(amount_to_lotto);
+    return generate_lottos;
   }
 
-  #purchaseLotto(money) {
-    return parseInt(money / LOTTO_DATA.lottoPrice);
+  #calculateLottoCount(amount) {
+    return parseInt(amount / LOTTO_DATA.lottoPrice);
   }
 
-  #newLotto(purchase_lotto) {
-    return Array.from({ length: purchase_lotto }, () => GetNumber.purchaseLotto());
+  #createLotto(amount_to_lotto) {
+    return Array.from({ length: amount_to_lotto }, () => GetNumber.generateLottos());
   }
 
-  async #winningLotto() {
+  async #getWinningNumbers() {
     while (true) {
       try {
         const winning_lotto = await this.#gameInput.readWinningLotto();
@@ -65,12 +65,12 @@ class GameController {
     }
   }
 
-  async #bonusNumber(winning_lotto) {
+  async #getBonusNumber(winning_lotto) {
     while (true) {
       try {
-        const bonus = await this.#gameInput.readBonusNumber();
-        Exception.bonusNumberValidate(bonus, winning_lotto);
-        return bonus;
+        const bonus_number = await this.#gameInput.readBonusNumber();
+        Exception.bonusNumberValidate(bonus_number, winning_lotto);
+        return bonus_number;
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
       }

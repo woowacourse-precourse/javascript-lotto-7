@@ -2,7 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import { MESSAGE } from "../constant/Message.js";
 
 class GameInput {
-  async readPurchaseMoney() {
+  async readAmount() {
     return Console.readLineAsync(MESSAGE.INPUT.PURCHASE_MONEY);
   }
 

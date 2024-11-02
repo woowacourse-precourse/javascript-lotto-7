@@ -2,9 +2,9 @@ import { Console } from "@woowacourse/mission-utils";
 import { MESSAGE } from "../constant/Message.js";
 
 class GameOutput {
-  printNewLotto(new_lotto) {
-    Console.print(`\n${new_lotto.length}${MESSAGE.OUTPUT.PURCAHSE_LOTTO}`);
-    const format_lotto = new_lotto.map((lotto) => `[${lotto.join(", ")}]`).join("\n");
+  printGenerateLottos(generate_lottos) {
+    Console.print(`\n${generate_lottos.length}${MESSAGE.OUTPUT.PURCAHSE_LOTTO}`);
+    const format_lotto = generate_lottos.map((lotto) => `[${lotto.join(", ")}]`).join("\n");
     Console.print(format_lotto);
   }
 
