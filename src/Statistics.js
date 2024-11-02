@@ -1,9 +1,8 @@
 import { PRIZES, WINNING_KEYS } from './constants/lotto.js';
-import { OUTPUT, PROMPT } from './constants/messages.js';
 import OutputProcessor from './OutputProcessor.js';
 
 class Statistics {
-  winningCounts = {
+  #winningCounts = {
     [WINNING_KEYS.FIRST]: 0,
     [WINNING_KEYS.SECOND]: 0,
     [WINNING_KEYS.THIRD]: 0,
@@ -47,26 +46,19 @@ class Statistics {
       winning = WINNING_KEYS.FIFTH;
     }
 
-    this.winningCounts[winning] += 1;
+    this.#winningCounts[winning] += 1;
   }
 
   #calculateTotalEarningsRate() {
-    const totalPrize = Object.keys(this.winningCounts).reduce(
-      (total, winning) => total + this.winningCounts[winning] * PRIZES[winning],
+    const totalPrize = Object.keys(this.#winningCounts).reduce(
+      (total, winning) => total + this.#winningCounts[winning] * PRIZES[winning],
       0
     );
     this.#totalEarningsRate = (Math.round((totalPrize / this.purchasePrice) * 1000) / 10).toFixed(1);
   }
 
   result() {
-    OutputProcessor.print(`${PROMPT.WINNING_OUTPUT}
-${OUTPUT.FIFTH_WINNING(this.winningCounts.fifth)}
-${OUTPUT.FOURTH_WINNING(this.winningCounts.fourth)}
-${OUTPUT.THIRH_WINNING(this.winningCounts.third)}
-${OUTPUT.SECOND_WINNING(this.winningCounts.second)}
-${OUTPUT.FIRST_WINNING(this.winningCounts.first)}
-${OUTPUT.TOTAL_EARNINGS_RATE(this.#totalEarningsRate)}
-`);
+    OutputProcessor.printStatistics(this.#winningCounts, this.#totalEarningsRate);
   }
 }
 

@@ -14,7 +14,7 @@ class Generator {
   }
 
   execute() {
-    OutputProcessor.print(`\n${this.quantity}개를 구매했습니다.`);
+    OutputProcessor.purchaseLotto(this.quantity);
     this.#history();
     this.#printLottos();
     return this.#lottos;
@@ -37,7 +37,7 @@ class Generator {
     this.#lottos.forEach((lotto) => {
       this.#record += `[${lotto.formatSortedNumber()}]\n`;
     });
-    OutputProcessor.print(this.#record);
+    OutputProcessor.generateLottos(this.#record);
   }
 }
 
