@@ -10,6 +10,7 @@ class Input {
   async getMoney() {
     try {
       const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+
       const money = this.validation.validateNumber(input);
       this.validation.isMoneyDividedBy1000(money);
 
@@ -20,9 +21,7 @@ class Input {
   }
 
   async getNumbers() {
-    const input = await Console.readLineAsync(
-      "1부터 45 사이의 당첨 번호를 6개 입력해 주세요. 쉼표 기준으로 구분합니다.\n"
-    );
+    const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
 
     return input.split(",").trim().map(this.validation.validateNumber);
   }

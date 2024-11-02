@@ -16,7 +16,6 @@ class Validation {
   isMoneyDividedBy1000(input) {
     if (input % 1000)
       throw new Error("[ERROR] 로또 구입 금액은 1,000원 단위로 입력받습니다.");
-    return true;
   }
 }
 
