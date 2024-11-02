@@ -7,11 +7,13 @@ class Statistics {
       frequencyMap[value] = (frequencyMap[value] || 0) + 1;
     });
 
-    // 빈도 맵을 [{ money, count }] 형식의 배열로 변환
-    return Object.entries(frequencyMap).map(([key, count]) => ({
-      money: key, // 문자열 그대로 반환
-      count,
-    }));
+    return Object.entries(frequencyMap)
+      .map(([key, count]) => ({
+        money: key,
+        count,
+      }))
+      .sort((a, b) => parseInt(b.money, 10) - parseInt(a.money, 10)); // 10진수로 변환 후 내림차순 정렬
   }
 }
+
 export default Statistics;
