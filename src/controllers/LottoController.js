@@ -1,3 +1,4 @@
+import PurchaseValidator from './PurchaseValidator.js';
 import Lotto from './Lotto.js';
 import LottoValidator from './LottoValidator.js';
 import LottoIssuer from './LottoIssuer.js';
@@ -12,8 +13,11 @@ class LottoControllers {
     return new Lotto(numbers);
   }
 
-  issueTickets(purchaseAmount) {
-    return LottoIssuer.issueLottoTickets(purchaseAmount);
+  async issueTickets(purchaseAmount) {
+    const validPurchaseAmount = await PurchaseValidator.validate(
+      purchaseAmount
+    );
+    return LottoIssuer.issueLottoTickets(validPurchaseAmount);
   }
 
   matchLottoTickets(lottoTickets, winningNumbers, bonusNumber) {
