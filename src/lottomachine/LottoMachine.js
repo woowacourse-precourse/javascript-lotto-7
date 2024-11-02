@@ -2,8 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import Input from '../view/Input.js';
 import Output from '../view/Output.js';
 import Money from '../validation/Money.js';
-import { countLotto } from '../utils/index.js';
-import LOTTO_MESSAGE from '../constants/LottoMessage.js';
+import { countLotto, getRank } from '../utils/index.js';
 import LottoController from './LottoController.js';
 import Lotto from '../Lotto.js';
 import BonusNumber from '../validation/BonusNumber.js';
@@ -16,7 +15,14 @@ class LottoMachine {
   money;
 
   constructor() {
-    this.result = {};
+    this.result = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      0: 0,
+    };
   }
 
   async start() {
@@ -29,10 +35,22 @@ class LottoMachine {
 
     this.winningNumbers = await this.handleWinningNumberInput();
     this.bonusNumber = await this.handleBonusNumberInput();
+    this.checkMatch(lottoController);
+    this.countRank(lottoController);
 
-    // controller를 사용해서 매칭 시작
+    console.log(this.result);
+  }
+
+  checkMatch(lottoController) {
     lottoController.checkNumberMatch(this.winningNumbers);
     lottoController.checkBonusMatch(this.bonusNumber);
+  }
+
+  countRank(lottoController) {
+    lottoController.lottos.forEach((lotto) => {
+      const rank = getRank(lotto.matchCount, lotto.bonusCount);
+      this.result[rank] += 1;
+    });
   }
 
   async handleMoneyInput() {
