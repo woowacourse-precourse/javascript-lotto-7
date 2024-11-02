@@ -35,6 +35,26 @@ class LottoResult {
     this.#fifthPlace += 1;
   }
 
+  getFirstPlaceCount() {
+    return this.#firstPlace;
+  }
+
+  getSecondPlaceCount() {
+    return this.#secondPlace;
+  }
+
+  getThirdPlaceCount() {
+    return this.#thirdPlace;
+  }
+
+  getFourthPlaceCount() {
+    return this.#fourthPlace;
+  }
+
+  getFifthPlaceCount() {
+    return this.#fifthPlace;
+  }
+
   getFirstPlaceMoney() {
     return this.#firstPlace * LOTTO_CONSTANTS.FIRST_PLACE_MONEY;
   }
