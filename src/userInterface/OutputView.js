@@ -6,6 +6,11 @@ const outputView = {
     Console.print(OUTPUT_VIEW.purchaseAmount(amount));
   },
 
+  printLotto: (lottos) => {
+    const numbers = lottos.map((lotto) => lotto.getNumbers());
+    Console.print(numbers.join(OUTPUT_VIEW.lineBreak));
+  },
+
   printStatisticsHeader: () => {
     Console.print(OUTPUT_VIEW.statisticsHeader);
   },
