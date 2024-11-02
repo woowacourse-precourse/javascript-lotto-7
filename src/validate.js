@@ -31,6 +31,12 @@ export class Validator {
    }
 
    static validateBonusNumber(bonusNumber) {
+      if (isNaN(bonusNumber)) {
+         throw new Error(ERR_MSG.ERR_PURCHASE_AMOUNT);
+      }
+      if (bonusNumber.length > 1) {
+         throw new Error(ERR_ONLYONE_NUMBER);
+      }
       if (bonusNumber < 1 || bonusNumber > 45) {
          throw new Error(ERR_MSG.ERR_NUMBERS_RANGE);
       }
