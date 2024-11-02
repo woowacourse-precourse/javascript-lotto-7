@@ -26,12 +26,14 @@ async function getWinningNumbers() {
   return new Lotto(parseWinningNumbers(input));
 }
 
-async function getBonusNumber() {
+async function getBonusNumber(lotto) {
   let input = '';
   while (true) {
     input = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-    if (validateBonusNumber(input)) break;
-    Console.print('[ERROR] 보너스 번호는 1~45 사이의 숫자여야 합니다.');
+    if (validateBonusNumber(lotto, input)) break;
+    Console.print(
+      '[ERROR] 보너스 번호는 1~45 사이의 숫자이고 당첨 번호와 중복되지 않아야 합니다.'
+    );
   }
   return Number(input);
 }
@@ -88,9 +90,15 @@ function validateWinningNumbers(input) {
     return true;
 }
 
-function validateBonusNumber(input) {
+function validateBonusNumber(lotto, input) {
   const number = Number(input);
-  if (!isNaN(number) && number >= 1 && number <= 45) return true;
+  if (
+    !isNaN(number) &&
+    number >= 1 &&
+    number <= 45 &&
+    !lotto.getLottoNumber().some((e) => e === number)
+  )
+    return true;
 }
 
 class App {
@@ -100,7 +108,7 @@ class App {
     let lottos = generateLottos(amountOfLottos);
     printLottos(lottos);
     let winningNumbers = await getWinningNumbers();
-    let bonusNumber = await getBonusNumber();
+    let bonusNumber = await getBonusNumber(winningNumbers);
   }
 }
 
