@@ -44,4 +44,5 @@ export const ERROR = {
   LOTTO_ARRAY_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
   LOTTO_TYPE: '[ERROR] 숫자와 쉼표가 아닌 잘못된 값이 입력되었습니다.',
   LOTTO_REPEAT: '[ERROR] 중복된 숫자가 존재합니다.',
+  BONUS_REPEAT: '[ERROR] 당첨 번호와 중복된 숫자가 존재합니다.',
 };

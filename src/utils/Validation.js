@@ -28,6 +28,12 @@ const Validators = {
       checkSet.add(num);
     });
   },
+
+  checkBonus(array, number) {
+    if (array.includes(number)) {
+      throw new Error(ERROR.BONUS_REPEAT);
+    }
+  },
 };
 
 export default Validators;

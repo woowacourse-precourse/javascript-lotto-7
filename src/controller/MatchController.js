@@ -28,6 +28,7 @@ class MatchController {
   validateBonus(number) {
     Validators.checkNumber(number);
     Validators.checkRange(number);
+    Validators.checkBonus(this.jackpot, Number(number));
   }
 
   async getJackpot() {
