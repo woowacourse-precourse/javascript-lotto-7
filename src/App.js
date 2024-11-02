@@ -66,7 +66,10 @@ class App {
     }
 
     const userLottoNumbers = this.generateLotto(purchaseAmount);
-    console.log(userLottoNumbers);
+    const winningResults = this.checkMatchingLottos(
+      userLottoNumbers,
+      winningNumberSet
+    );
   }
 
   generateLotto(purchaseAmount) {
@@ -85,6 +88,8 @@ class App {
     }
     return userLottoNumbers;
   }
+
+  checkMatchingLottos(userLottoNumbers, winningNumberSet) {}
 }
 
 export default App;
