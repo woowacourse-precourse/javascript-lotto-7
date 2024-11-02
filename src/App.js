@@ -82,7 +82,7 @@ function printWinningStatistics(winStatistics) {
   MissionUtils.Console.print(`4개 일치 (50,000원) - ${winStatistics[4]}개`);
   MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${winStatistics[5]}개`);
   MissionUtils.Console.print(
-    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winStatistics[5] * winStatistics.bonus}개`,
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winStatistics.bonus}개`,
   );
   MissionUtils.Console.print(
     `6개 일치 (2,000,000,000원) - ${winStatistics[3]}개`,
@@ -99,7 +99,7 @@ class App {
     const targetLotto = await getTargetLottoArray();
     const bonusNumber = await getBonusNumber();
     const winStatistics = getAllNumberWon(lottos, targetLotto, bonusNumber);
-    console.log(winStatistics);
+    printWinningStatistics(winStatistics);
   }
 }
 
