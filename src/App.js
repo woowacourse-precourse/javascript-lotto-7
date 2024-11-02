@@ -29,7 +29,7 @@ class App {
 
       this.buyLottos();
 
-      const numbers = await this.input.getNumbers();
+      const numbers = await this.input.getWinningNumbers();
       this.#winningNumber = new Lotto(numbers);
     } catch (error) {
       Console.print(error.message);

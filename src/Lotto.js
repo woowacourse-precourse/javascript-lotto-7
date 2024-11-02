@@ -13,6 +13,11 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  // isNumberInRange(input) {
+  //   if (input < 1 && input > 45)
+  //     throw new Error("[ERROR] 입력값은 1과 45 사이의 숫자여야 합니다.");
+  //   return true;
+  // }
 }
 
 export default Lotto;
