@@ -11,7 +11,7 @@ class DisplayOutput {
     displayLotto (lottoPackage){
 
         for (const lotto of lottoPackage) {
-            MissionUtils.Console.print( lotto.getLottoNumbers());
+            MissionUtils.Console.print( `[${lotto.getLottoNumbers().join(', ')}]`);
         }
         MissionUtils.Console.print("\n");
     }
