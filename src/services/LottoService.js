@@ -1,3 +1,4 @@
+import LOTTO from "../constants/lotto.js";
 import RANKS from "../constants/rank.js";
 import Lotto from "../model/Lotto.js";
 import generateLandomNumber from "../utils/generateLandomNum.js";
@@ -15,7 +16,11 @@ class LottoService {
 
   generateLottos(count) {
     for (let i = 0; i < count; i++) {
-      const lottoNumber = generateLandomNumber(1, 45, 6);
+      const lottoNumber = generateLandomNumber(
+        LOTTO.MIN_NUMBER,
+        LOTTO.MAX_NUMBER,
+        LOTTO.COUNT
+      );
       this.#lottos.push(new Lotto(lottoNumber));
     }
   }

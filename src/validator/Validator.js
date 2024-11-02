@@ -1,3 +1,4 @@
+import LOTTO from "../constants/lotto.js";
 import { ERROR_MESSAGES } from "../constants/messages.js";
 import throwError from "../utils/throwError.js";
 
@@ -28,13 +29,18 @@ class Validator {
     return input;
   }
 
-  static isNumberInRange(input, min = 1, max = 45) {
+  static isNumberInRange(
+    input,
+    min = LOTTO.MIN_NUMBER,
+    max = LOTTO.MAX_NUMBER
+  ) {
     if (input < min || input > max) throwError(ERROR_MESSAGES.OUT_OF_RANGE);
     return input;
   }
 
   static isLengthSix(input) {
-    if (input.length !== 6) throwError(ERROR_MESSAGES.INCORRECT_LENGTH);
+    if (input.length !== LOTTO.COUNT)
+      throwError(ERROR_MESSAGES.INCORRECT_LENGTH);
     return input;
   }
 
