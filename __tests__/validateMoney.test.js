@@ -14,8 +14,7 @@ const validateMoneyTestCases = [
     errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
   {
-    // 정규식이 숫자 판단을 할때, 0으로 시작하는 수는 수로 치지 않는다.
-    description: `0을 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    description: `0을 입력하면, ${ERROR_MESSAGES.money.ZERO_MONEY_NOT_ALLOWED} 에러를 출력해야 한다.`,
     input: '0',
     errorLog: ERROR_MESSAGES.money.ZERO_MONEY_NOT_ALLOWED,
   },

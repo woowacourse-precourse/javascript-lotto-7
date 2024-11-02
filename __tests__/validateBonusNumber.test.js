@@ -32,7 +32,6 @@ const validateBonusNumberTestCases = [
     errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED,
   },
   {
-    // 정규식이 숫자 판단을 할때, 0으로 시작하는 수는 수로 치지 않는다.
     description: `범위를 벗어난 숫자 (1 미만)를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
     input: '0',
     lottoNumbers: [1, 2, 3, 4, 5, 6],

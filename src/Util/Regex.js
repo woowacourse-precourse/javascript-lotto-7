@@ -19,6 +19,9 @@ const consecutiveDelimiterPattern = /,{2,}/;
  * isNumber.test('0123'); // false
  * isNumber.test('abc'); // false
  */
+
 const isNumber = /^(0|[1-9]\d*)$/;
+
+// 정규식이 복잡해지는게 맘에 들지는 않는다. 일단 0123 같은 수를 막야야 하기에 이를 수정
 
 export { consecutiveDelimiterPattern, isNumber };
