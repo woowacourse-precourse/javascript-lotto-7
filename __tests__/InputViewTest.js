@@ -37,4 +37,22 @@ describe('InputView 클래스 테스트', () => {
       expect(numbers).toBe('25');
     });
   });
+
+  test('사용자로부터 입력된 로또 구입 금액이 올바르게 반환된다.', () => {
+    Console.readLine.mockImplementationOnce((_, callback) => {
+      callback('5000');
+    });
+
+    InputView.readPurchaseAmount((numbers) => {
+      expect(numbers).toBe('5000');
+    });
+
+    Console.readLine.mockImplementationOnce((_, callback) => {
+      callback('23000');
+    });
+
+    InputView.readPurchaseAmount((numbers) => {
+      expect(numbers).toBe('23000');
+    });
+  });
 });
