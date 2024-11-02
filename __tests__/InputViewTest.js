@@ -2,9 +2,9 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 import { getUserMoney, getWinningNumbers, getBonusNumber } from '../src/views/InputView.js';
 
-import { validateNumber, validateUserMoney } from '../src/validators/InputValidator.js';
+import { validateNumber, validateUserMoney, validateBonusNumber } from '../src/validators/InputValidator.js';
 
-import { INVALID_USER_MONEY_ERROR_MESSAGE, INVALID_NUMBER_ERROR_MESSAGE } from '../src/constants/message.js';
+import { INVALID_USER_MONEY_ERROR_MESSAGE, INVALID_NUMBER_ERROR_MESSAGE, NUMBER_OUT_OF_RANGE_ERROR_MESSAGE } from '../src/constants/message.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -54,6 +54,13 @@ describe('사용자 입력 테스트하기', () => {
       const bonusNumber = await getBonusNumber();
       expect(bonusNumber).toBe(11);
     });
+  });
+});
+
+describe('보너스 번호 유효성 검사하기', () => {
+  test('보너스 번호는 1이상 45이하 숫자여야 한다.', () => {
+    expect(() => validateBonusNumber(46)).toThrow(NUMBER_OUT_OF_RANGE_ERROR_MESSAGE);
+    expect(() => validateBonusNumber(43)).not.toThrow();
   });
 });
 
