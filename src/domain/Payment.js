@@ -1,6 +1,5 @@
 import utils from '../utils/utils.js';
 import VALUES from '../constants/values.js';
-import MESSAGES from '../constants/messages.js';
 
 class Payment {
   static #MESSAGE = {
@@ -17,16 +16,10 @@ class Payment {
 
   #validate(paymentInput) {
     utils.validateEmpty(paymentInput);
-    Payment.#validateNumber(paymentInput);
+    utils.validateNumber(paymentInput);
     utils.validateSafeInteger(this.#payment);
     this.#validateRange();
     this.#validateUnit();
-  }
-
-  static #validateNumber(paymentInput) {
-    if (VALUES.format.notNumber.test(paymentInput)) {
-      throw new Error(MESSAGES.notNumber);
-    }
   }
 
   #validateRange() {

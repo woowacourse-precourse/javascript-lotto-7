@@ -18,6 +18,12 @@ const utils = {
     }
   },
 
+  validateNumber(paymentInput) {
+    if (VALUES.format.notNumber.test(paymentInput)) {
+      throw new Error(MESSAGES.notNumber);
+    }
+  },
+
   validateSafeInteger(number) {
     if (!Number.isSafeInteger(number)) {
       throw new Error(MESSAGES.notInteger);
