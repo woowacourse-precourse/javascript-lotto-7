@@ -30,7 +30,7 @@ export default class LottoController {
   async getPurchaseAmount() {
     return this.ioService.getInputWhileValid(
       this.validationService.isValidMoney,
-      '구입금액을 입력해 주세요.',
+      this.ioService.systemMessages.askUserAmount,
     );
   }
 
@@ -47,7 +47,7 @@ export default class LottoController {
   async getWinningNumbers() {
     return this.ioService.getInputWhileValid(
       this.validationService.isValidLottoNumber,
-      '당첨 번호를 입력해 주세요.',
+      this.ioService.systemMessages.askUserLottoNumber,
     );
   }
 
@@ -55,7 +55,7 @@ export default class LottoController {
     return this.ioService.getInputWhileValid(
       (input) =>
         this.validationService.isValidBonusNumber(input, winningNumbers),
-      '보너스 번호를 입력해 주세요.',
+      this.ioService.systemMessages.askUserBonusNumber,
     );
   }
 

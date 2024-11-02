@@ -1,9 +1,10 @@
 import RANKS from '../Model/Rank.js';
 
 class IOService {
-  constructor(inputView, outputView) {
+  constructor(inputView, outputView, systemMessages) {
     this.inputView = inputView;
     this.outputView = outputView;
+    this.systemMessages = systemMessages;
   }
 
   async getInputWhileValid(validator, promptMessage) {
@@ -20,9 +21,8 @@ class IOService {
     );
   }
 
-  // 절차적 형식으로 일부러 표기.. 이상하게 채점 시스템이 통과가 안된다.
   printStatistics(rankCounts) {
-    this.printMessage('당첨 통계\n---');
+    this.printMessage(this.systemMessages.statsHeader || '당첨 통계\n---');
     this.printMessage(
       `3개 일치 (${RANKS.THREE_MATCH.prize.toLocaleString()}원) - ${rankCounts.threeMatch.ticket}개`,
     );
@@ -41,7 +41,9 @@ class IOService {
   }
 
   printRevenueRate(revenueRate) {
-    this.printMessage(`총 수익률은 ${revenueRate}%입니다.`);
+    this.printMessage(
+      `${this.systemMessages.revenueMessage || '총 수익률은'} ${revenueRate}%입니다.`,
+    );
   }
 }
 export default IOService;
