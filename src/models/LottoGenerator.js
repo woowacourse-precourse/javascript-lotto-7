@@ -1,13 +1,9 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import { lottoConfig } from './lottoConfig.js';
+import { ERROR_MESSAGE } from '../constants/errorMessage.js';
 
 export default class LottoGenerator {
-  #ERROR_MESSAGE = {
-    INVALID_LOTTO_PRICE_UNIT: `[ERROR] 구매금액은 ${lottoConfig.LOTTO_PRICE}원 단위여야합니다.\n`,
-    INVALID_POSITIVE_NUMBER: '[ERROR] 구매금액은 0보다 커야합니다.\n',
-  };
-
   generate(price) {
     this.#validtePurchasePrice(price);
     const lottoCount = price / lottoConfig.LOTTO_PRICE;
@@ -42,13 +38,13 @@ export default class LottoGenerator {
 
   #checkPositiveNumber(purchasePrice) {
     if (purchasePrice <= 0) {
-      throw new Error(this.#ERROR_MESSAGE.INVALID_POSITIVE_NUMBER);
+      throw new Error(ERROR_MESSAGE.LOTTO_GENERATOR.INVALID_POSITIVE_NUMBER);
     }
   }
 
   #checkLottoPriceUnit(purchasePrice) {
     if (purchasePrice % lottoConfig.LOTTO_PRICE !== 0) {
-      throw new Error(this.#ERROR_MESSAGE.INVALID_LOTTO_PRICE_UNIT);
+      throw new Error(ERROR_MESSAGE.LOTTO_GENERATOR.INVALID_LOTTO_PRICE_UNIT);
     }
   }
 }
