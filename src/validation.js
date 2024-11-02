@@ -32,6 +32,14 @@ const validation = Object.freeze({
      *
      * @param {Array<string>} numbers
      */
+    isWrongLength: function (numberArr) {
+      if (numberArr.length !== NUM.LOTTO_NUMBER_COUNT)
+        throw new Error(ERRORMESSAGE.ISWRONGLENGTH);
+    },
+    /**
+     *
+     * @param {Array<string>} numbers
+     */
     hasSpace: function (numberArr) {
       if (numberArr.some((number) => /\s/g.test(number)))
         throw new Error(ERRORMESSAGE.HASSPACE);
