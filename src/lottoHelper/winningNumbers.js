@@ -6,7 +6,9 @@ export async function getWinningNumbers() {
     LOTTO_MESSAGE.LOTTO_WINNING_NUMBER_MESSAGE,
   );
 
-  const numbers = winningNumbers.split(',').map((number) => number.trim());
+  const numbers = winningNumbers
+    .split(',')
+    .map((number) => Number(number.trim()));
   return numbers;
 }
 
