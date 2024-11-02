@@ -1,4 +1,5 @@
 import Input from "./Input.js";
+import Lotto from "./Lotto.js";
 import {
 	LOTTO_LENGTH,
 	LOTTO_MAX_NUMBER,
@@ -14,6 +15,7 @@ class App {
 	#lottoNumbers;
 	#winningNumber;
 	#bonusNumber;
+	#winningMap;
 
 	constructor() {
 		this.userInput = new Input();
@@ -28,6 +30,7 @@ class App {
 
 		this.#winningNumber = await this.userInput.getWinningNumber();
 		this.#bonusNumber = await this.userInput.getBonusNumber();
+		this.#winningMap = this.#getWinningCount();
 	}
 
 	async #calculateLottoCount() {
@@ -56,6 +59,29 @@ class App {
 
 	#printLottoNumbers(lottos) {
 		printOutput(PROMPT.LOTTO_NUMBERS(lottos));
+	}
+
+	#getWinningCount() {
+		const winningCountMap = {
+			"5rank": 0,
+			"4rank": 0,
+			"3rank": 0,
+			"2rank": 0,
+			"1rank": 0,
+		};
+
+		this.#lottoNumbers.forEach((lottoNumber) => {
+			const lotto = new Lotto(lottoNumber);
+			const winningRank = lotto.checkWinning(
+				this.#winningNumber,
+				this.#bonusNumber
+			);
+
+			if (winningRank) {
+				winningCountMap[winningRank] += 1;
+			}
+		});
+		return winningCountMap;
 	}
 }
 
