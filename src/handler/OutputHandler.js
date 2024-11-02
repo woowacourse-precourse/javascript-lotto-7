@@ -8,6 +8,10 @@ class OutputHandler {
         });
         Console.print("");
     }
+
+    printMessage(message) {
+        Console.print(message);
+    }
 }
 
 export default OutputHandler;

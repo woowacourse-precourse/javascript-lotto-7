@@ -1,5 +1,3 @@
-import { MissionUtils, Console } from "@woowacourse/mission-utils";
-
 class Lotto {
   #numbers;
 
@@ -12,6 +10,10 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error("[ERROR] 로또 번호에는 중복된 숫자가 있을 수 없습니다.");
+    }
   }
   getNumbers() {
     return this.#numbers;
@@ -19,9 +21,6 @@ class Lotto {
 
   // TODO: 추가 기능 구현
 
-  static getRandomSixNumbers() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
-  }
 }
 
 export default Lotto;

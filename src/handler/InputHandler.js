@@ -2,12 +2,14 @@ import { Console } from "@woowacourse/mission-utils";
 import LottoMoneyValidator from "../validator/LottoMoneyValidator.js";
 import WinningNumberValidator from "../validator/WinningNumberValidator.js";
 import BonusNumberValidator from "../validator/BonusNumberValidator.js";
+import OutputHandler from "./OutputHandler.js";
 
 class InputHandler {
     constructor() {
         this.lottoMoneyValidator = new LottoMoneyValidator();
         this.winningNumberValidator = new WinningNumberValidator();
         this.bonusNumberValidator = new BonusNumberValidator();
+        this.outputHandler = new OutputHandler();
     }
 
     async getLottoMoney() {
@@ -16,7 +18,7 @@ class InputHandler {
             const lottoMoney = this.lottoMoneyValidator.validateLottoMoney(parseInt(input.trim(), 10));
             return lottoMoney;
         } catch (error) {
-            Console.print(error.message);
+            this.outputHandler.printMessage(error.message);
             return await this.getLottoMoney();
         }
     }
@@ -27,7 +29,7 @@ class InputHandler {
             const winningNumber = this.winningNumberValidator.validateWinningNumber(input);
             return winningNumber;
         } catch (error) {
-            Console.print(error.message);
+            this.outputHandler.printMessage(error.message);
             return await this.getWinningNumber();
         }
     }
@@ -38,7 +40,7 @@ class InputHandler {
             const bonusNumber = this.bonusNumberValidator.validateBonusNumber(input, winningNumber);
             return bonusNumber;
         } catch (error) {
-            Console.print(error.message);
+            this.outputHandler.printMessage(error.message);
             return await this.getBonusNumber();
         }
     }
