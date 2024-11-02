@@ -26,25 +26,11 @@ class LottoController {
   }
 
   async #getLottoPurchaseAmount() {
-    const purchaseAmount = await this.#validInput(
+    const [purchaseAmount] = await this.#validInput(
       () => this.#inputView.inputPurchaseAmount(),
       InputUtils.validatePurchaseAmount
     );
-
     return purchaseAmount;
-  }
-
-  async #validInput(inputFunction, validateFunction) {
-    while (true) {
-      try {
-        const input = await inputFunction();
-        const trimmedInput = InputUtils.trimInput(input);
-        validateFunction(trimmedInput);
-        return trimmedInput;
-      } catch (error) {
-        this.#outputView.errorOccurred(error);
-      }
-    }
   }
 
   #printLottoCount(lottoCount) {
@@ -73,8 +59,27 @@ class LottoController {
   }
 
   async #getLottoWinningNumber() {
-    const winningNumber = await this.#inputView.inputLottoWinningNumber();
+    const winningNumber = await this.#validInput(
+      () => this.#inputView.inputLottoWinningNumber(),
+      InputUtils.validateWinningNumber
+    );
+
     return winningNumber;
+  }
+
+  async #validInput(inputFunction, validateFunction) {
+    while (true) {
+      try {
+        const inputs = [await inputFunction()];
+        const trimmedInputs = inputs[0]
+          .split(",")
+          .map((input) => Number(input.trim()));
+        validateFunction(trimmedInputs);
+        return trimmedInputs;
+      } catch (error) {
+        this.#outputView.errorOccurred(error);
+      }
+    }
   }
 }
 
