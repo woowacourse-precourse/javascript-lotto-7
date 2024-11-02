@@ -1,4 +1,4 @@
-import { readAsyncInput } from '../utils/inputUtils.js';
+import { readAsyncInput } from '../utils/console.js';
 import { LOG_MESSAGE } from '../constants/message.js';
 
 const InputView = {
