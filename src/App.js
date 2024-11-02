@@ -17,6 +17,8 @@ class App {
       this.outputHandler.printLottos(lottos);
       const winningNumber = await this.inputHandler.getWinningNumber();
       this.outputHandler.printWinningNumber(winningNumber);
+      const bonusNumber = await this.inputHandler.getBonusNumber();
+      Console.print({ bonusNumber });
     }
     catch (error) {
       Console.print(error.message);

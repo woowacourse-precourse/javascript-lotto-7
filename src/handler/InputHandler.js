@@ -29,6 +29,15 @@ class InputHandler {
             return await this.getWinningNumber();
         }
     }
+
+    async getBonusNumber() {
+        try {
+            const input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+            return input
+        } catch (error) {
+
+        }
+    }
 }
 
 export default InputHandler;
