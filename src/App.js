@@ -15,7 +15,14 @@ class App {
     const lottos = [];
     for(let i = 0; i < lottoCount; i++){
       const numbers = this.generateLottoNumbers();
+      const lotto = new Lotto(numbers);
+      lottos.push(lotto);
     }
+
+    lottos.forEach((lotto) => {
+      Console.print(lotto.getNumbers());
+    });
+
 
     const inputWinningNum = new Input(validateWinnigNum.validation);
     await inputWinningNum.inputValue(COMMON_MESSAGE.INPUT_WINNING_NUM);
