@@ -29,9 +29,9 @@ export default class LottoController {
   }
 
   #printLottosInfomation() {
-    const { lottoLength, lottosNumberArray } =
+    const { lottoLength, lottoNumbersArray } =
       this.#lottoService.getLottosInformation();
-    OutputView.lottosInformation({ lottoLength, lottosNumberArray });
+    OutputView.lottosInformation({ lottoLength, lottoNumbersArray });
   }
 
   async #getWinningNumbers() {

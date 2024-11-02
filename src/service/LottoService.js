@@ -15,9 +15,9 @@ export default class LottoService {
   }
 
   getLottosInformation() {
-    const { lottoLength, lottosNumberArray } =
+    const { lottoLength, lottoNumbersArray } =
       this.userModel.getLottosInformation();
-    return { lottoLength, lottosNumberArray };
+    return { lottoLength, lottoNumbersArray };
   }
 
   createWinningLottoModel(numberString) {

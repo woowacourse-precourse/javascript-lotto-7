@@ -33,9 +33,9 @@ export default class UserModel {
 
   getLottosInformation() {
     const lottoLength = this.#lottos.length;
-    const lottosNumberArray = this.getSortedLottosNumberArray();
+    const lottoNumbersArray = this.getSortedLottosNumberArray();
 
-    return { lottoLength, lottosNumberArray };
+    return { lottoLength, lottoNumbersArray };
   }
 
   getSortedLottosNumberArray() {

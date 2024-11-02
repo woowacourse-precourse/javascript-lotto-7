@@ -2,24 +2,24 @@ import UserModel from '../src/model/UserModel.js';
 import { mockRandoms } from '../src/test/testUtil.js';
 
 describe('UserModel 클래스 테스트', () => {
-  const lottosNumberArray = [
+  const lottoNumbersArray = [
     [6, 5, 4, 3, 2, 1],
     [8, 40, 31, 43, 5, 41],
     [3, 5, 11, 16, 32, 38],
     [7, 11, 16, 35, 36, 44],
   ];
-  mockRandoms(lottosNumberArray);
+  mockRandoms(lottoNumbersArray);
   const price = 4000;
   const userModel = new UserModel(price);
 
   test('로또 생성 정보 가져오기', () => {
-    const result = { lottoLength: 4, lottosNumberArray };
+    const result = { lottoLength: 4, lottoNumbersArray };
 
     expect(userModel.getLottosInformation()).toEqual(result);
   });
 
   test('정렬된 로또 번호 배열 가져오기', () => {
-    const result = lottosNumberArray.map((lottoNumbers) =>
+    const result = lottoNumbersArray.map((lottoNumbers) =>
       lottoNumbers.sort((a, b) => a - b),
     );
 

@@ -36,7 +36,7 @@ describe('LottoService 클래스 테스트', () => {
   test('로또 정보 가져오기', () => {
     const expected = {
       lottoLength: 5,
-      lottosNumberArray: Array.from({ length: 5 }, () => [1, 2, 3, 4, 5, 6]),
+      lottoNumbersArray: Array.from({ length: 5 }, () => [1, 2, 3, 4, 5, 6]),
     };
 
     expect(lottoService.getLottosInformation()).toEqual(expected);
