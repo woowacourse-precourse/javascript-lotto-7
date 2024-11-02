@@ -45,6 +45,7 @@ class LottoGameService {
 
   generateLotto() {
     const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    randomNumber.sort((a, b) => a - b);
     return new Lotto(randomNumber);
   }
 
