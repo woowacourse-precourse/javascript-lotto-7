@@ -179,4 +179,34 @@ describe('로또 발매기 클래스 테스트', () => {
 
     expect(mapToObject(lottoMachine.rankResultMap)).toEqual(expected);
   });
+
+  test('수익률 계산 메서드', async () => {
+    // given
+    const YIELD = 16.7;
+    const AMOUNT = 3000;
+    const LOTTO_NUMBERS = [
+      [10, 11, 12, 13, 14, 15],
+      [1, 2, 3, 4, 10, 11],
+      [9, 10, 11, 12, 13, 14],
+    ];
+    const WINNING_NUMBERS = '1,2,3,4,5,6';
+    const BONUS_NUM = 7;
+    arrReadLineAsyncMock([WINNING_NUMBERS, BONUS_NUM]);
+
+    const lottos = LOTTO_NUMBERS.map((numbers) => new Lotto(numbers));
+    const lottoMachine = new LottoMachine();
+    lottoMachine.setAmountTestMethod(AMOUNT);
+    lottoMachine.setLottosTestMethod(lottos);
+
+    // 비동기 함수 대기
+    await lottoMachine.inputWinningNumbersTestMethod();
+    await lottoMachine.inputBonusNumberTestMethod();
+
+    // when
+    lottoMachine.rankLottoResultTestMethod();
+    lottoMachine.calculateYieldRateTestMethod();
+
+    // then
+    expect(lottoMachine.yield).toBe(YIELD);
+  });
 });

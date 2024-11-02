@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import RankedPrize from './RankedPrize.js';
 
 class LottoMachine {
   #amount;
@@ -11,6 +12,8 @@ class LottoMachine {
   #bonusNumber;
 
   #resultRankMap;
+
+  #yield;
 
   constructor() {
     this.#amount = 0;
@@ -46,11 +49,16 @@ class LottoMachine {
     return this.#resultRankMap;
   }
 
+  get yield() {
+    return this.#yield;
+  }
+
   async start() {
     await this.#inputPurchaseAmount();
     await this.#inputWinningNumbers();
     await this.#inputBonusNumber();
     this.#rankLottoResult();
+    this.#calculateYieldRate();
   }
 
   async #inputPurchaseAmount() {
@@ -143,21 +151,33 @@ class LottoMachine {
     }
   }
 
-  inputPurchaseAmountTestMethod() {
+  #calculateYieldRate() {
+    let sum = 0;
+    const lottos = this.#lottos;
+    for (let i = 0; i < lottos.length; i += 1) {
+      const lottoRank = lottos[i].rank;
+      if (lottoRank !== undefined) {
+        sum += RankedPrize[lottoRank];
+      }
+    }
+    this.#yield = Math.round((sum / this.#amount) * 10) / 10;
+  }
+
+  async inputPurchaseAmountTestMethod() {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('테스트코드에서만 접근가능');
     }
     return this.#inputPurchaseAmount();
   }
 
-  inputWinningNumbersTestMethod() {
+  async inputWinningNumbersTestMethod() {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('테스트코드에서만 접근가능');
     }
     return this.#inputWinningNumbers();
   }
 
-  inputBonusNumberTestMethod() {
+  async inputBonusNumberTestMethod() {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('테스트코드에서만 접근가능');
     }
@@ -176,6 +196,20 @@ class LottoMachine {
       throw new Error('테스트코드에서만 접근가능');
     }
     return this.#rankLottoResult();
+  }
+
+  calculateYieldRateTestMethod() {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    return this.#calculateYieldRate();
+  }
+
+  setAmountTestMethod(amount) {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    this.#amount = amount;
   }
 }
 
