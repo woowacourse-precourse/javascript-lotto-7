@@ -10,8 +10,8 @@ import {
 class PurchaseValidator {
   static async validatePurchaseAmount(purchaseAmount) {
     try {
-      this.#isNumber(purchaseAmount);
       this.#isPositiveNumber(purchaseAmount);
+      this.#isNumber(purchaseAmount);
       this.#isDivisibleByThousand(purchaseAmount);
       return purchaseAmount;
     } catch (error) {
