@@ -8,6 +8,12 @@ export const inputMethod = Object.freeze({
     );
     return purchaseAmount;
   },
+  inputWinningNumber: async function () {
+    const winningNumber = await Console.readLineAsync(
+      IOMESSAGE.INPUT_LOTTO_NUMBER,
+    );
+    return winningNumber;
+  },
 });
 
 export const outputMethod = (message) => {
