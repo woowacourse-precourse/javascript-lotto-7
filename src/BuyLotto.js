@@ -24,6 +24,7 @@ export default class BuyLotto {
     this.#getAmountOfLotto(this.#inputPrice);
     this.#validator.validatePrice(this.#inputPrice, this.#PRICE_OF_A_LOTTO);
     await this.enterWinningNumber();
+    await this.enterBonusNumber();
   }
 
   async enterWinningNumber() {
@@ -31,14 +32,16 @@ export default class BuyLotto {
     Console.print(this.#WINNING_NUMBER_PROMPT);
     input = await Console.readLineAsync("");
     this.#validator.validateWinningNumber(input);
-
     this.#winningNumber = input.split(",").map(Number);
     Console.print(this.#EMPTY_STRING);
   }
 
   async enterBonusNumber() {
+    let input;
     Console.print(this.#BONUS_NUMBER_PROMPT);
-    this.#bonusNumber = await Console.readLineAsync("");
+    input = await Console.readLineAsync("");
+    this.#validator.validateBonusNumnber(input);
+    this.#bonusNumber = Number(input);
     Console.print(this.#EMPTY_STRING);
   }
 
