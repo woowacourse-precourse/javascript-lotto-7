@@ -36,17 +36,17 @@ export default class LottoGenerator {
   }
 
   #validtePurchasePrice(purchasePrice) {
-    this.#validatePositiveNumber(purchasePrice);
-    this.#validateLottoPriceUnit(purchasePrice);
+    this.#checkPositiveNumber(purchasePrice);
+    this.#checkLottoPriceUnit(purchasePrice);
   }
 
-  #validatePositiveNumber(purchasePrice) {
+  #checkPositiveNumber(purchasePrice) {
     if (purchasePrice <= 0) {
       throw new Error(this.#ERROR_MESSAGE.INVALID_POSITIVE_NUMBER);
     }
   }
 
-  #validateLottoPriceUnit(purchasePrice) {
+  #checkLottoPriceUnit(purchasePrice) {
     if (purchasePrice % lottoConfig.LOTTO_PRICE !== 0) {
       throw new Error(this.#ERROR_MESSAGE.INVALID_LOTTO_PRICE_UNIT);
     }

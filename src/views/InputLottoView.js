@@ -54,33 +54,33 @@ export default class InputLottoView {
   }
 
   #validatePurchasePrice(purchasePrice) {
-    this.#validateNumber(purchasePrice);
-    this.#validateBlank(purchasePrice);
+    this.#checkNumber(purchasePrice);
+    this.#checkBlank(purchasePrice);
   }
 
   #validateWinningLottoMainNumbers(mainNumbersString) {
-    this.#validateCommaSeparatedNumbers(mainNumbersString);
-    this.#validateBlank(mainNumbersString);
+    this.#checkFormatCommaSeparatedNumbers(mainNumbersString);
+    this.#checkBlank(mainNumbersString);
   }
 
   #validateBonusNumber(bonusNumber){
-    this.#validateNumber(bonusNumber);
-    this.#validateBlank(bonusNumber);
+    this.#checkNumber(bonusNumber);
+    this.#checkBlank(bonusNumber);
   }
 
-  #validateNumber(input) {
+  #checkNumber(input) {
     if (isNaN(Number(input))) {
       throw new Error(this.#ERROR_MESSAGE.INVALID_NUMBER);
     }
   }
 
-  #validateBlank(input) {
+  #checkBlank(input) {
     if (input.trim() === '') {
       throw new Error(this.#ERROR_MESSAGE.INVALID_BLANK);
     }
   }
 
-  #validateCommaSeparatedNumbers(input) {
+  #checkFormatCommaSeparatedNumbers(input) {
     if (!this.#SPLIT_COMMA_REGEX.test(input)) {
       throw new Error(this.#ERROR_MESSAGE.INVALID_COMMA_FORMAT);
     }
