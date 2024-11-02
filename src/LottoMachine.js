@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import { getEarningRate } from './Result.js';
+import { getEarningRate, printResult } from './Result.js';
 
 class LottoMachine {
   #purchase = 0;
@@ -19,14 +19,14 @@ class LottoMachine {
     await this.setWinningNumbers(); // 당첨 번호 입력
     await this.setBonusNumber(); // 보너스 번호 입력
 
-    
     // 당첨 확인
     for (let i = 0; i < this.#lottoCount; i++) {
         this.checkMatch(this.#lottos[i], this.#resultCount);
     }
 
     this.#earningRate = getEarningRate(this.#resultCount, this.#purchase);
-    
+
+    printResult(this.#resultCount, this.#earningRate);
 
 
   }
@@ -71,7 +71,7 @@ class LottoMachine {
 
   // 당첨 번호 입력
   async setWinningNumbers() {
-    const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
     const numbers = input.split(',').map(Number);
     this.#validateWinningNumbers(numbers);
     this.#winningNumbers = numbers;
@@ -95,7 +95,7 @@ class LottoMachine {
   }
 
   async setBonusNumber() {
-    let input = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    let input = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     input = parseInt(input);
     this.#validateBonusNumber(input);
     this.#bonusNumber = input;
