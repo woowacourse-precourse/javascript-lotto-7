@@ -9,13 +9,11 @@ class LottoView {
     return purchaseAmountInput;
   }
 
-  static async PrintLottos(amount, lottos) {
-    Console.print(`${amount}${INPUT_MESSAGE.purchaseMessage}`);
-    lottos.forEach((element) => {
-      Console.print(element);
-      Console.print('\n');
+  static PrintLottos(count, lottos) {
+    Console.print(INPUT_MESSAGE.purchaseMessage(count));
+    lottos.forEach((lotto) => {
+      Console.print(`[${lotto.getNumber().join(', ')}]`);
     });
-    Console.print('\n');
   }
 
   static async InputwinningNumbers() {

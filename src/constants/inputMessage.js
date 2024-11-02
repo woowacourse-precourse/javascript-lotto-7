@@ -1,7 +1,7 @@
 export const INPUT_MESSAGE = Object.freeze({
   purchaseAmountPrompt: '구입금액을 입력해 주세요.\n',
-  purchaseMessage: (count) => `${count}개를 구매했습니다.\n`,
-  winningNumbersPrompt: '당첨 번호를 입력해 주세요.',
+  purchaseMessage: (count) => `\n${count}개를 구매했습니다.`,
+  winningNumbersPrompt: '\n당첨 번호를 입력해 주세요.',
   bonusNumberPrompt: '보너스 번호를 입력해 주세요',
   winningTotalMessage: '당첨 통계\n---',
   match3Message: (count) => `3개 일치 (5,000원) - ${count}개`,
