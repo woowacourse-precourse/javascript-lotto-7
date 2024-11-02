@@ -12,6 +12,8 @@ class App {
     const winnigNumbersArray = this.getWinningNumberArray(winningNumbersString);
 
     // - 보너스 번호 1개를 입력받는다.
+    const bonusNumberString = await this.readBonusNumberString();
+
     // - 1~45 사이의 중복되지 않는 6개 숫자를 랜덤으로 뽑는다.
     // - 구입 금액에 따라 발행할 로또 개수가 몇 개인지 구한다.
     // - 로또를 발행한다.
@@ -34,6 +36,10 @@ class App {
 
   getWinningNumberArray(numbersString) {
     return numbersString.split(',').map(Number);
+  }
+
+  readBonusNumberString() {
+    return Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
   }
 }
 
