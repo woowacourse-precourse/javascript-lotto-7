@@ -1,3 +1,4 @@
+import Errors from '../src/Constants/Errors';
 import Statistic from '../src/Model/Statistic';
 
 // - 5. 당첨 통계 계산
@@ -16,24 +17,24 @@ describe('Statistic 클래스 테스트', () => {
   test('통계를 만들 땐 구매 금액을 숫자로 입력해야 한다.', () => {
     expect(() => {
       new Statistic('MinSungJe');
-    }).toThrow('[ERROR]');
+    }).toThrow(`${Errors.PREFIX} ${Errors.BuyPrice.NOT_NUMBER_INPUT}`);
   });
 
   test('통계를 만들 땐 최소 금액 이상의 구매 금액을 입력해야 한다.', () => {
     expect(() => {
       new Statistic(900);
-    }).toThrow('[ERROR]');
+    }).toThrow(`${Errors.PREFIX} ${Errors.BuyPrice.LESS_THAN_MIN}`);
   });
 
   test('통계를 만들 땐 최대 금액을 넘는 구매 금액을 입력하면 안된다.', () => {
     expect(() => {
       new Statistic(1000000);
-    }).toThrow('[ERROR]');
+    }).toThrow(`${Errors.PREFIX} ${Errors.BuyPrice.MORE_THAN_MAX}`);
   });
 
   test('통계를 만들 땐 단위로 나누어 떨어지는 구매 금액을 입력해야 한다.', () => {
     expect(() => {
-      new Statistic('MinSungJe');
-    }).toThrow('[ERROR]');
+      new Statistic(1234);
+    }).toThrow(`${Errors.PREFIX} ${Errors.BuyPrice.NOT_UNIT_NUMBER}`);
   });
 });

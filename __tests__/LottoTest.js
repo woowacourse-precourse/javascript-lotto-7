@@ -1,3 +1,4 @@
+import Errors from '../src/Constants/Errors';
 import Lotto from '../src/Model/Lotto';
 
 // 1. 로또 1장 발행하기
@@ -12,31 +13,31 @@ describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 하나도 없으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([]);
-    }).toThrow('[ERROR] 로또 번호는 6개여야 합니다.');
+    }).toThrow(`${Errors.PREFIX} ${Errors.Lotto.IS_WRONG_LENGTH}`);
   });
 
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow('[ERROR] 로또 번호는 6개여야 합니다.');
+    }).toThrow(`${Errors.PREFIX} ${Errors.Lotto.IS_WRONG_LENGTH}`);
   });
 
   test('로또 번호는 모두 숫자로 구성되어야 한다.', () => {
     expect(() => {
       new Lotto(['a', 2, 3, 'b', 5, 6]);
-    }).toThrow('[ERROR] 로또 번호는 숫자로 구성되어야 합니다.');
+    }).toThrow(`${Errors.PREFIX} ${Errors.Lotto.NOT_NUMBER_VALUE}`);
   });
 
   test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow('[ERROR] 로또 번호는 중복이 없어야 합니다.');
+    }).toThrow(`${Errors.PREFIX} ${Errors.Lotto.IS_DUPLICATE_VALUE}`);
   });
 
   test('로또 번호는 1과 45 사이의 숫자이어야 한다.', () => {
     expect(() => {
       new Lotto([1, 2, 0, 4, 5, 160]);
-    }).toThrow('[ERROR] 로또 번호는 1부터 45 사이의 숫자이어야 합니다.');
+    }).toThrow(`${Errors.PREFIX} ${Errors.Lotto.NOT_RANGED_VALUE}`);
   });
 
   test('로또 번호는 오름차순으로 정렬되어야 한다.', () => {
