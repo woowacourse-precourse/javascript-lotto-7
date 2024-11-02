@@ -9,6 +9,12 @@ const validate = {
     }
   },
 
+  validateZero(price) {
+    if (Number(price) === 0) {
+      throwError(ERROR_MESSAGE.ZERO_AMOUNT);
+    }
+  },
+
   validateType(price) {
     if (!/[0-9]/.test(price)) {
       throwError(ERROR_MESSAGE.INVALID_AMOUNT_FORMAT); 
@@ -27,6 +33,7 @@ const validate = {
 function validatePurchaseAmount(price) {
   validate.validateEmpty(price);
   validate.validateType(price);
+  validate.validateZero(price);
 }
 
 export default validatePurchaseAmount;
