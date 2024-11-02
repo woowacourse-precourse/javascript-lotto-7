@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import PaymentValidator from "./validators/PaymentValidator";
 import LottoValidator from "./validators/LottoValidator";
+import LottoTicketsGenerator from "./LottoTicketsGenerator";
 
 class Lotto {
   #numbers;
@@ -13,7 +14,8 @@ class Lotto {
   }
 
   async start() {
-    
+    const ticketAmount = await this.purchasedTicketAmount();
+    const generatedTickets = this.printTickets(ticketAmount);
   }
 
   async purchasedTicketAmount() {
@@ -31,6 +33,23 @@ class Lotto {
       }
     }
   }
+  calculateTicketAmount(paymentAmount) {
+    return paymentAmount / 1000;
+  }
+
+  generateTickets(ticketAmount) {
+    const ticketGenerator = new LottoTicketsGenerator(ticketAmount);
+    return ticketGenerator.tickets;
+  }
+  printTickets(ticketAmount) {
+    const generatedLottoTickets = this.generateTickets(ticketAmount);
+    Console.print(`${ticketAmount}개를 구매했습니다.`);
+    generatedLottoTickets.forEach((ticket) => {
+      Console.print(`[${ticket.join(", ")}]`);
+    })
+    return generatedLottoTickets;
+  }
+  
   async getLottoNumbers() {
     while(true) {
       try {
@@ -52,9 +71,6 @@ class Lotto {
         Console.print(error.message);
       }
     }
-  }
-  calculateTicketAmount(paymentAmount) {
-    return paymentAmount / 1000;
   }
 }
 

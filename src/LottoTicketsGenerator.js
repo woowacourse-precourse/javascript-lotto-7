@@ -6,6 +6,10 @@ class LottoTicketsGenerator {
   constructor(ticketAmount) {
     this.#generatedLottoNumbers = this.generateAllTickets(ticketAmount);
   }
+
+  get tickets() {
+    return this.#generatedLottoNumbers;
+  }
   
   generateAllTickets(ticketAmount) {
     const tickets = [];
