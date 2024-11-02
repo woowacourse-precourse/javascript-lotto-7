@@ -17,9 +17,17 @@ describe("로또 클래스 테스트", () => {
     test.each([
         ["일", 1, 2, 3, 4, 5],
         [0, 1, 2, 3, 4, 5],
-    ])("로또 번호가 1 ~ 45사이의 숫자가 아니면 에러가 발생한다.", (...value) => {
-        expect(() => {
-            new Lotto(value);
-        }).toThrow(PLEASE_INPUT_RIGHT_NUMBER);
+    ])(
+        "로또 번호가 1 ~ 45사이의 숫자가 아니면 에러가 발생한다.",
+        (...value) => {
+            expect(() => {
+                new Lotto(value);
+            }).toThrow(PLEASE_INPUT_RIGHT_NUMBER);
+        }
+    );
+
+    test("로또 번호를 제대로 반환해야 한다.", () => {
+        const value = [1, 2, 3, 4, 5, 6];
+        expect(new Lotto(value).numbers).toEqual(value);
     });
 });
