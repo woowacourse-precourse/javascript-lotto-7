@@ -1,4 +1,4 @@
-import { PRIZE_CALCULATOR } from './Constants.js';
+import { PRIZE_CALCULATOR } from './utils/Constants.js';
 
 class PrizeCalculator {
   #matchingTable;

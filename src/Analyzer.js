@@ -1,4 +1,4 @@
-import { ANALYZER } from './Constants.js';
+import { ANALYZER } from './utils/Constants.js';
 
 class Analyzer {
   #lottos;

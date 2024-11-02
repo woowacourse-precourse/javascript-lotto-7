@@ -1,4 +1,8 @@
-import { ERROR_MESSAGE, VALIDATION, GLOBAL_CONSTANTS } from './Constants.js';
+import {
+  ERROR_MESSAGE,
+  VALIDATION,
+  GLOBAL_CONSTANTS,
+} from './utils/Constants.js';
 
 class Validation {
   static validatePayment(payment) {
