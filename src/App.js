@@ -1,15 +1,16 @@
 import {Console} from '@woowacourse/mission-utils'
+
 class App {
   async run() {
-    const userPurchaseAmount = await this.getUserPurchaseAmount();
+    const userPurchaseAmount = await this.getPurchaseAmount();
     const userWinningNumber = await this.getUserWinningNumber();
-    const userWinningBonusNumber = await this.getUserWinningBonusNumber();
+    const userWinningBonus = await this.getWinningBonus();
 
-    const userLottoAmount = computeLottoForPurchase();
-    
+    const userLottoAmount = this.computeLottoForPurchase();
+    const winningNumbers = this.separateString(userWinningNumber, ',');
   }
 
-  async getUserPurchaseAmount(){
+  async getPurchaseAmount(){
     return Console.readLineAsync('구입금액을 입력해 주세요.');
   }
 
@@ -17,12 +18,16 @@ class App {
     return Console.readLineAsync('당첨 번호를 입력해 주세요.');
   }
 
-  async getUserWinningBonusNumber(){
+  async getWinningBonus(){
     return Console.readLineAsync('보너스 번호를 입력해 주세요.');
   }
 
   computeLottoForPurchase(purchaseAmount){
     return purchaseAmount / 1000;
+  }
+
+  separateString(string, separator){
+    return string.split(separator);
   }
 
 }
