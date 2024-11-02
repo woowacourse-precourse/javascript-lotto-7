@@ -61,4 +61,25 @@ describe('LottoResultAnaysis 테스트', () => {
       expectedProfitRate
     );
   });
+
+  test('로또 티켓 목록을 분석해 각 로또의 당첨 상태와 수익률을 반환한다.', () => {
+    const lottoTickets = [
+      new Lotto([1, 2, 3, 4, 5, 6]),
+      new Lotto([1, 2, 3, 4, 5, 7]),
+      new Lotto([1, 2, 3, 4, 5, 9]),
+    ];
+
+    const result = lottoResultAnalysis.winningStatusAnalaysis(lottoTickets);
+
+    const expectWinningStatus = [0, 1, 1, 1, 0, 0];
+    const expectedRewardSum =
+      LOTTO_REWARD.FIRST + LOTTO_REWARD.SECOND + LOTTO_REWARD.THIRD;
+    const expectedProfitRate = (
+      (expectedRewardSum / (lottoTickets.length * LOTTO_PRICE)) *
+      100
+    ).toFixed(1);
+
+    expect(result.winningStatus).toEqual(expectWinningStatus);
+    expect(result.profitRate).toEqual(expectedProfitRate);
+  });
 });
