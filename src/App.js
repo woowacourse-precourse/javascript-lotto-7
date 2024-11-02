@@ -9,6 +9,16 @@ class App {
     return payment;
   }
 
+  async getWinningNumbers() {
+    const numbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    return numbers.split(",");
+  }
+
+  async getBonusNumber() {
+    return await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+  }
+
+
   validatePayment(payment) {
     if (isNaN(payment)) throw new Error("[ERROR] 숫자를 입력해야 합니다.");
     if (payment <= 0)
@@ -37,6 +47,11 @@ class App {
       const lotto = new Lotto(num);
       Console.print(lotto.getNumbers());
     }
+    Console.print("\n");
+
+    const winningNums = await this.getWinningNumbers();
+    const winningLotto = new Lotto(winningNums);
+    const bonusNum = await this.getBonusNumber();
   }
 }
 
