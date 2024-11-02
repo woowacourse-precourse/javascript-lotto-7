@@ -1,26 +1,26 @@
 import { Console } from '@woowacourse/mission-utils';
 import Input from '../view/Input.js';
 import Money from '../validation/Money.js';
+import { countLotto } from '../utils/index.js';
 
 class LottoMachine {
   async start() {
-    // input 입력받기
-    const money = this.handleMoney(await Input.requestMoney());
+    const money = await this.handleMoneyInput();
+    // 생성할 로또 갯수 계산
+    const numOfLotto = countLotto(money);
   }
 
-  handleMoney(money) {
-    try {
-      Money.validate(money);
-      return money;
-    } catch (error) {
-      Console.print(error);
-      this.retryInput('money');
-    }
-  }
+  async handleMoneyInput() {
+    let money;
 
-  async retryInput(type) {
-    if (type === 'money') {
-      return this.handleMoney(await Input.requestMoney());
+    while (true) {
+      money = await Input.requestMoney();
+      try {
+        const validMoney = Money.validate(money);
+        return validMoney;
+      } catch (error) {
+        Console.print(error);
+      }
     }
   }
 }

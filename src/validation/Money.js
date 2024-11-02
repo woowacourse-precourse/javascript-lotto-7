@@ -11,6 +11,7 @@ class Money {
       throw new Error(ERROR.PREFIX + ERROR.PRICE);
     if (MoneyValidation.checkPriceUnit(money))
       throw new Error(ERROR.PREFIX + ERROR.UNIT);
+    return money;
   }
 }
 export default Money;
