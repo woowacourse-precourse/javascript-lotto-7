@@ -45,4 +45,15 @@ describe('WinningNumber 클래스 테스트', () => {
       win.setBonusNumber('7');
     }).not.toThrow();
   });
+  test('당첨 번호에 소수가 입력되면 예외가 발생한다.', () => {
+    expect(() => {
+      new WinningNumber('1.1, 2, 3, 4, 5, 6');
+    }).toThrow('[ERROR]');
+  });
+  test('보너스 번호에 소수가 입력되면 예외가 발생한다.', () => {
+    expect(() => {
+      const win = new WinningNumber('1, 2, 3, 4, 5, 6');
+      win.setBonusNumber('7.1');
+    }).toThrow('[ERROR]');
+  });
 });
