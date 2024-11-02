@@ -19,6 +19,10 @@ class Lotto {
       }
     });
 
+    if (numbers.some((num) => (num < 1) | (num > 45))) {
+      throw new Error(ERROR.LOTTO_RANGE);
+    }
+
     const checkSet = new Set(numbers);
     numbers.forEach((num) => {
       if (checkSet.has(num)) {
