@@ -92,6 +92,13 @@ class LottoGameService {
     return totalPrize;
   }
 
+  roundNumber(number) {
+    if (number.toString().split('.')[1] > 1) {
+      return Number(number.toFixed(1));
+    }
+    return number;
+  }
+
   getPayoutPercentage(userMoney, totalPrize) {
     return (totalPrize / userMoney) * 100;
   }
