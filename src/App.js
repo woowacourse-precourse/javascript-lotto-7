@@ -84,6 +84,15 @@ class App {
 
     OutputView.printWinningStatistics(howManyMatch, rateOfReturn);
   }
+
+  validatePurchaseAmount(purchaseAmount) {
+    if (+purchaseAmount % CONDITIONS.ONE_LOTTO_PRICE !== 0) {
+      throw new Error(ERRORS.NOT_1000_WON);
+    }
+    if (+purchaseAmount <= 0) {
+      throw new Error(ERRORS.NOT_ENOUGH_MONEY);
+    }
+  }
 }
 
 export default App;
