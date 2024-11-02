@@ -55,9 +55,9 @@ export const validateWinnigNum = {
         return true;
     },
     checkRange(value){
-        const isVaild = value.every(num => num >= 1 && num <= 45);
+        const isValid = value.every(num => num >= 1 && num <= 45);
 
-        if(!isVaild){
+        if(!isValid){
             Console.print(ERROR_MESSAGE.NOT_RANGE);
             return false;
         }
@@ -71,9 +71,9 @@ export const validateWinnigNum = {
         return true;
     },
     checkDuplication(value){
-        const isVaild = Set(value).size === value.length;
+        const isValid = new Set(value).size === value.length;
 
-        if(!isVaild){
+        if(!isValid){
             Console.print(ERROR_MESSAGE.DUPLICATION);
             return false;
         }
