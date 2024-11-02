@@ -9,8 +9,7 @@ import { Random } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
-    const purchaseAmount = await InputView.inputMoney();
-    this.validatePurchaseAmount(purchaseAmount);
+    const purchaseAmount = await this.getPurchaseAmount();
 
     const numberOfLottoes = +purchaseAmount / CONDITIONS.ONE_LOTTO_PRICE;
     const lottoes = this.generateLottoes(numberOfLottoes);
@@ -32,6 +31,18 @@ class App {
     );
 
     OutputView.printWinningStatistics(howManyMatch, rateOfReturn);
+  }
+
+  async getPurchaseAmount() {
+    while (true) {
+      try {
+        const purchaseAmount = await InputView.inputMoney();
+        this.validatePurchaseAmount(purchaseAmount);
+        return purchaseAmount;
+      } catch (error) {
+        OutputView.printError(`${error.message}\n`);
+      }
+    }
   }
 
   // 구매 금액이 1000원 단위인지 확인
@@ -61,14 +72,26 @@ class App {
   }
 
   async getWinningLotto() {
-    const winningNumbersInput = await InputView.inputWinningNumbers();
-    return new Lotto(winningNumbersInput.split(",").map(Number));
+    while (true) {
+      try {
+        const winningNumbersInput = await InputView.inputWinningNumbers();
+        return new Lotto(winningNumbersInput.split(",").map(Number));
+      } catch (error) {
+        OutputView.printError(`${error.message}`);
+      }
+    }
   }
 
   async getBonusNumber(winningLotto) {
-    const bonusNumber = +(await InputView.inputBonusNumber());
-    this.validateBonusNumber(bonusNumber, winningLotto);
-    return bonusNumber;
+    while (true) {
+      try {
+        const bonusNumber = +(await InputView.inputBonusNumber());
+        this.validateBonusNumber(bonusNumber, winningLotto);
+        return bonusNumber;
+      } catch (error) {
+        OutputView.printError(`${error.message}`);
+      }
+    }
   }
 
   validateBonusNumber(bonusNumber, winningLotto) {
