@@ -42,9 +42,12 @@ class Exception {
   }
 
   // 보너스 번호 입력 예외 상황
-  validateBonusNumber(number) {
+  validateBonusNumber(number, winNumbers) {
     // 보너스 번호가 1부터 45까지의 수가 아닐 경우
-    if (
+    if (winNumbers.includes(number)) {
+      Console.print("[ERROR] 당첨 번호와 중복되지 않는 숫자를 입력해주세요.");
+      throw new Error("[ERROR] 당첨 번호와 중복되지 않는 숫자를 입력해주세요.");
+    } else if (
       number < 1 ||
       number > 45 ||
       number === "" ||

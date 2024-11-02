@@ -23,25 +23,31 @@ describe("로또 게임에 대한 테스트", () => {
 
   test("[입력 테스트]보너스 번호가 1부터 45까지의 수가 아니면 예외가 발생한다.", () => {
     expect(() => {
-      exception.validateBonusNumber(66, false);
+      exception.validateBonusNumber(66, [1, 2, 3, 4, 5, 6]);
     }).toThrow("[ERROR]");
   });
 
   test("[입력 테스트]보너스 번호가 공백이면 예외가 발생한다.", () => {
     expect(() => {
-      exception.validateBonusNumber("", false);
+      exception.validateBonusNumber("", [1, 2, 3, 4, 5, 6]);
     }).toThrow("[ERROR]");
   });
 
   test("[입력 테스트]보너스 번호가 숫자가 아니면 예외가 발생한다.", () => {
     expect(() => {
-      exception.validateBonusNumber("hi", false);
+      exception.validateBonusNumber("hi", [1, 2, 3, 4, 5, 6]);
     }).toThrow("[ERROR]");
   });
 
   test("[입력 테스트]보너스 번호가 정수가 아니면 예외가 발생한다.", () => {
     expect(() => {
-      exception.validateBonusNumber(2.3, false);
+      exception.validateBonusNumber(2.3, [1, 2, 3, 4, 5, 6]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("[입력 테스트]보너스 번호가 당첨 번호와 중복되면 예외가 발생한다.", () => {
+    expect(() => {
+      exception.validateBonusNumber(2, [1, 2, 3, 4, 5, 6]);
     }).toThrow("[ERROR]");
   });
 });

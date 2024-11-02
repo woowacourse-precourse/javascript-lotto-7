@@ -62,16 +62,21 @@ class Input {
         Console.print("");
       }
     }
+    return this.winNumbers;
   }
 
   async winBonusNumber() {
+    Console.print(this.winNumbers);
     let retry = true;
     while (retry) {
       let number = await Console.readLineAsync(
         "보너스 번호를 입력해주세요. \n"
       );
       try {
-        this.bonusNumber = this.errorHandler.validateBonusNumber(number);
+        this.bonusNumber = this.errorHandler.validateBonusNumber(
+          number,
+          this.winNumbers
+        );
         retry = false;
       } catch (error) {
         Console.print("");
