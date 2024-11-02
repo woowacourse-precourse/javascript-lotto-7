@@ -19,10 +19,7 @@ class Input {
       "\n당첨 번호를 입력해 주세요.\n"
     );
 
-    return numbers.split(",").map((number) => {
-      number.trim();
-      this.validateNumber(number);
-    });
+    return numbers.split(",").map(this.validateNumber);
   }
 
   async getBonusNumber() {
