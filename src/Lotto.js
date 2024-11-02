@@ -21,7 +21,11 @@ class Lotto {
   #numbers1to45(numbers) {
     // 입력한 것들이 숫자인지 확인한다
     for (let number of numbers) {
-      if (!Number.isInteger(number) | (number < 1) | (number > 45)) {
+      if (
+        (parseInt(number).toString() != number.toString()) |
+        (number < 1) |
+        (number > 45)
+      ) {
         throw new Error("[ERROR] 로또 번호는 1에서 45까지 숫자이어야 합니다.");
       }
     }
