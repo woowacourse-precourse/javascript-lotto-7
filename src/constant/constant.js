@@ -28,5 +28,10 @@ export const WINNING_NUMBER_MESSAGE = Object.freeze({
   NOT_SIX_NUMBER: "당첨 번호는 6개여야 합니다.",
   NOT_RANGE_NUMBER: "당첨 번호는 1부터 45 사이의 숫자여야 합니다.",
   NOT_SAME_NUMBER: "당첨 번호에 중복된 숫자가 포함될 수 없습니다.",
-  INVALID_WINNING_NUMBER: "번호는 양의 정수만 입력이 가능합니다.",
+  INVALID_WINNING_NUMBER: "당첨 번호는 양의 정수만 입력이 가능합니다.",
+});
+
+export const BONUS_NUMBER_MESSAGE = Object.freeze({
+  NOT_RANGE_NUMBER: "보너스 번호는 1부터 45 사이의 숫자여야 합니다.",
+  INVALID_WINNING_NUMBER: "보너스 번호는 양의 정수만 입력이 가능합니다.",
 });
