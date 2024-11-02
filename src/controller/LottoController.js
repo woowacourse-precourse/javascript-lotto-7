@@ -5,6 +5,7 @@ import AmountValidator from "../validator/AmountValidator.js";
 import WinningNumbersValidator from "../validator/WinningNumbersValidator.js";
 import BonusNumberValidator from "../validator/BonusNumberValidator.js";
 import LOTTO from "../constants/lotto.js";
+import { printResult } from "../utils/util.js";
 
 class LottoController {
   #lottoService;
@@ -14,16 +15,20 @@ class LottoController {
   }
 
   async run() {
-    const amount = await this.getValidAmount();
-    const lottoCount = amount / LOTTO.AMOUNT_UNIT;
+    try {
+      const amount = await this.getValidAmount();
+      const lottoCount = amount / LOTTO.AMOUNT_UNIT;
 
-    this.generateLottos(lottoCount);
-    this.displayLottoResults(lottoCount);
+      this.generateLottos(lottoCount);
+      this.displayLottoResults(lottoCount);
 
-    const winningNumbers = await this.getValidWinningNumbers();
-    const bonusNumber = await this.getValidBonusNumber(winningNumbers);
+      const winningNumbers = await this.getValidWinningNumbers();
+      const bonusNumber = await this.getValidBonusNumber(winningNumbers);
 
-    this.displayWinningStatistics(winningNumbers, bonusNumber, amount);
+      this.displayWinningStatistics(winningNumbers, bonusNumber, amount);
+    } catch (error) {
+      printResult(error.message);
+    }
   }
 
   async getValidAmount() {
