@@ -36,11 +36,22 @@ class Input {
 	}
 
 	async getWinningNumber() {
-		try {
-			const WINNING_NUMBER = await userInput(PROMPT.LOTTO_WINNING_NUMBER);
-			return WINNING_NUMBER;
-		} catch (error) {
-			console.log(error.message);
+		while (true) {
+			try {
+				const WINNING_NUMBER = await userInput(PROMPT.LOTTO_WINNING_NUMBER);
+				await this.validateWinningNumber(WINNING_NUMBER);
+				return WINNING_NUMBER;
+			} catch (error) {
+				printOutput(error.message);
+			}
+		}
+	}
+
+	async validateWinningNumber(winningNumber) {
+		const INPUT_WINNING = winningNumber.split(",");
+
+		if (INPUT_WINNING.length !== 6) {
+			throw new Error(ERROR_MESSAGE.WRONG_WINNING_DIGIT);
 		}
 	}
 

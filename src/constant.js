@@ -25,4 +25,5 @@ export const ERROR_MESSAGE = {
 	WRONG_UNIT: `[ERROR] 구입금액을 ${LOTTO_MONEY}원 단위로 입력되지 않았습니다.`,
 	WRONG_CHARACTER: `[ERROR] 잘못된 문자가 입력되었습니다.`,
 	PASSED_BUY_LIMIT: `[ERROR] 구입한도 ${LOTTO_MAX_MONEY}원을 초과하였습니다.`,
+	WRONG_WINNING_DIGIT: `[ERROR] 당첨 번호는 6자리 숫자입니다.`,
 };
