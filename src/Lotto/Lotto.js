@@ -9,14 +9,14 @@ class Lotto {
   }
 
   getWinningResult(winningNumber, bonusNumber) {
-    const compareCount = this.ompareWinningNumbersCount(winningNumber);
+    const compareCount = this.compareWinningNumbersCount(winningNumber);
     const rank = this.setWinningRank(compareCount, bonusNumber);
     return rank;
   }
 
   compareWinningNumbersCount(winningNumbers) {
     const matchingNumbers = winningNumbers.filter((number) =>
-      this.#numbers.includes(number),
+      this.#numbers.includes(parseInt(number, 10)),
     );
     return matchingNumbers.length;
   }

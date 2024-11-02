@@ -15,6 +15,24 @@ class Validator {
     }
   }
 
+  static validateInputLotto(input) {
+    const numbers = input.split(',').map((num) => parseInt(num, 10));
+
+    if (numbers.length !== 6) {
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_LENGTH);
+    }
+
+    if (new Set(numbers).size !== numbers.length) {
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_DUPLICATE);
+    }
+
+    if (
+      !numbers.every((num) => Number.isInteger(num) && num >= 1 && num <= 45)
+    ) {
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_RANGE);
+    }
+  }
+
   static validateMoney(money) {
     const parsedMoney = parseInt(money, 10);
     if (

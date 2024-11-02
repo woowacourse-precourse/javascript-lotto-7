@@ -1,27 +1,25 @@
 import { Random } from '@woowacourse/mission-utils';
 
 class Ticket {
-  #tickets = 0;
-
-  #countTicek = [];
+  #tickets = [];
 
   constructor(money) {
-    this.#initTicketCount(money);
-    for (let i; i < this.#countTicek; i += 1) {
+    for (let i = 0; i < Math.floor(this.#initTicketCount(money)); i += 1) {
       this.#tickets.push(this.#purchaseTicket());
     }
   }
 
   #initTicketCount(money) {
-    this.#countTicek = money / 1000;
+    return money / 1000;
   }
 
   #purchaseTicket() {
-    return Random.pickUniqueNumbersInRange(1, 45, 6);
+    return Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
   }
 
   getTickets() {
-    return this.#tickets;
+    // 각 티켓을 정렬하여 반환
+    return this.#tickets.map((ticket) => ticket.sort((a, b) => a - b));
   }
 }
 
