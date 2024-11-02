@@ -12,6 +12,9 @@ class App {
         '5개 일치, 보너스 볼 일치 (30,000,000원) -',
         '6개 일치 (2,000,000,000원) -'
       ];
+      const MONEY = [
+        5000, 50000, 1500000, 30000000, 2000000000
+      ]
       let amount = await Console.readLineAsync(
         '구입금액을 입력해 주세요.\n'
       );
@@ -40,21 +43,28 @@ class App {
       );
       bonusNum = Number(bonusNum);
 
-      Console.print('\n당첨 통계\n---\n');
+      Console.print('\n당첨 통계\n---');
 
       let correctNumArray = [];
       lottoArray.map((value) => {
         correctNumArray.push(value.compare(answerNum, bonusNum));
       })
 
-      Console.print(correctNumArray);
+      let revenue = 0;
 
       for (let i = 0; i < CORRECT_NUMBER.length; i++) {
         let count = 0;
-        if (correctNumArray.includes(CORRECT_NUMBER[i]) != 0)
+        if (correctNumArray.includes(CORRECT_NUMBER[i]) != 0) {
           count = correctNumArray.filter(num => num == CORRECT_NUMBER[i]).length;
+          revenue += MONEY[i];
+        }
         Console.print(`${CORRECT_MESSAGE[i]} ${count}개`);
       }
+
+
+      let rate = (revenue / amount) * 100;
+      let roundedRate = parseFloat((rate).toFixed(2));
+      Console.print(`총 수익률은 ${roundedRate}%입니다.`)
 
     } catch (error) {
       throw new Error(error);
