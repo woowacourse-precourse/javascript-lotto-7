@@ -8,9 +8,13 @@ class LottoMachine {
 
   #winningNumbers;
 
+  #bonusNumber;
+
   constructor() {
     this.#amount = 0;
     this.#lottos = [];
+    this.#winningNumbers = 0;
+    this.#bonusNumber = 0;
   }
 
   get amount() {
@@ -23,6 +27,10 @@ class LottoMachine {
 
   get winningNumbers() {
     return this.#winningNumbers;
+  }
+
+  get bonusNumber() {
+    return this.#bonusNumber;
   }
 
   async start() {
@@ -101,18 +109,33 @@ class LottoMachine {
     this.#winningNumbers = inputNumbersArr;
   }
 
-  InputPurchaseAmountTestMethod() {
+  async #inputBonusNumber() {
+    const input =
+      await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.');
+    const bonusArr = [...this.#winningNumbers, Number(input)];
+    LottoMachine.#validateNoDuplicates(bonusArr);
+    this.#bonusNumber = Number(input);
+  }
+
+  inputPurchaseAmountTestMethod() {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('테스트코드에서만 접근가능');
     }
     return this.#inputPurchaseAmount();
   }
 
-  InputWinningNumbersTestMethod() {
+  inputWinningNumbersTestMethod() {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('테스트코드에서만 접근가능');
     }
     return this.#inputWinningNumbers();
+  }
+
+  inputBonusNumberTestMethod() {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('테스트코드에서만 접근가능');
+    }
+    return this.#inputBonusNumber();
   }
 }
 

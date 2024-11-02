@@ -18,9 +18,9 @@ class Lotto {
   }
 
   static #checkDuplicate(numbers) {
-    const LOTTO_LENGTH = 45;
-    const checked = Array(LOTTO_LENGTH + 1).fill(false);
-    for (let i = 0; i < LOTTO_LENGTH; i += 1) {
+    const TOTAL_LOTTO_CNT = 45;
+    const checked = Array(TOTAL_LOTTO_CNT + 1).fill(false);
+    for (let i = 0; i < 6; i += 1) {
       if (checked[numbers[i]]) {
         throw new Error('[ERROR] 로또 번호는 중복될 수 없습니다.');
       }

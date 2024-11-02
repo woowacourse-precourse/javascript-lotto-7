@@ -8,6 +8,15 @@ const readLineAsyncMock = (input) => {
     return Promise.resolve(input);
   });
 };
+
+const bonusNumberReadLineAsyncMock = (inputs) => {
+  MissionUtils.Console.readLineAsync = jest.fn();
+
+  inputs.reduce((acc, input) => {
+    return acc.mockReturnValueOnce(input);
+  }, MissionUtils.Console.readLineAsync);
+};
+
 /* eslint-disable max-lines-per-function */
 describe('로또 발매기 클래스 테스트', () => {
   beforeEach(() => {
@@ -25,27 +34,27 @@ describe('로또 발매기 클래스 테스트', () => {
       // when, then
       const lottoMachine = new LottoMachine();
       await expect(
-        lottoMachine.InputPurchaseAmountTestMethod(),
+        lottoMachine.inputPurchaseAmountTestMethod(),
       ).rejects.toThrow('[ERROR]');
     } else {
       // when
       const lottoMachine = new LottoMachine();
-      await lottoMachine.InputPurchaseAmountTestMethod();
+      await lottoMachine.inputPurchaseAmountTestMethod();
 
       // then
       expect(lottoMachine.amount).toBe(expected);
     }
   });
 
-  test('금액에 맞게 로또 생성 테스트', async () => {
+  test('금액에 맞는 로또 생성 테스트', async () => {
     // given
     const AMOUNT = 8000;
     readLineAsyncMock(AMOUNT);
+    const lottoMachine = new LottoMachine();
 
     // when
-    const lottoMachine = new LottoMachine();
     // 내부적으로 #generateLotto() 실행
-    await lottoMachine.InputPurchaseAmountTestMethod();
+    await lottoMachine.inputPurchaseAmountTestMethod();
 
     // then
     expect(lottoMachine.lottos.length).toBe(AMOUNT / 1000);
@@ -73,7 +82,7 @@ describe('로또 발매기 클래스 테스트', () => {
     // when
     const lottoMachine = new LottoMachine();
     // 내부적으로 #printLottos() 실행
-    await lottoMachine.InputPurchaseAmountTestMethod();
+    await lottoMachine.inputPurchaseAmountTestMethod();
 
     // then
     const logs = [
@@ -107,13 +116,32 @@ describe('로또 발매기 클래스 테스트', () => {
     if (expected instanceof Error) {
       // when, then
       await expect(
-        lottoMachine.InputWinningNumbersTestMethod(),
+        lottoMachine.inputWinningNumbersTestMethod(),
       ).rejects.toThrow('[ERROR]');
     } else {
       // when, then
 
-      await lottoMachine.InputWinningNumbersTestMethod();
+      await lottoMachine.inputWinningNumbersTestMethod();
       expect(lottoMachine.winningNumbers).toEqual(expected);
+    }
+  });
+
+  test.each([
+    ['1,2,3,4,5,6', 7, 7],
+    ['1,2,3,4,5,6', 6, new Error('[ERROR')],
+  ])('보너스번호 입력 메서드', async (input, bonusNumber, expected) => {
+    // given
+    bonusNumberReadLineAsyncMock([input, bonusNumber]);
+    const lottoMachine = new LottoMachine();
+    lottoMachine.inputWinningNumbersTestMethod();
+
+    if (expected instanceof Error) {
+      await expect(lottoMachine.inputBonusNumberTestMethod()).rejects.toThrow(
+        '[ERROR]',
+      );
+    } else {
+      await lottoMachine.inputBonusNumberTestMethod();
+      expect(lottoMachine.bonusNumber).toBe(expected);
     }
   });
 });
