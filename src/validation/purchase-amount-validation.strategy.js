@@ -14,25 +14,30 @@ class PurchaseAmountValidationStrategy extends ValidationStrategy {
   /** @type {string} */
   #purchaseAmount;
 
+  /** @type {(purchaseAmount: string) => number} */
+  #parse;
+
   static STRATEGY = Object.freeze({
     DIVISOR: 1000,
   });
 
   static ERROR_MESSAGE = Object.freeze({
     AMOUNT_CAN_NOT_BE_EMPTY: '[ERROR] 빈 값은 입력할 수 없어요',
-    AMOUNT_MUST_BE_POSITIVE_INTEGER: '[ERROR] 양의 정수만 입력할 수 있어요',
+    AMOUNT_MUST_BE_POSITIVE_INTEGER: '[ERROR] 구입 금액은 양의 정수만 입력할 수 있어요',
     AMOUNT_CAN_NOT_BE_ZERO: '[ERROR] 0은 입력할 수 없어요',
-    AMOUNT_MUST_BE_IN_MULTIPLES_OF_DIVISOR: `[ERROR] ${PurchaseAmountValidationStrategy.STRATEGY.DIVISOR} 단위로만 입력할 수 있어요`,
+    AMOUNT_MUST_BE_IN_MULTIPLES_OF_DIVISOR: `[ERROR] 구입 금액은 ${PurchaseAmountValidationStrategy.STRATEGY.DIVISOR} 단위로만 입력할 수 있어요`,
   });
 
   /**
    *
    * @param {string} purchaseAmount
+   * @param {(purchaseAmount: string) => number} parsePurchaseAmount
    */
-  constructor(purchaseAmount) {
+  constructor(purchaseAmount, parsePurchaseAmount) {
     super();
 
     this.#purchaseAmount = purchaseAmount;
+    this.#parse = parsePurchaseAmount;
   }
 
   /**
@@ -98,7 +103,7 @@ class PurchaseAmountValidationStrategy extends ValidationStrategy {
    */
   #validateParsedPurchaseAmount(validator) {
     return validator
-      .validate(Number(this.#purchaseAmount))
+      .validate(this.#parse(this.#purchaseAmount))
       .with(this.#isNotZero, {
         message: PurchaseAmountValidationStrategy.ERROR_MESSAGE.AMOUNT_CAN_NOT_BE_ZERO,
       })

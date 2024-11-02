@@ -1,5 +1,6 @@
 // @ts-check
 import PurchaseAmountValidationStrategy from '../validation/purchase-amount-validation.strategy.js';
+import WinningNumbersValidationStrategy from '../validation/winning-numbers-validation.strategy.js';
 import ValidationContext from '../validation/validation.context.js';
 
 import LotteryMachineModel from './lottery-machine.model.js';
@@ -26,11 +27,43 @@ class LotteryMachineService {
   /**
    *
    * @param {string} purchaseAmount
+   * @returns {number}
+   */
+  #parsePurchaseAmount(purchaseAmount) {
+    return Number(purchaseAmount);
+  }
+
+  /**
+   *
+   * @param {string} purchaseAmount
    */
   inputPurchaseAmount(purchaseAmount) {
-    this.#lotteryMachineValidator.validate(new PurchaseAmountValidationStrategy(purchaseAmount));
+    this.#lotteryMachineValidator.validate(
+      new PurchaseAmountValidationStrategy(purchaseAmount, this.#parsePurchaseAmount),
+    );
 
-    this.#lotteryMachineModel.setPurchaseAmount(Number(purchaseAmount));
+    this.#lotteryMachineModel.setPurchaseAmount(this.#parsePurchaseAmount(purchaseAmount));
+  }
+
+  /**
+   *
+   * @param {string} winningNumbers
+   * @returns {Array<number>}
+   */
+  #parseWinningNumbers(winningNumbers) {
+    return winningNumbers.split(',').map(Number);
+  }
+
+  /**
+   *
+   * @param {string} winningNumbers
+   */
+  inputWinningNumbers(winningNumbers) {
+    this.#lotteryMachineValidator.validate(
+      new WinningNumbersValidationStrategy(winningNumbers, this.#parseWinningNumbers),
+    );
+
+    this.#lotteryMachineModel.setWinningNumbers(this.#parseWinningNumbers(winningNumbers));
   }
 }
 
