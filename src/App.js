@@ -109,12 +109,28 @@ class App {
     return parseInt(bonusNumber);
   }
 
+  calculateReturnRate(logs, amount) {
+    const sum = logs.reduce((acc, cur) => {
+      if (cur.count > 0) {
+        acc += cur.prizeMoney;
+      }
+      return acc;
+    }, 0);
+
+    const returnRate = (sum / amount) * 100;
+
+    return Math.round(returnRate * 100) / 100;
+  }
+
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
     const amount = this.createLottoNumbers(purchaseAmount);
     const winningNumbers = await this.getWinningNumbers();
     const matchResult = this.getMatchResult(winningNumbers);
     const log = this.printLog(matchResult);
+    const returnRate = this.calculateReturnRate(matchResult, purchaseAmount);
+
+    Console.print(`총 수익률은 ${returnRate}%입니다.`);
   }
 }
 
