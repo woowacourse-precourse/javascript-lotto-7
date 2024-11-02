@@ -12,7 +12,7 @@ class Validation {
   }
 
   static isNumber(input) {
-    if (Number.isNaN(input) || input === null) {
+    if (Number.isNaN(input)) {
       throw new Error(ERROR_MESSAGE.notNumber);
     }
   }
