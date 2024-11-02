@@ -72,9 +72,23 @@ const validation = Object.freeze({
         throw new Error(ERRORMESSAGE.ISNOTNUMBER);
     },
 
+    /**
+     *
+     * @param {Array<string>} numbers
+     */
     isNotInteger: function (numberArr) {
       if (numberArr.some((number) => Number(number) % 1 !== 0))
         throw new Error(ERRORMESSAGE.ISNOTINTEGER);
+    },
+
+    /**
+     *
+     * @param {Array<string>} numbers
+     */
+    isNotDuplicate: function (numberArr) {
+      const numberSet = new Set(numberArr);
+      if (numberArr.length !== numberSet.size())
+        throw new Error(ERRORMESSAGE.ISNOTDUPLICATE);
     },
   },
 });

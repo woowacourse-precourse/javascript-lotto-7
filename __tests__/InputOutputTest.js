@@ -67,4 +67,12 @@ describe('입력문에 대한 테스트', () => {
   ])('당첨번호는 정수여야 합니다.', (numberArr) => {
     expect(() => validation.winningNumber.isNotInteger(numberArr)).toThrow();
   });
+
+  test('당첨 번호는 중복되면 안 됩니다.', () => {
+    expect(() => {
+      validation.winningNumber
+        .isNotDuplicate(['1', '2', '2', '3', '4', '5'])
+        .toThrow();
+    });
+  });
 });
