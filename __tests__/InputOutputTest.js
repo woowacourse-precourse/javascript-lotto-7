@@ -44,4 +44,11 @@ describe('입력문에 대한 테스트', () => {
   ])('당첨번호의 범위는 1~45이다', (numberArr) => {
     expect(() => validation.winningNumber.isNotInRange(numberArr)).toThrow();
   });
+
+  test.each([
+    ['1', '2', 's', 't', '5', '6'],
+    ['@', '2', '3', '6', 'TE', '7'],
+  ])('당첨번호는 숫자여야 합니다.', (numberArr) => {
+    expect(() => validation.winningNumber.isNotNumber(numberArr)).toThrow();
+  });
 });

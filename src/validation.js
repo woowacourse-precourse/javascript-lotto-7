@@ -54,6 +54,15 @@ const validation = Object.freeze({
       if (numberArr.some((number) => Number(number) < 1 || Number(number) > 45))
         throw new Error(ERRORMESSAGE.ISNOTINRANGE);
     },
+
+    /**
+     *
+     * @param {Array<string>} numbers
+     */
+    isNotNumber: function (numberArr) {
+      if (numberArr.some((number) => isNaN(Number(number))))
+        throw new Error(ERRORMESSAGE.ISNOTNUMBER);
+    },
   },
 });
 
