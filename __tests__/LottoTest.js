@@ -55,3 +55,79 @@ describe('매치 계산 기능 테스트', () => {
     expect(lotto.calculateWinningLotto(winningNumbers)).toEqual(0);
   });
 });
+
+describe('등수 계산 기능 테스트', () => {
+  const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+
+  test('6개 매치 시, 1등 반환 검사', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    const bonusNumber = 7;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '1'
+    );
+  });
+
+  test('5개 매치 보너스 매치 시, 2등 반환 검사', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 7];
+    const bonusNumber = 6;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '2'
+    );
+  });
+
+  test('5개 매치 시, 3등 반환 검사', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 8];
+    const bonusNumber = 7;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '3'
+    );
+  });
+
+  test('4개 매치 시, 4등 반환 검사', () => {
+    const winningNumbers = [1, 2, 3, 4, 8, 9];
+    const bonusNumber = 10;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '4'
+    );
+  });
+
+  test('3개 매치 시, 5등 반환 검사', () => {
+    const winningNumbers = [1, 2, 3, 8, 9, 10];
+    const bonusNumber = 11;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '5'
+    );
+  });
+
+  test('2개 매치 시, 0등 반환 검사', () => {
+    const winningNumbers = [1, 2, 7, 8, 9, 10];
+    const bonusNumber = 11;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '0'
+    );
+  });
+
+  test('1개 매치 시, 0등 반환 검사', () => {
+    const winningNumbers = [1, 12, 7, 8, 9, 10];
+    const bonusNumber = 11;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '0'
+    );
+  });
+
+  test('0개 매치 시, 0등 반환 검사', () => {
+    const winningNumbers = [12, 13, 7, 8, 9, 10];
+    const bonusNumber = 11;
+
+    expect(lotto.calculateLottoResult(winningNumbers, bonusNumber)).toEqual(
+      '0'
+    );
+  });
+});
