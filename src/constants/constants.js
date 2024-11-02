@@ -20,7 +20,7 @@ export const ERROR_MESSAGES = {
 export const PROMPTS = {
   PURCHASE_AMOUNT: "구입금액을 입력해 주세요.\n",
   WINNING_NUMBERS: "\n당첨 번호를 입력해 주세요.\n",
-  BONUS_NUMBER: "보너스 번호를 입력해 주세요.\n",
+  BONUS_NUMBER: "\n보너스 번호를 입력해 주세요.\n",
 };
 
 export const LOTTO = {
@@ -40,7 +40,7 @@ export const LOTTO = {
 export const MESSAGES = {
   PURCHASED_COUNT: (count) => `\n${count}개를 구매했습니다.`,
   LOTTO_NUMBERS: (numbers) => `[${numbers.join(", ")}]`,
-  RESULT_STATISTICS: "당첨 통계\n---",
+  RESULT_STATISTICS: "\n당첨 통계\n---\n",
   MATCH_COUNT: (match, amount, count) =>
     `${match}개 일치 (${amount.toLocaleString()}원) - ${count}개`,
   BONUS_MATCH_COUNT: (amount, count) =>
