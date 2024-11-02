@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../lib/constants';
+import { ERROR_MESSAGE } from '../lib/constants.js';
 import { Lotto } from '.';
 
 describe('Lotto', () => {
@@ -27,11 +27,9 @@ describe('Lotto', () => {
 
     describe('checkWinning', () => {
       test('로또 번호가 0개에서 2개 사이 당첨 될 경우 undefined를 반환한다.', () => {
-        expect(
-          lotto.checkWinning([11, 12, 13, 14, 15, 16], 20),
-        ).toBeUndefined();
-        expect(lotto.checkWinning([1, 11, 12, 13, 14, 15], 20)).toBeUndefined();
-        expect(lotto.checkWinning([1, 2, 11, 12, 13, 14], 20)).toBeUndefined();
+        expect(lotto.checkWinning([11, 12, 13, 14, 15, 16], 20)).toBeNull();
+        expect(lotto.checkWinning([1, 11, 12, 13, 14, 15], 20)).toBeNull();
+        expect(lotto.checkWinning([1, 2, 11, 12, 13, 14], 20)).toBeNull();
       });
       test('로또 번호가 3개 당첨 될 경우 5를 반환한다.', () => {
         expect(lotto.checkWinning([1, 2, 3, 11, 12, 13], 20)).toBe(5);

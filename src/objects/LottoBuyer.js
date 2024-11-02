@@ -1,7 +1,7 @@
 import LottoShop from './LottoShop.js';
-import { WINNING_PRICE_MAP } from '../lib/constants.js';
 import { calculateRateOfReturn } from '../lib/utils.js';
 import { InputManager, OutputManager } from '../helpers/index.js';
+import Lotto from './Lotto.js';
 
 class LottoBuyer {
   #purchasePrice;
@@ -34,7 +34,7 @@ class LottoBuyer {
 
   #sumLottoWinningMoney() {
     return [...this.#winningLottoMap.entries()].reduce(
-      (sum, [rank, count]) => WINNING_PRICE_MAP[rank] * count + sum,
+      (sum, [rank, count]) => Lotto.getPrizeMoney(rank) * count + sum,
       0,
     );
   }

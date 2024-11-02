@@ -1,4 +1,8 @@
-import { ERROR_MESSAGE, LOTTO_INFORMATIONS } from '../lib/constants.js';
+import {
+  ERROR_MESSAGE,
+  LOTTO_INFORMATIONS,
+  LOTTO_RANK_MAP,
+} from '../lib/constants.js';
 import {
   getIsAllItemsUnique,
   getIsArrayLengthMatch,
@@ -28,11 +32,22 @@ class Lotto {
   }
 
   static #calculateRank(winningCount, isBonusMatch) {
-    return LOTTO_INFORMATIONS.find(
-      (rankObject) =>
-        rankObject.winningCount === winningCount &&
-        rankObject.isBonusMatch === isBonusMatch,
-    )?.rank;
+    const rankData = Object.entries(LOTTO_RANK_MAP).find(
+      ([_, info]) =>
+        info.winningCount === winningCount &&
+        info.isBonusMatch === isBonusMatch,
+    );
+
+    if (rankData) return +rankData[0];
+    return null;
+  }
+
+  static getRankInfo(rank) {
+    return LOTTO_RANK_MAP[rank];
+  }
+
+  static getPrizeMoney(rank) {
+    return this.getRankInfo(rank)?.prizeMoney ?? 0;
   }
 
   #sortByAscending() {

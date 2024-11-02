@@ -1,5 +1,5 @@
-import { MOCK_DATA_1 } from '../lib/mock/data';
-import { getLogSpy, mockQuestions, mockRandoms } from '../lib/mock/utils';
+import { MOCK_DATA_1 } from '../lib/mock/data.js';
+import { getLogSpy, mockQuestions, mockRandoms } from '../lib/mock/utils.js';
 import { LottoBuyer, LottoCompany, LottoShop } from '.';
 
 describe('LottoBuyer', () => {

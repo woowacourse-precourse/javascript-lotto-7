@@ -1,9 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import {
-  OUTPUT_MESSAGE,
-  LOTTO_INFORMATIONS,
-  WINNING_PRICE_MAP,
-} from '../lib/constants.js';
+import { LOTTO_RANK_MAP, OUTPUT_MESSAGE } from '../lib/constants.js';
 
 class OutputManager {
   static print(message) {
@@ -26,11 +22,15 @@ class OutputManager {
   static printWinningStatics(rankCountMap) {
     this.print(OUTPUT_MESSAGE.WINNING_STATICS);
 
-    LOTTO_INFORMATIONS.forEach(({ winningCount, rank }) => {
+    Object.entries(LOTTO_RANK_MAP).forEach(([rawRank, info]) => {
+      const rank = +rawRank;
+      const { winningCount, prizeMoney } = info;
+      const winningLottoCount = rankCountMap.get(rank);
+
       const bonusNumberString = this.#getBonusNumberString(rank);
-      const winningLottoOutput = `${winningCount}개 일치${bonusNumberString} (${WINNING_PRICE_MAP[
-        rank
-      ].toLocaleString('ko-KR')}원) - ${rankCountMap.get(rank)}개`;
+      const winningLottoOutput = `${winningCount}개 일치${bonusNumberString} (${prizeMoney.toLocaleString(
+        'ko-KR',
+      )}원) - ${winningLottoCount}개`;
 
       this.print(winningLottoOutput);
     });
