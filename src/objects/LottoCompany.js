@@ -11,18 +11,12 @@ class LottoCompany {
   }
 
   checkWinningLottos(lottos) {
-    const lottosResult = new LottosResult();
-
-    lottos.forEach((lotto) => {
+    return lottos.reduce((lottoResult, lotto) => {
       const rank = lotto.checkWinning(this.#winningNumbers, this.#bonusNumber);
-      lottosResult.addWinning(rank);
-    });
+      lottoResult.addWinning(rank);
 
-    return lottosResult;
-  }
-
-  static #generateBlankLottos(keyArray) {
-    return new Map(keyArray.map((key) => [key, 0]));
+      return lottoResult;
+    }, new LottosResult());
   }
 }
 
