@@ -91,6 +91,10 @@ class LottoGameService {
     }
     return totalPrize;
   }
+
+  getPayoutPercentage(userMoney, totalPrize) {
+    return (totalPrize / userMoney) * 100;
+  }
 }
 
 export default LottoGameService;
