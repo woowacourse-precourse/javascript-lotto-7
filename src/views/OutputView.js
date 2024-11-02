@@ -7,7 +7,7 @@ class OutputView {
     const lottery = input / MagicNumber.PURCHASE_UNIT;
     Console.print(`\n${lottery}개를 구매했습니다.`);
     for (let i = 0; i < lottery; i += 1) {
-      Console.print(drawLottery());
+      Console.print(drawLottery().draw);
     }
   }
 }
