@@ -47,13 +47,16 @@ function generateLottos(amount) {
 // 처리 모듈
 
 function parseWinningNums(input) {
-  return input.split(',').map((e) => Number(e));
+  return input
+    .split(',')
+    .map((e) => Number(e))
+    .sort((a, b) => a - b);
 }
 
 // 출력 모듈
 
 function printLottos(lottos) {
-  Console.print(`\n${lottos.length}개를 구매했습니다.\n`);
+  Console.print(`\n${lottos.length}개를 구매했습니다.`);
   lottos.forEach((el) => {
     Console.print(el);
   });
