@@ -19,20 +19,20 @@ class App {
     const lottoCount = this.#money / LOTTO_CONSTANTS.price;
 
     const lottoNumberPromises = Array.from({ length: lottoCount }, async () => {
-      const randomNumber = this.getSortedRandomNumber();
+      const randomNumber = await this.getSortedRandomNumber();
       return new Lotto(randomNumber);
     });
     const lottoNumbers = await Promise.all(lottoNumberPromises);
     return lottoNumbers;
   }
 
-  getSortedRandomNumber() {
-    const randomNumber = pickUniqueNumbersInRange(
+  async getSortedRandomNumber() {
+    const randomNumber = await pickUniqueNumbersInRange(
       LOTTO_CONSTANTS.minLottoNumber,
       LOTTO_CONSTANTS.maxLottoNumber,
       LOTTO_CONSTANTS.length
     );
-    return randomNumber.sort();
+    return randomNumber.sort((a, b) => a - b);
   }
 }
 
