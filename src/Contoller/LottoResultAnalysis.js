@@ -7,6 +7,15 @@ class LottoResultAnalysis {
     this.winningStatus = new Array(6).fill(0);
     this.rewardSum = 0;
   }
+  winningStatusAnalaysis(lottoTickets) {
+    lottoTickets.forEach((ticket) => {
+      const rank = this.checkRank(ticket);
+      this.updateWinningStatus(rank);
+    });
+    const winningStatus = this.winningStatus;
+    const profitRate = this.calculateProfitRate(lottoTickets);
+    return { winningStatus, profitRate };
+  }
 
   checkRank(lottoTicket) {
     const matchedWinningCount = lottoTicket.countMatchedWinningNumbers(
