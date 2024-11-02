@@ -1,6 +1,5 @@
 import { CONSTANT_LOTTO, EMPTY_STRING, NUMBERS } from "./util/const.js";
 import ERROR_MESSAGES from "./util/messages/error-message.js";
-import REGEX from "./util/regex.js";
 import { isNotANumber, isOutOfRange } from "./util/util.js";
 
 class Validate {
@@ -17,8 +16,6 @@ class Validate {
     this.#LottoNumbersType(lottoNumbers);
     this.#LottoNumbersOutOfRange(lottoNumbers);
     this.#LottoNumbersDuplicate(lottoNumbers);
-    this.#LottoNumbersDelimiterAtStartOrEnd(lottoNumbers);
-    this.#LottoNumbersDelimiterTwice(lottoNumbers);
   }
 
   validateBonusNumber(bonusNumber, lottoNumbers) {
@@ -72,16 +69,6 @@ class Validate {
   #LottoNumbersDuplicate(lottoNumbers) {
     if (new Set(lottoNumbers.split(",")).size !== CONSTANT_LOTTO.LENGTH) {
       throw new Error(ERROR_MESSAGES.LOTTO.DUPLICATED);
-    }
-  }
-  #LottoNumbersDelimiterAtStartOrEnd(lottoNumbers) {
-    if (REGEX.DELIMITER_START_OR_END.test(lottoNumbers)) {
-      throw new Error(ERROR_MESSAGES.LOTTO.DELIMITER.START_OR_END);
-    }
-  }
-  #LottoNumbersDelimiterTwice(lottoNumbers) {
-    if (REGEX.CONSECUTIVE_DELIMITERS.test(lottoNumbers)) {
-      throw new Error(ERROR_MESSAGES.LOTTO.DELIMITER.CONSECUTIVE);
     }
   }
 

@@ -28,14 +28,6 @@ const ERROR_MESSAGES = {
     DUPLICATED: Object.freeze(
       `${DEFAULT_ERROR_MESSAGE} 로또 번호는 중복되지 않아야 합니다.`
     ),
-    DELIMITER: {
-      CONSECUTIVE: Object.freeze(
-        `${DEFAULT_ERROR_MESSAGE} 로또 번호 사이에는 쉼표(,)가 연속해서 나올 수 없습니다.`
-      ),
-      START_OR_END: Object.freeze(
-        `${DEFAULT_ERROR_MESSAGE} 로또 번호는 쉼표(,)로 시작하거나 끝나면 안됩니다.`
-      ),
-    },
   },
   BONUS: {
     EMPTY: Object.freeze(
