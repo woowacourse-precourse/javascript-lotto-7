@@ -29,6 +29,9 @@ class App {
       if (!Number.isInteger(number)) {
         throw new Error("[ERROR]: 정수가 아닌 수는 입력할 수 없습니다.");
       }
+      if (number < 1 || number > 45) {
+        throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
+      }
     });
   }
 }
