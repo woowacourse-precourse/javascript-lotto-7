@@ -5,30 +5,30 @@ import WinningLotto from './WinningLotto.js';
 
 class WinningLottoMachine {
   async createWinningLotto() {
-    const winningNumbers = await WinningLottoMachine.#getValidWinningNums();
-    const winningLotto = new WinningLotto(winningNumbers);
-    const bonusNumber = await WinningLottoMachine.#getValidBonusNums(winningNumbers);
-    winningLotto.setBonusNumber(bonusNumber);
+    const winningLotto = await WinningLottoMachine.#getValidWinningLotto();
+    await WinningLottoMachine.#setValidBonusNums(winningLotto);
     return winningLotto;
   }
 
-  static async #getValidWinningNums() {
+  static async #getValidWinningLotto() {
     while (true) {
       try {
         const winningNumbers = await InputView.getUserInput('당첨 번호를 입력해 주세요.\n');
-        return WinningLottoMachine.#validateWinningNumbers(winningNumbers);
+        const validNumbers = WinningLottoMachine.#validateWinningNumbers(winningNumbers);
+        return new WinningLotto(validNumbers);
       } catch (error) {
         OutputView.printError(error);
       }
     }
   }
 
-  static async #getValidBonusNums(winningNumbers) {
+  static async #setValidBonusNums(winningLotto) {
     while (true) {
       try {
         const bonusNumber = await InputView.getUserInput('보너스 번호를 입력해 주세요.\n');
-        WinningLottoMachine.#validateBonusNumber(bonusNumber, winningNumbers);
-        return bonusNumber;
+        WinningLottoMachine.#validateBonusNumber(bonusNumber);
+        winningLotto.setBonusNumber(parseInt(bonusNumber, 10));
+        return;
       } catch (error) {
         OutputView.printError(error);
       }
@@ -45,21 +45,13 @@ class WinningLottoMachine {
     return WinningLottoMachine.#splitByComma(winningNumbers);
   }
 
-  static #validateBonusNumber(bonusNumber, winningNumbers) {
+  static #validateBonusNumber(bonusNumber) {
     Validator.checkIsNull(bonusNumber);
     Validator.checkRegexPattern(bonusNumber, /^\d+$/, '보너스 번호는 숫자만 입력 가능합니다.');
-    Validator.checkValidRange(bonusNumber, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
-    WinningLottoMachine.#checkDuplicateBonusNum(bonusNumber, winningNumbers);
   }
 
   static #splitByComma(inputString) {
     return inputString.split(',');
-  }
-
-  static #checkDuplicateBonusNum(bonusNumber, winningNumbers) {
-    if (winningNumbers.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
-    }
   }
 }
 

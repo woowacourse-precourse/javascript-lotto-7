@@ -10,12 +10,12 @@ class WinningLotto extends Lotto {
   }
 
   setBonusNumber(bonusNumber) {
-    this.#validateBonusNumber(bonusNumber, this.getNumbers());
+    this.#validateBonusNumber(bonusNumber);
     this.#bonusNumber = bonusNumber;
   }
 
-  #validateBonusNumber(bonusNumber, numbers) {
-    this.#checkDuplicateBonusNum(bonusNumber, numbers);
+  #validateBonusNumber(bonusNumber) {
+    this.#checkDuplicateBonusNum(bonusNumber);
     Validator.checkValidRange(bonusNumber, 1, 45, '로또 번호는 1부터 45 사이의 숫자여야 합니다.');
   }
 

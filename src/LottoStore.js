@@ -66,6 +66,10 @@ class LottoStore {
     lottoBundle.generateLottos(this.#lottoCount);
     return lottoBundle;
   }
+
+  getAmount() {
+    return this.#amount;
+  }
 }
 
 export default LottoStore;
