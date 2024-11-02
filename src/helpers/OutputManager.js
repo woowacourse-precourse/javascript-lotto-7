@@ -7,8 +7,7 @@ class OutputManager {
   }
 
   static printPurchaseHistory(lottos) {
-    const purchasedLottosCount = lottos.length;
-    const purchasedLottosCountOutput = `${purchasedLottosCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`;
+    const purchasedLottosCountOutput = `${lottos.length}${OUTPUT_MESSAGE.PURCHASE_COUNT}`;
 
     this.print(purchasedLottosCountOutput);
 

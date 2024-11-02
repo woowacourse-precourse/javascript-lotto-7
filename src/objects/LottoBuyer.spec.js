@@ -3,16 +3,14 @@ import { getLogSpy, mockQuestions, mockRandoms } from '../lib/mock/utils.js';
 import { LottoBuyer, LottoCompany, LottoShop } from '.';
 
 describe('LottoBuyer', () => {
-  const lottoBuyer = new LottoBuyer();
-  const lottoShop = new LottoShop();
-  const lottoCompany = new LottoCompany();
-
   beforeEach(() => {
     jest.restoreAllMocks();
   });
 
   describe('purchaseLottos', () => {
     test('사용자가 구매 금액을 입력하면, 로또를 만들어 결과를 출력한다.', async () => {
+      const lottoBuyer = new LottoBuyer();
+      const lottoShop = new LottoShop();
       const logSpy = getLogSpy();
 
       mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
@@ -30,17 +28,18 @@ describe('LottoBuyer', () => {
     test('사용자가 로또 회사에 가서 당첨된 로또 결과를 반환한다.', async () => {
       const logSpy = getLogSpy();
 
-      lottoCompany.checkWinningLottos = jest.fn();
-      lottoCompany.checkWinningLottos.mockImplementation(
-        () =>
-          new Map([
-            [1, 0],
-            [2, 0],
-            [3, 0],
-            [4, 0],
-            [5, 1],
-          ]),
-      );
+      const lottoBuyer = new LottoBuyer();
+      const lottoCompany = new LottoCompany();
+
+      mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
+      mockQuestions([
+        MOCK_DATA_1.INPUT.PURCHASE_PRICE,
+        MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+        MOCK_DATA_1.INPUT.BONUS_MUMBER,
+      ]);
+
+      await lottoBuyer.purchaseLottos();
+      await lottoCompany.draw();
 
       lottoBuyer.checkWinningLotto(lottoCompany);
 

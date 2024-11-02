@@ -44,7 +44,6 @@ export const MOCK_DATA_1 = {
 
   RESULT: {
     RANKS: {
-      0: 7,
       1: 0,
       2: 0,
       3: 0,
