@@ -1,12 +1,14 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import PurchasedLotto from "./PurchasedLotto.js";
 import LottoService from "./LottoService.js";
+import Validator from "./utils/Validator.js";
 class App {
   async run() {
     try {
       const purchaseAmount = await MissionUtils.Console.readLineAsync(
         "구입금액을 입력해 주세요.\n"
       );
+      Validator.validatePurchaseAmount(purchaseAmount);
       const lottoTickes = new PurchasedLotto(purchaseAmount);
 
       MissionUtils.Console.print(

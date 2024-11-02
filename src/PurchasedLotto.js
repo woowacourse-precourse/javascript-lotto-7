@@ -1,17 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import errorMessages from "./constants/errorMessages.js";
 import Lotto from "./Lotto.js";
+import { LOTTO_PRICE_UNIT } from "./constants/lottoConstants.js";
 
 class PurchasedLotto {
   constructor(purchaseAmount) {
-    this.#validatePurchaseAmount(purchaseAmount);
-    this.numberOfTickets = purchaseAmount / 1000;
+    this.numberOfTickets = purchaseAmount / LOTTO_PRICE_UNIT;
     this.tickets = this.#getTicketsArray(this.numberOfTickets);
-  }
-
-  #validatePurchaseAmount(purchaseAmount) {
-    if (purchaseAmount % 1000 !== 0)
-      throw new Error(errorMessages.INVALID_AMOUNT);
   }
 
   #getTicketsArray(numberOfTickets) {

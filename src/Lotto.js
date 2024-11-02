@@ -1,4 +1,5 @@
 import errorMessages from "./constants/errorMessages.js";
+import Validator from "./utils/Validator.js";
 
 class Lotto {
   #numbers;
@@ -9,27 +10,9 @@ class Lotto {
   }
 
   #validate(numbers) {
-    this.#validateNumsLength(numbers);
-    this.#validateNumsInRange(numbers);
-    this.#validateNumsDuplicate(numbers);
-  }
-
-  #validateNumsLength(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error(errorMessages.INVALID_NUMBERS_LENGTH);
-    }
-  }
-
-  #validateNumsInRange(numbers) {
-    numbers.map((num) => {
-      if (1 > num || num > 45)
-        throw new Error(errorMessages.INVALID_NUMBERS_RANGE);
-    });
-  }
-
-  #validateNumsDuplicate(numbers) {
-    if (new Set(numbers).size !== numbers.length)
-      return new Error(errorMessages.INVALID_DUPLICATE_NUMBER);
+    Validator.validateNumsLength(numbers);
+    Validator.validateNumsInRange(numbers);
+    Validator.validateNumsDuplicate(numbers);
   }
 
   getNumbers() {
