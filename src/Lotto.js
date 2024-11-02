@@ -21,6 +21,11 @@ class Lotto {
     if (allNumbersCheck !== true) {
       throw new Error('[ERROR] 모든 로또 번호가 숫자가 아닙니다.');
     }
+
+    const rangeCheck = numbers.every((element) => element > 0 && element < 46);
+    if (rangeCheck !== true) {
+      throw new Error('[ERROR] 로또 번호가 1부터 45까지가 아닙니다.');
+    }
   }
 }
 
