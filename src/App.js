@@ -1,11 +1,8 @@
 import Lotto from './Lotto.js';
-import { scan } from './utils/scanner.js';
-import { getWin } from './WinLotto/getWin.js';
-import { printResult } from './WinLotto/getStatistics.js';
-import { Console } from '@woowacourse/mission-utils';
 import Lottos from './Lottos.js';
 import WinningLotto from './WinningLotto.js';
 import Winning from './Winning.js';
+import Statistics from './Statistics.js';
 
 class App {
   async run() {
@@ -24,9 +21,7 @@ class App {
       winningLotto.winningLottoNumber
     );
 
-    Console.print(gradeArray);
-    // const gradeArr = getWin(lottos, lotto, Number(bonusNumber));
-    // printResult(gradeArr, lottoAmount * 1000);
+    new Statistics(gradeArray.gradeArray, lottos.lottoAmount * 1000);
   }
 }
 
