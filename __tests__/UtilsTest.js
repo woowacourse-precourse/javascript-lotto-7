@@ -17,4 +17,17 @@ describe('Utils 함수 테스트', () => {
 
     expect(parsedInput).toBe(expected);
   });
+
+  test.each([
+    ['문자열', ['문자열']],
+    ['0, 1, 2, 3', ['0', ' 1', ' 2', ' 3']],
+    ['0,1,2,3,4', ['0', '1', '2', '3', '4']],
+  ])(
+    '문자열을 separator로 분리하여 배열로 파싱하는 함수 테스트',
+    (inputs, expected) => {
+      const parsedInput = Utils.parsingToArray(inputs);
+
+      expect(parsedInput).toEqual(expected);
+    },
+  );
 });
