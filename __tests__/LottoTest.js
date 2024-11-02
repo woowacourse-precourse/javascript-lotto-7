@@ -40,7 +40,7 @@ describe('로또 클래스 테스트', () => {
   });
 
   test('로또 번호는 오름차순으로 정렬되어야 한다.', () => {
-    const lotto = new Lotto([6, 5, 4, 3, 1, 2]);
-    expect(lotto.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
+    const lotto = new Lotto([45, 5, 4, 3, 1, 2]);
+    expect(lotto.getNumbers()).toEqual([1, 2, 3, 4, 5, 45]);
   });
 });

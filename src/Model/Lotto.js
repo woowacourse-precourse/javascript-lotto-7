@@ -5,7 +5,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers.sort();
+    this.#numbers = numbers.sort((a, b) => a - b);
   }
 
   #validate(numbers) {
@@ -18,7 +18,7 @@ class Lotto {
     if (Rules.isDuplicatedValue(numbers)) {
       throw new Error('[ERROR] 로또 번호는 중복이 없어야 합니다.');
     }
-    if (Rules.isNotRangedValue(numbers)) {
+    if (Rules.isNotRangedValueIn(numbers)) {
       throw new Error('[ERROR] 로또 번호는 1~45 사이의 숫자이어야 합니다.');
     }
   }
