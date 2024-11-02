@@ -51,4 +51,32 @@ describe("로또 클래스 테스트", () => {
     expect(lotto.contains(6)).toBe(true);
     expect(lotto.contains(7)).toBe(false);
   });
+
+  test("빈 배열이 입력되면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("로또 번호에 null이나 undefined가 포함되면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, null, 4, 5]);
+    }).toThrow("[ERROR]");
+    expect(() => {
+      new Lotto([1, 2, 3, undefined, 4, 5]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("로또 번호에 문자열이 포함되면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, '4', 5, 6]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("음수가 포함된 로또 번호는 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, -1, 4, 5]);
+    }).toThrow("[ERROR]");
+  });
+
 });
