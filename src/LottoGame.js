@@ -78,11 +78,19 @@ class LottoGame {
 
   displayResults(results) {
     for (let i = 0; i < LOTTO_PRIZE.length; i++) {
-      Console.print(
-        `${LOTTO_PRIZE[i].MATCH_NUMBER}개 일치 (${LOTTO_PRIZE[
-          i
-        ].PRIZE.toLocaleString()})원 -  ${results[i]}개`
-      );
+      const outputCountString = `${LOTTO_PRIZE[i].MATCH_NUMBER}개 일치`;
+      const outputBonusString = ', 보너스 볼 일치';
+      const outputPrizeString = ` (${LOTTO_PRIZE[
+        i
+      ].PRIZE.toLocaleString()}원) - ${results[i]}개`;
+
+      if (i === 3) {
+        Console.print(
+          outputCountString + outputBonusString + outputPrizeString
+        );
+      } else {
+        Console.print(outputCountString + outputPrizeString);
+      }
     }
   }
 }

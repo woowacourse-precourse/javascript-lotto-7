@@ -6,7 +6,7 @@ import LottoGame from './LottoGame.js';
 class App {
   async run() {
     const purchaseAmount = await Console.readLineAsync(
-      '구입금액을 입력해주세요.\n'
+      '구입금액을 입력해 주세요.\n'
     );
 
     const lottoManager = new LottoGenerator(purchaseAmount);
@@ -16,7 +16,9 @@ class App {
     lottoManager.createLotto();
 
     const myLottos = lottoManager.getLottoNumbers();
-    myLottos.forEach((myLotto) => Console.print(myLotto));
+    myLottos.forEach((myLotto) =>
+      Console.print(`[${myLotto.toString().split(',').join(', ')}]`)
+    );
 
     const winningNumbersInput = await Console.readLineAsync(
       '\n당첨 번호를 입력해 주세요.\n'
