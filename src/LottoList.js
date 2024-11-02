@@ -3,9 +3,29 @@ import Lotto from "./Lotto.js";
 class LottoList{
     numitem;
     lottolist=[];
+    winnubmers=[];
+    bonusnubmer = [];
     constructor(budget) {
         this.numitem = this.buy(budget);
         this.getlotto();
+    }
+
+    checkwinnumbers(num){
+        if(isNaN(num))
+            this.makeError("당첨번호는 숫자입니다.");
+
+        if(num<0 || num>45)
+            this.makeError("당첨번호는 1~45 값입니다.");
+
+    }
+    async setwinnumbers(){
+        let numsInput = await Console.readLineAsync("당첨 번호를 입력해 주세요.");
+        this.winnubmers = numsInput.split(',');
+        if(this.winnubmers.length!==6)
+            this.makeError("당첨번호는 6개 입니다");
+        this.winnubmers.forEach(num=>{checkwinnumbers(num);})
+        this.bonusnubmer = await Console.readLineAsync("보너스 번호를 입력해 주세요.");
+        this.checkwinnumbers(this.bonusnubmer);
     }
 
     printbuyotto(){

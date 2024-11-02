@@ -25,6 +25,33 @@ describe("LottoList 테스트", () => {
     }).toThrow("[Error] : 금액은 1000원 단위입니다");
   });
 
-
+  test("당첨 번호 테스트1 : 문자열 입력", () => {
+    expect(() => {
+      let ll = new LottoList(1000);
+      ll.winnubmers = [8, 21, 23, 41, "string"];
+      ll.winnubmers.forEach(num=>{ll.checkwinnumbers(num);})
+    }).toThrow("[Error] : 당첨번호는 숫자입니다.");
+  });
+  test("당첨 번호 테스트2 : 범위 밖 입력", () => {
+    expect(() => {
+      let ll = new LottoList(1000);
+      ll.winnubmers = [8, 21, 23, 41, 100];
+      ll.winnubmers.forEach(num=>{ll.checkwinnumbers(num);})
+    }).toThrow("[Error] : 당첨번호는 1~45 값입니다.");
+  });
+  test("보너스 번호 테스트1: 범위 밖 입력", () => {
+    expect(() => {
+      let ll = new LottoList(1000);
+      ll.bonusnubmer = 100;
+      ll.checkwinnumbers(ll.bonusnubmer);
+    }).toThrow("[Error] : 당첨번호는 1~45 값입니다.");
+  });
+  test("당첨 번호 테스트2 : 문자열 입력", () => {
+    expect(() => {
+      let ll = new LottoList(1000);
+      ll.bonusnubmer = "string"
+      ll.checkwinnumbers(ll.bonusnubmer);
+    }).toThrow("[Error] : 당첨번호는 숫자입니다.");
+  });
 
 });

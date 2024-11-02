@@ -8,7 +8,7 @@ class App {
   async run() {
     let budget = await Console.readLineAsync(informmessage);
     ll = new LottoList(budget);
-    ll.printbuyotto();
+
   }
 }
 
