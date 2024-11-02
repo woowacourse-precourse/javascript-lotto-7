@@ -20,6 +20,10 @@ class Input {
 		if (INPUT_NUMBER % LOTTO_MONEY) {
 			throw new Error(ERROR_MESSAGE.WRONG_UNIT);
 		}
+
+		if (Number.isNaN(INPUT_NUMBER)) {
+			throw new Error(ERROR_MESSAGE.WRONG_CHARACTER);
+		}
 	}
 
 	async getWinningNumber() {
