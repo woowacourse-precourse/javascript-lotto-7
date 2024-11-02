@@ -24,7 +24,7 @@ class LottoGame {
 
   async startGame() {
     // 로또 구매 금액 입력
-    await errorHandler(this.#purchaseLotto.bind(this));
+    await errorHandler(async () => await this.#purchaseLotto());
 
     // 로또 구매 개수 계산
     this.#lottoCount = calculateLottoCount(this.#amountModel.getAmount());

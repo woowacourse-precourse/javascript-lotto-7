@@ -5,7 +5,7 @@ const errorHandler = async (func) => {
     await func();
   } catch (error) {
     Console.print(error.message);
-    errorHandler(func);
+    await errorHandler(func);
   }
 };
 
