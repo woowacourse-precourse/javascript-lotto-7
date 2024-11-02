@@ -1,5 +1,6 @@
 import Input from "./Input.js";
 import Lotto from "./Lotto.js";
+import Output from "./Output.js";
 import {
 	LOTTO_LENGTH,
 	LOTTO_MAX_NUMBER,
@@ -21,13 +22,14 @@ class App {
 
 	constructor() {
 		this.userInput = new Input();
+		this.userOutput = new Output();
 	}
 
 	async run() {
 		this.#lottoMoney = await this.userInput.getLottoMoney();
 		this.#lottoCount = await this.#calculateLottoCount();
 
-		await this.#printLottoCount();
+		await this.userOutput.printLottoCount(this.#lottoCount);
 		this.#lottoNumbers = await this.#getLotto();
 
 		this.#winningNumber = await this.userInput.getWinningNumber();
@@ -36,17 +38,13 @@ class App {
 		);
 		this.#winningMap = this.#getWinningCount();
 
-		await this.#printWinningCount();
+		await this.userOutput.printWinningCount(this.#winningMap);
 		this.#winningRate = await this.#getTotalWinnings();
-		this.#printWinningRate();
+		await this.userOutput.printWinningRate(this.#winningRate);
 	}
 
 	async #calculateLottoCount() {
 		return Math.floor(this.#lottoMoney / LOTTO_MONEY);
-	}
-
-	async #printLottoCount() {
-		printOutput(PROMPT.LOTTO_COUNT(this.#lottoCount));
 	}
 
 	async #getLotto() {
@@ -96,10 +94,6 @@ class App {
 		return winningCountMap;
 	}
 
-	async #printWinningCount() {
-		printOutput(PROMPT.LOTTO_WINNING_COUNT(this.#winningMap));
-	}
-
 	async #getTotalWinnings() {
 		let totalWinnings = 0;
 
@@ -110,10 +104,6 @@ class App {
 		}
 
 		return ((totalWinnings / this.#lottoMoney) * 100).toFixed(1);
-	}
-
-	async #printWinningRate() {
-		printOutput(PROMPT.LOTTO_WINNING_RATE(this.#winningRate));
 	}
 }
 
