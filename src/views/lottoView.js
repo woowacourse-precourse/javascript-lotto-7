@@ -20,7 +20,6 @@ class LottoView {
     const winningNumberInput = await Console.readLineAsync(
       INPUT_MESSAGE.winningNumbersPrompt,
     );
-    Console.print('\n');
     return winningNumberInput;
   }
 
@@ -28,7 +27,6 @@ class LottoView {
     const bounusNumberInput = await Console.readLineAsync(
       INPUT_MESSAGE.bonusNumberPrompt,
     );
-    Console.print('\n');
     return bounusNumberInput;
   }
 
