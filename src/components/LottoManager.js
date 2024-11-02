@@ -20,21 +20,19 @@ class LottoManager {
     const lottoList = this.machine.getLottoList();
     const numberList = lottoList.map((lotto) => lotto.getNumbers());
 
-    Output.print(`\n${lottoList.length}개를 구매했습니다.`);
+    Output.print(`${lottoList.length}개를 구매했습니다.`);
     Output.printArrayWithComma(numberList);
-    Output.print('');
   }
 
   printLottoResult() {
     const lottoList = this.machine.getLottoList();
     const matchObj = this.matchLottos(
       lottoList,
-      this.getWinningLotto(),
-      this.getBonusNumber(),
+      this.#winningLotto,
+      this.#bonusNumber,
     );
     const rateOfReturn = this.calculateRateOfReturn(matchObj);
 
-    Output.print('');
     lottoMatchResult(matchObj, rateOfReturn);
   }
 
@@ -69,39 +67,18 @@ class LottoManager {
     return matchObj;
   }
 
-  setWinningLotto(lottoWinningNumbers) {
-    this.#winningLotto = getValidValue(
-      lottoWinningNumbers,
+  async inputWinningLotto() {
+    const lottoWinningNumbers = getValidValue(
+      await InputRepeat(INPUT.LOTTO_WINNING_NUMBERS, validateLotto),
       RULES.DELIMITER,
     ).map(Number);
-  }
 
-  setBonusNumber(bonusNumber) {
-    this.#bonusNumber = bonusNumber;
-  }
-
-  getWinningLotto() {
-    return this.#winningLotto;
-  }
-
-  getBonusNumber() {
-    return this.#bonusNumber;
-  }
-
-  async inputWinningLotto() {
-    const lottoWinningNumbers = await InputRepeat(
-      INPUT.LOTTO_WINNING_NUMBERS,
-      validateLotto,
-    );
-
-    this.setWinningLotto(lottoWinningNumbers);
-
-    Output.print('');
     const bonusNumber = await InputRepeat(INPUT.BONUS_NUMBER, (input) =>
-      validateBonus(input, this.getWinningLotto()),
+      validateBonus(input, lottoWinningNumbers),
     );
 
-    this.setBonusNumber(bonusNumber);
+    this.#bonusNumber = bonusNumber;
+    this.#winningLotto = lottoWinningNumbers;
   }
 }
 

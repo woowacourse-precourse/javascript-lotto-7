@@ -19,6 +19,7 @@ async function inputRecursion(message, fn) {
 
 async function handleRecursion(result, fn, message) {
   if (result.success) {
+    Output.print('');
     return result.input;
   }
 

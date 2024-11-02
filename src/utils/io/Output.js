@@ -5,6 +5,7 @@ export default class Output {
     arrays.forEach((array) => {
       Console.print(`[${array.join(', ')}]`);
     });
+    Console.print('');
   }
 
   static print(message) {
