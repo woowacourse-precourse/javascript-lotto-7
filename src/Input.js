@@ -1,13 +1,23 @@
-import { PROMPT } from "./constant.js";
-import { userInput } from "./missionUtils.js";
+import { ERROR_MESSAGE, LOTTO_MONEY, PROMPT } from "./constant.js";
+import { printOutput, userInput } from "./missionUtils.js";
 
 class Input {
 	async getLottoMoney() {
 		try {
 			const MONEY = await userInput(PROMPT.LOTTO_BUY);
+			await this.validateLottoMoney(MONEY);
 			return MONEY;
 		} catch (error) {
-			console.log(error.message);
+			printOutput(error.message);
+			await this.getLottoMoney();
+		}
+	}
+
+	async validateLottoMoney(money) {
+		const INPUT_NUMBER = parseInt(money, 10);
+
+		if (INPUT_NUMBER % LOTTO_MONEY) {
+			throw new Error(ERROR_MESSAGE.WRONG_UNIT);
 		}
 	}
 

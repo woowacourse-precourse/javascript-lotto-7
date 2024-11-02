@@ -19,3 +19,7 @@ export const PRIZE_MAP = {
 	"2rank": 30000000,
 	"1rank": 2000000000,
 };
+
+export const ERROR_MESSAGE = {
+	WRONG_UNIT: `[ERROR] 구입금액을 ${LOTTO_MONEY}원 단위로 입력되지 않았습니다.`,
+};
