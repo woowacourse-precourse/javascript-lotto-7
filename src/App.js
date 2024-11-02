@@ -44,6 +44,8 @@ class App {
     this.printWinningResult(matchedCountPerMatchOption);
 
     // - 수익률을 출력한다.
+    this.printRateOfReturn(matchedCountPerMatchOption, price);
+
     // - 수익률은 소수점 둘째 자리에서 반올림한다.
   }
 
@@ -178,6 +180,18 @@ class App {
     });
 
     this.print(matchResults.join('\n'));
+  }
+
+  printRateOfReturn(matchedCountPerMatchOption, price) {
+    const totalPrize = matchedCountPerMatchOption.reduce((acc, cur) => {
+      const { matchedCount, prize } = cur;
+
+      return acc + matchedCount * prize;
+    }, 0);
+
+    const rateOfReturn = Math.floor((totalPrize / price) * 100).toFixed(1);
+
+    this.print(`총 수익률은 ${rateOfReturn}%입니다.`);
   }
 }
 
