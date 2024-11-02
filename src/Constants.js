@@ -1,6 +1,5 @@
 export const REGEXP = Object.freeze({
-  IS_NUMBER: /^[-+]?(\d+|Infinity)$/,
-  ESCAPE: /[.*+?^${}()|[\]\\]/g,
+  isNumber: /^[-+]?(\d+|Infinity)$/,
 });
 
 export const LOTTO_PRICE = 1000;

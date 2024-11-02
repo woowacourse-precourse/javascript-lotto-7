@@ -20,7 +20,5 @@ export function roundUp(num, fix) {
 
 export function calculatePercentage(totalPrize, totalInvested, fix) {
   const percentage = (totalPrize / totalInvested) * 100;
-
-  console.log(percentage);
   return roundUp(percentage, fix).toFixed(fix);
 }

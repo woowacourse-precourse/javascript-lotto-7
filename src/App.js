@@ -1,70 +1,61 @@
 import InputView from './View/InputView.js';
 import OutputView from './View/OutView.js';
 import LottoService from '../src/Model/LottoService.js';
-import InputHandler from './InputHandler.js';
 
 class App {
   constructor() {
     this.inputView = new InputView();
     this.outputView = new OutputView();
     this.lottolService = new LottoService();
-    this.inputHandler = new InputHandler();
   }
 
   async run() {
-    await this.readPuchaseAmount();
-    this.lottolService.drawLottos();
+    await this.collectUserInput(this.requestLottoPurchaseAmount);
 
+    this.printLottoNumbers();
+
+    await this.collectUserInput(this.requestWinningNumber);
+    await this.collectUserInput(this.requestBonusNumber);
+
+    this.printRateOfReturn(this.printWinningNumbers());
+  }
+
+  requestLottoPurchaseAmount = async () => {
+    const purchaseAmount = await this.inputView.requestPuchaseAmount();
+    this.lottolService.setPurcharedAmount(purchaseAmount);
+  };
+
+  requestWinningNumber = async () => {
+    const WinningNumber = await this.inputView.requestWinningNum();
+    this.lottolService.setWinningNumber(WinningNumber);
+  };
+
+  requestBonusNumber = async () => {
+    const bonusNumber = await this.inputView.requestBonusNum();
+    this.lottolService.setBonusNumber(bonusNumber);
+  };
+
+  printLottoNumbers() {
+    this.lottolService.drawLottos();
     const lottos = this.lottolService.getLottos();
     this.outputView.printLotto(lottos);
+  }
 
-    await this.readWinningNumber();
-    await this.readBonusNumber();
-
+  printWinningNumbers() {
     const winningInfo = this.lottolService.getAllWinningDetail();
     this.outputView.printWinningInfo(winningInfo);
+    return winningInfo;
+  }
 
+  printRateOfReturn(winningInfo) {
     const rateOfReturn = this.lottolService.getRateOfReturn(winningInfo);
     this.outputView.printRateOfReturn(rateOfReturn);
   }
 
-  async readPuchaseAmount() {
+  async collectUserInput(requestCallbackFunc) {
     while (true) {
       try {
-        const userInputString = await this.inputView.readPuchaseAmount();
-        const userInputNumber = this.inputHandler.stringToInt(userInputString);
-
-        this.lottolService.setPurcharedAmount(userInputNumber);
-        return;
-      } catch (errorMsg) {
-        this.outputView.print(errorMsg.message);
-      }
-    }
-  }
-
-  async readWinningNumber() {
-    while (true) {
-      try {
-        const userInputString = await this.inputView.getwinningNum();
-        const userInputNumbers = this.inputHandler.splitStringToInt(userInputString);
-
-        this.lottolService.setWinningNumber(userInputNumbers);
-
-        return;
-      } catch (errorMsg) {
-        this.outputView.print(errorMsg.message);
-      }
-    }
-  }
-
-  async readBonusNumber() {
-    while (true) {
-      try {
-        const userInputString = await this.inputView.getbonusNum();
-        const userInputNumber = this.inputHandler.splitStringToInt(userInputString);
-
-        this.lottolService.setBonusNumber(userInputNumber);
-
+        await requestCallbackFunc();
         return;
       } catch (errorMsg) {
         this.outputView.print(errorMsg.message);
