@@ -31,7 +31,7 @@ class Lotto {
     }
     
     static printLottos(issuedLottos) {
-        Console.print(`${issuedLottos.length}개를 구매했습니다.`);
+        Console.print(`\n${issuedLottos.length}개를 구매했습니다.\n`);
         issuedLottos.forEach(lottoNumbers => {
             Console.print(`[${lottoNumbers.join(', ')}]`);
         });
@@ -85,7 +85,7 @@ class Lotto {
             { label: MESSAGES.OUTPUT.MATCH_SIX, count: result[6] || 0 }
         ];
     
-        let resultString = MESSAGES.OUTPUT.MATCH_RESULT_BELOW;
+        let resultString = '';
         prizeDetails.forEach(prize => {
             resultString += `${prize.label} - ${prize.count}개\n`;
         });
@@ -122,9 +122,10 @@ class Lotto {
     
     printLottoSummary(result, userMoney) {
         const formattedResult = this.formatResult(result);
+        Console.print(MESSAGES.OUTPUT.MATCH_RESULT_BELOW);
         Console.print(formattedResult);
         const profitRate = this.calculateProfitRate(result, userMoney);
-        Console.print(`\n총 수익률은 ${profitRate}%입니다.`);
+        Console.print(`총 수익률은 ${profitRate}%입니다.`);
     }
 }
 
