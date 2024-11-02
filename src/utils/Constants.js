@@ -44,6 +44,10 @@ export const VALIDATION = {
   unitPrice: GLOBAL_CONSTANTS.unitPrice,
 };
 
+export const UTILS = {
+  separator: ',',
+};
+
 export const ERROR_MESSAGE = {
   notNumber: '[ERROR] 숫자만 입력 가능합니다.',
   notPositiveNumber: '[ERROR] 구입 금액은 양수만 가능합니다.',
