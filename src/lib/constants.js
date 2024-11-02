@@ -19,3 +19,11 @@ export const PRIZE_MONEY = Object.freeze({
   4: 50000,
   5: 5000,
 });
+
+export const RANK_MESSAGES = [
+  { matchCount: 3, rank: "5" },
+  { matchCount: 4, rank: "4" },
+  { matchCount: 5, rank: "3" },
+  { matchCount: 5, rank: "2", matchBonus: true },
+  { matchCount: 6, rank: "1" },
+];
