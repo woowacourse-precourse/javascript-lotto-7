@@ -7,7 +7,13 @@
 // LottoIssuer: getUserInput, validation, parseUserInput, lottoDisplay
 // LottoMatcher: winningNumbers, winningRank
 // ProfitCalculator: profitCalculator
+import Lotto from './Lotto.js';
+import LottoValidator from './LottoValidator.js';
 
-class LottoControllers {}
+class LottoControllers {
+  createLotto(numbers, bonusNumber) {
+    return new Lotto(numbers);
+  }
+}
 
 export default LottoControllers;
