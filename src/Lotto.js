@@ -2,7 +2,8 @@ import ERROR_MESSAGES from './Error/Error.js';
 import defaultSettings from './Config/DefaultSettings.js';
 
 const { lotto } = defaultSettings;
-
+// 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 등의 이름을 바꾸거나 이동하지 않는다.
+// 이 때문에 이를 /Model에 이동하지 않았음.
 class Lotto {
   #numbers;
 

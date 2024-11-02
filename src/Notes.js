@@ -1,6 +1,7 @@
 import ERROR_MESSAGES from './Error/Error.js';
 import { isNumber } from './Util/Regex.js';
 
+// Lotto와 함께 src 루트 폴더에 보관
 class Notes {
   #notes;
 
