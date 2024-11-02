@@ -8,8 +8,8 @@ const ERROR_MESSAGES = {
 
 const INPUT_MESSAGES = {
   lottoAmountInput: '구입 금액을 입력해 주세요.',
-  matchNumberInput: '당첨 번호를 입력해 주세요.',
-  bonusNumberInput: '보너스 번호를 입력해 주세요.',
+  matchNumberInput: '\n당첨 번호를 입력해 주세요.\n',
+  bonusNumberInput: '\n보너스 번호를 입력해 주세요.\n',
 };
 
 const OUTPUT_MESSAGES = {
