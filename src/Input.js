@@ -3,13 +3,14 @@ import { printOutput, userInput } from "./missionUtils.js";
 
 class Input {
 	async getLottoMoney() {
-		try {
-			const MONEY = await userInput(PROMPT.LOTTO_BUY);
-			await this.validateLottoMoney(MONEY);
-			return MONEY;
-		} catch (error) {
-			printOutput(error.message);
-			await this.getLottoMoney();
+		while (true) {
+			try {
+				const MONEY = await userInput(PROMPT.LOTTO_BUY);
+				await this.validateLottoMoney(MONEY);
+				return MONEY;
+			} catch (error) {
+				printOutput(error.message);
+			}
 		}
 	}
 
