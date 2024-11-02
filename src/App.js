@@ -66,6 +66,39 @@ class App {
 
     return targetNumbers;
   }
+
+  async getBonusNumber(winningNumbers) {
+    try {
+      const bonusNumber = await App.getBonusNumberInput();
+      const validWinningNumbers = App.validateBonusNumber(
+        bonusNumber,
+        winningNumbers,
+      );
+
+      return validWinningNumbers;
+    } catch (error) {
+      Console.print(error.message);
+
+      return this.getWinningNumbers();
+    }
+  }
+
+  static async getBonusNumberInput() {
+    const bonusNumber = await inputView.askBonusNumber();
+    const parsedNumber = this.parsingBonusNumber(bonusNumber);
+    return parsedNumber;
+  }
+
+  static parsingBonusNumber(number) {
+    const parsedBonusNumber = Utils.parsingToNumber(number);
+    return parsedBonusNumber;
+  }
+
+  static validateBonusNumber(bonusNumber, winningNumbers) {
+    Validation.checkWinningNumbers(bonusNumber, winningNumbers);
+
+    return bonusNumber;
+  }
 }
 
 export default App;
