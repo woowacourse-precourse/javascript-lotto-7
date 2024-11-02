@@ -1,5 +1,7 @@
-export function isNumber(value) {
-  return !Number.isNaN(Number(value));
+export function isInteger(value) {
+  const number = Number(value);
+  if (Number.isNaN(number)) return false;
+  return number === parseInt(value, 10);
 }
 
 export function isMultipleOfThousand(value) {
@@ -10,8 +12,8 @@ export function isLengthSix(array) {
   return array.length === 6;
 }
 
-export function isAllNumber(array) {
-  return array.every((value) => isNumber(value));
+export function isAllInteger(array) {
+  return array.every((value) => isInteger(value));
 }
 
 export function isLottoRange(array) {

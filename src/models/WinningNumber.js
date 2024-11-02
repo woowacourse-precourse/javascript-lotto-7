@@ -37,14 +37,14 @@ class WinningNumber {
   #validateWinningNumbers(numbers) {
     !validator.isLengthSix(numbers) && throwError(error.LENGTH_NOT_SIX);
 
-    !validator.isAllNumber(numbers) && throwError(error.NOT_IN_RANGE);
+    !validator.isAllInteger(numbers) && throwError(error.NOT_IN_RANGE);
     !validator.isLottoRange(numbers) && throwError(error.NOT_IN_RANGE);
 
     !validator.isUnique(numbers) && throwError(error.DUPLICATED);
   }
 
   #validateBonusNumber(number) {
-    !validator.isNumber(number) && throwError(error.NOT_IN_RANGE);
+    !validator.isInteger(number) && throwError(error.NOT_IN_RANGE);
     !validator.isLottoRange([number]) && throwError(error.NOT_IN_RANGE);
 
     validator.isBonusNumberDuplicated(this.#winningNumbers, number) &&
