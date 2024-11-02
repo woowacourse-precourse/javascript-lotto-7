@@ -30,13 +30,15 @@ class App {
 
     // 당첨 번호 입력 및 검증
     const winningNumbers = await getWinningNumbers();
-    await validateWinningNumbers(winningNumbers);
-    const winningNumbersArray = parseWinningNumbers(winningNumbers);
+    const winningNumbersArray = await validateWinningNumbers(winningNumbers);
 
     // 보너스 번호 입력 및 검증
     const bonusNumber = await getBonusNumber();
-    await validateBonusNumber(winningNumbersArray, bonusNumber);
-    const toBonusNumber = parseBonusNumber(bonusNumber);
+    const validateNumber = await validateBonusNumber(
+      winningNumbersArray,
+      bonusNumber
+    );
+    const toBonusNumber = parseBonusNumber(validateNumber);
 
     // 당첨 결과 확인
     const rankCounts = assignLottoRank(

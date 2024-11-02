@@ -23,6 +23,8 @@ export const GAME_SETTINGS = {
   EMPTY_STRING: '',
   NEW_LINE: '\n',
   ZERO: 0,
+  PERCENTAGE_MULTIPLIER: 100,
+  DECIMAL_PLACES: 2,
 };
 
 export const REGEX = {
