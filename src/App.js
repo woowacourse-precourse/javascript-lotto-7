@@ -11,12 +11,21 @@ const checkWinning = (boughtLotto, winNumber) => {
     let count = answerArray.filter(item =>
       myLotto.includes(item)).length;
       correctArray.push(count);
-  })
-  return correctArray.filter(item => item > 2)
+  });
+  return correctArray.filter(item => item > 2);
 }
 
 const countWonLotto = (wonRecord, target) => {
   return wonRecord.filter((record) => record === target).length;
+}
+
+const buyLottos = (lottoCount) => {
+  const boughtLotto = [];
+  for(let i = 0; i < lottoCount; i++) {
+    const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
+    boughtLotto.push(lotto);
+  }
+  return boughtLotto;
 }
 
 class App {
@@ -30,14 +39,9 @@ class App {
       throw new Error('[ERROR]');
     }
 
-    Console.print(`${lottoCount}개를 구매했습니다.`)
+    Console.print(`${lottoCount}개를 구매했습니다.`);
 
-    const boughtLotto = [];
-    for(let i = 0 ; i < lottoCount; i++){
-      const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
-      boughtLotto.push(lotto);
-    }
-
+    const boughtLotto = buyLottos(lottoCount);
     boughtLotto.forEach((lotto) => Console.print(lotto.toString()));
 
     const winNumber = await Console.readLineAsync(CONSOLE_MESSAGES.winNumber);
@@ -48,7 +52,7 @@ class App {
     Console.print(`5개 일치 (1,500,000원) - ${countWonLotto(wonRecord, 5)}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${countWonLotto(wonRecord, 5)}`);
     Console.print(`6개 일치 (2,000,000,000원) - ${countWonLotto(wonRecord, 6)}개`);
-    
+    Console.print('총 수익률은');
   }
 }
 
