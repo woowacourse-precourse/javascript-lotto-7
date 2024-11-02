@@ -6,7 +6,9 @@ import {
   ERROR_MESSAGE,
   INPUT_MESSAGE,
   LOTTO,
+  MATCHING_COUNT,
   OUTPUT_MESSAGE,
+  PRIZE,
 } from './constants/index.js';
 
 class App {
@@ -22,6 +24,9 @@ class App {
 
     this.#winningNumbers = await this.readWinningNumbers();
     this.#bonusNumber = await this.readBonusNumber();
+
+    const prize = this.#evaluateTicketWinnings(tickets);
+    this.#showWinningStats(prize);
   }
 
   async readWinningNumbers() {
@@ -44,6 +49,44 @@ class App {
     this.#validateBonusNumber(bonusNumber);
 
     return bonusNumber;
+  }
+
+  #evaluateTicketWinnings(tickets) {
+    const matchResults = tickets.map((ticket) =>
+      ticket.match(this.#winningNumbers)
+    );
+
+    const prize = {
+      fifth: matchResults //
+        .filter(({ matchingCount }) => matchingCount === 3).length,
+      fourth: matchResults //
+        .filter(({ matchingCount }) => matchingCount === 4).length,
+      third: matchResults //
+        .filter(({ matchingCount }) => matchingCount === 5).length,
+      second: matchResults //
+        .filter(
+          ({ matchingCount, hasBonus }) => matchingCount === 5 && hasBonus
+        ).length,
+      first: matchResults //
+        .filter(({ matchingCount }) => matchingCount === 6).length,
+    };
+
+    return prize;
+  }
+
+  #showWinningStats(prize) {
+    Console.print(OUTPUT_MESSAGE.statistics);
+
+    Object.entries(prize).forEach(([key, value]) => {
+      Console.print(
+        OUTPUT_MESSAGE.statisticsDetail({
+          prize: key,
+          matchingCount: MATCHING_COUNT[key],
+          lotteryPrize: PRIZE[key],
+          winningCount: value,
+        })
+      );
+    });
   }
 
   #showLottoTickets(tickets) {

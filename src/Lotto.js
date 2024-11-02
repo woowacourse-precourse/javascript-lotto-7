@@ -14,6 +14,15 @@ class Lotto {
     Console.print(this.#numbers);
   }
 
+  match(winningNumbers, bonusNumber) {
+    return {
+      matchingCount: this.#numbers.filter((number) =>
+        winningNumbers.includes(number)
+      ).length,
+      hasBonus: this.#numbers.includes(bonusNumber),
+    };
+  }
+
   #validate(numbers) {
     const invalidLength = numbers.length !== LOTTO.numberCount;
     if (invalidLength) {
