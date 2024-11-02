@@ -10,89 +10,24 @@ import {
 } from './constants/index.js';
 
 class App {
-  #winningNumbers;
-  #bonusNumber;
+  #inputView;
+
+  constructor(inputView) {
+    this.#inputView = inputView;
+  }
 
   async run() {
     const lotteryRetailer = new LotteryRetailer();
-    const price = await Console.readLineAsync(INPUT_MESSAGE.price);
-    const tickets = lotteryRetailer.issueTicket(price);
+    const purchasePrice = await this.#inputView.readPurchasePrice();
+    const tickets = lotteryRetailer.issueTicket(purchasePrice);
 
     lotteryRetailer.showLottoTickets(tickets);
 
-    this.#winningNumbers = await this.readWinningNumbers();
-    this.#bonusNumber = await this.readBonusNumber();
+    const winningNumbers = await this.#inputView.readWinningNumbers();
+    const bonus = await this.#inputView.readBonusNumber(winningNumbers);
 
-    lotteryRetailer.showWinningResult(tickets, this.#winningNumbers);
-  }
-
-  async readWinningNumbers() {
-    const winningNumbersInput = await Console.readLineAsync(
-      INPUT_MESSAGE.winningNumbers
-    );
-    const winningNumbers = winningNumbersInput //
-      .split(',')
-      .map((number) => number.trim());
-
-    this.#validateWinningNumbers(winningNumbers);
-
-    return winningNumbers.map(Number);
-  }
-
-  async readBonusNumber() {
-    const bonus = await Console.readLineAsync(INPUT_MESSAGE.bonus);
-    const bonusNumber = Number(bonus.trim());
-
-    this.#validateBonusNumber(bonusNumber);
-
-    return bonusNumber;
-  }
-
-  #validateWinningNumbers(numbers) {
-    const invalidLength = numbers.length !== LOTTO.numberCount;
-    if (invalidLength) {
-      throw Error(ERROR_MESSAGE.winningNumbers.length);
-    }
-
-    const isNotNumber = numbers.some(isNaN);
-    if (isNotNumber) {
-      throw Error(ERROR_MESSAGE.winningNumbers.notNumber);
-    }
-
-    const isInvalidRange = numbers.some(LOTTO.isInvalidRange);
-    if (isInvalidRange) {
-      throw Error(ERROR_MESSAGE.winningNumbers.range);
-    }
-
-    const uniqueNumbers = new Set(numbers);
-    const hasDuplicateNumber = uniqueNumbers.size !== LOTTO.numberCount;
-    if (hasDuplicateNumber) {
-      throw Error(ERROR_MESSAGE.winningNumbers.duplicate);
-    }
-  }
-
-  #validateBonusNumber(bonusNumber) {
-    if (isNaN(bonusNumber)) {
-      throw Error(ERROR_MESSAGE.bonusNumber.notNumber);
-    }
-
-    const isInvalidRange = LOTTO.isInvalidRange(bonusNumber);
-    if (isInvalidRange) {
-      throw Error(ERROR_MESSAGE.bonusNumber.range);
-    }
-
-    if (this.#isBonusNumberDuplicate(bonusNumber)) {
-      throw Error(ERROR_MESSAGE.bonusNumber.duplicate);
-    }
-  }
-
-  #isBonusNumberDuplicate(bonusNumber) {
-    const winningNumbersWithBonusSet = new Set([
-      ...this.#winningNumbers,
-      bonusNumber,
-    ]);
-
-    return winningNumbersWithBonusSet.size === LOTTO.numberCount;
+    lotteryRetailer.showWinningResult(tickets, winningNumbers);
+    lotteryRetailer.showLotteryYield(purchasePrice, tickets);
   }
 }
 

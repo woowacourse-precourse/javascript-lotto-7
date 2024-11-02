@@ -27,14 +27,4 @@ describe('LotteryRetailer 클래스 테스트', () => {
       expect(number).toBeLessThanOrEqual(LOTTO.maxNumber);
     });
   });
-
-  test('로또 구입 금액 예외 테스트', () => {
-    const price = '1234';
-
-    const lotteryRetailer = new LotteryRetailer();
-
-    expect(() => {
-      lotteryRetailer.issueTicket(price);
-    }).toThrow('[ERROR]');
-  });
 });

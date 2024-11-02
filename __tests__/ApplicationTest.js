@@ -1,27 +1,14 @@
-import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-const mockQuestions = (inputs) => {
-  MissionUtils.Console.readLineAsync = jest.fn();
+import App from '../src/App.js';
 
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
-    const input = inputs.shift();
-
-    return Promise.resolve(input);
-  });
-};
+import { mockQuestions, getLogSpy } from '../src/utils/testUtil.js';
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
   numbers.reduce((acc, number) => {
     return acc.mockReturnValueOnce(number);
   }, MissionUtils.Random.pickUniqueNumbersInRange);
-};
-
-const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, 'print');
-  logSpy.mockClear();
-  return logSpy;
 };
 
 const runException = async (input) => {
@@ -94,34 +81,4 @@ describe('로또 테스트', () => {
   test('로또 구입 금액 입력 예외 테스트', async () => {
     await runException('1000j');
   });
-
-  test.each([
-    ['1,2,3,4,5'],
-    ['1,2,3,4,5,!'],
-    ['0,2,3,4,5,6'],
-    ['1,2,3,4,5,46'],
-    ['1,1,3,4,5,6'],
-  ])('당첨 번호 입력 예외 테스트: %s', (winningNumbers) => {
-    mockQuestions([winningNumbers]);
-
-    const app = new App();
-
-    expect(async () => {
-      await app.readWinningNumbers();
-    }).rejects.toThrow('[ERROR]');
-  });
-
-  test.each([['10s'], ['0'], ['46'], ['1']])(
-    '보너스 번호 입력 예외 테스트: %s',
-    async (bonusNumber) => {
-      const winningNumbers = '1,2,3,4,5,6';
-      mockQuestions([winningNumbers, bonusNumber]);
-
-      const app = new App();
-
-      expect(async () => {
-        await app.run();
-      }).rejects.toThrow('[ERROR]');
-    }
-  );
 });

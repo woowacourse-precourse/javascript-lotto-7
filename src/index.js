@@ -1,4 +1,6 @@
 import App from './App.js';
+import InputView from './InputView.js';
 
-const app = new App();
+const inputView = new InputView();
+const app = new App(inputView);
 await app.run();

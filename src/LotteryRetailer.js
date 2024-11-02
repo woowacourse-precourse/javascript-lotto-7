@@ -26,8 +26,6 @@ class LotteryRetailer {
   }
 
   issueTicket(price) {
-    this.#validatePrice(price);
-
     const tickets = [];
     const amount = price / LOTTO.ticketPrice;
 
@@ -42,17 +40,6 @@ class LotteryRetailer {
   showWinningResult(tickets, winningNumbers) {
     const prize = this.#evaluateTicketWinnings(tickets, winningNumbers);
     this.#showWinningStats(prize);
-  }
-
-  #validatePrice(price) {
-    if (isNaN(price)) {
-      throw Error(ERROR_MESSAGE.price.notNumber);
-    }
-
-    const isValidAmountUnit = price % LOTTO.ticketPrice === 0;
-    if (!isValidAmountUnit) {
-      throw Error(ERROR_MESSAGE.price.invaildAmountUnit);
-    }
   }
 
   #evaluateTicketWinnings(tickets, winningNumbers) {
