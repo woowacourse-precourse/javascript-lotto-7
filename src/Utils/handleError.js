@@ -7,6 +7,5 @@ export const throwError = (message) => {
 
 export const printErrorAndFalse = (message) => {
   OutputPrint.error(message);
-  OutputPrint.blankLine();
   return false;
 };

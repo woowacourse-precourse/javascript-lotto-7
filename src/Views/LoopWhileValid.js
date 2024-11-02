@@ -11,6 +11,7 @@ const LoopWhileValid = {
         OutputPrint.blankLine();
         return BuyPriceInput.parse(userInput);
       }
+      OutputPrint.blankLine();
     }
   },
 
@@ -21,6 +22,7 @@ const LoopWhileValid = {
         OutputPrint.blankLine();
         return BasicNumbersInput.parse(userInput);
       }
+      OutputPrint.blankLine();
     }
   },
 
@@ -31,6 +33,8 @@ const LoopWhileValid = {
         OutputPrint.blankLine();
         return BonusNumberInput.parse(userInput);
       }
+      OutputPrint.basicNumbers(basicNumbers);
+      OutputPrint.blankLine();
     }
   },
 };

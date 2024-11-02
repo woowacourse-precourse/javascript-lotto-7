@@ -37,6 +37,12 @@ const OutputPrint = {
     Console.print(`${PrizeDescription.FIRST} - ${winningResult.first}개`);
     Console.print(`총 수익률은 ${earningRate}%입니다.`);
   },
+
+  basicNumbers: (basicNumbers) => {
+    Console.print(
+      `현재 당첨 번호: [${basicNumbers.join(OutputComment.SEPERATOR)}]`
+    );
+  },
 };
 
 export default OutputPrint;
