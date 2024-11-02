@@ -13,19 +13,6 @@ class LottoGameController {
     this.#printLottoNumbers();
   }
 
-  async #getPurchaseAmount() {
-    try {
-      const purchaseAmount = await InputView.readUserInput(
-        INPUT_MESSAGES.PURCHASE_AMOUNT
-      );
-      validatePurchaseAmount(purchaseAmount);
-      return purchaseAmount;
-    } catch (error) {
-      OutputView.print(error.message);
-      return this.#getPurchaseAmount();
-    }
-  }
-
   #createLottoGame(purchaseAmount) {
     this.#lottoGame = new LottoGame(purchaseAmount);
   }
@@ -37,6 +24,19 @@ class LottoGameController {
     LOTTO_NUMBERS.forEach((numbers) => {
       OutputView.printLottoNumbers(numbers.getNumbers());
     });
+  }
+
+  async #getPurchaseAmount() {
+    try {
+      const purchaseAmount = await InputView.readUserInput(
+        INPUT_MESSAGES.PURCHASE_AMOUNT
+      );
+      validatePurchaseAmount(purchaseAmount);
+      return purchaseAmount;
+    } catch (error) {
+      OutputView.print(error.message);
+      return this.#getPurchaseAmount();
+    }
   }
 }
 
