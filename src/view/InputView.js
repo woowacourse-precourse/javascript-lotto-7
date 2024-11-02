@@ -1,16 +1,17 @@
+import { INPUT_MESSAGE } from "../constants/messages.js";
 import { readUserInput } from "../utils/util.js";
 
 class InputView {
   static async getLottoAmount() {
-    return readUserInput("구매 금액을 입력해 주세요.\n");
+    return readUserInput(INPUT_MESSAGE.PURCHASE_AMOUNT);
   }
 
   static async getWinningNumbers() {
-    return readUserInput("당첨 번호를 입력해 주세요.\n");
+    return readUserInput(INPUT_MESSAGE.WINNING_NUMBERS);
   }
 
   static async getBonusNumber() {
-    return readUserInput("보너스 번호를 입력해 주세요.\n");
+    return readUserInput(INPUT_MESSAGE.BONUS_NUMBER);
   }
 }
 

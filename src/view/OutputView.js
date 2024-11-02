@@ -1,8 +1,9 @@
+import { OUTPUT_MESSAGE } from "../constants/messages.js";
 import { printResult } from "../utils/util.js";
 
 class OutputView {
   static printLottoCount(count) {
-    printResult(`${count}개를 구매했습니다.`);
+    printResult(OUTPUT_MESSAGE.LOTTO_COUNT(count));
   }
 
   static printLottoNumbers(lottos) {
@@ -13,7 +14,7 @@ class OutputView {
   }
 
   static printWinningStatistics(matchCounts) {
-    printResult("\n당첨 통계\n---");
+    printResult(OUTPUT_MESSAGE.LOTTO_STATISTICS);
     printResult(`3개 일치 (5,000원) - ${matchCounts["3"]}개`);
     printResult(`4개 일치 (50,000원) - ${matchCounts["4"]}개`);
     printResult(`5개 일치 (1,500,000원) - ${matchCounts["5"]}개`);
@@ -24,7 +25,7 @@ class OutputView {
   }
 
   static printProfit(profit) {
-    printResult(`총 수익률은 ${profit}%입니다.`);
+    printResult(OUTPUT_MESSAGE.PROFIT(profit));
   }
 }
 

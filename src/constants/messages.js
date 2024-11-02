@@ -1,3 +1,15 @@
+const INPUT_MESSAGE = Object.freeze({
+  PURCHASE_AMOUNT: "구입금액을 입력해 주세요.\n",
+  WINNING_NUMBERS: "\n당첨 번호를 입력해 주세요.\n",
+  BONUS_NUMBER: "\n보너스 번호를 입력해 주세요.\n",
+});
+
+const OUTPUT_MESSAGE = Object.freeze({
+  LOTTO_COUNT: (cnt) => `\n${cnt}개를 구매했습니다.`,
+  LOTTO_STATISTICS: "\n당첨 통계\n---",
+  PROFIT: (profit) => `총 수익률은 ${profit}%입니다.`,
+});
+
 const ERROR_MESSAGES = Object.freeze({
   EMPTY_INPUT: "입력값이 없습니다.",
   NEGATIVE_NUMBER: "입력값에 음수가 포함되어 있습니다.",
@@ -9,4 +21,4 @@ const ERROR_MESSAGES = Object.freeze({
   DUPLICATE_FOUND: "로또 번호에 중복된 숫자가 있습니다.",
   NOT_MULTIPLE_OF_THOUSAND: "구매 금액은 1,000원 단위여야 합니다.",
 });
-export default ERROR_MESSAGES;
+export { INPUT_MESSAGE, OUTPUT_MESSAGE, ERROR_MESSAGES };
