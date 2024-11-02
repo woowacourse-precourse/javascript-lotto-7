@@ -1,11 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class InputValidator {
-  static validatePurchaseCost(cost) {
+  static validatePurchaseCost(purchaseCost) {
+    const cost = Number(purchaseCost);
     if (isNaN(cost) || !Number.isInteger(cost) || cost <= 0) {
       throw new Error('[ERROR] 구입 금액은 양수여야 합니다.');
     }
-
     if (cost % 1000 !== 0) {
       throw new Error('[ERROR] 구입 금액은 1000원 단위이어야 합니다.');
     }
@@ -18,14 +18,16 @@ class InputValidator {
     if (numbers.some((num) => !/^\d+$/.test(num))) {
       throw new Error('[ERROR] 당첨 번호는 쉼표를 기준으로 구분됩니다.');
     }
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 당첨 번호는 6개여야 합니다.');
-    }
     if (
       numbers.some((num) => !Number.isInteger(num) || isNaN(num) || num <= 0)
     ) {
       throw new Error('[ERROR] 로또 번호는 양수여야 합니다.');
     }
+
+    if (numbers.length !== 6) {
+      throw new Error('[ERROR] 당첨 번호는 6개여야 합니다.');
+    }
+
     if (numbers.some((num) => num < 1 || num > 45)) {
       throw new Error('[ERROR] 로또 번호는 1~45사이의 숫자이어야 합니다.');
     }
