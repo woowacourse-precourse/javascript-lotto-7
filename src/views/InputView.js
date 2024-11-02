@@ -28,7 +28,7 @@ export async function getWinningNumbers() {
     return parsedWinningNumbers;
   } catch (error) {
     MissionUtils.Console.print(error.message);
-    throw error;
+    return getWinningNumbers();
   }
 }
 
@@ -40,6 +40,6 @@ export async function getBonusNumber(winningNumbers) {
     return parseInt(bonusNumber, 10);
   } catch (error) {
     MissionUtils.Console.print(error.message);
-    throw error;
+    return getBonusNumber(winningNumbers);
   }
 }
