@@ -1,4 +1,5 @@
-import { ERROR_MESSAGE } from "../constants/errorMessage.js";
+import { ERROR_MESSAGE } from '../constants/errorMessage.js';
+import { lottoConfig } from './lottoConfig.js';
 
 export default class Lotto {
   #numbers;
@@ -15,6 +16,11 @@ export default class Lotto {
   #validate(numbers) {
     this.#checkLottoCount(numbers);
     this.#checkNumberDuplication(numbers);
+
+    numbers.forEach((number) => {
+      this.#checkNumberRange(number);
+      this.#checkPositiveInteger(number);
+    });
   }
 
   #checkLottoCount(numbers) {
@@ -25,12 +31,26 @@ export default class Lotto {
 
   #checkNumberDuplication(numbers) {
     const lottoSet = new Set();
-    
+
     numbers.forEach((number) => {
       if (lottoSet.has(number)) {
         throw new Error(ERROR_MESSAGE.LOTTO.NUMBER_DUPLICATION);
       }
       lottoSet.add(number);
     });
-  }  
+  }
+
+  #checkNumberRange(number) {
+    if (
+      !(number >= lottoConfig.MIN_NUMBER && number <= lottoConfig.MAX_NUMBER)
+    ) {
+      throw new Error(ERROR_MESSAGE.LOTTO.INVALID_NUMBER_RANGE);
+    }
+  }
+
+  #checkPositiveInteger(number) {
+    if (!Number.isInteger(number)) {
+      throw new Error(ERROR_MESSAGE.LOTTO.INVALID_POSITIVE_NUMBER);
+    }
+  }
 }

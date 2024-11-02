@@ -36,12 +36,9 @@ export default class WinningLotto {
 
   #checkNumberInRange(number) {
     if (
-      !(
-        number >= lottoConfig.MIN_NUMBER &&
-        number <= lottoConfig.MAX_NUMBER
-      )
+      !(number >= lottoConfig.MIN_NUMBER && number <= lottoConfig.MAX_NUMBER)
     ) {
-      throw new Error(ERROR_MESSAGE.WINNING_LOTTO.INVALID_NUMBER_RANGE);
+      throw new Error(ERROR_MESSAGE.LOTTO.INVALID_NUMBER_RANGE);
     }
   }
 
@@ -49,19 +46,19 @@ export default class WinningLotto {
     const uniqueNumbers = new Set(mainNumbers);
 
     if (uniqueNumbers.size !== lottoConfig.NUMBERS_COUNT) {
-      throw new Error(ERROR_MESSAGE.WINNING_LOTTO.MAIN_NUMBER_DUPLICATION);
+      throw new Error(ERROR_MESSAGE.LOTTO.MAIN_NUMBER_DUPLICATION);
     }
   }
 
   #checkBonusNumberDuplication(bonusNumber) {
-    const mainNumbers = this.#mainLotto.getNumbers()
+    const mainNumbers = this.#mainLotto.getNumbers();
     const uniqueNumbers = new Set([...mainNumbers, bonusNumber]);
 
     if (
       uniqueNumbers.size !==
       lottoConfig.NUMBERS_COUNT + lottoConfig.BONUS_NUMBERS_COUNT
     ) {
-      throw new Error(ERROR_MESSAGE.WINNING_LOTTO.BONUS_NUMBER_DUPLICATION);
+      throw new Error(ERROR_MESSAGE.LOTTO.BONUS_NUMBER_DUPLICATION);
     }
   }
 }
