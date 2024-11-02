@@ -40,17 +40,17 @@ class Game {
 
     updateWinnerrReult (lottoReult, matchedCount, bonusFlag ){
         if ( matchedCount === 5 && bonusFlag ){
-            lottoReult[1][0]++;
+            lottoReult[1][0] += 1 ;
         }
 
-        lottoReult[0][matchedCount]++;
+        lottoReult[0][matchedCount] += 1;
 
     }
 
     checkLottoResult ( lottoPackage , winningNumber, bonusNumber) {
         // First Array normal winners, second array bouns winners
-        const lottoReult = [Array(6).fill(0), [0]];
-        const orderedWinningNumber = winningNumber.sort((a,b) => a-b);
+        const lottoReult = [Array(7).fill(0), [0]];
+        const orderedWinningNumber = [...winningNumber].sort((a,b) => a-b);
 
         for ( const lotto of lottoPackage ){
             const lottoNumbers = lotto.getLottoNumbers();
@@ -58,6 +58,7 @@ class Game {
 
             const matchedCount = this.countMatchingNumber(orderedWinningNumber, lottoNumbers);
             this.updateWinnerrReult(lottoReult, matchedCount, bunusFlag);
+
         }
         return lottoReult;
     }
