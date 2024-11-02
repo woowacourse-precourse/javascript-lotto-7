@@ -4,7 +4,7 @@ export function splitWithDelimiter(delimiter, string) {
 }
 
 export function getValidValue(value, delimiter) {
-  if (typeof value === 'string') {
+  if (typeof value === 'string' && delimiter && value.includes(delimiter)) {
     return splitWithDelimiter(delimiter, value);
   }
   return value;
