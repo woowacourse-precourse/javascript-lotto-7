@@ -18,7 +18,7 @@ async function getWinningNumbers() {
     input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
     if (validateWinningNumbers(input)) break;
     Console.print(
-      '[ERROR] 당첨 번호는 6개의 숫자와 쉼표로 이루어져야 하며, 각각의 숫자는 1~45 사이의 숫자여야 합니다.'
+      '[ERROR] 당첨 번호는 6개의 숫자와 쉼표로 이루어져야 하며, 각각의 숫자는 중복되지 않는 1~45 사이의 숫자여야 합니다.'
     );
   }
   return parseWinningNumbers(input);
@@ -75,10 +75,11 @@ function validatePurchaseAmount(input) {
 
 function validateWinningNumbers(input) {
   const numbers = parseWinningNumbers(input);
+  console.log(numbers);
   if (
     !numbers.some((x) => isNaN(x)) &&
     numbers.length === 6 &&
-    numbers.every((x) => x > 0 && x < 46)
+    numbers.every((x) => x > 0 && x < 46 && new Set(numbers).size === 6)
   )
     return true;
 }
