@@ -3,6 +3,7 @@ const CONFIG = Object.freeze({
   LOTTO_COUNT: 6,
   LOTTO_MIN_NUMBER: 1,
   LOTTO_MAX_NUMBER: 45,
+  BONUS_NUMBER_COUNT: 1,
 });
 
 const PRIZE = Object.freeze({
