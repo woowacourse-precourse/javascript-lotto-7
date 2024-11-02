@@ -29,4 +29,11 @@ describe('입력문에 대한 테스트', () => {
       expect(() => validation.winningNumber.hasSpace(numberArr)).toThrow();
     },
   );
+
+  test.each([['1,2,3,4,,6'], ['1,2,3,4,5,']])(
+    '당첨번호가 공백이면 안된다.',
+    (numberArr) => {
+      expect(() => validation.winningNumber.isEmpty(numberArr)).toThrow();
+    },
+  );
 });
