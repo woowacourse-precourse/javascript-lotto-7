@@ -10,7 +10,7 @@ class MatchController {
   async setJackpot() {
     this.jackpot = await Console.readLineAsync(INPUT.JACKPOT);
     this.jackpot = this.jackpot.split(',').map(Number);
-    this.validateJackpot(this.jackpot);
+    this.validateLotto(this.jackpot);
   }
 
   async setBonusJackpot() {
@@ -18,8 +18,9 @@ class MatchController {
     return bonusNumber;
   }
 
-  validateJackpot(numbers) {
-    return new Lotto(numbers);
+  validateLotto(numbers) {
+    const checkLotto = new Lotto(numbers);
+    return checkLotto;
   }
 }
 
