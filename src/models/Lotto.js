@@ -22,6 +22,10 @@ class Lotto {
     ConsoleIO.print(`[${this.#numbers.join(', ')}]`);
   }
 
+  getNumbers() {
+    return this.#numbers;
+  }
+
   getMatchCount() {
     return this.#matchCount;
   }

@@ -5,3 +5,11 @@ export const MESSAGES = Object.freeze({
   bonusNumber: '\n보너스 번호를 입력해 주세요.\n',
   winningStatistics: '\n당첨 통계\n---',
 });
+
+export const PRIZE_MESSAGES = Object.freeze({
+  placeOf5: '3개 일치 (5,000원) - ',
+  placeOf4: '4개 일치 (50,000원) - ',
+  placeOf3: '5개 일치 (1,500,000원) - ',
+  placeOf2: '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
+  placeOf1: '6개 일치 (2,000,000,000원) - ',
+});

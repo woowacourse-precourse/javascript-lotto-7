@@ -14,7 +14,7 @@ class ConsoleIO {
   async processMainInput(query) {
     return await tryAgain(async () => {
       const mainNumberString = await this.readInput(query);
-      const mainNumbers = mainNumberString.split(',');
+      const mainNumbers = mainNumberString.split(',').map(Number);
       return mainNumbers;
     });
   }

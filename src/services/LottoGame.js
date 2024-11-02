@@ -1,4 +1,6 @@
-import { MESSAGES } from '../constants/index.js';
+import { LOTTO_CONFIG, MESSAGES } from '../constants/index.js';
+import { COUNT } from '../constants/lottoConfig.js';
+import { PRIZE_MESSAGES } from '../constants/messages.js';
 import { ConsoleIO } from '../io/index.js';
 import { Lotto, Prize } from '../models/index.js';
 import { calculateCountOfPurchase, generateLottoNumbers } from '../utils/LottoUtils.js';
@@ -34,7 +36,7 @@ class LottoGame {
 
   presentResult() {
     const earningsRate = this.#makeStatistics();
-    ConsoleIO.print(MESSAGES.winningStatistics);
+    this.#printStatistics();
   }
 
   #issueTickets() {
@@ -48,8 +50,13 @@ class LottoGame {
 
   #makeStatistics() {
     this.#checkTickets();
-    this.#tickets[0].setRanking(Prize.rank(this.#tickets[0].getMatchData()));
-    this.prize.sumPrizeMoney(this.#tickets[0]);
+    this.#tickets.forEach((lotto) => {
+      const ranking = Prize.rank(lotto.getMatchData());
+      lotto.setRanking(ranking);
+    });
+
+    this.prize.sumPrizeMoney(this.#tickets);
+
     return this.#calculateEarningsRate();
   }
 
@@ -67,6 +74,15 @@ class LottoGame {
     const investmentMoney = this.storage.getMoney();
 
     return (totalPrizeMoney / investmentMoney).toFixed(2);
+  }
+
+  #printStatistics() {
+    const prizeCount = this.prize.sumPrizeCount(this.#tickets);
+
+    ConsoleIO.print(MESSAGES.winningStatistics);
+    for (const [rankingName, count] of Object.entries(prizeCount)) {
+      ConsoleIO.print(PRIZE_MESSAGES[rankingName] + count + COUNT);
+    }
   }
 }
 
