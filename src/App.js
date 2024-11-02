@@ -1,4 +1,4 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import Game from './game.js';
 import InputPrompt from './input-prompt.js';
 class App {

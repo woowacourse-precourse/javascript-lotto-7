@@ -1,5 +1,5 @@
 import Lotto from './Lotto.js';
-
+import { Console, Random } from '@woowacourse/mission-utils';
 class Game {
   constructor(lottoCount, winningNumbers, bonusNumber) {
     this.lottoCount = lottoCount;
@@ -9,14 +9,16 @@ class Game {
   }
 
   async createLotto() {
-    for (let i = 1; i <= count; i++) {
+    for (let i = 1; i <= this.lottoCount; i++) {
       const numbers = await Random.pickUniqueNumbersInRange(1, 45, 6);
-      lottos.push[new Lotto(numbers)];
+      const lotto = new Lotto(numbers);
+      this.lottos.push(lotto);
     }
   }
 
   play() {
     this.createLotto();
+    Console.print(this.lottos);
   }
 }
 
