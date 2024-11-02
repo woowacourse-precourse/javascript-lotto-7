@@ -2,6 +2,7 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Validator from "./Validator.js";
 
 export default class BuyLotto {
+  #validator;
   #inputPrice = 0;
   #winningNumber = [];
   #bonusNumber = 0;
@@ -12,19 +13,25 @@ export default class BuyLotto {
   #BONUS_NUMBER_PROMPT = "보너스 번호를 입력해 주세요.";
   #EMPTY_STRING = "";
 
+  constructor() {
+    this.#validator = new Validator();
+  }
+
   async enterLottoPrice() {
     Console.print(this.#PRICE_PROMPT);
     this.#inputPrice = await Console.readLineAsync("");
     Console.print(this.#EMPTY_STRING);
     this.#getAmountOfLotto(this.#inputPrice);
-    const validator = new Validator();
-    validator.priceValidate(this.#inputPrice , this.#PRICE_OF_A_LOTTO)
+    this.#validator.validatePrice(this.#inputPrice, this.#PRICE_OF_A_LOTTO);
+    await this.enterWinningNumber();
   }
 
   async enterWinningNumber() {
     let input;
     Console.print(this.#WINNING_NUMBER_PROMPT);
     input = await Console.readLineAsync("");
+    this.#validator.validateWinningNumber(input);
+
     this.#winningNumber = input.split(",").map(Number);
     Console.print(this.#EMPTY_STRING);
   }
