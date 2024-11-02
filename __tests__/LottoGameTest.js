@@ -1,25 +1,103 @@
-import INPUT_PROMPT from '../src/constants/inputConstant';
+import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoGame from '../src/models/LottoGame';
-import InputHandler from '../src/utils/InputHandler';
+import Lotto from '../src/models/Lotto';
+
+const mockQuestions = inputs => {
+  MissionUtils.Console.readLineAsync = jest.fn();
+
+  MissionUtils.Console.readLineAsync.mockImplementation(() => {
+    const input = inputs.shift();
+
+    return Promise.resolve(input);
+  });
+};
+
+const mockRandoms = numbers => {
+  MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
+  numbers.reduce((acc, number) => {
+    return acc.mockReturnValueOnce(number);
+  }, MissionUtils.Random.pickUniqueNumbersInRange);
+};
+
+const getLogSpy = () => {
+  const logSpy = jest.spyOn(MissionUtils.Console, 'print');
+  logSpy.mockClear();
+  return logSpy;
+};
 
 describe('LottoGame', () => {
   let lottoGame;
+  let mockLottoMachine;
 
   beforeEach(() => {
-    lottoGame = new LottoGame();
+    mockLottoMachine = {
+      generateLottos: jest.fn(),
+    };
+    lottoGame = new LottoGame(mockLottoMachine);
   });
 
-  test('로또 구입 금액 입력 프롬프트가 표시된다', async () => {
-    // Given
-    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(); // console.log를 모킹하여 실제로 출력되지 않도록 합니다.
-    InputHandler.getInput.mockResolvedValue('14000'); // getInput 메서드가 호출될 때 모킹한 값을 반환하도록 설정합니다.
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
-    // When
-    await lottoGame.play(); // play 메서드를 호출하여 입력을 받습니다.
+  test('getLottos()', () => {
+    // given
+    const mockLottos = [
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+    ];
+    const expectedLottos = mockLottos.map(numbers => new Lotto(numbers));
 
-    // Then
-    expect(consoleLogSpy).toHaveBeenCalledWith(INPUT_PROMPT.PURCHASE_PRICE); // 입력 프롬프트가 올바르게 출력되었는지 확인합니다.
+    // when
+    lottoGame.setLottos(expectedLottos);
 
-    consoleLogSpy.mockRestore(); // 모킹한 console.log를 원래 상태로 복원합니다.
+    // then
+    expect(lottoGame.getLottos()).toEqual(expectedLottos);
+  });
+
+  test('setLottos()', () => {
+    // given
+    const mockLottos = [new Lotto([1, 2, 3, 4, 5, 6])];
+
+    // when
+    lottoGame.setLottos(mockLottos);
+
+    // then
+    expect(lottoGame.getLottos()).toEqual(mockLottos);
+  });
+
+  test('displayLottos()', () => {
+    // given
+    const mockLottoNumbers = [
+      [6, 28, 31, 35, 37, 38],
+      [4, 5, 16, 18, 19, 32],
+      [4, 7, 34, 38, 39, 40],
+      [4, 6, 9, 15, 31, 45],
+      [2, 15, 28, 35, 41, 42],
+    ];
+
+    const mockLottos = mockLottoNumbers.map(
+      lottoNumer => new Lotto(lottoNumer),
+    );
+    lottoGame.setLottos(mockLottos);
+
+    const logSpy = getLogSpy();
+
+    // when
+    lottoGame.displayLottos();
+
+    // then
+    const logs = [
+      '5개를 구매했습니다.',
+      '[6, 28, 31, 35, 37, 38]',
+      '[4, 5, 16, 18, 19, 32]',
+      '[4, 7, 34, 38, 39, 40]',
+      '[4, 6, 9, 15, 31, 45]',
+      '[2, 15, 28, 35, 41, 42]',
+    ];
+
+    logs.forEach(log => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
   });
 });

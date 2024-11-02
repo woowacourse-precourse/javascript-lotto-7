@@ -7,7 +7,12 @@ class LottoMachine {
     const lottoCount = purchasePrice / LOTTO_PRICE_UNIT;
     const lottos = new Array(lottoCount)
       .fill(null)
-      .map(_ => new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
+      .map(
+        _ =>
+          new Lotto(
+            Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b),
+          ),
+      );
 
     return lottos;
   }

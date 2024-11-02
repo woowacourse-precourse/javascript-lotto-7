@@ -10,6 +10,10 @@ const mockRandoms = numbers => {
 };
 
 describe('LottoMachine', () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
   test.each([
     { mockLottoNumbers: [[8, 21, 23, 41, 42, 43]], purchasePrice: 1000 },
     {
