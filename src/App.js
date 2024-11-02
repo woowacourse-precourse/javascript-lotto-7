@@ -8,10 +8,17 @@ class App {
 
   async getPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync(PROMPTS.PURCHASE_AMOUNT);
+
     if (isNaN(purchaseAmount)) {
       Console.print(ERROR_MESSAGES.INVALID_AMOUNT);
       return this.getPurchaseAmount();
     }
+
+    if (Number(purchaseAmount) % 1000 !== 0) {
+      Console.print(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
+      return this.getPurchaseAmount();
+    }
+
     return purchaseAmount;
   }
 }
