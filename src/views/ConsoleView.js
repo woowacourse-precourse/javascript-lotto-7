@@ -11,7 +11,14 @@ class ConsoleView {
   }
 
   printLottoCount(purchaseAmount) {
-    Console.print(`${purchaseAmount / 1000}개를 구매했습니다.`)
+    Console.print(`\n${purchaseAmount / 1000}개를 구매했습니다.`)
+  }
+
+  printLottoNumbers(lottos) {
+    for (let index = 0; index < lottos.length; index++) {
+      const numbers = lottos[index].getLottoNumbers();
+      Console.print(numbers);
+    }
   }
 }
 
