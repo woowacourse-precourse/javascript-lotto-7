@@ -13,6 +13,7 @@ class LottoController {
   }
 
   async play() {
+    // eslint-disable-next-line no-useless-catch
     try {
       // 구매 금액 입력 및 로또 생성
       const buyCash = await this.view.getCashInHand();
@@ -38,7 +39,6 @@ class LottoController {
       const rateOfReturn = LottoGame.getRateOfReturn(buyCash, getCash);
       this.view.printRateOfReturn(rateOfReturn);
     } catch (error) {
-      MissionUtils.Console.print(error.message);
       throw error;
     }
   }

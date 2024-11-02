@@ -7,7 +7,7 @@ class App {
       const controller = new LottoController();
       await controller.play();
     } catch (error) {
-      MissionUtils.Console.print(error);
+      MissionUtils.Console.print(error.message);
       throw error;
     }
   }
