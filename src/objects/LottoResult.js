@@ -1,6 +1,6 @@
 import Lotto from './Lotto';
 
-class LottosResult {
+class LottoResult {
   #rankMap;
 
   constructor() {
@@ -22,4 +22,4 @@ class LottosResult {
     );
   }
 }
-export default LottosResult;
+export default LottoResult;

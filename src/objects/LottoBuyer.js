@@ -6,7 +6,7 @@ class LottoBuyer {
   #purchasePrice;
   #lottos;
 
-  #lottosResult;
+  #LottoResult;
 
   async purchaseLottos() {
     this.#purchasePrice = await InputManager.getPurchasePrice();
@@ -16,13 +16,13 @@ class LottoBuyer {
   }
 
   checkWinningLotto(lottoCompany) {
-    this.#lottosResult = lottoCompany.checkWinningLotto(this.#lottos);
+    this.#LottoResult = lottoCompany.checkWinningLotto(this.#lottos);
 
-    OutputManager.printLottoResult(this.#lottosResult);
+    OutputManager.printLottoResult(this.#LottoResult);
   }
 
   calculateReturn() {
-    const lottoPrizeMoney = this.#lottosResult.getTotalPrizeMoney();
+    const lottoPrizeMoney = this.#LottoResult.getTotalPrizeMoney();
 
     const rateOfReturn = parseFloat(
       calculateRateOfReturn(lottoPrizeMoney, this.#purchasePrice).toFixed(2),

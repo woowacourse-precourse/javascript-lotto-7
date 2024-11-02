@@ -16,10 +16,10 @@ describe('LottoCompany', () => {
       await lottoCompany.draw();
       const lottos = LottoShop.orderLottos(MOCK_DATA_1.INPUT.PURCHASE_PRICE);
 
-      const lottosResult = lottoCompany.checkWinningLotto(lottos);
+      const LottoResult = lottoCompany.checkWinningLotto(lottos);
 
       Object.entries(MOCK_DATA_1.RESULT.RANKS).forEach(([rank, count]) => {
-        expect(lottosResult.getWinningCount(+rank)).toBe(count);
+        expect(LottoResult.getWinningCount(+rank)).toBe(count);
       });
     });
   });

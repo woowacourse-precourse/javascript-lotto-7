@@ -1,5 +1,5 @@
 import { InputManager } from '../helpers/index.js';
-import LottosResult from './LottosResult.js';
+import LottoResult from './LottoResult.js';
 
 class LottoCompany {
   #winningNumbers;
@@ -16,7 +16,7 @@ class LottoCompany {
       lottoResult.addWinning(rank);
 
       return lottoResult;
-    }, new LottosResult());
+    }, new LottoResult());
   }
 }
 
