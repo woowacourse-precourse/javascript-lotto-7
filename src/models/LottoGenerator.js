@@ -20,9 +20,9 @@ export default class LottoGenerator {
   #generateLottos(lottoCount) {
     return Array.from({ length: lottoCount }, () => {
       const numbers = Random.pickUniqueNumbersInRange(
-        lottoConfig.LOTTO_MIN_NUMBER,
-        lottoConfig.LOTTO_MAX_NUMBER,
-        lottoConfig.LOTTO_NUM_COUNT
+        lottoConfig.MIN_NUMBER,
+        lottoConfig.MAX_NUMBER,
+        lottoConfig.NUMBERS_COUNT
       );
 
       const sortedNumbers = this.#sortNumbers(numbers);

@@ -7,12 +7,12 @@ export default class LottoPurchaser {
   #lottos;
   #lottoResult;
 
-  getPurchasePrice(){
-    return this.#purchasePrice
+  getPurchasePrice() {
+    return this.#purchasePrice;
   }
 
-  setPurchasePrice(purchasePrice){
-    this.#purchasePrice = purchasePrice
+  setPurchasePrice(purchasePrice) {
+    this.#purchasePrice = purchasePrice;
   }
 
   getLottoCount() {
@@ -23,8 +23,8 @@ export default class LottoPurchaser {
     return this.#lottos;
   }
 
-  getLottoResult(){
-    return this.#lottoResult
+  getLottoResult() {
+    return this.#lottoResult;
   }
 
   purchase(purchasePrice) {
@@ -36,11 +36,34 @@ export default class LottoPurchaser {
     this.#lottoResult = new LottoResult();
   }
 
-  compareLottosWithWinningLotto(winningLotto){
-    const mainLotto = winningLotto.getMainLotto();
-    
-    // 당첨 로또랑 비교
-    // 당첨 로또 결과값 설정하기
+  compareLottosWithWinningLotto(winningLotto) {
+    const winningLottoMainNumbers = winningLotto.getMainLotto().getNumbers();
+    const winningLottoBonusNumber = winningLotto.getBonusNumber();
 
+    this.#lottos.forEach((lotto) => {
+      const lottoNumbers = lotto.getNumbers();
+
+      const matchCount = this.#getMatchCount(
+        lottoNumbers,
+        winningLottoMainNumbers
+      );
+
+      const isBonusNumberMatch = this.#getBonusNumberMatch(
+        lottoNumbers,
+        winningLottoBonusNumber
+      );
+
+      this.#lottoResult.saveResult(matchCount,isBonusNumberMatch);
+    });
+  }
+
+  #getMatchCount(lottoNumbers, winningLottoMainNumbers) {
+    return lottoNumbers.filter((number) =>
+      winningLottoMainNumbers.includes(number)
+    ).length;
+  }
+
+  #getBonusNumberMatch(lottoNumbers, winningLottoBonusNumber) {
+    return lottoNumbers.includes(winningLottoBonusNumber)
   }
 }
