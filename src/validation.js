@@ -3,7 +3,7 @@ import { ERRORMESSAGE, NUM } from './constants/index.js';
 const validation = Object.freeze({
   /**
    *
-   * @param {str} numberStr
+   * @param {str} number
    */
   isNotNumber: function (number) {
     if (isNaN(number)) throw new Error(ERRORMESSAGE.ISNOTNUMBER);
@@ -11,6 +11,11 @@ const validation = Object.freeze({
   isNotPositiveNumber: function (number) {
     if (Number(number) < NUM.MINIMUM_POSITIVE_NUMBER)
       throw new Error(ERRORMESSAGE.ISNOTPOSITIVENUMBER);
+  },
+
+  isNotGoodNumber: function (number) {
+    if (Number(number) % NUM.LOTTO_PRICE !== 0)
+      throw new Error(ERRORMESSAGE.ISNOTGOODNUMBER);
   },
 });
 
