@@ -1,11 +1,19 @@
 import { ERROR_MESSAGES } from '../constants/errorMessage';
 
 class Validator {
+  static LOTTO_PRICE = 1000;
+
   static validatePurchaseAmount(amount) {
     if (!Number.isInteger(amount) || amount <= 0) {
       throw new Error(ERROR_MESSAGES.purchaseAmount);
     }
     return true;
+  }
+
+  static validateDivisibleByThousand(amount) {
+    if (amount % Validator.LOTTO_PRICE !== 0) {
+      throw new Error();
+    }
   }
 
   static validateLottoNumbers(numbers) {

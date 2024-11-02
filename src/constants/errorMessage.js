@@ -1,5 +1,8 @@
 export const ERROR_MESSAGES = Object.freeze({
-  purchaseAmount: '[ERROR] 구입 금액은 양의 정수여야 합니다.',
+  purchaseAmount: {
+    notPositiveInteger: '[ERROR] 구입 금액은 양의 정수여야 합니다.',
+    notDivisibleByThousand: '[ERROR] 구입 금액은 1,000원 단위여야 합니다.',
+  },
   lottoNumbers: {
     invalidArray: '[ERROR] 로또 번호는 6개의 숫자로 구성된 배열이어야 합니다.',
     duplicateNumbers:
