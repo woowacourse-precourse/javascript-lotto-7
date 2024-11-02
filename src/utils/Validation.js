@@ -1,11 +1,17 @@
 import { UNIT, ERROR } from '../constants/Constants.js';
 
 export function validateCost(cost) {
-  if (isNaN(Number(cost))) {
+  const numberCost = Number(cost);
+
+  if (isNaN(numberCost)) {
     throw new Error(ERROR.COST_TYPE);
   }
 
-  if (Number(cost) % UNIT.TICKET_PRICE !== 0) {
+  if (!Number.isInteger(numberCost)) {
+    throw new Error(ERROR.COST_UNIT);
+  }
+
+  if (numberCost % UNIT.TICKET_PRICE !== 0) {
     throw new Error(ERROR.COST_UNIT);
   }
 }
