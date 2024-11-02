@@ -1,7 +1,9 @@
 import { Random } from '@woowacourse/mission-utils';
 import InputHandler from "./InputHandler.js";
-import { LOTTO_PRICE, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX,
-  LOTTO_NUMBER_COUNT } from "./lottoConstants.js";
+import {
+  LOTTO_PRICE, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX,
+  LOTTO_NUMBER_COUNT
+} from "./lottoConstants.js";
 import OutputHandler from "./OutputHandler.js";
 import Lotto from './Lotto.js';
 
@@ -21,6 +23,7 @@ class LottoManager {
       this.#outputHandler.printLottoCount(lottoCount);
       const lottoTickets = this.#generateLottoTickets(lottoCount);
       this.#outputHandler.printLottoTickets(lottoTickets);
+      const winningLotto = await this.#createWinningLotto();
     } catch (error) {
       throw error;
     }
@@ -43,7 +46,7 @@ class LottoManager {
 
   #generateLottoTickets(lottoCount) {
     let LottoTickets = [];
-    for(let i = 0; i < lottoCount; i++) {
+    for (let i = 0; i < lottoCount; i++) {
       const lottoNumbers = Random.pickUniqueNumbersInRange(
         LOTTO_NUMBER_MIN,
         LOTTO_NUMBER_MAX,
@@ -53,6 +56,18 @@ class LottoManager {
       LottoTickets.push(lottoTicket);
     }
     return LottoTickets;
+  }
+
+  async #createWinningLotto() {
+    while (true) {
+      try {
+        const winningNumbers = await this.#inputHandler.getWinningNumbers();
+        const winningLotto = new Lotto(winningNumbers);
+        return winningLotto;
+      } catch (error) {
+        this.#outputHandler.printErrorMessage(error.message);
+      }
+    }
   }
 }
 

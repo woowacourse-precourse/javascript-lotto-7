@@ -10,15 +10,27 @@ class InputHandler {
   }
 
   async getAmount() {
-      const input = await Console.readLineAsync(INPUT_MESSAGE.PURCHASE_AMOUNT);
+    const input = await Console.readLineAsync(INPUT_MESSAGE.PURCHASE_AMOUNT);
+    this.#validate.isEmpty(input);
+    this.#validate.isNumber(input);
+    this.#validate.isInteger(input);
+    this.#validateAmount(input);
+    this.#validatePositiveAmount(input);
 
-      this.#validate.isEmpty(input);
-      this.#validate.isNumber(input);
-      this.#validate.isInteger(input);
-      this.#validateAmount(input);
-      this.#validatePositiveAmount(input);
+    return Number(input);
+  }
 
-      return Number(input);
+  async getWinningNumbers() {
+    const input = await Console.readLineAsync(INPUT_MESSAGE.WINNING_NUMBERS);
+    this.#validate.isEmpty(input);
+
+    const inputNumbers = input.split(',');
+    inputNumbers.forEach(number => {
+      this.#validate.isNumber(number);
+      this.#validate.isInteger(number);
+    });
+
+    return inputNumbers.map(number => Number(number));
   }
 
   #validateAmount(amount) {
