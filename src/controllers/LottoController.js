@@ -1,0 +1,47 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
+import LottoGame from '../models/LottoGame.js';
+import LottoView from '../views/LottoView.js';
+
+class LottoController {
+  constructor() {
+    this.lottoGame = new LottoGame();
+    this.view = new LottoView(
+      MissionUtils.Console.print,
+      MissionUtils.Console.readLineAsync,
+    );
+  }
+
+  async play() {
+    try {
+      // 구매 금액 입력 및 로또 생성
+      const buyCash = await this.view.getCashInHand();
+      if (!LottoGame.cashValidation(buyCash)) {
+        throw new Error('[ERROR] 구입 금액은 1000원 단위여야 합니다.');
+      }
+
+      const lottos = this.lottoGame.createLottos(buyCash);
+      this.view.printLottoPurchase(lottos);
+
+      // 당첨 번호 입력
+      const targetLotto = await this.view.getTargetLottoArray();
+      const bonusNumber = await this.view.getBonusNumber();
+
+      // 당첨 계산
+      const winStatistics = LottoGame.getAllNumberWon(
+        lottos,
+        targetLotto,
+        bonusNumber,
+      );
+      this.view.printWinningStatistics(winStatistics);
+
+      // 수익률 계산
+      const getCash = LottoGame.getGetCash(winStatistics);
+      const rateOfReturn = LottoGame.getRateOfReturn(buyCash, getCash);
+      this.view.printRateOfReturn(rateOfReturn);
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+    }
+  }
+}
+
+export default LottoController;
