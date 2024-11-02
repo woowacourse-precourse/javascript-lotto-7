@@ -1,4 +1,8 @@
-import { ERROR_MESSAGE, WINNING_NUMBER_MESSAGE } from "../constant/constant.js";
+import {
+  BONUS_NUMBER_MESSAGE,
+  ERROR_MESSAGE,
+  WINNING_NUMBER_MESSAGE,
+} from "../constant/constant.js";
 
 class InputUtils {
   static trimInput(input) {
@@ -28,6 +32,16 @@ class InputUtils {
 
     if (input.some((num) => num < 1 || num > 45)) {
       throw new Error(WINNING_NUMBER_MESSAGE.NOT_RANGE_NUMBER);
+    }
+  }
+
+  static validateBonusNumber(input) {
+    if (!input || isNaN(input) || input <= 0) {
+      throw new Error(BONUS_NUMBER_MESSAGE.INVALID_WINNING_NUMBER);
+    }
+
+    if (input < 1 || input > 45) {
+      throw new Error(BONUS_NUMBER_MESSAGE.NOT_RANGE_NUMBER);
     }
   }
 }
