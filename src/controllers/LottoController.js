@@ -99,7 +99,7 @@ class LottoController {
       Validator.sameNumber(numberArr);
     } catch (error) {
       OutputView.error(error.message);
-      await this.inputBonusNumber();
+      await this.inputBonusNumber(winningNumbers);
     }
 
     return number;
