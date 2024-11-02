@@ -1,4 +1,4 @@
-import { ERROR } from './constants/Constants.js';
+import { ERROR, INPUT } from './constants/Constants.js';
 
 class Lotto {
   #numbers;
@@ -8,13 +8,20 @@ class Lotto {
     this.#numbers = numbers;
   }
 
+  async setJackpotNumber() {
+    const jackpotNumber = await Console.readLineAsync(INPUT.JACKPOT);
+    this.#numbers = jackpotNumber.split(',');
+  }
+
   #validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error(ERROR.LOTTO_ARRAY_COUNT);
     }
   }
 
-  // TODO: 추가 기능 구현
+  getJackpot() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
