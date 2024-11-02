@@ -42,16 +42,12 @@ class WinningLottoMachine {
       /^\d+(,\d+)*$/,
       '당첨 번호는 숫자만 입력 가능하며 쉼표(,)를 기준으로 구분합니다.',
     );
-    return WinningLottoMachine.#splitByComma(winningNumbers);
+    return winningNumbers.split(',');
   }
 
   static #validateBonusNumber(bonusNumber) {
     Validator.checkIsNull(bonusNumber);
     Validator.checkRegexPattern(bonusNumber, /^\d+$/, '보너스 번호는 숫자만 입력 가능합니다.');
-  }
-
-  static #splitByComma(inputString) {
-    return inputString.split(',');
   }
 }
 
