@@ -113,6 +113,9 @@ describe("로또 테스트", () => {
       test("숫자가 아닌 경우", async () => {
         await runMoneyException("1000j");
       });
+      test("1000원으로 나누어 떨어지지 않는 경우 에러 반환", async () => {
+        await runMoneyException("1500");
+      });
     });
     describe("당첨 번호가", () => {
       test("숫자가 아닌 경우", async () => {
