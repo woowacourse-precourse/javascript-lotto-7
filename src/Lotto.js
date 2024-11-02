@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE, LOTTO_CONFIG } from "./static/Static.js";
+
 class Lotto {
   #numbers;
 
@@ -9,23 +11,23 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== LOTTO_CONFIG.numbers.LENGTH) {
+      throw new Error(ERROR_MESSAGE.lotto.INVALID_LENGTH);
     }
   }
 
   #validateRange(numbers) {
     const isInvalid = numbers.some(
-      (number) => !Number.isInteger(number) || number < 1 || number > 45,
+      number => !Number.isInteger(number) || number < LOTTO_CONFIG.numbers.MIN || number > LOTTO_CONFIG.numbers.MAX
     );
     if (isInvalid) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      throw new Error(ERROR_MESSAGE.lotto.INVALID_RANGE);
     }
   }
 
   #validateDuplicates(numbers) {
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있을 수 없습니다.");
+      throw new Error(ERROR_MESSAGE.lotto.DUPLICATE_NUMBER);
     }
   }
 
@@ -34,14 +36,12 @@ class Lotto {
   }
 
   match(winningNumbers) {
-    return this.#numbers.filter((number) => winningNumbers.includes(number))
-      .length;
+    return this.#numbers.filter(number => winningNumbers.includes(number)).length;
   }
 
   contains(number) {
     return this.#numbers.includes(number);
   }
-  
 }
 
 export default Lotto;
