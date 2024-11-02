@@ -6,7 +6,7 @@ export function printLottoQuantity(lottos) {
 
 export function printLottos(lottos) {
   lottos.forEach((lotto) => {
-    MissionUtils.Console.print(lotto.printNumbers());
+    MissionUtils.Console.print(lotto.getFormattedNumbers());
   });
   MissionUtils.Console.print('\n');
 }
@@ -21,6 +21,6 @@ export function printPrizes(prizes) {
       BONUS_MESSAGE = '';
     }
 
-    MissionUtils.Console.print(`${prize.matchCount}개 일치${BONUS_MESSAGE} (${prize.money.toLocaleString()}원) - ${prize.count}개}`);
+    MissionUtils.Console.print(`${prize.matchCount}개 일치${BONUS_MESSAGE} (${prize.money.toLocaleString()}원) - ${prize.count}개`);
   }
 }
