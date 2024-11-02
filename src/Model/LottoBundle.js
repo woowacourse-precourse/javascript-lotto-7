@@ -1,5 +1,5 @@
-import getRandomNumbers from '../Utils/getRandomNumbers';
-import Lotto from './Lotto';
+import getRandomNumbers from '../Utils/getRandomNumbers.js';
+import Lotto from './Lotto.js';
 
 class LottoBundle {
   #lottoList;

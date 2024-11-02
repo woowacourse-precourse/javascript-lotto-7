@@ -1,5 +1,5 @@
-import { PrizeMoney } from '../Constants/constants';
-import roundToOne from '../Utils/roundToOne';
+import { PrizeMoney } from '../Constants/constants.js';
+import roundToOne from '../Utils/roundToOne.js';
 
 class Statistic {
   constructor(buyPrice) {
