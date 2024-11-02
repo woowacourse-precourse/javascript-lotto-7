@@ -3,12 +3,12 @@ import { FIVE_BONUS_KEY } from './lottoConstants.js';
 const PRINT_MESSAGES = Object.freeze({
   INPUT: Object.freeze({
     AMOUNT: '구입금액을 입력해 주세요.',
-    WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
-    BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
+    WINNING_NUMBERS: '\n당첨 번호를 입력해 주세요.',
+    BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.',
   }),
   OUTPUT: Object.freeze({
     LOTTO_COUNT: (count) => `\n${count}개를 구매했습니다.`,
-    STATISTICS_HEADER: '당첨 통계\n---',
+    STATISTICS_HEADER: '\n당첨 통계\n---',
     RETURN_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
   }),
 });

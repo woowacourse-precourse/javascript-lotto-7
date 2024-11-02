@@ -14,7 +14,6 @@ class OutputView {
     lottoBundle.forEach((lotto) => {
       Console.print(OutputView.formatLottoNumbers(lotto.getNumbers()));
     });
-    Console.print('');
   }
 
   static formatLottoNumbers(numbers) {
