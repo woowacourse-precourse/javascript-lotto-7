@@ -1,35 +1,32 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { LOTTO } from "./constants.js";
+import { DISPLAY_MESSAGE } from "./constants.js";
+
 
 class UserInput {
     async getUserPaidMoney() {
-
       let paidMoney;
       while ( paidMoney%1000 !== 0) { 
-        paidMoney = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요\n");
+        paidMoney = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQUEST_MONEY_MESSAGE);
         
         if(paidMoney % 1000 === 0) {
           return paidMoney;
         }
 
-        MissionUtils.Console.print(`[ERROR] 로또 1장당 금액은 ${LOTTO.LOTTO_TICKET_PRICE}원입니다. 거스름돈 없이 해주세요`);
+        MissionUtils.Console.print(DISPLAY_MESSAGE.ERROR_PAID_MONEY_MESSAGE);
 
       }
-
-      
     }
 
     async getWinningNumber() {
-      const winningNumber = await MissionUtils.Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+      const winningNumber = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQUST_WINNING_NUMBER_MESSAGE);
       return winningNumber;
     }
 
     async getBonusNumber() {
-      const bonusNumber = await MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+      const bonusNumber = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQEUST_BUONUS_NUMBER_MESSAGE);
       return bonusNumber;
     }
 
 }
 
 export default UserInput;
-const test = new UserInput();
