@@ -1,4 +1,5 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class App {
   async run() {
@@ -7,6 +8,11 @@ class App {
 
     const buyCount = parseInt(readUserMoney, 10) / 1000;
     Console.print(`\n${buyCount}개를 구매했습니다.`);
+
+    const lottoList = Array.from({ length: buyCount }, () => {
+      const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      return new Lotto(randomNumbers);
+    });
   }
 }
 
