@@ -38,7 +38,8 @@ export const LOTTO = {
 };
 
 export const MESSAGES = {
-  PURCHASED_COUNT: (count) => `${count}개를 구매했습니다.`,
+  PURCHASED_COUNT: (count) => `\n${count}개를 구매했습니다.`,
+  LOTTO_NUMBERS: (numbers) => `[${numbers.join(", ")}]`,
   RESULT_STATISTICS: "당첨 통계\n---",
   MATCH_COUNT: (match, amount, count) =>
     `${match}개 일치 (${amount.toLocaleString()}원) - ${count}개`,
