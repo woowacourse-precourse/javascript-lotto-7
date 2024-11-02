@@ -9,26 +9,11 @@ import { Random } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
-    // 구입금액을 입력해주세요.
     const purchaseAmount = await InputView.inputMoney();
     this.validatePurchaseAmount(purchaseAmount);
 
-    // ~개를 구매했습니다.
-
     const numberOfLottoes = +purchaseAmount / CONDITIONS.ONE_LOTTO_PRICE;
-
-    const lottoes = [];
-
-    for (let i = 0; i < numberOfLottoes; i++) {
-      lottoes.push(
-        Random.pickUniqueNumbersInRange(
-          CONDITIONS.START_NUM,
-          CONDITIONS.END_NUM,
-          CONDITIONS.LOTTO_NUMBER_DRAWN
-        )
-      );
-      lottoes[i].sort((a, b) => a - b);
-    }
+    const lottoes = this.generateLottoes(numberOfLottoes);
 
     OutputView.printPurchasedLottos(numberOfLottoes, lottoes);
 
@@ -85,6 +70,7 @@ class App {
     OutputView.printWinningStatistics(howManyMatch, rateOfReturn);
   }
 
+  // 구매 금액이 1000원 단위인지 확인
   validatePurchaseAmount(purchaseAmount) {
     if (+purchaseAmount % CONDITIONS.ONE_LOTTO_PRICE !== 0) {
       throw new Error(ERRORS.NOT_1000_WON);
@@ -92,6 +78,22 @@ class App {
     if (+purchaseAmount <= 0) {
       throw new Error(ERRORS.NOT_ENOUGH_MONEY);
     }
+  }
+
+  generateLottoes(numberOfLottoes) {
+    const lottoes = [];
+    for (let i = 0; i < numberOfLottoes; i++) {
+      lottoes.push(
+        Lotto.createRandomLotto(() =>
+          Random.pickUniqueNumbersInRange(
+            CONDITIONS.START_NUM,
+            CONDITIONS.END_NUM,
+            CONDITIONS.LOTTO_NUMBER_DRAWN
+          )
+        )
+      );
+    }
+    return lottoes;
   }
 }
 
