@@ -1,5 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { MESSAGES, GENERALS } from "./Constants.js";
+import { MESSAGES, LOTTERY } from "./Constants.js";
 import { validateWinningNumbers, validateBonusNumber } from "./Validator.js"
 
 class Lotto {
@@ -19,7 +19,7 @@ class Lotto {
 
     // TODO: 추가 기능 구현
     static calculateLottoCount(money) {
-        return money / GENERALS.LOTTO_PRICE;
+        return money / LOTTERY.PRICE;
     }
     
     static generateLottoNumbers(lottoCount) {
@@ -46,6 +46,47 @@ class Lotto {
         return issuedLottos;
     }
 
+    getMatchCount(lotto) {
+        const matchCount =  lotto.filter(num => this.#numbers.includes(num)).length;
+        return matchCount;
+    }
+    
+    updateResult(result, matchCount, hasBonus) {
+        if (matchCount === 6) {
+            result[6]++;
+        } else if (matchCount === 5 && hasBonus) {
+            result["5+bonus"]++;
+        } else if (matchCount === 5) {
+            result[5]++;
+        } else if (matchCount === 4) {
+            result[4]++;
+        } else if (matchCount === 3) {
+            result[3]++;
+        }
+    }
+
+    calculateResult() {
+        const result = { 3: 0, 4: 0, 5: 0, "5+bonus": 0, 6: 0 };
+    
+        this.issuedLottos.forEach(lotto => {
+            const matchCount = this.getMatchCount(lotto);
+            const hasBonus = lotto.includes(this.bonusNumber);
+            this.updateResult(result, matchCount, hasBonus);
+        });
+    
+        return result;
+    }
+
+    getPrizeAmount(matchCount) {
+        switch (matchCount) {
+            case 6: return LOTTERY.FIRST_PRIZE;
+            case "5+bonus": return LOTTERY.SECOND_PRIZE;
+            case 5: return LOTTERY.THIRD_PRIZE;
+            case 4: return LOTTERY.FOURTH_PRIZE;
+            case 3: return LOTTERY.FIFTH_PRIZE;
+            default: return 0;
+        }
+    }
 }
 
 export default Lotto;

@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { MESSAGES, GENERALS } from "./Constants.js";
+import { MESSAGES } from "./Constants.js";
 
 class InputHandler {
     async askUserMoney() {

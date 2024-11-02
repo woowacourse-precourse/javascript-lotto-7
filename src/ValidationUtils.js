@@ -1,4 +1,4 @@
-import { MESSAGES, GENERALS } from "./Constants.js";
+import { MESSAGES, LOTTERY } from "./Constants.js";
 
 const isNumber = (input) => {
     input = input.trim();
@@ -25,19 +25,19 @@ const isNegative = (input) => {
 };
 
 const isMoneyDivisible = (money) => {
-    if (money % GENERALS.LOTTO_PRICE !== 0) {
+    if (money % LOTTERY.PRICE !== 0) {
         throw new Error(MESSAGES.ERROR.MONEY_NOT_DIVISIBLE_BY_THOUSAND);
     }
 };
 
 const isOverLimit = (money) => {
-    if (money > GENERALS.LOTTO_BUY_LIMIT) {
+    if (money > LOTTERY.BUY_LIMIT) {
         throw new Error(MESSAGES.ERROR.CANNOT_BUY_OVER_LIMIT);
     }
  }
 
  const isInRange = (number) => {
-    if (number < GENERALS.LOTTO_MIN_NUMBER || number > GENERALS.LOTTO_MAX_NUMBER) {
+    if (number < LOTTERY.MIN_NUMBER || number > LOTTERY.MAX_NUMBER) {
         throw new Error(MESSAGES.ERROR.NUMBER_OUT_OF_RANGE);
     }
     return number;

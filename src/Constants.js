@@ -20,11 +20,16 @@ const MESSAGES = Object.freeze({
     },
 });
 
-const GENERALS = Object.freeze({
-    LOTTO_PRICE: 1000,
-    LOTTO_BUY_LIMIT: 100000,
-    LOTTO_MIN_NUMBER: 1,
-    LOTTO_MAX_NUMBER: 45,
+const LOTTERY = Object.freeze({
+    PRICE: 1000,
+    BUY_LIMIT: 100000,
+    MIN_NUMBER: 1,
+    MAX_NUMBER: 45,
+    FIRST_PRIZE: 2000000000,
+    SECOND_PRIZE: 30000000,
+    THIRD_PRIZE: 1500000,
+    FOURTH_PRIZE: 50000,
+    FIFTH_PRIZE: 5000,
 });
 
-export { MESSAGES, GENERALS };
+export { MESSAGES, LOTTERY };
