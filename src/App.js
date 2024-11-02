@@ -4,6 +4,9 @@ class App {
     const userPurchaseAmount = await this.getUserPurchaseAmount();
     const userWinningNumber = await this.getUserWinningNumber();
     const userWinningBonusNumber = await this.getUserWinningBonusNumber();
+
+    const userLottoAmount = computeLottoForPurchase();
+    
   }
 
   async getUserPurchaseAmount(){
@@ -17,6 +20,11 @@ class App {
   async getUserWinningBonusNumber(){
     return Console.readLineAsync('보너스 번호를 입력해 주세요.');
   }
+
+  computeLottoForPurchase(purchaseAmount){
+    return purchaseAmount / 1000;
+  }
+
 }
 
 export default App;
