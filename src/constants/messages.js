@@ -21,4 +21,5 @@ const ERROR_MESSAGES = Object.freeze({
   DUPLICATE_FOUND: "로또 번호에 중복된 숫자가 있습니다.",
   NOT_MULTIPLE_OF_THOUSAND: "구매 금액은 1,000원 단위여야 합니다.",
 });
+
 export { INPUT_MESSAGE, OUTPUT_MESSAGE, ERROR_MESSAGES };

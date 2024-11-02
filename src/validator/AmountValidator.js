@@ -1,7 +1,7 @@
 import Validator from "./Validator.js";
 import { _pipe } from "../utils/util.js";
 import throwError from "../utils/throwError.js";
-import ERROR_MESSAGES from "../constants/messages.js";
+import { ERROR_MESSAGES } from "../constants/messages.js";
 
 class AmountValidator extends Validator {
   static isMultipleOfThousand(input) {

@@ -1,5 +1,5 @@
-import ERROR_MESSAGES from "../constants/messages";
-import throwError from "../utils/throwError";
+import { ERROR_MESSAGES } from "../constants/messages.js";
+import throwError from "../utils/throwError.js";
 
 class Validator {
   static isEmpty(input) {
