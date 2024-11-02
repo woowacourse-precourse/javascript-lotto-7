@@ -7,6 +7,7 @@ import getRandomValues from '../utils/getRandomValues.js';
 import Lotto from '../models/Lotto.js';
 import WinningNumber from '../models/WinningNumber.js';
 import LottoResult from '../models/LottoResult.js';
+import ProfitRate from '../models/ProfitRate.js';
 
 function calculateLottoCount(amount) {
   return Math.floor(amount / LOTTO_PRICE);
@@ -18,6 +19,7 @@ class LottoGame {
   #amountModel;
   #winNumberModel;
   #lottoResultModel;
+  #profitRateModel;
   #lottoCount;
   #lottos = [];
 
@@ -44,7 +46,7 @@ class LottoGame {
     // 보너스 번호 입력
     await errorHandler(async () => await this.#setBonusNumber());
 
-    // 당첨 결과 출력
+    // 결과 출력
     this.#printResult();
   }
 
@@ -81,7 +83,11 @@ class LottoGame {
 
   #printResult() {
     this.#lottoResultModel = new LottoResult(this.#lottos, this.#winNumberModel);
-    this.#outputView.printResult(this.#lottoResultModel);
+    this.#outputView.printWinning(this.#lottoResultModel);
+
+    this.#profitRateModel = new ProfitRate(this.#lottoResultModel, this.#amountModel);
+    const profit = this.#profitRateModel.getProfitRate();
+    this.#outputView.printProfitRate(profit);
   }
 }
 

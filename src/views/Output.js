@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { match, prize } from '../constants/lottoResult.js';
 
 class Output {
   printLottoCount(count) {
@@ -10,8 +11,23 @@ class Output {
     Console.print('');
   }
 
+  printWinning(result) {
+    Console.print('\n당첨 통계\n---');
+
+    const winLotto = result.getWinLotto();
+    winLotto.forEach((count, key) => this.#printMatch(key, count));
+  }
+
+  printProfitRate(rate) {
+    Console.print(`총 수익률은 ${rate}%입니다.`);
+  }
+
   #printLotto(lotto) {
     Console.print('[' + lotto.getNumbers().join(', ') + ']');
+  }
+
+  #printMatch(key, count) {
+    Console.print(`${match[key]} ${prize[key]} - ${count}개`);
   }
 }
 
