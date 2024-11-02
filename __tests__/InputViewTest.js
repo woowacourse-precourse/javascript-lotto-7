@@ -80,6 +80,8 @@ describe('공통적인 예외 처리', () => {
   test('입력 값이 정수가 아닌 값이라면 예외 처리한다.', () => {
     expect(() => validateNumber(undefined)).toThrow(INVALID_NUMBER_ERROR_MESSAGE);
     expect(() => validateNumber('Hi')).toThrow(INVALID_NUMBER_ERROR_MESSAGE);
+    expect(() => validateNumber('')).toThrow(INVALID_NUMBER_ERROR_MESSAGE);
+    expect(() => validateNumber(' ')).toThrow(INVALID_NUMBER_ERROR_MESSAGE);
   });
   test('입력 값이 정수 값이라면 예외 처리하지 않는다.', () => {
     expect(() => validateNumber(1000)).not.toThrow();

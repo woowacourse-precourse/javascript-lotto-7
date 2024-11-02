@@ -16,7 +16,7 @@ export function validateUserMoney(userMoney) {
 }
 
 export function validateNumber(number) {
-  if (isNaN(number)) {
+  if (isNaN(parseInt(number, 10))) {
     throw new Error(INVALID_NUMBER_ERROR_MESSAGE);
   }
 }
