@@ -5,6 +5,7 @@ import Money from '../validation/Money.js';
 import { countLotto } from '../utils/index.js';
 import LOTTO_MESSAGE from '../constants/LottoMessage.js';
 import LottoController from './LottoController.js';
+import Lotto from '../Lotto.js';
 
 class LottoMachine {
   async start() {
@@ -12,9 +13,11 @@ class LottoMachine {
     const numOfLotto = countLotto(money);
     Console.print(LOTTO_MESSAGE.PRINT_LOTTO_COUNT(numOfLotto));
 
-    // 갯수 만큼 로또를 발행
     const lottoController = new LottoController(numOfLotto);
     Output.printLottos(lottoController.lottos);
+
+    // 당첨 번호를 입력받는다.
+    const winningNumber = await this.handleWinningNumberInput();
   }
 
   async handleMoneyInput() {
@@ -25,6 +28,19 @@ class LottoMachine {
       try {
         const validMoney = Money.validate(money);
         return validMoney;
+      } catch (error) {
+        Console.print(error);
+      }
+    }
+  }
+
+  async handleWinningNumberInput() {
+    let numbers;
+    while (true) {
+      try {
+        numbers = await Input.requestWinningNumbers();
+        const validNumbers = new Lotto(numbers);
+        return validNumbers;
       } catch (error) {
         Console.print(error);
       }

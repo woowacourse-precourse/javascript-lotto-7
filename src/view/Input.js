@@ -8,6 +8,13 @@ class Input {
     );
     return input;
   }
+
+  static async requestWinningNumbers() {
+    const input = await Console.readLineAsync(
+      `${LOTTO_MESSAGE.REQUEST_WINNING_NUMBERS}\n`,
+    );
+    return input;
+  }
 }
 
 export default Input;
