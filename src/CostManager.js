@@ -1,6 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class CostManager {
+    constructor(){
+        this.cost = 0;
+    }
     async getLottoCountFromCost() {
         const cost = await this.readCost();
         return this.validateCost(cost);
@@ -8,7 +11,8 @@ class CostManager {
 
     async readCost() {
         const input = await Console.readLineAsync('구매금액을 입력해주세요.');
-        return Number(input);
+        this.cost = Number(input) 
+        return this.cost;
     }
 
     validateCost(cost) {

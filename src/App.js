@@ -5,6 +5,7 @@ import GetNumber from "./GetNumber.js";
 import CheckNumber from "./CheckNumber.js";
 import WinningPrizeTable from "./WinningPrizeTable.js";
 import PrintResult from "./PrintResult.js";
+import ReturnOfInvestment from "./ReturnOfInvestment.js";
 
 class App {
   constructor() {
@@ -17,6 +18,7 @@ class App {
     const lottoGenerator = new LottoGenerator(this.checkNumber);
     const winningPrizeTable = new WinningPrizeTable(this.checkNumber);
     const printResult = new PrintResult(winningPrizeTable);
+    const returnOfInvestment = new ReturnOfInvestment(winningPrizeTable,costManager);
 
     await this.handlePurchaseLottos(costManager, lottoGenerator);
     await this.handleGetWinNumber(this.getNumber);
@@ -24,6 +26,8 @@ class App {
 
     winningPrizeTable.updateWinningPrizeTable();
     printResult.printingResult();
+    returnOfInvestment.calculator();
+
   }
 
   async handlePurchaseLottos(costManager, lottoGenerator) {

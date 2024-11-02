@@ -5,6 +5,7 @@ import GetNumber from '../src/GetNumber.js';
 import CheckNumber from '../src/CheckNumber.js';
 import WinningPrizeTable from '../src/WinningPrizeTable.js';
 import PrintResult from '../src/PrintResult.js';
+import ReturnOfInvestment from '../src/ReturnOfInvestment.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
@@ -208,6 +209,64 @@ describe('PrintResult', () => {
       consoleSpy.mockRestore();
   });
 });
+
+describe('ReturnOfInvestment 클래스 테스트', () => {
+  let returnOfInvestment;
+  let winningPrizeTable;
+  let costManager;
+
+  beforeEach(() => {
+      winningPrizeTable = {
+          winningPrizeTable: {
+              '3개 일치 (5,000원)': 1,
+              '4개 일치 (50,000원)': 0,
+              '5개 일치 (1,500,000원)': 2,
+              '5개 일치, 보너스 볼 포함 (30,000,000원)': 0,
+              '6개 일치 (2,000,000,000원)': 1,
+          }
+      };
+
+      costManager = {
+          cost: 8000
+      };
+
+      returnOfInvestment = new ReturnOfInvestment(winningPrizeTable, costManager);
+  });
+
+  test('총 상금 계산이 올바른지 확인', () => {
+      const totalPrize = returnOfInvestment.getTotalPrizeMoney();
+      
+      const expectedTotalPrize = (5000 * 1) + (1500000 * 2) + (2000000000 * 1);
+      
+      expect(totalPrize).toBe(expectedTotalPrize);
+  });
+
+  test('extractNumberFromParentheses가 올바르게 작동하는지 확인', () => {
+      const prizeMoney = returnOfInvestment.extractNumberFromParentheses('3개 일치 (5,000원)');
+      expect(prizeMoney).toBe(5000);
+
+      const prizeMoney2 = returnOfInvestment.extractNumberFromParentheses('6개 일치 (2,000,000,000원)');
+      expect(prizeMoney2).toBe(2000000000);
+
+      const prizeMoney3 = returnOfInvestment.extractNumberFromParentheses('4개 일치 (50,000원)');
+      expect(prizeMoney3).toBe(50000);
+
+      const prizeMoney4 = returnOfInvestment.extractNumberFromParentheses('당첨 없음 (0원)');
+      expect(prizeMoney4).toBe(0);
+  });
+
+  test('수익률 계산이 올바른지 확인', () => {
+      const consoleSpy = jest.spyOn(Console, 'print').mockImplementation();
+
+      returnOfInvestment.calculator();
+
+      const expectedReturnOfInvestment = Math.round((returnOfInvestment.getTotalPrizeMoney() / costManager.cost) * 10000) / 100;
+      const formattedROI = `${expectedReturnOfInvestment.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
+      
+      expect(consoleSpy).toHaveBeenCalledWith(`총 수익률은 ${formattedROI}입니다.`);
+      consoleSpy.mockRestore();
+  });
+})
 
 /*describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
