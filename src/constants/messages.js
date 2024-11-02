@@ -4,6 +4,10 @@ const INPUT_MESSAGE = {
   LOTTO_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
 };
 
+const OUTPUT_MESSAGE = {
+  LOTTO_PURCHASE_MESSAGE: '개를 구매했습니다.',
+};
+
 const ERROR_MESSAGE = {
   INVALID_WINNING_NUMBERS_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
   INVALID_WINNING_NUMBERS_DUPLICATE:
@@ -24,4 +28,4 @@ const ERROR_MESSAGE = {
     '[ERROR] 로또 구입 금액은 1,000원으로 나누어 떨어져야 합니다.',
 };
 
-export { INPUT_MESSAGE, ERROR_MESSAGE };
+export { INPUT_MESSAGE, OUTPUT_MESSAGE, ERROR_MESSAGE };
