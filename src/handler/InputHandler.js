@@ -9,7 +9,12 @@ export class InputHandler {
   }
 
   #validate(input) {
+    this.#isEmpty(input);
     this.#isNumber(input);
+  }
+
+  #isEmpty(input) {
+    if (input.trim() === '') throw new Error(inValidMessages.empty);
   }
 
   #isNumber(input) {
