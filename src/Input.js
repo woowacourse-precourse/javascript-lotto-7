@@ -25,11 +25,9 @@ class Input {
 		if (INPUT_NUMBER % LOTTO_MONEY) {
 			throw new Error(ERROR_MESSAGE.WRONG_UNIT);
 		}
-
 		if (Number.isNaN(INPUT_NUMBER)) {
 			throw new Error(ERROR_MESSAGE.WRONG_CHARACTER);
 		}
-
 		if (INPUT_NUMBER > LOTTO_MAX_MONEY) {
 			throw new Error(ERROR_MESSAGE.PASSED_BUY_LIMIT);
 		}
@@ -54,15 +52,12 @@ class Input {
 		if (!validPattern.test(winningNumber)) {
 			throw new Error(ERROR_MESSAGE.WRONG_CHARACTER);
 		}
-
 		if (INPUT_WINNING.length !== 6) {
 			throw new Error(ERROR_MESSAGE.WRONG_WINNING_DIGIT);
 		}
-
 		if (INPUT_WINNING.some((number) => number < 1 || number > 45)) {
 			throw new Error(ERROR_MESSAGE.PASSED_WINNING_RANGE);
 		}
-
 		if (new Set(INPUT_WINNING).size !== INPUT_WINNING.length) {
 			throw new Error(ERROR_MESSAGE.WRONG_DUPLICATE);
 		}
@@ -87,7 +82,6 @@ class Input {
 		if (INPUT_WINNING < 1 || INPUT_WINNING > 45) {
 			throw new Error(ERROR_MESSAGE.PASSED_BONUS_RANGE);
 		}
-
 		if (isDuplicate) {
 			throw new Error(ERROR_MESSAGE.WRONG_DUPLICATE);
 		}
