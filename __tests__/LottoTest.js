@@ -16,9 +16,26 @@ describe("로또 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
-  test("구매 금액이 유효하지 않을 경우 예외가 발생한다..", () => {
+  test("로또 번호가 숫자가 아닐 경우 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, "d"]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("로또 번호가 정해진 범위 내에 없을 경우 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 80]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 1000 단위가 아닐 경우 예외가 발생한다.", () => {
     expect(() => {
       new MoneyValidator(13987);
+    }).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 숫자가 아닐 경우 예외가 발생한다.", () => {
+    expect(() => {
       new MoneyValidator("dd");
     }).toThrow("[ERROR]");
   });
@@ -36,6 +53,4 @@ describe("로또 클래스 테스트", () => {
         });
       });
   });
-
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 });
