@@ -23,7 +23,7 @@ class Lotto {
     }
     numbers.forEach((number) => {
       if (!Validates.isNumber(number)) throw new LottoNumbersError("숫자만 입력 가능합니다.");
-      if (Number(number) < 1 || Number(number) > 45) throw new LottoNumbersError("1부터 45까지의 숫자만 입력 가능합니다.");
+      if (!Validates.isRangeOk(+number)) throw new LottoNumbersError("1부터 45까지의 숫자만 입력 가능합니다.");
     });
   }
 
