@@ -6,6 +6,7 @@ import OutputView from '../views/OutputView.js';
 class LottoController {
   #lottoCount;
   #lottos;
+  #winningNumbers;
 
   async run() {
     await this.getLottoCount();
@@ -22,6 +23,12 @@ class LottoController {
   async getLotto() {
     this.#lottos = Lotto.getPurchaesdLotto(this.#lottoCount);
     this.#lottos.forEach((lotto) => OutputView.printMessage(lotto.convertNumbersToString()));
+    OutputView.printNewLine();
+  }
+
+  async getWinningNumbers() {
+    const winningNumbersInput = await InputView.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    this.#winningNumbers = Lotto.convertInputToNumbers(winningNumbersInput);
     OutputView.printNewLine();
   }
 }
