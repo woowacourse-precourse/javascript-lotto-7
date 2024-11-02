@@ -4,8 +4,8 @@ class RevenueCalculator {
   calculateYield(totalSpent, winningResults) {
     const totalPrize = this.#calculateTotalPrize(winningResults);
 
-    const yield = (totalPrize / totalSpent) * 100;
-    return parseFloat(yield.toFixed(2));
+    const totalYield = (totalPrize / totalSpent) * 100;
+    return parseFloat(totalYield.toFixed(2));
   }
 
   #calculateTotalPrize(winningResults) {

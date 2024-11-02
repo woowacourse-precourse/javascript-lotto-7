@@ -26,8 +26,8 @@ class LottoOutputWriter {
     Console.print(output.join('\n'));
   }
 
-  printYield(yieldRate) {
-    Console.print(`총 수익률은 ${yieldRate}%입니다.`);
+  printYield(totalYield) {
+    Console.print(`총 수익률은 ${totalYield}%입니다.`);
   }
 
   #printLottoCount(lottoCount) {
