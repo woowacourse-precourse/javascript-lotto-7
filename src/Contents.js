@@ -17,7 +17,7 @@ const rateOfReturn = (c) => ({
 });
 
 const PRICE_ERROR_MESSAGE = Object.freeze({
-  PRICE_NUMBER: "[ERROR] 숫자만 입력 가능합니다.",
+  IS_NUMBER: "[ERROR] 숫자만 입력 가능합니다.",
   PRICE_INCORRECT: "[ERROR] 1,000원 단위만 구매 가능합니다.",
   MIN_PRICE: "[ERROR] 최소 단위는 1,000원입니다.",
   MAX_PRICE: "[ERROR] 최대 단위는 100,000원입니다.",

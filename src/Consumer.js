@@ -5,9 +5,10 @@ class Consumer {
 
   constructor(price) {}
 
-  isPriceNumber(price) {
+  isNumber() {
+    // 보너스 번호 검사도 trim()사용해서 여기서 함
     if (!/^[0-9]+$/.test(price)) {
-      throw new Error(ERROR_MESSAGE.PRICE_NUMBER);
+      throw new Error(ERROR_MESSAGE.IS_NUMBER);
     }
   }
 
@@ -55,6 +56,7 @@ class Consumer {
   }
 
   numberRangeCheck() {
+    // 보너스 번호 범위도 여기서 함
     if (winningNumber < 1 || 45 < winningNumber) {
       throw new Error(NUMBER_INPUT_ERROR_MESSAGE.NUMBER_RANGE);
     }
