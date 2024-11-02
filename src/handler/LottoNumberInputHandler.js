@@ -11,4 +11,8 @@ export class LottoNumberInputHandler {
   async readWinningNumbers() {
     return await this.#inputHandler.readNumbers(viewMessages.winning);
   }
+
+  async readBonusNumber() {
+    return await this.#inputHandler.readNumber(viewMessages.bonus);
+  }
 }

@@ -3,6 +3,7 @@ import { LOTTO_PRICE, SPLIT_CHAR } from "./constants.js";
 export const viewMessages = {
   price: '구입금액을 입력해주세요.\n',
   winning: '\n당첨 번호를 입력해 주세요.\n',
+  bonus: '\n보너스 번호를 입력해 주세요.\n',
   count: '개를 구매했습니다.',
 };
 
