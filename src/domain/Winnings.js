@@ -4,7 +4,7 @@ import VALUES from '../constants/values.js';
 class Winnings {
   static #COUNT = { min: 3, bonusAvailable: 5 };
 
-  static #MARK = { connection: ' - ', number: '개', division: '\n' };
+  static #MARK = { connection: ' - ', number: '개' };
 
   #winningList = [
     ['3개 일치 (5,000원)', 0],
@@ -77,7 +77,7 @@ class Winnings {
   }
 
   getWinningStats() {
-    const { division } = Winnings.#MARK;
+    const { division } = VALUES;
     const winningStats = this.#getWinningDetails().join(division);
 
     return winningStats;

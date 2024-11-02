@@ -5,8 +5,6 @@ import MESSAGES from '../constants/messages.js';
 class Lotto {
   static #FORMAT = /^\d+(,\d+)*$/;
 
-  static #SEPARATOR = ',';
-
   static #MESSAGE = {
     format: '[ERROR] 쉼표와 숫자를 제외한 다른 문자를 입력했습니다.',
     size: '[ERROR] 숫자를 6개 입력하지 않았습니다.',
@@ -27,7 +25,7 @@ class Lotto {
   static #convertStringToNumericArray(numbersInput) {
     const numbers = [];
 
-    numbersInput.split(Lotto.#SEPARATOR).forEach((string) => {
+    numbersInput.split(VALUES.separator).forEach((string) => {
       numbers.push(Number(string));
     });
 

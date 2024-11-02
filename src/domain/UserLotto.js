@@ -36,8 +36,21 @@ class UserLotto {
     }
   }
 
-  getUserLotto() {
-    return this.#userLotto;
+  #convertArrayToString() {
+    const { open, close } = VALUES.squareBrackets;
+    const strings = this.#userLotto.map(
+      (lotto) => `${open}${lotto.join(`${VALUES.separator} `)}${close}`,
+    );
+
+    return strings.join(VALUES.division);
+  }
+
+  getUserLottoInfo() {
+    return {
+      userLotto: this.#userLotto,
+      lottoString: this.#convertArrayToString(),
+      lottoCount: utils.convertNumberFormat(this.#lottoCount),
+    };
   }
 }
 
