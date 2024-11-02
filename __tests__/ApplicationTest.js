@@ -1,6 +1,6 @@
 import App from '../src/App.js';
 import { ERROR_MESSAGE } from '../src/lib/constants.js';
-import { MOCK_DATA_1, MOCK_DATA_2 } from '../src/lib/mock/data.js';
+import { MOCK_DATA_1, MOCK_DATA_2, MOCK_DATA_3 } from '../src/lib/mock/data.js';
 import {
   getLogSpy,
   mockQuestions,
@@ -33,8 +33,8 @@ describe('App', () => {
   });
 
   describe('정상 케이스', () => {
-    describe('올바른 데이터를 입력했을 때의 상황을 테스트한다.', () => {
-      test('8개의 복권 구매 & 5등 1개 당첨', async () => {
+    describe('8장의 복권을 구매했을 때 상황을 테스트한다.', () => {
+      test('5등 1개 당첨', async () => {
         const logSpy = getLogSpy();
 
         mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
@@ -49,9 +49,24 @@ describe('App', () => {
             expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
           });
       });
+      test('1등 1개 & 5등 1개당첨', async () => {
+        const logSpy = getLogSpy();
+
+        mockRandoms(MOCK_DATA_3.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA_3.INPUT).flat());
+
+        const app = new App();
+        await app.run();
+
+        Object.values(MOCK_DATA_3.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
     });
     describe('80개의 데이터를 입력했을 때의 상황을 테스트한다.', () => {
-      test('80개의 복권 고매 * 5등 10개 당첨', async () => {
+      test('5등 10개 당첨', async () => {
         const logSpy = getLogSpy();
 
         mockRandoms(MOCK_DATA_2.RANDOM.LOTTO_NUMBERS);

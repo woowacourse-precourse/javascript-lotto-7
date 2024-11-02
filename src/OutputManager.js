@@ -42,7 +42,9 @@ class OutputManager {
   }
 
   static printRateOfReturn(rateOfReturn) {
-    const rateOfReturnSetence = `총 수익률은 ${rateOfReturn}%입니다.`;
+    const rateOfReturnSetence = `총 수익률은 ${rateOfReturn.toLocaleString(
+      'ko-KR',
+    )}%입니다.`;
 
     this.print(rateOfReturnSetence);
   }
