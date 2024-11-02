@@ -16,8 +16,8 @@ class WinningLottoMachine {
     while (true) {
       try {
         const winningNumbers = await InputView.getUserInput(PRINT_MESSAGES.INPUT.WINNING_NUMBERS);
-        const validNumbers = WinningLottoMachine.#validateWinningNumbers(winningNumbers);
-        return new WinningLotto(validNumbers);
+        WinningLottoMachine.#validateWinningNumbers(winningNumbers);
+        return new WinningLotto(winningNumbers.split(','));
       } catch (error) {
         OutputView.printError(error);
       }
@@ -38,18 +38,15 @@ class WinningLottoMachine {
   }
 
   static #validateWinningNumbers(winningNumbers) {
-    Validator.checkIsNull(winningNumbers);
-    Validator.checkRegexPattern(
+    Validator.validateInput(
       winningNumbers,
       REGEX.NUMBER_AND_COMMA_REGEX,
       ERROR_MESSAGES.INVALID_WINNING_NUMBER_INPUT,
     );
-    return winningNumbers.split(',');
   }
 
   static #validateBonusNumber(bonusNumber) {
-    Validator.checkIsNull(bonusNumber);
-    Validator.checkRegexPattern(
+    Validator.validateInput(
       bonusNumber,
       REGEX.NUMBER_REGEX,
       ERROR_MESSAGES.INVALID_BONUS_NUMBER_INPUT,
