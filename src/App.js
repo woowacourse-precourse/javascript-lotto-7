@@ -19,7 +19,7 @@ class App {
         lottoMoney = new Money(inputMoney);
         lottoMoneyRepeater = false;
       } catch (error) {
-        Console.print(error.message);
+        OutputView.printErrorMessage(error.message);
       }
     }
     const lottoCounter = lottoMoney.getMoney() / MONEY_UNIT;
@@ -42,7 +42,7 @@ class App {
         winningLotto = new Lotto(winningNumbers.split(','));
         winningLottoRepeater = false;
       } catch (error) {
-        Console.print(error.message);
+        OutputView.printErrorMessage(error.message);
       }
     }
 
@@ -54,9 +54,10 @@ class App {
         bonusLotto = new BonusLotto(winningLotto.getNumbers(), bonusNumber);
         bonusLottoRepeater = false;
       } catch (error) {
-        Console.print(error.message);
+        OutputView.printErrorMessage(error.message);
       }
     }
+
     // 로또 등수 확인
     const rankCounter = [0, 0, 0, 0, 0];
     lottoList.forEach((lotto) => {

@@ -1,4 +1,5 @@
 import ERROR_MESSAGE from './constants/errorMessage.js';
+import CustomError from './CustomError.js';
 import Validator from './Validator.js';
 
 class Lotto {
@@ -20,13 +21,13 @@ class Lotto {
 
   #validateNumbersLength(numbers) {
     if (numbers.length !== 6) {
-      throw new Error(ERROR_MESSAGE.NOT_SIX_LENGTH);
+      throw new CustomError(ERROR_MESSAGE.NOT_SIX_LENGTH);
     }
   }
 
   #validateNumbersDuplicate(numbers) {
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
+      throw new CustomError(ERROR_MESSAGE.DUPLICATE_NUMBER);
     }
   }
 

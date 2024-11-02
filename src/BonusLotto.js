@@ -1,4 +1,5 @@
 import ERROR_MESSAGE from './constants/errorMessage.js';
+import CustomError from './CustomError.js';
 import Validator from './Validator.js';
 
 class BonusLotto {
@@ -16,7 +17,7 @@ class BonusLotto {
 
   #validateContainWinningNumber(winningNumbers, bonusNumber) {
     if (winningNumbers.includes(Number(bonusNumber))) {
-      throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
+      throw new CustomError(ERROR_MESSAGE.DUPLICATE_NUMBER);
     }
   }
 
