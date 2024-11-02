@@ -1,4 +1,4 @@
-import { PrizeMoney } from '../Constants/constants.js';
+import { PrizeMoney } from '../Constants/prizeConfig.js';
 import roundToOne from '../Utils/roundToOne.js';
 
 class Statistic {

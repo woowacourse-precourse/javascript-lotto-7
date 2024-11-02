@@ -1,48 +1,35 @@
 import { Console } from '@woowacourse/mission-utils';
-import throwError from '../Utils/throwError.js';
+import { printErrorAndFalse } from '../Utils/handleError.js';
 import Rules from '../Utils/Rules.js';
+import PrintMessages from '../Constants/PrintMessages.js';
+import ErrorMessages from '../Constants/ErrorMessages.js';
 
 const BasicNumbersInput = {
   get: async () => {
     const userInput = await Console.readLineAsync(
-      '당첨 번호를 입력해 주세요.\n'
+      PrintMessages.BASIC_NUMBERS_INPUT
     );
     return userInput;
   },
 
   validate: (basicNumbersInput) => {
     if (Rules.isNoValueString(basicNumbersInput)) {
-      return throwError('당첨 번호를 입력해주세요.');
+      return printErrorAndFalse(ErrorMessages.BasicNumbers.NO_INPUT);
     }
 
     const basicNumbers = basicNumbersInput.split(',');
 
     if (basicNumbers.length !== 6) {
-      return throwError('6개의 숫자를 구분자로 구분하여 입력해주세요.');
+      return printErrorAndFalse(ErrorMessages.BasicNumbers.IS_WRONG_LENGTH);
     }
 
     if (Rules.isDuplicatedValue(basicNumbers)) {
-      return throwError('중복되지 않는 숫자를 구분자로 구분하여 입력해주세요.');
+      return printErrorAndFalse(
+        ErrorMessages.BasicNumbers.IS_DUPLICATED_VALUE_IN
+      );
     }
 
-    const isValid = basicNumbers.every((numberString) => {
-      if (isNaN(numberString)) {
-        return throwError('문자가 아닌 숫자를 구분자로 구분하여 입력해주세요.');
-      }
-
-      if (Rules.isNoValueString(numberString)) {
-        return throwError('입력하지 않은 숫자가 있습니다.');
-      }
-
-      const number = Number(numberString);
-      if (Rules.isNotRangedValue(number)) {
-        return throwError('1~45사이의 숫자를 구분자로 구분하여 입력해주세요.');
-      }
-
-      return true;
-    });
-
-    return isValid;
+    return validateEachNumber(basicNumbers);
   },
 
   parse: (basicNumbersInput) => {
@@ -50,6 +37,27 @@ const BasicNumbersInput = {
       .split(',')
       .map((numberString) => Number(numberString));
   },
+};
+
+const validateEachNumber = (basicNumbers) => {
+  const isValid = basicNumbers.every((numberString) => {
+    if (isNaN(numberString)) {
+      return printErrorAndFalse(ErrorMessages.BasicEachNumber.NOT_NUMBER_INPUT);
+    }
+
+    if (Rules.isNoValueString(numberString)) {
+      return printErrorAndFalse(ErrorMessages.BasicEachNumber.NO_INPUT);
+    }
+
+    const number = Number(numberString);
+    if (Rules.isNotRangedValue(number)) {
+      return printErrorAndFalse(ErrorMessages.BasicEachNumber.NOT_RANGED_INPUT);
+    }
+
+    return true;
+  });
+
+  return isValid;
 };
 
 export default BasicNumbersInput;

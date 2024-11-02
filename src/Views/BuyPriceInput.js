@@ -1,39 +1,38 @@
 import { Console } from '@woowacourse/mission-utils';
-import throwError from '../Utils/throwError.js';
+import { printErrorAndFalse } from '../Utils/handleError.js';
+import PrintMessages from '../Constants/PrintMessages.js';
+import Rules from '../Utils/Rules.js';
+import ErrorMessages from '../Constants/ErrorMessages.js';
 
 const BuyPriceInput = {
   get: async () => {
     const userInput = await Console.readLineAsync(
-      '구입금액을 입력해 주세요.\n'
+      PrintMessages.BUY_PRICE_INPUT
     );
     return userInput;
   },
 
   validate: (buyPriceInput) => {
-    if (
-      buyPriceInput === '' ||
-      buyPriceInput === null ||
-      buyPriceInput === undefined
-    ) {
-      return throwError('구입 금액을 입력해주세요.');
+    if (Rules.isNoValueString(buyPriceInput)) {
+      return printErrorAndFalse(ErrorMessages.BuyPrice.NO_INPUT);
     }
 
     const buyPrice = Number(buyPriceInput);
 
     if (isNaN(buyPrice)) {
-      return throwError('구입 금액은 숫자로 입력해야 합니다.');
+      return printErrorAndFalse(ErrorMessages.BuyPrice.NOT_NUMBER_INPUT);
     }
 
     if (buyPrice < 0) {
-      return throwError('구입 금액은 0원 이상이어야 합니다.');
+      return printErrorAndFalse(ErrorMessages.BuyPrice.LESS_THAN_ZERO);
     }
 
     if (buyPrice >= 1000000000000) {
-      return throwError('구입 금액은 1조원을 넘을 수 없습니다.');
+      return printErrorAndFalse(ErrorMessages.BuyPrice.TOO_MUCH_AMOUNT);
     }
 
     if (buyPrice % 1000 !== 0) {
-      return throwError('구입 금액은 1,000원 단위로 떨어져야 합니다.');
+      return printErrorAndFalse(ErrorMessages.BuyPrice.NOT_UNIT_NUMBER);
     }
 
     return true;
