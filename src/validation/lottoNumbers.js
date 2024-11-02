@@ -11,10 +11,13 @@ async function validateWinningNumbers(winningNumbers) {
     const parsedWinningNumbers = validateSixNumbers(winningNumbers);
     validateAllNumeric(parsedWinningNumbers);
     validateAllInRange(parsedWinningNumbers);
+
+    return parsedWinningNumbers;
   } catch (error) {
     Console.print(error.message);
+
     const isValidInput = await getWinningNumbers();
-    validateWinningNumbers(isValidInput);
+    return validateWinningNumbers(isValidInput);
   }
 }
 
@@ -23,10 +26,13 @@ async function validateBonusNumber(winningNumberArray, bonusNumber) {
     validateIsNumeric(bonusNumber);
     validateInRange(bonusNumber);
     validateBonusNumberUniqueness(winningNumberArray, bonusNumber);
+
+    return bonusNumber;
   } catch (error) {
     Console.print(error.message);
+
     const isValidInput = await getBonusNumber();
-    validateBonusNumber(winningNumberArray, isValidInput);
+    return validateBonusNumber(winningNumberArray, isValidInput);
   }
 }
 
@@ -51,7 +57,7 @@ function validateAllNumeric(winningNumbers) {
 
 function validateAllInRange(winningNumbers) {
   winningNumbers.forEach((number) => {
-    if (!isInRange) {
+    if (!isInRange(number)) {
       throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
     }
   });
@@ -64,7 +70,7 @@ function validateIsNumeric(bonusNumber) {
 }
 
 function validateInRange(bonusNumber) {
-  if (!isInRange) {
+  if (!isInRange(bonusNumber)) {
     throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
   }
 }

@@ -42,7 +42,7 @@ function assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
   const matchNumbersArray = checkMatchingNumbers(lottoTickets, winningNumbers);
 
   matchNumbersArray.forEach((matchCount, index) => {
-    const rewardKey = null;
+    let rewardKey = null;
 
     if (matchCount === 6) {
       rewardKey = 'sixMatch';

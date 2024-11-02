@@ -7,10 +7,12 @@ export default async function validatePurchaseAmount(purchaseAmount) {
     isNumber(purchaseAmount);
     isPositiveNumber(purchaseAmount);
     isDivisibleByThousand(purchaseAmount);
+    return purchaseAmount;
   } catch (error) {
     Console.print(error.message);
+
     const isValidInput = await getPurchaseAmount();
-    validatePurchaseAmount(isValidInput);
+    return validatePurchaseAmount(isValidInput);
   }
 }
 

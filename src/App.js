@@ -21,21 +21,21 @@ import calculateProfitRate from './services/calculateProfit.js';
 class App {
   async run() {
     // 구입 금액 입력 및 검증
-    const amout = await getPurchaseAmount();
-    validatePurchaseAmount(amout);
-    const purchaseAmount = toPurchaseAmountNumber(amout);
+    const amount = await getPurchaseAmount();
+    await validatePurchaseAmount(amount);
+    const purchaseAmount = toPurchaseAmountNumber(amount);
 
     // 로또 출력
     const lottoTickets = issueLottoTickets(purchaseAmount);
 
     // 당첨 번호 입력 및 검증
     const winningNumbers = await getWinningNumbers();
-    validateWinningNumbers(winningNumbers);
+    await validateWinningNumbers(winningNumbers);
     const winningNumbersArray = parseWinningNumbers(winningNumbers);
 
     // 보너스 번호 입력 및 검증
     const bonusNumber = await getBonusNumber();
-    validateBonusNumber(winningNumbersArray, bonusNumber);
+    await validateBonusNumber(winningNumbersArray, bonusNumber);
     const toBonusNumber = parseBonusNumber(bonusNumber);
 
     // 당첨 결과 확인
