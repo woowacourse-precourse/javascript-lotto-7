@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PrizeDescription } from '../Constants/prizeConfig.js';
 import ErrorMessages from '../Constants/ErrorMessages.js';
+import { OutputComment } from '../Constants/display.js';
 
 const OutputPrint = {
   message: (message) => {
@@ -27,8 +28,8 @@ const OutputPrint = {
     const winningResult = statistic.getWinningResult();
     const earningRate = statistic.getEarningRate();
 
-    Console.print('당첨 통계');
-    Console.print('---');
+    Console.print(OutputComment.STATISTIC_TITLE);
+    Console.print(OutputComment.LINE);
     Console.print(`${PrizeDescription.FIFTH} - ${winningResult.fifth}개`);
     Console.print(`${PrizeDescription.FOURTH} - ${winningResult.fourth}개`);
     Console.print(`${PrizeDescription.THIRD} - ${winningResult.third}개`);

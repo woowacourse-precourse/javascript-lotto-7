@@ -1,14 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 import { printErrorAndFalse } from '../Utils/handleError.js';
 import Rules from '../Utils/Rules.js';
-import PrintMessages from '../Constants/PrintMessages.js';
 import ErrorMessages from '../Constants/ErrorMessages.js';
+import { InputComment } from '../Constants/display.js';
 
 const BonusNumberInput = {
   get: async () => {
-    const userInput = await Console.readLineAsync(
-      PrintMessages.BONUS_NUMBER_INPUT
-    );
+    const userInput = await Console.readLineAsync(InputComment.BONUS_NUMBER);
     return userInput;
   },
 
