@@ -11,6 +11,8 @@ class App {
 
     Output.printCountOfLotto(lottoCount);
     Output.printLotto(lottoTickets);
+
+    const winningNumbers = await this.getWinningNumbers();
   }
 
   async getPurchaseAmount() {
@@ -28,8 +30,15 @@ class App {
         break;
       }
     }
-
     return purchaseAmount;
+  }
+
+  async getWinningNumbers() {
+    const winningNumbersInput = await Input.winningNumbers();
+    const winningNumbers = winningNumbersInput
+      .split(",")
+      .map((num) => num.trim());
+    return winningNumbers;
   }
 }
 

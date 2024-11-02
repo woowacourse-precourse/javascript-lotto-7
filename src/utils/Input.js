@@ -6,6 +6,11 @@ const Input = {
     const input = await Console.readLineAsync(PROMPTS.PURCHASE_AMOUNT);
     return input.trim();
   },
+
+  async winningNumbers() {
+    const input = await Console.readLineAsync(PROMPTS.WINNING_NUMBERS);
+    return input.trim();
+  },
 };
 
 export default Input;
