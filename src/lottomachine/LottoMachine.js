@@ -2,7 +2,12 @@ import { Console } from '@woowacourse/mission-utils';
 import Input from '../view/Input.js';
 import Output from '../view/Output.js';
 import Money from '../validation/Money.js';
-import { countLotto, getRank, getProfit } from '../utils/index.js';
+import {
+  countLotto,
+  getRank,
+  getProfit,
+  getProfitRate,
+} from '../utils/index.js';
 import LottoController from './LottoController.js';
 import Lotto from '../Lotto.js';
 import BonusNumber from '../validation/BonusNumber.js';
@@ -54,6 +59,7 @@ class LottoMachine {
 
   printResult() {
     const profit = getProfit(this.result);
+    const profitRate = getProfitRate(profit, this.money);
   }
 
   async handleMoneyInput() {
