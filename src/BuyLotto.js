@@ -1,7 +1,8 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import Validator from "./Validator.js";
 
 export default class BuyLotto {
-  #price = 0;
+  #inputPrice = 0;
   #winningNumber = [];
   #bonusNumber = 0;
   #purchaseAmount = 0;
@@ -13,9 +14,11 @@ export default class BuyLotto {
 
   async enterLottoPrice() {
     Console.print(this.#PRICE_PROMPT);
-    this.#price = await Console.readLineAsync("");
+    this.#inputPrice = await Console.readLineAsync("");
     Console.print(this.#EMPTY_STRING);
-    this.#getAmountOfLotto(this.#price);
+    this.#getAmountOfLotto(this.#inputPrice);
+    const validator = new Validator();
+    validator.priceValidate(this.#inputPrice , this.#PRICE_OF_A_LOTTO)
   }
 
   async enterWinningNumber() {
