@@ -31,6 +31,9 @@ class OutputView {
     }
   }
 
+  printTotalReturnRate(totalReturnRate) {
+    this.printOutput(`총 수익률은 ${totalReturnRate}%입니다.`);
+  }
 }
 
 export default OutputView;

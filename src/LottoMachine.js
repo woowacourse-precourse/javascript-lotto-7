@@ -23,7 +23,12 @@ class LottoMachine {
       bonusNumber,
       this.#lottos
     );
+    const totalReturnRate = this.calculateTotalReturnRate(
+      purchaseAmount,
+      totalWinningRank
+    );
     this.outputView.printWinningStatistics(totalWinningRank);
+    this.outputView.printTotalReturnRate(totalReturnRate);
   }
 
   generateLottoNumbers() {
