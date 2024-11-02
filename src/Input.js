@@ -8,12 +8,15 @@ class UserInput {
       while ( paidMoney%1000 !== 0) { 
         paidMoney = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요\n");
         
-        if(paidMoney % 1000 !== 0) { 
-          MissionUtils.Console.print(`[ERROR] 로또 1장당 금액은 ${LOTTO.LOTTO_TICKET_PRICE}원입니다. 거스름돈 없이 해주세요`);
+        if(paidMoney % 1000 === 0) {
+          return paidMoney;
         }
+
+        MissionUtils.Console.print(`[ERROR] 로또 1장당 금액은 ${LOTTO.LOTTO_TICKET_PRICE}원입니다. 거스름돈 없이 해주세요`);
+
       }
 
-      return paidMoney;
+      
     }
 
     async getWinningNumber() {
