@@ -15,6 +15,10 @@ class Lotto {
   getNumber() {
     return this.#numbers;
   }
+
+  toString() {
+    return this.#numbers.join(', ');
+  }
 }
 
 export default Lotto;
