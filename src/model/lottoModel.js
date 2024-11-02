@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../Lotto.js";
 
 class LottoModel{
@@ -8,7 +8,7 @@ class LottoModel{
 
   constructor() {
     this.#userPrice = 0;
-    this.lottoList = [];
+    this.lottoList = []; // 로또 객체 정보를 담고 있다.
     this.#winningNumber = [];
     this.#bonusNumber;
     this.userDetails = {
@@ -55,8 +55,6 @@ class LottoModel{
   getStatistics() {
     return this.userDetails;
   }
-
-
 }
 
 export default LottoModel;

@@ -1,5 +1,5 @@
 export const LOTTO_RESULT = Object.freeze({
-  WINNING_STATISTICS : "당첨 통계",
+  WINNING_STATISTICS : "\n당첨 통계",
   DIVIDING_LINE : "---",
 
   printLottoStatistic([fifth, fourth, third, second, first]) {
@@ -14,4 +14,15 @@ export const LOTTO_RESULT = Object.freeze({
   printProfit(profit) {
     return `총 수익률은 ${profit}%입니다.`;
   }
-})
+});
+
+export const RANK = [
+    "firstPlace",
+    "thirdPlace",
+    "fourthPlace",
+    "fifthPlace",
+    "blank",
+    "blank",
+    "blank",
+    "secondPlace",
+];

@@ -12,6 +12,7 @@ class LottoController{
 
   async play() {
     await this.issueLotto();
+    this.getInformation();
   }
 
   async issueLotto() {
@@ -25,8 +26,10 @@ class LottoController{
     this.model.setBonusNumber(bonusNumber);
   }
 
-  async getInformation() {
-    // 당첨 통계 출력 구현
+  getInformation() {
+    this.model.setWinningStatistics();
+    this.view.printResultMessage();
+    this.view.printUserRank(this.model.getStatistics());
   }
 
   async inputPrice() {
@@ -62,7 +65,7 @@ class LottoController{
       WinningNumber = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
       isValid = this.validateWinningNumber(WinningNumber.split(','));
     } while (!isValid)
-    return WinningNumber.split(',');
+    return WinningNumber.split(',').map(Number);
   }
 
   validateWinningNumber(numbers) {
@@ -81,7 +84,7 @@ class LottoController{
       bonusNumber = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
       isValid = this.validateBonusNumber(bonusNumber);
     } while (!isValid)
-    return bonusNumber;
+    return Number(bonusNumber);
   }
 
   validateBonusNumber(bonusNumber) {

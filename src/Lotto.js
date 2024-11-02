@@ -1,4 +1,4 @@
-import LottoModel from "./model/lottoModel.js";
+import { RANK } from "./constants/lottoDetails.js";
 import InputValidate from "./utils/InputValidate.js";
 
 class Lotto {
@@ -6,7 +6,6 @@ class Lotto {
 
   constructor(numbers) {
     this.error = new InputValidate();
-    this.model = new LottoModel();
     this.#validate(numbers);
     this.#numbers = numbers;
   }
@@ -24,21 +23,12 @@ class Lotto {
   }
   
   compareLotto(winningNumber, bonusNumber) {
-    const rank = [
-      "firstPlace",
-      "thirdPlace",
-      "fourthPlace",
-      "fifthPlace",
-      "blank",
-      "blank",
-      "blank",
-      "secondPlace"
-    ]
+
     const count = this.#numbers.filter((value) => winningNumber.includes(value)).length;
     if(this.#numbers.includes(bonusNumber) && count === 5){
-      return rank[7];
+      return RANK[7];
     }
-    return rank[this.#numbers.length - count];
+    return RANK[this.#numbers.length - count];
   }
 
 

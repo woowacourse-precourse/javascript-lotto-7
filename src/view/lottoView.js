@@ -19,8 +19,14 @@ class LottoView {
     for(const [_, count] of Object.entries(userDetails)) {
       lottoCount.push(count);
     };
-    LOTTO_RESULT.printLottoStatistic(lottoCount);
+    this.printUserLotto(LOTTO_RESULT.printLottoStatistic(lottoCount));
   };
+
+  printUserLotto(lottoArray) {
+    for (let message of lottoArray) {
+      Console.print(message);
+    }
+  }
 
   printProfit(profit) {
     Console.print(LOTTO_RESULT.printProfit(profit));
