@@ -5,10 +5,12 @@ const PROMPT_MESSAGES = {
   BUY_LOTTO: "구입금액을 입력해 주세요.",
   PURCHASED_COUNT: (count) => `\n${count}개를 구매했습니다.`,
   WINNING_NUMBERS: "\n당첨 번호를 입력해주세요.",
+  BONUS_NUMBER: "\n보너스 번호를 입력해주세요.",
 };
 
 const ERROR_MESSAGES = {
   INVAILED_AMOUNT: "[ERROR] 유효하지 않은 금액이 입력되었습니다.",
+  INVAILED_NUMBER: "[ERROR] 유효하지 않은 번호가 입력되었습니다.",
 };
 
 class App {
@@ -51,11 +53,21 @@ class App {
     return new Lotto(input.split(",").map(Number));
   }
 
+  async #getBonus() {
+    MissionUtils.Console.print(PROMPT_MESSAGES.BONUS_NUMBER);
+    const number = parseInt(await MissionUtils.Console.readLineAsync(""), 10);
+    if (!(number > 0 && number <= 45)) {
+      throw new Error(ERROR_MESSAGES.INVAILED_NUMBER);
+    }
+    return number;
+  }
+
   async run() {
     const amount = await this.#getAmount();
     const count = await this.#getCount(amount);
     const lottos = await this.#getLottos(count);
     const winningNumber = await this.#getWinningNumber();
+    const bonusNumber = await this.#getBonus();
   }
 }
 
