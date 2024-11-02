@@ -48,7 +48,7 @@ class InputHandler {
     validateDuplicateNumbers(inputNumbers) {
         const resultNumbers = [...new Set(inputNumbers)];
         if (resultNumbers.length !== 6) {
-            throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+            throw new Error("[ERROR] 로또 번호는 서로 다른 6개의 값이어야 합니다.");
         }
         return resultNumbers;
     }
@@ -64,6 +64,28 @@ class InputHandler {
 
     //  3. 보너스 번호 입력받기
     //  숫자 범위가 1부터 45 사이인지 확인 (0이하 or 46이상이면 ERROR)
+
+    async getBonusNumber() {
+        const inputNumber = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+        this.validateNumber(inputNumber);
+        this.validateSingleNumberRange(inputNumber);
+        return inputNumber;
+    }
+
+    validateNumber(inputNumber) {
+        const validatedNumber = Number(inputNumber);
+        if (isNaN(validatedNumber)) {
+            throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
+        }
+        return validatedNumber;
+    }
+
+    validateSingleNumberRange(inputNumber) {
+        if (inputNumber < 1 || inputNumber > 45) {
+            throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+        }
+        return inputNumber;
+    }
 }
 
 export default InputHandler;

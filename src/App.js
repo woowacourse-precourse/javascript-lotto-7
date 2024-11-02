@@ -6,6 +6,7 @@ class App {
 
         await inputHandler.getLottoTryCount();
         await inputHandler.getJackpotNumbers();
+        await inputHandler.getBonusNumber();
     }
 }
 
