@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import LottoGenerator from './LottoGenerator.js';
+import LottoGame from './LottoGame.js';
 
 class App {
   async run() {
@@ -14,10 +15,11 @@ class App {
 
     lottoManager.createLotto();
 
-    lottoManager.getLottoNumbers();
+    const myLottos = lottoManager.getLottoNumbers();
+    myLottos.forEach((myLotto) => Console.print(myLotto));
 
     const winningNumbersInput = await Console.readLineAsync(
-      '당첨 번호를 입력해 주세요.\n'
+      '\n당첨 번호를 입력해 주세요.\n'
     );
     const winningNumbers = winningNumbersInput
       .split(',')
@@ -28,6 +30,13 @@ class App {
     const bonusNumber = await Console.readLineAsync(
       '\n보너스 번호를 입력해 주세요.\n'
     );
+
+    const lottoGame = new LottoGame(myLottos, winningLotto, bonusNumber);
+    const results = lottoGame.drawLotto();
+    Console.print('\n당첨 통계\n---');
+    lottoGame.displayResults(results);
+
+    lottoGame.calculateLottoPrize(purchaseAmount, results);
   }
 }
 

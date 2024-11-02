@@ -1,11 +1,11 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
-import { LOTTO } from './constant.js';
+import { LOTTO_PRICE } from './constant.js';
 
 class LottoGenerator {
   #lottoCount;
   #lottos;
   constructor(purchasePrice) {
-    this.#lottoCount = Math.floor(purchasePrice / LOTTO.PRICE);
+    this.#lottoCount = Math.floor(purchasePrice / LOTTO_PRICE);
   }
 
   // #validate(purchasePrice) {
@@ -31,8 +31,7 @@ class LottoGenerator {
   }
 
   getLottoNumbers() {
-    this.#lottos.forEach((lotto) => Console.print(this.sortLotto(lotto)));
-    Console.print('\n');
+    return this.#lottos.map((lotto) => this.sortLotto(lotto));
   }
 }
 
