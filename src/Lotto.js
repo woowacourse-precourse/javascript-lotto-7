@@ -14,12 +14,12 @@ class Lotto {
     Console.print(`[${this.#numbers.join(', ')}]`);
   }
 
-  match(winningNumbers, bonusNumber) {
+  match(winningNumbers, bonus) {
     return {
       matchingCount: this.#numbers.filter((number) =>
         winningNumbers.includes(number)
       ).length,
-      hasBonus: this.#numbers.includes(bonusNumber),
+      hasBonus: this.#numbers.includes(bonus),
     };
   }
 
