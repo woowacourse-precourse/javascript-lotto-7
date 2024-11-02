@@ -17,27 +17,14 @@ class App {
 
     OutputView.printPurchasedLottos(numberOfLottoes, lottoes);
 
-    // 당첨 번호를 입력
     const winningNumbers = await this.getWinningLotto();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
 
-    const howManyMatch = [0, 0, 0, 0, 0];
-    for (let i = 0; i < numberOfLottoes; i++) {
-      let cnt = 0;
-      let hasBonusNumber = lottoes[i].includes(bonusNumber);
-
-      for (let j = 0; j < 6; j++) {
-        if (lottoes[i].includes(winningNumberArr[j])) {
-          cnt++;
-        }
-      }
-
-      if (cnt === 3) howManyMatch[0]++;
-      if (cnt === 4) howManyMatch[1]++;
-      if (cnt === 5 && !hasBonusNumber) howManyMatch[2]++;
-      if (cnt === 5 && hasBonusNumber) howManyMatch[3]++;
-      if (cnt === 6) howManyMatch[4]++;
-    }
+    const howManyMatch = this.calculateMatches(
+      lottoes,
+      winningNumbers,
+      bonusNumber
+    );
 
     const totalPrizeMoney =
       howManyMatch[0] * CONDITIONS.THREE_MATCHING_PRIZES +
@@ -101,6 +88,23 @@ class App {
     ) {
       throw new Error(ERRORS.NOT_1_TO_45);
     }
+  }
+
+  calculateMatches(lottoes, winningLotto, bonusNumber) {
+    const howManyMatch = [0, 0, 0, 0, 0];
+
+    lottoes.forEach((lotto) => {
+      const matchCount = lotto.matches(winningLotto);
+      const hasBonusNumber = lotto.hasBonusNumber(bonusNumber);
+
+      if (matchCount === 3) howManyMatch[0]++;
+      if (matchCount === 4) howManyMatch[1]++;
+      if (matchCount === 5 && !hasBonusNumber) howManyMatch[2]++;
+      if (matchCount === 5 && hasBonusNumber) howManyMatch[3]++;
+      if (matchCount === 6) howManyMatch[4]++;
+    });
+
+    return howManyMatch;
   }
 }
 
