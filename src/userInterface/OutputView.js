@@ -9,6 +9,10 @@ const outputView = {
   winningStatisticsHeader: () => {
     Console.print(OUTPUT_VIEW.winningStatisticsHeader);
   },
+
+  separatingMark: () => {
+    Console.print(OUTPUT_VIEW.separatingMark);
+  },
 };
 
 export default outputView;
