@@ -3,6 +3,7 @@ import OutputView from '../views/OutputView.js';
 import LottoNumberGenerator from '../services/LottoNumberGenerator.js';
 import LottoRepository from '../models/LottoRepository.js';
 import LottoDrawingMachine from '../services/LottoDrawingMachine.js';
+import CalculatingMachine from '../services/CalculatingMachine.js';
 
 class LottoController {
   async start() {
@@ -22,11 +23,14 @@ class LottoController {
     OutputView.printNewLine();
     OutputView.printWinningStatistics();
     OutputView.printUnderBar();
-    OutputView.printFirstPlaceWinner(drawResult);
-    OutputView.printSecontPlaceWinner(drawResult);
-    OutputView.printThirdPlaceWinner(drawResult);
-    OutputView.printFourthPlaceWinner(drawResult);
     OutputView.printFifthPlaceWinner(drawResult);
+    OutputView.printFourthPlaceWinner(drawResult);
+    OutputView.printThirdPlaceWinner(drawResult);
+    OutputView.printSecondPlaceWinner(drawResult);
+    OutputView.printFirstPlaceWinner(drawResult);
+    const calculatingMachine = new CalculatingMachine(purchaseAmount, drawResult);
+    const totalReturn = calculatingMachine.calculate();
+    OutputView.printTotalReturn(totalReturn);
   }
 }
 
