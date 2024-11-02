@@ -49,12 +49,6 @@ class Lotto {
     return lottoResult;
   }
 
-  static matchNumbers(lotteries, userLotto) {
-    return lotteries.map(
-      (lotto) => lotto.filter((num) => userLotto.includes(num)).length,
-    );
-  }
-
   static matchNumber(lotteries, userLotto) {
     return lotteries.map(
       (lotto) => lotto.filter((num) => userLotto.includes(num)).length,
