@@ -4,7 +4,11 @@ import { getUserMoney, getWinningNumbers, getBonusNumber } from '../src/views/In
 
 import { validateNumber, validateUserMoney, validateBonusNumber } from '../src/validators/InputValidator.js';
 
-import { INVALID_USER_MONEY_ERROR_MESSAGE, INVALID_NUMBER_ERROR_MESSAGE, NUMBER_OUT_OF_RANGE_ERROR_MESSAGE } from '../src/constants/message.js';
+import {
+  INVALID_USER_MONEY_ERROR_MESSAGE,
+  INVALID_NUMBER_ERROR_MESSAGE, NUMBER_OUT_OF_RANGE_ERROR_MESSAGE,
+  BONUS_NUMBER_DUPLICATE_ERROR_MESSAGE,
+} from '../src/constants/message.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -51,7 +55,7 @@ describe('사용자 입력 테스트하기', () => {
       const inputs = ['11'];
       mockQuestions(inputs);
 
-      const bonusNumber = await getBonusNumber();
+      const bonusNumber = await getBonusNumber([1, 2, 3, 4, 5, 6]);
       expect(bonusNumber).toBe(11);
     });
   });
@@ -59,8 +63,16 @@ describe('사용자 입력 테스트하기', () => {
 
 describe('보너스 번호 유효성 검사하기', () => {
   test('보너스 번호는 1이상 45이하 숫자여야 한다.', () => {
-    expect(() => validateBonusNumber(46)).toThrow(NUMBER_OUT_OF_RANGE_ERROR_MESSAGE);
-    expect(() => validateBonusNumber(43)).not.toThrow();
+    expect(() => validateBonusNumber(46, [1, 2, 3, 4, 5, 6])).toThrow(
+      NUMBER_OUT_OF_RANGE_ERROR_MESSAGE,
+    );
+    expect(() => validateBonusNumber(43, [1, 2, 3, 4, 5, 6])).not.toThrow();
+  });
+  test('당첨 번호와 보너스 번호는 중복될 수 없다.', () => {
+    expect(() => validateBonusNumber(2, [1, 2, 3, 4, 5, 6])).toThrow(
+      BONUS_NUMBER_DUPLICATE_ERROR_MESSAGE,
+    );
+    expect(() => validateBonusNumber(7, [1, 2, 3, 4, 5, 6])).not.toThrow();
   });
 });
 
