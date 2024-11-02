@@ -1,8 +1,8 @@
 export const COMMON_MESSAGE = {
     INPUT_PURCHASE: Object.freeze("구입금액을 입력해 주세요.\n"),
-    INPUT_WINNING_NUM: Object.freeze("당첨 번호를 입력해 주세요.\n"),
-    INPUT_BONUS_NUM: Object.freeze("보너스 번호를 입력해 주세요.\n"),
-    WINNING_STATS: Object.freeze("당첨 통계\n---"),
+    INPUT_WINNING_NUM: Object.freeze("\n당첨 번호를 입력해 주세요.\n"),
+    INPUT_BONUS_NUM: Object.freeze("\n보너스 번호를 입력해 주세요.\n"),
+    WINNING_STATS: Object.freeze("\n당첨 통계\n---"),
 }
 
 const DEFAULT_ERROR_MESSAGE = "[ERROR]";
