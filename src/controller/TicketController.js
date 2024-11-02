@@ -17,7 +17,8 @@ class TicketController {
     this.tickets = ticketCount(cost);
   }
 
-  displayTicketCount() {
+  async displayTicketCount() {
+    await this.setTicketCount();
     Console.print(`\n${this.tickets}${OUTPUT.TICKET}`);
   }
 
@@ -26,6 +27,11 @@ class TicketController {
     numberArray.forEach((arr) => {
       Console.print(arr);
     });
+  }
+
+  async getTicket() {
+    await this.displayTicketCount();
+    this.displayTicketNumber();
   }
 }
 
