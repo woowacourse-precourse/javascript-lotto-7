@@ -11,14 +11,14 @@ class MoneyValidator {
 
   isNumber(money) {
     if (isNaN(money)) {
-      throw new Error(ERROR_MESSAGE.MONEY_IS_NOT_NUMBER);
+      throw new Error(ERROR_MESSAGE.MONEY.IS_NOT_NUMBER);
     }
     return money;
   }
 
   isInvalid(money) {
     if (Number(money) % 1000 !== 0) {
-      throw new Error(ERROR_MESSAGE.MONEY_VALIDATE);
+      throw new Error(ERROR_MESSAGE.MONEY.VALIDATE);
     }
     return money;
   }

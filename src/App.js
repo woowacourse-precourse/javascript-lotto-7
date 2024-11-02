@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import MoneyValidator from "./MoneyValidator.js";
 import LottoGenerator from "./LottoGenerator.js";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
@@ -15,6 +16,14 @@ class App {
       lottos.map(lotto => {
         Console.print(lotto.sort((a, b) => a - b));
       });
+
+      const winningNumber = await Console.readLineAsync(
+        "\n당첨 번호를 입력해 주세요.\n",
+      );
+      const lotto = new Lotto(
+        winningNumber.split(",").map(number => number.trim()),
+      );
+      lotto.validateWinningNumber();
     } catch (error) {
       throw new Error(error);
     }
