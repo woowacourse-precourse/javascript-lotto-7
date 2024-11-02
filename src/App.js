@@ -5,41 +5,57 @@ import LottoGame from './LottoGame.js'
 import { checkAmount, checkWinNumbers, checkBonusNumber } from "./validation.js";
 class App {
   async run() {
-    let amount;
-    try {
-      amount = await inputAmount();
-      checkAmount(amount);
-    } catch(error) {
-      Console.print(error.message);
-    }
+    const amount = await this.getAmount();
 
     const lotto = new LottoGame(amount);
 
-    const quantity = lotto.lottoQuantity();
-    const lottoList = lotto.createLottoList();
-    printLottoList(quantity, lottoList);
+    this.printLotto(lotto);
 
-    let winNumbers; 
-    try {
-      winNumbers = await inputWinNumbers();
-      checkWinNumbers(winNumbers);
-    } catch(error) {
-      Console.print(error.message);
-    }
-
-    let bonusNumber;
-    try {
-      bonusNumber = await inputBonusNumber();
-      checkBonusNumber(bonusNumber, winNumbers);
-    } catch(error) {
-      Console.print(error.message);
-    }
+    const winNumbers = await this.getWinNumbers();
+    const bonusNumber = await this.getBonusNumber();
 
     const rankList = lotto.getWholeWinResult(winNumbers, bonusNumber);
     
     printWinResult(rankList);
     printRateResult(rankList, amount);
   }
+
+  async getAmount() {
+    try {
+      const amount = await inputAmount();
+      checkAmount(amount);
+      return amount;
+    } catch(error) {
+      Console.print(error.message);
+    }
+  }
+
+  printLotto(lotto) {
+    const quantity = lotto.lottoQuantity();
+    const lottoList = lotto.createLottoList();
+    printLottoList(quantity, lottoList);
+  }
+
+  async getWinNumbers() {
+    try {
+      const winNumbers = await inputWinNumbers();
+      checkWinNumbers(winNumbers);
+      return winNumbers;
+    } catch(error) {
+      Console.print(error.message);
+    }
+  }
+
+  async getBonusNumber() {
+    try {
+      const winNumbers = await inputWinNumbers();
+      checkWinNumbers(winNumbers);
+      return winNumbers;
+    } catch(error) {
+      Console.print(error.message);
+    }
+  }
 }
+
 
 export default App;
