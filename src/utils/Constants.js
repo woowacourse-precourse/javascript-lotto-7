@@ -43,6 +43,7 @@ export const INPUT_VIEW = {
 
 export const OUTPUT_VIEW = {
   purchaseAmount: (amount) => `${amount}개를 구매했습니다.`,
+  winningStatisticsHeader: '당첨 통계',
 };
 
 export const VALIDATION = {
