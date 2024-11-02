@@ -13,4 +13,12 @@ describe("로또 기계 클래스 테스트", () => {
       new LottoMachine("1009");
     }).toThrow("[ERROR]");
   });
+
+  test("구입 금액에 따라 구매한 티켓 개수를 출력한다.", () => {
+    const input = "8000";
+
+    const lottoMachine = new LottoMachine(input);
+
+    expect(lottoMachine.getTicketAmountString()).toBe("8개를 구매했습니다.");
+  });
 });
