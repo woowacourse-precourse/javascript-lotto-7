@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputView from '../view/InputView.js';
 import Lotto from '../model/Lotto.js';
+import BonusNumber from '../model/BonusNumber.js';
 
 class LottoController {
   #purchaseAmount; // 구입금액
@@ -10,6 +11,7 @@ class LottoController {
 
   async start() {
     this.#winnigLottoNumbers = await this.#getWinningLottoNumbers();
+    this.#bonusNumber = await this.#getBonusNumber();
   }
 
   async #getWinningLottoNumbers() {
@@ -21,6 +23,17 @@ class LottoController {
     } catch (error) {
       Console.print(error);
       await this.#getWinningLottoNumbers();
+    }
+  }
+
+  async #getBonusNumber() {
+    try {
+      const input = await InputView.inputBonusNumber();
+      const convertInput = Number(input);
+      this.#bonusNumber = new BonusNumber(convertInput);
+    } catch (error) {
+      Console.print(error);
+      await this.#getBonusNumber();
     }
   }
 }
