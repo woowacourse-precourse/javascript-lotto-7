@@ -15,7 +15,7 @@ export function printWinningStatistics(
       count = correctLottoArray.filter(
         (num) => num == CORRECT_NUMBER[i]
       ).length;
-      revenue += MONEY[i];
+      revenue += MONEY[i]*count;
     }
     Console.print(`${CORRECT_MESSAGE[i]} ${count}개`);
   }

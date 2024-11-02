@@ -34,7 +34,6 @@ class App {
         CORRECT_MESSAGE,
         MONEY
       );
-      console.log(revenue);
       printRevenue(revenue, amount);
     } catch (error) {
       throw error;
