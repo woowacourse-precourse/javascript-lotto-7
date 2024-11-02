@@ -13,6 +13,10 @@ class App {
       const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       return new Lotto(randomNumbers);
     });
+
+    const readUserWinningNumbers = await Console.readLineAsync(
+      '\n당첨 번호를 입력해 주세요.\n',
+    );
   }
 }
 
