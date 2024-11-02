@@ -22,6 +22,11 @@ class LottoController {
     OutputView.printNewLine();
     OutputView.printWinningStatistics();
     OutputView.printUnderBar();
+    OutputView.printFirstPlaceWinner(drawResult);
+    OutputView.printSecontPlaceWinner(drawResult);
+    OutputView.printThirdPlaceWinner(drawResult);
+    OutputView.printFourthPlaceWinner(drawResult);
+    OutputView.printFifthPlaceWinner(drawResult);
   }
 }
 
