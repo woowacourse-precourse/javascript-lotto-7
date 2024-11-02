@@ -59,6 +59,10 @@
 
 - [x] Validation을 진행한다. `parseInt`가 잘 적용되는지 확인한다.
 
+#### 3.8 **StatisticsService**
+
+- [] 유닛 테스트를 만든다.
+
 ---
 
 ### 4. **Validation 관련 작업**

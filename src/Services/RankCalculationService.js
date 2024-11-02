@@ -11,9 +11,10 @@ export default class RankCalculationService {
       case 6:
         return this.rank.SIX_MATCH.key;
       case 5:
-        return hasBonus
-          ? this.rank.FIVE_MATCH_WITH_BONUS.key
-          : this.rank.FIVE_MATCH.key;
+        if (hasBonus) {
+          return this.rank.FIVE_MATCH_WITH_BONUS.key;
+        }
+        return this.rank.FIVE_MATCH.key;
       case 4:
         return this.rank.FOUR_MATCH.key;
       case 3:

@@ -10,6 +10,10 @@ export default class LotteryService {
     return this.lotteryFactory.createLotteries(count);
   }
 
+  calculateNumberOfNotes(purchaseAmount) {
+    return new Notes(purchaseAmount).getNotes();
+  }
+
   calculateMatchCount(lottoNumbers, winningNumbers, bonusNumber) {
     const matchingNumberCount = winningNumbers.filter((number) =>
       lottoNumbers.includes(number),
@@ -18,9 +22,5 @@ export default class LotteryService {
     const hasBonusNumber = lottoNumbers.includes(bonusNumber);
 
     return { matchingNumberCount, hasBonusNumber };
-  }
-
-  calculateNumberOfNotes(purchaseAmount) {
-    return new Notes(purchaseAmount).getNotes();
   }
 }
