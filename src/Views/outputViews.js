@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { matchCounts } from '../Models/winningStatisticsUtils.js';
 
 class Output {
-  printPurchaseAmountCount = (purchaseCount) => {
+  printPurchaseCount = (purchaseCount) => {
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
   };
 

@@ -23,7 +23,7 @@ class App {
   async startPurchase() {
     this.purchaseAmount = await new Input().getPurchaseAmountInput();
     this.purchaseCount = countPurchaseAmount(this.purchaseAmount);
-    new Output().printPurchaseAmountCount(this.purchaseCount);
+    new Output().printPurchaseCount(this.purchaseCount);
   }
 
   produceLottoList() {
