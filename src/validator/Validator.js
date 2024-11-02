@@ -4,6 +4,7 @@ class Validator {
     this.isMultipleOfThousand(buyLottoCount);
     this.isNegative(buyLottoCount);
     this.isOverMaxNumber(buyLottoCount);
+    this.isSpace(buyLottoCount);
   }
 
   static isCharacter(buyLottoCount) {
@@ -13,7 +14,7 @@ class Validator {
   }
 
   static isMultipleOfThousand(buyLottoCount) {
-    if (buyLottoCount % 1000 !== 0) {
+    if (buyLottoCount % 1000 !== 0 || buyLottoCount === '0') {
       throw new Error('[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.\n');
     }
   }
