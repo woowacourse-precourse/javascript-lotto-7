@@ -24,7 +24,7 @@ class Statistics {
   #checkMatches() {
     this.lottos.forEach((lotto) => {
       const matchedNumbers = lotto.get().filter((num) => this.winningNumbers.includes(String(num))).length;
-      const isBonusMatched = lotto.get().includes(this.bonusNumber);
+      const isBonusMatched = lotto.get().includes(Number(this.bonusNumber));
       this.#calculateWinning(matchedNumbers, isBonusMatched);
     });
   }
