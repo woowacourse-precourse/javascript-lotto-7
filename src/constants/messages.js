@@ -1,4 +1,4 @@
-import { CONFIG, PRIZE } from './constants.js';
+import { CONFIG, RANK } from './constants.js';
 
 const INPUT_MESSAGES = Object.freeze({
   PURCHASE_AMOUNT: `구입금액을 입력해 주세요.\n`,
@@ -10,13 +10,27 @@ const OUTPUT_MESSAGES = Object.freeze({
   LOTTO_AMOUNT: (amount) => `\n${amount}개를 구매했습니다.`,
   LOTTO_NUMBERS: (numbers) => `[${numbers.join(', ')}]`,
   WINNING_STATS: `당첨 통계\n---`,
-  THREE_MATCH: (count) => `3개 일치 (${PRIZE[5]}) - (${count}개)`,
-  FOUR_MATCH: (count) => `4개 일치 (${PRIZE[4]}) - (${count}개)`,
-  FIVE_MATCH: (count) => `5개 일치 (${PRIZE[3]}) - (${count}개)`,
+  THREE_MATCH: (count) =>
+    `${
+      RANK.FIFTH.matchCount
+    }개 일치 (${RANK.FIFTH.prize.toLocaleString()}원) - (${count}개)`,
+  FOUR_MATCH: (count) =>
+    `${
+      RANK.FOURTH.matchCount
+    }개 일치 (${RANK.FOURTH.prize.toLocaleString()}원) - (${count}개)`,
+  FIVE_MATCH: (count) =>
+    `${
+      RANK.THIRD.matchCount
+    }개 일치 (${RANK.THIRD.prize.toLocaleString()}원) - (${count}개)`,
   FIVE_MATCH_WITH_BONUS: (count) =>
-    `5개 일치, 보너스 볼 일치 (${PRIZE[2]}) - (${count}개)`,
-  SIX_MATCH: (count) => `6개 일치 (${PRIZE[1]}) - (${count}개)`,
-  TOTAL_REVENUE: (rate) => `총 수익률은 ${rate}입니다.`,
+    `${
+      RANK.SECOND.matchCount
+    }개 일치, 보너스 볼 일치 (${RANK.SECOND.prize.toLocaleString()}원) - (${count}개)`,
+  SIX_MATCH: (count) =>
+    `${
+      RANK.FIRST.matchCount
+    }개 일치 (${RANK.FIRST.prize.toLocaleString()}원) - (${count}개)`,
+  TOTAL_REVENUE: (rate) => `총 수익률은 ${rate.toLocaleString()}% 입니다.`,
 });
 
 const ERROR = '[ERROR]';
