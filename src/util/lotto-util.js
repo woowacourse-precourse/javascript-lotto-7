@@ -45,7 +45,7 @@ export const printResult = (lottoNumbers, bonusNumber, generatedNumbers) => {
 };
 
 const getMatchCount = (generatedLotto, lottoNumbers) => {
-  return generatedLotto.filter((number) => lottoNumbers.includes(number))
+  return generatedLotto.filter((number) => lottoNumbers.split(',').includes(number))
     .length;
 };
 
