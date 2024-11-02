@@ -10,7 +10,7 @@ class Lotto {
 
 	#validate(numbers) {
 		if (numbers.length !== 6) {
-			throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+			throw new Error(ERROR_MESSAGE.WRONG_LOTTO_NUMBER);
 		}
 		if (new Set(numbers).size !== numbers.length) {
 			throw new Error(ERROR_MESSAGE.DUPLICATE_LOTTO_NUMBER);

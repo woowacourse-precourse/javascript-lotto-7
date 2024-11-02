@@ -30,4 +30,5 @@ export const ERROR_MESSAGE = {
 	PASSED_BONUS_RANGE: `[ERROR] 보너스 번호의 범위는 ${LOTTO_MIN_NUMBER}에서 ${LOTTO_MAX_NUMBER}까지 입니다.`,
 	DUPLICATE_WINNING_NUMBER: `[ERROR] 당첨 번호에 중복된 번호가 있습니다.`,
 	DUPLICATE_LOTTO_NUMBER: `[ERROR] 로또 번호에 중복된 번호가 있습니다.`,
+	WRONG_LOTTO_NUMBER: `[ERROR] 로또 번호는 ${LOTTO_LENGTH}개여야 합니다.`,
 };
