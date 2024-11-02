@@ -7,11 +7,11 @@ class OutputView {
     await printResult(OUTPUT_MESSAGE.buyLotto(lottoCount));
   }
 
-  static async printLottoNumbers(numbers) {
-    for (const lotto of numbers) {
+  static async printLottoNumbers(lottos) {
+    lottos.forEach(async (lotto) => {
       const number = lotto.getNumbers();
       await printResult(OUTPUT_MESSAGE.lottoNumbers(number));
-    }
+    });
   }
 }
 
