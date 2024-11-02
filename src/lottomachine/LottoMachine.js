@@ -40,7 +40,7 @@ class LottoMachine {
       try {
         numbers = await Input.requestWinningNumbers();
         const validNumbers = new Lotto(numbers);
-        return validNumbers;
+        return validNumbers.getNumbers();
       } catch (error) {
         Console.print(error);
       }
