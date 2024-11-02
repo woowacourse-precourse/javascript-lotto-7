@@ -15,7 +15,7 @@ class Output {
     for (let lotto of this.#lottos) {
       Console.print(
         `[${lotto
-          .getLotto()
+          .getNumbers()
           .sort((a, b) => a - b)
           .join(", ")}]`
       );
