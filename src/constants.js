@@ -13,11 +13,18 @@ const INPUT_MESSAGES = {
 };
 
 const OUTPUT_MESSAGES = {
-  matchStatistics: '당첨 통계',
+  matchStatistics: '\n당첨 통계',
 };
 
 const AMOUNT = {
   lottoAmount: 1000,
+};
+
+const MATCH_COUNT = {
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
 };
 
 const SIGNS = {
@@ -25,4 +32,11 @@ const SIGNS = {
   threeHyphen: '---',
 };
 
-export { ERROR_MESSAGES, INPUT_MESSAGES, OUTPUT_MESSAGES, SIGNS, AMOUNT };
+export {
+  ERROR_MESSAGES,
+  INPUT_MESSAGES,
+  OUTPUT_MESSAGES,
+  SIGNS,
+  AMOUNT,
+  MATCH_COUNT,
+};
