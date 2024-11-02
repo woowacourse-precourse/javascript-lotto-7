@@ -122,6 +122,7 @@ class App {
     printWinningStatistics(winStatistics);
     const getCash = getGetCash(winStatistics);
     const rateOfReturn = getRateOfReturn(buyCash, getCash);
+    printRateOfReturn(rateOfReturn);
   }
 }
 
