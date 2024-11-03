@@ -58,7 +58,7 @@ class App {
       const lottoInstance = new Lotto(sortedNumbers);
       this.#lottos.push(lottoInstance);
 
-      Console.print(sortedNumbers);
+      Console.print(`[${lottoInstance.getNumbers().join(', ')}]`);
     }
 
     // 4. 당첨 번호를 입력받는다.
