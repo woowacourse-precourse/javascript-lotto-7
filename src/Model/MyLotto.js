@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 import LOTTO_CONSTANT from "../Utils/constant";
 
 class MyLotto {
@@ -8,16 +8,11 @@ class MyLotto {
         this.Output = output;
     }
     generateLottoTicketFromRandomNumbers() {
-        const lottoNumber = new Set();
-        while (lottoNumber.size < LOTTO_CONSTANT.numberCount) {
-            lottoNumber.add(
-                Random.pickNumberInRange(
-                    LOTTO_CONSTANT.minNumber,
-                    LOTTO_CONSTANT.maxNumber,
-                ),
-            );
-        }
-        const lottoTicket = Array.from(lottoNumber).sort((a, b) => a - b);
+        const lottoTicket = Random.pickUniqueNumbersInRange(
+            LOTTO_CONSTANT.minNumber,
+            LOTTO_CONSTANT.maxNumber,
+            LOTTO_CONSTANT.numberCount,
+        );
         this.setMyLottoList(lottoTicket);
     }
     buyLottoTicket(lottoTicketCount) {
@@ -26,7 +21,7 @@ class MyLotto {
         }
     }
     setMyLottoList(lottoTicket) {
-        this.Output.printResult(lottoTicket);
+        this.Output.printResult(`[${lottoTicket.join(", ")}]`);
         this.#lottoList.push(lottoTicket);
     }
     getMyLottoList() {
