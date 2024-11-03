@@ -14,7 +14,7 @@ class App {
   async run() {
     const { lottos, purchaseAmount } = await this.#buyLottos();
 
-    Output.printLottos(lottos.map((lotto) => lotto.getNumbers()));
+    Output.printLottos(lottos.map((lotto) => lotto.getLottoNumbers()));
 
     const rankCounts = await this.#checkWinningResult(lottos);
     const totalWinningPrize = this.#checkTotalWinningPrize(rankCounts);
