@@ -5,6 +5,7 @@ import {
   MESSAGE_STATISTICS,
   PRIZE,
 } from "./constants/constant.js";
+import MatchingResults from "./MatchingResults.js";
 
 class App {
   async run() {
@@ -61,27 +62,18 @@ class App {
   }
 
   checkMatchingLottos(userLottoNumbers, winningNumberSet, bonusNumber) {
-    const matchingResults = {
-      three: 0,
-      four: 0,
-      five: 0,
-      fiveBonus: 0,
-      six: 0,
-    };
+    const matchingResults = new MatchingResults();
 
     userLottoNumbers.forEach((lotto) => {
       const matchCount = lotto
         .getNumbers()
         .filter((num) => winningNumberSet.has(num)).length;
-      this.updateMatchingResults(
-        matchingResults,
-        matchCount,
-        lotto,
-        bonusNumber
-      );
+      const hasBonus = lotto.getNumbers().includes(bonusNumber);
+
+      matchingResults.update(matchCount, hasBonus);
     });
 
-    return matchingResults;
+    return matchingResults.getResults();
   }
 
   updateMatchingResults(matchingResults, matchCount, lotto, bonusNumber) {
