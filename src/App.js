@@ -15,8 +15,8 @@ const MONEY_BY_RANK = Object.freeze({
 class App {
   #lottos;
   #money;
-  #winNumbers;
-  #bonusNumber;
+  winNumbers;
+  bonusNumber;
   #rankResult;
 
   async run() {
@@ -24,8 +24,8 @@ class App {
     OutputView.printLottoCount(this.#money);
     this.#lottos = await this.createLottos();
     OutputView.printLottoNumbers(this.#lottos);
-    this.#winNumbers = await InputView.processWinningNumber();
-    this.#bonusNumber = await InputView.processBonusNumber(this.#winNumbers);
+    this.winNumbers = await InputView.processWinningNumber();
+    this.bonusNumber = await InputView.processBonusNumber(this.winNumbers);
     this.#rankResult = await this.getRankResult();
     await OutputView.printRankResult(this.#rankResult);
     this.getIncomeResult();
@@ -54,10 +54,7 @@ class App {
   getRankResult() {
     const rankResult = Array.from({ length: 6 }, () => 0);
     this.#lottos.forEach((lotto) => {
-      const RANK_INFO = lotto.getRankResult(
-        this.#winNumbers,
-        this.#bonusNumber
-      );
+      const RANK_INFO = lotto.getRankResult(this.winNumbers, this.bonusNumber);
       rankResult[RANK_INFO] += 1;
     });
     return rankResult;
