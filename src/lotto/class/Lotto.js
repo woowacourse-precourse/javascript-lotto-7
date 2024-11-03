@@ -1,10 +1,10 @@
-import LottoIO from "./LottoIO.js ";
-import { duplicateNumbers, isNumber, isOutRangeNumber } from "./utils.js";
+import LottoIO from "./LottoIO.js";
+import { duplicateNumbers, isNumber, isOutRangeNumber } from "../../utils.js";
 import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
   NUMBER_COUNT_BY_LOTTO,
-} from "./lotto/constants.js";
+} from "../constants.js";
 
 class Lotto {
   #numbers;

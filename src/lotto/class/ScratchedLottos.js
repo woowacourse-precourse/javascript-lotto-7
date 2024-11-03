@@ -1,11 +1,11 @@
 import { Random } from "@woowacourse/mission-utils";
+import LottoIO from "./LottoIO.js";
+import { isNumber } from "../../utils.js";
 import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
   NUMBER_COUNT_BY_LOTTO,
-} from "./lotto/constants.js";
-import LottoIO from "./LottoIO.js";
-import { isNumber } from "./utils.js";
+} from "../constants.js";
 
 class ScratchedLottos {
   #lottos;

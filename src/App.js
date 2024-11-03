@@ -1,7 +1,7 @@
-import Lotto from "./Lotto.js";
-import Bonus from "./Bonus.js";
-import Money from "./Money.js";
-import ScratchedLottos from "./ScratchedLottos.js";
+import Money from "./lotto/class/Money.js";
+import Lotto from "./lotto/class/Lotto.js";
+import Bonus from "./lotto/class/Bonus.js";
+import ScratchedLottos from "./lotto/class/ScratchedLottos.js";
 import showResultByLot from "./lotto/showResultByLot.js";
 import { LOTTO_PRICE } from "./lotto/constants.js";
 

@@ -1,6 +1,6 @@
 import LottoIO from "./LottoIO.js";
-import { isNumber } from "./utils.js";
-import { LOTTO_PRICE } from "./lotto/constants.js";
+import { isNumber } from "../../utils.js";
+import { LOTTO_PRICE } from "../constants.js";
 
 class Money {
   #money;
