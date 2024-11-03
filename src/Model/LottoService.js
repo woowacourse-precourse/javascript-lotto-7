@@ -6,14 +6,14 @@ export default class LottoService {
   #winningLotto;
   #userLotto;
   #winningInfo = {
-    1: { match: 6, price: 2000000000, count: 0 },
-    2: { match: 5, price: 30000000, count: 0 },
-    3: { match: 5, price: 1500000, count: 0 },
-    4: { match: 4, price: 50000, count: 0 },
-    5: { match: 3, price: 5000, count: 0 },
+    '1st': { match: 6, bonus: 0, price: 2000000000, count: 0 },
+    '2nd': { match: 5, bonus: 1, price: 30000000, count: 0 },
+    '3rd': { match: 5, bonus: 0, price: 1500000, count: 0 },
+    '4th': { match: 4, bonus: 0, price: 50000, count: 0 },
+    '5th': { match: 3, bonus: 0, price: 5000, count: 0 },
   };
 
-  buyUserLotto(price) {
+  setUserLotto(price) {
     this.#userLotto = new UserLotto(price);
   }
 
@@ -33,7 +33,7 @@ export default class LottoService {
     const userLottoNumbers = this.#userLotto.getNumbers();
 
     userLottoNumbers.forEach((userLottoNumber) => {
-      const rank = this.#getRank(userLottoNumber);
+      const rank = this.getRank(userLottoNumber);
 
       if (rank) {
         this.#winningInfo[rank].count += 1;
@@ -41,6 +41,20 @@ export default class LottoService {
     });
 
     return this.#winningInfo;
+  }
+
+  getRank(userLottoNumber) {
+    const matchCount = intersection(userLottoNumber, this.#winningLotto.getNumbers()).length;
+    const bonusMatch = intersection(userLottoNumber, this.#winningLotto.getbonusNumber()).length;
+    let rank = null;
+
+    Object.entries(this.#winningInfo).forEach(([key, value]) => {
+      if (matchCount === value.match && bonusMatch === value.bonus) {
+        rank = key;
+      }
+    });
+
+    return rank;
   }
 
   getWinningRate() {
@@ -51,22 +65,5 @@ export default class LottoService {
     }
 
     return calculatePercentage(totalPrice, this.#userLotto.getPerchasedAmount(), 1);
-  }
-
-  #getRank(userLottoNumber) {
-    const matchCount = intersection(userLottoNumber, this.#winningLotto.getNumbers()).length;
-
-    if (matchCount < 3) return 0;
-    if (matchCount === 3) return 5;
-    if (matchCount === 4) return 4;
-    if (matchCount === 5) {
-      if (intersection(userLottoNumber, this.#winningLotto.getbonusNumber())) {
-        return 2;
-      }
-      return 3;
-    }
-    if (matchCount === 6) return 1;
-
-    return 0;
   }
 }

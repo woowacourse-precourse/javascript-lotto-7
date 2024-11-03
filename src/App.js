@@ -13,7 +13,7 @@ class App {
     await this.collectUserInput(this.requestLottoPurchaseAmount);
 
     const lottos = this.lottolService.getUserLottoNumbers();
-    this.outputView.printPurchasedLotto(lottos);
+    this.outputView.printUserLotto(lottos);
 
     await this.collectUserInput(this.requestWinningNumber);
     await this.collectUserInput(this.requestBonusNumber);
@@ -27,7 +27,7 @@ class App {
 
   requestLottoPurchaseAmount = async () => {
     const purchaseAmount = await this.inputView.requestPuchaseAmount();
-    this.lottolService.buyUserLotto(purchaseAmount);
+    this.lottolService.setUserLotto(purchaseAmount);
   };
 
   requestWinningNumber = async () => {
