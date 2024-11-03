@@ -17,6 +17,9 @@ class LottoController {
 
     const winningNumbers = await this.#view.getWinningNumbers();
     const bonusNumber = await this.#view.getBonusNumber();
+
+    const results = this.#calculateResults(winningNumbers, bonusNumber);
+    this.#view.showResults(results);
   }
 
   #generateRandomNumbers() {
