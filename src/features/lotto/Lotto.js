@@ -1,3 +1,4 @@
+import { Console } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGE } from "../../constants/errorMessages.js";
 import { printOneLine } from "../../utils/console.js";
 import { errorHandler } from "../../utils/errorHandler.js";
@@ -11,6 +12,10 @@ class Lotto {
     this.#numbers = numbers;
   }
 
+  get numbers() {
+    return this.#numbers;
+  }
+
   #validate(numbers) {
     if (numbers.length !== 6) {
       errorHandler(ERROR_MESSAGE.lotto.invalidCount);
@@ -20,12 +25,12 @@ class Lotto {
     }
   }
 
-  get numbers() {
-    return this.#numbers;
-  }
-
   orderNumbers() {
     this.#numbers.sort((a, b) => a - b);
+  }
+
+  printNumbers() {
+    return `[${String(this.#numbers).split(",").join(", ")}]`;
   }
 }
 

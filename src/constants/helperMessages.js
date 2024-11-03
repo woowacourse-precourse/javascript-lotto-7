@@ -4,7 +4,7 @@ const HELPER_MESSAGE = {
 
 const PRINT_MESSAGE = {
   lotto: {
-    Count: "개를 구매했습니다.\n",
+    Count: "개를 구매했습니다.",
   },
 };
 

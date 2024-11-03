@@ -5,7 +5,7 @@ import { HELPER_MESSAGE, PRINT_MESSAGE } from "./constants/helperMessages.js";
 import Lotto from "./features/lotto/Lotto.js";
 import { UserLottoInfo } from "./features/lotto/UserLottoInfo.js";
 import { printOneLine } from "./utils/console.js";
-import { printLottoCount } from "./utils/outputHandler.js";
+import { printLottoCount, printLottoList } from "./utils/outputHandler.js";
 
 class App {
   async run() {
@@ -13,6 +13,7 @@ class App {
     const userLotto = new UserLottoInfo(inputPrice, []);
     printLottoCount(userLotto);
     userLotto.createLotto();
+    printLottoList(userLotto);
   }
 }
 

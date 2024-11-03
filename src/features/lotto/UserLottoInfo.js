@@ -18,6 +18,10 @@ export class UserLottoInfo {
     return this.#lottoCount;
   }
 
+  get lottos() {
+    return this.#lottos;
+  }
+
   createLotto() {
     for (let i = 0; i < this.#lottoCount; i++) {
       const lotto = new Lotto(generateRandomNum(6));
