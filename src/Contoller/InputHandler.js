@@ -22,7 +22,7 @@ class InputHandler {
     return winningNumbers;
   }
 
-  getValidatedBonusNumbers(number, winningNumbers) {
+  getValidatedBonusNumber(number, winningNumbers) {
     const bonusNumber = Number(number);
     Validation.validateIsNumber(bonusNumber);
     Validation.validatePositiveInteger(bonusNumber);
