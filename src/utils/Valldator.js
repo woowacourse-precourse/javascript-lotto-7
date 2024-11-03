@@ -1,4 +1,4 @@
-import { ERROR_PREFIX, SERVICE_CONSTANTS } from '../constants';
+import { ERROR_PREFIX, SERVICE_CONSTANTS } from '../constants.js';
 
 class Validator {
   static isNumber(value) {
