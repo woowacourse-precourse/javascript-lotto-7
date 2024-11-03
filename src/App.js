@@ -9,7 +9,8 @@ class App {
         const lottoMatcher = new LottoMatcher();
         await this.makeWinNumber(lottoMatcher);
         await this.makeBonusNumber(lottoMatcher);
-        this.makeProfitResult(lottoList, lottoMatcher);
+        if (lottoList && lottoMatcher)
+            this.makeProfitResult(lottoList, lottoMatcher);
     }
 
     async buyLotto() {
