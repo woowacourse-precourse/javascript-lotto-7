@@ -1,5 +1,6 @@
 import LottoStatistics from './LottoStatistics.js';
 import LottoStore from './LottoStore.js';
+import OutputView from './view/OutputView.js';
 import WinningLottoMachine from './WinningLottoMachine.js';
 
 class App {
@@ -16,7 +17,7 @@ class App {
       this.lottoStore.getAmount(),
     );
     statistics.calculateStatistics();
-    statistics.printStatistics();
+    OutputView.printResult(statistics.getWinningStatistics(), statistics.getRangeOfReturn());
   }
 }
 

@@ -1,4 +1,3 @@
-import OutputView from './view/OutputView.js';
 import { LOTTO_PRIZES, MIN_MATCH_FOR_PRIZE, FIVE_BONUS_KEY } from './constants/lottoConstants.js';
 
 class LottoStatistics {
@@ -65,9 +64,12 @@ class LottoStatistics {
     return rangeOfReturn.toFixed(1);
   }
 
-  printStatistics() {
-    const profitRate = this.#calculateRageOfReturn();
-    OutputView.printResult(this.#winningStatistics, profitRate);
+  getWinningStatistics() {
+    return this.#winningStatistics;
+  }
+
+  getRangeOfReturn() {
+    return this.#calculateRageOfReturn();
   }
 }
 
