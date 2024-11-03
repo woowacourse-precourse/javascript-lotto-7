@@ -40,6 +40,10 @@ class App {
     if (priceString <= 0) {
       throw new Error('[ERROR] 구매 금액은 0보다 커야 합니다.');
     }
+
+    if (priceString % 1000 !== 0) {
+      throw new Error('[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.');
+    }
   }
 
   async getPriceLoop() {
