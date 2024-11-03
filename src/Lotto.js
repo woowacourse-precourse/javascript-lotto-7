@@ -21,18 +21,18 @@ class Lotto {
   }
 
   validateLottoCount(numbers) {
-    if (numbers.length - 1 !== 6) {
+    if (numbers.length !== 6) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }
   }
 
   validateDuplicate(numbers) {
-    const availableNumbers = new Array(46).fill(0);
+    const set = new Set();
     numbers.forEach((num) => {
-      if (availableNumbers[num] > 0)
-        throw new Error('[ERROR] 중복되지 않은 숫자를 입력해주세요.');
-      availableNumbers[num]++;
+      set.add(num);
     });
+    if (set.size !== numbers.length)
+      throw new Error('[ERROR] 중복되지 않은 숫자를 입력해주세요.');
   }
 }
 

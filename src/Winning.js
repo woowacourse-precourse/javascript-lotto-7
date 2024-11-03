@@ -1,13 +1,10 @@
-import { Console } from '@woowacourse/mission-utils';
-
 class Winning {
   gradeArray;
 
-  constructor(lottos, winningLottoNumber) {
+  constructor(lottos, winningLottoNumber, bonusNumber) {
     this.matchCount = 0;
     this.lottos = lottos;
-    this.bonusNumber = winningLottoNumber[6];
-    winningLottoNumber.pop();
+    this.bonusNumber = bonusNumber;
     this.winningLotto = winningLottoNumber;
 
     this.findWinningLottos();

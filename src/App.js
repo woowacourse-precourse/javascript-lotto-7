@@ -1,6 +1,6 @@
 import Lotto from './Lotto.js';
 import Lottos from './Lottos.js';
-import WinningLotto from './WinningLotto.js';
+import MakeWinningLotto from './MakeWinningLotto.js';
 import Winning from './Winning.js';
 import Statistics from './Statistics.js';
 
@@ -10,15 +10,16 @@ class App {
     await lottos.getLottoAmount();
     lottos.getLottos();
 
-    const winningLotto = new WinningLotto();
+    const winningLotto = new MakeWinningLotto();
     await winningLotto.splitLotto();
-    await winningLotto.getBounusNumber();
 
     new Lotto(winningLotto.winningLottoNumber);
+    await winningLotto.getBounusNumber();
 
     const gradeArray = new Winning(
       lottos.lottos,
-      winningLotto.winningLottoNumber
+      winningLotto.winningLottoNumber,
+      winningLotto.bonusNumber
     );
 
     new Statistics(gradeArray.gradeArray, lottos.lottoAmount * 1000);
