@@ -1,4 +1,4 @@
-import { LOTTO_NUMBERS_COUNT } from "../constant/constants.js";
+import { LOTTO_MAX_NUMBER, LOTTO_MIN_NUMBER, LOTTO_NUMBERS_COUNT } from "../constant/constants.js";
 import { inValidMessages } from "../constant/message.js";
 
 class Lotto {
@@ -11,7 +11,8 @@ class Lotto {
 
   #validate(numbers) {
     this.#validateCount(numbers);
-    this.#hasDuplicate(numbers);
+    this.#validateDuplicate(numbers);
+    this.#validateWithInRange(numbers);
   }
 
   #validateCount(numbers) {
@@ -20,11 +21,18 @@ class Lotto {
     }
   }
 
-  #hasDuplicate(numbers) {
+  #validateDuplicate(numbers) {
     const set = new Set(numbers);
     const hasDuplicate = set.size !== LOTTO_NUMBERS_COUNT
     if (hasDuplicate) {
       throw new Error(inValidMessages.duplicate);
+    }
+  }
+
+  #validateWithInRange(numbers) {
+    const isInRange = !(numbers.some((number) => number < LOTTO_MIN_NUMBER || number > LOTTO_MAX_NUMBER));
+    if (!isInRange) {
+      throw new Error(inValidMessages.range);
     }
   }
 
