@@ -5,7 +5,7 @@ const ERROR_MESSAGES = Object.freeze({
 
   LIMIT_MONEY_INPUT: "최대 구입 금액을 초과하였습니다.",
 
-  INVALID_NUMBER_INPUT: "유효하지 않은 로또 번호입니다.",
+  INVALID_NUMBER_INPUT: "유효하지 않은 번호입니다.",
 
   OUT_OF_RANGE_NUMBER_INPUT: "로또 번호는 1~45 사이의 값이어야 합니다.",
 
@@ -13,3 +13,5 @@ const ERROR_MESSAGES = Object.freeze({
 
   INVALID_BONUS_NUMBER_INPUT: "보너스 번호가 입력하신 로또 번호와 중복됩니다.",
 });
+
+export default ERROR_MESSAGES;
