@@ -89,4 +89,22 @@ describe('WinningLottoManager 테스트', () => {
       expect.stringContaining(ERROR_MESSAGE.notInteger),
     );
   });
+
+  test.each([['1,2,3,4,5,6,7'], ['1,2,3,4,5'], ['1,2,3,4,5,6,7,8']])(
+    '당첨 번호가 지정된 개수만큼 뽑히지 않았을때 예외 처리하는지 테스트 (%s)',
+    async (inputs) => {
+      const VALID_NUMBERS = '1,2,3,4,5,6';
+      const ASKING_TIMES = 2;
+      const logSpy = getLogSpy();
+
+      mockQuestions([inputs, VALID_NUMBERS]);
+
+      await WinningLottoManager.selectWinningNumbers(inputs);
+
+      expect(selectSpy).toHaveBeenCalledTimes(ASKING_TIMES);
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining(ERROR_MESSAGE.notValidNumberCount),
+      );
+    },
+  );
 });
