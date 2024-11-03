@@ -20,7 +20,7 @@ class App {
       this.#lottoStore.checkWinningLotto();
       this.#lottoStore.printWinningResult();
     } catch (error) {
-      MissionUtils.Console.print(`[ERROR] ${error.message}`);
+      MissionUtils.Console.print(`${error.message}`);
     }
   }
 
