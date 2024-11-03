@@ -2,6 +2,7 @@ import LottoView from "../view/LottoView.js";
 import {
   validatePurchasingAmount,
   validateWinningNumberRange,
+  validateWinningNumberDup,
 } from "../validation.js";
 import LottoGenerator from "../model/LottoGenerator.js";
 class LottoController {
@@ -50,15 +51,20 @@ class LottoController {
     try {
       const getWinningNumber = await this.view.inputWinningNumber();
       this.checkWinningNumbers(getWinningNumber);
+      this.checkWinningNumbersDup(getWinningNumber);
       return Number(getWinningNumber);
     } catch (error) {
       throw error;
     }
   }
 
-  //당첨숫자 검증
+  //당첨숫자 범위 검증
   checkWinningNumbers(getWinningNumber) {
     validateWinningNumberRange(getWinningNumber);
+  }
+  //당첨숫자 중복 검증
+  checkWinningNumbersDup(getWinningNumber) {
+    validateWinningNumberDup(getWinningNumber);
   }
 }
 
