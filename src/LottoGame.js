@@ -25,7 +25,12 @@ export class LottoGame {
     }
   }
 
+  printLotto(lottoList) {
+    lottoList.forEach((lotto) => Console.print(lotto));
+  }
+
   async start() {
     const lottoList = await this.generateLotto();
+    this.printLotto(lottoList);
   }
 }
