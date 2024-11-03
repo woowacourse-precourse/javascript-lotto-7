@@ -2,22 +2,14 @@ import { Console } from '@woowacourse/mission-utils';
 import { ERROR, MESSAGE } from '../constants/error.js';
 
 class OutputView {
-  // 게임 시작 메시지 출력
-  static printStart() {
-    Console.print('\n실행 결과');
-  }
-
-  // 구매 개수 출력
   static printPurchaseCount(count) {
     Console.print(MESSAGE.PURCHASE_COUNT(count));
   }
 
-  // 당첨 통계 헤더 출력
   static printWinningStatistics() {
     Console.print(MESSAGE.WINNING_STATISTICS);
   }
 
-  // 매칭 결과 출력
   static printMatchResult(matchCount, count) {
     switch (matchCount) {
       case 3:
@@ -45,8 +37,8 @@ class OutputView {
     Console.print(MESSAGE.RATE_OF_RETURN(revenue));
   }
 
-  static printError(message) {
-    Console.print(`${message}\n`);
+  static printError(message, name) {
+    Console.print(`${message} (${name})\n`);
   }
 }
 
