@@ -1,0 +1,16 @@
+export default {
+  DELIMITER: ',',
+  UNIT: 1000,
+  LOTTO_3_MATCH: '5,000원',
+  LOTTO_4_MATCH: '50,000원',
+  LOTTO_5_MATCH: '1,500,000원',
+  LOTTO_5_BONUS_MATCH: '30,000,000원',
+  LOTTO_6_MATCH: '2,000,000,000원',
+  PRICE: {
+    3: 5000,
+    4: 50000,
+    5: 1500000,
+    5.5: 30000000,
+    6: 2000000000,
+  },
+};
