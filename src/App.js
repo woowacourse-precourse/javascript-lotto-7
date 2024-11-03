@@ -3,6 +3,12 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const { Console } = MissionUtils;
 const { Random } = MissionUtils;
 
+function isNumber(input) {
+  if (isNaN(input)) {
+    throw new Error("[ERROR] 숫자를 입력하세요.");
+  }
+}
+
 function isPaymentValid(input) {
   if (isNaN(input)) {
     Console.print("[ERROR] 금액은 숫자여야 합니다.");
