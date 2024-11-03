@@ -14,7 +14,7 @@ class InputHandler {
 
     async getLottoMoney() {
         try {
-            const input = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
+            const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
             const lottoMoney = this.lottoMoneyValidator.validateLottoMoney(parseInt(input.trim(), 10));
             return lottoMoney;
         } catch (error) {
