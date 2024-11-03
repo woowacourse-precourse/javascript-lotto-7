@@ -20,8 +20,8 @@ beforeEach(() => {
   winningLotto = new WinningLotto([1, 2, 3, 4, 5, 6]);
   winningLotto.setBonusNumber(7);
   purchaseAmount = 6000;
-  lottoStatistics = new LottoStatistics(purchasedLottos, winningLotto, purchaseAmount);
-  lottoStatistics.calculateStatistics();
+  lottoStatistics = new LottoStatistics(purchaseAmount);
+  lottoStatistics.calculateStatistics(purchasedLottos, winningLotto);
 });
 
 test('calculateStatistics 메서드 테스트 - 당첨 통계 계산 확인', () => {
