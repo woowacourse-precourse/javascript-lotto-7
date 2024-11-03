@@ -4,7 +4,7 @@ import MagicNumber from '../constants/MagicNumber.js';
 
 class OutputView {
   static printError(error) {
-    Console.print(`[ERROR]${error.message}`);
+    Console.print(`${error.message}`);
   }
 
   static printLotto(input) {

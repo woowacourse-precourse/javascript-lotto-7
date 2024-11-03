@@ -15,7 +15,6 @@ class Controller {
       this.displayResults(money, winningLotto, bonus);
     } catch (error) {
       OutputView.printError(error);
-      throw error;
     }
   }
 
