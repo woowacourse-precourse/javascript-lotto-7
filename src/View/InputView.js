@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import ValidInput from "../utils/ValidInput.js";
-import { INPUT_MEESAGE } from "../utils/message.js";
+import { INPUT_MEESAGE } from "../utils/Message.js"
 class InputView {
   constructor() {
     this.valid = new ValidInput();

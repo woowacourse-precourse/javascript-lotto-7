@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { OUPUT_MESSAGE, RESULT_MESSAGE } from "../utils/message.js";
+import { OUPUT_MESSAGE, RESULT_MESSAGE } from "../utils/Message.js"
 
 class OutputView {
   AmountPrint(amount) {
