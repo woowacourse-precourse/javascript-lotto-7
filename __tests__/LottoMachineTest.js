@@ -100,3 +100,76 @@ describe('로또 번호 생성 기능 검사', () => {
     expect(ticket.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
   });
 });
+
+describe('당첨 내역 계산 기능 검사', () => {
+  const lottomachine = new LOTTO_MACHINE();
+
+  lottomachine.setWinningNumbers('1,2,3,4,5,6');
+  lottomachine.setBonusNumber(7);
+
+  test('1등 당첨', () => {
+    const tickets = [new Lotto([1, 2, 3, 4, 5, 6])];
+    const results = { 0: 0, 1: 1, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+
+  test('2등 당첨', () => {
+    const tickets = [new Lotto([1, 2, 3, 4, 5, 7])];
+    const results = { 0: 0, 1: 0, 2: 1, 3: 0, 4: 0, 5: 0 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+
+  test('3등 당첨', () => {
+    const tickets = [new Lotto([1, 2, 3, 4, 5, 8])];
+    const results = { 0: 0, 1: 0, 2: 0, 3: 1, 4: 0, 5: 0 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+
+  test('4등 당첨', () => {
+    const tickets = [new Lotto([1, 2, 3, 4, 8, 9])];
+    const results = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 1, 5: 0 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+
+  test('5등 당첨', () => {
+    const tickets = [new Lotto([1, 2, 3, 8, 9, 10])];
+    const results = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 1 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+
+  test('꽝 당첨', () => {
+    const tickets = [new Lotto([7, 8, 9, 10, 11, 12])];
+    const results = { 0: 1, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+
+  test('두 개 등수 동시 당첨', () => {
+    const tickets = [
+      new Lotto([1, 2, 3, 4, 5, 6]),
+      new Lotto([1, 2, 3, 4, 5, 7]),
+    ];
+    const results = { 0: 0, 1: 1, 2: 1, 3: 0, 4: 0, 5: 0 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+
+  test('여섯 개 등수 동시 당첨', () => {
+    const tickets = [
+      new Lotto([1, 2, 3, 4, 5, 6]),
+      new Lotto([1, 2, 3, 4, 5, 7]),
+      new Lotto([1, 2, 3, 4, 5, 8]),
+      new Lotto([1, 2, 3, 4, 8, 9]),
+      new Lotto([1, 2, 3, 8, 9, 10]),
+      new Lotto([7, 8, 9, 10, 11, 12]),
+    ];
+    const results = { 0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 };
+
+    expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
+  });
+});
