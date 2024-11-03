@@ -41,6 +41,40 @@ const runException = async (input) => {
   // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
 };
+const runExceptionWinningNumbers = async (input) => {
+  // given
+  const logSpy = getLogSpy();
+
+  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+  const INPUT_NUMBERS_TO_END = [input, '7'];
+
+  mockRandoms([RANDOM_NUMBERS_TO_END]);
+  mockQuestions(['1000', ...INPUT_NUMBERS_TO_END]);
+
+  // when
+  const app = new App();
+  await app.run();
+
+  // then
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
+};
+const runExceptionBonusNumber = async (input) => {
+  // given
+  const logSpy = getLogSpy();
+
+  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+  const INPUT_NUMBERS_TO_END = ['1,2,3,4,5,6', input];
+
+  mockRandoms([RANDOM_NUMBERS_TO_END]);
+  mockQuestions(['1000', ...INPUT_NUMBERS_TO_END]);
+
+  // when
+  const app = new App();
+  await app.run();
+
+  // then
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
+};
 
 describe('로또 테스트', () => {
   beforeEach(() => {
@@ -91,7 +125,67 @@ describe('로또 테스트', () => {
     });
   });
 
-  test('예외 테스트', async () => {
+  test('구입 금액 예외 테스트 : [문자+숫자]', async () => {
     await runException('1000j');
+  });
+  test('구입 금액 예외 테스트 : [문자열]', async () => {
+    await runException('abc');
+  });
+  test('구입 금액 예외 테스트 : [음수]', async () => {
+    await runException(-2000);
+  });
+  test('구입 금액 예외 테스트 : [1000원으로 나눠지지 않을 경우]', async () => {
+    await runException(1530);
+  });
+  test('구입 금액 예외 테스트 :  [빈칸일 경우]', async () => {
+    await runException('');
+  });
+  test('입력한 로또 번호 예외 테스트 : [번호가 숫자 범위 내에 있지 않는 경우]', async () => {
+    await runExceptionWinningNumbers('1,2,3,4,53,6');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [번호가 음수인 경우]', async () => {
+    await runExceptionWinningNumbers('1,2,-3,4,5,6');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [문자]]', async () => {
+    await runExceptionWinningNumbers('1,ㅁ,-3,4,5,6');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [문자열]]', async () => {
+    await runExceptionWinningNumbers('1,abc,-3,4,5,6');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [소수]]', async () => {
+    await runExceptionWinningNumbers('1,2.5,-3,4,5,6');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [빈칸]', async () => {
+    await runExceptionWinningNumbers('1,,-3,4,5,6');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [빈칸2]', async () => {
+    await runExceptionWinningNumbers('1,2,3,4,5,');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [6개가 아닌 경우]', async () => {
+    await runExceptionWinningNumbers('1,2,3,4,5');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [중복]', async () => {
+    await runExceptionWinningNumbers('1,2,2,4,5,');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [쉼표가 아닌 다른 문자가 있는 경우]', async () => {
+    await runExceptionWinningNumbers('1,2,2;4,5,');
+  });
+  test('입력한 로또 번호 예외 테스트 :  [빈칸일 경우]', async () => {
+    await runExceptionWinningNumbers('');
+  });
+  test('보너스 번호 예외 테스트 :  [범위 내 있지 않은 경우]', async () => {
+    await runExceptionBonusNumber(49);
+  });
+  test('보너스 번호 예외 테스트 :  [양수가 아닌 경우]', async () => {
+    await runExceptionBonusNumber(-4);
+  });
+  test('보너스 번호 예외 테스트 :  [당첨번호와 중복되는 경우]', async () => {
+    await runExceptionBonusNumber(1);
+  });
+  test('보너스 번호 예외 테스트 :  [번호가 1개 이상일 경우]', async () => {
+    await runExceptionBonusNumber('1,2');
+  });
+  test('보너스 번호 예외 테스트 :  [빈칸일 경우]', async () => {
+    await runExceptionBonusNumber('');
   });
 });
