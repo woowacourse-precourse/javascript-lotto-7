@@ -11,7 +11,13 @@ const Utils = {
 
   parsingToArray: (input) => input.split(UTILS.separator),
 
-  trimInput: (input) => input.trim(),
+  trimInput: (input) => {
+    if (typeof input === 'string') {
+      return input.trim();
+    }
+
+    return input;
+  },
 };
 
 export default Utils;
