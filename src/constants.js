@@ -19,6 +19,18 @@ export const MESSAGES = {
   LOTTO_PURCHASED: "개를 구매했습니다.",
   WINNING_NUMBER_PROMPT: "\n당첨 번호를 입력해 주세요.\n",
   BONUS_NUMBER_PROMPT: "\n보너스 번호를 입력해 주세요.\n",
+
+  RESULT_HEADING: "\n당첨 통계\n---",
+  PRIZES: [
+    { message: "3개 일치 (5,000원) - ", key: "fifth" },
+    { message: "4개 일치 (50,000원) - ", key: "fourth" },
+    { message: "5개 일치 (1,500,000원) - ", key: "third" },
+    { message: "5개 일치, 보너스 볼 일치 (30,000,000원) - ", key: "second" },
+    { message: "6개 일치 (2,000,000,000원) - ", key: "first" },
+  ],
+
+  PROFIT_RATE: "총 수익률은 ",
+  PROFIT_SUFFIX: "%입니다.",
 };
 
 export const LOTTO_NUMBERS = {

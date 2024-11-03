@@ -184,6 +184,16 @@ class LottoApp {
       this.statistics.fifth * WINNING_PRIZES.fifth
     );
   }
+
+  printStatistics(profitRate) {
+    MissionUtils.Console.print(MESSAGES.RESULT_HEADING);
+    MESSAGES.PRIZES.forEach(({ message, key }) => {
+      MissionUtils.Console.print(`${message}${this.statistics[key]}개`);
+    });
+    MissionUtils.Console.print(
+      `${MESSAGES.PROFIT_RATE}${profitRate.toFixed(1)}${MESSAGES.PROFIT_SUFFIX}`
+    );
+  }
 }
 
 export default LottoApp;

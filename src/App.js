@@ -1,5 +1,4 @@
 import LottoApp from "./LottoApp.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
@@ -10,6 +9,7 @@ class App {
     const bonusNumber = await lottoApp.promptBonusNumber(winningLotto);
     lottoApp.calculateStatistics(lottos, winningLotto, bonusNumber);
     const profitRate = lottoApp.calculateProfitRate(amount);
+    lottoApp.printStatistics(profitRate);
   }
 }
 
