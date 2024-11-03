@@ -1,4 +1,4 @@
-class Lotto {
+export default class Lotto {
    #numbers;
 
    constructor(numbers) {
@@ -16,5 +16,3 @@ class Lotto {
       return this.#numbers;
    }
 }
-
-export default Lotto;
