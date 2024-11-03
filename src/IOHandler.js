@@ -62,7 +62,7 @@ class IOHandler {
     const formatRevenueRate = revenueRate.toLocaleString(undefined, {
       minimumFractionDigits: 1,
     });
-    this.outputHandler(`총 수익률은 ${formatRevenueRate}% 입니다.`);
+    this.outputHandler(`총 수익률은 ${formatRevenueRate}%입니다.`);
   };
 
   printResultAndRevenueRate = (lottoResult, revenueRate) => {
