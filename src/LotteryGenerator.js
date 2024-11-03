@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import Lotto from "../src/Lotto.js";
+import Lotto from "./Lotto.js";
 import { BUYING_COST_REG_EXP, PLEASE_INPUT_RIGHT_COST } from "./constant.js";
 class LotteryGenerator {
     #buyingAmount;
