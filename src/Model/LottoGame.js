@@ -1,4 +1,4 @@
-import { Random } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 import { RULE } from '../constant/rule.js';
 
 class LottoGame {
@@ -9,11 +9,11 @@ class LottoGame {
     this.#lottoAmount = lottoAmount;
     this.#lottos = [];
 
-    this.#generateLottos(lottoAmount);
+    this.#generateLottos();
   }
 
-  #generateLottos(amount) {
-    for (let i = 0; i < amount; i++) {
+  #generateLottos() {
+    for (let i = 0; i < this.#lottoAmount; i++) {
       this.#lottos.push(
         Random.pickUniqueNumbersInRange(
           RULE.LOTTO.NUMBER_MIN,
@@ -24,8 +24,11 @@ class LottoGame {
     }
   }
 
-  getNumbers() {
-    return this.numbers;
+  printLottos() {
+    this.#lottos.forEach((lotto) => {
+      Console.print(lotto);
+    });
+    Console.print('');
   }
 }
 

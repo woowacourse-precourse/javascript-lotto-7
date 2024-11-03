@@ -15,6 +15,7 @@ class GameController {
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
 
     const game = new LottoGame(purchaseCount);
+    game.printLottos();
 
     const winningNumbers = await Input.getWinningNumbers()(
       this.#validateWinningNumbers,
