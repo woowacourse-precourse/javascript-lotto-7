@@ -1,8 +1,7 @@
 import { ERROR_MESSAGE } from "../constants/Message.js";
-
+// MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
 class Lotto {
   #numbers;
-  ㅊ;
 
   constructor(numbers) {
     this.#validate(numbers);
@@ -29,10 +28,11 @@ class Lotto {
   }
 
   #validateNumberOnly(numbers) {
-    const reg = /^[0-9]+$/;
-    if (!reg.test(numbers)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_ONLY);
-    }
+    const isNumbers = numbers.every((num) => Number.isInteger(num));
+  }
+
+  getNumbers() {
+    return this.#numbers;
   }
 }
 
