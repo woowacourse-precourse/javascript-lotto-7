@@ -6,4 +6,12 @@ export class Input {
     const money = await Console.readLineAsync(MESSAGE.inputAmount);
     return Number(money);
   }
+
+  async inputWinningNumber() {
+    const winnginNumber = await Console.readLineAsync(
+      MESSAGE.inputWinningNumber,
+    );
+
+    return winnginNumber.split(',');
+  }
 }
