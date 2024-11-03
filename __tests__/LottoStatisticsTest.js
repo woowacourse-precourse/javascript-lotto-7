@@ -1,7 +1,7 @@
 import WinningLotto from '../src/WinningLotto';
 import LottoStatistics from '../src/LottoStatistics';
 import Lotto from '../src/Lotto';
-import { FIVE_BONUS_KEY } from '../src/constants/lottoConstants';
+import { FIVE_BONUS_KEY, LOTTO_PRIZES } from '../src/constants/lottoConstants';
 
 let purchasedLottos;
 let winningLotto;
@@ -32,4 +32,20 @@ test('calculateStatistics 메서드 테스트 - 당첨 통계 계산 확인', ()
   expect(winningStatistics[5].count).toBe(1);
   expect(winningStatistics[FIVE_BONUS_KEY].count).toBe(1);
   expect(winningStatistics[6].count).toBe(1);
+});
+
+test('calculateStatistics 메서드 테스트 - 총 상금 계산 확인', () => {
+  const totalPrize = Object.values(lottoStatistics.getWinningStatistics()).reduce(
+    (total, { count, prize }) => total + count * prize,
+    0,
+  );
+  expect(totalPrize).toBe(
+    [
+      LOTTO_PRIZES.SIX_MATCH,
+      LOTTO_PRIZES.FIVE_BONUS_MATCH,
+      LOTTO_PRIZES.FIVE_MATCH,
+      LOTTO_PRIZES.FOUR_MATCH,
+      LOTTO_PRIZES.THREE_MATCH,
+    ].reduce((acc, prize) => acc + prize, 0),
+  );
 });
