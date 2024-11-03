@@ -44,7 +44,7 @@ export default class UserModel {
     );
   }
 
-  caculateRateOfReturn(totalPrize) {
+  calculateRateOfReturn(totalPrize) {
     return ((totalPrize / this.#price) * 100).toFixed(1);
   }
 }

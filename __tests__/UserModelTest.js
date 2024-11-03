@@ -28,6 +28,6 @@ describe('UserModel 클래스 테스트', () => {
 
   test('수익률 가져오기', () => {
     const result = '100.0';
-    expect(userModel.caculateRateOfReturn(4000)).toEqual(result);
+    expect(userModel.calculateRateOfReturn(4000)).toEqual(result);
   });
 });

@@ -86,7 +86,7 @@ describe('LottoService 클래스 테스트', () => {
     lottoService.createWinningLottoModel(numberString);
     lottoService.setBonusNumber(bonusNumber);
 
-    expect(lottoService.getWinningStatistics()).toEqual(expected);
+    expect(lottoService.calculateWinningStatistics()).toEqual(expected);
   });
 
   test('수익률 계산', () => {

@@ -33,7 +33,7 @@ export default class LottoService {
     this.winningLottoModel.setBonusNumber(bonusNumber);
   }
 
-  getWinningStatistics() {
+  calculateWinningStatistics() {
     const rankMap = this.#getRankMap();
 
     this.userModel.getSortedLottoNumbersArray().forEach((lottoNumbers) => {
@@ -54,6 +54,6 @@ export default class LottoService {
       totalPrize += RANK_PRICE[rank] * count;
     });
 
-    return this.userModel.caculateRateOfReturn(totalPrize);
+    return this.userModel.calculateRateOfReturn(totalPrize);
   }
 }
