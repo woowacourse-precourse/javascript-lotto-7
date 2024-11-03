@@ -1,10 +1,10 @@
 import { COST_UNIT, DECIMAL_PLACES } from '../constants/constraints.js';
 
-const calculateLottoAmount = (purchaseAmount) => {
+export const calculateLottoAmount = (purchaseAmount) => {
   return purchaseAmount / COST_UNIT;
 };
 
-const calculateEarningsRatio = (totalEarnings, purchaseCost) => {
+export const calculateEarningsRatio = (totalEarnings, purchaseCost) => {
   const ratio = (totalEarnings / purchaseCost) * 100;
 
   return ratio.toLocaleString(undefined, {
@@ -12,6 +12,3 @@ const calculateEarningsRatio = (totalEarnings, purchaseCost) => {
     maximumFractionDigits: DECIMAL_PLACES.MAXIMUM_FRACTION_DIGITS,
   });
 };
-export default calculateLottoAmount;
-
-export { calculateEarningsRatio };

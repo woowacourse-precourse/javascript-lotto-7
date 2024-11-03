@@ -1,9 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT } from '../constants/consoleMessage.js';
-import {
-  MATCH_COUNTS_BY_RANK,
-  PRIZE_MATCH_COUNTS,
-} from '../constants/constraints.js';
+import { MATCH_COUNTS_BY_RANK } from '../constants/constraints.js';
 
 class OutputView {
   printPurchasedLotto(lottos) {

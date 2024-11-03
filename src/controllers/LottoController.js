@@ -1,8 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
-import calculateLottoAmount, {
+import {
   calculateEarningsRatio,
-} from '../utils/LottoUtils.js';
+  calculateLottoAmount,
+} from '../utils/lottoUtils.js';
 import LottoService from '../services/LottoService.js';
 import OutputView from '../views/OutputView.js';
 import InputValidator from '../validator/InputValidator.js';
@@ -15,20 +16,46 @@ class LottoController {
   }
 
   async startLotto() {
+    const purchaseCost = await this.getValidatedPurchaseCost();
+    const lottoAmount = calculateLottoAmount(purchaseCost);
+    const generatedLottos = this.generateLottos(lottoAmount);
+    const winningNumbers = await this.getValidatedWinningNumbers();
+    const bonusNumber = await this.getValidatedBonusNumber(winningNumbers);
+    this.drawLottoAndPrintResults(
+      generatedLottos,
+      winningNumbers,
+      bonusNumber,
+      purchaseCost,
+    );
+  }
+
+  async getValidatedPurchaseCost() {
     const purchaseCost = await this.inputView.getPurchaseCost();
     InputValidator.validatePurchaseCost(purchaseCost);
-
-    const lottoAmount = calculateLottoAmount(Number(purchaseCost));
-
+    return purchaseCost;
+  }
+  generateLottos(lottoAmount) {
     const generatedLottos = this.service.getGeneratedLottos(lottoAmount);
     this.outputView.printPurchasedLotto(generatedLottos);
-
+    return generatedLottos;
+  }
+  async getValidatedWinningNumbers() {
     const winningNumbers = await this.inputView.getWinningNumbers();
     InputValidator.validateNumbers(winningNumbers);
+    return winningNumbers;
+  }
 
+  async getValidatedBonusNumber(winningNumbers) {
     const bonusNumber = await this.inputView.getBonusNumber();
     InputValidator.validateBonusNumber(bonusNumber, winningNumbers);
-
+    return bonusNumber;
+  }
+  drawLottoAndPrintResults(
+    generatedLottos,
+    winningNumbers,
+    bonusNumber,
+    purchaseCost,
+  ) {
     const { matchCounts, totalEarnings } = this.service.calculateLottoResults(
       generatedLottos,
       winningNumbers,
