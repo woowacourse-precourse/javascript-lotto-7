@@ -30,4 +30,5 @@ export const OUTPUT_MESSAGE = Object.freeze({
   WINNING_RESULT_TITLE: '당첨 통계\n---',
   WINNING_RESULT: (matchCount, amount, count) => `${matchCount}개 일치 (${amount}원) - ${count}개`,
   WINNING_RESULT_WITH_BONUS: (matchCount, amount, count) => `${matchCount}개 일치, 보너스 볼 일치 (${amount}원) - ${count}개`,
+  TOTAL_RATE_OF_RETURN: (rateOfReturn) => `총 수익률은 ${rateOfReturn}%입니다.`,
 });

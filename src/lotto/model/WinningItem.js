@@ -22,7 +22,7 @@ class WinningItem {
   }
 
   get matchNumberCount() {
-    return this.#matchNumberCount;
+    return Number(this.#matchNumberCount);
   }
 
   get count() {
@@ -51,6 +51,14 @@ class WinningItem {
 
   incrementBonusMatchedCount() {
     this.#bonusNumberMatchedCount += 1;
+  }
+
+  getTotalPrize() {
+    return Number(this.#prize.replaceAll(',', '')) * this.#count;
+  }
+
+  getTotalBonusNumberMatchedPrize() {
+    return Number(this.#bonusNumberMatchedPrize.replaceAll(',', '')) * this.#bonusNumberMatchedCount;
   }
 }
 

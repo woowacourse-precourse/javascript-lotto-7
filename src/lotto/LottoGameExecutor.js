@@ -25,6 +25,7 @@ class LottoGameExecutor {
   async startGame() {
     const purchaseAmount = await this.#lottoPayment.getPurchaseAmount();
     const lottoCount = await this.#lottoPayment.calculateLottoCountByAmount(purchaseAmount);
+
     printEmptyLine();
 
     const lottos = this.#lottoGenerator.generateLottosBycount(lottoCount);
@@ -33,6 +34,28 @@ class LottoGameExecutor {
     const { winningNumbers, bonusNumber } = await getWinningLottoNumbersAndBonusNumber();
     const winningResults = this.#lottoResultevaluator.generateWinningResult(lottos, winningNumbers, bonusNumber);
     this.#printWinningResults(winningResults);
+
+    const totalPrize = this.#calculateTotalWinningPrize(winningResults);
+    const rateOfReturn = calculateReturnRate(totalPrize, purchaseAmount);
+    this.#printRateOfReturn(rateOfReturn);
+  }
+
+  #printRateOfReturn(rateOfReturn) {
+    printTotalRateOfReturn(rateOfReturn);
+  }
+
+  #calculateTotalWinningPrize(winningResults) {
+    const totalWinningPrize = winningResults.reduce((prize, result) => {
+      let totalPrize = prize + result.getTotalPrize();
+
+      if (result.hasBonusNumberMatched) {
+        totalPrize += result.getTotalBonusNumberMatchedPrize();
+      }
+
+      return totalPrize;
+    }, 0);
+
+    return totalWinningPrize;
   }
 
   #printWinningResults(winningResults) {

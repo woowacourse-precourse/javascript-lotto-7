@@ -33,3 +33,6 @@ export function printWinningResult(winningResult) {
   }
 }
 
+export function printTotalRateOfReturn(rateOfReturn) {
+  output(OUTPUT_MESSAGE.TOTAL_RATE_OF_RETURN(rateOfReturn));
+}
