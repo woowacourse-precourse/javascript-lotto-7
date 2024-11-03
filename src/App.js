@@ -165,6 +165,10 @@ function getTotalPrize(prizeResults) {
   return totalPrize;
 }
 
+function calculateProfit(totalPrize, payment) {
+  return (totalPrize / payment) * 100;
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
@@ -183,6 +187,7 @@ class App {
     printPrizeResults(prizeResults);
 
     const totalPrizeMoney = getTotalPrize(prizeResults);
+    const profit = calculateProfit(totalPrizeMoney, payment);
   }
 }
 
