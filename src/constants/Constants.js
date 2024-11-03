@@ -1,9 +1,9 @@
 // 메시지 상수
 export const MESSAGES = {
-  INPUT_PURCHASE_MONEY: "구입금액을 입력해 주세요.",
-  INPUT_WINNING_NUMBERS: "당첨 번호를 입력해 주세요.",
-  INPUT_BONUS_NUMBER: "보너스 번호를 입력해 주세요.",
-  DISPLAY_RESULTS: "당첨 통계\n---",
+  INPUT_PURCHASE_MONEY: "구입금액을 입력해 주세요.\n",
+  INPUT_WINNING_NUMBERS: "\n당첨 번호를 입력해 주세요.\n",
+  INPUT_BONUS_NUMBER: "\n보너스 번호를 입력해 주세요.\n",
+  DISPLAY_RESULTS: "\n당첨 통계\n---",
 };
 
 // 로또 관련 상수
@@ -35,7 +35,7 @@ export const ERROR_MESSAGES = {
   INVALID_WINNING_NUMBERS_COUNT: "[ERROR] 당첨 번호는 6개여야 합니다.",
   WINNING_NUMBER_OUT_OF_RANGE:
     "[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.",
-  WINNING_NUMBER_DUPLICATE_:
+  WINNING_NUMBER_DUPLICATE:
     "[ERROR] 당첨 번호에는 중복된 숫자가 없어야 합니다.",
   INVALID_WINNING_SEPARATOR: "[ERROR] 번호 구분자는 쉼표(,)만 유효합니다.",
 
