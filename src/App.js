@@ -34,8 +34,11 @@ class App {
 
   validatePriceString(priceString) {
     if (!Number(priceString)) {
-      Console.print('[ERROR] 구매 금액이 숫자가 아닙니다');
-      throw new Error('[ERROR] 구매 금액이 숫자가 아닙니다.');
+      throw new Error('[ERROR] 구매 금액은 숫자여야 합니다.');
+    }
+
+    if (priceString <= 0) {
+      throw new Error('[ERROR] 구매 금액은 0보다 커야 합니다.');
     }
   }
 
@@ -45,7 +48,7 @@ class App {
       this.validatePriceString(priceString);
       return Number(priceString);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
       return this.getPriceLoop();
     }
   }
