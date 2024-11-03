@@ -9,6 +9,7 @@ class App {
       winningNumbers,
       bonusNumber,
     );
+    resultCalculator.calculatePrizes(lottoList);
   }
 }
 
