@@ -5,3 +5,7 @@ export const isNumber = (number) => {
 export const isOutRangeNumber = (targetNumber, min, max) => {
   return targetNumber < min || max < targetNumber;
 };
+
+export const duplicateNumbers = (numbers) => {
+  return new Set(numbers).size !== numbers.length;
+};
