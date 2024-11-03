@@ -1,15 +1,40 @@
+import repeatUntilValid from '../utils/utils.js';
+import { PRICE_PER_LOTTO } from '../constants/constants.js';
+
 class LottoController {
-  #InputView;
+  #inputView;
+  #outputView;
+  #lottoGame;
   #lottoValidator;
 
-  constructor(inputView, lottoValidator) {
-    this.#InputView = inputView;
+  constructor(inputView, outputView, lottoGame, lottoValidator) {
+    this.#inputView = inputView;
+    this.#outputView = outputView;
+    this.#lottoGame = lottoGame;
     this.#lottoValidator = lottoValidator;
   }
 
+  async start() {
+    const tickets = await this.purchaseLotto();
+    this.#lottoGame.generateLottoNumbers(tickets);
+  }
+
   async purchaseLotto() {
-    const amount = await this.#InputView.getPurchaseAmount();
+    return await repeatUntilValid(
+      this.#purchaseLottoAction.bind(this),
+      this.#purchaseLottoErrorHandler.bind(this),
+    );
+  }
+
+  async #purchaseLottoAction() {
+    const amount = await this.#inputView.getPurchaseAmount();
     this.#lottoValidator.validatePurchaseAmount(amount);
+
+    return amount / PRICE_PER_LOTTO;
+  }
+
+  #purchaseLottoErrorHandler(message) {
+    this.#outputView.printMessage(message);
   }
 }
 

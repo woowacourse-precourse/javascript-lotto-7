@@ -10,12 +10,13 @@ class App {
     this.#lottoController = new LottoController(
       new InputView(),
       new OutputView(),
+      new LottoGame(),
       new LottoValidator(),
     );
   }
 
   async run() {
-    await this.#lottoController.purchaseLotto();
+    await this.#lottoController.start();
   }
 }
 
