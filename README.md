@@ -73,4 +73,13 @@
 - test: LottoTest.js에 로또 유효성 테스트 추가
 
 11. **README.md작성 및 프로젝트 설명 추가**:
-docs: 기능 목록 및 설명이 포함된 README.md 추가
+- docs: 기능 목록 및 설명이 포함된 README.md 추가
+
+12. **LottoTest.js에 큰 단위 테스트 추가**:
+- test: LottoTest.js에 큰 단위 테스트 추가
+
+13. **LottoTest.js에 경계값 테스트 추가**:
+- test: LottoTest.js에 경계값 테스트 추가
+
+14. **README.md수정 및 프로젝트 설명 추가**:
+- docs: README.md수정 및 프로젝트 설명 추가
