@@ -28,7 +28,14 @@ class LottoController {
   async purchaseLotto() {
     return await repeatUntilValid(
       this.#purchaseLottoAction.bind(this),
-      this.#purchaseLottoErrorHandler.bind(this),
+      this.#errorHandler.bind(this),
+    );
+  }
+
+  async assignWinningLotto() {
+    return await repeatUntilValid(
+      this.#assignLottoNumberAction.bind(this),
+      this.#errorHandler.bind(this),
     );
   }
 
@@ -39,17 +46,6 @@ class LottoController {
     return amount / PRICE_PER_LOTTO;
   }
 
-  #purchaseLottoErrorHandler(message) {
-    this.#outputView.printMessage(message);
-  }
-
-  async assignWinningLotto() {
-    return await repeatUntilValid(
-      this.#assignLottoNumberAction.bind(this),
-      this.#assignWinningLottoErrorHandler.bind(this),
-    );
-  }
-
   async #assignLottoNumberAction() {
     const winningLotto = await this.#inputView.getWinningLotto();
     const winningNumbers = winningLotto.split(',').map(Number);
@@ -57,7 +53,7 @@ class LottoController {
     return new Lotto(winningNumbers);
   }
 
-  #assignWinningLottoErrorHandler(message) {
+  #errorHandler(message) {
     this.#outputView.printMessage(message);
   }
 }
