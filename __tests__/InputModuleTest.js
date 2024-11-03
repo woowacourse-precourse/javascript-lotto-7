@@ -1,6 +1,6 @@
 import { ERROR_PREFIX } from '../src/constants.js';
 import InputModules from '../src/views/InputModules.js';
-import { mockQuestions } from './ApplicationTest.js';
+import { mockQuestions } from './testUtils.js';
 
 describe('InputModule Test', () => {
   describe('getPurchaseCash : 로또 구입 금액 입력 테스트', () => {
