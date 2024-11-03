@@ -27,14 +27,7 @@ class App {
       "보너스 번호를 입력해 주세요.\n"
     );
     const bonusNumber = Number(bonusNumberInput);
-    if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error("[ERROR] : 보너스 번호는 1~45사이여야 합니다.");
-    }
-    if (uniqueNumbers.has(bonusNumber)) {
-      throw new Error(
-        "[ERROR] : 보너스 번호는 당첨 번호와 중복될 수 없습니다."
-      );
-    }
+    this.validateBonusNumber(bonusNumber, new Set(winningNumbers));
 
     const counts = {
       3: 0,
@@ -105,6 +98,17 @@ class App {
       winningNumbers.length !== 6
     ) {
       throw new Error("[ERROR] : 6개의 숫자를 중복되지 않게 입력해야합니다.");
+    }
+  }
+
+  validateBonusNumber(bonusNumber, uniqueNumbers) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] : 보너스 번호는 1~45사이여야 합니다.");
+    }
+    if (uniqueNumbers.has(bonusNumber)) {
+      throw new Error(
+        "[ERROR] : 보너스 번호는 당첨 번호와 중복될 수 없습니다."
+      );
     }
   }
 }
