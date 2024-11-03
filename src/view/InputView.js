@@ -24,4 +24,4 @@ class InputView {
   }
 }
 
-export default InputView
+export default InputView;
