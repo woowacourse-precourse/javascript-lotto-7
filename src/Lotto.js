@@ -9,20 +9,20 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(lottoArray) {
-    const isNotSixNumbers = lottoArray.size != LOTTO_NUMBERS.COUNT_6;
+  #validate(lottoSet) {
+    const isNotSixNumbers = lottoSet.size != LOTTO_NUMBERS.COUNT_6;
 
     if (isNotSixNumbers) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_SIX_NUMBERS);
     }
 
-    const hasNaN = [...lottoArray].some((lottoNumber) => !Number.isInteger(lottoNumber));
+    const hasNaN = [...lottoSet].some((lottoNumber) => !Number.isInteger(lottoNumber));
 
     if (hasNaN) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_A_NUMBER);
     }
 
-    const hasOutOfRange = [...lottoArray].some((lottoNumber) => {
+    const hasOutOfRange = [...lottoSet].some((lottoNumber) => {
       const isOutOfRange =
         lottoNumber < LOTTO_NUMBERS.MIN_RANGE_1 || lottoNumber > LOTTO_NUMBERS.MAX_RANGE_45;
 
@@ -32,6 +32,10 @@ class Lotto {
     if (hasOutOfRange) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.OUT_OF_RANGE_1_to_45);
     }
+  }
+
+  getWinningNumbers() {
+    return this.#numbers;
   }
 
   checkLottoNumbers(purchasedLotto, bonusNumber) {
@@ -72,7 +76,7 @@ class Lotto {
     return result;
   }
 
-  getProfitRate(lottoResult, purchaseAmount) {
+  getProfitRate(lottoResult, purchasedLottoCount) {
     const prizeAmount = [2000000000, 30000000, 1500000, 50000, 5000];
 
     let profitSum = 0;
@@ -81,7 +85,9 @@ class Lotto {
       profitSum += prizeAmount[i] * lottoResult[i];
     }
 
-    return Math.round((profitSum / purchaseAmount) * 100 * 100) / 100;
+    const profitRate = (profitSum / (purchasedLottoCount * 1000)) * 100;
+
+    return Math.round(profitRate * 100) / 100;
   }
 }
 

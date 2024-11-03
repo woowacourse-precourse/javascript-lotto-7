@@ -10,7 +10,7 @@ class Output {
     Console.print(`[${lottoNumber.join(", ")}]`);
   }
 
-  static printLottoResult(lottoResult){
+  static printLottoResult(lottoResult) {
     Console.print(OUTPUT_MESSAGE.PRIZE_STATISTICS);
     Console.print(`${OUTPUT_MESSAGE.FIFTH_PRIZE}${lottoResult[4]}개`);
     Console.print(`${OUTPUT_MESSAGE.FOURTH_PRIZE}${lottoResult[3]}개`);
@@ -19,11 +19,11 @@ class Output {
     Console.print(`${OUTPUT_MESSAGE.FIRST_PRIZE}${lottoResult[0]}개`);
   }
 
-  static printProfitRate(profitRate){
+  static printProfitRate(profitRate) {
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 
-  static printErrorMessage(error){
+  static printErrorMessage(error) {
     Console.print(`[ERROR] ${error.message}`);
   }
 }
