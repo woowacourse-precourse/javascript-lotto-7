@@ -22,6 +22,15 @@ class Validator {
   static isNotEmptyString(value) {
     if (value === '') throw new Error(`${ERROR_PREFIX} 어떤 값도 입력되지 않았습니다.`);
   }
+
+  static isNumberInBoundary(
+    value,
+    minValue = SERVICE_CONSTANTS.numberMinBoundary,
+    maxValue = SERVICE_CONSTANTS.numberMaxBoundsary,
+  ) {
+    if (value < minValue || value > maxValue)
+      throw new Error(`${ERROR_PREFIX} ${minValue}이상 ${maxValue}이하의 값이 입력되어야 합니다.`);
+  }
 }
 
 export default Validator;
