@@ -35,7 +35,7 @@ class Validator {
   static validateBonusNumber(winningNumbers, bonusNumber) {
     ErrorHandler.throwIf(Validator.isNaN(bonusNumber), ERRORS.NOT_A_NUMBER);
     ErrorHandler.throwIf(!Validator.isValidLottoNumber(bonusNumber), ERRORS.INVALID_LOTTO_NUMBER);
-    ErrorHandler.throwIf(Validator.hasUniqueNumbers([...winningNumbers, bonusNumber]), ERRORS.DUPLICATED_WINNING_NUMBERS);
+    ErrorHandler.throwIf(!Validator.hasUniqueNumbers([...winningNumbers, bonusNumber]), ERRORS.DUPLICATED_WINNING_NUMBERS);
   }
 
   static validateWinningNumbers(numbers) {
