@@ -1,5 +1,6 @@
 import { LOTTO } from './constants/lotto.js';
 import { ERROR_MESSAGE } from './constants/message.js';
+import Util from './Util.js';
 
 class Lotto {
   #numbers;
@@ -28,6 +29,31 @@ class Lotto {
   // TODO: 추가 기능 구현
   static getWinnings() {
     return Lotto.winnings;
+  }
+
+  win(winningNumbers, bonusNumber) {
+    const { basicMatch, bonusMatch } = this.#getMatch(winningNumbers, bonusNumber);
+    const winning = this.#getWinningByMatch(basicMatch, bonusMatch);
+
+    return winning;
+  }
+
+  #getMatch(winningNumbers, bonusNumber) {
+    const basicMatch = Util.filterByTargetArrayMatch(this.#numbers, winningNumbers).length;
+    const bonusMatch = Util.filterByTargetMatch(this.#numbers, bonusNumber).length;
+
+    return {
+      basicMatch,
+      bonusMatch,
+    };
+  }
+
+  #getWinningByMatch(basicMatch, bonusMatch) {
+    const filteredWinnings = this.getWinnings().filter(
+      winning => winning.basicCount === basicMatch && winning.bonusCount <= bonusMatch
+    );
+
+    return filteredWinnings.sort((a, b) => a.rank - b.rank)[0] ?? null;
   }
 }
 
