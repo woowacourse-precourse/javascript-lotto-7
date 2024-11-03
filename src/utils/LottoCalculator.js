@@ -45,6 +45,17 @@ const LottoCalculator = {
       processedWinningNumbers.includes(number)
     ).length;
   },
+
+  calculateProfitRate(result, purchaseAmount) {
+    const totalPrize =
+      result.FIRST * LOTTO.REWARDS.FIRST.AMOUNT +
+      result.SECOND * LOTTO.REWARDS.SECOND.AMOUNT +
+      result.THIRD * LOTTO.REWARDS.THIRD.AMOUNT +
+      result.FOURTH * LOTTO.REWARDS.FOURTH.AMOUNT +
+      result.FIFTH * LOTTO.REWARDS.FIFTH.AMOUNT;
+
+    return parseFloat(((totalPrize / purchaseAmount) * 100).toFixed(1));
+  },
 };
 
 export default LottoCalculator;

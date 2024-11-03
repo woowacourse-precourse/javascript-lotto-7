@@ -24,6 +24,12 @@ class App {
       bonusNumber
     );
     Output.printResults(result);
+
+    const profitRate = LottoCalculator.calculateProfitRate(
+      result,
+      purchaseAmount
+    );
+    Output.printProfitRate(profitRate);
   }
 
   async getPurchaseAmount() {

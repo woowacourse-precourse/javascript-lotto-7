@@ -21,6 +21,10 @@ const Output = {
     Console.print(MESSAGES.MATCH_COUNT(6, 2000000000, result.FIRST));
   },
 
+  printProfitRate(rate) {
+    Console.print(MESSAGES.TOTAL_PROFIT_RATE(rate));
+  },
+
   printError(error) {
     Console.print(error);
   },

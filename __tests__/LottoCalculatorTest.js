@@ -65,4 +65,15 @@ describe("LottoCalculator 테스트", () => {
     );
     expect(result.FIRST).toBe(1);
   });
+
+  test("수익률 계산", () => {
+    const result = { FIRST: 1, SECOND: 0, THIRD: 0, FOURTH: 0, FIFTH: 1 };
+    const purchaseAmount = 10000;
+
+    const profitRate = LottoCalculator.calculateProfitRate(
+      result,
+      purchaseAmount
+    );
+    expect(profitRate).toBeCloseTo(20000050, 1);
+  });
 });

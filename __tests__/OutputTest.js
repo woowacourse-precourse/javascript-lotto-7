@@ -37,4 +37,10 @@ describe("Output 테스트", () => {
       MESSAGES.MATCH_COUNT(6, 2000000000, 1)
     );
   });
+
+  test("수익률을 출력한다.", () => {
+    const rate = 1550.5;
+    Output.printProfitRate(rate);
+    expect(consoleSpy).toHaveBeenCalledWith(MESSAGES.TOTAL_PROFIT_RATE(rate));
+  });
 });
