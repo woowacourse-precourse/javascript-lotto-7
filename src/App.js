@@ -42,7 +42,9 @@ class App {
       this.numbers = [...this.numbers, numbers];
     }
 
-    Console.print(`${amount}개를 구매했습니다.\n${this.numbers.map((number) => `[${number.join(', ')}]`).join('\n')}`);
+    Console.print(
+      `\n${amount}개를 구매했습니다.\n${this.numbers.map((number) => `[${number.join(', ')}]`).join('\n')}\n`
+    );
   }
 
   async getWinningNumbers() {
@@ -103,11 +105,11 @@ class App {
       return `${log.matchCount}개 일치${amount} - ${log.count}개`;
     });
 
-    Console.print('당첨 통계\n' + '---\n' + result.join('\n'));
+    Console.print('\n당첨 통계\n' + '---\n' + result.join('\n'));
   }
 
   async getBonusNumber() {
-    const bonusNumber = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
 
     if (
       isNaN(parseInt(bonusNumber)) ||
