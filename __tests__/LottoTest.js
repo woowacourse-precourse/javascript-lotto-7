@@ -1,3 +1,4 @@
+import { ERRORS } from '../src/constants/errors';
 import Lotto from '../src/models/Lotto';
 
 describe('로또 클래스 테스트', () => {
@@ -15,4 +16,66 @@ describe('로또 클래스 테스트', () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+
+  describe('로또 번호 유효성 검사', () => {
+    test.each([
+      {
+        case: '6개를 초과하는 경우',
+        numbers: [1, 2, 3, 4, 5, 6, 7],
+        expectedError: '[ERROR] 로또 번호는 6개여야 합니다.',
+      },
+      {
+        case: '6개 미만인 경우',
+        numbers: [1, 2, 3, 4, 5],
+        expectedError: '[ERROR] 로또 번호는 6개여야 합니다.',
+      },
+      {
+        case: '중복된 번호가 있는 경우',
+        numbers: [1, 2, 3, 4, 5, 5],
+        expectedError: ERRORS.INVALID_DUPLICATE_LOTTO_NUMBER,
+      },
+    ])('$case', ({ numbers, expectedError }) => {
+      expect(() => {
+        new Lotto(numbers);
+      }).toThrow(expectedError);
+    });
+  });
+
+  describe('로또 번호 반환', () => {
+    test('로또 번호는 오름차순으로 정렬되어 반환된다', () => {
+      const lotto = new Lotto([6, 3, 1, 4, 5, 2]);
+      const lottoNumbers = lotto.getSortedLottoNumbers();
+
+      expect(lottoNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+
+    test('로또 번호는 정렬된 새로운 배열을 반환한다', () => {
+      const numbers = [6, 3, 1, 4, 5, 2];
+      const lotto = new Lotto(numbers);
+      const lottoNumbers = lotto.getSortedLottoNumbers();
+
+      // 원본 배열이 변경되지 않았는지 확인
+      expect(numbers).toEqual([6, 3, 1, 4, 5, 2]);
+      expect(lottoNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+  });
+
+  describe('로또 번호 범위 검사', () => {
+    test.each([
+      {
+        case: '1보다 작은 숫자가 있는 경우',
+        numbers: [0, 2, 3, 4, 5, 6],
+        expectedError: '[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.',
+      },
+      {
+        case: '45보다 큰 숫자가 있는 경우',
+        numbers: [1, 2, 3, 4, 5, 46],
+        expectedError: '[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.',
+      },
+    ])('$case', ({ numbers, expectedError }) => {
+      expect(() => {
+        new Lotto(numbers);
+      }).toThrow(expectedError);
+    });
+  });
 });
