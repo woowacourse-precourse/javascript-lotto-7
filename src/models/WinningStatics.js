@@ -1,3 +1,5 @@
+import LOTTO_CONSTANTS from '../constants/lottoConstatns';
+
 class WinningStatics {
   static PRIZE_MONEY = {
     3: 5000,
@@ -6,6 +8,7 @@ class WinningStatics {
     5.5: 30000000, // 당첨 번호 5개 + 보너스 번호 일치
     6: 2000000000,
   };
+  static PERCENTAGE = 100;
 
   #winningNumbers;
   #bonusNumber;
@@ -62,7 +65,10 @@ class WinningStatics {
   }
 
   calculateRateOfReturn(lottoCount) {
-    return (this.#totalPrizeMoney / (lottoCount * 1000)) * 100;
+    return (
+      (this.#totalPrizeMoney / (lottoCount * LOTTO_CONSTANTS.LOTTO_PRICE)) *
+      WinningStatics.PERCENTAGE
+    );
   }
 }
 
