@@ -26,11 +26,11 @@ const outputView = {
 
     prizeTable.forEach((targetPrize, matchedCount) => {
       const lottoCount = matchingTable.get(matchedCount);
-      const basicPrize = targetPrize[basicTag];
+      const basicPrize = targetPrize[basicTag].toLocaleString();
       outputView.printWinningStatistics(matchedCount, lottoCount, basicPrize);
 
       if (matchedCount === bonusWinningStandard) {
-        const bonusPrize = targetPrize[bonusTag];
+        const bonusPrize = targetPrize[bonusTag].toLocaleString();
         outputView.printBonusStatistics(matchedCount, lottoCount, bonusPrize);
       }
     });
