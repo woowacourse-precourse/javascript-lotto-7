@@ -8,11 +8,13 @@ import Lotto from "./Lotto.js";
 class App {
   purchaseMoney;
   winningNumbers;
+  bonusNumber;
 
   async run() {
     await this.inputPurchaseMoney();
-    await this.outputLottoTickets();
+    this.outputLottoTickets();
     await this.inputWinningNumbers();
+    await this.inputBonusNumber();
   }
 
   async inputPurchaseMoney() {
@@ -41,6 +43,18 @@ class App {
         this.winningNumbers = await InputValue.winningNumbers();
         new Lotto(this.winningNumbers);
         return this.winningNumbers;
+      } catch (e) {
+        Console.print(e.message);
+      }
+    }
+  }
+
+  async inputBonusNumber() {
+    while (true) {
+      try {
+        this.bonusNumber = await InputValue.bonusNumber();
+
+        return this.bonusNumber;
       } catch (e) {
         Console.print(e.message);
       }
