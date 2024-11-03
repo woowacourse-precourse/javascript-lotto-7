@@ -28,5 +28,15 @@ export class LottoService {
       "5": { count: 0, prize: 30000000 },
       6: { count: 0, prize: 2000000000 },
     };
+
+    lottos.forEach((lotto) => {
+      const matchCount = this.countMatches(lotto.getNumbers(), winningNumbers);
+
+    });
+    
+  }
+
+  static countMatches(numbers, winningNumbers) {
+    return numbers.filter(number => winningNumbers.includes(number)).length;
   }
 }
