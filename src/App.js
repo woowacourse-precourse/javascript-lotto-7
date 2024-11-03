@@ -43,6 +43,7 @@ class App {
 
       this.#winning();
       this.#printResult();
+      this.#printProfitRate();
     } catch (error) {
       Console.print(error.message);
       throw error;
@@ -95,18 +96,32 @@ class App {
   }
 
   #printResult() {
-    for (const [key, value] of this.#lottoResult) {
-      const { match, needBonusBall, prize } = lottoInfo[key];
+    for (const [rank, count] of this.#lottoResult) {
+      const { match, needBonusBall, prize } = lottoInfo[rank];
       if (!needBonusBall) {
         Console.print(
-          `${match}개 일치 (${prize.toLocaleString()}원) - ${value}개`
+          `${match}개 일치 (${prize.toLocaleString()}원) - ${count}개`
         );
       } else {
         Console.print(
-          `${match}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${value}개`
+          `${match}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${count}개`
         );
       }
     }
+  }
+
+  #printProfitRate() {
+    let totalPrize = 0;
+
+    for (const [rank, count] of this.#lottoResult) {
+      if (!count) continue;
+
+      const { prize } = lottoInfo[rank];
+      totalPrize += count * prize;
+    }
+
+    const profitRate = (totalPrize / this.#money) * 100;
+    Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
   }
 }
 
