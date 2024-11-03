@@ -9,13 +9,12 @@ class App {
   async run() {
     let lottoPurchaseAmount;
 
-    // 구매 금액 입력 단계
     while (true) {
       try {
         lottoPurchaseAmount = await LottoInputReader.readLottoPurchaseAmount();
-        break; // 입력이 성공하면 반복 종료
+        break;
       } catch (error) {
-        Console.print(error.message); // 에러 메시지 출력 후 다시 입력 받음
+        Console.print(`${error.message}\n`);
       }
     }
 
@@ -26,18 +25,24 @@ class App {
 
     let winningNumbers, bonusNumber;
 
-    // 당첨 번호 입력 단계
     while (true) {
       try {
         winningNumbers = await LottoInputReader.readWinningNumbers();
-        bonusNumber = await LottoInputReader.readBonusNumber();
-        break; // 입력이 성공하면 반복 종료
+        break;
       } catch (error) {
-        Console.print(error.message); // 에러 메시지 출력 후 다시 입력 받음
+        Console.print(`${error.message}\n`);
       }
     }
 
-    // 당첨 결과 확인 및 출력
+    while (true) {
+      try {
+        bonusNumber = await LottoInputReader.readBonusNumber();
+        break;
+      } catch (error) {
+        Console.print(`${error.message}`);
+      }
+    }
+
     const winningResult = LottoChecker.checkWinningLottos(
       lottos,
       winningNumbers,
@@ -45,7 +50,6 @@ class App {
     );
     LottoOutputWriter.printWinningResults(winningResult);
 
-    // 수익률 계산 및 출력
     const totalYield = LottoRevenueCalculator.calculateYield(
       lottoPurchaseAmount,
       winningResult
