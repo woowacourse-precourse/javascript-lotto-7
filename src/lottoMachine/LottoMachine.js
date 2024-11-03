@@ -1,5 +1,5 @@
 import { Input } from './Input.js';
-import { Validation } from './Validation.js';
+import { Validation } from './validation/Validation.js';
 import { Calculation } from './Calculation.js';
 import { Output } from './Output.js';
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
