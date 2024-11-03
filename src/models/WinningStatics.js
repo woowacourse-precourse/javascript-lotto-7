@@ -45,7 +45,7 @@ class WinningStatics {
   updateRankStatics(matchCount, hasBonusNumber) {
     const rank = this.getRank(matchCount, hasBonusNumber);
     if (rank) {
-      this.#rankStatics[rank]++;
+      this.#rankStatics[rank] += 1;
       this.#totalPrizeMoney += this.getPrizeMoney(matchCount, hasBonusNumber);
     }
   }
