@@ -1,4 +1,5 @@
 import LOTTO_CONSTANTS from '../constants/lottoConstatns.js';
+import ERROR_MESSAGES from '../constants/messages/errorMessages.js';
 
 class Money {
   #money;
@@ -20,13 +21,13 @@ class Money {
 
   #validateType(money) {
     if (Number.isNaN(money)) {
-      throw Error('[ERROR] 구매 금액으로 숫자가 아닌 값을 입력할 수 없습니다!');
+      throw Error(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.MONEY_TYPE_NOT_NUMBER}`);
     }
   }
 
   #validateUnit(money) {
     if (money % LOTTO_CONSTANTS.LOTTO_PRICE !== 0) {
-      throw Error('[ERROR] 구매 금액을 1000원 단위로 입력해 주세요!');
+      throw Error(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.MONEY_UNIT_NOT_RIGHT}`);
     }
   }
 }
