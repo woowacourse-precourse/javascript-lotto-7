@@ -6,6 +6,12 @@ async function inputPrice(){
     const PRICE = await Console.readLineAsync("구입금액을 입력해 주세요.");
 }
 
+function calcLottoCnt(PRICE){
+    const PRICENUMBER = parseInt(PRICE);
+    const result = PRICENUMBER / 1000;
+    return result;
+}
+
 function isIntNumber(PRICE){
     const number = parseInt(PRICE);
     if(!Number.isSafeInteger(number)){
@@ -26,4 +32,4 @@ function isDivided1000(PRICE){
     }
 }
 
-export {inputPrice, isPositiveNumber, isDivided1000, isIntNumber};
+export {inputPrice, isPositiveNumber, isDivided1000, isIntNumber, calcLottoCnt};
