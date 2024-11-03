@@ -1,8 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class InputHandler {
-  static getInput(message) {
-    return Console.readLineAsync(message);
+  static async getInput(message, validateFn) {
+    const input = await Console.readLineAsync(message);
+    validateFn(input);
+    return input;
   }
 }
 

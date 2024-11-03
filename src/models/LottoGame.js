@@ -1,9 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import {
-  INPUT_PROMPT,
-  WINNING_NUMBERS_DELIMITER,
-} from '../constants/inputConstant.js';
+import { INPUT_PROMPT, WINNING_NUMBERS_DELIMITER } from '../constants/inputConstant.js';
 import InputHandler from '../utils/InputHandler.js';
 import Validator from '../utils/Validator.js';
 import LottoMachine from './LottoMachine.js';
@@ -19,26 +16,15 @@ class LottoGame {
   }
 
   async play() {
-    const inputPurchasePrice = await InputHandler.getInput(
-      INPUT_PROMPT.PURCHASE_PRICE,
-    );
-    Validator.validatePurchasePrice(inputPurchasePrice);
+    const inputPurchasePrice = await InputHandler.getInput(INPUT_PROMPT.PURCHASE_PRICE, Validator.validatePurchasePrice);
 
-    this.setLottos(
-      this.lottoMachine.generateLottos(Number.parseInt(inputPurchasePrice, 10)),
-    );
+    this.setLottos(this.lottoMachine.generateLottos(Number.parseInt(inputPurchasePrice, 10)));
     this.displayLottos();
 
-    const inputWinningNumbers = await InputHandler.getInput(
-      INPUT_PROMPT.WINNING_NUMBERS,
-    );
-    this.lottoWinningNumbers.setWinningNumbers(
-      inputWinningNumbers.split(WINNING_NUMBERS_DELIMITER).map(Number),
-    );
+    const inputWinningNumbers = await InputHandler.getInput(INPUT_PROMPT.WINNING_NUMBERS, Validator.validateWinninNumbers);
+    this.lottoWinningNumbers.setWinningNumbers(inputWinningNumbers.split(WINNING_NUMBERS_DELIMITER).map(Number));
 
-    const inputBonusNumbers = await InputHandler.getInput(
-      INPUT_PROMPT.BONUS_NUMBER,
-    );
+    const inputBonusNumbers = await InputHandler.getInput(INPUT_PROMPT.BONUS_NUMBER, Validator.validateBonusNumber);
     this.lottoWinningNumbers.setBonusNumber(Number(inputBonusNumbers));
   }
 
@@ -52,9 +38,7 @@ class LottoGame {
 
   displayLottos() {
     Console.print(`\n${this.#lottos.length}개를 구매했습니다.`);
-    this.#lottos.forEach(lotto =>
-      Console.print(`[${lotto.getNumbers().join(', ')}]`),
-    );
+    this.#lottos.forEach(lotto => Console.print(`[${lotto.getNumbers().join(', ')}]`));
   }
 }
 
