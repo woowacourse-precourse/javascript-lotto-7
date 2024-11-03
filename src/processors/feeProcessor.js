@@ -7,8 +7,7 @@ const getFee = (feeInput) => {
 
 const validate = (str) => {
     const regex = new RegExp("\\d+000$");
-    if (regex.test(str)) return true;
-    return false;
+    return regex.test(str);
 }
 
 export default getFee;
