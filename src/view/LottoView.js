@@ -6,6 +6,7 @@ export class LottoView {
   }
 
   static async printLottos(lottos) {
+    Console.print("");
     Console.print(`${lottos.length}개를 구매했습니다.`);
     lottos.forEach((lotto, index) => {
       Console.print(`[${lotto.getNumbers().join(", ")}]`);
@@ -13,15 +14,18 @@ export class LottoView {
   }
 
   static async getWinningNumbers() {
+    Console.print("");
     return Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
   }
 
   static async getBonusNumber() {
+    Console.print("");
     return Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
   }
 
   static printResults(results) {
-    Console.print("당첨 통계---");
+    Console.print("");
+    Console.print("당첨 통계\n---");
     results.forEach((result) => Console.print(result));
     Console.print(`총 수익률은 ${results.totalReturn}%입니다.`);
   }

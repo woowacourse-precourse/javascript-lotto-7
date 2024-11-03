@@ -11,7 +11,7 @@ export class LottoController {
     const winningNumbers = await LottoView.getWinningNumbers();
     const bonusNumber = await LottoView.getBonusNumber();
 
-    const results = LottoService.calculateWinnings(tickets, winningNumbers, bonusNumber);
+    const results = LottoService.calculateWinnings(lottos, winningNumbers, bonusNumber);
     LottoView.printResults(results);
   }
 }

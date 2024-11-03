@@ -19,4 +19,14 @@ export class LottoService {
     const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     return new Lotto(numbers);
   }
+
+  static calculateWinnings(lottos, winningNumbers, bonusNumber) {
+    const prizeTable = {
+      3: { count: 0, prize: 5000 },
+      4: { count: 0, prize: 50000 },
+      5: { count: 0, prize: 1500000 },
+      "5": { count: 0, prize: 30000000 },
+      6: { count: 0, prize: 2000000000 },
+    };
+  }
 }
