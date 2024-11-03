@@ -24,7 +24,7 @@ class LottoResultCalculator{
     }
 
     getRank(lottoNumbers, winnigNums, bonusNum){
-        const matchedCount = lottoNumbers.fillter(num => winnigNums.includes(num)).length;
+        const matchedCount = lottoNumbers.filter(num => winnigNums.includes(num)).length;
         const hasBonus = lottoNumbers.includes(bonusNum);
 
         if(matchedCount === 6) return 1;
