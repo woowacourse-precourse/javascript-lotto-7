@@ -1,5 +1,7 @@
-import { Random } from '@woowacourse/mission-utils';
+import { Random, Console } from '@woowacourse/mission-utils';
 import { LOTTO_MACHINE } from './utils/Constants.js';
+import inputView from './userInterface/InputView.js';
+import Utils from './utils/Utils.js';
 import Validation from './Validation.js';
 
 class LottoMachine {
@@ -8,9 +10,27 @@ class LottoMachine {
   #lotto;
 
   constructor(payment, lotto) {
-    this.#validate(payment);
     this.#payment = payment;
     this.#lotto = lotto;
+  }
+
+  static async getPayment() {
+    try {
+      const payment = await this.#getPaymentInput();
+      this.#validatePayment(payment);
+
+      return payment;
+    } catch (error) {
+      Console.print(error.message);
+
+      return this.getPayment();
+    }
+  }
+
+  static async #getPaymentInput() {
+    const payment = await inputView.askPayment();
+    const parsedPayment = Utils.parsingToNumber(payment);
+    return parsedPayment;
   }
 
   #calculateAmount() {
@@ -53,7 +73,7 @@ class LottoMachine {
     return lottoMachine;
   }
 
-  #validate(payment) {
+  static #validatePayment(payment) {
     Validation.checkPayment(payment);
   }
 }

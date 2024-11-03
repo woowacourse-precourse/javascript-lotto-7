@@ -24,24 +24,6 @@ class App {
     outputView.printProfit(profit);
   }
 
-  async getLottoMachine() {
-    try {
-      const payment = await App.getPayment();
-      const lottoMachine = LottoMachine.constructLottoMachine(payment, Lotto);
-      return lottoMachine;
-    } catch (error) {
-      Console.print(error.message);
-
-      return this.getLottoMachine();
-    }
-  }
-
-  static async getPayment() {
-    const payment = await inputView.askPayment();
-    const parsedPayment = Utils.parsingToNumber(payment);
-    return parsedPayment;
-  }
-
   static async getWinningLottoNumbers() {
     const numbers = await WinningLottoManager.selectWinningNumbers();
     const bonusNumber = await WinningLottoManager.selectBonusNumber(numbers);
