@@ -1,3 +1,5 @@
+import ERROR_MESSAGES from '../utills/errors.js';
+
 class Lotto {
   #numbers;
 
@@ -7,12 +9,31 @@ class Lotto {
   }
 
   #validate(numbers) {
+    this.#validateNumbersLength(numbers);
+    this.#validateNumbersDuplication(numbers);
+    this.#validateEachNumberInRange(numbers);
+  }
+
+  #validateNumbersLength(numbers) {
     if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      throw new Error(ERROR_MESSAGES.LOTTO.INVALID_LENGTH);
     }
   }
 
-  // TODO: 추가 기능 구현
+  #validateNumbersDuplication(numbers) {
+    const numbersSet = new Set(numbers);
+    if (numbers.length !== numbersSet.size) {
+      throw new Error(ERROR_MESSAGES.LOTTO.DUPLICATE_NUMBERS);
+    }
+  }
+
+  #validateEachNumberInRange(numbers) {
+    const isValid = numbers.every((number) => number >= 1 && number <= 45);
+    if (!isValid) {
+      throw new Error(ERROR_MESSAGES.LOTTO.INVALID_RANGE);
+    }
+  }
+
   getNumbers() {
     return this.#numbers;
   }
