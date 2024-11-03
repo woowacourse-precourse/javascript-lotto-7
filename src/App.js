@@ -21,14 +21,21 @@ class App {
   }
 
   async getPurchaseAmount() {
-    let amount = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-    amount = Number(amount);
+    while(1){
+      try {
+        let amount = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+        amount = Number(amount);
 
-    if (Number.isNaN(amount) || amount <= 0) {
-      throw new Error('[ERROR] 구입 금액은 1 이상의 숫자여야 합니다.');
+        if (Number.isNaN(amount) || amount <= 0) {
+          throw new Error('[ERROR] 구입 금액은 1 이상의 숫자여야 합니다.');
+        }
+        return amount;
+      } catch (e) {
+        Console.print(e.message);
+      }
     }
-    return amount;
   }
+  
 
   calculatePurchaseCount(purchaseAmount) {
     const purchaseCount = purchaseAmount / 1000;
@@ -49,37 +56,49 @@ class App {
   }
 
   async getWinningNumbers() {
-    const getNumbers = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-    if (getNumbers.trim() === '' || getNumbers.endsWith(',')) {
-      throw new Error('[ERROR] 올바른 형식으로 당첨 번호를 입력해 주세요.');
-    }
-    const winningNumbers = getNumbers.split(',').map((number) => {
-      const num = Number(number.trim());
-      if (Number.isNaN(num) || num < 1 || num > 45) {
-        throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자를 6개 입력해야합니다.');
+    while (1) {
+      try {
+        const getNumbers = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+        if (getNumbers.trim() === '' || getNumbers.endsWith(',')) {
+          throw new Error('[ERROR] 올바른 형식으로 당첨 번호를 입력해 주세요.');
+        }
+        const winningNumbers = getNumbers.split(',').map((number) => {
+          const num = Number(number.trim());
+          if (Number.isNaN(num) || num < 1 || num > 45) {
+            throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자를 6개 입력해야합니다.');
+          }
+          return num;
+        });
+        const uniqueNumbers = new Set(winningNumbers);
+        if (uniqueNumbers.size !== winningNumbers.length) {
+          throw new Error('[ERROR] 중복된 번호는 입력할 수 없습니다.');
+        }
+        if (winningNumbers.length !== 6) {
+          throw new Error('[ERROR] 로또 번호는 6개를 입력해야합니다.');
+        }
+        return winningNumbers;
+      } catch (e) {
+      Console.print(e.message);
       }
-      return num;
-    });
-    const uniqueNumbers = new Set(winningNumbers);
-    if (uniqueNumbers.size !== winningNumbers.length) {
-      throw new Error('[ERROR] 중복된 번호는 입력할 수 없습니다.');
     }
-    if (winningNumbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개를 입력해야합니다.');
-    }
-    return winningNumbers;
   }
 
   async getBonusNumber(winningNumbers) {
-    let bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-    bonusNumber = Number(bonusNumber);
-    if (Number.isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 한개의 숫자여야 합니다.');
+    while (1) {
+      try {
+        let bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+        bonusNumber = Number(bonusNumber);
+        if (Number.isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
+          throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자 한개여야 합니다.');
+        }
+        if (winningNumbers.includes(bonusNumber)) {
+          throw new Error('[ERROR] 보너스 번호는 로또 번호와 중복될 수 없습니다.');
+        }
+        return bonusNumber;
+      } catch(e) {
+      Console.print(e.message);
+      }
     }
-    if (winningNumbers.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 로또 번호와 중복될 수 없습니다.');
-    }
-    return bonusNumber;
   }
 
   calculateLottoResults(generatedLottos, winningNumbers, bonusNumber, purchaseAmount) {
@@ -112,7 +131,7 @@ class App {
       + lottoResults[6] * 2000000000;
 
     lottoResults.profitRate = ((lottoResults.totalPrize / purchaseAmount) * 100).toFixed(1);
-    lottoResults.profitRate = Number(lottoResults.profitRate).toLocaleString();
+    lottoResults.profitRate = lottoResults.profitRate.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
     return lottoResults;
   }
