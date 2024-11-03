@@ -3,6 +3,7 @@ import Lotto from "./Lotto.js";
 import LottoGenerator from "./utils/LottoGenerator.js";
 import Output from "./utils/Output.js";
 import Validator from "./utils/Validator.js";
+import LottoCalculator from "./utils/LottoCalculator.js";
 import { ERROR_MESSAGES } from "./constants/constants.js";
 
 class App {
@@ -15,8 +16,14 @@ class App {
     Output.printLotto(lottoTickets);
 
     const winningNumbers = await this.getWinningNumbers();
-    const winningLotto = new Lotto(winningNumbers);
     const bonusNumber = await this.getBonusNumber(winningNumbers);
+
+    const result = LottoCalculator.calculateResults(
+      lottoTickets,
+      winningNumbers,
+      bonusNumber
+    );
+    Output.printResults(result);
   }
 
   async getPurchaseAmount() {

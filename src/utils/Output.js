@@ -12,8 +12,17 @@ const Output = {
     });
   },
 
-  printError(errorMessage) {
-    Console.print(errorMessage);
+  printResults(result) {
+    Console.print(MESSAGES.RESULT_STATISTICS);
+    Console.print(MESSAGES.MATCH_COUNT(3, 5000, result.FIFTH));
+    Console.print(MESSAGES.MATCH_COUNT(4, 50000, result.FOURTH));
+    Console.print(MESSAGES.MATCH_COUNT(5, 1500000, result.THIRD));
+    Console.print(MESSAGES.BONUS_MATCH_COUNT(30000000, result.SECOND));
+    Console.print(MESSAGES.MATCH_COUNT(6, 2000000000, result.FIRST));
+  },
+
+  printError(error) {
+    Console.print(error);
   },
 };
 

@@ -40,12 +40,10 @@ export const LOTTO = {
 export const MESSAGES = {
   PURCHASED_COUNT: (count) => `\n${count}개를 구매했습니다.`,
   LOTTO_NUMBERS: (numbers) => `[${numbers.join(", ")}]`,
-  RESULT_STATISTICS: "\n당첨 통계\n---\n",
+  RESULT_STATISTICS: "\n당첨 통계\n---",
   MATCH_COUNT: (match, amount, count) =>
     `${match}개 일치 (${amount.toLocaleString()}원) - ${count}개`,
   BONUS_MATCH_COUNT: (amount, count) =>
-    `${
-      LOTTO.MATCH_FOR_BONUS
-    }개 일치, 보너스 볼 일치 (${amount.toLocaleString()}원) - ${count}개`,
+    `5개 일치, 보너스 볼 일치 (${amount.toLocaleString()}원) - ${count}개`,
   TOTAL_PROFIT_RATE: (rate) => `총 수익률은 ${rate.toFixed(1)}%입니다.`,
 };
