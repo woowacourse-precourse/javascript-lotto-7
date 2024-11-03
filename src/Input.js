@@ -1,3 +1,4 @@
+import { Console } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE } from "./constants/message.js";
 
 class Input {
@@ -9,14 +10,16 @@ class Input {
     return { purchaseAmount: Number(purchaseAmountInput) };
   }
 
-  static async getLottoNumber() {
-    const lottoNumberInput = await Console.readLineAsync(
+  static async getLottoWinningNumber() {
+    const lottoWinningNumberInput = await Console.readLineAsync(
       INPUT_MESSAGE.LOTTO_NUMBER
     );
 
-    const myLottoNumbers = new Set(lottoNumberInput.split(",").map(Number));
+    const lottoWinningNumber = new Set(
+      lottoWinningNumberInput.split(",").map(Number)
+    );
 
-    return { myLottoNumbers };
+    return { lottoWinningNumber };
   }
 
   static async getBonusNumber() {

@@ -1,7 +1,9 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import Validate from "./Validate.js";
 import Input from "./Input.js";
+import Output from "./Output.js";
+import { LOTTO_NUMBERS } from "./constants/lotto.js";
+import Validate from "./Validate.js";
 
 class App {
   async run() {
@@ -11,25 +13,37 @@ class App {
 
       const lottoCount = purchaseAmount / 1000;
 
-      Console.print(`${lottoCount}개를 구매했습니다.`);
+      Output.printLottoCount(lottoCount);
 
-      const myLotto = Array.from({ length: lottoCount }, () => {
-        const myLottoNumber = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-          (a, b) => a - b
-        );
+      const purchasedLotto = Array.from({ length: lottoCount }, () => {
+        const randomLottoNumber = Random.pickUniqueNumbersInRange(
+          LOTTO_NUMBERS.MIN_RANGE_1,
+          LOTTO_NUMBERS.MAX_RANGE_45,
+          LOTTO_NUMBERS.COUNT_6
+        ).sort((a, b) => a - b);
 
-        Console.print(`[${myLottoNumber.join(", ")}]`);
+        Output.printPurchasedLottoNumber(randomLottoNumber);
 
-        return new Lotto(myLottoNumber);
+        return randomLottoNumber;
       });
 
-      const { myLottoNumbers } = await Input.getLottoNumber();
-      Validate.checkLottoNumbers([...myLottoNumbers]);
+      const { lottoWinningNumber } = await Input.getLottoWinningNumber();
+      Validate.checkLottoNumbers([...lottoWinningNumber]);
 
       const { bonusNumber } = await Input.getBonusNumber();
-      Validate.checkBonusNumber(bonusNumber, myLottoNumbers);
+      Validate.checkBonusNumber(bonusNumber, lottoWinningNumber);
+
+      const lotto = new Lotto(lottoWinningNumber);
+
+      const lottoResult = lotto.checkLottoNumbers(purchasedLotto);
+
+      const profitRate = lotto.getProfitRate(lottoResult, purchaseAmount);
+
+      Output.printLottoResult(lottoResult);
+      Output.printProfitRate(profitRate);
+
     } catch (error) {
-      console.log(`[ERROR] ${error.message}`);
+      Output.printErrorMessage(error)
     }
   }
 }

@@ -1,8 +1,5 @@
-import { ERROR_MESSAGE } from "../constants/message.js";
-
-const LOTTO_MIN_NUMBER_1 = 1;
-const LOTTO_MAX_NUMBER_45 = 45;
-const LOTTO_NUMBERS_COUNT_6 = 6;
+import { ERROR_MESSAGE } from "./constants/message.js";
+import { LOTTO_NUMBERS } from "./constants/lotto.js";
 
 class Validate {
   static checkPurchaseAmount(purchaseAmount) {
@@ -22,7 +19,7 @@ class Validate {
   }
 
   static checkLottoNumbers(lottoArray) {
-    const isNotSixNumbers = lottoArray.length != LOTTO_NUMBERS_COUNT_6;
+    const isNotSixNumbers = lottoArray.length != LOTTO_NUMBERS.COUNT_6;
 
     if (isNotSixNumbers) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_SIX_NUMBERS);
@@ -66,7 +63,9 @@ class Validate {
   }
 
   static checkOutOfRange(number) {
-    return number < LOTTO_MIN_NUMBER_1 || number > LOTTO_MAX_NUMBER_45;
+    return (
+      number < LOTTO_NUMBERS.MIN_RANGE_1 || number > LOTTO_NUMBERS.MAX_RANGE_45
+    );
   }
 }
 
