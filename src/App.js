@@ -1,4 +1,5 @@
 import LottoIssuer from './Model/LottoIssuer.js';
+import WinningLotto from './Model/WinningLotto.js';
 import InputView from './View/InputView.js';
 import OutputView from './View/OutputView.js';
 
@@ -17,7 +18,7 @@ class App {
     const winningNumbers = await InputView.readWinningNumbers();
     const bonusNumber = await InputView.readBonusNumber();
 
-    console.log(winningNumbers, bonusNumber);
+    const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
   }
 }
 
