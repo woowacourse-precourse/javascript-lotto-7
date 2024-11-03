@@ -16,7 +16,7 @@ class Lotto {
 
   #validateCount(numbers) {
     if (numbers.length !== LOTTO_NUMBERS_COUNT) {
-      throw new Error(inValidMessages.winningLottoCount);
+      throw new Error(inValidMessages.lottoCount);
     }
   }
 
