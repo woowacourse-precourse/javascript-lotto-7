@@ -1,7 +1,7 @@
-import { OutputComment } from '../Constants/display.js';
-import Errors from '../Constants/Errors.js';
-import { throwError } from '../Utils/handleError.js';
-import Rules from '../Utils/Rules.js';
+import { OutputComment } from './Constants/display.js';
+import Errors from './Constants/Errors.js';
+import { throwError } from './Utils/handleError.js';
+import Rules from './Utils/Rules.js';
 
 class Lotto {
   #numbers;

@@ -1,6 +1,6 @@
 import Errors from '../src/Constants/Errors.js';
-import Lotto from '../src/Model/Lotto.js';
-import LottoBundle from '../src/Model/LottoBundle.js';
+import Lotto from '../src/Lotto.js';
+import LottoBundle from '../src/LottoBundle.js';
 
 // - 3. 로또 여러장 발행하기
 
