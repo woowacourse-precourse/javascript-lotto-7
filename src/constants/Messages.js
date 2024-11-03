@@ -14,7 +14,7 @@ export const ERROR_MESSAGES = Object.freeze({
 
 export const MESSAGES = Object.freeze({
   readAmount: '구입금액을 입력해 주세요.\n',
-  purchaseResult: '개를 구매했습니다.\n',
+  purchaseResult: '개를 구매했습니다.',
   readWinningNumbers: '당첨 번호를 입력해 주세요.\n',
   readBonusNumbers: '보너스 번호를 입력해주세요.\n',
   drawAnalytics: '당첨 통계',

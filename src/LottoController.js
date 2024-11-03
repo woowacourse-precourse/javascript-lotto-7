@@ -1,10 +1,14 @@
 import inputView from './InputView.js';
+import LottoStore from './LottoStore.js';
 import outputView from './OutputView.js';
 import validator from './utils/Validator.js';
 
 class LottoController {
+  #lottoStore;
+
   async run() {
     const amount = await this.readAmount();
+    this.printResult(amount);
   }
 
   async readAmount() {
@@ -17,6 +21,12 @@ class LottoController {
     }
     outputView.printBlank();
     return amount;
+  }
+
+  printResult(amount) {
+    this.#lottoStore = new LottoStore(amount);
+    const lottoNumbers = this.#lottoStore.getLottoNumbers();
+    outputView.printPurchaseResult(lottoNumbers);
   }
 }
 
