@@ -1,7 +1,18 @@
 import { Console } from '@woowacourse/mission-utils';
+import Input from '../view/Input.js';
+import VendingMachine from '../model/VendingMachine.js';
 
 class LottoController {
-  async run() {}
+  async run() {
+    const money = await this.#getPurchaseAmount();
+  }
+
+  #getPurchaseAmount() {
+    const reader = Input.readPurchaseAmount;
+    const validator = VendingMachine.validateMoney;
+
+    return this.#getUserInput(reader, validator);
+  }
 
   /**
    * @template T
