@@ -6,6 +6,8 @@ import Purchase from "./Purchase.js";
 class App {
   async run() {
     const purchase = await this.getValidPurchase();
+    purchase.generateAllRandomNumbers();
+    this.displayPurchaseResults(purchase);
   }
 
   async getValidPurchase() {
@@ -17,6 +19,15 @@ class App {
         Console.print(`\n${error.message}\n`);
       }
     }
+  }
+
+  displayPurchaseResults(purchase) {
+    const purchaseCount = purchase.getPurchaseCount();
+    Console.print(`\n${purchaseCount}개를 구매했습니다.`);
+
+    purchase.getRandomNumbersList().forEach((numbers) => {
+      Console.print(numbers);
+    });
   }
 }
 
