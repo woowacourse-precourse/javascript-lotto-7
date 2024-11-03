@@ -1,4 +1,4 @@
-import {calcLottoCnt, isDivided1000, isIntNumber, isPositiveNumber } from "../src/BuyPrice.js";
+import {calcLottoCnt, getLottoCnt, isDivided1000, isIntNumber, isPositiveNumber } from "../src/BuyPrice.js";
 import Lotto from "../src/Lotto.js";
 
 describe("로또 클래스 테스트", () => {

@@ -2,8 +2,12 @@
 
 import { Console } from "@woowacourse/mission-utils";
 
-async function inputPrice(){
+async function getLottoCnt(){
     const PRICE = await Console.readLineAsync("구입금액을 입력해 주세요.");
+    isPositiveNumber(PRICE);
+    isIntNumber(PRICE);
+    isDivided1000(PRICE);
+    return calcLottoCnt(PRICE);
 }
 
 function calcLottoCnt(PRICE){
@@ -32,4 +36,4 @@ function isDivided1000(PRICE){
     }
 }
 
-export {inputPrice, isPositiveNumber, isDivided1000, isIntNumber, calcLottoCnt};
+export {getLottoCnt, isPositiveNumber, isDivided1000, isIntNumber, calcLottoCnt};
