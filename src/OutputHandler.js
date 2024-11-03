@@ -1,33 +1,25 @@
+import { LOTTO, PRIZE_INFO, MESSAGES, DELIMITERS } from './constants.js';
 import { Console } from '@woowacourse/mission-utils';
 import { calculateTotalPrize, calculateYieldRate } from './Calculator.js';
 
-const PRICE_PER_LOTTO = 1000;
-const prizeInfo = {
-    match_3: { label: '3개 일치', prize: 5_000 },
-    match_4: { label: '4개 일치', prize: 50_000 },
-    match_5: { label: '5개 일치', prize: 1_500_000 },
-    match_6_bonus: { label: '5개 일치, 보너스 볼 일치', prize: 30_000_000 },
-    match_6_full: { label: '6개 일치', prize: 2_000_000_000 },
-};
-
 export const displayPurchasedLottoCount = purchaseAmount => {
-    const lottoCount = purchaseAmount / PRICE_PER_LOTTO;
-    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    const lottoCount = purchaseAmount / LOTTO.PRICE_PER_TICKET;
+    Console.print(`\n${lottoCount}${MESSAGES.INFO.PURCHASED_LOTTO_COUNT}`);
 
     return lottoCount;
 };
 
 export const displayGeneratedLottos = lottos => {
     lottos.forEach((lotto) => {
-        Console.print(`[${lotto.join(', ')}]`);
+        Console.print(`[${lotto.join(DELIMITERS.LOTTO_NUMBERS)}]`);
     });
 }
 
 export const displayWinningDetails = (winningsCount, purchaseAmount) => {
-    Console.print('\n당첨 통계\n---\n');
-    let totalPrize = calculateTotalPrize(winningsCount, prizeInfo);
+    Console.print(MESSAGES.INFO.WINNING_STATISTICS_HEADER);
+    let totalPrize = calculateTotalPrize(winningsCount, PRIZE_INFO);
 
-    Object.entries(prizeInfo).forEach(([key, { label, prize }]) => {
+    Object.entries(PRIZE_INFO).forEach(([key, { label, prize }]) => {
         Console.print(`${label} (${prize.toLocaleString()}원) - ${winningsCount[key]}개\n`);
     });
 
@@ -36,5 +28,5 @@ export const displayWinningDetails = (winningsCount, purchaseAmount) => {
 
 const displayProfitRate = (purchaseAmount, totalPrize) => {
     const YieldRate = calculateYieldRate(purchaseAmount, totalPrize);
-    Console.print(`총 수익률은 ${YieldRate.toFixed(1)}%입니다.`);
+    Console.print(`${MESSAGES.INFO.YIELD_RATE}${YieldRate.toFixed(1)}%입니다.`);
 }

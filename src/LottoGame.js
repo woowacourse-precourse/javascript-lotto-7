@@ -1,11 +1,8 @@
+import { LOTTO } from "./constants.js";
 import { getPurchaseAmount, getWinningNumbers, getBonusNumber } from "./InputHandler.js";
 import { displayPurchasedLottoCount, displayGeneratedLottos, displayWinningDetails } from "./OutputHandler.js";
 import { calculateWinningCounts } from "./Calculator.js";
 import { Random } from "@woowacourse/mission-utils";
-
-const LOTTO_NUMBER_COUNT = 6;
-const LOTTO_MIN = 1;
-const LOTTO_MAX = 45;
 
 export const start = async () => {
     const purchaseAmount = await getPurchaseAmount();
@@ -22,7 +19,7 @@ export const start = async () => {
 
 const generateLottos = quantity => {
     const generatedLottos = Array.from({ length: quantity }, () => 
-        Random.pickUniqueNumbersInRange(LOTTO_MIN, LOTTO_MAX, LOTTO_NUMBER_COUNT).map(Number).sort((a, b) => a - b)
+        Random.pickUniqueNumbersInRange(LOTTO.MIN, LOTTO.MAX, LOTTO.NUMBER_COUNT).map(Number).sort((a, b) => a - b)
     );
 
     return generatedLottos;

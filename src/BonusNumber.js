@@ -1,3 +1,5 @@
+import { MESSAGES } from "./constants.js";
+
 class BonusNumber {
     #bonusNumber
 
@@ -6,9 +8,9 @@ class BonusNumber {
     }
 
     #validate(bonusNumber, winningNumbers) {
-        if (isNaN(bonusNumber)) throw new Error('[ERROR] 숫자를 입력해주세요.');
-        if (bonusNumber < 1 || bonusNumber > 45) throw new Error('[ERROR] 보너스 번호는 1과 45 사이여야 합니다.');
-        if (winningNumbers.includes(bonusNumber)) throw new Error('[ERROR] 이미 당첨 번호에 있는 숫자예요! 중복되지 않는 다른 숫자를 입력해주세요.');
+        if (isNaN(bonusNumber)) throw new Error(MESSAGES.ERROR.BONUS_NUMBER_NOT_NUMBER);
+        if (bonusNumber < 1 || bonusNumber > 45) throw new Error(MESSAGES.ERROR.BONUS_NUMBER_OUT_OF_RANGE);
+        if (winningNumbers.includes(bonusNumber)) throw new Error(MESSAGES.ERROR.BONUS_NUMBER_DUPLICATE_WITH_WINNING_NUMBER);
 
         return bonusNumber;
     }

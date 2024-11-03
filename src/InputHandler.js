@@ -1,11 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
+import { MESSAGES, DELIMITERS } from './constants.js';
 import PurchaseAmount from './PurchaseAmount.js';
 import Lotto from './Lotto.js';
 import BonusNumber from './BonusNumber.js';
 
 export const getPurchaseAmount = async () => {
     while (true) {
-        const purchaseAmount = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+        const purchaseAmount = await Console.readLineAsync(MESSAGES.INFO.PURCHASE_AMOUNT_PROMPT);
     
         try { 
             return new PurchaseAmount(purchaseAmount).getAmount();
@@ -17,8 +18,8 @@ export const getPurchaseAmount = async () => {
 
 export const getWinningNumbers = async () => {
     while (true) {
-        const winningNumbers = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-        const parsedWinningNumbers = winningNumbers.split(',').map(Number);
+        const winningNumbers = await Console.readLineAsync(MESSAGES.INFO.WINNING_NUMBERS_PROMPT);
+        const parsedWinningNumbers = winningNumbers.split(DELIMITERS.WINNING_NUMBERS_INPUT).map(Number);
 
         try {
             return new Lotto(parsedWinningNumbers).getNumbers();
@@ -30,7 +31,7 @@ export const getWinningNumbers = async () => {
 
 export const getBonusNumber = async (winningNumbers) => {
     while(true) {
-        const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+        const bonusNumber = await Console.readLineAsync(MESSAGES.INFO.BONUS_NUMBER_PROMPT);
         const parsedBonusNumber = Number(bonusNumber)
 
         try {
