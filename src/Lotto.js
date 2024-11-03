@@ -32,6 +32,15 @@ class Lotto {
             console.log(numbers);
         });
     }
+
+    static calculateResults(lottoNumbers, jackpotNumbers, bonusNumber) {
+        const results = lottoNumbers.map(numbers => {
+            const matchedCount = numbers.filter(num => jackpotNumbers.includes(num)).length;
+            const isBonusMatched = matchedCount === 5 && numbers.includes(bonusNumber);
+            return { numbers, matchedCount, isBonusMatched };
+        });
+        return results;
+    }
 }
 
 export default Lotto;

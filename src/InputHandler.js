@@ -24,6 +24,7 @@ class InputHandler {
         const inputjackpot = this.parseNumbers(input);
         const inputjackpotNumbers = this.validateDuplicateNumbers(inputjackpot);
         const jackpotNumbers = this.validateNumberRange(inputjackpotNumbers);
+        return jackpotNumbers;
     }
 
     parseNumbers(inputNumbers) {
