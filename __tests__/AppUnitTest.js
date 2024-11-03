@@ -145,4 +145,24 @@ describe("App 단위 테스트", () => {
 			expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
 		});
 	});
+
+	test("총 수익률 계산", async () => {
+		// given
+		const LOTTO_MONEY = 1000;
+		const WINNING_MAP = {
+			"5rank": 1,
+			"4rank": 0,
+			"3rank": 0,
+			"2rank": 0,
+			"1rank": 0,
+		};
+		const RESULT = Number(500).toFixed(1);
+
+		// when
+		app = new App();
+		const WINNING_RATE = await app.getTotalWinnings(LOTTO_MONEY, WINNING_MAP);
+
+		// then
+		expect(RESULT).toEqual(WINNING_RATE);
+	});
 });
