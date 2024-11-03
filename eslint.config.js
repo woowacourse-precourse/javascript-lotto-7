@@ -9,13 +9,7 @@ export default [
     },
     rules: {
       // 가능한 const로 선언을 권장 (Airbnb 스타일)
-      'prefer-const': [
-        'error',
-        {
-          destructuring: 'all',
-          ignoreReadBeforeAssign: true,
-        },
-      ],
+      'prefer-const': 'error',
       // const 변수 재할당 금지
       'no-const-assign': 'error',
       // var 사용 금지, let 또는 const 사용 강제
