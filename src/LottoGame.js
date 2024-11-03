@@ -10,6 +10,7 @@ class LottoGame {
     await this.#handlePurchase();
     this.#displayTickets();
     await this.#collectWinningNumbers();
+    this.#showResults();
   }
 
   async #handlePurchase() {
@@ -85,6 +86,55 @@ class LottoGame {
 
   #isValidBonusNumber(bonus) {
     return !isNaN(bonus) && bonus >= 1 && bonus <= 45 && !this.#winningNumbers.includes(bonus);
+  }
+
+  #showResults() {
+    const results = this.#calculateResults();
+    this.#printResults(results);
+  }
+
+  #calculateResults() {
+    const results = { 3: 0, 4: 0, 5: 0, "5+bonus": 0, 6: 0 };
+    this.#lottoTickets.forEach(ticket => {
+      const matchCount = this.#countMatches(ticket.getNumbers());
+      this.#updateResults(results, matchCount, ticket);
+    });
+    return results;
+  }
+
+  #countMatches(numbers) {
+    return numbers.filter(num => this.#winningNumbers.includes(num)).length;
+  }
+
+  #updateResults(results, matchCount, ticket) {
+    if (matchCount === 6) results[6]++;
+    else if (matchCount === 5) {
+      const hasBonus = ticket.getNumbers().includes(this.#bonusNumber);
+      hasBonus ? results["5+bonus"]++ : results[5]++;
+    } else if (matchCount === 4) results[4]++;
+    else if (matchCount === 3) results[3]++;
+  }
+
+  #printResults(results) {
+    Console.print("당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${results[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results["5+bonus"]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
+    const profitRate = this.#calculateProfitRate(results);
+    Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
+  }
+
+  #calculateProfitRate(results) {
+    const totalPrize =
+      results[3] * 5000 +
+      results[4] * 50000 +
+      results[5] * 1500000 +
+      results["5+bonus"] * 30000000 +
+      results[6] * 2000000000;
+    const totalSpent = this.#lottoTickets.length * 1000;
+    return (totalPrize / totalSpent) * 100;
   }
 }
 
