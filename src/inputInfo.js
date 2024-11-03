@@ -114,25 +114,40 @@ class Input {
       );
       if (matchResult.matchCount === 6) {
         this.results.first++;
-        this.totalProfit += this.prizes.first;
       } else if (matchResult.matchCount === 5 && matchResult.hasBonus) {
         this.results.second++;
-        this.totalProfit += this.prizes.second;
       } else if (matchResult.matchCount === 5) {
         this.results.third++;
-        this.totalProfit += this.prizes.third;
       } else if (matchResult.matchCount === 4) {
         this.results.fourth++;
-        this.totalProfit += this.prizes.fourth;
       } else if (matchResult.matchCount === 3) {
         this.results.fifth++;
-        this.totalProfit += this.prizes.fifth;
       } else {
         null;
       }
+      this.totalProfit += this.calculateProfit(
+        matchResult.matchCount,
+        matchResult.hasBonus
+      );
     }
     Console.print(this.results);
     Console.print(this.totalProfit);
+  }
+
+  calculateProfit(matchCount, hasBonus) {
+    if (matchCount === 6) {
+      return this.prizes.fifth;
+    } else if (matchCount === 5 && hasBonus) {
+      return this.prizes.second;
+    } else if (matchCount === 5) {
+      return this.prizes.third;
+    } else if (matchCount === 4) {
+      return this.prizes.fourth;
+    } else if (matchCount === 3) {
+      return this.prizes.fifth;
+    } else {
+      return 0;
+    }
   }
 }
 
