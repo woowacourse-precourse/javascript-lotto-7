@@ -2,26 +2,38 @@ import { Console } from "@woowacourse/mission-utils";
 import { ERROR } from "./utils/constants.js";
 
 class WoowahanOutput {
-    async print(prompt) {
+    async errorPrint(prompt) {
         Console.print(`[ERROR] ${prompt}`)
+    }
+
+    async statusPrint(prompt) {
+        Console.print(`${prompt}`);
     }
 }
 
-export default class MyOutput extends WoowahanOutput {
+class GameOutput extends WoowahanOutput {
+    async printLottoTicketCount(countLotto){
+        super.statusPrint(`${countLotto}개를 구매했습니다.`);
+    }
+}
+
+class MyOutput extends WoowahanOutput {
 
     async printEmptyValue() {
-        super.print(ERROR.BUY_MONEY_IS_NULL);
+        super.errorPrint(ERROR.BUY_MONEY_IS_NULL);
     }
 
     async printNotNumber() {
-        super.print(ERROR.BUY_MONEY_NOT_NUMBER);
+        super.errorPrint(ERROR.BUY_MONEY_NOT_NUMBER);
     }
 
     async printMinusNumber() {
-        super.print(ERROR.BUY_MONEY_MINUS);
+        super.errorPrint(ERROR.BUY_MONEY_MINUS);
     }
 
     async printEndWith1000() {
-        super.print(ERROR.BUY_MONEY_END_WITH_1000);
+        super.errorPrint(ERROR.BUY_MONEY_END_WITH_1000);
     }
 }
+
+export { MyOutput, GameOutput }

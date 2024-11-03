@@ -2,20 +2,24 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import WoowahanInput from "./woowahanInput.js";
 import { buyMoneyValidator } from "./utils/validators.js";
+import LottoStore from "./LottoStore.js";
+import { GameOutput } from "./woowahanOutput.js";
 
 class App {
   async run() {
     let input = 'start';
+    const lottoStore = new LottoStore();
+    const gameOutput = new GameOutput();
 
     while (!buyMoneyValidator(input)) {
       input = await WoowahanInput.getBuyMoney();
     }
 
-    const inputNumber = Number(input);
-    const countLotto = inputNumber / 1000;
+    const countLotto = lottoStore.getLottoTicketCount(input);
+    gameOutput.printLottoTicketCount(countLotto);
+
     const lottos = [];
 
-    Console.print(`${countLotto}개를 구매했습니다.`);
     for (let i = 0; i < countLotto; i++) {
       const random = Random.pickUniqueNumbersInRange(1, 45, 6);
       random.sort((a, b) => a - b);
@@ -89,7 +93,7 @@ class App {
       }
     }
 
-    Console.print(`총 수익률은 ${(earn / inputNumber * 100).toFixed(1)}%입니다.`);
+    Console.print(`총 수익률은 ${(earn / Number(input) * 100).toFixed(1)}%입니다.`);
   }
 }
 
