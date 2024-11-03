@@ -7,7 +7,7 @@ import { inputAmount } from '../src/utils/inputService.js';
 import { outputPayment } from '../src/utils/outputService.js';
 import { getLogSpy, mockQuestions } from './ApplicationTest.js';
 
-describe('구매 금액 입력 에러 테스트', () => {
+describe('구매 금액 입력 테스트', () => {
   test.each(amountInputErrorTestCase)(
     '$description 예외가 발생한다.',
     async ({ amount, errorMessage }) => {
@@ -26,9 +26,7 @@ describe('구매 금액 입력 에러 테스트', () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorMessage));
     }
   );
-});
 
-describe('구매 금액 입력 성공 테스트', () => {
   test.each(amountInputSuccessTestCase)(
     '$description $expected를 반환한다.',
     async ({ amount, expected }) => {
