@@ -1,10 +1,19 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
+
 export function purchaseAmountValidation(purchaseAmount) {
   if (!purchaseAmount.trim()) throw '구매금액은 1000단위의 숫자만 입력해주세요';
   if (isNaN(purchaseAmount)) throw '구매금액은 1000단위의 숫자만 입력해주세요';
   if (Number(purchaseAmount) % 1000)
     throw '구매금액을 1000 단위로 입력해주세요';
+  let myLottos = [];
 
-  return Number(purchaseAmount) / 1000;
+  for (let i = 0; i < Number(purchaseAmount) / 1000; i++) {
+    const myLotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    myLotto.sort((a, b) => a - b);
+    myLottos.push(myLotto);
+  }
+
+  return myLottos;
 }
 
 export function winningLottoValidation(winningLottoInput) {
