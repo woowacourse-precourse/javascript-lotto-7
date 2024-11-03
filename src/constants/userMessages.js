@@ -4,7 +4,7 @@ const QUERIES = Object.freeze({
 });
 
 const ANSWERS = Object.freeze({
-    
+  LOTTOS_PURCHASED: '개를 구매했습니다.',
 });
 
 export { QUERIES, ANSWERS };

@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { QUERIES } from '../constants/userMessages.js';
+import { ANSWERS, QUERIES } from '../constants/userMessages.js';
 import Validator from './Validator.js';
 
 class UserInterface {
@@ -12,11 +12,20 @@ class UserInterface {
   }
 
   static async queryWinningNumbers() {
+    Console.print('');
     const input = await Console.readLineAsync(QUERIES.WINNING_NUMBERS);
     const winningNumbers = input.split(',').map((number) => parseInt(number));
     Validator.validateWinningNumbers(winningNumbers);
     
     return winningNumbers;
+  }
+
+  static printLottos(lottos) {
+    Console.print('');
+    Console.print(`${lottos.length}${ANSWERS.LOTTOS_PURCHASED}`);
+    lottos
+      .map((lotto) => lotto.getNumbers())
+      .forEach((numbers) => Console.print(`[${numbers.join(', ')}]`));
   }
 }
 
