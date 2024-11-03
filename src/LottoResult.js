@@ -9,14 +9,13 @@ class LottoResult {
   #reward = 0;
 
   constructor(results) {
-    this.#processResults(results); // 이름 변경
+    this.#processResults(results); 
   }
 
-  // 로또 결과를 처리하여 당첨 등수와 보상금을 저장
-  #processResults(results) {  // 이름 변경
+  #processResults(results) {  
     for (const result of results) {
-      this.#updatePlaceCount(result);  // 이름 변경
-      this.#updateReward(result);      // 이름 변경
+      this.#updatePlaceCount(result);  
+      this.#updateReward(result);      
     }
   }
 
