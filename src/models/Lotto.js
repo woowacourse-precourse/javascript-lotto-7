@@ -1,18 +1,23 @@
+import { validateLottoNumbers } from "../utils/validation.js";
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = numbers || this.generateRandomNumbers();
   }
 
-  #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+  // 로또 번호 6개를 랜덤으로 생성 (1 ~ 45 중 중복되지 않는 숫자)
+  generateRandomNumbers() {
+    const numbers = new Set();
+    while (numbers.size < 6) {
+      const number = Math.floor(Math.random() * 45) + 1;
+      numbers.add(number);
     }
+    return Array.from(numbers).sort((a, b) => a - b); // 오름차순 정렬
   }
-
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
