@@ -1,5 +1,5 @@
 // DisplayOutput.js
-import DisplayOutput from "../src/DisplayOutput";
+import DisplayOutput from "../src/view/DisplayOutput.js";
 
 describe("DisplayOutput 클래스 - changeNumberStyle 메서드", () => {
   let displayOutput;

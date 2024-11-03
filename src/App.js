@@ -1,7 +1,6 @@
-import UserInput from './Input.js';
-import Game from './Game.js';
-import DisplayOutput from './DisplayOutput.js';
-import Lotto from './Lotto.js';
+import UserInput from './view/UserInput.js';
+import Game from './core/Game.js';
+import DisplayOutput from './view/DisplayOutput.js';
 class App {
 
   constructor(){

@@ -1,6 +1,6 @@
 // gameTest.js
-import Game from "../src/Game";
-import Lotto from "../src/Lotto";
+import Game from "../src/core/Game";
+import Lotto from "../src/lotto/Lotto.js";
 
 describe("Game 클래스 - purchaseLotto 메서드", () => {
   let game;

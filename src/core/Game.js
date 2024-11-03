@@ -1,6 +1,6 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
-import { LOTTO_INFO } from "./constants.js";
-import Lotto from "./Lotto.js";
+import { LOTTO_INFO } from "../config/constants.js";
+import Lotto from "../lotto/Lotto.js";
 
 class Game {
 

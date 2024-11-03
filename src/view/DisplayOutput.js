@@ -1,10 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { LOTTO_INFO, DISPLAY_MESSAGE } from "./constants.js";
-import Game from "./Game.js";
-
-
-
-
+import { LOTTO_INFO, DISPLAY_MESSAGE } from "../config/constants.js";
 
 class DisplayOutput {
 

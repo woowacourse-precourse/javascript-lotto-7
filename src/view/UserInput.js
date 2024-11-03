@@ -1,6 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { DISPLAY_MESSAGE } from "./constants.js";
-
+import { DISPLAY_MESSAGE } from "../config/constants.js";
 
 class UserInput {
     async getUserPaidMoney() {
