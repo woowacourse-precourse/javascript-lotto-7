@@ -14,7 +14,7 @@ class LottoControllers {
   }
 
   async issueTickets(purchaseAmount) {
-    return LottoIssuer.issueLottoTickets(purchaseAmount);
+    return LottoIssuer.createLottoTickets(purchaseAmount);
   }
 
   matchLottoTickets(lottoTickets, winningNumbers, bonusNumber) {

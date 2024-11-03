@@ -3,7 +3,7 @@ import Lotto from './Lotto.js';
 import { GAME_SETTINGS, LOTTO, MESSAGES } from '../utils/constants.js';
 
 class LottoIssuer {
-  static issueLottoTickets(purchaseAmount) {
+  createLottoTickets(purchaseAmount) {
     const ticketCount = purchaseAmount / LOTTO.TICKET_PRICE;
     const lottoTickets = [];
 
@@ -24,4 +24,4 @@ class LottoIssuer {
   }
 }
 
-export default LottoIssuer;
+export default new LottoIssuer();
