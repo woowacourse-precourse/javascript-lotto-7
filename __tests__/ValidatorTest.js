@@ -1,7 +1,6 @@
-import Validator from '../src/utils/Validator.js';
+import validator from '../src/utils/Validator.js';
 
 describe('Validator 테스트', () => {
-  const validator = new Validator();
   test.each([
     [100, false],
     [1100, false],
