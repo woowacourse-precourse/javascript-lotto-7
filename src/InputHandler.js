@@ -2,16 +2,6 @@ import { Console } from '@woowacourse/mission-utils';
 import { INPUT_MESSAGE, ERROR_MESSAGE } from './lib/constant.js';
 
 class InputHandler {
-  static async getUserInput() {
-    const buyPrice = await this.getBuyPrice();
-    const winningNumbers = await this.getWinningNumbers();
-    const bonusNumber = await this.getBonusNumber();
-
-    this.#validateBonusNumberDuplicate(winningNumbers, bonusNumber);
-
-    return { buyPrice, winningNumbers, bonusNumber };
-  }
-
   static async getBuyPrice() {
     const buyPrice = await Console.readLineAsync(INPUT_MESSAGE.BUY_PRICE);
     this.#validateBuyPrice(buyPrice);
