@@ -3,11 +3,14 @@ export const MESSAGE = {
   COUNT_INFO: "개를 구매했습니다.",
   ASK_USER_PICK_NUMBER: "당첨 번호를 입력해 주세요.",
   ASK_USER_PICK_BONUS_NUMBER: "보너스 번호를 입력해 주세요.",
+  PRIZE_STATISTICS: "당첨 통계\n---",
   CORRECT_THREE: "3개 일치 (5,000원) - ",
   CORRECT_FOUR: "4개 일치 (50,000원) - ",
   CORRECT_FIVE: "5개 일치 (1,500,000원) - ",
   CORRECT_FIVE_WITH_BONUS: "5개 일치, 보너스 볼 일치 (30,000,000원) - ",
-  CORRECT_SIX: "6개 일치 (2,000,000,000원) - "
+  CORRECT_SIX: "6개 일치 (2,000,000,000원) - ",
+  TOTAL_YIELD_1: "총 수익률은 ",
+  TOTAL_YIELD_2: "입니다."
 }
 
 export const ERROR_MESSAGE = {
