@@ -1,6 +1,6 @@
 import { errorMessage } from './errorMessage.js';
 
-export const LottoTestCase = [
+export const lottoTestCase = [
   {
     numbers: [1, 2, 3, 4, 5, 6, 7],
     description: '로또 번호의 개수가 6개가 넘어가면',
@@ -19,6 +19,6 @@ export const LottoTestCase = [
   {
     numbers: [1, 2, 3, 4, 5, 55],
     description: '로또 번호에 1~45 범위를 벗어나는 숫자가 있으면',
-    errorMessage: `${errorMessage.prefix} ${errorMessage.invalidNumber}`,
+    errorMessage: `${errorMessage.prefix} ${errorMessage.invalidNumberRange}`,
   },
 ];
