@@ -39,6 +39,16 @@ const checkDuplicate = (input) => {
 const checkValidLength = (input) => {
   if (input.length !== 6)
     throwError(WINNING_NUMBER_ERROR_MESSAGE.INVALID_LENGTH);
+
+  return input;
+};
+
+/**@param {number[]} input */
+const checkIsInteger = (input) => {
+  if (input.some((number) => Number.isInteger(number) === false))
+    throwError(WINNING_NUMBER_ERROR_MESSAGE.IS_Integer);
+
+  return input;
 };
 
 const validateWinningNumber = _pipe(
@@ -46,7 +56,8 @@ const validateWinningNumber = _pipe(
   checkRange,
   checkNaN,
   checkDuplicate,
-  checkValidLength
+  checkValidLength,
+  checkIsInteger
 );
 
 export { validateWinningNumber };
