@@ -20,13 +20,16 @@ class LottoGenerator {
   }
 
   #generateSingleTicket() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    const ticket = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return ticket.sort(
+      (firstNumber, secondNumber) => firstNumber - secondNumber
+    );
   }
 
   getLottoData() {
     return {
       lottoQuantity: this.#lottoQuantity,
-      ticketsList: this.#tickets,
+      ticketList: this.#tickets,
     };
   }
 }
