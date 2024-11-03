@@ -35,8 +35,7 @@ class LottoController {
     lottoNumberMatchCount.forEach((matchCount, idx) => {
       if (matchCount === 6) {
         statistics[6]++;
-      }
-      if (matchCount === 5 && bonusNumberMatchCount[idx] === 1) {
+      } else if (matchCount === 5 && bonusNumberMatchCount[idx] === 1) {
         statistics['5+']++;
       } else if (matchCount >= 3) {
         statistics[matchCount]++;
