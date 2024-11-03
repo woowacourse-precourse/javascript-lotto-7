@@ -29,7 +29,6 @@ class Lotto {
         const lottoCount = this.calculateLottoCount(money);
         const issuedLottos = this.generateLottoNumbers(lottoCount);
         this.printLottos(issuedLottos);
-
         return issuedLottos;
     }
 
@@ -42,7 +41,6 @@ class Lotto {
             Array.from({ length: lottoCount }).map(() => {
                 return Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
             })
-
         return issuedLottos;
     }
     
@@ -61,7 +59,6 @@ class Lotto {
             const hasBonus = lotto.includes(this.bonusNumber);
             this.updateResult(result, matchCount, hasBonus);
         });
-    
         return result;
     }
     
@@ -129,14 +126,12 @@ class Lotto {
             }
             return total + (count * this.getPrizeAmount(matchCount));
         }, 0);
-
         return totalPrize;
     }
     
     calculateProfitRate(result, userMoney) {
         const totalPrize = this.calculateTotalPrize(result);
         const profitRate =  ((totalPrize / userMoney) * 100).toFixed(1);
-
         return profitRate;
     }
 }

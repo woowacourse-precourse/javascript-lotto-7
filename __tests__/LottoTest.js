@@ -1,5 +1,5 @@
 import Lotto from "../src/Lotto";
-import { validateMoney, validateWinningNumbers, validateBonusNumber } from '../src/Validator';
+import { validateMoney, validateBonusNumber } from '../src/Validator';
 import { MESSAGES } from '../src/Constants';
 
 describe("로또 클래스 테스트", () => {

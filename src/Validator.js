@@ -36,7 +36,7 @@ const validateBonusNumber = (winningNumbers, bonusNumber) => {
     const verifiedBonusNumber = isNumber(bonusNumber);
     isNegative(verifiedBonusNumber);
     isInRange(verifiedBonusNumber);
-    hasDuplicateWithWinningNumbers(winningNumbers, verifiedBonusNumber);
+    hasDuplicateWithWinningNumbers(winningNumbers, bonusNumber);
 };
 
 export { validateMoney, validateWinningNumbers, validateBonusNumber };

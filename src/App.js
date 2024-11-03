@@ -9,7 +9,7 @@ class App {
 
         const winningNumbers = await inputHandler.askWinningNumbers();
         const winningNumbersArray = winningNumbers.split(',').map(num => num.trim());
-        const bonusNumber = await inputHandler.askBonusNumber(winningNumbers);
+        const bonusNumber = await inputHandler.askBonusNumber(winningNumbersArray);
 
         const lotto = new Lotto(winningNumbersArray);
         lotto.getBonusNumber(bonusNumber);
