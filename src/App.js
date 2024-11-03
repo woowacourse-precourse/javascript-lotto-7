@@ -1,7 +1,7 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import { PRIZE_MONEY } from './constants.js';
 import Lotto from './Lotto.js';
-import Validator from './validator.js';
+import Validator from './Validator.js';
 
 class App {
   constructor() {
