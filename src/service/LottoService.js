@@ -49,11 +49,17 @@ export default class LottoService {
   }
 
   getRateOfReturn(rankMap) {
+    let totalPrize = this.#calculateTotalPrize(rankMap);
+    return this.userModel.calculateRateOfReturn(totalPrize);
+  }
+
+  #calculateTotalPrize(rankMap) {
     let totalPrize = 0;
+
     rankMap.forEach((count, rank) => {
       totalPrize += RANK_PRICE[rank] * count;
     });
 
-    return this.userModel.calculateRateOfReturn(totalPrize);
+    return totalPrize;
   }
 }
