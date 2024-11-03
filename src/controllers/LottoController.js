@@ -5,6 +5,7 @@ import Money from '../models/Money.js';
 import WinningStatics from '../models/WinningStatics.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
+import INPUT_MESSAGES from '../constants/messages/inputMessages.js';
 
 class LottoController {
   #lottoCount;
@@ -21,7 +22,7 @@ class LottoController {
   }
 
   async getLottoCount() {
-    const moneyInput = await InputView.readLineAsync('구입금액을 입력해 주세요.\n');
+    const moneyInput = await InputView.readLineAsync(INPUT_MESSAGES.INPUT_MONEY);
     this.#lottoCount = new Money(moneyInput).calculateLottoCount();
     OutputView.printNewLine();
     OutputView.printLottoCount(this.#lottoCount);
@@ -34,13 +35,13 @@ class LottoController {
   }
 
   async getWinningNumbers() {
-    const winningNumbersInput = await InputView.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const winningNumbersInput = await InputView.readLineAsync(INPUT_MESSAGES.INPUT_WINNINGNUMBERS);
     this.#winningNumbers = Lotto.convertInputToNumbers(winningNumbersInput);
     OutputView.printNewLine();
   }
 
   async getBonusNumber() {
-    const bonusNumberInput = await InputView.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const bonusNumberInput = await InputView.readLineAsync(INPUT_MESSAGES.INPUT_BONUSNUMBER);
     this.#bonusNumber = new BounsNumber(this.#winningNumbers, bonusNumberInput).bonusNumber;
     OutputView.printNewLine();
   }
