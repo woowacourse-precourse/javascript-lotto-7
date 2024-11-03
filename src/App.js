@@ -1,5 +1,5 @@
-import LottoBundle from './LottoBundle.js';
-import Statistic from './Statistic.js';
+import LottoBundle from './Models/LottoBundle.js';
+import Statistic from './Models/Statistic.js';
 import checkAllLotto from './Utils/checkAllLotto.js';
 import LoopWhileValid from './Views/LoopWhileValid.js';
 import OutputPrint from './Views/OutputPrint.js';

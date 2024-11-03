@@ -1,9 +1,9 @@
-import BuyPriceConfig from './Constants/BuyPriceConfig.js';
-import Errors from './Constants/Errors.js';
-import { PrizeMoney } from './Constants/prizeConfig.js';
-import throwError from './Utils/throwError.js';
-import roundToOne from './Utils/roundToOne.js';
-import Rules from './Utils/Rules.js';
+import BuyPriceConfig from '../Constants/BuyPriceConfig.js';
+import Errors from '../Constants/Errors.js';
+import { PrizeMoney } from '../Constants/prizeConfig.js';
+import throwError from '../Utils/throwError.js';
+import roundToOne from '../Utils/roundToOne.js';
+import Rules from '../Utils/Rules.js';
 
 class Statistic {
   #buyPrice;
