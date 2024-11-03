@@ -39,3 +39,32 @@ describe("구입금액 입력 테스트", () => {
 		await expect(input.getInputMoney()).rejects.toThrow("[ERROR]");
 	});
 });
+
+describe("당첨 번호 테스트", () => {
+	let input;
+	const SUCCESS_CASE = ["1,2,3,4,5,6", "1,45,22,33,8,9"];
+	const FAIL_CASE = ["1", "11,11,2,4,5,7,8", "1,2,3,4,5,6,7", "1!2!3!4!5!6"];
+	beforeEach(() => {
+		input = new Input();
+		jest.clearAllMocks();
+	});
+
+	test.each(SUCCESS_CASE)("당첨 번호 입력 성공", async (number) => {
+		// given
+		mockQuestions([number]);
+
+		// when
+		const RESULT = await input.getInputWinningNumber();
+
+		// then
+		expect(RESULT).toEqual(number);
+	});
+
+	test.each(FAIL_CASE)("당첨 번호 입력 실패", async (number) => {
+		// given
+		mockQuestions([number]);
+
+		// when, then
+		await expect(input.getInputWinningNumber()).rejects.toThrow("[ERROR]");
+	});
+});
