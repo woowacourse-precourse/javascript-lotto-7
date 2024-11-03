@@ -28,3 +28,11 @@ export const ERROR_MSG = Object.freeze({
 
   invalidBonusNumberCount: `[ERROR] 보너스 번호는 ${LOTTO_BONUS_NUMBER_COUNT}개가 지정되어야 합니다.`,
 });
+
+export const PRICE_INFO = {
+  '1st': { match: 6, bonus: 0, price: 2000000000 },
+  '2nd': { match: 5, bonus: 1, price: 30000000 },
+  '3rd': { match: 5, bonus: 0, price: 1500000 },
+  '4th': { match: 4, bonus: 0, price: 50000 },
+  '5th': { match: 3, bonus: 0, price: 5000 },
+};

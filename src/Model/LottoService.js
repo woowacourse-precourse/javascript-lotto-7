@@ -1,16 +1,19 @@
 import { intersection, calculatePercentage } from '../Util.js';
+import { PRICE_INFO } from '../Constants.js';
 import WinningLotto from './WinningLotto.js';
 import UserLotto from './UserLotto.js';
+
+const DECIMAL_PLACE = 1;
 
 export default class LottoService {
   #winningLotto;
   #userLotto;
   #winningInfo = {
-    '1st': { match: 6, bonus: 0, price: 2000000000, count: 0 },
-    '2nd': { match: 5, bonus: 1, price: 30000000, count: 0 },
-    '3rd': { match: 5, bonus: 0, price: 1500000, count: 0 },
-    '4th': { match: 4, bonus: 0, price: 50000, count: 0 },
-    '5th': { match: 3, bonus: 0, price: 5000, count: 0 },
+    '1st': 0,
+    '2nd': 0,
+    '3rd': 0,
+    '4th': 0,
+    '5th': 0,
   };
 
   setUserLotto(price) {
@@ -36,7 +39,7 @@ export default class LottoService {
       const rank = this.getRank(userLottoNumber);
 
       if (rank) {
-        this.#winningInfo[rank].count += 1;
+        this.#winningInfo[rank] += 1;
       }
     });
 
@@ -48,7 +51,7 @@ export default class LottoService {
     const bonusMatch = intersection(userLottoNumber, this.#winningLotto.getbonusNumber()).length;
     let rank = null;
 
-    Object.entries(this.#winningInfo).forEach(([key, value]) => {
+    Object.entries(PRICE_INFO).forEach(([key, value]) => {
       if (matchCount === value.match && bonusMatch === value.bonus) {
         rank = key;
       }
@@ -58,12 +61,11 @@ export default class LottoService {
   }
 
   getWinningRate() {
-    let totalPrice = 0;
+    const totalPrice = Object.keys(PRICE_INFO).reduce(
+      (acc, rank) => acc + PRICE_INFO[rank].price * this.#winningInfo[rank],
+      0,
+    );
 
-    for (const rank in this.#winningInfo) {
-      totalPrice += this.#winningInfo[rank].price * this.#winningInfo[rank].count;
-    }
-
-    return calculatePercentage(totalPrice, this.#userLotto.getPerchasedAmount(), 1);
+    return calculatePercentage(totalPrice, this.#userLotto.getPerchasedAmount(), DECIMAL_PLACE);
   }
 }

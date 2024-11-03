@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoService from '../src/Model/LottoService.js';
+import { PRICE_INFO } from '../src/Constants.js';
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
@@ -19,11 +20,14 @@ describe('로또 서비스 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test.each([['-1'], ['0'], ['100000000']])('로또 구매 금액이 입력 가능한 Range를 벗어날 경우 Error를 발생시킨다.', (input) => {
-    expect(() => {
-      lottoService.setUserLotto(input);
-    }).toThrow('[ERROR]');
-  });
+  test.each([['-1'], ['0'], ['100000000']])(
+    '로또 구매 금액이 입력 가능한 Range를 벗어날 경우 Error를 발생시킨다.',
+    (input) => {
+      expect(() => {
+        lottoService.setUserLotto(input);
+      }).toThrow('[ERROR]');
+    },
+  );
 
   test('로또 구매 금액을 로또 가격으로 나누어 로또 구매 수량을 설정한다.', () => {
     lottoService.setUserLotto(10000);
@@ -54,11 +58,11 @@ describe('로또 서비스 클래스 테스트', () => {
     lottoService.setBonusNumber(BONUS_NUMBER);
 
     const winningInfoObject = {
-      '1st': { match: 6, bonus: 0, price: 2000000000, count: 0 },
-      '2nd': { match: 5, bonus: 1, price: 30000000, count: 0 },
-      '3rd': { match: 5, bonus: 0, price: 1500000, count: 1 },
-      '4th': { match: 4, bonus: 0, price: 50000, count: 0 },
-      '5th': { match: 3, bonus: 0, price: 5000, count: 0 },
+      '1st': 0,
+      '2nd': 0,
+      '3rd': 1,
+      '4th': 0,
+      '5th': 0,
     };
 
     expect(lottoService.getWinningDetails()).toEqual(winningInfoObject);
@@ -76,11 +80,11 @@ describe('로또 서비스 클래스 테스트', () => {
     lottoService.setBonusNumber(BONUS_NUMBER);
 
     const winningInfoObject = {
-      '1st': { match: 6, bonus: 0, price: 2000000000, count: 0 },
-      '2nd': { match: 5, bonus: 1, price: 30000000, count: 1 },
-      '3rd': { match: 5, bonus: 0, price: 1500000, count: 0 },
-      '4th': { match: 4, bonus: 0, price: 50000, count: 0 },
-      '5th': { match: 3, bonus: 0, price: 5000, count: 0 },
+      '1st': 0,
+      '2nd': 1,
+      '3rd': 0,
+      '4th': 0,
+      '5th': 0,
     };
 
     expect(lottoService.getWinningDetails()).toEqual(winningInfoObject);
@@ -98,11 +102,11 @@ describe('로또 서비스 클래스 테스트', () => {
     lottoService.setBonusNumber(BONUS_NUMBER);
 
     const winningInfoObject = {
-      '1st': { match: 6, bonus: 0, price: 2000000000, count: 0 },
-      '2nd': { match: 5, bonus: 1, price: 30000000, count: 0 },
-      '3rd': { match: 5, bonus: 0, price: 1500000, count: 0 },
-      '4th': { match: 4, bonus: 0, price: 50000, count: 0 },
-      '5th': { match: 3, bonus: 0, price: 5000, count: 0 },
+      '1st': 0,
+      '2nd': 0,
+      '3rd': 0,
+      '4th': 0,
+      '5th': 0,
     };
 
     expect(lottoService.getWinningDetails()).toEqual(winningInfoObject);

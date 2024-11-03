@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { PRICE_INFO } from '../Constants.js';
 
 export default class OutputView {
   printUserLotto(lottos) {
@@ -9,13 +10,16 @@ export default class OutputView {
     });
   }
 
-  printWinningDetails(winningDetails) {
-    Object.entries(winningDetails).forEach(([key, value]) => {
+  printWinningDetails(winningCount) {
+    Object.entries(winningCount).forEach(([key, count]) => {
+      const priceInfoValue = PRICE_INFO[key];
+
+      let matchString = `${priceInfoValue.match}개 일치`;
       if (key === '2nd') {
-        this.print(`${value.match}개 일치, 보너스 볼 일치 (${value.price.toLocaleString('ko-KR')}원) - ${value.count}개`);
-      } else {
-        this.print(`${value.match}개 일치 (${value.price.toLocaleString('ko-KR')}원) - ${value.count}개`);
+        matchString += ', 보너스 볼 일치';
       }
+
+      this.print(`${matchString} (${priceInfoValue.price.toLocaleString('ko-KR')}원) - ${count}개`);
     });
   }
 
