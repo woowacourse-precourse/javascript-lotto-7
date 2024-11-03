@@ -2,7 +2,7 @@ import {validateWinningNumberForm} from './validate.js'
 import {purchaseValidatePipe} from './purchaseValidatePipe.js' 
 import {winningNumberValidatePipe} from './winningNumberValidatePipe.js' 
 import {bonusNumberValidatePipe} from './bonusNumberValidatePipe.js'
-import parser from './parser.js'
+import parser from './utils/parser.js'
 
 class LottoGameController{
     constructor(view, service){
@@ -23,7 +23,7 @@ class LottoGameController{
     static onGetBonusNumber(bonusNumber){
         bonusNumberValidatePipe(bonusNumber);
     }
-    
+
     async run(){
         const purchaseAmount = await this.view.getPurchaseAmount();
         const winningNumbers = await this.view.getWinningNumber();
