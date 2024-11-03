@@ -1,4 +1,4 @@
-import repeatUntilValid from '../utils/utils.js';
+import repeatUntilValid from '../utils/repeatUntilValid.js';
 import { PRICE_PER_LOTTO } from '../constants/constants.js';
 
 class LottoController {
@@ -16,7 +16,7 @@ class LottoController {
 
   async start() {
     const tickets = await this.purchaseLotto();
-    this.#lottoGame.generateLottoNumbers(tickets);
+    this.#lottoGame.setLotto(tickets);
   }
 
   async purchaseLotto() {
