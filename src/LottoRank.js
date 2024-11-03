@@ -24,3 +24,5 @@ class LottoRank {
     return { rank: this.#rank, isBonus: this.#isBonus };
   }
 }
+
+export default LottoRank;
