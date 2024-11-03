@@ -29,6 +29,7 @@
  ┃ ┣ 📜errorMessage.js
  ┃ ┣ 📜ioMessage.js
  ┃ ┣ 📜lottoTestCase.js
+ ┃ ┣ 📜prizeRanks.js
  ┃ ┗ 📜regex.js
  ┣ 📂utils
  ┃ ┣ 📜buyLottos.js
