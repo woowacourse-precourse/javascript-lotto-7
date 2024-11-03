@@ -1,23 +1,24 @@
-import InputUtils from "./Utils/inputUtils.js";
-import OutputUtils from "./Utils/OutputUtils.js";
-import { InputValidator } from "./Utils/Validator.js";
+import LottoMachine from "./LottoMachine.js";
+import Lotto from "./Lotto.js";
+import { Console } from '@woowacourse/mission-utils';
+import InputUtils from "./Utils/Utils.js";
+
 
 class App {
   async run() {
 
-    while(true) {
-      try {
-        const purchaseAmount = await InputUtils.inputPurchaseAmount();
-        InputValidator.purchaseAmountValidator(purchaseAmount);
 
-        const numberOfPurchase = await InputUtils.getNumberOfPurchase(purchaseAmount);
-        OutputUtils.printNumberOfPurchase(numberOfPurchase);
-        break;
+    try {
 
-      } catch (error) {
-        OutputUtils.printErrorMessage(error.message);
-      }
+      const purchaseAmount = await InputUtils.inputPurchaseAmount();
+      
+      const lottoMachine = new LottoMachine(purchaseAmount);
+
+      lottoMachine.printNumberofPurchase();
+      lottoMachine.printLotto();
+    } catch (error) {
     }
+
 
 
   }
