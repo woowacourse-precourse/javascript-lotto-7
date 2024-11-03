@@ -21,6 +21,24 @@ describe('Validation 테스트', () => {
     }).not.toThrow();
   });
 
+  test('구매 금액이나 로또 번호로 숫자가 아닌값을 입력했을 경우 예외가 발생한다.', () => {
+    expect(() => {
+      Validation.validateIsNumber(Number('1000'));
+    }).not.toThrow();
+
+    expect(() => {
+      Validation.validateIsNumber(Number('5'));
+    }).not.toThrow();
+
+    expect(() => {
+      Validation.validateIsNumber(Number('천원'));
+    }).toThrow('[ERROR] 숫자로 입력해야 합니다.');
+
+    expect(() => {
+      Validation.validateIsNumber(Number('@'));
+    }).toThrow('[ERROR] 숫자로 입력해야 합니다.');
+  });
+
   test('구분자를 잘못 사용했을 경우 예외가 발생한다.', () => {
     expect(() => {
       Validation.validateCommaSeparatedFormat('1,2,3,4,5,6');
