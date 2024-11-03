@@ -21,7 +21,9 @@ class LottoController {
     const results = this.#calculateResults(winningNumbers, bonusNumber);
     this.#view.showResults(results);
 
-    Console.print(this.#calculateProfit(results));
+    const totalProfit = this.#calculateProfit(results);
+    const profitRate = this.#calculateProfitRate(totalProfit, purchaseAmount);
+    this.#view.showProfit(profitRate);
   }
 
   #generateRandomNumbers() {
