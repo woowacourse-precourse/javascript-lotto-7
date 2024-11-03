@@ -1,11 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
 import { DELIMETER, InputPrompts } from '../resources/Constants.js';
+import winningNumberValidator from '../validation/winningNumberValidator.js';
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
+    const joinedString = numbers.join(DELIMETER);
+    winningNumberValidator(joinedString);
     this.#numbers = numbers;
   }
 
@@ -24,11 +26,19 @@ class Lotto {
   }
 
   static async createLotto() {
-    const input = await Console.readLineAsync(InputPrompts.winningNumbers);
-    const numbers = input.split(DELIMETER).map((number) => Number(number));
+    try {
+      const input = await Console.readLineAsync(InputPrompts.winningNumbers);
 
-    const sortedNumbers = Lotto.ascendingNumbers(numbers);
-    return new Lotto(sortedNumbers);
+      winningNumberValidator(input);
+
+      const numbers = input.split(DELIMETER).map((number) => Number(number));
+      const sortedNumbers = Lotto.ascendingNumbers(numbers);
+
+      return new Lotto(sortedNumbers);
+    } catch (error) {
+      Console.print(error.message);
+      return this.createLotto();
+    }
   }
 }
 
