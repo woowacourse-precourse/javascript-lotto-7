@@ -52,7 +52,10 @@ describe('Validator 테스트', () => {
     expect(validator.validateNumberRange(lottoNumbers)).toBe(expectedResult);
   });
 
-  test.each([[[1, 2, 3, 4, 5], false], [1, 2, 3, 4, 5, 6, 7], false])(
+  test.each([
+    [[1, 2, 3, 4, 5], false],
+    [[1, 2, 3, 4, 5, 6, 7], false],
+  ])(
     '로또 번호 수량에 대한 유효성 검사 ( 로또번호 : %s 결과 : %s )',
     (lottoNumbers, expectedResult) => {
       // when & then
