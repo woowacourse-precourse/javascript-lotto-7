@@ -17,10 +17,8 @@ class Lotto {
   }
 
   contains(winningNumber) {
-    return true;
+    return this.#numbers.includes(winningNumber);
   }
-
-  // TODO: 추가 기능 구현
 }
 
 export default Lotto;
