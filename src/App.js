@@ -34,14 +34,19 @@ class App {
     let bonusNumberInput = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
-    let bonusNumber = Number(bonusNumberInput);
 
-    try {
-      new Lotto(bonusNumber);
-    } catch (error) {
-      Console.print(error.message);
+    // error handling
+    if (winningNumbers.includes(parseInt(bonusNumberInput))) {
+      Console.print("[ERROR] 보너스 번호는 당첨 번호와 중복되면 안됩니다.");
       return;
     }
+
+    if (bonusNumberInput < 1 || bonusNumberInput > 45) {
+      Console.print("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+      return;
+    }
+
+    let bonusNumber = Number(bonusNumberInput);
 
     let comparedList = this.compareNumbers(
       lottoCount,
@@ -53,6 +58,7 @@ class App {
     Console.print(result);
   }
 
+  // 로또 번호 생성
   getLottoNumbers(num) {
     let lottoNumbers = [];
     for (let i = 0; i < num; i++) {
@@ -62,6 +68,7 @@ class App {
     return lottoNumbers;
   }
 
+  // 당첨 번호와 비교
   compareNumbers(lottoNumbers, winningNumbers, bonusNumber) {
     let result = [];
     for (let i = 0; i < lottoNumbers.length; i++) {
@@ -80,6 +87,7 @@ class App {
     return result;
   }
 
+  // 결과 출력
   getResult(comparedList) {
     const result = {
       3: 0,
