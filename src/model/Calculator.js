@@ -22,6 +22,13 @@ class Calculator {
     this.#init();
   }
 
+  /** @param {(winningCountList: number[]) => void | undefined} printer */
+  computeWinningCountList(printer) {
+    printer?.(this.#winningCountList);
+
+    return this.#winningCountList;
+  }
+
   /**
    * @param {number} money
    * @param {(rate: number) => void | undefined} printer
