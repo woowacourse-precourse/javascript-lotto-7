@@ -1,10 +1,14 @@
 import View from "./View.js";
+import Model from "./Model.js";
 
 class App {
-  #view = new View();
+  #VIEW = new View();
+  #MODEL = new Model();
   async run() {
-    const PURCHASE_MONEY = await this.#view.getPurchaseMoney();
-  }
+    const PURCHASE_MONEY = await this.#VIEW.getPurchaseMoney();
+
+    const LOTTOS = this.#MODEL.buyLottos(PURCHASE_MONEY);
+
 }
 
 export default App;
