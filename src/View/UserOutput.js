@@ -6,13 +6,15 @@ import {
 
 class UserOutput {
   static showPurchsedLotto(lottoTickets) {
-    Console.print(`${lottoTickets.length}${PROGRESS_MESSAGE.PURCHASE_RESULT}`);
+    Console.print(
+      `\n${lottoTickets.length}${PROGRESS_MESSAGE.PURCHASE_RESULT}`
+    );
     lottoTickets.forEach((lottoTicket) => {
       lottoTicket.showLottoNumber();
     });
   }
   static showWinningStatus(WinningStatus) {
-    Console.print(PROGRESS_MESSAGE.WINNING_RESULT);
+    Console.print(`\n${PROGRESS_MESSAGE.WINNING_RESULT}`);
     Console.print(`${LOTTO_RESULT_MESSAGES.FIFTH}${WinningStatus[5]}개`);
     Console.print(`${LOTTO_RESULT_MESSAGES.FOURTH}${WinningStatus[4]}개`);
     Console.print(`${LOTTO_RESULT_MESSAGES.THIRD}${WinningStatus[3]}개`);
