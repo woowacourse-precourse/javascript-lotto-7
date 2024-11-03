@@ -28,6 +28,4 @@ describe("로또 클래스 출력 테스트", () => {
 
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(PRINT_MESSAGE));
   });
-
-  //TODO : 오름차순 정렬 테스트 추가
 });

@@ -14,6 +14,8 @@ class App {
     printLottoCount(userLotto);
     userLotto.createLotto();
     printLottoList(userLotto);
+    const winningNumbers = await InputHandler.getWinningNumbers();
+    Console.print(winningNumbers);
   }
 }
 

@@ -19,4 +19,10 @@ export class InputHandler {
     const validator = Validator.isValidPrice;
     return await this.#tryUserInput(helperMessages, validator);
   }
+
+  static async getWinningNumbers() {
+    const helperMessages = HELPER_MESSAGE.getWinningNumbers;
+    //TODO : Validator 추가
+    return await this.#tryUserInput(helperMessages);
+  }
 }
