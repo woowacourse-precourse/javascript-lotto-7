@@ -20,6 +20,7 @@ class App {
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
     const rankCount = this.getRankCount(winningNumbers, bonusNumber, lotteries);
+    const yields = this.getYields(payment, rankCount);
   }
 
   async getPayment() {
@@ -133,7 +134,15 @@ class App {
     return lotteries;
   }
 
-  // getYield
+  getYields(payment, rankCount) {
+    const profit = rankCount.reduce(
+      (total, count, idx) =>
+        total + count * this.LOTTO_PRICE * this.LOTTO_REWARD[idx],
+      0,
+    );
+    const yields = (profit / payment) * 100;
+    return yields.toFixed(1);
+  }
 }
 
 export default App;
