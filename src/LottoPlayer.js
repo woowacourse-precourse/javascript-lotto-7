@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import inputHandler from "./inputHandler.js";
 import Lotto from "./Lotto.js";
 import MESSAGES from "./MESSAGES.js";
+import { rankConditions } from "./rankConditions.js";
 
 class LottoPlayer {
   static LOTTO_PRICE = 1000;
@@ -11,6 +12,7 @@ class LottoPlayer {
     this.winningNumbers = [];
     this.bonusNumber = null;
     this.lottos = [];
+    this.resultCount = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   }
 
   async play() {
@@ -82,7 +84,23 @@ class LottoPlayer {
     for (let i = 0; i < this.numberOfLottos; i++) {
       const lottoNumbers = this.lottos[i].numbers;
       const matchCount = this.countMatchingNumbers(lottoNumbers);
+      const isBonus = false;
+
+      if (matchCount === 5) {
+        isBonus = this.isBonusNumberMatched(lottoNumbers);
+      }
+
+      const rank = getRank(matchCount, isBonus);
     }
+  }
+
+  getRank(matchCount, isBonus) {
+    for (const condition of rankConditions) {
+      if (matchCount === condition.match && condition.bonus === isBonus) {
+        return condition.rank;
+      }
+    }
+    return null;
   }
 
   countMatchingNumbers(numbers) {
