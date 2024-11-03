@@ -12,6 +12,8 @@ class LottoMachine {
   #resultCount = [0, 0, 0, 0, 0];
   #earningRate = 0;
 
+  // test가 안됨
+
   async play() {
     await this.setPurchase(); // 구입 금액 입력
     this.setLottoCount(); // 로또 개수 구하기
@@ -39,18 +41,18 @@ class LottoMachine {
   }
 
   #validatePurchase(purchase) {
-    if (purchase % 1000 !== 0) {
-      throw new Error('[ERROR] 구입 금액은 1000으로 나누어 떨어져야 합니다.');
-    }
-
     if (isNaN(purchase)) {
       throw new Error('[ERROR] 구입 금액은 숫자여야 합니다.');
+    }
+    if (purchase % 1000 !== 0) {
+      throw new Error('[ERROR] 구입 금액은 1000으로 나누어 떨어져야 합니다.');
     }
   }
 
   setLottoCount() {
-    this.#lottoCount = this.#purchase / 1000;
-    Console.print(`\n${this.#lottoCount}개를 구매했습니다.`);
+    this.#lottoCount = this.#purchase/1000;
+    Console.print(`${this.#lottoCount}개를 구매했습니다.`);
+
   }
 
   // 로또 발행
