@@ -2,11 +2,15 @@ import { Console } from "@woowacourse/mission-utils";
 
 class Lotto {
   #numbers;
+  #isBonus;
+  #correctCnt;
 
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
     this.#printNumbers();
+    this.#correctCnt = 0;
+    this.#isBonus = false;
   }
 
   #validate(numbers) {
@@ -19,7 +23,18 @@ class Lotto {
     Console.print(this.#numbers);
   }
 
+  getCorrectCnt(){
+    return this.#correctCnt;
+  }
+
   // TODO: 추가 기능 구현
+  checkNumbers(winningNumbers){
+    this.#numbers.forEach((number)=>{
+      if(winningNumbers.includes(number)){
+        this.#numbers += 1;
+      }
+    })
+  }
 }
 
 export default Lotto;
