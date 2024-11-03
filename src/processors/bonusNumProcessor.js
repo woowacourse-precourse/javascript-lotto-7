@@ -1,4 +1,4 @@
-import { ERR_MSG_BONUS_NUMBER } from "../constants";
+import { ERR_MSG_BONUS_NUMBER } from "../constants.js";
 
 const getBonusNumber = (bonusNumInput) => {
     if (validateString(bonusNumInput) && validateNumber(+bonusNumInput)) {
