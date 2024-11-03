@@ -5,7 +5,7 @@ import ERROR_MESSAGES from '../utills/errors.js';
 class LottoInputReader {
   static async readLottoPurchaseAmount() {
     const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-    this.#validateInputNotEmpty(input);
+    this.#validateInputNotEmpty(input.trim());
 
     const lottoPurchaseAmount = Number(input);
     this.#validatePurchaseAmountIsNumber(lottoPurchaseAmount);
@@ -16,6 +16,8 @@ class LottoInputReader {
 
   static async readWinningNumbers() {
     const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    this.#validateInputNotEmpty(input.trim());
+
     const winningNumber = new Lotto(
       input
         .split(',')
@@ -30,7 +32,10 @@ class LottoInputReader {
     const input = await Console.readLineAsync(
       '\n보너스 번호를 입력해 주세요.\n'
     );
+    this.#validateInputNotEmpty(input.trim());
+
     const bonusNumber = Number(input);
+    this.#validateBonusNumberRange(bonusNumber);
 
     return bonusNumber;
   }
@@ -50,6 +55,12 @@ class LottoInputReader {
   static #validatePurchaseAmountUnit(purchaseAmount) {
     if (purchaseAmount % 1000) {
       throw new Error(ERROR_MESSAGES.INPUT.INVALID_AMOUNT);
+    }
+  }
+
+  static #validateBonusNumberRange(bonusNumber) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error(ERROR_MESSAGES.LOTTO.INVALID_RANGE);
     }
   }
 }
