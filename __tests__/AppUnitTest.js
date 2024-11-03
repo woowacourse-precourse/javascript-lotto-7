@@ -116,4 +116,33 @@ describe("App 단위 테스트", () => {
 		// then
 		expect(RESULT).toEqual(app.winningMap);
 	});
+
+	test("당첨 등수 출력", () => {
+		// given
+		const INPUT = {
+			"5rank": 1,
+			"4rank": 1,
+			"3rank": 1,
+			"2rank": 1,
+			"1rank": 1,
+		};
+		const RESULT = [
+			"3개 일치 (5,000원) - 1개",
+			"4개 일치 (50,000원) - 1개",
+			"5개 일치 (1,500,000원) - 1개",
+			"5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
+			"6개 일치 (2,000,000,000원) - 1개",
+		];
+
+		const logSpy = getLogSpy();
+
+		// when
+		const output = new Output();
+		output.printWinningCount(INPUT);
+
+		// then
+		RESULT.forEach((output) => {
+			expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+		});
+	});
 });
