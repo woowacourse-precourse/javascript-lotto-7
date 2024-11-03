@@ -1,4 +1,7 @@
 import { ERROR_MESSAGES, throwError } from "../Error/Error.js";
+import defaultSettings from "./Config/DefaultSettings.js";
+
+const { lotto } = defaultSettings;
 
 class Lotto {
   #numbers;
@@ -14,13 +17,17 @@ class Lotto {
 
   // numbers의 유효성을 검사하는 private 메서드
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== lotto.pickingNumber) {
       throwError(ERROR_MESSAGES.lotteryNumber.ONLY_6_NUMBERS);
     }
-    if (numbers.some((num) => num < 1 || num > 45)) {
+    if (
+      numbers.some(
+        (num) => num < lotto.minimumNumber || num > lotto.maximumNumber
+      )
+    ) {
       throwError(ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     }
-    if (new Set(numbers).size !== numbers.length) {
+    if (new Set(numbers).size !== lotto.pickingNumber) {
       throwError(ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER);
     }
   }
