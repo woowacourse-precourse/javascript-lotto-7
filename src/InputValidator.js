@@ -10,13 +10,13 @@ class InputValidator {
         if (isNaN(purchaseAmount)) {
             throw new Error("[ERROR] 구입 금액은 숫자여야 합니다.");
         }
-        
-        if (purchaseAmount % 1000 !== 0) {
-            throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
-        }
         if (purchaseAmount < 1000) {
             throw new Error("[ERROR] 구입 금액은 1,000원 이상이여야 합니다.");
         }
+        if (purchaseAmount % 1000 !== 0) {
+            throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
+        }
+
         
         return true; 
     }
