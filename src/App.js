@@ -13,6 +13,7 @@ class App {
     this.validateNotNumber(userPurchaseAmount);
     this.validateNotThousandUnits(userPurchaseAmount);
     this.validateHaveSpecialCharacters(userWinningNumber);
+    this.validateLottoNumberOutOfBounds(winningNumbers);
   }
 
   async getPurchaseAmount(){
@@ -53,10 +54,17 @@ class App {
     }
   }
   validateHaveSpecialCharacters(inputValue){
-    const matchWinningNumberFormat = new RegExp('[^\d],{1,1}|[a-zA-Z]|[\s]');
+    const matchWinningNumberFormat = new RegExp('/[^\d],{1,1}|[a-zA-Z]|[\s]/g');
     if(matchWinningNumberFormat.test(inputValue)){
       throw new Error('[ERROR]당첨 번호 에러, 입력한 당첨번호의 형식이 맞지 않습니다.');
     }
+  }
+  validateLottoNumberOutOfBounds(inputValue){
+    inputValue.forEach((element) => {
+      if(element > 45 || element < 1){
+        throw new Error('[ERROR]당첨 번호 에러, 로또 번호는 1에서 45사이의 숫자입니다.');
+      }
+    })
   }
 }
 
