@@ -54,6 +54,11 @@ class Output {
   static #printStatisticsTitle() {
     Console.print('\n당첨 통계\n---');
   }
+
+  /** @param {number} rate */
+  static printTotalProfitRate(rate) {
+    Console.print(`총 수익률은 ${Math.round(rate * 100) / 100}%입니다.`);
+  }
 }
 
 export default Output;
