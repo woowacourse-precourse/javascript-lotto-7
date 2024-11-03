@@ -7,7 +7,8 @@ class View {
     const input = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n')
     const inputPrice = parseInt(input, 10);
 
-    Validator.validateInputPrice(inputPrice);
+    Validator.validatePrice(input);
+    Validator.validateParsePrice(inputPrice);
 
     return inputPrice;
   }
@@ -35,17 +36,18 @@ class View {
     const trimInput = input.toString().trim().split(',');
     const parseNumber = LottoUtils.getParsingNumber(trimInput);
 
-    Validator.validateInputNumber(parseNumber);
+    Validator.validateNumber(trimInput);
+    Validator.validateParseNumber(parseNumber);
 
     return parseNumber;
   }
 
   static async readLineBonusNumber() {
     this.printNewLine();
-    const inputBonusNumber = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
-    const parseBonusNumber = parseInt(inputBonusNumber, 10);
+    const input = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const parseBonusNumber = parseInt(input, 10);
 
-    Validator.validateBonusNumber(inputBonusNumber);
+    Validator.validateBonusNumber(input);
     Validator.validateParseBonusNumber(parseBonusNumber);
 
     return parseBonusNumber;
