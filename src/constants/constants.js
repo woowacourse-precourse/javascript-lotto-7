@@ -10,6 +10,12 @@ export const LOTTO_MESSAGE = {
   LOTTO_BONUS_WINNING_NUMBER_MESSAGE: '보너스 번호를 입력해 주세요.\n',
   LOTTO_RESULT_MESSAGE: '당첨통계\n---',
 };
+
+export const LOTTO_ERROR_MESSAGE = {
+  DUPLICATE_NUMBER_ERROR_MESSAGE: '[ERROR] 중복된 숫자가 있습니다.',
+  OUT_OF_RANGE_NUMBER_ERROR_MESSAGE:
+    '[ERROR] 로또 번호는 1부터 45까지의 숫자입니다.',
+};
 export const MIN_NUMBER = 1;
 export const MAX_NUMBER = 45;
 export const NUMBER_OF_LOTTO_NUMBERS = 6;
