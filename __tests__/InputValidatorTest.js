@@ -74,3 +74,22 @@ describe("당첨번호 입력값 유효성 test", () => {
     }
   );
 });
+
+describe("보너스 번호 입력값 유효성 test", () => {
+  test.each([
+    ["", false, ERROR_MESSAGE.string.notNull],
+    ["abs", false, ERROR_MESSAGE.number.notNumber],
+    ["7", true, ""],
+  ])(
+    "보너스 번호 입력값 유효성을 검사한다",
+    async (bonusBall, result, errorMessage) => {
+      if (result) {
+        expect(() => Validator.isValidBonusBall(bonusBall)).not.toThrow();
+      } else {
+        expect(() => Validator.isValidBonusBall(bonusBall)).toThrow(
+          `[ERROR] ${errorMessage}`
+        );
+      }
+    }
+  );
+});
