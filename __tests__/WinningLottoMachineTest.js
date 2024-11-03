@@ -1,13 +1,13 @@
-import WinningLottoMachine from '../src/WinningLottoMachine.js';
-import InputView from '../src/view/InputView.js';
-import OutputView from '../src/view/OutputView.js';
-import { ERROR_MESSAGES } from '../src/constants/messages.js';
+import WinningLottoMachine from '../src/WinningLottoMachine';
+import InputView from '../src/view/InputView';
+import OutputView from '../src/view/OutputView';
+import { ERROR_MESSAGES } from '../src/constants/messages';
 
-// createWinningLotto 메서드 테스트 - 유효한 경우
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
+// createWinningLotto 메서드 테스트 - 유효한 경우
 describe.each([
   {
     winningNumbers: '1,2,3,4,5,6',
