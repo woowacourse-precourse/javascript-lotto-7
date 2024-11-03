@@ -1,4 +1,4 @@
-import { MATCHES, PRIZE, RANK } from '../constants';
+import { MATCHES, PRIZE, RANKS } from '../constants';
 import { InputStore } from '../services';
 import { LottoResult } from './';
 
@@ -36,30 +36,30 @@ class LottoChecker {
   #rank(matchCount, isBonusMatch) {
     switch (matchCount) {
       case MATCHES.three:
-        return RANK.fifth;
+        return RANKS.fifth;
       case MATCHES.four:
-        return RANK.fourth;
+        return RANKS.fourth;
       case MATCHES.five:
-        if (isBonusMatch) return RANK.second;
-        return RANK.third;
+        if (isBonusMatch) return RANKS.second;
+        return RANKS.third;
       case MATCHES.six:
-        return RANK.first;
+        return RANKS.first;
       default:
-        return RANK.none;
+        return RANKS.none;
     }
   }
 
   #calculatePrize(ranking) {
     switch (ranking) {
-      case RANK.fifth:
+      case RANKS.fifth:
         return PRIZE.fifth;
-      case RANK.fourth:
+      case RANKS.fourth:
         return PRIZE.fourth;
-      case RANK.third:
+      case RANKS.third:
         return PRIZE.third;
-      case RANK.second:
+      case RANKS.second:
         return PRIZE.second;
-      case RANK.first:
+      case RANKS.first:
         return PRIZE.first;
       default:
         return PRIZE.none;

@@ -9,10 +9,10 @@ export const MESSAGES = Object.freeze({
 });
 
 export const PRIZE_MESSAGES = Object.freeze({
-  place5: '3개 일치 (5,000원) - ',
-  place4: '4개 일치 (50,000원) - ',
-  place3: '5개 일치 (1,500,000원) - ',
-  place2: '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
-  place1: '6개 일치 (2,000,000,000원) - ',
+  fifth: '3개 일치 (5,000원) - ',
+  fourth: '4개 일치 (50,000원) - ',
+  third: '5개 일치 (1,500,000원) - ',
+  second: '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
+  first: '6개 일치 (2,000,000,000원) - ',
   howManyMatchAndCount: (rankingName, count) => `${PRIZE_MESSAGES[rankingName]}${count}개`,
 });

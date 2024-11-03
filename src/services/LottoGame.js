@@ -1,4 +1,4 @@
-import { MESSAGES, PRIZE_MESSAGES } from '../constants';
+import { MESSAGES, PRIZE_MESSAGES, RANKS } from '../constants';
 import { InputHandler, Printer } from '../io';
 import { Lotto, LottoChecker } from '../models';
 import { calculateEarningsRate, calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
@@ -40,33 +40,25 @@ class LottoGame {
     const lottoResults = this.#tickets.map((lotto) => this.lottoChecker.checkLotto(lotto));
     this.#printStatistics(lottoResults);
 
-    const totalPrizeMoney = lottoResults.reduce((acc, cur) => acc + cur.getPrizeMoney(), 0);
-    const investmentMoney = this.store.getMoney();
-    const earningsRate = calculateEarningsRate(totalPrizeMoney, investmentMoney);
+    const earningsRate = this.#calculateLottoEarningsRate(lottoResults);
     Printer.print(MESSAGES.earningsRateIs(earningsRate));
   }
 
   #printStatistics(lottoResults) {
-    const prizeCount = {
-      place5: 0,
-      place4: 0,
-      place3: 0,
-      place2: 0,
-      place1: 0,
-    };
-
-    lottoResults.forEach((result) => {
-      const rank = result.getRanking();
-      if (rank >= 1 && rank <= 5) {
-        prizeCount[`place${rank}`] += 1;
-      }
-    });
+    const rankCount = Object.fromEntries(Object.keys(RANKS).map((rank) => [rank, 0]));
+    lottoResults.forEach((result) => (rankCount[result.getRanking()] += 1));
 
     Printer.print(MESSAGES.prizeStatistics);
 
-    for (const [rankingName, count] of Object.entries(prizeCount)) {
+    for (const [rankingName, count] of Object.entries(rankCount)) {
       Printer.print(PRIZE_MESSAGES.howManyMatchAndCount(rankingName, count));
     }
+  }
+
+  #calculateLottoEarningsRate(lottoResults) {
+    const totalPrizeMoney = lottoResults.reduce((acc, cur) => acc + cur.getPrizeMoney(), 0);
+    const investmentMoney = this.store.getMoney();
+    return calculateEarningsRate(totalPrizeMoney, investmentMoney);
   }
 }
 

@@ -8,19 +8,19 @@ export const MATCHES = Object.freeze({
   six: 6,
 });
 
-export const RANK = Object.freeze({
-  first: 1,
-  second: 2,
-  third: 3,
-  fourth: 4,
-  fifth: 5,
+export const RANKS = Object.freeze({
+  fifth: 'fifth',
+  fourth: 'fourth',
+  third: 'third',
+  second: 'second',
+  first: 'first',
 });
 
 export const PRIZE = Object.freeze({
-  first: 2_000_000_000,
-  second: 30_000_000,
-  third: 1_500_000,
-  fourth: 50_000,
-  fifth: 5_000,
   none: 0,
+  fifth: 5_000,
+  fourth: 50_000,
+  third: 1_500_000,
+  second: 30_000_000,
+  first: 2_000_000_000,
 });
