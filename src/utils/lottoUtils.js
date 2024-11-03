@@ -19,3 +19,7 @@ export const generateLottoNumbers = () => {
   const sortAscending = (a, b) => a - b;
   return generateNumberInRange(randomConfig).sort(sortAscending);
 };
+
+export const calculateEarningsRate = (totalPrizeMoney, investmentMoney) => {
+  ((totalPrizeMoney / investmentMoney) * 100).toFixed(1);
+};

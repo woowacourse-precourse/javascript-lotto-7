@@ -1,6 +1,6 @@
 import { MESSAGES, PRIZE_MESSAGES } from '../constants/index.js';
 import { InputHandler, Printer } from '../io/index.js';
-import { Lotto, LottoChecker, Prize } from '../models/index.js';
+import { Lotto, LottoChecker } from '../models/index.js';
 import { calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
 import { InputStore } from './index.js';
 
@@ -10,7 +10,6 @@ class LottoGame {
   constructor() {
     this.console = new InputHandler();
     this.store = new InputStore();
-    this.prize = new Prize();
     this.lottoChecker = new LottoChecker();
   }
 
@@ -19,24 +18,8 @@ class LottoGame {
     this.store.setMoney(money);
 
     const ticketCount = calculateTicketCount(money);
-    Printer.print(MESSAGES.howManyBought(ticketCount));
-
     this.#issueTickets(ticketCount);
-  }
-
-  async enterNumber() {
-    const mainNumbers = await this.console.processMainInput(MESSAGES.mainNumbers);
-    this.store.setMainNumbers(mainNumbers);
-
-    const bonusNumber = await this.console.processBonusInput(MESSAGES.bonusNumber);
-    this.store.setBonusNumber(bonusNumber);
-  }
-
-  presentResult() {
-    const ticketsResult = this.#tickets.map((lotto) => this.lottoChecker.checkLotto(lotto));
-    const earningsRate = this.#makeStatistics();
-    this.#printStatistics();
-    Printer.print(MESSAGES.earningsRateIs(earningsRate));
+    Printer.print(MESSAGES.howManyBought(ticketCount));
   }
 
   #issueTickets(ticketCount) {
@@ -48,35 +31,33 @@ class LottoGame {
     this.#tickets = tickets;
   }
 
-  #makeStatistics() {
-    this.#checkTickets();
-    this.#tickets.forEach((lotto) => {
-      const ranking = Prize.rank(lotto.getMatchData());
-      lotto.setRanking(ranking);
-    });
-
-    this.prize.sumPrizeMoney(this.#tickets);
-
-    return this.#calculateEarningsRate();
+  async enterNumber() {
+    const mainNumbers = await this.console.processMainInput(MESSAGES.mainNumbers);
+    const bonusNumber = await this.console.processBonusInput(MESSAGES.bonusNumber);
+    this.store.setMainNumbers(mainNumbers);
+    this.store.setBonusNumber(bonusNumber);
   }
 
-  #checkTickets() {
-    const winningNumbers = {
-      mainNumbers: this.store.getMainNumbers(),
-      bonusNumber: this.store.getBonusNumber(),
+  presentResult() {
+    const lottoResults = this.#tickets.map((lotto) => this.lottoChecker.checkLotto(lotto));
+    this.#printStatistics(lottoResults);
+
+    const totalPrizeMoney = lottoResults.reduce((acc, cur) => acc + cur.getPrizeMoney(), 0);
+    const investmentMoney = this.store.getMoney();
+    const earningsRate = calculateEarningsRate(totalPrizeMoney, investmentMoney);
+    Printer.print(MESSAGES.earningsRateIs(earningsRate));
+  }
+
+  #printStatistics(lottoResults) {
+    const prizeCount = {
+      place5: 0,
+      place4: 0,
+      place3: 0,
+      place2: 0,
+      place1: 0,
     };
 
-    this.#tickets.forEach((lotto) => lotto.matchNumbers(winningNumbers));
-  }
-
-  #calculateEarningsRate() {
-    const totalPrizeMoney = this.prize.getPrizeMoney();
-    const investmentMoney = this.store.getMoney();
-    return ((totalPrizeMoney / investmentMoney) * 100).toFixed(1);
-  }
-
-  #printStatistics() {
-    const prizeCount = this.prize.combinePrizeCount(this.#tickets);
+    lottoResults.forEach((result) => (prizeCount[`place${result.getRanking()}`] += 1));
 
     Printer.print(MESSAGES.winningStatistics);
 
