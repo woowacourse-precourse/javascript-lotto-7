@@ -349,7 +349,7 @@ static #validateIntsRange(startInclusive, endInclusive, count) {
 
 `개수는 입력 범위(끝 - 시작)보다 클 수 없다.` 이 부분이 핵심 로직인 것 같다.
 
-- `pickUniqueNumbersInRange` 메서드는 시작 범위와 끝 범위 사이의 중복되지 않는 정수 n개를 반환하기 때문에 입력 범위가 개수보다 작다면 중복이 발생하기 때문에 예외 처리를 하는 것 같다.
+- `pickUniqueNumbersInRange` 메서드는 시작 범위와 끝 범위 사이의 중복되지 않는 정수 n개를 반환하는 데 입력 범위가 개수보다 작다면 중복이 발생하기 때문에 예외 처리를 하는 것 같다.
 
 ### `shuffle` - 배열의 순서를 섞는다.
 
@@ -389,18 +389,125 @@ return Random.shuffle(result).slice(0, count);
 <details>
 <summary>자세히 보기</summary>
 
-| Type            | Description                                        |
-| --------------- | -------------------------------------------------- |
-| init            | 초기 설정                                          |
-| feat            | 새로운 기능 추가                                   |
-| fix             | 버그 수정                                          |
-| refactor        | 코드 리팩토링                                      |
-| comment         | 필요한 주석 추가 및 변경                           |
-| chore           | 패키지 매니저 수정, 그 외 기타 수정                |
-| ex) .gitnore 등 |
-| rename          | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우 |
-| remove          | 파일을 삭제하는 작업만 수행한 경우                 |
-| docs            | 문서 수정                                          |
-| test            | 테스트 코드 작성 및 수정                           |
+| Type     | Description                                               |
+| -------- | --------------------------------------------------------- |
+| init     | 초기 설정                                                 |
+| feat     | 새로운 기능 추가                                          |
+| fix      | 버그 수정                                                 |
+| refactor | 코드 리팩토링                                             |
+| comment  | 필요한 주석 추가 및 변경                                  |
+| chore    | 패키지 매니저 수정, 그 외 기타 수정 <br/> ex) .gitnore 등 |
+| rename   | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우        |
+| remove   | 파일을 삭제하는 작업만 수행한 경우                        |
+| docs     | 문서 수정                                                 |
+| test     | 테스트 코드 작성 및 수정                                  |
+
+</details>
+
+## 📂 폴더 구조
+
+<details>
+<summary>자세히 보기</summary>
+
+```tsx
+📦src
+ ┣ 📂constants // 상수 폴더
+ ┃ ┗ 📜index.js
+ ┣ 📂lotto // 로또 클래스 폴더
+ ┃ ┣ 📜BonusNumber.js // 보너스 번호(유효성 검사)
+ ┃ ┣ 📜Lotto.js // 로또 당첨 번호(유효성 검사)
+ ┃ ┣ 📜LottoCalculate.js // 로또 결과 계산(유틸)
+ ┃ ┣ 📜LottoStore.js // 로또 구매 및 발급(유틸)
+ ┃ ┣ 📜Price.js // 구입 금액(유효성 검사)
+ ┃ ┗ 📜index.js // 로또 배럴 파일
+ ┣ 📂utils // 유틸 폴더
+ ┃ ┗ 📜validation.js // 유효성 검사
+ ┣ 📜App.js // 애플리케이션 구현
+ ┣ 📜CustomError.js // 커스텀 에러 클래스
+ ┣ 📜FrozenMap.js // FrozenMap 클래스(Map 객체 확장)
+ ┣ 📜IOHandler.js // 입출력 클래스
+ ┗ 📜index.js // 실행 파일
+```
+
+</details>
+
+## 🚨 트러블 슈팅
+
+<details>
+<summary>자세히 보기</summary>
+
+### 정적 메서드 vs 인스턴스 메서드
+
+```tsx
+class LottoStore {
+  getLottoPurchaseCount = (price) => {
+    return price / LOTTO_RULES.PRICE;
+  };
+
+  static generateLottoNumbers = (count) => {
+    const { MIN_RANGE, MAX_RANGE, NUMBERS_SIZE } = LOTTO_RULES;
+    return Array.from({ length: count }, () => this.generateSingleLotto(MIN_RANGE, MAX_RANGE, NUMBERS_SIZE, "asc"));
+  };
+
+  static getLottoNumbers = (price) => {
+    const purchaseCount = this.getLottoPurchaseCount(price);
+    return this.generateLottoNumbers(purchaseCount);
+  };
+}
+```
+
+해당 코드를 실행하면 `TypeError: this.getLottoPurchaseCount is not a function`에러가 발생한다.
+
+- `getLottoPurchaseCount` 는 인스턴스 메서드로 `LottoStore` 의 인스턴스를 생성한 후에만 사용할 수 있다.
+- `getLottoNumbers` 는 정적(static) 메서드로 클래스 자체에 속하며, 인스턴스 생성 없이 직접 클래스에서 호출 할 수 있다.
+
+정적 메서드 내에서 `this` 는 클래스 자체를 가리킨다. 그러나 클래스 자체에는 `getLottoPurchaseCount` 메서드가 존재하지 않는다.(이 메서드는 인스턴스에서만 존재한다)
+
+→ `getLottoPurchaseCount` 를 정적 메서드로 선언하면 인스턴스 생성 없이 클래스에서 호출할 수 있기 때문에 문제를 해결 할 수 있다.
+
+</details>
+
+## 😮 배운 것들
+
+<details>
+<summary>자세히 보기</summary>
+
+### constructor
+
+> **클래스의 인스턴스를 생성하고 초기화하는 특별한 메서드이다.**
+
+- 클래스로 객체를 생성할 때 자동으로 호출된다.
+- 인스턴스의 초기 상태를 설정하는 데 사용된다.
+- 클래스당 하나의 `constructor` 만 가질 수 있다.
+
+사용 상황
+
+- 객체 생성 시 필요한 초기 데이터를 설정할 때
+- 인스턴스 변수를 초기화할 때
+
+### #(Private 필드)
+
+> **클래스 내부에서만 접근 가능한 Private 필드를 선언하는 데 사용된다.**
+
+- 클래스 외부에서 직접 접근할 수 없다.
+- 캡슐화를 강화하고 내부 구현을 숨길 수 있다.
+
+사용 상황
+
+- 클래스의 내부 상태를 보호하고 싶을 때
+- 외부에서 직접 접근하면 안 되는 데이터를 숨기고 싶을 때
+
+### static
+
+> 클래스의 정적 메서드나 속성을 정의하는 데 사용된다.
+
+- 클래스의 인스턴스가 아닌 클래스 자체에 속한다.
+- 인스턴스를 생성하지 않고도 호출할 수 있다.
+
+사용 상황
+
+- 유틸리티 함수를 만들 때
+- 인스턴스와 관계 없이 클래스 레벨에서 동작해야 하는 메서드를 정의할 때
+- 여러 인스턴스 간에 공유되어야 하는 데이터나 동작을 정의할 때
 
 </details>
