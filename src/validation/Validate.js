@@ -11,8 +11,9 @@ import { LOTTO_VALUES } from "../constants/message.js";
 class Validate {
   validate(input) {
     this.isEmpty(input);
-    this.isZeroIncluded(input);
+    this.isZero(input);
     this.isNumber(input);
+    this.isWithinRange(input);
   }
 
   isEmpty(input) {
