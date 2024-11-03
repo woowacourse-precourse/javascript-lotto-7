@@ -157,6 +157,14 @@ function printPrizeResults(prizeResults) {
   }
 }
 
+function getTotalPrize(prizeResults) {
+  let totalPrize = 0;
+  for (const [key, count] of prizeResults) {
+    totalPrize += PRIZE_TABLE[key].money * count;
+  }
+  return totalPrize;
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
@@ -173,6 +181,8 @@ class App {
 
     const prizeResults = checkPrize(lottos, prizeNumberLotto, bonusNumberLotto);
     printPrizeResults(prizeResults);
+
+    const totalPrizeMoney = getTotalPrize(prizeResults);
   }
 }
 
