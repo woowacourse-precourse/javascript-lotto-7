@@ -20,6 +20,18 @@ class Lotto {
   hasBonusNumber(bonusNumber) {
     return this.#numbers.includes(bonusNumber);
   }
+
+  matchNumbers(winningNumbers) {
+    return this.#numbers.filter((number) => winningNumbers.includes(number))
+      .length;
+  }
+
+  getCompareResults(winningNumbers, bonusNumber) {
+    const matchedNumbers = this.matchNumbers(winningNumbers);
+    const hasBonusNumber = this.hasBonusNumber(bonusNumber);
+
+    return { matchedNumbers, hasBonusNumber };
+  }
 }
 
 export default Lotto;

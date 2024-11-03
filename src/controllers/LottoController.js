@@ -24,6 +24,7 @@ class LottoController {
 
     const winningLotto = await this.#assignWinningLotto();
     const bonusNumber = await this.#assignBonusNumber(winningLotto);
+    const statistics = this.#getStatistics(winningLotto, bonusNumber);
   }
 
   async #purchaseLotto() {
@@ -40,9 +41,9 @@ class LottoController {
     );
   }
 
-  async #assignBonusNumber() {
+  async #assignBonusNumber(winningLotto) {
     return await repeatUntilValid(
-      this.#assignBonusNumberAction.bind(this),
+      this.#assignBonusNumberAction.bind(this, winningLotto),
       this.#errorHandler.bind(this),
     );
   }
@@ -71,6 +72,15 @@ class LottoController {
 
   #errorHandler(message) {
     this.#outputView.printMessage(message);
+  }
+
+  #getStatistics(winningLotto, bonusNumber) {
+    const compareResults = this.#lottoGame.calculateCompareResults(
+      winningLotto,
+      bonusNumber,
+    );
+
+    return this.#lottoGame.calculateStatics(compareResults);
   }
 }
 

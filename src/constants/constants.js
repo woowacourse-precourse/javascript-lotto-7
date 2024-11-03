@@ -32,6 +32,14 @@ const PRIZE_AMOUNT = Object.freeze({
   [PRIZE_KEY.fifth_prize]: 5_000,
 });
 
+const INITIAL_STATISTICS = Object.freeze({
+  [PRIZE_KEY.first_prize]: 0,
+  [PRIZE_KEY.second_prize]: 0,
+  [PRIZE_KEY.third_prize]: 0,
+  [PRIZE_KEY.fourth_prize]: 0,
+  [PRIZE_KEY.fifth_prize]: 0,
+});
+
 export {
   LOTTO_CONDITION,
   PRICE_PER_LOTTO,
@@ -39,4 +47,5 @@ export {
   RANK,
   PRIZE_KEY,
   PRIZE_AMOUNT,
+  INITIAL_STATISTICS,
 };
