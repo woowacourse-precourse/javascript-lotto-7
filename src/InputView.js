@@ -29,22 +29,32 @@ class InputView {
 
   static async processWinningNumber() {
     try {
-      const winningNumbers = await readUserInput(
-        WINNING_NUMBER_MESSAGE.question
-      );
-      this.validateWinningNumber(winningNumbers);
+      let winningNumbers = await readUserInput(WINNING_NUMBER_MESSAGE.question);
+      winningNumbers = this.validateWinningNumbers(winningNumbers);
+      return winningNumbers;
     } catch (error) {
       printResult(error.message);
       return await this.processWinningNumber();
     }
   }
 
-  static validateWinningNumber(numbers) {
-    const winningNumber = numbers.split(',').map((number) => number.trim());
-    const winningNumberSet = new Set(winningNumber);
-    const isNotNumber = winningNumber.some((number) => isNaN(number));
-    const isIncludeBlank = winningNumber.some((number) => number === '');
-    const isNotInRange = winningNumber.some(
+  static validateWinningNumbers(numbers) {
+    const winningNumbers = numbers.split(',').map((number) => number.trim());
+    const winningNumbersSet = new Set(winningNumbers);
+    this.validateNumber(winningNumbers);
+
+    if (winningNumbers.length < 6) {
+      throw new Error(WINNING_NUMBER_MESSAGE.error.notOver6);
+    }
+    if (winningNumbersSet.size !== winningNumbers.length) {
+      throw new Error(WINNING_NUMBER_MESSAGE.error.notDuplcate);
+    }
+    return winningNumbers;
+  }
+  static validateNumber(winningNumbers) {
+    const isNotNumber = winningNumbers.some((number) => isNaN(number));
+    const isIncludeBlank = winningNumbers.some((number) => number === '');
+    const isNotInRange = winningNumbers.some(
       (number) =>
         number < LOTTO_CONSTANTS.minLottoNumber ||
         number > LOTTO_CONSTANTS.maxLottoNumber
@@ -52,14 +62,8 @@ class InputView {
     if (isNotNumber) {
       throw new Error(WINNING_NUMBER_MESSAGE.error.notNumber);
     }
-    if (winningNumber.length < 6) {
-      throw new Error(WINNING_NUMBER_MESSAGE.error.notOver6);
-    }
     if (isIncludeBlank) {
       throw new Error(WINNING_NUMBER_MESSAGE.error.notBlank);
-    }
-    if (winningNumberSet.size !== winningNumber.length) {
-      throw new Error(WINNING_NUMBER_MESSAGE.error.notDuplcate);
     }
     if (isNotInRange) {
       throw new Error(WINNING_NUMBER_MESSAGE.error.notInRange);

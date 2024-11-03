@@ -7,14 +7,14 @@ import { pickUniqueNumbersInRange } from './util/missionUtil.js';
 class App {
   #lottos;
   #money;
+  #winninNumbers;
 
   async run() {
     this.#money = await InputView.processMoney();
     OutputView.printLottoCount(this.#money);
     this.#lottos = await this.createLottos();
     OutputView.printLottoNumbers(this.#lottos);
-
-    InputView.processWinningNumber();
+    this.#winninNumbers = await InputView.processWinningNumber();
   }
 
   async createLottos() {
