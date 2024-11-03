@@ -28,4 +28,10 @@ describe("당첨 로또 클래스 테스트", () => {
       new WinningLotto([1, 2, 3, 4, 5, 6], 6);
     }).toThrow(inValidMessages.duplicateWithWinningNumbers);
   });
+
+  test("보너스 로또 번호에 허용 범위를 벗어나는 숫자가 있으면 예외가 발생한다.", () => {
+    expect(() => {
+      new WinningLotto([0, 1, 2, 3, 4, 40]);
+    }).toThrow(inValidMessages.range);
+  });
 });
