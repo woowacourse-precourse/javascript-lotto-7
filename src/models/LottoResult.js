@@ -1,12 +1,10 @@
 class LottoResult {
   static calculateWinningLottoNumber(lottoList, winningNumbers, bonusNumber) {
     const winningLottoNumber = [0, 0, 0, 0, 0];
-
     lottoList.forEach((lotto) => {
       const matches = winningNumbers.filter((num) =>
         lotto.includes(num),
       ).length;
-
       if (matches === 3) winningLottoNumber[0] += 1;
       if (matches === 4) winningLottoNumber[1] += 1;
       if (matches === 5) winningLottoNumber[2] += 1;
@@ -14,7 +12,6 @@ class LottoResult {
       if (matches === 5 && lotto.includes(bonusNumber))
         winningLottoNumber[3] += 1;
     });
-
     return winningLottoNumber;
   }
 

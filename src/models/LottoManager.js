@@ -31,14 +31,13 @@ class LottoManager {
       const matches = this.winningNumbers.filter((number) =>
         lotto.includes(number),
       ).length;
-
-      if (matches === 3) this.winningLottoCounts[0] += 1;
-      else if (matches === 4) this.winningLottoCounts[1] += 1;
-      else if (matches === 5 && !lotto.includes(this.bonusNumber))
-        this.winningLottoCounts[2] += 1;
-      else if (matches === 5 && lotto.includes(this.bonusNumber))
-        this.winningLottoCounts[3] += 1;
-      else if (matches === 6) this.winningLottoCounts[4] += 1;
+      if (matches === 3) this.winningLottoCounts[0]++;
+      if (matches === 4) this.winningLottoCounts[1]++;
+      if (matches === 5 && !lotto.includes(this.bonusNumber))
+        this.winningLottoCounts[2]++;
+      if (matches === 5 && lotto.includes(this.bonusNumber))
+        this.winningLottoCounts[3]++;
+      if (matches === 6) this.winningLottoCounts[4]++;
     });
     return this.winningLottoCounts;
   }

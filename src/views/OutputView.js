@@ -25,24 +25,17 @@ class OutputView {
     Console.print(MESSAGES.INFO.LINE_BREAK);
     Console.print(MESSAGES.INFO.WINNING_STATISTICS);
     Console.print(MESSAGES.INFO.DASH_SYMBOL);
-    Console.print(
-      MESSAGES.PRIZE.MATCH_3.replace('{count}', winningLottoNumber[0]),
-    );
-    Console.print(
-      MESSAGES.PRIZE.MATCH_4.replace('{count}', winningLottoNumber[1]),
-    );
-    Console.print(
-      MESSAGES.PRIZE.MATCH_5.replace('{count}', winningLottoNumber[2]),
-    );
-    Console.print(
-      MESSAGES.PRIZE.MATCH_5_WITH_BONUS.replace(
-        '{count}',
-        winningLottoNumber[3],
-      ),
-    );
-    Console.print(
-      MESSAGES.PRIZE.MATCH_6.replace('{count}', winningLottoNumber[4]),
-    );
+
+    const prizeMessages = [
+      MESSAGES.PRIZE.MATCH_3,
+      MESSAGES.PRIZE.MATCH_4,
+      MESSAGES.PRIZE.MATCH_5,
+      MESSAGES.PRIZE.MATCH_5_WITH_BONUS,
+      MESSAGES.PRIZE.MATCH_6,
+    ];
+    prizeMessages.forEach((message, index) => {
+      Console.print(message.replace('{count}', winningLottoNumber[index]));
+    });
   }
 
   static printRateOfReturn(rateOfReturn) {
