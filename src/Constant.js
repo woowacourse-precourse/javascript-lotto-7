@@ -11,3 +11,5 @@ export const ERROR_MESSAGE = {
   INVALID_LOTTO_NUMBER: "[ERROR] : 1-45 사이의 숫자를 입력해주세요.\n",
   SIX_NUMBERS_NEEDED: "[ERROR] : 6개의 번호를 입력해주세요.\n",
 };
+
+export const LOTTO_PRICE = 1000;
