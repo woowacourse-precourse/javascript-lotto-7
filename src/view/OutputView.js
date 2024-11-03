@@ -5,6 +5,10 @@ const OutputView = {
   printPurchaseMessage(lottoCount) {
     printMessage(`${lottoCount}${LOG_MESSAGE.PURCHASE_CONFIRMATION}`);
   },
+
+  printLottoNumbers(lottoNumbers) {
+    printMessage(lottoNumbers.map(numbers => `[${numbers.join(', ')}]`).join('\n'));
+  },
 };
 
 export default OutputView;

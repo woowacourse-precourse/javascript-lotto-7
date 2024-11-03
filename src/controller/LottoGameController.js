@@ -15,6 +15,13 @@ class LottoGameController {
 
     const lottoCount = this.#lottoMachine.getLottoCount();
     OutputView.printPurchaseMessage(lottoCount);
+
+    this.#printAllLottoNumbers();
+  }
+
+  #printAllLottoNumbers() {
+    const lottoNumbers = this.#lottoMachine.getLottoNumbers();
+    OutputView.printLottoNumbers(lottoNumbers); 
   }
 
 }
