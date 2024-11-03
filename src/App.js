@@ -61,7 +61,7 @@ class App {
       ).sort((a, b) => a - b);
       const lotto = new Lotto(numbers);
       lottos.push(lotto);
-      MissionUtils.Console.print(lotto.getNumbers());
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
     }
     return lottos;
   }
@@ -75,7 +75,7 @@ class App {
   async #getBonus(winningNumber) {
     MissionUtils.Console.print(PROMPT_MESSAGES.BONUS_NUMBER);
     const number = parseInt(await MissionUtils.Console.readLineAsync(""), 10);
-    if (!(number > 0 && number <= 45) || winningNumber.includes(number)) {
+    if (!(number > 0 && number <= 45)) {
       throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
     }
     return number;
