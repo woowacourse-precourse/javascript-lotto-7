@@ -4,11 +4,8 @@ class InputValidator {
         if (purchaseAmount == null || purchaseAmount === "") {
             throw new Error("[ERROR] 구입 금액은 입력해야 합니다.");
         }
-        console.log(purchaseAmount);
         
         purchaseAmount = Number(purchaseAmount);
-        console.log(purchaseAmount);
-        console.log(isNaN(purchaseAmount));
         
         if (isNaN(purchaseAmount)) {
             throw new Error("[ERROR] 구입 금액은 숫자여야 합니다.");
