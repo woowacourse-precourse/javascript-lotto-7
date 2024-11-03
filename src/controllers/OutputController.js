@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { LOTTO_RANK_MAP, OUTPUT_MESSAGE } from '../lib/constants.js';
 
-class OutputManager {
+class OutputController {
   static print(message) {
     MissionUtils.Console.print(message);
   }
@@ -49,4 +49,4 @@ class OutputManager {
   }
 }
 
-export default OutputManager;
+export default OutputController;

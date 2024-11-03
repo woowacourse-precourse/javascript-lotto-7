@@ -1,4 +1,4 @@
-import { InputManager } from '../helpers';
+import { InputController } from '../controllers';
 import { LottoResult } from '.';
 
 class LottoCompany {
@@ -6,8 +6,10 @@ class LottoCompany {
   #bonusNumber;
 
   async draw() {
-    this.#winningNumbers = await InputManager.getWinningNumbers();
-    this.#bonusNumber = await InputManager.getBonusNumber(this.#winningNumbers);
+    this.#winningNumbers = await InputController.getWinningNumbers();
+    this.#bonusNumber = await InputController.getBonusNumber(
+      this.#winningNumbers,
+    );
   }
 
   getLottoResult(lottos) {

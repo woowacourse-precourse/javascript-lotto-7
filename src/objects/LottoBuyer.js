@@ -1,4 +1,4 @@
-import { InputManager, OutputManager } from '../helpers';
+import { InputController, OutputController } from '../controllers';
 import { calculateRate } from '../lib/utils.js';
 import { LottoShop } from '.';
 
@@ -9,16 +9,16 @@ class LottoBuyer {
   #lottoResult;
 
   async purchaseLottos() {
-    this.#purchasePrice = await InputManager.getPurchasePrice();
+    this.#purchasePrice = await InputController.getPurchasePrice();
 
     this.#lottos = LottoShop.orderLottos(this.#purchasePrice);
-    OutputManager.printPurchaseHistory(this.#lottos);
+    OutputController.printPurchaseHistory(this.#lottos);
   }
 
   checkWinningLotto(lottoCompany) {
     this.#lottoResult = lottoCompany.getLottoResult(this.#lottos);
 
-    OutputManager.printLottoResult(this.#lottoResult);
+    OutputController.printLottoResult(this.#lottoResult);
   }
 
   calculateReturn() {
@@ -28,7 +28,7 @@ class LottoBuyer {
       calculateRate(lottoPrizeMoney, this.#purchasePrice).toFixed(2),
     );
 
-    OutputManager.printRateOfReturn(rateOfReturn);
+    OutputController.printRateOfReturn(rateOfReturn);
   }
 }
 
