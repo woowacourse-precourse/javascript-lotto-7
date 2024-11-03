@@ -1,6 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
 import { moneyValidation, lottoNumbersValidation, bonusNumberValidation } from "./validation.js";
+import { USER_MESSAGE, LOTTO_PRICE, PERCENT_FACTOR } from "./constants.js";
+import Lotto from "./Lotto.js";
 
 class Machine {
   #money;
@@ -29,7 +30,7 @@ class Machine {
     await this.readUserMoney();
     await this.readUserWinNumbers();
     await this.readUserBonusNumber();
-    Console.print('\n당첨 통계\n---');
+    Console.print(USER_MESSAGE.BEFORE_RESULT);
     this.lottoWinningCheck();
     this.calculatorMoney();
     this.printProfit();
@@ -37,7 +38,7 @@ class Machine {
 
   async readUserMoney() {
     const money =
-      await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+      await Console.readLineAsync(USER_MESSAGE.MONEY_INPUT);
 
     moneyValidation(money);
     this.#money = parseInt(money, 10);
@@ -46,7 +47,7 @@ class Machine {
   }
 
   #printBuyCount() {
-    const buyCount = parseInt(this.#money, 10) / 1000;
+    const buyCount = parseInt(this.#money, 10) / LOTTO_PRICE;
     Console.print(`\n${buyCount}개를 구매했습니다.`);
     this.#createLotto(buyCount);
   }
@@ -61,16 +62,14 @@ class Machine {
   }
 
   async readUserWinNumbers() {
-    const winNumbersString = await Console.readLineAsync(
-      '\n당첨 번호를 입력해 주세요.\n',
-    );
+    const winNumbersString = await Console.readLineAsync(USER_MESSAGE.WIN_NUMBERS_INPUT);
     const winNumbers = winNumbersString.split(',').map((number) => parseInt(number, 10));
     lottoNumbersValidation(winNumbers);
     this.#winNumbers = winNumbers;
   }
 
   async readUserBonusNumber() {
-    const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    const bonusNumber = await Console.readLineAsync(USER_MESSAGE.BONUS_NUMBER_INPUT);
     bonusNumberValidation(bonusNumber);
     this.#bonusNumber = parseInt(bonusNumber, 10);
   }
@@ -102,7 +101,7 @@ class Machine {
   }
 
   printProfit() {
-    const profitRate = (this.#totalMoney / parseInt(this.#money, 10)) * 100;
+    const profitRate = (this.#totalMoney / parseInt(this.#money, 10)) * PERCENT_FACTOR;
     Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
   }
 }

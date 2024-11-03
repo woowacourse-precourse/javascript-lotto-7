@@ -1,60 +1,58 @@
-const FIND_NOT_NUMBER = /[^\d+]/g;
+import { ERROR_MESSAGE, FIND_NOT_NUMBER, USER_MESSAGE } from './constants.js';
 
 const userInputEmpty = (input, message = '') => {
   if (!input) {
-    throw new Error(`${message} 입력해 주세요.`);
+    throw new Error(`${message}${ERROR_MESSAGE.NOT_EMPTY_INPUT}`);
   }
 };
 
 const moneyValidation = (money) => {
-  userInputEmpty(money, '구입 금액을');
+  userInputEmpty(money, USER_MESSAGE.MONEY);
 
   if (FIND_NOT_NUMBER.test(money)) {
-    throw new Error('구입 금액은 정수 외 다른 문자열은 입력할 수 없어요.');
+    throw new Error(`${ERROR_MESSAGE.MONEY_IS_POSITIVE_NUMBER}`);
   }
 
   const moneyNumber = parseInt(money, 10);
   if (moneyNumber > 100000) {
-    throw new Error('로또 최대 하루 구입 금액은 10만원입니다.');
+    throw new Error(`${ERROR_MESSAGE.MONEY_MAX_HUNDRED_THOUSAND}`);
   }
 
   if (moneyNumber < 1000 || money % 1000 !== 0) {
-    throw new Error('구입 금액은 1000원 단위로 입력해주세요.');
+    throw new Error(`${ERROR_MESSAGE.MONEY_UNIT_THOUSAND}`);
   }
 };
 
 const lottoNumbersValidation = (numbers) => {
-  userInputEmpty(numbers, '로또 번호를');
+  userInputEmpty(numbers, USER_MESSAGE.WIN_NUMBERS);
 
   if (numbers.length !== 6) {
-    throw new Error('로또 번호는 6개여야 합니다.');
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_IS_SIX);
   }
 
   if (numbers.length !== new Set([...numbers]).size) {
-    throw new Error('로또 번호는 중복되면 안됩니다.');
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_NOT_OVERLAP);
   }
 
   if (numbers.some((number) => number > 45 || number < 1)) {
-    throw new Error('로또 번호는 최소 1이상 최대 45이하로 구성되어야 합니다.');
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_IS_MIN_ONE_MAX_FORTY_FIVE);
   }
 
   if (numbers.some((number) => FIND_NOT_NUMBER.test(number))) {
-    throw new Error('로또 번호는 숫자외 다른 문자열이 포함될 수 없습니다.');
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_IS_POSITIVE_NUMBER);
   }
 };
 
 const bonusNumberValidation = (number) => {
-  userInputEmpty(number, '보너스 번호를');
+  userInputEmpty(number, USER_MESSAGE.BONUS_NUMBER);
 
   if (FIND_NOT_NUMBER.test(number)) {
-    throw new Error('보너스 번호는 양수로만 구성되어야 합니다.');
+    throw new Error(ERROR_MESSAGE.BONUS_NUMBER_IS_POSITIVE_NUMBER);
   }
 
   const parseNumber = parseInt(number, 10);
   if (parseNumber > 45 || parseNumber < 1) {
-    throw new Error(
-      '보너스 번호는 숫자는 최소 1이상 최대 45이하로만 구성되어야 합니다.',
-    );
+    throw new Error(ERROR_MESSAGE.BONUS_NUMBERS_IS_MIN_ONE_MAX_FORTY_FIVE);
   }
 };
 
