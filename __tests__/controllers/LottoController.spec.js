@@ -1,8 +1,12 @@
-import { Random } from '@woowacourse/mission-utils';
 import LottoController from '../../src/controllers/LottoController';
 import Lotto from '../../src/models/Lotto';
+import Prize from '../../src/models/Prize';
+import ResultChecker from '../../src/models/ResultChecker';
+import { Random } from '@woowacourse/mission-utils';
 
 jest.mock('../../src/models/Lotto');
+jest.mock('../../src/models/Prize');
+jest.mock('../../src/models/ResultChecker');
 jest.mock('@woowacourse/mission-utils');
 
 describe('controllers/LottoController', () => {
@@ -52,6 +56,20 @@ describe('controllers/LottoController', () => {
           expectedWinningNumbers,
         );
         expect(lottoController.getBonusNumber()).toBe(expectedBonus);
+      },
+    );
+  });
+
+  describe('parseWinningNumbers()', () => {
+    it.each([
+      ['1,2,3,4,5,6', [1, 2, 3, 4, 5, 6]],
+      ['10,20,30,40,41,42', [10, 20, 30, 40, 41, 42]],
+    ])(
+      'should parse winning numbers string %s to array %o',
+      (numbersString, expectedArray) => {
+        const parsedNumbers =
+          lottoController.parseWinningNumbers(numbersString);
+        expect(parsedNumbers).toEqual(expectedArray);
       },
     );
   });
