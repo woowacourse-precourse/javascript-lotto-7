@@ -1,6 +1,12 @@
 import Lotto from '../Lotto.js';
 import generateLottoNumbers from '../utils/generateRandomNumbers.js';
-import { RANK, PRIZE_KEY, INITIAL_STATISTICS } from '../constants/constants.js';
+import {
+  RANK,
+  PRIZE_KEY,
+  INITIAL_STATISTICS,
+  PRIZE_AMOUNT,
+  PRICE_PER_LOTTO,
+} from '../constants/constants.js';
 
 class LottoGame {
   #lottos;
@@ -46,6 +52,12 @@ class LottoGame {
       statistics[PRIZE_KEY.third_prize] += 1;
     if (matchingCount === RANK.fourth) statistics[PRIZE_KEY.fourth_prize] += 1;
     if (matchingCount === RANK.fifth) statistics[PRIZE_KEY.first_prize] += 1;
+  }
+
+  getTotalPrizeAmount(statistics) {
+    return Object.entries(statistics).reduce((acc, [prizeKey, count]) => {
+      return acc + PRIZE_AMOUNT[prizeKey] * count;
+    }, 0);
   }
 }
 
