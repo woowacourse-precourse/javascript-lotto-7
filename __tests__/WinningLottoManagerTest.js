@@ -44,4 +44,28 @@ describe('WinningLottoManager 테스트', () => {
       expect.stringContaining(ERROR_MESSAGE.notNumber),
     );
   });
+
+  test.each([
+    ['1,2,3,4,5,46'],
+    ['1,2,0,4,5,6'],
+    ['1,-1,3,4,5,6'],
+    ['50,2,3,4,5,6'],
+    ['-777,2,3,4,5,6'],
+  ])(
+    '지정 범위가 아닌 당첨 번호를 예외 처리하는지 테스트 (%s)',
+    async (inputs) => {
+      const VALID_NUMBERS = '1,2,3,4,5,6';
+      const ASKING_TIMES = 2;
+      const logSpy = getLogSpy();
+
+      mockQuestions([inputs, VALID_NUMBERS]);
+
+      await WinningLottoManager.selectWinningNumbers(inputs);
+
+      expect(selectSpy).toHaveBeenCalledTimes(ASKING_TIMES);
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining(ERROR_MESSAGE.notInRangeNumber),
+      );
+    },
+  );
 });
