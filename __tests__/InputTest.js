@@ -40,3 +40,32 @@ describe('InputHandler 테스트', () => {
     expect(bonusNumber).toBe(input);
   });
 });
+
+describe('구입 금액 예외처리 테스트', () => {
+  test('구입금액 입력이 천원 단위가 아닌 경우', async () => {
+    const input = '5500';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getBuyPrice()).rejects.toThrow(
+      ERROR_MESSAGE.BUY_PRICE_UNIT,
+    );
+  });
+
+  test('구입금액 입력이 숫자가 아닌 경우', async () => {
+    const input = 'abc';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getBuyPrice()).rejects.toThrow(
+      ERROR_MESSAGE.BUY_PRICE_TYPE,
+    );
+  });
+
+  test('구입금액 입력이 자연수가 아닌 경우', async () => {
+    const input = '-10000';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getBuyPrice()).rejects.toThrow(
+      ERROR_MESSAGE.BUY_PRICE_POSITIVE,
+    );
+  });
+});

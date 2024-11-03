@@ -4,7 +4,8 @@ import { INPUT_MESSAGE, ERROR_MESSAGE } from './lib/constant.js';
 class InputHandler {
   static async getBuyPrice() {
     const buyPrice = await Console.readLineAsync(INPUT_MESSAGE.BUY_PRICE);
-    this.#validateBuyPrice(buyPrice);
+    const parsedBuyPrice = parseInt(buyPrice, 10);
+    this.#validateBuyPrice(parsedBuyPrice);
     return buyPrice;
   }
 
@@ -21,9 +22,9 @@ class InputHandler {
   }
 
   static #validateBuyPrice(buyPrice) {
-    this.#validateBuyPriceUnit(buyPrice);
     this.#validateBuyPriceType(buyPrice);
     this.#validatePositiveNumber(buyPrice);
+    this.#validateBuyPriceUnit(buyPrice);
   }
 
   static #validateBuyPriceUnit(buyPrice) {
@@ -40,7 +41,7 @@ class InputHandler {
 
   static #validatePositiveNumber(number) {
     if (number <= 0) {
-      throw new Error(ERROR_MESSAGE.BUY_PRICE_UNIT);
+      throw new Error(ERROR_MESSAGE.BUY_PRICE_POSITIVE);
     }
   }
 }
