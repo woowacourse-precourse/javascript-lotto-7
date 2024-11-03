@@ -45,6 +45,14 @@ class App {
       const rank = lotto.matchRank(RANK_TABLE, winNumbers, readUserBonusNumber);
       if (rank) lottoResults[rank - 1][2] += 1;
     });
+
+    const totalMoney = lottoResults.reverse().reduce((acc, cur) => {
+      Console.print(`${cur[0]} (${cur[1].toLocaleString()}원) - ${cur[2]}개`);
+      const addMoney = acc + cur[1] * cur[2];
+      return addMoney;
+    }, 0);
+
+    Console.print(totalMoney);
   }
 }
 
