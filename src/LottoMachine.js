@@ -65,6 +65,9 @@ class LottoMachine {
   async #inputPurchaseAmount() {
     const amount =
       await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    if (!/^[0-9]+$/.test(amount)) {
+      throw new Error('[ERROR] 로또 구입금액은 숫자만 입력할 수 있습니다.');
+    }
     if (amount % 1000 !== 0) {
       throw new Error(
         '[ERROR] 로또 구입금액은 1000 원 단위로 입력해야 합니다.',

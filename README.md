@@ -130,6 +130,7 @@ class Lotto {
     - 제약조건)
       - 잘못된 입력 시 `[ERROR]` 메시지 출력
       - 1000 으로 나누어 떨어져야 함
+      - 숫자를 제외한 문자가 들어가는 경우
   - [x] 로또 생성 메서드
     - 제약조건)
       - `@woowacourse/mission-utils` 의`Random.pickUniqueNumbersInRange()` 사용
