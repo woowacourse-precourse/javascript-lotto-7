@@ -15,6 +15,6 @@ class BudgetManager {
   }
 
   calculateMaxLottos() {
-    return;
+    return this.#budget / this.#lottoPrice;
   }
 }
