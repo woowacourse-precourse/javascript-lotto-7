@@ -81,3 +81,42 @@ describe('올바른 당첨 번호 반환 테스트', () => {
     }).toThrow('[ERROR] 중복되는 번호가 존재합니다.');
   });
 });
+
+describe('올바른 보너스 번호 반환 테스트', () => {
+  let inputHandler;
+  beforeEach(() => {
+    inputHandler = new InputHandler();
+  });
+
+  test('사용자가 입력한 보너스 번호가 올바르면 정상적으로 값을 반환한다.', () => {
+    const bonusNumbers = inputHandler.getValidatedBonusNumbers(
+      '7',
+      [1, 2, 3, 4, 5, 6]
+    );
+    expect(bonusNumbers).toEqual(7);
+  });
+
+  test('사용자가 입력한 번호가 숫자가 아닌 경우 예외가 발생한다.', () => {
+    expect(() => {
+      inputHandler.getValidatedBonusNumbers('one', [1, 2, 3, 4, 5, 6]);
+    }).toThrow('[ERROR] 숫자로 입력해야 합니다.');
+  });
+
+  test('사용자가 입력한 번호가 양의 정수가 아닌 경우 예외가 발생한다. ', () => {
+    expect(() => {
+      inputHandler.getValidatedBonusNumbers('0.4', [1, 2, 3, 4, 5, 6]);
+    }).toThrow('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
+  });
+
+  test('사용자가 입력한 번호가 1과 45 사이 값이 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      inputHandler.getValidatedBonusNumbers('60');
+    }).toThrow('[ERROR] 모든 숫자는 1부터 45 사이여야 합니다.');
+  });
+
+  test('당첨 번호에서 입력한 보너스 번호와 중복되는 값이 존재하면 에러가 발생한다.', () => {
+    expect(() => {
+      inputHandler.getValidatedBonusNumbers('5', [1, 2, 3, 4, 5, 6]);
+    }).toThrow('[ERROR] 당첨번호와 중복되는 번호입니다.');
+  });
+});
