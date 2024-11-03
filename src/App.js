@@ -129,16 +129,16 @@ class App {
 
   validatePurchaseAmount(purchaseAmount) {
     if (purchaseAmount === 0) {
-      throw new Error("[ERROR]: 구입 금액은 0을 입력할 수 없습니다.");
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_ZERO);
     }
     if (purchaseAmount < 0) {
-      throw new Error("[ERROR]: 구입 금액은 음수를 입력할 수 없습니다.");
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_NEGATIVE);
     }
     if (purchaseAmount % 1000 !== 0 && purchaseAmount !== 0) {
-      throw new Error("[ERROR]: 구입 금액은 1,000원 단위로 입력 가능합니다.");
+      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
     }
     if (purchaseAmount === "") {
-      throw new Error("[ERROR]: 구입 금액에 빈 문자열을 입력할 수 없습니다.");
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_EMPTY);
     }
   }
 
