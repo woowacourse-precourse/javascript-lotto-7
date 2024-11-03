@@ -1,14 +1,5 @@
-import { Random } from '@woowacourse/mission-utils';
 import Lotto from '../models/Lotto.js';
-import { AMOUNT, NUMBER } from '../constants/constants.js';
-
-function generateLottoNumbers() {
-  return Random.pickUniqueNumbersInRange(
-    NUMBER.min_range,
-    NUMBER.max_range,
-    NUMBER.expected_length,
-  ).sort((a, b) => a - b);
-}
+import { AMOUNT } from '../constants/constants.js';
 
 class LottoController {
   #lottos = [];
@@ -17,15 +8,15 @@ class LottoController {
     const count = amount / AMOUNT.unit;
 
     for (let i = 0; i < count; i += 1) {
-      const numbers = generateLottoNumbers();
+      const numbers = Lotto.generateLottoNumbers();
       const lotto = new Lotto(numbers);
 
-      this.#lottos.push(lotto);
+      this.#lottos.push(lotto.getNumbers());
     }
   }
 
   getLottos() {
-    return this.#lottos.map((lotto) => lotto.getNumbers());
+    return this.#lottos;
   }
 }
 
