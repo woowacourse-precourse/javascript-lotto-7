@@ -1,5 +1,5 @@
 export const INPUT_MESSAGE = {
-  BUY_PRICE: '구입금액을 입력해 주세요. \n',
+  BUY_PRICE: '\n구입금액을 입력해 주세요. \n',
   WINNING_NUMBERS: '\n 당첨 번호를 입력해 주세요.\n',
   BONUS_NUMBER: '\n 보너스 번호를 입력해 주세요.\n',
 };

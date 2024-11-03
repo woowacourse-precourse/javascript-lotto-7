@@ -10,7 +10,7 @@ class LottoManager {
   }
 
   genenrateLotto(lottoCounts) {
-    Console.print(`\n${lottoCounts}개를 구매했습니다.`);
+    Console.print(`${lottoCounts}개를 구매했습니다.`);
 
     for (let i = 0; i < lottoCounts; i++) {
       const lotto = new Lotto(this.pickRandomNumbers());
