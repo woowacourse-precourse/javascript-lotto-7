@@ -3,6 +3,7 @@ import generateLottoByAmount from "../src/lottoUtils/generateLottoByAmount";
 import Lotto from "../src/Lotto";
 import matchLottoNumbers from "../src/lottoUtils/matchLottoNumbers";
 import getLottoResults from "../src/lottoUtils/getLottoResults";
+import calculateReturnRate from "../src/lottoUtils/calculateReturnRate";
 
 describe("lotto utils 함수 테스트", () => {
   test("로또 생성 및 반환", () => {
@@ -97,5 +98,21 @@ describe("lotto utils 함수 테스트", () => {
       4: { prize: 50000, count: 1 },
       5: { prize: 5000, count: 1 },
     });
+  });
+
+  test("수익률 계산", () => {
+    const purchaseAmount = 10000;
+    const lottoResults = {
+      0: { prize: 0, count: 1 },
+      1: { prize: 2000000000, count: 0 },
+      2: { prize: 30000000, count: 1 },
+      3: { prize: 1500000, count: 2 },
+      4: { prize: 50000, count: 3 },
+      5: { prize: 5000, count: 4 },
+    };
+    const expectedReturnRate = 3317;
+    const returnRate = calculateReturnRate(purchaseAmount, lottoResults);
+
+    expect(returnRate).toBe(expectedReturnRate);
   });
 });
