@@ -15,13 +15,7 @@ class App {
 
     await this.printLottoNumbers(userLottoNumbers, lottoCount);
 
-    const inputWinningNumbers = await Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요.\n"
-    );
-
-    const inputWinningNumber = inputWinningNumbers.split(",").map(Number);
-    const winningNumber = new Lotto(inputWinningNumber);
-
+    const winningNumber = await this.getWinningNumbers();
     const inputBonusNumber = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
@@ -52,6 +46,13 @@ class App {
         .map((lotto) => `[ ${lotto.getNumbers().join(", ")} ]`)
         .join("\n")
     );
+  }
+  async getWinningNumbers() {
+    const inputWinningNumbers = await Console.readLineAsync(
+      "\n당첨 번호를 입력해 주세요.\n"
+    );
+    const inputWinningNumber = inputWinningNumbers.split(",").map(Number);
+    return new Lotto(inputWinningNumber);
   }
 
   generateLotto(lottoCount) {
