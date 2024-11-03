@@ -1,4 +1,4 @@
-import { basicValidation } from '../Validation.js';
+import { basicValidation } from './Validation.js';
 
 class User {
   #money;

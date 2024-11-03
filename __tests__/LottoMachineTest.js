@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import LOTTO_MACHINE from '../src/Domain/LottoMachine.js';
+import LOTTO_MACHINE from '../src/LottoMachine.js';
 import Lotto from '../src/Lotto.js';
 
 const mockRandoms = (numbers) => {

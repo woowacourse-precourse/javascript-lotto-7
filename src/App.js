@@ -1,7 +1,7 @@
 import Input from './view/Input.js';
 import Output from './view/Output.js';
-import User from './Domain/user.js';
-import LOTTO_MACHINE from './Domain/LottoMachine.js';
+import User from './User.js';
+import LOTTO_MACHINE from './LottoMachine.js';
 
 class App {
   #input;

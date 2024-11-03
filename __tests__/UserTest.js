@@ -1,4 +1,4 @@
-import User from '../src/Domain/user';
+import User from '../src/User.js';
 
 describe('구입 금액 유효성 검사', () => {
   test('구입 금액이 1000원 단위가 아닐 시 예외 발생', () => {

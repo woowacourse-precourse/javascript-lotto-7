@@ -1,15 +1,15 @@
 import { Random } from '@woowacourse/mission-utils';
-import Lotto from '../Lotto.js';
+import Lotto from './Lotto.js';
 import {
   basicValidation,
   winningNumberValidation,
   bonusNumberValidation,
-} from '../Validation.js';
+} from './Validation.js';
 import {
   LOTTO_NUMBER_STANDARD,
   LOTTO_PRICE_UNIT,
   PRIZE,
-} from '../Constants/Constant.js';
+} from './Constants/Constant.js';
 
 class LOTTO_MACHINE {
   #winningNumbers;
