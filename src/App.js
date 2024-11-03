@@ -19,6 +19,11 @@ class App {
 
       const lottoInput = await getInput(INPUT.LOTTO_NUMBER);
       const lottoNumber = new Lotto(lottoInput);
+
+      const bonusInput = await getInput(INPUT.BONUS);
+      const bonus = new Bonus(bonusInput, lottoNumber.value);
+
+      getOutput(`\n` + RATE + `\n` + SECTION);
     } catch (error) {
       console.log("err", error);
     }
