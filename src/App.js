@@ -57,6 +57,7 @@ class App {
         VALID_SECOND_INPUT = false;
       const USER_DRAW = await userDraw();
       let USER_LOTTO = new Lotto(USER_DRAW);
+      MissionUtils.Console.print("");
       do {
         try {
           USER_SECOND_INPUT = await getBonusDraw();
@@ -79,32 +80,57 @@ class App {
       return INPUT;
     }
 
-    async function userPurchase(USER_NUMBERS) {
-      let USER_THIRD_INPUT, PURCHASE_COMPLETE;
-      let VALID_THIRD_INPUT = false;
+    async function userPurchase() {
+      let USER_INPUT, PURCHASE_COMPLETE;
+      let VALID_INPUT = false;
       do {
         try {
-          USER_THIRD_INPUT = await getUserPurchase();
-          PURCHASE_COMPLETE = new Lotto(USER_NUMBERS[0]).checkPurchase(
-            USER_THIRD_INPUT
-          );
-          VALID_THIRD_INPUT = true;
-        } catch (THIRD_INPUT_ERROR) {
-          MissionUtils.Console.print(THIRD_INPUT_ERROR);
+          USER_INPUT = await getUserPurchase();
+          checkPurchase(USER_INPUT);
+          VALID_INPUT = true;
+        } catch (INPUT_ERROR) {
+          MissionUtils.Console.print(INPUT_ERROR);
         }
-      } while (!VALID_THIRD_INPUT);
-      return USER_THIRD_INPUT;
+      } while (!VALID_INPUT);
+      return USER_INPUT;
+    }
+
+    function checkPurchase(purchaseAmount) {
+      if (isNaN(purchaseAmount) | (purchaseAmount < 0))
+        throw new Error("[ERROR] 숫자만 입력하세요.");
+      const change = "" + parseInt(purchaseAmount / 1000) * 1000;
+      const orig = "" + purchaseAmount;
+      if (purchaseAmount < 1000)
+        throw new Error("[ERROR] 한 로또 당 1000원 입니다.");
+      if (change != orig) throw new Error("[ERROR] 잔돈은 계산하지 않습니다.");
+    }
+
+    function generateLotto(purchase) {
+      let LOTTO_RESULTS = [];
+      let LOTTO_RESULT;
+      for (
+        let COUNT = 0;
+        COUNT < parseInt(parseInt(purchase) / 1000);
+        COUNT++
+      ) {
+        LOTTO_RESULT = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+        MissionUtils.Console.print(LOTTO_RESULT);
+        LOTTO_RESULTS.push(LOTTO_RESULT);
+      }
+      return LOTTO_RESULTS;
     }
 
     async function main() {
+      const USER_PURCHASE = await userPurchase();
+      MissionUtils.Console.print("");
+      const LOTTO_RESULTS = generateLotto(USER_PURCHASE);
+      MissionUtils.Console.print("");
       const USER_INPUT = await userInput();
       const GAME_START = new Lotto(USER_INPUT[0]);
       const USER_NUMBERS = GAME_START.addBonusDraw(
         USER_INPUT[0],
         USER_INPUT[1]
       );
-      const USER_PURCHASE = await userPurchase(USER_INPUT);
-      const LOTTO_RESULTS = GAME_START.generateLotto(USER_PURCHASE);
     }
 
     main();

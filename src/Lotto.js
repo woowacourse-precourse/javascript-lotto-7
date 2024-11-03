@@ -50,28 +50,6 @@ class Lotto {
     if (this.#noRepeats(TEMP_NUMBERS)) this.#numbers = TEMP_NUMBERS;
     return [draw, bonus];
   }
-
-  checkPurchase(purchaseAmount) {
-    if (isNaN(purchaseAmount) | (purchaseAmount < 0))
-      throw new Error("[ERROR] 숫자만 입력하세요.");
-    const change = "" + parseInt(purchaseAmount / 1000) * 1000;
-    const orig = "" + purchaseAmount;
-    if (purchaseAmount < 1000)
-      throw new Error("[ERROR] 한 로또 당 1000원 입니다.");
-    if (change != orig) throw new Error("[ERROR] 잔돈은 계산하지 않습니다.");
-    return purchaseAmount;
-  }
-
-  generateLotto(purchase) {
-    let LOTTO_RESULTS = [];
-    let LOTTO_RESULT;
-    for (let COUNT = 0; COUNT < parseInt(parseInt(purchase) / 1000); COUNT++) {
-      LOTTO_RESULT = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-      MissionUtils.Console.print(LOTTO_RESULT);
-      LOTTO_RESULTS.push(LOTTO_RESULT);
-    }
-    return LOTTO_RESULTS;
-  }
 }
 
 export default Lotto;
