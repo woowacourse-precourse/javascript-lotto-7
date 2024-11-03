@@ -1,8 +1,3 @@
-import {
-  validateWinningNumber,
-  validateBonus,
-  checkDuplicateNumber,
-} from '../utils/validation.js';
 import LottoResult from '../models/LottoResult.js';
 
 class LottoDrawingMachine {
@@ -11,9 +6,6 @@ class LottoDrawingMachine {
   #lottoRepository;
 
   constructor(winningNumber, bonus, lottoRepository) {
-    validateWinningNumber(winningNumber);
-    validateBonus(bonus);
-    checkDuplicateNumber(winningNumber, bonus);
     this.#winningNumberArray = winningNumber.split(',').map(Number);
     this.#bonusNumber = Number(bonus);
     this.#lottoRepository = lottoRepository.getLottoArray();
@@ -22,10 +14,10 @@ class LottoDrawingMachine {
   drawLotto() {
     const lottoResult = new LottoResult();
     this.#lottoRepository.forEach((lottoObject) => {
-        const lotto = lottoObject.getLotto();
-        const numberOfWinning = this.#checkWinningCount(lotto);
-        const isBonusMatched = this.#checkBonusMatch(lotto);
-        this.#updateLottoResult(numberOfWinning, isBonusMatched, lottoResult);
+      const lotto = lottoObject.getLotto();
+      const numberOfWinning = this.#checkWinningCount(lotto);
+      const isBonusMatched = this.#checkBonusMatch(lotto);
+      this.#updateLottoResult(numberOfWinning, isBonusMatched, lottoResult);
     });
     return lottoResult;
   }
