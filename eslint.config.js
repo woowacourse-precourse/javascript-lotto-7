@@ -52,14 +52,6 @@ export default [
       'max-lines-per-function': ['error', 15],
       'operator-linebreak': ['error', 'after'],
       'no-unused-expressions': ['error', { allowTernary: true }],
-      'import/extensions': [
-        'error',
-        'ignorePackages',
-        {
-          js: 'never',
-          jsx: 'never',
-        },
-      ],
     },
     settings: {
       'import/resolver': {
