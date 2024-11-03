@@ -3,7 +3,9 @@ import InputHandler from "./InputHandler.js";
 import {
   LOTTO_PRICE, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_COUNT,
-  PRIZE_CONDITION
+  PRIZE_CONDITION,
+  PROFIT_ROUND_DECIMAL_PLACE,
+  PRIZE_AMOUNT
 } from "./lottoConstants.js";
 import OutputHandler from "./OutputHandler.js";
 import Lotto from './Lotto.js';
@@ -31,6 +33,8 @@ class LottoManager {
       const bonusNumber = await this.#createBonusNumber(winningLotto);
       const winningResult = this.#checkWinningRank(lottoTickets, winningLotto, bonusNumber);
       this.#outputHandler.printWinningResult(winningResult);
+
+      const profitRate = this.#calculateProfitRate(winningResult, amount);
     } catch (error) {
       throw error;
     }
@@ -122,6 +126,17 @@ class LottoManager {
     const winningNumbers = winningLotto.getNumbers();
 
     return ticketNumbers.filter(number => winningNumbers.includes(number)).length;
+  }
+
+  #calculateProfitRate(winningResult, amount) {
+    const totalPrize =
+      (winningResult.first * PRIZE_AMOUNT.FIRST) +
+      (winningResult.second * PRIZE_AMOUNT.SECOND) +
+      (winningResult.third * PRIZE_AMOUNT.THIRD) +
+      (winningResult.fourth * PRIZE_AMOUNT.FOURTH) +
+      (winningResult.fifth * PRIZE_AMOUNT.FIFTH);
+    const profitRate = ((totalPrize / amount) * 100).toFixed(PROFIT_ROUND_DECIMAL_PLACE);
+    return profitRate;
   }
 }
 
