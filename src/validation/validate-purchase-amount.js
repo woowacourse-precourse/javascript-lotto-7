@@ -1,6 +1,6 @@
+import { LOTTO_PRICE } from '../constant/index.js';
 import throwError from '../util/throw-error.js';
 import runValidators from './run-validator.js';
-const LOTTO_PRICE = 1000;
 
 export const ERROR_MESSAGES = {
   EMPTY_INPUT: '구입 금액을 입력해주세요.',
