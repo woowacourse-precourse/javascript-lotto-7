@@ -27,8 +27,10 @@ class LottoManager {
       const amount = await this.#buyLotto();
       const lottoCount = this.#calculateLottoCount(amount);
       this.#outputHandler.printLottoCount(lottoCount);
+
       const lottoTickets = this.#generateLottoTickets(lottoCount);
       this.#outputHandler.printLottoTickets(lottoTickets);
+
       const winningLotto = await this.#createWinningLotto();
       const bonusNumber = await this.#createBonusNumber(winningLotto);
       const winningResult = this.#checkWinningRank(lottoTickets, winningLotto, bonusNumber);
