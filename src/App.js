@@ -6,6 +6,17 @@ class App {
       throw new Error("[ERROR] 1000원 단위로 입력해주세요.");
     const lottoCount = parseInt(money / 1000);
     Console.print(`${lottoCount}개를 구매했습니다.`);
+
+    const lottoAnswer = await Console.readLineAsync(
+      "당첨 번호를 입력해 주세요."
+    );
+    const lottoNumbers = lottoAnswer.split(",").map((num) => parseInt(num));
+    Console.print(lottoNumbers);
+
+    const bonusNumber = await Console.readLineAsync(
+      "보너스 번호를 입력해 주세요."
+    );
+    Console.print(bonusNumber);
   }
 }
 
