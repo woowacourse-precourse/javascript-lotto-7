@@ -13,6 +13,19 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  confirmMatches(winNum) {
+    let matches = 0;
+    this.#numbers.forEach((number) => {
+      if (winNum.includes(number)) {
+        matches += 1;
+      }
+      return matches;
+    });
+  }
+  confirmBonus(bonusNum) {
+    const match = this.#numbers.includes(bonusNum);
+    return match;
+  }
 }
 
 export default Lotto;
