@@ -18,23 +18,16 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "transformIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "extensionsToTreatAsEsm": [
-      ".js"
+      "\\.js$": "babel-jest"
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
     ]
   },
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-    "ecmaVersion": 2022,
-    "sourceType": "module",
-    "requireConfigFile": false
-  },
   "engines": {
-    "npm": ">=8.0.0",
-    "node": ">=14.17.0"
+    "npm": ">=10.8.2",
+    "node": ">=20.17.0"
   }
 }
