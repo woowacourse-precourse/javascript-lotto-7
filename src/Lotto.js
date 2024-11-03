@@ -18,6 +18,7 @@ class Lotto {
   async InputCost() {
     const USER_COST = await Console.readLineAsync("구입 금액을 입력해주세요: ");
     const LOTTO_CNT = Math.floor(Number(USER_COST) / 1000);
+    Console.print(`\n${LOTTO_CNT}개를 구매했습니다.`);
     return LOTTO_CNT;
   }
 
@@ -27,7 +28,22 @@ class Lotto {
     );
     return Number(BONUS_NUM);
   }
-  GenerateLottoResult() {}
+
+  async GenerateLottoResult() {
+    const LOTTO_CNT = await this.InputCost(); // 구매 개수 가져오기
+    const USER_LOTTO_LIST = [];
+
+    for (let i = 0; i < LOTTO_CNT; i++) {
+      const RANDOM_LOTTO = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+        (a, b) => a - b
+      );
+
+      // 유효성 검사 부분
+      const lotto = new Lotto(RANDOM_LOTTO);
+      USER_LOTTO_LIST.push(lotto.#numbers);
+      Console.print(lotto.#numbers);
+    }
+  }
 }
 
 export default Lotto;
