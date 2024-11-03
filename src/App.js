@@ -1,6 +1,7 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGE, ERROR_MESSAGE } from './constants/message.js';
+import { INPUT_MESSAGE, PRINT_MESSAGE, ERROR_MESSAGE } from './constants/message.js';
 import { LOTTO } from './constants/lotto.js';
+import { BASE_LOCALE } from './constants/locale.js';
 import Lotto from './Lotto.js';
 import Validate from './Validate.js';
 import Convert from './Convert.js';
@@ -13,6 +14,7 @@ class App {
     const bonusNumber = await this.userBonusNumberInput(winningNumbers);
 
     const countedWinningLottos = this.countWinningLottos(lottos, winningNumbers, bonusNumber);
+    this.#printLottosResult(countedWinningLottos);
   }
 
   async userAmountInput() {
@@ -138,12 +140,39 @@ class App {
     Console.print(lottoNumbersMessage);
   }
 
+  #printLottosResult(countedWinningLottos) {
+    const lottoResultInitMessage = this.#lottoResultInitMessage();
+
+    Console.print(lottoResultInitMessage);
+
+    countedWinningLottos.forEach(countedWinningLotto => this.#printLottoResult(countedWinningLotto));
+  }
+
+  #printLottoResult(countedWinningLotto) {
+    const lottoResultMessage = this.#lottoResultMessage(countedWinningLotto);
+
+    Console.print(lottoResultMessage);
+  }
+
   #buyLottoCountMessage(lottoCount) {
     return `\n${lottoCount}개를 구매했습니다.`;
   }
 
   #lottoNumbersMessage(lottoNumbers) {
     return `[${lottoNumbers.join(', ')}]`;
+  }
+
+  #lottoResultInitMessage() {
+    return `\n${PRINT_MESSAGE.LOTTO_RESULT_INIT}\n---`;
+  }
+
+  #lottoResultMessage(countedWinningLotto) {
+    const { basicCount, bonusCount, prize, count } = countedWinningLotto;
+    const convertedPrize = prize.toLocaleString(BASE_LOCALE);
+
+    if (bonusCount > 0) return `${basicCount}개 일치, 보너스 볼 일치 (${convertedPrize}원) - ${count}개`;
+
+    return `${basicCount}개 일치 (${convertedPrize}원) - ${count}개`;
   }
 
   #validateAmountInput(amountInput) {
