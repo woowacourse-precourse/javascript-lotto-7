@@ -1,4 +1,4 @@
-import { RESULT } from './constants/Constants.js';
+import { RESULT } from '../constants/Constants.js';
 import JackpotController from './JackpotController.js';
 import TicketController from './Ticket.js';
 import { Console } from '@woowacourse/mission-utils';

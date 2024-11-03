@@ -1,5 +1,6 @@
-import Jackpot from './Jackpot.js';
-import Ticket from './Ticket.js';
+import Jackpot from './modules/Jackpot.js';
+import PracticeMatch from './Prac_Match.js';
+import Ticket from './modules/Ticket.js';
 
 class App {
   async run() {
@@ -8,6 +9,10 @@ class App {
 
     const jackpot = new Jackpot();
     await jackpot.startGetJackpot();
+
+    const match = new PracticeMatch();
+    match.getLottos();
+    match.matchLottos();
   }
 }
 

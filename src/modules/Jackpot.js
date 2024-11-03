@@ -1,11 +1,11 @@
 // 사용자에게 로또 당첨 번호를 입력받는다.
 
 import { Console } from '@woowacourse/mission-utils';
-import { INPUT } from './constants/Constants.js';
-import Validators from './utils/Validation.js';
-import Lotto from './Lotto.js';
+import { INPUT } from '../constants/Constants.js';
+import Validators from '../utils/Validation.js';
+import Lotto from '../Lotto.js';
 
-class PracticeJackpot {
+class Jackpot {
   #jackpot;
   #bonus;
 
@@ -23,6 +23,10 @@ class PracticeJackpot {
   validateJackpot(array) {
     const check = new Lotto(array);
     return check;
+  }
+
+  getJackpot() {
+    return this.#jackpot;
   }
 
   async inputBonus() {
@@ -43,4 +47,4 @@ class PracticeJackpot {
   }
 }
 
-export default PracticeJackpot;
+export default Jackpot;
