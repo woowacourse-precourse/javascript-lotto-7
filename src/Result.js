@@ -50,6 +50,14 @@ class Result {
   }
 
   rank(numbers, matchNumLen, bonusNumber) {
+    if (matchNumLen === 5 && numbers.includes(bonusNumber)) {
+      this.#second ++;
+    } else {
+      this.updateRank(matchNumLen)
+    }
+  }
+
+  updateRank(matchNumLen) {
     switch (matchNumLen) {
       case 3:
         this.#fifth ++;
@@ -58,10 +66,6 @@ class Result {
         this.#fourth ++;
         break;
       case 5:
-        if (numbers.includes(bonusNumber)) {
-          this.#second ++;
-          break;
-        }
         this.#third ++;
         break;
       case 6:
