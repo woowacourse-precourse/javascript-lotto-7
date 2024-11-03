@@ -13,7 +13,7 @@ const INPUT_MESSAGES = Object.freeze({
 });
 
 const OUTPUT_MESSAGES = Object.freeze({
-  purchaseAmount: (amount) => `\n${amount}개를 구매했습니다.`,
+  purchaseAmount: (tickets) => `\n${tickets}개를 구매했습니다.`,
 });
 
 const ERROR_MESSAGES = Object.freeze({
