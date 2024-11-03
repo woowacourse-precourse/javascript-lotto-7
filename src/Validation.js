@@ -1,16 +1,10 @@
 import Logic from './Logic.js';
-
-const standard = {
-  LOTTO_NUM_LENGTH: 6,
-  MIN_LOTTO_NUM: 1,
-  MAX_LOTTO_NUM: 45,
-  PRICE_OF_LOTTO: 1000,
-};
+import { Standard } from './Enum.js';
 
 class Validation {
   static validatePurchaseAmount(input) {
     const num = Number(input);
-    if (!isNaN(num) && num % standard.PRICE_OF_LOTTO === 0 && num > 0)
+    if (!isNaN(num) && num % Standard.PRICE_OF_LOTTO === 0 && num > 0)
       return true;
   }
 
@@ -18,11 +12,11 @@ class Validation {
     const numbers = Logic.parseWinningNumbers(input);
     if (
       !numbers.some((x) => isNaN(x)) &&
-      numbers.length === standard.LOTTO_NUM_LENGTH &&
+      numbers.length === Standard.LOTTO_NUM_LENGTH &&
       numbers.every(
         (x) =>
-          x >= standard.MIN_LOTTO_NUM &&
-          x <= standard.MAX_LOTTO_NUM &&
+          x >= Standard.MIN_LOTTO_NUM &&
+          x <= Standard.MAX_LOTTO_NUM &&
           new Set(numbers).size === 6
       )
     )
@@ -33,8 +27,8 @@ class Validation {
     const number = Number(input);
     if (
       !isNaN(number) &&
-      number >= standard.MIN_LOTTO_NUM &&
-      number <= standard.MAX_LOTTO_NUM &&
+      number >= Standard.MIN_LOTTO_NUM &&
+      number <= Standard.MAX_LOTTO_NUM &&
       !lotto.getLottoNumber().some((e) => e === number)
     )
       return true;
