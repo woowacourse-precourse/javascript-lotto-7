@@ -48,4 +48,24 @@ describe("WinLotto 클래스 테스트", () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
+  test("수익률 계산 테스트", () => {
+    const purchasedLotto = [
+      [1, 2, 3, 4, 5, 6], // 6개 일치
+      [1, 2, 3, 4, 5, 7], // 5개 일치 + 보너스
+      [1, 2, 3, 4, 5, 8], // 5개 일치
+      [1, 2, 3, 4, 9, 10], // 4개 일치
+      [1, 2, 3, 11, 12, 13], // 3개 일치
+    ];
+    const winningLotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    const bonusNumber = 7;
+
+    const logSpy = getLogSpy();
+    new WinLotto(purchasedLotto, winningLotto, bonusNumber);
+
+    const totalPrize = 2000000000 + 30000000 + 1500000 + 50000 + 5000;
+    const purchaseAmount = purchasedLotto.length * 1000;
+    const expectedProfitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(`총 수익률은 ${expectedProfitRate}%입니다.`));
+  });
 });
