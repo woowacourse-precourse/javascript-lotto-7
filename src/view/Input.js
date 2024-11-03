@@ -2,7 +2,12 @@ import { Console } from '@woowacourse/mission-utils';
 import { Exception } from '../Utils.js';
 
 class Input {
-  static async readPurchaseAmount() {}
+  static async readPurchaseAmount() {
+    const input = await Input.#readLine('구입금액을 입력해 주세요.');
+    const amount = Input.#convertStringToNumber(input);
+
+    return amount;
+  }
 
   static async readWinningNumbers() {}
 
@@ -18,6 +23,11 @@ class Input {
     }
 
     return input;
+  }
+
+  /** @param {string} value */
+  static #convertStringToNumber(value) {
+    return Number(value.trim());
   }
 }
 
