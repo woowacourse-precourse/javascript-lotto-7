@@ -1,4 +1,5 @@
 import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
+import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class LottoWinner {
   #numbers;
@@ -32,13 +33,13 @@ class LottoWinner {
   }
 
   #validateNumberIsSix(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO_SETTINGS.numberLength) {
       throw new Error(LOTTO_MESSAGES.error.numberCountNotSix);
     }
   }
 
   #validateIsDuplicate(input) {
-    if (input.length > 1) {
+    if (input.length > LOTTO_SETTINGS.minNumber) {
       throw new Error(LOTTO_MESSAGES.error.duplicatedNumber);
     }
   }

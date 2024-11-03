@@ -4,6 +4,7 @@ import OutputView from "../view/OutputView.js";
 import Utils from "../Utils.js";
 import LottoWinner from "./LottoWinner.js";
 import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
+import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class LottoGame {
   #lotto = [];
@@ -18,7 +19,7 @@ class LottoGame {
     this.validatePrice(prise);
     this.validateParsePrice(parsePrice);
 
-    const getLottoCount = (number) => number / 1000;
+    const getLottoCount = (number) => number / LOTTO_SETTINGS.minimumPrice;
     const lottoCount = getLottoCount(parsePrice);
 
     await this.#generateLotto(lottoCount);
@@ -45,7 +46,9 @@ class LottoGame {
   }
 
   #getRandomLottoNumber() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO_SETTINGS.minNumber, LOTTO_SETTINGS.maxNumber, LOTTO_SETTINGS.numberLength
+    );
   }
 
   #getSortNumber(array) {
@@ -69,13 +72,13 @@ class LottoGame {
   }
 
   #validateIsOverThousand(input) {
-    if (input < 1000) {
+    if (input < LOTTO_SETTINGS.minimumPrice) {
       throw new Error(LOTTO_MESSAGES.error.priceUnderThousands);
     }
   }
 
   #validateIsMultiplesOfThousand(input) {
-    if (input % 1000 !== 0) {
+    if (input % LOTTO_SETTINGS.minimumPrice !== 0) {
       throw new Error(LOTTO_MESSAGES.error.priceNotMultipleOfThousands);
     }
   }
@@ -88,7 +91,7 @@ class LottoGame {
 
   #validateNumber(trimLotto) {
     this.#validateLottoNumber(trimLotto);
-    trimLotto.forEach((number) => this.#validateIsInteger(number))
+    this.#validateNumberIsInteger(trimLotto);
   };
 
   #validateBonusNumber(bonusNumber) {
@@ -97,7 +100,7 @@ class LottoGame {
   };
 
   #validateLottoNumber(input) {
-    if (input.length !== 6) {
+    if (input.length !== LOTTO_SETTINGS.numberLength) {
       throw new Error(LOTTO_MESSAGES.error.numberCountNotSix);
     }
   }
