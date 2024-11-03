@@ -52,6 +52,7 @@ export const RANK_KEYS = {
 };
 
 export const LOTTO_REWARD = {
+  [RANK_KEYS.NONE]: { prize: 0, label: '낙첨', key: 0 },
   [RANK_KEYS.THREE_MATCH]: {
     prize: 5000,
     label: '3개 일치 (5,000원)',

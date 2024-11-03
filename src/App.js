@@ -1,7 +1,12 @@
 import LottoValidator from './controllers/LottoValidator.js';
 import PurchaseValidator from './controllers/PurchaseValidator.js';
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGES } from './utils/constants.js';
+import {
+  MESSAGES,
+  LOTTO_REWARD,
+  GAME_SETTINGS,
+  RANK_KEYS,
+} from './utils/constants.js';
 import LottoMatcher from './controllers/LottoMatcher.js';
 import LottoIssuer from './controllers/LottoIssuer.js';
 import ProfitCalculator from './controllers/ProfitCalculator.js';
@@ -65,6 +70,7 @@ class App {
 
   #displayResults(rankCounts) {
     for (const [key, value] of Object.entries(LOTTO_REWARD)) {
+      if (key === RANK_KEYS.NONE) continue;
       Console.print(
         `${value.label} - ${rankCounts[key] || GAME_SETTINGS.ZERO}개`
       );

@@ -1,4 +1,4 @@
-import { GAME_SETTINGS, RANK_KEYS, MATCH_COUNT } from '../utils/constants.js';
+import { GAME_SETTINGS, RANK_KEYS } from '../utils/constants.js';
 import Lotto from './Lotto.js';
 
 class LottoMatcher {
@@ -47,7 +47,7 @@ class LottoMatcher {
     matchNumbersArray.forEach((matchCount, index) => {
       const rewardKey = this.#REWARDS[matchCount];
 
-      const bonusMatch = this.#checkBonusMatch(lottoTickets[index]);
+      const bonusMatch = this.#checkBonusMatch(this.#tickets[index]);
 
       if (rewardKey === RANK_KEYS.FIVE_MATCH && bonusMatch) {
         rankCounts[RANK_KEYS.FIVE_WITH_BONUS_MATCH]++;
