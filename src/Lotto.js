@@ -1,3 +1,8 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+const LOTTO_NUMBER_MIN = 1;
+const LOTTO_NUMBER_MAX = 45;
+const LOTTO_NUMBER_COUNT = 6;
+
 class Lotto {
   #numbers;
 
@@ -12,7 +17,17 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
+
+  static generateRandomNumbers() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBER_MIN,
+      LOTTO_NUMBER_MAX,
+      LOTTO_NUMBER_COUNT
+    ).sort((a, b) => a - b);
+  }
 }
 
 export default Lotto;
