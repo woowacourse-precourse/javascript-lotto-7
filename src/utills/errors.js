@@ -1,6 +1,8 @@
 const ERROR_MESSAGES = {
-  PURCHASE_AMOUNT: {
-    INVALID_AMOUNT: '[ERROR] 구매 금액은 1000원 단위로 입력되어야 합니다.',
+  INPUT: {
+    EMPTY_INPUT: '[ERROR] 값이 입력되지 않았습니다.',
+    NOT_A_NUMBER: '[ERROR] 구입금액은 숫자로 입력되어야 합니다.',
+    INVALID_AMOUNT: '[ERROR] 구입금액은 1000원 단위로 입력되어야 합니다.',
   },
 
   LOTTO: {

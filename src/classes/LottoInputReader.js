@@ -1,10 +1,15 @@
 import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import ERROR_MESSAGES from '../utills/errors.js';
 
 class LottoInputReader {
   static async readLottoPurchaseAmount() {
     const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    this.#validateInputNotEmpty(input);
+
     const lottoPurchaseAmount = Number(input);
+    this.#validatePurchaseAmountIsNumber(lottoPurchaseAmount);
+    this.#validatePurchaseAmountUnit(lottoPurchaseAmount);
 
     return lottoPurchaseAmount;
   }
@@ -28,6 +33,24 @@ class LottoInputReader {
     const bonusNumber = Number(input);
 
     return bonusNumber;
+  }
+
+  static #validateInputNotEmpty(input) {
+    if (!input) {
+      throw new Error(ERROR_MESSAGES.INPUT.EMPTY_INPUT);
+    }
+  }
+
+  static #validatePurchaseAmountIsNumber(purchaseAmount) {
+    if (!Number.isInteger(purchaseAmount)) {
+      throw new Error(ERROR_MESSAGES.INPUT.NOT_A_NUMBER);
+    }
+  }
+
+  static #validatePurchaseAmountUnit(purchaseAmount) {
+    if (purchaseAmount % 1000) {
+      throw new Error(ERROR_MESSAGES.INPUT.INVALID_AMOUNT);
+    }
   }
 }
 
