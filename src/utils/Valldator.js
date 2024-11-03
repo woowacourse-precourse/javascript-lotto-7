@@ -36,6 +36,11 @@ class Validator {
     if (value.length != standard)
       throw new Error(`${ERROR_PREFIX} 입력받은 데이터의 개수가 적절하지 않습니다.`);
   }
+
+  static isNumberIsDividable(operator, operand = SERVICE_CONSTANTS.standardUnitAmount) {
+    if (operator % operand)
+      throw new Error(`${ERROR_PREFIX} 입력값은(${operator})는 ${operand}로 나누어지지 않습니다.`);
+  }
 }
 
 export default Validator;
