@@ -53,6 +53,9 @@ class App {
       if (typeof Number(x) === 'number' && !(x >= 1 && x <= 45)) {
         throw new Error('[ERROR] 당첨 번호는 1 ~ 45 사이의 숫자여야 합니다.');
       }
+      if (winningNumbers.length !== new Set(winningNumbers).size) {
+        throw new Error('[ERROR] 당첨 번호는 중복되지 않아야합니다.');
+      }
     });
 
     const bonusNumber = Number(
