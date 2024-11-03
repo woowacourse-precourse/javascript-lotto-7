@@ -1,3 +1,6 @@
+import validation from './validation.js';
+import { NUM } from './constants/index.js';
+
 class Lotto {
   #numbers;
 
@@ -7,12 +10,64 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+    const validateCondition = Object.values(validation.winningNumber);
+    validateCondition.forEach((condition) => {
+      condition(numbers);
+    });
+  }
+  /**
+   *
+   * @param {Array<Array<number>>} myLotto
+   * @param {string} bonusNumber
+   */
+  checkWinning(myLotto, bonusNumber) {
+    let winningResult = Array.from({ length: 5 }).fill(0);
+    myLotto.forEach((lotto) => {
+      winningResult = this.#checkWinningCnt(
+        this.#compareLottoNumber(lotto, bonusNumber),
+        winningResult,
+      );
+    });
+    return winningResult;
   }
 
-  // TODO: 추가 기능 구현
+  #compareLottoNumber(lotto, bonusNumber) {
+    const winning = {
+      winningCnt: 0,
+      bonus: false,
+    };
+    lotto.forEach((number) => {
+      if (this.#numbers.indexOf(number.toString()) >= 0)
+        winning.winningCnt += 1;
+    });
+
+    if (lotto.indexOf(Number(bonusNumber)) >= 0) winning.bonus = true;
+    return winning;
+  }
+
+  #checkWinningCnt(winning, winningResult) {
+    if (winning.winningCnt - NUM.MINIMUM_WINNING_CNT >= 0) {
+      if (winning.winningCnt - NUM.MINIMUM_WINNING_CNT === 2) {
+        winningResult[this.#checkWinningBonusNumber(winning.bonus)] += 1;
+        return winningResult;
+      }
+      winningResult[winning.winningCnt - NUM.MINIMUM_WINNING_CNT] += 1;
+    }
+    return winningResult;
+  }
+
+  #checkWinningBonusNumber(bonusBoolean) {
+    if (bonusBoolean) return 3;
+    return 2;
+  }
+
+  // calculateReturn(winningResult) {
+  //   const winningAmount = NUM.WINNING_AMOUNT;
+
+  //   for (const winning of winningResult) {
+  //     if (winning.winningCnt < NUM.MINIMUM_WINNING_CNT) continue;
+  //   }
+  // }
 }
 
 export default Lotto;
