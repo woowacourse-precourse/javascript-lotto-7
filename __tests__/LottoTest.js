@@ -32,3 +32,17 @@ describe("로또 클래스 테스트", () => {
     expect(lotto.getlottoList()).toEqual([1, 2, 3, 4, 5, 6]);
   });
 });
+
+describe("로또 당첨 결과 테스트", () => {
+  test.each([
+    [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], 7, 1], // 1등
+    [[1, 2, 3, 4, 5, 7], [1, 2, 3, 4, 5, 6], 7, 2], // 2등
+    [[1, 2, 3, 4, 5, 8], [1, 2, 3, 4, 5, 6], 7, 3], // 3등
+    [[1, 2, 3, 4, 10, 11], [1, 2, 3, 4, 5, 6], 7, 4], // 4등
+    [[1, 2, 3, 10, 11, 12], [1, 2, 3, 4, 5, 6], 7, 5], // 5등
+    [[1, 2, 9, 10, 11, 12], [1, 2, 3, 4, 5, 6], 13, 6] // 당첨 제외
+  ])("getWinResult(%j, %j, %d) returns %d", (lottoNumbers, winNumbers, bonusNumber, expected) => {
+    const lotto = new Lotto(lottoNumbers);
+    expect(lotto.getWinResult(winNumbers, bonusNumber)).toBe(expected);
+  });
+});
