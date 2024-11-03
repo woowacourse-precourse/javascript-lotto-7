@@ -1,7 +1,5 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
-import UserInput from "./Input.js";
-import DisplayOutput from "./DisplayOutput.js";
-import { LOTTO } from "./constants.js";
+import { LOTTO_INFO } from "./constants.js";
 import Lotto from "./Lotto.js";
 
 class Game {
@@ -48,7 +46,11 @@ class Game {
     }
 
     checkLottoResult ( lottoPackage , winningNumber, bonusNumber) {
-        // First Array normal winners, second array bouns winners
+        /**
+         * 로또 결과 형식:
+         * lottoResult = [[7등수, 6등수, 5등수, 4등수, 3등수, 2등수, 1등수], [보너스 당첨자 수]]
+         * @param {Array<Array<number>>} lottoPackage - 2차원 배열
+        */
         const lottoReult = [Array(7).fill(0), [0]];
         const orderedWinningNumber = [...winningNumber].sort((a,b) => a-b);
 
@@ -63,20 +65,30 @@ class Game {
         return lottoReult;
     }
 
-    calculateProfit ( lottoReult, paidMoney){
+    #calculatePrize (lottoReult){
         let totalPrize = 0;
-        let profit = 0;
-        const winnerPrice = [[0,0,0,5_000,50_000,1_500_000,2_000_000_000], [30_000_000]];
+        const prizeKeys = Object.keys(LOTTO_INFO.PRIZE);
+        const bonusPrizeKey = Object.keys(LOTTO_INFO.BONUS_PRIZE);
+        let i = 0;
+        // Add bonus winner prize
 
-        for (let i = 0 ; i < 7 ; i++){
-            totalPrize  += winnerPrice[0][i] * lottoReult[0][i] ;
+        for (const prizeKeyword of prizeKeys){
+            totalPrize  += LOTTO_INFO.PRIZE[prizeKeyword] * lottoReult[0][i] ;
+            i += 1;
         }
 
-        // Add Bonus winner prize
-        totalPrize += winnerPrice[1][0] * lottoReult[1][0] ;
+        // Add normal winner prize
+        totalPrize += LOTTO_INFO.BONUS_PRIZE[bonusPrizeKey] * lottoReult[1][0];
+
+        return totalPrize;
+    }
+
+    calculateProfit ( lottoReult, paidMoney){
+        let totalPrize = this.#calculatePrize(lottoReult);
+        let profit = 0;
 
         profit = (totalPrize/paidMoney)*100;
-        return parseFloat(profit.toFixed(2));
+        return parseFloat(profit.toFixed(1));
     }
 }
 
