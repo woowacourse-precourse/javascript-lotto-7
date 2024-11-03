@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from '../constant/error.js';
 import { RULE } from '../constant/rule.js';
 import { createErrorMessage } from '../util/error.js';
-import { isInRange, isInteger, isNumber } from '../util/validation.js';
+import { validateLottoNumber } from '../util/validation.js';
 
 class Lotto {
   #numbers;
@@ -21,22 +21,8 @@ class Lotto {
     }
 
     numbers.forEach((number) => {
-      this.#validateSingleNumber(number);
+      validateLottoNumber(number);
     });
-  }
-
-  #validateSingleNumber(number) {
-    if (!isNumber(number)) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
-    }
-
-    if (!isInteger(number)) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidIntegerType));
-    }
-
-    if (!isInRange(number, RULE.LOTTO.NUMBER_MIN, RULE.LOTTO.NUMBER_MAX)) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberInRange));
-    }
   }
 
   // TODO: 추가 기능 구현

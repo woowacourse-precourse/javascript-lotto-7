@@ -1,12 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE } from '../constant/error.js';
+import { CONSOLE_MESSAGE } from '../constant/message.js';
+import { RULE } from '../constant/rule.js';
 import Lotto from '../Model/Lotto.js';
 import LottoGame from '../Model/LottoGame.js';
 import { createErrorMessage } from '../util/error.js';
-import { isInteger, isNumber } from '../util/validation.js';
+import { isNumber, validateLottoNumber } from '../util/validation.js';
 import Input from '../View/Input.js';
-import { RULE } from '../constant/rule.js';
-import { CONSOLE_MESSAGE } from '../constant/message.js';
 
 class GameController {
   async init() {
@@ -67,13 +67,7 @@ class GameController {
   #validatedBonusNumber(input) {
     const bonusNumber = Number(input);
 
-    if (!isNumber(bonusNumber)) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
-    }
-
-    if (!isInteger(bonusNumber)) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidIntegerType));
-    }
+    validateLottoNumber(bonusNumber);
 
     return bonusNumber;
   }
