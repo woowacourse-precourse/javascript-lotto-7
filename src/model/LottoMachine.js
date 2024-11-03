@@ -13,6 +13,10 @@ class LottoMachine {
 
     return Array.from({ length: totalLottoCount }, () => Lotto.create());
   }
+
+  getChargedMoney() {
+    return this.#money;
+  }
 }
 
 export default LottoMachine;

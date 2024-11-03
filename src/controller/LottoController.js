@@ -1,3 +1,4 @@
+import { LOTTO_INFO } from '../constant/index.js';
 import LottoMachine from '../model/LottoMachine.js';
 import LottoMatcher from '../model/LottoMatcher.js';
 import LottoPocket from '../model/LottoPocket.js';
@@ -49,6 +50,22 @@ class LottoController {
       OuputView.printMessage(error.message);
       await this.createAnswerNumbers();
     }
+  }
+
+  displayLottoWinning() {
+    const lottosRankCountObj = this.#getLottosRankCount();
+    const investedMoney = this.#lottoMachine.getChargedMoney();
+    let totalAmount = 0;
+    for (let i = 1; i <= LOTTO_INFO.MIN_RANK; i += 1) {
+      totalAmount += lottosRankCountObj[i] * LOTTO_INFO.WINNING_MONEY[i];
+    }
+
+    OuputView.printLottoWinning(lottosRankCountObj);
+    OuputView.printProfitPercentage(totalAmount, investedMoney);
+  }
+
+  #getLottosRankCount() {
+    return this.#lottoMatcher.getWinningLottos(this.#lottoPocket.showLottos());
   }
 }
 
