@@ -19,8 +19,12 @@ class LottoView {
     });
   }
 
+  //당첨번호 입력
   async inputWinningNumber() {
-    await Console.readLineAsync(MESSAGES.INPUT_WINNING_NUMBER);
+    const winningNumbers = await Console.readLineAsync(
+      MESSAGES.INPUT_WINNING_NUMBER
+    );
+    return winningNumbers;
   }
 }
 

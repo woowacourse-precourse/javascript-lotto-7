@@ -19,11 +19,13 @@ class LottoController {
       const lottos = this.generator.getLottos();
       this.view.printGetLottos(lottoCount);
       this.view.printLottos(lottos);
+      await this.getWinningNumbers();
     } catch (error) {
       throw error;
     }
   }
 
+  //로또 숫자 입력
   async getLottoAmounts() {
     const userInputAmounts = await this.view.inputLottoAmount();
     this.checkLottoAmounts(userInputAmounts);
@@ -37,6 +39,12 @@ class LottoController {
   //로또 개수 계산
   calculateLotto(count) {
     return Math.floor(count / 1000);
+  }
+
+  //당첨번호 입력
+  async getWinningNumbers() {
+    const getWinningNumber = await this.view.inputWinningNumber();
+    return getWinningNumber.split(",").map(Number);
   }
 }
 
