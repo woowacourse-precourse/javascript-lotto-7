@@ -1,4 +1,4 @@
-import Validation from "../../src/GameSetting/Validation.js";
+import Validation from "../../src/GameSetting/Utils/Validation.js";
 
 describe("Validation", () => {
   describe("inputNaturalNumber", () => {
