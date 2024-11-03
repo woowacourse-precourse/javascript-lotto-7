@@ -1,15 +1,19 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import INPUT_PROMPT from '../constants/inputConstant.js';
+import {
+  INPUT_PROMPT,
+  WINNING_NUMBERS_DELIMITER,
+} from '../constants/inputConstant.js';
 import InputHandler from '../utils/InputHandler.js';
 import Validator from '../utils/Validator.js';
 
 class LottoGame {
   #lottos;
 
-  constructor(lottoMachine) {
+  constructor(lottoMachine, lottoWinningNumbers) {
     this.#lottos = null;
     this.lottoMachine = lottoMachine;
+    this.lottoWinningNumbers = lottoWinningNumbers;
   }
 
   async play() {
@@ -25,6 +29,9 @@ class LottoGame {
 
     const inputWinningNumbers = await InputHandler.getInput(
       INPUT_PROMPT.WINNING_NUMBERS,
+    );
+    this.lottoWinningNumbers.setWinningNumbers(
+      inputWinningNumbers.split(WINNING_NUMBERS_DELIMITER).map(Number),
     );
   }
 
