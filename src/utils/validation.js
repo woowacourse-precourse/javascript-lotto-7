@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from "../constants/messages.js";
 import { LOTTO_RULE } from "../constants/rule.js";
 
 export const isLottoLengthValid = (numbers) => numbers.length === 6;
@@ -12,14 +13,12 @@ const isInRange = (number) => number >= LOTTO_RULE.MIN_NUMBER && number <= LOTTO
 
 export const validateLottoNumber = (number) => {
   if (!isNumber(number)) {
-    throw new Error("[ERROR] 로또 번호는 숫자만 입력 가능합니다.");
+    throw new Error(ERROR_MESSAGE.NOT_A_NUMBER_LOTTO);
   }
   if (!isInteger(number)) {
-    throw new Error("[ERROR] 로또 번호는 정수만 입력 가능합니다.");
+    throw new Error(ERROR_MESSAGE.NOT_INTEGER);
   }
   if (!isInRange(number)) {
-    throw new Error(
-      `[ERROR] 로또 번호 범위는 ${LOTTO_RULE.MIN_NUMBER}~${LOTTO_RULE.MAX_NUMBER}입니다.`,
-    );
+    throw new Error(ERROR_MESSAGE.NOT_IN_RANGE);
   }
 };

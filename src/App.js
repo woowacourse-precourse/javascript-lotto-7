@@ -2,6 +2,7 @@ import LottoMachine from "./LottoMachine.js";
 import Lotto from "./Lotto.js";
 import { getUserInputAsync, printEmptyLine, printMessage } from "./utils/interface.js";
 import BonusNumber from "./BonusNumber.js";
+import { MESSAGE } from "./constants/messages.js";
 
 class App {
   #lottoMachine;
@@ -26,17 +27,15 @@ class App {
       bonusNumber: this.#bonusNumber,
     });
 
-    printMessage("당첨 통계");
-    printMessage("---");
-    printMessage(resultString);
+    printMessage(MESSAGE.OUTPUT_RESULT + resultString);
 
     const profitRate = this.#lottoMachine.getProfitRate();
-    printMessage(`총 수익률은 ${profitRate}%입니다.`);
+    printMessage(MESSAGE.OUTPUT_PROFIT_RATE(profitRate));
   }
 
   async #getUserMoneyInput() {
     try {
-      const userMoneyInput = await getUserInputAsync("구입금액을 입력해 주세요.\n");
+      const userMoneyInput = await getUserInputAsync(MESSAGE.INPUT_MONEY);
       this.#lottoMachine = new LottoMachine(userMoneyInput);
     } catch (error) {
       printMessage(error.message);
@@ -46,7 +45,7 @@ class App {
 
   async #getUserLottoNumberInput() {
     try {
-      const userLottoInput = await getUserInputAsync("당첨 번호를 입력해 주세요.\n");
+      const userLottoInput = await getUserInputAsync(MESSAGE.INPUT_WINNING_LOTTO);
       const lottoNumbers = userLottoInput.split(",").map(Number);
       this.#winningLotto = new Lotto(lottoNumbers);
     } catch (error) {
@@ -57,7 +56,7 @@ class App {
 
   async #getUserBonusNumberInput() {
     try {
-      const userBonusInput = await getUserInputAsync("보너스 번호를 입력해 주세요.\n");
+      const userBonusInput = await getUserInputAsync(MESSAGE.INPUT_BONUS_NUMBER);
       const bonusNumber = Number(userBonusInput);
       this.#bonusNumber = new BonusNumber(this.#winningLotto, bonusNumber);
     } catch (error) {

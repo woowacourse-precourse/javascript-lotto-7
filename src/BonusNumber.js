@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from "./constants/messages.js";
 import { validateLottoNumber } from "./utils/validation.js";
 
 class BonusNumber {
@@ -11,7 +12,7 @@ class BonusNumber {
 
   #validate(winningLotto, number) {
     if (winningLotto.hasSameNumber(number)) {
-      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+      throw new Error(ERROR_MESSAGE.BONUS_NUMBER_DUPLICATE);
     }
   }
 

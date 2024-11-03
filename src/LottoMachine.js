@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from "./constants/messages.js";
 import { LOTTO_RULE, LOTTO_WIN_RANK } from "./constants/rule.js";
 import { buyOneLotto, getRankType } from "./utils/lotto.js";
 
@@ -21,10 +22,10 @@ class LottoMachine {
 
   #validate(number) {
     if (Number.isNaN(number)) {
-      throw new Error("[ERROR] 구입 금액은 숫자만 입력 가능합니다.");
+      throw new Error(ERROR_MESSAGE.NOT_A_NUMBER_MONEY);
     }
     if (number % LOTTO_RULE.PRICE !== 0) {
-      throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력할 수 있습니다.");
+      throw new Error(ERROR_MESSAGE.NOT_DIVIDED_WITH_UNIT);
     }
   }
 
