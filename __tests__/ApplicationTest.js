@@ -1,5 +1,5 @@
-import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import App from "../src/App.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -92,6 +92,10 @@ describe("로또 테스트", () => {
   });
 
   test("예외 테스트", async () => {
-    await runException("1000j");
+    // Given: 잘못된 입력 값이 주어졌을 때
+    const invalidInput = "1000j";
+
+    // When & Then: 프로그램이 예외를 던지는지 확인한다
+    await expect(runException(invalidInput)).rejects.toThrow("[ERROR]");
   });
 });
