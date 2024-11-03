@@ -22,7 +22,7 @@ class UserOutput {
     Console.print(`${LOTTO_RESULT_MESSAGES.FIRST}${WinningStatus[1]}개`);
   }
   static showProfitRate(profitRate) {
-    Console.print(`총 수익률은 ${profitRate}% 입니다.`);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
