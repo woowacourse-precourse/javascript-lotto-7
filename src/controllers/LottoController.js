@@ -18,11 +18,7 @@ class LottoControllers {
   }
 
   matchLottoTickets(lottoTickets, winningNumbers, bonusNumber) {
-    return LottoMatcher.assignLottoRank(
-      lottoTickets,
-      winningNumbers,
-      bonusNumber
-    );
+    return new LottoMatcher(lottoTickets, winningNumbers, bonusNumber).run();
   }
 
   validateWinningNumbers(numbers) {

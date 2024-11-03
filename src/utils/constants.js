@@ -43,6 +43,7 @@ export const LOTTO = {
 };
 
 export const RANK_KEYS = {
+  NONE: 'none',
   THREE_MATCH: 'threeMatch',
   FOUR_MATCH: 'fourMatch',
   FIVE_MATCH: 'fiveMatch',
