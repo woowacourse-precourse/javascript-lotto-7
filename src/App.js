@@ -22,7 +22,7 @@ class App {
     }
 
     lottos.forEach((lotto) => {
-      Console.print(lotto.getNumbers());
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
     });
 
     const inputWinningNums = new Input(validateWinnigNum.validation);
