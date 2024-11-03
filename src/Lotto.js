@@ -42,7 +42,6 @@ class Lotto {
     });
 
     if (lotto.indexOf(Number(bonusNumber)) >= 0) winning.bonus = true;
-    console.log(winning);
     return winning;
   }
 
@@ -62,13 +61,18 @@ class Lotto {
     return NUM.FIVE_WINNING - NUM.MINIMUM_WINNING_CNT;
   }
 
-  // calculateReturn(winningResult) {
-  //   const winningAmount = NUM.WINNING_AMOUNT;
+  calculateReturn(purchaseAmount, winningResult) {
+    const winningReturnSum = this.#sumWinningReturn(winningResult);
+    return ((winningReturnSum / purchaseAmount) * 100).toFixed(1);
+  }
 
-  //   for (const winning of winningResult) {
-  //     if (winning.winningCnt < NUM.MINIMUM_WINNING_CNT) continue;
-  //   }
-  // }
+  #sumWinningReturn(winningResult) {
+    let winningReturnSum = 0;
+    winningResult.forEach((winningCnt, idx) => {
+      winningReturnSum += winningCnt * NUM.WINNING_AMOUNT[idx];
+    });
+    return winningReturnSum;
+  }
 }
 
 export default Lotto;
