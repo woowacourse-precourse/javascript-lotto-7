@@ -57,7 +57,9 @@ class App {
   async getWinningNumbers() {
     Console.print("당첨 번호를 입력해 주세요.");
     const winningNumbersInput = await Console.readLineAsync("");
-    const winningNumbersArr = winningNumbersInput.split(",").map(Number);
+    const winningNumbersArr = winningNumbersInput
+      .split(",")
+      .map((num) => Number(num.trim()));
     this.validateWinningNumbers(winningNumbersArr);
 
     Console.print("");
