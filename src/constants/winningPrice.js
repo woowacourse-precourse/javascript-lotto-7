@@ -1,0 +1,9 @@
+const WINNING_PRICE = Object.freeze({
+  MATCH_3: 5000,
+  MATCH_4: 50000,
+  MATCH_5: 1500000,
+  MATCH_5_BONUS: 30000000,
+  MATCH_6: 2000000000,
+});
+
+export default WINNING_PRICE;
