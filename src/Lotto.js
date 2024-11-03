@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import { Messages, Settings } from "./constants";
 
 class Lotto {
   #numbers;
@@ -9,18 +10,18 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    if (numbers.length !== Settings.NUMBER_COUNT) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.LOTTO.COUNT);
     }
 
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== numbers.length) {
-      throw new Error('[ERROR] 중복된 번호는 입력할 수 없습니다.');
+      throw new Error(Messages.ERROR.PREFIX + Messages.LOTTO.UNIQUE);
     }
   }
 
   printNumbers() {
-    Console.print('[' + this.#numbers.join(', ') + ']');
+    Console.print(Messages.LOTTO.PRINT(this.#numbers.join(", ")));
   }
 
   matchNumbers(targetNumbers) {

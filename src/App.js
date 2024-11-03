@@ -1,5 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import { Settings, Messages } from './constants.js';
 
 class App {
   async run() {
@@ -47,63 +48,73 @@ class App {
   }
 
   async getPurchaseAmount() {
-    let amount = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    let amount = await Console.readLineAsync(Messages.PURCHASE_AMOUNT.INPUT);
     amount = Number(amount);
 
-    if (Number.isNaN(amount) || amount <= 0) {
-      throw new Error('[ERROR] 구입 금액은 1 이상의 숫자여야 합니다.');
+    if (Number.isNaN(amount)) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.PURCHASE_AMOUNT.NAN);
     }
+    if (amount <= 0) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.PURCHASE_AMOUNT.LESS_THAN_1);
+    }
+
     return amount;
   }
   
   calculatePurchaseCount(purchaseAmount) {
-    const purchaseCount = purchaseAmount / 1000;
+    const purchaseCount = purchaseAmount / Settings.PRICE_PER_LOTTO;
     if (!Number.isInteger(purchaseCount)) {
-      throw new Error('[ERROR] 구입 금액은 1,000원 단위여야 합니다.');
+      throw new Error(Messages.ERROR.PREFIX + Messages.PURCHASE_AMOUNT.PRICE_PER_LOTTO);
     }
 
-    Console.print(`\n${purchaseCount}개를 구매했습니다.`);
+    Console.print(Messages.PURCHASE_COUNT.BOUGHT(purchaseCount));
     return purchaseCount;
   }
 
   generateLottos(purchaseCount) {
     return Array.from({ length: purchaseCount }, () => {
-      const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b));
+      const lotto = new Lotto(Random.pickUniqueNumbersInRange(Settings.NUMBER_MIN, Settings.NUMBER_MAX, Settings.NUMBER_COUNT).sort((a, b) => a - b));
       lotto.printNumbers();
       return lotto;
     });
   }
 
   async getWinningNumbers() {
-    const getNumbers = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+    const getNumbers = await Console.readLineAsync(Messages.WINNING_NUMBERS.INPUT);
     if (getNumbers.trim() === '' || getNumbers.endsWith(',')) {
-      throw new Error('[ERROR] 올바른 형식으로 당첨 번호를 입력해 주세요.');
+      throw new Error(Messages.ERROR.PREFIX + Messages.WINNING_NUMBERS.INVALID);
     }
     const winningNumbers = getNumbers.split(',').map((number) => {
       const num = Number(number.trim());
-      if (Number.isNaN(num) || num < 1 || num > 45) {
-        throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자를 6개 입력해야합니다.');
+      if (Number.isNaN(num)) {
+        throw new Error(Messages.ERROR.PREFIX + Messages.WINNING_NUMBERS.NAN);
+      }
+      if (num < Settings.NUMBER_MIN || num > Settings.NUMBER_MAX) {
+        throw new Error(Messages.ERROR.PREFIX + Messages.WINNING_NUMBERS.MIN_MAX);
       }
       return num;
     });
     const uniqueNumbers = new Set(winningNumbers);
     if (uniqueNumbers.size !== winningNumbers.length) {
-      throw new Error('[ERROR] 중복된 번호는 입력할 수 없습니다.');
+      throw new Error(Messages.ERROR.PREFIX + Messages.WINNING_NUMBERS.UNIQUE);
     }
-    if (winningNumbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개를 입력해야합니다.');
+    if (winningNumbers.length !== Settings.NUMBER_COUNT) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.WINNING_NUMBERS.COUNT);
     }
     return winningNumbers;
   }
 
   async getBonusNumber(winningNumbers) {
-    let bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    let bonusNumber = await Console.readLineAsync(Messages.BONUS_NUMBER.INPUT);
     bonusNumber = Number(bonusNumber);
-    if (Number.isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자 한개여야 합니다.');
+    if (Number.isNaN(bonusNumber)) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.BONUS_NUMBER.NAN);
+    }
+    if (bonusNumber < Settings.NUMBER_MIN || bonusNumber > Settings.NUMBER_MAX) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.BONUS_NUMBER.MIN_MAX);
     }
     if (winningNumbers.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 로또 번호와 중복될 수 없습니다.');
+      throw new Error(Messages.ERROR.PREFIX + Messages.BONUS_NUMBER.UNIQUE);
     }
     return bonusNumber;
   }
@@ -131,11 +142,12 @@ class App {
       }
     });
 
-    lottoResults.totalPrize = lottoResults[3] * 5000
-      + lottoResults[4] * 50000
-      + lottoResults[5] * 1500000
-      + lottoResults[5.5] * 30000000
-      + lottoResults[6] * 2000000000;
+    lottoResults.totalPrize =
+      lottoResults[3] * Settings.PRIZE[3]
+      + lottoResults[4] * Settings.PRIZE[4]
+      + lottoResults[5] * Settings.PRIZE[5]
+      + lottoResults[5.5] * Settings.PRIZE[5.5]
+      + lottoResults[6] * Settings.PRIZE[6];
 
     lottoResults.profitRate = ((lottoResults.totalPrize / purchaseAmount) * 100).toFixed(1);
     lottoResults.profitRate = lottoResults.profitRate.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -143,16 +155,13 @@ class App {
   }
 
   printLottoResults(lottoResults) {
-    Console.print('\n당첨 통계\n---');
-    Console.print(`3개 일치 (5,000원) - ${lottoResults[3]}개`);
-    Console.print(`4개 일치 (50,000원) - ${lottoResults[4]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${lottoResults[5]}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${lottoResults[5.5]}개`,
-    );
-    Console.print(`6개 일치 (2,000,000,000원) - ${lottoResults[6]}개`);
-
-    Console.print(`총 수익률은 ${lottoResults.profitRate}%입니다.`);
+    Console.print(Messages.RESULT.TITLE);
+    Console.print(Messages.RESULT.COUNT_3(lottoResults[3]));
+    Console.print(Messages.RESULT.COUNT_4(lottoResults[4]));
+    Console.print(Messages.RESULT.COUNT_5(lottoResults[5]));
+    Console.print(Messages.RESULT.COUNT_5_5(lottoResults[5.5]));
+    Console.print(Messages.RESULT.COUNT_6(lottoResults[6]));
+    Console.print(Messages.RESULT.PROFIT_RATE(lottoResults.profitRate));
   }
 }
 export default App;
