@@ -5,6 +5,8 @@ import {
   FIVE_MATCH_AMOUNT,
   BONUS_MATCH_AMOUNT,
   SIX_MATCH_AMOUNT,
+  ERROR_MESSAGES,
+  PROMPTS
 } from './constant.js';
 import Lotto from './Lotto.js';
 
@@ -28,19 +30,19 @@ class LottoMachine {
   }
 
   async sellLotto() {
-    const paid = await Console.readLineAsync('구매금액을 입력해 주세요.\n');
+    const paid = await Console.readLineAsync(PROMPTS.PURCHASE_AMOUNT);
     this.validatePurchaseAmount(paid);
     this.#paid = Number(paid);
   }
 
   async inputWinningNumber() {
-    const winningNumber = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const winningNumber = await Console.readLineAsync(PROMPTS.WINNING_NUMBER);
     this.validateWinningNumber(winningNumber);
     this.#winningNumber = this.splitAndMapNumbers(winningNumber).sort((a, b) => a - b);
   }
 
   async inputBonusNumber() {
-    const bonusNumber = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const bonusNumber = await Console.readLineAsync(PROMPTS.BONUS_NUMBER);
     this.validateBonusNumber(bonusNumber, this.#winningNumber);
     this.#bonusNumber = Number(bonusNumber);
   }
@@ -113,13 +115,13 @@ class LottoMachine {
 
   validatePurchaseAmount(amount) {
     if (Number.isNaN(Number(amount))) {
-      throw new Error('[ERROR] 구매 금액은 숫자만 입력할 수 있습니다.');
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT);
     }
     if (amount % 1000 !== 0) {
-      throw new Error('[ERROR] 구매 금액은 천원 단위로 입력해 주세요.');
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_UNIT);
     }
     if (amount < 1000) {
-      throw new Error('[ERROR] 최소 한 장 이상 구매해 주세요.');
+      throw new Error(ERROR_MESSAGES.MINIMUM_PURCHASE);
     }
   }
 
@@ -128,25 +130,25 @@ class LottoMachine {
     const uniqueNumbers = new Set(numbers);
 
     if (numbers.length !== uniqueNumbers.size) {
-      throw new Error('[ERROR] 당첨번호는 중복되지 않아야 합니다.');
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBER_DUPLICATE);
     }
 
     for (const number of numbers) {
       if (isNaN(number) || number < 1 || number > 45) {
-        throw new Error('[ERROR] 당첨번호는 1과 45 사이의 숫자여야 합니다.');
+        throw new Error(ERROR_MESSAGES.WINNING_NUMBER_RANGE);
       }
     }
   }
 
   validateBonusNumber(bonusNumber, lottoNumbers) {
     if (Number.isNaN(Number(bonusNumber))) {
-      throw new Error('[ERROR] 보너스 숫자는 숫자만 입력할 수 있습니다.');
+      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_TYPE);
     }
     if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error('[ERROR] 보너스 숫자는 1과 45 사이의 숫자여야 합니다.');
+      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
     }
     if (lottoNumbers.includes(Number(bonusNumber))) {
-      throw new Error('[ERROR] 보너스 숫자는 로또 번호와 겹치지 않아야 합니다.');
+      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
     }
   }
 
@@ -160,7 +162,7 @@ class LottoMachine {
         await func();
         break;
       } catch (e) {
-        Console.print(e.message);
+        Console.print(`[ERROR] ${e.message}`);
       }  
     }
   }
