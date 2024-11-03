@@ -1,4 +1,4 @@
-import Lotto from '../src/Lotto';
+import Lotto from '../src/models/Lotto';
 
 describe('당첨 번호 테스트', () => {
   /// /////////////////////// 올바른 입력 ///////////////////////////////
@@ -7,7 +7,7 @@ describe('당첨 번호 테스트', () => {
     const lotto = new Lotto(winningNumbers);
 
     expect(lotto).toBeInstanceOf(Lotto);
-    expect(lotto.numbers).toEqual(winningNumbers);
+    expect(lotto.getNumbers()).toEqual(winningNumbers);
   });
 
   /// //////////////////////// 입력 오류 //////////////////////////////

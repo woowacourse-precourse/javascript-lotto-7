@@ -20,7 +20,7 @@ const countOver = input => {
 };
 const rangeOver = input => {
   input.forEach(i => {
-    if (i < 0 || i > 45) {
+    if (i < 1 || i > 45) {
       throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
     }
   });
