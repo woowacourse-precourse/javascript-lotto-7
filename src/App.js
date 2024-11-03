@@ -20,18 +20,8 @@ class App {
     const winningNumbersInput = await MissionUtils.Console.readLineAsync(
       "당첨 번호를 입력해 주세요.\n"
     );
-
     const winningNumbers = winningNumbersInput.split(",").map(Number);
-    const uniqueNumbers = new Set(winningNumbers);
-    if (!winningNumbers.every((num) => num >= 1 && num <= 45)) {
-      throw new Error("[ERROR] : 당첨 번호는 1~45 사이여야 합니다.");
-    }
-    if (
-      uniqueNumbers.size !== winningNumbers.length ||
-      winningNumbers.length !== 6
-    ) {
-      throw new Error("[ERROR] : 6개의 숫자를 중복되지 않게 입력해야합니다.");
-    }
+    this.validateWinningNumbers(winningNumbers);
 
     const bonusNumberInput = await MissionUtils.Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
@@ -103,6 +93,19 @@ class App {
       allLottos.push(lottoNumbers);
     }
     return allLottos;
+  }
+
+  validateWinningNumbers(winningNumbers) {
+    const uniqueNumbers = new Set(winningNumbers);
+    if (!winningNumbers.every((num) => num >= 1 && num <= 45)) {
+      throw new Error("[ERROR] : 당첨 번호는 1~45 사이여야 합니다.");
+    }
+    if (
+      uniqueNumbers.size !== winningNumbers.length ||
+      winningNumbers.length !== 6
+    ) {
+      throw new Error("[ERROR] : 6개의 숫자를 중복되지 않게 입력해야합니다.");
+    }
   }
 }
 
