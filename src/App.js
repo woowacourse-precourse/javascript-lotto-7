@@ -3,6 +3,15 @@ import Lotto from "./Lotto.js";
 
 class App {
   LOTTO_PRICE = 1000;
+  LOTTO_REWARD = [0, 2000000, 30000, 1500, 50, 5];
+  LOTTO_RULES = [
+    "",
+    "6개 일치",
+    "5개 일치, 보너스 볼 일치",
+    "5개 일치",
+    "4개 일치",
+    "3개 일치",
+  ];
 
   async run() {
     const payment = await this.getPayment();
@@ -10,6 +19,7 @@ class App {
     const lotteries = this.getLotteries(count);
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
+    const rankCount = this.getRankCount(winningNumbers, bonusNumber, lotteries);
   }
 
   async getPayment() {
@@ -113,6 +123,17 @@ class App {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되면 안됩니다.");
     }
   }
+
+  getRankCount(winningNumbers, bonusNumber, lotteries) {
+    const rankCount = Array(6).fill(0);
+    lotteries.forEach((lotto) => {
+      const rank = lotto.getRank(winningNumbers, bonusNumber);
+      rankCount[rank] += 1;
+    });
+    return lotteries;
+  }
+
+  // getYield
 }
 
 export default App;
