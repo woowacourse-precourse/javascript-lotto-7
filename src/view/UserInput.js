@@ -1,18 +1,21 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { DISPLAY_MESSAGE } from "../config/constants.js";
+import Validator from "../utils/Validator.js";
 
 class UserInput {
     async getUserPaidMoney() {
       let paidMoney;
-      while ( paidMoney%1000 !== 0) { 
+      let validatePaidMoneyflag = false;
+
+      while ( !validatePaidMoneyflag) { 
         paidMoney = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQUEST_MONEY_MESSAGE);
-        
-        if(paidMoney % 1000 === 0) {
+        validatePaidMoneyflag = Validator.validatePaidMoney(paidMoney);
+
+        if(validatePaidMoneyflag) {
           return paidMoney;
         }
 
         MissionUtils.Console.print(DISPLAY_MESSAGE.ERROR_PAID_MONEY_MESSAGE);
-
       }
     }
 
