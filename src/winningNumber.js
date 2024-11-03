@@ -2,6 +2,16 @@
 
 import { Console } from "@woowacourse/mission-utils";
 
+async function getBonusNumer(){
+    const BONUS_NUMBER = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+}
+
+function isWinningNumber(BONUS_NUMBER, winningNumbers){
+    if(winningNumbers.includes(BONUS_NUMBER)){
+        throw new Error("[ERROR] 당첨 번호에 이미 존재하는 숫자입니다.")
+    }
+}
+
 async function getWinningNumbers(){
     const WINNING_NUMBERS = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
     const winningList = WINNING_NUMBERS.split(",");
@@ -45,4 +55,4 @@ function isDuplicated(numberList){
     }
 }
 
-export {isPositiveNumber, is1to45, isLength6, isDuplicated}
+export {isPositiveNumber, is1to45, isLength6, isDuplicated, getWinningNumbers}

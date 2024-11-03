@@ -9,6 +9,8 @@ function makeLotto(count) {
     let lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
     lottoClassList.push(new Lotto(lottoNumbers));
   }
+
+  return lottoClassList;
 }
 
 export { makeLotto };
