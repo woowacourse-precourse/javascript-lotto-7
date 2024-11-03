@@ -10,7 +10,9 @@ export class BonusNumberValidator {
   }
 
   isValidNumberBonusNumber() {
-    return !isNaN(this.bonusNumber);
+    const bonusNumber = Number(this.bonusNumber);
+
+    return !Number.isNaN(bonusNumber);
   }
 
   isValidateBonusNumberRange() {

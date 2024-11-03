@@ -31,7 +31,7 @@ export class WinningNumbersValidator {
     const onlyNumber = this.winningNumbers
       .split(',')
       .map((x) => x.trim())
-      .filter((number) => !isNaN(number) === true);
+      .filter((number) => !Number.isNaN(Number(number) === true));
     const uniqueWinningNumbers = new Set(onlyNumber);
 
     return onlyNumber.length === uniqueWinningNumbers.size;
