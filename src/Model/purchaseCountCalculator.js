@@ -1,6 +1,7 @@
+import { LOTTO_AMOUNT } from '../Constant/constants.js';
+
 export const countPurchaseAmount = (purchasePrice) => {
-  const LOTTO_PRICE_UNIT = 1000;
-  const purchaseCount = purchasePrice / LOTTO_PRICE_UNIT;
-  
+  const purchaseCount = purchasePrice / LOTTO_AMOUNT.UNIT;
+
   return purchaseCount;
 };

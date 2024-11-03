@@ -1,4 +1,6 @@
+import { LOTTO_AMOUNT } from '../Constant/constants.js';
 import { ERROR_MESSAGES } from '../Constant/errorMessages.js';
+
 
 export class PurchaseAmountValidator {
   constructor() {
@@ -10,10 +12,10 @@ export class PurchaseAmountValidator {
   }
 
   isValidPurchaseAmountUnit() {
-    const LOTTO_PRICE_UNIT = 1000;
+    LOTTO_AMOUNT.UNIT = 1000;
     const parsedPurchaseAmount = Number(this.purchaseAmount);
 
-    return parsedPurchaseAmount % LOTTO_PRICE_UNIT === 0 && parsedPurchaseAmount > 0;
+    return parsedPurchaseAmount % LOTTO_AMOUNT.UNIT === 0 && parsedPurchaseAmount > 0;
   }
 
   getValidationRules() {

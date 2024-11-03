@@ -1,3 +1,5 @@
+import { MATCH } from '../Constant/constants.js';
+
 export const matchCount = {
   threeMatch: 0,
   fourMatch: 0,
@@ -11,10 +13,6 @@ export class WinningStatistics {
     this.winningNumbers = null;
     this.bonusNumber = null;
     this.lottoList = null;
-
-    this.THREE_MATCH = 3;
-    this.SIX_MATCH = 6;
-    this.FIVE_AND_BONUS_MATCH = 6;
 
     this.winningNumberPlusBonusNumber = null;
   }
@@ -34,7 +32,7 @@ export class WinningStatistics {
   countOneToSixMatch() {
     this.lottoList.forEach((element) => {
       const matchFilter = element.filter((it) => this.winningNumbers.includes(it)).length;
-      for (let i = this.THREE_MATCH; i <= this.SIX_MATCH; i += 1) {
+      for (let i = MATCH.THREE; i <= MATCH.SIX; i += 1) {
         const firstArr = i - 3;
         if (matchFilter === i) {
           matchCount[Object.keys(matchCount)[firstArr]] += 1;
@@ -47,7 +45,7 @@ export class WinningStatistics {
     this.lottoList.forEach((element) => {
       if (
         element.filter((it) => this.getWinningNumPlusBonusNum().includes(it)).length ===
-        this.FIVE_AND_BONUS_MATCH
+        MATCH.FIVE_AND_BONUS
       ) {
         matchCount[Object.keys(matchCount)[3]] += 1;
       }
