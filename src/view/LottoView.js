@@ -26,6 +26,14 @@ class LottoView {
     );
     return winningNumbers.split(",").map(Number);
   }
+
+  //보너스번호 입력
+  async inputBonusNumber() {
+    const bounsNumbers = await Console.readLineAsync(
+      MESSAGES.INPUT_BONUS_NUMBER
+    );
+    return bounsNumbers;
+  }
 }
 
 export default LottoView;
