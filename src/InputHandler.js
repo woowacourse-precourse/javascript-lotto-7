@@ -18,7 +18,8 @@ class InputHandler {
         try {
             const winningNumbers = await Console.readLineAsync(MESSAGES.INPUT.ASK_WINNING_NUMBERS);
             validateWinningNumbers(winningNumbers);
-            return winningNumbers;
+            const winningNumbersArray = winningNumbers.split(',').map(num => parseInt(num.trim(), 10));
+            return winningNumbersArray;
         } catch (error) {
             Console.print(error.message);
             return this.askWinningNumbers();
@@ -29,7 +30,7 @@ class InputHandler {
         try {
             const bonusNumber = await Console.readLineAsync(MESSAGES.INPUT.ASK_BONUS_NUMBER);
             validateBonusNumber(bonusNumber);
-            return bonusNumber;
+            return parseInt(bonusNumber, 10);
         } catch (error) {
             Console.print(error.message);
             return this.askBonusNumber();
