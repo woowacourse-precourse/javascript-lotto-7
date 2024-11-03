@@ -78,13 +78,13 @@ class App {
       throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
     }
 
-    const winningResults = this.checkMatchingLottos(
+    const matchingResults = this.checkMatchingLottos(
       userLottoNumbers,
       winningNumberSet,
       bonusNumber
     );
     const rate = this.calculateRate(matchingResults, purchaseAmount);
-    this.printStatistics(matchingResults, rate);
+    await this.printStatistics(matchingResults, rate);
   }
 
   generateLotto(lottoCount) {
@@ -113,7 +113,7 @@ class App {
     };
 
     userLottoNumbers.forEach((lotto) => {
-      const lottoNumbers = lotto.sortedLottoNumbers;
+      const lottoNumbers = lotto;
       let matchCount = 0;
       let hasBonus = false;
 
