@@ -1,3 +1,4 @@
+import Lotto from "../src/Lotto.js";
 import LottoApp from "../src/LottoApp";
 import {
   ERROR_MESSAGES,
@@ -92,5 +93,85 @@ describe("LottoApp 클래스 테스트", () => {
     expect(() => {
       lottoApp.validateBonusNumber(7, winningNumbers);
     }).not.toThrow();
+  });
+});
+
+describe("LottoApp 통계 계산 테스트", () => {
+  let lottoApp;
+  let winningLotto;
+
+  beforeEach(() => {
+    lottoApp = new LottoApp();
+    winningLotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    lottoApp.statistics = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+  });
+
+  test("로또 번호와 당첨 번호가 몇 개 일치하는지 계산한다", () => {
+    const lotto = new Lotto([1, 2, 7, 8, 9, 10]);
+    const matchCount = lottoApp.countMatches(lotto, winningLotto);
+    expect(matchCount).toBe(2);
+  });
+
+  test("일치하는 번호와 보너스 포함 여부를 확인한다", () => {
+    const lotto = new Lotto([1, 2, 3, 4, 7, 8]);
+    const bonusNumber = 7;
+    const result = lottoApp.getMatchResult(lotto, winningLotto, bonusNumber);
+
+    expect(result.matchCount).toBe(4);
+    expect(result.hasBonus).toBe(true);
+  });
+
+  test("일치하는 번호와 보너스 여부에 따라 통계를 업데이트한다", () => {
+    lottoApp.updateStatistics(6, false);
+    lottoApp.updateStatistics(5, true);
+    lottoApp.updateStatistics(5, false);
+    lottoApp.updateStatistics(4, false);
+    lottoApp.updateStatistics(3, false);
+
+    expect(lottoApp.statistics.first).toBe(1);
+    expect(lottoApp.statistics.second).toBe(1);
+    expect(lottoApp.statistics.third).toBe(1);
+    expect(lottoApp.statistics.fourth).toBe(1);
+    expect(lottoApp.statistics.fifth).toBe(1);
+  });
+
+  test("로또 목록을 기반으로 통계 계산을 수행한다", () => {
+    const lottos = [
+      new Lotto([1, 2, 3, 4, 5, 6]),
+      new Lotto([1, 2, 3, 4, 5, 7]),
+      new Lotto([1, 2, 3, 4, 5, 8]),
+      new Lotto([1, 2, 3, 4, 10, 11]),
+      new Lotto([1, 2, 3, 12, 13, 14]),
+      new Lotto([21, 22, 23, 24, 25, 26]),
+    ];
+    const bonusNumber = 7;
+
+    lottoApp.calculateStatistics(lottos, winningLotto, bonusNumber);
+
+    expect(lottoApp.statistics.first).toBe(1);
+    expect(lottoApp.statistics.second).toBe(1);
+    expect(lottoApp.statistics.third).toBe(1);
+    expect(lottoApp.statistics.fourth).toBe(1);
+    expect(lottoApp.statistics.fifth).toBe(1);
+  });
+
+  test("현재까지 계산된 통계를 반환한다", () => {
+    lottoApp.updateStatistics(6, false);
+    lottoApp.updateStatistics(5, true);
+    const statistics = lottoApp.getStatistics();
+
+    expect(statistics).toEqual({
+      first: 1,
+      second: 1,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    });
   });
 });

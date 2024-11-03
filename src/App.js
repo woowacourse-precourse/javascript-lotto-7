@@ -5,9 +5,10 @@ class App {
   async run() {
     const lottoApp = new LottoApp();
     const amount = await lottoApp.promptPurchaseAmount();
-    lottoApp.purchaseLottos(amount);
+    const lottos = lottoApp.purchaseLottos(amount);
     const winningLotto = await lottoApp.promptWinningNumbers();
     const bonusNumber = await lottoApp.promptBonusNumber(winningLotto);
+    lottoApp.calculateStatistics(lottos, winningLotto, bonusNumber);
   }
 }
 

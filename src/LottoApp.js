@@ -8,6 +8,16 @@ import {
 import Lotto from "./Lotto.js";
 
 class LottoApp {
+  constructor() {
+    this.statistics = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+  }
+
   async promptPurchaseAmount() {
     try {
       const amount = await MissionUtils.Console.readLineAsync(
@@ -25,6 +35,7 @@ class LottoApp {
     const count = Math.floor(amount / LOTTO_PRICE);
     const lottos = this.generateLottos(count);
     this.printLottoTickets(lottos);
+    return lottos;
   }
 
   validateAmount(amount) {
@@ -120,6 +131,41 @@ class LottoApp {
     if (winningNumbers.includes(bonusNumber)) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
     }
+  }
+
+  calculateStatistics(lottos, winningLotto, bonusNumber) {
+    lottos.forEach((lotto) => {
+      const { matchCount, hasBonus } = this.getMatchResult(
+        lotto,
+        winningLotto,
+        bonusNumber
+      );
+      this.updateStatistics(matchCount, hasBonus);
+    });
+  }
+
+  getMatchResult(lotto, winningLotto, bonusNumber) {
+    const matchCount = this.countMatches(lotto, winningLotto);
+    const hasBonus = lotto.getNumbers().includes(bonusNumber);
+    return { matchCount, hasBonus };
+  }
+
+  countMatches(lotto, winningLotto) {
+    return lotto
+      .getNumbers()
+      .filter((num) => winningLotto.getNumbers().includes(num)).length;
+  }
+
+  updateStatistics(matchCount, hasBonus) {
+    if (matchCount === 6) this.statistics.first++;
+    if (matchCount === 5 && hasBonus) this.statistics.second++;
+    if (matchCount === 5 && !hasBonus) this.statistics.third++;
+    if (matchCount === 4) this.statistics.fourth++;
+    if (matchCount === 3) this.statistics.fifth++;
+  }
+
+  getStatistics() {
+    return this.statistics;
   }
 }
 
