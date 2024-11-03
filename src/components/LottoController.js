@@ -5,6 +5,7 @@ import purchaseAmountValidator from '../validation/purchaseAmountValidator.js';
 class LottoController {
   #purchaseAmount;
   #lottoTickets;
+  #bonusNumber;
 
   getPurchaseAmount() {
     return this.#purchaseAmount;
@@ -17,6 +18,14 @@ class LottoController {
 
   getLottoTickets() {
     return this.#lottoTickets;
+  }
+
+  getBonusNumber() {
+    return this.#bonusNumber;
+  }
+
+  setBonusNumber(bonusNumber) {
+    this.#bonusNumber = bonusNumber;
   }
 
   isEmptyPurchaseAmount() {
@@ -70,6 +79,12 @@ class LottoController {
       Console.print(`${error.message}\n`);
       await this.promptPurchaseAmount();
     }
+  }
+
+  async promptBonusNumber() {
+    const bonusNumber = await Console.readLineAsync(InputPrompts.bonusNumber);
+
+    this.setBonusNumber(Number(bonusNumber));
   }
 }
 

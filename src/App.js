@@ -10,6 +10,7 @@ class App {
     lottoController.displayLottoTickets();
 
     const lotto = await Lotto.createLotto();
+    lottoController.promptBonusNumber();
   }
 }
 
