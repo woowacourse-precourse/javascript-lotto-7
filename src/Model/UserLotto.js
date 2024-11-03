@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { PURCHASE_AMOUNT_RANGE, LOTTO_PRICE, ERROR_MSG } from '../Constants.js';
-import { checkRange } from '../Util.js';
+import { PURCHASE_AMOUNT_RANGE, LOTTO_PRICE, ERROR_MSG } from '../constants/constants.js';
+import { checkRange } from '../util/util.js';
 import Lotto from './Lotto.js';
 
 export default class userLotto {

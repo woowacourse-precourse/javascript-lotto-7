@@ -1,5 +1,5 @@
-import { intersection, calculatePercentage } from '../Util.js';
-import { PRICE_INFO } from '../Constants.js';
+import { intersection, calculatePercentage } from '../util/util.js';
+import { PRICE_INFO } from '../constants/constants.js';
 import WinningLotto from './WinningLotto.js';
 import UserLotto from './UserLotto.js';
 

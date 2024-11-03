@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PRICE_INFO } from '../Constants.js';
+import { PRICE_INFO } from '../constants/constants.js';
 
 export default class OutputView {
   printUserLotto(lottos) {

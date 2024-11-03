@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MSG, REGEXP } from '../Constants.js';
+import { ERROR_MSG, REGEXP } from '../constants/constants.js';
 
 const DELIMETER = ',';
 

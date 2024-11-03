@@ -1,4 +1,4 @@
-import { ERROR_MSG } from '../Constants.js';
+import { ERROR_MSG } from '../constants/constants.js';
 import Lotto from './Lotto.js';
 
 class WinningLotto extends Lotto {

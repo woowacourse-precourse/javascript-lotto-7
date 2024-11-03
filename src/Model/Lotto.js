@@ -1,5 +1,5 @@
-import { ERROR_MSG, LOTTO_NUMBER_RANGE } from '../Constants.js';
-import { asendingSort, checkDuplicate, checkRange } from '../Util.js';
+import { ERROR_MSG, LOTTO_NUMBER_RANGE } from '../constants/constants.js';
+import { asendingSort, checkDuplicate, checkRange } from '../util/util.js';
 
 class Lotto {
   #numbers;
