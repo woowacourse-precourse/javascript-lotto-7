@@ -7,7 +7,8 @@ class App {
     await lottoGame.initialize();
     lottoGame
       .computeWinners()
-      .computeTotalYield();
+      .computeTotalYield()
+      .printResult();
   }
 }
 

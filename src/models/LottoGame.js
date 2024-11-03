@@ -54,6 +54,10 @@ class LottoGame {
     this.#totalYield = (totalPrize / this.#paymentAmount) * 100;
     return this;
   }
+
+  printResult() {
+    UserInterface.printResult(this.#matchCounts, this.#totalYield);
+  }
 }
 
 export default LottoGame;
