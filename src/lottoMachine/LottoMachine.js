@@ -77,7 +77,7 @@ export class LottoMachine {
     const winningNumArr = await this.inputAttemptWinningNumbers();
     const bonusNumber = await this.inputAttemptBonusNumber(winningNumArr);
 
-    const rankCounts = this.#statistics.findWinnerRank(lottoTicket, winningNumArr, bonusNumber);
+    const rankCounts = this.#statistics.findWinnerRank(lottoTicketArr, winningNumArr, bonusNumber);
     const rateOfReturn = this.#calculation.getRateOfReturn(rankCounts, purchasePrice);
     this.#output.printWinnerRank(rankCounts);
     this.#output.printRateOfReturn(rateOfReturn);
