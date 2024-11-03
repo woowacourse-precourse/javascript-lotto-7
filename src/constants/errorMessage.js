@@ -14,6 +14,21 @@ const WINNING_NUMBER_ERROR_MESSAGE = Object.freeze({
   NOT_NUMBER: '당첨 번호는 숫자로 입력해야 합니다.',
   DUPLICATE: '당첨 번호는 중복되지 않아야 합니다.',
   INVALID_LENGTH: '당첨 번호는 숫자 6개를 입력해야 합니다.',
+  IS_Integer: '당첨 번호는 자연수여야 합니다. (잘못된 예시, 1.3 1.5 등)',
 });
 
-export { ERROR_PREFIX, PURCHASE_ERROR_MESSAGE, WINNING_NUMBER_ERROR_MESSAGE };
+const BONUS_NUMBER_ERROR_MESSAGE = Object.freeze({
+  NO_INPUT: '보너스 번호를 입력해주세요.',
+  OUT_OF_RANGE: '보너스 번호는 1~45 범위의 숫자로 입력해야 합니다.',
+  NOT_NUMBER: '보너스 번호는 숫자로 입력해야 합니다.',
+  DUPLICATE: '당첨 번호와 보너스 번호는 중복되지 않아야 합니다.',
+  LESS_THAN_ZERO: '보너스 번호는 0 이하일 수 없습니다.',
+  IS_Integer: '보너스 번호는 자연수여야 합니다. (잘못된 예시, 1.3 1.5 등)',
+});
+
+export {
+  ERROR_PREFIX,
+  PURCHASE_ERROR_MESSAGE,
+  WINNING_NUMBER_ERROR_MESSAGE,
+  BONUS_NUMBER_ERROR_MESSAGE,
+};
