@@ -1,12 +1,20 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import Validator from './Validator.js';
+import { CONDITIONS, PRINT_MESSAGE } from './constants.js';
 
 class LottoStore {
   #vaildator;
   #lottoList;
   #winningLotto;
   #bonusNumber;
+  matchItem = {
+    [this.getKey('3')]: 0,
+    [this.getKey('4')]: 0,
+    [this.getKey('5')]: 0,
+    [this.getKey('5_BONUS')]: 0,
+    [this.getKey('6')]: 0,
+  };
 
   constructor() {
     this.#vaildator = new Validator();
@@ -70,6 +78,40 @@ class LottoStore {
   setBonusNumber(bonusNumber) {
     const validBonusNumber = this.#validateBonusNumber(bonusNumber);
     this.#bonusNumber = validBonusNumber;
+  }
+
+  checkWinningLotto() {
+    this.#lottoList.forEach((lotto) => {
+      let correctCount = this.#winningLotto.checkCorrectCount(lotto);
+
+      if (correctCount === 5) {
+        correctCount = this.checkBonusNumber(lotto);
+      }
+
+      if (correctCount >= 3) {
+        this.matchItem[this.getKey(correctCount)] += 1;
+      }
+    });
+  }
+
+  getKey(index) {
+    return `MATCH_${index}`;
+  }
+
+  checkBonusNumber(lotto, correctCount) {
+    const hasBonusNumber = lotto.checkBonusNumber(this.#bonusNumber);
+
+    if (hasBonusNumber) {
+      return `${correctCount}_BONUS`;
+    }
+
+    return correctCount;
+  }
+
+  printWinningResult() {
+    Object.keys(this.matchItem).forEach((key) => {
+      MissionUtils.Console.print(`${PRINT_MESSAGE[key]} - ${this.matchItem[key]}개`);
+    });
   }
 }
 

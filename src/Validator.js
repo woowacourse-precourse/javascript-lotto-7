@@ -83,7 +83,7 @@ class Validator {
   }
 
   #checkIncludeNumber(number, winningLotto) {
-    if (winningLotto.checkNumber(number)) {
+    if (winningLotto.checkBonusNumber(number)) {
       throw new Error(ERROR_MESSAGE.SAME_NUMBER);
     }
   }

@@ -24,8 +24,14 @@ class Lotto {
     return `[${this.#numbers.join(', ')}]`;
   }
 
-  checkNumber(number) {
+  checkBonusNumber(number) {
     return this.#numbers.includes(number);
+  }
+
+  checkCorrectCount(lotto) {
+    const correctNumbers = this.#numbers.filter((number) => lotto.getNumbers().includes(number));
+
+    return correctNumbers.length;
   }
 }
 

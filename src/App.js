@@ -16,6 +16,9 @@ class App {
       MissionUtils.Console.print(this.#lottoStore.printLottoList());
       await this.#inputWinningNumbers();
       await this.#inputBonusNumber();
+      MissionUtils.Console.print(`${PRINT_MESSAGE.OUTPUT_WINNING_RESULT}`);
+      this.#lottoStore.checkWinningLotto();
+      this.#lottoStore.printWinningResult();
     } catch (error) {
       MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }
