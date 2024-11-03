@@ -5,6 +5,8 @@ class App {
     const lottoController = new LottoController();
 
     await lottoController.promptPurchaseAmount();
+    lottoController.generateLottoTickets();
+    lottoController.displayLottoTickets();
   }
 }
 
