@@ -27,17 +27,23 @@ class LottoController {
     return this.#lottoTickets;
   }
 
+  #sortAscending(lottoTickets) {
+    return lottoTickets.map((ticket) => ticket.slice().sort((a, b) => a - b));
+  }
+
   generateLottoTickets() {
     if (!this.isEmptyPurchaseAmount()) {
       const ticketCount = this.#purchaseAmount / 1000;
 
-      this.#lottoTickets = Array.from({ length: ticketCount }, () =>
+      const lottoTickets = Array.from({ length: ticketCount }, () =>
         Random.pickUniqueNumbersInRange(
           Lotto.MIN_NUMBER,
           Lotto.MAX_NUMBER,
           Lotto.COUNT,
         ),
       );
+
+      this.#lottoTickets = this.#sortAscending(lottoTickets);
     }
   }
 
