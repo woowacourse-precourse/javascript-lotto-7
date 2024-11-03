@@ -15,7 +15,7 @@ class App {
     this.inputHandler = new InputHandler();
   }
   async run() {
-    const purchaseAmount = await this.getPurchaseAmount();
+    const purchaseAmount = await this.inputHandler.getPurchaseAmount();
     const lottoCount = purchaseAmount / 1000;
     const userLottoNumbers = this.lottoManager.generateLotto(lottoCount);
 
@@ -31,31 +31,6 @@ class App {
     );
     const rate = this.calculateRate(matchingResults, purchaseAmount);
     await this.printStatistics(matchingResults, rate);
-  }
-
-  async getPurchaseAmount() {
-    const purchaseAmount = await Console.readLineAsync(
-      "구입금액을 입력해 주세요\n"
-    );
-    this.validatePurchaseAmount(purchaseAmount);
-    return purchaseAmount;
-  }
-
-  async getWinningNumbers() {
-    const inputWinningNumbers = await Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요.\n"
-    );
-    const inputWinningNumber = inputWinningNumbers.split(",").map(Number);
-    return new Lotto(inputWinningNumber);
-  }
-
-  async getBonusNumber(winningNumber) {
-    const inputBonusNumber = await Console.readLineAsync(
-      "보너스 번호를 입력해 주세요.\n"
-    );
-    const bonusNumber = Number(inputBonusNumber);
-    this.validateBonusNumber(bonusNumber, winningNumber);
-    return bonusNumber;
   }
 
   checkMatchingLottos(userLottoNumbers, winningNumberSet, bonusNumber) {
@@ -95,30 +70,6 @@ class App {
     );
     await Console.print(MESSAGE_STATISTICS(matchingResults.six).MATCH_SIX);
     await Console.print(MESSAGE_STATISTICS(rate).RATE);
-  }
-
-  validatePurchaseAmount(purchaseAmount) {
-    if (purchaseAmount === 0) {
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_ZERO);
-    }
-    if (purchaseAmount < 0) {
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_NEGATIVE);
-    }
-    if (purchaseAmount % 1000 !== 0 && purchaseAmount !== 0) {
-      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
-    }
-    if (purchaseAmount === "") {
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_EMPTY);
-    }
-  }
-
-  validateBonusNumber(bonusNumber, winningNumber) {
-    if (!Number.isInteger(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_RANGE);
-    }
-    if (winningNumber.getNumbers().includes(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER_WITH_WINNING);
-    }
   }
 }
 
