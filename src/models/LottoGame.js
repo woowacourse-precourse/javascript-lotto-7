@@ -18,13 +18,11 @@ class LottoGame {
   }
 
   async play() {
-    // TODO: 구매 금액 입력 받는 메서드 분리
     const inputPurchasePrice = await InputHandler.getInput(INPUT_PROMPT.PURCHASE_PRICE, Validator.validatePurchasePrice);
 
     this.setLottos(this.lottoMachine.generateLottos(Number.parseInt(inputPurchasePrice, 10)));
     this.printLottos();
 
-    // TODO: 당첨 번호, 보너스 번호 입력 받는거 하나의 메서드로 분리
     const inputWinningNumbers = await InputHandler.getInput(INPUT_PROMPT.WINNING_NUMBERS, Validator.validateWinninNumbers);
     this.lottoWinningNumbers.setWinningNumbers(inputWinningNumbers.split(WINNING_NUMBERS_DELIMITER).map(Number));
 
@@ -46,8 +44,7 @@ class LottoGame {
   }
 
   printLottoStatistics() {
-    Console.print('\n');
-    Console.print('당첨 통계\n---');
+    Console.print('\n당첨 통계\n---');
     Console.print(this.lottoStatistics.statisticsToString());
     Console.print(`총 수익률은 ${this.lottoStatistics.getProfitRate()}%입니다.`);
   }
