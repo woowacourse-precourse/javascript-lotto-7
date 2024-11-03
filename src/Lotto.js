@@ -1,14 +1,14 @@
 import {
     PLEASE_INPUT_RIGHT_NUMBER,
     PLEASE_INPUT_UNIQUE_NUMBER,
-} from "./constant";
+} from "./constant.js";
 
 class Lotto {
     #numbers;
 
     constructor(numbers) {
         this.#validate(numbers);
-        this.#numbers = numbers;
+        this.#numbers = numbers.sort((a, b) => a - b);
     }
 
     #validate(numbers) {
