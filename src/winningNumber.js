@@ -4,6 +4,7 @@ import { Console } from "@woowacourse/mission-utils";
 
 async function getBonusNumer(winningNumbers){
     const BONUS_NUMBER = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    Console.print("");
     isWinningNumber(parseInt(BONUS_NUMBER), winningNumbers);
 
     return parseInt(BONUS_NUMBER);

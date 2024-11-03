@@ -37,7 +37,7 @@ class Lotto {
   checkNumbers(winningNumbers){
     this.#numbers.forEach((number)=>{
       if(winningNumbers.includes(number)){
-        this.#numbers += 1;
+        this.#correctCnt += 1;
       }
     })
   }
@@ -50,6 +50,10 @@ class Lotto {
 
   static setResult(count){
     this.#result[count]++;
+  }
+  
+  static getResult(count){
+    return this.#result[count];
   }
 }
 
