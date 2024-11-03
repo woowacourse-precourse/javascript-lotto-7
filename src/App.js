@@ -12,7 +12,9 @@ class App {
     }
 
     if (orderPrice % LOTTO_PER_PRICE !== 0) {
-      throw new Error('[ERROR] 구입 금액은 구입 금액은 1,000원 단위여야 합니다.');
+      throw new Error(
+        '[ERROR] 구입 금액은 구입 금액은 1,000원 단위여야 합니다.'
+      );
     }
 
     const lottoQuantity = orderPrice / LOTTO_PER_PRICE;
