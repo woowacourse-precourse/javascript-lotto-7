@@ -7,13 +7,14 @@ class LottoInputReader {
 
   static async readLottoPurchaseAmount() {
     const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-
+    
     return this.#validatePurchaseAmount(input);
   }
 
   static async readWinningNumbers() {
     const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
     this.#validateInputNotEmpty(input.trim());
+    this.#validateWinningNumbersFormat(input.trim());
 
     this.#winningNumbers = new Lotto(
       input
@@ -43,7 +44,7 @@ class LottoInputReader {
     const lottoPurchaseAmount = Number(input);
 
     this.#validateIsNumber(lottoPurchaseAmount);
-    this.#validatePurchaseAmountISPositive(lottoPurchaseAmount);
+    this.#validatePurchaseAmountIsPositive(lottoPurchaseAmount);
     this.#validatePurchaseAmountUnit(lottoPurchaseAmount);
 
     return lottoPurchaseAmount;
@@ -72,7 +73,7 @@ class LottoInputReader {
     }
   }
 
-  static #validatePurchaseAmountISPositive(purchaseAmount) {
+  static #validatePurchaseAmountIsPositive(purchaseAmount) {
     if (purchaseAmount <= 0) {
       throw new Error(ERROR_MESSAGES.INPUT.NEGATIVE_OR_ZERO_AMOUNT);
     }
@@ -81,6 +82,13 @@ class LottoInputReader {
   static #validatePurchaseAmountUnit(purchaseAmount) {
     if (purchaseAmount % 1000) {
       throw new Error(ERROR_MESSAGES.INPUT.INVALID_AMOUNT);
+    }
+  }
+
+  static #validateWinningNumbersFormat(input) {
+    const regex = /^(\d{1,2})(,\d{1,2}){5}$/; // 쉼표로 구분된 여섯 개의 1~2자리 숫자
+    if (!regex.test(input)) {
+      throw new Error(ERROR_MESSAGES.LOTTO.INVALID_FORMAT);
     }
   }
 

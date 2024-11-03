@@ -12,6 +12,7 @@ const ERROR_MESSAGES = {
     DUPLICATE_NUMBERS:
       '[ERROR] 로또 번호는 중복되지 않은 숫자로 구성되어야 합니다.',
     INVALID_INSTANCE: '[ERROR] 로또가 Lotto 클래스의 인스턴스여야 합니다.',
+    INVALID_FORMAT: '[ERROR] 로또 번호는 쉼표로 구분된 6자의 숫자여야 합니다.',
   },
 
   LOTTOS: {
