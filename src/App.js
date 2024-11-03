@@ -11,6 +11,8 @@ class App {
     const lottos = this.buyLottos(amount);
     const winningNumbers = await this.userWinningNumbersInput();
     const bonusNumber = await this.userBonusNumberInput(winningNumbers);
+
+    const countedWinningLottos = this.countWinningLottos(lottos, winningNumbers, bonusNumber);
   }
 
   async userAmountInput() {
@@ -101,6 +103,27 @@ class App {
     const lotto = new Lotto(lottoUniqueNumbers);
 
     return lotto;
+  }
+
+  countWinningLottos(lottos, winningNumbers, bonusNumber) {
+    let countedWinningLottos = Lotto.getWinnings().map(winning => ({ ...winning, count: 0 }));
+
+    lottos.forEach(lotto => {
+      countedWinningLottos = this.countWinningLotto(lotto, winningNumbers, bonusNumber, countedWinningLottos);
+    });
+
+    return countedWinningLottos;
+  }
+
+  countWinningLotto(lotto, winningNumbers, bonusNumber, countedWinningLotto) {
+    const win = lotto.win(winningNumbers, bonusNumber);
+
+    if (!win) return countedWinningLotto;
+
+    return countedWinningLotto.map(countedWinning => {
+      if (countedWinning.rank === win.rank) return { ...countedWinning, count: countedWinning.count + 1 };
+      return countedWinning;
+    });
   }
 
   #printBuyLottoCount(lottoCount) {
