@@ -1,5 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
-
 class Lotto {
   #numbers;
 
@@ -22,15 +20,28 @@ class Lotto {
     }
   }
 
-  async getPriceLoop() {
-    try {
-      const priceString = await this.readPriceString();
-      this.validatePriceString(priceString);
-      return Number(priceString);
-    } catch (error) {
-      Console.print(error.message);
-      return this.getPriceLoop();
-    }
+  getNumbers() {
+    return this.#numbers;
+  }
+
+  getMatchedCountWithWinningNumbers(winningNumbers) {
+    const matchedNumbers = this.#numbers.filter((number) => winningNumbers.includes(number));
+
+    return matchedNumbers.length;
+  }
+
+  isMatchedWithBonusNumber(bonusNumber) {
+    return this.#numbers.includes(bonusNumber);
+  }
+
+  getSortedNumbers() {
+    return [...this.#numbers].sort((a, b) => a - b);
+  }
+
+  toString() {
+    const sortedNumbers = this.getSortedNumbers();
+
+    return `[${sortedNumbers.join(', ')}]`;
   }
 }
 
