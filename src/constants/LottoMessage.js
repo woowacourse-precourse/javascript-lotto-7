@@ -1,5 +1,5 @@
 const RESULT = {
-  RESULT_HEADER: '당첨 통계\n---\n',
+  RESULT_HEADER: '\n당첨 통계\n---',
   RESULT_MATCH: (count, isBonus) => `${count}개 일치${RESULT.BONUS(isBonus)}`,
   RESULT_PRIZE: (amount) => ` (${amount})원 `,
   RESULT_MATCH_COUNT: (count) => `- ${count}개`,

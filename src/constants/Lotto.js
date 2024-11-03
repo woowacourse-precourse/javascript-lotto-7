@@ -1,9 +1,9 @@
 const PRIZE = {
-  FIRST_PRIZE: '2,000,000,000',
-  SECOND_PRIZE: '30,000,000',
-  THIRD_PRIZE: '1,500,000',
-  FOURTH_PRIZE: '50,000',
-  FIFTH_PRIZE: '5000',
+  1: '2,000,000,000',
+  2: '30,000,000',
+  3: '1,500,000',
+  4: '50,000',
+  5: '5000',
 };
 
 const LOTTO = Object.freeze({

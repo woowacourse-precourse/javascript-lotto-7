@@ -60,6 +60,7 @@ class LottoMachine {
   printResult() {
     const profit = getProfit(this.result);
     const profitRate = getProfitRate(profit, this.money);
+    Output.printResultSummary(this.result, profitRate);
   }
 
   async handleMoneyInput() {
