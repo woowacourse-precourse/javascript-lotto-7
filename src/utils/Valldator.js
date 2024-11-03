@@ -14,6 +14,10 @@ class Validator {
   static isPositive(value) {
     if (value <= 0) throw new Error(`${ERROR_PREFIX} 0보다 큰 수를 입력해주세요.`);
   }
+
+  static isInteger(value) {
+    if (value % 1 != 0) throw new Error(`${ERROR_PREFIX} 정수를 입력해주세요.`);
+  }
 }
 
 export default Validator;
