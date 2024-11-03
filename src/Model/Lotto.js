@@ -1,7 +1,7 @@
-import { ERROR_MESSAGE } from './constant/error.js';
-import { RULE } from './constant/rule.js';
-import { createErrorMessage } from './util/error.js';
-import { isInRange, isInteger, isNumber } from './util/validation.js';
+import { ERROR_MESSAGE } from '../constant/error.js';
+import { RULE } from '../constant/rule.js';
+import { createErrorMessage } from '../util/error.js';
+import { isInRange, isInteger, isNumber } from '../util/validation.js';
 
 class Lotto {
   #numbers;

@@ -1,11 +1,13 @@
-import { Console } from '@woowacourse/mission-utils';
-import Input from '../View/Input.js';
+import { Console, Random } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE } from '../constant/error.js';
-import Lotto from '../Lotto.js';
-import { isNumber } from '../util/validation.js';
+import Lotto from '../Model/Lotto.js';
 import { createErrorMessage } from '../util/error.js';
+import { isNumber } from '../util/validation.js';
+import Input from '../View/Input.js';
 
 class GameController {
+  #lottos = [];
+
   async init() {
     const purchaseCount = await Input.getPurchaseAmount()(
       this.#getValidatedPurchaseCount,
@@ -13,13 +15,12 @@ class GameController {
 
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
 
+    const lottos = this.#generateLottos(purchaseCount);
+
     const winningNumbers = await Input.getWinningNumbers()(
       this.#validateWinningNumbers,
     );
     const bonusNumber = await this.#getValidatedBonusNumber();
-
-    Console.print(winningNumbers);
-    Console.print(bonusNumber);
   }
 
   #getValidatedPurchaseCount(input) {
@@ -49,6 +50,12 @@ class GameController {
     const validateBonusNumber = Input.getBonusNumber();
 
     return validateBonusNumber((input) => input);
+  }
+
+  #generateLottos(amount) {
+    for (let i = 0; i < amount; i++) {
+      this.#lottos.push(Random.pickUniqueNumbersInRange(1, 45, 6));
+    }
   }
 }
 
