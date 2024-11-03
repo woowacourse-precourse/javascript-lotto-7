@@ -14,15 +14,9 @@ export class InputView {
     const inputPrizeString = await MissionUtils.Console.readLineAsync(
       INPUT_MESSAGES.WINNING_NUMBER
     );
-    const inputPrizeNumber = Number(inputPrizeString.trim());
+    const inputPrizeNumber = inputPrizeString.trim().split(',').map((stringArray) => {
+      return Number(stringArray);
+    });
     return inputPrizeNumber;
-  }
-
-  async inputBonusNumber() {
-    const inputBonusString = await MissionUtils.Console.readLineAsync(
-      INPUT_MESSAGES.BONUS_NUMBER
-    );
-    const inputBonusNumber = Number(inputBonusString.trim());
-    return inputBonusNumber;
   }
 }
