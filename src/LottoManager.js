@@ -8,8 +8,8 @@ class LottoManager {
     constructor(){}
 
     async run(){
-        //const lottoManagerIO = new LottoManagerIO();
-        this.#purchasePrice = await LottoManagerIO.printPurchasePrice();
+        this.#purchasePrice = await LottoManagerIO.getPurchasePrice();
+        this.#generatedLottoNumber = LottoManagerIO.printGeneratedLottoCount(this.#purchasePrice);
     }
 }
 
