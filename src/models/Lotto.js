@@ -1,5 +1,4 @@
 import { ERROR_MSG } from '../constants/messages.js';
-import Output from '../views/Output.js';
 
 class Lotto {
   #numbers;
@@ -11,7 +10,7 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      Output.displayError(ERROR_MSG.INVALID_WINNING_NUMBERS);
+      throw new Error(ERROR_MSG.INVALID_WINNING_NUMBERS);
     }
   }
 
