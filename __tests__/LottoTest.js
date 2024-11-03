@@ -13,4 +13,10 @@ describe("로또 클래스 테스트", () => {
       new Lotto([1, 2, 3, 4, 5, 5]);
     }).toThrow(inValidMessages.duplicate);
   });
+
+  test("로또 번호에 허용 범위를 벗어나는 숫자가 있으면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([0, 1, 2, 3, 4, 40]);
+    }).toThrow(inValidMessages.range);
+  });
 });
