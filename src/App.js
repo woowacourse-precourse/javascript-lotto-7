@@ -1,43 +1,37 @@
 import Lotto from "./Lotto.js";
-import readline from "readline";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
     this.lottoTickets = [];
   }
 
-  run() {
-    this.askPurchaseAmount();
+  async run() {
+    await this.askPurchaseAmount();
   }
 
-  askPurchaseAmount() {
-    this.rl.question("구매할 금액을 입력하세요(1000의 배수): ", (amount) => {
-      const parsedAmount = parseInt(amount, 10);
-      if (this.isInvalidAmount(parsedAmount)) {
-        MissionUtils.Console.print("[ERROR] 구매 금액은 1000의 배수여야 합니다.");
-        return this.askPurchaseAmount();
-      }
-      this.handlePurchase(parsedAmount);
-    });
+  async askPurchaseAmount() {
+    const amount = await MissionUtils.Console.readLineAsync("구매할 금액을 입력하세요(1000의 배수): ");
+    const parsedAmount = parseInt(amount, 10);
+    if (this.isInvalidAmount(parsedAmount)) {
+      MissionUtils.Console.print("[ERROR] 구매 금액은 1000의 배수여야 합니다.");
+      return this.askPurchaseAmount();
+    }
+    await this.handlePurchase(parsedAmount);
   }
 
   isInvalidAmount(amount) {
     return isNaN(amount) || amount <= 0 || amount % 1000 !== 0;
   }
 
-  handlePurchase(amount) {
+  async handlePurchase(amount) {
     try {
       this.lottoTickets = this.purchaseTickets(amount);
       this.printTickets();
-      this.askWinningNumbers();
+      await this.askWinningNumbers();
     } catch (error) {
       MissionUtils.Console.print(error.message);
-      this.askPurchaseAmount();
+      await this.askPurchaseAmount();
     }
   }
 
@@ -57,15 +51,14 @@ class App {
     });
   }
 
-  askWinningNumbers() {
-    this.rl.question("당첨 번호를 입력하세요 (콤마로 구분): ", (numbers) => {
-      const winningNumbers = numbers.split(",").map(Number);
-      if (this.isInvalidWinningNumbers(winningNumbers)) {
-        MissionUtils.Console.print("[ERROR] 당첨번호는 1에서 45 사이의 중복되지 않는 숫자여야 합니다.");
-        return this.askWinningNumbers();
-      }
-      this.askBonusNumber(winningNumbers);
-    });
+  async askWinningNumbers() {
+    const numbers = await MissionUtils.Console.readLineAsync("당첨 번호를 입력하세요 (콤마로 구분): ");
+    const winningNumbers = numbers.split(",").map(Number);
+    if (this.isInvalidWinningNumbers(winningNumbers)) {
+      MissionUtils.Console.print("[ERROR] 당첨번호는 1에서 45 사이의 중복되지 않는 숫자여야 합니다.");
+      return this.askWinningNumbers();
+    }
+    await this.askBonusNumber(winningNumbers);
   }
 
   isInvalidWinningNumbers(numbers) {
@@ -76,16 +69,14 @@ class App {
     );
   }
 
-  askBonusNumber(winningNumbers) {
-    this.rl.question("보너스 번호를 입력하세요: ", (bonus) => {
-      const parsedBonus = parseInt(bonus, 10);
-      if (this.isInvalidBonusNumber(parsedBonus, winningNumbers)) {
-        MissionUtils.Console.print("[ERROR] 보너스 번호는 당첨 번호가 아닌 1에서 45 사이의 숫자여야 합니다.");
-        return this.askBonusNumber(winningNumbers);
-      }
-      this.showResults(winningNumbers, parsedBonus);
-      this.rl.close();
-    });
+  async askBonusNumber(winningNumbers) {
+    const bonus = await MissionUtils.Console.readLineAsync("보너스 번호를 입력하세요: ");
+    const parsedBonus = parseInt(bonus, 10);
+    if (this.isInvalidBonusNumber(parsedBonus, winningNumbers)) {
+      MissionUtils.Console.print("[ERROR] 보너스 번호는 당첨 번호가 아닌 1에서 45 사이의 숫자여야 합니다.");
+      return this.askBonusNumber(winningNumbers);
+    }
+    this.showResults(winningNumbers, parsedBonus);
   }
 
   isInvalidBonusNumber(bonus, winningNumbers) {
