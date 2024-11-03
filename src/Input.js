@@ -1,52 +1,115 @@
-import { Console } from "@woowacourse/mission-utils";
-import { INPUT_MESSAGE } from "./constants/message.js";
-import Validate from "./Validate.js";
+import { Console, Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 import Output from "./Output.js";
+import { LOTTO_NUMBERS } from "./constants/lotto.js";
+import { ERROR_MESSAGE, INPUT_MESSAGE } from "./constants/message.js";
 
 class Input {
-  static async getPurchaseAmount() {
+  async getPurchasedLotto() {
     while (true) {
       try {
         const purchaseAmountInput = await Console.readLineAsync(INPUT_MESSAGE.PURCHASE_AMOUNT);
         const purchaseAmount = Number(purchaseAmountInput);
 
-        Validate.checkPurchaseAmount(purchaseAmount);
+        this.#validatePurchaseAmount(purchaseAmount);
 
-        return { purchaseAmount };
+        const purchasedLottoCount = this.#getPurchasedLottoCount(purchaseAmount);
+        const purchasedLotto = this.#getPurchasedLotto(purchasedLottoCount);
+
+        return { purchasedLottoCount, purchasedLotto };
       } catch (error) {
         Output.printErrorMessage(error);
       }
     }
   }
 
-  static async getLottoWinningNumbers() {
+  #validatePurchaseAmount(purchaseAmount) {
+    const isNaN = !Number.isInteger(purchaseAmount);
+
+    if (isNaN) {
+      throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_INPUT.NOT_A_NUMBER);
+    }
+
+    const isNotDivisionByThousand = purchaseAmount % 1000 !== 0;
+
+    if (isNotDivisionByThousand) {
+      throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_INPUT.NOT_DIVISION_BY_THOUSAND);
+    }
+  }
+
+  #getPurchasedLottoCount(purchaseAmount) {
+    return purchaseAmount / 1000;
+  }
+
+  #getPurchasedLotto(purchasedLottoCount) {
+    const purchasedLotto = Array.from({ length: purchasedLottoCount }, () => {
+      const randomLottoNumber = this.#getRandomLottoNumber();
+
+      Output.printPurchasedLottoNumber(randomLottoNumber);
+
+      return randomLottoNumber;
+    });
+
+    return purchasedLotto;
+  }
+
+  #getRandomLottoNumber() {
+    return Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBERS.MIN_RANGE_1,
+      LOTTO_NUMBERS.MAX_RANGE_45,
+      LOTTO_NUMBERS.COUNT_6,
+    ).sort((a, b) => a - b);
+  }
+
+  async getLottoWinningNumbers() {
     while (true) {
       try {
         const lottoWinningNumberInput = await Console.readLineAsync(INPUT_MESSAGE.LOTTO_NUMBER);
 
         const lottoWinningNumbers = new Set(lottoWinningNumberInput.split(",").map(Number));
 
-        Validate.checkLottoNumbers([...lottoWinningNumbers]);
+        const lottoClass = new Lotto(lottoWinningNumbers);
 
-        return { lottoWinningNumbers };
+        return { lottoClass };
       } catch (error) {
         Output.printErrorMessage(error);
       }
     }
   }
 
-  static async getBonusNumber(lottoWinningNumber) {
+  async getBonusNumber(winningNumbers) {
     while (true) {
       try {
         const bonusNumberInput = await Console.readLineAsync(INPUT_MESSAGE.BONUS_NUMBER);
         const bonusNumber = Number(bonusNumberInput);
 
-        Validate.checkBonusNumber(bonusNumber, lottoWinningNumber);
+        this.#checkBonusNumber(bonusNumber, winningNumbers);
 
         return { bonusNumber };
       } catch (error) {
         Output.printErrorMessage(error);
       }
+    }
+  }
+
+  #checkBonusNumber(bonusNumber, winningNumbers) {
+    const isNaN = !Number.isInteger(bonusNumber);
+
+    if (isNaN) {
+      throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.NOT_A_NUMBER);
+    }
+
+    const bonusNumberOutOfRange =
+      bonusNumber < LOTTO_NUMBERS.MIN_RANGE_1 || bonusNumber > LOTTO_NUMBERS.MAX_RANGE_45;
+
+    if (bonusNumberOutOfRange) {
+      throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.OUT_OF_RANGE_1_to_45);
+    }
+
+    const isDuplicatedNumber = winningNumbers.has(bonusNumber);
+
+    if (isDuplicatedNumber) {
+      throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.DUPLICATED_NUMBER);
     }
   }
 }
