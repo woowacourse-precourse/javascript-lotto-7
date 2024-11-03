@@ -36,13 +36,13 @@ class LotteryMachineController {
       async () => {
         const purchaseAmount = await this.#lotteryMachineView.getLotteryPurchaseAmount();
         this.#lotteryMachineService.inputPurchaseAmount(purchaseAmount);
+
+        this.#lotteryMachineView.printLineBreak();
       },
       async () => {
         await this.#inputPurchaseAmount();
       },
     );
-
-    this.#lotteryMachineView.printLineBreak();
   }
 
   async #inputWinningNumbers() {
@@ -50,13 +50,13 @@ class LotteryMachineController {
       async () => {
         const winningNumbers = await this.#lotteryMachineView.getLotteryWinningNumbers();
         this.#lotteryMachineService.inputWinningNumbers(winningNumbers);
+
+        this.#lotteryMachineView.printLineBreak();
       },
       async () => {
-        await this.#lotteryMachineView.getLotteryWinningNumbers();
+        await this.#inputWinningNumbers();
       },
     );
-
-    this.#lotteryMachineView.printLineBreak();
   }
 
   async #inputBonusNumbers() {
@@ -64,13 +64,13 @@ class LotteryMachineController {
       async () => {
         const bonusNumber = await this.#lotteryMachineView.getLotteryBonusNumber();
         this.#lotteryMachineService.inputBonusNumber(bonusNumber);
+
+        this.#lotteryMachineView.printLineBreak();
       },
       async () => {
-        await this.#lotteryMachineView.getLotteryBonusNumber();
+        await this.#inputBonusNumbers();
       },
     );
-
-    this.#lotteryMachineView.printLineBreak();
   }
 
   #generateLotteryTickets() {
