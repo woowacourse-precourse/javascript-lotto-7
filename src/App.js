@@ -4,6 +4,8 @@ const LOTTO_COST_MIN = 1000;
 const GUIDE_MESSAGE_INPUT_COST = "구입금액을 입력해 주세요.\n";
 const GUIDE_MESSAGE_INPUT_USER_PICKED_NUMBERS =
   "\n당첨 번호를 입력해 주세요.\n";
+const GUIDE_MESSAGE_INPUT_USER_PICKED_BONUS_NUMBER =
+  "\n보너스 번호를 입력해 주세요.\n";
 const ERROR_MESSAGE_INVALID_COST =
   "[ERROR] 입력하신 금액이 1,000원 단위가 아닙니다. 다시";
 const ERROR_MESSAGE_NOT_NUMBER = "[ERROR] 입력값이 숫자가 아닙니다. 다시";
@@ -46,6 +48,8 @@ class App {
     userPickedNumbers = this.splitUserPickedNumbers(
       await this.getUserPickedNumbers()
     ).map(Number);
+
+    let userPickedBonusNum = await this.getUserPickedBonusNumber();
   }
 
   getLottoCost() {
@@ -60,6 +64,12 @@ class App {
 
   splitUserPickedNumbers(userPickedStr) {
     return userPickedStr.split(",");
+  }
+
+  getUserPickedBonusNumber() {
+    return MissionUtils.Console.readLineAsync(
+      GUIDE_MESSAGE_INPUT_USER_PICKED_BONUS_NUMBER
+    );
   }
 }
 
