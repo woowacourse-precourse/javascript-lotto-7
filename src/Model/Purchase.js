@@ -9,7 +9,7 @@ class Purchase {
         this.#amount = amount;
     }
     #validate(amount) {
-        if (Number.isNaN(amount)) {
+        if (Number.isNaN(amount) || typeof amount !== "number") {
             throw new Error(ERROR_MESSAGES.purchaseAmountNotNumber);
         }
         if (amount % 1000 !== 0) {
