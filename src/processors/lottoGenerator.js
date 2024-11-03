@@ -1,4 +1,4 @@
-import { MissionUtils } from '@woowacourse/mission-utils.js';
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 const getLottos = (amount) => {
     let lottos = [];
