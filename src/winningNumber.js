@@ -12,4 +12,10 @@ function isPositiveNumber(number){
     }
 }
 
-export {isPositiveNumber}
+function is1to45(number){
+    if(parseInt(number) < 1 || parseInt(number) > 45){
+        throw new Error("[ERROR] 값이 1이상 45이하인지 확인하세요.");
+    }
+}
+
+export {isPositiveNumber, is1to45}
