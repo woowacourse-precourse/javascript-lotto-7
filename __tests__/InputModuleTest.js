@@ -56,4 +56,33 @@ describe('InputModule Test', () => {
       },
     );
   });
+
+  describe('getLottoWinnerBonusNumber : 보너스 번호 입력 테스트', () => {
+    let lottoWinnerNumbers = [1, 2, 3, 4, 5, 6];
+
+    test.each(['a', '-1', '', '0', '1.1', '1', '48'])(
+      '유효하지 않은 값이 입력된 경우 에러를 발생시킨다. ( %s )',
+      (inputValue) => {
+        mockQuestions([inputValue]);
+
+        expect(InputModules.getLottoWinnerBonusNumber(lottoWinnerNumbers)).rejects.toThrow(
+          ERROR_PREFIX,
+        );
+      },
+    );
+    test.each([
+      ['7', 7],
+      ['45', 45],
+      ['18', 18],
+    ])(
+      '유효한 값이 입력되는 경우 해당 값을 정수로 반환한다. ( %s )',
+      async (inputValue, result) => {
+        mockQuestions([inputValue]);
+
+        const bonusNumber = await InputModules.getLottoWinnerBonusNumber(lottoWinnerNumbers);
+
+        expect(bonusNumber).toBe(result);
+      },
+    );
+  });
 });
