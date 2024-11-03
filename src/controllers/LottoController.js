@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../models/Lotto.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
@@ -46,13 +46,28 @@ class LottoController {
     }
 
     async getValidatedInputWinningNumbers() {
-        const inputAmount = await this.InputView.getInputWinningNumbers();
-        return inputAmount;
+        const inputWinningNumbers =
+            await this.InputView.getInputWinningNumbers();
+
+        try {
+            InputValidator.isValidWinningNumbers(inputWinningNumbers);
+            return inputWinningNumbers;
+        } catch (error) {
+            Console.print(error.message);
+            return this.getValidatedInputWinningNumbers();
+        }
     }
 
     async getValidatedInputBonusNumber() {
-        const inputAmount = await this.InputView.getInputBonusNumber();
-        return inputAmount;
+        const inputBonusNumber = await this.InputView.getInputBonusNumber();
+
+        try {
+            InputValidator.isValidBonusNumber(inputBonusNumber);
+            return inputBonusNumber;
+        } catch (error) {
+            Console.print(error.message);
+            return this.getValidatedInputBonusNumber();
+        }
     }
 }
 
