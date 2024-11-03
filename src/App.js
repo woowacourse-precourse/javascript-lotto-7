@@ -13,12 +13,7 @@ class App {
     const lottoCount = purchaseAmount / 1000;
     const userLottoNumbers = this.generateLotto(lottoCount);
 
-    await Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    await Console.print(
-      userLottoNumbers
-        .map((lotto) => `[ ${lotto.getNumbers().join(", ")} ]`)
-        .join("\n")
-    );
+    await this.printLottoNumbers(userLottoNumbers, lottoCount);
 
     const inputWinningNumbers = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
@@ -48,6 +43,15 @@ class App {
     );
     this.validatePurchaseAmount(purchaseAmount);
     return purchaseAmount;
+  }
+
+  async printLottoNumbers(userLottoNumbers, lottoCount) {
+    await Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    await Console.print(
+      userLottoNumbers
+        .map((lotto) => `[ ${lotto.getNumbers().join(", ")} ]`)
+        .join("\n")
+    );
   }
 
   generateLotto(lottoCount) {
