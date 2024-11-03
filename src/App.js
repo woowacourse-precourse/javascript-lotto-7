@@ -1,3 +1,4 @@
+import Lotto from './components/Lotto.js';
 import LottoController from './components/LottoController.js';
 
 class App {
@@ -7,6 +8,8 @@ class App {
     await lottoController.promptPurchaseAmount();
     lottoController.generateLottoTickets();
     lottoController.displayLottoTickets();
+
+    const lotto = await Lotto.promptLotto();
   }
 }
 
