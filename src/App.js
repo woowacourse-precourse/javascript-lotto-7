@@ -21,6 +21,9 @@ class App {
 
   async userWinningNumbersInput() {
     const winningNumbersInput = await Console.readLineAsync(`\n${INPUT_MESSAGE.WINNING_NUMBERS}\n`);
+    const winningNumbers = this.convertToWinningNumbers(winningNumbersInput);
+
+    return winningNumbers;
   }
 
   async safeAsyncExecute(callback) {
@@ -38,6 +41,12 @@ class App {
     const amount = Convert.toNumber(amountInput);
 
     return amount;
+  }
+
+  convertToWinningNumbers(winningNumbersInput) {
+    const winningNumbers = winningNumbersInput.split(',');
+
+    return winningNumbers;
   }
 
   buyLottos(amount) {
