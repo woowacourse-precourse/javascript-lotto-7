@@ -9,10 +9,17 @@ class LottoChecker {
 
   static checkWinningLottos(lottos, winningNumbers, bonusNumber) {
     const lottoCheckResults = new Array(5).fill(0);
+
     for (const lotto of lottos) {
-      const tier = this.#checkSingleLotto(lotto, winningNumbers.getNumbers(), bonusNumber);
+      const tier = this.#checkSingleLotto(
+        lotto,
+        winningNumbers.getNumbers(),
+        bonusNumber
+      );
+
       this.#countCheckResults(lottoCheckResults, tier);
     }
+
     return lottoCheckResults;
   }
 
@@ -34,8 +41,9 @@ class LottoChecker {
 
   static #findTier(matchCount, hasBonus) {
     const tier = LottoChecker.PRIZE_TIERS.find(
-      (e) => e.matchCount === matchCount && (!e.bonus || (e.bonus && hasBonus))
+      (e) => e.matchCount === matchCount && (!e.bonus || hasBonus)
     );
+
     return tier ? tier.tier : undefined;
   }
 }
