@@ -40,10 +40,20 @@ class LottoService {
   }
 
   calculateTotalProfit(rankCounts) {
-    this.calculateProfitMargin(totalProfit);
+    const prizeMoneyByRank = {
+      match_6: 2000000000,
+      match_5_bonus: 30000000,
+      match_5: 1500000,
+      match_4: 50000,
+      match_3: 5000,
+    };
+
+    return Object.keys(rankCounts).reduce((totalProfit, rank) => {
+      return totalProfit + prizeMoneyByRank[rank] * rankCounts[rank];
+    }, 0);
   }
 
-  calculateProfitMargin() {
+  calculateProfitMargin(rankCounts) {
     return profitMargin;
   }
 }
