@@ -1,4 +1,5 @@
 import LOTTO_CONSTANTS from '../constants/lottoConstatns.js';
+import ERROR_MESSAGES from '../constants/messages/errorMessages.js';
 
 class BounsNumber {
   #winningNumbers;
@@ -23,13 +24,15 @@ class BounsNumber {
 
   #validateType(bonusNumber) {
     if (Number.isNaN(Number(bonusNumber))) {
-      throw new Error('[ERROR] 보너스 번호는 숫자타입이어야 합니다.');
+      throw new Error(
+        `${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.BONUS_NUMBER_TYPE_NOT_NUMBER}`,
+      );
     }
   }
 
   #validateDuplication(bonusNumber) {
     if (this.#winningNumbers.includes(Number(bonusNumber))) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+      throw new Error(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.BONUS_NUMBER_DUPLICATION}`);
     }
   }
 
@@ -40,14 +43,14 @@ class BounsNumber {
 
     if (isValid) {
       throw new Error(
-        '[ERROR] 보너스 번호의 숫자 범위는 로또 번호의 숫자 범위와 같이 1~45여야 합니다.',
+        `${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.BONUS_NUMBER_RANGE_NOT_RIGHT}`,
       );
     }
   }
 
   #validateInteger(bonusNumber) {
     if (Number(bonusNumber) !== parseInt(bonusNumber, 10)) {
-      throw new Error('[ERROR] 보너스 번호는 정수형이어야 합니다.');
+      throw new Error(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.BONUS_NUMBER_NOT_INTEGER}`);
     }
   }
 }
