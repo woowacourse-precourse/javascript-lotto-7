@@ -7,11 +7,15 @@ const ERROR = Object.freeze({
   },
   INVALID_LOTTO_NUMBER_COUNT: {
     name: 'InvalidLottoNumberCountError',
-    message: `${ERROR_TAG} 로또 번호는 6개여야 합니다.`,
+    message: `${ERROR_TAG} 당첨 번호는 6개여야 합니다.`,
   },
   DUPLICATE_LOTTO_NUMBER: {
     name: 'DuplicateLottoNumberError',
-    message: `${ERROR_TAG} 입력하신 로또 번호에 중복된 숫자가 있습니다.`,
+    message: `${ERROR_TAG} 입력하신 당첨 번호에 중복된 숫자가 있습니다.`,
+  },
+  DUPLICATE_BONUS_NUMBER: {
+    name: 'DuplicateBonusNumberError',
+    message: `${ERROR_TAG} 입력하신 당첨 번호와 보너스 당첨 번호가 중복됩니다.`,
   },
   INVALID_NUMBER_RANGE: {
     name: 'InvalidNumberRangeError',
