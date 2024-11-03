@@ -230,4 +230,61 @@ describe('Validator Test', () => {
       },
     );
   });
+
+  describe('isNumberIsDividable() : a / b가 나누어 떨어지는지 검증', () => {
+    test.each([1, -1, 100, 1001])(
+      '기본 피연산자와 나누어 떨어지지 않는 에러를 발생시킨다.( %s )',
+      (value) => {
+        // when
+        const validate = () => {
+          Validator.isNumberIsDividable(value);
+        };
+
+        // then
+        expect(validate).toThrow(ERROR_PREFIX);
+      },
+    );
+
+    test.each([1000, 10000, 1000000])(
+      '기본 피연산자와 나누어 떨어지지는 경우 정상적으로 동작한다. ( %s )',
+      (value) => {
+        // when
+        const validate = () => {
+          Validator.isNumberIsDividable(value);
+        };
+
+        expect(validate).not.toThrow();
+      },
+    );
+
+    test.each([
+      [1, 5.1],
+      [10, 11],
+      [2020, 4893],
+    ])(
+      '커스텀 피연산자( %s )와 나누어 떨어지지 않는 경우 에러를 발생시킨다. ( %s )',
+      (operator, operand) => {
+        // when
+        const validate = () => {
+          Validator.isNumberIsDividable(operator, operand);
+        };
+
+        // then
+        expect(validate).toThrow(ERROR_PREFIX);
+      },
+    );
+
+    test.each([
+      [1, 5],
+      [10, 110],
+      [2020, 20200],
+    ])('커스텀 피연산자( %s )와 나누어 떨어지는 경우 정상적으로 동작한다.', (standard, value) => {
+      // when
+      const validate = () => {
+        Validator.isNumberIsDividable(value, standard);
+      };
+
+      expect(validate).not.toThrow();
+    });
+  });
 });
