@@ -1,7 +1,7 @@
-import LottoManager from './LottoManager.js';
 import PriceInputParser from './inputParser/PriceInputParser.js';
 import BonusNumberInputParser from './inputParser/BonusNumberInputParse.js';
 import WinningNumbersInputParser from './inputParser/WinnigNumbersInputParser.js';
+import LottoManager from './lotto/LottoManager.js';
 
 class App {
   #priceInputParser = new PriceInputParser();
