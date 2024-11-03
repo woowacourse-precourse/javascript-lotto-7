@@ -7,13 +7,13 @@ class Validator {
   }
 
   static containNotNumber(values) {
-    values.forEach((value) => {
-      if (Validator.isNaN(value)) {
-        return true;
-      }
-    });
+    if (Array.isArray(values)) {
+      return values.some((value) => this.isNotNumber(value));
+    }
 
-    return false;
+    if (typeof values === "object") {
+      return Object.values(values).some((value) => this.isNotNumber(value));
+    }
   }
 }
 
