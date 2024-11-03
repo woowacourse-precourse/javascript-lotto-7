@@ -1,4 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import ValidatorModule from './utils/ValidatorModules.js';
 
 const rankBoard = {
   1: { correctNumber: 6, correctBonus: false },
@@ -43,6 +44,7 @@ class App {
   async run() {
     // 1. 구입 금액을 입력받는다.
     this.#cash = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    ValidatorModule.checkPurchaseCash(this.#cash);
 
     // 2. 구매된 로또 매수를 출력한다.
     this.#numberOfLotto = this.#cash / 1000;
@@ -60,10 +62,12 @@ class App {
     // 4. 당첨 번호를 입력받는다.
     const winnerNumberInput = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
     const winnerNumbers = winnerNumberInput.split(',').map((num) => Number(num));
+    ValidatorModule.checkWinnerNumbers(winnerNumbers);
 
     // 5. 보너스 번호를 입력받는다.
     const winnerBonusInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     const winnerBonus = Number(winnerBonusInput);
+    ValidatorModule.checkBonusNumber(winnerBonus);
 
     // 6. 당첨 통계를 출력한다.
     // 당첨 통계 계산
