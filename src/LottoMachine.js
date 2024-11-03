@@ -49,5 +49,18 @@ export class LottoMachine {
       throw new Error("[ERROR] 당첨 번호는 1에서 45 사이여야 합니다.");
     }
   }
+
+  async promptBonusNumber() {
+    const input = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.');
+    const bonus = Number(input);
+    try {
+        this.validateBonusNumber(bonus);
+        this.bonusNumber = bonus;
+        this.checkResults();
+    } catch (error) {
+        MissionUtils.Console.print(error.message);
+        await this.promptBonusNumber();
+    };
+  }
 }
 export default LottoMachine;
