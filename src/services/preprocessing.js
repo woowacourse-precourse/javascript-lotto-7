@@ -5,3 +5,7 @@ export const stringToNumberArray = (input) => {
 export const amountToNumber = (input) => {
     return Number(input) / 1000
 }
+
+export const stringToNumber = (input)=>{
+    return Number(input)
+}
