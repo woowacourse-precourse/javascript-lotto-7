@@ -12,7 +12,7 @@ const getWinningNumbers = async () => {
   const winningNumbers = splitWinningNumbers(rawWinningNumbers);
   winningNumberValidator.validateWinningNumbers(winningNumbers);
 
-  return winningNumbers;
+  return winningNumbers.map(Number);
 }
 
 const getBonusNumber = async (winningNumbers) => {
