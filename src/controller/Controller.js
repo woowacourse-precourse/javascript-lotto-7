@@ -20,7 +20,7 @@ export default class Controller {
 
   async start() {
     const paidMoney = await this.getMoney();
-    const lottos = await this.getLottos(paidMoney);
+    const lottos = this.getLottos(paidMoney);
     this.outputView.printLottoPurchaseHistory(lottos);
 
     const { winningNumber, bonusNumber } =
@@ -68,7 +68,7 @@ export default class Controller {
     return matchingMachine.getResult();
   }
 
-  async getLottos(paidMoney) {
+  getLottos(paidMoney) {
     const lottoCount = paidMoney / LOTTO.LOTTO_PRICE;
     const lottos = this.generateLottos(lottoCount);
 
