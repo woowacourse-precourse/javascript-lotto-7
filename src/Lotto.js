@@ -28,9 +28,7 @@ class Lotto {
 
   #checkRange1To45(numbers) {
     numbers.forEach((number) => {
-      const isNumberInRange = number >= NUMBER.START && number <= NUMBER.MAX;
-
-      handleError(!isNumberInRange, ERROR_MESSAGES.INVALID_NUMBER_RANGE);
+      checkInRange(NUMBER.MIN, NUMBER.MAX, number);
     });
   }
 
@@ -42,9 +40,7 @@ class Lotto {
   }
 
   #checkOnlyNumbers(numbers) {
-    numbers.forEach((number) =>
-      checkValidNumber(number, ERROR_MESSAGES.INVALID_TYPE)
-    );
+    numbers.forEach((number) => checkValidNumber(number));
   }
 
   #checkDelimiterPosition(numbers) {

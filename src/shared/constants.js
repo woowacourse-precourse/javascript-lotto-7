@@ -20,7 +20,7 @@ export const INFO_MESSAGES = Object.freeze({
 });
 
 export const NUMBER = Object.freeze({
-  START: 1,
+  MIN: 1,
   MAX: 45,
   VALID_LENGTH: 6,
 });

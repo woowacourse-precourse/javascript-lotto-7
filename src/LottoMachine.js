@@ -4,7 +4,7 @@ import { NUMBER } from './shared/index.js';
 class LottoMachine {
   static #pickRandomNumbers() {
     return MissionUtils.Random.pickUniqueNumbersInRange(
-      NUMBER.START,
+      NUMBER.MIN,
       NUMBER.MAX,
       NUMBER.VALID_LENGTH
     );

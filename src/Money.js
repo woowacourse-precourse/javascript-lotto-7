@@ -14,7 +14,7 @@ class Money {
   }
 
   #validate(amount) {
-    checkValidNumber(amount, ERROR_MESSAGES.INVALID_TYPE);
+    checkValidNumber(amount);
     this.#checkValidAmount(amount);
   }
 
