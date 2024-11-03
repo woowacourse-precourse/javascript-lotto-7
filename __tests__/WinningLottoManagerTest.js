@@ -144,4 +144,13 @@ describe('WinningLottoManager 테스트', () => {
       await testSelectBonusNumber(inputs, errorMessage);
     },
   );
+
+  test.each([['1.8'], ['32.234'], ['13.3']])(
+    '정수가 아닌 보너스 번호를 예외 처리하는지 테스트 (%s)',
+    async (inputs) => {
+      const errorMessage = ERROR_MESSAGE.notInteger;
+
+      await testSelectBonusNumber(inputs, errorMessage);
+    },
+  );
 });
