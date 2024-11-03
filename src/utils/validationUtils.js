@@ -1,6 +1,11 @@
 const isValidPurchaseUnit = (amount, unit) => amount % unit === 0;
 
-const isPositiveNumber = (value) => !Number.isNaN(value) && value > 0;
+const isPositiveNumber = (value) => {
+  if (Array.isArray(value)) {
+    return value.every((num) => !Number.isNaN(num) && num > 0);
+  }
+  return !Number.isNaN(value) && value > 0;
+};
 
 const isValidLength = (numbers, count) => numbers.length === count;
 

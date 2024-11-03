@@ -19,6 +19,9 @@ const Validator = {
   },
 
   validateLottoNumbers(numbers) {
+    if (!isPositiveNumber(numbers)) {
+      throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
+    }
     if (!isValidLength(numbers, CONFIG.LOTTO_COUNT)) {
       throw new Error(ERROR_MESSAGES.INVALID_COUNT);
     }
