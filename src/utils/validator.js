@@ -1,9 +1,10 @@
 import {
+  BONUS_NUMBER_ERROR,
   NUMBERS_ERROR,
   PURCHASE_AMOUNT_ERROR,
 } from "../constants/errorMessage.js";
 import { LOTTO_PRICE } from "../constants/gameRules.js";
-import { checkDuplicateValueInArray } from "./checkDuplicateValue.js";
+import { hasDuplicates, isDuplicateInArray } from "./checkDuplicateValue.js";
 
 export const validatePurchaseAmount = (purchaseAmount) => {
   if (Number.isNaN(purchaseAmount)) {
@@ -28,7 +29,7 @@ export const validateNumbers = (numbers) => {
     throw new Error(NUMBERS_ERROR.COUNT_NOT_MET);
   }
 
-  if (checkDuplicateValueInArray(numbers)) {
+  if (hasDuplicates(numbers)) {
     throw new Error(NUMBERS_ERROR.DUPLICATE_NUMBERS);
   }
 
