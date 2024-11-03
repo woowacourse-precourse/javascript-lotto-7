@@ -1,13 +1,24 @@
 import { GAME_SETTINGS, LOTTO_REWARD } from '../utils/constants.js';
 
 class ProfitCalculator {
-  static calculateProfitRate(rankCounts, purchaseAmount) {
-    const profit = Object.keys(rankCounts).reduce((acc, key) => {
-      return acc + rankCounts[key] * LOTTO_REWARD[key].prize;
-    }, GAME_SETTINGS.ZERO);
+  #rankCounts;
+  #purchaseAmount;
+
+  constructor(rankCounts, purchaseAmount) {
+    this.#rankCounts = rankCounts;
+    this.#purchaseAmount = purchaseAmount;
+  }
+
+  get profitRate() {
+    const profit = Object.entries(this.#rankCounts).reduce(
+      (acc, [key, value]) => {
+        return acc + value * LOTTO_REWARD[key].prize;
+      },
+      GAME_SETTINGS.ZERO
+    );
 
     return (
-      (profit / purchaseAmount) *
+      (profit / this.#purchaseAmount) *
       GAME_SETTINGS.PERCENTAGE_MULTIPLIER
     ).toFixed(GAME_SETTINGS.DECIMAL_PLACES);
   }

@@ -42,7 +42,7 @@ class LottoControllers {
   }
 
   calculateProfit(rankCounts, purchaseAmount) {
-    return ProfitCalculator.calculateProfitRate(rankCounts, purchaseAmount);
+    return new ProfitCalculator(rankCounts, purchaseAmount).profitRate;
   }
 }
 
