@@ -1,6 +1,6 @@
 import {amountToNumber, stringToNumberArray} from "./services/preprocessing.js";
 import {INPUT} from "./constants/message.js";
-import {input} from "./ui/view.js";
+import {input, purchaseOutput, winningStatsOutput} from "./ui/view.js";
 import LottoMachine from "./services/LottoMachine.js";
 import Lotto from "./services/Lotto.js";
 
@@ -11,14 +11,18 @@ class App {
 
         const lottoMachine = new LottoMachine(purchaseNum)
         const purchasedLottos = lottoMachine.lottoRelease()
+        console.log(purchasedLottos)
+
+        purchaseOutput(purchasedLottos)
 
         const winningNum = stringToNumberArray(await input(INPUT[1]))
+
         const lotto = new Lotto(winningNum)
-
         const bonusNum = await input(INPUT[2]) //보너스 번호는 유효성 검사만 필요하다
-        const result = lotto.setStats(purchasedLottos, bonusNum)
-    }
 
+        const resultObj = lotto.setStats(purchasedLottos, bonusNum)
+        winningStatsOutput(resultObj)
+    }
 }
 
 export default App;
