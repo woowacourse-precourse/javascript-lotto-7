@@ -15,11 +15,12 @@ class App {
 
       validatePurchaseAmount(purchaseAmount);
 
+      const lottoCount = InputParser.calculateLottoCount(purchaseAmount);
+
       Console.print(`\n`);
       Console.print(`${lottoCount}개를 구매했습니다.`);
 
-      const purchasedLottos = new PurchasedLottos();
-      await purchasedLottos.generateLottos(lottoCount);
+      const purchasedLottos = await PurchasedLottos.generate(lottoCount);
       Console.print(`\n`);
 
       const winningNumberInput = await InputPrompt.getWinningNumber();
