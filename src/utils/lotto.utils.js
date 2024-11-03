@@ -44,6 +44,24 @@ export const lottoUtils = {
     calculateProfitRate(profit, purchasePrice) {
         const profitRate = profit / purchasePrice * 100;
         return Math.round(profitRate * 100) / 100;
+    },
+    calculateTotalPrize(lottoResult){
+        let totalPrize = 0;
+        lottoResult.forEach((amount, index) => {
+            totalPrize += amount * lottoUtils.getPrize(index);
+        })
+        return totalPrize;
+    },
+    checkResult(lottos, winningNumbers, bonusNumber, purchasePrice) {
+        const lottoResult = lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber);
+
+        let totalPrize = lottoUtils.calculateTotalPrize(lottoResult);
+        IOHandler.printWinningStatisticsAll(lottoResult);
+
+        const profitRate = lottoUtils.calculateProfitRate(totalPrize, purchasePrice);
+
+        const formattedRate = `${profitRate.toFixed(1)}%`;
+        Console.print(INSTRUCTION.PRINT_PROFIT_RATE(formattedRate))
     }
 
 }

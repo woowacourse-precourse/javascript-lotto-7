@@ -37,5 +37,5 @@ export const INSTRUCTION = {
     EXTRA_MESSAGE_SECOND_PRIZE: ", 보너스 볼 일치",
     PRINT_WINNING_STATISTICS: (matchNumber, prize, matchAmount, extraMessage = "") => `${matchNumber}개 일치${extraMessage} (${prize}원) - ${matchAmount}개`,
     PRINT_TOTAL_WINNING_STATISTICS: "\n당첨 통계\n---",
-    PRINT_PROFIT_RATE: (profitRate) => `총 수익률은 ${profitRate}%입니다.`
+    PRINT_PROFIT_RATE: (profitRate) => `총 수익률은 ${profitRate}입니다.`
 }

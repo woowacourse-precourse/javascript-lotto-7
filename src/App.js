@@ -11,30 +11,14 @@ class App {
             const purchasePrice = await IOHandler.getInput(INSTRUCTION.GET_PURCHASE_PRICE, validator.purchasePrice.validate);
             const lottoAmount = purchasePriceUtils.getLottoAmount(purchasePrice);
             Console.print(INSTRUCTION.PRINT_LOTTO_AMOUNT(lottoAmount));
-
             const lottos = lottoUtils.generateNLottos(lottoAmount);
-            lottos.map((lotto) => {
-                lotto.print()
-            })
+            IOHandler.printLottoArray(lottos)
 
             const winningNumbers = await IOHandler.getInput(INSTRUCTION.GET_WINNING_NUMBERS, validator.winningNumbers.validate, (str) => str.split(','));
             const bonusNumber = await IOHandler.getInput(INSTRUCTION.GET_BONUS_NUMBER, validator.bonusNumbers.validate);
-                (str) => str.split(','));
-
-                validator.bonusNumbers.validate);
             validator.bonusNumbers.validateWithWinningNumbers(bonusNumber, winningNumbers);
 
-            const lottoResult = lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber);
-
-            let totalPrize = 0;
-            Console.print(INSTRUCTION.PRINT_TOTAL_WINNING_STATISTICS);
-            lottoResult.forEach((amount, index) => {
-                lottoUtils.printWinningStatistics(index, lottoUtils.getPrize(index), amount)
-                totalPrize += amount * lottoUtils.getPrize(index);
-            })
-            const profitRate = lottoUtils.calculateProfitRate(totalPrize, purchasePrice);
-            Console.print(INSTRUCTION.PRINT_PROFIT_RATE(profitRate))
-
+            lottoUtils.checkResult(lottos, winningNumbers, bonusNumber, purchasePrice);
         } catch (error) {
             Console.print(error.message)
         }
