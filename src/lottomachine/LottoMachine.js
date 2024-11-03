@@ -78,8 +78,10 @@ class LottoMachine {
     let numbers;
     while (true) {
       try {
-        numbers = await Input.requestWinningNumbers();
-        const validNumbers = new Lotto(numbers);
+        numbers = await Input.requestWinningNumbers(); // string
+        Lotto.empty(numbers);
+        const numberArr = Lotto.delimiter(numbers);
+        const validNumbers = new Lotto(numberArr);
         return validNumbers.getNumbers();
       } catch (error) {
         Console.print(error);

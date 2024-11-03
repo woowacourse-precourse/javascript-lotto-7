@@ -6,9 +6,7 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#numbers = numbers;
-    this.#empty();
-    this.#delimiter();
+    this.#numbers = numbers; // 배열
     this.#validate();
     this.#isNaN();
     this.#inRange();
@@ -17,31 +15,29 @@ class Lotto {
 
   #validate() {
     if (this.#numbers.length !== LOTTO.LOTTO_NUMBER_COUNT) {
-      throw new Error(ERROR.PREFIX + ERROR.COUNT);
+      throw `${ERROR.PREFIX + ERROR.COUNT}`;
     }
   }
 
   // TODO: 추가 기능 구현
-  #empty() {
-    if (this.#numbers.trim() === '') {
-      throw new Error(ERROR.PREFIX + ERROR.EMPTY);
+  static empty(numbers) {
+    if (numbers.trim() === '') {
+      throw `${ERROR.PREFIX + ERROR.EMPTY}`;
     }
   }
 
-  #delimiter() {
+  static delimiter(numbers) {
     const regex = new RegExp(`^\\d+(${LOTTO.WINNING_NUMBER_DELIMETER}\\d+)*$`);
-    if (!regex.test(this.#numbers)) {
+    if (!regex.test(numbers)) {
       throw new Error(ERROR.PREFIX + ERROR.DELIMITER);
     }
-    this.#numbers = this.#numbers
-      .split(LOTTO.WINNING_NUMBER_DELIMETER)
-      .map((n) => Number(n));
+    return numbers.split(LOTTO.WINNING_NUMBER_DELIMETER).map((n) => Number(n));
   }
 
   #isNaN() {
     this.#numbers.forEach((number) => {
       if (!Number.isInteger(number) || Number.isNaN(number)) {
-        throw new Error(ERROR.PREFIX + ERROR.IS_NAN);
+        throw `${ERROR.PREFIX + ERROR.IS_NAN}`;
       }
     });
   }
@@ -53,14 +49,14 @@ class Lotto {
         Number(number) > LOTTO.MAX_LOTTO_NUMBER,
     );
     if (result) {
-      throw new Error(ERROR.PREFIX + ERROR.RANGE);
+      throw `${ERROR.PREFIX + ERROR.RANGE}`;
     }
   }
 
   #duplicate() {
     const numberSet = new Set([...this.#numbers]);
     if (this.#numbers.length !== numberSet.size) {
-      throw new Error(ERROR.PREFIX + ERROR.WINNING_DUPLICATE);
+      throw `${ERROR.PREFIX + ERROR.WINNING_DUPLICATE}`;
     }
   }
 
