@@ -54,7 +54,7 @@ class Validation {
 
   static hasMeetUnitAmount(number) {
     if (number % GLOBAL_CONSTANTS.unitPrice !== 0) {
-      throw new Error(ERROR_MESSAGE.notPositiveNumber);
+      throw new Error(ERROR_MESSAGE.notUnitPrice);
     }
   }
 
