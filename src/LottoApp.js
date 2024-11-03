@@ -1,7 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { LOTTO_PRICE, ERROR_MESSAGES, MESSAGES } from "./constants.js";
+import {
+  LOTTO_PRICE,
+  ERROR_MESSAGES,
+  MESSAGES,
+  LOTTO_NUMBERS,
+} from "./constants.js";
 import Lotto from "./Lotto.js";
-import { LOTTO_NUMBERS } from "./constants.js";
 
 class LottoApp {
   async promptPurchaseAmount() {
@@ -55,6 +59,24 @@ class LottoApp {
     lottos.forEach((lotto) => {
       MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
+  }
+
+  async promptWinningNumbers() {
+    try {
+      const input = await MissionUtils.Console.readLineAsync(
+        MESSAGES.WINNING_NUMBER_PROMPT
+      );
+      const numbers = this.parseWinningNumbers(input);
+      const winningLotto = new Lotto(numbers);
+      return winningLotto;
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+      return this.promptWinningNumbers();
+    }
+  }
+
+  parseWinningNumbers(input) {
+    return input.split(",").map((num) => Number(num.trim()));
   }
 }
 

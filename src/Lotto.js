@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { ERROR_MESSAGES, LOTTO_NUMBERS } from "./constants.js";
 
 class Lotto {
   #numbers;
@@ -9,9 +9,38 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    this.checkNumbersCount(numbers);
+    this.checkNumberType(numbers);
+    this.checkDuplicateNumbers(numbers);
+    this.checkNumberRange(numbers);
+  }
+
+  checkNumbersCount(numbers) {
+    if (numbers.length !== LOTTO_NUMBERS.COUNT) {
+      throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS_COUNT);
     }
+  }
+
+  checkNumberType(numbers) {
+    numbers.forEach((number) => {
+      if (isNaN(number)) {
+        throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBER_TYPE);
+      }
+    });
+  }
+
+  checkDuplicateNumbers(numbers) {
+    if (new Set(numbers).size !== LOTTO_NUMBERS.COUNT) {
+      throw new Error(ERROR_MESSAGES.DUPLICATE_WINNING_NUMBER);
+    }
+  }
+
+  checkNumberRange(numbers) {
+    numbers.forEach((number) => {
+      if (number < LOTTO_NUMBERS.MIN || number > LOTTO_NUMBERS.MAX) {
+        throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBER_RANGE);
+      }
+    });
   }
 
   getNumbers() {
