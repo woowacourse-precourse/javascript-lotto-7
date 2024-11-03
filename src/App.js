@@ -23,6 +23,11 @@ class App {
     const bonusNumber = await InputHandler.getBonusNumber();
 
     InputHandler.validateBonusNumber(winningNumbers, bonusNumber);
+
+    const { statistics, totalPrize } = lottoMachine.calculateWinnings(
+      winningNumbers,
+      bonusNumber
+    );
   }
 }
 

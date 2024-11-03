@@ -1,0 +1,8 @@
+export const STATISTICS = {
+  FIFTH_PLACE: 0,
+  FOURTH_PLACE: 0,
+  THIRD_PLACE: 0,
+  SECOND_PLACE: 0,
+  FIRST_PLACE: 0,
+  FAIL: 0,
+};

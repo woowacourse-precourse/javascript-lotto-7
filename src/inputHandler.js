@@ -47,7 +47,11 @@ class InputHandler {
       await Console.readLineAsync(INPUT_MESSAGE.WINNING_NUMBERS)
     ).trim();
 
-    return winningNumbersInput;
+    const winningNumbers = winningNumbersInput
+      .split(",")
+      .map((lottoNumber) => Number(lottoNumber.trim()));
+
+    return winningNumbers;
   }
 
   static validateWinningNumbers(winningNumbers) {
@@ -55,10 +59,7 @@ class InputHandler {
   }
 
   static checkCommaOnly(winningNumbers) {
-    const winningNumbersArray = winningNumbers
-      .split(",")
-      .map((element) => element.trim());
-    new Lotto(winningNumbersArray);
+    new Lotto(winningNumbers);
   }
 
   static async getBonusNumber() {

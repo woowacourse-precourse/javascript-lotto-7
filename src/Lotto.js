@@ -28,6 +28,10 @@ class Lotto {
   printNumbers() {
     Console.print(this.#numbers);
   }
+
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
