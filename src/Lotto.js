@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from './constant/error.js';
-import { isInteger, isNumber } from './util/validation.js';
+import { isInRange, isInteger, isNumber } from './util/validation.js';
 
 class Lotto {
   #numbers;
@@ -10,18 +10,26 @@ class Lotto {
   }
 
   #validate(numbers) {
-    numbers.forEach((number) => {
-      if (!isNumber(number)) {
-        throw new Error(ERROR_MESSAGE.invalidNumberType);
-      }
-
-      if (!isInteger(number)) {
-        throw new Error(ERROR_MESSAGE.invalidIntegerType);
-      }
-    });
-
     if (numbers.length !== 6) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    }
+
+    numbers.forEach((number) => {
+      this.#validateSingleNumber(number);
+    });
+  }
+
+  #validateSingleNumber(number) {
+    if (!isNumber(number)) {
+      throw new Error(ERROR_MESSAGE.invalidNumberType);
+    }
+
+    if (!isInteger(number)) {
+      throw new Error(ERROR_MESSAGE.invalidIntegerType);
+    }
+
+    if (!isInRange(number, 1, 45)) {
+      throw new Error(ERROR_MESSAGE.invalidNumberInRange);
     }
   }
 
