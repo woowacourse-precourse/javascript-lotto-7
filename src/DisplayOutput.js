@@ -42,7 +42,7 @@ class DisplayOutput {
         }
     
         // 보너스 당첨자 발표(5개일치 + 보너스번호) 및 1등 발표 6개 일치
-        MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${this.changeNumberStyle(LOTTO_INFO.PRIZE.PRIZE_FIVE_NUMBER_BONUS_MATCHES)}원) - ${lottoResult[1][0]}개`);
+        MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${this.changeNumberStyle(LOTTO_INFO.BONUS_PRIZE.PRIZE_FIVE_NUMBER_BONUS_MATCHES)}원) - ${lottoResult[1][0]}개`);
         MissionUtils.Console.print(`6개 일치 (${this.changeNumberStyle(LOTTO_INFO.PRIZE.PRIZE_SIX_NUMBER_MATCHES)}원) - ${lottoResult[0][6]}개`);
 
     }
