@@ -69,6 +69,10 @@ class OutputView {
   static async printNewLine() {
     Console.print('');
   }
+
+  static printErrorMessage(errorMessage) {
+    Console.print(errorMessage);
+  }
 }
 
 export default OutputView;
