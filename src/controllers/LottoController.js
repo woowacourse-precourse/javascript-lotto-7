@@ -1,6 +1,7 @@
 import BounsNumber from '../models/BonusNumber.js';
 import Lotto from '../models/Lotto.js';
 import Money from '../models/Money.js';
+import WinningStatics from '../models/WinningStatics.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 
@@ -15,6 +16,7 @@ class LottoController {
     await this.getLotto();
     await this.getWinningNumbers();
     await this.getBonusNumber();
+    this.printWinningStatincs();
   }
 
   async getLottoCount() {
@@ -40,6 +42,17 @@ class LottoController {
     const bonusNumberInput = await InputView.readLineAsync('보너스 번호를 입력해 주세요.\n');
     this.#bonusNumber = new BounsNumber(this.#winningNumbers, bonusNumberInput).bonusNumber;
     OutputView.printNewLine();
+  }
+
+  printWinningStatincs() {
+    OutputView.printWinningStaticsTitle();
+    OutputView.printWinningStaticsDivideLine();
+    const winningStatics = new WinningStatics(this.#winningNumbers, this.#bonusNumber);
+    winningStatics.updateStatics(this.#lottos);
+    const rankStatics = winningStatics.getRankStatics();
+    OutputView.printRankStatics(rankStatics);
+    const rateOfReturn = winningStatics.calculateRateOfReturn(this.#lottoCount);
+    OutputView.printRateOfReturn(rateOfReturn);
   }
 }
 
