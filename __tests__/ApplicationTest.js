@@ -95,3 +95,23 @@ describe("로또 테스트", () => {
     await runException("1000j");
   });
 });
+
+describe("로또 구매 금액 테스트", () => {
+  const failCase = [
+    { testName: "실수 입력", price: 1000.0 },
+    {
+      testName: "문자열 입력",
+      price: "1000",
+    },
+    {
+      testName: "공백 입력",
+      price: "",
+    },
+    { testName: "1000원 단위가 아닌 숫자 입력", price: 1010 },
+  ];
+  failCase.forEach(({testName, price})=>{
+    test(testName, async () => {
+      await runException(price);
+    });
+  })
+});
