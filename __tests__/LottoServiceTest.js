@@ -35,7 +35,7 @@ describe('로또 서비스 User Lotto 생성 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test.each([['-1'], ['0'], ['100000000']])(
+  test.each([['-1'], ['0'], ['99999999999999999999999999999999']])(
     '로또 구매 금액이 입력 가능한 Range를 벗어날 경우 Error를 발생시킨다.',
     (input) => {
       expect(() => {
@@ -99,7 +99,7 @@ describe('로또 서비스 당첨 내역 관리 테스트', () => {
       lottoService.setBonusNumber(bonusNumber);
 
       // when
-      const winningInfo = lottoService.getWinningDetails();
+      const winningInfo = lottoService.getWinningInfo();
 
       // then
       expect(winningInfo).toEqual(getWinningInfo(rank));

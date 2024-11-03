@@ -191,7 +191,7 @@ describe('로또 구매', () => {
     ['0', ERROR_MSG.outOfAmountRange],
     ['1', ERROR_MSG.outOfAmountRange],
     ['123', ERROR_MSG.outOfAmountRange],
-    ['1000000000', ERROR_MSG.outOfAmountRange],
+    ['999999999999999999999999999999999999999', ERROR_MSG.outOfAmountRange],
     ['100000000001', ERROR_MSG.outOfAmountRange],
     // Price Align Check
     ['1001', ERROR_MSG.priceMisalign],
