@@ -9,8 +9,8 @@ import Lotto from '../Lotto.js';
 import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
 import { INPUT_MESSAGE } from '../constant/constants.js';
-import { prizeByMatchCount } from '../constant/prizeByMatchCount.js';
 import LottoResult from '../model/LottoResult.js';
+import ProfitRate from '../model/ProfitRate.js';
 
 export default class Controller {
   constructor() {
@@ -27,21 +27,8 @@ export default class Controller {
     const lottoResult = new LottoResult(winningNumbers, lottos);
     this.outputView.printWinningStatistics(lottoResult);
 
-    const profitRate = this.calculateProfitRate(paidMoney, lottoResult);
-    this.outputView.printProfitRate(profitRate);
-  }
-
-  calculateProfitRate(paidMoney, lottoResult) {
-    const result = lottoResult.getResult();
-
-    let sum = 0;
-    for (let key in result) {
-      if (result[key] > 0) {
-        sum += prizeByMatchCount[key].money;
-      }
-    }
-
-    return ((sum / paidMoney) * 100).toFixed(LOTTO.PROFIT_RATE_DECIMAL_PLACE);
+    const profitRate = new ProfitRate(paidMoney, lottoResult.getResult());
+    this.outputView.printProfitRate(profitRate.getProfitRate());
   }
 
   async getWinningNumberAndBonusNumber() {
