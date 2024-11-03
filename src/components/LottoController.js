@@ -15,16 +15,16 @@ class LottoController {
     this.#purchaseAmount = purchaseAmount;
   }
 
+  getLottoTickets() {
+    return this.#lottoTickets;
+  }
+
   isEmptyPurchaseAmount() {
     return this.#purchaseAmount === undefined || this.#purchaseAmount === null;
   }
 
   isEmptyLottoTickets() {
     return this.#lottoTickets === undefined || this.#lottoTickets === null;
-  }
-
-  getLottoTickets() {
-    return this.#lottoTickets;
   }
 
   #sortAscending(lottoTickets) {
