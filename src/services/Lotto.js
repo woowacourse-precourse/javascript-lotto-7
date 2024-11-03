@@ -1,4 +1,4 @@
-import {Console, MissionUtils} from "@woowacourse/mission-utils";
+import {Console} from "@woowacourse/mission-utils";
 
 class Lotto {
     /*제공된 Lotto 클래스를 사용하여 구현해야 한다.
@@ -30,7 +30,6 @@ class Lotto {
             bonus: 0,
             six: 0,
         }
-        console.log(this.#numbers)
         for (const lotto of lottoes) {
             for (const lottoNum of lotto) {
                 if (this.#numbers.includes(lottoNum)) {
