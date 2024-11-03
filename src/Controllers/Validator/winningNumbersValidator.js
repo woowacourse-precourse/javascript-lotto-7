@@ -2,34 +2,33 @@ import { ERROR_MESSAGES } from '../../Constants/errorMessages.js';
 
 class WinningNumbersValidator {
   constructor() {
-    this.winningNumber = 0;
-    // this.parsedWinningNumbers = this.winningNumber.split(',').map((x) => x.trim());
+    this.winningNumbers = 0;
   }
 
-  isValidEmptyInput(winningNumbers) {
-    return winningNumbers !== '';
+  isValidEmptyInput() {
+    return this.winningNumbers !== '';
   }
 
-  isValidSixDigits(winningNumber) {
-    return winningNumber.split(',').map((x) => x.trim()).length === 6;
+  isValidSixDigits() {
+    return this.winningNumbers.split(',').map((x) => x.trim()).length === 6;
   }
 
-  isValidNumbersRange(winningNumber) {
-    const arr = winningNumber.split(',').map((x) => x.trim());
+  isValidNumbersRange() {
+    const arr = this.winningNumbers.split(',').map((x) => x.trim());
     const result = arr.every((range) => range > 0 && range < 46);
 
     return result;
   }
 
-  isValidFiveComma(winningNumber) {
-    const arr = [...winningNumber];
+  isValidFiveComma() {
+    const arr = [...this.winningNumbers];
     const onlyNumber = arr.filter((number) => number === ',');
 
     return onlyNumber.length === 5;
   }
 
-  isValidNumberDuplicated(winningNumber) {
-    const onlyNumber = winningNumber
+  isValidNumberDuplicated() {
+    const onlyNumber = this.winningNumbers
       .split(',')
       .map((x) => x.trim())
       .filter((number) => !isNaN(number) === true);
@@ -38,26 +37,23 @@ class WinningNumbersValidator {
     return onlyNumber.length === uniqueWinningNumbers.size;
   }
 
-  validateWinningNumbers(winningNumber) {
-    if (!this.isValidEmptyInput(winningNumber)) {
-      throw new Error(ERROR_MESSAGES.winningNumbers.EMPTY_INPUT);
-    }
+  getValidationRules() {
+    return [
+      [!this.isValidEmptyInput(), ERROR_MESSAGES.winningNumbers.EMPTY_INPUT],
+      [!this.isValidSixDigits(), ERROR_MESSAGES.winningNumbers.NUMBER_LENGTH],
+      [!this.isValidNumbersRange(), ERROR_MESSAGES.winningNumbers.NUMBER_RANGE],
+      [!this.isValidFiveComma(), ERROR_MESSAGES.winningNumbers.COMMA_COUNT],
+      [!this.isValidNumberDuplicated(), ERROR_MESSAGES.winningNumbers.UNIQUE_NUMBER],
+    ];
+  }
 
-    if (!this.isValidSixDigits(winningNumber)) {
-      throw new Error(ERROR_MESSAGES.winningNumbers.NUMBER_LENGTH);
-    }
+  validateWinningNumbers(winningNumbers) {
+    this.winningNumbers = winningNumbers;
+    const validationRules = this.getValidationRules();
 
-    if (!this.isValidNumbersRange(winningNumber)) {
-      throw new Error(ERROR_MESSAGES.winningNumbers.NUMBER_RANGE);
-    }
-
-    if (!this.isValidFiveComma(winningNumber)) {
-      throw new Error(ERROR_MESSAGES.winningNumbers.COMMA_COUNT);
-    }
-
-    if (!this.isValidNumberDuplicated(winningNumber)) {
-      throw new Error(ERROR_MESSAGES.winningNumbers.UNIQUE_NUMBER);
-    }
+    validationRules.forEach((arr) => {
+      if (arr[0]) throw new Error(arr[1]);
+    });
 
     return true;
   }
