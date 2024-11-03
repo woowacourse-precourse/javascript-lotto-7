@@ -3,20 +3,24 @@ import WoowahanInput from "./woowahanInput.js";
 import { bonusNumberValidator, buyMoneyValidator, winInputValidator, winNumberValidator } from "./utils/validators.js";
 import LottoStore from "./LottoStore.js";
 import { GameOutput } from "./woowahanOutput.js";
-import { CONSTANT } from "./utils/constants.js";
 
 class App {
   async run() {
     const lottoStore = new LottoStore();
+    const winPrize = [5000, 50000, 1500000, 2000000000];
+    const bonusPrize = 30000000;
 
-    let buyMoney = CONSTANT.START;
+    let isBuyMoneyValidate = true;
     let isWinNumberValidate = true;
     let isBonusNumberValidate = true;
+    let buyMoney = 0;
     let winNumber = [];
     let bonusNumber = 0;
+    let earn = 0;
 
-    while (!buyMoneyValidator(buyMoney)) {
+    while (isBuyMoneyValidate) {
       buyMoney = await WoowahanInput.getBuyMoney();
+      isBuyMoneyValidate = !buyMoneyValidator(buyMoney)
     }
 
     const lottoTicketCount = lottoStore.getLottoTicketCount(buyMoney);
@@ -34,39 +38,15 @@ class App {
     while (isBonusNumberValidate) {
       const inputBonus = await WoowahanInput.getBonusNumber();
       bonusNumber = Number(inputBonus);
-
       isBonusNumberValidate = !bonusNumberValidator(bonusNumber);
     }
 
     GameOutput.printWinningStatistics();
-    const winRanking = Array(4).fill(0);
-    let fiveEqualWithBonusCount = 0;
 
-    function lottoCriteria(winNumber, bonusNumber, lottoNumber) {
-      const matchCount = lottoNumber.filter(num => winNumber.includes(num)).length;
-      const hasBonus = lottoNumber.includes(bonusNumber);
+    lottoStore.checkLotto(lottos, winNumber, bonusNumber);
 
-      if (matchCount === 6) {
-        winRanking[3]++;
-        return
-      }
-      if (matchCount === 5 && hasBonus) {
-        fiveEqualWithBonusCount++;
-        return
-      }
-      if (matchCount >= 3) {
-        winRanking[matchCount - 3]++;
-        return
-      }
-    }
-
-    lottos.forEach((lotto) => {
-      lottoCriteria(winNumber, bonusNumber, lotto.getNumbers());
-    });
-
-    const winPrize = [5000, 50000, 1500000, 2000000000];
-    const bonusPrize = 30000000;
-    let earn = 0;
+    const winRanking = lottoStore.getWinRanking();
+    const fiveEqualWithBonusCount = lottoStore.getFiveEqualWithBonusCount();
 
     for (let n = 0; n < 4; n++) {
       Console.print(`${n + 3}개 일치 (${winPrize[n].toLocaleString()}원) - ${winRanking[n]}개`);

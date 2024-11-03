@@ -1,5 +1,4 @@
 const CONSTANT = Object.freeze({
-    START: 'start',
     WINNING_STATISTICS: '당첨통계\n---'
 })
 
