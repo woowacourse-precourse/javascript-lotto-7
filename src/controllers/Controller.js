@@ -1,7 +1,7 @@
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import validateMoney from '../models/validations/MoneyInputValidator.js';
-import validateWinning from '../models/validations/WinningInputValidator.js';
+import validateBonus from '../models/validations/BonusInputValidator.js';
 import winningParser from '../utils/WinningParser.js';
 import Lotto from '../models/Lotto.js';
 
@@ -12,6 +12,8 @@ class Controller {
     OutputView.printLotto(money);
     const winning = await InputView.WinningInput();
     const winningLotto = new Lotto(winningParser(winning));
+    const bonus = await InputView.bonusInput();
+    validateBonus(bonus, winningLotto.getNumbers());
   }
 }
 
