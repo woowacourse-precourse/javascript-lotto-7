@@ -61,8 +61,8 @@ class LottoGameExecutor {
   #printWinningResults(winningResults) {
     printStartWinningResult();
 
-    winningResults.forEach(winningItem => {
-      printWinningResult(winningItem);
+    winningResults.forEach(result => {
+      printWinningResult(result);
     });
   }
 

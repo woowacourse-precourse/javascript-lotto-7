@@ -1,4 +1,4 @@
-class WinningItem {
+class WinningResult {
   #matchNumberCount;
 
   #count;
@@ -62,4 +62,4 @@ class WinningItem {
   }
 }
 
-export default WinningItem;
+export default WinningResult;

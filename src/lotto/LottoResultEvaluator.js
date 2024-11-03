@@ -1,4 +1,4 @@
-import WinningItem from './model/WinningItem.js';
+import WinningResult from './model/WinningResult.js';
 
 class LottoResultEvaluator {
 
@@ -21,27 +21,27 @@ class LottoResultEvaluator {
     return Object.values(result);
   }
 
-  #incrementCountWithBonusNumberCheck(winningItem, lotto, bonusNumber) {
-    if (winningItem.hasBonusNumberMatched && lotto.isExistNumberInNumbers(bonusNumber)) {
-      winningItem.incrementBonusMatchedCount();
+  #incrementCountWithBonusNumberCheck(winningResult, lotto, bonusNumber) {
+    if (winningResult.hasBonusNumberMatched && lotto.isExistNumberInNumbers(bonusNumber)) {
+      winningResult.incrementBonusMatchedCount();
       return;
     }
 
-    winningItem.incrementCount();
+    winningResult.incrementCount();
   }
 
   #initResult() {
     const result = {};
     this.#winingRules.forEach(rule => {
-      const winningItem = this.#getWinningItem(rule);
-      result[winningItem.matchNumberCount] = winningItem;
+      const winningResult = this.#getWinningResult(rule);
+      result[winningResult.matchNumberCount] = winningResult;
     });
 
     return result;
   }
 
-  #getWinningItem(rule) {
-    return new WinningItem(rule.MATCH_COUNT, rule.PRIZE, rule.HAS_BONUS_NUMBER_MATCHED, rule.BONUS_NUMBER_MATCHED_PRIZE);
+  #getWinningResult(rule) {
+    return new WinningResult(rule.MATCH_COUNT, rule.PRIZE, rule.HAS_BONUS_NUMBER_MATCHED, rule.BONUS_NUMBER_MATCHED_PRIZE);
   }
 
   #getMatchNumberCount(lotto, winningNumbers) {
