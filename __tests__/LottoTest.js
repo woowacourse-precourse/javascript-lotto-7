@@ -1,18 +1,50 @@
-import Lotto from "../src/Lotto";
+import ValidateLotto from "../src/validate/ValidateLotto.js";
 
 describe("로또 클래스 테스트", () => {
-  test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
+  test.each([
+    [["1", "2", "3", "4", "5", "A"]],
+    [["로또", "AB", "\\", "?", "*"]],
+    [[null, undefined, "", "\n", " ", "雷"]],
+  ])("로또 번호가 숫자가 아닌 경우", async (lotto) => {
     expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
+      ValidateLotto.validateIsNumber(lotto);
     }).toThrow("[ERROR]");
   });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
-  test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
+  test.each([[["1", "2", "3", "4", "5", ""]], [["", "", "", "", "", ""]]])(
+    "로또 번호의 갯수가 6개가 아닌 경우",
+    async (lotto) => {
+      expect(() => {
+        ValidateLotto.validateIsNull(lotto);
+      }).toThrow("[ERROR]");
+    }
+  );
+
+  test.each([[["1", "2", "3", "4", "5"]], [["1", "2", "3", "4", "5", "6", "7"]]])(
+    "로또 번호의 갯수가 6개가 아닌 경우",
+    async (lotto) => {
+      expect(() => {
+        ValidateLotto.validateLottoLength(lotto);
+      }).toThrow("[ERROR]");
+    }
+  );
+
+  test.each([[["1", "2", "3", "4", "5", "5"]], [["2", "2", "3", "4", "5", "6"]]])(
+    "로또 번호가 중복인 경우",
+    async (lotto) => {
+      expect(() => {
+        ValidateLotto.validateLottoDup(lotto);
+      }).toThrow("[ERROR]");
+    }
+  );
+
+  test.each([
+    [["0", "1", "2", "3", "4", "5"]],
+    [["41", "42", "43", "44", "45", "46"]],
+    [["-10", "-444", "812", "2000", "10000", "-7777"]],
+  ])("로또 번호가 1~45 사이가 아닌 경우", async (lotto) => {
     expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 5]);
+      ValidateLotto.validateLottoRange(lotto);
     }).toThrow("[ERROR]");
   });
-
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 });
