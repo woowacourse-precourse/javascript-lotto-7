@@ -16,7 +16,7 @@ export const generateLottoNumbers = (count) => {
   return lottoNumberDoubleArray;
 };
 
-const getRandomLottoNumbers = () => {
+export const getRandomLottoNumbers = () => {
   return Random.pickUniqueNumbersInRange(
     CONSTANT_LOTTO.MIN_NUMBER,
     CONSTANT_LOTTO.MAX_NUMBER,
@@ -27,13 +27,14 @@ const getRandomLottoNumbers = () => {
 export const loopPrintLottoNumbers = (lottoCount, lottoNumbersDoubleArray) => {
   printEmptyLine();
   print(EXECUTE_MESSAGE.LOTTO.RECEIPT(lottoCount));
-  lottoNumbersDoubleArray.forEach(print);
+  lottoNumbersDoubleArray.forEach((lottoNumbers) => {
+    print(`[${lottoNumbers.join(', ')}]`);
+  });
   printEmptyLine();
 };
 
 export const printResult = (lottoNumbers, bonusNumber, generatedNumbers) => {
   print(COMMON_MESSAGES.WINNING_STATISTICS);
-
   for (let i = NUMBERS.ZERO; i < generatedNumbers.length; i++) {
     const count = getMatchCount(generatedNumbers[i], lottoNumbers);
     increaseMatchCount(count, generatedNumbers[i].includes(bonusNumber));
@@ -44,8 +45,11 @@ export const printResult = (lottoNumbers, bonusNumber, generatedNumbers) => {
   print(EXECUTE_MESSAGE.PRIZE.TOTAL_RATE(totalRate.toFixed(NUMBERS.ONE)));
 };
 
-const getMatchCount = (generatedLotto, lottoNumbers) => {
-  return generatedLotto.filter((number) => lottoNumbers.split(',').includes(number))
+export const getMatchCount = (generatedLotto, lottoNumbers) => {
+  return generatedLotto.filter((number) => {
+    const lottoNumbersSplit = lottoNumbers.split(',').map(Number);
+    return lottoNumbersSplit.includes(number);
+  })
     .length;
 };
 
