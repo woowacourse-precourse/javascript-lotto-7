@@ -10,10 +10,10 @@ class LottoManagerIO {
         return purchasePrice;
     }
 
-    static printGeneratedLottoCount(INPUT_PURCHASE_PRICE){
-        let genetagedLottoNumber = calculateLottoCount(INPUT_PURCHASE_PRICE);
-        Console.print(`${genetagedLottoNumber}${this.#OUTPUT_PURCHASE_PRICE_MESSAGE}`);
-        return genetagedLottoNumber;
+    static printLottoCount(INPUT_PURCHASE_PRICE){
+        let lottoCount = calculateLottoCount(INPUT_PURCHASE_PRICE);
+        Console.print(`${lottoCount}${this.#OUTPUT_PURCHASE_PRICE_MESSAGE}`);
+        return lottoCount;
     }
 }
 
