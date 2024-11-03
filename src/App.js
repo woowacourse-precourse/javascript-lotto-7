@@ -2,13 +2,14 @@ import { Console } from "@woowacourse/mission-utils";
 import InputValue from "./InputValue.js";
 import PurchaseMoney from "./PurchaseMoney.js";
 import LottoGenerator from "./LottoGenerator.js";
+import OutputValue from "./OutputValue.js";
 
 class App {
   purchaseMoney;
 
   async run() {
     await this.inputPurchaseMoney();
-    await this.createLottoTickets();
+    await this.outputLottoTickets();
   }
 
   async inputPurchaseMoney() {
@@ -23,10 +24,12 @@ class App {
     }
   }
 
-  async createLottoTickets() {
-    // 로또 수량과 로또 랜덤 티켓
+  // 로또 티켓 수량과 로또 티켓 리스트
+  outputLottoTickets() {
     const lottoData = new LottoGenerator(this.purchaseMoney);
-    const { lottoQuantity, ticketlist } = lottoData.getLottoData();
+    const { lottoQuantity, ticketList } = lottoData.getLottoData();
+
+    OutputValue.printLottoSummary(lottoQuantity, ticketList);
   }
 }
 
