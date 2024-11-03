@@ -3,13 +3,17 @@ import { CONSOLE_MESSAGES } from "./constant.js";
 import Lotto from './Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
 
-const checkWinning = (boughtLotto, winNumber, bonusNumber) => {
+const checkWinning = (myLotto, winNumber, bonusNumber) => {
   const answerArray = winNumber.split(',').map(Number).sort((a, b) => a - b);
   const correctArray = [];
-  boughtLotto.forEach(lotto => {
-    const myLotto = lotto.getNumbers();
-    let count = answerArray.filter(item => myLotto.includes(item)).length;
-    let bonus = answerArray.filter((item) => item === bonusNumber);
+  myLotto.forEach(lotto => {
+    const myLottoNumbers = lotto.getNumbers();
+    let count = answerArray.filter(item => myLottoNumbers.includes(item)).length;
+    let bonus = answerArray.filter((item) => {
+      if (item === bonusNumber) {
+        correctArray.push("");
+      }
+    });
     correctArray.push(count);
   });
   return correctArray.filter(item => item > 2);
@@ -65,12 +69,12 @@ class App {
 
     Console.print(`${lottoCount}개를 구매했습니다.`);
 
-    const boughtLotto = buyLottos(lottoCount);
-    boughtLotto.forEach((lotto) => Console.print(lotto.toString()));
+    const myLotto = buyLottos(lottoCount);
+    myLotto.forEach((lotto) => Console.print(lotto.toString()));
 
     const winNumber = await Console.readLineAsync(CONSOLE_MESSAGES.winNumber);
     const bonusNumber = await Console.readLineAsync(CONSOLE_MESSAGES.bonusNumber);
-    const wonRecord = checkWinning(boughtLotto, winNumber, bonusNumber);
+    const wonRecord = checkWinning(myLotto, winNumber, bonusNumber);
 
     printWinningResults(wonRecord);
   }
