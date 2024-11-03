@@ -32,6 +32,7 @@ class View {
 
   printLottos = (LOTTOS) => {
     const PURCHASED_LOTTO_COUNT = LOTTOS.length;
+    Console.print("");
     Console.print(`${PURCHASED_LOTTO_COUNT}개를 구매했습니다.`);
     for (const LOTTO of LOTTOS) {
       this.printLotto(LOTTO);
