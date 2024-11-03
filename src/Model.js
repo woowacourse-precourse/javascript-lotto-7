@@ -41,6 +41,16 @@ class Model {
 
     return RESULTS;
   }
+
+  getProfitRate(RESULTS, PURCHASE_MONEY) {
+    const TOTAL_REWARD =
+      RESULTS[1] * 2000000000 +
+      RESULTS[2] * 30000000 +
+      RESULTS[3] * 1500000 +
+      RESULTS[4] * 50000 +
+      RESULTS[5] * 5000;
+    return ((TOTAL_REWARD - PURCHASE_MONEY) / PURCHASE_MONEY) * 100;
+  }
 }
 
 export default Model;

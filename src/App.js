@@ -21,6 +21,8 @@ class App {
       BONUS_NUMBER,
     );
 
+    const PROFIT_RATE = this.#MODEL.getProfitRate(RESULTS, PURCHASE_MONEY);
+
     this.#VIEW.printSTATS(RESULTS, PROFIT_RATE);
   }
 }
