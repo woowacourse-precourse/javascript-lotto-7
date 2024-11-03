@@ -58,7 +58,8 @@ class App {
       throw new Error(`[ERROR] ${error.message}`);
     }
 
-    
+    // 당첨 결과 및 출력
+    this.calculateResults(lottoTickets, winningNumbers, bonusNumber, purchaseAmount);
   }
 
 
@@ -102,6 +103,29 @@ class App {
       else if (matchCount === 4) results[4]++;
       else if (matchCount === 3) results[3]++;
     });
+
+    // 당첨 금액 합산
+    totalPrize = 0;
+
+    for (let key in results) {
+      const count = results[key];
+      const prize = prizeTable[key];
+      totalPrize += count * prize;
+    }
+
+    // 수익률 계산
+    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+
+
+    // 당첨 결과 출력
+    Console.print("\n당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${results[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results["5+bonus"]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
 
 }
 
