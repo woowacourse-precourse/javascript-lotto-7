@@ -1,4 +1,4 @@
-import Lotto from './controller/Lotto.js';
+import Lotto from './Lotto.js';
 import InputHandler from './view/InputHandler.js';
 import OutputHandler from './view/OuputHandler.js';
 import { INPUT_PRINT_MESSAGES } from './contents/InputPrintMessages.js';
