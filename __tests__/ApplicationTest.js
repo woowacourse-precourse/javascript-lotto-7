@@ -1,5 +1,11 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import App from '../src/App.js';
+import {
+  BONUS_NUMBER_ERROR,
+  LOTTO_NUMBER_ERROR,
+  NOT_INVALID_INPUT,
+  PURCHASE_AMOUNT_ERROR,
+} from '../src/constants/errorMessage.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -25,9 +31,9 @@ const getLogSpy = () => {
 };
 
 const runException = async (
-  amount = '1000',
-  winningNumbers = '1,2,3,4,5,6',
-  bonusNumber = '7'
+  amount = null,
+  winningNumbers = null,
+  bonusNumber = null
 ) => {
   // given
   const logSpy = getLogSpy();
@@ -36,7 +42,20 @@ const runException = async (
   const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([amount, winningNumbers, bonusNumber, ...INPUT_NUMBERS_TO_END]);
+  if (bonusNumber) {
+    mockQuestions([
+      amount,
+      winningNumbers,
+      bonusNumber,
+      ...INPUT_NUMBERS_TO_END,
+    ]);
+  }
+  if (winningNumbers) {
+    mockQuestions([amount, winningNumbers, ...INPUT_NUMBERS_TO_END]);
+  }
+  if (amount) {
+    mockQuestions([amount, ...INPUT_NUMBERS_TO_END]);
+  }
 
   // when
   const app = new App();
@@ -101,38 +120,35 @@ describe('로또 테스트', () => {
 });
 
 describe.each([
-  ['text', '[ERROR]'],
-  ['0', '[ERROR]'],
-  ['-1000', '[ERROR]'],
-  ['500', '[ERROR]'],
+  ['text', PURCHASE_AMOUNT_ERROR.NOT_NUMBER],
+  ['0', PURCHASE_AMOUNT_ERROR.NOT_POSITIVE],
+  ['-1000', PURCHASE_AMOUNT_ERROR.NOT_POSITIVE],
+  ['500', PURCHASE_AMOUNT_ERROR.NOT_DIVIDE_ONE_THOUSAND],
 ])('구입 금액 입력 테스트', (input, errorMessage) => {
-  test(`구입 금액이 ${input}일 때 ${errorMessage}를 출력한다.`, async () => {
+  test(`구입 금액이 ${input}일 때 "${errorMessage}"를 출력한다.`, async () => {
     await runException(input);
   });
 });
 
 describe.each([
-  ['1000', '1.2.3.4.5.6', '[ERROR]'],
-  ['1000', '1,2,3,4,5,', '[ERROR]'],
-  ['1000', '1,2,3,4,5,a', '[ERROR]'],
-  ['1000', '1,2,3,4,5,46', '[ERROR]'],
-  ['1000', '0,2,3,4,5,6', '[ERROR]'],
-])('당첨 번호 입력 테스트', (amount, winningNumbers, errorMessage) => {
-  test(`당첨 번호가 [${winningNumbers}] 일 때 ${errorMessage}를 출력한다.`, async () => {
-    await runException(amount, winningNumbers);
+  ['1.2.3.4.5.6', NOT_INVALID_INPUT],
+  ['1,2,3,4,5,', LOTTO_NUMBER_ERROR.NOT_NUMBER],
+  ['1,2,3,4,5,a', LOTTO_NUMBER_ERROR.NOT_NUMBER],
+  ['1,2,3,4,5,46', LOTTO_NUMBER_ERROR.NOT_RANGE],
+  ['0,2,3,4,5,6', LOTTO_NUMBER_ERROR.NOT_RANGE],
+])('당첨 번호 입력 테스트', (winningNumbers, errorMessage) => {
+  test(`당첨 번호가 [${winningNumbers}] 일 때 "${errorMessage}"를 출력한다.`, async () => {
+    await runException('1000', winningNumbers);
   });
 });
 
 describe.each([
-  ['1000', '1,2,3,4,5,6', 'a', '[ERROR]'],
-  ['1000', '1,2,3,4,5,6', '0', '[ERROR]'],
-  ['1000', '1,2,3,4,5,6', '46', '[ERROR]'],
-  ['1000', '1,2,3,4,5,6', '1', '[ERROR]'],
-])(
-  '보너스 번호 입력 테스트',
-  (amount, winningNumbers, bonusNumber, errorMessage) => {
-    test(`보너스 번호가 ${bonusNumber}일 때 ${errorMessage}를 출력한다.`, async () => {
-      await runException(amount, winningNumbers, bonusNumber);
-    });
-  }
-);
+  ['a', BONUS_NUMBER_ERROR.NOT_NUMBER],
+  ['0', BONUS_NUMBER_ERROR.NOT_RANGE],
+  ['46', BONUS_NUMBER_ERROR.NOT_RANGE],
+  ['1', BONUS_NUMBER_ERROR.NOT_DUPLICATED],
+])('보너스 번호 입력 테스트', (bonusNumber, errorMessage) => {
+  test(`보너스 번호가 ${bonusNumber}일 때 "${errorMessage}"를 출력한다.`, async () => {
+    await runException('1000', '1,2,3,4,5,6', bonusNumber);
+  });
+});
