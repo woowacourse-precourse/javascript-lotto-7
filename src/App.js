@@ -7,7 +7,6 @@ import WinningLottoMachine from './WinningLottoMachine.js';
 class App {
   constructor() {
     this.lottoStore = new LottoStore();
-    this.statistics = new LottoStatistics();
   }
 
   async run() {
@@ -16,14 +15,13 @@ class App {
     OutputView.printMessage(PRINT_MESSAGES.OUTPUT.LOTTO_COUNT(lottoCount));
     OutputView.printLottoBundle(lottoBundle.getLottos());
 
-    const winningLotto = await WinningLottoMachine.createWinningLotto(); // 당첨 로또 생성
+    // 당첨 로또 생성
+    const winningLotto = await WinningLottoMachine.createWinningLotto();
 
     // 당첨 통계 계산
-    this.statistics.calculateStatistics(lottoBundle.getLottos(), winningLotto);
-    OutputView.printResult(
-      this.statistics.getWinningStatistics(),
-      this.statistics.getRangeOfReturn(),
-    );
+    const statistics = new LottoStatistics(this.lottoStore.getAmount());
+    statistics.calculateStatistics(lottoBundle.getLottos(), winningLotto);
+    OutputView.printResult(statistics.getWinningStatistics(), statistics.getRangeOfReturn());
   }
 }
 
