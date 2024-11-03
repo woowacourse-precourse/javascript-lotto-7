@@ -28,7 +28,7 @@ class LottoMachine {
   }
 
   #buyTickets() {
-    return Array.from({ length: this.#amount }, () => buyOneLotto());
+    return Array.from({ length: this.#amount }, () => buyOneLotto().sort((a, b) => a - b));
   }
 
   getTicketAmountString() {
