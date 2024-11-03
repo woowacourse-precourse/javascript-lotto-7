@@ -23,10 +23,6 @@ class Lotto {
     }
   }
 
-  getNumbers() {
-    return this.#numbers;
-  }
-
   getMatchedCountWithWinningNumbers(winningNumbers) {
     const matchedNumbers = this.#numbers.filter((number) => winningNumbers.includes(number));
 
@@ -37,14 +33,14 @@ class Lotto {
     return this.#numbers.includes(bonusNumber);
   }
 
-  getSortedNumbers() {
-    return [...this.#numbers].sort((a, b) => a - b);
-  }
-
   toString() {
-    const sortedNumbers = this.getSortedNumbers();
+    const sortedNumbers = this.#getSortedNumbers();
 
     return `[${sortedNumbers.join(LOTTO_JOIN_SEPARATOR)}]`;
+  }
+
+  #getSortedNumbers() {
+    return [...this.#numbers].sort((a, b) => a - b);
   }
 }
 
