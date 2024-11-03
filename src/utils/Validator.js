@@ -23,7 +23,7 @@ class Validator {
   }
 
   static isArrayWithLength(array, length) {
-    return array.length === length;
+    return Array.isArray(array) && array.length === length;
   }
 
   static validatePaymentAmount(amount) {
@@ -38,7 +38,7 @@ class Validator {
     ErrorHandler.throwIf(!Validator.hasUniqueNumbers([...winningNumbers, bonusNumber]), ERRORS.DUPLICATED_WINNING_NUMBERS);
   }
 
-  static validateWinningNumbers(numbers) {
+  static validateLottoNumbers(numbers) {
     ErrorHandler.throwIf(!Validator.isArrayWithLength(numbers, 6), ERRORS.INVALID_WINNING_NUMBERS_LENGTH);
 
     numbers.forEach((number) => {

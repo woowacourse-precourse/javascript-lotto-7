@@ -1,6 +1,7 @@
 import PRIZE_AMOUNTS from '../constants/prizeAmounts.js';
 import UserInterface from '../utils/UserInterface.js';
-import Lotto from './Lotto.js';
+import Lotto from '../models/Lotto.js';
+import { Random } from '@woowacourse/mission-utils';
 
 class LottoGame {
   #paymentAmount;
@@ -23,7 +24,7 @@ class LottoGame {
   }
 
   #generateLottos(count) {
-    this.#lottoList = Array.from({ length: count }, () => new Lotto());
+    this.#lottoList = Array.from({ length: count }, () => new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
   }
 
   computeWinners() {

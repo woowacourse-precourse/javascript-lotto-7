@@ -1,18 +1,19 @@
-import { Random } from '@woowacourse/mission-utils';
+import Validator from '../utils/Validator.js';
 
 class Lotto {
   #numbers;
 
-  constructor() {
-    this.#pickNumbers();
+  constructor(numbers) {
+    this.#validate(numbers);
+    this.#numbers = numbers;
+  }
+
+  #validate(numbers) {
+    Validator.validateLottoNumbers(numbers);
   }
 
   getNumbers() {
     return this.#numbers;
-  }
-
-  #pickNumbers() {
-    this.#numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 }
 

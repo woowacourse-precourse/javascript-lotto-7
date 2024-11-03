@@ -23,7 +23,7 @@ class UserInterface {
     Console.print(ANSWERS.EMPTY_LINE);
     const input = await Console.readLineAsync(QUERIES.WINNING_NUMBERS);
     const winningNumbers = input.split(',').map((number) => parseInt(number));
-    Validator.validateWinningNumbers(winningNumbers);
+    Validator.validateLottoNumbers(winningNumbers);
     
     return winningNumbers;
   }
@@ -53,7 +53,7 @@ class UserInterface {
     UserInterface.formatPrint(ANSWERS.RESULT_FIFTH, matchCounts[5]);
     UserInterface.formatPrint(ANSWERS.RESULT_FIFTH_BONUS, matchCounts[7]);
     UserInterface.formatPrint(ANSWERS.RESULT_SIXTH, matchCounts[6]);
-    UserInterface.formatPrint(ANSWERS.RESULT_TOTAL_YIELD, totalYield.toFixed(2));
+    UserInterface.formatPrint(ANSWERS.RESULT_TOTAL_YIELD, totalYield.toFixed(1));
   }
 }
 
