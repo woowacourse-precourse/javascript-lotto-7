@@ -1,3 +1,5 @@
+import { PRIZE_RANKS } from '../constants/prizes.js';
+
 class ResultChecker {
   /**
    * 모든 티켓을 검사하여 각 등수별 당첨 결과를 집계합니다.
@@ -7,13 +9,10 @@ class ResultChecker {
    * @returns {Object} - 각 등수별 당첨 개수
    */
   checkAllTickets(tickets, winningNumbers, bonusNumber) {
-    const result = {
-      match3: 0,
-      match4: 0,
-      match5: 0,
-      match5PlusBonus: 0,
-      match6: 0,
-    };
+    const result = Object.keys(PRIZE_RANKS).reduce((acc, rank) => {
+      acc[PRIZE_RANKS[rank]] = 0;
+      return acc;
+    }, {});
 
     tickets.forEach((ticket) => {
       const rank = this.checkRank(ticket, winningNumbers, bonusNumber);
@@ -36,11 +35,11 @@ class ResultChecker {
     const matchCount = this.countMatches(ticketNumbers, winningNumbers);
     const isBonusMatch = ticketNumbers.includes(bonusNumber);
 
-    if (matchCount === 6) return 'match6';
-    if (matchCount === 5 && isBonusMatch) return 'match5PlusBonus';
-    if (matchCount === 5) return 'match5';
-    if (matchCount === 4) return 'match4';
-    if (matchCount === 3) return 'match3';
+    if (matchCount === 6) return PRIZE_RANKS.MATCH_6;
+    if (matchCount === 5 && isBonusMatch) return PRIZE_RANKS.MATCH_5_PLUS_BONUS;
+    if (matchCount === 5) return PRIZE_RANKS.MATCH_5;
+    if (matchCount === 4) return PRIZE_RANKS.MATCH_4;
+    if (matchCount === 3) return PRIZE_RANKS.MATCH_3;
     return null;
   }
 

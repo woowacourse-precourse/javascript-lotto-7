@@ -73,7 +73,7 @@ describe('utils/LottoValidator', () => {
 
   describe('validateBonusNumber()', () => {
     it.each([
-      [1, null],
+      [7, null],
       [45, null],
       [23, null],
       [23.5, null],
@@ -85,11 +85,16 @@ describe('utils/LottoValidator', () => {
       ['0', ERROR_MSG.INVALID_NUMBER_RANGE],
       ['46', ERROR_MSG.INVALID_NUMBER_RANGE],
       ['asdf', ERROR_MSG.INVALID_NUMBER_RANGE],
+      [1, ERROR_MSG.DUPLICATE_NUMBERS],
     ])('should throw an error for invalid input %s', (input, expectedError) => {
+      const winningNumbers = '1,2,3,4,5,6';
+
       if (expectedError) {
-        expect(() => validateBonusNumber(input)).toThrow(expectedError);
+        expect(() => validateBonusNumber(input, winningNumbers)).toThrow(
+          expectedError,
+        );
       } else {
-        expect(() => validateBonusNumber(input)).not.toThrow();
+        expect(() => validateBonusNumber(input, winningNumbers)).not.toThrow();
       }
     });
   });

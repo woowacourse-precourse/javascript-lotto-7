@@ -14,13 +14,13 @@ class Output {
 
   static displayWinningNumbersResult(result) {
     Console.print(`\n${RESULT_MSG.WINNING_STATS_HEADER}`);
-    Console.print(`${RESULT_MSG.MATCH_RESULT.MATCH_3} - ${result.match3}개`);
-    Console.print(`${RESULT_MSG.MATCH_RESULT.MATCH_4} - ${result.match4}개`);
-    Console.print(`${RESULT_MSG.MATCH_RESULT.MATCH_5} - ${result.match5}개`);
+    Console.print(`${RESULT_MSG.MATCH_RESULT.match3} - ${result.match3}개`);
+    Console.print(`${RESULT_MSG.MATCH_RESULT.match4} - ${result.match4}개`);
+    Console.print(`${RESULT_MSG.MATCH_RESULT.match5} - ${result.match5}개`);
     Console.print(
-      `${RESULT_MSG.MATCH_RESULT.MATCH_5_BONUS} - ${result.match5PlusBonus}개`,
+      `${RESULT_MSG.MATCH_RESULT.match5PlusBonus} - ${result.match5PlusBonus}개`,
     );
-    Console.print(`${RESULT_MSG.MATCH_RESULT.MATCH_6} - ${result.match6}개`);
+    Console.print(`${RESULT_MSG.MATCH_RESULT.match6} - ${result.match6}개`);
   }
 
   static displayYield(yieldRate) {
