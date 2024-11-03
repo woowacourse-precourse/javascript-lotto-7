@@ -19,11 +19,11 @@ const getWinningNumbers = async (validator) => {
   return winningNumbers;
 };
 
-const getBonusNumber = async (validator) => {
+const getBonusNumber = async (winningNumber, validator) => {
   const bonusNumber = await Console.readLineAsync(
     '\n보너스 번호를 입력해 주세요.\n',
   );
-  validator.validateBonusNumber(bonusNumber);
+  validator.validateBonusNumber(winningNumber, bonusNumber);
   return bonusNumber;
 };
 
@@ -49,7 +49,7 @@ const printResult = (record, yieldRate) => {
     Console.print(output);
   });
   Console.print(`총 수익률은 ${yieldRate}%입니다.`);
-}
+};
 export {
   getPurchaseAmount,
   getWinningNumbers,

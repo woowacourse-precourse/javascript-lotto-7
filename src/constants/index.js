@@ -31,6 +31,8 @@ const ERROR = Object.freeze({
     '[ERROR] 보너스 번호는 정수 형태여야 합니다.',
   INVALID_BONUS_NUMBER_MESSAGE:
     '[ERROR] 보너스 번호가 1과 45 사이에 존재하지 않습니다.',
+    DUPLICATED_BOCUS_NUMBER_MESSAGE :
+    '[ERROR] 보너스 번호에 중복된 숫자가 있습니다.',
 });
 
 export { LOTTO, SEPERATOR, REGEX, ERROR };
