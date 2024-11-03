@@ -9,6 +9,10 @@ class ConsoleView {
   async getWinningNumbers() {
     return await Console.readLineAsync(RUN_MESSAGE.WINNING_NUMBERS);
   }
+
+  async getBonusNumber() {
+    return await Console.readLineAsync(RUN_MESSAGE.BONUS_NUMBER);
+  }
 }
 
 export default ConsoleView;

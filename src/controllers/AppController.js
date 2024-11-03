@@ -18,6 +18,8 @@ class AppController {
     const winningNumbers = await this.consoleView.getWinningNumbers();
 
     const lottoModel = new LottoModel(winningNumbers);
+
+    const bonusNumber = await this.consoleView.getBonusNumber();
   }
 }
 
