@@ -9,6 +9,11 @@ const ERROR_MESSAGES = {
     DUPLICATE_NUMBERS:
       '[ERROR] 로또 번호는 중복되지 않은 숫자로 구성되어야 합니다.',
   },
+
+  LOTTOS: {
+    EMPTY_ARRAY: '[ERROR] 로또 목록이 비어 있습니다.',
+    INVALID_INSTANCE: '[ERROR] 모든 로또가 Lotto 클래스의 인스턴스여야 합니다.',
+  },
 };
 
 export default ERROR_MESSAGES;
