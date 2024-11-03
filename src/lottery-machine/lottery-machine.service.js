@@ -1,10 +1,13 @@
 // @ts-check
+import { generateUniqueNumbersInRange } from '../lib/utils.js';
+
 import PurchaseAmountValidationStrategy from '../validation/purchase-amount-validation.strategy.js';
 import WinningNumbersValidationStrategy from '../validation/winning-numbers-validation.strategy.js';
+import BonusNumberValidationStrategy from '../validation/bonus-number-validation.strategy.js';
 import ValidationContext from '../validation/validation.context.js';
 
 import LotteryMachineModel from './lottery-machine.model.js';
-import BonusNumberValidationStrategy from '../validation/bonus-number-validation.strategy.js';
+import LotteryModel from '../Lotto.js';
 
 class LotteryMachineService {
   /** @type {LotteryMachineModel} */
@@ -12,6 +15,15 @@ class LotteryMachineService {
 
   /** @type {ValidationContext} */
   #lotteryMachineValidator;
+
+  static STRATEGY = Object.freeze({
+    DIVISOR: 1000,
+    TICKET_LENGTH: 6,
+    TICKET_RANGE: {
+      START: 1,
+      END: 45,
+    },
+  });
 
   /**
    *
@@ -90,6 +102,51 @@ class LotteryMachineService {
     );
 
     this.#lotteryMachineModel.setBonusNumber(this.#parseBonusNumber(bonusNumber));
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+  #calculateLotteryTicketCount() {
+    return this.#lotteryMachineModel.getPurchaseAmount() / LotteryMachineService.STRATEGY.DIVISOR;
+  }
+
+  /**
+   *
+   * @returns {Array<number>}
+   */
+  #generateLotteryTicket() {
+    return generateUniqueNumbersInRange(
+      LotteryMachineService.STRATEGY.TICKET_RANGE.START,
+      LotteryMachineService.STRATEGY.TICKET_RANGE.END,
+      LotteryMachineService.STRATEGY.TICKET_LENGTH,
+    );
+  }
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  #isGeneratingLotteryTickets() {
+    return (
+      this.#lotteryMachineModel.getLotteryTickets().length !== this.#calculateLotteryTicketCount()
+    );
+  }
+
+  /**
+   *
+   * @returns {{ lotteryTicketCounts: number; lotteryTickets: Array<number[]> }}
+   */
+  generateLotteryTickets() {
+    while (this.#isGeneratingLotteryTickets()) {
+      this.#lotteryMachineModel.setLotteryTicket(new LotteryModel(this.#generateLotteryTicket()));
+    }
+
+    return {
+      lotteryTicketCounts: this.#lotteryMachineModel.getLotteryTicketCounts(),
+      lotteryTickets: this.#lotteryMachineModel.getLotteryTicketNumbers(),
+    };
   }
 }
 

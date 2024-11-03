@@ -1,3 +1,5 @@
+import { Random } from '@woowacourse/mission-utils';
+
 /**
  *
  * @param {string} value
@@ -42,4 +44,15 @@ export function isPositiveNumericString(value) {
  */
 export function isIntegerNumericString(value) {
   return Number(value) === Math.trunc(Number(value));
+}
+
+/**
+ *
+ * @param {number} start
+ * @param {number} end
+ * @param {number} count
+ * @returns {Array<number>}
+ */
+export function generateUniqueNumbersInRange(start, end, count) {
+  return Random.pickUniqueNumbersInRange(start, end, count);
 }

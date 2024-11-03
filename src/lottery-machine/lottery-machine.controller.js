@@ -21,8 +21,19 @@ class LotteryMachineController {
     const purchaseAmount = await this.#lotteryMachineView.getLotteryPurchaseAmount();
     this.#lotteryMachineService.inputPurchaseAmount(purchaseAmount);
 
+    this.#lotteryMachineView.printLineBreak();
+
+    const { lotteryTicketCounts, lotteryTickets } =
+      this.#lotteryMachineService.generateLotteryTickets();
+
+    this.#lotteryMachineView.printPurchaseLotteryTicketInfo(lotteryTicketCounts, lotteryTickets);
+
+    this.#lotteryMachineView.printLineBreak();
+
     const winningNumbers = await this.#lotteryMachineView.getLotteryWinningNumbers();
     this.#lotteryMachineService.inputWinningNumbers(winningNumbers);
+
+    this.#lotteryMachineView.printLineBreak();
 
     const bonusNumber = await this.#lotteryMachineView.getLotteryBonusNumber();
     this.#lotteryMachineService.inputBonusNumber(bonusNumber);

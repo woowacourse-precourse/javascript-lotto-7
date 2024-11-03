@@ -1,3 +1,5 @@
+import LotteryModel from '../Lotto.js';
+
 // @ts-check
 class LotteryMachineModel {
   /** @type {number} */
@@ -8,6 +10,17 @@ class LotteryMachineModel {
 
   /** @type {number} */
   #bonusNumber;
+
+  /** @type {Array<LotteryModel>} */
+  #lotteryTickets = [];
+
+  /**
+   *
+   * @returns {number}
+   */
+  getPurchaseAmount() {
+    return this.#purchaseAmount;
+  }
 
   /**
    *
@@ -39,6 +52,38 @@ class LotteryMachineModel {
    */
   setBonusNumber(bonusNumber) {
     this.#bonusNumber = bonusNumber;
+  }
+
+  /**
+   *
+   * @returns {Array<LotteryModel>}
+   */
+  getLotteryTickets() {
+    return this.#lotteryTickets;
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+  getLotteryTicketCounts() {
+    return this.#lotteryTickets.length;
+  }
+
+  /**
+   *
+   * @returns {Array<number[]>}
+   */
+  getLotteryTicketNumbers() {
+    return this.#lotteryTickets.map((lotteryTicket) => lotteryTicket.getLotteryNumbers());
+  }
+
+  /**
+   *
+   * @param {LotteryModel} lotteryTicket
+   */
+  setLotteryTicket(lotteryTicket) {
+    this.#lotteryTickets.push(lotteryTicket);
   }
 }
 

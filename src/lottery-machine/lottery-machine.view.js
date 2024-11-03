@@ -1,11 +1,17 @@
 // @ts-check
-import { input } from '../lib/view.js';
+import { input, output } from '../lib/view.js';
 
 class LotteryMachineView {
   static QUERY = Object.freeze({
     GET_LOTTERY_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
     GET_LOTTERY_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
     GET_LOTTERY_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
+  });
+
+  static MESSAGE = Object.freeze({
+    PURCHASE_LOTTERY_TICKET_COUNTS: (lotteryTicketCounts) =>
+      `${String(lotteryTicketCounts)}개를 구매했습니다.`,
+    PURCHASE_LOTTERY_TICKET: (lotteryTicket) => `[${lotteryTicket.join(', ')}]`,
   });
 
   /**
@@ -45,6 +51,38 @@ class LotteryMachineView {
     const result = await input(LotteryMachineView.QUERY.GET_LOTTERY_BONUS_NUMBER);
 
     return this.#parse(result);
+  }
+
+  printLineBreak() {
+    output('');
+  }
+
+  /**
+   *
+   * @param {number} lotteryTicketCounts
+   */
+  printPurchaseLotteryTicketCounts(lotteryTicketCounts) {
+    output(LotteryMachineView.MESSAGE.PURCHASE_LOTTERY_TICKET_COUNTS(lotteryTicketCounts));
+  }
+
+  /**
+   *
+   * @param {Array<number[]>} lotteryTickets
+   */
+  printPurchaseLotteryTickets(lotteryTickets) {
+    lotteryTickets.forEach((lotteryTicket) => {
+      output(LotteryMachineView.MESSAGE.PURCHASE_LOTTERY_TICKET(lotteryTicket));
+    });
+  }
+
+  /**
+   *
+   * @param {number} lotteryTicketCounts
+   * @param {Array<number[]>} lotteryTickets
+   */
+  printPurchaseLotteryTicketInfo(lotteryTicketCounts, lotteryTickets) {
+    this.printPurchaseLotteryTicketCounts(lotteryTicketCounts);
+    this.printPurchaseLotteryTickets(lotteryTickets);
   }
 }
 
