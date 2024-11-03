@@ -1,8 +1,8 @@
-import UserLottoValidate from '../utils/validators/UserLottoValidator.js';
+import UserLottoValidator from '../utils/validators/UserLottoValidator.js';
 
 class UserLotto {
   constructor() {
-    this.userLottoValidator = new UserLottoValidate();
+    this.userLottoValidator = new UserLottoValidator();
   }
 
   setUserLotto(userInput) {
