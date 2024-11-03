@@ -9,7 +9,7 @@ import { printOutput, userInput } from "./missionUtils.js";
 class Input {
 	async getLottoMoney() {
 		try {
-			const MONEY = await this.getUserInputMoney();
+			const MONEY = await this.getInputMoney();
 			return MONEY;
 		} catch (error) {
 			printOutput(error.message);
@@ -17,7 +17,7 @@ class Input {
 		}
 	}
 
-	async getUserInputMoney() {
+	async getInputMoney() {
 		const MONEY = await userInput(PROMPT.LOTTO_BUY);
 		await this.validateLottoMoney(MONEY);
 		return parseInt(MONEY, 10);
@@ -39,7 +39,7 @@ class Input {
 
 	async getWinningNumber() {
 		try {
-			const WINNING_NUMBER = await this.getUserInputWinningNumber();
+			const WINNING_NUMBER = await this.getInputWinningNumber();
 			return WINNING_NUMBER;
 		} catch (error) {
 			printOutput(error.message);
@@ -47,7 +47,7 @@ class Input {
 		}
 	}
 
-	async getUserInputWinningNumber() {
+	async getInputWinningNumber() {
 		const WINNING_NUMBER = await userInput(PROMPT.LOTTO_WINNING_NUMBER);
 		await this.validateWinningNumber(WINNING_NUMBER);
 		return WINNING_NUMBER;
@@ -73,7 +73,7 @@ class Input {
 
 	async getBonusNumber(winningNumber) {
 		try {
-			const BONUS_NUMBER = await this.getUserInputBonusNumber(winningNumber);
+			const BONUS_NUMBER = await this.getInputBonusNumber(winningNumber);
 			return BONUS_NUMBER;
 		} catch (error) {
 			printOutput(error.message);
@@ -81,7 +81,7 @@ class Input {
 		}
 	}
 
-	async getUserInputBonusNumber(winningNumber) {
+	async getInputBonusNumber(winningNumber) {
 		const BONUS_NUMBER = await userInput(PROMPT.LOTTO_BONUS_NUMBER);
 		await this.validateBonusNumber(winningNumber, BONUS_NUMBER);
 		return BONUS_NUMBER;

@@ -36,6 +36,6 @@ describe("구입금액 입력 테스트", () => {
 		mockQuestions([money]);
 
 		// when, then
-		await expect(input.getUserInputMoney()).rejects.toThrow("[ERROR]");
+		await expect(input.getInputMoney()).rejects.toThrow("[ERROR]");
 	});
 });
