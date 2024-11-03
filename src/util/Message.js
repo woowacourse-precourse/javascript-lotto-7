@@ -11,7 +11,8 @@ export const AMOUNT_ERROR = Object.freeze({
 
 export const BONUS_ERROR = Object.freeze({
     ERROR_UNIQUE: '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
-    ERROR_RANGE:'[ERROR] 입력하신 보너스 번호는 1부터 45안에 숫자가 아닙니다.',
+    ERROR_RANGE: '[ERROR] 입력하신 보너스 번호는 1부터 45안에 숫자가 아닙니다.',
+    ERROR_NO_INPUT: '[ERROR] 입력한 보너스 번호가 없습니다.'
 });
 
 export const WINNING_LOTTO_ERROR = Object.freeze({
@@ -19,5 +20,5 @@ export const WINNING_LOTTO_ERROR = Object.freeze({
     ERROR_COUNT_6: '[ERROR] 입력하신 로또번호는 6개여야 합니다.',
     ERROR_NO_INPUT: '[ERROR] 입력하신 로또번호가 없습니다.',
     ERROR_UNIQUE: '[ERROR] 입력하신 로또번호가 중복되었습니다.',
-    ERROR_RANGE:'[ERROR] 입력하신 로또번호가 1부터 45안에 숫자가 아닙니다.',
+    ERROR_RANGE: '[ERROR] 입력하신 로또번호가 1부터 45안에 숫자가 아닙니다.',
 });

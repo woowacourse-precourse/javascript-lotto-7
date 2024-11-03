@@ -25,7 +25,9 @@ export const validWinningLotto = (winningLotto) => {
 export const validBonus = (bonus, winningLotto) => {
     const IS_NOT_UNIQUE = winningLotto.some(num => num === bonus);
     const IS_NOT_RANGE = !((1 <= bonus) && (bonus <= 45));
+    const IS_NO_INPUT = bonus.trim() === '';
 
+    if (IS_NO_INPUT) throw new Error(BONUS_ERROR.ERROR_NO_INPUT);
     if (IS_NOT_UNIQUE) throw new Error(BONUS_ERROR.ERROR_UNIQUE);
     if (IS_NOT_RANGE) throw new Error(BONUS_ERROR.ERROR_RANGE);
 }
