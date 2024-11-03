@@ -23,12 +23,18 @@ class IssuedLotto extends Lotto {
         });
         return lottoTable;
     }
+    getWinningGrade(answer) {
+        const matchAmount = getNumberOfMatches(answer.getNumbers());
 
+    }
     getNumberOfMatches(answer) {
         let matchNumber = 0;
-        answer.forEach((element) => {
+        answer.getNumbers().forEach((element) => {
             matchNumber += this.#lottoTable[element];
         });
         return matchNumber;
+    }
+    isMatchedBonus(bonus){
+        return this.#lottoTable[bonus] === 1;
     }
 }
