@@ -178,6 +178,14 @@ describe('보너스 번호 입력 테스트', () => {
   });
 });
 
+describe('로또 생성 테스트', () => {
+  test('금액에 따른 로또 반복 생성', () => {
+    const app = new App();
+    const lottos = app.generateLottos(5000);
+    expect(lottos.length).toBe(5);
+  })
+})
+
 
 describe('로또 테스트', () => {
   beforeEach(() => {
