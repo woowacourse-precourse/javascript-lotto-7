@@ -14,7 +14,11 @@ class App {
         Lotto.printLottoNumbers(lottoNumbers);
 
         const results = Lotto.calculateResults(lottoNumbers, jackpotNumbers, bonusNumber);
-        console.log(results);
+
+        const revenue = Lotto.calculateRevenue(results);
+        const revenuePercent = Lotto.calculateRevenuePercent(revenue, lottoCount * 1000);
+
+        Lotto.printJackpotStatistics(results, revenuePercent);
     }
 }
 

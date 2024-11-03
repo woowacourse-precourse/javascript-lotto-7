@@ -41,6 +41,60 @@ class Lotto {
         });
         return results;
     }
+
+    static calculateRevenue(results) {
+        const prize = {
+            3: 5000,
+            4: 50000,
+            5: 1500000,
+            5.1: 30000000,
+            6: 2000000000,
+        };
+
+        const revenue = results.reduce((acc, result) => {
+            const { matchedCount, isBonusMatched } = result;
+
+            let key = matchedCount;
+
+            if (isBonusMatched) {
+                key = 5.1;
+            }
+            return acc + (prize[key] || 0);
+        }, 0);
+        return revenue;
+    }
+
+    static calculateRevenuePercent(revenue, spentMoney) {
+        const percent = (revenue / spentMoney) * 100;
+        return Math.round(percent * 100) / 100;
+    }
+
+    static printJackpotStatistics(results, revenuePercent) {
+        const statistics = {
+            3: 0,
+            4: 0,
+            5: 0,
+            5.1: 0,
+            6: 0,
+        };
+
+        results.forEach(({ matchedCount, isBonusMatched }) => {
+            if (isBonusMatched) {
+                statistics[5.1] += 1;
+            } else {
+                statistics[matchedCount] += 1;
+            }
+        });
+
+        console.log("당첨 통계");
+        console.log("---");
+        console.log(`3개 일치 (5,000원) - ${statistics[3]}개`);
+        console.log(`4개 일치 (50,000원) - ${statistics[4]}개`);
+        console.log(`5개 일치 (1,500,000원) - ${statistics[5]}개`);
+        console.log(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${statistics[5.1]}개`);
+        console.log(`6개 일치 (2,000,000,000원) - ${statistics[6]}개`);
+        console.log(`총 수익률은 ${revenuePercent}%입니다.`);
+    }
 }
 
 export default Lotto;
