@@ -37,7 +37,10 @@ class LottoGame {
         winningLotto.hasInNumbers(number),
       ).length;
 
+      const isBonusNumberIncluded = lotto.includes(bonusNumber);
+
       Console.print(matchingNumbers);
+      Console.print(isBonusNumberIncluded);
     });
   }
 }
