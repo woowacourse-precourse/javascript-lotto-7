@@ -29,6 +29,9 @@ class App {
 
   async userBonusNumberInput() {
     const bonusNumberInput = await Console.readLineAsync(`\n${INPUT_MESSAGE.BONUS_NUMBERS}\n`);
+    const bonusNumber = this.convertToBonusNumber(bonusNumberInput);
+
+    return bonusNumber;
   }
 
   async safeAsyncExecute(callback) {
@@ -65,6 +68,14 @@ class App {
     const winningNumber = Convert.toNumber(stringWinningNumber);
 
     return winningNumber;
+  }
+
+  convertToBonusNumber(bonusNumberInput) {
+    this.#validateBonusNumberIsNumber(bonusNumberInput);
+
+    const bonusNumber = Convert.toNumber(bonusNumberInput);
+
+    return bonusNumber;
   }
 
   buyLottos(amount) {
@@ -130,6 +141,10 @@ class App {
   #validateWinningNumberRange(winningNumber) {
     if (!Validate.range(winningNumber, LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER))
       throw new Error(ERROR_MESSAGE.WINNING_NUMBERS_IS_NOT_LOTTO_RANGE);
+  }
+
+  #validateBonusNumberIsNumber(bonusInput) {
+    if (!Validate.number(bonusInput)) throw new Error(ERROR_MESSAGE.BONUS_NUMBER_IS_NOT_NUMBER);
   }
 }
 
