@@ -1,3 +1,4 @@
+import { isNumber } from "../src/BuyPrice";
 import Lotto from "../src/Lotto";
 
 describe("로또 클래스 테스트", () => {
@@ -15,4 +16,15 @@ describe("로또 클래스 테스트", () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("구매 금액이 숫자가 아니면 예외가 발생한다.", () => {
+    expect(()=> isNumber("0000")).toBeTruthy();
+  });
+
+  test("구매 금액이 숫자가 아니면 예외가 발생한다.", () => {
+    expect(() => isNumber("00as")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 숫자가 아니면 예외가 발생한다.", () => {
+    expect(() => isNumber("")).toThrow("[ERROR]");
+  });
 });
