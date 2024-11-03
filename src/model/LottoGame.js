@@ -3,17 +3,17 @@ import generateRandomList from '../utils/generateRandomList.js';
 import { CONFIG, RANK } from '../constants/constants.js';
 
 class LottoGame {
-  #generator;
   #lottoNumbers = [];
   #matchCount;
 
-  constructor(purchaseAmount, generator = () => generateRandomList()) {
+  constructor(purchaseAmount) {
     const tickets = purchaseAmount / CONFIG.PURCHASE_AMOUNT_UNIT;
-    this.#generator = generator;
+
     this.#lottoNumbers = Array.from({ length: tickets }, () => {
-      const numbers = this.#generator();
+      const numbers = generateRandomList();
       return new Lotto([...numbers].sort((a, b) => a - b));
     });
+
     this.#matchCount = {
       [RANK.FIRST.matchCount]: 0,
       [RANK.SECOND.matchCount]: 0,
@@ -53,6 +53,21 @@ class LottoGame {
       default:
         return 0;
     }
+  }
+
+  calculateRevenue() {
+    const totalPrize = Object.entries(this.#matchCount).reduce(
+      (acc, [count, value]) => {
+        const prizeAmount = this.getPrizeAmount(Number(count));
+        return acc + prizeAmount * value;
+      },
+      0
+    );
+
+    const revenue =
+      (totalPrize / (this.#lottoNumbers.length * CONFIG.PURCHASE_AMOUNT_UNIT)) *
+      100;
+    return Math.round(revenue * 100) / 100;
   }
 }
 
