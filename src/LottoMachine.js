@@ -1,15 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import {
-  basicValidation,
-  winningNumberValidation,
-  bonusNumberValidation,
-} from './Validation.js';
-import {
-  LOTTO_NUMBER_STANDARD,
-  LOTTO_PRICE_UNIT,
-  PRIZE,
-} from './Constants/Constant.js';
+import { basicValidation, winningNumberValidation, bonusNumberValidation } from './Validation.js';
+import { LOTTO_NUMBER_STANDARD, LOTTO_PRICE_UNIT, PRIZE } from './Constants/Constant.js';
 
 class LOTTO_MACHINE {
   #winningNumbers;
@@ -21,12 +13,9 @@ class LOTTO_MACHINE {
   }
 
   #parseWinningNumbers(winningNumbers) {
-    return winningNumbers
-      .replace(/\s+/g, '')
-      .split(LOTTO_NUMBER_STANDARD.separator)
-      .map((number) => {
-        return Number(number);
-      });
+    return winningNumbers.split(LOTTO_NUMBER_STANDARD.separator).map((number) => {
+      return Number(number);
+    });
   }
 
   #validateWinningNumbers(winningNumbers) {
@@ -35,10 +24,7 @@ class LOTTO_MACHINE {
     const parsedWinningNumbers = this.#parseWinningNumbers(winningNumbers);
 
     winningNumberValidation.validateInputOverlap(parsedWinningNumbers);
-    basicValidation.validateInputLength(
-      parsedWinningNumbers,
-      LOTTO_NUMBER_STANDARD.length
-    );
+    basicValidation.validateInputLength(parsedWinningNumbers, LOTTO_NUMBER_STANDARD.length);
 
     parsedWinningNumbers.forEach((number) => {
       basicValidation.validateInputNumberType(number);
@@ -49,10 +35,7 @@ class LOTTO_MACHINE {
   #validateBonusNumber(bonusNumber) {
     basicValidation.validateInputNumberType(bonusNumber);
     winningNumberValidation.validateInputLottoRange(bonusNumber);
-    bonusNumberValidation.validateInputOverlap(
-      bonusNumber,
-      this.#winningNumbers
-    );
+    bonusNumberValidation.validateInputOverlap(bonusNumber, this.#winningNumbers);
   }
 
   setWinningNumbers(winningNumbers) {
@@ -93,10 +76,7 @@ class LOTTO_MACHINE {
     }, {});
 
     tickets.forEach((ticket) => {
-      const rank = ticket.calculateLottoResult(
-        this.#winningNumbers,
-        this.#bonusNumber
-      );
+      const rank = ticket.calculateLottoResult(this.#winningNumbers, this.#bonusNumber);
       results[rank] += 1;
     });
 

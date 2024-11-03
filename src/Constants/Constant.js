@@ -47,14 +47,7 @@ const losing_ticket = {
   reward: '0',
 };
 
-const PRIZE = [
-  losing_ticket,
-  firstPrize,
-  secondPrize,
-  thirdPrize,
-  fourthPrize,
-  fifthPrize,
-];
+const PRIZE = [losing_ticket, firstPrize, secondPrize, thirdPrize, fourthPrize, fifthPrize];
 
 export {
   LOTTO_NUMBER_STANDARD,

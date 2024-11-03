@@ -1,8 +1,4 @@
-import {
-  BASIC_ERROR,
-  WINNING_NUMBER_ERROR,
-  BONUS_NUMBER_ERROR,
-} from './Constants/Message.js';
+import { BASIC_ERROR, WINNING_NUMBER_ERROR, BONUS_NUMBER_ERROR } from './Constants/Message.js';
 import {
   LOTTO_PRICE_UNIT,
   LOTTO_NUMBER_STANDARD,
@@ -56,10 +52,7 @@ class winningNumberValidation {
   }
 
   static validateInputLottoRange(input) {
-    if (
-      input < LOTTO_NUMBER_STANDARD.min ||
-      input > LOTTO_NUMBER_STANDARD.max
-    ) {
+    if (input < LOTTO_NUMBER_STANDARD.min || input > LOTTO_NUMBER_STANDARD.max) {
       throw new Error(BASIC_ERROR.invalidNumber);
     }
   }

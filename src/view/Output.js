@@ -15,32 +15,24 @@ class Output {
   lottoTicketNumbers(tickets) {
     tickets.forEach((ticket) =>
       Console.print(
-        OUTPUT.ticketNumber(
-          ticket.getNumbers().join(`${LOTTO_NUMBER_STANDARD.separator} `)
-        )
+        OUTPUT.ticketNumber(ticket.getNumbers().join(`${LOTTO_NUMBER_STANDARD.separator} `))
       )
     );
   }
 
   singleWinningResult(prize, results) {
     if (prize === PRIZE[2]) {
-      Console.print(
-        OUTPUT.bonusPrize(prize.match, prize.reward, results[prize.rank])
-      );
+      Console.print(OUTPUT.bonusPrize(prize.match, prize.reward, results[prize.rank]));
     }
 
     if (prize !== PRIZE[0]) {
-      Console.print(
-        OUTPUT.defaultPrize(prize.match, prize.reward, results[prize.rank])
-      );
+      Console.print(OUTPUT.defaultPrize(prize.match, prize.reward, results[prize.rank]));
     }
   }
 
   totalWinningResult(results) {
     Console.print(OUTPUT.winningStatistics);
-    [...PRIZE]
-      .reverse()
-      .forEach((prize) => this.singleWinningResult(prize, results));
+    [...PRIZE].reverse().forEach((prize) => this.singleWinningResult(prize, results));
   }
 
   totalReturnResult(totalReturn) {

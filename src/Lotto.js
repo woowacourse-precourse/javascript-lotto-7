@@ -19,16 +19,13 @@ class Lotto {
   }
 
   calculateWinningLotto(winningNumbers) {
-    return this.#numbers.filter((number) => winningNumbers.includes(number))
-      .length;
+    return this.#numbers.filter((number) => winningNumbers.includes(number)).length;
   }
 
   compareMatchNumber(matchNumberCount, bonusNumber) {
     const resultTable = {
       [PRIZE[1].match]: PRIZE[1].rank,
-      [PRIZE[2].match]: this.#numbers.includes(bonusNumber)
-        ? PRIZE[2].rank
-        : PRIZE[3].rank,
+      [PRIZE[2].match]: this.#numbers.includes(bonusNumber) ? PRIZE[2].rank : PRIZE[3].rank,
       [PRIZE[4].match]: PRIZE[4].rank,
       [PRIZE[5].match]: PRIZE[5].rank,
     };
