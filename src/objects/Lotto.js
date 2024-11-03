@@ -27,6 +27,25 @@ class Lotto {
     return rank;
   }
 
+  #validate() {
+    if (!getIsArrayLengthMatch(this.#numbers, 6))
+      throw new Error(ERROR_MESSAGE.NOT_SIX);
+    if (!getIsAllItemsUnique(this.#numbers))
+      throw new Error(ERROR_MESSAGE.NOT_UNIQUE);
+  }
+
+  #sortByAscending() {
+    this.#numbers.sort((a, b) => a - b);
+  }
+
+  #getWinningNumberCount(winningNumbers) {
+    return intersection(this.#numbers, winningNumbers).length;
+  }
+
+  #getIsBonusMatch(bonusNumber) {
+    return intersection(this.#numbers, [bonusNumber]).length > 0;
+  }
+
   static #calculateRank(winningCount, isBonusMatch) {
     const rankData = Object.entries(LOTTO_RANK_MAP).find(
       ([_, info]) =>
@@ -44,25 +63,6 @@ class Lotto {
 
   static getPrizeMoney(rank) {
     return this.getRankInfo(rank)?.prizeMoney ?? 0;
-  }
-
-  #sortByAscending() {
-    this.#numbers.sort((a, b) => a - b);
-  }
-
-  #validate() {
-    if (!getIsArrayLengthMatch(this.#numbers, 6))
-      throw new Error(ERROR_MESSAGE.NOT_SIX);
-    if (!getIsAllItemsUnique(this.#numbers))
-      throw new Error(ERROR_MESSAGE.NOT_UNIQUE);
-  }
-
-  #getWinningNumberCount(winningNumbers) {
-    return intersection(this.#numbers, winningNumbers).length;
-  }
-
-  #getIsBonusMatch(bonusNumber) {
-    return intersection(this.#numbers, [bonusNumber]).length > 0;
   }
 }
 
