@@ -1,6 +1,6 @@
 import { OutputComment } from './Constants/display.js';
 import Errors from './Constants/Errors.js';
-import { throwError } from './Utils/handleError.js';
+import throwError from './Utils/throwError.js';
 import Rules from './Utils/Rules.js';
 
 class Lotto {

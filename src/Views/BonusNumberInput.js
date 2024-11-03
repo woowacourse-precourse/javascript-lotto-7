@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { printErrorAndFalse } from '../Utils/handleError.js';
+import throwError from '../Utils/throwError.js';
 import Rules from '../Utils/Rules.js';
 import Errors from '../Constants/Errors.js';
 import { InputComment } from '../Constants/display.js';
@@ -12,17 +12,15 @@ const BonusNumberInput = {
 
   validate: (bonusNumberInput, basicNumbers) => {
     if (Rules.isNoValueString(bonusNumberInput))
-      return printErrorAndFalse(Errors.BonusNumber.NO_INPUT);
+      throwError(Errors.BonusNumber.NO_INPUT);
 
     const bonusNumber = Number(bonusNumberInput);
     if (Rules.isNotNumber(bonusNumber))
-      return printErrorAndFalse(Errors.BonusNumber.NOT_NUMBER_INPUT);
+      throwError(Errors.BonusNumber.NOT_NUMBER_INPUT);
     if (Rules.isNotRangedValue(bonusNumber))
-      return printErrorAndFalse(Errors.BonusNumber.NOT_RANGED_INPUT);
+      throwError(Errors.BonusNumber.NOT_RANGED_INPUT);
     if (Rules.isIncludedValue(bonusNumber, basicNumbers))
-      return printErrorAndFalse(
-        Errors.BonusNumber.IS_DUPLICATED_WITH_BASIC_NUMBERS
-      );
+      throwError(Errors.BonusNumber.IS_DUPLICATED_WITH_BASIC_NUMBERS);
 
     return true;
   },

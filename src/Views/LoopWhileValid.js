@@ -5,36 +5,45 @@ import OutputPrint from './OutputPrint.js';
 
 const LoopWhileValid = {
   getBuyPrice: async () => {
-    while (true) {
+    try {
       const userInput = await BuyPriceInput.get();
       if (BuyPriceInput.validate(userInput)) {
         OutputPrint.blankLine();
         return BuyPriceInput.parse(userInput);
       }
+    } catch (error) {
+      OutputPrint.error(error.message);
       OutputPrint.blankLine();
+      return LoopWhileValid.getBuyPrice();
     }
   },
 
   getBasicNumbers: async () => {
-    while (true) {
+    try {
       const userInput = await BasicNumbersInput.get();
       if (BasicNumbersInput.validate(userInput)) {
         OutputPrint.blankLine();
         return BasicNumbersInput.parse(userInput);
       }
+    } catch (error) {
+      OutputPrint.error(error.message);
       OutputPrint.blankLine();
+      return LoopWhileValid.getBasicNumbers();
     }
   },
 
   getBonusNumbers: async (basicNumbers) => {
-    while (true) {
+    try {
       const userInput = await BonusNumberInput.get();
       if (BonusNumberInput.validate(userInput, basicNumbers)) {
         OutputPrint.blankLine();
         return BonusNumberInput.parse(userInput);
       }
+    } catch (error) {
+      OutputPrint.error(error.message);
       OutputPrint.basicNumbers(basicNumbers);
       OutputPrint.blankLine();
+      return LoopWhileValid.getBonusNumbers(basicNumbers);
     }
   },
 };

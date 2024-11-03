@@ -1,7 +1,7 @@
 import BuyPriceConfig from './Constants/buyPriceConfig.js';
 import Errors from './Constants/Errors.js';
 import { PrizeMoney } from './Constants/prizeConfig.js';
-import { throwError } from './Utils/handleError.js';
+import throwError from './Utils/throwError.js';
 import roundToOne from './Utils/roundToOne.js';
 import Rules from './Utils/Rules.js';
 

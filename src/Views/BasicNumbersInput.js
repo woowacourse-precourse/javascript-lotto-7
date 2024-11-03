@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { printErrorAndFalse } from '../Utils/handleError.js';
+import throwError from '../Utils/throwError.js';
 import Rules from '../Utils/Rules.js';
 import Errors from '../Constants/Errors.js';
 import { InputComment } from '../Constants/display.js';
@@ -12,13 +12,13 @@ const BasicNumbersInput = {
 
   validate: (basicNumbersInput) => {
     if (Rules.isNoValueString(basicNumbersInput))
-      return printErrorAndFalse(Errors.BasicNumbers.NO_INPUT);
+      throwError(Errors.BasicNumbers.NO_INPUT);
 
     const basicNumbers = basicNumbersInput.split(',');
     if (Rules.isWrongLength(basicNumbers, 6))
-      return printErrorAndFalse(Errors.BasicNumbers.IS_WRONG_LENGTH);
+      throwError(Errors.BasicNumbers.IS_WRONG_LENGTH);
     if (Rules.isDuplicatedValue(basicNumbers))
-      return printErrorAndFalse(Errors.BasicNumbers.IS_DUPLICATED_VALUE_IN);
+      throwError(Errors.BasicNumbers.IS_DUPLICATED_VALUE_IN);
 
     return validateEachNumber(basicNumbers);
   },
@@ -33,13 +33,13 @@ const BasicNumbersInput = {
 const validateEachNumber = (basicNumbers) => {
   const isValid = basicNumbers.every((numberString) => {
     if (Rules.isNotNumber(numberString))
-      return printErrorAndFalse(Errors.BasicEachNumber.NOT_NUMBER_INPUT);
+      throwError(Errors.BasicEachNumber.NOT_NUMBER_INPUT);
     if (Rules.isNoValueString(numberString))
-      return printErrorAndFalse(Errors.BasicEachNumber.NO_INPUT);
+      throwError(Errors.BasicEachNumber.NO_INPUT);
 
     const number = Number(numberString);
     if (Rules.isNotRangedValue(number))
-      return printErrorAndFalse(Errors.BasicEachNumber.NOT_RANGED_INPUT);
+      throwError(Errors.BasicEachNumber.NOT_RANGED_INPUT);
 
     return true;
   });

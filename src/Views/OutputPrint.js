@@ -9,7 +9,7 @@ const OutputPrint = {
   },
 
   error: (errorMessage) => {
-    Console.print(`${Errors.PREFIX} ${errorMessage}`);
+    Console.print(errorMessage);
   },
 
   blankLine: () => {

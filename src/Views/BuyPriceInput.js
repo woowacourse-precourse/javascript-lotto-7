@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { printErrorAndFalse } from '../Utils/handleError.js';
+import throwError from '../Utils/throwError.js';
 import Rules from '../Utils/Rules.js';
 import Errors from '../Constants/Errors.js';
 import { InputComment } from '../Constants/display.js';
@@ -13,17 +13,17 @@ const BuyPriceInput = {
 
   validate: (buyPriceInput) => {
     if (Rules.isNoValueString(buyPriceInput))
-      return printErrorAndFalse(Errors.BuyPrice.NO_INPUT);
+      throwError(Errors.BuyPrice.NO_INPUT);
 
     const buyPrice = Number(buyPriceInput);
     if (Rules.isNotNumber(buyPriceInput))
-      return printErrorAndFalse(Errors.BuyPrice.NOT_NUMBER_INPUT);
+      throwError(Errors.BuyPrice.NOT_NUMBER_INPUT);
     if (Rules.isLessThanMin(buyPrice, BuyPriceConfig.Min.VALUE))
-      return printErrorAndFalse(Errors.BuyPrice.LESS_THAN_MIN);
+      throwError(Errors.BuyPrice.LESS_THAN_MIN);
     if (Rules.isMoreThanMax(buyPrice, BuyPriceConfig.Max.VALUE))
-      return printErrorAndFalse(Errors.BuyPrice.MORE_THAN_MAX);
+      throwError(Errors.BuyPrice.MORE_THAN_MAX);
     if (Rules.isRestWhenDivided(buyPrice, BuyPriceConfig.Unit.VALUE))
-      return printErrorAndFalse(Errors.BuyPrice.NOT_UNIT_NUMBER);
+      throwError(Errors.BuyPrice.NOT_UNIT_NUMBER);
 
     return true;
   },

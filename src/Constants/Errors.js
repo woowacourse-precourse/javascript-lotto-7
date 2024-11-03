@@ -7,7 +7,7 @@ const Errors = Object.freeze({
     NO_INPUT: `구입 금액을 입력받지 못했어요.\n구입 금액은 ${BuyPriceConfig.Unit.NAME} 단위로 떨어지는 숫자를 입력해주세요.`,
     NOT_NUMBER_INPUT: '구입 금액은 숫자로 입력해야 합니다.\n다시 입력해주세요.',
     LESS_THAN_MIN: `구입 금액은 ${BuyPriceConfig.Min.NAME} 이상이어야 합니다.\n다시 입력해주세요.`,
-    MORE_THAN_MAX: `구입 금액은 최대 ${BuyPriceConfig.Max.NAME}까지 입력할 수 있습니다..\n다시 입력해주세요.`,
+    MORE_THAN_MAX: `구입 금액은 최대 ${BuyPriceConfig.Max.NAME}까지 입력할 수 있습니다.\n다시 입력해주세요.`,
     NOT_UNIT_NUMBER: `구입 금액은 ${BuyPriceConfig.Unit.NAME} 단위로 떨어져야 합니다.\n다시 입력해주세요.`,
   },
 
