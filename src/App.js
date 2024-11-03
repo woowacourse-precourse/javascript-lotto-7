@@ -4,6 +4,7 @@ import Lotto from "./Lotto.js";
 class App {
   async run() {
     const amount = Number(await Console.readLineAsync("구입금액을 입력해 주세요.\n"));
+    this.amountExceptionHandler()
 
     const possibleLottoCount = Number(amount / 1000);
     Console.print(`\n${possibleLottoCount}개를 구매했습니다.`);
@@ -93,6 +94,13 @@ class App {
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCount.get(6)}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${winningCount.get(7)}개`);
     Console.print(`총 수익률은 ${winningAmount / lottoAmount}%입니다.`);
+  }
+
+  // 1000원 단위가 아닐 경우
+  amountExceptionHandler(amount){
+    if(amount % 1000 != 0){
+      throw new Error('[ERROR] 1,000원 단위만 입력해주세요.')
+    }
   }
 
   prizeMoney = [0, 0, 0, 5000, 50000, 1500000, 30000000, 2000000000];
