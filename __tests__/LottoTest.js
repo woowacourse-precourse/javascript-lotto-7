@@ -14,7 +14,7 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  describe.each([[[1, 2, 3, 4, 5, 6], 7]])(
+  describe.each([[[1, 2, 3, 4, 5, 6], [7]]])(
     '로또 추첨 결과 테스트 ( 당첨번호 : %s 보너스번호 : %s ',
     (winningNumber, bonusNumber) => {
       test.each([
