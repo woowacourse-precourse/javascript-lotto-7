@@ -13,13 +13,13 @@ describe('Validator Module Test', () => {
         expect(validate).toThrow(ERROR_PREFIX);
       },
     );
-  });
 
-  test.each([1, 10, 2438945])('양의 정수인 경우 정상적으로 동작한다. ( %s )', (value) => {
-    const validate = () => {
-      ValidatorModule.checkPositiveInteger(value);
-    };
+    test.each([1, 10, 2438945])('양의 정수인 경우 정상적으로 동작한다. ( %s )', (value) => {
+      const validate = () => {
+        ValidatorModule.checkPositiveInteger(value);
+      };
 
-    expect(validate).not.toThrow();
+      expect(validate).not.toThrow();
+    });
   });
 });
