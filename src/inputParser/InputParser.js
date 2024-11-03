@@ -1,14 +1,16 @@
+import throwError from '../utils/throwError.js';
+
 class InputParser {
   async readLoop() {
-    throw new Error('readLoop 메서드를 오버라이드해야 합니다.');
+    throwError('readLoop 메서드를 오버라이드해야 합니다.');
   }
 
   #read() {
-    throw new Error('#read 메서드를 오버라이드해야 합니다.');
+    throwError('#read 메서드를 오버라이드해야 합니다.');
   }
 
   #validate() {
-    throw new Error('#validate 메서드를 오버라이드해야 합니다.');
+    throwError('#validate 메서드를 오버라이드해야 합니다.');
   }
 }
 

@@ -1,6 +1,8 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import LottoResultPrinter from './LottoResultPrinter.js';
+import { MATCH_OPTIONS, MESSAGES, PRICE_UNIT } from '../constants.js';
+import getUniqueRandomNumbers from '../utils/getUniqueRandomNumbers.js';
 
 class LottoManager {
   #winningNumbers;
@@ -38,7 +40,7 @@ class LottoManager {
   }
 
   #printLottosCount() {
-    this.#print(`\n${this.#lottosCount}개를 구매했습니다.`);
+    this.#print(`\n${MESSAGES.IO.OUTPUT.PURCHASED_LOTTO_COUNT(this.#lottosCount)}`);
   }
 
   #getMatchedCountInLottos() {
@@ -51,15 +53,7 @@ class LottoManager {
   }
 
   #getMatchedCountPerMatchOption() {
-    const matchOptions = [
-      { count: 3, isBonus: false, prize: 5000 },
-      { count: 4, isBonus: false, prize: 50_000 },
-      { count: 5, isBonus: false, prize: 1_500_000 },
-      { count: 5, isBonus: true, prize: 30_000_000 },
-      { count: 6, isBonus: false, prize: 2_000_000_000 },
-    ];
-
-    return matchOptions.map(({ count, isBonus, prize }) => {
+    return MATCH_OPTIONS.map(({ count, isBonus, prize }) => {
       const matchedCount = this.#matchedCountInLottos.filter(
         ({ matchedCountWithWinningNumbers, isMatchedWithBonusNumber }) =>
           matchedCountWithWinningNumbers === count && isMatchedWithBonusNumber === isBonus,
@@ -80,20 +74,16 @@ class LottoManager {
   }
 
   #getLottoCount(price) {
-    return Math.floor(price / 1000);
+    return Math.floor(price / PRICE_UNIT);
   }
 
   #getLottos(lottoCount) {
     return Array.from({ length: lottoCount }, () => {
-      const numbers = this.#getUniqueRandomNumbersArray();
+      const numbers = getUniqueRandomNumbers();
       const lotto = new Lotto(numbers);
 
       return lotto;
     });
-  }
-
-  #getUniqueRandomNumbersArray() {
-    return Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 }
 

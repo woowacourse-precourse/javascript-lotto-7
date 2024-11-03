@@ -1,5 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputParser from './InputParser.js';
+import { MESSAGES, PRICE_UNIT } from '../constants.js';
+import throwError from '../utils/throwError.js';
 
 class PriceInputParser extends InputParser {
   async readLoop() {
@@ -18,20 +20,20 @@ class PriceInputParser extends InputParser {
   }
 
   #read() {
-    return Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    return Console.readLineAsync(`${MESSAGES.IO.INPUT.PRICE}\n`);
   }
 
   #validate(price) {
     if (Number.isNaN(price)) {
-      throw new Error('[ERROR] 구매 금액은 숫자여야 합니다.');
+      throwError(MESSAGES.ERROR.PRICE.SHOULD_BE_NUMBER);
     }
 
     if (price <= 0) {
-      throw new Error('[ERROR] 구매 금액은 0보다 커야 합니다.');
+      throwError(MESSAGES.ERROR.PRICE.SHOULD_BE_POSITIVE);
     }
 
-    if (price % 1000 !== 0) {
-      throw new Error('[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.');
+    if (price % PRICE_UNIT !== 0) {
+      throwError(MESSAGES.ERROR.PRICE.SHOULD_BE_MULTIPLIED_BY_PRICE_UNIT);
     }
   }
 }

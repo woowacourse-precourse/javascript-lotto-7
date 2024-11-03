@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputParser from './InputParser.js';
+import { MESSAGES, WINNING_NUMBERS_SEPARATOR } from '../constants.js';
 
 class WinningNumbersInputParser extends InputParser {
   async readLoop() {
@@ -16,11 +17,11 @@ class WinningNumbersInputParser extends InputParser {
   }
 
   #read() {
-    return Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+    return Console.readLineAsync(`\n${MESSAGES.IO.INPUT.WINNING_NUMBERS}\n`);
   }
 
   #splitWithComma(winningNumbersString) {
-    return winningNumbersString.split(',').map(Number);
+    return winningNumbersString.split(WINNING_NUMBERS_SEPARATOR).map(Number);
   }
 }
 

@@ -1,5 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputParser from './InputParser.js';
+import { MESSAGES } from '../constants.js';
+import throwError from '../utils/throwError.js';
 
 class BonusNumberInputParser extends InputParser {
   async readLoop() {
@@ -18,16 +20,16 @@ class BonusNumberInputParser extends InputParser {
   }
 
   #read() {
-    return Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    return Console.readLineAsync(`\n${MESSAGES.IO.INPUT.BONUS_NUMBER}\n`);
   }
 
   #validate(bonusNumber) {
     if (Number.isNaN(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 숫자여야 합니다.');
+      throwError(MESSAGES.ERROR.BONUS_NUMBER.SHOULD_BE_NUMBER);
     }
 
     if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error('[ERROR] 보너스 번호는 1~45 사이의 숫자여야 합니다.');
+      throwError(MESSAGES.ERROR.BONUS_NUMBER.SHOULD_BE_IN_RANGE);
     }
   }
 }

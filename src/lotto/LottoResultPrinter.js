@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { MESSAGES } from '../constants.js';
 
 class LottoResultPrinter {
   #matchedCountPerMatchOption;
@@ -20,14 +21,12 @@ class LottoResultPrinter {
     const matchResults = [];
 
     this.#matchedCountPerMatchOption.forEach(({ count, matchedCount, isBonus, prize }) => {
-      const formatedPrice = this.#formatPrice(prize);
-
       if (isBonus) {
-        matchResults.push(`${count}개 일치, 보너스 볼 일치 (${formatedPrice}) - ${matchedCount}개`);
+        matchResults.push(MESSAGES.IO.OUTPUT.BONUS_MATCH_RESULT(count, prize, matchedCount));
         return;
       }
 
-      matchResults.push(`${count}개 일치 (${formatedPrice}) - ${matchedCount}개`);
+      matchResults.push(MESSAGES.IO.OUTPUT.MATCH_RESULT(count, prize, matchedCount));
     });
 
     this.#print(matchResults.join('\n'));
@@ -43,11 +42,7 @@ class LottoResultPrinter {
     const rateOfReturnPercent = (totalPrize / this.#price) * 100;
     const rateOfReturn = rateOfReturnPercent.toFixed(1);
 
-    this.#print(`총 수익률은 ${rateOfReturn}%입니다.`);
-  }
-
-  #formatPrice(price) {
-    return `${price.toLocaleString()}원`;
+    this.#print(MESSAGES.IO.OUTPUT.TOTAL_RATE_OF_RETURN(rateOfReturn));
   }
 
   #print(message) {
