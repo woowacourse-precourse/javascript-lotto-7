@@ -65,6 +65,7 @@ class LottoPlayer {
         45,
         6
       );
+      randomNumber.sort((a, b) => a - b);
       this.lottos.push(new Lotto(randomNumber));
     }
   }
