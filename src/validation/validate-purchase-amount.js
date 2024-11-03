@@ -5,8 +5,8 @@ const LOTTO_PRICE = 1000;
 export const ERROR_MESSAGES = {
   EMPTY_INPUT: '구입 금액을 입력해주세요.',
   INVALID_NUMBER: '유효한 숫자를 입력해주세요.',
-  UNDER_LOTTO_PRICE: '1000원보다 큰 수를 입력해주세요',
-  INVALID_PURCHASE_AMOUNT: '구입 금액은 1000원 단위여야 합니다.',
+  UNDER_LOTTO_PRICE: `${LOTTO_PRICE}원보다 큰 수를 입력해주세요`,
+  INVALID_PURCHASE_AMOUNT: `구입 금액은 ${LOTTO_PRICE}원 단위여야 합니다.`,
 };
 
 const checkEmptyInput = (purchaseAmountInput) => {
@@ -20,7 +20,7 @@ const checkValidNumber = (purchaseAmountInput) => {
 };
 
 const checkUnderLottoPrice = (purchaseAmountInput) => {
-  if (purchaseAmountInput <= 1000) throwError(ERROR_MESSAGES.UNDER_LOTTO_PRICE);
+  if (purchaseAmountInput <= LOTTO_PRICE) throwError(ERROR_MESSAGES.UNDER_LOTTO_PRICE);
   return purchaseAmountInput;
 };
 
