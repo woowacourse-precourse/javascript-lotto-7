@@ -1,46 +1,46 @@
 import { MESSAGES, PRIZE_MESSAGES } from '../constants/index.js';
 import { InputHandler, Printer } from '../io/index.js';
-import { Lotto, Prize } from '../models/index.js';
+import { Lotto, LottoChecker, Prize } from '../models/index.js';
 import { calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
-import { InputStorage } from './index.js';
+import { InputStore } from './index.js';
 
 class LottoGame {
   #tickets;
-  #ticketCount = 0;
 
   constructor() {
     this.console = new InputHandler();
-    this.storage = new InputStorage();
+    this.store = new InputStore();
     this.prize = new Prize();
+    this.lottoChecker = new LottoChecker();
   }
 
   async putMoney() {
     const money = await this.console.processMoneyInput(MESSAGES.moneyInput);
-    this.storage.setMoney(money);
+    this.store.setMoney(money);
 
-    this.#ticketCount = calculateTicketCount(money);
-    Printer.print(MESSAGES.howManyBought(this.#ticketCount));
+    const ticketCount = calculateTicketCount(money);
+    Printer.print(MESSAGES.howManyBought(ticketCount));
 
-    this.#issueTickets();
+    this.#issueTickets(ticketCount);
   }
 
   async enterNumber() {
     const mainNumbers = await this.console.processMainInput(MESSAGES.mainNumbers);
-    this.storage.setMainNumbers(mainNumbers);
+    this.store.setMainNumbers(mainNumbers);
 
     const bonusNumber = await this.console.processBonusInput(MESSAGES.bonusNumber);
-    this.storage.setBonusNumber(bonusNumber);
+    this.store.setBonusNumber(bonusNumber);
   }
 
   presentResult() {
-    // #lottoChecker.checkLotto(lotto);
+    const ticketsResult = this.#tickets.map((lotto) => this.lottoChecker.checkLotto(lotto));
     const earningsRate = this.#makeStatistics();
     this.#printStatistics();
     Printer.print(MESSAGES.earningsRateIs(earningsRate));
   }
 
-  #issueTickets() {
-    const tickets = [...Array(this.#ticketCount)].reduce((acc) => {
+  #issueTickets(ticketCount) {
+    const tickets = [...Array(ticketCount)].reduce((acc) => {
       const numbers = generateLottoNumbers();
       return [...acc, new Lotto(numbers)];
     }, []);
@@ -62,8 +62,8 @@ class LottoGame {
 
   #checkTickets() {
     const winningNumbers = {
-      mainNumbers: this.storage.getMainNumbers(),
-      bonusNumber: this.storage.getBonusNumber(),
+      mainNumbers: this.store.getMainNumbers(),
+      bonusNumber: this.store.getBonusNumber(),
     };
 
     this.#tickets.forEach((lotto) => lotto.matchNumbers(winningNumbers));
@@ -71,7 +71,7 @@ class LottoGame {
 
   #calculateEarningsRate() {
     const totalPrizeMoney = this.prize.getPrizeMoney();
-    const investmentMoney = this.storage.getMoney();
+    const investmentMoney = this.store.getMoney();
     return ((totalPrizeMoney / investmentMoney) * 100).toFixed(1);
   }
 

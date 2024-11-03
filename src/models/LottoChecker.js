@@ -1,14 +1,15 @@
-import { InputStorage } from '../services/index.js';
+import { InputStore } from '../services/index.js';
+import { LottoResult } from './index.js';
 
 class LottoChecker {
   constructor() {
-    this.storage = new InputStorage();
+    this.store = new InputStore();
   }
 
   checkLotto(lotto) {
     const numbers = lotto.getNumbers();
-    const matchCount = this.#matchNumbers(numbers, storage.getMainNumbers());
-    const isBonusMatch = this.#matchBonus(numbers, storage.getBonusNumber());
+    const matchCount = this.#matchNumbers(numbers, this.store.getMainNumbers());
+    const isBonusMatch = this.#matchBonus(numbers, this.store.getBonusNumber());
     const ranking = this.#rank(matchCount, isBonusMatch);
     const prizeMoney = this.#calculatePrize(ranking);
 
