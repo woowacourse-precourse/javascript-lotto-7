@@ -110,7 +110,7 @@ describe("lotto utils 함수 테스트", () => {
       4: { prize: 50000, count: 3 },
       5: { prize: 5000, count: 4 },
     };
-    const expectedReturnRate = 3317;
+    const expectedReturnRate = 331700;
     const returnRate = calculateReturnRate(purchaseAmount, lottoResults);
 
     expect(returnRate).toBe(expectedReturnRate);

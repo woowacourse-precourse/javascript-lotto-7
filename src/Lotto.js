@@ -1,4 +1,4 @@
-import matchLottoNumbers from "./lottoUtils/matchLottoNumbers";
+import matchLottoNumbers from "./lottoUtils/matchLottoNumbers.js";
 
 class Lotto {
   #numbers;

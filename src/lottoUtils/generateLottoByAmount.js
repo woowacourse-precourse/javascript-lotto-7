@@ -1,4 +1,4 @@
-import generateLotto from "./generateLotto";
+import generateLotto from "./generateLotto.js";
 const Lotto_price = 1000;
 
 export default function generateLottoByAmount(amount) {

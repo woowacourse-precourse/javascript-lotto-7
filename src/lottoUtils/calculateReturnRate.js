@@ -3,5 +3,5 @@ export default function calculateReturnRate(purchaseAmount, lottoResults) {
   Object.keys(lottoResults).forEach((rank) => {
     totalPrize += lottoResults[rank].prize * lottoResults[rank].count;
   });
-  return totalPrize / purchaseAmount;
+  return (totalPrize / purchaseAmount) * 100;
 }

@@ -1,4 +1,4 @@
-import validateNumber from "./validateNumber";
+import validateNumber from "./validateNumber.js";
 
 export default function validateWinningNumbers(winningNumberArr) {
   if (winningNumberArr.length !== 6) {

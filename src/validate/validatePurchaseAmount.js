@@ -1,4 +1,7 @@
 export default function validatePurchaseAmount(purchaseAmount) {
+  if (purchaseAmount >= 1000000000) {
+    throw new Error("[ERROR] 너무 큰 숫자를 입력하였습니다.");
+  }
   if (isNaN(purchaseAmount)) {
     throw new Error("[ERROR] 숫자를 입력해 주세요.");
   }

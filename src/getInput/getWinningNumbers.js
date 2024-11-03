@@ -1,3 +1,5 @@
+import { Console } from "@woowacourse/mission-utils";
+
 export default async function getWinningNumber() {
   try {
     const winningNumber = await Console.readLineAsync(

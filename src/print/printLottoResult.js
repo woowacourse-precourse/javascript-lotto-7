@@ -9,11 +9,11 @@ const rankMap = {
 };
 
 export default function printLottoResult(lottoResults) {
-  Console.print("당첨 통계\n");
-  Console.print("---\n");
+  Console.print("당첨 통계");
+  Console.print("---");
   Object.entries(rankMap)
     .sort(([a], [b]) => b - a)
     .forEach(([rank, message]) => {
-      Console.print(`${message} - ${lottoResults[rank].count}개\n`);
+      Console.print(`${message} - ${lottoResults[rank].count}개`);
     });
 }
