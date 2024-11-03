@@ -2,7 +2,7 @@ import UserInput from "../../javascript-lotto-7/src/UserInput.js";
 import LottoGenerator from '../../javascript-lotto-7/src/LottoGenerator.js';
 import LottoStatistics from '../../javascript-lotto-7/src/LottoStatistics.js'; 
 import Lotto from '../../javascript-lotto-7/src/Lotto.js';
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console } from '@woowacourse/mission-utils';
 
 class App {
   async run() {
@@ -32,7 +32,7 @@ class App {
       await lottoStatistics.printStatistics(userInput.purchaseAmount);
       
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      Console.print(error.message);
     }
   }
 }
