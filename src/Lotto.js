@@ -91,6 +91,7 @@ class Lotto {
     }
    
     printLottoSummary(result, userMoney) {
+        Console.print(result);
         const formattedResult = this.formatResult(result);
 
         Console.print(MESSAGES.OUTPUT.MATCH_RESULT_BELOW);
@@ -129,8 +130,11 @@ class Lotto {
     }
 
     calculateTotalPrize(result) {
-        const totalPrize = Object.entries(result).reduce((total, [matchCount, prizeAmount]) => {
-            return total + (prizeAmount * this.getPrizeAmount(matchCount));
+        const totalPrize = Object.entries(result).reduce((total, [matchCount, count]) => {
+            if (matchCount !== "5+bonus") {
+                matchCount = parseInt(matchCount, 10);
+            }
+            return total + (count * this.getPrizeAmount(matchCount));
         }, 0);
 
         return totalPrize;
