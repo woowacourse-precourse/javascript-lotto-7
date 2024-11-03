@@ -2,8 +2,11 @@
 
 import { Console } from "@woowacourse/mission-utils";
 
-async function getBonusNumer(){
+async function getBonusNumer(winningNumbers){
     const BONUS_NUMBER = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    isWinningNumber(BONUS_NUMBER, winningNumbers);
+
+    return BONUS_NUMBER;
 }
 
 function isWinningNumber(BONUS_NUMBER, winningNumbers){
