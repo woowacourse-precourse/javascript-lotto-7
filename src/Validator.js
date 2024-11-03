@@ -7,8 +7,15 @@ class Validator {
     }
   }
 
+  #validThousandUnit(value) {
+    if (value % 1000 !== 0) {
+      throw new Error(ERROR_MESSAGE.NOT_THOUSAND_UNIT);
+    }
+  }
+
   purchaseAmount(value) {
     this.#validateNaturalNumber(value);
+    this.#validThousandUnit(value);
   }
 }
 
