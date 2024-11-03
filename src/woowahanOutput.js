@@ -20,8 +20,12 @@ class GameOutput extends WoowahanOutput {
         super.print(`[${random.join(', ')}]`);
     }
 
-    static printWinningStatistics(){
+    static printWinningStatistics() {
         super.print(CONSTANT.WINNING_STATISTICS);
+    }
+
+    static printTotalReturn(earn, buyMoney) { 
+        super.print(`${CONSTANT.TOTAL_RETURN_IS}${(earn / Number(buyMoney) * 100).toFixed(1)}${CONSTANT.IT_WAS}`);
     }
 }
 

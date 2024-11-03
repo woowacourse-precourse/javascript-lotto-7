@@ -57,7 +57,7 @@ class App {
       }
     }
 
-    Console.print(`총 수익률은 ${(earn / Number(buyMoney) * 100).toFixed(1)}%입니다.`);
+    GameOutput.printTotalReturn(earn, buyMoney);
   }
 }
 
