@@ -6,7 +6,7 @@ import {
   isValidInRange,
   isValidLength,
   isValidPurchaseUnit,
-} from '../util/validationUtils.js';
+} from '../utils/validationUtils.js';
 
 const Validator = {
   validatePurchaseAmount(amount) {

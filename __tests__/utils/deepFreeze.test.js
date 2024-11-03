@@ -1,4 +1,4 @@
-import deepFreeze from '../../src/util/deepFreeze';
+import deepFreeze from '../../src/utils/deepFreeze';
 
 describe('deepFreeze', () => {
   const RANK = deepFreeze({

@@ -1,4 +1,4 @@
-import deepFreeze from '../util/deepFreeze.js';
+import deepFreeze from '../utils/deepFreeze.js';
 
 const CONFIG = Object.freeze({
   PURCHASE_AMOUNT_UNIT: 1000,

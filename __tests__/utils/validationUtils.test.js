@@ -5,7 +5,7 @@ import {
   isValidLength,
   isUnique,
   isValidInRange,
-} from '../../src/util/validationUtils.js';
+} from '../../src/utils/validationUtils.js';
 
 describe('validationUtils 테스트', () => {
   describe('isValidPurchaseUnit', () => {
