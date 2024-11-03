@@ -101,24 +101,7 @@ class LottoManager {
 
     lottoTickets.forEach(lottoTicket => {
       const matchCount = this.#countMatchNumbers(lottoTicket, winningLotto);
-      const isBonusMatch = lottoTicket.getNumbers().includes(bonusNumber);
-
-      switch (matchCount) {
-        case PRIZE_CONDITION.FIRST.MATCH_COUNT:
-          result.first += 1;
-          break;
-        case PRIZE_CONDITION.THIRD.MATCH_COUNT:
-          isBonusMatch ? result.second += 1 : result.third += 1;
-          break;
-        case PRIZE_CONDITION.FOURTH.MATCH_COUNT:
-          result.fourth += 1;
-          break;
-        case PRIZE_CONDITION.FIFTH.MATCH_COUNT:
-          result.fifth += 1;
-          break;
-        default:
-          break;
-      }
+      this.#updateResult(result, matchCount, lottoTicket, bonusNumber);
     });
 
     return result;
@@ -129,6 +112,28 @@ class LottoManager {
     const winningNumbers = winningLotto.getNumbers();
 
     return ticketNumbers.filter(number => winningNumbers.includes(number)).length;
+  }
+
+  #updateResult(result, matchCount, lottoTicket, bonusNumber) {
+    if (matchCount === PRIZE_CONDITION.FIRST.MATCH_COUNT) {
+      result.first += 1;
+      return;
+    }
+    if (matchCount === PRIZE_CONDITION.THIRD.MATCH_COUNT && lottoTicket.getNumbers().includes(bonusNumber)) {
+      result.second += 1;
+      return;
+    }
+    if (matchCount === PRIZE_CONDITION.THIRD.MATCH_COUNT) {
+      result.third += 1;
+      return;
+    }
+    if (matchCount === PRIZE_CONDITION.FOURTH.MATCH_COUNT) {
+      result.fourth += 1;
+      return;
+    }
+    if (matchCount === PRIZE_CONDITION.FIFTH.MATCH_COUNT) {
+      result.fifth += 1;
+    }
   }
 
   #calculateProfitRate(winningResult, amount) {
