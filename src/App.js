@@ -12,7 +12,7 @@ class App {
     this.printLotto(lotto);
 
     const winNumbers = await this.getWinNumbers();
-    const bonusNumber = await this.getBonusNumber();
+    const bonusNumber = await this.getBonusNumber(winNumbers);
 
     const rankList = lotto.getWholeWinResult(winNumbers, bonusNumber);
     
@@ -46,11 +46,11 @@ class App {
     }
   }
 
-  async getBonusNumber() {
+  async getBonusNumber(winNumbers) {
     try {
-      const winNumbers = await inputWinNumbers();
-      checkWinNumbers(winNumbers);
-      return winNumbers;
+      const bonusNumber = await inputBonusNumber();
+      checkBonusNumber(bonusNumber, winNumbers);
+      return bonusNumber;
     } catch(error) {
       Console.print(error.message);
     }
