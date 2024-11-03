@@ -1,11 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import { INPUT_PROMPT, WINNING_NUMBERS_DELIMITER } from '../constants/inputConstant.js';
 import InputHandler from '../utils/InputHandler.js';
 import Validator from '../utils/Validator.js';
 import LottoMachine from './LottoMachine.js';
 import LottoWinningNumbers from './LottoWinningNumbers.js';
 import LottoStatistics from './LottoStatistics.js';
+
+import { INPUT_PROMPT, WINNING_NUMBERS_DELIMITER } from '../constants/inputConstant.js';
 
 class LottoGame {
   #lottos;
