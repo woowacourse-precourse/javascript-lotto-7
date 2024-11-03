@@ -21,6 +21,10 @@ export const ERROR = Object.freeze({
     name: 'InvalidNumberTypeError',
     message: `${ERROR_TAG} 양의 정수만 입력하셔야 됩니다.`,
   },
+  INVALID_MATCH_COUNT: {
+    name: 'InvalidMatchCountError',
+    message: `${ERROR_TAG} 유효하지 않은 매칭 개수입니다.`,
+  },
 });
 
 export const MESSAGE = Object.freeze({
