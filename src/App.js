@@ -24,8 +24,8 @@ const countWonLotto = (wonRecord, target) => {
 }
 
 const printSingleResult = (match, reward, bonus, count) => {
-  if(bonus) Console.print(`${match}개 일치, 보너스 볼 일치 (${reward}) - ${count}개`);
-  else Console.print(`${match}개 일치 (${reward}) - ${count}개`);
+  if(bonus) return Console.print(`${match}개 일치, 보너스 볼 일치 (${reward}) - ${count}개`);
+  return Console.print(`${match}개 일치 (${reward}) - ${count}개`);
 }
 
 const printWinningResults = (wonRecord) => {
