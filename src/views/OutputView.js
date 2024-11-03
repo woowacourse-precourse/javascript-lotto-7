@@ -20,7 +20,12 @@ class OutputView {
   }
 
   static printEarningRate(earningRate) {
-    Console.print(`총 수익률은 ${earningRate.toFixed(1).toLocaleString()}%입니다.`);
+    Console.print(
+      `총 수익률은 ${earningRate.toLocaleString(undefined, {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+      })}%입니다.`
+    );
   }
 }
 
