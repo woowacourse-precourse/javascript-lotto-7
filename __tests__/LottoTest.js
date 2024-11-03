@@ -1,8 +1,8 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import App from '../src/App';
 import Lotto from '../src/Lotto';
 import LottoStore from '../src/LottoStore';
 import { validateEmptyString } from '../src/Validator';
+import { ERROR_MESSAGE } from '../src/constants';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
@@ -23,8 +23,8 @@ describe('로또 클래스 테스트', () => {
   describe('App 클래스 테스트', () => {
     test.each(['', ' ', '  '])('입력값이 공백 문자이면 예외가 발생한다. 공백 : [%s]', (blank) => {
       expect(() => {
-        validateEmptyString(blank, '금액을 입력해주세요.');
-      }).toThrow('금액을 입력해주세요.');
+        validateEmptyString(blank, ERROR_MESSAGE.INPUT_EMPTY);
+      }).toThrow(ERROR_MESSAGE.INPUT_EMPTY);
     });
   });
 
@@ -37,18 +37,17 @@ describe('로또 클래스 테스트', () => {
     });
 
     test.each([
-      { payment: '!@#$', error: '금액은 숫자만 입력 가능합니다.' },
-      { payment: 'abcd', error: '금액은 숫자만 입력 가능합니다.' },
-      { payment: 'ㄱㄴㄷ', error: '금액은 숫자만 입력 가능합니다.' },
-      { payment: 0, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
-      { payment: -2000, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
-      { payment: 1000.423, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
-      { payment: -4000.5, error: '로또 구입 금액은 양의 정수로만 입력해주세요.' },
-      { payment: 1500, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
-      { payment: 1700, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
-      { payment: 1234, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
-      { payment: 4530, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
-      { payment: 10000000, error: '10만원 이상은 구매할 수 없습니다.' },
+      { payment: '!@#$', error: ERROR_MESSAGE.INPUT_EMPTY },
+      { payment: 'abcd', error: ERROR_MESSAGE.INPUT_EMPTY },
+      { payment: 'ㄱㄴㄷ', error: ERROR_MESSAGE.INPUT_EMPTY },
+      { payment: 0, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: -2000, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: 1000.423, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: -4000.5, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: 1500, error: ERROR_MESSAGE.INVAILD_UNIT },
+      { payment: 1234, error: ERROR_MESSAGE.INVAILD_UNIT },
+      { payment: 4530, error: ERROR_MESSAGE.INVAILD_UNIT },
+      { payment: 10000000, error: ERROR_MESSAGE.OVER_MAXIMUM },
     ])('로또 구입 금액이 $payment 일 때 예외: %s', ({ payment, error }) => {
       expect(() => {
         lottoStore.buyLotto(Number(payment));

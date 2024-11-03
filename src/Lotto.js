@@ -1,4 +1,5 @@
 import { validateLottoCount } from './Validator.js';
+import { ERROR_MESSAGE } from './constants.js';
 
 class Lotto {
   #numbers;
@@ -9,7 +10,7 @@ class Lotto {
   }
 
   #validate(numbers) {
-    validateLottoCount(numbers, '[ERROR] 로또 번호는 6개여야 합니다.');
+    validateLottoCount(numbers, ERROR_MESSAGE.NUMBERS_LENGHT_SIX);
   }
 
   // TODO: 추가 기능 구현

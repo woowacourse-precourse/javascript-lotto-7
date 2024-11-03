@@ -1,15 +1,16 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoStore from './LottoStore.js';
 import { validateEmptyString } from './Validator.js';
+import { PRINT_MESSAGE, ERROR_MESSAGE } from './constants.js';
 
 class App {
   async run() {
     try {
-      const payment = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
-      validateEmptyString(payment, '금액을 입력해주세요.');
+      const payment = await MissionUtils.Console.readLineAsync(PRINT_MESSAGE.INPUT_PAYMENT);
+      validateEmptyString(payment, ERROR_MESSAGE.INPUT_EMPTY);
       const lottoStore = new LottoStore();
       lottoStore.buyLotto(Number(payment));
-      MissionUtils.Console.print(`\n${lottoStore.getLottoCount()}개를 구매했습니다.`);
+      MissionUtils.Console.print(`\n${lottoStore.getLottoCount()}${PRINT_MESSAGE.BUY_COUNT}`);
     } catch (error) {
       MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }
