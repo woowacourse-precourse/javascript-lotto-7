@@ -5,7 +5,7 @@ class App {
   async run() {
     const buyLotto = new BuyLotto();
     await buyLotto.enterLottoPrice();
-    const winLotto = new WinLotto(
+    new WinLotto(
       buyLotto.getPurchasedLotto(),
       buyLotto.getWinningLotto(),
       buyLotto.getBonusNumber()
