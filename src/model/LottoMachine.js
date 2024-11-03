@@ -1,6 +1,7 @@
 import { GAME_RULES } from '../constants/gameRule.js';
 import { getSortedRandomNumbers } from '../utils/game.js';
 import validatePurchaseAmount from '../validators/PurchaseAmountValidator.js';
+import Lotto from '../model/Lotto.js';
 
 class LottoMachine {
   #purchaseAmount;
@@ -18,7 +19,15 @@ class LottoMachine {
     return this.#purchaseAmount / GAME_RULES.CURRENCY_UNIT;
   }
 
-  #generateLottoNumbers = () => Array(this.#lottoCount).fill().map(() => getSortedRandomNumbers(1, 45, 6));
+  #generateLottoNumbers() {
+    return Array.from({ length: this.#lottoCount }, () => this.#createValidatedLottoNumbers());
+  }
+
+  #createValidatedLottoNumbers() {
+    const numbers = getSortedRandomNumbers(1, 45, 6);
+    const lotto = new Lotto(numbers); 
+    return lotto.getNumbers(); 
+  }
 
   getLottoCount() {
     return this.#lottoCount;
