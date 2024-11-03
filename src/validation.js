@@ -21,6 +21,8 @@ const moneyValidation = (money) => {
   if (moneyNumber < 1000 || money % 1000 !== 0) {
     throw new Error(`${ERROR_MESSAGE.MONEY_UNIT_THOUSAND}`);
   }
+
+  return moneyNumber;
 };
 
 const lottoNumbersValidation = (numbers) => {
@@ -77,6 +79,8 @@ const bonusNumberValidation = (number) => {
   if (parseNumber > 45 || parseNumber < 1) {
     throw new Error(ERROR_MESSAGE.BONUS_NUMBERS_IS_MIN_ONE_MAX_FORTY_FIVE);
   }
+
+  return parseNumber;
 };
 
 export {

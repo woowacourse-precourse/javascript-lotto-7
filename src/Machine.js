@@ -37,11 +37,9 @@ class Machine {
   }
 
   async readUserMoney() {
-    const money =
+    const moneyString =
       await Console.readLineAsync(USER_MESSAGE.MONEY_INPUT);
-
-    moneyValidation(money);
-    this.#money = parseInt(money, 10);
+    this.#money = moneyValidation(moneyString);
 
     this.#printBuyCount();
   }
@@ -63,14 +61,12 @@ class Machine {
 
   async readUserWinNumbers() {
     const winNumbersString = await Console.readLineAsync(USER_MESSAGE.WIN_NUMBERS_INPUT);
-    const winNumbers = winNumbersValidation(winNumbersString);
-    this.#winNumbers = winNumbers;
+    this.#winNumbers = winNumbersValidation(winNumbersString);
   }
 
   async readUserBonusNumber() {
-    const bonusNumber = await Console.readLineAsync(USER_MESSAGE.BONUS_NUMBER_INPUT);
-    bonusNumberValidation(bonusNumber);
-    this.#bonusNumber = parseInt(bonusNumber, 10);
+    const bonusNumberString = await Console.readLineAsync(USER_MESSAGE.BONUS_NUMBER_INPUT);
+    this.#bonusNumber = bonusNumberValidation(bonusNumberString);
   }
 
   lottoWinningCheck() {
