@@ -11,7 +11,9 @@ class Lotto {
     );
   }
 
-  // TODO: 추가 기능 구현
+  static purchaseLotto(count) {
+    return Array.from({ length: count }, () => new Lotto());
+  }
 }
 
 export default Lotto;
