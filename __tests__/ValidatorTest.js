@@ -287,4 +287,30 @@ describe('Validator Test', () => {
       expect(validate).not.toThrow();
     });
   });
+
+  describe('isNotIncludeDuplicatedNumber() : 중복된 값이 없는지 검증', () => {
+    test('입력 값에 중복된 값이 존재하는 경우 에러르 발샐시킨다. ', () => {
+      // given
+      const testArr = [1, 1, 2, 3, 4];
+
+      // when
+      const validate = () => {
+        Validator.isNotIncludeDuplicatedNumber(testArr);
+      };
+
+      // then
+      expect(validate).toThrow(ERROR_PREFIX);
+    });
+
+    test('입력 값에 중복이 없는 경우 정상적으로 동작한다.', () => {
+      // given
+      const testArr = [1, 2, 3, 4];
+      // when
+      const validate = () => {
+        Validator.isNotIncludeDuplicatedNumber(testArr);
+      };
+
+      expect(validate).not.toThrow();
+    });
+  });
 });
