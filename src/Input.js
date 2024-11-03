@@ -32,10 +32,6 @@ class Input {
     changeArray(){
         this.value = this.value.split(',').map(Number);
     }
-
-    changeNum(){
-        this.value = Number(this.value);
-    }
 }
 
 export default Input;
