@@ -2,20 +2,30 @@ import { Exception, formatKRW } from '../Utils.js';
 import { LOTTO_PRICE, PURCHASE_LIMIT_AMOUNT } from '../Constants.js';
 
 class VendingMachine {
+  /** @type {number} */
+  #lottoCount;
+
   /** @param {number} money */
   constructor(money) {
     this.#putInMoney(money);
   }
 
   /** @param {number} money */
+  static #count(money) {
+    return money / LOTTO_PRICE;
+  }
+
+  /** @param {number} money */
   #putInMoney(money) {
     VendingMachine.validateMoney(money);
+    this.#lottoCount = VendingMachine.#count(money);
   }
 
   /** @param {number} money */
   static validateMoney(money) {
     VendingMachine.#validateMoneyType(money);
     VendingMachine.#validateMoneyRange(money);
+    VendingMachine.#validateMoneyUnit(money);
   }
 
   /** @param {number} money */
@@ -24,6 +34,16 @@ class VendingMachine {
     const exceptionMessage = `로또는 ${formatKRW(LOTTO_PRICE)}원 이상 ${formatKRW(PURCHASE_LIMIT_AMOUNT)}원 이하로 구매 가능합니다.`;
 
     if (!isValid) {
+      throw new Exception(exceptionMessage);
+    }
+  }
+
+  /** @param {number} money */
+  static #validateMoneyUnit(money) {
+    const count = this.#count(money);
+    const exceptionMessage = `로또는 ${formatKRW(LOTTO_PRICE)}원 단위로 구매 가능합니다.`;
+
+    if (!Number.isSafeInteger(count)) {
       throw new Exception(exceptionMessage);
     }
   }
