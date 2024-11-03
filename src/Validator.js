@@ -1,5 +1,7 @@
 import { errorMessage } from './constant/errorMessage.js';
 import { regex } from './constant/regex.js';
+import { checkDuplication } from './utils/checkDuplication.js';
+import { checkNumbersRange } from './utils/checkNumbersRange.js';
 
 export function validateAmount(input) {
   const amount = parseInt(input.trim());
@@ -33,7 +35,21 @@ export function validateNumbers(input) {
   if (!regex.number.test(numbers))
     throw new Error(`${errorMessage.prefix} ${errorMessage.invalidLotto}`);
 
-  return numbers;
+  const numbersArray = numbers.split(',').map((number) => parseInt(number));
+
+  if (numbersArray.length !== 6) {
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidLotto}`);
+  }
+
+  if (checkDuplication(numbersArray)) {
+    throw new Error(`${errorMessage.prefix} ${errorMessage.duplicatedNumber}`);
+  }
+
+  if (!checkNumbersRange(numbersArray)) {
+    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidNumberRange}`);
+  }
+
+  return numbersArray;
 }
 
 export function validateBonusNumber(input) {
