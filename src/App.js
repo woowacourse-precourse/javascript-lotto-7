@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { RUN_MESSAGE } from "./constants/constants.js";
+import { RUN_MESSAGE } from "./constants/runMessages.js";
 import { validationPipe } from "./validation/validationPipe.js";
 
 class App {
