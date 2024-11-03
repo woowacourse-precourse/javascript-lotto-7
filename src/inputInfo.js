@@ -12,7 +12,7 @@ class Input {
     this.bonusNumber = null;
     this.errorHandler = new Exception();
     this.utils = new Utils();
-    this.matches = [];
+    this.results = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0 };
   }
 
   async inputPrice() {
@@ -86,21 +86,38 @@ class Input {
   }
 
   // 구입한 로또 번호와 당첨 번호를 비교하고 몇 개의 수가 일치하는지 확인
-  numbersMatch(lottoNumbers, winningNumbers, bonus) {
-    lottoNumbers = this.lottoslist;
-    winningNumbers = this.winNumbers;
-    bonus = this.bonusNumber;
+  numbersMatch(list, winNumbers, bonusNumber) {
+    let matchCount = list.filter((num) => winNumbers.includes(num)).length;
+    let hasBonus = list.includes(bonusNumber);
 
-    let hasBonus = null;
-    for (let i = 0; i < lottoNumbers.length; i++) {
-      let match = lottoNumbers[i].filter((num) =>
-        winningNumbers.includes(num)
-      ).length;
-      hasBonus = lottoNumbers[i].includes(bonus);
-      this.matches.push([match, hasBonus]);
+    return {
+      matchCount: matchCount,
+      hasBonus: hasBonus,
+    };
+  }
+
+  // 로또 번호 리스트를 확인하여 등수 결과를 처리하는 함수
+  checkLottoMatch() {
+    for (let i = 0; i < this.lottoslist.length; i++) {
+      let matchResult = this.numbersMatch(
+        this.lottoslist[i],
+        this.winNumbers,
+        this.bonusNumber
+      );
+      if (matchResult.matchCount === 6) {
+        this.results.first++;
+      } else if (matchResult.matchCount === 5 && matchResult.hasBonus) {
+        this.results.second++;
+      } else if (matchResult.matchCount === 5) {
+        this.results.third++;
+      } else if (matchResult.matchCount === 4) {
+        this.results.fourth++;
+      } else if (matchResult.matchCount === 3) {
+        this.results.fifth++;
+      } else {
+        null;
+      }
     }
-    Console.print(this.matches);
-    return this.matches;
   }
 }
 

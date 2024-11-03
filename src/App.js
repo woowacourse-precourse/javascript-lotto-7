@@ -9,7 +9,7 @@ class App {
     price.printLottos();
     await price.winLottoNumbers();
     await price.winBonusNumber();
-    price.numbersMatch();
+    price.checkLottoMatch();
   }
 }
 
