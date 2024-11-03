@@ -49,7 +49,7 @@ describe('WinningLottoManager 테스트', () => {
   };
 
   const testSelectBonusNumber = async (inputs, expectedMessage) => {
-    const VALID_NUMBER = 7;
+    const VALID_NUMBER = '7';
     const WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
     const ASKING_TIMES = 2;
     const logSpy = getLogSpy();
