@@ -3,7 +3,8 @@
 import { Console } from "@woowacourse/mission-utils";
 
 async function getLottoCnt(){
-    const PRICE = await Console.readLineAsync("구입금액을 입력해 주세요.");
+    const PRICE = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    Console.print("");
     isPositiveNumber(PRICE);
     isIntNumber(PRICE);
     isDivided1000(PRICE);

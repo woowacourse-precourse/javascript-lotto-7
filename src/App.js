@@ -1,8 +1,9 @@
-import { inputPrice } from "./BuyPrice";
+import { getLottoCnt } from "./BuyPrice.js";
+import { makeLotto } from "./lottoNumber.js";
 
 class App {
   async run() {
-    const PRICE = inputPrice();
+    const LottoCnt = await getLottoCnt();
   }
 }
 
