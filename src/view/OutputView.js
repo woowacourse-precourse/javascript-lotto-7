@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 const OutputView = {
   printLottoTickets(tickets) {
-    Console.print(`${tickets}개를 구매했습니다.`);
+    Console.print(`\n${tickets}개를 구매했습니다.`);
   },
 
   printLottoNumbers(tickets, numbers) {
@@ -12,7 +12,7 @@ const OutputView = {
   },
 
   printWinningResult(ranks, profitRate) {
-    Console.print(`당첨 통계 \n---`);
+    Console.print(`\n당첨 통계 \n---`);
     Console.print(`3개 일치 (5,000원) - ${ranks.fifth}개`);
     Console.print(`4개 일치 (50,000원) - ${ranks.fourth}개`);
     Console.print(`5개 일치 (1,500,000원) - ${ranks.third}개`);
