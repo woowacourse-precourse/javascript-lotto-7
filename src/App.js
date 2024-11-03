@@ -1,18 +1,13 @@
-import Jackpot from './modules/Jackpot.js';
-import PracticeMatch from './Prac_Match.js';
-import Ticket from './modules/Ticket.js';
+import Match from './modules/Match';
 
 class App {
   async run() {
-    const ticket = new Ticket();
-    await ticket.startGetTicket();
-
-    const jackpot = new Jackpot();
-    await jackpot.startGetJackpot();
-
-    const match = new PracticeMatch();
-    match.getLottos();
+    const match = new Match();
+    await match.getLottos();
+    await match.getJackpot();
+    match.resetRanks(); // 매 실행 시 rank를 초기화
     match.matchLottos();
+    match.displayResult(); // 결과를 출력
   }
 }
 
