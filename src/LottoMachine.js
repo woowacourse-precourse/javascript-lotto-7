@@ -12,25 +12,19 @@ class LottoMachine {
   #resultCount = [0, 0, 0, 0, 0];
   #earningRate = 0;
 
-  // test가 안됨
-
   async play() {
-    await this.setPurchase(); // 구입 금액 입력
-    this.setLottoCount(); // 로또 개수 구하기
-    this.makeLotto(); // 로또 발행
-    await this.setWinningNumbers(); // 당첨 번호 입력
-    await this.setBonusNumber(); // 보너스 번호 입력
+    await this.setPurchase();                               // 구입 금액 입력
+    this.setLottoCount();                                   // 로또 개수 구하기
+    this.makeLotto();                                       // 로또 발행
+    await this.setWinningNumbers();                         // 당첨 번호 입력
+    await this.setBonusNumber();                            // 보너스 번호 입력
 
-    // 당첨 확인
-    for (let i = 0; i < this.#lottoCount; i++) {
-        this.checkMatch(this.#lottos[i], this.#resultCount);
+    for (let i = 0; i < this.#lottoCount; i++) {            // 당첨 확인
+      this.checkMatch(this.#lottos[i], this.#resultCount);
     }
 
     this.#earningRate = getEarningRate(this.#resultCount, this.#purchase);
-
-    printResult(this.#resultCount, this.#earningRate);
-
-
+    printResult(this.#resultCount, this.#earningRate);      // 결과 출력
   }
 
   // 구입 금액 입력
@@ -50,9 +44,8 @@ class LottoMachine {
   }
 
   setLottoCount() {
-    this.#lottoCount = this.#purchase/1000;
-    Console.print(`${this.#lottoCount}개를 구매했습니다.`);
-
+    this.#lottoCount = this.#purchase / 1000;
+    Console.print(`\n${this.#lottoCount}개를 구매했습니다.`);
   }
 
   // 로또 발행
@@ -91,7 +84,9 @@ class LottoMachine {
         throw new Error('[ERROR] 로또 번호의 범위는 1~45까지입니다.');
       }
     }
-    if (numbers.filter((num, index) => numbers.indexOf(num) !== index).length > 0) {
+    if (
+      numbers.filter((num, index) => numbers.indexOf(num) !== index).length > 0
+    ) {
       throw new Error('[ERROR] 로또 번호는 중복이 없어야 합니다.');
     }
   }

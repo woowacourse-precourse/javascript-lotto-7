@@ -1,10 +1,14 @@
-import LottoMachine from "./LottoMachine.js";
+import LottoMachine from './LottoMachine.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class App {
   async run() {
-    const lottoMachine = new LottoMachine();
-    await lottoMachine.play();
-
+    try {
+      const lottoMachine = new LottoMachine();
+      await lottoMachine.play();
+    } catch (e) {
+      Console.print(e.message);
+    }
   }
 }
 
