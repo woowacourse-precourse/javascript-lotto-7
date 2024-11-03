@@ -1,4 +1,4 @@
-import InputHandler from '../src/controller/InputHandler.js';
+import InputHandler from '../src/temp_controller/InputHandler.js';
 
 describe('올바른 구매 금액 반환 테스트', () => {
   let inputHandler;

@@ -1,6 +1,9 @@
-import { LOTTO_PRICE, LOTTO_REWARD } from '../src/constants/LottoConstants.js';
-import LottoResultAnalysis from '../src/controller/LottoResultAnalysis.js';
-import Lotto from '../src/model/Lotto.js';
+import {
+  LOTTO_PRICE,
+  LOTTO_REWARD,
+} from '../src/temp_constants/LottoConstants.js';
+import LottoResultAnalysis from '../src/temp_controller/LottoResultAnalysis.js';
+import Lotto from '../src/temp_model/Lotto.js';
 
 describe('LottoResultAnaysis 테스트', () => {
   let lottoResultAnalysis;
