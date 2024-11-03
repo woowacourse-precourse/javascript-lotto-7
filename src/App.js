@@ -1,5 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
-import { isValidPrice, isZeroPrice } from "./errors/LottoInputErrors.js";
+import {
+  isDuplicateNum,
+  isValidPrice,
+  isZeroPrice,
+  validateBonusNumber,
+  validateNumRange,
+} from "./errors/LottoInputErrors.js";
 import {
   getLottoCount,
   getLottoNums,
@@ -33,6 +39,15 @@ class App {
     const winNums = await Console.readLineAsync("당첨 번호를 입력해 주세요.");
     const winningNums = getWinningNumbers(winNums);
     const winningTicket = new Lotto(winningNums);
+
+    const bonusNumInput = await Console.readLineAsync(
+      `보너스 번호를 입력해 주세요`
+    );
+    const bonusNum = Number(bonusNumInput);
+
+    isDuplicateNum(bonusNum, winningTicket.getNumbers());
+    validateNumRange(bonusNum);
+    validateBonusNumber(bonusNum);
   }
 }
 
