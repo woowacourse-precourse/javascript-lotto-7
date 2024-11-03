@@ -39,6 +39,26 @@ describe ("Game 클래스 - generateLotto 메서드", () =>{
 
 });
 
+describe ("Game 클래스 - calculateProfit 메서드", () =>{
+  let game;
+
+  beforeEach(() =>{
+      game = new Game();
+  });
+
+  test("성공 케이스: 각 등수가 1명씩 존재할 때 상금 값 100 정상적으로 반환 테스트",() =>{
+
+  let totalPrize = 0;
+  const lottoResult = [Array(7).fill(1), [1]];
+  const paidMoney = 2_031_555_000;
+  totalPrize = game.calculateProfit(lottoResult, paidMoney);
+
+  expect(totalPrize).toBe(100.0);
+
+  });
+
+});
+
 
 describe ("Game 클래스 - checkLottoResult 메서드", () =>{
   let game;
