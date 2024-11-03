@@ -70,6 +70,49 @@ class App {
     if (winningNumbers.includes(bonusNumber)) {
       throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
     }
+
+    let money = 0;
+    let matchTable = new Array(5).fill(0);
+
+    for (let lotto of lottoList) {
+      let matchCount = 0;
+      for (let number of winningNumbers) {
+        if (lotto.includes(number)) {
+          matchCount += 1;
+        }
+      }
+      if (matchCount === 6) {
+        matchTable[0] += 1;
+        money += 2000000000;
+      }
+      if (matchCount === 5 && lotto.includes(bonusNumber)) {
+        matchTable[1] += 1;
+        money += 30000000;
+      }
+      if (matchCount === 5) {
+        matchTable[2] += 1;
+        money += 1500000;
+      }
+      if (matchCount === 4) {
+        matchTable[3] += 1;
+        money += 50000;
+      }
+      if (matchCount === 3) {
+        matchTable[4] += 1;
+        money += 5000;
+      }
+    }
+    const profitRate = ((money / purchaseAmount) * 100).toFixed(1);
+
+    Console.print('\n당첨 통계\n---');
+    Console.print(`3개 일치 (5,000원) - ${matchTable[4]}개`);
+    Console.print(`4개 일치 (50,000원) - ${matchTable[3]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${matchTable[2]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchTable[1]}개`,
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${matchTable[0]}개`);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
