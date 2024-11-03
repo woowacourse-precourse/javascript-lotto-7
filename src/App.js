@@ -1,4 +1,4 @@
-import Match from './modules/Match';
+import Match from './modules/Match.js';
 
 class App {
   async run() {
