@@ -13,8 +13,8 @@ class PurchaseAmountValidator {
   isValidPurchaseAmountUnit(purchaseAmount) {
     const LOTTO_PRICE_UNIT = 1000;
     const parsedPurchaseAmount = Number(purchaseAmount);
-    
-    return parsedPurchaseAmount % LOTTO_PRICE_UNIT === 0;
+
+    return parsedPurchaseAmount % LOTTO_PRICE_UNIT === 0 && 0 < parsedPurchaseAmount;
   }
 
   validatePurchaseAmount(purchaseAmount) {
