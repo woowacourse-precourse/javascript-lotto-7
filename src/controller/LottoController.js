@@ -1,5 +1,6 @@
 import LottoMachine from "../models/LottoMachine.js";
 import { Utils } from "../utils/Utils.js";
+import BonusNumberValidator from "../validators/BonusNumberValidator.js";
 import PurchaseMoneyValidator from "../validators/PurchaseMoneyValidator.js";
 import WinningNumbersValidator from "../validators/WinningNumbersValidator.js";
 import InputView from "../view/InputView.js";
@@ -24,7 +25,8 @@ class LottoController {
     // 사용자가 올바른 입력을 할 때까지 당첨 번호 입력
     const winningNumbers = await this.#repeatUntilCorrectWinningNumbers();
 
-    console.log(winningNumbers);
+    // 사용자가 올바른 입력을 할 때까지 보너스 번호 입력
+    const bonusNumber = await this.#repeatUntilCorrectBonusNumber(winningNumbers);
   }
 
   async #repeatUntilCorrectPurchaseMoney() {
@@ -43,10 +45,22 @@ class LottoController {
       const winningNumbers = await InputView.enterWinningNumbers();
       const convertedWinningNumbers = Utils.convertWinningNumberToArray(winningNumbers);
       WinningNumbersValidator.checkValid(convertedWinningNumbers);
-      return winningNumbers;
+      return convertedWinningNumbers;
     } catch (error) {
       OutputView.printError(error.message);
       return this.#repeatUntilCorrectWinningNumbers();
+    }
+  }
+
+  async #repeatUntilCorrectBonusNumber(winningNumbers) {
+    try {
+      const bonusNumber = await InputView.enterBonusNumber();
+      const convertedBonusNumber = Utils.convertBonusNumberToNumber(bonusNumber);
+      BonusNumberValidator.checkValid(convertedBonusNumber, winningNumbers);
+      return winningNumbers;
+    } catch (error) {
+      OutputView.printError(error.message);
+      return this.#repeatUntilCorrectBonusNumber(winningNumbers);
     }
   }
 }
