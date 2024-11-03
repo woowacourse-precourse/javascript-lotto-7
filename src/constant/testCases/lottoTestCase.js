@@ -1,4 +1,4 @@
-import { errorMessage } from './errorMessage.js';
+import { errorMessage } from '../errorMessage.js';
 
 export const lottoInputErrorTestCase = [
   {

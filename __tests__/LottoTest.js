@@ -1,7 +1,7 @@
 import {
   lottoInputErrorTestCase,
   lottoInputSuccessTestCase,
-} from '../src/constant/lottoTestCase.js';
+} from '../src/constant/testCases/lottoTestCase.js';
 import { validateNumbers } from '../src/Validator.js';
 
 describe('로또 입력 테스트', () => {

@@ -1,7 +1,7 @@
 import {
   amountInputErrorTestCase,
   amountInputSuccessTestCase,
-} from '../src/constant/amountInputTestCase.js';
+} from '../src/constant/testCases/amountInputTestCase.js';
 import App from '../src/App.js';
 import { inputAmount } from '../src/utils/inputService.js';
 import { outputPayment } from '../src/utils/outputService.js';

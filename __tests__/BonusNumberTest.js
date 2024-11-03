@@ -1,7 +1,7 @@
 import {
   bonusNumberErrorTestCase,
   bonusNumberSuccessTestCase,
-} from '../src/constant/bonusNumberTestCase.js';
+} from '../src/constant/testCases/bonusNumberTestCase.js';
 import { validateBonusNumber } from '../src/Validator.js';
 
 describe('보너스 번호 입력 테스트', () => {
