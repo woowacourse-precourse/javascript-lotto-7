@@ -1,4 +1,3 @@
-import {Console} from "@woowacourse/mission-utils";
 import {MATCH_COUNTER} from "../constants/objects.js";
 
 class Lotto {
@@ -17,8 +16,9 @@ class Lotto {
 
     setStats(lottos, bonusNum) { //2 차원 배열
         for (const lotto of lottos) {
-            let matchCnt = this.countMatches(lotto)
-            this.makeRecord(matchCnt)
+            const matchCnt = this.countMatches(lotto)
+            const foundKey = this.findKeyToIncrease(matchCnt)
+            foundKey && (MATCH_COUNTER[foundKey] += 1)
             if (matchCnt === 5 && lotto.includes(bonusNum)) {
                 MATCH_COUNTER.five -= 1
                 MATCH_COUNTER.bonus += 1
@@ -27,23 +27,20 @@ class Lotto {
         return MATCH_COUNTER
     }
 
-    makeRecord(matchCnt) {
+    findKeyToIncrease(matchCnt) {
         switch (matchCnt) {
             case 3:
-                MATCH_COUNTER.three += 1;
-                break;
+                return "three"
             case 4:
-                MATCH_COUNTER.four += 1;
-                break;
+                return "four"
             case 5:
-                MATCH_COUNTER.five += 1;
-                break;
+                return "five"
             case 6:
-                MATCH_COUNTER.six += 1;
-                break;
+                return "six"
+            default:
+                return null
         }
     }
-
 
     countMatches(lotto) {
         let matchCnt = 0
@@ -54,20 +51,6 @@ class Lotto {
         }
         return matchCnt
     }
-
-    resultOutput(statMatch) {
-        Console.print(`당첨통계\n---`)
-        Object.values(statMatch).map((elem, idx) => {
-            Console.print(obj[idx].content + elem + "개")
-        })
-    }
 }
 
-const obj = [
-    {match: "three", content: "3개 일치 (5,000원) - "},
-    {match: "four", content: "4개 일치 (50,000원) -"},
-    {match: "five", content: "5개 일치 (1,500,000원) - "},
-    {match: "bonus", content: "5개 일치, 보너스 볼 일치 (30,000,000원) - "},
-    {match: "six", content: "6개 일치 (2,000,000,000원) - "}
-]
 export default Lotto;
