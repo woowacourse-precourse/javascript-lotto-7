@@ -18,6 +18,43 @@ export const lottoUtils = {
             lottoResult[matchNumber]++
         })
         return lottoResult;
+    },
+    getPrize(matchNumber) {
+        switch (matchNumber) {
+            case 7:
+                return LOTTO.FIRST_PRIZE
+            case 6:
+                return LOTTO.SECOND_PRIZE
+            case 5:
+                return LOTTO.THIRD_PRIZE
+            case 4:
+                return LOTTO.FOURTH_PRIZE
+            case 3:
+                return LOTTO.FIFTH_PRIZE
+            default:
+                return 0
+        }
+    },
+    printWinningStatistics(matchNumber, prize, matchAmount) {
+        if (matchNumber < 3) return
+        if (matchNumber === 6) {
+            Console.print(INSTRUCTION.PRINT_WINNING_STATISTICS(matchNumber - 1, this.makeMoneyFormat(prize), matchAmount, INSTRUCTION.EXTRA_MESSAGE_SECOND_PRIZE))
+            return
+        }
+        if (matchNumber === 7) {
+            Console.print(INSTRUCTION.PRINT_WINNING_STATISTICS(matchNumber - 1, this.makeMoneyFormat(prize), matchAmount))
+            return
+        }
+        Console.print(INSTRUCTION.PRINT_WINNING_STATISTICS(matchNumber, this.makeMoneyFormat(prize), matchAmount))
+    },
+    makeMoneyFormat(money, separator = ",") {
+        return money.toString().split("").reverse().join("")
+            .replace(/(.{3})(?=.)/g, `$1${separator}`)
+            .split("").reverse().join("");
+    },
+    calculateProfitRate(profit, purchasePrice) {
+        const profitRate = profit / purchasePrice * 100;
+        return Math.round(profitRate * 100) / 100;
     }
 
 }
