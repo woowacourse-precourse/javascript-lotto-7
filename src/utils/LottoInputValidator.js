@@ -6,4 +6,12 @@ export class LottoInputValidator {
 		}
 		return price / 1000;
 	}
+	
+	changeToNumber(str) {
+		const num = parseInt(str, 10);
+		if (isNaN(num)) {
+			throw new Error(`[Error] 숫자만 입력 가능합니다.`);
+		}
+		return num;
+	}
 }
