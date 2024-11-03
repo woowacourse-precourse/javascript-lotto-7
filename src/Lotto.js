@@ -34,6 +34,10 @@ class Lotto {
     if (winnigNumbersArray.length !== new Set(winnigNumbersArray).size) {
       throw new Error('[ERROR] 로또 번호는 중복되지 않아야 합니다.');
     }
+
+    if (winnigNumbersArray.some((number) => number < 1 || number > 45)) {
+      throw new Error('[ERROR] 로또 번호는 1~45 사이의 숫자여야 합니다.');
+    }
   }
 
   // TODO: 추가 기능 구현
