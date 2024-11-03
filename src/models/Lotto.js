@@ -1,4 +1,4 @@
-import InputValidator from './validator/InputValidator';
+import InputValidator from '../validator/InputValidator';
 
 class Lotto {
   #numbers;

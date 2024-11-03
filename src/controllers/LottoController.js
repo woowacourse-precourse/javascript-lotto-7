@@ -2,7 +2,7 @@ import InputView from '../views/InputView.js';
 import {
   calculateEarningsRatio,
   calculateLottoAmount,
-} from '../utils/lottoUtils.js';
+} from '../utils/lottoFormatUtils.js';
 import LottoService from '../services/LottoService.js';
 import OutputView from '../views/OutputView.js';
 import InputValidator from '../validator/InputValidator.js';

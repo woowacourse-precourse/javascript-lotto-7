@@ -8,7 +8,7 @@ import {
 import throwError from '../Error/handleError.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 import { LOTTO_NUMBERS_LENGTH } from '../constants/constraints.js';
-import { isUnderMaxPurchaseAmount } from '../utils/lottoUtils.js';
+import { isUnderMaxPurchaseAmount } from '../utils/lottoFormatUtils.js';
 
 class InputValidator {
   static validatePurchaseCost(purchaseCost) {
