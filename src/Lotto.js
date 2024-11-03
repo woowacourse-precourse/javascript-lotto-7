@@ -14,7 +14,7 @@ class Lotto {
     const isNumberRangeValid = numbers.every((number) => number >= 1 && number <= 45);
 
     if (!isNumberRangeValid) {
-      throw new Error('[ERROR] 로또 번호는 1 ~ 45 사이의 숫자들만 입력해야 합니다.');
+      throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
     }
 
     const set = new Set(numbers);
@@ -24,8 +24,8 @@ class Lotto {
     }
   }
 
-  checkWinningNumbers(randomNumbers) {
-    return randomNumbers.filter((number) => this.#numbers.includes(number));
+  checkWinningNumbers(lottoNumbers) {
+    return lottoNumbers.filter((number) => this.#numbers.includes(number));
   }
 }
 
