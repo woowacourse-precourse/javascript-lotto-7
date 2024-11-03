@@ -1,6 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class Lotto {
+  static #result = {3 : 0, 4 : 0, 5 : 0, 6 : 0, 7 : 0}; // 7 >> 5개 일치, 보너스 볼 일치
+
   #numbers;
   #isBonus;
   #correctCnt;
@@ -40,6 +42,10 @@ class Lotto {
     if(this.#numbers.includes(BONUS_NUMBER)){
       this.#isBonus = true;
     }
+  }
+
+  static setResult(count){
+    this.#result[count]++;
   }
 }
 

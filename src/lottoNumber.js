@@ -13,4 +13,11 @@ function makeLotto(count) {
   return lottoClassList;
 }
 
+function checkLotto(lottoList, BONUS_NUMBER, winningNumbers){
+    lottoList.forEach((lotto)=>{
+        lotto.checkNumbers(winningNumbers);
+        lotto.isBonus(BONUS_NUMBER);
+    })
+}
+
 export { makeLotto };
