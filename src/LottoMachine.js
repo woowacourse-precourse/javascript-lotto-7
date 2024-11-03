@@ -23,7 +23,7 @@ const LottoMachine = {
       LottoMachine.isValidPayment(input);
       this.quantity = Number(input) / PRICE;
       MissionUtils.Console.print(`\n${this.quantity}개를 구매했습니다.`);
-      
+
     } catch (err) {
       MissionUtils.Console.print(err.message);
       return await LottoMachine.askPayment();
@@ -41,6 +41,7 @@ const LottoMachine = {
     try {
       const input = await MissionUtils.Console.readLineAsync(ASK_WINNING_NUMBERS_MESSAGE);
       const winningNumbers = input.split(',').map((element) => {
+        isInteger(element);
         return Number(element);
       })
       this.winningNumbers = new Lotto(winningNumbers)
@@ -55,6 +56,7 @@ const LottoMachine = {
   async askBonusNumber() {
     try {
       const input = await MissionUtils.Console.readLineAsync(ASK_BOUNS_NUMBER_MESSAGE);
+      isInteger(input);
       Lotto.isValidNumber(input);
       if (this.winningNumbers.numbers.includes(Number(input))) throw Error('[ERROR] 보너스 번호가 중복됨')
       this.bonusNumber = Number(input);
@@ -67,49 +69,66 @@ const LottoMachine = {
 
   // 로또 번호 발행
   getLottoNumber() {
-    const lottoList = []
-    for (let i = 0; i < this.quantity; i++) {
-      lottoList.push(new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)));
-      lottoList[i].numbers.sort(LottoMachine.asc);
-      LottoMachine.printList(lottoList[i]);
-    }
-    this.lottoList = lottoList;
+    this.lottoList = Array.from({ length: this.quantity }, () =>
+      new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6))
+    );
+    this.sortLotto();
+    this.printLotto();
   },
 
   // 로또 번호 정렬
-  asc(a, b) { return a - b; },
+  sortLotto() {
+    this.lottoList.map(lotto =>
+      lotto.numbers.sort((a, b) => a - b)
+    );
+  },
 
   // 로또 번호 출력
-  printList(list) {
-    MissionUtils.Console.print(`[${list.numbers.join(', ')}]`);
+  printLotto() {
+    this.lottoList.forEach(lotto =>
+      MissionUtils.Console.print(`[${lotto.numbers.join(', ')}]`)
+    );
+  },
+
+  // 당첨 내역 집계
+  getResult() {
+    this.lottoList.forEach((lotto) => {
+      this.countScore(lotto);
+    });
+    this.countProfit();
+    this.printScore();
   },
 
   // 당첨 내역 확인
-  countScore(score = this.score, len, bonus) {
-    if (len === 6) return score.SIX_MATCHES += 1;
-    if (len === 5 && bonus) return score.FIVE_BONUS_MATCHES += 1;
-    if (len === 5) return score.FIVE_MATCHES += 1;
-    if (len === 4) return score.FOUR_MATCHES += 1;
-    if (len === 3) return score.THREE_MATCHES += 1;
+  countScore(lotto) {
+    // 당첨 번호와 일치하는 로또 번호의 개수
+    const matches = lotto.numbers.filter(number =>
+      this.winningNumbers.numbers.includes(number)
+    ).length;
+
+    // 보너스 번호가 당첨 번호에 포함되는지 여부
+    const bonus = lotto.numbers.some((element) =>
+      element == this.bonusNumber
+    );
+    if (matches === 6) return this.score.SIX_MATCHES += 1;
+    if (matches === 5 && bonus) return this.score.FIVE_BONUS_MATCHES += 1;
+    if (matches === 5) return this.score.FIVE_MATCHES += 1;
+    if (matches === 4) return this.score.FOUR_MATCHES += 1;
+    if (matches === 3) return this.score.THREE_MATCHES += 1;
   },
 
-  // 당첨 내역 및 수익률 집계
-  getResult() {
-    for (let i = 0; i < this.lottoList.length; i++) {
-      const result = this.lottoList[i].numbers.filter(list => this.winningNumbers.numbers.includes(list))
-      const isBonus = this.lottoList[i].numbers.some((element) => {
-        return element == this.bonusNumber;
-      });
-      this.countScore(this.score, result.length, isBonus);
-    }
-    this.printScore();
+  // 수익률 계산
+  countProfit() {
+    const profit = Math.round(
+      ((5000 * this.score.THREE_MATCHES) + (50000 * this.score.FOUR_MATCHES)
+      + (1500000 * this.score.FIVE_MATCHES) + (30000000 * this.score.FIVE_BONUS_MATCHES)
+      + (2000000000 * this.score.SIX_MATCHES)) // 총 수익
+      / (this.quantity * PRICE) * 100 * 10) / 10;
+    this.profit = profit;
   },
 
   // 당첨 내역 및 수익률 출력
   printScore(score = this.score) {
-    const profit = Math.round(((5000 * score.THREE_MATCHES) + (50000 * score.FOUR_MATCHES)
-      + (1500000 * score.FIVE_MATCHES) + (30000000 * score.FIVE_BONUS_MATCHES)
-      + (2000000000 * score.SIX_MATCHES)) / (this.quantity * PRICE) * 100 * 10) / 10;
     const str = `
 당첨 통계
 ---
@@ -118,7 +137,7 @@ const LottoMachine = {
 5개 일치 (1,500,000원) - ${score.FIVE_MATCHES}개
 5개 일치, 보너스 볼 일치 (30,000,000원) - ${score.FIVE_BONUS_MATCHES}개
 6개 일치 (2,000,000,000원) - ${score.SIX_MATCHES}개
-총 수익률은 ${profit}%입니다.`
+총 수익률은 ${this.profit}%입니다.`
     MissionUtils.Console.print(str)
   },
 
