@@ -3,6 +3,7 @@ import { Money } from './Money.js';
 import { Console, Random } from '@woowacourse/mission-utils';
 import { ERROR } from './constant.js';
 import Lotto from './Lotto.js';
+import { Bonus } from './Bonus.js';
 
 export class LottoGame {
   #inputInstance;
@@ -37,6 +38,17 @@ export class LottoGame {
     }
   }
 
+  async addBonusNumber(winningLotto) {
+    try {
+      const bonusNumber = await this.#inputInstance.inputBonusNumber();
+      new Bonus(bonusNumber, winningLotto);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(ERROR.message);
+      return this.addBonusNumber();
+    }
+  }
+
   printLotto(lottoList) {
     lottoList.forEach((lotto) => Console.print(lotto));
   }
@@ -45,5 +57,6 @@ export class LottoGame {
     const lottoList = await this.generateLotto();
     this.printLotto(lottoList);
     const winningLotto = await this.winningLotto();
+    const bonusNumber = await this.addBonusNumber(winningLotto);
   }
 }
