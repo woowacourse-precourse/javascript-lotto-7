@@ -12,4 +12,34 @@ describe('LottoStore 테스트', () => {
 
     expect(lottoStore.getLottoNumbers()).toEqual(LOTTO);
   });
+  test('로또 추첨 결과 기능 테스트', () => {
+    // given
+    const RANDOMS = [
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 7],
+      [1, 2, 3, 4, 5, 8],
+      [1, 2, 3, 4, 7, 8],
+      [1, 2, 3, 7, 8, 9],
+      [1, 2, 7, 8, 9, 10],
+      [1, 7, 8, 9, 10, 11],
+      [7, 8, 9, 10, 11, 12],
+    ];
+    const WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
+    const BONUS_NUMBER = [7];
+    const AMOUNT = '8000';
+    const EXPECTED_RESULT = {
+      first: 1,
+      second: 1,
+      third: 1,
+      fourth: 1,
+      fifth: 1,
+    };
+
+    // when
+    mockRandoms(RANDOMS);
+    const lottoStore = new LottoStore(AMOUNT);
+
+    // then
+    expect(lottoStore.getLottoResult(WINNING_NUMBERS, BONUS_NUMBER)).toEqual(EXPECTED_RESULT);
+  });
 });
