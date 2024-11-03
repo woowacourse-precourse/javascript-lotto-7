@@ -29,56 +29,34 @@ class App {
         .join("\n")
     );
 
-    const winningNumbers = await Console.readLineAsync(
+    const inputWinningNumbers = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
     );
-    const winningNumber = winningNumbers.split(",");
-    if (winningNumber.length !== 6) {
-      throw new Error(
-        "[ERROR]: 당첨 번호 입력은 6개의 숫자를 입력해야 합니다."
-      );
-    }
-    const winningNumberSet = new Set();
 
-    winningNumber.forEach((num) => {
-      const number = Number(num);
-
-      if (isNaN(number)) {
-        throw new Error("[ERROR]: 숫자만 입력가능합니다.");
-      }
-      if (!Number.isInteger(number)) {
-        throw new Error("[ERROR]: 정수가 아닌 수는 입력할 수 없습니다.");
-      }
-      if (number < 1 || number > 45) {
-        throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
-      }
-      if (winningNumberSet.has(number)) {
-        throw new Error("[ERROR]: 당첨 번호는 중복될 수 없습니다.");
-      }
-
-      winningNumberSet.add(number);
-    });
+    const inputWinningNumber = inputWinningNumbers.split(",").map(Number);
+    const winningNumber = new Lotto(inputWinningNumber);
 
     const inputBonusNumber = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
     );
+
     const bonusNumber = Number(inputBonusNumber);
-    if (winningNumberSet.has(bonusNumber)) {
-      throw new Error("[ERROR]: 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
-    }
+
     if (isNaN(bonusNumber)) {
-      throw new Error("[ERROR]: 숫자만 입력가능합니다.");
+      throw new Error("[ERROR]: 보너스 번호는 숫자만 입력 가능합니다.");
     }
-    if (!Number.isInteger(bonusNumber)) {
-      throw new Error("[ERROR]: 정수가 아닌 수는 입력할 수 없습니다.");
+    if (!Number.isInteger(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error(
+        "[ERROR]: 보너스 번호는 1부터 45 사이의 정수여야 합니다."
+      );
     }
-    if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
+    if (winningNumber.getNumbers().includes(bonusNumber)) {
+      throw new Error("[ERROR]: 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
 
     const matchingResults = this.checkMatchingLottos(
       userLottoNumbers,
-      winningNumberSet,
+      new Set(winningNumber.getNumbers()),
       bonusNumber
     );
     const rate = this.calculateRate(matchingResults, purchaseAmount);
