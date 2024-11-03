@@ -1,7 +1,7 @@
 import { Price } from "../src/lotto/index.js";
 import { LOTTO_MESSAGES } from "../src/constants/index.js";
 
-describe("로또 클래스 테스트", () => {
+describe("Price 클래스 테스트", () => {
   const { INVALID_PRICE, INVALID_MAX_PRICE } = LOTTO_MESSAGES;
   test.each([
     { price: 1100, errorMessage: INVALID_PRICE, description: "1000원 단위가 아닌 경우" },

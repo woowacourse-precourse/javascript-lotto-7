@@ -1,7 +1,7 @@
 import { BonusNumber } from "../src/lotto/index.js";
 import { LOTTO_MESSAGES } from "../src/constants/index.js";
 
-describe("로또 클래스 테스트", () => {
+describe("BonusNumber 클래스 테스트", () => {
   const { INVALID_NON_POSITIVE_INTEGER, DUPLICATE_BONUS_NUMBER, INVALID_RANGE_NUMBER } = LOTTO_MESSAGES;
   test.each([
     { number: 0, errorMessage: INVALID_NON_POSITIVE_INTEGER, description: "양수가 아닌 경우" },
