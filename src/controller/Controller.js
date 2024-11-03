@@ -28,8 +28,8 @@ export default class Controller {
 
     const result = this.getCalculatedResult(winningNumber, bonusNumber, lottos);
     this.outputView.printWinningStatistics(result);
-    const per = this.calculateProfitRate(paidMoney, result);
-    this.outputView.printProfitRate(per);
+    const profitRate = this.calculateProfitRate(paidMoney, result);
+    this.outputView.printProfitRate(profitRate);
   }
 
   calculateProfitRate(paidMoney, result) {
