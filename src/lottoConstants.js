@@ -22,7 +22,7 @@ export const PRIZE_CONDITION = Object.freeze({
   FIFTH: { MATCH_COUNT: 3, BONUS_MATCH: false },
 });
 
-export const PROFIT_ROUND_DECIMAL_PLACE = 2;
+export const PROFIT_ROUND_DECIMAL_PLACE = 1;
 
 export const INPUT_MESSAGE = Object.freeze({
   PURCHASE_AMOUNT: '구입금액을 입력해 주세요.\n',
