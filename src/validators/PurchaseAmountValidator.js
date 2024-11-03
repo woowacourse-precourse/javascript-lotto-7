@@ -9,7 +9,7 @@ class PurchaseAmountValidator {
   }
 
   static #validateIsNumber(amount) {
-    if (Number.isNaN(amount)) {
+    if (Number.isNaN(Number(amount))) {
       throwError(ERROR_MESSAGES.purchase_amount_not_number);
     }
   }
