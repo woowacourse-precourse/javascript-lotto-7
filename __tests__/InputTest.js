@@ -35,7 +35,7 @@ describe('InputHandler 테스트', () => {
     const input = '7';
     mockQuestions([input]);
 
-    const bonusNumber = await InputHandler.getBonusNumber();
+    const bonusNumber = await InputHandler.getBonusNumber('1,2,3,4,5,6');
 
     expect(bonusNumber).toBe(input);
   });
@@ -117,10 +117,10 @@ describe('당첨 번호 예외처리 테스트', () => {
   });
 
   test('보너스 번호가 당첨 번호와 중복된 경우', async () => {
-    const inputs = ['5000', '1,2,3,4,5,6', '5'];
-    mockQuestions(inputs);
+    const input = ['5'];
+    mockQuestions(input);
 
-    await expect(InputHandler.getUserInput()).rejects.toThrow(
+    await expect(InputHandler.getBonusNumber('1,2,3,4,5,6')).rejects.toThrow(
       ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE,
     );
   });

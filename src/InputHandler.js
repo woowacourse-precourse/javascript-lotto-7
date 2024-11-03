@@ -16,9 +16,9 @@ class InputHandler {
     return winningNumbers;
   }
 
-  static async getBonusNumber() {
+  static async getBonusNumber(winningNumbers) {
     const bonusNumber = await Console.readLineAsync(INPUT_MESSAGE.BONUS_NUMBER);
-    this.#validateBonusNumber(bonusNumber);
+    this.#validateBonusNumber(winningNumbers, bonusNumber);
     return bonusNumber;
   }
 
@@ -39,11 +39,11 @@ class InputHandler {
     this.#validateWinningNumberDuplicate(numbers);
   }
 
-  static #validateBonusNumber(bonusNumber) {
+  static #validateBonusNumber(winningNumbers, bonusNumber) {
     this.#validateNumberType(bonusNumber);
     this.#validatePositiveNumber(bonusNumber);
     this.#validateWinningNumberRange(bonusNumber);
-    this.#validateBonusNumberDuplicate(bonusNumber);
+    this.#validateBonusNumberDuplicate(winningNumbers, bonusNumber);
   }
 
   static #validateBuyPriceUnit(buyPrice) {
