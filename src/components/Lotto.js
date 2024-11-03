@@ -25,8 +25,8 @@ class Lotto {
       return acc;
     }, 0);
 
-    if (this.#numbers.includes(bonusNumber)) {
-      return matchCount === 5 ? 5.5 : matchCount;
+    if (this.#numbers.includes(bonusNumber) && matchCount === 5) {
+      return 5.5;
     }
 
     return matchCount;

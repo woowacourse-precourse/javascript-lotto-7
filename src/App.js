@@ -1,15 +1,12 @@
-import INPUT from './constants/InputMessage.js';
-import validatePrice from './utils/validation/validatePrice.js';
-import InputRepeat from './utils/io/InputRepeat.js';
-import { parseStringToNumber } from './utils/NumberUtils.js';
 import LottoManager from './components/LottoManager.js';
 
 class App {
   async run() {
-    const inputs = await InputRepeat(INPUT.LOTTO_PRICE, validatePrice);
+    const lottoManager = new LottoManager();
 
-    const lottoManager = new LottoManager(parseStringToNumber(inputs));
+    await lottoManager.setLottoPurchasePrice();
     lottoManager.printPurchasedLotto();
+
     await lottoManager.setWinningLotto();
     lottoManager.printLottoResult();
   }

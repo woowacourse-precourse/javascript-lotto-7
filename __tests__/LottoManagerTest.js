@@ -1,6 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoManager from '../src/components/LottoManager.js';
 import { lottoMatchResult } from '../src/utils/LottoMatchResult.js';
+import LottoMachine from '../src/components/LottoMachine.js';
 
 const getLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, 'print');
@@ -10,7 +11,9 @@ const getLogSpy = () => {
 
 describe('LottoManager 클래스 테스트', () => {
   test('calculateRateOfReturn 테스트', () => {
-    const lottoManager = new LottoManager(5000);
+    const lottoManager = new LottoManager();
+    lottoManager.machine = new LottoMachine(5000);
+
     const matchObj = {
       3: 1,
       4: 0,
@@ -24,7 +27,8 @@ describe('LottoManager 클래스 테스트', () => {
   });
 
   test('matchLottos 테스트', () => {
-    const lottoManager = new LottoManager(6000);
+    const lottoManager = new LottoManager();
+
     const lottos = [
       {
         match: jest.fn(() => 3),

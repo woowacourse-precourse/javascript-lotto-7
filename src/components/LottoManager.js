@@ -7,14 +7,12 @@ import { getValidValue } from '../utils/StringUtils.js';
 import validateBonus from '../utils/validation/validateBonus.js';
 import RULES from '../constants/Rules.js';
 import { lottoMatchResult } from '../utils/LottoMatchResult.js';
+import { parseStringToNumber } from '../utils/NumberUtils.js';
+import validatePrice from '../utils/validation/validatePrice.js';
 
 class LottoManager {
   #winningLotto = [];
   #bonusNumber = 0;
-
-  constructor(purchaedPrice) {
-    this.machine = new LottoMachine(purchaedPrice);
-  }
 
   printPurchasedLotto() {
     const lottoList = this.machine.getLottoList();
@@ -79,6 +77,11 @@ class LottoManager {
 
     this.#bonusNumber = bonusNumber;
     this.#winningLotto = lottoWinningNumbers;
+  }
+
+  async setLottoPurchasePrice() {
+    const inputs = await InputRepeat(INPUT.LOTTO_PRICE, validatePrice);
+    this.machine = new LottoMachine(parseStringToNumber(inputs));
   }
 }
 
