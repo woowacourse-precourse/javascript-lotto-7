@@ -53,8 +53,12 @@ class LottoService {
     }, 0);
   }
 
-  calculateProfitMargin(rankCounts) {
-    return profitMargin;
+  calculateProfitMargin(lottoPrice, rankCounts) {
+    const lottoTotalProfit = this.calculateTotalProfit(rankCounts);
+    const lottoPurchaseCost = this.#lottos.length * lottoPrice;
+    const lottoProfitMargin = lottoTotalProfit / lottoPurchaseCost;
+
+    return lottoProfitMargin.toFixed(1);
   }
 }
 
