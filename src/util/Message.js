@@ -5,6 +5,7 @@ export const INPUT_MESSAGE = Object.freeze({
 
 export const AMOUNT_ERROR = Object.freeze({
     ERROR_1000: '[ERROR] 입력하신 금액이 1000원 단위여야 합니다.',
+    ERROR_NUMBER: '[ERROR] 숫자를 입력하셔야 합니다.'
 });
 
 export const WINNING_LOTTO_ERROR = Object.freeze({

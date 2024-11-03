@@ -2,7 +2,9 @@ import {AMOUNT_ERROR, WINNING_LOTTO_ERROR} from "./Message.js";
 
 export const validAmount = (amount) => {
     const IS_NOT_1000 = amount % 1000 !== 0;
+    const IS_NOT_NUMBER = amount.trim() === '' ||isNaN(amount);
 
+    if (IS_NOT_NUMBER) throw new Error(AMOUNT_ERROR.ERROR_NUMBER);
     if (IS_NOT_1000) throw new Error(AMOUNT_ERROR.ERROR_1000);
 }
 
