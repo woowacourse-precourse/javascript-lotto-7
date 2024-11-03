@@ -7,6 +7,13 @@ class LottoGame {
     this.lottos = this.createLottos();
     this.winningNumbers = null;
     this.bonusNumber = null;
+    this.result = {
+      '1st place': 0,
+      '2nd place': 0,
+      '3rd place': 0,
+      '4th place': 0,
+      '5th place': 0,
+    };
   }
 
   createLottos() {
@@ -16,9 +23,11 @@ class LottoGame {
     );
   }
 
-  start() {
+  async start() {
     this.displayLottos();
-    this.inputWinningInfo();
+    await this.inputWinningInfo();
+    this.calculateWinningResults();
+    this.displayResult();
   }
 
   displayLottos() {
@@ -35,9 +44,9 @@ class LottoGame {
     const winningInput = await Console.readLineAsync(
       '\n당첨 번호를 입력해 주세요.\n'
     );
-    this.winningNumbers = winningInput.split(',').map((numberString) => {
-      return Number(numberString.trim());
-    });
+    this.winningNumbers = winningInput
+      .split(',')
+      .map((numberString) => Number(numberString.trim()));
 
     this.validateWinningNumbers(this.winningNumbers);
   }
@@ -70,6 +79,36 @@ class LottoGame {
 
     if (this.winningNumbers.includes(bonusNumber))
       throw new Error('[ERROR] 당첨 번호와 보너스 번호는 중복될 수 없습니다.');
+  }
+
+  calculateWinningResults() {
+    this.lottos.forEach((lotto) => {
+      const result = lotto.checkWinningStatus(
+        this.winningNumbers,
+        this.bonusNumber
+      );
+      this.recordResult(result);
+    });
+  }
+
+  recordResult({matchCount, hasBonus}) {
+    if (matchCount === 3) this.result['5th place']++;
+    if (matchCount === 4) this.result['4th place']++;
+    if (matchCount === 5 && !hasBonus) this.result['3rd place']++;
+    if (matchCount === 5 && hasBonus) this.result['2nd place']++;
+    if (matchCount === 6) this.result['1st place']++;
+  }
+
+  displayResult() {
+    Console.print('\n당첨 통계');
+    Console.print('---');
+    Console.print(`3개 일치 (5,000원) - ${this.result['5th place']}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.result['4th place']}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.result['3rd place']}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result['2nd place']}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.result['1st place']}개`);
   }
 }
 
