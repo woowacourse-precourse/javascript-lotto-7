@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES } from '../constants/Messages.js';
-import { VALUES, CHARS } from '../constants/Values.js';
+import { VALUES } from '../constants/Values.js';
 
 const validator = {
   validateAmount(amount) {
@@ -9,8 +9,7 @@ const validator = {
     if (!this.divideIntoUnit(numericAmount)) throw new Error(ERROR_MESSAGES.divideIntoUnit);
   },
 
-  validateLottoNumbers(numbers) {
-    const numbersArray = numbers.split(CHARS.numbersDelimiter);
+  validateLottoNumbers(numbersArray) {
     if (!this.validateDuplicatedNumber(numbersArray))
       throw new Error(ERROR_MESSAGES.duplicatedWinningNumber);
     if (!this.validateNumberRange(numbersArray)) throw new Error(ERROR_MESSAGES.invalidRangeNumber);
@@ -18,11 +17,10 @@ const validator = {
       throw new Error(ERROR_MESSAGES.invalidWinningNumberLength);
   },
 
-  validateBonusNumber(bonusNumber) {
-    const numbersArray = bonusNumber.split(CHARS.numbersDelimiter);
-    if (!this.validateBonusNumbersLength(numbersArray))
+  validateBonusNumber(winningNumbers, bonusNumbers) {
+    if (!this.validateBonusNumbersLength(bonusNumbers))
       throw new Error(ERROR_MESSAGES.invalidBonusNumberLength);
-    if (!this.validateBonusNumberDuplicated(numbersArray))
+    if (!this.validateBonusNumberDuplicated(winningNumbers, bonusNumbers))
       throw new Error(ERROR_MESSAGES.duplicatedBonusNumber);
   },
 
