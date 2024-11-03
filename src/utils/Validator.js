@@ -7,25 +7,41 @@ import {
 
 class Validator {
   static validateNumsLength(numbers) {
+    this.#validateLength(numbers);
+  }
+
+  static validateNumsInRange(numbers) {
+    numbers.forEach(this.#checkNumberInRange);
+  }
+
+  static validateNumsDuplicate(numbers) {
+    this.#checkForDuplicates(numbers);
+  }
+
+  static validatePurchaseAmount(purchaseAmount) {
+    const amount = Number(purchaseAmount);
+    this.#checkPurchaseAmount(amount);
+  }
+
+  static #validateLength(numbers) {
     if (numbers.length !== LOTTO_NUMBER_COUNT) {
       throw new Error(errorMessages.INVALID_NUMBERS_LENGTH);
     }
   }
 
-  static validateNumsInRange(numbers) {
-    numbers.map((num) => {
-      if (LOTTO_NUMBER_RANGE.MIN > num || num > LOTTO_NUMBER_RANGE.MAX)
-        throw new Error(errorMessages.INVALID_NUMBERS_RANGE);
-    });
+  static #checkNumberInRange(num) {
+    if (num < LOTTO_NUMBER_RANGE.MIN || num > LOTTO_NUMBER_RANGE.MAX) {
+      throw new Error(errorMessages.INVALID_NUMBERS_RANGE);
+    }
   }
 
-  static validateNumsDuplicate(numbers) {
-    if (new Set(numbers).size !== LOTTO_NUMBER_COUNT)
+  static #checkForDuplicates(numbers) {
+    if (new Set(numbers).size !== LOTTO_NUMBER_COUNT) {
       throw new Error(errorMessages.INVALID_DUPLICATE_NUMBER);
+    }
   }
 
-  static validatePurchaseAmount(purchaseAmount) {
-    const amount = Number(purchaseAmount);
+  static #checkPurchaseAmount(amount) {
     if (isNaN(amount) || amount % LOTTO_PRICE_UNIT !== 0) {
       throw new Error(errorMessages.INVALID_AMOUNT);
     }

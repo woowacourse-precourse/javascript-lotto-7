@@ -18,82 +18,93 @@ class LottoController {
     Validator.validateNumsInRange(numbers);
     Validator.validateNumsDuplicate(numbers);
   }
+
   #splitNumsByComma(winningNumbers) {
     return winningNumbers.split(",");
   }
 
   #convertStringToNumber(winningNumbers) {
-    return winningNumbers.map((num) => Number(num));
+    return winningNumbers.map(Number);
   }
 
   start() {
     const purchasedLotto = this.purchasedLotto.getTickets();
+    const counts = this.#getMatchCounts(purchasedLotto);
+    const awards = this.#countAwards(counts);
 
-    const counts = [];
-    purchasedLotto.forEach((pLotto) => {
-      counts.push(this.#calculateMatchCount(pLotto));
-    });
+    this.printResult(awards);
+    const profitRate = this.#calculateProfitRate(awards);
+    this.#printProfitRate(profitRate);
+  }
 
-    const awards = counts.reduce((acc, value) => {
+  #getMatchCounts(purchasedLotto) {
+    return purchasedLotto.map((pLotto) => this.#calculateMatchCount(pLotto));
+  }
+
+  #countAwards(counts) {
+    return counts.reduce((acc, value) => {
       acc[value] = (acc[value] || 0) + 1;
       return acc;
     }, {});
-
-    this.printResult(awards);
-
-    const profitRate = this.#calculateProfitRate(awards);
-
-    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 
   #calculateMatchCount(numbers) {
-    let count = 0;
-    const winningNumbers = this.winningNumbers.getNumbers();
-    numbers.forEach((num) => {
-      if (num in winningNumbers) count += 1;
-    });
-    if (count === 5 && this.#checkBonusBallMatch(numbers)) count = "5+bonus";
+    let count = this.#getMatchCount(numbers);
+    if (count === 5 && this.#checkBonusBallMatch(numbers)) {
+      return "5+bonus";
+    }
     return count;
   }
 
+  #getMatchCount(numbers) {
+    return this.winningNumbers
+      .getNumbers()
+      .filter((num) => numbers.includes(num)).length;
+  }
+
   #checkBonusBallMatch(numbers) {
-    if (this.bonusNum in numbers) return true;
-    return false;
+    return numbers.includes(this.bonusNum);
   }
 
   printResult(counts) {
-    WINNING_RESULT.forEach((win) => {
-      let bonusText = "";
-      let matchCount = counts[String(win.count)] || 0;
+    WINNING_RESULT.forEach((win) => this.#printResultLine(win, counts));
+  }
 
-      if (win.bonus) {
-        bonusText = ", 보너스 볼 일치";
-        matchCount = counts[`${win.count}_bonus`] || 0;
-      }
+  #printResultLine(win, counts) {
+    const matchCount = win.bonus
+      ? counts[`${win.count}_bonus`] || 0
+      : counts[String(win.count)] || 0;
+    const bonusText = win.bonus ? ", 보너스 볼 일치" : "";
 
-      MissionUtils.Console.print(
-        `${win.count}개 일치${bonusText} (${win.price}원) - ${matchCount}개`
-      );
-    });
+    MissionUtils.Console.print(
+      `${win.count}개 일치${bonusText} (${win.price}원) - ${matchCount}개`
+    );
   }
 
   #calculateProfitRate(counts) {
     const purchaseAmount = this.purchasedLotto.getPurchaseAmount();
-    let totalPrize = 0;
+    const totalPrize = this.#calculateTotalPrize(counts);
+    return ((totalPrize / purchaseAmount) * 100).toFixed(1);
+  }
 
-    WINNING_RESULT.forEach((win) => {
-      let matchCount;
+  #calculateTotalPrize(counts) {
+    return WINNING_RESULT.reduce((total, win) => {
+      let matchCount = 0;
+
       if (win.bonus) {
         matchCount = counts[`${win.count}_bonus`] || 0;
-      } else {
+      }
+
+      if (!win.bonus) {
         matchCount = counts[String(win.count)] || 0;
       }
 
-      totalPrize += matchCount * parseInt(win.price.replace(/,/g, ""));
-    });
+      return total + matchCount * parseInt(win.price.replace(/,/g, ""));
+    }, 0);
+  }
 
-    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
-    return profitRate;
+  #printProfitRate(profitRate) {
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 

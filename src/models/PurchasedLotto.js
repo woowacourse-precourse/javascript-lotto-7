@@ -1,22 +1,26 @@
+// PurchasedLotto.js
 import { MissionUtils } from "@woowacourse/mission-utils";
-import errorMessages from "../constants/errorMessages.js";
 import Lotto from "./Lotto.js";
 import { LOTTO_PRICE_UNIT } from "../constants/lottoConstants.js";
 
 class PurchasedLotto {
   constructor(purchaseAmount) {
     this.purchaseAmount = purchaseAmount;
-    this.numberOfTickets = purchaseAmount / LOTTO_PRICE_UNIT;
+    this.numberOfTickets = this.#calculateNumberOfTickets(purchaseAmount);
     this.tickets = this.#getTicketsArray(this.numberOfTickets);
   }
 
+  #calculateNumberOfTickets(purchaseAmount) {
+    return purchaseAmount / LOTTO_PRICE_UNIT;
+  }
+
   #getTicketsArray(numberOfTickets) {
-    let tickesArray = [];
+    const ticketsArray = [];
     for (let i = 0; i < numberOfTickets; i++) {
       const lottoTicket = new Lotto(this.#getRandomNumbers());
-      tickesArray.push(lottoTicket);
+      ticketsArray.push(lottoTicket);
     }
-    return tickesArray;
+    return ticketsArray;
   }
 
   #getRandomNumbers() {
@@ -25,16 +29,19 @@ class PurchasedLotto {
     );
   }
 
-  getNumberOfTickets() {
-    return this.numberOfTickets;
-  }
-
   getTickets() {
     return this.tickets.map((ticket) => ticket.getNumbers());
   }
 
   getPurchaseAmount() {
     return this.purchaseAmount;
+  }
+
+  printPurchasedLotto() {
+    MissionUtils.Console.print(`${this.numberOfTickets}개를 구매했습니다.`);
+    this.tickets.forEach((ticket) => {
+      MissionUtils.Console.print(`[${ticket.getNumbers().join(", ")}]`);
+    });
   }
 }
 
