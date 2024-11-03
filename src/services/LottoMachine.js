@@ -6,12 +6,12 @@ class LottoMachine {
 
     constructor(number) {
         this.#validate(number);
-        this.number = number
+        this.#number = number
     }
 
-    lottoRelease(purchaseNum) {
+    lottoRelease() {
         const lottos = []
-        for (let i = 0; i < purchaseNum; i++) {
+        for (let i = 0; i < this.#number; i++) {
             const sortedLotto = sortAsc(this.getSixRandomValues())
             lottos.push(sortedLotto)
         }
