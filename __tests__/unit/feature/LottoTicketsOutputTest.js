@@ -23,6 +23,13 @@ describe('로또 발행 테스트', () => {
     });
   };
 
+  const validateAscendingOrder = (lottoTickets) => {
+    lottoTickets.forEach((lottoTicket) => {
+      const sortedTicket = lottoTicket.slice().sort((a, b) => a - b);
+      expect(lottoTicket).toEqual(sortedTicket);
+    });
+  };
+
   test('구매금액 : 천원', () => {
     lottoController.setPurchaseAmount(1000);
     lottoController.generateLottoTickets();
@@ -30,6 +37,7 @@ describe('로또 발행 테스트', () => {
     const lottoTickets = lottoController.getLottoTickets();
 
     validateGenerateLottoTickets(lottoTickets, 1);
+    validateAscendingOrder(lottoTickets);
   });
 
   test('구매금액 : 만원', () => {
@@ -39,6 +47,7 @@ describe('로또 발행 테스트', () => {
     const lottoTickets = lottoController.getLottoTickets();
 
     validateGenerateLottoTickets(lottoTickets, 10);
+    validateAscendingOrder(lottoTickets);
   });
 
   test('구매금액 : 십만원', () => {
@@ -48,6 +57,7 @@ describe('로또 발행 테스트', () => {
     const lottoTickets = lottoController.getLottoTickets();
 
     validateGenerateLottoTickets(lottoTickets, 100);
+    validateAscendingOrder(lottoTickets);
   });
 
   test('구매금액 : 백만원', () => {
@@ -57,5 +67,6 @@ describe('로또 발행 테스트', () => {
     const lottoTickets = lottoController.getLottoTickets();
 
     validateGenerateLottoTickets(lottoTickets, 1000);
+    validateAscendingOrder(lottoTickets);
   });
 });
