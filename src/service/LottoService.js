@@ -31,12 +31,23 @@ export class LottoService {
 
     lottos.forEach((lotto) => {
       const matchCount = this.countMatches(lotto.getNumbers(), winningNumbers);
+      const isBonusMatch = lotto.getNumbers().includes(bonusNumber);
 
+      this.updatePrizeTable(prizeTable, matchCount, isBonusMatch);
     });
-    
   }
 
   static countMatches(numbers, winningNumbers) {
     return numbers.filter(number => winningNumbers.includes(number)).length;
+  }
+
+  static updatePrizeTable(prizeTable, matchCount, isBonusMatch) {
+    if (matchCount === 6) {
+      prizeTable[6].count++;
+    } else if (matchCount === 5 && isBonusMatch) {
+      prizeTable['5'].count++;
+    } else if (matchCount >= 3) {
+      prizeTable[matchCount].count++;
+    }
   }
 }
