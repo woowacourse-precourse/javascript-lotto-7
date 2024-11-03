@@ -4,11 +4,11 @@ import generateLottoNumbers from '../utils/generateRandomNumbers.js';
 class LottoGame {
   #lottos;
 
-  setLotto(tickets) {
+  setLottos(tickets) {
     this.#lottos = this.#generateLotto(tickets);
   }
 
-  getLotto() {
+  getLottos() {
     return this.#lottos.map((lotto) => lotto.getLottoNumbers());
   }
 
