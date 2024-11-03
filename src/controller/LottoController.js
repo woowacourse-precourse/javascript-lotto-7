@@ -3,6 +3,7 @@ import Input from '../view/Input.js';
 import Output from '../view/Output.js';
 import VendingMachine from '../model/VendingMachine.js';
 import LottoGame from '../model/LottoGame.js';
+import Calculator from '../model/Calculator.js';
 import Lotto from '../model/Lotto.js';
 
 class LottoController {
@@ -14,6 +15,12 @@ class LottoController {
 
     const winningNumbers = await this.#getWinningNumbers();
     const bonusNumber = await this.#getBonusNumber(winningNumbers);
+
+    const game = new LottoGame(winningNumbers, bonusNumber);
+    const calc = new Calculator(game, lottoList);
+
+    calc.computeWinningCountList(Output.printStatistics);
+    calc.computeTotalProfitRate(money, Output.printTotalProfitRate);
   }
 
   /** @param {number[]} winningNumbers */
