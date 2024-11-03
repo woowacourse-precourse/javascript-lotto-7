@@ -1,4 +1,11 @@
-import { LOTTO_MAX_NUMBER, LOTTO_MIN_NUMBER, LOTTO_NUMBERS_COUNT, LOTTO_PRICE, SPLIT_CHAR } from "./constants.js";
+import {
+  LOTTO_MAX_NUMBER,
+  LOTTO_MIN_NUMBER,
+  LOTTO_MIN_PRICE,
+  LOTTO_NUMBERS_COUNT,
+  LOTTO_UNIT_PRICE,
+  SPLIT_CHAR
+} from "./constants.js";
 
 export const viewMessages = {
   price: '구입금액을 입력해주세요.\n',
@@ -13,7 +20,8 @@ export const inValidMessages = {
   NaN: `${ERROR_PREFIX}숫자를 입력해주세요.`,
   integer: `${ERROR_PREFIX}로또 번호는 정수입니다.`,
   empty: `${ERROR_PREFIX}공백 입력은 불가합니다.\n`,
-  priceUnit: `${ERROR_PREFIX}구입 금액은 ${LOTTO_PRICE}원 단위로 입력해주세요.\n`,
+  minPrice: `${ERROR_PREFIX}구입 금액은 ${LOTTO_MIN_PRICE}원 이상 입력해주세요.\n`,
+  priceUnit: `${ERROR_PREFIX}구입 금액은 ${LOTTO_UNIT_PRICE}원 단위로 입력해주세요.\n`,
   separator: `${ERROR_PREFIX}당첨 번호를 쉼표(${SPLIT_CHAR})로 구분해서 입력해주세요.`,
   winningLottoCount: `${ERROR_PREFIX}로또 번호는 ${LOTTO_NUMBERS_COUNT}개여야 합니다.`,
   range: `${ERROR_PREFIX}당첨 번호는 ${LOTTO_MIN_NUMBER}~${LOTTO_MAX_NUMBER}사이의 숫자입니다.`,
