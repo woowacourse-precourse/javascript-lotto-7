@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Lotto from './Lotto';
+import Lotto from './Lotto.js';
 
 class LottoStore {
   #lottoList;
@@ -25,7 +25,9 @@ class LottoStore {
       throw new Error('10만원 이상은 구매할 수 없습니다.');
     }
 
-    for (let i = 0; i < payment / 1000; i++) {
+    const lottoCount = payment / 1000;
+
+    for (let i = 0; i < lottoCount; i++) {
       const lotto = this.#publishLotto();
       this.#lottoList.push(lotto);
     }
@@ -33,11 +35,16 @@ class LottoStore {
 
   #publishLotto() {
     const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+
     return new Lotto(lottoNumbers);
   }
 
   getLotto(index) {
     return this.#lottoList[index];
+  }
+
+  getLottoCount() {
+    return this.#lottoList.length;
   }
 }
 

@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import LottoStore from './LottoStore';
+import LottoStore from './LottoStore.js';
 
 class App {
   async run() {
@@ -8,6 +8,7 @@ class App {
       this.validate(payment);
       const lottoStore = new LottoStore();
       lottoStore.buyLotto(Number(payment));
+      MissionUtils.Console.print(`\n${lottoStore.getLottoCount()}개를 구매했습니다.`);
     } catch (error) {
       MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }

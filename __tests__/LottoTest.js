@@ -48,7 +48,7 @@ describe('로또 클래스 테스트', () => {
       { payment: 1234, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
       { payment: 4530, error: '로또 구입 금액은 1000원 단위로만 받습니다.' },
       { payment: 10000000, error: '10만원 이상은 구매할 수 없습니다.' },
-    ])('로또 구입 금액이 $payment 일 때 유효성 검사', ({ payment, error }) => {
+    ])('로또 구입 금액이 $payment 일 때 예외: %s', ({ payment, error }) => {
       expect(() => {
         lottoStore.buyLotto(Number(payment));
       }).toThrow(error);
@@ -59,15 +59,18 @@ describe('로또 클래스 테스트', () => {
         [3, 15, 22, 33, 41, 45],
         [1, 5, 9, 10, 23, 35],
       ];
-      MissionUtils.Random.pickUniqueNumbersInRange = jest
-        .fn()
-        .mockReturnValueOnce(mockLottoNumbers[0])
-        .mockReturnValueOnce(mockLottoNumbers[1]);
 
-      lottoStore.buyLotto(2000);
+      MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
+      mockLottoNumbers.forEach((mockLottoNumber) => {
+        MissionUtils.Random.pickUniqueNumbersInRange.mockReturnValueOnce(mockLottoNumber);
+      });
 
-      expect(lottoStore.getLotto(0).getNumbers()).toEqual(mockLottoNumbers[0]);
-      expect(lottoStore.getLotto(1).getNumbers()).toEqual(mockLottoNumbers[1]);
+      lottoStore.buyLotto(mockLottoNumbers.length * 1000);
+      mockLottoNumbers.forEach((mockLottoNumber, index) => {
+        expect(lottoStore.getLotto(index).getNumbers()).toEqual(mockLottoNumber);
+      });
+
+      expect(lottoStore.getLottoCount()).toEqual(mockLottoNumbers.length);
     });
   });
 });
