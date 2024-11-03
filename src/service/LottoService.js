@@ -35,6 +35,7 @@ export class LottoService {
 
       this.updatePrizeTable(prizeTable, matchCount, isBonusMatch);
     });
+    return this.calculateTotalReturn(prizeTable, lottos.length * 1000);
   }
 
   static countMatches(numbers, winningNumbers) {
@@ -49,5 +50,19 @@ export class LottoService {
     } else if (matchCount >= 3) {
       prizeTable[matchCount].count++;
     }
+  }
+  
+  static calculateTotalReturn(prizeTable, totalSpent) {
+    let totalPrize = 0;
+    const results = [];
+
+    for (const [key, { count, prize }] of Object.entries(prizeTable)) {
+      totalPrize += count * prize;
+      results.push(`${key}개 일치 (${prize.toLocaleString()}원) - ${count}개`);
+    }
+
+    const totalReturn = ((totalPrize / totalSpent) * 100).toFixed(1);
+    results.totalReturn = totalReturn;
+    return results;
   }
 }
