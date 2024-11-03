@@ -25,8 +25,12 @@ class Lotto {
     });
   }
 
-  isInNumbers(number) {
+  hasInNumbers(number) {
     return this.#numbers.includes(number);
+  }
+
+  countMatchingNumbers(lotto) {
+    return this.#numbers.filter((number) => lotto.isInNumbers(number)).length;
   }
 
   // TODO: 추가 기능 구현

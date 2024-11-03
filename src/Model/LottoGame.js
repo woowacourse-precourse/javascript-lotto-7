@@ -30,6 +30,16 @@ class LottoGame {
     });
     Console.print('');
   }
+
+  calculateWinningRanks(winningLotto, bonusNumber) {
+    this.#lottos.forEach((lotto) => {
+      const matchingNumbers = lotto.filter((number) =>
+        winningLotto.hasInNumbers(number),
+      ).length;
+
+      Console.print(matchingNumbers);
+    });
+  }
 }
 
 export default LottoGame;

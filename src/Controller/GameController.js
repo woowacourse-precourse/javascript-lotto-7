@@ -17,10 +17,12 @@ class GameController {
     const game = new LottoGame(purchaseCount);
     game.printLottos();
 
-    const winningNumbers = await this.#getWinningLotto();
-    const bonusNumber = await this.#getValidatedBonusNumber(winningNumbers);
+    const winningLotto = await this.#getWinningLotto();
+    const bonusNumber = await this.#getValidatedBonusNumber(winningLotto);
 
     Console.print(CONSOLE_MESSAGE.resultMessage);
+
+    game.calculateWinningRanks(winningLotto, bonusNumber);
   }
 
   async #getValidatedPurchaseCount() {
@@ -60,7 +62,7 @@ class GameController {
     const bonusNumber = await Input.getBonusNumber()((input) => {
       const number = Number(input);
       validateLottoNumber(number);
-      if (winningLotto.isInNumbers(number)) {
+      if (winningLotto.hasInNumbers(number)) {
         throw new Error(
           createErrorMessage(ERROR_MESSAGE.invalidDuplicateNumber),
         );
