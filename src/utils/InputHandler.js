@@ -26,10 +26,12 @@ export class InputHandler {
   }
 
   static async getWinningLotto(winningNumbers) {
+    this.#nested += 1;
     const parserdWinningNumber = parserWinningNumber(winningNumbers);
     try {
       Validator.isValidWinningLotto(parserdWinningNumber);
-      return winningNumbers;
+      this.#nested = 0;
+      return parserdWinningNumber;
     } catch (error) {
       Validator.isNested(this.#nested);
       printOneLine(error.message);

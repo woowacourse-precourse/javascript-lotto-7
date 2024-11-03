@@ -1,4 +1,4 @@
-import { isNotDuplicated } from "../validator/lottoValidator";
+import { isNotDuplicated } from "../validator/lottoValidator.js";
 
 class Lotto {
   #numbers;

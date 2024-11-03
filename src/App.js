@@ -16,6 +16,7 @@ class App {
     userLotto.createLotto();
     printLottoList(userLotto);
     const winningNumber = await InputHandler.getWinningNumbers();
+    Console.print(winningNumber);
     // const winningLotto = new Lotto(winningNumber);
     // const bonusBall = await InputHandler.getBonusBall();
   }

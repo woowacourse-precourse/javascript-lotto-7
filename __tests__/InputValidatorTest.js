@@ -54,3 +54,23 @@ describe("구매 금액 입력값 유효성 test", () => {
     }
   );
 });
+
+describe("당첨번호 입력값 유효성 test", () => {
+  test.each([
+    ["1,2,3,4"],
+    ["1,2,3,4,5", "1,2,3"],
+    ["1,2,3,4,5", "1,2,3,4,5,6,7,8", "1,2,3"],
+  ])(
+    "문자열이 6개의 숫자로 구성되지 않으면 최대 10번까지 사용자로부터 입력을 다시 받는다",
+    async (winnerNumbers) => {
+      const logSpy = getLogSpy();
+
+      const INPUT_NUMBERS_TO_END = ["5,6,7,8,9,10"];
+      mockQuestions([...winnerNumbers, ...INPUT_NUMBERS_TO_END]);
+      const result = await InputHandler.getWinningNumbers();
+
+      expect(result).toStrictEqual([5, 6, 7, 8, 9, 10]);
+      expect(logSpy).toHaveBeenCalledTimes(winnerNumbers.length);
+    }
+  );
+});
