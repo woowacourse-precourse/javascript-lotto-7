@@ -16,7 +16,7 @@ const mockRandoms = (numbers) => {
     }, MissionUtils.Random.pickUniqueNumbersInRange);
 };
 
-describe.skip("로또 클래스 테스트", () => {
+describe("로또 클래스 테스트", () => {
     test("예외 테스트 : 로또 번호의 개수가 6개가 넘어가는 경우", () => {
         expect(() => {
             new Lotto([1, 2, 3, 4, 5, 6, 7]);
@@ -54,7 +54,7 @@ describe.skip("로또 클래스 테스트", () => {
 });
 
 
-describe.skip("당첨 케이스 테스트", () => {
+describe("당첨 케이스 테스트", () => {
     test("1등 당첨 케이스", () => {
         const lottos = [
             new Lotto([1, 3, 5, 8, 11, 38])
