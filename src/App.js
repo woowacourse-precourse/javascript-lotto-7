@@ -11,8 +11,8 @@ class App {
 
   async run() {
     // 로또 구매
-    const { lottoCount, lottoBundle } = await this.lottoStore.purchaseLottos();
-    OutputView.printMessage(PRINT_MESSAGES.OUTPUT.LOTTO_COUNT(lottoCount));
+    const lottoBundle = await this.lottoStore.purchaseLottos();
+    OutputView.printMessage(PRINT_MESSAGES.OUTPUT.LOTTO_COUNT(this.lottoStore.getLottoCount()));
     OutputView.printLottoBundle(lottoBundle.getLottos());
 
     // 당첨 로또 생성

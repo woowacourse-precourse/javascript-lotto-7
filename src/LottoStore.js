@@ -19,8 +19,7 @@ class LottoStore {
     const userAmount = await LottoStore.#getValidAmount();
     this.#setPurchaseAmount(userAmount);
 
-    const lottoBundle = this.#generateLottos();
-    return { lottoCount: this.#lottoCount, lottoBundle };
+    return this.#generateLottos();
   }
 
   static async #getValidAmount() {
@@ -52,6 +51,10 @@ class LottoStore {
 
   getAmount() {
     return this.#amount;
+  }
+
+  getLottoCount() {
+    return this.#lottoCount;
   }
 }
 
