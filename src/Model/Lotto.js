@@ -25,6 +25,10 @@ class Lotto {
     });
   }
 
+  isInNumbers(number) {
+    return this.#numbers.includes(number);
+  }
+
   // TODO: 추가 기능 구현
 }
 
