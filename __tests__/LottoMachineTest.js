@@ -34,6 +34,22 @@ const getPaymentSpy = () => {
 };
 
 describe('LottoMachine 클래스 테스트', () => {
+  const testPayment = async (payment, expectedMessage) => {
+    const VALID_PAYMENT = '2000';
+    const ASKING_TIMES = 2;
+    const paymentSpy = getPaymentSpy();
+    const logSpy = getLogSpy();
+
+    mockQuestions([payment, VALID_PAYMENT]);
+
+    await LottoMachine.getPayment();
+
+    expect(paymentSpy).toHaveBeenCalledTimes(ASKING_TIMES);
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(expectedMessage),
+    );
+  };
+
   test.each([
     ['숫자아님'],
     ['2천원'],
@@ -45,19 +61,9 @@ describe('LottoMachine 클래스 테스트', () => {
   ])(
     '구입 금액이 숫자가 아닐 때 예외가 발생하는지 테스트 (%s)',
     async (payment) => {
-      const VALID_PAYMENT = '2000';
-      const ASKING_TIMES = 2;
-      const paymentSpy = getPaymentSpy();
-      const logSpy = getLogSpy();
+      const errorMessage = ERROR_MESSAGE.notNumber;
 
-      mockQuestions([payment, VALID_PAYMENT]);
-
-      await LottoMachine.getPayment();
-
-      expect(paymentSpy).toHaveBeenCalledTimes(ASKING_TIMES);
-      expect(logSpy).toHaveBeenCalledWith(
-        expect.stringContaining(ERROR_MESSAGE.notNumber),
-      );
+      await testPayment(payment, errorMessage);
     },
   );
 
