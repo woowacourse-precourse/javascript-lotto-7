@@ -20,7 +20,7 @@ class Lotto {
   }
 
   showLottoNumber() {
-    Console.print(this.#numbers);
+    Console.print(`[${this.#numbers.join(', ')}]`);
   }
 
   countMatchedWinningNumbers(winningNumbers) {
