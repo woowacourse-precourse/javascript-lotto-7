@@ -10,6 +10,8 @@ class App {
     const lottoQuantity = orderPrice / LOTTO_PER_PRICE;
 
     const lottoGame = new LottoGame(lottoQuantity);
+
+    lottoGame.start()
   }
 }
 
