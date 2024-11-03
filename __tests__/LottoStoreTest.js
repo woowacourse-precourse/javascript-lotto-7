@@ -45,13 +45,11 @@ describe.each([
 
       // LottoBundle을 지정한 로또 번호 배열로 설정
       LottoBundle.prototype.getLottos = jest.fn().mockReturnValue(generatedLottos);
-      const lottoBundle = await lottoStore.purchaseLottos();
+      const { lottoCount, lottoBundle } = await lottoStore.purchaseLottos();
 
       expect(lottoBundle.getLottos()).toEqual(generatedLottos);
+      expect(lottoCount).toBe(expectedLottoCount);
       expect(lottoStore.getAmount()).toBe(parseInt(amount, 10));
-      expect(OutputView.printMessage).toHaveBeenCalledWith(
-        `\n${expectedLottoCount}개를 구매했습니다.`,
-      );
     });
   },
 );
