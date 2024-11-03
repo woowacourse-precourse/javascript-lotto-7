@@ -11,15 +11,20 @@ const ERROR_MESSAGE = Object.freeze({
     NOT_POSITIVE: "[ERROR] 구입 금액은 0보다 커야 합니다.",
   },
   winningNumbers: {
-    INVALID_FORMAT: "[ERROR] 쉼표(,)로 구분된 6개의 숫자를 입력해 주세요.",
-    NOT_NUMBERS: "[ERROR] 당첨 번호는 숫자만 입력 가능합니다.",
+    INVALID_FORMAT:
+      "[ERROR] 당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다.",
+    NOT_NUMBERS: "[ERROR] 당첨 번호는 숫자로만 입력 가능합니다.",
     DUPLICATE: "[ERROR] 당첨 번호에 중복된 숫자가 있을 수 없습니다.",
+    INVALID_COMMA: "[ERROR] 당첨 번호의 쉼표(,) 형식이 올바르지 않습니다.",
+    HAS_SPACES: "[ERROR] 당첨 번호에 공백이 포함될 수 없습니다.",
   },
   bonus: {
     NOT_NUMBER: "[ERROR] 보너스 번호는 숫자여야 합니다.",
+    INVALID_FORMAT: "[ERROR] 보너스 번호는 한 개의 숫자만 입력 가능합니다.",
     INVALID_RANGE: "[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.",
     DUPLICATE: "[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.",
+    HAS_SPACES: "[ERROR] 보너스 번호에 공백이 포함될 수 없습니다.",
   },
 });
 
-export default  ERROR_MESSAGE;
+export default ERROR_MESSAGE;

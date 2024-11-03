@@ -1,8 +1,9 @@
-import ERROR_MESSAGE from "../static/Error";
-import LOTTO_CONFIG from "../static/LottoConfig";
+import ERROR_MESSAGE from "../static/Error.js";
+import LOTTO_CONFIG from "../static/LottoConfig.js";
 
 const InputValidator = {
   validatePurchaseAmount(input) {
+    this.validateEmpty(input);
     const amount = this.convertToNumber(input);
     
     if (amount <= 0) {
@@ -16,12 +17,11 @@ const InputValidator = {
   },
 
   validateWinningNumbers(input) {
-    if (!input.match(/^\d+(,\d+){5}$/)) {
-      throw new Error(ERROR_MESSAGE.winningNumbers.INVALID_FORMAT);
-    }
+    this.validateEmpty(input);
+    this.validateWinningNumberFormat(input);
 
     const numbers = input.split(",")
-      .map(number => this.convertToNumber(number.trim()));
+      .map(number => this.validateAndConvertNumber(number.trim()));
 
     if (new Set(numbers).size !== LOTTO_CONFIG.numbers.LENGTH) {
       throw new Error(ERROR_MESSAGE.winningNumbers.DUPLICATE);
@@ -32,7 +32,10 @@ const InputValidator = {
   },
 
   validateBonusNumber(input, winningNumbers) {
-    const number = this.convertToNumber(input);
+    this.validateEmpty(input);
+    this.validateBonusNumberFormat(input);
+    
+    const number = this.validateAndConvertNumber(input.trim());
     this.validateLottoNumber(number);
 
     if (winningNumbers.includes(number)) {
@@ -49,6 +52,41 @@ const InputValidator = {
     if (number < LOTTO_CONFIG.numbers.MIN || number > LOTTO_CONFIG.numbers.MAX) {
       throw new Error(ERROR_MESSAGE.lotto.INVALID_RANGE);
     }
+  },
+
+  validateEmpty(input) {
+    if (!input || input.trim() === '') {
+      throw new Error(ERROR_MESSAGE.winningNumbers.INVALID_FORMAT);
+    }
+  },
+
+  validateWinningNumberFormat(input) {
+    if (input.includes(',,') || input.startsWith(',') || input.endsWith(',')) {
+      throw new Error(ERROR_MESSAGE.winningNumbers.INVALID_COMMA);
+    }
+    if (input.includes(' ')) {
+      throw new Error(ERROR_MESSAGE.winningNumbers.HAS_SPACES);
+    }
+    if (!input.match(/^\d+(,\d+){5}$/)) {
+      throw new Error(ERROR_MESSAGE.winningNumbers.INVALID_FORMAT);
+    }
+  },
+
+  validateBonusNumberFormat(input) {
+    if (input.includes(',')) {
+      throw new Error(ERROR_MESSAGE.bonus.INVALID_FORMAT);
+    }
+    if (input.includes(' ')) {
+      throw new Error(ERROR_MESSAGE.bonus.HAS_SPACES);
+    }
+  },
+
+  validateAndConvertNumber(input) {
+    const number = Number(input);
+    if (isNaN(number)) {
+      throw new Error(ERROR_MESSAGE.winningNumbers.NOT_NUMBERS);
+    }
+    return number;
   },
 
   convertToNumber(input) {

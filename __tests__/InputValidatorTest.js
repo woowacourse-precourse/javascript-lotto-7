@@ -29,8 +29,8 @@ describe("입력값 검증 테스트", () => {
   const mockInput = (inputs) => {
     MissionUtils.Console.readLineAsync = jest.fn();
     inputs.forEach((input) => {
-      MissionUtils.Console.readLineAsync.mockImplementationOnce(() => 
-        Promise.resolve(input)
+      MissionUtils.Console.readLineAsync.mockImplementationOnce(() =>
+        Promise.resolve(input),
       );
     });
   };
@@ -63,6 +63,17 @@ describe("입력값 검증 테스트", () => {
 
     // 중복된 당첨 번호
     await mockInputAndExpectError(["1000", "1,1,2,3,4,5"], "[ERROR]");
+
+    // 빈 값 검증
+    await mockInputAndExpectError(["1000", ""], "[ERROR]");
+    await mockInputAndExpectError(["1000", " "], "[ERROR]");
+
+    // 숫자 개수 부족
+    await mockInputAndExpectError(["1000", "1,2,3,4,5"], "[ERROR]");
+
+    // 숫자 범위 검증
+    await mockInputAndExpectError(["1000", "0,1,2,3,4,5"], "[ERROR]");
+    await mockInputAndExpectError(["1000", "1,2,3,4,5,46"], "[ERROR]");
   });
 
   test("보너스 번호 검증", async () => {
@@ -75,5 +86,15 @@ describe("입력값 검증 테스트", () => {
 
     // 당첨 번호와 중복
     await mockInputAndExpectError(["1000", "1,2,3,4,5,6", "1"], "[ERROR]");
+
+    // 빈 값 검증
+    await mockInputAndExpectError(["1000", "1,2,3,4,5,6", ""], "[ERROR]");
+    await mockInputAndExpectError(["1000", "1,2,3,4,5,6", " "], "[ERROR]");
+
+    // 여러 숫자 입력
+    await mockInputAndExpectError(["1000", "1,2,3,4,5,6", "1,2"], "[ERROR]");
+
+    // 공백 포함
+    await mockInputAndExpectError(["1000", "1,2,3,4,5,6", " 1 "], "[ERROR]");
   });
 });
