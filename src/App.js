@@ -58,6 +58,7 @@ class App {
       throw new Error(`[ERROR] ${error.message}`);
     }
 
+    
   }
 
 
@@ -72,6 +73,35 @@ class App {
     if (purchaseAmount % 1000 !== 0)
       throw new Error('로또 구입 금액은 1000원 단위로 입력해주세요.');
   }
+
+  // 결과 계산 
+  calculateResults(lottoTickets, winningNumbers, bonusNumber, purchaseAmount) {
+    const prizeTable = { 
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      "5+bonus": 30000000,
+      6: 2000000000 };
+
+    const results = { 
+      6: 0,
+      "5+bonus": 0,
+      5: 0, 
+      4: 0,
+      3: 0 };
+
+    let totalPrize = 0;
+
+    lottoTickets.forEach(ticket => {
+      const matchCount = ticket.filter(num => winningNumbers.includes(num)).length;
+      const hasBonus = ticket.includes(bonusNumber);
+
+      if (matchCount === 6) results[6]++;
+      else if (matchCount === 5 && hasBonus) results["5+bonus"]++;
+      else if (matchCount === 5) results[5]++;
+      else if (matchCount === 4) results[4]++;
+      else if (matchCount === 3) results[3]++;
+    });
 
 }
 
