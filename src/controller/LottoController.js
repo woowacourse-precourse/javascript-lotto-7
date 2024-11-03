@@ -3,6 +3,7 @@ import Lotto from "../Lotto.js";
 import CalculateTotalReturn from "../model/CalculateTotalReturn.js";
 import PurchasedLottoModel from "../model/purchasedLottoModel.js";
 import RankingModel from "../model/RankingModel.js";
+import ValidateBonusNumber from "../utils/ValidateBonusNumber.js";
 
 // util
 import ValidatePurchaseAmount from "../utils/ValidatePurchaseAmount.js";
@@ -30,8 +31,7 @@ export default class LottoController {
 
     await this.getWinningLottoNumbers();
 
-    // 보너스 번호 입력 받기
-    this.#winningBonusNumber = await this.view.getWinningLottoBonusNumbers();
+    await this.getWinningBonusNumebr(this.#winningNumbers);
 
     // 당첨 내역
     const rankingModel = new RankingModel(
@@ -59,8 +59,8 @@ export default class LottoController {
   async getPurchaseAmount() {
     const purchaseAmount = await this.view.getPurchaseAmount();
     try {
-      ValidatePurchaseAmount.validate(purchaseAmount);
       this.#purchaseAmount = purchaseAmount;
+      ValidatePurchaseAmount.validate(purchaseAmount);
     } catch (error) {
       this.view.printError(error.message);
       await this.getPurchaseAmount();
@@ -86,6 +86,17 @@ export default class LottoController {
     } catch (error) {
       this.view.printError(error.message);
       await this.getWinningLottoNumbers();
+    }
+  }
+
+  async getWinningBonusNumebr(winningNumbers) {
+    const bonusNumber = await this.view.getWinningLottoBonusNumbers();
+    try {
+      this.#winningBonusNumber = bonusNumber;
+      ValidateBonusNumber.validate(winningNumbers, bonusNumber);
+    } catch (error) {
+      this.view.printError(error.message);
+      await this.getWinningBonusNumebr(winningNumbers);
     }
   }
 }
