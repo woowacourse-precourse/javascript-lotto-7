@@ -34,8 +34,9 @@ class LottoGameController {
   }
 
   async #runGame() {
-    const winningNumbers = await InputView.getWinningNumbers();
-    this.#lottoChecker = new LottoChecker(winningNumbers);
+    await retryOnError(async () => {
+      this.#lottoChecker = new LottoChecker(await InputView.getWinningNumbers());
+    });
 
     const bonusNumber = await InputView.getBonusNumber();
     this.#lottoChecker.setBonusNumber(bonusNumber);
