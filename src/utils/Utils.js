@@ -2,7 +2,7 @@ import { UTILS } from './Constants.js';
 
 const Utils = {
   parsingToNumber: (input) => {
-    if (input === null || input === '') {
+    if (input === UTILS.nullData || input === UTILS.blankString) {
       return NaN;
     }
 

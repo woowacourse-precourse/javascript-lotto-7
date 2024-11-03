@@ -73,6 +73,8 @@ export const VALIDATION = {
 
 export const UTILS = {
   separator: ',',
+  nullData: null,
+  blankString: '',
 };
 
 export const ERROR_MESSAGE = {
