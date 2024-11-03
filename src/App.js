@@ -1,5 +1,5 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+import { MissionUtils } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class App {
   async validateMoney() {
@@ -35,8 +35,8 @@ class App {
   async validateWinningNumbers() {
     while (true) {
       try {
-        const input = await MissionUtils.Console.readLineAsync("당첨번호를 입력해 주세요 (예: 1,2,3,4,5,6):\n");
-        const numbers = input.split(",").map(Number);
+        const input = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+        const numbers = input.split(',').map(Number);
 
         this.checkWinningNumbers(numbers); 
 
@@ -49,16 +49,42 @@ class App {
 
   checkWinningNumbers(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[Error] 당첨번호는 6개의 숫자여야 합니다!");
+      throw new Error('[Error] 당첨번호는 6개의 숫자여야 합니다!');
     }
     if (numbers.some(isNaN)) { // some은 배열의 하나 이상의 요소가 조건을 만족하는지 확인
-      throw new Error("[Error] 당첨번호는 숫자여야 합니다!");
+      throw new Error('[Error] 당첨번호는 숫자여야 합니다!');
     }
     if (numbers.some((num) => num < 1 || num > 45)) {
-      throw new Error("[Error] 당첨번호는 1과 45 사이의 숫자여야 합니다!");
+      throw new Error('[Error] 당첨번호는 1과 45 사이의 숫자여야 합니다!');
     }
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[Error] 당첨번호는 중복될 수 없습니다!");
+      throw new Error('[Error] 당첨번호는 중복될 수 없습니다!');
+    }
+  }
+
+  async validateBonusNumber(winningNumbers) {
+    while (true) {
+      try {
+        const input = await MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요:\n");
+        const bonusNumber = parseInt(input, 10);
+
+        this.checkBonusNumber(bonusNumber, winningNumbers);
+        return bonusNumber;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+  }
+
+  checkBonusNumber(bonusNumber, winningNumbers) {
+    if (isNaN(bonusNumber)) {
+      throw new Error("[Error] 보너스 번호는 숫자여야 합니다!");
+    }
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[Error] 보너스 번호는 1과 45 사이의 숫자여야 합니다!");
+    }
+    if (winningNumbers.includes(bonusNumber)) {
+      throw new Error("[Error] 보너스 번호는 당첨 번호와 중복될 수 없습니다!");
     }
   }
 
