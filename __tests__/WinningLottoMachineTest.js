@@ -89,3 +89,40 @@ describe.each([
     });
   },
 );
+
+// createWinningLotto 메서드 테스트 - 유효하지 않은 보너스 번호
+describe.each([
+  {
+    bonusNumber: '12a',
+    expectedError: ERROR_MESSAGES.INVALID_BONUS_NUMBER_INPUT,
+  },
+  {
+    bonusNumber: '46',
+    expectedError: ERROR_MESSAGES.INVALID_LOTTO_RANGE,
+  },
+  {
+    bonusNumber: '1',
+    expectedError: ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER,
+  },
+  {
+    bonusNumber: '   ',
+    expectedError: ERROR_MESSAGES.EMPTY_INPUT,
+  },
+])(
+  'createWinningLotto 메서드 에러 테스트 - 유효하지 않은 보너스 번호',
+  ({ bonusNumber, expectedError }) => {
+    it(`오류 메시지: ${expectedError}`, async () => {
+      jest
+        .spyOn(InputView, 'getUserInput')
+        .mockResolvedValueOnce('1,2,3,4,5,6') // 유효한 당첨 번호
+        .mockResolvedValueOnce(bonusNumber); // 유효하지 않은 보너스 번호
+
+      const errorMessage = jest.spyOn(OutputView, 'printError').mockImplementation(() => {
+        throw new Error(expectedError);
+      });
+
+      await expect(WinningLottoMachine.createWinningLotto()).rejects.toThrow(expectedError);
+      expectErrorMessage(errorMessage, expectedError);
+    });
+  },
+);
