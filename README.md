@@ -44,6 +44,9 @@
 
 # 🌟 Class Diagram
 
+![image](https://github.com/user-attachments/assets/b1b1d2fc-a6a6-48cc-afc4-8abbe6a0129c)
+
+
 ---
 
 # 📋 구현 외 목표
