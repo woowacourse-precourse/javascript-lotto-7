@@ -20,7 +20,9 @@ export class LottoGame {
 
       return new Array(amount)
         .fill(0)
-        .map(() => Random.pickUniqueNumbersInRange(1, 45, 6));
+        .map(() =>
+          Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b),
+        );
     } catch (error) {
       Console.print(ERROR.message);
       return this.generateLotto();
