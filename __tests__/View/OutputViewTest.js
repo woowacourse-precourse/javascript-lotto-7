@@ -1,6 +1,6 @@
-import Lotto from '../src/Lotto';
-import OutputView from '../src/View/OutputView';
-import { getLogSpy } from './ApplicationTest';
+import Lotto from '../../src/Lotto';
+import OutputView from '../../src/View/OutputView';
+import { getLogSpy } from '../ApplicationTest';
 
 describe('OutputView 테스트', () => {
   test('발행한 로또의 번호 생성 결과를 출력한다.', async () => {

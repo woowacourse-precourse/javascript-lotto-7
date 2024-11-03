@@ -1,5 +1,5 @@
-import InputView from '../src/View/InputView';
-import { mockQuestions } from './ApplicationTest';
+import InputView from '../../src/View/InputView';
+import { mockQuestions } from '../ApplicationTest';
 
 describe('InputView 테스트', () => {
   test('로또 구입 금액을 입력 받는다.', async () => {

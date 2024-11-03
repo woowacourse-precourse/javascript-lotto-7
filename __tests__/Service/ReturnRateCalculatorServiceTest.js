@@ -1,3 +1,5 @@
+import ReturnRateCalculatorService from '../../src/Service/ReturnRateCalculatorService';
+
 describe('ReturnRateCalculatorService 테스트', () => {
   test('총 수익률을 계산한다.', () => {
     const purchaseAmount = 8000;

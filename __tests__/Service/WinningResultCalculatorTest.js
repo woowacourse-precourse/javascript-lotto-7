@@ -1,5 +1,5 @@
-import Lotto from '../src/Lotto';
-import WinningResultCalculatorService from '../src/Service/WinningResultCalculatorService';
+import Lotto from '../../src/Lotto';
+import WinningResultCalculatorService from '../../src/Service/WinningResultCalculatorService';
 
 describe('WinningResultCalculatorService 테스트', () => {
   test('당첨 내역을 계산한다.', () => {
