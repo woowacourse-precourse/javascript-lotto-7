@@ -7,12 +7,14 @@ import {
   validateBonusNumberDup,
 } from "../validation.js";
 import LottoGenerator from "../model/LottoGenerator.js";
+import Statistics from "../model/statistics.js";
 class LottoController {
   constructor() {
     this.view = new LottoView();
     this.generator = new LottoGenerator();
     this.winningNumbers = [];
     this.bonusNumbers = [];
+    this.statistics = new Statistics();
   }
 
   async init() {
