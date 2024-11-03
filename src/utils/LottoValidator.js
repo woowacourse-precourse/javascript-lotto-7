@@ -9,19 +9,19 @@ import Output from '../views/Output.js';
  */
 export const validatePurchaseAmount = (purchaseAmount) => {
   if (!purchaseAmount) {
-    Output.displayError(ERROR_MSG.INVALID_AMOUNT);
+    throw new Error(ERROR_MSG.INVALID_AMOUNT);
   }
 
   const amount = Number(purchaseAmount);
 
   if (Number.isNaN(amount)) {
-    Output.displayError(ERROR_MSG.INVALID_AMOUNT);
+    throw new Error(ERROR_MSG.INVALID_AMOUNT);
   }
   if (amount > MAX_PURCHASE_AMOUNT) {
-    Output.displayError(ERROR_MSG.MAX_PURCHASE_AMOUNT);
+    throw new Error(ERROR_MSG.MAX_PURCHASE_AMOUNT);
   }
-  if (amount < 0) {
-    Output.displayError(ERROR_MSG.NEGATIVE_AMOUNT);
+  if (amount < 1000) {
+    throw new Error(ERROR_MSG.INVALID_AMOUNT);
   }
 };
 
@@ -33,19 +33,17 @@ export const validatePurchaseAmount = (purchaseAmount) => {
 export const validateWinningNumbers = (winningNumbers) => {
   const numbers = winningNumbers.split(',').map(Number);
   if (numbers.length !== 6) {
-    Output.displayError(ERROR_MSG.INVALID_WINNING_NUMBERS);
+    throw new Error(ERROR_MSG.INVALID_WINNING_NUMBERS);
   }
 
   numbers.forEach((number) => {
-    if (Number.isNaN(number) || number < 1 || number > 45) {
-      Output.displayError(ERROR_MSG.INVALID_NUMBER_RANGE);
-    }
+    validateInvalidNumberRange(number);
   });
 
   // 중복된 번호가 있는지 확인
   const uniqueNumbers = new Set(numbers);
   if (uniqueNumbers.size !== numbers.length) {
-    Output.displayError(ERROR_MSG.DUPLICATE_NUMBERS);
+    throw new Error(ERROR_MSG.DUPLICATE_NUMBERS);
   }
 };
 
@@ -56,7 +54,11 @@ export const validateWinningNumbers = (winningNumbers) => {
  */
 export const validateBonusNumber = (bonusNumber) => {
   const number = Number(bonusNumber);
+  validateInvalidNumberRange(number);
+};
+
+const validateInvalidNumberRange = (number) => {
   if (Number.isNaN(number) || number < 1 || number > 45) {
-    Output.displayError(ERROR_MSG.INVALID_NUMBER_RANGE);
+    throw new Error(ERROR_MSG.INVALID_NUMBER_RANGE);
   }
 };

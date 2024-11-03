@@ -16,7 +16,7 @@ describe('utils/LottoValidator', () => {
 
       [0, ERROR_MSG.INVALID_AMOUNT],
       ['asdf', ERROR_MSG.INVALID_AMOUNT],
-      ['-1000', ERROR_MSG.NEGATIVE_AMOUNT],
+      ['-1000', ERROR_MSG.INVALID_AMOUNT],
       ['', ERROR_MSG.INVALID_AMOUNT],
       [null, ERROR_MSG.INVALID_AMOUNT],
       [undefined, ERROR_MSG.INVALID_AMOUNT],
@@ -27,9 +27,7 @@ describe('utils/LottoValidator', () => {
       'should throw an error for invalid input %s',
       async (input, expectedError) => {
         if (expectedError) {
-          expect(() => validatePurchaseAmount(input)).toThrow(
-            `[ERROR] ${expectedError}`,
-          );
+          expect(() => validatePurchaseAmount(input)).toThrow(expectedError);
         } else {
           expect(() => validatePurchaseAmount(input)).not.toThrow();
         }
@@ -66,9 +64,7 @@ describe('utils/LottoValidator', () => {
       ['-5,1,2,3,4,5', ERROR_MSG.INVALID_NUMBER_RANGE],
     ])('should throw an error for invalid input %s', (input, expectedError) => {
       if (expectedError) {
-        expect(() => validateWinningNumbers(input)).toThrow(
-          `[ERROR] ${expectedError}`,
-        );
+        expect(() => validateWinningNumbers(input)).toThrow(expectedError);
       } else {
         expect(() => validateWinningNumbers(input)).not.toThrow();
       }
@@ -91,9 +87,7 @@ describe('utils/LottoValidator', () => {
       ['asdf', ERROR_MSG.INVALID_NUMBER_RANGE],
     ])('should throw an error for invalid input %s', (input, expectedError) => {
       if (expectedError) {
-        expect(() => validateBonusNumber(input)).toThrow(
-          `[ERROR] ${expectedError}`,
-        );
+        expect(() => validateBonusNumber(input)).toThrow(expectedError);
       } else {
         expect(() => validateBonusNumber(input)).not.toThrow();
       }

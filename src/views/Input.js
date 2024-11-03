@@ -5,29 +5,49 @@ import {
   validatePurchaseAmount,
   validateWinningNumbers,
 } from '../utils/LottoValidator.js';
+import Output from './Output.js';
 
 class Input {
   static async getPurchaseAmount() {
-    const input = await Console.readLineAsync(
-      `${PROMPT_MSG.PURCHASE_AMOUNT}\n`,
-    );
-    validatePurchaseAmount(input);
-
-    return input;
+    while (true) {
+      try {
+        const input = await Console.readLineAsync(
+          `${PROMPT_MSG.PURCHASE_AMOUNT}\n`,
+        );
+        validatePurchaseAmount(input);
+        return input;
+      } catch (error) {
+        Output.displayError(error.message);
+      }
+    }
   }
 
   static async getWinningNumbers() {
-    const input = await Console.readLineAsync(
-      `\n${PROMPT_MSG.WINNING_NUMBERS}\n`,
-    );
-    validateWinningNumbers(input);
-    return input;
+    while (true) {
+      try {
+        const input = await Console.readLineAsync(
+          `\n${PROMPT_MSG.WINNING_NUMBERS}\n`,
+        );
+        validateWinningNumbers(input);
+        return input;
+      } catch (error) {
+        Output.displayError(error.message);
+      }
+    }
   }
 
   static async getBonusNumber() {
-    const input = await Console.readLineAsync(`\n${PROMPT_MSG.BONUS_NUMBER}\n`);
-    validateBonusNumber(input);
-    return input;
+    while (true) {
+      try {
+        const input = await Console.readLineAsync(
+          `\n${PROMPT_MSG.BONUS_NUMBER}\n`,
+        );
+        validateBonusNumber(input);
+        return input;
+      } catch (error) {
+        Output.displayError(error.message);
+      }
+    }
   }
 }
 

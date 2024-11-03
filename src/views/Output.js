@@ -28,7 +28,7 @@ class Output {
   }
 
   static displayError(message) {
-    throw new Error(`[ERROR] ${message}`);
+    Console.print(`[ERROR] ${message}`);
   }
 }
 
