@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import { LottoIO } from "./LottoIO.js ";
+import LottoIO from "./LottoIO.js ";
 import { isNumber, isOutRangeNumber } from "./utils.js";
 
 export const LOTTO_PRICE = 1000;
@@ -70,41 +70,6 @@ class Lotto {
 
     if (new Set(numbers).size !== numbers.length) {
       LottoIO.throwError("모든 당첨 번호를 서로 다르게 입력해 주세요.");
-    }
-  }
-
-  async getBonusNumber() {
-    while (true) {
-      try {
-        const bonus = await LottoIO.getUserInput(
-          "\n보너스 번호를 입력해 주세요.\n"
-        );
-        const bonusNumber = Number(bonus);
-
-        Lotto.#validateBonusNumber(bonusNumber, this.#numbers);
-
-        return bonusNumber;
-      } catch ({ message }) {
-        LottoIO.print(message);
-      }
-    }
-  }
-
-  static #validateBonusNumber(bonus, numbers) {
-    if (!isNumber(bonus)) {
-      LottoIO.throwError("보너스 번호는 숫자로 입력해 주세요.");
-    }
-
-    if (isOutRangeNumber(bonus, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX)) {
-      LottoIO.throwError(
-        `보너스 번호는 ${LOTTO_NUMBER_MIN} ~ ${LOTTO_NUMBER_MAX} 사이로 입력해 주세요.`
-      );
-    }
-
-    if (new Set([bonus, ...numbers]).size !== numbers.length + 1) {
-      LottoIO.throwError(
-        "보너스 번호는 이전에 입력한 당첨 번호와 중복되지 않게 입력해 주세요."
-      );
     }
   }
 
