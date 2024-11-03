@@ -48,28 +48,41 @@ class LottoController {
     }
   }
 
-  async play() {
-    // 구매 금액 입력 및 로또 생성
+  async #processLottoPurchase() {
     const buyCash = await this.getCashWithRetry();
     const lottos = this.lottoGame.createLottos(buyCash);
     this.view.printLottoPurchase(lottos);
+    return { buyCash, lottos };
+  }
 
-    // 당첨 번호 입력
+  async #processWinningNumbers() {
     const targetLotto = await this.getTargetLottoWithRetry();
     const bonusNumber = await this.getBonusNumberWithRetry(targetLotto);
+    return { targetLotto, bonusNumber };
+  }
 
-    // 당첨 계산
+  // eslint-disable-next-line class-methods-use-this
+  #calculateResults(lottos, targetLotto, bonusNumber) {
     const winStatistics = LottoGame.getAllNumberWon(
       lottos,
       targetLotto,
       bonusNumber,
     );
-    this.view.printWinningStatistics(winStatistics);
-
-    // 수익률 계산
     const getCash = LottoGame.getGetCash(winStatistics);
-    const rateOfReturn = LottoGame.getRateOfReturn(buyCash, getCash);
-    this.view.printRateOfReturn(rateOfReturn);
+    return { winStatistics, getCash };
+  }
+
+  async play() {
+    const { buyCash, lottos } = await this.#processLottoPurchase();
+    const { targetLotto, bonusNumber } = await this.#processWinningNumbers();
+    const { winStatistics, getCash } = this.#calculateResults(
+      lottos,
+      targetLotto,
+      bonusNumber,
+    );
+
+    this.view.printWinningStatistics(winStatistics);
+    this.view.printRateOfReturn(LottoGame.getRateOfReturn(buyCash, getCash));
   }
 }
 

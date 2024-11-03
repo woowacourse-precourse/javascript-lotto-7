@@ -34,21 +34,16 @@ class Validator {
   }
 
   static targetLottoValidation(string) {
-    if (!string.includes(',')) {
-      throw new Error(ERROR.LOTTO.COMMA);
-    }
     const lotto = string.split(',');
-    if (lotto.length !== LOTTO.NUMBER.LENGTH) {
+    const isValidNumber = num =>
+      num >= LOTTO.NUMBER.MIN && num <= LOTTO.NUMBER.MAX;
+
+    if (!string.includes(',')) throw new Error(ERROR.LOTTO.COMMA);
+    if (lotto.length !== LOTTO.NUMBER.LENGTH)
       throw new Error(ERROR.LOTTO.LENGTH);
-    }
-    if (new Set(lotto).size !== LOTTO.NUMBER.LENGTH) {
+    if (new Set(lotto).size !== LOTTO.NUMBER.LENGTH)
       throw new Error(ERROR.LOTTO.DUPLICATE);
-    }
-    if (
-      !lotto.every(num => num >= LOTTO.NUMBER.MIN && num <= LOTTO.NUMBER.MAX)
-    ) {
-      throw new Error(ERROR.LOTTO.RANGE);
-    }
+    if (!lotto.every(isValidNumber)) throw new Error(ERROR.LOTTO.RANGE);
   }
 
   static bonusNumberValidation(string, targetLotto) {

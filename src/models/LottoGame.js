@@ -37,27 +37,18 @@ class LottoGame {
   }
 
   static getAllNumberWon(lottos, targetLotto, bonusNumber) {
-    const lottosNumber = Object.keys(lottos).length;
+    const MATCH_COUNTS = [0, 1, 2, 3, 4, 5, 6];
     const winStatistics = {
-      0: 0,
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-      6: 0,
+      ...MATCH_COUNTS.reduce((acc, n) => ({ ...acc, [n]: 0 }), {}),
       bonus: 0,
     };
-    for (let i = 0; i < lottosNumber; i += 1) {
-      const curMatchNumber = this.getMatchNumber(lottos[i], targetLotto);
-      winStatistics[curMatchNumber] += 1;
-      this.addBonusNumber(
-        curMatchNumber,
-        bonusNumber,
-        lottos[i],
-        winStatistics,
-      );
-    }
+
+    Object.values(lottos).forEach(lotto => {
+      const matchCount = this.getMatchNumber(lotto, targetLotto);
+      winStatistics[matchCount] += 1;
+      this.addBonusNumber(matchCount, bonusNumber, lotto, winStatistics);
+    });
+
     return winStatistics;
   }
 

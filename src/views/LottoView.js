@@ -37,31 +37,12 @@ class LottoView {
   printWinningStatistics(winStatistics) {
     this.print(`\n${MESSAGE.OUTPUT.STATISTICS}`);
     this.print(MESSAGE.OUTPUT.DIVIDER);
-    this.print(
-      `${LOTTO.MESSAGE.MATCH.THREE} (${LOTTO.PRIZE.THREE.toLocaleString()}원) - ${
-        winStatistics[3]
-      }개`,
-    );
-    this.print(
-      `${LOTTO.MESSAGE.MATCH.FOUR} (${LOTTO.PRIZE.FOUR.toLocaleString()}원) - ${
-        winStatistics[4]
-      }개`,
-    );
-    this.print(
-      `${LOTTO.MESSAGE.MATCH.FIVE} (${LOTTO.PRIZE.FIVE.toLocaleString()}원) - ${
-        winStatistics[5]
-      }개`,
-    );
-    this.print(
-      `${LOTTO.MESSAGE.MATCH.BONUS} (${LOTTO.PRIZE.BONUS.toLocaleString()}원) - ${
-        winStatistics.bonus
-      }개`,
-    );
-    this.print(
-      `${LOTTO.MESSAGE.MATCH.SIX} (${LOTTO.PRIZE.SIX.toLocaleString()}원) - ${
-        winStatistics[6]
-      }개`,
-    );
+
+    LOTTO.WINNING_RESULTS.forEach(({ match, count }) => {
+      this.print(
+        `${LOTTO.MESSAGE.MATCH[match]} (${LOTTO.PRIZE[match].toLocaleString()}원) - ${winStatistics[count]}개`,
+      );
+    });
   }
 
   printRateOfReturn(rateOfReturn) {

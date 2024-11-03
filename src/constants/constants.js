@@ -25,6 +25,13 @@ const constants = deepFreeze({
         SIX: '6개 일치',
       },
     },
+    WINNING_RESULTS: [
+      { match: 'THREE', count: 3 },
+      { match: 'FOUR', count: 4 },
+      { match: 'FIVE', count: 5 },
+      { match: 'BONUS', count: 'bonus' },
+      { match: 'SIX', count: 6 },
+    ],
   },
   ERROR: {
     NUMBER: {
