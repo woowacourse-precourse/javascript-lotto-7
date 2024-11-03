@@ -68,11 +68,6 @@ class LottoMachine {
     return this.#calculateAmount();
   }
 
-  static constructLottoMachine(payment, lotto) {
-    const lottoMachine = new LottoMachine(payment, lotto);
-    return lottoMachine;
-  }
-
   static #validatePayment(payment) {
     Validation.checkPayment(payment);
   }
