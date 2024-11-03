@@ -9,7 +9,7 @@ class App {
     try {
 
       const purchaseAmount = await InputUtils.inputPurchaseAmount();
-      
+
       const lottoMachine = new LottoMachine(purchaseAmount);
 
       lottoMachine.printNumberofPurchase();
@@ -19,9 +19,15 @@ class App {
       const bonusNumber = await InputUtils.inputBonusNumber();
 
       lottoMachine.setWinningNumber(winningNumber, bonusNumber);
-      lottoMachine.checkWinningLotto();
+
+      const totalWinningAmount = lottoMachine.checkWinningLotto();
+      lottoMachine.printWinningStatistics();
       
+      const propit = lottoMachine.calculatePropit(totalWinningAmount);
+      lottoMachine.printPropit(propit);
+
     } catch (error) {
+
     }
   }
 }

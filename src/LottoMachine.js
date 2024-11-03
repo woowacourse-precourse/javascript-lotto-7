@@ -1,6 +1,6 @@
 import Lotto from "./Lotto.js"
 import LottoNumberGenerator from "./LottoNumberGenerator.js"
-import { CONSTANTS } from "./Utils/Constants.js";
+import { CONSTANTS, MESSAGE } from "./Utils/Constants.js";
 import { Console } from '@woowacourse/mission-utils';
 
 export default class LottoMachine {
@@ -20,7 +20,7 @@ export default class LottoMachine {
 
     buyLotto(numberOfPurchase) {
         const lottos = []
-        for(let i = 1; i <= numberOfPurchase ; i++) {
+        for (let i = 1; i <= numberOfPurchase; i++) {
             lottos.push(new Lotto(LottoNumberGenerator.generate()));
         }
 
@@ -40,7 +40,7 @@ export default class LottoMachine {
         this.bonusNumber = bonusNumber;
     }
 
-    
+
     checkWinningLotto() {
         let totalWinningAmount = 0;
 
@@ -49,6 +49,7 @@ export default class LottoMachine {
             totalWinningAmount += winningPrize;
         });
 
+        return totalWinningAmount;
     }
 
     checkWinningNumber(numbers) {
@@ -62,31 +63,60 @@ export default class LottoMachine {
             return CONSTANTS.RANKING[1].prize
         }
 
-        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER-1 && hasBonus) {
+        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER - 1 && hasBonus) {
             this.rank[2]++;
 
             return CONSTANTS.RANKING[2].prize
         }
 
-        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER-1) {
+        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER - 1) {
             this.rank[3]++;
 
             return CONSTANTS.RANKING[3].prize
         }
 
-        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER-2) {
+        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER - 2) {
             this.rank[4]++;
 
             return CONSTANTS.RANKING[4].prize
         }
 
-        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER-3) {
+        if (matchCount === CONSTANTS.NUMBER_OF_LOTTO_NUMBER - 3) {
             this.rank[5]++;
 
             return CONSTANTS.RANKING[5].prize
         }
 
         return 0
+    }
+
+    printWinningStatistics() {
+        Console.print(MESSAGE.WINNING_STATISTICS);
+        Console.print(MESSAGE.LINE);
+
+        for (let i = 5; i >= 1; i--) {
+            if (i == 2) {
+                Console.print(`${CONSTANTS.RANKING[i].match}개 일치, 보너스 볼 일치 (${CONSTANTS.RANKING[i].prize}원) - ${this.rank[i]}개`);
+                continue;
+            }
+
+            Console.print(`${CONSTANTS.RANKING[i].match}개 일치 (${CONSTANTS.RANKING[i].prize}원) - ${this.rank[i]}개`);
+        }
+    }
+
+    calculatePropit(totalWinningAmount) {
+        const netPropit = (totalWinningAmount-this.purchaseAmount)
+        if (netPropit == 0) {
+            return 0
+        }
+
+        const propit =  netPropit/ this.purchaseAmount * 100 ;
+
+        return Math.round(propit * 100) / 100;
+    }
+
+    printPropit(propit) {
+        Console.print(`총 수익률은 ${propit}%입니다.`);
     }
 
 
