@@ -1,8 +1,12 @@
+import { Console } from "@woowacourse/mission-utils";
 import { HELPER_MESSAGE } from "../constants/helperMessages.js";
+import { parserWinningNumber } from "../features/parserWinningNumber.js";
 import { Validator } from "../features/validator/Validator.js";
 import { getInput, printOneLine } from "./console.js";
 
 export class InputHandler {
+  static #nested = 0;
+
   static async #tryUserInput(helperMessages, validator) {
     try {
       const userInput = await getInput(helperMessages);
@@ -21,10 +25,23 @@ export class InputHandler {
     return Number(price);
   }
 
+  static async getWinningLotto(winningNumbers) {
+    const parserdWinningNumber = parserWinningNumber(winningNumbers);
+    try {
+      Validator.isValidWinningLotto(parserdWinningNumber);
+      return winningNumbers;
+    } catch (error) {
+      Validator.isNested(this.#nested);
+      printOneLine(error.message);
+      return await this.getWinningNumbers();
+    }
+  }
+
   static async getWinningNumbers() {
     const helperMessages = HELPER_MESSAGE.getWinningNumbers;
     const validator = Validator.isValidWinningNumbers;
-    return await this.#tryUserInput(helperMessages, validator);
+    const winningNumbers = await this.#tryUserInput(helperMessages, validator);
+    return this.getWinningLotto(winningNumbers);
   }
 
   static async getBonusBall() {

@@ -1,8 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGE } from "../../constants/errorMessages.js";
-import { printOneLine } from "../../utils/console.js";
-import { errorHandler } from "../../utils/errorHandler.js";
-import { generateRandomNum } from "../../utils/generateRandomNum.js";
+import { isNotDuplicated } from "../validator/lottoValidator";
 
 class Lotto {
   #numbers;
@@ -18,11 +14,9 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      errorHandler(ERROR_MESSAGE.lotto.invalidCount);
+      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    if (new Set(numbers).size !== 6) {
-      errorHandler(ERROR_MESSAGE.lotto.isDuplicated);
-    }
+    isNotDuplicated(numbers);
   }
 
   orderNumbers() {

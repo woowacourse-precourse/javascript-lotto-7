@@ -1,5 +1,12 @@
 import { LOTTO_UNIT_PRICE } from "../../constants/lotto.js";
-import { isNotNull, isNumber, isValidUnit } from "./lottoValidator.js";
+import {
+  isNotDuplicated,
+  isNotNull,
+  isNumber,
+  isValidLength,
+  isValidUnit,
+  nestedInput,
+} from "./lottoValidator.js";
 
 export class Validator {
   static isValidPrice(price) {
@@ -10,8 +17,15 @@ export class Validator {
   static isValidWinningNumbers(numbers) {
     isNotNull(numbers);
   }
+  static isValidWinningLotto(numbers) {
+    isValidLength(numbers);
+    isNotDuplicated(numbers);
+  }
   static isValidBonusBall(bonusBall) {
     isNotNull(bonusBall);
     isNumber(bonusBall);
+  }
+  static isNested(counter) {
+    nestedInput(counter);
   }
 }
