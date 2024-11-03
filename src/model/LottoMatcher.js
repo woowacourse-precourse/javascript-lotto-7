@@ -1,4 +1,4 @@
-import { LOTTO_RANKING_SYSTEM } from '../constant/index.js';
+import { LOTTO_RANKING_SYSTEM } from '../constant/lotto';
 
 class LottoMatcher {
   #winningNumber;
@@ -13,30 +13,26 @@ class LottoMatcher {
   getWinningLottos(lottoPocket) {
     return lottoPocket.showLottos().reduce(
       (acc, lottoNumbers) => {
-        const { matchCount, isContainBounusNumber } =
+        const { matchCount, isContainBonusNumber } =
           this.#compareLottoToWinningNumber(lottoNumbers);
-        const lottoRank = LottoMatcher.#inspectLotto(matchCount, isContainBounusNumber);
+        const lottoRank = LottoMatcher.#inspectLotto(matchCount, isContainBonusNumber);
 
-        if (lottoRank) acc[lottoRank] += 1;
-
+        if (lottoRank) acc[lottoRank.RANK] += 1;
         return acc;
       },
       { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
     );
   }
 
-  static #inspectLotto(matchCount, isContainBounusNumber) {
-    const lottoRank = Object.entries(LOTTO_RANKING_SYSTEM).reduce((prev, cur) => {
-      const [rank, { MATCH_COUNT, SHOULD_CONTAIN_BONUS_NUM }] = cur;
-
-      if (SHOULD_CONTAIN_BONUS_NUM && isContainBounusNumber && matchCount === MATCH_COUNT)
-        return rank;
-      if (matchCount === MATCH_COUNT) return rank;
-
-      return prev;
+  static #inspectLotto(matchCount, isContainBonusNumber) {
+    const rank = LOTTO_RANKING_SYSTEM.find((cur) => {
+      if (cur.SHOULD_CONTAIN_BONUS_NUM && isContainBonusNumber && cur.MATCH_COUNT === matchCount)
+        return true;
+      if (cur.MATCH_COUNT === matchCount) return true;
+      return false;
     });
 
-    return lottoRank;
+    return rank;
   }
 
   #compareLottoToWinningNumber(lottoNumbers) {
