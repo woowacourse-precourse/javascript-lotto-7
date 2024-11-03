@@ -8,7 +8,11 @@ const InputView = {
 
   getWinningNumbers() {
     return readAsyncInput(LOG_MESSAGE.ENTER_WINNING_NUMBERS);
-  }
+  },
+
+  getBonusNumber() {
+    return readAsyncInput(LOG_MESSAGE.ENTER_BONUS_NUMBER);
+  },
 }
 
 export default InputView;
