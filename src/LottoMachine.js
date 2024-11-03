@@ -64,7 +64,7 @@ class LottoMachine {
 
   async #inputPurchaseAmount() {
     const amount =
-      await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.');
+      await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
     if (amount % 1000 !== 0) {
       throw new Error(
         '[ERROR] 로또 구입금액은 1000 원 단위로 입력해야 합니다.',
@@ -85,7 +85,7 @@ class LottoMachine {
   }
 
   #printLottos() {
-    MissionUtils.Console.print(`${this.#lottos.length}개를 구매했습니다.`);
+    MissionUtils.Console.print(`\n${this.#lottos.length}개를 구매했습니다.`);
     for (let i = 0; i < this.#lottos.length; i += 1) {
       const lottoStr = this.#lottos[i].numbers
         .sort((a, b) => a - b)
@@ -124,8 +124,9 @@ class LottoMachine {
   }
 
   async #inputWinningNumbers() {
-    const input =
-      await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.');
+    const input = await MissionUtils.Console.readLineAsync(
+      '\n당첨 번호를 입력해 주세요.\n',
+    );
     const inputNumbersArr = input.split(',').map((el) => Number(el));
     LottoMachine.#validateFormat(input);
     LottoMachine.#validateNoDuplicates(inputNumbersArr);
@@ -134,8 +135,9 @@ class LottoMachine {
   }
 
   async #inputBonusNumber() {
-    const input =
-      await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.');
+    const input = await MissionUtils.Console.readLineAsync(
+      '\n보너스 번호를 입력해 주세요.\n',
+    );
     const bonusArr = [...this.#winningNumbers, Number(input)];
     LottoMachine.#validateNoDuplicates(bonusArr);
     this.#bonusNumber = Number(input);
@@ -161,7 +163,8 @@ class LottoMachine {
         sum += RankedPrize[lottoRank];
       }
     }
-    this.#yield = Math.round((sum / this.#amount) * 10) / 10;
+    const percent = (sum / Number(this.#amount)) * 100;
+    this.#yield = Math.round(percent * 10) / 10;
   }
 
   async inputPurchaseAmountTestMethod() {
@@ -186,7 +189,7 @@ class LottoMachine {
   }
 
   #printResult() {
-    MissionUtils.Console.print('당첨 통계');
+    MissionUtils.Console.print('\n당첨 통계');
     MissionUtils.Console.print('---');
     this.#printCalculateResult();
   }

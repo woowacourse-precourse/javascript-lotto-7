@@ -182,11 +182,11 @@ describe('로또 발매기 클래스 테스트', () => {
 
   test('수익률 계산 메서드', async () => {
     // given
-    const YIELD = 16.7;
+    const YIELD = 166.7;
     const AMOUNT = 3000;
     const LOTTO_NUMBERS = [
       [10, 11, 12, 13, 14, 15],
-      [1, 2, 3, 4, 10, 11],
+      [1, 2, 3, 9, 10, 11],
       [9, 10, 11, 12, 13, 14],
     ];
     const WINNING_NUMBERS = '1,2,3,4,5,6';
