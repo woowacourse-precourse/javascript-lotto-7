@@ -4,6 +4,7 @@ const VALUES = Object.freeze({
   bonusNumberLength: 1,
   lottoMinNumber: 1,
   lottoMaxNumber: 45,
+  matchBonusCount: 5,
 });
 
 export default VALUES;
