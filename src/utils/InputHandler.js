@@ -29,6 +29,8 @@ export class InputHandler {
 
   static async getBonusBall() {
     const helperMessages = HELPER_MESSAGE.getBonusBall;
-    return await this.#tryUserInput(helperMessages);
+    const validator = Validator.isValidBonusBall;
+    const bonusBall = await this.#tryUserInput(helperMessages, validator);
+    return Number(bonusBall);
   }
 }

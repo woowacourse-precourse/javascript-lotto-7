@@ -10,4 +10,8 @@ export class Validator {
   static isValidWinningNumbers(numbers) {
     isNotNull(numbers);
   }
+  static isValidBonusBall(bonusBall) {
+    isNotNull(bonusBall);
+    isNumber(bonusBall);
+  }
 }
