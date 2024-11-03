@@ -133,7 +133,7 @@ class App {
       const rank = lotto.getRank(winningNumbers, bonusNumber);
       rankCount[rank] += 1;
     });
-    return lotteries;
+    return rankCount;
   }
 
   getYields(payment, rankCount) {
