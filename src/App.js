@@ -4,6 +4,14 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const { Console } = MissionUtils;
 const { Random } = MissionUtils;
 
+const PRIZE_TABLE = {
+  3: { money: 5000, description: "3개 일치" },
+  4: { money: 50000, description: "4개 일치" },
+  5: { money: 1500000, description: "5개 일치" },
+  "5+bonus": { money: 30000000, description: "5개 일치, 보너스 볼 일치" },
+  6: { money: 2000000000, description: "6개 일치" },
+};
+
 function isNumber(input) {
   if (isNaN(input)) {
     throw new Error("[ERROR] 숫자를 입력하세요.");
