@@ -82,4 +82,10 @@ class Consumer {
       throw new Error(NUMBER_INPUT_ERROR_MESSAGE.DUPLICATE_BONUS_NUMBER);
     }
   }
+
+  //수익률
+  GetrateOfReturn() {
+    ratrOfReturn = (prizeMoney / price) * 100;
+    return ratrOfReturn.toFixed(1);
+  }
 }
