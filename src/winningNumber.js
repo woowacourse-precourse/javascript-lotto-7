@@ -18,4 +18,10 @@ function is1to45(number){
     }
 }
 
-export {isPositiveNumber, is1to45}
+function isLength6(numberList){
+    if(!numberList.length !== 6){
+        throw new Error("[ERROR] 당첨 번호가 6개인지 확인하세요.");
+    }
+}
+
+export {isPositiveNumber, is1to45, isLength6}
