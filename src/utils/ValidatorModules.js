@@ -7,6 +7,12 @@ class ValidatorModule {
     Validator.isPositive(value);
     Validator.isInteger(value);
   }
+
+  static checkPurchaseCash(value) {
+    Validator.isNotEmptyString(value);
+    this.checkPositiveInteger(value);
+    Validator.isNumberIsDividable(value);
+  }
 }
 
 export default ValidatorModule;
