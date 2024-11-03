@@ -1,13 +1,13 @@
-import JackpotController from './controller/JackpotController.js';
-import TicketController from './controller/TicketController.js';
+import Jackpot from './Jackpot.js';
+import Ticket from './Ticket.js';
 
 class App {
   async run() {
-    const ticket = new TicketController();
-    await ticket.getTicket();
+    const ticket = new Ticket();
+    await ticket.startGetTicket();
 
-    const jackpot = new JackpotController();
-    await jackpot.getJackpot();
+    const jackpot = new Jackpot();
+    await jackpot.startGetJackpot();
   }
 }
 

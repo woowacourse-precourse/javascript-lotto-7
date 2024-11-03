@@ -1,40 +1,46 @@
-import { INPUT } from './constants/Constants.js';
+// 사용자에게 로또 당첨 번호를 입력받는다.
+
 import { Console } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
+import { INPUT } from './constants/Constants.js';
 import Validators from './utils/Validation.js';
+import Lotto from './Lotto.js';
 
-class Jackpot {
+class PracticeJackpot {
+  #jackpot;
+  #bonus;
+
   constructor() {
-    this.jackpot = [];
+    this.#jackpot = [];
+    this.#bonus = 0;
   }
 
-  async setJackpot() {
-    this.jackpot = await Console.readLineAsync(INPUT.JACKPOT);
-    this.jackpot = this.jackpot.trim().split(',').map(Number);
-    this.validateJackpot(this.jackpot);
+  async inputJackpot() {
+    const inputStr = await Console.readLineAsync(INPUT.JACKPOT);
+    this.#jackpot = inputStr.trim().split(',').map(Number);
+    this.validateJackpot(this.#jackpot);
   }
 
-  async setBonusJackpot() {
-    const bonusNumber = await Console.readLineAsync(INPUT.BONUS);
-    this.validateBonus(bonusNumber);
-    return bonusNumber;
+  validateJackpot(array) {
+    const check = new Lotto(array);
+    return check;
   }
 
-  validateJackpot(numbers) {
-    const checkLotto = new Lotto(numbers);
-    return checkLotto;
+  async inputBonus() {
+    const bonus = await Console.readLineAsync(INPUT.BONUS);
+    this.validateBonus(bonus);
+    this.#bonus = bonus;
   }
 
   validateBonus(number) {
     Validators.checkNumber(number);
     Validators.checkRange(number);
-    Validators.checkBonus(this.jackpot, Number(number));
+    Validators.checkBonus(this.#jackpot, Number(number));
   }
 
-  async getJackpotController() {
-    await this.setJackpot();
-    await this.setBonusJackpot();
+  async startGetJackpot() {
+    await this.inputJackpot();
+    await this.inputBonus();
   }
 }
 
-export default Jackpot;
+export default PracticeJackpot;
