@@ -11,15 +11,16 @@ class User {
   }
 
   readPurchaseAmount() {
-    try {
-      const purchaseAmount = Console.readLineAsync(
-        PROMPT_MESSAGE.PURCHASE_AMOUNT,
-      );
-      this.#validator.purchaseAmount(purchaseAmount);
-      return;
-    } catch (error) {
-      Console.print(error.message);
-      return this.readPurchaseAmount();
+    while (true) {
+      try {
+        const purchaseAmount = Console.readLineAsync(
+          PROMPT_MESSAGE.PURCHASE_AMOUNT,
+        );
+        this.#validator.purchaseAmount(Number(purchaseAmount));
+        return;
+      } catch (error) {
+        Console.print(error.message);
+      }
     }
   }
 }
