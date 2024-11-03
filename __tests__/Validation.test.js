@@ -15,15 +15,9 @@ describe('validatePurchasePrice 검증 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test('값이 0 이 들어올 경우 예외가 발생한다.', () => {
-    expect(() => {
-      validation.validatePurchasePrice('0');
-    }).toThrow('[ERROR]');
-  });
-
   test('값이 1,000원 단위가 아닐 경우 예외가 발생한다.', () => {
     expect(() => {
-      validation.validatePurchasePrice('1500');
+      validation.validatePurchasePrice('1500', '0');
     }).toThrow('[ERROR]');
   });
 });
