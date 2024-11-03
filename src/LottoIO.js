@@ -1,8 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
 
-export class LottoIO {
-  static getUserInput(message) {
-    return Console.readLineAsync(message);
+class LottoIO {
+  static getUserInput(query) {
+    return Console.readLineAsync(query);
   }
 
   static print(message) {
@@ -13,3 +13,5 @@ export class LottoIO {
     throw new Error(`[ERROR] ${message}`);
   }
 }
+
+export default LottoIO;
