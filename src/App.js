@@ -12,11 +12,16 @@ import {
 import { printOutput, randomNumbersInRange } from "./missionUtils.js";
 
 class App {
-	#winningMap = { "5rank": 0, "4rank": 0, "3rank": 0, "2rank": 0, "1rank": 0 };
-
 	constructor() {
 		this.userInput = new Input();
 		this.userOutput = new Output();
+		this.winningMap = {
+			"5rank": 0,
+			"4rank": 0,
+			"3rank": 0,
+			"2rank": 0,
+			"1rank": 0,
+		};
 	}
 
 	async run() {
@@ -30,7 +35,7 @@ class App {
 		const bonusNumber = await this.userInput.getBonusNumber(winningNumber);
 		this.getWinningCount(winningNumber, lottoNumbers, bonusNumber);
 
-		await this.userOutput.printWinningCount(this.#winningMap);
+		await this.userOutput.printWinningCount(this.winningMap);
 		const winningRate = await this.getTotalWinnings(lottoMoney);
 		await this.userOutput.printWinningRate(winningRate);
 	}
@@ -65,7 +70,7 @@ class App {
 			const winningRank = lotto.checkWinning(winningNumber, bonusNumber);
 
 			if (winningRank) {
-				this.#winningMap[winningRank] += 1;
+				this.winningMap[winningRank] += 1;
 			}
 		});
 	}
@@ -73,9 +78,9 @@ class App {
 	async getTotalWinnings(lottoMoney) {
 		let totalWinnings = 0;
 
-		for (const rank in this.#winningMap) {
+		for (const rank in this.winningMap) {
 			if (PRIZE_MAP[rank]) {
-				totalWinnings += this.#winningMap[rank] * PRIZE_MAP[rank];
+				totalWinnings += this.winningMap[rank] * PRIZE_MAP[rank];
 			}
 		}
 
