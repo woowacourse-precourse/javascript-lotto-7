@@ -2,6 +2,7 @@ import { Input } from './Input.js';
 import { Money } from './Money.js';
 import { Console, Random } from '@woowacourse/mission-utils';
 import { ERROR } from './constant.js';
+import Lotto from './Lotto.js';
 
 export class LottoGame {
   #inputInstance;
@@ -25,6 +26,17 @@ export class LottoGame {
     }
   }
 
+  async winningLotto() {
+    try {
+      const winningLotto = await this.#inputInstance.inputWinningNumber();
+      new Lotto(winningLotto);
+      return winningLotto;
+    } catch (error) {
+      Console.print(ERROR.message);
+      return this.winningLotto();
+    }
+  }
+
   printLotto(lottoList) {
     lottoList.forEach((lotto) => Console.print(lotto));
   }
@@ -32,5 +44,6 @@ export class LottoGame {
   async start() {
     const lottoList = await this.generateLotto();
     this.printLotto(lottoList);
+    const winningLotto = await this.winningLotto();
   }
 }
