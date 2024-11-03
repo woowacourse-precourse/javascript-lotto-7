@@ -24,4 +24,11 @@ function isLength6(numberList){
     }
 }
 
-export {isPositiveNumber, is1to45, isLength6}
+function isDuplicated(numberList){
+    const numberSet = new Set(numberList);
+    if(!numberSet.size !== 6){
+        throw new Error("[ERROR] 중복된 당첨 번호가 있는지 확인하세요.")
+    }
+}
+
+export {isPositiveNumber, is1to45, isLength6, isDuplicated}
