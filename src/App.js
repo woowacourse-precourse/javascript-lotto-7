@@ -1,10 +1,12 @@
 import LottoMachine from "./LottoMachine.js";
 import Lotto from "./Lotto.js";
 import { getUserInputAsync, printEmptyLine, printMessage } from "./utils/interface.js";
+import BonusNumber from "./BonusNumber.js";
 
 class App {
   #lottoMachine;
-  #lotto;
+  #winningLotto;
+  #bonusNumber;
 
   async run() {
     await this.#getUserMoneyInput();
@@ -15,6 +17,9 @@ class App {
 
     printEmptyLine();
     await this.#getUserLottoNumberInput();
+
+    printEmptyLine();
+    await this.#getUserBonusNumberInput();
   }
 
   async #getUserMoneyInput() {
@@ -31,10 +36,21 @@ class App {
     try {
       const userLottoInput = await getUserInputAsync("당첨 번호를 입력해 주세요.\n");
       const lottoNumbers = userLottoInput.split(",").map(Number);
-      this.#lotto = new Lotto(lottoNumbers);
+      this.#winningLotto = new Lotto(lottoNumbers);
     } catch (error) {
       printMessage(error.message);
       await this.#getUserLottoNumberInput();
+    }
+  }
+
+  async #getUserBonusNumberInput() {
+    try {
+      const userBonusInput = await getUserInputAsync("보너스 번호를 입력해 주세요.\n");
+      const bonusNumber = Number(userBonusInput);
+      this.#bonusNumber = new BonusNumber(this.#winningLotto, bonusNumber);
+    } catch (error) {
+      printMessage(error.message);
+      await this.#getUserBonusNumberInput();
     }
   }
 }

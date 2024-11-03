@@ -36,7 +36,9 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  hasSameNumber(number) {
+    return this.#numbers.includes(number);
+  }
 }
 
 export default Lotto;
