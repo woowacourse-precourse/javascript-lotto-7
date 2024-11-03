@@ -38,6 +38,35 @@ class App {
     for (let i = 0; i < pickNumber.length; i++) {
       MissionUtils.Console.print(`[${pickNumber[i].getNumbers().join(', ')}]`);
     }
+
+    const arrayInputNumbers = [];
+    const inputWinningNumbers = async () => {
+      const stringNumbers = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.');
+      const arrayNumbers = stringNumbers.split(',');
+      arrayNumbers.forEach(element => {
+        arrayInputNumbers.push(element);
+      });
+    }
+
+    const inputBonusNumber = async () => {
+      const number = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.');
+      arrayInputNumbers.push(number);
+    }
+
+    const functionInputNumber = async () => {
+      await inputWinningNumbers();
+      await inputBonusNumber();
+    }
+
+    try {
+      await functionInputNumber();
+      if (arrayInputNumbers.length !== new Set(arrayInputNumbers).size) {
+        throw new Error('[ERROR] 당첨 및 보너스 숫자에 중복이 있으면 안 됩니다.');
+      }
+    } catch(error) {
+      MissionUtils.Console.print(error.message);
+      await functionInputNumber();
+    }
   }
 }
 
