@@ -1,7 +1,7 @@
 import ERROR_MESSAGE from '../constants/errorMessage.js';
 import CONSTANT from '../constants/constant.js';
 
-class UserLottoValidate {
+class UserLottoValidator {
   runAllFunction(numbers) {
     this.validateDuplicateNumber(numbers);
     this.validateNumberRange(numbers);
@@ -43,4 +43,4 @@ class UserLottoValidate {
     }
   }
 }
-export default UserLottoValidate;
+export default UserLottoValidator;
