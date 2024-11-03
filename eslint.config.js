@@ -211,7 +211,24 @@ export default [
       'no-underscore-dangle': ['error', { allowAfterThis: false }],
       // 제한된 전역 변수 사용 금지
       'no-restricted-globals': ['error', 'event', 'fdescribe'],
+      // 들여쓰기 2로 제한
       'max-depth': ['error', 2],
+      'max-lines-per-function': [
+        'error',
+        {
+          max: 15, // 함수 또는 메서드가 최대 15라인을 넘지 않도록 설정합니다.
+          skipComments: true, // true로 설정 시, 주석 라인은 길이 제한에 포함되지 않습니다.
+          skipBlankLines: true, // true로 설정 시, 빈 줄은 길이 제한에 포함되지 않습니다.
+        },
+      ],
     },
+    overrides: [
+      {
+        files: ['./__tests__/**/*.js'], // __tests__ 디렉토리 내 모든 .js 파일에 적용
+        rules: {
+          'max-lines-per-function': 'off', // __tests__ 내 파일에서 규칙 비활성화
+        },
+      },
+    ],
   },
 ];
