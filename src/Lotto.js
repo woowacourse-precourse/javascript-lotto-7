@@ -33,6 +33,10 @@ class Lotto {
   toString() {
     return `[${this.#numbers.join(", ")}]`;
   }
+
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;

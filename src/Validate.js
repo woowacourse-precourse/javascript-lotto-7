@@ -19,6 +19,12 @@ class Validate {
       throw new Error(ERROR_MESSAGE.INVALID_DECIMAL);
     }
   }
+
+  isDuplicateWithWinningNumbers(bonusNumber, winningNumbers) {
+    if (winningNumbers.includes(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.BONUS_DUPLICATE);
+    }
+  }
 }
 
 export default Validate;

@@ -6,14 +6,17 @@ import {
 } from "./lottoConstants.js";
 import OutputHandler from "./OutputHandler.js";
 import Lotto from './Lotto.js';
+import Validate from './Validate.js';
 
 class LottoManager {
   #inputHandler;
   #outputHandler;
+  #validate;
 
   constructor() {
     this.#inputHandler = new InputHandler();
     this.#outputHandler = new OutputHandler();
+    this.#validate = new Validate();
   }
 
   async start() {
@@ -24,6 +27,7 @@ class LottoManager {
       const lottoTickets = this.#generateLottoTickets(lottoCount);
       this.#outputHandler.printLottoTickets(lottoTickets);
       const winningLotto = await this.#createWinningLotto();
+      const bonusNumber = await this.#createBonusNumber(winningLotto);
     } catch (error) {
       throw error;
     }
@@ -64,6 +68,18 @@ class LottoManager {
         const winningNumbers = await this.#inputHandler.getWinningNumbers();
         const winningLotto = new Lotto(winningNumbers);
         return winningLotto;
+      } catch (error) {
+        this.#outputHandler.printErrorMessage(error.message);
+      }
+    }
+  }
+
+  async #createBonusNumber(winningLotto) {
+    while (true) {
+      try {
+        const bonusNumber = await this.#inputHandler.getBonusNumber();
+        this.#validate.isDuplicateWithWinningNumbers(bonusNumber, winningLotto.getNumbers());
+        return bonusNumber;
       } catch (error) {
         this.#outputHandler.printErrorMessage(error.message);
       }
