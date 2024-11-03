@@ -5,7 +5,7 @@ class App {
   async run() {
     const input = new Input();
     const bet = await input.inputMoney();
-    const lotto = await input.InputLotto();
+    const lotto = await input.inputLotto();
     await lotto.inputBonusNumber();
     
     const lottoResult = new LottoResult(lotto.getLottoScore(bet.getBetResults()));

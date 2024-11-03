@@ -18,25 +18,31 @@ class Input {
     }
   }
 
-  async InputLotto() {
+  async inputLotto() {
     try {
       const input = await Console.readLineAsync(PRINT_LOTTO_NUMBER);
-      // todo : indent 줄이기
-      return new Lotto(
-        input
-          .trim()
-          .split(",")
-          .map((e) => {
-            e.replace(" ", "");
-            Validator.validateBlank(e);
-            Validator.validateNumber(e);
-            return Number(e);
-          })
-      );
+      const lottoNumbers = this.#parseNumbers(input);
+      return new Lotto(lottoNumbers);
     } catch (error) {
       Console.print(error.message);
-      return this.InputLotto();
+      return this.inputLotto();
     }
+  }
+
+  #parseNumbers(input) {
+    return input
+      .trim()
+      .split(",")
+      .map((number) => {
+        this.#validateLottoNumber(number);
+        return Number(number);
+      });
+  }
+
+  #validateLottoNumber(number) {
+    number.replace(" ", "");
+    Validator.validateBlank(number);
+    Validator.validateNumber(number);
   }
 }
 
