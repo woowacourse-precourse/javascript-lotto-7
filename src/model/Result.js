@@ -3,6 +3,8 @@ class Result {
   #bonusNumber;
   #lotteryNumbers;
   #purchaseAmount;
+  #totalPrice = 0;
+  #totalRate = 0;
   #ranks = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0 };
 
   constructor(
@@ -48,6 +50,27 @@ class Result {
       const result = this.#matchingCount(this.#lotteryNumbers[i]);
       this.#winningRank(result);
     }
+    this.#calculateTotalPrice();
+    this.#calculateTotalRate();
+  }
+
+  #calculateTotalPrice() {
+    this.#totalPrice =
+      this.#ranks.first * 2000000000 +
+      this.#ranks.second * 30000000 +
+      this.#ranks.third * 1500000 +
+      this.#ranks.fourth * 50000 +
+      this.#ranks.fifth * 5000;
+  }
+
+  #calculateTotalRate() {
+    this.#totalRate = ((this.#totalPrice / this.#purchaseAmount) * 100).toFixed(
+      1
+    );
+  }
+
+  getTotalRate() {
+    return this.#totalRate;
   }
 }
 export default Result;
