@@ -35,6 +35,12 @@ class Lotto {
       }
     })
   }
+
+  isBonus(BONUS_NUMBER){
+    if(this.#numbers.includes(BONUS_NUMBER)){
+      this.#isBonus = true;
+    }
+  }
 }
 
 export default Lotto;
