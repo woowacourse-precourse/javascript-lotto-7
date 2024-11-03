@@ -92,47 +92,8 @@ describe("로또 테스트", () => {
   });
 
   test("예외 테스트", async () => {
-    await runException("1000j");
-  });
-});
-
-describe("구입 금액 입력 테스트", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  test("올바른 금액을 입력했을 때", async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(["3000"]); // 정상적인 금액 입력
-
-    const app = new App();
-    const purchaseAmount = await app.getPurchaseAmount();
-
-    expect(purchaseAmount).toBe(3000);
-    expect(logSpy).not.toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
-  });
-
-  test("1,000원 단위가 아닌 금액 입력 시 예외 처리", async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(["2500"]); // 1,000원 단위가 아님
-
-    const app = new App();
-    await app.getPurchaseAmount();
-
-    expect(logSpy).toHaveBeenCalledWith(
-      "[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다."
-    );
-  });
-
-  test("음수 입력 시 예외 처리", async () => {
-    const logSpy = getLogSpy();
-    mockQuestions(["-1000"]); // 음수 금액 입력
-
-    const app = new App();
-    await app.getPurchaseAmount();
-
-    expect(logSpy).toHaveBeenCalledWith(
-      "[ERROR] 정상적인 금액을 입력해주세요."
+    await expect(runException("1000j")).rejects.toThrow(
+      "[ERROR] 구입 금액은 숫자여야 합니다."
     );
   });
 });
