@@ -12,8 +12,7 @@ export const ERROR_MESSAGES = {
   NOT_A_NUMBER: "숫자만 입력가능합니다.",
   INVALID_NUMBER_COUNT: "로또 번호는 6개여야 합니다.",
   DUPLICATE_NUMBERS: "로또번호는 중복될 수 없습니다.",
-  OUT_OF_RANGE: "[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.",
-  BONUS_NUMBER_INVALID_COUNT: "[ERROR] 보너스 번호는 하나만 입력가능합니다.",
-  BONUS_NUMBER_DUPLICATE:
-    "[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.",
+  OUT_OF_RANGE: "로또 번호는 1부터 45 사이의 숫자여야 합니다.",
+  BONUS_NUMBER_INVALID_COUNT: "보너스 번호는 하나만 입력가능합니다.",
+  BONUS_NUMBER_DUPLICATE: "보너스 번호는 당첨 번호와 중복될 수 없습니다.",
 };
