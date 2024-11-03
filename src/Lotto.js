@@ -1,3 +1,5 @@
+import { checkWinNumbers } from './validation.js';
+
 class Lotto {
   #numbers;
 
@@ -7,12 +9,33 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+    checkWinNumbers(numbers);
   }
 
-  // TODO: 추가 기능 구현
+  sortLottoNumbers() {
+    this.#numbers.sort((a, b) => a - b);
+  }
+
+  getlottoList() {
+    this.sortLottoNumbers();
+    return this.#numbers;
+  }
+
+  getWinResult(winNumbers, bonusNumber) {
+    let matchCount = 0;
+    this.#numbers.forEach(number => {
+      if (winNumbers.includes(number)) {
+        matchCount++;
+      }
+    });
+    if (matchCount === 6) {
+      return 1; // 1등
+    }
+    if (matchCount === 5 && this.#numbers.includes(bonusNumber)) {
+      return 2; // 2등
+    }
+    return 8 - matchCount; // 3등 ~ 5등
+  }
 }
 
 export default Lotto;
