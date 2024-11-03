@@ -11,6 +11,11 @@ export const FORMAT = {
 
 export const UNIT = {
   TICKET_PRICE: 1000,
+  5: 5000,
+  4: 50000,
+  3: 1500000,
+  2: 30000000,
+  1: 2000000000,
 };
 
 export const WINNINGS = {

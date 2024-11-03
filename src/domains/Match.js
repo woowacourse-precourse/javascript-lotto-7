@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { RESULT } from '../constants/Constants.js';
+import { RESULT, UNIT } from '../constants/Constants.js';
 import Ticket from './Ticket.js';
 import Jackpot from './Jackpot.js';
 
@@ -61,6 +61,14 @@ class Match {
       this.ranks[5]++;
       return;
     }
+  }
+
+  getTotalPrize() {
+    let totalPrize = 0;
+    for (let i = 1; i <= 5; i++) {
+      totalPrize += this.ranks[i] * UNIT[i];
+    }
+    return totalPrize;
   }
 
   displayResult() {
