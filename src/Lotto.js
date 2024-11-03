@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class Lotto {
   #numbers;
 
@@ -19,6 +21,10 @@ class Lotto {
     if (new Set(numbers).size !== numbers.length) {
       throw new Error('[ERROR] 로또 번호에 중복된 값이 있음!');
     }
+  }
+
+  printNumbers() {
+    MissionUtils.Console.print(`[${this.#numbers.join(", ")}]`);
   }
 
   // TODO: 추가 기능 구현
