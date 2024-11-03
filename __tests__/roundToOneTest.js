@@ -1,4 +1,4 @@
-import roundToOne from '../src/Utils/roundToOne';
+import roundToOne from '../src/Utils/roundToOne.js';
 
 // - 5. 당첨 통계 계산
 

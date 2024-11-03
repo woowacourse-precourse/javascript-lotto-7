@@ -1,5 +1,5 @@
-import Errors from '../src/Constants/Errors';
-import Statistic from '../src/Model/Statistic';
+import Errors from '../src/Constants/Errors.js';
+import Statistic from '../src/Model/Statistic.js';
 
 // - 5. 당첨 통계 계산
 

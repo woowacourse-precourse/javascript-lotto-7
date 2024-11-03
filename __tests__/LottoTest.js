@@ -1,5 +1,5 @@
-import Errors from '../src/Constants/Errors';
-import Lotto from '../src/Model/Lotto';
+import Errors from '../src/Constants/Errors.js';
+import Lotto from '../src/Model/Lotto.js';
 
 // 1. 로또 1장 발행하기
 

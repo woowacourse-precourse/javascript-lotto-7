@@ -1,4 +1,4 @@
-import checkWinning from '../src/Utils/checkWinning';
+import checkWinning from '../src/Utils/checkWinning.js';
 
 // - 4. 로또 당첨 여부 확인
 

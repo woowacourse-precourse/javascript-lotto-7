@@ -1,4 +1,4 @@
-import BuyPriceInput from '../src/Views/BuyPriceInput';
+import BuyPriceInput from '../src/Views/BuyPriceInput.js';
 
 // - 6. 구입 금액 입력
 

@@ -1,4 +1,4 @@
-import BasicNumbersInput from '../src/Views/BasicNumbersInput';
+import BasicNumbersInput from '../src/Views/BasicNumbersInput.js';
 
 // - 7. 당첨 번호와 보너스 번호 입력
 
