@@ -11,9 +11,19 @@ class App {
   #bonusNumber;
   #output;
 
+  #match;
+
   constructor() {
     this.input = new Input();
     this.#lottos = [];
+
+    this.#match = new Map({
+      three: 0,
+      four: 0,
+      five: 0,
+      fiveAndBonus: 0,
+      six: 0,
+    });
   }
 
   async run() {
@@ -30,6 +40,8 @@ class App {
 
       const bonusNumber = await this.input.getBonusNumber();
       this.isDuplicateBonus(bonusNumber);
+
+      this.#winning();
     } catch (error) {
       Console.print(error.message);
       throw error;
@@ -54,6 +66,37 @@ class App {
     }
 
     this.#bonusNumber = bonusNumber;
+  }
+
+  #winning() {
+    for (const lotto of this.#lottos) {
+      const match = this.#winningNumber
+        .getNumbersSet()
+        .intersection(lotto.getNumbersSet());
+
+      switch (match.size) {
+        case 6:
+          this.#match.set("six", this.#match.get("six") + 1);
+          break;
+        case 5:
+          this.#checkBonus(lotto);
+          break;
+        case 4:
+          this.#match.set("four", this.#match.get("four") + 1);
+          break;
+        case 3:
+          this.#match.set("three", this.#match.get("three") + 1);
+          break;
+      }
+    }
+  }
+
+  #checkBonus(lotto) {
+    if (lotto.getNumbersSet().has(this.#bonusNumber)) {
+      this.#match.set("fiveAndBonus", this.#match.get("fiveAndBonus") + 1);
+      return;
+    }
+    this.#match.set("five", this.#match.get("five") + 1);
   }
 }
 

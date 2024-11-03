@@ -25,6 +25,10 @@ class Lotto {
   getNumbers() {
     return this.#numbers;
   }
+
+  getNumbersSet() {
+    return new Set(this.#numbers);
+  }
 }
 
 export default Lotto;
