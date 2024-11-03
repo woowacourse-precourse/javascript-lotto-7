@@ -1,4 +1,7 @@
-import { LOTTO_NUMBER_ERROR } from './constants/errorMessage';
+import {
+  LOTTO_NUMBER_ERROR,
+  NOT_INVALID_INPUT,
+} from './constants/errorMessage.js';
 
 class Lotto {
   #numbers;
@@ -9,6 +12,9 @@ class Lotto {
   }
 
   #validate(numbers) {
+    if (!Array.isArray(numbers)) {
+      throw new Error(NOT_INVALID_INPUT);
+    }
     if (numbers.some((number) => isNaN(number))) {
       throw new Error(LOTTO_NUMBER_ERROR.NOT_NUMBER);
     }
@@ -17,6 +23,9 @@ class Lotto {
     }
     if (numbers.some((number) => number <= 0 || number > 45)) {
       throw new Error(LOTTO_NUMBER_ERROR.NOT_RANGE);
+    }
+    if (new Set(numbers).size !== 6) {
+      throw new Error(LOTTO_NUMBER_ERROR.NOT_DUPLICATED);
     }
   }
 

@@ -122,7 +122,7 @@ class Controller {
   }
 
   #parseNumbers(numbers) {
-    return numbers.split(',').map((number) => parseInt(number.trim(), 10));
+    return numbers.split(',').map(Number);
   }
 
   printError(errorMessage) {
