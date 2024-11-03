@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { NUMBER } from './constants.js';
+import { NUMBER } from './shared/index.js';
 
 class LottoMachine {
   static #pickRandomNumbers() {

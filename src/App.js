@@ -1,8 +1,14 @@
-import { INFO_MESSAGES, NUMBER, PROMPT_MESSAGES } from './constants.js';
+import {
+  PROMPT_MESSAGES,
+  INFO_MESSAGES,
+  ERROR_MESSAGES,
+  NUMBER,
+  checkEmpty,
+  handleError,
+} from './shared/index.js';
 import Lotto from './Lotto.js';
 import LottoMachine from './LottoMachine.js';
 import Money from './Money.js';
-import { checkEmpty } from './utils.js';
 import View from './View.js';
 
 class App {

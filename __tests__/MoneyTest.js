@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../src/constants.js';
+import { ERROR_MESSAGES } from '../src/shared/index.js';
 import Money from '../src/Money.js';
 
 describe('머니 클래스 테스트', () => {

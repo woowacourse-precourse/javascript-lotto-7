@@ -1,5 +1,10 @@
-import { ERROR_MESSAGES, NUMBER } from './constants.js';
-import { checkEmpty, handleError, checkValidNumber } from './utils.js';
+import {
+  ERROR_MESSAGES,
+  NUMBER,
+  checkEmpty,
+  handleError,
+  checkValidNumber,
+} from './shared/index.js';
 
 class Lotto {
   #numbers;

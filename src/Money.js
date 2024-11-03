@@ -1,5 +1,8 @@
-import { ERROR_MESSAGES } from './constants.js';
-import { checkValidNumber, handleError } from './utils.js';
+import {
+  ERROR_MESSAGES,
+  checkValidNumber,
+  handleError,
+} from './shared/index.js';
 
 class Money {
   static BASE_AMOUNT = 1000;
