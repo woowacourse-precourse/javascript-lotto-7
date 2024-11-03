@@ -1,55 +1,118 @@
 import ERRORS from '../constants/Errors.js';
 
 class Validator {
+  // 구매 금액 검증
   static validatePurchaseAmount(amount) {
-    if (amount === '') throw new Error(ERRORS.PURCHASE_AMOUNT_EMPTY);
-    if (isNaN(amount)) throw new Error(ERRORS.PURCHASE_AMOUNT_NOT_NUMBER);
-    if (Number(amount) <= 0) throw new Error(ERRORS.PURCHASE_AMOUNT_NEGATIVE);
-    if (Number(amount) % 1000 !== 0)
-      throw new Error(ERRORS.PURCHASE_AMOUNT_INVALID_UNIT);
+    this.ensureNotEmpty(amount, ERRORS.PURCHASE_AMOUNT_EMPTY);
+    this.ensureIsNumber(amount, ERRORS.PURCHASE_AMOUNT_NOT_NUMBER);
+    this.ensurePositive(amount, ERRORS.PURCHASE_AMOUNT_NEGATIVE);
+    this.ensureValidUnit(amount, ERRORS.PURCHASE_AMOUNT_INVALID_UNIT);
   }
 
+  // 당첨 번호 검증
   static validateWinningNumbers(numbers) {
-    if (!numbers || numbers.length === 0)
-      throw new Error(ERRORS.WINNING_NUMBERS_EMPTY);
+    this.ensureNotEmpty(numbers, ERRORS.WINNING_NUMBERS_EMPTY);
+    this.ensureValidLength(numbers, 6, ERRORS.WINNING_NUMBERS_INVALID_COUNT);
+    const parsedNumbers = this.parseNumbers(numbers);
+    this.ensureAllNumbers(parsedNumbers, ERRORS.WINNING_NUMBERS_NOT_NUMBER);
+    this.ensureUnique(parsedNumbers, ERRORS.WINNING_NUMBERS_DUPLICATE);
+    this.ensureWithinRange(
+      parsedNumbers,
+      1,
+      45,
+      ERRORS.WINNING_NUMBERS_NOT_NUMBER,
+    );
+  }
 
-    if (numbers.length !== 6)
-      throw new Error(ERRORS.WINNING_NUMBERS_INVALID_COUNT);
+  // 보너스 번호 검증
+  static validateBonusNumber(bonusNumber, winningNumbers) {
+    this.ensureNotEmpty(bonusNumber, ERRORS.BONUS_NUMBER_EMPTY);
+    const parsedBonusNumber = this.parseNumber(bonusNumber);
+    this.ensureValidBonusNumber(
+      parsedBonusNumber,
+      ERRORS.BONUS_NUMBER_OUT_OF_RANGE,
+    );
+    this.ensureNotDuplicate(
+      parsedBonusNumber,
+      winningNumbers,
+      ERRORS.BONUS_NUMBER_DUPLICATE,
+    );
+  }
 
-    const parsedNumbers = numbers.map((number) => {
-      const parsed = Number(number);
-      if (isNaN(parsed)) {
-        throw new Error(ERRORS.WINNING_NUMBERS_NOT_NUMBER);
-      }
-      return parsed;
-    });
+  // 유틸리티 메서드들
+  static ensureNotEmpty(value, error) {
+    if (value === '' || (Array.isArray(value) && value.length === 0)) {
+      throw new Error(error);
+    }
+  }
 
-    const uniqueNumbers = new Set(numbers);
-    if (uniqueNumbers.size !== 6)
-      throw new Error(ERRORS.WINNING_NUMBERS_DUPLICATE);
+  static ensureIsNumber(value, error) {
+    if (isNaN(value)) {
+      throw new Error(error);
+    }
+  }
 
-    parsedNumbers.forEach((number) => {
-      if (number < 1 || number > 45) {
-        throw new Error(ERRORS.WINNING_NUMBERS_NOT_NUMBER);
+  static ensurePositive(value, error) {
+    const number = Number(value);
+    if (number <= 0) {
+      throw new Error(error);
+    }
+  }
+
+  static ensureValidUnit(value, error) {
+    const number = Number(value);
+    if (number % 1000 !== 0) {
+      throw new Error(error);
+    }
+  }
+
+  static ensureValidLength(array, expectedLength, error) {
+    if (array.length !== expectedLength) {
+      throw new Error(error);
+    }
+  }
+
+  static parseNumbers(numbers) {
+    return numbers.map((number) => Number(number));
+  }
+
+  static parseNumber(value) {
+    return Number(value);
+  }
+
+  static ensureAllNumbers(array, error) {
+    array.forEach((num) => {
+      if (isNaN(num)) {
+        throw new Error(error);
       }
     });
   }
 
-  static validateBonusNumber(bonusNumber, winningNumbers) {
-    if (!bonusNumber) throw new Error(ERRORS.BONUS_NUMBER_EMPTY);
-
-    const parsedBonusNumber = Number(bonusNumber);
-    if (
-      isNaN(parsedBonusNumber) ||
-      parsedBonusNumber < 1 ||
-      parsedBonusNumber > 45
-    ) {
-      throw new Error(ERRORS.BONUS_NUMBER_OUT_OF_RANGE);
+  static ensureUnique(array, error) {
+    const uniqueSet = new Set(array);
+    if (uniqueSet.size !== array.length) {
+      throw new Error(error);
     }
+  }
 
+  static ensureWithinRange(array, min, max, error) {
+    array.forEach((num) => {
+      if (num < min || num > max) {
+        throw new Error(error);
+      }
+    });
+  }
+
+  static ensureValidBonusNumber(number, error) {
+    if (isNaN(number) || number < 1 || number > 45) {
+      throw new Error(error);
+    }
+  }
+
+  static ensureNotDuplicate(bonusNumber, winningNumbers, error) {
     const parsedWinningNumbers = winningNumbers.map((num) => Number(num));
-    if (parsedWinningNumbers.includes(parsedBonusNumber)) {
-      throw new Error(ERRORS.BONUS_NUMBER_DUPLICATE);
+    if (parsedWinningNumbers.includes(bonusNumber)) {
+      throw new Error(error);
     }
   }
 }
