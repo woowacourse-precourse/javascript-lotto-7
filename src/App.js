@@ -1,8 +1,10 @@
-import { INPUT, OUTPUT } from "./constants/message.js";
+import { INPUT, OUTPUT, RATE, SECTION } from "./constants/message.js";
 import { getInput } from "./io/Input.js";
 import { getOutput, getTicketNumber } from "./io/Output.js";
 import Price from "./domain/Price.js";
 import Ticket from "./domain/Ticket.js";
+import Bonus from "./domain/Bonus.js";
+import Lotto from "./domain/Lotto.js";
 
 class App {
   async run() {
@@ -13,7 +15,10 @@ class App {
       getOutput(`\n${purchase.count}` + OUTPUT.PURCHASE);
 
       const ticketArr = new Ticket(purchase.count);
-      getTicketNumber(ticketArr.results);
+      await getTicketNumber(ticketArr.results);
+
+      const lottoInput = await getInput(INPUT.LOTTO_NUMBER);
+      const lottoNumber = new Lotto(lottoInput);
     } catch (error) {
       console.log("err", error);
     }
