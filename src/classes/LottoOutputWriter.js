@@ -34,7 +34,7 @@ class LottoOutputWriter {
   static #generateWinningResultMessage(matchCount, prize, bonus, count) {
     const bonusMessage = bonus && matchCount === 5 ? ', 보너스 볼 일치' : '';
 
-    return `${matchCount}개 일치${bonusMessage} (${prize}원) - ${count}개`;
+    return `${matchCount}개 일치${bonusMessage} (${prize.toLocaleString()}원) - ${count}개`;
   }
 }
 
