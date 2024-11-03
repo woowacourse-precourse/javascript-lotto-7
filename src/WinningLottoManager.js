@@ -6,7 +6,7 @@ import Validation from './Validation.js';
 class WinningLottoManager {
   static async selectWinningNumbers() {
     try {
-      const numbers = await WinningLottoManager.#getWinningNumbersInput();
+      const numbers = await this.#getWinningNumbersInput();
       this.#validateWinningNumbers(numbers);
 
       return numbers;
@@ -38,7 +38,7 @@ class WinningLottoManager {
 
   static async selectBonusNumber() {
     try {
-      const bonusNumber = await WinningLottoManager.#getBonusNumberInput();
+      const bonusNumber = await this.#getBonusNumberInput();
       this.#validateBonusNumber(bonusNumber);
 
       return bonusNumber;
