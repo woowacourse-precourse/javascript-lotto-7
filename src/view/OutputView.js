@@ -1,5 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { PRINT_MESSAGE, START_ERROR } from "../constant/constant.js";
+import {
+  PRINT_MESSAGE,
+  START_ERROR,
+  WINNING_STATS_HEADER,
+} from "../constant/constant.js";
 
 class OutputView {
   errorOccurred(error) {
@@ -10,12 +14,16 @@ class OutputView {
 
   outputLottoCount(lottoCount) {
     MissionUtils.Console.print(
-      `\n${lottoCount + PRINT_MESSAGE.PRINT_LOTTO_COUNT}`
+      `\n${PRINT_MESSAGE.PRINT_LOTTO_COUNT.replace("{lottoCount}", lottoCount)}`
     );
   }
 
   outputLottoNumbers(lotto) {
     MissionUtils.Console.print(`[${lotto.getLottoNumber().join(", ")}]`);
+  }
+
+  outputWinningHead() {
+    MissionUtils.Console.print(WINNING_STATS_HEADER);
   }
 }
 

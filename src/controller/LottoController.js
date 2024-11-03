@@ -19,6 +19,7 @@ class LottoController {
   async run() {
     await this.#startPurchaseLotto();
     await this.#startDrawLotto();
+    this.#startWinningLotto();
   }
 
   async #startPurchaseLotto() {
@@ -78,6 +79,14 @@ class LottoController {
       (input) => InputUtils.validateBonusNumber(input, this.#winningNumbers)
     );
     return bonusNumber;
+  }
+
+  #startWinningLotto() {
+    this.#printWinningStatsHead();
+  }
+
+  #printWinningStatsHead() {
+    this.#outputView.outputWinningHead();
   }
 
   async #validInput(inputFunction, validateFunction) {
