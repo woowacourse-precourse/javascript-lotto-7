@@ -18,11 +18,11 @@ class Lotto {
     }
 
     if (numbers.some((number) => number < 1 || number > 45)) {
-      throw new Error("[ERROR] 로또 1과 45 사이의 범위여야 합니다.");
+      throw new Error("[ERROR] 로또 번호가 1과 45 사이의 범위여야 합니다.");
     }
 
     if (numbers.some((number) => isNaN(number))) {
-      throw new Error("[ERROR] 로또 1과 45 사이의 범위여야 합니다.");
+      throw new Error("[ERROR] 로또 번호가 숫자여야 합니다.");
     }
   }
 
