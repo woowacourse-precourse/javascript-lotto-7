@@ -2,10 +2,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 const PROMPT_MESSAGES = {
-  BUY_LOTTO: "구입금액을 입력해 주세요.",
+  BUY_LOTTO: "구입금액을 입력해 주세요.\n",
   PURCHASED_COUNT: (count) => `\n${count}개를 구매했습니다.`,
-  WINNING_NUMBERS: "\n당첨 번호를 입력해주세요.",
-  BONUS_NUMBER: "\n보너스 번호를 입력해주세요.",
+  WINNING_NUMBERS: "\n당첨 번호를 입력해주세요.\n",
+  BONUS_NUMBER: "\n보너스 번호를 입력해주세요.\n",
 };
 
 const ERROR_MESSAGES = {
@@ -34,10 +34,13 @@ class App {
   };
 
   async #getAmount() {
-    MissionUtils.Console.print(PROMPT_MESSAGES.BUY_LOTTO);
-    const amount = await MissionUtils.Console.readLineAsync("");
-    if (!(amount > 0)) {
-      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT);
+    var amount = await MissionUtils.Console.readLineAsync(
+      PROMPT_MESSAGES.BUY_LOTTO
+    );
+    amount = Number(amount);
+    if (isNaN(amount) || amount % 1000 !== 0) {
+      MissionUtils.Console.print(ERROR_MESSAGES.INVALID_AMOUNT);
+      return false;
     }
     return amount;
   }
@@ -67,14 +70,17 @@ class App {
   }
 
   async #getWinningNumber() {
-    MissionUtils.Console.print(PROMPT_MESSAGES.WINNING_NUMBERS);
-    const input = await MissionUtils.Console.readLineAsync("");
+    const input = await MissionUtils.Console.readLineAsync(
+      PROMPT_MESSAGES.WINNING_NUMBERS
+    );
     return new Lotto(input.split(",").map(Number));
   }
 
   async #getBonus(winningNumber) {
-    MissionUtils.Console.print(PROMPT_MESSAGES.BONUS_NUMBER);
-    const number = parseInt(await MissionUtils.Console.readLineAsync(""), 10);
+    const number = parseInt(
+      await MissionUtils.Console.readLineAsync(PROMPT_MESSAGES.BONUS_NUMBER),
+      10
+    );
     if (!(number > 0 && number <= 45)) {
       throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
     }
@@ -118,6 +124,7 @@ class App {
 
   async run() {
     const amount = await this.#getAmount();
+    if (!amount) return;
     const count = await this.#getCount(amount);
     const lottos = await this.#getLottos(count);
     const winningNumber = await this.#getWinningNumber();
