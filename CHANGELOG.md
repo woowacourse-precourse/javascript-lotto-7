@@ -10,6 +10,9 @@ docs(readme): add initial project requirements
 
 ## New Features
 
+fix(controller): correct views directory path
+fix(controller): implement bonus number input retry
+fix(test): add .js extension to fix import errors
 test(app): add success case for integration tests
 test(service): add LottoService unit tests
 test(validator): add unit tests for input validation
