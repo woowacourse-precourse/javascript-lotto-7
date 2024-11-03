@@ -27,3 +27,9 @@ export const validateBonusNumberRange = (bounsNumbers) => {
     throw new Error(ERROR_MESSAGE.BONUS__NUMBER_RANGE);
   }
 };
+
+export const validateBonusNumberDup = (bounsNumbers, winningNumbers) => {
+  if (winningNumbers.includes(bounsNumbers)) {
+    throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+  }
+};
