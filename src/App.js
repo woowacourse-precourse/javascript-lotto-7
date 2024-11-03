@@ -65,6 +65,12 @@ async function inputPrizeLottoNumber() {
   }
 }
 
+function isDuplicateBonus(bonusNumber, prizeNumbers) {
+  if (prizeNumbers.includes(bonusNumber)) {
+    throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+  }
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
@@ -75,6 +81,7 @@ class App {
     printLotto(lottos);
 
     const prizeNumberLotto = await inputPrizeLottoNumber();
+    const prizeNumbers = prizeNumberLotto.getLottoNumbers();
   }
 }
 
