@@ -4,6 +4,7 @@ import validateMoney from '../models/validations/MoneyInputValidator.js';
 import validateBonus from '../models/validations/BonusInputValidator.js';
 import winningParser from '../utils/WinningParser.js';
 import Lotto from '../models/Lotto.js';
+import calculate from '../utils/WinningDraw.js';
 
 class Controller {
   static async run() {
@@ -14,7 +15,10 @@ class Controller {
     const winningLotto = new Lotto(winningParser(winning));
     const bonus = await InputView.bonusInput();
     validateBonus(bonus, winningLotto.getNumbers());
-    OutputView.printStatistics();
+    const { prizeCounts, totalPrize } = calculate(winningLotto.getNumbers(), bonus);
+    OutputView.printStatistics(prizeCounts);
+    const returnOnInvestment = (totalPrize / money) * 100; // 수익률 (%)
+    OutputView.printReturnOnInvestment(returnOnInvestment); // 수익률 출력
   }
 }
 

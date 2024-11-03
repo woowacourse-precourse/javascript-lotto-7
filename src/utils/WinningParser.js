@@ -1,5 +1,5 @@
 const winningParser = input => {
-  const winning = input.split(',');
+  const winning = input.split(',').map(num => Number(num));
   return winning;
 };
 
