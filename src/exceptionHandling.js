@@ -59,6 +59,8 @@ class Exception {
         "[ERROR] 보너스 번호를 1부터 45까지의 수로 입력해주세요."
       );
     }
+
+    return Number(number);
   }
 }
 
