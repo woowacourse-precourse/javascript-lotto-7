@@ -1,3 +1,6 @@
+import { Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
+
 export default class LottoIssuer {
   static #LOTTO_PRICE = 1000;
 
@@ -5,7 +8,7 @@ export default class LottoIssuer {
     INVALID_AMOUNT: '[ERROR] 로또 구입 금액은 1000원 단위여야 합니다.',
   });
 
-  #purchaseAmount;
+  #amount;
 
   constructor(purchaseAmount) {
     this.#validate(purchaseAmount);
@@ -19,10 +22,17 @@ export default class LottoIssuer {
       amount > 0 &&
       amount % LottoIssuer.#LOTTO_PRICE === 0
     ) {
-      this.#purchaseAmount = amount;
+      this.#amount = amount / LottoIssuer.#LOTTO_PRICE;
       return;
     }
 
     throw new Error(LottoIssuer.#ERROR_MESSAGE.INVALID_AMOUNT);
+  }
+
+  issue() {
+    return Array.from({ length: this.#amount }, () => {
+      const lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      return new Lotto(lottoNumbers);
+    });
   }
 }
