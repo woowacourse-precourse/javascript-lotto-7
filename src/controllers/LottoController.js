@@ -19,7 +19,9 @@ class LottoController {
         lottos.forEach((lotto) => this.outputView.outputLotto(lotto));
 
         const inputWinningNumbers = await this.getValidatedInputWinningNumbers();
-        const inputBonusNumber = await this.getValidatedInputBonusNumber();
+        const inputBonusNumber = await this.getValidatedInputBonusNumber(inputWinningNumbers);
+        this.outputView.outputStatistics();
+
     }
 
     async getValidatedInputAmount() {
@@ -51,22 +53,22 @@ class LottoController {
 
         try {
             InputValidator.isValidWinningNumbers(inputWinningNumbers);
-            return inputWinningNumbers;
+            return inputWinningNumbers.split(",").map(num => Number(num.trim()));
         } catch (error) {
             Console.print(error.message);
             return this.getValidatedInputWinningNumbers();
         }
     }
 
-    async getValidatedInputBonusNumber() {
+    async getValidatedInputBonusNumber(inputWinningNumbers) {
         const inputBonusNumber = await this.InputView.getInputBonusNumber();
 
         try {
-            InputValidator.isValidBonusNumber(inputBonusNumber);
+            InputValidator.isValidBonusNumber(inputBonusNumber, inputWinningNumbers);
             return inputBonusNumber;
         } catch (error) {
             Console.print(error.message);
-            return this.getValidatedInputBonusNumber();
+            return this.getValidatedInputBonusNumber(inputWinningNumbers);
         }
     }
 }

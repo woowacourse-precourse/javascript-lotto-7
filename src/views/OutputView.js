@@ -10,6 +10,10 @@ class OutputView {
     async outputLotto(lotto) {
         return Console.print(lotto.getNumbers());
     }
+
+    async outputStatistics(){ 
+        return Console.print(CONSOLE_MESSAGE.STATISTICS);
+    }
 }
 
 export default OutputView;

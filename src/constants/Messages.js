@@ -16,7 +16,8 @@ export const ERROR_MESSAGE =  {
     INVALID_FORMAT: "로또 번호를 콤마(,)로 구분해주세요.",
     OUT_OF_RANGE: "로또 번호는 1~45 범위의 양수만 가능합니다.",
     LOTTO_NUMBER_COUNT: "6개의 로또 번호를 입력해야 합니다.",
-    DUPLICATE_NUMBERS: "중복된 로또 번호가 존재합니다."
+    DUPLICATE_NUMBERS: "중복된 로또 번호가 존재합니다.",
+    DUPLICATE_WINNING_LOTTO_NUMBERS: "당첨 번호와 중복된 보너스 번호입니다.",
 };
 
 export const WINNING_CRITERIA = {
