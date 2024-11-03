@@ -1,28 +1,42 @@
 import { Console } from '@woowacourse/mission-utils';
-import LottoMachine from './LottoMachine.js';
+import LottoShop from './LottoShop.js';
+import LottoAnalyzer from './LottoAnalyzer.js';
+import Lotto from './Lotto.js';
+
 class App {
   constructor() {
     this.money = 0;
     this.bonusNum = 0;
-    this.winningNumbers = null;
-    this.lottoMachine = null;
+    this.winningLotto = null;
   }
 
   async run() {
+    await this.setMoney();
+    Console.print('');
+
+    this.buyLottos = LottoShop.buyLottos(this.money);
+    Console.print(LottoAnalyzer.getBuyLottosInfo(this.buyLottos));
+    Console.print('');
+
+    await this.setWinningLotto();
+    Console.print('');
+
+    await this.setBonusNum();
+    Console.print('');
+  }
+
+  async setMoney() {
     this.money = Number(await Console.readLineAsync('구입금액을 입력해 주세요.\n'));
-    Console.print('');
+  }
 
-    this.lottoMachine = new LottoMachine(this.money);
-    Console.print(this.lottoMachine.getBoughtLottosInfo());
-    Console.print('');
+  async setWinningLotto() {
+    const inputWinningNumbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const winningNumbers = inputWinningNumbers.split(',').map((number) => Number(number));
+    this.winningLotto = new Lotto(winningNumbers);
+  }
 
-    this.winningNumbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    this.lottoMachine.setWinningLotto(this.winningNumbers);
-    Console.print('');
-
+  async setBonusNum() {
     this.bonusNum = Number(await Console.readLineAsync('보너스 번호를 입력해 주세요.\n'));
-    this.lottoMachine.setBonusNum(this.bonusNum);
-    Console.print('');
   }
 }
 
