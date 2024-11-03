@@ -10,7 +10,7 @@ const INPUT_MSG = {
 };
 
 class InputView {
-  async requestPuchaseAmount() {
+  async requestPurchaseAmount() {
     const userInputString = await this.#getUserInput(INPUT_MSG.purchaseAmount);
     return this.stringToInt(userInputString);
   }

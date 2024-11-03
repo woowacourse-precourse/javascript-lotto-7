@@ -26,7 +26,7 @@ class App {
   }
 
   requestLottoPurchaseAmount = async () => {
-    const purchaseAmount = await this.inputView.requestPuchaseAmount();
+    const purchaseAmount = await this.inputView.requestPurchaseAmount();
     this.lottolService.setUserLotto(purchaseAmount);
   };
 

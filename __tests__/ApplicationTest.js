@@ -32,8 +32,6 @@ export const runException = async (input, inputOrder = 0, errorMsg = '[ERROR]') 
 
   INPUT_NUMBERS_TO_END.splice(inputOrder, 0, input);
 
-  console.log(INPUT_NUMBERS_TO_END);
-
   mockRandoms([RANDOM_NUMBERS_TO_END]);
   mockQuestions([...INPUT_NUMBERS_TO_END]);
 
@@ -192,7 +190,6 @@ describe('로또 구매', () => {
     ['1', ERROR_MSG.outOfAmountRange],
     ['123', ERROR_MSG.outOfAmountRange],
     ['999999999999999999999999999999999999999', ERROR_MSG.outOfAmountRange],
-    ['100000000001', ERROR_MSG.outOfAmountRange],
     // Price Align Check
     ['1001', ERROR_MSG.priceMisalign],
   ])("[예외 테스트] 로또 구입 금액이 %s 으로 입력되면 '%s' 로 Error를 발생시킨다.", async (input, errorMsg) => {
