@@ -35,6 +35,10 @@ class LottoGame {
 
   #validateBonusNumber(bonusNumber) {
     this.#validateNumber(bonusNumber);
+    if (bonusNumber.length > 1) {
+      throw new Error('[ERROR] 보너스 번호는 1개만 입력해주세요.')
+    }
+
     if (this.#winNumbers.includes(bonusNumber)) {
       throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
     }
