@@ -30,6 +30,9 @@ class Lotto {
     if(!(1<=bonusNumber && bonusNumber<=45)){
       throw new Error("[ERROR] 1부터 45 범위 내의 번호 1개를 입력해주세요.");
     }
+    if(this.#numbers.includes(bonusNumber)){
+      throw new Error("[ERROR] 이미 입력한 번호입니다.");
+    }
     return Number(bonusNumber);
   }
 }

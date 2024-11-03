@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { getPaidMoney, getLottoNumbers } from './InputHandler.js';
 import Draw from './Draw.js';
 import Lotto from './Lotto.js';
 import Stats from './Stats.js';
@@ -6,9 +7,10 @@ import Stats from './Stats.js';
 class App {
   async run() {
     try {
-      const draw = new Draw(await this.payingMoney());
+      const paidMoney = await getPaidMoney();
+      const draw = new Draw(paidMoney);
       const pickedNumbers = draw.getPickedNumbers();
-      const lotto = new Lotto(await this.enteringLottoNumbers());
+      const lotto = new Lotto(await getLottoNumbers());
       const lottoNumbers = lotto.getNumbers();
       const bonusNumber = await lotto.getBonusNumbers();
       const winResult = this.playLotto(
@@ -18,20 +20,18 @@ class App {
       );
       const stats = new Stats(winResult, bonusNumber);
       stats.printStats();
+
+      const sum =
+        stats.three * 5000 +
+        stats.four * 50000 +
+        stats.five * 15000000 +
+        stats.fiveb * 30000000 +
+        stats.six * 2000000000;
+      
+      Console.print(`총 수익률은 ${((sum/paidMoney)*100).toFixed(1)}% 입니다.`);
     } catch (error) {
       Console.print(error.message);
     }
-  }
-
-  async payingMoney() {
-    Console.print('구입금액을 입력해 주세요.');
-    return Number(await Console.readLineAsync(''));
-  }
-
-  async enteringLottoNumbers() {
-    Console.print('\n당첨 번호를 입력해 주세요.');
-    const enteredNumbers = await Console.readLineAsync('');
-    return enteredNumbers.split(',');
   }
 
   playLotto(nums, bnum, pickedNumsArr) {
