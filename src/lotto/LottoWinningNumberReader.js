@@ -1,6 +1,7 @@
 import { inputWinningNumbers, inputBonusNumber } from './view/InputReader.js';
 import { printEmptyLine } from './view/OutputPrinter.js';
 import { createWinningNumberValidator } from './validate/ValidatorCreator.js';
+import { retryIfOccurredError } from './RetryHelper.js';
 
 const winningNumberValidator = createWinningNumberValidator();
 
@@ -23,9 +24,11 @@ const getBonusNumber = async (winningNumbers) => {
 }
 
 export async function getWinningLottoNumbersAndBonusNumber() {
-  const winningNumbers = await getWinningNumbers();
+  const winningNumbers = await retryIfOccurredError(getWinningNumbers);
   printEmptyLine();
-  const bonusNumber = await getBonusNumber(winningNumbers);
+
+  const bonusNumber = await retryIfOccurredError(getBonusNumber, winningNumbers);
+  printEmptyLine();
 
   return { winningNumbers, bonusNumber };
 }
