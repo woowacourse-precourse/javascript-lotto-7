@@ -3,7 +3,7 @@ import { checkAmount } from '../validation.js';
 
 export async function inputAmount() {
     const userInput = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-    return userInput;
+    return Number(userInput);
 }
 
 export async function inputWinNumbers() {
@@ -13,5 +13,5 @@ export async function inputWinNumbers() {
 
 export async function inputBonusNumber() {
     const userInput = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
-    return userInput;
+    return Number(userInput);
 }

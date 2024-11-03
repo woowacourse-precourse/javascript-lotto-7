@@ -27,6 +27,7 @@ class App {
       return amount;
     } catch(error) {
       Console.print(error.message);
+      return this.getAmount();
     }
   }
 
@@ -43,6 +44,7 @@ class App {
       return winNumbers;
     } catch(error) {
       Console.print(error.message);
+      return this.getWinNumbers();
     }
   }
 
@@ -53,6 +55,7 @@ class App {
       return bonusNumber;
     } catch(error) {
       Console.print(error.message);
+      return this.getBonusNumber(winNumbers);
     }
   }
 }
