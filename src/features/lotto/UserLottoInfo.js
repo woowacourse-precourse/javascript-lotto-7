@@ -71,7 +71,8 @@ export class UserLottoInfo {
       },
       0
     );
-    this.#rateOfReturn = totalWinningPrice / this.#price;
-    return this.#rateOfReturn;
+    // this.#rateOfReturn = totalWinningPrice / this.#price;
+
+    return (totalWinningPrice / this.#price) * 100;
   }
 }

@@ -8,6 +8,9 @@ const PRINT_MESSAGE = {
   lotto: {
     Count: "개를 구매했습니다.",
     Match: "\n당첨 통계\n---",
+    rateOfReturn(rate) {
+      return `총 수익률은 ${rate}%입니다.`;
+    },
   },
 };
 

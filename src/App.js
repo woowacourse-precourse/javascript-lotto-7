@@ -9,6 +9,7 @@ import {
   printLottoCount,
   printLottoList,
   printMatchInfo,
+  printRateOfReturn,
 } from "./utils/outputHandler.js";
 import { parserWinningNumber } from "./features/parserWinningNumber.js";
 
@@ -24,7 +25,8 @@ class App {
     const bonusBall = await InputHandler.getBonusBall();
     userLotto.checkLottoMatch(winningLotto, bonusBall);
     printMatchInfo(userLotto);
-    Console.print(userLotto.rateOfReturn());
+    const ans = userLotto.rateOfReturn();
+    printRateOfReturn(ans);
   }
 }
 
