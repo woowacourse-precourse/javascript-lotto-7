@@ -2,6 +2,8 @@ import { Console } from '@woowacourse/mission-utils';
 import Game from './game.js';
 import InputPrompt from './input-prompt.js';
 import PurchasedLottos from './purchased-lottos.js';
+import WinningLotto from './winning-lotto.js';
+
 class App {
   async run() {
     const purchaseAmount = await InputPrompt.getPurchaseAmount();
@@ -20,8 +22,9 @@ class App {
     const bonusNumberInput = await InputPrompt.getBonusNumber();
     const bonusNumber = parseInt(bonusNumberInput, 10);
 
-    // const game = new Game(lottoCount, winningNumbers, bonusNumber);
-    // game.play();
+    const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+    const game = new Game(purchasedLottos, winningLotto);
+    game.play();
   }
 }
 export default App;
