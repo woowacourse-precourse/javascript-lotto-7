@@ -19,8 +19,10 @@ class OutputView {
     Console.print(`\n${counter}개를 구매했습니다.`);
   }
 
-  static printLottoNumbers(lotto) {
-    Console.print(`[${lotto.getNumbers().join(', ')}]`);
+  static printLottoNumbers(lottoList) {
+    lottoList.forEach((lotto) => {
+      Console.print(`[${lotto.join(', ')}]`);
+    });
   }
 
   static printLottoStatics(rankCounter, profit) {

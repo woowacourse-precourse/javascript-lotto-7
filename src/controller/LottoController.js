@@ -103,11 +103,14 @@ class LottoController {
 
   generateRandomLotto(lottoCounter) {
     const lottoList = [];
+
     for (let i = 0; i < lottoCounter; i++) {
       const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
       lottoList.push(lotto.getNumbers());
-      OutputView.printLottoNumbers(lotto);
     }
+
+    OutputView.printLottoNumbers(lottoList);
+
     return lottoList;
   }
 }
