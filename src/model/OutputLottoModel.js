@@ -1,5 +1,5 @@
 import { InputPriceModel } from "./inputPriceModel.js";
-import { OutputView } from "../view/OutView.js";
+import { OutputView } from "../view/OutputView.js";
 import { createLottoNumberArray } from "../utils/createLottoNumberArray.js";
 
 export class OutputLottoNumbers {
