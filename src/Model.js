@@ -49,7 +49,7 @@ class Model {
       RESULTS[3] * 1500000 +
       RESULTS[4] * 50000 +
       RESULTS[5] * 5000;
-    return ((TOTAL_REWARD - PURCHASE_MONEY) / PURCHASE_MONEY) * 100;
+    return ((TOTAL_REWARD / PURCHASE_MONEY) * 100).toFixed(1);
   }
 }
 
