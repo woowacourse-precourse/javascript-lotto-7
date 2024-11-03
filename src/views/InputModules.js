@@ -19,6 +19,15 @@ class InputModules {
 
     return winnerNumbers;
   }
+
+  static async getLottoWinnerBonusNumber(winnerNumbers) {
+    const winnerBonusInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    const winnerBonus = Number(winnerBonusInput);
+
+    ValidatorModule.checkBonusNumber(winnerNumbers, winnerBonus);
+
+    return winnerBonus;
+  }
 }
 
 export default InputModules;
