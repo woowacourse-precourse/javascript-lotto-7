@@ -3,14 +3,14 @@ import { CONSOLE_MESSAGES } from "./constant.js";
 import Lotto from './Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
 
-const checkWinning = (boughtLotto, winNumber) => {
+const checkWinning = (boughtLotto, winNumber, bonusNumber) => {
   const answerArray = winNumber.split(',').map(Number).sort((a, b) => a - b);
   const correctArray = [];
   boughtLotto.forEach(lotto => {
     const myLotto = lotto.getNumbers();
-    let count = answerArray.filter(item =>
-      myLotto.includes(item)).length;
-      correctArray.push(count);
+    let count = answerArray.filter(item => myLotto.includes(item)).length;
+    let bonus = answerArray.filter((item) => item === bonusNumber);
+    correctArray.push(count);
   });
   return correctArray.filter(item => item > 2);
 }
@@ -18,6 +18,30 @@ const checkWinning = (boughtLotto, winNumber) => {
 const countWonLotto = (wonRecord, target) => {
   return wonRecord.filter((record) => record === target).length;
 }
+
+const printSingleResult = (match, reward, bonus, count) => {
+  if(bonus) Console.print(`${match}개 일치, 보너스 볼 일치 (${reward}) - ${count}개`);
+  else Console.print(`${match}개 일치 (${reward}) - ${count}개`);
+}
+
+const printWinningResults = (wonRecord) => {
+  const results = [
+    { match: 3, reward: "5,000원", bonus: false },
+    { match: 4, reward: "50,000원", bonus: false },
+    { match: 5, reward: "1,500,000원", bonus: false },
+    { match: 5, reward: "30,000,000원", bonus: true },
+    { match: 6, reward: "2,000,000,000원", bonus: false}
+  ]
+
+  Console.print("당첨 통계");
+  Console.print("---");
+
+  results.forEach(result => {
+    const count = countWonLotto(wonRecord, result.match);
+    printSingleResult(result.match, result.reward, result.bonus, count);
+  })
+}
+
 
 const buyLottos = (lottoCount) => {
   const boughtLotto = [];
@@ -46,13 +70,9 @@ class App {
 
     const winNumber = await Console.readLineAsync(CONSOLE_MESSAGES.winNumber);
     const bonusNumber = await Console.readLineAsync(CONSOLE_MESSAGES.bonusNumber);
-    const wonRecord = checkWinning(boughtLotto, winNumber);
-    Console.print(`3개 일치 (5,000원) - ${countWonLotto(wonRecord, 3)}개`);
-    Console.print(`4개 일치 (50,000원) - ${countWonLotto(wonRecord, 4)}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${countWonLotto(wonRecord, 5)}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${countWonLotto(wonRecord, 5)}`);
-    Console.print(`6개 일치 (2,000,000,000원) - ${countWonLotto(wonRecord, 6)}개`);
-    Console.print('총 수익률은');
+    const wonRecord = checkWinning(boughtLotto, winNumber, bonusNumber);
+
+    printWinningResults(wonRecord);
   }
 }
 
