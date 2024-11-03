@@ -1,9 +1,9 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import { GameOutput } from "./woowahanOutput.js";
 
 export default class LottoStore {
-  #countLotto;
+  #countLotto = 0;
   #winRanking = Array(4).fill(0);
   #fiveEqualWithBonusCount = 0;
   #winPrize = [5000, 50000, 1500000, 2000000000];

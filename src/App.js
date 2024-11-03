@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import WoowahanInput from "./woowahanInput.js";
 import { bonusNumberValidator, buyMoneyValidator, winInputValidator, winNumberValidator } from "./utils/validators.js";
 import LottoStore from "./LottoStore.js";
@@ -17,11 +16,11 @@ class App {
 
     while (isBuyMoneyValidate) {
       buyMoney = await WoowahanInput.getBuyMoney();
-      isBuyMoneyValidate = !buyMoneyValidator(buyMoney)
+      isBuyMoneyValidate = !buyMoneyValidator(buyMoney);
     }
 
     const lottoTicketCount = lottoStore.getLottoTicketCount(buyMoney);
-    
+
     GameOutput.printLottoTicketCount(lottoTicketCount);
 
     const lottos = lottoStore.generateLottos();
