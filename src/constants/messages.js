@@ -1,3 +1,4 @@
+import commaizeNumber from '../utils/commaizeNumber.js';
 import { PRIZES } from './prizes.js';
 
 export const PROMPT_MSG = Object.freeze({
@@ -20,11 +21,11 @@ export const RESULT_MSG = Object.freeze({
   TICKET_NUMBERS: (ticket) => `[${ticket.join(', ')}]`,
   WINNING_STATS_HEADER: '당첨 통계\n---',
   MATCH_RESULT: {
-    MATCH_3: `3개 일치 (${PRIZES.match3}원)`,
-    MATCH_4: `4개 일치 (${PRIZES.match4}원)`,
-    MATCH_5: `5개 일치 (${PRIZES.match5}원)`,
-    MATCH_5_BONUS: `5개 일치, 보너스 볼 일치 (${PRIZES.match5PlusBonus}원)`,
-    MATCH_6: `6개 일치 (${PRIZES.match6}원)`,
+    MATCH_3: `3개 일치 (${commaizeNumber(PRIZES.match3)}원)`,
+    MATCH_4: `4개 일치 (${commaizeNumber(PRIZES.match4)}원)`,
+    MATCH_5: `5개 일치 (${commaizeNumber(PRIZES.match5)}원)`,
+    MATCH_5_BONUS: `5개 일치, 보너스 볼 일치 (${commaizeNumber(PRIZES.match5PlusBonus)}원)`,
+    MATCH_6: `6개 일치 (${commaizeNumber(PRIZES.match6)}원)`,
   },
   YIELD: (yieldRate) => `총 수익률은 ${yieldRate}%입니다.`,
 });
