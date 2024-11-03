@@ -6,9 +6,17 @@ import LottoCalculator from './LottoCalculator.js';
 class App {
   async run() {
     const buyPrice = await InputHandler.getBuyPrice();
-
+    if (!buyPrice) {
+      return;
+    }
     const lottoManager = new LottoManager(buyPrice);
+    if (!lottoManager) {
+      return;
+    }
     const lottos = lottoManager.getLottos();
+    if (!lottos) {
+      return;
+    }
 
     const winningNumbers = await InputHandler.getWinningNumbers();
     const bonusNumber = await InputHandler.getBonusNumber(winningNumbers);

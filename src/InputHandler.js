@@ -3,23 +3,40 @@ import { INPUT_MESSAGE, ERROR_MESSAGE } from './lib/constant.js';
 
 class InputHandler {
   static async getBuyPrice() {
-    const buyPrice = await Console.readLineAsync(INPUT_MESSAGE.BUY_PRICE);
-    this.#validateBuyPrice(buyPrice);
-    return buyPrice;
+    try {
+      const buyPrice = await Console.readLineAsync(INPUT_MESSAGE.BUY_PRICE);
+      this.#validateBuyPrice(buyPrice);
+      return buyPrice;
+    } catch (error) {
+      Console.print(error.message);
+      return null;
+    }
   }
 
   static async getWinningNumbers() {
-    const winningNumbers = await Console.readLineAsync(
-      INPUT_MESSAGE.WINNING_NUMBERS,
-    );
-    this.#validateWinningNumbers(winningNumbers);
-    return winningNumbers;
+    try {
+      const winningNumbers = await Console.readLineAsync(
+        INPUT_MESSAGE.WINNING_NUMBERS,
+      );
+      this.#validateWinningNumbers(winningNumbers);
+      return winningNumbers;
+    } catch (error) {
+      Console.print(error.message);
+      return null;
+    }
   }
 
   static async getBonusNumber(winningNumbers) {
-    const bonusNumber = await Console.readLineAsync(INPUT_MESSAGE.BONUS_NUMBER);
-    this.#validateBonusNumber(winningNumbers, bonusNumber);
-    return bonusNumber;
+    try {
+      const bonusNumber = await Console.readLineAsync(
+        INPUT_MESSAGE.BONUS_NUMBER,
+      );
+      this.#validateBonusNumber(winningNumbers, bonusNumber);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+      return null;
+    }
   }
 
   static #validateBuyPrice(buyPrice) {
