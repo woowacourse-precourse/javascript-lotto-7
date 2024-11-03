@@ -1,4 +1,4 @@
-import { Random, Console } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 import LOTTO_CONSTANT from "../Utils/constant";
 
 class MyLotto {

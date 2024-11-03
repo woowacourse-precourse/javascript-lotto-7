@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import { GAME_MESSAGES } from "../Utils/message";
 
 class LottoGame {
