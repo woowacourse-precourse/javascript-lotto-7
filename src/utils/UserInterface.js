@@ -10,6 +10,14 @@ class UserInterface {
 
     return paymentAmount;
   }
+
+  static async queryWinningNumbers() {
+    const input = await Console.readLineAsync(QUERIES.WINNING_NUMBERS);
+    const winningNumbers = input.split(',').map((number) => parseInt(number));
+    Validator.validateWinningNumbers(winningNumbers);
+    
+    return winningNumbers;
+  }
 }
 
 export default UserInterface;

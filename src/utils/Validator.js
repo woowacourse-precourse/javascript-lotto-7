@@ -14,10 +14,33 @@ class Validator {
     return Number.isNaN(Number(value));
   }
 
+  static isValidLottoNumber(number) {
+    return number >= 1 && number <= 45;
+  }
+
+  static hasUniqueNumbers(numbers) {
+    return new Set(numbers).size === numbers.length;
+  }
+
+  static isArrayWithLength(array, length) {
+    return array.length === length;
+  }
+
   static validatePaymentAmount(amount) {
     ErrorHandler.throwIf(Validator.isNaN(amount), ERRORS.NOT_A_NUMBER);
     ErrorHandler.throwIf(!Validator.isPositiveNumber(amount), ERRORS.NOT_POSITIVE_NUMBER);
     ErrorHandler.throwIf(!Validator.isDivisibleBy1000(amount), ERRORS.NOT_DIVISIBLE_BY_1000);
+  }
+
+  static validateWinningNumbers(numbers) {
+    ErrorHandler.throwIf(!Validator.isArrayWithLength(numbers, 6), ERRORS.INVALID_WINNING_NUMBERS_LENGTH);
+    
+    numbers.forEach((number) => {
+      ErrorHandler.throwIf(Validator.isNaN(number), ERRORS.NOT_A_NUMBER);
+      ErrorHandler.throwIf(!Validator.isValidLottoNumber(number), ERRORS.INVALID_LOTTO_NUMBER);
+    })
+    
+    ErrorHandler.throwIf(!Validator.hasUniqueNumbers(numbers), ERRORS.DUPLICATED_WINNING_NUMBERS);
   }
 }
 
