@@ -1,4 +1,5 @@
 import LottoView from "../view/LottoView.js";
+import { validatePurchasingAmount } from "../validation.js";
 class LottoController {
   constructor() {
     this.view = new LottoView();
@@ -8,8 +9,21 @@ class LottoController {
     await this.getLottoAmounts();
   }
 
+  async setLottoAmounts() {
+    try {
+      await this.getLottoAmounts();
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getLottoAmounts() {
-    await this.view.inputLottoAmount();
+    const userInputAmounts = await this.view.inputLottoAmount();
+    this.checkLottoAmounts(userInputAmounts);
+  }
+
+  checkLottoAmounts(userInputAmounts) {
+    validatePurchasingAmount(userInputAmounts);
   }
 }
 
