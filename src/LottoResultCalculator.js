@@ -19,7 +19,6 @@ class LottoResultCalculator{
         lottos.forEach((lotto) => {
             const lottoNumbers = lotto.getNumbers();
             const rank = this.getRank(lottoNumbers, winningNums, bonusNum);
-            Console.print(rank);
             if(rank !== 0){
                 this.results[rank] += 1;
                 this.totalPrize += this.PRIZE_MONEY[rank];
@@ -41,7 +40,7 @@ class LottoResultCalculator{
     }
 
     calculateRate(purchaseAmount){
-        this.returnOfRate = this.totalPrize / purchaseAmount * 100;
+        this.returnOfRate = (this.totalPrize / purchaseAmount * 100).toFixed(2);
     }
 
     printLottoResult(){
