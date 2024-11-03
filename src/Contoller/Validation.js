@@ -11,6 +11,12 @@ class Validation {
     }
   }
 
+  static validateIsNumber(input) {
+    if (isNaN(input)) {
+      throw new Error('[ERROR] 숫자로 입력해야 합니다.');
+    }
+  }
+
   static validateCommaSeparatedFormat(numbers) {
     if (
       numbers.includes(',,') ||
