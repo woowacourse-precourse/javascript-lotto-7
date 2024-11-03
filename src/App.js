@@ -6,7 +6,6 @@ import OutputView from "./view/OutputView.js";
 class App {
   async run() {
     const lottoAmount = await InputView.lottoAmount();
-    InputValidation.validateAmount(lottoAmount);
 
     const lottoController = new LottoController(Number(lottoAmount));
 
@@ -18,14 +17,20 @@ class App {
     const winningLotto = new Lotto(
       winningNumbers.split(",").map((value) => Number(value))
     );
-    const bonusStringNumber = await InputView.lottoBonusNumber();
+    const bonusStringNumber = await InputView.lottoBonusNumber(
+      winningLotto.getNumbers()
+    );
     const bonusNumber = Number(bonusStringNumber);
-    InputValidation.validateBonusNumber(bonusNumber, winningLotto.getNumbers());
 
     lottoController.calculateWinningLottos(winningLotto, bonusNumber);
 
     OutputView.printStatisticsTitle();
     OutputView.printDivider();
+    OutputView.printWinningStatistics(
+      lottoController.getWinningPrizeStatistics()
+    );
+
+    OutputView.printProfit(lottoController.getProfitRate());
   }
 }
 
