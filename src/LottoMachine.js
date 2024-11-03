@@ -6,11 +6,13 @@ class LottoMachine {
   #lottoCount;
   #lottoDigitCount;
   #boughtLottos;
+  #bonusNum;
   constructor(money) {
     Validate.validateMoney(money);
     this.#lottoCount = parseInt(money / 1000, 10);
     this.#lottoDigitCount = 6;
     this.#boughtLottos = this.#buyLottos(this.#lottoCount, this.#lottoDigitCount);
+    this.#bonusNum = null;
   }
 
   #buyLottos() {
@@ -27,6 +29,10 @@ class LottoMachine {
       .map((boughtLotto) => boughtLotto.getNumbersWithSquareBrackets())
       .join('\n');
     return result;
+  }
+
+  setBonusNum(num) {
+    this.#bonusNum = num;
   }
 
   getLottoCount() {

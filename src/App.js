@@ -3,15 +3,21 @@ import LottoMachine from './LottoMachine.js';
 class App {
   constructor() {
     this.money = 0;
-    this.LottoMachine = null;
+    this.bonusNum = 0;
+    this.winningNumbers = null;
+    this.lottoMachine = null;
   }
 
   async run() {
     this.money = Number(await Console.readLineAsync('구입금액을 입력해 주세요.\n'));
     Console.print('');
 
-    this.LottoMachine = new LottoMachine(this.money);
-    Console.print(this.LottoMachine.getBoughtLottosInfo());
+    this.lottoMachine = new LottoMachine(this.money);
+    Console.print(this.lottoMachine.getBoughtLottosInfo());
+    Console.print('');
+
+    this.bonusNum = Number(await Console.readLineAsync('보너스 번호를 입력해 주세요.\n'));
+    this.lottoMachine.setBonusNum(this.bonusNum);
     Console.print('');
   }
 }
