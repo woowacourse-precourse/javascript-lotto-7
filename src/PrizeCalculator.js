@@ -31,6 +31,13 @@ class PrizeCalculator {
     return bonusMatched * prizeAmount;
   }
 
+  #calculatePrize() {
+    const basicPrize = this.#calculateBasicPrize();
+    const bonusPrize = this.#calculateBonusPrize();
+
+    return basicPrize + bonusPrize;
+  }
+
   #calculateProfit(totalPrize) {
     const profit = (totalPrize * PRIZE_CALCULATOR.profitRatio) / this.#payment;
     return profit;
