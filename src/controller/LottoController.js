@@ -13,7 +13,11 @@ import LottoView from "../view/LottoView.js";
 export default class LottoController {
   #purchaseAmount = 0;
 
-  #purchasedLotto = null;
+  #purchasedLotto;
+
+  #winningNumbers;
+
+  #winningBonusNumber;
 
   constructor() {
     this.view = new LottoView();
@@ -24,19 +28,16 @@ export default class LottoController {
 
     this.purchaseLotto();
 
-    // 당첨 번호 입력 받기
-    const winningLottoInput = await this.view.getWinningLottoNumbers();
-    const winningLottoNumbers = winningLottoInput.split(",").map(Number);
-    const winningLotto = new Lotto(winningLottoNumbers);
+    await this.getWinningLottoNumbers();
 
     // 보너스 번호 입력 받기
-    const winningBonusInput = await this.view.getWinningLottoBonusNumbers();
+    this.#winningBonusNumber = await this.view.getWinningLottoBonusNumbers();
 
     // 당첨 내역
     const rankingModel = new RankingModel(
       this.#purchasedLotto,
-      winningLottoNumbers,
-      winningBonusInput
+      this.#winningNumbers,
+      this.#winningBonusNumber
     );
 
     // 당첨 내역 결과
@@ -74,5 +75,17 @@ export default class LottoController {
 
     this.#purchasedLotto = purchasedLottoModel.getPurchasedLottos();
     this.view.showPurchasedLottos(this.#purchasedLotto);
+  }
+
+  async getWinningLottoNumbers() {
+    // 당첨 번호 입력 받기
+    const winningLottoInput = await this.view.getWinningLottoNumbers();
+    try {
+      this.#winningNumbers = winningLottoInput.split(",").map(Number);
+      new Lotto(this.#winningNumbers);
+    } catch (error) {
+      this.view.printError(error.message);
+      await this.getWinningLottoNumbers();
+    }
   }
 }
