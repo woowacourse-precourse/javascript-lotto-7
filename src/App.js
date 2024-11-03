@@ -1,7 +1,5 @@
 import { Console } from '@woowacourse/mission-utils'
-import { CONSOLE_MESSAGES } from "./constant.js";
-import { Random } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
+import { LOTTO_PRICE } from "./constant.js";
 import LottoGame from "./LottoGame.js";
 import InputHandler from "./InputHandler.js";
 
@@ -48,20 +46,19 @@ const printWinningResults = (wonRecord) => {
   })
 }
 
+function calculateLottoCount(purchasePrice) {
+  return purchasePrice / LOTTO_PRICE;
+}
+
 class App {
   async run() {
     const purchasePrice = await InputHandler.getPurchasePrice();
-    const LOTTO_PRICE = 1000;
-    const divideInto1000 = purchasePrice % LOTTO_PRICE;
-    const lottoCount = purchasePrice / LOTTO_PRICE;
+    const NUMBER_OF_LOTTO = calculateLottoCount(purchasePrice);
 
-    if ((divideInto1000) !== 0) {
-      throw new Error('[ERROR]');
-    }
+    Console.print(`${NUMBER_OF_LOTTO}개를 구매했습니다.`);
 
-    Console.print(`${lottoCount}개를 구매했습니다.`);
     const lottoGame = new LottoGame();
-    const myLotto = lottoGame.generateLotto(lottoCount);
+    const myLotto = lottoGame.generateLotto(NUMBER_OF_LOTTO);
     myLotto.forEach((lotto) => Console.print(lotto.toString()));
 
 
