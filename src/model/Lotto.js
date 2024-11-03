@@ -9,7 +9,7 @@ class Lotto {
   /** @param {number[]} numbers */
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = this.#sort(numbers);
   }
 
   /** @param {number[]} numbers */
@@ -48,6 +48,11 @@ class Lotto {
     if (LottoValidator.isDuplicated(numbers)) {
       throw new Exception('로또 번호는 중복될 수 없습니다.');
     }
+  }
+
+  /** @param {number[]} numbers */
+  #sort(numbers) {
+    return [...numbers].sort((a, b) => a - b);
   }
 
   getNumbers() {
