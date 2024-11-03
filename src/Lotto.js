@@ -1,5 +1,5 @@
 import matchLottoNumbers from "./lottoUtils/matchLottoNumbers.js";
-
+import { RANKS } from "./constants.js";
 class Lotto {
   #numbers;
 
@@ -31,13 +31,13 @@ class Lotto {
     const matchedCount = matchLottoNumbers(this.#numbers, winningNumbers);
     const isBonusNumberMatched = this.#numbers.includes(bonusNumber);
 
-    if (matchedCount === 6) return 1;
-    if (matchedCount === 5 && isBonusNumberMatched) return 2;
-    if (matchedCount === 5) return 3;
-    if (matchedCount === 4) return 4;
-    if (matchedCount === 3) return 5;
+    if (matchedCount === 6) return RANKS.FIRST;
+    if (matchedCount === 5 && isBonusNumberMatched) return RANKS.SECOND;
+    if (matchedCount === 5) return RANKS.THIRD;
+    if (matchedCount === 4) return RANKS.FOURTH;
+    if (matchedCount === 3) return RANKS.FIFTH;
 
-    return 0;
+    return RANKS.NO_PRIZE;
   }
 }
 

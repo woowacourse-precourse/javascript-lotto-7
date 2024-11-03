@@ -1,0 +1,19 @@
+export const RANKS = {
+  FIRST: 1,
+  SECOND: 2,
+  THIRD: 3,
+  FOURTH: 4,
+  FIFTH: 5,
+  NO_PRIZE: 0,
+};
+
+export const PRIZES = {
+  [RANKS.FIRST]: 2000000000,
+  [RANKS.SECOND]: 30000000,
+  [RANKS.THIRD]: 1500000,
+  [RANKS.FOURTH]: 50000,
+  [RANKS.FIFTH]: 5000,
+  [RANKS.NO_PRIZE]: 0,
+};
+
+export const LOTTO_PRICE = 1000;

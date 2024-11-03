@@ -1,8 +1,8 @@
 import generateLotto from "./generateLotto.js";
-const Lotto_price = 1000;
+import { LOTTO_PRICE } from "../constants.js";
 
 export default function generateLottoByAmount(amount) {
-  const count = Math.floor(amount / Lotto_price);
+  const count = Math.floor(amount / LOTTO_PRICE);
   const lottos = [];
   for (let i = 0; i < count; i++) {
     lottos.push(generateLotto());
