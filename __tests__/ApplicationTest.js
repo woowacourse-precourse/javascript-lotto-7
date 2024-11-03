@@ -42,7 +42,7 @@ const runException = async (input) => {
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
 };
 
-describe("금액 입력 테스트", () => {
+describe('금액 입력 테스트', () => {
   let app;
 
   beforeEach(() => {
@@ -50,38 +50,85 @@ describe("금액 입력 테스트", () => {
     jest.restoreAllMocks();
   });
 
-  test("숫자가 아닌 값을 입력했을 때 에러 메시지 출력", async () => {
-    mockQuestions(["hello", "3000"]);
+  test('숫자가 아닌 값을 입력했을 때 에러 메시지 출력', async () => {
+    mockQuestions(['hello', '3000']);
     const logSpy = getLogSpy();
 
     await app.validateMoney();
 
-    expect(logSpy).toHaveBeenCalledWith("[Error] 숫자가 아닌 값을 입력할 수 없습니다!");
+    expect(logSpy).toHaveBeenCalledWith('[Error] 숫자가 아닌 값을 입력할 수 없습니다!');
   });
 
-  test("1000의 배수가 아닌 값을 입력했을 때 에러 메시지 출력", async () => {
-    mockQuestions(["1500", "3000"]);
+  test('1000의 배수가 아닌 값을 입력했을 때 에러 메시지 출력', async () => {
+    mockQuestions(['1500', '3000']);
     const logSpy = getLogSpy();
 
     await app.validateMoney();
 
-    expect(logSpy).toHaveBeenCalledWith("[Error] 1000 보다 적은 단위는 입력할 수 없습니다!");
+    expect(logSpy).toHaveBeenCalledWith('[Error] 1000 보다 적은 단위는 입력할 수 없습니다!');
   });
 
-  test("음수를 입력했을 때 에러 메시지 출력", async () => {
-    mockQuestions(["-1000", "3000"]);
+  test('음수를 입력했을 때 에러 메시지 출력', async () => {
+    mockQuestions(['-1000', '3000']);
     const logSpy = getLogSpy();
 
     await app.validateMoney();
 
-    expect(logSpy).toHaveBeenCalledWith("[Error] 음수는 입력할 수 없습니다!");
+    expect(logSpy).toHaveBeenCalledWith('[Error] 음수는 입력할 수 없습니다!');
   });
 
-  test("유효한 금액을 입력했을 때 해당 값이 반환", async () => {
-    mockQuestions(["3000"]);
+  test('유효한 금액을 입력했을 때 해당 값이 반환', async () => {
+    mockQuestions(['3000']);
     const result = await app.validateMoney();
 
-    expect(result).toBe("3000");
+    expect(result).toBe('3000');
+  });
+});
+
+describe('당첨번호 입력 테스트', () => {
+  let app;
+
+  beforeEach(() => {
+    app = new App();
+    jest.restoreAllMocks();
+  });
+
+  test('숫자가 아닌 값을 입력했을 때 에러 메시지 출력', async () => {
+    mockQuestions(['1,2,3,a,5,6', '1,2,3,4,5,6']);
+    const logSpy = getLogSpy();
+
+    const result = await app.validateWinningNumbers();
+
+    expect(logSpy).toHaveBeenCalledWith('[Error] 당첨번호는 숫자여야 합니다!');
+    expect(result).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
+  test('중복된 숫자를 입력했을 때 에러 메시지 출력', async () => {
+    mockQuestions(['1,2,3,3,5,6', '7,8,9,10,11,12']);
+    const logSpy = getLogSpy();
+
+    const result = await app.validateWinningNumbers();
+
+    expect(logSpy).toHaveBeenCalledWith('[Error] 당첨번호는 중복될 수 없습니다!');
+    expect(result).toEqual([7, 8, 9, 10, 11, 12]);
+  });
+
+  test('당첨 번호 길이 위반', async () => {
+    mockQuestions(['1,2,3,4,5,6,7', '1,2,3,4,5,6'])
+    const logSpy = getLogSpy();
+
+    const result = await app.validateWinningNumbers();
+
+    expect(logSpy).toHaveBeenCalledWith('[Error] 당첨번호는 6개의 숫자여야 합니다!');
+    expect(result).toEqual([1,2,3,4,5,6]);
+  });
+
+  test('유효한 당첨번호를 입력하면 해당 번호를 반환', async () => {
+    mockQuestions(['1,2,3,4,5,6']);
+
+    const result = await app.validateWinningNumbers();
+
+    expect(result).toEqual([1, 2, 3, 4, 5, 6]);
   });
 });
 
