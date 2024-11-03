@@ -10,6 +10,15 @@ class InputModules {
 
     return purchaseCash;
   }
+
+  static async getLottoWinnerNumbers() {
+    const winnerNumberInput = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+    const winnerNumbers = winnerNumberInput.split(',').map((num) => Number(num));
+
+    ValidatorModule.checkLottoNumbers(winnerNumbers);
+
+    return winnerNumbers;
+  }
 }
 
 export default InputModules;
