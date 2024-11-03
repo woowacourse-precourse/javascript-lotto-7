@@ -1,4 +1,8 @@
 class Validate {
+  static numbers(numStringArray) {
+    return numStringArray.every(numString => this.number(numString));
+  }
+
   static number(numString) {
     return /^[0-9]+$/.test(numString);
   }
