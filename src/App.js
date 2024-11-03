@@ -119,44 +119,20 @@ class App {
       MissionUtils.Console.print(LOTTO_COUNT + "개를 구매했습니다.");
       for (let COUNT = 0; COUNT < LOTTO_COUNT; COUNT++) {
         LOTTO_RESULT = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-        MissionUtils.Console.print("[" + LOTTO_RESULT + "]");
+        printLottoResult(LOTTO_RESULT);
         LOTTO_RESULTS.push(LOTTO_RESULT);
       }
       return LOTTO_RESULTS;
     }
 
-    // function lottoCount(purchase) {
-    //   return parseInt(purchase / 1000);
-    // }
-
-    // function printLottoCount(purchase) {
-    //   return `\n\n ${lottoCount(purchase)}개를 구매했습니다.\n`;
-    // }
-
-    // function printGenerateLotto(USER_PURCHASE) {
-    //   let printStr;
-    //   const LOTTO_RESULTS = generateLotto(lottoCount(USER_PURCHASE));
-    //   for (let LOTTO_RESULT in LOTTO_RESULTS)
-    //     printStr += `[${[...LOTTO_RESULT]}]\n`;
-    //   return printStr;
-    // }
-
-    // async function main() {
-    //   const USER_PURCHASE = await userPurchase();
-    //   let printStr = "";
-    //   printStr += printLottoCount(USER_PURCHASE);
-    //   printStr += printGenerateLotto(USER_PURCHASE);
-    //   return printStr;
-    // }
-
-    // const PRINT = main();
-    // return PRINT;
-
-    // async function printResult() {
-
-    // }
-
-    // printResult();
+    function printLottoResult(LOTTO_RESULT) {
+      let printStr = "[";
+      for (let NUM = 0; NUM < LOTTO_RESULT.length - 1; NUM++) {
+        printStr += LOTTO_RESULT[NUM] + ", ";
+      }
+      printStr += LOTTO_RESULT[LOTTO_RESULT.length - 1] + "]";
+      MissionUtils.Console.print(printStr);
+    }
 
     const USER_PURCHASE = await userPurchase();
     const LOTTO_RESULTS = generateLotto(USER_PURCHASE);
