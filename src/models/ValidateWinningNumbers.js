@@ -1,8 +1,11 @@
 import { WINNING_NUMBERS_MESSAGES } from '../constants/errorMessages.js';
+import { LOTTO, FORMAT } from '../constants/lottoConstants.js';
 
 class ValidateWinningNumbers {
   validateWinningNumbersFormat(input) {
-    const winningNumbersRegex = /^(\d+,){5}\d+$/;
+    const winningNumbersRegex = new RegExp(
+      `^(\\d+${FORMAT.WINNING_NUMBERS_SEPARATOR}){${LOTTO.NUMBER.LENGTH - 1}}\\d+$`,
+    );
 
     if (!winningNumbersRegex.test(input)) {
       throw new Error(WINNING_NUMBERS_MESSAGES.INVALID_FORMAT);
@@ -10,14 +13,14 @@ class ValidateWinningNumbers {
   }
 
   validateNumberRange(number) {
-    if (number < 1 || number > 45) {
+    if (number < LOTTO.NUMBER.MIN || number > LOTTO.NUMBER.MAX) {
       throw new Error(WINNING_NUMBERS_MESSAGES.INVALID_RANGE);
     }
   }
 
   validateDuplicateNumbers(numbers) {
     const uniqueNumbers = new Set(numbers);
-    if (uniqueNumbers.size !== numbers.length) {
+    if (uniqueNumbers.size !== LOTTO.NUMBER.LENGTH) {
       throw new Error(WINNING_NUMBERS_MESSAGES.DUPLICATE_NUMBERS);
     }
   }

@@ -1,4 +1,5 @@
 import ValidateWinningNumbers from './models/ValidateWinningNumbers.js';
+import { FORMAT } from './constants/lottoConstants.js';
 
 class Lotto {
   #numbers;
@@ -10,7 +11,9 @@ class Lotto {
 
   #validate(numbers) {
     const validator = new ValidateWinningNumbers();
-    validator.validateWinningNumbersFormat(numbers.join(','));
+    validator.validateWinningNumbersFormat(
+      numbers.join(FORMAT.WINNING_NUMBERS_SEPARATOR),
+    );
     validator.validateDuplicateNumbers(numbers);
     numbers.forEach((number) => validator.validateNumberRange(number));
   }

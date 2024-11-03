@@ -1,4 +1,5 @@
 import { BONUS_NUMBER_MESSAGES } from '../constants/errorMessages.js';
+import { LOTTO } from '../constants/lottoConstants.js';
 
 class ValidateBonusNumber {
   validateIsNumber(input) {
@@ -8,7 +9,7 @@ class ValidateBonusNumber {
   }
 
   validateBonusNumberRange(number) {
-    if (number < 1 || number > 45) {
+    if (number < LOTTO.NUMBER.MIN || number > LOTTO.NUMBER.MAX) {
       throw new Error(BONUS_NUMBER_MESSAGES.INVALID_RANGE);
     }
   }
