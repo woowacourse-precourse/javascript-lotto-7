@@ -62,4 +62,126 @@
 
 ## 👩🏻‍💻 구현 내용 정리
 
-## 📖 참고 사항
+### 검증 기능 클래스화 및 상속
+
+공통된 검증 기능들이 많아서 부모 클래스를 만들고 각 금액, 로또 번호, 당첨 번호, 보너스 번호 검증은 해당 클래스를 상속하여 활용
+
+- Validator.js
+
+```js
+class Validator {
+  static isEmpty(input) {
+    if (!input) throwError(ERROR_MESSAGES.EMPTY_INPUT);
+    return input;
+  }
+
+  static isSeparatedFormat(input, separator = ",") {
+    const values = input.split(separator).map((value) => value.trim());
+    if (values.length <= 1) throwError(ERROR_MESSAGES.INVALID_SEPARATOR);
+    return values;
+  }
+
+  // ...
+}
+
+export default Validator;
+```
+
+- AmountValidator.js
+
+```js
+class AmountValidator extends Validator {
+  static isMultipleOfThousand(input) {
+    if (input % LOTTO.AMOUNT_UNIT !== 0)
+      throwError(ERROR_MESSAGES.NOT_MULTIPLE_OF_THOUSAND);
+    return input;
+  }
+
+  static validate(input) {
+    return _pipe(
+      this.isEmpty,
+      this.isNumber,
+      this.isNagativeNumber,
+      this.isZero,
+      this.isMultipleOfThousand
+    )(input);
+  }
+}
+
+export default AmountValidator;
+```
+
+### 로또 서비스 클래스
+
+로또들에 대해 생성, 비교, 수익률 계산 로직을 처리
+
+```js
+class LottoService {
+  #lottos;
+
+  constructor() {
+    this.#lottos = [];
+  }
+
+  getLottos() {
+    return [...this.#lottos];
+  }
+
+  generateLottos(count) {
+    //...
+  }
+
+  compareLottos(winningNumbers, bonusNumber) {
+    //...
+  }
+
+  calculateProfit(matchCounts, amount) {
+    //...
+  }
+
+  //...
+}
+
+export default LottoService;
+```
+
+### RANK 객체
+
+각 등수에 대해 match 개수, bonus 여부, 금액, 메시지를 관리
+
+```js
+const RANKS = Object.freeze({
+  FIFTH: {
+    match: 3,
+    bonus: false,
+    prize: 5000,
+    message: "3개 일치 (5,000원) - ",
+  },
+  FOURTH: {
+    match: 4,
+    bonus: false,
+    prize: 50000,
+    message: "4개 일치 (50,000원) - ",
+  },
+  THIRD: {
+    match: 5,
+    bonus: false,
+    prize: 1500000,
+    message: "5개 일치 (1,500,000원) - ",
+  },
+  SECOND: {
+    match: 5,
+    bonus: true,
+    prize: 30000000,
+    message: "5개 일치, 보너스 볼 일치 (30,000,000원) - ",
+  },
+  FIRST: {
+    match: 6,
+    bonus: false,
+    prize: 2000000000,
+    message: "6개 일치 (2,000,000,000원) - ",
+  },
+});
+
+export default RANKS;
+```
