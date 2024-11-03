@@ -34,8 +34,8 @@ class OuputView {
     }
   }
 
-  static printProfitPercentage(totalAmount, inputMoney) {
-    Console.print(this.OUTPUT_MESSAGE.RATE_OF_RETURN((totalAmount / inputMoney) * 100));
+  static printProfitPercentage(percentage) {
+    Console.print(this.OUTPUT_MESSAGE.RATE_OF_RETURN(percentage));
   }
 }
 
