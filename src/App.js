@@ -51,6 +51,8 @@ class App {
       LOTTO.BASIC_COUNT
     ).sort((a, b) => a - b);
 
+    this.#printLottoNumbers(lottoUniqueNumbers);
+
     const lotto = new Lotto(lottoUniqueNumbers);
 
     return lotto;
@@ -62,8 +64,18 @@ class App {
     Console.print(buyLottoCountMessage);
   }
 
+  #printLottoNumbers(lottoNumbers) {
+    const lottoNumbersMessage = this.#lottoNumbersMessage(lottoNumbers);
+
+    Console.print(lottoNumbersMessage);
+  }
+
   #buyLottoCountMessage(lottoCount) {
     return `\n${lottoCount}개를 구매했습니다.`;
+  }
+
+  #lottoNumbersMessage(lottoNumbers) {
+    return `[${lottoNumbers.join(', ')}]`;
   }
 
   #validateAmountInput(amountInput) {
