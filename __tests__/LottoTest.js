@@ -1,18 +1,25 @@
-import Lotto from "../src/Lotto";
+import Lotto from '../src/Lotto';
+import { mockRandoms } from './testUtil';
 
-describe("로또 클래스 테스트", () => {
-  test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow("[ERROR]");
+describe('Lotto 클래스의 purchaseLotto 메서드 테스트', () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
   });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
-  test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow("[ERROR]");
-  });
+  test('6개의 로또 번호가 오름차순으로 정렬되어 지정된 개수만큼 나온다.', () => {
+    mockRandoms([
+      [43, 42, 23, 21, 41, 8],
+      [38, 16, 11, 5, 32, 3],
+    ]);
 
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+    const lottoList = Lotto.purchaseLotto(2);
+    const expectedList = [
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+    ];
+
+    lottoList.forEach((lotto, idx) => {
+      expect(lotto.numbers).toEqual(expectedList[idx]);
+    });
+  });
 });

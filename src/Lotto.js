@@ -14,6 +14,10 @@ class Lotto {
   static purchaseLotto(count) {
     return Array.from({ length: count }, () => new Lotto());
   }
+
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
