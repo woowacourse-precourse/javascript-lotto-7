@@ -4,6 +4,7 @@ import {purchasePriceUtils} from "./utils/purchasePrice.utils.js";
 import {Console} from '@woowacourse/mission-utils'
 import {lottoUtils} from "./utils/lotto.utils.js";
 import {winningNumbersUtils} from "./utils/winningNumbers.utils.js";
+import {bonusNumberUtils} from "./utils/bonusNumber.utils.js";
 
 class App {
     async run() {
@@ -19,6 +20,10 @@ class App {
         const winningNumbers = await InputHandler.getInput(INSTRUCTION.GET_WINNING_NUMBERS,
             winningNumbersUtils.validate,
             (str) => str.split(','));
+
+        const bonusNumber = await InputHandler.getInput(INSTRUCTION.GET_BONUS_NUMBER,
+            bonusNumberUtils.validate);
+        bonusNumberUtils.validateWithWinningNumbers(bonusNumber, winningNumbers);
     }
 }
 
