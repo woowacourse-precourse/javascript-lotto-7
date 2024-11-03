@@ -46,7 +46,6 @@
 
 ![image](https://github.com/user-attachments/assets/b1b1d2fc-a6a6-48cc-afc4-8abbe6a0129c)
 
-
 ---
 
 # 📋 구현 외 목표
@@ -59,6 +58,12 @@
 ---
 
 # 📝 구현 기능 목록
+
+## Constants
+
+- [x] 에러 메시지 상수
+- [x] 로또 기본 설정값 (가격, Lotto 매치 값 등)
+- [x] 출력 메시지 포맷
 
 ## Views 구현
 
@@ -113,16 +118,7 @@
   - 5등: 3개 일치 (5,000원)
 - [x] 수익률 계산 ((당첨금액 / 구입금액) × 100)
 
-## Controllers
-
-#### LottoController 클래스
-
-- [ ] 전체 게임 로직 제어
-- [ ] 사용자 입력값 처리 및 유효성 검사
-- [ ] Model과 View 연결
-- [ ] 예외 처리 및 재시도 로직
-
-### Utils
+## Utils
 
 #### Validator 클래스
 
@@ -144,15 +140,18 @@
   - 1 ~ 45 범위
   - 숫자(정수) 여부 확인
 
-### Mocks
+## Controllers
 
-- [ ] test Utils 따로 관리
+#### LottoController 클래스
 
-### Constants
+- [ ] 전체 게임 로직 제어
+- [ ] 사용자 입력값 처리 및 유효성 검사
+- [ ] Model과 View 연결
+- [ ] 예외 처리 및 재시도 로직
 
-- [x] 에러 메시지 상수
-- [x] 로또 기본 설정값 (가격, Lotto 매치 값 등)
-- [x] 출력 메시지 포맷
+## Mocks
+
+- [x] test Utils 따로 관리
 
 ## 🧪 테스트 구현
 
