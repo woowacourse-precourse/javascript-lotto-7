@@ -1,3 +1,4 @@
+- feat($App): 로또 번호 생성 및 출력 구현
 - feat($App.js): 구입 금액 입력 구현
 - docs: README.md
 - feat: setup project

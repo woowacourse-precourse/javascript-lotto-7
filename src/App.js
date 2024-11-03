@@ -1,15 +1,24 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
     try {
       const purchase = await this.getPurchase();
       const amount = purchase / 1000;
-      const tickets = this.generateLotto(amount)
+      const tickets = this.generateLotto(amount);
+      Console.print("\n");
 
-      this.displayTickets(tickets)
+      this.displayTickets(tickets);
+      Console.print("\n");
+
+      const winningNumbers = await this.getWinningNumbers();
+      Console.print("\n");
+
+      const bonusNumber = await this.getBonusNumber();
+      Console.print("\n");
     } catch (error) {
-      throw new Error("[ERROR]" + error.message);
+      throw new Error("[ERROR] " + error.message);
     }
   }
 
@@ -36,8 +45,32 @@ class App {
   }
 
   displayTickets(tickets) {
-    Console.print(`\n${tickets.length}개를 구매했습니다.`);
+    Console.print(`${tickets.length}개를 구매했습니다.`);
     tickets.forEach((ticket) => Console.print(`[${ticket.join(", ")}]`));
+  }
+
+  async getWinningNumbers() {
+    try {
+      const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+      const numbers = input.split(",").map((num) => parseInt(num.trim(), 10));
+      const winningNumbers = new Lotto(numbers);
+
+      return winningNumbers;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async getBonusNumber() {
+    try {
+      const input = await Console.readLineAsync(
+        "보너스 번호를 입력해 주세요.\n"
+      );
+      const number = parseInt(input);
+      return number;
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }
 
