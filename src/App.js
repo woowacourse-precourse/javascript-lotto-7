@@ -4,7 +4,7 @@ import Lotto from "./Lotto.js";
 class App {
   async run() {
     const amount = Number(await Console.readLineAsync("구입금액을 입력해 주세요.\n"));
-    this.amountExceptionHandler()
+    this.amountExceptionHandler();
 
     const possibleLottoCount = Number(amount / 1000);
     Console.print(`\n${possibleLottoCount}개를 구매했습니다.`);
@@ -15,7 +15,12 @@ class App {
     const inputWinningLotto = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
     const winningLotto = this.createWinningLotto(inputWinningLotto);
 
+    for(let lottoNumber of winningLotto){
+      this.lottoNumberOutOfRangeException(lottoNumber);
+    }
+
     const bonusLottoNumber = Number(await Console.readLineAsync("보너스 번호를 입력해 주세요.\n"));
+    this.lottoNumberOutOfRangeException(bonusLottoNumber);
 
     const winningArray = this.checkWinning(lottoArray, winningLotto, bonusLottoNumber);
 
@@ -80,7 +85,7 @@ class App {
     const winningCount = new Map();
     let winningAmount = 0;
 
-    for(let i=3; i<=7; i++){
+    for (let i = 3; i <= 7; i++) {
       winningCount.set(i, 0);
     }
     for (let wl of winningArray) {
@@ -97,9 +102,16 @@ class App {
   }
 
   // 1000원 단위가 아닐 경우
-  amountExceptionHandler(amount){
-    if(amount % 1000 != 0){
-      throw new Error('[ERROR] 1,000원 단위만 입력해주세요.')
+  amountExceptionHandler(amount) {
+    if (amount % 1000 != 0) {
+      throw new Error("[ERROR] 1,000원 단위만 입력해주세요.");
+    }
+  }
+
+  // 범위에 맞지 않는 로또 번호 입력시
+  lottoNumberOutOfRangeException(lottoNumber) {
+    if (lottoNumber < 1 || lottoNumber > 45) {
+      throw new Error("[ERROR] 1~45사이의 숫자만 입력해주세요.");
     }
   }
 
