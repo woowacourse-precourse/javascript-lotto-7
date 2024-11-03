@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import ValidatorModule from './utils/ValidatorModules.js';
 import Lotto from './Lotto.js';
+import InputModules from './views/InputModules.js';
 
 const rankBoard = {
   1: { correctNumber: 6, correctBonus: false },
@@ -20,13 +20,11 @@ const rankPrice = {
 
 class App {
   #cash;
-
   #numberOfLotto;
-
+  #winnerNumbers;
+  #winnerBonus;
   #lottos;
-
   #lottoResults;
-
   #totalPrice;
 
   constructor() {
@@ -45,8 +43,7 @@ class App {
   async run() {
     try {
       // 1. 구입 금액을 입력받는다.
-      this.#cash = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-      ValidatorModule.checkPurchaseCash(this.#cash);
+      this.#cash = await InputModules.getPurchaseCash();
 
       // 2. 구매된 로또 매수를 출력한다.
       this.#numberOfLotto = this.#cash / 1000;
@@ -63,20 +60,16 @@ class App {
       }
 
       // 4. 당첨 번호를 입력받는다.
-      const winnerNumberInput = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-      const winnerNumbers = winnerNumberInput.split(',').map((num) => Number(num));
-      ValidatorModule.checkLottoNumbers(winnerNumbers);
+      this.#winnerNumbers = await InputModules.getLottoWinnerNumbers();
 
       // 5. 보너스 번호를 입력받는다.
-      const winnerBonusInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-      const winnerBonus = Number(winnerBonusInput);
-      ValidatorModule.checkBonusNumber(winnerNumbers, winnerBonus);
+      this.#winnerBonus = await InputModules.getLottoWinnerBonusNumber(this.#winnerNumbers);
 
       // 6. 당첨 통계를 출력한다.
       // 당첨 통계 계산
       this.#lottos.forEach((lotto) => {
-        const correctCount = lotto.getNumberOfSameNumber(winnerNumbers);
-        const isCorrectBonus = lotto.getIsIncludesNumber(winnerBonus);
+        const correctCount = lotto.getNumberOfSameNumber(this.#winnerNumbers);
+        const isCorrectBonus = lotto.getIsIncludesNumber(this.#winnerBonus);
 
         if (correctCount == 6) {
           this.#lottoResults[1] += 1;
