@@ -30,7 +30,7 @@ class App {
   async #getUserLottoNumberInput() {
     try {
       const userLottoInput = await getUserInputAsync("당첨 번호를 입력해 주세요.\n");
-      const lottoNumbers = userLottoInput.split(",");
+      const lottoNumbers = userLottoInput.split(",").map(Number);
       this.#lotto = new Lotto(lottoNumbers);
     } catch (error) {
       printMessage(error.message);
