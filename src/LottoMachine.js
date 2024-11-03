@@ -62,5 +62,11 @@ export class LottoMachine {
         await this.promptBonusNumber();
     };
   }
+
+  validateBonusNumber(bonus) {
+    if (isNaN(bonus) || this.winningNumbers.includes(bonus) || bonus < 1 || bonus > 45) {
+      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1~45 사이의 숫자여야 합니다.");
+    }
+  }
 }
 export default LottoMachine;
