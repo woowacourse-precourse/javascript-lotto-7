@@ -33,6 +33,9 @@ class App {
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
 
     const myLottos = makeLottos(lottoCount);
+    for (let i = 0; i < lottoCount; i++) {
+      Console.print(`[${myLottos[i].getLottoNumbers().join(', ')}]`);
+    }
   }
 }
 
