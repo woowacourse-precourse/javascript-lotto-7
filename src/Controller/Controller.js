@@ -1,4 +1,11 @@
-import SYSTEM_MESSAGES from "../Model/SystemMessages";
+import {
+  getInput,
+  printLottoTickets,
+  printWinningResult,
+  printLottoYield,
+} from "../View/View.js";
+import { validatePrice } from "../Validation/Validation.js";
+import SYSTEM_MESSAGES from "../Model/SystemMessages.js";
 
 // Controller에서 전체 로직을 처리
 
@@ -28,4 +35,4 @@ class Controller {
   }
 }
 
-export default Controller();
+export default Controller;
