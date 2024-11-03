@@ -21,7 +21,6 @@ class Lotto {
     return this.#numbers;
   }
 
-  // 비교 갯수 반환
   match(winningNumbers, winningBonusNumber) {
     const matchAmount = this.#numbers.reduce((acc, cur) => {
       if (winningNumbers.includes(cur)) {

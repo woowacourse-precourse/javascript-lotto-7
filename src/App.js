@@ -1,11 +1,11 @@
 import { INPUT_CONFIG, LOTTO_CONFIG, PRIZE_CONFIG } from './constant/config.js';
 import { handleErrors } from './error/handleError.js';
-import LottoController from './model/LottoController.js';
+import LottoStore from './model/LottoStore.js';
 import { print, readLine } from './util/console.js';
 import { lottoAmountValidator, lottoBonusNumberValidator, lottoNumbersValidator } from './util/validation.js';
 
 class App {
-  #lottoController;
+  #lottoStore;
 
   async run() {
     await this.#readPurchaseAmount();
@@ -22,11 +22,11 @@ class App {
       ]),
     );
 
-    this.#lottoController = new LottoController(amount / LOTTO_CONFIG.PRICE);
+    this.#lottoStore = new LottoStore(amount / LOTTO_CONFIG.PRICE);
   }
 
   #printPurchaseLotto() {
-    const lottoList = this.#lottoController.getLottoList();
+    const lottoList = this.#lottoStore.getLottoList();
 
     print(`\n${lottoList.length}개를 구매했습니다.`);
 
@@ -58,11 +58,11 @@ class App {
       ]),
     );
 
-    this.#lottoController.setWinningNumbers(lottoNumbers, Number(lottoBonusNumber));
+    this.#lottoStore.setWinningNumbers(lottoNumbers, Number(lottoBonusNumber));
   }
 
   #printResult() {
-    const { result, sum, amount } = this.#lottoController.compare();
+    const { result, sum, amount } = this.#lottoStore.compare();
 
     print('\n당첨 통계\n---');
     result.forEach(([rank, amount]) => {

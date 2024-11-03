@@ -2,7 +2,7 @@ import { PRIZE_CONFIG } from '../constant/config.js';
 import Lotto from '../Lotto.js';
 import { getUniqueNumbersInRange } from '../util/random.js';
 
-export default class LottoController {
+export default class LottoStore {
   #lottoList;
   #winningLottoNumbers;
   #winningLottoBonusNumber;
