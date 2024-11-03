@@ -24,4 +24,20 @@ describe('LottoMachine 클래스 테스트', () => {
 
     expect(lottoMachine.getChargedMoney()).toBe(MONEY);
   });
+
+  test('당첨된 로또들과 투자한 돈을 이용해 총 수익률을 계산할 수 있다.', () => {
+    const MONEY = 10000;
+    const LOTTOS_RANK = {
+      1: 1,
+      2: 1,
+      3: 1,
+      4: 1,
+      5: 1,
+    };
+    const ANSWER = 20315550;
+
+    const lottoMachine = new LottoMachine(MONEY);
+
+    expect(lottoMachine.calculateProfitFromLottos(LOTTOS_RANK)).toBe(ANSWER);
+  });
 });
