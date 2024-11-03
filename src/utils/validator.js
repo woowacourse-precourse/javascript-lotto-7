@@ -1,5 +1,5 @@
 import {
-  WINNING_NUMBER_ERROR,
+  NUMBERS_ERROR,
   PURCHASE_AMOUNT_ERROR,
 } from "../constants/errorMessage.js";
 import { LOTTO_PRICE } from "../constants/gameRules.js";
@@ -25,24 +25,24 @@ export const validatePurchaseAmount = (purchaseAmount) => {
 
 export const validateNumbers = (numbers) => {
   if (numbers.length !== 6) {
-    throw new Error(WINNING_NUMBER_ERROR.COUNT_NOT_MET);
+    throw new Error(NUMBERS_ERROR.COUNT_NOT_MET);
   }
 
   if (checkDuplicateValueInArray(numbers)) {
-    throw new Error(WINNING_NUMBER_ERROR.DUPLICATE_NUMBERS);
+    throw new Error(NUMBERS_ERROR.DUPLICATE_NUMBERS);
   }
 
   numbers.forEach((number) => {
     if (Number.isNaN(number)) {
-      throw new Error(WINNING_NUMBER_ERROR.NOT_A_NUMBER);
+      throw new Error(NUMBERS_ERROR.NOT_A_NUMBER);
     }
 
     if (number < 1 || number > 45) {
-      throw new Error(WINNING_NUMBER_ERROR.INVALID_RANGE);
+      throw new Error(NUMBERS_ERROR.INVALID_RANGE);
     }
 
     if (!Number.isInteger(number)) {
-      throw new Error(WINNING_NUMBER_ERROR.NOT_AN_INTEGER);
+      throw new Error(NUMBERS_ERROR.NOT_AN_INTEGER);
     }
   });
 };

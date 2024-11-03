@@ -21,12 +21,10 @@ export const getPurchaseAmount = async () => {
   }
 };
 
-export const getWinningNumbers = async () => {
+export const getNumbers = async (message) => {
   while (true) {
     try {
-      const numbersInput = await Console.readLineAsync(
-        "당첨 번호를 입력해 주세요."
-      );
+      const numbersInput = await Console.readLineAsync(message);
       const numbers = numbersInput
         .trim()
         .replace(/[\s]/g, "")

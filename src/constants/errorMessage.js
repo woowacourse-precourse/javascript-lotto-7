@@ -3,7 +3,7 @@ import {
   LOTTO_MAX_NUMBER,
   LOTTO_MIN_NUMBER,
   LOTTO_PRICE,
-  WINNING_NUMBER_COUNT,
+  NUMBERS_COUNT,
 } from "./gameRules.js";
 
 export const PURCHASE_AMOUNT_ERROR = {
@@ -13,9 +13,9 @@ export const PURCHASE_AMOUNT_ERROR = {
   EMPTY_VALUE: "구매 금액을 입력하지 않았습니다.",
 };
 
-export const WINNING_NUMBER_ERROR = {
+export const NUMBERS_ERROR = {
   NOT_A_NUMBER: "당첨 번호는 숫자여야 합니다.",
-  COUNT_NOT_MET: `당첨 번호는 ${WINNING_NUMBER_COUNT}개여야 합니다.`,
+  COUNT_NOT_MET: `당첨 번호는 ${NUMBERS_COUNT}개여야 합니다.`,
   INVALID_RANGE: `당첨 번호는 ${LOTTO_MIN_NUMBER}~${LOTTO_MAX_NUMBER} 사이의 숫자여야 합니다.`,
   NOT_AN_INTEGER: "당첨 번호는 정수로 이루어져야 합니다.",
   DUPLICATE_NUMBERS: "당첨 번호는 서로 중복되면 안됩니다.",
