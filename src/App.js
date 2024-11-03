@@ -69,8 +69,20 @@ class App {
   async getBonusNumber() {
     Console.print("보너스 번호를 입력해 주세요.");
     const bonusNumberInput = await Console.readLineAsync("");
+    this.validateBonusNumber(bonusNumberInput);
+
     Console.print("");
-    return Number(bonusNumberInput);
+    return bonusNumber;
+  }
+
+  validateBonusNumber(bonusNumber) {
+    if (isNaN(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
+    }
+
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] 숫자는 1에서 45 사이여야 합니다.");
+    }
   }
 
   validateWinningNumbers(winningNumbers) {
