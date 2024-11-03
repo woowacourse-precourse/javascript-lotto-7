@@ -20,6 +20,15 @@ class App {
 
     printEmptyLine();
     await this.#getUserBonusNumberInput();
+
+    const resultString = this.#lottoMachine.getWinningLottery({
+      winningLotto: this.#winningLotto,
+      bonusNumber: this.#bonusNumber,
+    });
+
+    printMessage("당첨 통계");
+    printMessage("---");
+    printMessage(resultString);
   }
 
   async #getUserMoneyInput() {

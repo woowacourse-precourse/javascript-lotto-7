@@ -39,6 +39,10 @@ class Lotto {
   hasSameNumber(number) {
     return this.#numbers.includes(number);
   }
+
+  getMatchCountFrom(ticket) {
+    return ticket.filter((number) => this.#numbers.includes(number)).length;
+  }
 }
 
 export default Lotto;

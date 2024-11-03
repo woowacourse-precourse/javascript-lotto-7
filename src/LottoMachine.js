@@ -1,8 +1,15 @@
-import { buyOneLotto } from "./utils/lotto.js";
+import { buyOneLotto, getRankType } from "./utils/lotto.js";
 
 class LottoMachine {
   #amount;
   #tickets;
+  #winningTicketsRank = {
+    allMatch: 0,
+    fiveMatchAndBonus: 0,
+    fiveMatch: 0,
+    fourMatch: 0,
+    threeMatch: 0,
+  };
 
   constructor(input) {
     const inputNumber = Number(input);
@@ -30,6 +37,21 @@ class LottoMachine {
 
   getTicketsNumberString() {
     return `${this.#tickets.map((ticket) => `[${ticket.join(", ")}]`).join("\n")}`;
+  }
+
+  getWinningLottery({ winningLotto, bonusNumber }) {
+    this.#tickets.forEach((ticket) => {
+      const matchCount = winningLotto.getMatchCountFrom(ticket);
+      const isBonusMatch = bonusNumber.hasBonusNumberIn(ticket);
+      const rank = getRankType(matchCount, isBonusMatch);
+      this.#winningTicketsRank[rank] += 1;
+    });
+
+    return `3개 일치 (5,000원) - ${this.#winningTicketsRank.threeMatch}개
+4개 일치 (50,000원) - ${this.#winningTicketsRank.fourMatch}개
+5개 일치 (1,500,000원) - ${this.#winningTicketsRank.fiveMatch}개
+5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.#winningTicketsRank.fiveMatchAndBonus}개
+6개 일치 (2,000,000,000원) - ${this.#winningTicketsRank.allMatch}개`;
   }
 }
 
