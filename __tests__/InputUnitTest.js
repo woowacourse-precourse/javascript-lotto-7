@@ -68,3 +68,45 @@ describe("당첨 번호 테스트", () => {
 		await expect(input.getInputWinningNumber()).rejects.toThrow("[ERROR]");
 	});
 });
+
+describe("보너스 번호 테스트", () => {
+	let input;
+	const SUCCESS_CASE = [
+		["1,2,3,4,5,6", "7"],
+		["7,8,9,10,11,12", "45"],
+	];
+	const FAIL_CASE = [
+		["1,2,3,4,5,6", "6"],
+		["1,2,3,4,5,6", "48"],
+	];
+	beforeEach(() => {
+		input = new Input();
+		jest.clearAllMocks();
+	});
+
+	test.each(SUCCESS_CASE)(
+		"보너스 번호 입력 성공",
+		async (winningNumber, bonusNumber) => {
+			// given
+			mockQuestions([bonusNumber]);
+
+			// when
+			const RESULT = await input.getInputBonusNumber(winningNumber);
+
+			// then
+			expect(RESULT).toEqual(bonusNumber);
+		}
+	);
+	test.each(FAIL_CASE)(
+		"보너스 번호 입력 실패",
+		async (winningNumber, bonusNumber) => {
+			// given
+			mockQuestions([bonusNumber]);
+
+			// when, then
+			await expect(input.getInputBonusNumber(winningNumber)).rejects.toThrow(
+				"[ERROR]"
+			);
+		}
+	);
+});
