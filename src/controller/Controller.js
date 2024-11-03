@@ -85,39 +85,38 @@ export default class Controller {
     return new Lotto(lottoNumbers);
   }
 
-  async getBonusNumber(winningNumber) {
-    try {
-      const input = await this.inputView.getInput(INPUT_MESSAGE.BONUS_NUMBER);
-      validateBonusNumber(input, winningNumber);
-
-      return input;
-    } catch (error) {
-      this.outputView.printError(error.message);
-      await this.getBonusNumber();
-    }
+  async getMoney() {
+    return this.getValidatedInputWithRetry(
+      INPUT_MESSAGE.PURCHASE_PRICE,
+      validateMoney,
+    );
   }
 
   async getWinningNumber() {
-    try {
-      const input = await this.inputView.getInput(INPUT_MESSAGE.WINNING_NUMBER);
-      validateWinningNumber(input);
-
-      return input;
-    } catch (error) {
-      this.outputView.printError(error.message);
-      await this.getWinningNumber();
-    }
+    return this.getValidatedInputWithRetry(
+      INPUT_MESSAGE.WINNING_NUMBER,
+      validateWinningNumber,
+    );
   }
 
-  async getMoney() {
+  async getBonusNumber(winningNumber) {
+    return this.getValidatedInputWithRetry(
+      INPUT_MESSAGE.BONUS_NUMBER,
+      validateBonusNumber,
+      winningNumber,
+    );
+  }
+
+  async getValidatedInputWithRetry(message, validate, winningNumber) {
     try {
-      const input = await this.inputView.getInput(INPUT_MESSAGE.PURCHASE_PRICE);
-      validateMoney(input);
+      const input = await this.inputView.getInput(message);
+      validate(input, winningNumber);
 
       return input;
     } catch (error) {
       this.outputView.printError(error.message);
-      await this.getMoney();
+
+      return await this.getValidatedInputWithRetry(message, validate);
     }
   }
 }
