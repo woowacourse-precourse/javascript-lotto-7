@@ -31,6 +31,12 @@ class Lotto {
     return Lotto.winnings;
   }
 
+  static getWinningByRank(rank) {
+    const winning = Lotto.getWinnings().find(winning => winning.rank === rank);
+
+    return winning;
+  }
+
   win(winningNumbers, bonusNumber) {
     const { basicMatch, bonusMatch } = this.#getMatch(winningNumbers, bonusNumber);
     const winning = this.#getWinningByMatch(basicMatch, bonusMatch);
