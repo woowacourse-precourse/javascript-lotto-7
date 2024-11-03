@@ -16,8 +16,8 @@ describe('사용자 입력값 예외 테스트', () => {
 
   test('사용자가 입력한 값이 정수가 아니면 예외가 발생한다.', () => {
     expect(() => {
-      Validators.checkNumber(12.35);
-    }).toThrow(ERROR.NON_NUMBER);
+      Validators.checkInteger(12.35);
+    }).toThrow(ERROR.NON_INTEGER);
   });
 
   test('사용자가 입력한 값이 1-45 범위 밖의 숫자이면 예외가 발생한다.', () => {

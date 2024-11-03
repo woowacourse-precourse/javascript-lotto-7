@@ -18,9 +18,9 @@ class Ticket {
   }
 
   async inputCost() {
-    const cost = await Console.readLineAsync(INPUT.COST);
-    this.validation(cost);
-    this.#cost = cost;
+    const cost = (await Console.readLineAsync(INPUT.COST)).trim();
+    this.validation(Number(cost));
+    this.#cost = Number(cost);
   }
 
   getCost() {
@@ -29,6 +29,7 @@ class Ticket {
 
   validation(cost) {
     Validators.checkNumber(cost);
+    Validators.checkInteger(cost);
     Validators.checkCost(cost);
   }
 

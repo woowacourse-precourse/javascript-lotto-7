@@ -2,8 +2,14 @@ import { UNIT, ERROR, FORMAT } from '../constants/Constants.js';
 
 const Validators = {
   checkNumber(number) {
-    if (!FORMAT.NUMBER.test(number)) {
+    if (Number.isNaN(Number(number))) {
       throw new Error(ERROR.NON_NUMBER);
+    }
+  },
+
+  checkInteger(number) {
+    if (!FORMAT.NUMBER.test(number)) {
+      throw new Error(ERROR.NON_INTEGER);
     }
   },
 
