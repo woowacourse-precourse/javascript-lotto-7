@@ -18,6 +18,10 @@ class LottoView {
       Console.print(`[${lotto.join(", ")}]`);
     });
   }
+
+  async inputWinningNumber() {
+    await Console.readLineAsync(MESSAGES.INPUT_WINNING_NUMBER);
+  }
 }
 
 export default LottoView;
