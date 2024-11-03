@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { PriceInputHandler } from "../src/handler/PriceInputHandler.js";
-import { inValidMessages } from "../src/constant/message.js";
 import { LottoNumberInputHandler } from "../src/handler/LottoNumberInputHandler.js";
+import { inValidMessages } from "../src/constant/message.js";
 
 const mockReadLineAsync = (input) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -34,9 +34,9 @@ describe('LottoNumberInputHandler Class 테스트', () => {
 
   const bonusNumberArr = ['a', '!', '1000j', ''];
 
-  test.each(bonusNumberArr)('입력 받은 보너스 번호가 숫자가 아니면 에러를 던진다.', async (bonusNumber) => {
+  test.each(bonusNumberArr)('입력 받은 보너스 번호가 숫자가 아니면 에러를 던진다.', (bonusNumber) => {
     mockReadLineAsync(bonusNumber);
 
-    await expect(lottoNumberInputHandler.readBonusNumber()).rejects.toThrow(inValidMessages.NaN);
+    expect(lottoNumberInputHandler.readBonusNumber()).rejects.toThrow(inValidMessages.NaN);
   })
 });
