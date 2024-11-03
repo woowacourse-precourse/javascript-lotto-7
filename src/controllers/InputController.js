@@ -2,7 +2,6 @@ import { Console } from '@woowacourse/mission-utils';
 import Parser from '../utils/Parser.js';
 import LottoValidator from '../utils/LottoValidator.js';
 import InputView from '../views/InputView.js';
-import LottoManager from '../models/LottoManager.js';
 
 class InputController {
   static async getValidPurchaseAmount() {
