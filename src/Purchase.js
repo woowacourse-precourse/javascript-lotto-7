@@ -10,7 +10,10 @@ class Purchase{
 
     #validate(amount){
         if(isNaN(Number(amount))){
-            throw new Error (ERROR_MESSAGE.IS_NOT_NUMBER)
+            throw new Error (ERROR_MESSAGE.IS_NOT_NUMBER);
+        }
+        if(amount.trim()===""){
+            throw new Error(ERROR_MESSAGE.INVALID_BLANK);
         }
     }
     
