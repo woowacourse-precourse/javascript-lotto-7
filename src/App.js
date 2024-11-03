@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import LottoMachineController from './Controller/LottoMachineController';
+import LottoMachineController from './Controller/LottoMachineController.js';
 
 class App {
   async run() {
