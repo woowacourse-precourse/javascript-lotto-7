@@ -3,6 +3,8 @@ import Lotto from './Lotto.js';
 import ERROR_MESSAGES from '../utills/errors.js';
 
 class LottoInputReader {
+  static #winningNumbers
+
   static async readLottoPurchaseAmount() {
     const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
 
@@ -13,12 +15,14 @@ class LottoInputReader {
     const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
     this.#validateInputNotEmpty(input.trim());
 
-    return new Lotto(
+    this.#winningNumbers = new Lotto(
       input
         .split(',')
         .map(Number)
         .sort((a, b) => a - b)
     );
+
+    return this.#winningNumbers;
   }
 
   static async readBonusNumber() {
@@ -47,7 +51,8 @@ class LottoInputReader {
     this.#validateIsNumber(bonusNumber);
     this.#validateIsPositive(bonusNumber);
     this.#validateBonusNumberRange(bonusNumber);
-
+    this.#validateBonusNumberDuplicate(bonusNumber);
+    
     return bonusNumber;
   }
 
@@ -78,6 +83,12 @@ class LottoInputReader {
   static #validateBonusNumberRange(bonusNumber) {
     if (bonusNumber < 1 || bonusNumber > 45) {
       throw new Error(ERROR_MESSAGES.LOTTO.INVALID_RANGE);
+    }
+  }
+
+  static #validateBonusNumberDuplicate(bonusNumber) {
+    if (this.#winningNumbers.getNumbers().includes(bonusNumber)) {
+      throw new Error(ERROR_MESSAGES.LOTTO.DUPLICATE_NUMBERS);
     }
   }
 }
