@@ -35,6 +35,10 @@ class Lotto {
       return acc;
     }, 0);
   }
+
+  hasBonusBall(bonusBall) {
+    return this.#numbers.includes(bonusBall);
+  }
 }
 
 export default Lotto;

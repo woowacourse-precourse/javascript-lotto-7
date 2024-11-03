@@ -33,7 +33,8 @@ export class UserLottoInfo {
   checkLottoMatch(winningLotto, bonusBall) {
     this.#lottos.forEach((lotto) => {
       const matchCount = lotto.countLottoMatches(winningLotto.numbers);
-      Console.print(matchCount);
+      const matchBonus = lotto.hasBonusBall(bonusBall);
+      console.log(matchCount, matchBonus);
       //   this.#matchInfo[matchCount] += 1;
     });
   }
