@@ -56,6 +56,6 @@ describe('로또 구매 테스트', () => {
   test('로또 구입 금액은 100,000,000원을 초과해선 안된다.', () => {
     expect(() => {
       lottoValidator.validatePurchaseAmount('200000000');
-    }).toThrow(`${ERROR_MESSAGES.invalid_range}`);
+    }).toThrow(`${ERROR_MESSAGES.exceed_range}`);
   });
 });
