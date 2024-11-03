@@ -58,6 +58,7 @@ class App {
       MissionUtils.Console.print("");
       const USER_DRAW = await userDraw();
       let USER_LOTTO = new Lotto(USER_DRAW);
+      MissionUtils.Console.print("");
       do {
         try {
           USER_SECOND_INPUT = await getBonusDraw();
@@ -116,7 +117,7 @@ class App {
       let LOTTO_RESULTS = [];
       let LOTTO_RESULT;
       let LOTTO_COUNT = parseInt(USER_PURCHASE / 1000);
-      MissionUtils.Console.print(LOTTO_COUNT + "개를 구매했습니다.");
+      MissionUtils.Console.print("\n" + LOTTO_COUNT + "개를 구매했습니다.");
       for (let COUNT = 0; COUNT < LOTTO_COUNT; COUNT++) {
         LOTTO_RESULT = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
         printLottoResult(LOTTO_RESULT);
@@ -134,12 +135,24 @@ class App {
       MissionUtils.Console.print(printStr);
     }
 
+    function printReward(USER_PURCHASE, REWARD_AMOUNT) {
+      let REWARD_PER = (REWARD_AMOUNT / USER_PURCHASE) * 100;
+      MissionUtils.Console.print(
+        `총 수익률은 ${REWARD_PER.toFixed(1)}%입니다.\n`
+      );
+    }
+
     const USER_PURCHASE = await userPurchase();
     const LOTTO_RESULTS = generateLotto(USER_PURCHASE);
-    MissionUtils.Console.print("");
     const USER_INPUT = await userInput();
     const GAME_START = new Lotto(USER_INPUT[0]);
     const USER_NUMBERS = GAME_START.addBonusDraw(USER_INPUT[0], USER_INPUT[1]);
+    const MATCH_RESULT = GAME_START.matchResults(LOTTO_RESULTS);
+    const REWARD_AMOUNT = GAME_START.calcReward(
+      MATCH_RESULT[0],
+      MATCH_RESULT[1]
+    );
+    printReward(USER_PURCHASE, REWARD_AMOUNT);
   }
 }
 
