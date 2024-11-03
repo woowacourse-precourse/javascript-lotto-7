@@ -1,8 +1,8 @@
+import { Console } from '@woowacourse/mission-utils';
 import Generator from './Generator.js';
 import InputProcessor from './InputProcessor.js';
 import Statistics from './Statistics.js';
 import { LOTTO } from './constants/lotto.js';
-import handleError from './utils/handleError.js';
 
 class App {
   #purchasePrice;
@@ -25,7 +25,7 @@ class App {
       const winningStatistics = new Statistics(lottos, this.#purchasePrice, this.#winningNumbers, this.#bonusNumber);
       winningStatistics.result();
     } catch (error) {
-      handleError(true, error.message);
+      Console.print(error.toString());
     }
   }
 }
