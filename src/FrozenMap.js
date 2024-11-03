@@ -38,11 +38,11 @@ class FrozenMap extends Map {
   }
 
   delete() {
-    throw new Error("Freeze Map객체는 delete 메서드를 사용할 수 없습니다.");
+    throw new Error("Frozen Map객체는 delete 메서드를 사용할 수 없습니다.");
   }
 
   clear() {
-    throw new Error("Freeze Map객체는 clear 메서드를 사용할 수 없습니다.");
+    throw new Error("Frozen Map객체는 clear 메서드를 사용할 수 없습니다.");
   }
 }
 
