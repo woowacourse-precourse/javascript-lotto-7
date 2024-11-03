@@ -1,4 +1,4 @@
-import { Validation } from '../src/lottoMachine/Validation.js';
+import { Validation } from '../src/lottoMachine/validation/Validation.js';
 
 const validation = new Validation();
 
