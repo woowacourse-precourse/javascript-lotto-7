@@ -13,6 +13,14 @@ class Input {
     this.errorHandler = new Exception();
     this.utils = new Utils();
     this.results = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0 };
+    this.prizes = {
+      first: 2000000000,
+      second: 30000000,
+      third: 1500000,
+      fourth: 50000,
+      fifth: 5000,
+    };
+    this.totalProfit = 0;
   }
 
   async inputPrice() {
@@ -106,18 +114,25 @@ class Input {
       );
       if (matchResult.matchCount === 6) {
         this.results.first++;
+        this.totalProfit += this.prizes.first;
       } else if (matchResult.matchCount === 5 && matchResult.hasBonus) {
         this.results.second++;
+        this.totalProfit += this.prizes.second;
       } else if (matchResult.matchCount === 5) {
         this.results.third++;
+        this.totalProfit += this.prizes.third;
       } else if (matchResult.matchCount === 4) {
         this.results.fourth++;
+        this.totalProfit += this.prizes.fourth;
       } else if (matchResult.matchCount === 3) {
         this.results.fifth++;
+        this.totalProfit += this.prizes.fifth;
       } else {
         null;
       }
     }
+    Console.print(this.results);
+    Console.print(this.totalProfit);
   }
 }
 
