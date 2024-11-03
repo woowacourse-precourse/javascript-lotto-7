@@ -5,7 +5,7 @@ import Convert from './Convert.js';
 
 class App {
   async run() {
-    const amount = await this.userAmountInput();
+    const amount = await this.safeAsyncExecute(this.userAmountInput.bind(this));
   }
 
   async userAmountInput() {
@@ -13,6 +13,15 @@ class App {
     const amount = this.convertToAmount(amountInput);
 
     return amount;
+  }
+
+  async safeAsyncExecute(callback) {
+    try {
+      return await callback();
+    } catch (err) {
+      Console.print(err.message);
+      return this.safeAsyncExecute(callback);
+    }
   }
 
   convertToAmount(amountInput) {
