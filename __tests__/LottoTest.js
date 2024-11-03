@@ -1,5 +1,6 @@
 import Lotto from '../src/Lotto.js';
 import { ERROR_MESSAGES } from '../src/constants/messages.js';
+import { LOTTO_CONDITION } from '../src/constants/constants.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
@@ -41,22 +42,13 @@ describe('로또 클래스 테스트', () => {
     ['-1,2,3,4,5,6'],
     ['1,2,3,4,5,46'],
     ['1,,2,3,4,5'],
-  ])('당첨 번호에 1~45 외의 숫자가 포함되어선 안된다. - [%s]', (numbers) => {
-    expect(() => {
-      const lottoNumbers = numbers.split(',').map(Number);
-      new Lotto(lottoNumbers);
-    }).toThrow(`${ERROR_MESSAGES.invalid_lotto_range}`);
-  });
-
-  test.each([
-    ['0,1,2,3,4,5'],
-    ['-1,2,3,4,5,6'],
-    ['1,2,3,4,5,46'],
-    ['1,,2,3,4,5'],
-  ])('당첨 번호에 1~45 외의 숫자가 포함되어선 안된다. - [%s]', (numbers) => {
-    expect(() => {
-      const lottoNumbers = numbers.split(',').map(Number);
-      new Lotto(lottoNumbers);
-    }).toThrow(`${ERROR_MESSAGES.invalid_lotto_range}`);
-  });
+  ])(
+    `당첨 번호에 ${LOTTO_CONDITION.startRange}~${LOTTO_CONDITION.endRange} 외의 숫자가 포함되어선 안된다. - [%s]`,
+    (numbers) => {
+      expect(() => {
+        const lottoNumbers = numbers.split(',').map(Number);
+        new Lotto(lottoNumbers);
+      }).toThrow(`${ERROR_MESSAGES.invalid_lotto_range}`);
+    },
+  );
 });
