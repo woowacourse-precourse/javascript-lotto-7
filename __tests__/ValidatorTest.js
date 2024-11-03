@@ -169,4 +169,65 @@ describe('Validator Test', () => {
       },
     );
   });
+
+  describe('isRigthArrayLength() : 배열 길이가 적절한지 검증', () => {
+    test.each([[[1]], [[]], [[1, 1, 1, 1, 1, 1, 1, 1]]])(
+      '기본 지정 배열 길이와 다른 경우 에러를 발생시킨다.( %s )',
+      (value) => {
+        // when
+        const validate = () => {
+          Validator.isRigthArrayLength(value);
+        };
+
+        // then
+        expect(validate).toThrow(ERROR_PREFIX);
+      },
+    );
+
+    test.each([
+      [[1, 1, 1, 1, 1, 1]],
+      [[1, 2, 3, 4, 5, 6]],
+      [[101213, 'a', '', -199, 9.1213, '&&']],
+    ])('기본 지정 배열 길이와 동일한 경우 정상적으로 동작한다. ( %s )', (value) => {
+      // when
+      const validate = () => {
+        Validator.isRigthArrayLength(value);
+      };
+
+      expect(validate).not.toThrow();
+    });
+
+    test.each([
+      [5, []],
+      [10, [1, 2, 3]],
+      [20, [1, 1, 1, 1, 1, 1, 1, 1]],
+    ])(
+      '커스텀 지정 배열 길이( %s )와 동일하지 않은 경우( %s ) 에러를 발생시킨다.',
+      (standard, value) => {
+        // when
+        const validate = () => {
+          Validator.isRigthArrayLength(value, standard);
+        };
+
+        // then
+        expect(validate).toThrow(ERROR_PREFIX);
+      },
+    );
+
+    test.each([
+      [0, []],
+      [10, [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+      [2, [0, 0]],
+    ])(
+      '커스텀 지정 배열 길이( %s )와 동일한 경우( %s ) 정상적으로 동작한다.',
+      (standard, value) => {
+        // when
+        const validate = () => {
+          Validator.isRigthArrayLength(value, standard);
+        };
+
+        expect(validate).not.toThrow();
+      },
+    );
+  });
 });
