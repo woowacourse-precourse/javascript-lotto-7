@@ -1,0 +1,7 @@
+export const LOTTO = {
+  PRICE: 1000,
+  MIN_NUMBER: 1,
+  MAX_NUMBER: 45,
+  BASIC_COUNT: 6,
+  BOUNCE_BALL_COUNT: 1,
+};
