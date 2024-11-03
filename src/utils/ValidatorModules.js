@@ -13,6 +13,16 @@ class ValidatorModule {
     this.checkPositiveInteger(value);
     Validator.isNumberIsDividable(value);
   }
+
+  static checkWinnerNumber(value) {
+    Validator.isRigthArrayLength(value);
+    Validator.isNotIncludeDuplicatedNumber(value);
+
+    value.forEach((number) => {
+      this.checkPositiveInteger(number);
+      Validator.isNumberInBoundary(number);
+    });
+  }
 }
 
 export default ValidatorModule;
