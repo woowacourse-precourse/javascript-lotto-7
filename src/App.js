@@ -5,7 +5,6 @@ class App {
     const purchaseAmount = Number(
       await Console.readLineAsync('구입금액을 입력해주세요.\n'),
     );
-    Console.print(purchaseAmount);
 
     if (isNaN(purchaseAmount)) {
       throw new Error('[ERROR] 숫자 이외의 문자는 입력할 수 없습니다.');
@@ -20,6 +19,15 @@ class App {
     }
     if (purchaseAmount % 1000 !== 0) {
       throw new Error('[ERROR] 구입금액은 1,000원 단위로 입력해야 합니다.');
+    }
+    const lottoCount = purchaseAmount / 1000;
+    const lottoList = Array.from({ length: lottoCount }, (x) =>
+      Random.pickUniqueNumbersInRange(1, 45, 6),
+    );
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    for (let lotto of lottoList) {
+      lotto.sort((a, b) => a - b);
+      Console.print(lotto);
     }
   }
 }
