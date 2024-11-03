@@ -98,5 +98,9 @@ export class LottoMachine {
     });
     this.printResults(results);
   }
+
+  getMatchedCount(numbers) {
+    return numbers.filter(num => this.winningNumbers.includes(num)).length;
+  }
 }
 export default LottoMachine;
