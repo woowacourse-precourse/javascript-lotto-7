@@ -26,6 +26,15 @@ class Lotto {
   printNumbers() {
     return `[${String(this.#numbers).split(",").join(", ")}]`;
   }
+
+  countLottoMatches(number) {
+    return number.reduce((acc, cur) => {
+      if (this.#numbers.includes(cur)) {
+        return acc + 1;
+      }
+      return acc;
+    }, 0);
+  }
 }
 
 export default Lotto;
