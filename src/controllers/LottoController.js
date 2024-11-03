@@ -17,6 +17,9 @@ class LottoController {
 
         const lottos = this.getGeneratedLottos(lottoCount);
         lottos.forEach((lotto) => this.outputView.outputLotto(lotto));
+
+        const inputWinningNumbers = await this.getValidatedInputWinningNumbers();
+        const inputBonusNumber = await this.getValidatedInputBonusNumber();
     }
 
     async getValidatedInputAmount() {
@@ -40,6 +43,16 @@ class LottoController {
         }
 
         return lottos;
+    }
+
+    async getValidatedInputWinningNumbers() {
+        const inputAmount = await this.InputView.getInputWinningNumbers();
+        return inputAmount;
+    }
+
+    async getValidatedInputBonusNumber() {
+        const inputAmount = await this.InputView.getInputBonusNumber();
+        return inputAmount;
     }
 }
 
