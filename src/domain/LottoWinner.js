@@ -1,3 +1,5 @@
+import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
+
 class LottoWinner {
   #numbers;
   #bonusNumber;
@@ -31,31 +33,31 @@ class LottoWinner {
 
   #validateNumberIsSix(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(LOTTO_MESSAGES.error.numberCountNotSix);
     }
   }
 
   #validateIsDuplicate(input) {
     if (input.length > 1) {
-      throw new Error('[ERROR] 중복 숫자는 사용할 수 없습니다.')
+      throw new Error(LOTTO_MESSAGES.error.duplicatedNumber);
     }
   }
 
   #validateNumberRange(number) {
     if (number <= 0 || number >= 46) {
-      throw new Error('[ERROR] 1~45 사이의 숫자만 입력해야 합니다.')
+      throw new Error(LOTTO_MESSAGES.error.numberRangeOver);
     }
   }
 
   #validateIsNaN(number) {
     if (Number.isNaN(number)) {
-      throw new Error('[ERROR] 숫자만 입력할 수 있습니다.')
+      throw new Error(LOTTO_MESSAGES.error.inputNaN);
     }
   }
 
   #validateBonus(input, bonus) {
     if (input === bonus) {
-      throw new Error('[ERROR] 당첨 번호와 보너스 번호는 중복될 수 없습니다.')
+      throw new Error(LOTTO_MESSAGES.error.BonusNumberIsInLotto);
     }
   }
 

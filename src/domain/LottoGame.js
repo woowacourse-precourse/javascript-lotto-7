@@ -3,6 +3,7 @@ import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 import Utils from "../Utils.js";
 import LottoWinner from "./LottoWinner.js";
+import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
 
 class LottoGame {
   #lotto = [];
@@ -63,25 +64,25 @@ class LottoGame {
 
   #validateIsNumber(input) {
     if (typeof input !== 'number') {
-      throw new Error('[ERROR] 입력값이 올바르지 않습니다.')
+      throw new Error(LOTTO_MESSAGES.error.inputNaN);
     }
   }
 
   #validateIsOverThousand(input) {
     if (input < 1000) {
-      throw new Error('[ERROR] 최소 1,000원 이상 입력해야 합니다.')
+      throw new Error(LOTTO_MESSAGES.error.priceUnderThousands);
     }
   }
 
   #validateIsMultiplesOfThousand(input) {
     if (input % 1000 !== 0) {
-      throw new Error('[ERROR] 입력값이 1,000원 단위로 나누어 떨어지지 않습니다.')
+      throw new Error(LOTTO_MESSAGES.error.priceNotMultipleOfThousands);
     }
   }
 
   #validateIsInteger(input) {
     if (input.includes('.')) {
-      throw new Error('[ERROR] 소숫점을 입력할 수 없습니다.')
+      throw new Error(LOTTO_MESSAGES.error.canNotUseDecimal);
     }
   }
 
@@ -97,13 +98,13 @@ class LottoGame {
 
   #validateLottoNumber(input) {
     if (input.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(LOTTO_MESSAGES.error.numberCountNotSix);
     }
   }
 
   #validateIsOneNumber(input) {
     if (input.includes(',')) {
-      throw new Error('[ERROR] 보너스 번호는 1개 입력해야 합니다.')
+      throw new Error(LOTTO_MESSAGES.error.BonusCountNotOne);
     }
   }
 
