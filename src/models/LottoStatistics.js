@@ -52,13 +52,19 @@ class LottoStatistics {
   }
 
   calculateLottoPrize(key) {
-    if (key === LOTTO_STATISTICS_KEYS.THREE) return this.#statistics.get(key) * LOTTO_PRIZES.THREE;
-    if (key === LOTTO_STATISTICS_KEYS.FOUR) return this.#statistics.get(key) * LOTTO_PRIZES.FOUR;
-    if (key === LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS) return this.#statistics.get(key) * LOTTO_PRIZES.FIVE_AND_BONUS;
-    if (key === LOTTO_STATISTICS_KEYS.FIVE) return this.#statistics.get(key) * LOTTO_PRIZES.FIVE;
-    if (key === LOTTO_STATISTICS_KEYS.SIX) return this.#statistics.get(key) * LOTTO_PRIZES.SIX;
+    const prizeKeyMap = {
+      [LOTTO_STATISTICS_KEYS.THREE]: LOTTO_PRIZES.THREE,
+      [LOTTO_STATISTICS_KEYS.FOUR]: LOTTO_PRIZES.FOUR,
+      [LOTTO_STATISTICS_KEYS.FIVE]: LOTTO_PRIZES.FIVE,
+      [LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS]: LOTTO_PRIZES.FIVE_AND_BONUS,
+      [LOTTO_STATISTICS_KEYS.SIX]: LOTTO_PRIZES.SIX,
+    };
 
-    return 0;
+    const prize = prizeKeyMap[key];
+
+    if (!prize) return 0;
+
+    return this.#statistics.get(key) * prize;
   }
 
   statisticsToString() {
