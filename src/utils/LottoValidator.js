@@ -1,6 +1,12 @@
 import { MAX_PURCHASE_AMOUNT } from '../constants/config.js';
 import { ERROR_MSG } from '../constants/messages.js';
 
+const validateInvalidNumberRange = (number) => {
+  if (Number.isNaN(number) || number < 1 || number > 45) {
+    throw new Error(ERROR_MSG.INVALID_NUMBER_RANGE);
+  }
+};
+
 /**
  * 구입 금액의 유효성을 검증합니다.
  * @param {number} purchaseAmount - 구입 금액
@@ -58,11 +64,5 @@ export const validateBonusNumber = (bonusNumber, winningNumbers) => {
   const winningArray = winningNumbers.split(',').map(Number);
   if (winningArray.includes(number)) {
     throw new Error(ERROR_MSG.DUPLICATE_NUMBERS);
-  }
-};
-
-const validateInvalidNumberRange = (number) => {
-  if (Number.isNaN(number) || number < 1 || number > 45) {
-    throw new Error(ERROR_MSG.INVALID_NUMBER_RANGE);
   }
 };

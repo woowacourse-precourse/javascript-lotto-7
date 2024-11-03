@@ -1,8 +1,7 @@
+import { Random } from '@woowacourse/mission-utils';
 import LottoController from '../../src/controllers/LottoController';
 import Lotto from '../../src/models/Lotto';
 import Prize from '../../src/models/Prize';
-import ResultChecker from '../../src/models/ResultChecker';
-import { Random } from '@woowacourse/mission-utils';
 
 jest.mock('../../src/models/Lotto');
 jest.mock('../../src/models/Prize');
@@ -18,6 +17,7 @@ describe('controllers/LottoController', () => {
       .mockReturnValue([1, 2, 3, 4, 5, 6]);
     lottoController = new LottoController();
   });
+
   describe('generateTickets()', () => {
     it.each([
       [1000, 1],
@@ -70,6 +70,35 @@ describe('controllers/LottoController', () => {
         const parsedNumbers =
           lottoController.parseWinningNumbers(numbersString);
         expect(parsedNumbers).toEqual(expectedArray);
+      },
+    );
+  });
+
+  describe('calculateYield()', () => {
+    it.each([
+      [
+        10000,
+        { match3: 1, match4: 0, match5: 0, match5Bonus: 0, match6: 0 },
+        50000,
+        '500.0',
+      ],
+      [
+        20000,
+        { match3: 0, match4: 0, match5: 1, match5Bonus: 0, match6: 0 },
+        1500000,
+        '7500.0',
+      ],
+    ])(
+      'should calculate yield for purchase amount %i and result %o',
+      (purchaseAmount, result, totalPrize, expectedYield) => {
+        Prize.calculateTotalPrize.mockReturnValue(totalPrize);
+
+        const yieldRate = lottoController.calculateYield(
+          purchaseAmount,
+          result,
+        );
+        expect(Prize.calculateTotalPrize).toHaveBeenCalledWith(result);
+        expect(yieldRate).toBe(expectedYield);
       },
     );
   });
