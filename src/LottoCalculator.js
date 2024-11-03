@@ -11,11 +11,13 @@ class LottoCalculator {
 
   #ROI = 0;
 
-  constructor(lottos, winningNumbers, bonusNumber) {
+  constructor(buyPrice, lottos, winningNumbers, bonusNumber) {
+    this.buyPrice = buyPrice;
     this.lottos = lottos;
     this.winningNumbers = winningNumbers;
     this.bonusNumber = bonusNumber;
     this.calculateResult(lottos, winningNumbers, bonusNumber);
+    this.calculateROI(buyPrice);
   }
 
   calculateResult(lottos) {
@@ -51,7 +53,7 @@ class LottoCalculator {
       this.#result.fiveBonus * 30000000 +
       this.#result.six * 2000000000;
 
-    const ROI = (totalPrize - buyPrice) / buyPrice;
+    const ROI = totalPrize / buyPrice;
     this.#ROI = ROI;
   }
 
