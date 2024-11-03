@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from './constant/error.js';
-import { isNumber } from './util/validation.js';
+import { isInteger, isNumber } from './util/validation.js';
 
 class Lotto {
   #numbers;
@@ -13,6 +13,10 @@ class Lotto {
     numbers.forEach((number) => {
       if (!isNumber(number)) {
         throw new Error(ERROR_MESSAGE.invalidNumberType);
+      }
+
+      if (!isInteger(number)) {
+        throw new Error(ERROR_MESSAGE.invalidIntegerType);
       }
     });
 
