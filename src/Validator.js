@@ -17,6 +17,18 @@ class Validator {
       throw new Error(ERROR_MESSAGE.PURCHASE_UNIT_1000);
     }
   }
+
+  lottoNumbers(lottoNumbers) {
+    // 1-45 사이의 숫자가 아닌 경우
+    if (!lottoNumbers.every((number) => Number(number) > 0 && Number(number) < 46)) {
+      throw new Error(ERROR_MESSAGE.INVALID_LOTTO_NUMBER);
+    }
+
+    //6개가 아닌 경우
+    if (lottoNumbers.length !== 6) {
+      throw new Error(ERROR_MESSAGE.SIX_NUMBERS_NEEDED);
+    }
+  }
 }
 
 export default Validator;

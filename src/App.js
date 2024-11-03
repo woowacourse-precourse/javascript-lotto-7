@@ -9,9 +9,8 @@ class App {
   }
   async run() {
     const purchaseAmount = await this.IOHandler.getPurchaseAmount();
-    Console.print(purchaseAmount);
-    // const lottoNumbers = await this.IOHandler.getInput(INPUT_MESSAGE.GET_LOTTO_NUMBER);
-    // Console.print(lottoNumbers);
+    const lottoNumbers = await this.IOHandler.getLottoNumbers();
+    this.Lotto = new Lotto(lottoNumbers);
     // const bonusNumber = await this.IOHandler.getInput(INPUT_MESSAGE.GET_BONUS_NUMBER);
     // Console.print(bonusNumber);
     // this.Lotto = new Lotto(lottoNumbers);
