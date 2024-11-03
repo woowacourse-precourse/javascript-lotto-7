@@ -43,12 +43,20 @@ function issueLottoTickets(ticketCount) {
   return lottos;
 }
 
+function printLotto(lottos) {
+  lottos.map((lotto) => {
+    let numbers = lotto.getLottoNumbers();
+    Console.print(`[${numbers.join(", ")}]`);
+  });
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
     const ticketNumber = payment / 1000;
     Console.print(`${ticketNumber}개를 구매했습니다.`);
     const lottos = issueLottoTickets(ticketNumber);
+    printLotto(lottos);
   }
 }
 
