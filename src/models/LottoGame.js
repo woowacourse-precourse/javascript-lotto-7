@@ -6,14 +6,16 @@ import {
 } from '../constants/inputConstant.js';
 import InputHandler from '../utils/InputHandler.js';
 import Validator from '../utils/Validator.js';
+import LottoMachine from './LottoMachine.js';
+import LottoWinningNumbers from './LottoWinningNumbers.js';
 
 class LottoGame {
   #lottos;
 
-  constructor(lottoMachine, lottoWinningNumbers) {
+  constructor() {
     this.#lottos = null;
-    this.lottoMachine = lottoMachine;
-    this.lottoWinningNumbers = lottoWinningNumbers;
+    this.lottoMachine = new LottoMachine();
+    this.lottoWinningNumbers = new LottoWinningNumbers();
   }
 
   async play() {
@@ -33,6 +35,11 @@ class LottoGame {
     this.lottoWinningNumbers.setWinningNumbers(
       inputWinningNumbers.split(WINNING_NUMBERS_DELIMITER).map(Number),
     );
+
+    const inputBonusNumbers = await InputHandler.getInput(
+      INPUT_PROMPT.BONUS_NUMBER,
+    );
+    this.lottoWinningNumbers.setBonusNumber(Number(inputBonusNumbers));
   }
 
   getLottos() {
@@ -48,7 +55,6 @@ class LottoGame {
     this.#lottos.forEach(lotto =>
       Console.print(`[${lotto.getNumbers().join(', ')}]`),
     );
-    Console.print('\n');
   }
 }
 
