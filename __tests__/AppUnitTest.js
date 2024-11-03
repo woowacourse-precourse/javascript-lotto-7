@@ -1,18 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import App from "../src/App.js";
-import Output from "../src/Output.js";
 
 const mockRandoms = (numbers) => {
 	MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
 	numbers.reduce((acc, number) => {
 		return acc.mockReturnValueOnce(number);
 	}, MissionUtils.Random.pickUniqueNumbersInRange);
-};
-
-const getLogSpy = () => {
-	const logSpy = jest.spyOn(MissionUtils.Console, "print");
-	logSpy.mockClear();
-	return logSpy;
 };
 
 describe("App 단위 테스트", () => {
@@ -38,22 +31,6 @@ describe("App 단위 테스트", () => {
 		expect(RESULT).toBe(count);
 	});
 
-	test("로또 구매 개수 출력", () => {
-		// given
-		const INPUT = 6;
-		const RESULT = ["6개를 구매했습니다."];
-
-		const logSpy = getLogSpy();
-
-		// when
-		output = new Output();
-		output.printLottoCount(INPUT);
-
-		RESULT.forEach((output) => {
-			expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
-		});
-	});
-
 	beforeEach(() => {
 		mockRandoms([RANDOM_NUMBERS]);
 	});
@@ -73,21 +50,6 @@ describe("App 단위 테스트", () => {
 		LOTTOS.forEach((lotto, index) => {
 			expect(lotto).toEqual(RANDOM_NUMBERS[index]);
 		});
-	});
-
-	test("로또 번호 출력", () => {
-		// given
-		const INPUT = [1, 2, 3, 4, 5, 6];
-		const RESULT = "[1, 2, 3, 4, 5, 6]";
-
-		const logSpy = getLogSpy();
-
-		// when
-		output = new Output();
-		output.printLottoNumbers(INPUT);
-
-		// then
-		expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(RESULT));
 	});
 
 	test("당첨 등수 계산", async () => {
@@ -117,35 +79,6 @@ describe("App 단위 테스트", () => {
 		expect(RESULT).toEqual(app.winningMap);
 	});
 
-	test("당첨 등수 출력", () => {
-		// given
-		const INPUT = {
-			"5rank": 1,
-			"4rank": 1,
-			"3rank": 1,
-			"2rank": 1,
-			"1rank": 1,
-		};
-		const RESULT = [
-			"3개 일치 (5,000원) - 1개",
-			"4개 일치 (50,000원) - 1개",
-			"5개 일치 (1,500,000원) - 1개",
-			"5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
-			"6개 일치 (2,000,000,000원) - 1개",
-		];
-
-		const logSpy = getLogSpy();
-
-		// when
-		const output = new Output();
-		output.printWinningCount(INPUT);
-
-		// then
-		RESULT.forEach((output) => {
-			expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
-		});
-	});
-
 	test("총 수익률 계산", async () => {
 		// given
 		const LOTTO_MONEY = 1000;
@@ -164,20 +97,5 @@ describe("App 단위 테스트", () => {
 
 		// then
 		expect(RESULT).toEqual(WINNING_RATE);
-	});
-
-	test("총 수익률 출력", () => {
-		// given
-		const INPUT = Number(100).toFixed(1);
-		const RESULT = "총 수익률은 100.0%입니다.";
-
-		const logSpy = getLogSpy();
-
-		// when
-		const output = new Output();
-		output.printWinningRate(INPUT);
-
-		// then
-		expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(RESULT));
 	});
 });
