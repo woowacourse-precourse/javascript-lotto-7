@@ -2,6 +2,8 @@ import { MissionUtils, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 
 class LottoGame {
+  static PRICE_PER_LOTTO = 1000;
+
   constructor(quantity) {
     this.quantity = quantity;
     this.lottos = this.createLottos();
@@ -91,7 +93,7 @@ class LottoGame {
     });
   }
 
-  recordResult({matchCount, hasBonus}) {
+  recordResult({ matchCount, hasBonus }) {
     if (matchCount === 3) this.result['5th place']++;
     if (matchCount === 4) this.result['4th place']++;
     if (matchCount === 5 && !hasBonus) this.result['3rd place']++;
@@ -109,6 +111,24 @@ class LottoGame {
       `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result['2nd place']}개`
     );
     Console.print(`6개 일치 (2,000,000,000원) - ${this.result['1st place']}개`);
+    Console.print(`총 수익률은 ${this.calculateProfitRate()}%입니다.`);
+  }
+
+  calculateProfitRate() {
+    const winningAmount = this.calculateWinningAmount();
+    const purchaseAmount = this.quantity * LottoGame.PRICE_PER_LOTTO;
+
+    return Number(((winningAmount / purchaseAmount) * 100).toFixed(1));
+  }
+
+  calculateWinningAmount() {
+    return (
+      this.result['5th place'] * 5000 +
+      this.result['4th place'] * 50000 +
+      this.result['3rd place'] * 1500000 +
+      this.result['2nd place'] * 30000000 +
+      this.result['1st place'] * 2000000000
+    );
   }
 }
 
