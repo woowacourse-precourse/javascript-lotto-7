@@ -112,6 +112,14 @@ function countPrizeNumbers(issueNumbers, prizeNumbers) {
   return issueNumbers.filter((v) => prizeNumbers.includes(v)).length;
 }
 
+function updatePrizeResults(prizeResults, prizeCount, hasBonus) {
+  if (prizeCount === 5 && hasBonus) {
+    prizeResults.set("5+bonus", prizeResults.get("5+bonus") + 1);
+  } else if (prizeCount >= 3) {
+    prizeResults.set(prizeCount, prizeResults.get(prizeCount) + 1);
+  }
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
