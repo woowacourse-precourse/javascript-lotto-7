@@ -16,7 +16,14 @@ export const LOTTO = {
     MAX_NUMBER: 45,
 }
 
+export const WINNING_NUMBER = {
+    SIZE: 6,
+    MIN_NUMBER: 1,
+    MAX_NUMBER: 45,
+}
+
 export const INSTRUCTION = {
     GET_PURCHASE_PRICE: "구입금액을 입력해 주세요.\n",
     PRINT_LOTTO_AMOUNT: (lottoAmount) => `\n${lottoAmount}개를 구매했습니다.`,
+    GET_WINNING_NUMBERS: "당첨 번호를 입력해 주세요.\n",
 }
