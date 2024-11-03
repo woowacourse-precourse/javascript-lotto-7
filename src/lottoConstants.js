@@ -46,6 +46,7 @@ export const ERROR_MESSAGE = Object.freeze({
 
 export const OUTPUT_MESSAGE = Object.freeze({
   PURCHASED_COUNT: '개를 구매했습니다.',
+  WINNING_RATE: '당첨통계\n---',
   MATCH_THREE: '3개 일치 (5,000원) - ',
   MATCH_FOUR: '4개 일치 (50,000원) - ',
   MATCH_FIVE: '5개 일치 (1,500,000원) - ',
@@ -53,4 +54,5 @@ export const OUTPUT_MESSAGE = Object.freeze({
   MATCH_SIX: '6개 일치 (2,000,000,000원) - ',
   PROFIT_RATE_PREFIX: '총 수익률은 ',
   PROFIT_RATE_SUFFIX: '%입니다.',
+  COUNT: '개',
 });
