@@ -18,6 +18,8 @@ export const InputPrompts = {
 
 export const OutputMessages = {
   PURCHASE_MESSAGE: (ticketCount) => `${ticketCount}개를 구매했습니다.`,
+  MATCH_MESSAGE_FORMAT: (matchText, lottoCount, prize) =>
+    `${matchText} (${prize}원) - ${lottoCount}개`,
 };
 
 export const ErrorMessage = {
@@ -30,4 +32,12 @@ export const ErrorMessage = {
   WINNING_NUMBER_IN_NOT_VALID_RANGE: `${ERROR_PREFIX} 당첨 번호는 ${Lotto.MIN_NUMBER} ~ ${Lotto.MAX_NUMBER} 사이여야 합니다.`,
   BONUS_NUMBER_IS_NOT_NUMBER: `${ERROR_PREFIX} 보너스 번호는 숫자여야 합니다.`,
   BONUS_NUMBER_IN_NOT_VALID_RANGE: `${ERROR_PREFIX} 보너스 번호는 ${Lotto.MIN_NUMBER} ~ ${Lotto.MAX_NUMBER} 사이여야 합니다.`,
+};
+
+export const Prize = {
+  MATCH_3: '5,000',
+  MATCH_4: '50,000',
+  MATCH_5: '1,500,000',
+  MATCH_5_BONUS: '30,000,000',
+  MATCH_6: '2,000,000,000',
 };

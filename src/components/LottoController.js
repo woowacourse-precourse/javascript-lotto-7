@@ -1,5 +1,10 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import { InputPrompts, Lotto, OutputMessages } from '../resources/Constants.js';
+import {
+  InputPrompts,
+  Lotto,
+  OutputMessages,
+  Prize,
+} from '../resources/Constants.js';
 import purchaseAmountValidator from '../validation/purchaseAmountValidator.js';
 import { bonusNumberValidator } from '../validation/bonusNumberValidator.js';
 
@@ -27,7 +32,7 @@ class LottoController {
 
   setBonusNumber(bonusNumber) {
     bonusNumberValidator(bonusNumber);
-    this.#bonusNumber = bonusNumber;
+    this.#bonusNumber = Number(bonusNumber);
   }
 
   isEmptyPurchaseAmount() {
@@ -92,6 +97,51 @@ class LottoController {
       Console.print(`${error.message}\n`);
       await this.promptBonusNumber();
     }
+  }
+
+  getMatchCount(lottoTicket, winningNumbers) {
+    let matchCount = lottoTicket.filter((number) =>
+      winningNumbers.includes(number),
+    ).length;
+
+    if (matchCount === 5 && lottoTicket.includes(this.#bonusNumber)) {
+      matchCount = '5B';
+    }
+
+    return matchCount;
+  }
+
+  compareLottoTickets(winningNumbers) {
+    const winningResult = { 3: 0, 4: 0, 5: 0, '5B': 0, 6: 0 };
+
+    this.#lottoTickets.forEach((lottoTicket) => {
+      const matchCount = this.getMatchCount(lottoTicket, winningNumbers);
+      if (matchCount !== 0 && matchCount !== 1 && matchCount !== 2) {
+        winningResult[this.getMatchCount(lottoTicket, winningNumbers)] += 1;
+      }
+    });
+
+    return winningResult;
+  }
+
+  PrintLottoWinningResult(winningResult) {
+    const winningResultMessage = [
+      '당첨 통계',
+      '---',
+      `3개 일치 (${Prize.MATCH_3}원) - ${winningResult[3]}개`,
+      `4개 일치 (${Prize.MATCH_4}원) - ${winningResult[4]}개`,
+      `5개 일치 (${Prize.MATCH_5}원) - ${winningResult[5]}개`,
+      `5개 일치, 보너스 볼 일치 (${Prize.MATCH_5_BONUS}원) - ${winningResult['5B']}개`,
+      `6개 일치 (${Prize.MATCH_6}원) - ${winningResult[6]}개`,
+    ];
+
+    winningResultMessage.forEach((message) => Console.print(message));
+  }
+
+  displayWinningResult(winningNumbers) {
+    const winningResult = this.compareLottoTickets(winningNumbers);
+
+    this.PrintLottoWinningResult(winningResult);
   }
 }
 

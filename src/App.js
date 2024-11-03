@@ -11,6 +11,8 @@ class App {
 
     const lotto = await Lotto.createLotto();
     await lottoController.promptBonusNumber();
+
+    lottoController.displayWinningResult(lotto.getNumbers());
   }
 }
 
