@@ -1,9 +1,11 @@
 class Validator {
   static isNotNumber(value) {
-    if (isNaN(value)) {
+    // [], "", null => 0
+    if (Array.isArray(value) || value === "" || value === null) {
       return true;
     }
-    return false;
+
+    return Number.isNaN(Number(value));
   }
 
   static containNotNumber(values) {
