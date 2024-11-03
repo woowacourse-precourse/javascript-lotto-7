@@ -46,4 +46,18 @@ describe("로또 클래스 테스트", () => {
       expect(lotto.getNumbers()).toEqual([10, 15, 20, 25, 30, 35]);
     });
   });
+
+  describe("경계 값 테스트", () => {
+    test("로또 번호가 1인 경우 예외가 발생하지 않는다.", () => {
+      expect(() => {
+        new Lotto([1, 2, 3, 4, 5, 6]);
+      }).not.toThrow();
+    });
+
+    test("로또 번호가 45인 경우 예외가 발생하지 않는다.", () => {
+      expect(() => {
+        new Lotto([40, 41, 42, 43, 44, 45]);
+      }).not.toThrow();
+    });
+  });
 });
