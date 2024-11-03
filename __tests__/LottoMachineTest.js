@@ -66,7 +66,7 @@ describe("로또 기계 클래스 테스트", () => {
     const winningLotto = new Lotto([1, 2, 3, 4, 5, 6]);
     const bonusNumber = new BonusNumber(winningLotto, 7);
 
-    expect(lottoMachine.getWinningLottery({ winningLotto, bonusNumber }))
+    expect(lottoMachine.getWinningLottoString({ winningLotto, bonusNumber }))
       .toBe(`3개 일치 (5,000원) - 1개
 4개 일치 (50,000원) - 0개
 5개 일치 (1,500,000원) - 0개

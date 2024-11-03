@@ -22,7 +22,7 @@ class App {
     printEmptyLine();
     await this.#getUserBonusNumberInput();
 
-    const resultString = this.#lottoMachine.getWinningLottery({
+    const resultString = this.#lottoMachine.getWinningLottoString({
       winningLotto: this.#winningLotto,
       bonusNumber: this.#bonusNumber,
     });

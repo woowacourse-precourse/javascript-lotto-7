@@ -8,15 +8,22 @@ export const buyMultipleTickets = (amount) =>
   Array.from({ length: amount }, () => buyOneLotto().sort((a, b) => a - b));
 
 export const getRankType = (matchCount, isBonusMatch) => {
-  if (matchCount === 3) return "threeMatch";
-  if (matchCount === 4) return "fourMatch";
-  if (matchCount === 5 && !isBonusMatch) return "fiveMatch";
-  if (matchCount === 5 && isBonusMatch) return "fiveMatchAndBonus";
-  if (matchCount === 6) return "allMatch";
-  return null;
+  const [rankType] = Object.entries(LOTTO_WIN_RANK)
+    .filter(
+      ([, details]) => details.matchCount === matchCount && details.requiresBonus === isBonusMatch,
+    )
+    .map(([rank]) => rank);
+
+  return rankType;
 };
 
-export const getWinningLottoString = (
+export const createWinningRankCount = () =>
+  Object.keys(LOTTO_WIN_RANK).reduce((acc, rank) => {
+    acc[rank] = 0;
+    return acc;
+  }, {});
+
+export const parseWinningLottoString = (
   winningRankCount,
 ) => `${LOTTO_WIN_RANK.threeMatch.string} (${LOTTO_WIN_RANK.threeMatch.prize.toLocaleString()}원) - ${winningRankCount.threeMatch}개
 ${LOTTO_WIN_RANK.fourMatch.string} (${LOTTO_WIN_RANK.fourMatch.prize.toLocaleString()}원) - ${winningRankCount.fourMatch}개

@@ -3,20 +3,15 @@ import { LOTTO_RULE } from "./constants/rule.js";
 import {
   buyMultipleTickets,
   calculateProfit,
+  createWinningRankCount,
   getRankType,
-  getWinningLottoString,
+  parseWinningLottoString,
 } from "./utils/lotto.js";
 
 class LottoMachine {
   #amount;
   #tickets;
-  #winningRankCount = {
-    allMatch: 0,
-    fiveMatchAndBonus: 0,
-    fiveMatch: 0,
-    fourMatch: 0,
-    threeMatch: 0,
-  };
+  #winningRankCount;
 
   constructor(input) {
     const inputNumber = Number(input);
@@ -42,7 +37,9 @@ class LottoMachine {
     return `${this.#tickets.map((ticket) => `[${ticket.join(", ")}]`).join("\n")}`;
   }
 
-  getWinningLottery({ winningLotto, bonusNumber }) {
+  getWinningLottoString({ winningLotto, bonusNumber }) {
+    this.#winningRankCount = createWinningRankCount();
+
     this.#tickets.forEach((ticket) => {
       const matchCount = winningLotto.getMatchCountFrom(ticket);
       const isBonusMatch = bonusNumber.hasBonusNumberIn(ticket);
@@ -50,7 +47,7 @@ class LottoMachine {
       if (rank) this.#winningRankCount[rank] += 1;
     });
 
-    return getWinningLottoString(this.#winningRankCount);
+    return parseWinningLottoString(this.#winningRankCount);
   }
 
   getProfitRate() {
