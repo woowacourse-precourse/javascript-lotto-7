@@ -30,11 +30,16 @@ class LottoGameController {
     this.#lottoChecker.setBonusNumber(bonusNumber);
 
     const results = this.#checkLottoResults();
+    const totalPrize = new PrizeCalculator(results).getTotalPrize();
   }
 
   #checkLottoResults() {
     const lottoNumbersList = this.#lottoMachine.getLottoNumbers();
     return this.#lottoChecker.getMatchResults(lottoNumbersList);
+  }
+
+  #printWinningStatistic() {
+    
   }
 
   #printAllLottoNumbers() {

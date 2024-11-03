@@ -40,6 +40,10 @@ class LottoMachine {
   getLottoNumbers() {
     return this.#lottoNumbers;
   }
+
+  getPurchaseAmount() {
+    return this.#purchaseAmount;
+  }
 }
 
 export default LottoMachine;

@@ -2,10 +2,12 @@ import { PRIZE_CRITERIA } from "../constants/gameRule.js";
 
 class PrizeCalculator {
   #results;
+  #statistics;
   #totalPrize;
 
   constructor(results) {
     this.#results = results;
+    this.#statistics = this.#calculateStatistics();
     this.#totalPrize = this.#calculateTotalPrize();
   }
 
@@ -13,27 +15,38 @@ class PrizeCalculator {
     return this.#totalPrize;
   }
 
-  #calculateTotalPrize() {
-    const prizes = this.#results.map(result => this.#calculatePrize(result));
-    return this.#sumPrizes(prizes);
+  getStatistics() {
+    return this.#statistics;
   }
 
-  #calculatePrize(result) {
-    const { matchCount, isBonusMatched } = result;
-    return this.#findPrizeAmount(matchCount, isBonusMatched);
+  #initializeStatistics() {
+    return Object.fromEntries(
+      PRIZE_CRITERIA.map(({ rank }) => [rank, { count: 0, prize: 0 }])
+    );
   }
 
-  #findPrizeAmount(matchCount, isBonusMatched) {
-    const matchedCriteria = PRIZE_CRITERIA.find(
+  #calculateStatistics() {
+    const statistics = this.#initializeStatistics();
+    this.#results.forEach(result => {
+      const matchedCriteria = this.#getMatchedCriteria(result);
+      if (matchedCriteria) this.#updateStatistics(statistics, matchedCriteria);
+    });
+    return statistics;
+  }
+
+  #getMatchedCriteria({ matchCount, isBonusMatched }) {
+    return PRIZE_CRITERIA.find(
       criteria => criteria.matchCount === matchCount && criteria.isBonusMatched === isBonusMatched
     );
-  
-    if (matchedCriteria) return matchedCriteria.prize;
-    return 0;
   }
 
-  #sumPrizes(prizes) {
-    return prizes.reduce((total, prize) => total + prize, 0);
+  #updateStatistics(statistics, { rank, prize }) {
+    statistics[rank].count += 1;
+    statistics[rank].prize += prize;
+  }
+
+  #calculateTotalPrize() {
+    return Object.values(this.#statistics).reduce((total, { prize }) => total + prize, 0);
   }
 }
 
