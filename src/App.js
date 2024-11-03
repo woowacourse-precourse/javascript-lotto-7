@@ -17,28 +17,49 @@ class App {
 
   async run() {
     const amount = await View.readInput(PROMPT_MESSAGES.INPUT_MONEY);
-    const money = new Money(amount);
-    const count = money.getCount();
-    const lottos = LottoMachine.generateLottos(count);
+    const lottos = this.getRandomLottos(amount);
 
     View.printResult(`\n${count + INFO_MESSAGES.PRINT_LOTTOS}`);
     View.displayLottos(lottos);
 
-    const numbers = await View.readInput(PROMPT_MESSAGES.INPUT_LOTTOS);
-    const validWinningNumbers = this.#validateWinningNumbers(numbers);
-    const winningLotto = new Lotto(validWinningNumbers);
+    const winningLottoInput = await View.readInput(
+      PROMPT_MESSAGES.INPUT_LOTTOS
+    );
+    const winningLotto = this.getwinningLotto(winningLottoInput);
 
-    const bonusNumberInput = await View.readInput(
+    const bonusNumber = await View.readInput(
       PROMPT_MESSAGES.INPUT_BONUS_NUMBER
     );
-    const bonusNumber = new BonusNumber(bonusNumberInput, winningLotto.numbers);
+
+    const totalCounts = getTotalCounts(lottos, bonusNumber, winningLotto);
+
+    View.displayResult(totalCounts);
+  }
+
+  getTotalCounts(lottos, bonusNumberInput, winningLotto) {
+    const bonusNumber = new BonusNumber(bonusNumberInput, winningLotto);
+
     const totalCounts = LottoMachine.getTotalCount(
       lottos,
-      winningLotto.numbers,
+      winningLotto,
       bonusNumber.number
     );
 
-    View.displayResult(totalCounts);
+    return totalCounts;
+  }
+
+  getwinningLotto(numbers) {
+    const validWinningNumbers = this.#validateWinningNumbers(numbers);
+    const winningLotto = new Lotto(validWinningNumbers);
+
+    return winningLotto.numbers;
+  }
+
+  getRandomLottos(amount) {
+    const money = new Money(amount);
+    const count = money.getCount();
+
+    return LottoMachine.generateLottos(count);
   }
 
   #validateWinningNumbers(numbers) {
