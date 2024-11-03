@@ -199,3 +199,41 @@ class Lotto {
   - 당첨 번호와 중복된 값일 경우
   - 1~45 이외의 값을 입력한 경우
 - 동일한 예외 처리가 있을 경우 중복하지 않고 재사용한다.
+
+## 실행 결과
+
+![image](https://github.com/user-attachments/assets/be291312-47a0-488f-8308-f5d5e59fb0dc)
+
+## 디렉터리 구조
+
+```
+├── package-lock.json
+├── package.json
+├── README.md
+├── src
+|  ├── App.js
+|  ├── component
+|  |  ├── Exception.js
+|  |  └── GetNumber.js
+|  ├── constant
+|  |  ├── Data.js
+|  |  ├── Error.js
+|  |  └── Message.js
+|  ├── controller
+|  |  └── GameController.js
+|  ├── index.js
+|  ├── model
+|  |  ├── GameResult.js
+|  |  └── Lotto.js
+|  ├── validate
+|  |  ├── LottoValidate.js
+|  |  └── NumberValidate.js
+|  └── view
+|     ├── GameInput.js
+|     └── GameOutput.js
+└── __tests__
+   ├── AmountTest.js
+   ├── ApplicationTest.js
+   ├── BonusNumberTest.js
+   └── LottoTest.js
+```
