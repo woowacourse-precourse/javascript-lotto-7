@@ -96,6 +96,42 @@ class View {
       parseInt(WINNING_NUMBER),
     );
   };
+
+  getBonusNumber = async () => {
+    Console.print("");
+    const BONUS_NUMBER =
+      await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+
+    this.#validateBonusNumber(BONUS_NUMBER);
+
+    return parseInt(BONUS_NUMBER);
+  };
+
+  #validateBonusNumber = (BONUS_NUMBER) => {
+    if (BONUS_NUMBER.trim() === "") {
+      Console.print("[ERROR] 보너스 번호를 입력해 주세요.");
+      throw new Error("[ERROR] 보너스 번호를 입력해 주세요.");
+    }
+
+    if (isNaN(BONUS_NUMBER)) {
+      Console.print("[ERROR] 숫자를 입력해 주세요.");
+      throw new Error("[ERROR] 숫자를 입력해 주세요.");
+    }
+
+    if (
+      parseInt(BONUS_NUMBER) < LOTTO_MIN_NUMBER ||
+      parseInt(BONUS_NUMBER) > LOTTO_MAX_NUMBER
+    ) {
+      Console.print(
+        `[ERROR] ${LOTTO_MIN_NUMBER}부터 ${LOTTO_MAX_NUMBER}까지의 숫자를 입력해 주세요.`,
+      );
+      throw new Error(
+        `[ERROR] ${LOTTO_MIN_NUMBER}부터 ${LOTTO_MAX_NUMBER}까지의 숫자를 입력해 주세요.`,
+      );
+    }
+
+    return;
+  };
 }
 
 export default View;

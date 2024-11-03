@@ -12,6 +12,8 @@ class App {
     this.#VIEW.printLottos(LOTTOS);
 
     const WINNING_NUMBERS = await this.#VIEW.getWinningNumbers();
+
+    const BONUS_NUMBER = await this.#VIEW.getBonusNumber();
   }
 }
 
