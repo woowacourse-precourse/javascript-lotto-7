@@ -102,5 +102,33 @@ export class LottoMachine {
   getMatchedCount(numbers) {
     return numbers.filter(num => this.winningNumbers.includes(num)).length;
   }
+  printResults(results) {
+    const prizeMoney = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      6: 30000000,
+      7: 2000000000,
+    };
+    let totalPrize = 0;
+    MissionUtils.Console.print("당첨 통계");
+    MissionUtils.Console.print("---");
+    for (const [match, count] of Object.entries(results)) {
+      const prize = prizeMoney[match];
+      totalPrize += prize * count;
+      let matchText = "";
+      if (match == 6) {
+        matchText = "5개 일치, 보너스 볼 일치";
+      } else if (match ==7){
+        matchText = `${match-1}개 일치`;
+      } else {
+        matchText = `${match}개 일치`;
+      }
+      MissionUtils.Console.print(`${matchText} (${prize.toLocaleString()}원) - ${count}개`);
+    }
+   
+    const profitRate = ((totalPrize / this.purchaseAmount) * 100).toFixed(1);
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
 }
 export default LottoMachine;
