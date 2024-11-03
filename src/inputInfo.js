@@ -39,7 +39,7 @@ class Input {
   purchaseNumber() {
     let theNumberOfLotto = this.price / 1000;
     Console.print("");
-    Console.print(theNumberOfLotto + "개를 구매했습니다.");
+    Console.print(`${theNumberOfLotto}개를 구매했습니다.`);
     this.numberOfPurchase = theNumberOfLotto;
   }
 
@@ -48,12 +48,11 @@ class Input {
     for (let i = 0; i < numberOfPurchase; i++) {
       this.lottoslist.push(this.utils.randomNumbers());
     }
-    Console.print("");
   }
 
   printLottos() {
     this.lottoslist.forEach((numbers) => {
-      Console.print(numbers);
+      Console.print(`[${numbers.join(", ")}]`);
     });
     Console.print("");
   }
@@ -87,6 +86,7 @@ class Input {
           this.winNumbers
         );
         retry = false;
+        Console.print("");
       } catch (error) {
         Console.print("");
       }
@@ -159,7 +159,7 @@ class Input {
     Console.print(`6개 일치 (2,000,000,000원) - ${this.results.first}개`);
 
     const profitRate = ((this.totalProfit / this.price) * 100).toFixed(1);
-    Console.print(`총 수익률은 ${profitRate}% 입니다.`);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
