@@ -28,6 +28,13 @@ class LottoGameController {
 
     const bonusNumber = await InputView.getBonusNumber();
     this.#lottoChecker.setBonusNumber(bonusNumber);
+
+    const results = this.#checkLottoResults();
+  }
+
+  #checkLottoResults() {
+    const lottoNumbersList = this.#lottoMachine.getLottoNumbers();
+    return this.#lottoChecker.getMatchResults(lottoNumbersList);
   }
 
   #printAllLottoNumbers() {

@@ -1,12 +1,12 @@
 import LottoChecker from '../../src/model/LottoChecker.js';
 
-describe("checkLottoNumbers() 테스트", () => {
+describe("getMatchResults() 테스트", () => {
   let lottoChecker;
 
   beforeEach(() => {
-    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    const winningNumbers = "1,2,3,4,5,6";
     lottoChecker = new LottoChecker(winningNumbers);
-    lottoChecker.setBonusNumber(7);
+    lottoChecker.setBonusNumber("7");
   });
 
   test("각 로또 번호의 일치 개수와 보너스 번호 일치 여부를 반환해야 한다", () => {
@@ -17,7 +17,7 @@ describe("checkLottoNumbers() 테스트", () => {
       [8, 9, 10, 11, 12, 13] // 0개 번호 일치, 보너스 번호 불일치
     ];
 
-    const results = lottoChecker.checkLottoNumbers(lottoNumbersList);
+    const results = lottoChecker.getMatchResults(lottoNumbersList);
 
     const expectedResults = [
       { matchCount: 3, isBonusMatched: false },
