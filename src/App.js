@@ -25,6 +25,9 @@ class App {
 
     // 당첨 여부 계산
     lottoGame.CheckLottos(winningNumbers, bonusNumber);
+
+    // 결과 출력
+    lottoGame.printLottoResult(purchaseAmount);
   }
 }
 

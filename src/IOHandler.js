@@ -23,7 +23,7 @@ class IOHandler {
       const inputs = await Console.readLineAsync(INPUT_MESSAGE.GET_LOTTO_NUMBERS);
       const lottoNumbers = inputs.split(",");
       this.Validator.lottoNumbers(lottoNumbers);
-      return lottoNumbers;
+      return lottoNumbers.map((num) => Number(num));
     } catch (error) {
       Console.print(error);
       return this.getLottoNumbers();
@@ -34,7 +34,7 @@ class IOHandler {
     try {
       const bonusNumber = await Console.readLineAsync(INPUT_MESSAGE.GET_BONUS_NUMBER);
       this.Validator.bonusNumber(bonusNumber);
-      return bonusNumber;
+      return Number(bonusNumber);
     } catch (error) {
       Console.print(error);
       return this.getBonusNumber();

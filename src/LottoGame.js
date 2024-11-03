@@ -1,7 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import RankStatus from "./RankStatus.js";
-import { PRIZE } from "./Constant.js";
+import { PRIZE, RESULT_MESSAGE } from "./Constant.js";
 
 class LottoGame {
   #lottoAmount;
@@ -18,9 +18,9 @@ class LottoGame {
   CreateLotto() {
     Console.print(`\n${this.#lottoAmount}개를 구매했습니다.`);
     for (let i = 0; i < this.#lottoAmount; i++) {
-      const lottoNum = this.#CreateLottoNumbers();
-      const lotto = new Lotto(lottoNum);
+      const lottoNum = this.#CreateLottoNumbers().map((num) => Number(num));
       Console.print(lottoNum);
+      const lotto = new Lotto(lottoNum);
       this.#lottoArr.push(lotto);
     }
   }
@@ -41,17 +41,35 @@ class LottoGame {
   #getTotalPrize() {
     let totalPrize = 0;
     const prizeValues = [PRIZE.FIRST, PRIZE.SECOND, PRIZE.THIRD, PRIZE.FOURTH, PRIZE.FIFTH];
-    for (let i = 0; i < rankCount.length; i++) {
-      totalPrize += this.#Ranks.getRankCount(rankCount[i + 1]) * prizeValues[i];
+    for (let i = 0; i < 5; i++) {
+      totalPrize += this.#Ranks.getRankCount(i + 1) * prizeValues[i];
     }
     return totalPrize;
   }
 
   // 총 수익률 계산
-  getRateOfReturn(purchaseAmount) {
+  #getRateOfReturn(purchaseAmount) {
     const totalPrize = this.#getTotalPrize();
-    const RateOfReturn = Math.round((purchaseAmount / totalPrize)*100) / 100;
+    if (totalPrize === 0) return 0;
+    const RateOfReturn = Math.round((totalPrize / purchaseAmount) * 10000) / 100;
     return RateOfReturn;
+  }
+
+  // 결과 출력
+  printLottoResult(purchaseAmount) {
+    const resultMessage = [
+      RESULT_MESSAGE.FIRST,
+      RESULT_MESSAGE.SECOND,
+      RESULT_MESSAGE.THIRD,
+      RESULT_MESSAGE.FOURTH,
+      RESULT_MESSAGE.FIFTH,
+    ];
+    Console.print("당첨 통계\n---\n");
+    for (let i = 5; i >= 1; i--) {
+      const message = `${resultMessage[i - 1]} - ${this.#Ranks.getRankCount(i)}\n`;
+      Console.print(message);
+    }
+    Console.print(`총 수익률은 ${this.#getRateOfReturn(purchaseAmount)}%입니다.`);
   }
 }
 

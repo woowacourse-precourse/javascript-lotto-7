@@ -1,3 +1,4 @@
+import { Console, Random } from "@woowacourse/mission-utils";
 class Lotto {
   #numbers;
 
@@ -29,7 +30,7 @@ class Lotto {
   }
 
   #getBonusStatus(bonusNumber) {
-    if (numbers.includes(bonusNumber)) {
+    if (this.#numbers.includes(bonusNumber)) {
       return true;
     }
   }
