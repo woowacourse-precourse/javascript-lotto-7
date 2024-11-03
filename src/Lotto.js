@@ -12,13 +12,13 @@ class Lotto {
     }
   }
 
-  checkWinStatus(winningNumbers, bonusNumber) {
-    const winCount = this.#checkWinStatus(winningNumbers);
-    const isBonusMatched = this.#checkBonusStatus(bonusNumber);
-    return this.#checkRank(winCount, isBonusMatched);
+  getLottoRank(winningNumbers, bonusNumber) {
+    const winCount = this.#getWinStatus(winningNumbers);
+    const isBonusMatched = this.#getBonusStatus(bonusNumber);
+    return this.#getRank(winCount, isBonusMatched);
   }
 
-  #checkWinStatus(winningNumbers) {
+  #getWinStatus(winningNumbers) {
     let winCount = 0;
     this.#numbers.forEach((myNum) => {
       if (winningNumbers.includes(myNum)) {
@@ -28,13 +28,13 @@ class Lotto {
     return winCount;
   }
 
-  #checkBonusStatus(bonusNumber) {
+  #getBonusStatus(bonusNumber) {
     if (numbers.includes(bonusNumber)) {
       return true;
     }
   }
 
-  #checkRank(winCount, isBonusMatched) {
+  #getRank(winCount, isBonusMatched) {
     if (winCount === 6) return 1;
     if (winCount === 5 && isBonusMatched) return 2;
     if (winCount === 5) return 3;

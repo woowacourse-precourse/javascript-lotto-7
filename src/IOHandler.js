@@ -32,7 +32,7 @@ class IOHandler {
 
   async getBonusNumber() {
     try {
-      const bonusNumber = await Console.readLineAsync(INPUT_MESSAGE.GET_LOTTO_NUMBERS);
+      const bonusNumber = await Console.readLineAsync(INPUT_MESSAGE.GET_BONUS_NUMBER);
       this.Validator.bonusNumber(bonusNumber);
       return bonusNumber;
     } catch (error) {

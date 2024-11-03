@@ -19,9 +19,12 @@ class App {
     // 구매 개수만큼 로또 생성
     lottoGame.CreateLotto();
 
-    // 당첨번호, 보너스 번호 입력
-    const lottoNumbers = await this.IOHandler.getLottoNumbers();
+    // 당첨 번호, 보너스 번호 입력
+    const winningNumbers = await this.IOHandler.getLottoNumbers();
     const bonusNumber = await this.IOHandler.getBonusNumber();
+
+    // 당첨 여부 계산
+    lottoGame.CheckLottos(winningNumbers, bonusNumber);
 
     // const bonusNumber = await this.IOHandler.getInput(INPUT_MESSAGE.GET_BONUS_NUMBER);
     // Console.print(bonusNumber);
