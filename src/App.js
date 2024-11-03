@@ -1,5 +1,8 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import { validateLottoBuyPrice } from './validateFunctions.js';
+import {
+  validateLottoBuyPrice,
+  validateLottoAnswerNumbers,
+} from './validateFunctions.js';
 import Lotto from './Lotto.js';
 
 const prompt = async (message, validation) => {
@@ -62,7 +65,7 @@ class App {
   async getLottoAnswerNumbers() {
     const lottoAnswerNumbers = await prompt(
       '당첨 번호를 입력해 주세요.\n',
-      null,
+      validateLottoAnswerNumbers,
     );
     this.lottoAnswerNumbers = lottoAnswerNumbers;
   }
