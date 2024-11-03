@@ -25,10 +25,6 @@ class Jackpot {
     return check;
   }
 
-  getJackpot() {
-    return this.#jackpot;
-  }
-
   async inputBonus() {
     const bonus = await Console.readLineAsync(INPUT.BONUS);
     this.validateBonus(bonus);
@@ -39,6 +35,14 @@ class Jackpot {
     Validators.checkNumber(number);
     Validators.checkRange(number);
     Validators.checkBonus(this.#jackpot, Number(number));
+  }
+
+  getJackpot() {
+    return this.#jackpot;
+  }
+
+  getBonus() {
+    return this.#bonus;
   }
 
   async startGetJackpot() {
