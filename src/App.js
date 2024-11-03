@@ -1,38 +1,23 @@
-import { Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
 import Input from "./Input.js";
 import Output from "./Output.js";
-import { LOTTO_NUMBERS } from "./constants/lotto.js";
 
 class App {
   async run() {
-    const { purchaseAmount } = await Input.getPurchaseAmount();
+    const input = new Input();
 
-    const lottoCount = purchaseAmount / 1000;
+    const { purchasedLottoCount, purchasedLotto } = await input.getPurchasedLotto();
 
-    Output.printLottoCount(lottoCount);
+    Output.printLottoCount(purchasedLottoCount);
 
-    const purchasedLotto = Array.from({ length: lottoCount }, () => {
-      const randomLottoNumber = Random.pickUniqueNumbersInRange(
-        LOTTO_NUMBERS.MIN_RANGE_1,
-        LOTTO_NUMBERS.MAX_RANGE_45,
-        LOTTO_NUMBERS.COUNT_6,
-      ).sort((a, b) => a - b);
+    const { lottoClass } = await input.getLottoWinningNumbers();
 
-      Output.printPurchasedLottoNumber(randomLottoNumber);
+    const winningNumbers = lottoClass.getWinningNumbers();
 
-      return randomLottoNumber;
-    });
+    const { bonusNumber } = await input.getBonusNumber(winningNumbers);
 
-    const { lottoWinningNumbers } = await Input.getLottoWinningNumbers();
+    const lottoResult = lottoClass.checkLottoNumbers(purchasedLotto, bonusNumber);
 
-    const { bonusNumber } = await Input.getBonusNumber(lottoWinningNumbers);
-
-    const lotto = new Lotto(lottoWinningNumbers);
-
-    const lottoResult = lotto.checkLottoNumbers(purchasedLotto, bonusNumber);
-
-    const profitRate = lotto.getProfitRate(lottoResult, purchaseAmount);
+    const profitRate = lottoClass.getProfitRate(lottoResult, purchasedLottoCount);
 
     Output.printLottoResult(lottoResult);
     Output.printProfitRate(profitRate);
