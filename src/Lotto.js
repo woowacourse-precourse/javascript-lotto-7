@@ -1,10 +1,13 @@
 import Validate from './Validate.js';
 class Lotto {
   #numbers;
-  #lottos;
   constructor(numbers) {
     Validate.validateLottoNumbers(numbers);
-    this.#numbers = numbers;
+    this.#numbers = numbers.sort((first, second) => first - second);
+  }
+
+  getNumbersWithSquareBrackets() {
+    return `[${this.#numbers.join(', ')}]`;
   }
 }
 

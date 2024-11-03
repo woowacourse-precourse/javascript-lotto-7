@@ -20,6 +20,18 @@ class LottoMachine {
   #makeRandomNumbers() {
     return Random.pickUniqueNumbersInRange(1, 45, this.#lottoDigitCount);
   }
+
+  getBoughtLottosInfo() {
+    let result = `${this.#lottoCount}개를 구매했습니다\n`;
+    result += this.#boughtLottos
+      .map((boughtLotto) => boughtLotto.getNumbersWithSquareBrackets())
+      .join('\n');
+    return result;
+  }
+
+  getLottoCount() {
+    return this.#lottoCount;
+  }
 }
 
 export default LottoMachine;
