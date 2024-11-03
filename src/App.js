@@ -4,11 +4,12 @@ import Lotto from './Lotto.js';
 import LottoMachine from './LottoMachine.js';
 import Utils from './utils/Utils.js';
 import Validation from './Validation.js';
+import WinningLottoManager from './WinningLottoManager.js';
 
 class App {
   async run() {
     const lottoMachine = await this.getLottoMachine();
-    const winningNumbers = await this.getWinningNumbers();
+    const winningNumbers = await this.selectWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
     const winningLottoNumbers = App.makeWinningLottoNumbers(
       winningNumbers,
@@ -34,38 +35,11 @@ class App {
     return parsedPayment;
   }
 
-  async getWinningNumbers() {
-    try {
-      const numbers = await App.getWinningNumbersInput();
-      const validWinningNumbers = App.validateWinningNumbers(numbers);
-      return validWinningNumbers;
-    } catch (error) {
-      Console.print(error.message);
+  static async selectWinningNumbers() {
+    const winningLottoManager = new WinningLottoManager();
+    await winningLottoManager.setWinningNumbers();
 
-      return this.getWinningNumbers();
-    }
-  }
-
-  static async getWinningNumbersInput() {
-    const winningNumbers = await inputView.askWinningNumbers();
-    const parsedNumbers = this.parsingWinningNumbers(winningNumbers);
-    return parsedNumbers;
-  }
-
-  static parsingWinningNumbers(numbers) {
-    const numbersArray = Utils.parsingToArray(numbers);
-    const winningNumbers = numbersArray.map((number) =>
-      Utils.parsingToNumber(number),
-    );
-
-    return winningNumbers;
-  }
-
-  static validateWinningNumbers(numbers) {
-    const targetNumbers = [...numbers];
-    Validation.checkWinningNumbers(targetNumbers);
-
-    return targetNumbers;
+    return winningLottoManager.getWinningNumbers();
   }
 
   async getBonusNumber(winningNumbers) {
