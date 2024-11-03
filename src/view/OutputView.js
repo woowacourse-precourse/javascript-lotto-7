@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import {
   PRINT_MESSAGE,
+  PROFIT_RATE_MESSAGE,
   START_ERROR,
   WINNING_STATS_HEADER,
   WINNING_STATS_MESSAGE,
@@ -45,6 +46,12 @@ class OutputView {
     );
     MissionUtils.Console.print(
       WINNING_STATS_MESSAGE.SIX_MATCH.replace("{count}", matchCount[6])
+    );
+  }
+
+  outputProfitRate(profitRate) {
+    MissionUtils.Console.print(
+      PROFIT_RATE_MESSAGE.PROFIT_RATE.replace("{profit}", profitRate)
     );
   }
 }

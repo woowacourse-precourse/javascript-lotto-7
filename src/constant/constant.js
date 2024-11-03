@@ -47,3 +47,7 @@ export const WINNING_STATS_MESSAGE = Object.freeze({
   SIX_MATCH: "6개 일치 (2,000,000,000원) - {count}개",
   TOTAL_PROFIT: "총 수익률은 {profitRate}%입니다.",
 });
+
+export const PROFIT_RATE_MESSAGE = Object.freeze({
+  PROFIT_RATE: "총 수익률은 {profit}%입니다.",
+});

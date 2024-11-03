@@ -96,6 +96,7 @@ class LottoController {
   #startWinningLotto() {
     this.#printWinningStatsHead();
     this.#printResultMatchCount();
+    this.#printProfitRate();
   }
 
   #printWinningStatsHead() {
@@ -109,6 +110,12 @@ class LottoController {
         this.#draw.getWinningNumber(),
         this.#draw.getBonusNumber()
       )
+    );
+  }
+
+  #printProfitRate() {
+    this.#outputView.outputProfitRate(
+      this.#winning.getProfitRate(this.#lottoPurchaseAmount)
     );
   }
 
