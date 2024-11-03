@@ -2,6 +2,7 @@ import { ERROR_MESSAGE } from "../constants/Message.js";
 
 class Lotto {
   #numbers;
+  ㅊ;
 
   constructor(numbers) {
     this.#validate(numbers);
