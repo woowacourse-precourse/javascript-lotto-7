@@ -23,7 +23,6 @@ class LottoManager {
   setWinningNumbers(numbers, bonusNumber) {
     this.winningNumbers = numbers;
     this.bonusNumber = bonusNumber;
-    this.winningNumbers.push(bonusNumber);
   }
 
   getWinningLottoCounts() {
@@ -31,12 +30,11 @@ class LottoManager {
       const matches = this.winningNumbers.filter((number) =>
         lotto.includes(number),
       ).length;
+      const hasBonus = lotto.includes(this.bonusNumber);
       if (matches === 3) this.winningLottoCounts[0]++;
       if (matches === 4) this.winningLottoCounts[1]++;
-      if (matches === 5 && !lotto.includes(this.bonusNumber))
-        this.winningLottoCounts[2]++;
-      if (matches === 5 && lotto.includes(this.bonusNumber))
-        this.winningLottoCounts[3]++;
+      if (matches === 5 && !hasBonus) this.winningLottoCounts[2]++;
+      if (matches === 5 && hasBonus) this.winningLottoCounts[3]++;
       if (matches === 6) this.winningLottoCounts[4]++;
     });
     return this.winningLottoCounts;
