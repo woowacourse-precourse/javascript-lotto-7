@@ -13,6 +13,7 @@ class App {
     let isWinNumberValidate = true;
     let isBonusNumberValidate = true;
     let winNumber = [];
+    let bonusNumber = 0;
 
     while (!buyMoneyValidator(buyMoney)) {
       buyMoney = await WoowahanInput.getBuyMoney();
@@ -32,7 +33,7 @@ class App {
 
     while (isBonusNumberValidate) {
       const inputBonus = await WoowahanInput.getBonusNumber();
-      const bonusNumber = Number(inputBonus);
+      bonusNumber = Number(inputBonus);
 
       isBonusNumberValidate = !bonusNumberValidator(bonusNumber);
     }
