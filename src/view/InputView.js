@@ -5,6 +5,10 @@ const InputView = {
   getPurchaseAmount() {
     return readAsyncInput(LOG_MESSAGE.ENTER_PURCHASE_AMOUNT);
   },
+
+  getWinningNumbers() {
+    return readAsyncInput(LOG_MESSAGE.ENTER_WINNING_NUMBERS);
+  }
 }
 
 export default InputView;

@@ -7,6 +7,7 @@ class LottoGameController {
 
   async startGame() {
     await this.#initializeGame();
+    await this.#runGame();
   }
 
   async #initializeGame() {
@@ -17,6 +18,10 @@ class LottoGameController {
     OutputView.printPurchaseMessage(lottoCount);
 
     this.#printAllLottoNumbers();
+  }
+
+  async #runGame() {
+    const winningNumbers = await InputView.getWinningNumbers();
   }
 
   #printAllLottoNumbers() {
