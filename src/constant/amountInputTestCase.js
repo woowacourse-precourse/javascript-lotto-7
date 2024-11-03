@@ -32,3 +32,26 @@ export const amountInputErrorTestCase = [
     errorMessage: `${errorMessage.prefix} ${errorMessage.notIntegerAmount}`,
   },
 ];
+
+export const amountInputSuccessTestCase = [
+  {
+    amount: 1000,
+    description: '구매 금액이 1,000원이면',
+    expected: '1개를 구매했습니다.',
+  },
+  {
+    amount: 10000,
+    description: '구매 금액이 10,000원이면',
+    expected: '10개를 구매했습니다.',
+  },
+  {
+    amount: 100000,
+    description: '구매 금액이 100,000원이면',
+    expected: '100개를 구매했습니다.',
+  },
+  {
+    amount: 10000000000000,
+    description: '구매 금액이 10,000,000,000,000원이면',
+    expected: '10000000000개를 구매했습니다.',
+  },
+];
