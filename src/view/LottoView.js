@@ -42,4 +42,8 @@ export default class LottoView {
   showTotalReturnRate(totalReturnRate) {
     MissionUtils.Console.print(`총 수익률은 ${totalReturnRate}%입니다.`);
   }
+
+  printError(error) {
+    MissionUtils.Console.print(error);
+  }
 }
