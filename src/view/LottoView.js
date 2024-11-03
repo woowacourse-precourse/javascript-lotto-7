@@ -8,6 +8,16 @@ class LottoView {
     );
     return userInputAmounts;
   }
+  //로또 발행 숫자
+  printGetLottos(count) {
+    Console.print(`\n${count}${MESSAGES.USER_LOTTO_PURCHASE}`);
+  }
+
+  printLottos(lottos) {
+    lottos.forEach((lotto) => {
+      Console.print(`[${lotto.join(", ")}]`);
+    });
+  }
 }
 
 export default LottoView;
