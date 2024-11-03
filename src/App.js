@@ -4,6 +4,7 @@ class App {
     this.money = 0;
   }
   async run() {
+    Console.print('구입금액을 입력해 주세요.\n');
     Console.readLineAsync(this.money);
   }
 }
