@@ -18,7 +18,7 @@ export default class {
   matchingWinningNumbers(lotto) {
     const lottoNumberSet = new Set(lotto.getNumbers());
     const winningNumberSet = new Set(this.#winningNumbers);
-    const unionNumberSet = new Set([...lottoNumberSet], [...winningNumberSet]);
+    const unionNumberSet = new Set([...lottoNumberSet, ...winningNumberSet]);
     const matchedCount =
       lottoNumberSet.size + winningNumberSet.size - unionNumberSet.size;
 
@@ -28,7 +28,7 @@ export default class {
   matchingBonusNumbers(lotto) {
     const lottoNumberSet = new Set(lotto.getNumbers());
     const bonusNumberSet = new Set(this.#bonusNumber);
-    const unionNumberSet = new Set([...lottoNumberSet], [...bonusNumberSet]);
+    const unionNumberSet = new Set([...lottoNumberSet, ...bonusNumberSet]);
     const matchedCount =
       lottoNumberSet.size + bonusNumberSet.size - unionNumberSet.size;
 

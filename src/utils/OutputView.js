@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-export function printGeneratedList(lottoList) {
+export default function printGeneratedList(lottoList) {
   const lottoCount = lottoList.length;
 
   printBlankLine();
