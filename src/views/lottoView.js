@@ -31,7 +31,7 @@ class LottoView {
   }
 
   static PrintWinningStatistics(rankCounts, profitRate) {
-    Console.print(`${INPUT_MESSAGE.winningTotalMessage}\n`);
+    Console.print(`${INPUT_MESSAGE.winningTotalMessage}`);
 
     const rankMessages = [
       INPUT_MESSAGE.match3Message(rankCounts[3]),
@@ -45,7 +45,7 @@ class LottoView {
       Console.print(`${message}`);
     });
 
-    Console.print(`${INPUT_MESSAGE.totalProfitMessage(profitRate)}\n`);
+    Console.print(`${INPUT_MESSAGE.totalProfitMessage(profitRate)}`);
   }
 }
 
