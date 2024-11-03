@@ -18,7 +18,7 @@ class OutputHandler {
   // 일치하는 번호에 따라 당첨 결과 출력
   static showWinningResult(results) {
     Object.values(LOTTO_RANK)
-      .sort((a, b) => b.matchCount - a.matchCount)
+      .sort((a, b) => a.matchCount - b.matchCount)
       .forEach((rank) => {
         const count = rank.hasBonus
           ? results["5B"] || 0

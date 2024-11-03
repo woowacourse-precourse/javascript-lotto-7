@@ -16,11 +16,11 @@ class OutputView {
   }
 
   static showWinningMessage(message, count) {
-    Console.print(`${message} - ${count}개\n`);
+    Console.print(`${message} - ${count}개`);
   }
 
   static showProfitRate(profitRate) {
-    Console.print(`총 수익률은 ${profitRate}%입니다.\n`);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
