@@ -1,4 +1,5 @@
 import App from "../src/App.js";
+import Lotto from "../src/Lotto.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -91,7 +92,31 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  test("구입 금액 예외 테스트: 숫자가 아닐 경우", async () => {
     await runException("1000j");
   });
+
+  test("구입 금액 예외 테스트: 1000으로 나누어 지지 않을 경우", async () => {
+    await runException("1500");
+  });
+
+  test("로또가 3장 중 1등 1개, 2등 1개가 나왔을 경우 getRankCount 테스트 한다.", () => {
+    const lotteries = [
+      new Lotto([1, 2, 3, 4, 5, 6]),
+      new Lotto([1, 2, 3, 4, 5, 7]),
+      new Lotto([8, 9, 10, 22, 15, 16]),
+    ];
+    const rankCount = new App().getRankCount(
+        new Lotto([1, 2, 3, 4, 5, 6]),
+        7,
+        lotteries
+    );
+    expect(rankCount).toStrictEqual([1, 1, 1, 0, 0, 0]);
+  });
+
+  test("로또가 8장 중 5등 1개가 나왔을 경우 수익률은 62.5%여야 한다.", () => {
+    const profit = new App().getYields(8000, [7, 0, 0, 0, 0, 1]);
+    expect(profit).toBe("62.5");
+  });
+
 });
