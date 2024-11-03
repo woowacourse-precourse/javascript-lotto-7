@@ -26,7 +26,8 @@ class LottoGameController {
     const winningNumbers = await InputView.getWinningNumbers();
     this.#lottoChecker = new LottoChecker(winningNumbers);
 
-    const BonusNumber = await InputView.getBonusNumber();
+    const bonusNumber = await InputView.getBonusNumber();
+    this.#lottoChecker.setBonusNumber(bonusNumber);
   }
 
   #printAllLottoNumbers() {

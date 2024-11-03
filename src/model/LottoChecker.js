@@ -1,4 +1,5 @@
 import validateWinningNumber from '../validators/WinningNumberValidator.js';
+import validateBonusNumber from '../validators/BonusNumberValidator.js';
 
 class LottoChecker {
   #winningNumbers;
@@ -11,6 +12,15 @@ class LottoChecker {
 
   #validateWinningNumbers(numbers) {
     validateWinningNumber(numbers);
+  }
+
+  #validateBonusNumber(bonusNumber) {
+    validateBonusNumber(bonusNumber, this.#winningNumbers);
+  }
+
+  setBonusNumber(bonusNumber) {
+    this.#validateBonusNumber(bonusNumber); 
+    this.#bonusNumber = bonusNumber;      
   }
 }
 
