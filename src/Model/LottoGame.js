@@ -62,6 +62,10 @@ class LottoGame {
 
     return rank || 0;
   }
+
+  getWinningResult(rank) {
+    return this.#winningResult[rank];
+  }
 }
 
 export default LottoGame;

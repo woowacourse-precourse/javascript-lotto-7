@@ -7,6 +7,7 @@ import LottoGame from '../Model/LottoGame.js';
 import { createErrorMessage } from '../util/error.js';
 import { isNumber, validateLottoNumber } from '../util/validation.js';
 import Input from '../View/Input.js';
+import { WINNING_HISTORY } from '../constant/prizes.js';
 
 class GameController {
   async init() {
@@ -23,6 +24,8 @@ class GameController {
     Console.print(CONSOLE_MESSAGE.resultMessage);
 
     game.calculateWinningRanks(winningLotto, bonusNumber);
+
+    this.#printWinningHistory(game);
   }
 
   async #getValidatedPurchaseCount() {
@@ -72,6 +75,14 @@ class GameController {
     });
 
     return bonusNumber;
+  }
+
+  #printWinningHistory(lottoGame) {
+    WINNING_HISTORY.forEach((prize) => {
+      Console.print(
+        `${prize.description} (${prize.amount}) - ${lottoGame.getWinningResult(prize.rank)}개`,
+      );
+    });
   }
 }
 
