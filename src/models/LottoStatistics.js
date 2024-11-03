@@ -1,4 +1,4 @@
-import { LOTTO_PRICE_UNIT } from '../constants/lottoConstant.js';
+import { DECIMAL_PLACES, LOTTO_PRICE_UNIT, LOTTO_PRIZES, LOTTO_STATISTICS_KEYS, PERCENT_MULTIPLIER } from '../constants/lottoConstant.js';
 
 class LottoStatistics {
   #statistics;
@@ -9,11 +9,11 @@ class LottoStatistics {
 
   constructor() {
     this.#statistics = new Map([
-      ['matchedThree', 0],
-      ['matchedFour', 0],
-      ['matchedFive', 0],
-      ['matchedFiveAndBonus', 0],
-      ['matchedSix', 0],
+      [LOTTO_STATISTICS_KEYS.THREE, 0],
+      [LOTTO_STATISTICS_KEYS.FOUR, 0],
+      [LOTTO_STATISTICS_KEYS.FIVE, 0],
+      [LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS, 0],
+      [LOTTO_STATISTICS_KEYS.SIX, 0],
     ]);
 
     this.#lottoPrize = 0;
@@ -35,11 +35,11 @@ class LottoStatistics {
   }
 
   getWinningStatisticKey(matchedCount, isBonusNumberMatch) {
-    if (matchedCount === 3) return 'matchedThree';
-    if (matchedCount === 4) return 'matchedFour';
-    if (matchedCount === 5 && isBonusNumberMatch) return 'matchedFiveAndBonus';
-    if (matchedCount === 5) return 'matchedFive';
-    if (matchedCount === 6) return 'matchedSix';
+    if (matchedCount === 3) return LOTTO_STATISTICS_KEYS.THREE;
+    if (matchedCount === 4) return LOTTO_STATISTICS_KEYS.FOUR;
+    if (matchedCount === 5 && isBonusNumberMatch) return LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS;
+    if (matchedCount === 5) return LOTTO_STATISTICS_KEYS.FIVE;
+    if (matchedCount === 6) return LOTTO_STATISTICS_KEYS.SIX;
 
     return null;
   }
@@ -52,11 +52,11 @@ class LottoStatistics {
   }
 
   calculateLottoPrize(key) {
-    if (key === 'matchedThree') return this.#statistics.get(key) * 5000;
-    if (key === 'matchedFour') return this.#statistics.get(key) * 50000;
-    if (key === 'matchedFiveAndBonus') return this.#statistics.get(key) * 30000000;
-    if (key === 'matchedFive') return this.#statistics.get(key) * 1500000;
-    if (key === 'matchedSix') return this.#statistics.get(key) * 2000000000;
+    if (key === LOTTO_STATISTICS_KEYS.THREE) return this.#statistics.get(key) * LOTTO_PRIZES.THREE;
+    if (key === LOTTO_STATISTICS_KEYS.FOUR) return this.#statistics.get(key) * LOTTO_PRIZES.FOUR;
+    if (key === LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS) return this.#statistics.get(key) * LOTTO_PRIZES.FIVE_AND_BONUS;
+    if (key === LOTTO_STATISTICS_KEYS.FIVE) return this.#statistics.get(key) * LOTTO_PRIZES.FIVE;
+    if (key === LOTTO_STATISTICS_KEYS.SIX) return this.#statistics.get(key) * LOTTO_PRIZES.SIX;
 
     return 0;
   }
@@ -85,7 +85,7 @@ class LottoStatistics {
 
   computeProfitRate(lottos) {
     const purchasePrice = lottos.length * LOTTO_PRICE_UNIT;
-    const profitRate = ((this.#lottoPrize / purchasePrice) * 100).toFixed(1);
+    const profitRate = ((this.#lottoPrize / purchasePrice) * PERCENT_MULTIPLIER).toFixed(DECIMAL_PLACES);
 
     this.setProfitRate(profitRate);
   }
