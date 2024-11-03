@@ -1,5 +1,5 @@
-import { LOTTO_RANK } from "./utils/GameConstants";
-import OutputView from "./views/OutputView";
+import { LOTTO_RANK } from "../utils/GameConstants.js";
+import OutputView from "../views/OutputView.js";
 
 class OutputHandler {
   // 로또 구매 개수에 따라 구매 내역 출력

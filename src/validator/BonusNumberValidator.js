@@ -1,6 +1,6 @@
-import { LottoNumberValidator } from "./LottoNumberValidator";
-import { PurchaseValidator } from "./PurchaseValidator";
-import { ERROR_MESSAGES } from "../utils/ErrorMessageConstants";
+import { LottoNumberValidator } from "./LottoNumberValidator.js";
+import { PurchaseValidator } from "./PurchaseValidator.js";
+import { ERROR_MESSAGES } from "../utils/ErrorMessageConstants.js";
 
 export class BonusNumberValidator {
   static validateBonusNumber(bonusNumber, winNumbers) {

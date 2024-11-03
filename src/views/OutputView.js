@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { OUTPUT_CONSTANTS } from "../utils/ViewConstants";
+import { OUTPUT_CONSTANTS } from "../utils/ViewConstants.js";
 
 class OutputView {
   static showPurchaseCount(count) {

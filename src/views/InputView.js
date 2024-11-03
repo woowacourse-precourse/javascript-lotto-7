@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { INPUT_CONSTANTS } from "../utils/ViewConstants";
+import { INPUT_CONSTANTS } from "../utils/ViewConstants.js";
 
 class InputView {
   static async inputPurchaseAmount() {

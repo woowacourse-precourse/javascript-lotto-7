@@ -1,6 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
-import { GAME_CONSTANTS } from "./utils/GameConstants";
-import Lotto from "./Lotto";
+import { GAME_CONSTANTS } from "../utils/GameConstants.js";
+import Lotto from "./Lotto.js";
 
 class LottoMachine {
   static generateLottos(amount) {

@@ -1,5 +1,5 @@
-import LottoChecker from "../src/LottoChecker";
-import Lotto from "../src/Lotto";
+import LottoChecker from "../src/models/LottoChecker.js";
+import Lotto from "../src/models/Lotto.js";
 
 describe("LottoChecker 테스트", () => {
   const winningNumbers = [1, 2, 3, 4, 5, 6];

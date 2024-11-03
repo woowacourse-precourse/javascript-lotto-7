@@ -1,8 +1,8 @@
-import InputView from "./views/InputView";
-import { LottoNumberValidator } from "./validator/LottoNumberValidator";
-import { BonusNumberValidator } from "./validator/BonusNumberValidator";
-import { PurchaseValidator } from "./validator/PurchaseValidator";
-import { Parser } from "./parser/Parser";
+import InputView from "../views/InputView.js";
+import { LottoNumberValidator } from "../validator/LottoNumberValidator.js";
+import { BonusNumberValidator } from "../validator/BonusNumberValidator.js";
+import { PurchaseValidator } from "../validator/PurchaseValidator.js";
+import { Parser } from "../parser/Parser.js";
 
 class InputHandler {
   // 구매 금액 입력받아 검증 후 반환

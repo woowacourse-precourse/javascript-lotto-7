@@ -1,5 +1,5 @@
-import { GAME_CONSTANTS } from "../utils/GameConstants";
-import { ERROR_MESSAGES } from "../utils/ErrorMessageConstants";
+import { GAME_CONSTANTS } from "../utils/GameConstants.js";
+import { ERROR_MESSAGES } from "../utils/ErrorMessageConstants.js";
 
 export class PurchaseValidator {
   // 구매 금액 검증

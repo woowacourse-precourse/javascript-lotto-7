@@ -1,6 +1,6 @@
-import OutputHandler from "../src/OutputHandler";
-import OutputView from "../src/views/OutputView";
-import { LOTTO_RANK } from "../src/utils/GameConstants";
+import OutputHandler from "../src/handler/OutputHandler.js";
+import OutputView from "../src/views/OutputView.js";
+import { LOTTO_RANK } from "../src/utils/GameConstants.js";
 
 jest.mock("../src/views/OutputView.js");
 

@@ -1,6 +1,6 @@
-import InputHandler from "../src/InputHandler";
-import InputView from "../src/views/InputView";
-import { ERROR_MESSAGES } from "../src/utils/ErrorMessageConstants";
+import InputHandler from "../src/handler/InputHandler.js";
+import InputView from "../src/views/InputView.js";
+import { ERROR_MESSAGES } from "../src/utils/ErrorMessageConstants.js";
 
 jest.mock("../src/views/InputView");
 

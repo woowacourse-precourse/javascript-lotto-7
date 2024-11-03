@@ -1,4 +1,4 @@
-import LottoMachine from "../src/LottoMachine";
+import LottoMachine from "../src/models/LottoMachine.js";
 
 describe("로또 생성기 테스트", () => {
   test("구입 금액에 해당하는 만큼의 로또를 생성한다", () => {
