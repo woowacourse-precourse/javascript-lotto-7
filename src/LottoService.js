@@ -1,10 +1,25 @@
 class LottoService {
   #lottoMatchChecker;
-  #lottos;
+  #purchaseManager;
+  #lottoIssuer;
+  #lottos = [];
 
-  constructor(lottoMatchChecker, lottos) {
+  constructor(purchaseManager, lottoMatchChecker, lottoIssuer) {
     this.#lottoMatchChecker = lottoMatchChecker;
-    this.#lottos = lottos;
+    this.#purchaseManager = purchaseManager;
+    this.#lottoIssuer = lottoIssuer;
+  }
+
+  getLottos() {
+    return this.#lottos;
+  }
+
+  addLotto(numbers) {
+    this.#lottos.push(this.#lottoIssuer.createLotto(numbers));
+  }
+
+  getMaxLottoCount(budget) {
+    this.#purchaseManager.calculateMaxLottos(budget);
   }
 
   getWinningStats() {
