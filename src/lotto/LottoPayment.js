@@ -10,20 +10,15 @@ class LottoPayment {
     this.#lottoUnitAmount = lottoUnitAmount;
   }
 
-  async executePaymentAndGetLottoCount() {
-    const purchaseAmount = await this.#getPurchaseAmount();
-    return this.#calculateLottoCountByAmount(purchaseAmount);
+  calculateLottoCountByAmount(purchaseAmount) {
+    return purchaseAmount / this.#lottoUnitAmount;
   }
 
-  async #getPurchaseAmount() {
+  async getPurchaseAmount() {
     const amount = await inputPurchaseAmount();
     validator.validatePurchaseAmount(amount);
 
     return amount;
-  }
-
-  #calculateLottoCountByAmount(purchaseAmount) {
-    return purchaseAmount / this.#lottoUnitAmount;
   }
 }
 

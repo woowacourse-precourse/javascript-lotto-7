@@ -2,8 +2,10 @@ import {
   printEmptyLine,
   printPurchaseResult,
   printStartWinningResult,
-  printWinningResult
+  printWinningResult,
+  printTotalRateOfReturn
 } from './view/OutputPrinter.js';
+import { calculateReturnRate } from './ReturnRateCalculator.js';
 import { getWinningLottoNumbersAndBonusNumber } from './LottoWinningNumberReader.js';
 
 class LottoGameExecutor {
@@ -21,17 +23,14 @@ class LottoGameExecutor {
   }
 
   async startGame() {
-    const lottoCount = await this.#lottoPayment.executePaymentAndGetLottoCount();
-
+    const purchaseAmount = await this.#lottoPayment.getPurchaseAmount();
+    const lottoCount = await this.#lottoPayment.calculateLottoCountByAmount(purchaseAmount);
     printEmptyLine();
 
     const lottos = this.#lottoGenerator.generateLottosBycount(lottoCount);
     this.#printPurchaseLottos(lottoCount, lottos);
 
-    printEmptyLine();
-
     const { winningNumbers, bonusNumber } = await getWinningLottoNumbersAndBonusNumber();
-
     const winningResults = this.#lottoResultevaluator.generateWinningResult(lottos, winningNumbers, bonusNumber);
     this.#printWinningResults(winningResults);
   }
@@ -47,6 +46,7 @@ class LottoGameExecutor {
   #printPurchaseLottos(lottoCount, lottos) {
     const printLottos = lottos.map((lotto) => lotto.toString());
     printPurchaseResult(lottoCount, printLottos.join(`\n`));
+    printEmptyLine();
   }
 }
 

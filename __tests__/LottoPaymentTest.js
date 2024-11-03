@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import LottoPayment from '../src/lotto/LottoPayment.js';
 import { config } from '../src/config.js';
-import { ERROR_MESSAGE, INPUT_MESSAGE } from '../src/lotto/constants/Message.js';
+import { ERROR_MESSAGE } from '../src/lotto/constants/Message.js';
 
 const mockQuestions = (input) => {
   Console.readLineAsync = jest.fn();
@@ -66,6 +66,6 @@ describe('로또 결제 테스트', () => {
     mockQuestions(input);
 
     const lottoPayment = new LottoPayment(LOTTO_AMOUNT);
-    await expect(lottoPayment.executePaymentAndGetLottoCount()).rejects.toThrow(error);
+    await expect(lottoPayment.getPurchaseAmount()).rejects.toThrow(error);
   });
 });
