@@ -1,5 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import LottoView from "../view/LottoView";
+import LottoView from "../view/LottoView.js";
 class LottoController {
   constructor() {
     this.view = new LottoView();

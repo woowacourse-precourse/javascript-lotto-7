@@ -1,3 +1,3 @@
 export const messages = {
-  INPUT_PURCHASE_AMOUNT: "╠╦ют╠щ╬вю╩ ют╥бгь аж╪╪©Д\n",
+  INPUT_PURCHASE_AMOUNT: "Й╣╛Л·┘Й╦┬Л∙║Л²└ Л·┘К═╔М∙╢ Лё╪Л└╦Л ■\n",
 };
