@@ -32,7 +32,7 @@ export default class LottoService {
     return this.#userLotto.getNumbers();
   }
 
-  getWinningDetails() {
+  getWinningInfo() {
     const userLottoNumbers = this.#userLotto.getNumbers();
 
     userLottoNumbers.forEach((userLottoNumber) => {

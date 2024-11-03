@@ -8,7 +8,7 @@ export const LOTTO_BONUS_NUMBER_COUNT = 1;
 
 export const PURCHASE_AMOUNT_RANGE = Object.freeze({
   min: 1000,
-  max: 100000,
+  max: 10000000000000,
 });
 
 export const LOTTO_NUMBER_RANGE = Object.freeze({

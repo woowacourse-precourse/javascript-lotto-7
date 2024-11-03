@@ -18,11 +18,11 @@ class App {
     await this.collectUserInput(this.requestWinningNumber);
     await this.collectUserInput(this.requestBonusNumber);
 
-    const winningInfo = this.lottolService.getWinningDetails();
+    const winningInfo = this.lottolService.getWinningInfo();
     this.outputView.printWinningDetails(winningInfo);
 
-    const rateOfReturn = this.lottolService.getWinningRate(winningInfo);
-    this.outputView.printWinningRate(rateOfReturn);
+    const winningRate = this.lottolService.getWinningRate(winningInfo);
+    this.outputView.printWinningRate(winningRate);
   }
 
   requestLottoPurchaseAmount = async () => {
