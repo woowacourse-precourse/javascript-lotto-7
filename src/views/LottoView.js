@@ -13,7 +13,7 @@ class LottoView {
 
   printLottoPurchase(lottos) {
     const lottosNumber = Object.keys(lottos).length;
-    this.print(`${lottosNumber}개를 구매했습니다.`);
+    this.print(`\n${lottosNumber}개를 구매했습니다.`);
     for (let i = 0; i < lottosNumber; i += 1) {
       this.print(`[${lottos[i].join(', ')}]`);
     }
@@ -35,7 +35,7 @@ class LottoView {
   }
 
   printWinningStatistics(winStatistics) {
-    this.print('당첨 통계');
+    this.print('\n당첨 통계');
     this.print('---');
     this.print(`3개 일치 (5,000원) - ${winStatistics[3]}개`);
     this.print(`4개 일치 (50,000원) - ${winStatistics[4]}개`);

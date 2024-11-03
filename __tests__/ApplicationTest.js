@@ -37,16 +37,10 @@ const runException = async input => {
 
   // when
   const app = new App();
-  try {
-    await app.run();
-  } catch (error) {
-    // 에러가 발생했을 때 로그를 체크
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
-    return;
-  }
-  throw new Error('에러가 발생하지 않았습니다');
+  await app.run();
+  // then
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
 };
-
 describe('로또 테스트', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
