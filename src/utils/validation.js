@@ -40,4 +40,34 @@ const validateWinningNumbers = input => {
   return NUMBERS;
 };
 
-export { isBlank, isNumber, isThousandUnit, validateWinningNumbers };
+const validateBonusNumber = (bonusNumber, winningNumbers) => {
+  if (isBlank(bonusNumber)) {
+    throw new Error(INPUT_ERROR.inputBlankError);
+  }
+
+  const NUMBER = Number(bonusNumber);
+
+  if (Number.isNaN(NUMBER)) {
+    throw new Error(INPUT_ERROR.inputTypeError);
+  }
+
+  if (
+    NUMBER < LOTTO_NUMBER_RANGE.minimum ||
+    NUMBER > LOTTO_NUMBER_RANGE.maximum
+  ) {
+    throw new Error(LOTTO_ERROR.lottoRangeError);
+  }
+  if (winningNumbers.includes(NUMBER)) {
+    throw new Error(LOTTO_ERROR.bonusDuplicateError);
+  }
+
+  return NUMBER;
+};
+
+export {
+  isBlank,
+  isNumber,
+  isThousandUnit,
+  validateWinningNumbers,
+  validateBonusNumber,
+};

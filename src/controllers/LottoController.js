@@ -19,6 +19,7 @@ class LottoController {
 
     const LOTTO_INPUT = new LottoInput();
     const WINNING_NUMBERS = await LOTTO_INPUT.getWinningNumbers();
+    const BOUNUS_NUMBER = await LOTTO_INPUT.getBonusNumber();
   }
 
   getPriceInput() {
