@@ -1,19 +1,24 @@
+//@ts-check
+
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { LOTTO_CONFIG } from '../constants/lotto.js';
 import Lotto from '../Lotto.js';
+import { generateRandomLottoNumbers } from '../util/randomGenerator.js';
 
 class LottoService {
+  /**@param {number} count */
   createLottos(count) {
     return Array.from({ length: count }, () => {
-      const numbers = MissionUtils.Random.pickUniqueNumbersInRange(
-        LOTTO_CONFIG.MIN_NUMBER,
-        LOTTO_CONFIG.MAX_NUMBER,
-        LOTTO_CONFIG.NUMBERS_PER
-      );
+      const numbers = generateRandomLottoNumbers();
       return new Lotto(numbers);
     });
   }
 
+  /**
+   * @param {Lotto[]} lottos
+   * @param {number[]} winningNumbers
+   * @param {number} bonusNumber
+   */
   calculateResults(lottos, winningNumbers, bonusNumber) {
     const results = { 3: 0, 4: 0, 5: 0, BONUS: 0, 6: 0 };
 
@@ -25,6 +30,12 @@ class LottoService {
     return results;
   }
 
+  /**
+   * @param {{ 3: number, 4: number, 5: number, BONUS: number, 6: number }} results
+   * @param {number} matchCount
+   * @param {Lotto} lotto
+   * @param {number} bonusNumber
+   */
   #updateResults(results, matchCount, lotto, bonusNumber) {
     if (matchCount === 6) {
       results[6]++;
@@ -35,6 +46,10 @@ class LottoService {
     }
   }
 
+  /**
+   * @param {number} purchaseAmount
+   * @param {{ 3: number, 4: number, 5: number, BONUS: number, 6: number }} results
+   */
   calculateEarningRate(purchaseAmount, results) {
     const totalPrize = Object.entries(results).reduce((sum, [rank, count]) => {
       return sum + LOTTO_CONFIG.PRIZE[rank] * count;
