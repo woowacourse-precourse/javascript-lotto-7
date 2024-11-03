@@ -73,4 +73,33 @@ describe('Validator Module Test', () => {
       },
     );
   });
+
+  describe('checkBonusNumber : 보너스 번호 입력값을 검증', () => {
+    test.each([
+      ['빈 값이 입력되었을 경우', [1, 2, 3, 4, 5, 6], ''],
+      ['실수가 포함된 경우', [1, 2, 3, 4, 5, 6], 1.1],
+      ['음수가 포함된 경우', [1, 2, 3, 4, 5, 6], -7],
+      ['0이 포함된 경우', [1, 2, 3, 4, 5, 6], 0],
+      ['로또 범위를 벗어난 숫자가 포함된 경우', [1, 2, 3, 4, 5, 6], 46],
+      ['당첨 번호와 중복되는 값이 있는 경우', [1, 2, 3, 4, 5, 6], 6],
+    ])('%s, 에러를 발생시킨다.', (_, winnerNumbers, value) => {
+      const validate = () => {
+        ValidatorModule.checkBonusNumber(winnerNumbers, value);
+      };
+
+      expect(validate).toThrow(ERROR_PREFIX);
+    });
+
+    test('유효한 구매 금액이 입력되었을 때 정상적으로 동작한다.', () => {
+      // given
+      const testWinnerNumber = [1, 2, 3, 4, 5, 6];
+      const testBonus = 8;
+
+      const validate = () => {
+        ValidatorModule.checkBonusNumber(testWinnerNumber, testBonus);
+      };
+
+      expect(validate).not.toThrow(ERROR_PREFIX);
+    });
+  });
 });
