@@ -23,6 +23,15 @@ class PrizeCalculator {
     return basicWinningPrize;
   }
 
+  #calculateBonusPrize() {
+    const bonusWinningStandard = GLOBAL_CONSTANTS.bonusWinningStandard;
+    const bonusMatched = this.#matchingTable.get(PRIZE_CALCULATOR.bonusTag);
+    const prizeAmount =
+      PRIZE_CALCULATOR.amount[bonusWinningStandard][PRIZE_CALCULATOR.bonusTag];
+
+    return bonusMatched * prizeAmount;
+  }
+
   #calculateProfit(totalPrize) {
     const profit = (totalPrize * PRIZE_CALCULATOR.profitRatio) / this.#payment;
     return profit;

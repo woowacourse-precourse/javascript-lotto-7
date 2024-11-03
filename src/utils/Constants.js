@@ -34,6 +34,8 @@ export const PRIZE_CALCULATOR = {
     6: { [GLOBAL_CONSTANTS.basicTag]: 2000000000 },
   },
   basicTag: GLOBAL_CONSTANTS.basicTag,
+  bonusTag: GLOBAL_CONSTANTS.bonusTag,
+  bonusWinningStandard: GLOBAL_CONSTANTS.bonusWinningStandard,
   defaultPrize: 0,
   profitRatio: 100,
   profitDecimalPlace: 1,
