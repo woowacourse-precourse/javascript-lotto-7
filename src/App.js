@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import MoneyValidator from "./MoneyValidator.js";
 import LottoGenerator from "./LottoGenerator.js";
 import Lotto from "./Lotto.js";
+import { PRIZE } from "./constants/prize.js";
 
 class App {
   async run() {
@@ -66,17 +67,26 @@ class App {
         }
       });
 
+      const totalMoney =
+        PRIZE["1th"] * matchCountResult["1th"] +
+        PRIZE["2th"] * matchCountResult["2th"] +
+        PRIZE["3th"] * matchCountResult["3th"] +
+        PRIZE["4th"] * matchCountResult["4th"] +
+        PRIZE["5th"] * matchCountResult["5th"];
+
+      const totalProfit = (totalMoney / money) * 100;
+
       Console.print("\n당첨 통계\n---\n");
       Console.print(
         `3개 일치 (5,000원) - ${matchCountResult["5th"]}개\n` +
           `4개 일치 (50,000원) - ${matchCountResult["4th"]}개\n` +
           `5개 일치 (1,500,000원) - ${matchCountResult["3th"]}개\n` +
           `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCountResult["2th"]}개\n` +
-          `6개 일치 (2,000,000,000원) - ${matchCountResult["1th"]}개\n`,
-        // "총 수익률은 62.5%입니다.",
+          `6개 일치 (2,000,000,000원) - ${matchCountResult["1th"]}개\n` +
+          `총 수익률은 ${totalProfit}%입니다.`,
       );
     } catch (error) {
-      throw new Error(error);
+      Console.print(error.message);
     }
   }
 }
