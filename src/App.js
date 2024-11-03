@@ -1,5 +1,5 @@
 import PurchaseLotto from './PurchaseLotto.js';
-import { validatePurchaseMoney } from './validators/Validator.js';
+import { validatePurchaseMoney } from './validators/validatePurchaseMoney.js';
 import { parsePurchaseMoney } from './utils/Parser.js';
 import { promptUserInput } from './utils/Prompt.js';
 
