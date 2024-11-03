@@ -1,6 +1,9 @@
 import WinningLottoMachine from '../src/WinningLottoMachine.js';
 import InputView from '../src/view/InputView.js';
+import OutputView from '../src/view/OutputView.js';
+import { ERROR_MESSAGES } from '../src/constants/messages.js';
 
+// createWinningLotto 메서드 테스트 - 유효한 경우
 beforeEach(() => {
   jest.clearAllMocks();
 });
@@ -37,6 +40,52 @@ describe.each([
 
       expect(winningLotto.getNumbers()).toEqual(expectedNumbers);
       expect(winningLotto.getBonusNumber()).toBe(expectedBonus);
+    });
+  },
+);
+
+const expectErrorMessage = (errorMessage, expectedError) => {
+  expect(errorMessage).toHaveBeenCalledWith(
+    expect.objectContaining({
+      message: expectedError,
+    }),
+  );
+};
+
+// createWinningLotto 메서드 테스트 - 유효하지 않은 당첨번호
+describe.each([
+  {
+    winningNumbers: '1,2,3,4,5,6,7',
+    expectedError: ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT,
+  },
+  {
+    winningNumbers: '1,2,3,4,5,6,',
+    expectedError: ERROR_MESSAGES.INVALID_WINNING_NUMBER_INPUT,
+  },
+  {
+    winningNumbers: '0,2,3,4,5,6',
+    expectedError: ERROR_MESSAGES.INVALID_LOTTO_RANGE,
+  },
+  {
+    winningNumbers: '1,2,3,4,5,5',
+    expectedError: ERROR_MESSAGES.DUPLICATE_WINNING_NUMBER,
+  },
+  {
+    winningNumbers: '   ',
+    expectedError: ERROR_MESSAGES.EMPTY_INPUT,
+  },
+])(
+  'createWinningLotto 메서드 에러 테스트 - 유효하지 않은 당첨번호',
+  ({ winningNumbers, expectedError }) => {
+    it(`에러 메시지: ${expectedError}`, async () => {
+      jest.spyOn(InputView, 'getUserInput').mockResolvedValueOnce(winningNumbers);
+
+      const errorMessage = jest.spyOn(OutputView, 'printError').mockImplementation(() => {
+        throw new Error(expectedError);
+      });
+
+      await expect(WinningLottoMachine.createWinningLotto()).rejects.toThrow(expectedError);
+      expectErrorMessage(errorMessage, expectedError);
     });
   },
 );
