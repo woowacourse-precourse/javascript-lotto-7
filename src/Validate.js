@@ -1,6 +1,6 @@
 import { CONSTANT_LOTTO, EMPTY_STRING, NUMBERS } from "./util/const.js";
 import ERROR_MESSAGES from "./util/messages/error-message.js";
-import { isNotANumber, isOutOfRange } from "./util/util.js";
+import { isNotANumber, isNotInteger, isOutOfRange } from "./util/util.js";
 
 class Validate {
   validatePrice(price) {
@@ -14,6 +14,7 @@ class Validate {
     this.#LottoNumbersEmpty(lottoNumbers);
     this.#LottoNumbersLength(lottoNumbers);
     this.#LottoNumbersType(lottoNumbers);
+    this.#LottoNumbersFloat(lottoNumbers);
     this.#LottoNumbersOutOfRange(lottoNumbers);
     this.#LottoNumbersDuplicate(lottoNumbers);
   }
@@ -21,6 +22,7 @@ class Validate {
   validateBonusNumber(bonusNumber, lottoNumbers) {
     this.#BonusNumberEmpty(bonusNumber);
     this.#BonusNumberType(bonusNumber);
+    this.#BonusNumberFloat(bonusNumber);
     this.#BonusNumberOutOfRange(bonusNumber);
     this.#BonusNumberDuplicate(bonusNumber, lottoNumbers);
   }
@@ -61,6 +63,11 @@ class Validate {
       throw new Error(ERROR_MESSAGES.LOTTO.WRONG_TYPE);
     }
   }
+  #LottoNumbersFloat(lottoNumbers) {
+    if (lottoNumbers.split(",").some(isNotInteger)) {
+      throw new Error(ERROR_MESSAGES.LOTTO.WRONG_FLOAT);
+    }
+  }
   #LottoNumbersOutOfRange(lottoNumbers) {
     if (lottoNumbers.split(",").some(isOutOfRange)) {
       throw new Error(ERROR_MESSAGES.LOTTO.WRONG_NUMBER);
@@ -78,13 +85,18 @@ class Validate {
     }
   }
   #BonusNumberType(bonusNumber) {
-    if (Number.isNaN(+bonusNumber)) {
+    if (isNotANumber(bonusNumber)) {
       throw new Error(ERROR_MESSAGES.BONUS.NOT_NUMBER);
+    }
+  }
+  #BonusNumberFloat(bonusNumber) {
+    if (isNotInteger(bonusNumber)) {
+      throw new Error(ERROR_MESSAGES.BONUS.WRONG_FLOAT);
     }
   }
   #BonusNumberOutOfRange(bonusNumber) {
     if (isOutOfRange(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.BONUS.WRONG);
+      throw new Error(ERROR_MESSAGES.BONUS.WRONG_NUMBER);
     }
   }
   #BonusNumberDuplicate(bonusNumber, lottoNumbers) {

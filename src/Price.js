@@ -4,7 +4,7 @@ class Price {
   #price;
   constructor(price) {
     this.#validate(price);
-    this.#price = price;
+    this.#price = +price;
   }
 
   #validate(price) {

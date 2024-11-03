@@ -22,6 +22,9 @@ const ERROR_MESSAGES = {
     WRONG_TYPE: Object.freeze(
       `${DEFAULT_ERROR_MESSAGE} 로또 번호는 숫자여야 합니다.`
     ),
+    WRONG_FLOAT: Object.freeze(
+      `${DEFAULT_ERROR_MESSAGE} 로또 번호는 정수여야 합니다.`
+    ),
     WRONG_NUMBER: Object.freeze(
       `${DEFAULT_ERROR_MESSAGE} 로또 번호는 1부터 45까지의 숫자여야 합니다.`
     ),
@@ -36,7 +39,10 @@ const ERROR_MESSAGES = {
     NOT_NUMBER: Object.freeze(
       `${DEFAULT_ERROR_MESSAGE} 보너스 번호는 숫자여야 합니다.`
     ),
-    WRONG: Object.freeze(
+    WRONG_FLOAT: Object.freeze(
+      `${DEFAULT_ERROR_MESSAGE} 보너스 번호는 정수여야 합니다.`
+    ),
+    WRONG_NUMBER: Object.freeze(
       `${DEFAULT_ERROR_MESSAGE} 보너스 번호는 1부터 45까지의 숫자여야 합니다.`
     ),
     DUPLICATED: Object.freeze(
