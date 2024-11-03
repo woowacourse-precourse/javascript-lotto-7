@@ -67,7 +67,7 @@ class App {
     // 5. 보너스 번호를 입력받는다.
     const winnerBonusInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     const winnerBonus = Number(winnerBonusInput);
-    ValidatorModule.checkBonusNumber(winnerBonus);
+    ValidatorModule.checkBonusNumber(winnerNumbers, winnerBonus);
 
     // 6. 당첨 통계를 출력한다.
     // 당첨 통계 계산
