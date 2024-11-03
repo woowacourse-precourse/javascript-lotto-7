@@ -39,6 +39,7 @@ class App {
     while (true) {
       try {
         this.winningNumbers = await InputValue.winningNumbers();
+        new Lotto(this.winningNumbers);
         return this.winningNumbers;
       } catch (e) {
         Console.print(e.message);
