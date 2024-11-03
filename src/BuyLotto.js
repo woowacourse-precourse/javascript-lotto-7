@@ -1,11 +1,10 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Validator from "./Validator.js";
 import Lotto from "./Lotto.js";
-import WinLotto from "./WinLotto.js";
 
 export default class BuyLotto {
   #validator;
-  #inputPrice = 0;
+  #inputPrice;
   #winningLotto = [];
   #bonusNumber = 0;
   #purchaseAmount = 0;
@@ -23,31 +22,46 @@ export default class BuyLotto {
   }
 
   async enterLottoPrice() {
-    Console.print(this.#PRICE_PROMPT);
-    this.#inputPrice = await Console.readLineAsync("");
-    Console.print(this.#EMPTY_STRING);
-    this.#getAmountOfLotto(this.#inputPrice);
-    this.#validator.validatePrice(this.#inputPrice, this.#PRICE_OF_A_LOTTO);
-    await this.enterWinningNumber();
-
-
+    try {
+      Console.print(this.#PRICE_PROMPT);
+      this.#inputPrice = await Console.readLineAsync("");
+      Console.print(this.#EMPTY_STRING);
+      this.#validator.validatePrice(this.#inputPrice, this.#PRICE_OF_A_LOTTO);
+      this.#getAmountOfLotto(this.#inputPrice);
+      await this.enterWinningNumber();
+    } catch (error) {
+      Console.print(error.message);
+      await this.enterLottoPrice();
+    }
   }
 
   async enterWinningNumber() {
-    Console.print(this.#WINNING_NUMBER_PROMPT);
-    this.input = await Console.readLineAsync("");
-    this.#validator.validateWinningNumber(this.input);
-    this.#winningLotto = new Lotto(this.input.split(",").map(Number));
-    Console.print(this.#EMPTY_STRING);
-    await this.enterBonusNumber();
+    try{
+      Console.print(this.#WINNING_NUMBER_PROMPT);
+      this.input = await Console.readLineAsync("");
+      this.#validator.validateWinningNumber(this.input);
+      this.#winningLotto = new Lotto(this.input.split(",").map(Number));
+      Console.print(this.#EMPTY_STRING);
+      await this.enterBonusNumber();
+    }catch (error) {
+      Console.print(error.message);
+      await this.enterWinningNumber();
+    }
+    
   }
 
   async enterBonusNumber() {
-    Console.print(this.#BONUS_NUMBER_PROMPT);
-    this.input = await Console.readLineAsync("");
-    this.#validator.validateBonusNumnber(this.input);
-    this.#bonusNumber = Number(this.input);
-    Console.print(this.#EMPTY_STRING);
+    try{
+      Console.print(this.#BONUS_NUMBER_PROMPT);
+      this.input = await Console.readLineAsync("");
+      this.#validator.validateBonusNumnber(this.input);
+      this.#bonusNumber = Number(this.input);
+      Console.print(this.#EMPTY_STRING);
+    }catch (error) {
+      Console.print(error.message);
+      await this.enterBonusNumber();
+    }
+    
   }
 
   #getAmountOfLotto(price) {
@@ -80,6 +94,7 @@ export default class BuyLotto {
   #sortLottoNumbers(array) {
     return array.slice().sort((a, b) => a - b);
   }
+
   getPurchasedLotto() {
     return this.#purchasedLotto;
   }
