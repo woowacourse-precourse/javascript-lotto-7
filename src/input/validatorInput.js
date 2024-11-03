@@ -1,33 +1,27 @@
 import ERROR_MESSAGE from '../constants/errorMessage.js';
+import LOTTO_CONFIG from '../constants/lottoConfig.js';
 
-export function checkLottoPurchaseAmount(input) {
-  input = Number(input);
-  if(Number.isNaN(input)) {
-    throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_NAN);
+export function checkLottoPurchasePrice(price) {
+  price = Number(price);
+  if (Number.isNaN(price)) {
+    throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_NAN);
   }
-  if(input < 0){
-    throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_NEGATIVE);
+  if (price < 0) {
+    throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_NEGATIVE);
   }
-  if(input === 0){
-    throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_EMPTY);
+  if (price === 0) {
+    throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_EMPTY);
   }
-  if(input < 1000) {
-    throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_TOO_SMALL);
+  if (price < LOTTO_CONFIG.TICKET_PRICE) {
+    throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_TOO_SMALL);
   }
-  if(!Number.isInteger(input)) {
-    throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_NOT_INTEGER);
+  if (!Number.isInteger(price)) {
+    throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_NOT_INTEGER);
   }
-  if(input > Number.MAX_SAFE_INTEGER) {
-    throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_TOO_LARGE);
+  if (price > Number.MAX_SAFE_INTEGER) {
+    throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_TOO_LARGE);
   }
-  if(input % 1000 !== 0){
-    throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_NOT_DIVIDE_1000);
+  if (price % LOTTO_CONFIG.TICKET_PRICE !== 0) {
+    throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_NOT_DIVIDE_1000);
   }
-}
-
-export function checkLotteryWinningNumber  (input) {
-
-
-
-
 }
