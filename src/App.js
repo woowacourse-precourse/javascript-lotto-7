@@ -16,6 +16,9 @@ class App {
 
       lottoMachine.printNumberofPurchase();
       lottoMachine.printLotto();
+
+      const winningNumber = await InputUtils.inputWinningNumber();
+
     } catch (error) {
     }
 
