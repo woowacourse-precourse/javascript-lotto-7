@@ -61,9 +61,7 @@ export class LottoMachine {
     }
   }
 
-  async run() {
-    const purchasePrice = await this.inputAttemptPurchasePrice();
-    const lottoTicketCount = this.#calculation.getLottoTicketCount(purchasePrice);
+  generateRandomlottoTicket(lottoTicketCount) {
     const lottoTicketArr = [];
     for (let i = 0; i < lottoTicketCount; i++) {
       const ticket = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
@@ -72,6 +70,14 @@ export class LottoMachine {
       });
       lottoTicketArr.push(new Lotto(sortedNum));
     }
+
+    return lottoTicketArr;
+  }
+
+  async run() {
+    const purchasePrice = await this.inputAttemptPurchasePrice();
+    const lottoTicketCount = this.#calculation.getLottoTicketCount(purchasePrice);
+    const lottoTicketArr = this.generateRandomlottoTicket(lottoTicketCount);
     this.#output.printLottoTicket(lottoTicketArr);
 
     const winningNumArr = await this.inputAttemptWinningNumbers();
