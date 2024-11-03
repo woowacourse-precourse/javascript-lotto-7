@@ -42,7 +42,7 @@ class Ticket {
   }
 
   displayTicket() {
-    this.getTicket().forEach((arr) => {
+    this.#lottos.forEach((arr) => {
       Console.print(`[${arr.join(', ')}]`);
     });
   }
