@@ -1,4 +1,4 @@
-import { LOTTO_NUMBERS } from "./constants/lotto.js";
+import { LOTTO_NUMBERS, LOTTO_PRIZE_MONEY } from "./constants/lotto.js";
 import { ERROR_MESSAGE } from "./constants/message.js";
 
 class Lotto {
@@ -39,55 +39,91 @@ class Lotto {
   }
 
   checkLottoNumbers(purchasedLotto, bonusNumber) {
-    const result = Array(5).fill(0);
+    const lottoResult = {
+      1: {
+        prize: LOTTO_PRIZE_MONEY.FIRST,
+        count: 0,
+      },
+      2: {
+        prize: LOTTO_PRIZE_MONEY.SECOND,
+        count: 0,
+      },
+      3: {
+        prize: LOTTO_PRIZE_MONEY.THIRD,
+        count: 0,
+      },
+      4: {
+        prize: LOTTO_PRIZE_MONEY.FOURTH,
+        count: 0,
+      },
+      5: {
+        prize: LOTTO_PRIZE_MONEY.FIFTH,
+        count: 0,
+      },
+    };
 
     purchasedLotto.forEach((lotto) => {
-      let matchingNumberCount = 0;
+      const { matchingNumberCount } = this.#getMatchingNumberCount(lotto, this.#numbers);
 
-      lotto.forEach((number) => {
-        if (this.#numbers.has(number)) {
-          matchingNumberCount += 1;
-        }
-      });
-
-      // 1등
-      if (matchingNumberCount === 6) {
-        result[0] += 1;
+      const isFirst = matchingNumberCount === 6;
+      if (isFirst) {
+        lottoResult[1].count += 1;
       }
 
-      // 2등, 3등
-      if (matchingNumberCount === 5 && lotto.includes(bonusNumber)) {
-        result[1] += 1;
-      } else if (matchingNumberCount === 5) {
-        result[2] += 1;
+      const isSecond = matchingNumberCount === 5 && lotto.includes(bonusNumber);
+      if (isSecond) {
+        lottoResult[2].count += 1;
       }
 
-      // 4등
-      if (matchingNumberCount === 4) {
-        result[3] += 1;
+      const isThird = matchingNumberCount === 5 && !lotto.includes(bonusNumber);
+      if (isThird) {
+        lottoResult[3].count += 1;
       }
 
-      // 5등
-      if (matchingNumberCount === 3) {
-        result[4] += 1;
+      const isFourth = matchingNumberCount === 4;
+      if (isFourth) {
+        lottoResult[4].count += 1;
+      }
+
+      const isFifth = matchingNumberCount === 3;
+      if (isFifth) {
+        lottoResult[5].count += 1;
       }
     });
 
-    return result;
+    return { lottoResult };
+  }
+
+  #getMatchingNumberCount(lotto, winningNumbers) {
+    let matchingNumberCount = 0;
+
+    lotto.forEach((number) => {
+      const isWinningNumber = winningNumbers.has(number);
+
+      if (isWinningNumber) {
+        matchingNumberCount += 1;
+      }
+    });
+
+    return { matchingNumberCount };
   }
 
   getProfitRate(lottoResult, purchasedLottoCount) {
-    const prizeAmount = [2000000000, 30000000, 1500000, 50000, 5000];
-
-    let profitSum = 0;
-
-    for (let i = 0; i < 5; i += 1) {
-      profitSum += prizeAmount[i] * lottoResult[i];
-    }
+    const { profitSum } = this.#getProfitSum(lottoResult);
 
     const profitRate = (profitSum / (purchasedLottoCount * 1000)) * 100;
 
     return Math.round(profitRate * 100) / 100;
+  }
+
+  #getProfitSum(lottoResult) {
+    let profitSum = 0;
+
+    Object.values(lottoResult).forEach(({ prize, count }) => {
+      profitSum += prize * count;
+    });
+
+    return { profitSum };
   }
 }
 

@@ -3,3 +3,11 @@ export const LOTTO_NUMBERS = {
   MIN_RANGE_1: 1,
   MAX_RANGE_45: 45,
 };
+
+export const LOTTO_PRIZE_MONEY = {
+  FIRST: 2000000000,
+  SECOND: 30000000,
+  THIRD: 1500000,
+  FOURTH: 50000,
+  FIFTH: 5000,
+};

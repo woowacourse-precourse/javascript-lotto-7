@@ -25,15 +25,18 @@ class Input {
 
   #validatePurchaseAmount(purchaseAmount) {
     const isNaN = !Number.isInteger(purchaseAmount);
-
     if (isNaN) {
       throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_INPUT.NOT_A_NUMBER);
     }
 
     const isNotDivisionByThousand = purchaseAmount % 1000 !== 0;
-
     if (isNotDivisionByThousand) {
       throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_INPUT.NOT_DIVISION_BY_THOUSAND);
+    }
+
+    const isZero = !purchaseAmount;
+    if (isZero) {
+      throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_INPUT.ZERO_NUMBER);
     }
   }
 
@@ -42,7 +45,7 @@ class Input {
   }
 
   #getPurchasedLotto(purchasedLottoCount) {
-    const purchasedLotto = Array.from({ length: purchasedLottoCount }, () => {
+    const purchasedLottoList = Array.from({ length: purchasedLottoCount }, () => {
       const randomLottoNumber = this.#getRandomLottoNumber();
 
       Output.printPurchasedLottoNumber(randomLottoNumber);
@@ -50,7 +53,7 @@ class Input {
       return randomLottoNumber;
     });
 
-    return purchasedLotto;
+    return purchasedLottoList;
   }
 
   #getRandomLottoNumber() {
@@ -65,7 +68,6 @@ class Input {
     while (true) {
       try {
         const lottoWinningNumberInput = await Console.readLineAsync(INPUT_MESSAGE.LOTTO_NUMBER);
-
         const lottoWinningNumbers = new Set(lottoWinningNumberInput.split(",").map(Number));
 
         const lottoClass = new Lotto(lottoWinningNumbers);
@@ -94,20 +96,17 @@ class Input {
 
   #checkBonusNumber(bonusNumber, winningNumbers) {
     const isNaN = !Number.isInteger(bonusNumber);
-
     if (isNaN) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.NOT_A_NUMBER);
     }
 
     const bonusNumberOutOfRange =
       bonusNumber < LOTTO_NUMBERS.MIN_RANGE_1 || bonusNumber > LOTTO_NUMBERS.MAX_RANGE_45;
-
     if (bonusNumberOutOfRange) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.OUT_OF_RANGE_1_to_45);
     }
 
     const isDuplicatedNumber = winningNumbers.has(bonusNumber);
-
     if (isDuplicatedNumber) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.DUPLICATED_NUMBER);
     }

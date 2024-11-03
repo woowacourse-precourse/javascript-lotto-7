@@ -15,7 +15,7 @@ class App {
 
     const { bonusNumber } = await input.getBonusNumber(winningNumbers);
 
-    const lottoResult = lottoClass.checkLottoNumbers(purchasedLotto, bonusNumber);
+    const { lottoResult } = lottoClass.checkLottoNumbers(purchasedLotto, bonusNumber);
 
     const profitRate = lottoClass.getProfitRate(lottoResult, purchasedLottoCount);
 
