@@ -3,30 +3,35 @@ import MESSAGE from "./constants/message.js";
 import ERROR from "./constants/error.js";
 
 class Input {
-  #money;
+  #number = [];
 
   async getPurchaseAmount() {
     try {
-        const money = await Console.readLineAsync(MESSAGE.PURCHASE_AMOUNT);
-        this.#moneyValidator(money);
-        this.#money = money;
-      } catch (error) {
+        const money = await this.requestPurchaseAmount();
+        return money;
+    } catch (error) {
         Console.print(error.message);
         await this.getPurchaseAmount();
-      }
+    }
+  }
+
+  async requestPurchaseAmount() {
+      const money = await Console.readLineAsync(MESSAGE.PURCHASE_AMOUNT);
+      this.#moneyValidator(money);
+      return Number(money);
   }
 
   #moneyValidator(money) {
-    if(isNaN(money)) {
-        throw new Error(ERROR.IS_NOT_INT);
-    } 
-    
+    if (isNaN(money)) {
+      throw new Error(ERROR.IS_NOT_INT);
+    }
+
     if (money < 1000) {
-        throw new Error(ERROR.SMALL_THAN_THOUSAND);
+      throw new Error(ERROR.SMALL_THAN_THOUSAND);
     }
 
     if (money % 1000 !== 0) {
-        throw new Error(ERROR.IS_NOT_DEVIDED);
+      throw new Error(ERROR.IS_NOT_DEVIDED);
     }
   }
 }
