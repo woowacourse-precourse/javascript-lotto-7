@@ -1,5 +1,6 @@
 import Draw from "../model/Draw.js";
 import Lotto from "../model/Lotto.js";
+import LottoCollection from "../model/LottoCollection.js";
 import InputUtils from "../utils/InputUtils.js";
 import { generateRandomNumbers } from "../utils/LottoUtils.js";
 import InputView from "../view/InputView.js";
@@ -10,10 +11,12 @@ class LottoController {
   #outputView;
   #draw;
   #winningNumbers;
+  #lottoCollection;
 
   constructor() {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
+    this.#lottoCollection = new LottoCollection();
   }
 
   async run() {
@@ -50,6 +53,7 @@ class LottoController {
     for (let i = 0; i < lottoCount; i++) {
       const lottoNumbers = generateRandomNumbers();
       const lotto = new Lotto(lottoNumbers);
+      this.#lottoCollection.addLotto(lotto);
       this.#printLottoNumbers(lotto);
     }
   }
