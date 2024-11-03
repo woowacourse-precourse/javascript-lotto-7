@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import {
   LOTTO_RESULT_MESSAGES,
   PROGRESS_MESSAGE,
-} from '../temp_constants/Message.js';
+} from '../constants/Message.js';
 
 class UserOutput {
   showPurchsedLotto(lottoTickets) {

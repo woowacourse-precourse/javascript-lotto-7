@@ -1,4 +1,4 @@
-import Validation from '../src/temp_controller/Validation';
+import Validation from '../src/controller/Validation';
 
 describe('Validation 테스트', () => {
   test('구매 금액이 1000원 단위가 아니면 예외가 발생한다', () => {

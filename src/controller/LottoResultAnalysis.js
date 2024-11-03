@@ -1,4 +1,4 @@
-import { LOTTO_PRICE, LOTTO_REWARD } from '../temp_constants/LottoConstants.js';
+import { LOTTO_PRICE, LOTTO_REWARD } from '../constants/LottoConstants.js';
 
 class LottoResultAnalysis {
   constructor(winningNumbers, bonusNumber) {

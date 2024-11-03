@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../temp_constants/Message.js';
+import { ERROR_MESSAGES } from '../constants/Message.js';
 
 const Validation = {
   validateThousandUnit(amount) {
