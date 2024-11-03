@@ -7,6 +7,7 @@ export const validatePurchasingAmount = (userInputAmounts) => {
 };
 
 export const validateWinningNumberRange = (winningNumbers) => {
+  console.log(winningNumbers + "..");
   winningNumbers.forEach((number) => {
     if (number < 1 || number > 45) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER_RANGE);
@@ -22,9 +23,7 @@ export const validateWinningNumberDup = (winningNumbers) => {
 };
 
 export const validateBonusNumberRange = (bounsNumbers) => {
-  bounsNumbers.forEach((number) => {
-    if (number < 1 || number > 45) {
-      throw new Error(ERROR_MESSAGE.BONUS__NUMBER_RANGE);
-    }
-  });
+  if (bounsNumbers < 1 || bounsNumbers > 45) {
+    throw new Error(ERROR_MESSAGE.BONUS__NUMBER_RANGE);
+  }
 };

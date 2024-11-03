@@ -29,10 +29,10 @@ class LottoView {
 
   //보너스번호 입력
   async inputBonusNumber() {
-    const bounsNumbers = await Console.readLineAsync(
+    const bonusNumbers = await Console.readLineAsync(
       MESSAGES.INPUT_BONUS_NUMBER
     );
-    return bounsNumbers;
+    return Number(bonusNumbers);
   }
 }
 
