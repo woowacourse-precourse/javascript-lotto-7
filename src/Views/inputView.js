@@ -1,5 +1,4 @@
 import { Console } from "@woowacourse/mission-utils";
-import { checkAmount } from '../validation.js';
 
 export async function inputAmount() {
     const userInput = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
