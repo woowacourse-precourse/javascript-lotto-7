@@ -1,3 +1,5 @@
+import { Console } from '@woowacourse/mission-utils';
+
 export function printResult(lottos, winningNumbers, bonusNumber) {
   const result = lottos.reduce(
     (acc, lotto) => {
@@ -18,12 +20,12 @@ export function printResult(lottos, winningNumbers, bonusNumber) {
     }
   );
 
-  console.log(`3개 일치 (5,000원) - ${result.FIFTH}개`);
-  console.log(`4개 일치 (50,000원) - ${result.FOURTH}개`);
-  console.log(`5개 일치 (1,500,000원) - ${result.THIRD}개`);
-  console.log(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.SECOND}개`);
-  console.log(`6개 일치 (2,000,000,000원) - ${result.FIRST}개`);
-  console.log(`총 수익률은 ${getTotalProfitRate(lottos, result)}%입니다.`);
+  Console.print(`3개 일치 (5,000원) - ${result.FIFTH}개`);
+  Console.print(`4개 일치 (50,000원) - ${result.FOURTH}개`);
+  Console.print(`5개 일치 (1,500,000원) - ${result.THIRD}개`);
+  Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.SECOND}개`);
+  Console.print(`6개 일치 (2,000,000,000원) - ${result.FIRST}개`);
+  Console.print(`총 수익률은 ${getTotalProfitRate(lottos, result)}%입니다.`);
 }
 
 function getMatchCount(lotto, winningNumbers) {
