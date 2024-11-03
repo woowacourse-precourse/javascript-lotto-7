@@ -6,6 +6,7 @@ import Utils from './utils/Utils.js';
 import WinningLottoManager from './WinningLottoManager.js';
 import Analyzer from './Analyzer.js';
 import outputView from './userInterface/OutputView.js';
+import PrizeCalculator from './PrizeCalculator.js';
 
 class App {
   async run() {
@@ -17,6 +18,10 @@ class App {
     const analyzer = App.getAnalyzer(lottos, winningLottoNumbers);
     const matchingTable = analyzer.getMatchingTable();
     outputView.printStatistics(matchingTable);
+
+    const payment = lottoMachine.getPayment();
+    const profit = App.estimateProfit(matchingTable, payment);
+    outputView.printProfit(profit);
   }
 
   async getLottoMachine() {
@@ -47,6 +52,11 @@ class App {
   static getAnalyzer(lottos, winningLottoNumbers) {
     const analyzer = new Analyzer(lottos, winningLottoNumbers);
     return analyzer;
+  }
+
+  static estimateProfit(matchingTable, payment) {
+    const prizeCalculator = new PrizeCalculator(matchingTable, payment);
+    return prizeCalculator.getProfit();
   }
 }
 
