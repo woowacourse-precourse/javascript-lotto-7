@@ -96,5 +96,7 @@ export class LottoMachine {
         } 
       }
     });
+    this.printResults(results);
+  }
 }
 export default LottoMachine;
