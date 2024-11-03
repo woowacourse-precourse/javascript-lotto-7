@@ -3,6 +3,7 @@ import LottoPurchase from '../models/LottoPurchase.js';
 import LottoGenerator from '../utils/LottoGenerator.js';
 import LottoView from '../views/LottoView.js';
 import LottoInput from '../models/LottoInput.js';
+import LottoResult from '../models/LottoResult.js';
 
 class LottoController {
   async start() {
@@ -19,7 +20,16 @@ class LottoController {
 
     const LOTTO_INPUT = new LottoInput();
     const WINNING_NUMBERS = await LOTTO_INPUT.getWinningNumbers();
-    const BOUNUS_NUMBER = await LOTTO_INPUT.getBonusNumber();
+    const BONUS_NUMBER = await LOTTO_INPUT.getBonusNumber();
+
+    const LOTTO_RESULT = new LottoResult(
+      LOTTO_GENERATOR.lottoNumbers,
+      WINNING_NUMBERS,
+      BONUS_NUMBER,
+    );
+    LOTTO_RESULT.checkResults();
+
+    LOTTO_VIEW.printResult(LOTTO_RESULT.getResults());
   }
 
   getPriceInput() {
