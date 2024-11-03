@@ -10,7 +10,7 @@ export function validateLength(numbers) {
 
 export function validateType(numbers) {
   numbers.forEach((number) => {
-    if (typeof number !== 'number' || Number(number)) {
+    if (typeof number !== 'number' || Number.isNaN(number)) {
       throw new CustomError(ERROR.INVALID_NUMBER_TYPE);
     }
   });
