@@ -71,6 +71,12 @@ function isDuplicateBonus(bonusNumber, prizeNumbers) {
   }
 }
 
+function isBonusNumberInRange(bonusNumber) {
+  if (bonusNumber < 1 || bonusNumber > 45) {
+    throw new Error("[ERROR] 보너스 번호는 1에서 45 사이여야 합니다.");
+  }
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
