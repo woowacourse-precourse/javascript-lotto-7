@@ -13,6 +13,8 @@ class AppController {
     validationPipe(purchaseAmount);
 
     this.lottoController.run(purchaseAmount);
+
+    const winningNumbers = await this.consoleView.getWinningNumbers();
   }
 }
 
