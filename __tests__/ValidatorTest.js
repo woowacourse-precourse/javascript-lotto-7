@@ -90,4 +90,26 @@ describe('Validator Test', () => {
       expect(validate).not.toThrow();
     });
   });
+
+  describe('isNotEmptyString() Test : 입력값이 빈문자가 아닌지 검증', () => {
+    test('빈 문자열인 경우 에러를 발생시킨다.', () => {
+      const emptyString = '';
+      // when
+      const validate = () => {
+        Validator.isNotEmptyString(emptyString);
+      };
+
+      expect(validate).toThrow(ERROR_PREFIX);
+    });
+
+    test.each(['a', ' ', '*'])('빈 문자열이 아닌 경우 정상적으로 동작한다..( %s )', (value) => {
+      // when
+      const validate = () => {
+        Validator.isNotEmptyString(value);
+      };
+
+      // then
+      expect(validate).not.toThrow(ERROR_PREFIX);
+    });
+  });
 });
