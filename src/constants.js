@@ -6,3 +6,4 @@ export const ERR_MSG = {
    ERR_ONLYONE_NUMBER: '[ERROR] 숫자 하나만 입력해주세요',
    ERR_DUPLICATE_NUMBERS: '[ERROR] 중복되는 숫자가 있습니다.',
 };
+export const LOTTO_PRICE = 1000;

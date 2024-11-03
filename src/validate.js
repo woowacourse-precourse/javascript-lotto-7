@@ -1,4 +1,4 @@
-import { ERR_MSG } from './error.js';
+import { ERR_MSG } from './constants.js';
 
 export class Validator {
    static validatePurchaseAmount(amount) {
