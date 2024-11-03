@@ -1,4 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import {
   INPUT_MESSAGE,
@@ -6,6 +6,9 @@ import {
   LOTTO_MESSAGE,
   howManyCorrectResult,
   BonusCorrectResult,
+  MAX_NUMBER,
+  MIN_NUMBER,
+  NUMBER_OF_LOTTO_NUMBERS,
   THREE_PRICE,
   FOUR_PRICE,
   FIVE_PRICE,
@@ -22,20 +25,17 @@ function purchaseLotto(price) {
   return amountOfLotto;
 }
 
-function howManyCorrectNumbers(
-  lottoNumbers,
-  winningNumbers,
-  bonusWinningNumber,
-) {
+function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
   let threeCorrectCount = 0;
   let fourCorrectCount = 0;
   let fiveCorrectCount = 0;
   let fiveBonusCorrectCount = 0;
   let sixCorrectCount = 0;
-  lottoNumbers.forEach((lottoNumber) => {
+
+  lottoList.forEach((lottoNumber) => {
     let count = 0;
     winningNumbers.forEach((number) => {
-      if (lottoNumber.includes(number)) {
+      if (lottoNumber.getNumbers().includes(number)) {
         count += 1;
       }
     });
@@ -59,25 +59,37 @@ function howManyCorrectNumbers(
   howManyCorrectResult(6, SIX_PRICE, sixCorrectCount);
 }
 
+function generateLottoNumbers() {
+  const lottoNumbers = [];
+  for (let i = 0; i < NUMBER_OF_LOTTO_NUMBERS; i += 1) {
+    lottoNumbers.push(
+      Random.pickUniqueNumbersInRange(
+        MIN_NUMBER,
+        MAX_NUMBER,
+        NUMBER_OF_LOTTO_NUMBERS,
+      ),
+    );
+  }
+  return lottoNumbers;
+}
+
 class App {
   async run() {
     const amount = await Console.readLineAsync(
       INPUT_MESSAGE.INPUT_AMOUNT_MESSAGE,
     );
     const amountOfLotto = purchaseLotto(amount);
-    Console.print(`\n${amountOfLotto}개를 구매했습니다.`);
+    Console.print(`${amountOfLotto}개를 구매했습니다.`);
 
-    const lottos = [];
-    for (let i = 0; i < amountOfLotto; i += 1) {
-      const lotto = new Lotto();
+    const lottoList = generateLottoNumbers().map((lotto) => new Lotto(lotto));
+    lottoList.forEach((lotto) => {
       lotto.sortLottoNumbers();
-      lottos.push(lotto.getNumbers());
-      Console.print(lottos[i]);
-    }
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
     const winningNumbers = await getWinningNumbers();
     const bonusWinningNumber = await getBonusWinningNumber();
     Console.print(LOTTO_MESSAGE.LOTTO_RESULT_MESSAGE);
-    howManyCorrectNumbers(lottos, winningNumbers, bonusWinningNumber);
+    howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber);
   }
 }
 
