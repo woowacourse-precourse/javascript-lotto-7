@@ -10,7 +10,7 @@ class LottoModel{
 
   constructor() {
     this.#userPrice = 0;
-    this.lottoList = []; // 로또 객체 정보를 담고 있다.
+    this.lottoList = [];
     this.#winningNumber = [];
     this.#bonusNumber;
     this.userDetails = {

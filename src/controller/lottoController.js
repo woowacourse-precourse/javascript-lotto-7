@@ -17,13 +17,13 @@ class LottoController{
   }
 
   async issueLotto() {
-    const userPrice = await this.inputPrice(); //금액 입력.
+    const userPrice = await this.inputPrice();
     this.getLottoList(userPrice);
 
-    const winningNumber = await this.inputWinningNumber(); // 당첨번호 입력
+    const winningNumber = await this.inputWinningNumber();
     this.model.setWinningNumber(winningNumber);
 
-    const bonusNumber = await this.inputBonusNumber(); // 보너스 숫자.
+    const bonusNumber = await this.inputBonusNumber();
     this.model.setBonusNumber(bonusNumber);
   }
 

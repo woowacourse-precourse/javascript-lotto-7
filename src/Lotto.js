@@ -18,7 +18,7 @@ class Lotto {
     this.error.lottoNumberType(numbers);
     this.error.duplicateLottoNumber(numbers);
   }
-  // TODO: 추가 기능 구현
+
   getLottoNumber() {
     return this.#numbers;
   }
