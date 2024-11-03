@@ -1,4 +1,4 @@
-import Validator from './Valldator.js';
+import Validator from './Validator.js';
 
 class ValidatorModule {
   static checkPositiveInteger(value) {

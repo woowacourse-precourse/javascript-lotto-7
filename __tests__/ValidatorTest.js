@@ -1,5 +1,5 @@
 import { ERROR_PREFIX } from '../src/constants';
-import Validator from '../src/utils/Valldator';
+import Validator from '../src/utils/Validator';
 
 describe('Validator Test', () => {
   describe('isNumber() Test : 입력값이 숫자인지 검증', () => {
