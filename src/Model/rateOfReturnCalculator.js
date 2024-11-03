@@ -14,6 +14,6 @@ const calculateWinningAmount = () => {
 export const calculateRateOfReturn = (purchasePrice) => {
   const winningAmount = calculateWinningAmount();
   const rateOfReturn = ((winningAmount / purchasePrice) * 100).toFixed(1);
-  
+
   return rateOfReturn;
 };
