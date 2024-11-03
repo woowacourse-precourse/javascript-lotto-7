@@ -13,6 +13,7 @@ class LottoPlayer {
     this.bonusNumber = null;
     this.lottos = [];
     this.resultCount = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    this.prizeAmount = 0;
   }
 
   async play() {
@@ -84,23 +85,31 @@ class LottoPlayer {
     for (let i = 0; i < this.numberOfLottos; i++) {
       const lottoNumbers = this.lottos[i].numbers;
       const matchCount = this.countMatchingNumbers(lottoNumbers);
-      const isBonus = false;
+      const isBonus =
+        matchCount === 5 && this.isBonusNumberMatched(lottoNumbers);
 
-      if (matchCount === 5) {
-        isBonus = this.isBonusNumberMatched(lottoNumbers);
-      }
-
-      const rank = getRank(matchCount, isBonus);
+      this.updateResultWithRank(matchCount, isBonus);
     }
   }
 
-  getRank(matchCount, isBonus) {
-    for (const condition of rankConditions) {
-      if (matchCount === condition.match && condition.bonus === isBonus) {
-        return condition.rank;
-      }
+  updateResultWithRank(matchCount, isBonus) {
+    const condition = rankConditions.find(
+      (condition) =>
+        condition.match === matchCount && condition.bonus === isBonus
+    );
+
+    if (condition) {
+      this.plusResultCount(condition);
+      this.addPrizeAmount(condition);
     }
-    return null;
+  }
+
+  plusResultCount(condition) {
+    this.resultCount[condition.rank]++;
+  }
+
+  addPrizeAmount(condition) {
+    this.prizeAmount += condition.prize;
   }
 
   countMatchingNumbers(numbers) {
