@@ -1,4 +1,4 @@
-class WinningResultCalculator {
+class WinningResultCalculatorService {
   calculateWinningResult(winningNumbers, bonusNumber, lottoNumbers) {
     let winningCount = 0;
     let winningRank;
@@ -53,4 +53,4 @@ class WinningResultCalculator {
   }
 }
 
-export default WinningResultCalculator;
+export default WinningResultCalculatorService;

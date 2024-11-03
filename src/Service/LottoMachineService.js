@@ -1,14 +1,14 @@
 import InputView from '../View/InputView.js';
 import OutputView from '../View/OutputView.js';
 import LottoTicketService from './LottoTicketService.js';
-import WinningResultCalculator from './WinningResultCalculator.js';
+import WinningResultCalculatorService from './WinningResultCalculatorService.js';
 
 class LottoMachineService {
   constructor() {
     this.inputView = new InputView();
     this.outputView = new OutputView();
     this.lottoTicketService = new LottoTicketService();
-    this.winningResultCalculator = new WinningResultCalculator();
+    this.winningResultCalculator = new WinningResultCalculatorService();
   }
 
   async run() {

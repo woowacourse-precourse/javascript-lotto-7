@@ -1,7 +1,7 @@
 import Lotto from '../src/Lotto';
-import WinningResultCalculator from '../src/Service/WinningResultCalculator';
+import WinningResultCalculatorService from '../src/Service/WinningResultCalculatorService';
 
-describe('WinningResultCalculator 테스트', () => {
+describe('WinningResultCalculatorService 테스트', () => {
   test('당첨 내역을 계산한다.', () => {
     const winningNumbers = [8, 21, 23, 41, 42, 43];
     const bonusNumber = 7;
@@ -11,12 +11,13 @@ describe('WinningResultCalculator 테스트', () => {
       new Lotto([8, 21, 23, 41, 1, 2]),
     ];
 
-    const winningResultCalculator = new WinningResultCalculator();
-    const totalWinningRank = winningResultCalculator.calculateWinningResults(
-      winningNumbers,
-      bonusNumber,
-      lottos
-    );
+    const winningResultCalculatorService = new WinningResultCalculatorService();
+    const totalWinningRank =
+      winningResultCalculatorService.calculateWinningResults(
+        winningNumbers,
+        bonusNumber,
+        lottos
+      );
 
     expect(totalWinningRank[0]).toBe(1);
     expect(totalWinningRank[1]).toBe(1);
@@ -30,8 +31,8 @@ describe('WinningResultCalculator 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 42, 43];
 
-    const winningResultCalculator = new WinningResultCalculator();
-    const winningRank = winningResultCalculator.calculateWinningResult(
+    const winningResultCalculatorService = new WinningResultCalculatorService();
+    const winningRank = winningResultCalculatorService.calculateWinningResult(
       winningNumbers,
       bonusNumber,
       lottoNumbers
@@ -45,8 +46,8 @@ describe('WinningResultCalculator 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 42, 7];
 
-    const winningResultCalculator = new WinningResultCalculator();
-    const winningRank = winningResultCalculator.calculateWinningResult(
+    const winningResultCalculatorService = new WinningResultCalculatorService();
+    const winningRank = winningResultCalculatorService.calculateWinningResult(
       winningNumbers,
       bonusNumber,
       lottoNumbers
@@ -60,8 +61,8 @@ describe('WinningResultCalculator 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 42, 2];
 
-    const winningResultCalculator = new WinningResultCalculator();
-    const winningRank = winningResultCalculator.calculateWinningResult(
+    const winningResultCalculatorService = new WinningResultCalculatorService();
+    const winningRank = winningResultCalculatorService.calculateWinningResult(
       winningNumbers,
       bonusNumber,
       lottoNumbers
@@ -75,8 +76,8 @@ describe('WinningResultCalculator 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 41, 1, 2];
 
-    const winningResultCalculator = new WinningResultCalculator();
-    const winningRank = winningResultCalculator.calculateWinningResult(
+    const winningResultCalculatorService = new WinningResultCalculatorService();
+    const winningRank = winningResultCalculatorService.calculateWinningResult(
       winningNumbers,
       bonusNumber,
       lottoNumbers
@@ -90,8 +91,8 @@ describe('WinningResultCalculator 테스트', () => {
     const bonusNumber = 7;
     const lottoNumbers = [8, 21, 23, 1, 2, 3];
 
-    const winningResultCalculator = new WinningResultCalculator();
-    const winningRank = winningResultCalculator.calculateWinningResult(
+    const winningResultCalculatorService = new WinningResultCalculatorService();
+    const winningRank = winningResultCalculatorService.calculateWinningResult(
       winningNumbers,
       bonusNumber,
       lottoNumbers
