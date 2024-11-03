@@ -71,11 +71,7 @@ export default class BuyLotto {
 
   #generateLottoTickets(purchaseAmount) {
     for (let i = 0; i < purchaseAmount; i += 1) {
-      const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6
-      );
+      const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1,45,6);
       this.#purchasedLotto.push(randomNumber);
       this.#validator.validateDuplicateNumber(randomNumber);
     }
