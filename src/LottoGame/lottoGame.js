@@ -12,12 +12,13 @@ class LottoGame {
 
     const lottoIssuance = new LottoIssuance(LOTTO_PRICE);
     lottoIssuance.printLottoBuyMessage();
-
+    lottoIssuance.printLottoNumber();
     const WINNING_NUMBER = await readLineAsync(INPUT_MESSAGES.winningNumber);
     const lotto = new Lotto(WINNING_NUMBER);
 
     const BONUS_NUMBER = await readLineAsync(INPUT_MESSAGES.bonusNumber);
     BONUS_NUMBER_VALIDATION(BONUS_NUMBER, WINNING_NUMBER);
+    c;
   }
 }
 export default LottoGame;
