@@ -3,27 +3,37 @@ import Lotto from "./Lotto.js";
 class App {
   async run() {
     try {
-      const money = await Console.readLineAsync("구입금액을 입력해 주세요.");
-      if (isNaN(money) || money % 1000 !== 0) {
-        throw new Error("[ERROR] 1000원 단위로 입력해주세요.");
-      }
+      const money = await this.get_money();
       const lotto_count = parseInt(money / 1000);
       Console.print(`${lotto_count}개를 구매했습니다.`);
       const lotto_tickets = this.make_lotto_tickets(lotto_count);
-      const lotto_answer = await Console.readLineAsync(
-        "당첨 번호를 입력해 주세요."
-      );
-      const lotto_numbers = lotto_answer.split(",").map((num) => parseInt(num));
+      const lotto_numbers = await this.get_lotto_answer();
 
-      const lotto_bonus = await Console.readLineAsync(
-        "보너스 번호를 입력해 주세요."
-      );
-
+      const lotto_bonus = await this.get_lotto_bonus();
       this.check_lotto(lotto_tickets, lotto_numbers, lotto_bonus);
     } catch (e) {
       Console.print(e.message);
       await this.run();
     }
+  }
+  async get_money() {
+    const money = await Console.readLineAsync("구입금액을 입력해 주세요.");
+    if (isNaN(money) || money % 1000 !== 0) {
+      throw new Error("[ERROR] 1000원 단위로 입력해주세요.");
+    }
+    return money;
+  }
+  async get_lotto_answer() {
+    const lotto_answer = await Console.readLineAsync(
+      "당첨 번호를 입력해 주세요."
+    );
+    return lotto_answer.split(",").map((num) => parseInt(num));
+  }
+  async get_lotto_bonus() {
+    const lotto_bonus = await Console.readLineAsync(
+      "보너스 번호를 입력해 주세요."
+    );
+    return parseInt(lotto_bonus);
   }
   make_lotto_tickets(lotto_count) {
     let lotto_tickets = [];
@@ -39,7 +49,6 @@ class App {
     return lotto_tickets;
   }
   check_lotto(lotto_tickets, lotto_numbers, lotto_bonus) {
-    const prize = { 1: 2000000000, 2: 30000000, 3: 1500000, 4: 50000, 5: 5000 };
     const results = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
     let total_prize = 0;
 
