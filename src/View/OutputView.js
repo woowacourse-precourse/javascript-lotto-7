@@ -11,6 +11,10 @@ export default class OutputView {
   }
 
   static printPurchasedLottoNumbers(lottoNumbers) {
-    Console.print(OutputView.#MESSAGE.PURCHASED_LOTTO_NUMBERS(lottoNumbers));
+    const sortedLottoNumbers = lottoNumbers.sort((a, b) => a - b);
+
+    Console.print(
+      OutputView.#MESSAGE.PURCHASED_LOTTO_NUMBERS(sortedLottoNumbers),
+    );
   }
 }
