@@ -63,4 +63,6 @@
 
 ## 📕 TMI
 
--
+- [Markdown 문법 링크 삽입](https://opentutorials.org/module/782/6083)
+- [toFixed 메서드](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)
+- [Random 메서드](https://github.com/woowacourse-projects/javascript-mission-utils?tab=readme-ov-file#random)
