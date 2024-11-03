@@ -9,7 +9,7 @@ import { validateLottoPurchase } from '../validate/purchaseValidator.js';
 import { outputView } from '../views/outputView.js';
 import { validateWinningNumber } from '../validate/winningNumberValidator.js';
 import { validateBonusNumber } from '../validate/bonusNumberValidator.js';
-import throwError from '../util/errorThrower.js';
+import Lotto from '../Lotto.js';
 
 class Game {
   constructor() {
@@ -39,16 +39,39 @@ class Game {
   }
 
   async processPurchase() {
-    const purchaseAmount = await this.user.readUserInput(GAME_MESSAGE.PURCHASE);
-    const count = Number(purchaseAmount) / LOTTO_CONFIG.PRICE_PER;
-    validateLottoPurchase(purchaseAmount);
-
-    const lottos = this.lottoService.createLottos(count);
-    this.resultView.printPurchaseResult(count, lottos);
+    const purchaseAmount = await this.getPurchaseAmount();
+    const count = this.calculateLottoCount(purchaseAmount);
+    const lottos = this.generateLottos(count);
+    this.displayPurchaseResult(count, lottos);
 
     return { lottos, purchaseAmount };
   }
 
+  async getPurchaseAmount() {
+    const purchaseAmount = await this.user.readUserInput(GAME_MESSAGE.PURCHASE);
+    validateLottoPurchase(purchaseAmount);
+    return purchaseAmount;
+  }
+
+  /**@param {string} purchaseAmount  */
+  calculateLottoCount(purchaseAmount) {
+    return Number(purchaseAmount) / LOTTO_CONFIG.PRICE_PER;
+  }
+
+  /**@param {number} count  */
+  generateLottos(count) {
+    return this.lottoService.createLottos(count);
+  }
+
+  /**
+   * @param {number} count
+   * @param {Lotto[]} lottos
+   * */
+  displayPurchaseResult(count, lottos) {
+    this.resultView.printPurchaseResult(count, lottos);
+  }
+
+  /**@param {Error} error */
   handleErrorMessage(error) {
     outputView.printMessage(error.message);
   }
@@ -57,7 +80,6 @@ class Game {
     while (true) {
       try {
         const { lottos, purchaseAmount } = await this.processPurchase();
-
         return { lottos, purchaseAmount };
       } catch (error) {
         this.handleErrorMessage(error);
