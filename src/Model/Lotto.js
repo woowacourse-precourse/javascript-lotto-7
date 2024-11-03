@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import Validation from '../Contoller/Validation.js';
+import Validation from '../controller/Validation';
 
 class Lotto {
   #numbers;

@@ -1,7 +1,7 @@
-import UserInput from './View/UserInput.js';
-import UserOutput from './View/UserOutput.js';
-import MoneyToLottos from './Contoller/MoneyToLottos.js';
-import LottoResultAnalysis from './Contoller/LottoResultAnalysis.js';
+import UserInput from './view/UserInput.js';
+import UserOutput from './view/UserOutput.js';
+import MoneyToLottos from './controller/MoneyToLottos.js';
+import LottoResultAnalysis from './controller/LottoResultAnalysis.js';
 
 class App {
   userInput;

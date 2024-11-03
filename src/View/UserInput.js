@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PROGRESS_MESSAGE } from '../constants/Message.js';
-import InputHandler from '../Contoller/InputHandler.js';
+import InputHandler from '../controller/InputHandler.js';
 
 class UserInput {
   inputHandler;

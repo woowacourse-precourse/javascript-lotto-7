@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
-import Lotto from '../Model/Lotto.js';
-import { BOUND, SIZE, LOTTO_PRICE } from '../Constants/lottoConstants.js';
+import Lotto from '../model/Lotto.js';
+import { BOUND, LOTTO_PRICE, SIZE } from '../Constants/lottoConstants.js';
 
 class MoneyToLottos {
   #ticketCount;
