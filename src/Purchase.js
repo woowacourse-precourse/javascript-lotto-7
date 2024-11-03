@@ -18,6 +18,9 @@ class Purchase{
         else if(Number(amount)<0){
             throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_NUMBER);
         }
+        else if(Number(amount)%1000!==0){
+            throw new Error(ERROR_MESSAGE.IS_NOT_MULTIPLE_OF_THOUSAND);
+        }
     }
     
 }
