@@ -10,6 +10,7 @@ import Lotto from './Lotto.js';
 import LottoMachine from './LottoMachine.js';
 import Money from './Money.js';
 import View from './View.js';
+import BonusNumber from './BonusNumber.js';
 
 class App {
   static DELIMITER = ',';
@@ -24,11 +25,14 @@ class App {
     View.displayLottos(lottos);
 
     const numbers = await View.readInput(PROMPT_MESSAGES.INPUT_LOTTOS);
-    const validNumbers = this.#validate(numbers);
-    const winningNumbers = new Lotto(validNumbers);
+    const validWinningNumbers = this.#validateWinningNumbers(numbers);
+    const winningLotto = new Lotto(validWinningNumbers);
+
+    const number = await View.readInput(PROMPT_MESSAGES.INPUT_BONUS_NUMBER);
+    const bonusNumber = new BonusNumber(number, winningLotto.numbers);
   }
 
-  #validate(numbers) {
+  #validateWinningNumbers(numbers) {
     checkEmpty(numbers, ERROR_MESSAGES.INVALID_EMPTY);
     this.#checkValidDelimiter(numbers);
 
@@ -40,7 +44,7 @@ class App {
     const isInValidDelimiter = !numbers.includes(App.DELIMITER);
 
     handleError(
-      isInValidDelimiter || isInValidLength,
+      isInValidDelimiter && isInValidLength,
       ERROR_MESSAGES.INVALID_DELIMITER
     );
   }
