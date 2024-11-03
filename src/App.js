@@ -7,10 +7,12 @@ import {
 } from "./constants/constant.js";
 import MatchingResults from "./MatchingResults.js";
 import LottoManager from "./LottoManager.js";
+import InputHandler from "./InputHandler.js";
 
 class App {
   constructor() {
     this.lottoManager = new LottoManager();
+    this.inputHandler = new InputHandler();
   }
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
@@ -19,12 +21,12 @@ class App {
 
     await this.lottoManager.printLottoNumbers(userLottoNumbers, lottoCount);
 
-    const winningNumber = await this.getWinningNumbers();
-    const bonusNumber = await this.getBonusNumber(winningNumber);
+    const winningNumber = await this.inputHandler.getWinningNumbers();
+    const bonusNumber = await this.inputHandler.getBonusNumber(winningNumber);
 
     const matchingResults = this.checkMatchingLottos(
       userLottoNumbers,
-      new Set(winningNumber.getNumbers()),
+      new Set(winningNumber),
       bonusNumber
     );
     const rate = this.calculateRate(matchingResults, purchaseAmount);

@@ -1,4 +1,4 @@
-const PRIZE = Object.freeze({
+export const PRIZE = Object.freeze({
   THREE: 5000,
   FOUR: 50000,
   FIVE: 1500000,
@@ -6,7 +6,7 @@ const PRIZE = Object.freeze({
   SIX: 2000000000,
 });
 
-const ERROR_MESSAGES = Object.freeze({
+export const ERROR_MESSAGES = Object.freeze({
   INVALID_LOTTO_NUMBER_COUNT: "[ERROR] 로또 번호는 6개여야 합니다.",
   DUPLICATE_LOTTO_NUMBER: "[ERROR]: 로또 번호는 중복될 수 없습니다.",
   INVALID_LOTTO_NUMBER_RANGE:
@@ -20,7 +20,7 @@ const ERROR_MESSAGES = Object.freeze({
   PURCHASE_AMOUNT_EMPTY: "[ERROR]: 구입 금액에 빈 문자열을 입력할 수 없습니다.",
 });
 
-const MESSAGE_STATISTICS = (num) =>
+export const MESSAGE_STATISTICS = (num) =>
   Object.freeze({
     HEADER: "\n당첨 통계\n---",
     COUNT: `${num}개를 구매했습니다.`,
@@ -31,5 +31,3 @@ const MESSAGE_STATISTICS = (num) =>
     MATCH_SIX: `6개 일치 (2,000,000,000원) - ${num}개`,
     RATE: `총 수익률은 ${num}%입니다.`,
   });
-
-export { PRIZE, ERROR_MESSAGES, MESSAGE_STATISTICS };
