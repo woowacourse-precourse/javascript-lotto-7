@@ -145,6 +145,13 @@ class LottoPlayer {
       .replace("{prize}", condition.prize.toLocaleString())
       .replace("{count}", count);
   }
+
+  caclulateRateOfReturn() {
+    const rateOfReturn =
+      (this.prizeAmount / (this.numberOfLottos * LottoPlayer.LOTTO_PRICE)) *
+      100;
+    return rateOfReturn.toFixed(1);
+  }
 }
 
 export default LottoPlayer;
