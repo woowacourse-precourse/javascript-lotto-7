@@ -16,6 +16,10 @@ class Lotto {
       throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberSize));
     }
 
+    if (new Set(numbers).size !== RULE.LOTTO.LOTTO_SIZE) {
+      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidDuplicateNumber));
+    }
+
     numbers.forEach((number) => {
       this.#validateSingleNumber(number);
     });
