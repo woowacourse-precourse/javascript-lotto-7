@@ -1,62 +1,33 @@
 import validator from '../Validators/Validator.js';
-import {
-  DEFAULT_RULES,
-  PURCHASE_AMOUNT_RULES,
-  LOTTO_NUMBER_LIST_RULES,
-  LOTTO_NUMBER_RULES,
-  BONUS_NUMBER_RULES,
-} from '../Validators/Rules.js';
+import { DEFAULT_RULES } from '../Validators/Rules.js';
 
 class InputParser {
   static #SEPARATOR = ',';
 
   static #default(input) {
-    validator(input, DEFAULT_RULES);
     const trimInput = input.trim();
+    validator(trimInput, DEFAULT_RULES);
     return trimInput;
   }
 
-  static #winningNumber(number) {
-    validator(number, LOTTO_NUMBER_RULES);
-    const winningNumber = parseInt(number, 10);
-    return winningNumber;
-  }
-
   // input을 ,로 split하고 중복값 발생시 오류 방지를 위해 값들을 trim() 해줌 (ex: '  1' !== ' 1  ')
-  static #splitter(input) {
-    const splitInput = input
+  static #splitter(inputs) {
+    const splitInput = inputs
       .split(this.#SEPARATOR)
-      .map((value) => value.trim());
-
+      .map((input) => this.number(input));
     return splitInput;
   }
 
-  static purchaseCount(input) {
+  static number(input) {
     const trimInput = this.#default(input);
-    validator(trimInput, PURCHASE_AMOUNT_RULES);
-
-    const purchaseAmount = parseInt(trimInput, 10);
-    const purchaseCount = Math.floor(purchaseAmount / 1000);
-    return purchaseCount;
+    const number = Number(trimInput);
+    return number;
   }
 
-  static winningNumbers(input) {
-    const trimInput = this.#default(input);
-    const splitInput = this.#splitter(trimInput);
-    validator(splitInput, LOTTO_NUMBER_LIST_RULES);
-
-    const winningNumbers = splitInput.map((number) => {
-      return this.#winningNumber(number);
-    });
-    return winningNumbers;
-  }
-
-  static bonusNumber(lottoNumbers, input) {
-    const trimInput = this.#default(input);
-    validator({ lottoNumbers, bonusNumber: trimInput }, BONUS_NUMBER_RULES);
-
-    const bonusNumber = parseInt(trimInput, 10);
-    return bonusNumber;
+  static numbers(inputs) {
+    const trimInputs = this.#default(inputs);
+    const numbers = this.#splitter(trimInputs);
+    return numbers;
   }
 }
 
