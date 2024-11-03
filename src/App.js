@@ -36,6 +36,8 @@ async function inputPayment() {
 class App {
   async run() {
     const payment = await inputPayment();
+    const ticketNumber = payment / 1000;
+    Console.print(`${ticketNumber}개를 구매했습니다.`);
   }
 }
 
