@@ -126,4 +126,13 @@ describe('WinningLottoManager 테스트', () => {
 
     await testSelectWinningNumbers(inputs, errorMessage);
   });
+
+  test.each([['숫자 아님'], ['!'], [' '], [''], ['7$']])(
+    '숫자가 아닌 보너스 번호를 예외 처리하는지 테스트 (%s)',
+    async (inputs) => {
+      const errorMessage = ERROR_MESSAGE.notNumber;
+
+      await testSelectBonusNumber(inputs, errorMessage);
+    },
+  );
 });
