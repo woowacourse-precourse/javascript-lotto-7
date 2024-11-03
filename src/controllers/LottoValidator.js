@@ -1,26 +1,20 @@
 import { LOTTO, ERROR_MESSAGES } from '../utils/constants.js';
 
 class LottoValidator {
-  #winningNumbers;
-
-  constructor(winningNumbers) {
-    this.#winningNumbers = this.#validateWinningNumber(winningNumbers);
-  }
-
-  validateBonusNumber(bonusNumber) {
+  validateBonusNumber(winningNumbers, bonusNumber) {
     const validateBonusNumber = this.#validateBonusNumber(bonusNumber);
 
-    if (this.#winningNumbers.includes(validateBonusNumber)) {
+    if (winningNumbers.includes(validateBonusNumber)) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
     }
 
     return {
-      winningNumbers: this.#winningNumbers,
+      winningNumbers: winningNumbers,
       bonusNumber: validateBonusNumber,
     };
   }
 
-  #validateWinningNumber(userInput) {
+  validateWinningNumber(userInput) {
     return this.#parseUserInput(userInput);
   }
 
@@ -41,7 +35,7 @@ class LottoValidator {
   }
 
   #hasNonNumericValue(arr) {
-    return arr.some((e) => e.isNaN());
+    return arr.some((e) => Number.isNaN(e));
   }
 
   #isAllInRange(arr) {
@@ -54,4 +48,4 @@ class LottoValidator {
   }
 }
 
-export default LottoValidator;
+export default new LottoValidator();

@@ -10,7 +10,7 @@ class App {
   async run() {
     // TODO: 보너스 번호 매치가 안되는 버그
     const purchaseAmount = await this.#getValidPurchaseAmount();
-    const lottoTickets = await LottoIssuer.issueTickets(purchaseAmount);
+    const lottoTickets = LottoIssuer.createLottoTickets(purchaseAmount);
 
     const winningNumbers = await this.#getValidWinningNumbers();
 
