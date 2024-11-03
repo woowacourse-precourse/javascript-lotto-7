@@ -24,6 +24,9 @@ class App {
         const bonusNumber = await InputHandler.getInput(INSTRUCTION.GET_BONUS_NUMBER,
             bonusNumberUtils.validate);
         bonusNumberUtils.validateWithWinningNumbers(bonusNumber, winningNumbers);
+
+        const lottoResult = lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber);
+
     }
 }
 

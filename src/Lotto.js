@@ -10,6 +10,10 @@ class Lotto {
         this.#numbers = numbers;
     }
 
+    getNumbers() {
+        return this.#numbers;
+    }
+
     #validate(numbers) {
         if (!validationCheck.isCorrectSize(numbers, LOTTO.SIZE)) {
             throw new Error(ERROR_CODE.SIZE_OUT_OF_RANGE(LOTTO.SIZE));
@@ -22,6 +26,23 @@ class Lotto {
     print() {
         Console.print(this.#numbers);
     }
+
+    countLottoMatches(winningNumbers) {
+        return this.#numbers.filter(num => winningNumbers.includes(num)).length
+    }
+
+    isBonusNumberMatch(bonusNumber) {
+        return this.#numbers.includes(bonusNumber);
+    }
+
+    getLottoResult(winningNumbers, bonusNumber) {
+        const matchNumber = this.countLottoMatches(winningNumbers);
+        if (matchNumber === 5 && this.isBonusNumberMatch(bonusNumber) || matchNumber === 6) {
+            return matchNumber + 1;
+        }
+        return matchNumber;
+    }
+
 }
 
 export default Lotto;
