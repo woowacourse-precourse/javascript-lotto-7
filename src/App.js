@@ -1,26 +1,16 @@
-import View from "./View.js";
+import InputView from "./view/InputView.js";
+import OutputView from "./view/OutputView.js";
 
 class App {
   async run() {
-    const {
-      inputPrice,
-      parseNumber,
-      parseBonusNumber
-    } = await this.readLineLottoInputs();
-
+    const inputPrice = await InputView.readLinePrice();
     const getLottoCount = (number) => number / 1000;
 
     const lottoCount = getLottoCount(inputPrice);
+    OutputView.printLotto(lottoCount);
 
-    View.printLotto(lottoCount);
-  }
-
-  async readLineLottoInputs() {
-    const inputPrice = await View.readLinePrice();
-    const parseNumber = await View.readLineNumber();
-    const parseBonusNumber = await View.readLineBonusNumber();
-
-    return { inputPrice, parseNumber, parseBonusNumber }
+    const parseNumber = await InputView.readLineNumber();
+    const parseBonusNumber = await InputView.readLineBonusNumber();
   }
 }
 
