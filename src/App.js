@@ -1,11 +1,10 @@
-import Input from "./view/Input.js";
+import LottoGame from "./controller/lottoGame.js";
 
 class App {
   async run() {
-    const userInput = new Input();
-    await userInput.getPurchaseAmount();
-    await userInput.getLottoNumber();
-    await userInput.getBonusNumber();
+    const game = new LottoGame();
+
+    await game.startLotto();
   }
 }
 

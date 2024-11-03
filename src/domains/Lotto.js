@@ -22,6 +22,10 @@ class Lotto {
     if (numbers.length !== removeDuplicate.size) {
       throw new Error(ERROR.DUPLICATED_NUMBER);
     }
+  } 
+
+  getNumbers() {
+    return this.#numbers;
   }
 }
 
