@@ -27,11 +27,11 @@ export const OUTPUT = {
 
 export const RESULT = {
   HEADER: '\n당첨 통계\n---',
-  5: `3개 번호 일치 (${WINNINGS.RANK5}원) ${FORMAT.HYPHEN}`,
-  4: `4개 번호 일치 (${WINNINGS.RANK4}원) ${FORMAT.HYPHEN}`,
-  3: `5개 번호 일치 (${WINNINGS.RANK3}원) ${FORMAT.HYPHEN}`,
-  2: `5개 번호 일치, 보너스 번호 일치 (${WINNINGS.RANK2}원) ${FORMAT.HYPHEN}`,
-  1: `6개 번호 일치 (${WINNINGS.RANK1}원) ${FORMAT.HYPHEN}`,
+  5: `3개 일치 (${WINNINGS.RANK5}원) ${FORMAT.HYPHEN}`,
+  4: `4개 일치 (${WINNINGS.RANK4}원) ${FORMAT.HYPHEN}`,
+  3: `5개 일치 (${WINNINGS.RANK3}원) ${FORMAT.HYPHEN}`,
+  2: `5개 일치, 보너스 볼 일치 (${WINNINGS.RANK2}원) ${FORMAT.HYPHEN}`,
+  1: `6개 일치 (${WINNINGS.RANK1}원) ${FORMAT.HYPHEN}`,
   COUNT_CHAR: '개',
   RATE_HEADER: '총 수익률은 ',
   RATE_FOOTER: '%입니다.',
