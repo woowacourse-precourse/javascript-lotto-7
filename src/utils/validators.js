@@ -1,6 +1,6 @@
 import { isEmpty, isMinusNumber, isNotNumber, isEndWith1000 } from "../validateInput/validateInputMoney.js";
 import { isWinEmpty, isWinMinusNumber, isWinNotNumber, isWinOutOfRange } from "../validateInput/validateInputWinNumber.js";
-import { BuyMoneyOutput, WinInputOutput, WinNumberOutput } from "../woowahanOutput.js";
+import { BonusNumberOutput, BuyMoneyOutput, WinInputOutput, WinNumberOutput } from "../woowahanOutput.js";
 
 const buyMoneyValidator = (input) => {
     const output = new BuyMoneyOutput();
@@ -53,4 +53,24 @@ const winNumberValidator = (input) => {
     return true;
 };
 
-export { buyMoneyValidator, winNumberValidator, winInputValidator };
+const bonusNumberValidator = (input) => {
+    const output = new BonusNumberOutput();
+
+    const conditions = [
+        { check: () => isWinEmpty(input), action: () => output.printEmptyValue() },
+        { check: () => isWinNotNumber(input), action: () => output.printNotNumber() },
+        { check: () => isWinMinusNumber(input), action: () => output.printMinusNumber() },
+        { check: () => isWinOutOfRange(input), action: () => output.printOutOfRange() }
+    ];
+
+    for (const condition of conditions) {
+        if (condition.check()) {
+            condition.action();
+            return false;
+        }
+    }
+
+    return true;
+};
+
+export { buyMoneyValidator, winNumberValidator, winInputValidator, bonusNumberValidator };

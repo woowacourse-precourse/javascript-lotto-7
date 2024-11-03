@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR, SUBJECT } from "./utils/constants.js";
+import { CONSTANT, ERROR, SUBJECT } from "./utils/constants.js";
 
 class WoowahanOutput {
     async errorPrint(subject, prompt) {
@@ -18,6 +18,10 @@ class GameOutput extends WoowahanOutput {
 
     static printLottoOneLine(random) {
         super.print(`[${random.join(', ')}]`);
+    }
+
+    static printWinningStatistics(){
+        super.print(CONSTANT.WINNING_STATISTICS);
     }
 }
 
@@ -66,4 +70,23 @@ class WinNumberOutput extends WoowahanOutput {
     }
 }
 
-export { BuyMoneyOutput, GameOutput, WinNumberOutput, WinInputOutput }
+class BonusNumberOutput extends WoowahanOutput {
+
+    async printEmptyValue() {
+        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.IS_NULL);
+    }
+
+    async printNotNumber() {
+        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.NOT_NUMBER);
+    }
+
+    async printMinusNumber() {
+        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.MINUS);
+    }
+
+    async printOutOfRange() {
+        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.OUT_OF_RANGE);
+    }
+}
+
+export { BuyMoneyOutput, GameOutput, WinNumberOutput, WinInputOutput, BonusNumberOutput }

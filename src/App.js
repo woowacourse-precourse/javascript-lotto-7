@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import WoowahanInput from "./woowahanInput.js";
-import { buyMoneyValidator, winInputValidator, winNumberValidator } from "./utils/validators.js";
+import { bonusNumberValidator, buyMoneyValidator, winInputValidator, winNumberValidator } from "./utils/validators.js";
 import LottoStore from "./LottoStore.js";
 import { GameOutput } from "./woowahanOutput.js";
 import { CONSTANT } from "./utils/constants.js";
@@ -10,6 +10,9 @@ class App {
     const lottoStore = new LottoStore();
 
     let buyMoney = CONSTANT.START;
+    let isWinNumberValidate = true;
+    let isBonusNumberValidate = true;
+    let winNumber = [];
 
     while (!buyMoneyValidator(buyMoney)) {
       buyMoney = await WoowahanInput.getBuyMoney();
@@ -20,9 +23,6 @@ class App {
 
     const lottos = lottoStore.generateLottos();
 
-    let isWinNumberValidate = true;
-    let winNumber = [];
-
     while (isWinNumberValidate) {
       const winInput = await WoowahanInput.getWinNumber();
       winNumber = winInput.split(',').map(Number);
@@ -30,19 +30,14 @@ class App {
       isWinNumberValidate = winNumber.some((number) => !winNumberValidator(number));
     }
 
-    const inputBonus = await WoowahanInput.getBonusNumber();
-    const bonusNumber = Number(inputBonus);
-    if (bonusNumber === isNaN) {
-      Console.print('[ERROR] 보너스 번호는 유효한 숫자여야 합니다.');
-    }
-    if (!Number.isInteger(bonusNumber)) {
-      Console.print('[ERROR] 보너스 번호는 정수만 가능합니다.');
-    }
-    if (bonusNumber < 0 || bonusNumber > 45) {
-      Console.print('[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자만 가능합니다.');
+    while (isBonusNumberValidate) {
+      const inputBonus = await WoowahanInput.getBonusNumber();
+      const bonusNumber = Number(inputBonus);
+
+      isBonusNumberValidate = !bonusNumberValidator(bonusNumber);
     }
 
-    Console.print('당첨통계\n---');
+    GameOutput.printWinningStatistics();
     const winRanking = Array(4).fill(0);
     let fiveEqualWithBonusCount = 0;
 
