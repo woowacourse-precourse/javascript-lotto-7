@@ -1,5 +1,5 @@
-import Validator from '../src/utils/validator';
-import { ERRORS } from '../src/constants/errors';
+import Validator from '../src/utils/validator.js';
+import { ERRORS } from '../src/constants/errors.js';
 
 describe('Validator 클래스 테스트', () => {
   describe('구매 금액 검증 테스트', () => {

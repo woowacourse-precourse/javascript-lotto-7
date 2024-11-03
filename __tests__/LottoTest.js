@@ -1,5 +1,5 @@
-import { ERRORS } from '../src/constants/errors';
-import Lotto from '../src/models/Lotto';
+import { ERRORS } from '../src/constants/errors.js';
+import Lotto from '../src/models/Lotto.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
@@ -8,14 +8,11 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
   test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 5]);
     }).toThrow('[ERROR]');
   });
-
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 
   describe('로또 번호 유효성 검사', () => {
     test.each([
@@ -54,7 +51,6 @@ describe('로또 클래스 테스트', () => {
       const lotto = new Lotto(numbers);
       const lottoNumbers = lotto.getSortedLottoNumbers();
 
-      // 원본 배열이 변경되지 않았는지 확인
       expect(numbers).toEqual([6, 3, 1, 4, 5, 2]);
       expect(lottoNumbers).toEqual([1, 2, 3, 4, 5, 6]);
     });
