@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { OUTPUT_MESSAGE } from "../constants/constants";
+import { OUTPUT_MESSAGE } from "../constants/constants.js";
 
 
 class OutputView {
