@@ -1,4 +1,5 @@
 import LottoModel from '../src/model/LottoModel.js';
+import PickBonusNumberValidator from '../src/validator/PickBonusNumberValidator.js';
 import PickLottoNumberValidator from '../src/validator/PickLottoNumberValidator.js';
 import BuyLottoCountValidator from './../src/validator/BuyLottoCountValidator';
 
@@ -69,7 +70,7 @@ describe('당첨 번호 테스트', () => {
     expect(() => {
       const pickLottoNumberArray = first.split(',');
       lottoModel.setPickLottoNumber(pickLottoNumberArray);
-      PickLottoNumberValidator.isNumberInRange(pickLottoNumberArray);
+      PickLottoNumberValidator.isOutOfRange(pickLottoNumberArray);
     }).toThrow(`${second}`);
   });
 
@@ -88,6 +89,46 @@ describe('당첨 번호 테스트', () => {
     expect(() => {
       lottoModel.setPickLottoNumber([1, 2, 3, 4, 5, 5]);
       PickLottoNumberValidator.isDuplicatedNumber(lottoModel.getPickLottoNumber());
+    }).toThrow('[ERROR]');
+  });
+});
+
+describe('보너스 번호 테스트', () => {
+  const lottoModel = new LottoModel();
+
+  test.each([
+    ['a', '[ERROR]'],
+    ['1.3', '[ERROR]'],
+    ['*', '[ERROR]'],
+  ])('보너스 번호에 숫자 이외의 문자를 입력하는 경우 예외가 발생한다.', (first, second) => {
+    expect(() => {
+      lottoModel.setPickBonusNumber(first);
+      PickBonusNumberValidator.isCharacter(first);
+    }).toThrow(`${second}`);
+  });
+
+  test.each([
+    ['-1', '[ERROR]'],
+    ['46', '[ERROR]'],
+  ])('보너스 번호가 로또 번호의 숫자 범위를 벗어나는 경우 예외가 발생한다.', (first, second) => {
+    expect(() => {
+      lottoModel.setPickBonusNumber(first);
+      PickBonusNumberValidator.isOutOfRange(first);
+    }).toThrow(`${second}`);
+  });
+
+  test('보너스 번호가 당첨 번호와 중복되는 경우 예외가 발생한다.', () => {
+    expect(() => {
+      lottoModel.setPickLottoNumber([1, 2, 3, 4, 5, 6]);
+      lottoModel.setPickBonusNumber(6);
+      PickBonusNumberValidator.isDuplicatedNumber(lottoModel.getPickBonusNumber(), lottoModel.getPickLottoNumber());
+    }).toThrow('[ERROR]');
+  });
+
+  test('보너스 번호를 입력하지 않는 경우 예외가 발생한다.', () => {
+    expect(() => {
+      lottoModel.setPickBonusNumber('');
+      PickBonusNumberValidator.isSpace(lottoModel.getPickBonusNumber());
     }).toThrow('[ERROR]');
   });
 });
