@@ -2,33 +2,24 @@ import { isEmpty, isEndWith1000, isMinusNumber, isNotNumber } from "../controlle
 import MyOutput from "../woowahanOutput.js";
 
 const buyMoneyValidator = (input) => {
-    const output = new MyOutput()
-
-    if (input === 'start'){
-        return false
-    }
-
-    if (isEmpty(input)) {
-        output.printEmptyValue();
-        return false
-    }
-
-    if (isNotNumber(input)) {
-        output.printNotNumber();
-        return false
+    const output = new MyOutput();
+    
+    const conditions = [
+        { check: () => input === 'start', action: () => {} },
+        { check: () => isEmpty(input), action: () => output.printEmptyValue() },
+        { check: () => isNotNumber(input), action: () => output.printNotNumber() },
+        { check: () => isMinusNumber(input), action: () => output.printMinusNumber() },
+        { check: () => !isEndWith1000(input), action: () => output.printEndWith1000() }
+    ];
+    
+    for (const condition of conditions) {
+        if (condition.check()) {
+            condition.action();
+            return false;
+        }
     }
     
-    if (isMinusNumber(input)) {
-        output.printMinusNumber();
-        return false
-    } 
-    
-    if (!isEndWith1000(input)) {
-        output.printEndWith1000();
-        return false
-    }
-    
-    return true
-}
+    return true;
+};
 
 export { buyMoneyValidator };

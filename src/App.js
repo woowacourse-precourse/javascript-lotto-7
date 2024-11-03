@@ -1,6 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { ERROR } from "./utils/constants.js";
 import WoowahanInput from "./woowahanInput.js";
 import { buyMoneyValidator } from "./utils/validators.js";
 
@@ -11,8 +10,8 @@ class App {
     while (!buyMoneyValidator(input)) {
       input = await WoowahanInput.getBuyMoney();
     }
-    const inputNumber = Number(input);
 
+    const inputNumber = Number(input);
     const countLotto = inputNumber / 1000;
     const lottos = [];
 
