@@ -7,18 +7,16 @@ function inputPrice(){
 }
 
 function isPositiveNumber(PRICE){
-    if(/^[0-9]+$/.test(PRICE) && parseInt(PRICE) !== 0){
-        return true;
+    if(!/^[0-9]+$/.test(PRICE) || parseInt(PRICE) === 0){
+        throw new Error("[ERROR] 구매 금액이 양수가 아닙니다.")
     }
-    throw new Error("[ERROR] 구매 금액이 숫자가 아닙니다.")
 }
 
 function isDivided1000(PRICE){
     const DividedPrice = parseInt(PRICE) / 1000;
-    if(DividedPrice === Math.floor(DividedPrice)){
-        return true;
+    if(DividedPrice !== Math.floor(DividedPrice)){
+        throw new Error("[ERROR] 1000으로 나누어 떨어지지 않습니다.");
     }
-    throw new Error("[ERROR] 1000으로 나누어 떨어지지 않습니다.");
 }
 
 export {inputPrice, isPositiveNumber, isDivided1000};
