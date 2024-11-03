@@ -59,6 +59,11 @@ class LottoGame {
       return acc + PRIZE_AMOUNT[prizeKey] * count;
     }, 0);
   }
+
+  getProfitRatio(totalPrizeAmount) {
+    const totalTicketCost = this.#lottos.length * PRICE_PER_LOTTO;
+    return ((totalPrizeAmount / totalTicketCost) * 100).toFixed(1);
+  }
 }
 
 export default LottoGame;

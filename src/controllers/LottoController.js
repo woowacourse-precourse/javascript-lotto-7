@@ -27,6 +27,7 @@ class LottoController {
     const statistics = this.#getStatistics(winningLotto, bonusNumber);
 
     const totalPrizeAmount = this.#lottoGame.getTotalPrizeAmount(statistics);
+    const profitRatio = this.#lottoGame.getProfitRatio(totalPrizeAmount);
   }
 
   async #purchaseLotto() {
