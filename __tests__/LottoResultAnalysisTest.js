@@ -1,4 +1,4 @@
-import { LOTTO_PRICE, LOTTO_REWARD } from '../src/Constants/lottoConstants.js';
+import { LOTTO_PRICE, LOTTO_REWARD } from '../src/constants/LottoConstants.js';
 import LottoResultAnalysis from '../src/controller/LottoResultAnalysis.js';
 import Lotto from '../src/model/Lotto.js';
 
