@@ -17,6 +17,7 @@ class App {
     Output.printLottoNumbers(lottoList);
 
     const jackpotNumber = await Input.getJackpotNumber();
+    const bonusNumber = await Input.getBonusNumber(jackpotNumber);
   }
 }
 
