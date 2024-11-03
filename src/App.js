@@ -1,5 +1,6 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
+const M
 class App {
   async run() {
     const purchaseAmount = await Console.readLineAsync(
@@ -68,7 +69,8 @@ class App {
     const userLottoNumbers = this.generateLotto(purchaseAmount);
     const winningResults = this.checkMatchingLottos(
       userLottoNumbers,
-      winningNumberSet
+      winningNumberSet,
+      bonusNumber
     );
   }
 
@@ -89,7 +91,51 @@ class App {
     return userLottoNumbers;
   }
 
-  checkMatchingLottos(userLottoNumbers, winningNumberSet) {}
+  checkMatchingLottos(userLottoNumbers, winningNumberSet, bonusNumber) {
+    const matchingResults = {
+      three:0,
+      four:0,
+      five:0,
+      fiveBonus:0,
+      six:0
+    }
+
+    userLottoNumbers.forEach((lotto)=>{
+      const lottoNumbers = lotto.sortedLottoNumbers;
+      let matchCount = 0;
+      let hasBonus = false;
+
+      lottoNumbers.forEach((num) => {
+        if(winningNumberSet.has(num)){
+          matchCount++;
+        }
+      });
+
+      if(lottoNumbers.has(bonusNumber)){
+        hasBonus = true;
+      }
+      
+      if (matchCount === 6) {
+        matchingResults.six++;
+        return;
+      }
+      if (matchCount === 5 && hasBonus) {
+        matchingResults.fiveBonus++;
+        return;
+      }
+      if (matchCount === 5) {
+        matchingResults.five++;
+        return;
+      }
+      if (matchCount === 4) {
+        matchingResults.four++;
+        return;
+      }
+      if (matchCount === 3) {
+        matchingResults.three++;
+      }
+    })
+  }
 }
 
 export default App;
