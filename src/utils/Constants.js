@@ -24,15 +24,18 @@ export const ANALYZER = {
 };
 
 export const PRIZE_CALCULATOR = {
-  prize: {
-    3: { [GLOBAL_CONSTANTS.basicTag]: 5000 },
-    4: { [GLOBAL_CONSTANTS.basicTag]: 50000 },
-    5: {
-      [GLOBAL_CONSTANTS.basicTag]: 1500000,
-      [GLOBAL_CONSTANTS.bonusTag]: 30000000,
-    },
-    6: { [GLOBAL_CONSTANTS.basicTag]: 2000000000 },
-  },
+  prize: new Map([
+    [3, { [GLOBAL_CONSTANTS.basicTag]: 5000 }],
+    [4, { [GLOBAL_CONSTANTS.basicTag]: 50000 }],
+    [
+      5,
+      {
+        [GLOBAL_CONSTANTS.basicTag]: 1500000,
+        [GLOBAL_CONSTANTS.bonusTag]: 30000000,
+      },
+    ],
+    [6, { [GLOBAL_CONSTANTS.basicTag]: 2000000000 }],
+  ]),
   basicTag: GLOBAL_CONSTANTS.basicTag,
   bonusTag: GLOBAL_CONSTANTS.bonusTag,
   bonusWinningStandard: GLOBAL_CONSTANTS.bonusWinningStandard,
