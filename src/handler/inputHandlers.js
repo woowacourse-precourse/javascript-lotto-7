@@ -25,8 +25,9 @@ const handleLotteryNumInput = async () => {
     return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_COMMA);
   }
 
-  const lotteryNumArray = lotteryNumInput.split(COMMA);
+  const lotteryNumArray = lotteryNumInput.split(COMMA).map((num) => +num);
   isValidLotteryNumInput(lotteryNumArray);
+
   return lotteryNumArray;
 };
 
@@ -37,7 +38,9 @@ const isValidLotteryNumInput = (arr) => {
     case arr.length !== ARR_RANGE:
       return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_LENGTH);
 
-    case arr.some((num) => +num > LOTTERY_NUM_RANGE.END || +num < LOTTERY_NUM_RANGE.START):
+    case arr.some(
+      (num) => num > LOTTERY_NUM_RANGE.END || num < LOTTERY_NUM_RANGE.START
+    ):
       return printError(ERROR_MESSAGES.LOTTERY_NUM_INPUT_RANGE);
 
     default:
@@ -54,7 +57,7 @@ const handleBonusLotteryNum = async (userLotteryArr) => {
 
   isValidBonusNumInput(bonusNum);
   return bonusNum;
-}
+};
 
 const isValidBonusNumInput = (bonusNum) => {
   switch (true) {
@@ -69,6 +72,6 @@ const isValidBonusNumInput = (bonusNum) => {
     default:
       break;
   }
-}
+};
 
 export { handlePurchaseInput, handleLotteryNumInput, handleBonusLotteryNum };
