@@ -9,7 +9,7 @@ class LottoInput {
     );
     const lottoCnt = lottoPrice / 1000;
     LottoOutput.printLottoCnt(lottoCnt);
-    return lottoPrice;
+    return lottoCnt;
   }
 
   async lottoWinInput() {
