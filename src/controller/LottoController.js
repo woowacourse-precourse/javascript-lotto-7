@@ -5,6 +5,14 @@ import VendingMachine from '../model/VendingMachine.js';
 class LottoController {
   async run() {
     const money = await this.#getPurchaseAmount();
+    const winningNumbers = await this.#getWinningNumbers();
+  }
+
+  #getWinningNumbers() {
+    const reader = Input.readWinningNumbers;
+    const validator = LottoGame.validateWinningNumbers;
+
+    return this.#getUserInput(reader, validator);
   }
 
   #getPurchaseAmount() {
