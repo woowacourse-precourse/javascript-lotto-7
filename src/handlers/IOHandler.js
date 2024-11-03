@@ -1,4 +1,4 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { MissionUtils } from '@woowacourse/mission-utils.js';
 
 export const getInput = async (inputMessage) => {
     const input = await MissionUtils.Console.readLineAsync(inputMessage);

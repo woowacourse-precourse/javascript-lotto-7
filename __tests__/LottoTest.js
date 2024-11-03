@@ -2,11 +2,11 @@ import {
   ERR_MSG_BONUS_NUMBER,
   ERR_MSG_PURCHASE_FEE,
   ERR_MSG_WINNING_NUMBERS_INVALID_STRING
-} from "../src/constants";
-import getFee from '../src/processors/feeProcessor';
-import Lotto from "../src/Lotto";
-import getWinningNums from "../src/processors/winningNumsProcessor";
-import getBonusNumber from "../src/processors/bonusNumProcessor";
+} from "../src/constants.js";
+import getFee from '../src/processors/feeProcessor.js';
+import Lotto from "../src/Lotto.js";
+import getWinningNums from "../src/processors/winningNumsProcessor.js";
+import getBonusNumber from "../src/processors/bonusNumProcessor.js";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
