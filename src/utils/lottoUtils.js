@@ -1,8 +1,8 @@
 import { Random } from '@woowacourse/mission-utils';
-import { COUNT_OF_LOTTO_BALLS, MAX_BALL_NUMBER, MIN_BALL_NUMBER, LOTTO_PRICE } from '../constants/lottoConfig.js';
+import { CONFIG } from '../constants/index.js';
 
 export const calculateTicketCount = (money) => {
-  return money / LOTTO_PRICE;
+  return money / CONFIG.lottoPrice;
 };
 
 export const generateNumberInRange = ({ start, end, count = 1 }) => {
@@ -11,9 +11,9 @@ export const generateNumberInRange = ({ start, end, count = 1 }) => {
 
 export const generateLottoNumbers = () => {
   const randomConfig = {
-    start: MAX_BALL_NUMBER,
-    end: MIN_BALL_NUMBER,
-    count: COUNT_OF_LOTTO_BALLS,
+    start: CONFIG.minBallNumber,
+    end: CONFIG.maxBallNumber,
+    count: CONFIG.countOfLottoBalls,
   };
 
   const sortAscending = (a, b) => a - b;

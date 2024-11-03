@@ -1,8 +1,8 @@
+import { CONFIG } from '../constants/index.js';
 import { Printer } from '../io/index.js';
-import { LOTTO_CONFIG } from '../constants/index.js';
 
 export const throwError = (message) => {
-  throw new Error(LOTTO_CONFIG.errorPrefix + message);
+  throw new Error(CONFIG.errorPrefix + message);
 };
 
 export const tryAgain = async (func) => {

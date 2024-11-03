@@ -1,5 +1,4 @@
-import { PRIZE_ERROR_MESSAGES } from '../constants/index.js';
-import { MATCH_COUNT } from '../constants/lottoConfig.js';
+import { CONFIG, PRIZE_ERROR_MESSAGES } from '../constants/index.js';
 import { throwError } from '../utils/validateUtils.js';
 
 class Prize {
@@ -71,11 +70,11 @@ class Prize {
   }
 
   static #validateMatchCount(matchCount) {
-    if (matchCount > MATCH_COUNT.max) {
+    if (matchCount > CONFIG.maxMatchCount) {
       throwError(PRIZE_ERROR_MESSAGES.exceedMaxMatchCount);
     }
 
-    if (matchCount < MATCH_COUNT.min) {
+    if (matchCount < CONFIG.minMatchCount) {
       throwError(PRIZE_ERROR_MESSAGES.nagativeMatchCount);
     }
   }
