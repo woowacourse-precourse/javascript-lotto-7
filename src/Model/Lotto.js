@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import Validation from '../Contoller/Validation.js';
 
 class Lotto {
   #numbers;
@@ -9,9 +10,13 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
-    }
+    Validation.validateSixNumbers(numbers);
+    numbers.forEach((number) => {
+      Validation.validateIsNumber(number);
+      Validation.validatePositiveInteger(number);
+      Validation.validateNumberInRange(number);
+    });
+    Validation.validateUniqueNumbers(numbers);
   }
 
   showLottoNumber() {
