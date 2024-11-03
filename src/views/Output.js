@@ -3,7 +3,7 @@ import { RESULT_MSG } from '../constants/messages.js';
 
 class Output {
   static displayLottoCount(count) {
-    Console.print(RESULT_MSG.LOTTO_COUNT(count));
+    Console.print(`\n${RESULT_MSG.LOTTO_COUNT(count)}`);
   }
 
   static displayTickets(tickets) {
