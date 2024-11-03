@@ -1,10 +1,4 @@
 export default function validateNumber(number) {
-  if (typeof number === "string" && number.includes(",")) {
-    throw new Error("[ERROR] 숫자를 하나만 입력해 주세요.");
-  }
-  if (typeof number === "string" && number.includes(" ")) {
-    throw new Error("[ERROR] 공백 없이 입력해 주세요.");
-  }
   if (isNaN(number)) {
     throw new Error("[ERROR] 숫자를 입력해 주세요.");
   }
