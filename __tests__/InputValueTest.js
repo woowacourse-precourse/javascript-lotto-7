@@ -31,7 +31,6 @@ describe('LottoNumberInputHandler Class 테스트', () => {
     await expect(lottoNumberInputHandler.readWinningNumbers()).rejects.toThrow(inValidMessages.NaN);
   })
 
-
   const bonusNumberArr = ['a', '!', '1000j', ''];
 
   test.each(bonusNumberArr)('입력 받은 보너스 번호가 숫자가 아니면 에러를 던진다.', (bonusNumber) => {
