@@ -44,9 +44,19 @@ class App {
   }
 
   convertToWinningNumbers(winningNumbersInput) {
-    const winningNumbers = winningNumbersInput.split(',');
+    const winningNumbers = winningNumbersInput
+      .split(',')
+      .map(stringWinningNumber => this.convertToWinningNumber(stringWinningNumber));
 
     return winningNumbers;
+  }
+
+  convertToWinningNumber(stringWinningNumber) {
+    this.#validateWinningNumberIsNumber(stringWinningNumber);
+
+    const winningNumber = Convert.toNumber(stringWinningNumber);
+
+    return winningNumber;
   }
 
   buyLottos(amount) {
@@ -98,6 +108,10 @@ class App {
 
   #validateClearChange(number) {
     if (!Validate.integer(number)) throw new Error(ERROR_MESSAGE.EXIST_CHANGE);
+  }
+
+  #validateWinningNumberIsNumber(winningNumber) {
+    if (!Validate.number(winningNumber)) throw new Error(ERROR_MESSAGE.WINNING_NUMBER_IS_NOT_NUMBER);
   }
 }
 
