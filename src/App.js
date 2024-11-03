@@ -9,8 +9,9 @@ class App {
     const inputMoney = await userInput.getMoney();
     const lottos = await lottoController.buyLotto(inputMoney);
     lottoController.printLottos(lottos);
-
     
+    const inputWinner = await userInput.getWinner();
+    const inputBonus = await userInput.getBonus(inputWinner);
   }
 }
 
