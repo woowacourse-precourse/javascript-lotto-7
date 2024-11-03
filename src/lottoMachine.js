@@ -7,7 +7,7 @@ import {
   LOTTO_INPUT_MIN,
   LOTTO_LENGTH,
   UNIT,
-} from './constant';
+} from './constant.js';
 
 class LottoMachine {
   constructor() {}

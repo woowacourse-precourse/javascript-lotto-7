@@ -9,7 +9,7 @@ import {
   LOTTO_RESULT_MESSAGE,
   PRICE_COUNT,
   RATE_RESULT_MESSAGE,
-} from './constant';
+} from './constant.js';
 
 class Lotto {
   #numbers;
