@@ -11,6 +11,9 @@ export default class OutputView {
   }
 
   printWinningDetails(winningCount) {
+    this.print(`\n당첨 통계`);
+    this.print(`---`);
+
     Object.entries(winningCount).forEach(([key, count]) => {
       const priceInfoValue = PRICE_INFO[key];
 
