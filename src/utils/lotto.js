@@ -1,6 +1,8 @@
 import { Random } from "@woowacourse/mission-utils";
+import { LOTTO_RULE } from "../constants/rule.js";
 
-export const buyOneLotto = () => Random.pickUniqueNumbersInRange(1, 45, 6);
+export const buyOneLotto = () =>
+  Random.pickUniqueNumbersInRange(LOTTO_RULE.MIN_NUMBER, LOTTO_RULE.MAX_NUMBER, 6);
 
 export const getRankType = (matchCount, isBonusMatch) => {
   if (matchCount === 3) return "threeMatch";

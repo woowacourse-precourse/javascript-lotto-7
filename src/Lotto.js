@@ -1,3 +1,4 @@
+import { LOTTO_RULE } from "./constants/rule.js";
 import {
   isLottoLengthValid,
   hasDuplicate,
@@ -32,7 +33,9 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호는 정수만 입력 가능합니다.");
     }
     if (!isInRange(number)) {
-      throw new Error("[ERROR] 로또 번호 범위는 1~45입니다.");
+      throw new Error(
+        `[ERROR] 로또 번호 범위는 ${LOTTO_RULE.MIN_NUMBER}~${LOTTO_RULE.MAX_NUMBER}입니다.`,
+      );
     }
   }
 
