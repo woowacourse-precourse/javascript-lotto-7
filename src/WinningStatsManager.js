@@ -40,3 +40,5 @@ class WinningStatsManager {
     return lottoProfitMargin.toFixed(1);
   }
 }
+
+export default WinningStatsManager;
