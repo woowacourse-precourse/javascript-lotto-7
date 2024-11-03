@@ -2,8 +2,22 @@
 
 import { Console } from "@woowacourse/mission-utils";
 
-async function inputWinningNumbers(){
+async function getWinningNumbers(){
     const WINNING_NUMBERS = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    const winningList = WINNING_NUMBERS.split(",");
+
+    isLength6(winningList);
+    isDuplicated(winningList);
+    winningList.forEach((number)=>{
+        isPositiveNumber(number);
+        is1to45(winningList);
+    })
+
+    return winningList;
+}
+
+function string2Number(numberList){
+    return numberList.map((number)=> parseInt(number));
 }
 
 function isPositiveNumber(number){

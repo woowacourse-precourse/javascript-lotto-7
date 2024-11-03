@@ -1,6 +1,6 @@
 import {calcLottoCnt, getLottoCnt, isDivided1000, isIntNumber, isPositiveNumber } from "../src/BuyPrice.js";
 import Lotto from "../src/Lotto.js";
-import { is1to45 } from "../src/winningNumber.js";
+import { inputWinningNumbers, is1to45 } from "../src/winningNumber.js";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
