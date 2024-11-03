@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
+import InputParser from './InputParser.js';
 
-class PriceInputParser {
+class PriceInputParser extends InputParser {
   async readLoop() {
     try {
       const priceString = await this.#read();

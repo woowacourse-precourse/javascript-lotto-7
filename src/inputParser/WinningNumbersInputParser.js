@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
+import InputParser from './InputParser.js';
 
-class WinningNumbersInputParser {
+class WinningNumbersInputParser extends InputParser {
   async readLoop() {
     try {
       const winningNumbersString = await this.#read();
@@ -25,7 +26,6 @@ class WinningNumbersInputParser {
   }
 
   #validate(winnigNumbers) {
-    console.log(winnigNumbers);
     if (winnigNumbers.length !== 6) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }

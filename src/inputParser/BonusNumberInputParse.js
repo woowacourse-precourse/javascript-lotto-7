@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
+import InputParser from './InputParser.js';
 
-class BonusNumberInputParse {
+class BonusNumberInputParse extends InputParser {
   async readLoop() {
     try {
       const bonusNumberString = await this.#read();
