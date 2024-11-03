@@ -1,7 +1,6 @@
 import { Console } from '@woowacourse/mission-utils'
-import { CONSOLE_MESSAGES } from "./constant.js";
+import { CONSOLE_MESSAGES, SPLITTER, LOTTO_PRICE } from "./constant.js";
 
-const SPLITTER = ',';
 
 class InputValidator {
   static #VALID_LOTTERY_NUM = 6;
@@ -15,7 +14,7 @@ class InputValidator {
   }
 
   static validateWinNumbers(winNumbersArray) {
-    winNumbersArray.forEach(this.isValidNumber);
+    winNumbersArray.forEach((number) => this.validateNumber(number));
 
     if (winNumbersArray.length !== this.#VALID_LOTTERY_NUM || new Set(winNumbersArray).size !== this.#VALID_LOTTERY_NUM) {
       throw new Error("[ERROR] 중복되지 않는 수 6개를 입력해주세요.");
@@ -27,7 +26,7 @@ class InputValidator {
   }
 
   static validatePurchasePrice(price) {
-    if (Number.isNaN(price) || price <= 0 || price % 1000 !== 0) {
+    if (Number.isNaN(price) || price <= 0 || price % LOTTO_PRICE !== 0) {
       throw new Error('[ERROR] 1000원 단위의 양수 금액을 입력해주세요.');
     }
   }
