@@ -2,8 +2,9 @@ import { Input } from './Input.js';
 import { Validation } from './Validation.js';
 import { Calculation } from './Calculation.js';
 import { Output } from './Output.js';
-import { Console } from '@woowacourse/mission-utils';
+import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { Statistics } from './Statistics.js';
+import Lotto from '../Lotto.js';
 
 export class LottoMachine {
   #input;
@@ -62,20 +63,22 @@ export class LottoMachine {
 
   async run() {
     const purchasePrice = await this.inputAttemptPurchasePrice();
-
     const lottoTicketCount = this.#calculation.getLottoTicketCount(purchasePrice);
-    this.#output.printLottoTicketCount(lottoTicketCount);
-
-    const lottoTicket = this.#output.printLottoTicket(lottoTicketCount);
+    const lottoTicketArr = [];
+    for (let i = 0; i < lottoTicketCount; i++) {
+      const ticket = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      const sortedNum = ticket.sort(function (a, b) {
+        return a - b;
+      });
+      lottoTicketArr.push(new Lotto(sortedNum));
+    }
+    this.#output.printLottoTicket(lottoTicketArr);
 
     const winningNumArr = await this.inputAttemptWinningNumbers();
-
     const bonusNumber = await this.inputAttemptBonusNumber(winningNumArr);
 
     const rankCounts = this.#statistics.findWinnerRank(lottoTicket, winningNumArr, bonusNumber);
-
     const rateOfReturn = this.#calculation.getRateOfReturn(rankCounts, purchasePrice);
-
     this.#output.printWinnerRank(rankCounts);
     this.#output.printRateOfReturn(rateOfReturn);
   }
