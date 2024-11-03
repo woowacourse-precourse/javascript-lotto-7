@@ -7,6 +7,11 @@ export const LOTTO = {
   },
 };
 
+export const PROFIT_RATE = {
+  HUNDRED: 100,
+  TEN: 10,
+};
+
 export const WINNING_RANK = {
   FIFTH: 3,
   FOURTH: 4,
