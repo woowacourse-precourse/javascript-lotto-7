@@ -14,6 +14,8 @@ export default class Lotto {
   }
 
   #validate(numbers) {
+    this.#checkArrayType(numbers);
+    this.#checkBlank(numbers);
     this.#checkLottoCount(numbers);
     this.#checkNumberDuplication(numbers);
 
@@ -51,6 +53,20 @@ export default class Lotto {
   #checkPositiveInteger(number) {
     if (!Number.isInteger(number)) {
       throw new Error(ERROR_MESSAGE.LOTTO.INVALID_POSITIVE_NUMBER);
+    }
+  }
+
+  #checkBlank(numbers) {
+    for (let i = 0; i < numbers.length; i++) {
+      if (!(i in numbers)) {
+        throw new Error(ERROR_MESSAGE.LOTTO.NUMBER_IS_BLANK);
+      }
+    }
+  }
+
+  #checkArrayType(numbers) {
+    if (!Array.isArray(numbers)) {
+      throw new Error(ERROR_MESSAGE.LOTTO.INVALID_ARRAY_TYPE);
     }
   }
 }
