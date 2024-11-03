@@ -2,12 +2,14 @@ import { Console } from '@woowacourse/mission-utils';
 import { RESULT, UNIT } from '../constants/Constants.js';
 import Ticket from './Ticket.js';
 import Jackpot from './Jackpot.js';
+import { ROI } from '../utils/Calculation.js';
 
 class Match {
   constructor() {
     this.lottos = [];
     this.jackpot = [];
     this.bonus = null;
+    this.cost = 0;
     this.prize = 0;
     this.ranks = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
   }
@@ -21,6 +23,7 @@ class Match {
     await lottoTickets.startGetTicket();
     this.lottos = lottoTickets.getTicket();
     lottoTickets.displayTicket();
+    this.cost = lottoTickets.getCost();
   }
 
   async getJackpot() {
@@ -71,11 +74,18 @@ class Match {
     return totalPrize;
   }
 
+  calculateROI() {
+    const totalPrize = this.getTotalPrize();
+    return ROI(totalPrize, this.cost);
+  }
+
   displayResult() {
     Console.print(RESULT.HEADER);
     for (let i = 5; i >= 1; i--) {
       Console.print(`${RESULT[i]} ${this.ranks[i]}${RESULT.COUNT_CHAR}`);
     }
+    const ROI = this.calculateROI();
+    Console.print(`${RESULT.RATE_HEADER}${ROI}${RESULT.RATE_FOOTER}`);
   }
 }
 

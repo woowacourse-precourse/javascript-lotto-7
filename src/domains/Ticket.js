@@ -23,6 +23,10 @@ class Ticket {
     this.#cost = cost;
   }
 
+  getCost() {
+    return this.#cost;
+  }
+
   validation(cost) {
     Validators.checkNumber(cost);
     Validators.checkCost(cost);
