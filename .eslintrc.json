@@ -16,5 +16,14 @@
     "no-else-return": "error",
     "max-lines-per-function": ["error", 15]
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier"],
+  "overrides": [
+    {
+      "files": ["./__tests__/*"],
+      "rules": {
+        "max-depth": "off",
+        "max-lines-per-function": "off"
+      }
+    }
+  ]
 }
