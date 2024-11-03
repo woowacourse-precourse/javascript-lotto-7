@@ -59,6 +59,16 @@ describe('로또 번호 입력값 테스트', () => {
     await expect(input.requestLottoNumber()).rejects.toThrow(ERROR.BLANK);
   });
 
+  test('로또 번호가 중복될 경우 예외가 발생한다.', async () => {
+    mockQuestions('1,2,3,4,5,5');
+    await expect(input.requestLottoNumber()).rejects.toThrow(ERROR.DUPLICATED_NUMBER);
+  });
+
+  test('로또 번호가 6개가 아닐 경우 예외가 발생한다.', async () => {
+    mockQuestions('1,2,3');
+    await expect(input.requestLottoNumber()).rejects.toThrow(ERROR.INVALID_NUMBER_COUNT);
+  });
+
   test('범위를 벗어난 로또 번호를 입력할 경우 예외가 발생한다.', async () => {
     mockQuestions('1, 2, 3, 4, 5, 47');
     await expect(input.requestLottoNumber()).rejects.toThrow(ERROR.INVALID_RANGE_NUMBER);

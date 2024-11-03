@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import MESSAGE from "./constants/message.js";
 import ERROR from "./constants/error.js";
+import CONSTANT from "./constants/costant.js";
 
 class Input {
   async getPurchaseAmount() {
@@ -55,7 +56,16 @@ class Input {
         throw new Error(ERROR.BLANK);
     }
 
-    const numArray = numbers.split(',').map(Number);
+    const stringArray = numbers.split(',');
+    const removeDuplicate = new Set(stringArray);
+    if (stringArray.length !== removeDuplicate.size) {
+        throw new Error(ERROR.DUPLICATED_NUMBER);
+      }
+
+    const numArray = stringArray.map(Number);
+    if (numArray.length !== CONSTANT.LOTTO_CANSTANT.LOTTO_LENGTH) {
+        throw new Error(ERROR.INVALID_NUMBER_COUNT);
+      }
 
     numArray.forEach((num) => {
       if (num > 45 || num < 1) { 
@@ -69,6 +79,8 @@ class Input {
       if (!Number.isInteger(num)) {
           throw new Error(ERROR.IS_NOT_INT);
       }
+
+
   });
   }
 
