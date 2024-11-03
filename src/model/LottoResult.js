@@ -31,7 +31,6 @@ class LottoResult {
     Validator.validateBonusNumber(bonusNumber, winningNumbers);
   }
 
-  // 각 로또에 대해 당첨 여부를 검사
   calculateResults() {
     this.#lottos.forEach((lotto) => {
       const matchCount = this.#getMatchCount(lotto.getNumber());
@@ -56,7 +55,6 @@ class LottoResult {
     });
   }
 
-  // 사용자의 로또 번호와 당첨 번호를 비교하여 일치하는 개수를 반환
   #getMatchCount(lottoNumbers) {
     return lottoNumbers.filter((number) =>
       this.#winningNumbers.includes(number),
