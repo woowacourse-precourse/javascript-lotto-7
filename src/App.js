@@ -74,17 +74,14 @@ class App {
       { matchCount: 6, count: 0, bonusNumber: false, prizeMoney: 2000000000 },
     ];
 
-    matchNumbers
-      .filter((numbers) => numbers.length >= 3)
-      .forEach((item) => {
-        const findIndex = logs.findIndex((log) => log.matchCount === item.length);
+    matchNumbers.forEach((item, index) => {
+      const isBonusMatch = this.numbers[index].includes(this.bonusNumber) && item.length === 5;
+      const log = logs.find((log) => log.matchCount === item.length && log.bonusNumber === isBonusMatch);
 
-        if (logs[findIndex].matchCount === 5 && logs[findIndex].bonusNumber) {
-          logs[findIndex].count += 1;
-        } else {
-          logs[findIndex].count += 1;
-        }
-      });
+      if (log) {
+        log.count += 1;
+      }
+    });
 
     return logs;
   }
