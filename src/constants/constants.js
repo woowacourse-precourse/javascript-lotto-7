@@ -18,6 +18,7 @@ export const LOTTO_PRICE = 1000;
 export const THREE_PRICE = 5000;
 export const FOUR_PRICE = 50000;
 export const FIVE_PRICE = 1500000;
+export const BONUS_PRICE = 30000000;
 export const SIX_PRICE = 2000000000;
 
 export function howManyCorrectResult(howMany, price, count) {
@@ -25,4 +26,13 @@ export function howManyCorrectResult(howMany, price, count) {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   Console.print(`${howMany}개 일치 (${addCommas(price)}원) - ${count}개`);
+}
+
+export function BonusCorrectResult(howMany, price, count) {
+  function addCommas(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  Console.print(
+    `${howMany}개 일치, 보너스 볼 일치(${addCommas(price)}원) - ${count}개`,
+  );
 }

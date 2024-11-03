@@ -5,22 +5,32 @@ import {
   LOTTO_PRICE,
   LOTTO_MESSAGE,
   howManyCorrectResult,
+  BonusCorrectResult,
   THREE_PRICE,
   FOUR_PRICE,
   FIVE_PRICE,
   SIX_PRICE,
+  BONUS_PRICE,
 } from './constants/constants.js';
-import { getWinningNumbers } from './lottoHelper/winningNumbers.js';
+import {
+  getWinningNumbers,
+  getBonusWinningNumber,
+} from './lottoHelper/winningNumbers.js';
 
 function purchaseLotto(price) {
   const amountOfLotto = price / LOTTO_PRICE;
   return amountOfLotto;
 }
 
-function howManyCorrectNumbers(lottoNumbers, winningNumbers) {
+function howManyCorrectNumbers(
+  lottoNumbers,
+  winningNumbers,
+  bonusWinningNumber,
+) {
   let threeCorrectCount = 0;
   let fourCorrectCount = 0;
   let fiveCorrectCount = 0;
+  let fiveBonusCorrectCount = 0;
   let sixCorrectCount = 0;
   lottoNumbers.forEach((lottoNumber) => {
     let count = 0;
@@ -34,6 +44,9 @@ function howManyCorrectNumbers(lottoNumbers, winningNumbers) {
     } else if (count === 4) {
       fourCorrectCount += 1;
     } else if (count === 5) {
+      if (lottoNumber.includes(bonusWinningNumber)) {
+        fiveBonusCorrectCount += 1;
+      }
       fiveCorrectCount += 1;
     } else if (count === 6) {
       sixCorrectCount += 1;
@@ -42,6 +55,7 @@ function howManyCorrectNumbers(lottoNumbers, winningNumbers) {
   howManyCorrectResult(3, THREE_PRICE, threeCorrectCount);
   howManyCorrectResult(4, FOUR_PRICE, fourCorrectCount);
   howManyCorrectResult(5, FIVE_PRICE, fiveCorrectCount);
+  BonusCorrectResult(5, BONUS_PRICE, fiveBonusCorrectCount);
   howManyCorrectResult(6, SIX_PRICE, sixCorrectCount);
 }
 
@@ -61,8 +75,9 @@ class App {
       Console.print(lottos[i]);
     }
     const winningNumbers = await getWinningNumbers();
+    const bonusWinningNumber = await getBonusWinningNumber();
     Console.print(LOTTO_MESSAGE.LOTTO_RESULT_MESSAGE);
-    howManyCorrectNumbers(lottos, winningNumbers);
+    howManyCorrectNumbers(lottos, winningNumbers, bonusWinningNumber);
   }
 }
 
