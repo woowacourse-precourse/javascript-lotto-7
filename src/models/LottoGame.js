@@ -25,7 +25,7 @@ class LottoGame {
   }
 
   static addBonusNumber(matchNumber, bonusNumber, lotto, winStatistics) {
-    const haveBonus = lotto.filter(number => number === bonusNumber);
+    const haveBonus = lotto.includes(bonusNumber);
     if (matchNumber === LOTTO.NUMBER.FIVE_MATCH && haveBonus) {
       return {
         ...winStatistics,
@@ -36,20 +36,26 @@ class LottoGame {
     return winStatistics;
   }
 
-  static getAllNumberWon(lottos, targetLotto, bonusNumber) {
+  static #initializeStatistics() {
     const MATCH_COUNTS = [0, 1, 2, 3, 4, 5, 6];
-    const winStatistics = {
+    return {
       ...MATCH_COUNTS.reduce((acc, n) => ({ ...acc, [n]: 0 }), {}),
       bonus: 0,
     };
+  }
 
-    Object.values(lottos).forEach(lotto => {
-      const matchCount = this.getMatchNumber(lotto, targetLotto);
-      winStatistics[matchCount] += 1;
-      this.addBonusNumber(matchCount, bonusNumber, lotto, winStatistics);
-    });
+  static #updateStatistics(stats, lotto, targetLotto, bonusNumber) {
+    const matchCount = this.getMatchNumber(lotto, targetLotto);
+    const updatedStats = { ...stats, [matchCount]: stats[matchCount] + 1 };
+    return this.addBonusNumber(matchCount, bonusNumber, lotto, updatedStats);
+  }
 
-    return winStatistics;
+  static getAllNumberWon(lottos, targetLotto, bonusNumber) {
+    return Object.values(lottos).reduce(
+      (stats, lotto) =>
+        this.#updateStatistics(stats, lotto, targetLotto, bonusNumber),
+      this.#initializeStatistics(),
+    );
   }
 
   static getGetCash(winStatistics) {
