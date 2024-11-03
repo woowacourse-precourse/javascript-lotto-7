@@ -32,7 +32,7 @@ describe("구매 금액 입력값 유효성 test", () => {
       mockQuestions([...prices, ...INPUT_NUMBERS_TO_END]);
       const result = await InputHandler.getPrice();
 
-      expect(result).toBe("1000");
+      expect(result).toBe(1000);
       expect(logSpy).toHaveBeenCalledTimes(prices.length);
     }
   );

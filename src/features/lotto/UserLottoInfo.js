@@ -11,6 +11,10 @@ export class UserLottoInfo {
     this.#lottoCount = this.#inputPrice / LOTTO_UNIT_PRICE;
   }
 
+  get lottoCount() {
+    return this.#lottoCount;
+  }
+
   createLotto() {
     Console.print(this.#lottoCount);
   }
