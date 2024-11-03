@@ -114,4 +114,22 @@ describe("로또 구매 금액 테스트", () => {
       await runException(price);
     });
   })
+})
+
+describe("당첨 번호 입력 테스트", () => {
+  const failCases = [
+    { testName: "쉼표 먼저 입력", winningNumbers: ",1,2,3,4,5,6" },
+    { testName: "숫자 6자리 초과", winningNumbers: "1,2,3,4,5,6,7" },
+    { testName: "길이 초과", winningNumbers: "1,22,33,41,35,36,37" },
+    { testName: "범위 벗어난 숫자 입력", winningNumbers: "12,66,2,3,4,5" },
+    { testName: "쉼표 외 다른 구분자 입력", winningNumbers: "1;2;3;4;5;6" },
+    { testName: "쉼표와 다른 구분자 혼합", winningNumbers: "1,2,3,4;5,6" },
+    { testName: "중복된 숫자 입력", winningNumbers: "11,22,11,4,5,6" },
+  ];
+
+  failCases.forEach(({ testName, winningNumbers }) => {
+    test(`${testName}`, async () => {
+      await runException(["8000", winningNumbers]);  
+    });
+  });
 });
