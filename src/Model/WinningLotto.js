@@ -44,4 +44,20 @@ export default class WinningLotto {
     );
     this.#bonusNumber = validBonusNumber;
   }
+
+  calculateRank(lottoNumbers) {
+    const matchedNumbers = lottoNumbers.filter((number) =>
+      this.#winningNumbers.includes(number),
+    );
+
+    const isBonusMatched = lottoNumbers.includes(this.#bonusNumber);
+
+    if (matchedNumbers.length === 6) return 1;
+    if (matchedNumbers.length === 5 && isBonusMatched) return 2;
+    if (matchedNumbers.length === 5) return 3;
+    if (matchedNumbers.length === 4) return 4;
+    if (matchedNumbers.length === 3) return 5;
+
+    return null;
+  }
 }
