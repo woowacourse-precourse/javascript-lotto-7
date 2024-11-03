@@ -1,3 +1,5 @@
+import { MESSAGES, NUMBERS } from '../constants/Constants.js';
+
 class BuyLottoCountValidator {
   static validateBuyLottoCount(buyLottoCount) {
     this.isCharacter(buyLottoCount);
@@ -9,19 +11,19 @@ class BuyLottoCountValidator {
 
   static isCharacter(buyLottoCount) {
     if (isNaN(buyLottoCount)) {
-      throw new Error('[ERROR] 구입 금액은 숫자를 입력해야 합니다.\n');
+      throw new Error(`${MESSAGES.ERROR.BUY_LOTTO_COUNT.INVALID_CHARACTER}\n`);
     }
   }
 
   static isMultipleOfThousand(buyLottoCount) {
-    if (buyLottoCount % 1000 !== 0 || buyLottoCount === '0') {
-      throw new Error('[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.\n');
+    if (buyLottoCount % NUMBERS.DIVIED_NUMBER !== 0 || buyLottoCount === '0') {
+      throw new Error(`${MESSAGES.ERROR.BUY_LOTTO_COUNT.INVALID_UNIT}\n`);
     }
   }
 
   static isNegative(buyLottoCount) {
     if (buyLottoCount < 0) {
-      throw new Error('[ERROR] 구입 금액은 양수를 입력해야 합니다.\n');
+      throw new Error(`${MESSAGES.ERROR.BUY_LOTTO_COUNT.INVALID_SIGN}\n`);
     }
   }
 
@@ -29,13 +31,13 @@ class BuyLottoCountValidator {
     const MAX_NUM = Number.MAX_VALUE;
 
     if (buyLottoCount > MAX_NUM) {
-      throw new Error('[ERROR] 구입 금액은 최대 구입 금액보다 적게 입력해야 합니다.\n');
+      throw new Error(`${MESSAGES.ERROR.BUY_LOTTO_COUNT.INVALID_RANGE}\n`);
     }
   }
 
   static isSpace(buyLottoCount) {
     if (buyLottoCount === '') {
-      throw new Error('[ERROR] 로또 구입 금액은 최소 1,000원 이상 입력해야 합니다.\n');
+      throw new Error(`${MESSAGES.ERROR.BUY_LOTTO_COUNT.INVALID_SPACE}\n`);
     }
   }
 }

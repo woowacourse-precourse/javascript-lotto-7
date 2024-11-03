@@ -1,3 +1,5 @@
+import { MESSAGES } from '../constants/Constants.js';
+
 class PickLottoNumberValidator {
   static validatePickLottoNumber(pickLottoNumber) {
     const pickLottoNumberArray = pickLottoNumber.split(',').map(Number);
@@ -9,25 +11,25 @@ class PickLottoNumberValidator {
 
   static isAnotherCharacter(pickLottoNumberArray) {
     if (pickLottoNumberArray.some((number) => !Number.isInteger(number))) {
-      throw new Error('[ERROR] 당첨 번호는 쉼표(,)로 구분해야 합니다.');
+      throw new Error(`${MESSAGES.ERROR.PICK_LOTTO_NUMBER.INVALID_CHARACTER}`);
     }
   }
 
   static isRightCount(pickLottoNumberArray) {
     if (pickLottoNumberArray.length !== 6) {
-      throw new Error('[ERROR] 당첨 번호는 6개를 입력해야 합니다.');
+      throw new Error(`${MESSAGES.ERROR.PICK_LOTTO_NUMBER.INVALID_COUNT}`);
     }
   }
 
   static isOutOfRange(pickLottoNumberArray) {
     if (pickLottoNumberArray.some((number) => number < 1 || number > 45)) {
-      throw new Error('[ERROR] 당첨 번호는 로또 번호의 숫자 범위(1~45) 안에서 입력해야 합니다.');
+      throw new Error(`${MESSAGES.ERROR.PICK_LOTTO_NUMBER.INVALID_RANGE}`);
     }
   }
 
   static isDuplicatedNumber(pickLottoNumberArray) {
     if (pickLottoNumberArray.length !== new Set(pickLottoNumberArray).size) {
-      throw new Error('[ERROR] 1개의 로또를 발행할 때에는 중복되지 않는 6개의 숫자를 뽑아야 합니다.');
+      throw new Error(`${MESSAGES.ERROR.PICK_LOTTO_NUMBER.DUPLICATED_NUMBER}`);
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './../Lotto.js';
+import { NUMBERS } from '../constants/Constants.js';
 
 class LottoModel {
   #buyLottoCount;
@@ -19,7 +20,7 @@ class LottoModel {
   }
 
   getBuyLottoCount() {
-    return this.#buyLottoCount / 1000;
+    return this.#buyLottoCount / NUMBERS.DIVIED_NUMBER;
   }
 
   generateRandomLottoNumbers() {
@@ -27,7 +28,11 @@ class LottoModel {
     const count = this.getBuyLottoCount();
 
     for (let i = 0; i < count; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+      const numbers = Random.pickUniqueNumbersInRange(
+        NUMBERS.LOTTO_NUMBER.START,
+        NUMBERS.LOTTO_NUMBER.END,
+        NUMBERS.LOTTO_NUMBER.COUNT
+      ).sort((a, b) => a - b);
       this.#randomLottoNumbers.push(new Lotto(numbers));
     }
   }

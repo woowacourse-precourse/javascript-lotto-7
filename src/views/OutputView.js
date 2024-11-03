@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { MESSAGES, WINNING_PRIZES } from '../constants/Constants.js';
 
 class OutputView {
   static printMessage(message) {
@@ -6,19 +7,16 @@ class OutputView {
   }
 
   static printRandomLottoNumbers(randomLottoNumbers) {
-    Console.print(`\n${randomLottoNumbers.length}개를 구매했습니다.`);
+    Console.print(`\n${randomLottoNumbers.length}${MESSAGES.OUTPUT.BUY_LOTTO_COUNT}`);
     randomLottoNumbers.forEach((lottoNumber) => Console.print(`[${lottoNumber.getNumbers().join(', ')}]`));
   }
 
   static printWinningStatistics(winningStatistics) {
-    Console.print(`
-당첨 통계
----
-3개 일치 (5,000원) - ${winningStatistics[3]}개
-4개 일치 (50,000원) - ${winningStatistics[4]}개
-5개 일치 (1,500,000원) - ${winningStatistics[5]}개
-5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningStatistics['5+']}개
-6개 일치 (2,000,000,000원) - ${winningStatistics[6]}개`);
+    Console.print(MESSAGES.OUTPUT.WINNING_STATISTICS);
+
+    Object.values(WINNING_PRIZES).forEach((prize) => {
+      Console.print(`${prize.MESSAGE} - ${winningStatistics[prize.COUNT]}개`);
+    });
   }
 
   static printEarningRate(earningRate) {

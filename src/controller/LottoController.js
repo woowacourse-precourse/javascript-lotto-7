@@ -1,3 +1,4 @@
+import { WINNING_PRIZES } from '../constants/Constants.js';
 import OutputView from './../views/OutputView.js';
 
 class LottoController {
@@ -45,14 +46,14 @@ class LottoController {
   }
 
   calculateEarningRate(statistics) {
-    const earningRate =
-      (5000 * statistics[3] +
-        50000 * statistics[4] +
-        1500000 * statistics[5] +
-        30000000 * statistics['5+'] +
-        2000000000 * statistics[6]) /
-      this.lottoModel.getBuyLottoCount() /
-      10;
+    const totalEarnings =
+      WINNING_PRIZES.MATCH_3.PRIZE * statistics[3] +
+      WINNING_PRIZES.MATCH_4.PRIZE * statistics[4] +
+      WINNING_PRIZES.MATCH_5.PRIZE * statistics[5] +
+      WINNING_PRIZES.MATCH_5_BONUS.PRIZE * statistics['5+'] +
+      WINNING_PRIZES.MATCH_6.PRIZE * statistics[6];
+
+    const earningRate = totalEarnings / this.lottoModel.getBuyLottoCount() / 10;
     return earningRate;
   }
 }
