@@ -19,6 +19,8 @@ class Lotto {
   #validate(numbers) {
     if (!Validate.arrayCount(numbers, LOTTO.BASIC_COUNT))
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_COUNT_IS_NOT_BASIC_COUNT);
+
+    if (!Validate.uniqueArray(numbers)) throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_IS_NOT_UNIQUE);
   }
 
   // TODO: 추가 기능 구현

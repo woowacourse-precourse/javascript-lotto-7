@@ -18,6 +18,10 @@ class Validate {
   static valueIsUnique(array, target) {
     return array.every(element => element !== target);
   }
+
+  static uniqueArray(numArray) {
+    return new Set(numArray).size === numArray.length;
+  }
 }
 
 export default Validate;
