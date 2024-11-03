@@ -18,3 +18,5 @@ class BudgetManager {
     return this.#budget / this.#lottoPrice;
   }
 }
+
+export default BudgetManager;
