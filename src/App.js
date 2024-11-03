@@ -1,59 +1,48 @@
-import { Console, Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+import { Console } from "@woowacourse/mission-utils";
 import WoowahanInput from "./woowahanInput.js";
-import { buyMoneyValidator } from "./utils/validators.js";
+import { buyMoneyValidator, winNumberValidator } from "./utils/validators.js";
 import LottoStore from "./LottoStore.js";
 import { GameOutput } from "./woowahanOutput.js";
 
 class App {
   async run() {
     const lottoStore = new LottoStore();
-    const gameOutput = new GameOutput();
 
-    let input = 'start';
+    let buyMoney = 'start';
 
-    while (!buyMoneyValidator(input)) {
-      input = await WoowahanInput.getBuyMoney();
+    while (!buyMoneyValidator(buyMoney)) {
+      buyMoney = await WoowahanInput.getBuyMoney();
     }
 
-    const countLotto = lottoStore.getLottoTicketCount(input);
-    gameOutput.printLottoTicketCount(countLotto);
+    const lottoTicketCount = lottoStore.getLottoTicketCount(buyMoney);
+    GameOutput.printLottoTicketCount(lottoTicketCount);
 
     const lottos = lottoStore.generateLottos();
-    // const lottos = [];
 
-    // for (let i = 0; i < countLotto; i++) {
-    //   const random = Random.pickUniqueNumbersInRange(1, 45, 6);
-    //   random.sort((a, b) => a - b);
-    //   const lotto = new Lotto(random);
-    //   lottos.push(lotto);
-    //   Console.print(`[${random.join(', ')}]`);
-    // }
+    let flag = true;
+    let winNumber = [];
 
-    const winInput = await WoowahanInput.getWinNumber();
-    const winNumber = winInput.split(',').map(Number);
-    winNumber.forEach((number) => {
-      if (number === isNaN) {
-        Console.print('[ERROR] 당첨 번호는 유효한 숫자여야 합니다.');
-      }
-      if (!Number.isInteger(number)) {
-        Console.print('[ERROR] 당첨 번호는 정수만 가능합니다.');
-      }
-      if (number < 0 || number > 45) {
-        Console.print('[ERROR] 당첨 번호는 1 ~ 45 사이의 숫자만 가능합니다.');
-      }
-    })
+    while (flag) {
+        const winInput = await WoowahanInput.getWinNumber();
+        winNumber = winInput.split(',').map(Number);
+        if (winNumber.length !== 6){
+          console.log('[ERROR] 당첨 번호는 6자리입니다.');
+          continue
+        } 
+
+        flag = winNumber.some((number) => !winNumberValidator(number));
+    }
 
     const inputBonus = await WoowahanInput.getBonusNumber();
     const bonusNumber = Number(inputBonus);
     if (bonusNumber === isNaN) {
-      Console.print('[ERROR] 당첨 번호는 유효한 숫자여야 합니다.');
+      Console.print('[ERROR] 보너스 번호는 유효한 숫자여야 합니다.');
     }
     if (!Number.isInteger(bonusNumber)) {
-      Console.print('[ERROR] 당첨 번호는 정수만 가능합니다.');
+      Console.print('[ERROR] 보너스 번호는 정수만 가능합니다.');
     }
     if (bonusNumber < 0 || bonusNumber > 45) {
-      Console.print('[ERROR] 당첨 번호는 1 ~ 45 사이의 숫자만 가능합니다.');
+      Console.print('[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자만 가능합니다.');
     }
 
     Console.print('당첨통계\n---');
@@ -95,7 +84,7 @@ class App {
       }
     }
 
-    Console.print(`총 수익률은 ${(earn / Number(input) * 100).toFixed(1)}%입니다.`);
+    Console.print(`총 수익률은 ${(earn / Number(buyMoney) * 100).toFixed(1)}%입니다.`);
   }
 }
 

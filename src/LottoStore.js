@@ -15,13 +15,13 @@ export default class LottoStore {
         const lottos = [];
 
         for (let i = 0; i < this.#countLotto; i++) {
-          const random = Random
+          const generateNumber = Random
             .pickUniqueNumbersInRange(1, 45, 6)
             .sort((a, b) => a - b);
-            
-          const lotto = new Lotto(random);
+
+          const lotto = new Lotto(generateNumber);
           lottos.push(lotto);
-          GameOutput.printLottoOneLine(random);
+          GameOutput.printLottoOneLine(generateNumber);
         }
 
         return lottos;

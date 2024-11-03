@@ -1,4 +1,4 @@
-const validateInputNumber = {
+const validateInputMoney = {
     isEmpty: (input) => {
         return input === '';
     },
@@ -13,4 +13,4 @@ const validateInputNumber = {
     }
 }
 
-export const { isEmpty, isEndWith1000, isMinusNumber, isNotNumber } = validateInputNumber;
+export const { isEmpty, isEndWith1000, isMinusNumber, isNotNumber } = validateInputMoney;
