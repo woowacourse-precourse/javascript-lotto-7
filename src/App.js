@@ -1,9 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 const LOTTO_COST_MIN = 1000;
-const LOTTO_NUMBER_MIN = 1;
-const LOTTO_NUMBER_MAX = 45;
-const LOTTO_NUMBER_COUNT = 6;
 const GUIDE_MESSAGE_INPUT_COST = "구입금액을 입력해 주세요.\n";
 const GUIDE_MESSAGE_INPUT_USER_PICKED_NUMBERS =
   "\n당첨 번호를 입력해 주세요.\n";
@@ -31,17 +28,12 @@ class App {
     }
     isValid = false;
 
-    const lottoCnt = lottoCost / 1000;
+    const lottoCnt = lottoCost / LOTTO_COST_MIN;
     let lottoNumbers = [];
     for (let i = 0; i < lottoCnt; i++) {
-      lottoNumbers[i] = MissionUtils.Random.pickUniqueNumbersInRange(
-        LOTTO_NUMBER_MIN,
-        LOTTO_NUMBER_MAX,
-        LOTTO_NUMBER_COUNT
-      );
-      lottoNumbers[i].sort((a, b) => {
-        return a - b;
-      });
+      const randomNumbers = Lotto.generateRandomNumbers();
+
+      lottoNumbers.push(new Lotto(randomNumbers));
     }
 
     MissionUtils.Console.print(`\n${lottoCnt}개를 구매했습니다.`);
@@ -55,14 +47,17 @@ class App {
       await this.getUserPickedNumbers()
     ).map(Number);
   }
+
   getLottoCost() {
     return MissionUtils.Console.readLineAsync(GUIDE_MESSAGE_INPUT_COST);
   }
+
   getUserPickedNumbers() {
     return MissionUtils.Console.readLineAsync(
       GUIDE_MESSAGE_INPUT_USER_PICKED_NUMBERS
     );
   }
+
   splitUserPickedNumbers(userPickedStr) {
     return userPickedStr.split(",");
   }
