@@ -67,6 +67,15 @@ describe('LottoMachine 클래스 테스트', () => {
     },
   );
 
+  test.each([['-1'], ['-5000'], ['0']])(
+    '구입 금액이 양수가 아닐 때 예외가 발생하는지 테스트 (%s)',
+    async (payment) => {
+      const errorMessage = ERROR_MESSAGE.notPositiveNumber;
+
+      await testPayment(payment, errorMessage);
+    },
+  );
+
   test.each([
     [1000, 1],
     [2000, 2],
