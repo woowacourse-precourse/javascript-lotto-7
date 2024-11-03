@@ -91,9 +91,22 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  //금액 입력 테스트
+  test("구입 금액이 숫자가 아닐 경우", async () => {
     await expect(runException("1000j")).rejects.toThrow(
       "[ERROR] 구입 금액은 숫자여야 합니다."
+    );
+  });
+
+  test("구입 금액이 1,000원 단위가 아닐 경우", async () => {
+    await expect(runException("2500")).rejects.toThrow(
+      "[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다."
+    );
+  });
+
+  test("구입 금액이 0 이하일 경우", async () => {
+    await expect(runException("0")).rejects.toThrow(
+      "[ERROR] 정상적인 금액을 입력해주세요."
     );
   });
 });
