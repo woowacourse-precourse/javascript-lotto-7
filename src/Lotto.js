@@ -85,7 +85,6 @@ class Lotto {
     }
    
     printLottoSummary(result, userMoney) {
-        Console.print(result);
         const formattedResult = this.formatResult(result);
 
         Console.print(MESSAGES.OUTPUT.MATCH_RESULT_BELOW);
