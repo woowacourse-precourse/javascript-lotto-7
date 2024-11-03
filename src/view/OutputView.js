@@ -1,22 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import LottoUtils from "../LottoUtils.js";
 
 class OutputView {
-  static printLotto(count) {
+  static printLotto(lotto, count) {
     this.printNewLine();
     MissionUtils.Console.print(`${count}개를 구매했습니다.`);
-
-    const totalLottoArray = LottoUtils.range(count, []);
-    const lottoArray = [];
-
-    totalLottoArray.map(() => {
-      const lotto = LottoUtils.getLottoNumber();
-      const result = LottoUtils.getSortNumber(lotto);
-      lottoArray.push(result);
-      MissionUtils.Console.print(`[${result}]`);
-    });
-
-    return lottoArray;
+    MissionUtils.Console.print(`[${lotto}]`);
   }
 
   static printNewLine() {

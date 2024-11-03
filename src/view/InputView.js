@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Validator from "../Validator.js";
-import LottoUtils from "../LottoUtils.js";
+import Utils from "../Utils.js";
 import OutputView from "./OutputView.js";
 
 class InputView {
@@ -17,13 +17,13 @@ class InputView {
   static async readLineNumber() {
     OutputView.printNewLine();
     const input = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    const trimInput = input.toString().trim().split(',');
-    const parseNumber = LottoUtils.getParsingNumber(trimInput);
+    const trimLotto = input.toString().trim().split(',');
+    const parseLottoNumber = Utils.getParsingNumber(trimLotto);
 
-    Validator.validateNumber(trimInput);
-    Validator.validateParseNumber(parseNumber);
+    // Validator.validateNumber(trimInput);
+    // Validator.validateParseNumber(parseNumber);
 
-    return parseNumber;
+    return { trimLotto, parseLottoNumber };
   }
 
   static async readLineBonusNumber() {
