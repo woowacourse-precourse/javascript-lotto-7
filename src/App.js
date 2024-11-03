@@ -9,7 +9,7 @@ class App {
     const inputView = new InputView();
     const outputView = new OutputView();
 
-    const lottoManager = await inputView.inputPurchaseAmount();
+    const lottoManager = await inputView.inputPurchasePrice();
 
     // 로또 개수 출력
     outputView.printLottoCount(lottoManager.lottoCount);
@@ -24,15 +24,7 @@ class App {
     outputView.printMyLotto(myLottos);
 
     // 로또 당첨 번호 입력
-    const winningNumbersInput = await inputView.inputWinningNumbers();
-
-    // 입력된 당첨 번호 숫자로 파싱
-    const winningNumbers = winningNumbersInput
-      .split(',')
-      .map((lottoNumber) => parseInt(lottoNumber));
-
-    // 당첨 번호 객체 생성 및 검증
-    const winningLotto = new Lotto(winningNumbers);
+    const winningLotto = await inputView.inputWinningNumbers();
 
     // 보너스 번호 입력
     const bonusNumber = await inputView.inputBonusNumber();
