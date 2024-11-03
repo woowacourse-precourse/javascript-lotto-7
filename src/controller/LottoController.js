@@ -65,7 +65,7 @@ class LottoController {
   }
 
   #getLottosRankCount() {
-    return this.#lottoMatcher.getWinningLottos(this.#lottoPocket.showLottos());
+    return this.#lottoMatcher.getWinningLottos(this.#lottoPocket);
   }
 }
 

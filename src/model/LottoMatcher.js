@@ -10,8 +10,8 @@ class LottoMatcher {
     this.#bonusNumber = bonusNumber;
   }
 
-  getWinningLottos(lottoNumberList) {
-    return lottoNumberList.reduce(
+  getWinningLottos(lottoPocket) {
+    return lottoPocket.showLottos().reduce(
       (acc, lottoNumbers) => {
         const { matchCount, isContainBounusNumber } =
           this.#compareLottoToWinningNumber(lottoNumbers);
