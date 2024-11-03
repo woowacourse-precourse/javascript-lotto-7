@@ -5,36 +5,14 @@ export function printLottoList(quantity, lottoList) {
     lottoList.forEach(a => Console.print(`[${a.join(', ')}]`));
 }
 
-export function printWinResult(rankList) {
-    const FORM = [
-        '3개 일치 (5,000원)',
-        '4개 일치 (50,000원)',
-        '5개 일치 (1,500,000원)',
-        '5개 일치, 보너스 볼 일치 (30,000,000원)',
-        '6개 일치 (2,000,000,000원)'
-    ];
-    FORM.forEach((a, idx) => {
-        const rank = 5 - idx;
-        const matchCount = getWinCount(rankList, rank);
-        Console.print(`${a} - ${matchCount}개`);
-    })
+export function printWinResult(lottoGame) {
+    const results = lottoGame.getWinResult();
+    results.forEach(result => {
+        Console.print(result);
+    });
 }
 
-export function printRateResult(rankList, amount) {
-    const result = calTotalWinAmount(rankList);
-    const rate = (result / amount * 100).toFixed(1);
+export function printYieldResult(lottoGame) {
+    const rate = lottoGame.getYield();
     Console.print(`총 수익률은 ${rate}%입니다.`);
-}
-
-function calTotalWinAmount(rankList) {
-    const winAmount = [5000, 50000, 1500000, 30000000, 2000000000];
-    return winAmount.reduce((acc, cur, idx) => {
-        const rank = 5 - idx;
-        const matchCount = getWinCount(rankList, rank);
-        return acc + cur * matchCount;
-    }, 0);
-}
-
-function getWinCount(result, rank) {
-    return result.filter(a => a === rank).length;
 }

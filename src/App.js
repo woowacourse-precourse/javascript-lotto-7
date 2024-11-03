@@ -1,23 +1,23 @@
 import { Console } from "@woowacourse/mission-utils";
 import { inputAmount, inputBonusNumber, inputWinNumbers } from "./Views/inputView.js";
-import { printLottoList, printWinResult, printRateResult } from "./Views/outputView.js";
+import { printLottoList, printWinResult, printYieldResult } from "./Views/outputView.js";
 import LottoGame from './LottoGame.js'
 import { checkAmount, checkWinNumbers, checkBonusNumber } from "./validation.js";
 class App {
   async run() {
     const amount = await this.getAmount();
 
-    const lotto = new LottoGame(amount);
+    const lottoGame = new LottoGame(amount);
 
-    this.printLotto(lotto);
+    this.printLotto(lottoGame);
 
     const winNumbers = await this.getWinNumbers();
     const bonusNumber = await this.getBonusNumber(winNumbers);
 
-    const rankList = lotto.getWholeWinResult(winNumbers, bonusNumber);
+    const rankList = lottoGame.getWholeWinResult(winNumbers, bonusNumber);
     
-    printWinResult(rankList);
-    printRateResult(rankList, amount);
+    printWinResult(lottoGame);
+    printYieldResult(lottoGame);
   }
 
   async getAmount() {
