@@ -82,7 +82,7 @@ class App {
           "보너스 번호는 1부터 45 사이 단 하나의 숫자여야 합니다."
         );
       }
-      if (winningNumbers.includingNumber(number)) {
+      if (winningNumbers.isIncludingNumber(number)) {
         throw new Error("보너스 번호는 기존 번호와 겹칠 수 없습니다.");
       }
       return number;
@@ -104,7 +104,7 @@ class App {
     tickets.forEach((ticket) => {
       const ticketLotto = new Lotto(ticket);
       const matchCount = ticketLotto.matches(winningNumbers.getNumbers());
-      const hasBonus = ticketLotto.includingNumber(bonusNumber);
+      const hasBonus = ticketLotto.isIncludingNumber(bonusNumber);
 
       if (matchCount === 6) result.first++;
       else if (matchCount === 5 && hasBonus) result.second++;

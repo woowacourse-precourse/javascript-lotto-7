@@ -22,7 +22,7 @@ class Lotto {
     return [...this.#numbers];
   }
 
-  includingNumber(bonusNumber) {
+  isIncludingNumber(bonusNumber) {
     return [...this.#numbers].includes(bonusNumber);
   }
 
