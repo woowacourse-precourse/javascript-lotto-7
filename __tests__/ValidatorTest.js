@@ -29,7 +29,7 @@ describe('Validator Test', () => {
 
       // when
       const validate = () => {
-        Validator.isZero(zero);
+        Validator.isNotZero(zero);
       };
 
       // then
@@ -41,7 +41,7 @@ describe('Validator Test', () => {
 
       // when
       const validate = () => {
-        Validator.isZero(notZero);
+        Validator.isNotZero(notZero);
       };
 
       // then
