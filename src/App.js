@@ -22,9 +22,9 @@ class App {
 
       const totalWinningAmount = lottoMachine.checkWinningLotto();
       lottoMachine.printWinningStatistics();
-      
+
       const propit = lottoMachine.calculatePropit(totalWinningAmount);
-      lottoMachine.printPropit(propit);
+
 
     } catch (error) {
 
