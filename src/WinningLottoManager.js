@@ -45,7 +45,7 @@ class WinningLottoManager {
     } catch (error) {
       Console.print(error.message);
 
-      return this.selectBonusNumber();
+      return this.selectBonusNumber(winningNumbers);
     }
   }
 
