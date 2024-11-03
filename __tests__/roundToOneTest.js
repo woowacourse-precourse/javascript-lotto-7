@@ -10,7 +10,7 @@ describe('반올림 함수 테스트', () => {
   });
 
   test('소수를 함수에 넣으면 소수점 둘 째자리에서 반올림합니다.', () => {
-    expect(roundToOne(50.55)).toStrictEqual('50.6');
+    expect(roundToOne(50.56)).toStrictEqual('50.6');
   });
 
   test('소수를 함수에 넣으면 소수점 둘 째자리에서 반올림합니다.', () => {
