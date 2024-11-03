@@ -15,9 +15,14 @@ describe("로또 클래스 테스트", () => {
   });
 
   test("로또 번호에 범위를 넘어선 숫자가 있으면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 47]);
-    }).toThrow("[ERROR]");
+    const inputs = [
+      [45, 5, 3, 2, 4, 0],
+      [46, 5, 3, 2, 4, 1],
+    ];
+
+    inputs.forEach((input) => {
+      expect(() => new Lotto(input)).toThrow("[ERROR]");
+    });
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
