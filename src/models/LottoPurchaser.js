@@ -1,5 +1,6 @@
 import LottoGenerator from './LottoGenerator.js';
 import LottoResult from './LottoResult.js';
+import {LOTTO_CONFIG} from "../constants/lottoConfig.js";
 
 export default class LottoPurchaser {
   #purchasePrice;
@@ -28,7 +29,6 @@ export default class LottoPurchaser {
   }
 
   purchase(purchasePrice) {
-    // TODO : 생성자 코드 수정 고려해보기
     const lottoGenerator = new LottoGenerator();
 
     [this.#lottoCount, this.#lottos] = lottoGenerator.generate(purchasePrice);
@@ -60,8 +60,8 @@ export default class LottoPurchaser {
   calculateEarningRate() {
     const resultPrice = this.#lottoResult.getResultPrice();
 
-    const earningRate = (resultPrice / this.#purchasePrice) * 100;
-    const roundedEarningRate = parseFloat(earningRate.toFixed(1));
+    const earningRate = (resultPrice / this.#purchasePrice) * LOTTO_CONFIG.EARNING_RATE_MULTIPLIER;
+    const roundedEarningRate = parseFloat(earningRate.toFixed(LOTTO_CONFIG.EARNING_RATE_PRECISION));
 
     this.#lottoResult.setEarningRate(roundedEarningRate);
   }
