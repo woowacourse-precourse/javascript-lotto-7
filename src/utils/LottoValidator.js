@@ -35,6 +35,18 @@ export const validateWinningNumbers = (winningNumbers) => {
   if (numbers.length !== 6) {
     Output.displayError(ERROR_MSG.INVALID_WINNING_NUMBERS);
   }
+
+  numbers.forEach((number) => {
+    if (Number.isNaN(number) || number < 1 || number > 45) {
+      Output.displayError(ERROR_MSG.INVALID_NUMBER_RANGE);
+    }
+  });
+
+  // 중복된 번호가 있는지 확인
+  const uniqueNumbers = new Set(numbers);
+  if (uniqueNumbers.size !== numbers.length) {
+    Output.displayError(ERROR_MSG.DUPLICATE_NUMBERS);
+  }
 };
 
 /**
