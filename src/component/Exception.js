@@ -1,26 +1,26 @@
-import NumberValidate from "../validate/NumberValidate.js";
-import LottoValidate from "../validate/LottoValidate.js";
+import ValidateNumber from "../validate/ValidateNumber.js";
+import ValidateLotto from "../validate/ValidateLotto.js";
 
 class Exception {
-  static amountValidate(amount) {
-    NumberValidate.validateNonNumber(amount);
-    NumberValidate.validateSmallNumber(amount);
-    NumberValidate.validateBigNumber(amount);
-    NumberValidate.validateDivideThousand(amount);
+  static amountException(amount) {
+    ValidateNumber.validateNonNumber(amount);
+    ValidateNumber.validateSmallNumber(amount);
+    ValidateNumber.validateBigNumber(amount);
+    ValidateNumber.validateDivideThousand(amount);
   }
 
-  static bonusNumberValidate(bonus_number, winning_lotto) {
-    NumberValidate.validateNonNumber(bonus_number);
-    NumberValidate.validateBonusDup(bonus_number, winning_lotto);
-    NumberValidate.validateBonusRange(bonus_number);
+  static bonusNumberException(bonus_number, winning_lotto) {
+    ValidateNumber.validateNonNumber(bonus_number);
+    ValidateNumber.validateBonusDup(bonus_number, winning_lotto);
+    ValidateNumber.validateBonusRange(bonus_number);
   }
 
-  static lottoValidate(lotto) {
-    LottoValidate.validateIsNumber(lotto);
-    LottoValidate.validateIsNull(lotto);
-    LottoValidate.validateLottoLength(lotto);
-    LottoValidate.validateLottoDup(lotto);
-    LottoValidate.validateLottoRange(lotto);
+  static lottoException(lotto) {
+    ValidateLotto.validateIsNumber(lotto);
+    ValidateLotto.validateIsNull(lotto);
+    ValidateLotto.validateLottoLength(lotto);
+    ValidateLotto.validateLottoDup(lotto);
+    ValidateLotto.validateLottoRange(lotto);
   }
 }
 

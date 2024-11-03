@@ -1,4 +1,4 @@
-import LottoValidate from "../src/validate/LottoValidate.js";
+import ValidateLotto from "../src/validate/ValidateLotto.js";
 
 describe("로또 클래스 테스트", () => {
   test.each([
@@ -7,7 +7,7 @@ describe("로또 클래스 테스트", () => {
     [[null, undefined, "", "\n", " ", "雷"]],
   ])("로또 번호가 숫자가 아닌 경우", async (lotto) => {
     expect(() => {
-      LottoValidate.validateIsNumber(lotto);
+      ValidateLotto.validateIsNumber(lotto);
     }).toThrow("[ERROR]");
   });
 
@@ -15,7 +15,7 @@ describe("로또 클래스 테스트", () => {
     "로또 번호의 갯수가 6개가 아닌 경우",
     async (lotto) => {
       expect(() => {
-        LottoValidate.validateIsNull(lotto);
+        ValidateLotto.validateIsNull(lotto);
       }).toThrow("[ERROR]");
     }
   );
@@ -24,7 +24,7 @@ describe("로또 클래스 테스트", () => {
     "로또 번호의 갯수가 6개가 아닌 경우",
     async (lotto) => {
       expect(() => {
-        LottoValidate.validateLottoLength(lotto);
+        ValidateLotto.validateLottoLength(lotto);
       }).toThrow("[ERROR]");
     }
   );
@@ -33,7 +33,7 @@ describe("로또 클래스 테스트", () => {
     "로또 번호가 중복인 경우",
     async (lotto) => {
       expect(() => {
-        LottoValidate.validateLottoDup(lotto);
+        ValidateLotto.validateLottoDup(lotto);
       }).toThrow("[ERROR]");
     }
   );
@@ -44,7 +44,7 @@ describe("로또 클래스 테스트", () => {
     [["-10", "-444", "812", "2000", "10000", "-7777"]],
   ])("로또 번호가 1~45 사이가 아닌 경우", async (lotto) => {
     expect(() => {
-      LottoValidate.validateLottoRange(lotto);
+      ValidateLotto.validateLottoRange(lotto);
     }).toThrow("[ERROR]");
   });
 });

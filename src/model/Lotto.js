@@ -9,7 +9,7 @@ class Lotto {
   }
 
   #validate(numbers) {
-    Exception.lottoValidate(numbers);
+    Exception.lottoException(numbers);
   }
 
   getNumber() {

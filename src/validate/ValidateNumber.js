@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from "../constant/Error.js";
 import { LOTTO_DATA } from "../constant/Data.js";
 
-class NumberValidate {
+class ValidateNumber {
   static validateNonNumber(input) {
     const NUM_REGEX = /^[0-9\s]*$/;
     if (!NUM_REGEX.test(input) || input === "") throw new Error(ERROR_MESSAGE.NUMBER.ERROR_NON_NUMBER);
@@ -31,4 +31,4 @@ class NumberValidate {
   }
 }
 
-export default NumberValidate;
+export default ValidateNumber;

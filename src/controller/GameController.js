@@ -32,7 +32,7 @@ class GameController {
     while (true) {
       try {
         const amount = await this.#gameInput.readAmount();
-        Exception.amountValidate(amount);
+        Exception.amountException(amount);
         return amount;
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
@@ -69,7 +69,7 @@ class GameController {
     while (true) {
       try {
         const bonus_number = await this.#gameInput.readBonusNumber();
-        Exception.bonusNumberValidate(bonus_number, winning_lotto);
+        Exception.bonusNumberException(bonus_number, winning_lotto);
         return bonus_number;
       } catch (error) {
         this.#gameOutput.printErrorMesssage(error);
