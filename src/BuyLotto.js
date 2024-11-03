@@ -83,4 +83,11 @@ export default class BuyLotto {
   getPurchasedLotto() {
     return this.#purchasedLotto;
   }
+  getWinningLotto() {
+    return this.#winningLotto;
+  }
+
+  getBonusNumber() {
+    return this.#bonusNumber;
+  }
 }
