@@ -98,6 +98,16 @@ async function inputBonusNumber(prizeNumbers) {
   }
 }
 
+function initializePrizeResults() {
+  return new Map([
+    [3, 0],
+    [4, 0],
+    [5, 0],
+    ["5+bonus", 0],
+    [6, 0],
+  ]);
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
