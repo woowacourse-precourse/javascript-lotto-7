@@ -10,6 +10,12 @@ class Handler {
     Console.print(output);
   }
 
+  static listPrintHandler(list) {
+    list.forEach((number) => {
+      this.print(`[${number.join(', ')}]`);
+    });
+  }
+
   static async validateHandler(message, validator) {
     while (true) {
       try {

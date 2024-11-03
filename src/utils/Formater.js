@@ -11,7 +11,7 @@ class Formatter {
   }
 
   static formatProfile(profit) {
-    return `총 수익률은 ${profit}% 입니다`;
+    return `총 수익률은 ${profit}%입니다.`;
   }
 
   static setOutputMoney(rank) {
