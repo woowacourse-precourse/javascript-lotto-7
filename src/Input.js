@@ -12,7 +12,7 @@ class Input {
 			try {
 				const MONEY = await userInput(PROMPT.LOTTO_BUY);
 				await this.validateLottoMoney(MONEY);
-				return MONEY;
+				return parseInt(MONEY, 10);
 			} catch (error) {
 				printOutput(error.message);
 			}
