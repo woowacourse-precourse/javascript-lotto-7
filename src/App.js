@@ -15,7 +15,6 @@ class App {
     const inputWinningLotto = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
     const winningLotto = new Lotto(this.createWinningLotto(inputWinningLotto));
     this.notSixRangeLottoException(winningLotto.getLotto());
-    this.lottoNumberDuplicationCheckException(winningLotto.getLotto());
 
     for (let lottoNumber of winningLotto.getLotto()) {
       this.lottoNumberOutOfRangeException(lottoNumber);
