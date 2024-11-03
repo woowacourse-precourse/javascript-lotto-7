@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import ERROR from '../../src/constants/error.js';
+import Input from '../../src/Input.js';
 
 const mockQuestions = (input) => {
   Console.readLineAsync = jest.fn();
@@ -10,25 +11,33 @@ const mockQuestions = (input) => {
 };
 
 describe('로또 구입 금액 입력값 테스트', () => {
+  const input = new Input();
   const PASS_CASES = ['1000', '2000', '5000'];
-  test.each(PASS_CASES)('옳바른 로또 구매 금액 입력', (purchase) => {
+  test.each(PASS_CASES)('옳바른 로또 구매 금액 입력', async (purchase) => {
     mockQuestions(purchase);
-    expect().toBe(Number(purchase));
+    const result = await input.requestPurchaseAmount();
+    expect(result).toBe(Number(purchase));
   });
 
   test('1000원 단위가 아닌 입력값인 경우 예외가 발생한다.', async () => {
     mockQuestions('1200');
-    expect().toThrow(ERROR.IS_NOT_DEVIDED);
+    await expect(input.requestPurchaseAmount()).rejects.toThrow(
+      ERROR.IS_NOT_DEVIDED
+    );
   });
 
   test('1000원 이하의 금액인 경우 예외가 발생한다.', async () => {
     mockQuestions('-1000');
-    expect().toThrow(ERROR.SMALL_THAN_THOUSAND);
+    await expect(input.requestPurchaseAmount()).rejects.toThrow(
+      ERROR.SMALL_THAN_THOUSAND
+    );
   });
 
   test('숫자가 아닌경우 예외가 발생한다.', async () => {
     mockQuestions('a');
-    expect().toThrow(ERROR.INVALID_VALUE);
+    await expect(input.requestPurchaseAmount()).rejects.toThrow(
+      ERROR.IS_NOT_INT
+    );
   });
 });
 
