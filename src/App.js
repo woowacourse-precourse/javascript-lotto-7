@@ -1,7 +1,7 @@
-import UserInput from "../../javascript-lotto-7/src/UserInput.js";
-import LottoGenerator from '../../javascript-lotto-7/src/LottoGenerator.js';
-import LottoStatistics from '../../javascript-lotto-7/src/LottoStatistics.js'; 
-import Lotto from '../../javascript-lotto-7/src/Lotto.js';
+import UserInput from "./UserInput.js";
+import LottoGenerator from './LottoGenerator.js';
+import LottoStatistics from './LottoStatistics.js'; 
+import Lotto from './Lotto.js';
 import { Console } from '@woowacourse/mission-utils';
 
 class App {
