@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import getRandomNumbers from "../utils/random";
 
 const OutputView = {
@@ -7,7 +7,7 @@ const OutputView = {
   },
 
   printNumberOfPurchases(amount) {
-    const count = this.formatCount(amount)
+    const count = this.formatCount(amount);
     Console.print(`\n${count}개를 구매했습니다.`);
   },
 
