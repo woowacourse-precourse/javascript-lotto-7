@@ -1,9 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PROMPT_MESSAGE } from './constant';
+import { LOTTO, PROMPT_MESSAGE } from './constant';
 import Validator from './Validator';
 
 class User {
-  #purchaseCount;
+  #purchaseAmount;
   #validator;
 
   constructor() {
@@ -13,15 +13,19 @@ class User {
   async readPurchaseAmount() {
     while (true) {
       try {
-        const purchaseAmount = await Console.readLineAsync(
-          PROMPT_MESSAGE.PURCHASE_AMOUNT,
+        this.#purchaseAmount = Number(
+          await Console.readLineAsync(PROMPT_MESSAGE.PURCHASE_AMOUNT),
         );
-        this.#validator.purchaseAmount(Number(purchaseAmount));
+        this.#validator.purchaseAmount(this.#purchaseAmount);
         return;
       } catch (error) {
         Console.print(error.message);
       }
     }
+  }
+
+  get purchaseCount() {
+    return this.#purchaseAmount / LOTTO.PRICE;
   }
 }
 
