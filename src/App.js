@@ -15,6 +15,11 @@ function isValidPaymentUnit(input) {
   }
 }
 
+function validatePayment(input) {
+  isNumber(input);
+  isValidPaymentUnit(input);
+}
+
 function isPaymentValid(input) {
   if (isNaN(input)) {
     Console.print("[ERROR] 금액은 숫자여야 합니다.");
