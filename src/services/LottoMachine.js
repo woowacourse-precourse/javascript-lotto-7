@@ -1,4 +1,5 @@
 import {MissionUtils} from "@woowacourse/mission-utils";
+import {sortAsc} from "../utils/methods.js";
 
 class LottoMachine {
     #number
@@ -8,24 +9,25 @@ class LottoMachine {
         this.number = number
     }
 
+    lottoRelease(purchaseNum) {
+        const lottos = []
+        for (let i = 0; i < purchaseNum; i++) {
+            const sortedLotto = sortAsc(this.getSixRandomValues())
+            lottos.push(sortedLotto)
+        }
+        return lottos
+    }
+
+    getSixRandomValues() {
+        return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
+    }
+
     #validate(purchase) { //함수로 나중에 분리
         if (isNaN(purchase)) {
             throw new Error("[Error]")
         }
     }
-    purchaseNumbers(lottoQuantity) { //인자로 몇번인지를 넣자
-        let arr = []
-        for (let i = 0; i < lottoQuantity; i++) {
-            const sixRandomValues = this.getSixRandomValues()
-            arr.push(sixRandomValues)
-        }
-        console.log(arr)
-        return arr
-    }
 
-    getSixRandomValues() {
-        return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    }
 }
 
 export default LottoMachine
