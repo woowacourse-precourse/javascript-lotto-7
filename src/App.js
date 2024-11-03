@@ -1,12 +1,12 @@
 import InputHandler from "./InputHandler.js";
 import Lotto from "./Lotto.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
     async run() {
         const inputHandler = new InputHandler();
         const lottoCount = await inputHandler.getLottoTryCount();
-        console.log(`${lottoCount}개를 구매했습니다.`);
-
+        Console.print(`${lottoCount}개를 구매했습니다.`);
         const jackpotNumbers = await inputHandler.getJackpotNumbers();
         const bonusNumber = await inputHandler.getBonusNumber();
 

@@ -3,11 +3,17 @@ import { Console } from "@woowacourse/mission-utils";
 class InputHandler {
     //  1. 로또 구입 금액 입력받기
     async getLottoTryCount() {
-        const money = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
-        this.validateMoney(money);
+        while (true) {
+            try {
+                const money = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+                this.validateMoney(money);
 
-        const lottoCount = Math.floor(money / 1000);
-        return lottoCount;
+                const lottoCount = Math.floor(money / 1000);
+                return lottoCount;
+            } catch (error) {
+                Console.print(error.message);
+            }
+        }
     }
 
     validateMoney(money) {
@@ -20,11 +26,17 @@ class InputHandler {
 
     //  2. 당첨 번호 입력 받기
     async getJackpotNumbers() {
-        const input = await Console.readLineAsync("당첨 번호를 쉼표(,)를 기준으로 구분하여 입력해 주세요.\n");
-        const inputjackpot = this.parseNumbers(input);
-        const inputjackpotNumbers = this.validateDuplicateNumbers(inputjackpot);
-        const jackpotNumbers = this.validateNumberRange(inputjackpotNumbers);
-        return jackpotNumbers;
+        while (true) {
+            try {
+                const input = await Console.readLineAsync("당첨 번호를 쉼표(,)를 기준으로 구분하여 입력해 주세요.\n");
+                const inputjackpot = this.parseNumbers(input);
+                const inputjackpotNumbers = this.validateDuplicateNumbers(inputjackpot);
+                const jackpotNumbers = this.validateNumberRange(inputjackpotNumbers);
+                return jackpotNumbers;
+            } catch (error) {
+                Console.print(error.message);
+            }
+        }
     }
 
     parseNumbers(inputNumbers) {
@@ -54,10 +66,16 @@ class InputHandler {
 
     //  3. 보너스 번호 입력받기
     async getBonusNumber() {
-        const inputNumber = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
-        this.validateNumber(inputNumber);
-        this.validateSingleNumberRange(inputNumber);
-        return inputNumber;
+        while (true) {
+            try {
+                const inputNumber = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+                this.validateNumber(inputNumber);
+                this.validateSingleNumberRange(inputNumber);
+                return inputNumber;
+            } catch (error) {
+                Console.print(error.message);
+            }
+        }
     }
 
     validateNumber(inputNumber) {

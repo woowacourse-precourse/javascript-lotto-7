@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 
 class Lotto {
     #numbers;
@@ -11,6 +11,14 @@ class Lotto {
     #validate(numbers) {
         if (numbers.length !== 6) {
             throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+        }
+
+        if (new Set(numbers).size !== numbers.length) {
+            throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+        }
+        const uniqueNumbers = new Set(numbers);
+        if (uniqueNumbers.size !== 6) {
+            throw new Error("[ERROR] 로또 번호는 서로 다른 6개의 값이어야 합니다.");
         }
     }
 
@@ -29,7 +37,7 @@ class Lotto {
 
     static printLottoNumbers(lottoNumbers) {
         lottoNumbers.forEach(numbers => {
-            console.log(numbers);
+            Console.print(`[${numbers.join(", ")}]`);
         });
     }
 
@@ -86,14 +94,14 @@ class Lotto {
             }
         });
 
-        console.log("당첨 통계");
-        console.log("---");
-        console.log(`3개 일치 (5,000원) - ${statistics[3]}개`);
-        console.log(`4개 일치 (50,000원) - ${statistics[4]}개`);
-        console.log(`5개 일치 (1,500,000원) - ${statistics[5]}개`);
-        console.log(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${statistics[5.1]}개`);
-        console.log(`6개 일치 (2,000,000,000원) - ${statistics[6]}개`);
-        console.log(`총 수익률은 ${revenuePercent}%입니다.`);
+        Console.print("당첨 통계");
+        Console.print("---");
+        Console.print(`3개 일치 (5,000원) - ${statistics[3]}개`);
+        Console.print(`4개 일치 (50,000원) - ${statistics[4]}개`);
+        Console.print(`5개 일치 (1,500,000원) - ${statistics[5]}개`);
+        Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${statistics[5.1]}개`);
+        Console.print(`6개 일치 (2,000,000,000원) - ${statistics[6]}개`);
+        Console.print(`총 수익률은 ${revenuePercent}%입니다.`);
     }
 }
 
