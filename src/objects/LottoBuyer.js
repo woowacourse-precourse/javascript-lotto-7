@@ -1,12 +1,12 @@
 import { InputManager, OutputManager } from '../helpers';
-import { calculateRateOfReturn } from '../lib/utils.js';
+import { calculateRate } from '../lib/utils.js';
 import { LottoShop } from '.';
 
 class LottoBuyer {
   #purchasePrice;
   #lottos;
 
-  #LottoResult;
+  #lottoResult;
 
   async purchaseLottos() {
     this.#purchasePrice = await InputManager.getPurchasePrice();
@@ -16,16 +16,16 @@ class LottoBuyer {
   }
 
   checkWinningLotto(lottoCompany) {
-    this.#LottoResult = lottoCompany.checkWinningLotto(this.#lottos);
+    this.#lottoResult = lottoCompany.getLottoResult(this.#lottos);
 
-    OutputManager.printLottoResult(this.#LottoResult);
+    OutputManager.printLottoResult(this.#lottoResult);
   }
 
   calculateReturn() {
-    const lottoPrizeMoney = this.#LottoResult.getTotalPrizeMoney();
+    const lottoPrizeMoney = this.#lottoResult.getTotalPrizeMoney();
 
     const rateOfReturn = parseFloat(
-      calculateRateOfReturn(lottoPrizeMoney, this.#purchasePrice).toFixed(2),
+      calculateRate(lottoPrizeMoney, this.#purchasePrice).toFixed(2),
     );
 
     OutputManager.printRateOfReturn(rateOfReturn);

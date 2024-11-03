@@ -34,5 +34,4 @@ export const retryWhileCatchedError = async (callbackFunction) => {
   }
 };
 
-export const calculateRateOfReturn = (prizeMoney, usedPrice) =>
-  (prizeMoney / usedPrice) * 100;
+export const calculateRate = (part, total) => (part / total) * 100;

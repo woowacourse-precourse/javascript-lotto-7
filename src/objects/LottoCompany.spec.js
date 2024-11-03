@@ -5,7 +5,7 @@ import { LottoCompany, LottoShop } from '.';
 describe('LottoCompany', () => {
   const lottoCompany = new LottoCompany();
 
-  describe('checkWinningLotto', () => {
+  describe('getLottoResult', () => {
     test('로또가 담긴 배열을 넘겨주면, 로또 당첨 결과를 반환한다.', async () => {
       mockQuestions([
         MOCK_DATA_1.INPUT.WINNING_NUMBERS,
@@ -16,7 +16,7 @@ describe('LottoCompany', () => {
       await lottoCompany.draw();
       const lottos = LottoShop.orderLottos(MOCK_DATA_1.INPUT.PURCHASE_PRICE);
 
-      const lottoResult = lottoCompany.checkWinningLotto(lottos);
+      const lottoResult = lottoCompany.getLottoResult(lottos);
 
       Object.entries(MOCK_DATA_1.RESULT.RANKS).forEach(([rank, count]) => {
         expect(lottoResult.getWinningCount(+rank)).toBe(count);

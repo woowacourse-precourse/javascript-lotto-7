@@ -19,7 +19,7 @@ class Lotto {
     return this.#numbers;
   }
 
-  checkWinning(winningNumbers, bonusNumber) {
+  getRank(winningNumbers, bonusNumber) {
     const winningCount = this.#getWinningNumberCount(winningNumbers);
     const isBonusMatch = this.#getIsBonusMatch(bonusNumber);
 

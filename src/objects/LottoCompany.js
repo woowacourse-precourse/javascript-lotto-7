@@ -10,9 +10,9 @@ class LottoCompany {
     this.#bonusNumber = await InputManager.getBonusNumber(this.#winningNumbers);
   }
 
-  checkWinningLotto(lottos) {
+  getLottoResult(lottos) {
     return lottos.reduce((lottoResult, lotto) => {
-      const rank = lotto.checkWinning(this.#winningNumbers, this.#bonusNumber);
+      const rank = lotto.getRank(this.#winningNumbers, this.#bonusNumber);
       lottoResult.addWinning(rank);
 
       return lottoResult;

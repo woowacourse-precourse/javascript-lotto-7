@@ -11,11 +11,9 @@ class LottoShop {
   }
 
   static #generateLottos(lottoCount) {
-    const lottos = new Array(lottoCount).fill().map(() => {
-      const lottoNumbers = this.#generateLottoNumbers();
-      const lotto = new Lotto(lottoNumbers);
-      return lotto;
-    });
+    const lottos = new Array(lottoCount)
+      .fill()
+      .map(() => new Lotto(this.#generateLottoNumbers()));
 
     return lottos;
   }
