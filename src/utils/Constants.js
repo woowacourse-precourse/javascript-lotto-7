@@ -23,12 +23,11 @@ export const ANALYZER = {
 };
 
 export const PRIZE_CALCULATOR = {
-  amount: {
-    3: 5000,
-    4: 50000,
-    5: 1500000,
-    [GLOBAL_CONSTANTS.bonusTag]: 30000000,
-    6: 2000000000,
+  prize: {
+    3: { default: 5000 },
+    4: { default: 50000 },
+    5: { default: 1500000, [GLOBAL_CONSTANTS.bonusTag]: 30000000 },
+    6: { default: 2000000000 },
   },
   defaultPrize: 0,
   profitRatio: 100,
