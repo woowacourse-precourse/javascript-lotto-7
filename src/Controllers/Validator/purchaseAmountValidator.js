@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../../Constants/errorMessages.js';
+import { ERROR_MESSAGES } from '../../Constants/errorMessages.js';
 
 class PurchaseAmountValidator {
   constructor() {
@@ -20,12 +20,12 @@ class PurchaseAmountValidator {
   validatePurchaseAmount(purchaseAmount) {
     if (!this.isValidEmptyInput(purchaseAmount)) {
       this.valid = false;
-      throw new Error(ERROR_MESSAGE.EMPTY_INPUT);
+      throw new Error(ERROR_MESSAGES.purchaseAmount.EMPTY_INPUT);
     }
 
     if (!this.isValidPurchaseAmountUnit(purchaseAmount)) {
       this.valid = false;
-      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRICE);
+      throw new Error(ERROR_MESSAGES.purchaseAmount.UNIT_PRICE);
     }
 
     return true;

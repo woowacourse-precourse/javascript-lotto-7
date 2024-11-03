@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../../Constants/errorMessages.js';
+import { ERROR_MESSAGES } from '../../Constants/errorMessages.js';
 
 class BonusNumberValidator {
   constructor(bonusNumber) {
@@ -19,15 +19,15 @@ class BonusNumberValidator {
 
   validateBonusNumber(bonusNumber) {
     if (!this.isValidEmptyInput(bonusNumber)) {
-      throw new Error(ERROR_MESSAGE.EMPTY_INPUT_BONUS_NUMBER);
+      throw new Error(ERROR_MESSAGES.bonusNumber.EMPTY_INPUT);
     }
 
     if (!this.isValidNumberBonusNumber(bonusNumber)) {
-      throw new Error(ERROR_MESSAGE.NUMBER_TYPE);
+      throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_TYPE);
     }
 
     if (!this.isValidateBonusNumberRange(bonusNumber)) {
-      throw new Error(ERROR_MESSAGE.NUMBER_RANGE);
+      throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_RANGE);
     }
 
     return true;

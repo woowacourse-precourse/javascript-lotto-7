@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../../Constants/errorMessages.js';
+import { ERROR_MESSAGES } from '../../Constants/errorMessages.js';
 
 class WinningNumbersValidator {
   constructor() {
@@ -17,7 +17,7 @@ class WinningNumbersValidator {
   isValidNumbersRange(winningNumber) {
     const arr = winningNumber.split(',').map((x) => x.trim());
     const result = arr.every((range) => range > 0 && range < 46);
-    
+
     return result;
   }
 
@@ -38,27 +38,27 @@ class WinningNumbersValidator {
     return onlyNumber.length === uniqueWinningNumbers.size;
   }
 
-  validateWinningNumbers(winningNumbers) {
-    if (!this.isValidEmptyInput(winningNumbers)) {
-      throw new Error(ERROR_MESSAGE.EMPTY_INPUT_WINNING_NUMBERS);
+  validateWinningNumbers(winningNumber) {
+    if (!this.isValidEmptyInput(winningNumber)) {
+      throw new Error(ERROR_MESSAGES.winningNumbers.EMPTY_INPUT);
     }
 
-    if (!this.isValidSixDigits(winningNumbers)) {
-      throw new Error(ERROR_MESSAGE.NUMBERS_LENGTH);
+    if (!this.isValidSixDigits(winningNumber)) {
+      throw new Error(ERROR_MESSAGES.winningNumbers.NUMBER_LENGTH);
     }
 
-    if (!this.isValidNumbersRange(winningNumbers)) {
-      throw new Error(ERROR_MESSAGE.NUMBERS_RANGE);
+    if (!this.isValidNumbersRange(winningNumber)) {
+      throw new Error(ERROR_MESSAGES.winningNumbers.NUMBER_RANGE);
     }
 
-    if (!this.isValidFiveComma(winningNumbers)) {
-      throw new Error(ERROR_MESSAGE.COMMA_COUNT);
+    if (!this.isValidFiveComma(winningNumber)) {
+      throw new Error(ERROR_MESSAGES.winningNumbers.COMMA_COUNT);
     }
 
-    if (!this.isValidNumberDuplicated(winningNumbers)) {
-      throw new Error(ERROR_MESSAGE.UNIQUE_NUMBER);
+    if (!this.isValidNumberDuplicated(winningNumber)) {
+      throw new Error(ERROR_MESSAGES.winningNumbers.UNIQUE_NUMBER);
     }
-    
+
     return true;
   }
 }
