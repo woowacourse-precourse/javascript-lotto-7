@@ -1,7 +1,7 @@
-import BonusNumberInputParse from './inputParser/BonusNumberInputParse.js';
 import LottoManager from './LottoManager.js';
 import PriceInputParser from './inputParser/PriceInputParser.js';
 import WinningNumbersInputParser from './inputParser/WinningNumbersInputParser.js';
+import BonusNumberInputParser from './inputParser/BonusNumberInputParse.js';
 // import Lotto from './Lotto.js';
 
 class App {
@@ -9,7 +9,7 @@ class App {
 
   #winningNumbersInputParser = new WinningNumbersInputParser();
 
-  #bonusNumberInputParser = new BonusNumberInputParse();
+  #bonusNumberInputParser = new BonusNumberInputParser();
 
   async run() {
     const price = await this.#priceInputParser.readLoop();

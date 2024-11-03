@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputParser from './InputParser.js';
 
-class BonusNumberInputParse extends InputParser {
+class BonusNumberInputParser extends InputParser {
   async readLoop() {
     try {
       const bonusNumberString = await this.#read();
@@ -32,4 +32,4 @@ class BonusNumberInputParse extends InputParser {
   }
 }
 
-export default BonusNumberInputParse;
+export default BonusNumberInputParser;
