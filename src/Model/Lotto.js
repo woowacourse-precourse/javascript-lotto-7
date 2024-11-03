@@ -5,6 +5,8 @@ class Lotto {
     INVALID_NUMBER_RANGE: '[ERROR] 로또 번호는 1부터 45 사이여야 합니다.',
   });
 
+  static PRICE = 1_000;
+
   #numbers;
 
   constructor(numbers) {
