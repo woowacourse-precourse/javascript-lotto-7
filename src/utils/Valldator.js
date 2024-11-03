@@ -18,6 +18,10 @@ class Validator {
   static isInteger(value) {
     if (value % 1 != 0) throw new Error(`${ERROR_PREFIX} 정수를 입력해주세요.`);
   }
+
+  static isNotEmptyString(value) {
+    if (value === '') throw new Error(`${ERROR_PREFIX} 어떤 값도 입력되지 않았습니다.`);
+  }
 }
 
 export default Validator;
