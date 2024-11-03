@@ -1,0 +1,3 @@
+const LOTTO_UNIT_PRICE = 1000;
+
+export { LOTTO_UNIT_PRICE };

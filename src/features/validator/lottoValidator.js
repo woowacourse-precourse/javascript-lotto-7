@@ -6,4 +6,9 @@ const isNumber = (value) => {
   return true;
 };
 
-export { isNumber };
+const isValidUnit = (unit, value) => {
+  if (value % unit !== 0) errorHandler(ERROR_MESSAGE.lotto.invalidUnit);
+  return true;
+};
+
+export { isNumber, isValidUnit };

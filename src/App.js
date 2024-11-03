@@ -5,12 +5,7 @@ import { HELPER_MESSAGE } from "./constants/helperMessages.js";
 
 class App {
   async run() {
-    try {
-      const price = await InputHandler.getPrice();
-      Validator.isValidPrice(price);
-    } catch (error) {
-      Console.print(error.message);
-    }
+    const price = await InputHandler.getPrice();
   }
 }
 
