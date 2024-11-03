@@ -28,7 +28,7 @@ class App {
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
     for (let lotto of lottoList) {
       lotto.sort((a, b) => a - b);
-      Console.print(lotto);
+      Console.print(`[${lotto.join(', ')}]`);
     }
 
     let winningNumbers =
