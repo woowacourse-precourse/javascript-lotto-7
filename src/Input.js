@@ -7,7 +7,7 @@ class Input {
       Input.validateMoney(money);
       return parseInt(money, 10);
     } catch (error) {
-      console.log(error.message);
+      Console.print(error.message);
       return Input.getMoney();
     }
   }
@@ -25,7 +25,7 @@ class Input {
       Input.validateJackpotNumber(jackpotNumber);
       return jackpotNumber.split(",").map(num => parseInt(num.trim()), 10);
     } catch (error) {
-      console.log(error.message);
+      Console.print(error.message);
       return Input.getJackpotNumber();
     }
   }
@@ -49,7 +49,7 @@ class Input {
       Input.validateBonusNumber(jackpotNumber, bonusNumber);
       return parseInt(bonusNumber, 10);
     } catch (error) {
-      console.log(error.message);
+      Console.print(error.message);
       return Input.getBonusNumber();
     }
   }
