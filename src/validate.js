@@ -12,9 +12,7 @@ class Validate {
     const isNotDivisionByThousand = purchaseAmount % 1000 !== 0;
 
     if (isNotDivisionByThousand) {
-      throw new Error(
-        ERROR_MESSAGE.PURCHASE_AMOUNT_INPUT.NOT_DIVISION_BY_THOUSAND
-      );
+      throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_INPUT.NOT_DIVISION_BY_THOUSAND);
     }
   }
 
@@ -25,17 +23,13 @@ class Validate {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_SIX_NUMBERS);
     }
 
-    const hasNaN = lottoArray.some(
-      (lottoNumber) => !Number.isInteger(lottoNumber)
-    );
+    const hasNaN = lottoArray.some((lottoNumber) => !Number.isInteger(lottoNumber));
 
     if (hasNaN) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_A_NUMBER);
     }
 
-    const hasOutOfRange = lottoArray.some((lottoNumber) =>
-      Validate.checkOutOfRange(lottoNumber)
-    );
+    const hasOutOfRange = lottoArray.some((lottoNumber) => Validate.checkOutOfRange(lottoNumber));
 
     if (hasOutOfRange) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.OUT_OF_RANGE_1_to_45);
@@ -63,9 +57,7 @@ class Validate {
   }
 
   static checkOutOfRange(number) {
-    return (
-      number < LOTTO_NUMBERS.MIN_RANGE_1 || number > LOTTO_NUMBERS.MAX_RANGE_45
-    );
+    return number < LOTTO_NUMBERS.MIN_RANGE_1 || number > LOTTO_NUMBERS.MAX_RANGE_45;
   }
 }
 

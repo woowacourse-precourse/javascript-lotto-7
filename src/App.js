@@ -9,7 +9,6 @@ class App {
   async run() {
     try {
       const { purchaseAmount } = await Input.getPurchaseAmount();
-      Validate.checkPurchaseAmount(purchaseAmount);
 
       const lottoCount = purchaseAmount / 1000;
 
@@ -19,7 +18,7 @@ class App {
         const randomLottoNumber = Random.pickUniqueNumbersInRange(
           LOTTO_NUMBERS.MIN_RANGE_1,
           LOTTO_NUMBERS.MAX_RANGE_45,
-          LOTTO_NUMBERS.COUNT_6
+          LOTTO_NUMBERS.COUNT_6,
         ).sort((a, b) => a - b);
 
         Output.printPurchasedLottoNumber(randomLottoNumber);
@@ -27,23 +26,20 @@ class App {
         return randomLottoNumber;
       });
 
-      const { lottoWinningNumber } = await Input.getLottoWinningNumber();
-      Validate.checkLottoNumbers([...lottoWinningNumber]);
+      const { lottoWinningNumbers } = await Input.getLottoWinningNumbers();
 
-      const { bonusNumber } = await Input.getBonusNumber();
-      Validate.checkBonusNumber(bonusNumber, lottoWinningNumber);
+      const { bonusNumber } = await Input.getBonusNumber(lottoWinningNumbers);
 
-      const lotto = new Lotto(lottoWinningNumber);
+      const lotto = new Lotto(lottoWinningNumbers);
 
-      const lottoResult = lotto.checkLottoNumbers(purchasedLotto);
+      const lottoResult = lotto.checkLottoNumbers(purchasedLotto, bonusNumber);
 
       const profitRate = lotto.getProfitRate(lottoResult, purchaseAmount);
 
       Output.printLottoResult(lottoResult);
       Output.printProfitRate(profitRate);
-
     } catch (error) {
-      Output.printErrorMessage(error)
+      Output.printErrorMessage(error);
     }
   }
 }
