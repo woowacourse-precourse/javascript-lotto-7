@@ -6,6 +6,8 @@ import Validation from './Validation.js';
 class WinningLottoManager {
   #winningNumbers;
 
+  #bonusNumber;
+
   async setWinningNumbers() {
     try {
       const numbers = await WinningLottoManager.#getWinningNumbersInput();
@@ -40,6 +42,39 @@ class WinningLottoManager {
 
   getWinningNumbers() {
     return this.#winningNumbers;
+  }
+
+  async setBonusNumber() {
+    try {
+      const bonusNumber = await WinningLottoManager.#getBonusNumberInput();
+      this.#validateBonusNumber(bonusNumber);
+
+      this.#bonusNumber = bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+
+      await this.setBonusNumber();
+    }
+  }
+
+  static async #getBonusNumberInput() {
+    const bonusNumber = await inputView.askBonusNumber();
+    const parsedNumber = this.#parsingBonusNumber(bonusNumber);
+    return parsedNumber;
+  }
+
+  static #parsingBonusNumber(number) {
+    const parsedBonusNumber = Utils.parsingToNumber(number);
+    return parsedBonusNumber;
+  }
+
+  #validateBonusNumber(bonusNumber) {
+    const winningNumbers = [...this.#winningNumbers];
+    Validation.checkBonusNumber(bonusNumber, winningNumbers);
+  }
+
+  getBonusNumber() {
+    return this.#bonusNumber;
   }
 }
 

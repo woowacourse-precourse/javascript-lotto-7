@@ -10,7 +10,7 @@ class App {
   async run() {
     const lottoMachine = await this.getLottoMachine();
     const winningNumbers = await this.selectWinningNumbers();
-    const bonusNumber = await this.getBonusNumber(winningNumbers);
+    const bonusNumber = await this.selectBonusNumber();
     const winningLottoNumbers = App.makeWinningLottoNumbers(
       winningNumbers,
       bonusNumber,
@@ -42,37 +42,11 @@ class App {
     return winningLottoManager.getWinningNumbers();
   }
 
-  async getBonusNumber(winningNumbers) {
-    try {
-      const bonusNumber = await App.getBonusNumberInput();
-      const validBonusNumber = App.validateBonusNumber(
-        bonusNumber,
-        winningNumbers,
-      );
+  static async selectBonusNumber() {
+    const winningLottoManager = new WinningLottoManager();
+    await winningLottoManager.setBonusNumber();
 
-      return validBonusNumber;
-    } catch (error) {
-      Console.print(error.message);
-
-      return this.getBonusNumber();
-    }
-  }
-
-  static async getBonusNumberInput() {
-    const bonusNumber = await inputView.askBonusNumber();
-    const parsedNumber = this.parsingBonusNumber(bonusNumber);
-    return parsedNumber;
-  }
-
-  static parsingBonusNumber(number) {
-    const parsedBonusNumber = Utils.parsingToNumber(number);
-    return parsedBonusNumber;
-  }
-
-  static validateBonusNumber(bonusNumber, winningNumbers) {
-    Validation.checkBonusNumber(bonusNumber, winningNumbers);
-
-    return bonusNumber;
+    return winningLottoManager.getBonusNumber();
   }
 
   static makeWinningLottoNumbers(winningNumbers, bonusNumber) {
