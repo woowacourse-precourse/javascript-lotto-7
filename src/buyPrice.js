@@ -6,7 +6,7 @@ function inputPrice(){
     const PRICE = Console.readLineAsync();
 }
 
-function isNumber(PRICE){
+function isPositiveNumber(PRICE){
     if(/^[0-9]+$/.test(PRICE)){
         return true;
     }
@@ -21,4 +21,4 @@ function isDivided1000(PRICE){
     throw new Error("[ERROR] 1000으로 나누어 떨어지지 않습니다.");
 }
 
-export {inputPrice, isNumber, isDivided1000};
+export {inputPrice, isPositiveNumber, isDivided1000};
