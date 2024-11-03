@@ -19,4 +19,12 @@ export class InputView {
     });
     return inputPrizeNumber;
   }
+
+  async inputBonusNumber() {
+    const inputBonusString = await MissionUtils.Console.readLineAsync(
+      INPUT_MESSAGES.BONUS_NUMBER
+    );
+    const inputBonusNumber = Number(inputBonusString.trim());
+    return inputBonusNumber;
+  }
 }
