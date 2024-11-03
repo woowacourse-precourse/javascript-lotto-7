@@ -30,16 +30,6 @@ class Lotto {
     return win;
   }
 
-  isWin(winNumbers){
-    let winNumCount = 0;
-    this.#numbers.map((num)=>{
-      if(this.isNumberWin(num, winNumbers)){
-        winNumCount++;
-      }
-    });
-    return winNumCount;
-  }
-
   isLottoWin(targetLotto, winLotto){
     let winNumCount = 0;
     targetLotto.getNumber().map((targetNum)=>{
@@ -47,7 +37,18 @@ class Lotto {
         winNumCount++;
       }
     });
+
     return winNumCount;
+  }
+
+  isBonus(bonusNumber){
+    let winBonus = false;
+    this.#numbers.map((num)=>{
+      if(num === Number.parseInt(bonusNumber)){
+        winBonus = true;
+      }
+    });
+    return winBonus;
   }
 
   getNumber(){

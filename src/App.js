@@ -33,11 +33,6 @@ class App {
 
     const winLotto = new Lotto(winNumber);
 
-    lottoNumber.map((lotto)=>{
-      Console.print(lotto.isLottoWin(lotto, winLotto));
-    })
-    Console.print("");
-
     const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요 : ");
 
     Console.print("당첨 통계\n---");
