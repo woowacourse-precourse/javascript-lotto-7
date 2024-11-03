@@ -1,10 +1,12 @@
 import {
+  ERR_MSG_BONUS_NUMBER,
   ERR_MSG_PURCHASE_FEE,
   ERR_MSG_WINNING_NUMBERS_INVALID_STRING
 } from "../src/constants";
 import getFee from '../src/processors/feeProcessor';
 import Lotto from "../src/Lotto";
 import getWinningNums from "../src/processors/winningNumsProcessor";
+import getBonusNumber from "../src/processors/bonusNumProcessor";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
@@ -46,5 +48,14 @@ describe("구입 금액 입력 검증 테스트", () => {
 describe("당첨 번호 입력 검증 테스트", () => {
   test("숫자, 구분자 외의 문자가 들어올 시 예외가 발생한다.", () => {
     expect(() => getWinningNums("1,2,;,4,5,6")).toThrow(ERR_MSG_WINNING_NUMBERS_INVALID_STRING);
+  })
+})
+
+describe("보너스 번호 입력 검증 테스트", () => {
+  test("문자가 들어올 시 예외가 발생한다.", () => {
+    expect(() => getBonusNumber("ab")).toThrow(ERR_MSG_BONUS_NUMBER);
+  })
+  test("1 ~ 45 외의 숫자가 들어올 시 예외가 발생한다.", () => {
+    expect(() => getBonusNumber("46")).toThrow(ERR_MSG_BONUS_NUMBER);
   })
 })
