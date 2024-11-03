@@ -1,13 +1,20 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import constants from '../constants/constants.js';
+
+const { LOTTO } = constants;
 
 class LottoGame {
   #lottos = {};
 
   createLottos(cash) {
-    const numberOfLotto = cash / 1000;
+    const numberOfLotto = cash / LOTTO.PRICE;
     for (let i = 0; i < numberOfLotto; i += 1) {
-      const noSorted = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      const noSorted = MissionUtils.Random.pickUniqueNumbersInRange(
+        LOTTO.NUMBER.MIN,
+        LOTTO.NUMBER.MAX,
+        LOTTO.NUMBER.LENGTH,
+      );
       this.#lottos[i] = new Lotto(noSorted).getNumbers();
     }
     return this.#lottos;
@@ -19,7 +26,7 @@ class LottoGame {
 
   static addBonusNumber(matchNumber, bonusNumber, lotto, winStatistics) {
     const haveBonus = lotto.filter(number => number === bonusNumber);
-    if (matchNumber === 5 && haveBonus) {
+    if (matchNumber === LOTTO.NUMBER.FIVE_MATCH && haveBonus) {
       return {
         ...winStatistics,
         bonus: winStatistics.bonus + 1,
@@ -56,11 +63,11 @@ class LottoGame {
 
   static getGetCash(winStatistics) {
     let curCash = 0;
-    curCash += winStatistics[3] * 5000;
-    curCash += winStatistics[4] * 50000;
-    curCash += winStatistics[5] * 1500000;
-    curCash += winStatistics.bonus * 30000000;
-    curCash += winStatistics[6] * 2000000000;
+    curCash += winStatistics[3] * LOTTO.PRIZE.THREE;
+    curCash += winStatistics[4] * LOTTO.PRIZE.FOUR;
+    curCash += winStatistics[5] * LOTTO.PRIZE.FIVE;
+    curCash += winStatistics.bonus * LOTTO.PRIZE.BONUS;
+    curCash += winStatistics[6] * LOTTO.PRIZE.SIX;
     return curCash;
   }
 
@@ -70,4 +77,5 @@ class LottoGame {
     return rateOfReturn;
   }
 }
+
 export default LottoGame;

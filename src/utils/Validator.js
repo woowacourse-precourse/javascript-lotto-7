@@ -1,65 +1,71 @@
+import constants from '../constants/constants.js';
+
+const { LOTTO, ERROR } = constants;
+
 class Validator {
   static cashValidation(string) {
     if (!/^\d+$/.test(string)) {
-      throw new Error('[ERROR] 숫자 형식이 아닙니다.');
+      throw new Error(ERROR.NUMBER.FORMAT);
     }
 
     const number = Number(string);
 
-    // 양수 체크
     if (number <= 0) {
-      throw new Error('[ERROR] 양수를 입력해주세요.');
+      throw new Error(ERROR.NUMBER.POSITIVE);
     }
 
-    // 1000원 단위 체크
-    if (number % 1000 !== 0) {
-      throw new Error('[ERROR] 1000원 단위로 입력해주세요.');
+    if (number % LOTTO.PRICE !== 0) {
+      throw new Error(ERROR.NUMBER.UNIT);
     }
   }
 
   static printedLottoValidation(lotto) {
-    if (lotto.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    if (lotto.length !== LOTTO.NUMBER.LENGTH) {
+      throw new Error(ERROR.LOTTO.LENGTH);
     }
-    if (new Set(lotto).size !== 6) {
-      throw new Error('[ERROR] 로또 번호는 중복될 수 없습니다.');
+    if (new Set(lotto).size !== LOTTO.NUMBER.LENGTH) {
+      throw new Error(ERROR.LOTTO.DUPLICATE);
     }
-    if (!lotto.every(num => num >= 1 && num <= 45)) {
-      throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
+    if (
+      !lotto.every(num => num >= LOTTO.NUMBER.MIN && num <= LOTTO.NUMBER.MAX)
+    ) {
+      throw new Error(ERROR.LOTTO.RANGE);
     }
   }
 
   static targetLottoValidation(string) {
     if (!string.includes(',')) {
-      throw new Error('[ERROR] 쉼표(,)로 구분된 숫자를 입력해 주세요.');
+      throw new Error(ERROR.LOTTO.COMMA);
     }
     const lotto = string.split(',');
-    if (lotto.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    if (lotto.length !== LOTTO.NUMBER.LENGTH) {
+      throw new Error(ERROR.LOTTO.LENGTH);
     }
-    if (new Set(lotto).size !== 6) {
-      throw new Error('[ERROR] 로또 번호는 중복될 수 없습니다.');
+    if (new Set(lotto).size !== LOTTO.NUMBER.LENGTH) {
+      throw new Error(ERROR.LOTTO.DUPLICATE);
     }
-    if (!lotto.every(num => num >= 1 && num <= 45)) {
-      throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
+    if (
+      !lotto.every(num => num >= LOTTO.NUMBER.MIN && num <= LOTTO.NUMBER.MAX)
+    ) {
+      throw new Error(ERROR.LOTTO.RANGE);
     }
   }
 
   static bonusNumberValidation(string, targetLotto) {
     if (!/^\d+$/.test(string)) {
-      throw new Error('[ERROR] 숫자 형식이 아닙니다.');
+      throw new Error(ERROR.NUMBER.FORMAT);
     }
     const number = Number(string);
 
     if (number <= 0) {
-      throw new Error('[ERROR] 양수를 입력해주세요.');
+      throw new Error(ERROR.NUMBER.POSITIVE);
     }
-    if (number < 1 && number > 45) {
-      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다');
+    if (number < LOTTO.NUMBER.MIN && number > LOTTO.NUMBER.MAX) {
+      throw new Error(ERROR.LOTTO.RANGE);
     }
 
     if (targetLotto.includes(number)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨번호와 중복될 수 없습니다.');
+      throw new Error(ERROR.LOTTO.BONUS_DUPLICATE);
     }
   }
 }

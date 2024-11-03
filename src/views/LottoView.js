@@ -1,4 +1,7 @@
 import Validator from '../utils/Validator.js';
+import constants from '../constants/constants.js';
+
+const { MESSAGE, LOTTO } = constants;
 
 class LottoView {
   constructor(outputFunction, inputFunction) {
@@ -7,47 +10,65 @@ class LottoView {
   }
 
   async getCashInHand() {
-    const message = '구입금액을 입력해 주세요.\n';
-    return this.readLine(message);
+    return this.readLine(MESSAGE.INPUT.PURCHASE);
   }
 
   printLottoPurchase(lottos) {
     const lottosNumber = Object.keys(lottos).length;
-    this.print(`\n${lottosNumber}개를 구매했습니다.`);
+    this.print(`\n${lottosNumber}${MESSAGE.OUTPUT.PURCHASE}`);
     for (let i = 0; i < lottosNumber; i += 1) {
       this.print(`[${lottos[i].join(', ')}]`);
     }
   }
 
   async getTargetLottoArray() {
-    const message = '\n당첨 번호를 입력해 주세요.\n';
-    const numbers = await this.readLine(message);
+    const numbers = await this.readLine(MESSAGE.INPUT.WINNING);
     Validator.targetLottoValidation(numbers);
     const stringArray = numbers.split(',');
     return stringArray.map(str => parseInt(str, 10));
   }
 
   async getBonusNumber(targetLotto) {
-    const message = '\n보너스 번호를 입력해주세요.\n';
-    const bonusNumber = await this.readLine(message);
+    const bonusNumber = await this.readLine(MESSAGE.INPUT.BONUS);
     Validator.bonusNumberValidation(bonusNumber, targetLotto);
     return bonusNumber;
   }
 
   printWinningStatistics(winStatistics) {
-    this.print('\n당첨 통계');
-    this.print('---');
-    this.print(`3개 일치 (5,000원) - ${winStatistics[3]}개`);
-    this.print(`4개 일치 (50,000원) - ${winStatistics[4]}개`);
-    this.print(`5개 일치 (1,500,000원) - ${winStatistics[5]}개`);
+    this.print(`\n${MESSAGE.OUTPUT.STATISTICS}`);
+    this.print(MESSAGE.OUTPUT.DIVIDER);
     this.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winStatistics.bonus}개`,
+      `${LOTTO.MESSAGE.MATCH.THREE} (${LOTTO.PRIZE.THREE.toLocaleString()}원) - ${
+        winStatistics[3]
+      }개`,
     );
-    this.print(`6개 일치 (2,000,000,000원) - ${winStatistics[6]}개`);
+    this.print(
+      `${LOTTO.MESSAGE.MATCH.FOUR} (${LOTTO.PRIZE.FOUR.toLocaleString()}원) - ${
+        winStatistics[4]
+      }개`,
+    );
+    this.print(
+      `${LOTTO.MESSAGE.MATCH.FIVE} (${LOTTO.PRIZE.FIVE.toLocaleString()}원) - ${
+        winStatistics[5]
+      }개`,
+    );
+    this.print(
+      `${LOTTO.MESSAGE.MATCH.BONUS} (${LOTTO.PRIZE.BONUS.toLocaleString()}원) - ${
+        winStatistics.bonus
+      }개`,
+    );
+    this.print(
+      `${LOTTO.MESSAGE.MATCH.SIX} (${LOTTO.PRIZE.SIX.toLocaleString()}원) - ${
+        winStatistics[6]
+      }개`,
+    );
   }
 
   printRateOfReturn(rateOfReturn) {
-    this.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+    this.print(
+      `${MESSAGE.OUTPUT.RATE}${rateOfReturn}${MESSAGE.OUTPUT.RATE_UNIT}`,
+    );
   }
 }
+
 export default LottoView;
