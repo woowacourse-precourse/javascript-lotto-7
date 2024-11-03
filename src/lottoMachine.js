@@ -60,7 +60,7 @@ class LottoMachine {
   }
 
   printWinningStatistics(statistics, totalPrize) {
-    Console.print("당첨 통계\n");
+    Console.print("당첨 통계");
     Console.print("---");
     this.constructor.printResult(statistics);
     this.constructor.printRevenuePercent(totalPrize, this.cost);
