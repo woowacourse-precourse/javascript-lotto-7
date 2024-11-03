@@ -4,9 +4,11 @@ import Validator from './Validator.js';
 import { PRIZE_MONEY } from './constants.js';
 
 class LottoManager {
+  #validator;
+
   constructor() {
     this.numbers = [];
-    this.validator = new Validator();
+    this.#validator = new Validator();
     this.bonusNumber = null;
     this.lottoNumbers = null;
   }
@@ -14,7 +16,7 @@ class LottoManager {
   async getPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
 
-    if (!this.validator.validatePurchaseAmount(purchaseAmount)) {
+    if (!this.#validator.validatePurchaseAmount(purchaseAmount)) {
       return;
     }
 
@@ -34,10 +36,10 @@ class LottoManager {
     );
   }
 
-  async getBonusNumber() {
+  async #getBonusNumber() {
     const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
 
-    if (!this.validator.validateBonusNumber(this.lottoNumbers, bonusNumber)) {
+    if (!this.#validator.validateBonusNumber(this.lottoNumbers, bonusNumber)) {
       return;
     }
 
@@ -47,13 +49,13 @@ class LottoManager {
   async getWinningNumbers() {
     const numbers = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
 
-    if (!this.validator.validateLottoNumber(numbers)) {
+    if (!this.#validator.validateLottoNumber(numbers)) {
       return;
     }
 
     const lottoNumbers = numbers.split(',').map((number) => parseInt(number));
     this.lottoNumbers = lottoNumbers;
-    this.bonusNumber = await this.getBonusNumber();
+    this.bonusNumber = await this.#getBonusNumber();
 
     return lottoNumbers;
   }
