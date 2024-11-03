@@ -16,25 +16,33 @@ class LottoController {
   }
 
   async start() {
-    const tickets = await this.purchaseLotto();
+    const tickets = await this.#purchaseLotto();
     this.#lottoGame.setLottos(tickets);
 
     this.#outputView.printTickets(tickets);
     this.#outputView.printLottos(this.#lottoGame.getLottos());
 
-    const winningLotto = await this.assignWinningLotto();
+    const winningLotto = await this.#assignWinningLotto();
+    const bonusNumber = await this.#assignBonusNumber(winningLotto);
   }
 
-  async purchaseLotto() {
+  async #purchaseLotto() {
     return await repeatUntilValid(
       this.#purchaseLottoAction.bind(this),
       this.#errorHandler.bind(this),
     );
   }
 
-  async assignWinningLotto() {
+  async #assignWinningLotto() {
     return await repeatUntilValid(
       this.#assignLottoNumberAction.bind(this),
+      this.#errorHandler.bind(this),
+    );
+  }
+
+  async #assignBonusNumber() {
+    return await repeatUntilValid(
+      this.#assignBonusNumberAction.bind(this),
       this.#errorHandler.bind(this),
     );
   }
@@ -51,6 +59,14 @@ class LottoController {
     const winningNumbers = winningLotto.split(',').map(Number);
 
     return new Lotto(winningNumbers);
+  }
+
+  async #assignBonusNumberAction(winningLotto) {
+    const bonusNumber = await this.#inputView.getBonusNumber();
+    const isDuplicate = winningLotto.hasBonusNumber(parseInt(bonusNumber, 10));
+    this.#lottoValidator.validateBonusNumber(bonusNumber, isDuplicate);
+
+    return parseInt(bonusNumber, 10);
   }
 
   #errorHandler(message) {
