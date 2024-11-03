@@ -73,4 +73,31 @@ describe("App 단위 테스트", () => {
 			expect(lotto).toEqual(RANDOM_NUMBERS[index]);
 		});
 	});
+
+	test("당첨 등수 계산", async () => {
+		// given
+		const WINNING_NUMBER = "1,2,3,4,5,6";
+		const LOTTO_NUMBERS = [
+			[1, 2, 3, 4, 5, 6],
+			[1, 2, 3, 4, 6, 12],
+			[1, 2, 3, 4, 5, 11],
+			[1, 2, 3, 4, 11, 12],
+			[1, 2, 3, 10, 11, 12],
+		];
+		const BONUS_NUMBER = 6;
+		const RESULT = {
+			"5rank": 1,
+			"4rank": 1,
+			"3rank": 1,
+			"2rank": 1,
+			"1rank": 1,
+		};
+
+		// when
+		app = new App();
+		app.getWinningCount(WINNING_NUMBER, LOTTO_NUMBERS, BONUS_NUMBER);
+
+		// then
+		expect(RESULT).toEqual(app.winningMap);
+	});
 });
