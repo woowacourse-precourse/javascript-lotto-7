@@ -1,8 +1,17 @@
 import { Random } from "@woowacourse/mission-utils";
+import {
+  LOTTO_COUNT,
+  LOTTO_MAX_NUMBER,
+  LOTTO_MIN_NUMBER,
+} from "./constants/lotto.js";
 
 class LottoMachine {
   static createLotto() {
-    return Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+    return Random.pickUniqueNumbersInRange(
+      LOTTO_MIN_NUMBER,
+      LOTTO_MAX_NUMBER,
+      LOTTO_COUNT
+    ).sort((a, b) => a - b);
   }
 
   static createLottos(amount) {

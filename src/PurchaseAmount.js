@@ -1,7 +1,8 @@
+import { ERROR_MESSAGE } from "./constants/error.js";
+import { LOTTO_PRICE } from "./constants/lotto.js";
+
 class PurchaseAmount {
   #amount;
-  #LOTTO_PRICE = 1000;
-
   constructor(amount) {
     this.#validate(amount);
     this.#amount = amount;
@@ -15,24 +16,24 @@ class PurchaseAmount {
 
   #validateNumber(amount) {
     if (isNaN(amount)) {
-      throw new Error("[ERROR] 구매 금액은 숫자여야 합니다.");
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
     }
   }
 
   #validateMinAmount(amount) {
-    if (amount < this.#LOTTO_PRICE) {
-      throw new Error("[ERROR] 구매 금액은 1000원 이상이어야 합니다.");
+    if (amount < LOTTO_PRICE) {
+      throw new Error(ERROR_MESSAGE.MIN_AMOUNT);
     }
   }
 
   #validateDivisibleAmount(amount) {
-    if (amount % this.#LOTTO_PRICE !== 0) {
-      throw new Error("[ERROR] 구매 금액은 1000원 단위여야 합니다.");
+    if (amount % LOTTO_PRICE !== 0) {
+      throw new Error(ERROR_MESSAGE.DIVISIBLE_AMOUNT);
     }
   }
 
   getAmount() {
-    return this.#amount / this.#LOTTO_PRICE;
+    return this.#amount / LOTTO_PRICE;
   }
 }
 
