@@ -1,10 +1,17 @@
 import { Console } from '@woowacourse/mission-utils';
 import Input from '../view/Input.js';
+import Output from '../view/Output.js';
 import VendingMachine from '../model/VendingMachine.js';
+import LottoGame from '../model/LottoGame.js';
+import Lotto from '../model/Lotto.js';
 
 class LottoController {
   async run() {
     const money = await this.#getPurchaseAmount();
+
+    const machine = new VendingMachine(money, (numbers) => new Lotto(numbers));
+    const lottoList = machine.printLottos(Output.printLottoNumbersAll);
+
     const winningNumbers = await this.#getWinningNumbers();
     const bonusNumber = await this.#getBonusNumber(winningNumbers);
   }
