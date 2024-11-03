@@ -9,6 +9,12 @@ function isNumber(input) {
   }
 }
 
+function isValidPaymentUnit(input) {
+  if (input % 1000 !== 0) {
+    throw new Error("[ERROR] 금액을 1000원 단위로 입력해주세요.");
+  }
+}
+
 function isPaymentValid(input) {
   if (isNaN(input)) {
     Console.print("[ERROR] 금액은 숫자여야 합니다.");
