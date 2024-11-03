@@ -49,3 +49,19 @@ test('calculateStatistics 메서드 테스트 - 총 상금 계산 확인', () =>
     ].reduce((acc, prize) => acc + prize, 0),
   );
 });
+
+test('getRangeOfReturn 메서드 테스트 - 수익률 계산 확인', () => {
+  const rangeOfReturn = lottoStatistics.getRangeOfReturn();
+  const expectedRangeOfReturn = (
+    ([
+      LOTTO_PRIZES.SIX_MATCH,
+      LOTTO_PRIZES.FIVE_BONUS_MATCH,
+      LOTTO_PRIZES.FIVE_MATCH,
+      LOTTO_PRIZES.THREE_MATCH,
+      LOTTO_PRIZES.FOUR_MATCH,
+    ].reduce((acc, prize) => acc + prize, 0)
+      / purchaseAmount)
+    * 100
+  ).toFixed(1);
+  expect(rangeOfReturn).toBe(expectedRangeOfReturn);
+});
