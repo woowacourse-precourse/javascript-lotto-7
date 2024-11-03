@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR, MESSAGE } from '../constants/error.js';
+import MESSAGE from '../constants/message.js';
+import ERROR from '../constants/error.js';
 
 class OutputView {
   static printPurchaseCount(count) {

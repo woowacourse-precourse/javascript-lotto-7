@@ -1,4 +1,4 @@
-export const MESSAGE = Object.freeze({
+const MESSAGE = Object.freeze({
   INPUT_PURCHASE: '구입금액을 입력해 주세요.\n',
   PURCHASE_COUNT: (count) => `${count}개를 구매했습니다.\n`,
   INPUT_WINNING_NUMBER: '\n당첨 번호를 입력해 주세요.\n',
@@ -11,3 +11,5 @@ export const MESSAGE = Object.freeze({
   SIX_MATCHES: '6개 일치 (2,000,000,000원) -',
   RATE_OF_RETURN: (revenue) => `총 수익률은 ${revenue}입니다.`,
 });
+
+export default MESSAGE;

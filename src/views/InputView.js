@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGE } from '../constants/error.js';
+import MESSAGE from '../constants/error.js';
 
 class InputView {
   static readPurchaseAmount() {

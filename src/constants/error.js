@@ -1,6 +1,6 @@
 const ERROR_TAG = '[ERROR]';
 
-export const ERROR = Object.freeze({
+const ERROR = Object.freeze({
   INVALID_PURCHASE_AMOUNT: {
     name: 'InvalidPurchaseAmountError',
     message: `${ERROR_TAG} 구입 금액은 1000원 단위로 입력해야 합니다.`,
@@ -26,3 +26,5 @@ export const ERROR = Object.freeze({
     message: `${ERROR_TAG} 유효하지 않은 매칭 개수입니다.`,
   },
 });
+
+export default ERROR;
