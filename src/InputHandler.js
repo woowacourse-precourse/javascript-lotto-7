@@ -3,21 +3,22 @@ import { CONSOLE_MESSAGES } from "./constant.js";
 const VALID_LOTTERY_NUM = 6;
 
 class InputValidator {
+  static isValidNumber(number) {
+    if(Number.isNaN(number) || number < 1 || number > 45) {
+      throw new Error("[ERROR] 1부터 45까지의 숫자만 입력해주세요.")
+    }
+  }
+
   static validateWinNumbers(winNumbersArray) {
-    winNumbersArray.forEach(winNumber => {
-      if (Number.isNaN(winNumber) === true) throw new Error ('[ERROR] 로또 당첨 번호에 숫자를 입력해주세요.');
-      if (Number(winNumber) === 0) throw new Error('[ERROR] 로또 당첨 번호에 0 또는 공백 대신 숫자를 입력해주세요.');
-      if (winNumber < 1 || winNumber > 45 ) throw new Error('[ERROR] 로또 당첨 번호는 1부터 45 사이의 숫자를 입력해주세요.');
-    })
-    if (winNumbersArray.length !== VALID_LOTTERY_NUM) throw new Error('[ERROR] 로또 당첨 번호는 6개 입력해주세요.');
-    if (new Set(winNumbersArray).size !== VALID_LOTTERY_NUM) throw new Error('[ERROR] 로또 당첨 번호는 중복되지 않게 6개를 입력해주세요.')
+    winNumbersArray.forEach(this.isValidNumber);
+
+    if (winNumbersArray.length !== VALID_LOTTERY_NUM || new Set(winNumbersArray).size !== VALID_LOTTERY_NUM) {
+      throw new Error("[ERROR] 중복되지 않는 수 6개를 입력해주세요.");
+    }
   }
 
   static validateBonusNumber(bonusNumber) {
-    const num = Number(bonusNumber);
-    if (num < 1 || num > 45) {
-      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자를 입력해주세요.')
-    }
+    this.isValidNumber(bonusNumber);
   }
 }
 
@@ -32,7 +33,7 @@ class InputHandler {
     InputValidator.validateWinNumbers(winNumbersArray);
 
     const bonusNumber = await Console.readLineAsync(CONSOLE_MESSAGES.bonusNumber);
-    InputValidator.validateBonusNumber(bonusNumber);
+    InputValidator.validateBonusNumber(Number(bonusNumber));
 
     return { winNumber, bonusNumber };
   }
