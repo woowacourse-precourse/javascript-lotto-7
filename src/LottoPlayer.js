@@ -25,6 +25,7 @@ class LottoPlayer {
       this.winningNumbers = await this.handleWinningNumbers();
       this.bonusNumber = await this.handleBonusNumber();
       this.compareLottoNumbers();
+      this.printResults();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.play();
@@ -121,6 +122,28 @@ class LottoPlayer {
 
   isBonusNumberMatched(numbers) {
     return numbers.includes(this.bonusNumber);
+  }
+
+  printResults() {
+    MissionUtils.Console.print(MESSAGES.RESULT_HEADER);
+    MissionUtils.Console.print(MESSAGES.RESULT_SEPARATOR);
+
+    rankConditions.forEach((condition) => {
+      const count = this.resultCount[condition.rank];
+      const message = this.resultMessage(condition, count);
+      MissionUtils.Console.print(message);
+    });
+  }
+
+  resultMessage(condition, count) {
+    let bonusText = "";
+    if (condition.bonus) {
+      bonusText = MESSAGES.RESULT_BONUS_MATCH;
+    }
+    return MESSAGES.RESULT_COUNT_MATCH.replace("{match}", condition.match)
+      .replace("{bonus}", bonusText)
+      .replace("{prize}", condition.prize.toLocaleString())
+      .replace("{count}", count);
   }
 }
 
