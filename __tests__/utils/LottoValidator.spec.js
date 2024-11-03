@@ -1,5 +1,6 @@
 import { ERROR_MSG } from '../../src/constants/messages';
 import {
+  validateBonusNumber,
   validatePurchaseAmount,
   validateWinningNumbers,
 } from '../../src/utils/LottoValidator';
@@ -74,5 +75,28 @@ describe('utils/LottoValidator', () => {
     });
   });
 
-  //   describe('validateBonusNumber()', () => {});
+  describe('validateBonusNumber()', () => {
+    it.each([
+      [1, null],
+      [45, null],
+      [23, null],
+      [23.5, null],
+
+      [0, ERROR_MSG.INVALID_NUMBER_RANGE],
+      [-5, ERROR_MSG.INVALID_NUMBER_RANGE],
+      ['', ERROR_MSG.INVALID_NUMBER_RANGE],
+      [46, ERROR_MSG.INVALID_NUMBER_RANGE],
+      ['0', ERROR_MSG.INVALID_NUMBER_RANGE],
+      ['46', ERROR_MSG.INVALID_NUMBER_RANGE],
+      ['asdf', ERROR_MSG.INVALID_NUMBER_RANGE],
+    ])('should throw an error for invalid input %s', (input, expectedError) => {
+      if (expectedError) {
+        expect(() => validateBonusNumber(input)).toThrow(
+          `[ERROR] ${expectedError}`,
+        );
+      } else {
+        expect(() => validateBonusNumber(input)).not.toThrow();
+      }
+    });
+  });
 });

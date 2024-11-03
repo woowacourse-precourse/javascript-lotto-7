@@ -55,10 +55,8 @@ export const validateWinningNumbers = (winningNumbers) => {
  * @throws {Error}
  */
 export const validateBonusNumber = (bonusNumber) => {
-  if (Number.isNaN(bonusNumber)) {
-    Output.displayError(ERROR_MSG.INVALID_BONUS_NUMBER);
-  }
-  if (bonusNumber < 1 || bonusNumber > 45) {
-    Output.displayError(ERROR_MSG.INVALID_BONUS_NUMBER);
+  const number = Number(bonusNumber);
+  if (Number.isNaN(number) || number < 1 || number > 45) {
+    Output.displayError(ERROR_MSG.INVALID_NUMBER_RANGE);
   }
 };
