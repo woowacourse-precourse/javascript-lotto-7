@@ -37,7 +37,6 @@ class LottoGame {
     // 보너스 번호 입력 받기
     async getLottoBonusNumber(lottoWinngNumbers) {
         const bonusNumber = await this.Input.readLottoBonusNumberInput();
-        this.Output.printResult(bonusNumber);
         const bonusNumberArray = this.stringToNumberArray(bonusNumber);
         return this.setLottoBonusNumber(bonusNumberArray, lottoWinngNumbers);
     }
@@ -95,7 +94,7 @@ class LottoGame {
     // 로또 발행하기
     generateLottoTicket(purchase) {
         const lottoTicketCount = purchase.getLottoTicketCount();
-        this.Output.printResultNewLine(lottoTicketCount + GAME_MESSAGES.lottoTicketCount);
+        this.Output.printResultNewLine("\n" + lottoTicketCount + GAME_MESSAGES.lottoTicketCount);
         this.MyLotto.buyLottoTicket(lottoTicketCount);
     }
 }
