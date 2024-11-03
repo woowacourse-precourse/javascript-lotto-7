@@ -5,14 +5,14 @@ class Input {
     async getMoney() {
         while (true) {
             const userInput = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-            const validatedInput = this.validateHandler(userInput);
+            const validatedInput = this.validateMoneyHandler(userInput);
             if (validatedInput !== null) return validatedInput;
         }
     }
 
-    validateHandler(userInput) {
+    validateMoneyHandler(userInput) {
         try {
-            this.validateInput(userInput);
+            this.validateMoneyInput(userInput);
             return parseInt(userInput, 10);
         } catch (error) {
             Console.print(`${error.message}`);
@@ -20,7 +20,7 @@ class Input {
         }
     }
 
-    validateInput(userInput) {
+    validateMoneyInput(userInput) {
         validateIsNumber(userInput);
         validateMoneyUnit(userInput);
     }
