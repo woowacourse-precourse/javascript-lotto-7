@@ -1,6 +1,7 @@
 import {Console} from "@woowacourse/mission-utils";
-import {OUTPUT_OBJ} from "../constants/objects.js";
+import {MATCH_COUNTER, OUTPUT_OBJ} from "../constants/objects.js";
 import {OUTPUT} from "../constants/message.js";
+import {toObjectValueArr} from "../utils/objectUtils.js";
 
 export const input = async (message) => {
     return await Console.readLineAsync(message)
@@ -12,9 +13,10 @@ export const purchaseOutput = (purchasedLottos) => {
     purchasedLottos.map((lotto) => Console.print("[" + lotto + "]"))
 }
 
-export const winningStatsOutput = (resultObj) => {
+export const winningStatsOutput = (calculateYield) => {
     Console.print(`당첨통계\n---`)
-    Object.values(resultObj).map((elem, idx) => {
-        Console.print(OUTPUT_OBJ[idx].content + elem + "개")
+    toObjectValueArr(MATCH_COUNTER).map((elem, idx) => {
+        Console.print(OUTPUT_OBJ[idx].content + elem.cnt + "개")
     })
+    Console.print(`총 수익률은 ${calculateYield}%입니다.`)
 }
