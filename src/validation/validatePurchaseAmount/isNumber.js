@@ -1,7 +1,6 @@
-import { VALIDATION_MESSAGES } from "../../constants/constants.js";
+import { LOTTO_PURCHASE_AMOUNT } from "../../constants/validationMessages/lottoPurchaseAmount.js";
 
 export const isNumber = function (purchaseAmount) {
   const isValid = !isNaN(Number(purchaseAmount));
-  if (!isValid)
-    throw new Error(VALIDATION_MESSAGES.LOTTO_PURCHASE_AMOUNT.NOT_A_NUMBER);
+  if (!isValid) throw new Error(LOTTO_PURCHASE_AMOUNT.NOT_A_NUMBER);
 };
