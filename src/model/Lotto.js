@@ -12,6 +12,18 @@ class Lotto {
     this.#numbers = this.#sort(numbers);
   }
 
+  /**
+   * @param {number[]} winningNumbers
+   * @param {number} bonusNumber
+   */
+  compare(winningNumbers, bonusNumber) {
+    const numbers = new Set(this.#numbers);
+    const matchingNumbers = winningNumbers.filter((n) => numbers.has(n));
+    const withBonus = numbers.has(bonusNumber);
+
+    return { matchingNumbers, withBonus };
+  }
+
   /** @param {number[]} numbers */
   #validate(numbers) {
     this.#validateNumber(numbers);

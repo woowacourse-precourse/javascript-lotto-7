@@ -2,7 +2,6 @@ import Lotto from '../src/Lotto.js';
 import { ERROR_PREFIX } from '../src/Constants.js';
 
 describe('로또 클래스 테스트', () => {
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
   test.each([
     [
       '로또 번호의 개수가 6개가 아닐 시 예외가 발생한다.',
