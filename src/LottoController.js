@@ -36,6 +36,25 @@ class LottoController {
       this.#lottos.push(new Lotto(lottoNumbers));
     }
   }
+
+  #calculateResults(winningNumbers, bonusNumber) {
+    const result = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    this.#lottos.forEach((lotto) => {
+      const matchCount = lotto
+        .getNumbers()
+        .filter((num) => winningNumbers.includes(num)).length;
+      const isBonus = lotto.getNumbers().includes(bonusNumber);
+
+      if (matchCount === 6) result[1]++;
+      else if (matchCount === 5 && isBonus) result[2]++;
+      else if (matchCount === 5) result[3]++;
+      else if (matchCount === 4) result[4]++;
+      else if (matchCount === 3) result[5]++;
+    });
+
+    return result;
+  }
 }
 
 export default LottoController;
