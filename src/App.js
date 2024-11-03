@@ -4,19 +4,20 @@ class App {
   async run() {
     const userPurchaseAmount = await this.getPurchaseAmount();
     const userWinningNumber = await this.getUserWinningNumber();
-    const userWinningBonus = await this.getWinningBonus();
+    const userBonusNumber = await this.getWinningBonus();
 
     const userLottoAmount = this.computeLottoForPurchase();
     const winningNumbers = this.separateString(userWinningNumber, ',');
 
-    this.validatePayDecimalNumber(userPurchaseAmount);
-    this.validateNotNumber(userPurchaseAmount);
-    this.validateNotThousandUnits(userPurchaseAmount);
-    this.validateWinningNumberForm(userWinningNumber);
-    this.validateWinningNumberOutOfBounds(winningNumbers);
-    this.validateWinningNumberAmount(winningNumbers);
-    this.validateWinningNumberDecimal(winningNumbers);
-    this.validateBonusNumberOutOfBounds(userWinningBonus);
+    // this.validatePayDecimalNumber(userPurchaseAmount);
+    // this.validateNotNumber(userPurchaseAmount);
+    // this.validateNotThousandUnits(userPurchaseAmount);
+    // this.validateWinningNumberForm(userWinningNumber);
+    // this.validateWinningNumberOutOfBounds(winningNumbers);
+    // this.validateWinningNumberAmount(winningNumbers);
+    // this.validateWinningNumberDecimal(winningNumbers);
+    // this.validateBonusNumberOutOfBounds(userBonusNumber);
+    this.validateBonusNumberDecimal(userBonusNumber)
   }
 
   async getPurchaseAmount(){
@@ -85,6 +86,12 @@ class App {
   validateBonusNumberOutOfBounds(inputValue){
     if(inputValue > 45 || inputValue < 1){
       throw new Error('[ERROR]보너스 번호 에러, 보너스 번호는 1에서 45사이의 숫자입니다.');
+    }
+  }
+  validateBonusNumberDecimal(inputValue){
+    const decimalNumber = new RegExp('[.]+');
+    if(decimalNumber.test(inputValue)){
+      throw new Error('[ERROR]보너스 번호 에러, 보너스 번호는 정수의 숫자만 입력해주세요.');
     }
   }
 } 
