@@ -7,6 +7,4 @@ describe('로또 클래스 테스트', () => {
       new Lotto(numbers);
     }).toThrow(errorMessage);
   });
-
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 });

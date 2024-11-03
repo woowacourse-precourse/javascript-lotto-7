@@ -37,5 +37,4 @@ describe('구매 금액 입력 테스트', () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
     }
   );
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 });
