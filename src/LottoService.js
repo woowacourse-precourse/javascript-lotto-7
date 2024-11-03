@@ -7,21 +7,39 @@ class LottoService {
     this.#lottos = lottos;
   }
 
-  countMatches;
+  getWinningStats() {
+    const lottoResults = this.aggregateLottoResults();
+    const rankCounts = {
+      match_6: 0,
+      match_5_bonus: 0,
+      match_5: 0,
+      match_4: 0,
+      match_3: 0,
+    };
 
-  aggregateLottoResults() {
-    const lottoResults = this.#lottos.map((lotto) => {
-      return [lottoMatchChecker.countMatchesIn(lotto), lottoMatchChecker.isBonusNumberIn(lotto)];
+    lottoResults.forEach(([matchCount, hasBonusNumber]) => {
+      const totalMatchCount = matchCount + hasBonusNumber;
+
+      if (matchCount === 5 && hasBonusNumber) {
+        rankCounts[`match_${matchCount}_bonus`] += 1;
+        return;
+      }
+
+      rankCounts[`match_${totalMatchCount}`] += 1;
     });
 
-    this.setRanks(lottoResults);
-  }
-
-  getRankCounts(lottoResults) {
     return rankCounts;
   }
 
-  calculateTotalProfit() {
+  aggregateLottoResults() {
+    const lottoResults = this.#lottos.map((lotto) => {
+      return [this.#lottoMatchChecker.countMatchesIn(lotto), this.#lottoMatchChecker.isBonusNumberIn(lotto)];
+    });
+
+    return lottoResults;
+  }
+
+  calculateTotalProfit(rankCounts) {
     this.calculateProfitMargin(totalProfit);
   }
 
@@ -29,3 +47,5 @@ class LottoService {
     return profitMargin;
   }
 }
+
+export default LottoService;
