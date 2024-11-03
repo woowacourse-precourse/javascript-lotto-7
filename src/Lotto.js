@@ -1,6 +1,7 @@
 import { LOTTO } from './constants/lotto.js';
 import { ERROR_MESSAGE } from './constants/message.js';
 import Util from './Util.js';
+import Validate from './Validate.js';
 
 class Lotto {
   #numbers;
