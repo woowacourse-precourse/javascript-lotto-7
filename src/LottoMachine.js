@@ -3,17 +3,23 @@ import Lotto from "./Lotto.js";
 
 class LottoMachine {
   #lottos = []
-  #bonusNumber
   #winningNumber
 
   async run () {
     await this.sellLotto()
+    this.printLottoCount()
     this.printSalesLottos()
+    await this.inputWinningNumber()
   }
 
   async sellLotto() {
     const paid = await Console.readLineAsync('구매금액을 입력해 주세요.\n');
     this.makeLottos(paid / 1000);
+  }
+
+  async inputWinningNumber() {
+    const winningNumber = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    this.#winningNumber = winningNumber.split(',').map(Number).sort((a, b) => a - b);
   }
 
   makeLottoNumbers() {
@@ -26,12 +32,12 @@ class LottoMachine {
     }
   }
 
-  printSalesLottos() {
-    this.#lottos.forEach(lotto => Console.print(lotto.getNumbers()))
+  printLottoCount() {
+    Console.print(`${this.#lottos.length}개를 구매했습니다.`)
   }
 
-  validatePrice(price) {
-
+  printSalesLottos() {
+    this.#lottos.forEach(lotto => Console.print(lotto.getNumbers()))
   }
 }
 
