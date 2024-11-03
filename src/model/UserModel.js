@@ -20,12 +20,12 @@ export default class UserModel {
     const lottoLength = this.#price / PRICE_RANGE.MIN;
 
     for (let i = 0; i < lottoLength; i += 1) {
-      const randomNumber = Random.pickUniqueNumbersInRange(
+      const sortedRandomNumber = Random.pickUniqueNumbersInRange(
         NUMBER_RANGE.MIN,
         NUMBER_RANGE.MAX,
         LOTTO_NUMBER_LENGTH,
-      );
-      lottos.push(new Lotto(randomNumber));
+      ).sort((a, b) => a - b);
+      lottos.push(new Lotto(sortedRandomNumber));
     }
 
     return lottos;
@@ -33,15 +33,13 @@ export default class UserModel {
 
   getLottosInformation() {
     const lottoLength = this.#lottos.length;
-    const lottoNumbersArray = this.getSortedLottoNumbersArray();
+    const lottoNumbersArray = this.getLottoNumbersArray();
 
     return { lottoLength, lottoNumbersArray };
   }
 
-  getSortedLottoNumbersArray() {
-    return this.#lottos.map((lotto) =>
-      lotto.getNumbers().sort((a, b) => a - b),
-    );
+  getLottoNumbersArray() {
+    return this.#lottos.map((lotto) => lotto.getNumbers());
   }
 
   calculateRateOfReturn(totalPrize) {

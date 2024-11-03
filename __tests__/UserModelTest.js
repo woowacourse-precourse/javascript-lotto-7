@@ -23,7 +23,7 @@ describe('UserModel 클래스 테스트', () => {
       lottoNumbers.sort((a, b) => a - b),
     );
 
-    expect(userModel.getSortedLottoNumbersArray()).toEqual(result);
+    expect(userModel.getLottoNumbersArray()).toEqual(result);
   });
 
   test('수익률 가져오기', () => {

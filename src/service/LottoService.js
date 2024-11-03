@@ -36,7 +36,7 @@ export default class LottoService {
   calculateWinningStatistics() {
     const rankMap = this.#getRankMap();
 
-    this.userModel.getSortedLottoNumbersArray().forEach((lottoNumbers) => {
+    this.userModel.getLottoNumbersArray().forEach((lottoNumbers) => {
       const rank = this.winningLottoModel.calculateRank(lottoNumbers);
       if (rank) rankMap.set(rank, rankMap.get(rank) + 1);
     });
