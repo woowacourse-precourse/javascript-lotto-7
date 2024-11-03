@@ -1,4 +1,4 @@
-const VALUES = Object.freeze({
+export const VALUES = Object.freeze({
   amountUnit: 1_000,
   lottoLength: 6,
   bonusNumberLength: 1,
@@ -7,4 +7,6 @@ const VALUES = Object.freeze({
   matchBonusCount: 5,
 });
 
-export default VALUES;
+export const CHARS = Object.freeze({
+  numbersDelimiter: ',',
+});

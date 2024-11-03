@@ -1,4 +1,4 @@
-import VALUES from './constants/Values.js';
+import { VALUES } from './constants/Values.js';
 import validator from './utils/Validator.js';
 
 class Lotto {
