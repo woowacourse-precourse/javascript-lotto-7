@@ -8,6 +8,7 @@ export const COST = {
 export const LOTTO_NUMBER = {
   EXCEPT_COMMA: "[ERROR] 로또 번호는 콤마 이외의 문자는 들어갈 수 없습니다.",
   LENGTH: "[ERROR] 로또 번호는 6개여야 합니다.",
+  DUPLICATION: "[ERROR] 로또 번호는 중복이 있으면 안됩니다.",
 };
 
 export const BONUS_NUMBER = {

@@ -15,10 +15,19 @@ class Lotto {
       throw new Error(LOTTO_NUMBER.LENGTH);
     }
 
+    this.checkDuplication(numbers);
+
     numbers.forEach((number) => {
       if (!winningNumberRegex.test(number))
         throw new Error(LOTTO_NUMBER.EXCEPT_COMMA);
     });
+  }
+
+  checkDuplication(numbers) {
+    const numberSet = new Set(numbers);
+    if (numbers.length !== numberSet.size) {
+      throw new Error(LOTTO_NUMBER.DUPLICATION);
+    }
   }
 
   static generateRandomNumbers() {
