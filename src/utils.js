@@ -9,3 +9,7 @@ export const isOutRangeNumber = (targetNumber, min, max) => {
 export const duplicateNumbers = (numbers) => {
   return new Set(numbers).size !== numbers.length;
 };
+
+export const thousandComma = (number, locale) => {
+  return number.toLocaleString(locale);
+};
