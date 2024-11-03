@@ -3,7 +3,8 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 const PRIZE = {
   three: 5000,
   four: 50000,
-  fiveBonus: 3000000,
+  five: 1500000,
+  fiveBonus: 30000000,
   six: 2000000000,
 };
 class App {
@@ -158,7 +159,7 @@ class App {
       PRIZE.six * matchingResults.six;
 
     const rate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
-    return parseFloat(rate);
+    return rate;
   }
   async printStatistics(matchingResults, rate) {
     await Console.print("당첨 통계\n---");
