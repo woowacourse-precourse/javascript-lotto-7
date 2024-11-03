@@ -1,6 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE_UNIT } from '../constants/lottoConstant.js';
+
 import Lotto from './Lotto.js';
+import { LOTTO_PRICE_UNIT } from '../constants/lottoConstant.js';
 
 class LottoMachine {
   generateLottos(purchasePrice) {
