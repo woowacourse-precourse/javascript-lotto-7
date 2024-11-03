@@ -1,3 +1,5 @@
+import { Console } from "@woowacourse/mission-utils";
+
 class LottoResultCalculator{
     constructor(){
         this.results = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -5,7 +7,7 @@ class LottoResultCalculator{
         this.returnOfRate = 0;
     }
 
-    static PRIZE_MONEY = {
+    PRIZE_MONEY = {
         1: 2000000000,
         2: 30000000,
         3: 1500000,
@@ -14,8 +16,10 @@ class LottoResultCalculator{
     };
 
     calculateResults(winningNums, bonusNum, lottos){
-        lottos.forEach((lottoNumbers) => {
+        lottos.forEach((lotto) => {
+            const lottoNumbers = lotto.getNumbers();
             const rank = this.getRank(lottoNumbers, winningNums, bonusNum);
+            Console.print(rank);
             if(rank !== 0){
                 this.results[rank] += 1;
                 this.totalPrize += this.PRIZE_MONEY[rank];
