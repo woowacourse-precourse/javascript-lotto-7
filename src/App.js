@@ -17,7 +17,20 @@ class App {
     } catch (error) {
       throw new Error(`[ERROR] ${error.message}`);
     }
-}
+
+    // 로또 발행 개수 
+    const lottoQuantity = inputlottospurchase / 1000;
+    Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
+
+    // 로또 번호 발행
+    const lottoTickets = [];
+    for (let i = 0; i < lottoQuantity; i++) {
+      const lotto = Lotto.generatedLottoNumbers();
+      lottoTickets.push(lotto.getNumbers());
+      Console.print(`[${lotto.getNumbers().join(", ")}]`);
+    }
+
+  }
 
 
   // 로또금액 입력 받은 숫자 유효검사
@@ -32,6 +45,7 @@ class App {
       throw new Error('로또 구입 금액은 1000원 단위로 입력해주세요.');
   }
 
+  
 }
 
 
