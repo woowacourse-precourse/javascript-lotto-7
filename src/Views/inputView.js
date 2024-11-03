@@ -12,6 +12,6 @@ export async function inputWinNumbers() {
 }
 
 export async function inputBonusNumber() {
-    const userInput = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const userInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     return Number(userInput);
 }
