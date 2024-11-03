@@ -28,7 +28,7 @@ class LottoMachine {
   }
 
   #createValidatedLottoNumbers() {
-    const numbers = getSortedRandomNumbers(1, 45, 6);
+    const numbers = getSortedRandomNumbers(GAME_RULES.MIN_LOTTO_NUMBER, GAME_RULES.MAX_LOTTO_NUMBER, GAME_RULES.LOTTO_NUMBER_COUNT);
     const lotto = new Lotto(numbers); 
     return lotto.getNumbers(); 
   }
