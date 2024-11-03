@@ -43,6 +43,29 @@ const lottoNumbersValidation = (numbers) => {
   }
 };
 
+const winNumbersValidation = (numbers) => {
+  userInputEmpty(numbers, USER_MESSAGE.WIN_NUMBERS);
+  const winNumbers = numbers.split(',');
+
+  if (winNumbers.length !== 6) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_IS_SIX);
+  }
+
+  if (winNumbers.length !== new Set([...winNumbers]).size) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_NOT_OVERLAP);
+  }
+
+  if (winNumbers.some((number) => number > 45 || number < 1)) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBERS_IS_MIN_ONE_MAX_FORTY_FIVE);
+  }
+
+  if (winNumbers.some((number) => FIND_NOT_NUMBER.test(number))) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_IS_POSITIVE_NUMBER);
+  }
+
+  return winNumbers.map((number) => parseInt(number, 10));
+};
+
 const bonusNumberValidation = (number) => {
   userInputEmpty(number, USER_MESSAGE.BONUS_NUMBER);
 
@@ -56,4 +79,9 @@ const bonusNumberValidation = (number) => {
   }
 };
 
-export { moneyValidation, lottoNumbersValidation, bonusNumberValidation };
+export {
+  moneyValidation,
+  lottoNumbersValidation,
+  winNumbersValidation,
+  bonusNumberValidation,
+};

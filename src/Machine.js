@@ -1,5 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { moneyValidation, lottoNumbersValidation, bonusNumberValidation } from "./validation.js";
+import { moneyValidation, winNumbersValidation, bonusNumberValidation } from "./validation.js";
 import { USER_MESSAGE, LOTTO_PRICE, PERCENT_FACTOR } from "./constants.js";
 import Lotto from "./Lotto.js";
 
@@ -63,8 +63,7 @@ class Machine {
 
   async readUserWinNumbers() {
     const winNumbersString = await Console.readLineAsync(USER_MESSAGE.WIN_NUMBERS_INPUT);
-    const winNumbers = winNumbersString.split(',').map((number) => parseInt(number, 10));
-    lottoNumbersValidation(winNumbers);
+    const winNumbers = winNumbersValidation(winNumbersString);
     this.#winNumbers = winNumbers;
   }
 
