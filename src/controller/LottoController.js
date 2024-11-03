@@ -1,5 +1,6 @@
 import InputView from "../views/InputView.js";
 import { validateInputMoney } from "../validator/InputMoney.js";
+import OutputView from "../views/OutputView.js";
 import { Console } from "@woowacourse/mission-utils";
 
 class LottoController {
@@ -15,14 +16,26 @@ class LottoController {
       try {
         money = await this.#setMoney();
         validateInputMoney(money);
-        break;
+        return money;
       } catch (e) {
         Console.print(e);
       }
     }
   }
 
-  async purchase() {}
+  #calculateLottoCount(inputMoney) {
+    return Math.floor(inputMoney / 1000);
+  }
+
+  async #processLottoPurchase(lottoCount) {
+    return await OutputView.printLottoCount(lottoCount);
+  }
+
+  async purchase() {
+    const money = await this.#getValidMoney();
+    const lottoCount = this.#calculateLottoCount(money);
+    this.#processLottoPurchase(lottoCount);
+  }
 }
 
 export default LottoController;
