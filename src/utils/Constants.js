@@ -52,6 +52,7 @@ export const INPUT_VIEW = {
 
 export const OUTPUT_VIEW = {
   purchaseAmount: (amount) => `\n${amount}개를 구매했습니다.`,
+  ticket: (numbers) => `[${numbers}]`,
   statisticsHeader: '\n당첨 통계',
   separatingMark: '---',
   winningStatistics: (numbersOfMatched, matchingCount, prize) =>
