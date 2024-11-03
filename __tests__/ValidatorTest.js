@@ -48,4 +48,25 @@ describe('Validator Test', () => {
       expect(validate).not.toThrow();
     });
   });
+
+  describe('isPositive() Test : 입력값이 양수인지 검증', () => {
+    test.each([-1.1, 0, -20])('음수의 경우 에러를 발생시킨다.( %s )', (value) => {
+      // when
+      const validate = () => {
+        Validator.isPositive(value);
+      };
+
+      // then
+      expect(validate).toThrow(ERROR_PREFIX);
+    });
+
+    test.each([4.3, 10, 1234])('양수인 경우 정상적으로 동작한다. ( %s )', (value) => {
+      // when
+      const validate = () => {
+        Validator.isPositive(value);
+      };
+
+      expect(validate).not.toThrow();
+    });
+  });
 });
