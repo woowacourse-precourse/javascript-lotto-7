@@ -15,7 +15,9 @@ class App {
     );
 
     const winningNumbers = await InputView.readWinningNumbers();
-    console.log(winningNumbers);
+    const bonusNumber = await InputView.readBonusNumber();
+
+    console.log(winningNumbers, bonusNumber);
   }
 }
 
