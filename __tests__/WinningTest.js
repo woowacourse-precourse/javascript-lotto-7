@@ -9,8 +9,8 @@ describe("WinningCalculator 테스트", () => {
 
   test("티켓이 하나일 떄 테스트", () => {
     const calculator = new WinningCalculator(winningSet, [[1, 2, 3, 9, 12, 15]]);
-    const result = calculator.result;
-    expect(result.fifth).toBe(1); 
+    const {rankResult, profit, rateOfReturn} = calculator.result;
+    expect(rankResult.fifth).toBe(1); 
   });
 
   test("1등, 2등, 3등, 4등, 5등, 꽝 테스트", () => {
@@ -24,13 +24,13 @@ describe("WinningCalculator 테스트", () => {
     ];
 
     const calculator = new WinningCalculator(winningSet, generatedNumbers);
-    const result = calculator.result;
+    const {rankResult, profit, rateOfReturn} = calculator.result;
 
-    expect(result.first).toBe(1);   
-    expect(result.second).toBe(1);  
-    expect(result.third).toBe(1);   
-    expect(result.fourth).toBe(1); 
-    expect(result.fifth).toBe(1);   
+    expect(rankResult.first).toBe(1);   
+    expect(rankResult.second).toBe(1);  
+    expect(rankResult.third).toBe(1);   
+    expect(rankResult.fourth).toBe(1); 
+    expect(rankResult.fifth).toBe(1);   
   });
 
   test("모든 티켓이 꽝인 경우", () => {
@@ -40,13 +40,13 @@ describe("WinningCalculator 테스트", () => {
     ];
 
     const calculator = new WinningCalculator(winningSet, generatedNumbers);
-    const result = calculator.result;
+    const {rankResult, profit, rateOfReturn} = calculator.result;
 
-    expect(result.first).toBe(0);
-    expect(result.second).toBe(0);
-    expect(result.third).toBe(0);
-    expect(result.fourth).toBe(0);
-    expect(result.fifth).toBe(0);
+    expect(rankResult.first).toBe(0);
+    expect(rankResult.second).toBe(0);
+    expect(rankResult.third).toBe(0);
+    expect(rankResult.fourth).toBe(0);
+    expect(rankResult.fifth).toBe(0);
   });
 
   test("총 수익을 올바르게 계산한다(1개)", () => {
@@ -103,7 +103,7 @@ describe("WinningCalculator 테스트", () => {
       PRIZE_TABLE.third.prize + 
       PRIZE_TABLE.fourth.prize + 
       PRIZE_TABLE.fifth.prize;
-    const expectedRateOfReturn = (expectedProfit / (generatedTickets.length * 1000)).toFixed(2);
+    const expectedRateOfReturn = (expectedProfit / (generatedTickets.length * 1000)* 100).toFixed(1);
 
     expect(rateOfReturn).toBe(expectedRateOfReturn);
   });

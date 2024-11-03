@@ -2,6 +2,8 @@ import { Console } from "@woowacourse/mission-utils";
 import PaymentValidator from "./validators/PaymentValidator";
 import LottoValidator from "./validators/LottoValidator";
 import LottoTicketsGenerator from "./LottoTicketsGenerator";
+import WinningCalculator from "./WinningCalculator";
+import PRIZE_TABLE from "./constants/lottoPrizeTable";
 
 class Lotto {
   #numbers;
@@ -15,8 +17,9 @@ class Lotto {
 
   async start() {
     const ticketAmount = await this.purchasedTicketAmount();
-    const generatedTickets = this.printTickets(ticketAmount);
+    const tickets = this.printTickets(ticketAmount);
     await this.getWinningSet();
+    this.calculateTotalResult(tickets);
   }
 
   async purchasedTicketAmount() {
@@ -78,6 +81,31 @@ class Lotto {
         Console.print(error.message);
       }
     }
+  }
+
+  calculateTotalResult(tickets) {
+    const {rankResult, profit, rateOfReturn} = this.calculateWinning(tickets);
+    this.printResult(rankResult, profit, rateOfReturn)
+  }
+  calculateWinning(tickets) {
+    const calculator = new WinningCalculator(this.#numbers, tickets);
+    return calculator.result;
+  }
+  printResult(rankResult, profit, rateOfReturn) {
+    Console.print("당첨 통계\n---");
+
+    Object.keys(PRIZE_TABLE).forEach((key) => {
+      const { matched, prize } = PRIZE_TABLE[key];
+      const count = rankResult[key];
+    
+      if (key === 'second') {
+        Console.print(`${matched}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${count}개`);
+      } else {
+        Console.print(`${matched}개 일치 (${prize.toLocaleString()}원) - ${count}개`);
+      }
+    });
+    Console.print(`총 수익은 ${profit}원입니다.`)
+    Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
   }
 }
 

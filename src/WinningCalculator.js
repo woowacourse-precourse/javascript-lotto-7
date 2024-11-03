@@ -25,8 +25,13 @@ class WinningCalculator {
   }
 
   get result() {
-    console.log(this.generatedTickets);
-    return this.#rankResult;
+    const totalProfit = this.caculateTotalProfit();
+    const rateOfReturn = this.calculateRateOfReturn();
+    return {
+      rankResult: this.#rankResult,
+      profit: totalProfit,
+      rateOfReturn: rateOfReturn,
+    };
   }
 
   recordResult() {
@@ -63,8 +68,8 @@ class WinningCalculator {
 
   calculateRateOfReturn() {
     const totalProfit = this.caculateTotalProfit();
-    const rateOfReturn = totalProfit / (this.generatedTickets.length * 1000);
-    return rateOfReturn.toFixed(2);
+    const rateOfReturn = totalProfit / (this.generatedTickets.length * 1000) * 100;
+    return rateOfReturn.toFixed(1);
   }
 
   caculateTotalProfit() {
