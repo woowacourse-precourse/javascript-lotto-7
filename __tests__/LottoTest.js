@@ -19,6 +19,15 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR] 숫자로 입력해야 합니다.');
   });
 
+  test('로또 번호에 양의 정수가 아닌 값이 있으면 예외가 발생한다.', () => {
+    expect(() => {
+      new Lotto([-1, 2, 3, 6, 5, 6]);
+    }).toThrow('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
+    expect(() => {
+      new Lotto([1, 2.5, 3, 6, 5, 6]);
+    }).toThrow('[ERROR] 모든 숫자는 양의 정수여야 합니다.');
+  });
+
   test('로또 번호에서 당첨 번호를 포함하는 개수를 반환한다.', () => {
     const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
     const WINNING_NUMBER = [1, 2, 3, 7, 8, 9];
