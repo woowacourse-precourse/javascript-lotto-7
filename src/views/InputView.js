@@ -9,18 +9,37 @@ class InputView {
   static async askWinningNumbers() {
     Console.print('');
     const input = await Console.readLineAsync(MESSAGES.WINNING_NUMBERS_PROMPT);
-    return input
-      .split(',')
-      .map((num) => num.trim())
-      .filter((num) => num !== '')
-      .map((num) => Number(num));
+    return InputView.parseWinningNumbers(input);
+  }
+
+  static parseWinningNumbers(input) {
+    const numbers = InputView.splitAndTrim(input);
+    return InputView.convertToNumbers(numbers);
   }
 
   static async askBonusNumber() {
     Console.print('');
     const input = await Console.readLineAsync(MESSAGES.BONUS_NUMBER_PROMPT);
-    // 입력값이 비어있거나 공백일 경우 빈 문자열 반환
-    return input.trim() === '' ? '' : Number(input);
+    return InputView.parseBonusNumber(input);
+  }
+
+  static parseBonusNumber(input) {
+    const trimmedInput = input.trim();
+    if (trimmedInput === '') {
+      return '';
+    }
+    return Number(trimmedInput);
+  }
+
+  static splitAndTrim(input) {
+    return input
+      .split(',')
+      .map((num) => num.trim())
+      .filter((num) => num !== '');
+  }
+
+  static convertToNumbers(array) {
+    return array.map((num) => Number(num));
   }
 }
 
