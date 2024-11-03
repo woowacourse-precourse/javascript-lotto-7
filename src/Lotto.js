@@ -2,6 +2,8 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 const NUMBER_PATTERN = /^\d+$/;
 const NUMBER_COMMA_PATTERN = /^\d+(,\d+)*$/;
+const LOTTO_NUMBER_COUNT = 6;
+const LOTTO_NUMBER_RANGE = { min: 1, max: 45 };
 
 class Lotto {
   #numbers;
@@ -12,11 +14,16 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO_NUMBER_COUNT) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }
 
-    if (numbers.some((number) => number < 1 || number > 45)) {
+    if (
+      numbers.some(
+        (number) =>
+          number < LOTTO_NUMBER_RANGE.min || number > LOTTO_NUMBER_RANGE.max
+      )
+    ) {
       throw new Error(
         '[ERROR] 로또 번호는 1-45 사이의 숫자로 이루어져야 합니다.'
       );
@@ -32,9 +39,11 @@ class Lotto {
     let issuedLottos = [];
     for (let i = 0; i < count; i++) {
       issuedLottos.push(
-        MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-          (a, b) => a - b
-        )
+        MissionUtils.Random.pickUniqueNumbersInRange(
+          LOTTO_NUMBER_RANGE.min,
+          LOTTO_NUMBER_RANGE.max,
+          LOTTO_NUMBER_COUNT
+        ).sort((a, b) => a - b)
       );
     }
     return issuedLottos;
@@ -53,7 +62,10 @@ class Lotto {
       throw new Error('[ERROR] 보너스 번호는 숫자로 입력해주세요.');
     }
 
-    if (Number(bonusNumber) < 1 || Number(bonusNumber) > 45) {
+    if (
+      Number(bonusNumber) < LOTTO_NUMBER_RANGE.min ||
+      Number(bonusNumber) > LOTTO_NUMBER_RANGE.max
+    ) {
       throw new Error(
         '[ERROR] 로또 번호는 1-45 사이의 숫자로 이루어져야 합니다.'
       );
