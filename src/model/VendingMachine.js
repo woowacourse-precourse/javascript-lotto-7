@@ -31,6 +31,13 @@ class VendingMachine {
     });
   }
 
+  /** @param {(allNumbers: number[][]) => void | undefined} printer */
+  printLottos(printer) {
+    printer?.(this.#lottoList.map((lotto) => lotto.getNumbers()));
+
+    return this.#lottoList;
+  }
+
   /** @returns {number[]} */
   #getRandomNumbers() {
     const range = [...LOTTO_NUMBER_RANGE, LOTTO_NUMBER_LENGTH];
