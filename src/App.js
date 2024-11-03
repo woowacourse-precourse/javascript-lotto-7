@@ -79,6 +79,23 @@ class App {
     console.log(`5개 일치(1,500,000원) - ${counts[5]}`);
     console.log(`5개 일치(30,000,000원) - ${counts["5_bonus"]}`);
     console.log(`6개 일치(2,000,000,000원) - ${counts[6]}`);
+
+    const prizes = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      "5_bonus": 30000000,
+      6: 2000000000,
+    };
+
+    const totalPrize =
+      counts[3] * prizes[3] +
+      counts[4] * prizes[4] +
+      counts[5] * prizes[5] +
+      counts["5_bonus"] * prizes["5_bonus"] +
+      counts[6] * prizes[6];
+    const profitRate = (totalPrize / lottoPurchaseAmount) * 100;
+    MissionUtils.Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
   }
 }
 
