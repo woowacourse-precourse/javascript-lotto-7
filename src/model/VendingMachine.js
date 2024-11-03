@@ -1,5 +1,11 @@
+import { Random } from '@woowacourse/mission-utils';
 import { Exception, formatKRW } from '../Utils.js';
-import { LOTTO_PRICE, PURCHASE_LIMIT_AMOUNT } from '../Constants.js';
+import {
+  LOTTO_NUMBER_LENGTH,
+  LOTTO_NUMBER_RANGE,
+  LOTTO_PRICE,
+  PURCHASE_LIMIT_AMOUNT,
+} from '../Constants.js';
 
 class VendingMachine {
   /** @type {number} */
@@ -8,6 +14,14 @@ class VendingMachine {
   /** @param {number} money */
   constructor(money) {
     this.#putInMoney(money);
+  }
+
+  /** @returns {number[]} */
+  #getRandomNumbers() {
+    const range = [...LOTTO_NUMBER_RANGE, LOTTO_NUMBER_LENGTH];
+    const randomNumbers = Random.pickUniqueNumbersInRange(...range);
+
+    return randomNumbers;
   }
 
   /** @param {number} money */
