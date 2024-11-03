@@ -7,22 +7,25 @@ import LottoService from '../Service/LottoService.js';
 import LottoResultView from '../views/LottoResultView.js';
 import { validateLottoPurchase } from '../validate/purchaseValidator.js';
 import { outputView } from '../views/outputView.js';
+import { validateWinningNumber } from '../validate/winningNumberValidator.js';
+import { validateBonusNumber } from '../validate/bonusNumberValidator.js';
 
 class Game {
   constructor() {
     this.user = new User();
     this.lottoService = new LottoService();
     this.resultView = new LottoResultView();
+    this.winningNumbers = null;
   }
 
   async process() {
     const { lottos, purchaseAmount } = await this.handleUserPurchase();
-    const winningNumbers = await this.getWinningNumbers();
+    this.winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber();
 
     const results = this.lottoService.calculateResults(
       lottos,
-      winningNumbers,
+      this.winningNumbers,
       bonusNumber
     );
     this.resultView.printResults(results);
@@ -40,7 +43,7 @@ class Game {
         const purchaseAmount = await this.user.readUserInput(
           GAME_MESSAGE.PURCHASE
         );
-        const count = purchaseAmount / LOTTO_CONFIG.PRICE_PER;
+        const count = Number(purchaseAmount) / LOTTO_CONFIG.PRICE_PER;
         validateLottoPurchase(purchaseAmount);
 
         const lottos = this.lottoService.createLottos(count);
@@ -56,10 +59,11 @@ class Game {
   async getWinningNumbers() {
     while (true) {
       try {
-        const input = await this.user.readUserInput(
+        const winningNumber = await this.user.readUserInput(
           GAME_MESSAGE.WINNING_NUMBER
         );
-        return input.split(',').map((num) => Number(num.trim()));
+        validateWinningNumber(winningNumber.split(',').map(Number));
+        return winningNumber.split(',').map((num) => Number(num.trim()));
       } catch (error) {
         outputView.printMessage(error.message);
       }
@@ -70,6 +74,7 @@ class Game {
     while (true) {
       try {
         const input = await this.user.readUserInput(GAME_MESSAGE.BONUS_NUMBER);
+        validateBonusNumber(input, this.winningNumbers);
         return Number(input);
       } catch (error) {
         outputView.printMessage(error.message);
