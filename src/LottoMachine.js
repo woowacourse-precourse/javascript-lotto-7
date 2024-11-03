@@ -6,6 +6,8 @@ const ASK_PAYMENT_MESSAGE = '구입금액을 입력해 주세요.\n'
 const ASK_WINNING_NUMBERS_MESSAGE = '\n당첨 번호를 입력해 주세요.\n'
 const ASK_BOUNS_NUMBER_MESSAGE = '\n보너스 번호를 입력해 주세요.\n'
 
+const PRICE = 1000;
+
 const LottoMachine = {
   score: {
     THREE_MATCHES: 0,
@@ -19,21 +21,19 @@ const LottoMachine = {
     try {
       const input = await MissionUtils.Console.readLineAsync(ASK_PAYMENT_MESSAGE);
       LottoMachine.isValidPayment(input);
-
-      this.payment = Number(input)
-      this.quantity = this.payment / 1000;
+      this.quantity = Number(input) / PRICE;
       MissionUtils.Console.print(`\n${this.quantity}개를 구매했습니다.`);
-
+      
     } catch (err) {
       MissionUtils.Console.print(err.message);
       return await LottoMachine.askPayment();
     }
   },
 
-  isValidPayment(input, price = 1000) {
+  isValidPayment(input) {
     isInteger(input);
-    if (input < price) throw Error('[ERROR] 천 원 미만임');
-    if ((input % price) !== 0) throw Error('[ERROR] 천 원 단위가 아님');
+    if (input < PRICE) throw Error(`[ERROR] ${PRICE}원 이상의 금액을 입력해주세요.`);
+    if ((input % PRICE) !== 0) throw Error(`[ERROR] 구매 금액은 ${PRICE}원 단위로 입력해주세요.`);
   },
 
   // 당첨 번호 입력
@@ -109,7 +109,7 @@ const LottoMachine = {
   printScore(score = this.score) {
     const profit = Math.round(((5000 * score.THREE_MATCHES) + (50000 * score.FOUR_MATCHES)
       + (1500000 * score.FIVE_MATCHES) + (30000000 * score.FIVE_BONUS_MATCHES)
-      + (2000000000 * score.SIX_MATCHES)) / this.payment * 100 * 10) / 10;
+      + (2000000000 * score.SIX_MATCHES)) / (this.quantity * PRICE) * 100 * 10) / 10;
     const str = `
 당첨 통계
 ---
