@@ -83,6 +83,21 @@ function validateBonusNumber(bonusNumber, prizeNumbers) {
   isDuplicateBonus(bonusNumber, prizeNumbers);
 }
 
+async function inputBonusNumber(prizeNumbers) {
+  let bonusNumber;
+  while (true) {
+    bonusNumber = Number(
+      await Console.readLineAsync("보너스 번호를 입력해 주세요.")
+    );
+    try {
+      validateBonusNumber(bonusNumber, prizeNumbers);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+    }
+  }
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
@@ -94,6 +109,8 @@ class App {
 
     const prizeNumberLotto = await inputPrizeLottoNumber();
     const prizeNumbers = prizeNumberLotto.getLottoNumbers();
+
+    const bonusNumberLotto = await inputBonusNumber(prizeNumbers);
   }
 }
 
