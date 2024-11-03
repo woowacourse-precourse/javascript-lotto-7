@@ -9,7 +9,7 @@ class BonusNumber {
   }
 
   #validate(bonusNumber) {
-    if ((bonusNumber < 1) | (bonusNumber > 45)) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
       throw new Error('[ERROR] 보너스 번호 숫자 범위는 1~45 입니다.');
     }
     if (bonusNumber % 1 !== 0) {
