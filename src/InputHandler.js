@@ -1,13 +1,15 @@
 import { Console } from '@woowacourse/mission-utils'
 import { CONSOLE_MESSAGES } from "./constant.js";
-const VALID_LOTTERY_NUM = 6;
-const VALID_LOWEST_NUM = 1;
-const VALID_HIGHEST_NUM = 45;
+
 const SPLITTER = ',';
 
 class InputValidator {
-  static isValidNumber(number) {
-    if(Number.isNaN(number) || number < VALID_LOWEST_NUM || number > VALID_HIGHEST_NUM) {
+  static #VALID_LOTTERY_NUM = 6;
+  static #VALID_LOWEST_NUM = 1;
+  static #VALID_HIGHEST_NUM = 45;
+
+  static validateNumber(number) {
+    if(Number.isNaN(number) || number < this.#VALID_LOWEST_NUM || number > this.#VALID_HIGHEST_NUM) {
       throw new Error("[ERROR] 1부터 45까지의 숫자만 입력해주세요.")
     }
   }
@@ -15,13 +17,15 @@ class InputValidator {
   static validateWinNumbers(winNumbersArray) {
     winNumbersArray.forEach(this.isValidNumber);
 
-    if (winNumbersArray.length !== VALID_LOTTERY_NUM || new Set(winNumbersArray).size !== VALID_LOTTERY_NUM) {
+    if (winNumbersArray.length !== this.#VALID_LOTTERY_NUM || new Set(winNumbersArray).size !== this.#VALID_LOTTERY_NUM) {
       throw new Error("[ERROR] 중복되지 않는 수 6개를 입력해주세요.");
     }
   }
 
   static validateBonusNumber(bonusNumber) {
-    this.isValidNumber(bonusNumber);
+    this.validateNumber(bonusNumber);
+  }
+
   }
 }
 
