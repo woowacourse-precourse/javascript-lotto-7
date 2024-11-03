@@ -35,7 +35,7 @@ const runException = async (input) => {
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
   // when
-  const app = new App();
+  const app = new App()
   await app.run();
 
   // then

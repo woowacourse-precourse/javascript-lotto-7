@@ -1,13 +1,13 @@
 import {userInput} from "./util/Input.js";
 import {INPUT_MESSAGE} from "./util/Message.js";
-import {vaildAmount} from "./util/Vaildator.js";
+import {validAmount, validWinningLotto} from "./util/Validator.js";
 
 class Lotto {
-    // #numbers;
+    #numbers;
 
     constructor(numbers) {
         // this.#validate(numbers);
-        // this.#numbers = numbers;
+        this.#numbers = numbers;
     }
 
     // #validate(numbers) {
@@ -16,10 +16,11 @@ class Lotto {
     //     }
     // }
 
-
     async start() {
         const AMOUNT = await userInput(INPUT_MESSAGE.AMOUNT_INPUT);
-        vaildAmount(AMOUNT);
+        validAmount(AMOUNT);
+        this.#numbers = await userInput(INPUT_MESSAGE.WINNING_LOTTO_INPUT);
+        validWinningLotto(this.#numbers);
     }
 
 }
