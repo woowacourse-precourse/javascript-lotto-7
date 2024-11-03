@@ -1,4 +1,4 @@
-import {isDivided1000, isPositiveNumber } from "../src/BuyPrice";
+import {isDivided1000, isIntNumber, isPositiveNumber } from "../src/BuyPrice";
 import Lotto from "../src/Lotto";
 
 describe("로또 클래스 테스트", () => {
@@ -42,5 +42,13 @@ describe("로또 클래스 테스트", () => {
 
   test("구매 금액이 1000으로 나누어 떨어지지 않으면 예외가 발생한다", () => {
     expect(() => isDivided1000("1000")).not.toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 정수 범위를 넘어가면 예외가 발생한다.", () => {
+    expect(() => isIntNumber("9007199254740994")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 정수 범위를 넘어가면 예외가 발생한다.", () => {
+    expect(() => isIntNumber("9007199254740991")).not.toThrow("[ERROR]");
   });
 });

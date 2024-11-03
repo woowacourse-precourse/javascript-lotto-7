@@ -2,8 +2,15 @@
 
 import { Console } from "@woowacourse/mission-utils";
 
-function inputPrice(){
-    const PRICE = Console.readLineAsync();
+async function inputPrice(){
+    const PRICE = await Console.readLineAsync("구입금액을 입력해 주세요.");
+}
+
+function isIntNumber(PRICE){
+    const number = parseInt(PRICE);
+    if(!Number.isSafeInteger(number)){
+        throw new Error("[ERROR] 정수 범위를 벗어났습니다.");
+    }
 }
 
 function isPositiveNumber(PRICE){
@@ -19,4 +26,4 @@ function isDivided1000(PRICE){
     }
 }
 
-export {inputPrice, isPositiveNumber, isDivided1000};
+export {inputPrice, isPositiveNumber, isDivided1000, isIntNumber};
