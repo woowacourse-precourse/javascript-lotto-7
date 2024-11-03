@@ -5,6 +5,7 @@ import LottoModel from './model/LottoModel.js';
 import LottoController from './controller/LottoController.js';
 import BuyLottoCountValidator from './validator/BuyLottoCountValidator.js';
 import PickLottoNumberValidator from './validator/PickLottoNumberValidator.js';
+import PickBonusNumberValidator from './validator/PickBonusNumberValidator.js';
 
 class App {
   async run() {
@@ -38,8 +39,17 @@ class App {
         OutputView.printMessage(error.message);
       }
     }
-    const pickBonusNumber = await InputView.getBonusLottoNumber();
-    model.setPickBonusNumber(pickBonusNumber);
+
+    while (true) {
+      try {
+        const pickBonusNumber = await InputView.getBonusLottoNumber();
+        PickBonusNumberValidator.validateBonusNumber(pickBonusNumber, model.getPickLottoNumber());
+        model.setPickBonusNumber(pickBonusNumber);
+        break;
+      } catch (error) {
+        OutputView.printMessage(error.message);
+      }
+    }
 
     // 당첨 통계 및 수익률 계산
     const statistics = lottoController.calculateStatistics();
