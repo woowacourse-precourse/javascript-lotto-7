@@ -2,11 +2,7 @@ import globals from 'globals';
 
 export default [
   {
-    languageOptions: {
-      globals: {
-        ...globals.jest,
-      },
-    },
+    // 일반 파일에 대한 기본 규칙
     rules: {
       // 가능한 const로 선언을 권장 (Airbnb 스타일)
       'prefer-const': 'error',
@@ -226,6 +222,11 @@ export default [
   {
     // __tests__ 디렉토리에 위치한 파일에 대한 규칙
     files: ['__tests__/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
     rules: {
       'max-lines-per-function': 'off', // 테스트 파일에서 규칙 비활성화
     },
