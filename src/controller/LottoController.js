@@ -6,6 +6,16 @@ class LottoController {
   async run() {
     const money = await this.#getPurchaseAmount();
     const winningNumbers = await this.#getWinningNumbers();
+    const bonusNumber = await this.#getBonusNumber(winningNumbers);
+  }
+
+  /** @param {number[]} winningNumbers */
+  #getBonusNumber(winningNumbers) {
+    const reader = Input.readBonusNumber;
+    const validator = (bonusNumber) =>
+      LottoGame.validateBonusNumber(bonusNumber, winningNumbers);
+
+    return this.#getUserInput(reader, validator);
   }
 
   #getWinningNumbers() {
