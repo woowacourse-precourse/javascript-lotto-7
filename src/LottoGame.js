@@ -35,7 +35,11 @@ class LottoGame {
     const winningInput = await Console.readLineAsync(
       '\n당첨 번호를 입력해 주세요.\n'
     );
-    this.winningNumbers = winningInput.split(',').map((x) => Number(x.trim()));
+    this.winningNumbers = winningInput.split(',').map((numberString) => {
+      return Number(numberString.trim());
+    });
+
+    this.validateWinningNumbers(this.winningNumbers);
   }
 
   async inputBonusNumber() {
@@ -43,6 +47,29 @@ class LottoGame {
       '\n보너스 번호를 입력해 주세요.\n'
     );
     this.bonusNumber = Number(bonusInput);
+
+    this.validateBonusNumber(this.bonusNumber);
+  }
+
+  validateWinningNumbers(winningNumbers) {
+    if (new Set(winningNumbers).size !== 6) {
+      throw new Error('[ERROR] 당첨 번호는 6개의 서로 다른 숫자여야 합니다.');
+    }
+
+    winningNumbers.forEach((number) => {
+      if (isNaN(number))
+        throw new Error('[ERROR] 당첨 번호 입력이 잘못되었습니다.');
+      if (number <= 0 || number >= 46)
+        throw new Error('[ERROR] 당첨 번호 입력이 잘못되었습니다.');
+    });
+  }
+
+  validateBonusNumber(bonusNumber) {
+    if (isNaN(bonusNumber))
+      throw new Error('[ERROR] 보너스 번호 입력이 잘못되었습니다.');
+
+    if (this.winningNumbers.includes(bonusNumber))
+      throw new Error('[ERROR] 당첨 번호와 보너스 번호는 중복될 수 없습니다.');
   }
 }
 
