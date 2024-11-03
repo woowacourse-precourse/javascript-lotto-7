@@ -1,4 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
+import { LOTTO_CONFIG } from '../constants/lottoConfig';
 
 class GenerateLotto {
   /**
@@ -6,7 +7,11 @@ class GenerateLotto {
    * @returns {number[]}
    */
   static createRandomNumbers() {
-    const lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    const lottoNumbers = Random.pickUniqueNumbersInRange(
+      LOTTO_CONFIG.START,
+      LOTTO_CONFIG.END,
+      LOTTO_CONFIG.NOT_DUPLICATED_NUMBER
+    );
     return lottoNumbers;
   }
 }
