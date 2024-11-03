@@ -37,9 +37,9 @@ describe('로또 클래스 테스트', () => {
     });
 
     test.each([
-      { payment: '!@#$', error: ERROR_MESSAGE.INPUT_EMPTY },
-      { payment: 'abcd', error: ERROR_MESSAGE.INPUT_EMPTY },
-      { payment: 'ㄱㄴㄷ', error: ERROR_MESSAGE.INPUT_EMPTY },
+      { payment: '!@#$', error: ERROR_MESSAGE.NOT_NUMBER },
+      { payment: 'abcd', error: ERROR_MESSAGE.NOT_NUMBER },
+      { payment: 'ㄱㄴㄷ', error: ERROR_MESSAGE.NOT_NUMBER },
       { payment: 0, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
       { payment: -2000, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
       { payment: 1000.423, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
@@ -71,6 +71,9 @@ describe('로또 클래스 테스트', () => {
       });
 
       expect(lottoStore.getLottoCount()).toEqual(mockLottoNumbers.length);
+      expect(lottoStore.printLottoList()).toEqual(
+        mockLottoNumbers.map((numbers) => `[${numbers.join(', ')}]`).join('\n'),
+      );
     });
   });
 });

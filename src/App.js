@@ -11,6 +11,7 @@ class App {
       const lottoStore = new LottoStore();
       lottoStore.buyLotto(Number(payment));
       MissionUtils.Console.print(`\n${lottoStore.getLottoCount()}${PRINT_MESSAGE.BUY_COUNT}`);
+      MissionUtils.Console.print(lottoStore.printLottoList());
     } catch (error) {
       MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }

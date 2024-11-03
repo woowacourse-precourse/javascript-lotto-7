@@ -46,6 +46,10 @@ class LottoStore {
   getLottoCount() {
     return this.#lottoList.length;
   }
+
+  printLottoList() {
+    return this.#lottoList.map((lotto) => lotto.print()).join('\n');
+  }
 }
 
 export default LottoStore;
