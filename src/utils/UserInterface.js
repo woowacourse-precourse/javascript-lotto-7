@@ -13,7 +13,7 @@ class UserInterface {
 
   static async queryPaymentAmout() {
     const input = await Console.readLineAsync(QUERIES.PAYMENT_AMOUNT);
-    const paymentAmount = parseInt(input);
+    const paymentAmount = Number(input);
     Validator.validatePaymentAmount(paymentAmount);
 
     return paymentAmount;
@@ -38,6 +38,7 @@ class UserInterface {
   }
 
   static printLottos(lottos) {
+    Console.print(ANSWERS.EMPTY_LINE);
     UserInterface.formatPrint(ANSWERS.LOTTOS_PURCHASED, lottos.length);
     lottos
       .map((lotto) => lotto.getNumbers())

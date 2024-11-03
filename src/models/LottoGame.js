@@ -2,6 +2,7 @@ import PRIZE_AMOUNTS from '../constants/prizeAmounts.js';
 import UserInterface from '../utils/UserInterface.js';
 import Lotto from '../models/Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
+import ErrorHandler from '../utils/ErrorHandler.js';
 
 class LottoGame {
   #paymentAmount;
@@ -11,20 +12,31 @@ class LottoGame {
   #matchCounts;
   #totalYield;
 
-  async initialize() {
-    this.#paymentAmount = await UserInterface.queryPaymentAmout();
-
-    this.#generateLottos(this.#paymentAmount / 1000);
-    UserInterface.printLottos(this.#lottoList);
-
-    this.#winningNumbers = new Set(await UserInterface.queryWinningNumbers());
-    this.#bonusNumber = await UserInterface.queryBonusNumber(this.#winningNumbers);
-
-    this.#matchCounts = Array(8).fill(0);
+  async #queryPaymentAmout() {
+    return await ErrorHandler.createRetryLoop(UserInterface.queryPaymentAmout)();
   }
 
   #generateLottos(count) {
     this.#lottoList = Array.from({ length: count }, () => new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
+  }
+
+  async #queryWinningNumbers() {
+    return await ErrorHandler.createRetryLoop(UserInterface.queryWinningNumbers)();
+  }
+
+  async #queryBonusNumber(winningNumbers) {
+    return await ErrorHandler.createRetryLoop(() => UserInterface.queryBonusNumber(winningNumbers))();
+  }
+
+  async initialize() {
+    this.#paymentAmount = await this.#queryPaymentAmout();
+
+    this.#generateLottos(this.#paymentAmount / 1000);
+    UserInterface.printLottos(this.#lottoList);
+
+    this.#winningNumbers = new Set(await this.#queryWinningNumbers());
+    this.#bonusNumber = await this.#queryBonusNumber(this.#winningNumbers);
+    this.#matchCounts = Array(8).fill(0);
   }
 
   computeWinners() {
