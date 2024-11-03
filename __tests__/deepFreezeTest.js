@@ -1,4 +1,4 @@
-import deepFreeze from '../src/utils/deepFreeze';
+import deepFreeze from '../src/utils/deepFreeze.js';
 
 describe('deepFreeze 함수 테스트', () => {
   test('객체를 동결시킨다.', () => {
