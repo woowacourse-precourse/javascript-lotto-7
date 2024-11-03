@@ -1,18 +1,18 @@
-import { validateLottoCount, validateLottoSameNumber } from './Validator.js';
-import { ERROR_MESSAGE } from './constants.js';
+import Validator from './Validator.js';
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
-    numbers.sort((a, b) => a - b);
-    this.#numbers = numbers;
+    const validNumbers = this.#validate(numbers);
+    this.#numbers = validNumbers;
   }
 
   #validate(numbers) {
-    validateLottoCount(numbers, ERROR_MESSAGE.NUMBERS_LENGHT_SIX);
-    validateLottoSameNumber(numbers, ERROR_MESSAGE.SAME_NUMBER);
+    const vaildator = new Validator();
+    vaildator.lottoNumbers(numbers);
+
+    return numbers.sort((a, b) => a - b);
   }
 
   // TODO: 추가 기능 구현

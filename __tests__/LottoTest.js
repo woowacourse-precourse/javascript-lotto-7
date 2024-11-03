@@ -2,7 +2,6 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import App from '../src/App';
 import Lotto from '../src/Lotto';
 import LottoStore from '../src/LottoStore';
-import { validateEmptyString } from '../src/Validator';
 import { ERROR_MESSAGE } from '../src/constants';
 
 describe('로또 클래스 테스트', () => {
@@ -21,14 +20,6 @@ describe('로또 클래스 테스트', () => {
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 
-  describe('App 클래스 테스트', () => {
-    test.each(['', ' ', '  '])('입력값이 공백 문자이면 예외가 발생한다. 공백 : [%s]', (blank) => {
-      expect(() => {
-        validateEmptyString(blank, ERROR_MESSAGE.INPUT_EMPTY);
-      }).toThrow(ERROR_MESSAGE.INPUT_EMPTY);
-    });
-  });
-
   describe('LottoStore 클래스 테스트', () => {
     let app;
     let lottoStore;
@@ -40,20 +31,23 @@ describe('로또 클래스 테스트', () => {
     });
 
     test.each([
+      { payment: '', error: ERROR_MESSAGE.INPUT_EMPTY },
+      { payment: ' ', error: ERROR_MESSAGE.INPUT_EMPTY },
+      { payment: '  ', error: ERROR_MESSAGE.INPUT_EMPTY },
       { payment: '!@#$', error: ERROR_MESSAGE.NOT_NUMBER },
       { payment: 'abcd', error: ERROR_MESSAGE.NOT_NUMBER },
       { payment: 'ㄱㄴㄷ', error: ERROR_MESSAGE.NOT_NUMBER },
-      { payment: 0, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
-      { payment: -2000, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
-      { payment: 1000.423, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
-      { payment: -4000.5, error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
-      { payment: 1500, error: ERROR_MESSAGE.INVAILD_UNIT },
-      { payment: 1234, error: ERROR_MESSAGE.INVAILD_UNIT },
-      { payment: 4530, error: ERROR_MESSAGE.INVAILD_UNIT },
-      { payment: 10000000, error: ERROR_MESSAGE.OVER_MAXIMUM },
+      { payment: '0', error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: '-2000', error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: '1000.423', error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: '-4000.5', error: ERROR_MESSAGE.NOT_POSITIVE_INTEGER },
+      { payment: '1500', error: ERROR_MESSAGE.INVALID_UNIT },
+      { payment: '1234', error: ERROR_MESSAGE.INVALID_UNIT },
+      { payment: '4530', error: ERROR_MESSAGE.INVALID_UNIT },
+      { payment: '10000000', error: ERROR_MESSAGE.OVER_MAXIMUM },
     ])('로또 구입 금액이 $payment 일 때 예외: $error', ({ payment, error }) => {
       expect(() => {
-        lottoStore.buyLotto(Number(payment));
+        lottoStore.buyLotto(payment);
       }).toThrow(error);
     });
 
@@ -68,7 +62,7 @@ describe('로또 클래스 테스트', () => {
         MissionUtils.Random.pickUniqueNumbersInRange.mockReturnValueOnce(mockLottoNumber);
       });
 
-      lottoStore.buyLotto(mockLottoNumbers.length * 1000);
+      lottoStore.buyLotto(`${mockLottoNumbers.length * 1000}`);
       mockLottoNumbers.forEach((mockLottoNumber, index) => {
         expect(lottoStore.getLotto(index).getNumbers()).toEqual(mockLottoNumber);
       });
@@ -81,14 +75,14 @@ describe('로또 클래스 테스트', () => {
 
     test.each([
       { winningNumbers: '', error: ERROR_MESSAGE.INPUT_EMPTY },
-      { winningNumbers: '6,12a,23,32,40,41', error: ERROR_MESSAGE.INVAILD_WINNING_NUMBERS },
-      { winningNumbers: '1,9,14,32,35,60', error: ERROR_MESSAGE.WINNING_NUMBERS_OUT_OF_RANGE },
-      { winningNumbers: '4,24,35,37,45', error: ERROR_MESSAGE.NUMBERS_LENGHT_SIX },
-      { winningNumbers: '7,14,15,22,31,35,41', error: ERROR_MESSAGE.NUMBERS_LENGHT_SIX },
+      { winningNumbers: '6,12a,23,32,40,41', error: ERROR_MESSAGE.INVALID_WINNING_NUMBERS },
+      { winningNumbers: '1,9,14,32,35,60', error: ERROR_MESSAGE.OUT_OF_RANGE },
+      { winningNumbers: '4,24,35,37,45', error: ERROR_MESSAGE.NUMBERS_COUNT },
+      { winningNumbers: '7,14,15,22,31,35,41', error: ERROR_MESSAGE.NUMBERS_COUNT },
       { winningNumbers: '1,14,23,23,26,37', error: ERROR_MESSAGE.SAME_NUMBER },
     ])('로또 당첨 번호가 $winningNumbers 일 때 예외: $error', ({ winningNumbers, error }) => {
       expect(() => {
-        app.validateWinningNumbers(winningNumbers);
+        app.validate(winningNumbers);
       }).toThrow(error);
     });
   });

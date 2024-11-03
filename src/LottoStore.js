@@ -1,7 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import { validateNumber, validatePositiveInteger, validateUnit, validateMaximum } from './Validator.js';
-import { ERROR_MESSAGE } from './constants.js';
+import Validator from './Validator.js';
 
 class LottoStore {
   #lottoList;
@@ -11,16 +10,15 @@ class LottoStore {
   }
 
   #validate(payment) {
-    validateNumber(payment, ERROR_MESSAGE.NOT_NUMBER);
-    validatePositiveInteger(payment, ERROR_MESSAGE.NOT_POSITIVE_INTEGER);
-    validateUnit(payment, ERROR_MESSAGE.INVAILD_UNIT);
-    validateMaximum(payment, ERROR_MESSAGE.OVER_MAXIMUM);
+    const vaildator = new Validator();
+    vaildator.payment(payment);
+
+    return Number(payment.trim());
   }
 
   buyLotto(payment) {
-    this.#validate(payment);
-
-    const lottoCount = payment / 1000;
+    const validPayment = this.#validate(payment);
+    const lottoCount = validPayment / 1000;
 
     for (let i = 0; i < lottoCount; i++) {
       const lotto = this.#publishLotto();
