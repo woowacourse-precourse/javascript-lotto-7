@@ -81,5 +81,20 @@ export class LottoMachine {
         await this.promptWinningNumbers();
     };
   }
+
+  checkResults() {
+    const results = { 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+    this.lottos.forEach(lotto => {
+      const matchedCount = this.getMatchedCount(lotto.getNumbers());
+      if (matchedCount >= 3) {
+        if (matchedCount === 5 && lotto.getNumbers().includes(this.bonusNumber)) {
+          results[6]++;
+        } else if (matchedCount==6){
+            results[matchedCount+1]++;  
+        } else{
+            results[matchedCount]++;
+        } 
+      }
+    });
 }
 export default LottoMachine;
