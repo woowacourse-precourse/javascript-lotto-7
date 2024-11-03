@@ -2,8 +2,9 @@ export const MESSAGES = Object.freeze({
   moneyInput: '구입금액을 입력해 주세요.\n',
   mainNumbers: '\n당첨 번호를 입력해 주세요.\n',
   bonusNumber: '\n보너스 번호를 입력해 주세요.\n',
-  winningStatistics: '\n당첨 통계\n---',
+  prizeStatistics: '\n당첨 통계\n---',
   howManyBought: (count) => `${count}개를 구매했습니다.`,
+  eachNumbers: (splittedNumber) => `[${splittedNumber}]`,
   earningsRateIs: (earningsRate) => `총 수익률은 ${earningsRate}%입니다.`,
 });
 

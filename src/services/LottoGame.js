@@ -23,12 +23,10 @@ class LottoGame {
   }
 
   #issueTickets(ticketCount) {
-    const tickets = [...Array(ticketCount)].reduce((acc) => {
+    this.#tickets = Array.from({ length: ticketCount }, () => {
       const numbers = generateLottoNumbers();
-      return [...acc, new Lotto(numbers)];
-    }, []);
-
-    this.#tickets = tickets;
+      return new Lotto(numbers);
+    });
   }
 
   async enterNumber() {
@@ -57,9 +55,14 @@ class LottoGame {
       place1: 0,
     };
 
-    lottoResults.forEach((result) => (prizeCount[`place${result.getRanking()}`] += 1));
+    lottoResults.forEach((result) => {
+      const rank = result.getRanking();
+      if (rank >= 1 && rank <= 5) {
+        prizeCount[`place${rank}`] += 1;
+      }
+    });
 
-    Printer.print(MESSAGES.winningStatistics);
+    Printer.print(MESSAGES.prizeStatistics);
 
     for (const [rankingName, count] of Object.entries(prizeCount)) {
       Printer.print(PRIZE_MESSAGES.howManyMatchAndCount(rankingName, count));

@@ -1,3 +1,4 @@
+import { MATCHES, PRIZE, RANK } from '../constants/index.js';
 import { InputStore } from '../services/index.js';
 import { LottoResult } from './index.js';
 
@@ -34,34 +35,34 @@ class LottoChecker {
 
   #rank(matchCount, isBonusMatch) {
     switch (matchCount) {
-      case 3:
-        return 5;
-      case 4:
-        return 4;
-      case 5:
-        if (isBonusMatch) return 2;
-        return 3;
-      case 6:
-        return 1;
+      case MATCHES.three:
+        return RANK.fifth;
+      case MATCHES.four:
+        return RANK.fourth;
+      case MATCHES.five:
+        if (isBonusMatch) return RANK.second;
+        return RANK.third;
+      case MATCHES.six:
+        return RANK.first;
       default:
-        return 0;
+        return RANK.none;
     }
   }
 
   #calculatePrize(ranking) {
     switch (ranking) {
-      case 5:
-        return 5_000;
-      case 4:
-        return 50_000;
-      case 3:
-        return 1_500_000;
-      case 2:
-        return 30_000_000;
-      case 1:
-        return 2_000_000_000;
+      case RANK.fifth:
+        return PRIZE.fifth;
+      case RANK.fourth:
+        return PRIZE.fourth;
+      case RANK.third:
+        return PRIZE.third;
+      case RANK.second:
+        return PRIZE.second;
+      case RANK.first:
+        return PRIZE.first;
       default:
-        return 0;
+        return PRIZE.none;
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputValidator } from '../services/index.js';
 import { tryAgain } from '../utils/validateUtils.js';
+import { CONFIG } from '../constants/index.js';
 
 class InputHandler {
   async processMoneyInput(query) {
@@ -14,7 +15,7 @@ class InputHandler {
   async processMainInput(query) {
     return await tryAgain(async () => {
       const mainNumberString = await this.#readInput(query);
-      const mainNumbers = mainNumberString.split(',').map(Number);
+      const mainNumbers = mainNumberString.split(CONFIG.numbersInputDelimiter).map(Number);
       return mainNumbers;
     });
   }
