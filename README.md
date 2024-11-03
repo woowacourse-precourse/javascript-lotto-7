@@ -28,6 +28,8 @@
 |-- index.js : App.js를 호출하기 위한 파일
 |-- lotto
 |   `-- Lotto.js : 로또 클래스 관리를 위한 파일
+|-- utils
+|   `-- Validator.js : 입력 양식 검증 클래스 파일
 `-- view
     |-- DisplayOutput.js : 출력관련 클래스 파일
     `-- UserInput.js : 입력 관련 클래스 파일
