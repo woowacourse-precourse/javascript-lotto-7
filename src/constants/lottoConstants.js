@@ -26,3 +26,11 @@ export const FORMAT = {
   NUMBER_LIST_START: '[',
   NUMBER_LIST_END: ']',
 };
+
+export const NUMBER = {
+  ZERO: 0,
+  ONE: 1,
+  THREE: 3,
+  FIVE: 5,
+  TEN: 10,
+};

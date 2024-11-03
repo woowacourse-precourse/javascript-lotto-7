@@ -1,20 +1,36 @@
 import { LOTTO_PRIZES } from '../constants/lottoPrize.js';
+import { NUMBER, WINNING_RANK } from '../constants/lottoConstants.js';
 
 const getInitialStatistics = () => ({
-  3: { count: 0, prize: LOTTO_PRIZES[3].prize },
-  4: { count: 0, prize: LOTTO_PRIZES[4].prize },
-  5: { count: 0, prize: LOTTO_PRIZES[5].prize },
-  '5+bonus': { count: 0, prize: LOTTO_PRIZES['5+bonus'].prize },
-  6: { count: 0, prize: LOTTO_PRIZES[6].prize },
+  [WINNING_RANK.FIFTH]: {
+    count: NUMBER.ZERO,
+    prize: LOTTO_PRIZES[WINNING_RANK.FIFTH].prize,
+  },
+  [WINNING_RANK.FOURTH]: {
+    count: NUMBER.ZERO,
+    prize: LOTTO_PRIZES[WINNING_RANK.FOURTH].prize,
+  },
+  [WINNING_RANK.THIRD]: {
+    count: NUMBER.ZERO,
+    prize: LOTTO_PRIZES[WINNING_RANK.THIRD].prize,
+  },
+  [WINNING_RANK.SECOND]: {
+    count: NUMBER.ZERO,
+    prize: LOTTO_PRIZES[WINNING_RANK.SECOND].prize,
+  },
+  [WINNING_RANK.FIRST]: {
+    count: NUMBER.ZERO,
+    prize: LOTTO_PRIZES[WINNING_RANK.FIRST].prize,
+  },
 });
 
 const getRank = ({ matchCount, hasBonus }) => {
-  if (matchCount < 3) {
+  if (matchCount < NUMBER.THREE) {
     return null;
   }
 
-  if (matchCount === 5 && hasBonus) {
-    return '5+bonus';
+  if (matchCount === NUMBER.FIVE && hasBonus) {
+    return WINNING_RANK.SECOND;
   }
 
   return matchCount;
@@ -27,7 +43,7 @@ export const calculateLottoStatistics = (matchResults) => {
     .map(getRank)
     .filter(Boolean)
     .forEach((rank) => {
-      statistics[rank].count += 1;
+      statistics[rank].count += NUMBER.ONE;
     });
 
   return statistics;

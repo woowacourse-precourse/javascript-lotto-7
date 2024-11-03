@@ -1,5 +1,5 @@
 import { PURCHASE_AMOUNT_MESSAGES } from '../constants/errorMessages.js';
-import { LOTTO } from '../constants/lottoConstants.js';
+import { LOTTO, NUMBER } from '../constants/lottoConstants.js';
 
 class ValidatePurchaseAmount {
   #validateIsNumber(input) {
@@ -11,7 +11,7 @@ class ValidatePurchaseAmount {
   }
 
   #validateThousandUnit(input) {
-    if (input % LOTTO.PRICE !== 0) {
+    if (input % LOTTO.PRICE !== NUMBER.ZERO) {
       throw new Error(PURCHASE_AMOUNT_MESSAGES.NOT_THOUSAND_UNIT);
     }
   }

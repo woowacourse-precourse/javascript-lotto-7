@@ -1,10 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
 import { INPUT_MESSAGES } from '../constants/viewMessages.js';
+import { NUMBER } from '../constants/lottoConstants.js';
 
 class InputView {
   async readLottoAmount() {
     const input = await Console.readLineAsync(INPUT_MESSAGES.PURCHASE_AMOUNT);
-    return parseInt(input, 10);
+    return parseInt(input, NUMBER.TEN);
   }
 
   async readWinningNumbers() {
@@ -13,7 +14,7 @@ class InputView {
 
   async readBonusNumber() {
     const input = await Console.readLineAsync(INPUT_MESSAGES.BONUS_NUMBER);
-    return parseInt(input, 10);
+    return parseInt(input, NUMBER.TEN);
   }
 }
 

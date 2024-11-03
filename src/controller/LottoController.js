@@ -9,6 +9,7 @@ import {
 } from '../utils/calculateLottoPrizes.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
 import ValidateBonusNumber from '../models/ValidateBonusNumber.js';
+import { LOTTO } from '../constants/lottoConstants.js';
 
 class LottoController {
   #inputView;
@@ -85,7 +86,7 @@ class LottoController {
   }
 
   #generateLottos(amount) {
-    const lottoCount = Math.floor(amount / 1000);
+    const lottoCount = Math.floor(amount / LOTTO.PRICE);
     return Array.from({ length: lottoCount }, () => this.#createLotto());
   }
 
