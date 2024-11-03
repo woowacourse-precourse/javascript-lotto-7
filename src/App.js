@@ -8,10 +8,8 @@ class App {
   async run() {
     const inputView = new InputView();
     const outputView = new OutputView();
-    const purchasePrice = await inputView.inputPurchaseAmount();
 
-    // 구입 금액으로 로또 생성
-    const lottoManager = new LottoGenerator(purchasePrice);
+    const lottoManager = await inputView.inputPurchaseAmount();
 
     // 로또 개수 출력
     outputView.printLottoCount(lottoManager.lottoCount);
@@ -39,12 +37,12 @@ class App {
     // 보너스 번호 입력
     const bonusNumber = await inputView.inputBonusNumber();
 
-    // 로또 추첨 시작(내가 구매한 로또, 로또 당첨 번호, 보너스 번호)
+    // 로또 추첨 시작(내가 구매한 로또, 로또 당첨 번호, 보너스 번호, 구입 금액)
     const lottoGame = new LottoGame(
       myLottos,
       winningLotto,
       bonusNumber,
-      purchasePrice
+      lottoManager.purchasePrice
     );
 
     const lottoResult = lottoGame.drawLotto();

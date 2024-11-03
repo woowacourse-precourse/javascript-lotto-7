@@ -2,6 +2,10 @@ import { Console } from '@woowacourse/mission-utils';
 import { LOTTO_PRIZE } from '../constant.js';
 
 class OutputView {
+  static printErrorMessage(errorMessage) {
+    Console.print(errorMessage);
+  }
+
   printLottoCount(lottoCount) {
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
   }
