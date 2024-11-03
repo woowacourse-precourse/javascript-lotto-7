@@ -54,10 +54,7 @@ class App {
     const lotteries = [];
     for (let i = 0; i < count; i++) {
       const pickedNumber = Random.pickUniqueNumbersInRange(1, 45, 6);
-      const sortedNumber = pickedNumber
-        .map((v) => parseInt(v))
-        .sort((a, b) => a - b);
-      const lotto = new Lotto(sortedNumber);
+      const lotto = new Lotto(pickedNumber);
       lotteries.push(lotto);
     }
     this.showLotteries(lotteries);
@@ -77,28 +74,11 @@ class App {
         "\n당첨 번호를 입력해 주세요.\n",
       );
       const winningNumbers = input.split(",").map((v) => Number(v));
-      this.validateWinningNumbers(winningNumbers);
-      return winningNumbers;
+      return new Lotto(winningNumbers);
     } catch (e) {
       Console.print(e.message);
       return this.getWinningNumbers();
     }
-  }
-
-  validateWinningNumbers(numbers) {
-    const winningNumbers = [];
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
-    numbers.forEach((number) => {
-      if (isNaN(number) || number < 1 || number > 45) {
-        throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
-      }
-      if (winningNumbers.includes(number)) {
-        throw new Error("[ERROR] 로또 번호는 중복되지 않는 숫자여야 합니다.");
-      }
-      winningNumbers.push(number);
-    });
   }
 
   async getBonusNumber(winningNumbers) {
@@ -116,7 +96,9 @@ class App {
     }
   }
 
-  validateBonusNumber(number, winningNumbers) {
+  validateBonusNumber(number, _winningNumbers) {
+    const winningNumbers = _winningNumbers.getLotto();
+
     if (isNaN(number) || number < 1 || number > 45) {
       throw new Error(
         "[ERROR] 보너스 번호는 1과 45 사이의 숫자로 입력하셔야 합니다.",
@@ -127,7 +109,8 @@ class App {
     }
   }
 
-  getRankCount(winningNumbers, bonusNumber, lotteries) {
+  getRankCount(_winningNumbers, bonusNumber, lotteries) {
+    const winningNumbers = _winningNumbers.getLotto();
     const rankCount = Array(6).fill(0);
     lotteries.forEach((lotto) => {
       const rank = lotto.getRank(winningNumbers, bonusNumber);
