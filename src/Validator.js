@@ -2,13 +2,13 @@ import { errorMessage } from './constant/errorMessage.js';
 import { regex } from './constant/regex.js';
 
 export function validateAmount(input) {
-  const amount = parseInt(input.trim(), 10);
-
-  if (amount != input.trim())
-    throw new Error(`${errorMessage.prefix} ${errorMessage.invalidAmount}`);
+  const amount = parseInt(input.trim());
 
   if (!amount && amount !== 0)
     throw new Error(`${errorMessage.prefix} ${errorMessage.invalidAmount}`);
+
+  if (amount != input.trim())
+    throw new Error(`${errorMessage.prefix} ${errorMessage.notIntegerAmount}`);
 
   if (!isValidAmount(amount))
     throw new Error(`${errorMessage.prefix} ${errorMessage.negativeAmount}`);
@@ -37,7 +37,7 @@ export function validateNumbers(input) {
 }
 
 export function validateBonusNumber(input) {
-  const bonusNumber = parseInt(input.trim(), 10);
+  const bonusNumber = parseInt(input.trim());
 
   if (bonusNumber != input.trim())
     throw new Error(`${errorMessage.prefix} ${errorMessage.invalidBonusNumber}`);
