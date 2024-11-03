@@ -25,9 +25,12 @@ class WinningLottoManager {
 
   static #parsingWinningNumbers(numbers) {
     const numbersArray = Utils.parsingToArray(numbers);
-    const winningNumbers = numbersArray.map((number) =>
-      Utils.parsingToNumber(number),
-    );
+
+    const winningNumbers = numbersArray.map((number) => {
+      const trimmedNumber = Utils.trimInput(number);
+      const parsedNumber = Utils.parsingToNumber(trimmedNumber);
+      return parsedNumber;
+    });
 
     return winningNumbers;
   }
@@ -56,7 +59,8 @@ class WinningLottoManager {
   }
 
   static #parsingBonusNumber(number) {
-    const parsedBonusNumber = Utils.parsingToNumber(number);
+    const trimmedNumber = Utils.trimInput(number);
+    const parsedBonusNumber = Utils.parsingToNumber(trimmedNumber);
     return parsedBonusNumber;
   }
 
