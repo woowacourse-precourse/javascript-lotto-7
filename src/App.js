@@ -25,11 +25,6 @@ class App {
 
     // 당첨 여부 계산
     lottoGame.CheckLottos(winningNumbers, bonusNumber);
-
-    // const bonusNumber = await this.IOHandler.getInput(INPUT_MESSAGE.GET_BONUS_NUMBER);
-    // Console.print(bonusNumber);
-    // this.Lotto = new Lotto(lottoNumbers);
-    // this.Lotto.start();
   }
 }
 

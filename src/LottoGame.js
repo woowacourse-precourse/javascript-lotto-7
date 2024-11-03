@@ -1,6 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import RankStatus from "./RankStatus.js";
+import { PRIZE } from "./Constant.js";
 
 class LottoGame {
   #lottoAmount;
@@ -34,6 +35,23 @@ class LottoGame {
     this.#lottoArr.forEach((lotto) => {
       this.#Ranks.increseRankCount(lotto.getLottoRank(winningNumbers, bonusNumber));
     });
+  }
+
+  // 총 당첨금 계산
+  #getTotalPrize() {
+    let totalPrize = 0;
+    const prizeValues = [PRIZE.FIRST, PRIZE.SECOND, PRIZE.THIRD, PRIZE.FOURTH, PRIZE.FIFTH];
+    for (let i = 0; i < rankCount.length; i++) {
+      totalPrize += this.#Ranks.getRankCount(rankCount[i + 1]) * prizeValues[i];
+    }
+    return totalPrize;
+  }
+
+  // 총 수익률 계산
+  getRateOfReturn(purchaseAmount) {
+    const totalPrize = this.#getTotalPrize();
+    const RateOfReturn = Math.round((purchaseAmount / totalPrize)*100) / 100;
+    return RateOfReturn;
   }
 }
 
