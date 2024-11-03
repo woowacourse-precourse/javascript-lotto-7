@@ -6,6 +6,12 @@ import {
 import { ERROR_MESSAGES } from '../src/constant/constants';
 
 describe('로또 구입금액 입력 예외 테스트', () => {
+  test('로또 구입금액이 빈값일 예외가 발생한다.', () => {
+    const money = '';
+
+    expect(() => validateMoney(money)).toThrow(ERROR_MESSAGES.EMPTY_INPUT);
+  });
+
   test('로또 구입금액이 숫자가 아닌경우 예외가 발생한다.', () => {
     const money = '*';
 
@@ -24,6 +30,14 @@ describe('로또 구입금액 입력 예외 테스트', () => {
 });
 
 describe('당첨 번호 입력 예외 테스트', () => {
+  test('당첨 번호가 빈값일 예외가 발생한다.', () => {
+    const numbers = '';
+
+    expect(() => validateWinningNumber(numbers)).toThrow(
+      ERROR_MESSAGES.EMPTY_INPUT,
+    );
+  });
+
   test('입력된 당첨 번호에 쉼표가 없으면 예외가 발생한다.', () => {
     const numbers = '123';
 
@@ -74,6 +88,15 @@ describe('당첨 번호 입력 예외 테스트', () => {
 });
 
 describe('보너스 번호 입력 예외 테스트', () => {
+  test('보너스 번호가 빈값일 예외가 발생한다.', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    const bonusNumber = '';
+
+    expect(() => validateBonusNumber(bonusNumber, winningNumbers)).toThrow(
+      ERROR_MESSAGES.EMPTY_INPUT,
+    );
+  });
+
   test('보너스 번호가 당첨 번호중 하나와 같다면 예외가 발생한다.', () => {
     const winningNumbers = [1, 2, 3, 4, 5, 6];
     const bonusNumber = '6';
