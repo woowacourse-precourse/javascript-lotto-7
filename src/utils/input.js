@@ -1,6 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
 import { printErrorMessage } from "./printErrorMessage.js";
-import { validateNumbers, validatePurchaseAmount } from "./validator.js";
+import {
+  validateBonusNumber,
+  validateNumbers,
+  validatePurchaseAmount,
+} from "./validator.js";
 import { NUMBER_SEPARATOR } from "../constants/gameRules.js";
 
 export const getPurchaseAmount = async () => {
@@ -34,6 +38,23 @@ export const getNumbers = async (message) => {
       validateNumbers(numbers);
 
       return numbers;
+    } catch (error) {
+      printErrorMessage(error.message);
+    }
+  }
+};
+
+export const getBonusNumber = async (winningNumbers) => {
+  while (true) {
+    try {
+      const bonusNumberInput = await Console.readLineAsync(
+        "보너스 번호를 입력해 주세요."
+      );
+      const bonusNumber = Number(bonusNumberInput);
+
+      validateBonusNumber(winningNumbers, bonusNumber);
+
+      return bonusNumber;
     } catch (error) {
       printErrorMessage(error.message);
     }

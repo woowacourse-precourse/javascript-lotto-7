@@ -47,3 +47,17 @@ export const validateNumbers = (numbers) => {
     }
   });
 };
+
+export const validateBonusNumber = (array, number) => {
+  if (Number.isNaN(number)) {
+    throw new Error(BONUS_NUMBER_ERROR.NOT_A_NUMBER);
+  }
+
+  if (isDuplicateInArray(array, number)) {
+    throw new Error(BONUS_NUMBER_ERROR.DUPLICATE_NUMBERS);
+  }
+
+  if (number < 1 || number > 45) {
+    throw new Error(BONUS_NUMBER_ERROR.INVALID_RANGE);
+  }
+};
