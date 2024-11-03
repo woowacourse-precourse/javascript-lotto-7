@@ -84,8 +84,8 @@ describe('Validator 테스트', () => {
     '당첨 번호와 보너스 번호의 중복 여부 검사 (당첨번호 : %s',
     (lottoNumbers) => {
       test.each([
-        [6, false],
-        [7, true],
+        [[6], false],
+        [[7], true],
       ])('보너스번호 : %s 결과 : %s)', (bonusNumber, expectedResult) => {
         expect(validator.validateBonusNumberDuplicated(lottoNumbers, bonusNumber)).toBe(
           expectedResult,
