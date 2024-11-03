@@ -11,10 +11,11 @@ export default class LottoIssuer {
   #amount;
 
   constructor(purchaseAmount) {
-    this.#validate(purchaseAmount);
+    const validAmount = LottoIssuer.validate(purchaseAmount);
+    this.#amount = validAmount;
   }
 
-  #validate(purchaseAmount) {
+  static validate(purchaseAmount) {
     const amount = Number(purchaseAmount);
 
     if (
@@ -22,8 +23,7 @@ export default class LottoIssuer {
       amount > 0 &&
       amount % LottoIssuer.#LOTTO_PRICE === 0
     ) {
-      this.#amount = amount / LottoIssuer.#LOTTO_PRICE;
-      return;
+      return amount / LottoIssuer.#LOTTO_PRICE;
     }
 
     throw new Error(LottoIssuer.#ERROR_MESSAGE.INVALID_AMOUNT);

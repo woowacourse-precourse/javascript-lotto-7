@@ -8,10 +8,11 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
+    const validNumbers = Lotto.validate(numbers);
+    this.#numbers = validNumbers;
   }
 
-  #validate(numbers) {
+  static validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error(Lotto.#ERROR_MESSAGE.INVALID_NUMBER_LENGTH);
     }
@@ -24,7 +25,7 @@ class Lotto {
       throw new Error(Lotto.#ERROR_MESSAGE.INVALID_NUMBER_RANGE);
     }
 
-    this.#numbers = numbers;
+    return numbers;
   }
 
   getSortedNumbers() {
