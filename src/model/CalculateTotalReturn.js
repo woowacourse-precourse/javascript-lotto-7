@@ -14,7 +14,12 @@ export default class CalculateTotalReturn {
 
   calculateReturnRate() {
     const totalWinnings = this.calculateTotalWinnings();
-    const returnRate = (totalWinnings / this.purchaseAmount) * 100;
-    return Math.round(returnRate * 100) / 100;
+    let returnRate = (totalWinnings / this.purchaseAmount) * 100;
+
+    // 소수 둘째 자리에서 반올림
+    returnRate = Math.round(returnRate * 100) / 100;
+
+    // 소수점이 없는 경우 소수 첫째 자리에 .0 추가
+    return returnRate % 1 === 0 ? `${returnRate}.0` : returnRate.toString();
   }
 }
