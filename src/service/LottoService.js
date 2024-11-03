@@ -53,9 +53,14 @@ export class LottoService {
   }
   
   static calculateTotalReturn(prizeTable, totalSpent) {
-    let totalPrize = 0;
-    const results = [];
+    const results = this.generateResults(prizeTable);
+    const totalReturn = this.calculateReturn(prizeTable, totalSpent);
+    results.totalReturn = totalReturn;
+    return results;
+  }
 
+  static generateResults(prizeTable) {
+    const results = [];
     const order = [3, 4, 5, '5', 6];
 
     order.forEach(key => {
@@ -67,11 +72,16 @@ export class LottoService {
         description = `${key}개 일치`;
       }
       results.push(`${description} (${prize.toLocaleString()}원) - ${count}개`);
-      totalPrize += count * prize;
     });
 
-    const totalReturn = ((totalPrize / totalSpent) * 100).toFixed(1);
-    results.totalReturn = totalReturn;
     return results;
+  }
+
+  static calculateReturn(prizeTable, totalSpent) {
+    let totalPrize = 0;
+    Object.values(prizeTable).forEach(({ count, prize }) => {
+      totalPrize += count * prize;
+    });
+    return ((totalPrize / totalSpent) * 100).toFixed(1);
   }
 }
