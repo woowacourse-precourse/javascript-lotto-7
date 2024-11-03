@@ -7,3 +7,9 @@ export function validateLength(numbers) {
     throw new CustomError(ERROR.INVALID_LOTTO_NUMBER_COUNT);
   }
 }
+
+export function validateNoDuplicates(numbers) {
+  if (new Set(numbers).size !== LOTTO_NUMBERS.NUMBER_LENGTH) {
+    throw new CustomError(ERROR.DUPLICATE_LOTTO_NUMBER);
+  }
+}
