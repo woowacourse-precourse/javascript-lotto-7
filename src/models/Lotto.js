@@ -19,9 +19,7 @@ class Lotto {
   }
 
   #validateUniqueNumber(numbers) {
-    const set = new Set(numbers);
-
-    if (numbers.length !== set.size) {
+    if (Validator.hasUniqueNumber(numbers)) {
       generateError("발행된 로또에 중복된 수가 포함되어 있습니다.");
     }
   }

@@ -17,6 +17,11 @@ class Validator {
       return Object.values(values).some((value) => this.isNotNumber(value));
     }
   }
+
+  static hasUniqueNumber(values) {
+    const set = new Set(values);
+    return values.length !== set.size;
+  }
 }
 
 export default Validator;
