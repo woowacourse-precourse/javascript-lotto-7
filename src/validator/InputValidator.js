@@ -8,12 +8,16 @@ import {
 import throwError from '../Error/handleError.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 import { LOTTO_NUMBERS_LENGTH } from '../constants/constraints.js';
+import { isUnderMaxPurchaseAmount } from '../utils/lottoUtils.js';
 
 class InputValidator {
   static validatePurchaseCost(purchaseCost) {
     this.checkPositiveInteger(purchaseCost);
     if (!isCostInUnits(purchaseCost)) {
       throwError(ERROR_MESSAGES.INVALID_COST_UNITS);
+    }
+    if (!isUnderMaxPurchaseAmount(purchaseCost)) {
+      throwError(ERROR_MESSAGES.EXCEEDS_MAX_PURCHASE_AMOUNT);
     }
   }
 

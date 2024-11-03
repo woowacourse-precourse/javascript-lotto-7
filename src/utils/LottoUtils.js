@@ -1,7 +1,15 @@
-import { COST_UNIT, DECIMAL_PLACES } from '../constants/constraints.js';
+import {
+  COST_UNIT,
+  DECIMAL_PLACES,
+  MAX_PURCHASE_AMOUNT,
+} from '../constants/constraints.js';
 
 export const calculateLottoAmount = (purchaseAmount) => {
   return purchaseAmount / COST_UNIT;
+};
+
+export const isUnderMaxPurchaseAmount = (purchaseAmount) => {
+  return purchaseAmount <= MAX_PURCHASE_AMOUNT;
 };
 
 export const calculateEarningsRatio = (totalEarnings, purchaseCost) => {

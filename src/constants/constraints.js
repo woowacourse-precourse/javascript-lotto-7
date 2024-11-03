@@ -3,6 +3,7 @@ export const COST_UNIT = 1000;
 export const LOTTO_NUMBER_FORMAT = /^\d+$/;
 export const LOTTO_MIN_NUMBER = 1;
 export const LOTTO_MAX_NUMBER = 45;
+export const MAX_PURCHASE_AMOUNT = 1000000;
 export const DECIMAL_PLACES = Object.freeze({
   MINIMUM_FRACTION_DIGITS: 1,
   MAXIMUM_FRACTION_DIGITS: 1,
