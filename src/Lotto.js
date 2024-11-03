@@ -1,3 +1,5 @@
+import { ERR_MSG } from './constants.js';
+
 export default class Lotto {
    #numbers;
 
@@ -8,7 +10,14 @@ export default class Lotto {
 
    #validate(numbers) {
       if (numbers.length !== 6) {
-         throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+         throw new Error(ERR_MSG.ERR_NUMBERS_COUNT);
+      }
+      this.checkDuplicateNumbers(numbers); // 중복 체크 추가
+   }
+
+   checkDuplicateNumbers(numbers) {
+      if (new Set(numbers).size !== numbers.length) {
+         throw new Error(ERR_MSG.ERR_DUPLICATE_NUMBERS);
       }
    }
 
