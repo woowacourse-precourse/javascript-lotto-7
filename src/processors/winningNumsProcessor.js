@@ -1,4 +1,4 @@
-import { ERR_MSG_WINNING_NUMBERS_INVALID_STRING } from "../constants";
+import { ERR_MSG_WINNING_NUMBERS_INVALID_STRING } from "../constants.js";
 
 const getWinningNums = (winningNumsInput) => {
     if (validate(winningNumsInput)) {
