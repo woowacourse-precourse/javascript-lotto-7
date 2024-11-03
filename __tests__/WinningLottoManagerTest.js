@@ -153,4 +153,13 @@ describe('WinningLottoManager 테스트', () => {
       await testSelectBonusNumber(inputs, errorMessage);
     },
   );
+
+  test.each([['1'], ['2'], ['3'], ['4'], ['5'], ['6']])(
+    '보너스 번호가 당첨 번호와 중복되면 예외 처리하는지 테스트 (%s)',
+    async (inputs) => {
+      const errorMessage = ERROR_MESSAGE.isDuplicated;
+
+      await testSelectBonusNumber(inputs, errorMessage);
+    },
+  );
 });
