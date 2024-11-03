@@ -22,7 +22,7 @@ class OutputController {
     this.print(OUTPUT_MESSAGE.WINNING_STATICS);
 
     Object.entries(LOTTO_RANK_MAP).forEach(([rawRank, lottoInfo]) => {
-      const rank = +rawRank;
+      const rank = Number(rawRank);
       const { winningCount, prizeMoney } = lottoInfo;
       const winningLottoCount = lottoResult.getWinningCount(rank);
 

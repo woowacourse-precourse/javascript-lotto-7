@@ -103,7 +103,7 @@ class InputManager {
   }
 
   static #parseBonusNumber(rawBonusNumber) {
-    return +rawBonusNumber;
+    return Number(rawBonusNumber);
   }
 }
 

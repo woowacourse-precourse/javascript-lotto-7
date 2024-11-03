@@ -53,7 +53,7 @@ class Lotto {
         info.isBonusMatch === isBonusMatch,
     );
 
-    if (rankData) return +rankData[0];
+    if (rankData) return Number(rankData[0]);
     return null;
   }
 
