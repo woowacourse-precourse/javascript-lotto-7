@@ -6,11 +6,14 @@ import Utils from './utils/Utils.js';
 import Validation from './Validation.js';
 import WinningLottoManager from './WinningLottoManager.js';
 import Analyzer from './Analyzer.js';
+import outputView from './userInterface/OutputView.js';
 
 class App {
   async run() {
     const lottoMachine = await this.getLottoMachine();
     const lottos = lottoMachine.getLottos();
+    outputView.printLotto(lottos);
+
     const winningLottoNumbers = await App.getWinningLottoNumbers();
     const analyzer = App.getAnalyzer(lottos, winningLottoNumbers);
     const matchingTable = analyzer.getMatchingTable();
