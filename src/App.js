@@ -1,9 +1,9 @@
-import Lotto from "./Lotto.js";
+import LottoGame from "./LottoGame.js";
 
 class App {
     async run() {
-        const lotto = new Lotto();
-        await lotto.start();
+        const lottoGame = new LottoGame();
+        await lottoGame.start();
     }
 }
 
