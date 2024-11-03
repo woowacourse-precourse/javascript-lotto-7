@@ -1,4 +1,4 @@
-import InputController from './inputController.js';
+import InputController from './InputController.js';
 import OutputView from '../views/OutputView.js';
 import LottoManager from '../models/LottoManager.js';
 
