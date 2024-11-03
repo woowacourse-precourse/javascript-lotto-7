@@ -26,4 +26,9 @@ export class InputHandler {
     const validator = Validator.isValidWinningNumbers;
     return await this.#tryUserInput(helperMessages, validator);
   }
+
+  static async getBonusBall() {
+    const helperMessages = HELPER_MESSAGE.getBonusBall;
+    return await this.#tryUserInput(helperMessages);
+  }
 }
