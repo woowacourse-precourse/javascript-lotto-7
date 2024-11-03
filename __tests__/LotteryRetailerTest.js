@@ -48,4 +48,22 @@ describe('LotteryRetailer 클래스 테스트', () => {
 
     expect(ticketCountForPrize).toEqual(expected);
   });
+
+  test('수익률 계산 기능 테스트', () => {
+    const purchasePrice = 8000;
+    const ticketCountForPrize = {
+      fifth: 1,
+      fourth: 0,
+      third: 0,
+      second: 0,
+      first: 0,
+    };
+
+    const lotteryYield = lotteryRetailer.evaluateLotteryYield(
+      ticketCountForPrize,
+      purchasePrice
+    );
+
+    expect(lotteryYield).toBe(62.5);
+  });
 });

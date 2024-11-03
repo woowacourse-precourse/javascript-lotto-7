@@ -7,4 +7,5 @@ export const OUTPUT_MESSAGE = Object({
     `${matchingCount}개 일치${
       prize === 'second' ? ', 보너스 볼 일치' : ''
     } (${prettyNumber(lotteryPrize)}원) - ${winningCount}개`,
+  lotteryYield: (rate) => `총 수익률은 ${rate}%입니다.`,
 });

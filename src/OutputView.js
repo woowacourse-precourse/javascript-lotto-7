@@ -23,6 +23,10 @@ class OutputView {
       );
     });
   }
+
+  showLotteryYield(rate) {
+    Console.print(OUTPUT_MESSAGE.lotteryYield(rate));
+  }
 }
 
 export default OutputView;

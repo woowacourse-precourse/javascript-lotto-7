@@ -60,7 +60,7 @@ class InputView {
     }
 
     const winningNumbersSet = new Set(numbers);
-    const hasDuplicateNumber = winningNumbersSet.size !== LOTTO.numberCount;
+    const hasDuplicateNumber = winningNumbersSet.size < LOTTO.numberCount;
     if (hasDuplicateNumber) {
       throw new Error(ERROR_MESSAGE.winningNumbers.duplicate);
     }
@@ -68,7 +68,7 @@ class InputView {
 
   async readBonusNumber(winningNumbers) {
     try {
-      const input = await Console.readLineAsync(INPUT_MESSAGE.bonusNumber);
+      const input = await Console.readLineAsync(INPUT_MESSAGE.bonus);
       const bonus = Number(input);
 
       this.#validateBonusNumber(winningNumbers, bonus);

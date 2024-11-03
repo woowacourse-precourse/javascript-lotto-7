@@ -11,14 +11,6 @@ import {
 } from './constants/index.js';
 
 class LotteryRetailer {
-  pickLottoNumber() {
-    return Random.pickUniqueNumbersInRange(
-      LOTTO.minNumber,
-      LOTTO.maxNumber,
-      LOTTO.numberCount
-    );
-  }
-
   issueTicket(purchasePrice) {
     const tickets = [];
     const amount = purchasePrice / LOTTO.ticketPrice;
@@ -29,6 +21,14 @@ class LotteryRetailer {
     }
 
     return tickets;
+  }
+
+  pickLottoNumber() {
+    return Random.pickUniqueNumbersInRange(
+      LOTTO.minNumber,
+      LOTTO.maxNumber,
+      LOTTO.numberCount
+    );
   }
 
   evaluateTicketWinnings(tickets, winningNumbers, bonus) {
@@ -52,6 +52,17 @@ class LotteryRetailer {
     };
 
     return ticketCountForPrize;
+  }
+
+  evaluateLotteryYield(ticketCountForPrize, purchasePrice) {
+    const returns = this.#calculateReturns(ticketCountForPrize);
+    const lotteryYield = (returns / purchasePrice) * 100;
+    return Math.round((lotteryYield + Number.EPSILON) * 10) / 10;
+  }
+
+  #calculateReturns(ticketCountForPrize) {
+    return Object.entries(ticketCountForPrize) //
+      .reduce((returns, [rank, amount]) => returns + PRIZE[rank] * amount, 0);
   }
 }
 

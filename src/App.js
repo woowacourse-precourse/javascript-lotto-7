@@ -28,7 +28,11 @@ class App {
     );
     this.#outputView.showWinningStatistics(ticketCountForPrize);
 
-    lotteryRetailer.showLotteryYield(purchasePrice, tickets);
+    const lotteryYield = lotteryRetailer.evaluateLotteryYield(
+      ticketCountForPrize,
+      purchasePrice
+    );
+    this.#outputView.showLotteryYield(lotteryYield);
   }
 }
 
