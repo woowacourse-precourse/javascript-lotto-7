@@ -1,6 +1,6 @@
 import LottoChecker from './LottoChecker.js';
 
-class RevenueCalculator {
+class LottoRevenueCalculator {
   static calculateYield(totalSpent, winningResults) {
     const totalPrize = this.#calculateTotalPrize(winningResults);
 
@@ -19,4 +19,4 @@ class RevenueCalculator {
   }
 }
 
-export default RevenueCalculator;
+export default LottoRevenueCalculator;
