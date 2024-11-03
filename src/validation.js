@@ -39,4 +39,21 @@ const lottoNumbersValidation = (numbers) => {
   }
 };
 
-export { moneyValidation, lottoNumbersValidation };
+const bonusNumberValidation = (number) => {
+  if (!number) {
+    throw new Error('보너스 번호는 빈 값이면 안됩니다.');
+  }
+
+  if (/[^\d+]/g.test(number)) {
+    throw new Error('보너스 번호는 양수로만 구성되어야 합니다.');
+  }
+
+  const parseNumber = parseInt(number, 10);
+  if (parseNumber > 45 || parseNumber < 1) {
+    throw new Error(
+      '보너스 번호는 숫자는 최소 1이상 최대 45이하로만 구성되어야 합니다.',
+    );
+  }
+};
+
+export { moneyValidation, lottoNumbersValidation, bonusNumberValidation };

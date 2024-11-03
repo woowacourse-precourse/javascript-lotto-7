@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { moneyValidation, lottoNumbersValidation } from "./validation.js";
+import { moneyValidation, lottoNumbersValidation, bonusNumberValidation } from "./validation.js";
 
 class Machine {
   #money;
@@ -71,6 +71,7 @@ class Machine {
 
   async readUserBonusNumber() {
     const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    bonusNumberValidation(bonusNumber);
     this.#bonusNumber = parseInt(bonusNumber, 10);
   }
 
