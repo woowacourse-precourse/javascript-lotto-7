@@ -13,12 +13,7 @@ class LottoOutputWriter {
     for (let i = winningResults.length - 1; i >= 0; i--) {
       const { matchCount, prize, bonus } = LottoChecker.PRIZE_TIERS[i];
       Console.print(
-        this.#generateWinningResultMessage(
-          matchCount,
-          prize,
-          bonus,
-          winningResults[i]
-        )
+        this.#generateWinningResultMessage(matchCount, prize, bonus, winningResults[i])
       );
     }
   }
@@ -38,6 +33,7 @@ class LottoOutputWriter {
 
   static #generateWinningResultMessage(matchCount, prize, bonus, count) {
     const bonusMessage = bonus && matchCount === 5 ? ', 보너스 볼 일치' : '';
+
     return `${matchCount}개 일치${bonusMessage} (${prize}원) - ${count}개`;
   }
 }
