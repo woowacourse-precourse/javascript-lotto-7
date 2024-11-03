@@ -16,7 +16,7 @@ export const ERROR_MESSAGES = {
   invalidLottoNumberType:
     "[ERROR] 로또 번호에 숫자가 아닌 다른 문자가 입력될 수 없습니다.",
   invalidLottoNumberDuplicate: "[ERROR] 로또 번호는 중복될 수 없습니다.",
-  invalidLottoNumberLength: "[ERROR] 로또 번호의 개수는 6개입니다.",
+  invalidLottoNumberLength: "[ERROR] 로또 번호는 6개여야 합니다.",
   invalidBonusNumberType:
     "[ERROR] 보너스 번호에 숫자가 아닌 다른 문자가 입력될 수 없습니다.",
   invalidBonusNumberRange:

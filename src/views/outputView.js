@@ -1,5 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import getRandomNumbers from "../utils/random";
+import getRandomNumbers from "../utils/random.js";
 
 const OutputView = {
   formatCount(amount) {
