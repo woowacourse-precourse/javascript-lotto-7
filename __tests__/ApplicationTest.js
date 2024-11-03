@@ -47,7 +47,7 @@ const runExceptionBonus = async (bonusNumber) => {
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", bonusNumber];
+  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", bonusNumber, "7"];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
   mockQuestions([INPUT_NUMBERS_TO_END]);
