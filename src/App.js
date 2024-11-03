@@ -4,6 +4,7 @@ import { makeLotto } from "./lottoNumber.js";
 class App {
   async run() {
     const LottoCnt = await getLottoCnt();
+    makeLotto(LottoCnt);
   }
 }
 
