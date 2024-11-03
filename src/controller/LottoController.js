@@ -1,5 +1,7 @@
 import LottoMachine from "../models/LottoMachine.js";
+import { Utils } from "../utils/Utils.js";
 import PurchaseMoneyValidator from "../validators/PurchaseMoneyValidator.js";
+import WinningNumbersValidator from "../validators/WinningNumbersValidator.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutView.js";
 
@@ -18,6 +20,11 @@ class LottoController {
     const purchaseHistory = lottoHistory.getPurchaseHistory();
 
     OutputView.printPurchaseInfo(purchaseHistory.lottoCount, purchaseHistory.lottos);
+
+    // 사용자가 올바른 입력을 할 때까지 당첨 번호 입력
+    const winningNumbers = await this.#repeatUntilCorrectWinningNumbers();
+
+    console.log(winningNumbers);
   }
 
   async #repeatUntilCorrectPurchaseMoney() {
@@ -26,7 +33,20 @@ class LottoController {
       PurchaseMoneyValidator.checkValid(purchaseMoney);
       return purchaseMoney;
     } catch (error) {
+      OutputView.printError(error.message);
       return this.#repeatUntilCorrectPurchaseMoney();
+    }
+  }
+
+  async #repeatUntilCorrectWinningNumbers() {
+    try {
+      const winningNumbers = await InputView.enterWinningNumbers();
+      const convertedWinningNumbers = Utils.convertWinningNumberToArray(winningNumbers);
+      WinningNumbersValidator.checkValid(convertedWinningNumbers);
+      return winningNumbers;
+    } catch (error) {
+      OutputView.printError(error.message);
+      return this.#repeatUntilCorrectWinningNumbers();
     }
   }
 }
