@@ -5,6 +5,7 @@ import {
   LOTTO_MIN_NUMBER,
   LOTTO_NUMBER_AMOUNT,
 } from "../constant.js";
+import Check from "../components/Check.js";
 
 function createLotto() {
   const buyNumbers = Random.pickUniqueNumbersInRange(
@@ -22,4 +23,11 @@ export function playLotto(quantity, purchased) {
     purchased.push(purchasedNumbers.numbers);
     purchasedNumbers.printNumbers();
   }
+}
+
+export function checkLotto(purchased, results, winningNumbers, bonusNumber) {
+  purchased.forEach((numbers) => {
+    const winning = new Check(winningNumbers, bonusNumber, numbers, results);
+    winning.updateResults();
+  });
 }
