@@ -2,8 +2,8 @@ import Lotto from '../models/Lotto.js';
 import LottoService from '../services/LottoService.js';
 import GenerateLotto from '../utils/generateLotto.js';
 import Validator from '../utils/validator.js';
-import InputView from '../Views/InputView.js';
-import OutputView from '../Views/OutputView.js';
+import InputView from '../views/InputView.js';
+import OutputView from '../views/OutputView.js';
 
 class LottoController {
   #inputView;
