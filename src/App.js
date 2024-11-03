@@ -1,5 +1,11 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
+const PRIZE = {
+  three: 5000,
+  four: 50000,
+  fiveBonus: 3000000,
+  six: 2000000000,
+};
 class App {
   async run() {
     const purchaseAmount = await Console.readLineAsync(
@@ -77,6 +83,8 @@ class App {
       winningNumberSet,
       bonusNumber
     );
+    const rate = this.calculateRate(matchingResults, purchaseAmount);
+    this.printStatistics(matchingResults, rate);
   }
 
   generateLotto(lottoCount) {
@@ -140,6 +148,30 @@ class App {
       }
     });
     return matchingResults;
+  }
+  calculateRate(matchingResults, purchaseAmount) {
+    const totalPrize =
+      PRIZE.three * matchingResults.three +
+      PRIZE.four * matchingResults.four +
+      PRIZE.five * matchingResults.five +
+      PRIZE.fiveBonus * matchingResults.fiveBonus +
+      PRIZE.six * matchingResults.six;
+
+    const rate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+    return parseFloat(rate);
+  }
+  async printStatistics(matchingResults, rate) {
+    await Console.print("당첨 통계\n---");
+    await Console.print(`3개 일치 (5,000원) - ${matchingResults.three}개`);
+    await Console.print(`4개 일치 (50,000원) - ${matchingResults.four}개`);
+    await Console.print(`5개 일치 (1,500,000원) - ${matchingResults.five}개`);
+    await Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchingResults.fiveBonus}개`
+    );
+    await Console.print(
+      `6개 일치 (2,000,000,000원) - ${matchingResults.six}개`
+    );
+    await Console.print(`총 수익률은 ${rate}%입니다.`);
   }
 }
 
