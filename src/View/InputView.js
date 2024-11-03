@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GAME_MESSAGES } from "../utils/message";
+import { GAME_MESSAGES } from "../Utils/message";
 class Input {
   constructor() {}
   async readLottoPurchaseAmountInput() {

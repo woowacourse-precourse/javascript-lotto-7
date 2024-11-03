@@ -1,14 +1,22 @@
+import { Console } from "@woowacourse/mission-utils";
+import { ERROR_MESSAGES } from "../Utils/message";
+
 class Purchase {
     #amount;
     constructor(amount) {
-      this.#validate(amount);
-      this.#amount = amount;
+        this.#validate(amount);
+        this.#amount = amount;
     }
     #validate(amount) {
-      // 예외 아직
+        if (Number.isNaN(amount)) {
+            throw new Error(ERROR_MESSAGES.purchaseAmountNotNumber);
+        }
+        if (amount % 1000 !== 0) {
+            throw new Error(ERROR_MESSAGES.purchaseAmountNotDivisible);
+        }
     }
     getAmount() {
-      return this.#amount;
+        return this.#amount;
     }
-  }
-  export default Purchase;
+}
+export default Purchase;
