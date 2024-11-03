@@ -1,11 +1,15 @@
 import { Console } from "@woowacourse/mission-utils";
+import LottoManagerIO from "./LottoManagerIO.js";
 
 class LottoManager {
     #purchasePrice
-    #generatedLottos
+    #generatedLottoNumber
 
-    constructor(purchasePrice){
-        this.#purchasePrice = purchasePrice;
+    constructor(){}
+
+    async run(){
+        //const lottoManagerIO = new LottoManagerIO();
+        this.#purchasePrice = await LottoManagerIO.printPurchasePrice();
     }
 }
 
