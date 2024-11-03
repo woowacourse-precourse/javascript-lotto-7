@@ -10,6 +10,8 @@ const Utils = {
   },
 
   parsingToArray: (input) => input.split(UTILS.separator),
+
+  trimInput: (input) => input.trim(),
 };
 
 export default Utils;
