@@ -12,7 +12,6 @@ export class PurchaseAmountValidator {
   }
 
   isValidPurchaseAmountUnit() {
-    LOTTO_AMOUNT.UNIT = 1000;
     const parsedPurchaseAmount = Number(this.purchaseAmount);
 
     return parsedPurchaseAmount % LOTTO_AMOUNT.UNIT === 0 && parsedPurchaseAmount > 0;
