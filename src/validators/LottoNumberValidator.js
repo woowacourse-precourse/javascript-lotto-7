@@ -1,9 +1,10 @@
 import { LOTTO_ERROR_MESSAGE } from '../constants/message.js';
+import { GAME_RULES } from '../constants/gameRule.js';
 import { throwError } from '../utils/console.js';
 
 const validate = {
   validateLength(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== GAME_RULES.LOTTO_NUMBER_COUNT) {
       throwError(LOTTO_ERROR_MESSAGE.INVALID_LENGTH);
     }
   },
@@ -16,7 +17,7 @@ const validate = {
   },
 
   validateRange(numbers) {
-    if (numbers.some((num) => num < 1 || num > 45)) {
+    if (numbers.some((num) => num < GAME_RULES.MIN_LOTTO_NUMBER || num > GAME_RULES.MAX_LOTTO_NUMBER)) {
       throwError(LOTTO_ERROR_MESSAGE.OUT_OF_RANGE);
     }
   },
