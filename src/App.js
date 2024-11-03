@@ -1,5 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import ValidatorModule from './utils/ValidatorModules.js';
+import Lotto from './Lotto.js';
 
 const rankBoard = {
   1: { correctNumber: 6, correctBonus: false },
@@ -54,7 +55,8 @@ class App {
     for (let i = 0; i < this.#numberOfLotto; i += 1) {
       const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       const sortedNumbers = randomNumbers.sort((a, b) => a - b);
-      this.#lottos.push(sortedNumbers);
+      const lottoInstance = new Lotto(sortedNumbers);
+      this.#lottos.push(lottoInstance);
 
       Console.print(sortedNumbers);
     }
@@ -72,8 +74,8 @@ class App {
     // 6. 당첨 통계를 출력한다.
     // 당첨 통계 계산
     this.#lottos.forEach((lotto) => {
-      const correctCount = lotto.filter((element) => winnerNumbers.includes(element)).length;
-      const isCorrectBonus = lotto.includes(winnerBonus);
+      const correctCount = lotto.getNumberOfSameNumber(winnerNumbers);
+      const isCorrectBonus = lotto.getIsIncludesNumber(winnerBonus);
 
       if (correctCount == 6) {
         this.#lottoResults[1] += 1;
