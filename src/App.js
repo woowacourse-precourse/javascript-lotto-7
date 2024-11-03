@@ -1,6 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
-const M
 class App {
   async run() {
     const purchaseAmount = await Console.readLineAsync(
@@ -18,9 +17,16 @@ class App {
     if (purchaseAmount === "") {
       throw new Error("[ERROR]: 구입 금액에 빈 문자열을 입력할 수 없습니다.");
     }
+    const lottoCount = purchaseAmount / 1000;
+    const userLottoNumbers = this.generateLotto(lottoCount);
+
+    await Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    await Console.print(
+      userLottoNumbers.map((numbers) => `[ ${numbers.join(", ")} ]`).join("\n")
+    );
 
     const winningNumbers = await Console.readLineAsync(
-      "당첨 번호를 입력해 주세요.\n"
+      "\n당첨 번호를 입력해 주세요.\n"
     );
     const winningNumber = winningNumbers.split(",");
     if (winningNumber.length !== 6) {
@@ -66,7 +72,6 @@ class App {
       throw new Error("[ERROR]: 로또 번호는 1부터 45사이의 숫자여야 합니다.");
     }
 
-    const userLottoNumbers = this.generateLotto(purchaseAmount);
     const winningResults = this.checkMatchingLottos(
       userLottoNumbers,
       winningNumberSet,
@@ -74,8 +79,7 @@ class App {
     );
   }
 
-  generateLotto(purchaseAmount) {
-    const lottoCount = purchaseAmount / 1000;
+  generateLotto(lottoCount) {
     let userLottoNumbers = [];
     for (let i = 0; i < lottoCount; i++) {
       const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
@@ -86,35 +90,35 @@ class App {
       const sortedLottoNumbers = lottoNumbers.sort(function (a, b) {
         return a - b;
       });
-      userLottoNumbers.push({ sortedLottoNumbers });
+      userLottoNumbers.push(sortedLottoNumbers);
     }
     return userLottoNumbers;
   }
 
   checkMatchingLottos(userLottoNumbers, winningNumberSet, bonusNumber) {
     const matchingResults = {
-      three:0,
-      four:0,
-      five:0,
-      fiveBonus:0,
-      six:0
-    }
+      three: 0,
+      four: 0,
+      five: 0,
+      fiveBonus: 0,
+      six: 0,
+    };
 
-    userLottoNumbers.forEach((lotto)=>{
+    userLottoNumbers.forEach((lotto) => {
       const lottoNumbers = lotto.sortedLottoNumbers;
       let matchCount = 0;
       let hasBonus = false;
 
       lottoNumbers.forEach((num) => {
-        if(winningNumberSet.has(num)){
+        if (winningNumberSet.has(num)) {
           matchCount++;
         }
       });
 
-      if(lottoNumbers.has(bonusNumber)){
+      if (lottoNumbers.includes(bonusNumber)) {
         hasBonus = true;
       }
-      
+
       if (matchCount === 6) {
         matchingResults.six++;
         return;
@@ -134,7 +138,8 @@ class App {
       if (matchCount === 3) {
         matchingResults.three++;
       }
-    })
+    });
+    return matchingResults;
   }
 }
 
