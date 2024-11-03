@@ -22,6 +22,10 @@ class LottoGame {
       this.lottoMachine.generateLottos(Number.parseInt(inputPurchasePrice, 10)),
     );
     this.displayLottos();
+
+    const inputWinningNumbers = await InputHandler.getInput(
+      INPUT_PROMPT.WINNING_NUMBERS,
+    );
   }
 
   getLottos() {
@@ -37,6 +41,7 @@ class LottoGame {
     this.#lottos.forEach(lotto =>
       Console.print(`[${lotto.getNumbers().join(', ')}]`),
     );
+    Console.print('\n');
   }
 }
 
