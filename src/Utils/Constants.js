@@ -14,7 +14,10 @@ export const ERROR_MESSAGE = Object.freeze({
     BONUS_NUMBER_LACK_ERROR: '[ERROR] 보너스 번호가 입력되지 않았습니다.',
     BONUS_NUMBER_EXEED_ERROR: '[ERROR] 보너스 번호가 2개 이상 입력되었습니다.',
     BONUS_NUMBER_NOT_NUMBER_ERROR: '[ERROR] 보너스 번호는 숫자만 입력 가능합니다.',
-
+    WINNING_NUMBER_DUPLICATION_ERROR: '[ERROR] 중복된 당첨 번호를 입력할 수 없습니다.',
+    WINNING_NUMBER_RANGE_ERROR: '[ERROR] 당첨 번호는 1~45 사이의 값만 입력 가능합니다.',
+    BONUS_NUMBER_DUPLICATION_ERROR: '[ERROR] 당첨 번호와 중복되는 보너스 번호를 입력할 수 없습니다.',
+    BONUS_NUMBER_RANGE_ERROR: '[ERROR] 보너스 번호는 1~45 사이의 값만 입력 가능합니다.',
 })
 
 export const CONSTANTS = Object.freeze({
@@ -28,4 +31,6 @@ export const CONSTANTS = Object.freeze({
         4: { match: 4, bonus: false, prize: 50000 },
         5: { match: 3, bonus: false, prize: 5000 },
     },
+    MIN_NUMBER: 1,
+    MAX_NUMBER: 45,
 })

@@ -31,12 +31,12 @@ export default class InputUtils {
         }
     }
 
-    static async inputBonusNumber() {
+    static async inputBonusNumber(winningNumber) {
         while (1) {
             try {
                 const bonusNumber = await Console.readLineAsync(MESSAGE.BONUS_NUMBER_INPUT);
                 const bonusNumberList = this.getNumberList(bonusNumber);
-                InputValidator.bonusNumberValidator(bonusNumberList);
+                InputValidator.bonusNumberValidator(bonusNumberList, winningNumber);
 
                 return await bonusNumberList   
             } catch (error) {

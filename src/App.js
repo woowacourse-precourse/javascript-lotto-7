@@ -16,7 +16,7 @@ class App {
       lottoMachine.printLotto();
 
       const winningNumber = await InputUtils.inputWinningNumber();
-      const bonusNumber = await InputUtils.inputBonusNumber();
+      const bonusNumber = await InputUtils.inputBonusNumber(winningNumber);
 
       lottoMachine.setWinningNumber(winningNumber, bonusNumber);
 
@@ -26,7 +26,7 @@ class App {
       const propit = lottoMachine.calculatePropit(totalWinningAmount);
 
       lottoMachine.printPropit(propit);
-      
+
     } catch (error) {
 
     }

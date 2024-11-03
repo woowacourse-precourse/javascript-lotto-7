@@ -37,7 +37,7 @@ export default class LottoMachine {
 
     setWinningNumber(winningNumber, bonusNumber) {
         this.winningNumber = winningNumber;
-        this.bonusNumber = bonusNumber;
+        this.bonusNumber = bonusNumber[0];
     }
 
 
