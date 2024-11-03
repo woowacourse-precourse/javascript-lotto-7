@@ -20,6 +20,7 @@ const formatWithCommas = (input) => {
 
 const printMatchInfo = (userLotto) => {
   const matchInfo = userLotto.matchInfo;
+  printOneLine(PRINT_MESSAGE.lotto.Match);
   for (let i = 5; i > 0; i--) {
     printOneLine(
       `${LOTTO_RESULT_INFO[i]} 일치 (${formatWithCommas(

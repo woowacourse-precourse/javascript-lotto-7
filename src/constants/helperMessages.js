@@ -7,6 +7,7 @@ const HELPER_MESSAGE = {
 const PRINT_MESSAGE = {
   lotto: {
     Count: "개를 구매했습니다.",
+    Match: "\n당첨 통계\n---",
   },
 };
 
