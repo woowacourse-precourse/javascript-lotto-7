@@ -31,7 +31,7 @@ class LottoService {
     return this.#winningStatsManager.getStats();
   }
 
-  getProfitMargin(lottoPrice) {
+  getProfitMargin(lottoPrice, prizeMoneyByRank) {
     const lottoPurchaseCost = lottoPrice * this.#lottos.length;
     this.#winningStatsManager.calculateTotalProfit(prizeMoneyByRank);
 
