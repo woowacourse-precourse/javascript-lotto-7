@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import LottoController from '../../../src/components/LottoController.js';
 
 describe('당첨 결과 출력 기능 테스트', () => {
   test('당첨 결과 출력 테스트', () => {
@@ -20,7 +21,8 @@ describe('당첨 결과 출력 기능 테스트', () => {
       '6개 일치 (2,000,000,000원) - 5개',
     ];
 
-    PrintLottoWinningResult(mockWinningResult);
+    const lottoController = new LottoController();
+    lottoController.PrintLottoWinningResult(mockWinningResult);
 
     logs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
