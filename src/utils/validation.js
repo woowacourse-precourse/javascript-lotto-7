@@ -1,10 +1,17 @@
 import { ERROR_MESSAGES, LOTTO } from '../constant/constants.js';
 
 export const validateMoney = (inputMoney) => {
+  checkEmpty(inputMoney);
   const money = Number(inputMoney);
 
   checkNumber(money);
   checkUnit(money);
+};
+
+const checkEmpty = (input) => {
+  if (input === '' || input === undefined || input === null) {
+    throw new Error(ERROR_MESSAGES.EMPTY_INPUT);
+  }
 };
 
 const checkNumber = (money) => {
@@ -20,6 +27,7 @@ const checkUnit = (money) => {
 };
 
 export const validateWinningNumber = (numbersInput) => {
+  checkEmpty(numbersInput);
   hasSpecialSymbol(numbersInput);
   hasComma(numbersInput);
 
@@ -78,6 +86,7 @@ const checkWinningNumberType = (numbers) => {
 };
 
 export const validateBonusNumber = (bonusNumberInput, winningNumbers) => {
+  checkEmpty(bonusNumberInput);
   const bonusNumber = Number(bonusNumberInput);
   if (isNaN(bonusNumber)) {
     throw new Error(ERROR_MESSAGES.BONUS_NUMBER.NOT_A_NUMBER);
