@@ -11,19 +11,23 @@ import COMMON_MESSAGES from "./util/messages/message.js";
 
 class App {
   async run() {
-    const inputPrice = await read(COMMON_MESSAGES.INPUT.LOTTO_PRICE);
-    const price = new Price(inputPrice);
+    try {
+      const inputPrice = await read(COMMON_MESSAGES.INPUT.LOTTO_PRICE);
+      const price = new Price(inputPrice);
 
-    const generatedNumbers = generateLottoNumbers(price.lottoCount);
-    loopPrintLottoNumbers(price.lottoCount, generatedNumbers);
+      const generatedNumbers = generateLottoNumbers(price.lottoCount);
+      loopPrintLottoNumbers(price.lottoCount, generatedNumbers);
 
-    const inputLottoNumbers = await read(COMMON_MESSAGES.INPUT.LOTTO_NUMBER);
-    const lottoNumbers = new Lotto(inputLottoNumbers);
+      const inputLottoNumbers = await read(COMMON_MESSAGES.INPUT.LOTTO_NUMBER);
+      const lottoNumbers = new Lotto(inputLottoNumbers);
 
-    const inputBonusNumber = await read(COMMON_MESSAGES.INPUT.BONUS_NUMBER);
-    const bonusNumber = new Bonus(inputBonusNumber, lottoNumbers.value);
+      const inputBonusNumber = await read(COMMON_MESSAGES.INPUT.BONUS_NUMBER);
+      const bonusNumber = new Bonus(inputBonusNumber, lottoNumbers.value);
 
-    printResult(lottoNumbers.value, bonusNumber.value, generatedNumbers);
+      printResult(lottoNumbers.value, bonusNumber.value, generatedNumbers);
+    } catch (e) {
+      print(e.message);
+    }
   }
 }
 
