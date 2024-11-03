@@ -1,9 +1,10 @@
 class Lotto {
-  #numbers;
+  // 로또 하나를 저장하는 6개의 숫자 배열
+  #numbers; // [1, 2, 3, 4, 5, 6]
 
   constructor(numbers) {
-    this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#validate(numbers); // 내부 유효성 검사
+    this.#numbers = numbers; // 이상 없으면 저장
   }
 
   #validate(numbers) {
@@ -12,7 +13,9 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;

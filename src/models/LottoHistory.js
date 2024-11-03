@@ -10,6 +10,13 @@ class LottoHistory {
   addLotto(lotto) {
     this.#lottos.push(lotto);
   }
+
+  getPurchaseHistory() {
+    return {
+      lottoCount: this.#lottoCount,
+      lottos: this.#lottos,
+    };
+  }
 }
 
 export default LottoHistory;
