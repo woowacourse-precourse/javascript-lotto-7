@@ -1,55 +1,22 @@
-import LotteryMachine from "./LotteryMachine.js";
+import {amountToNumber, stringToNumberArray} from "./services/preprocessing.js";
 import {INPUT} from "./constants/message.js";
-import {Console, MissionUtils} from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+import {input} from "./ui/view.js";
+import LottoMachine from "./services/LottoMachine.js";
+import Lotto from "./services/Lotto.js";
 
 class App {
-    purchasedLottery;
-    lotto;
 
     async run() {
-        let sequence = 1;
-        for (const prompt of INPUT) {
-            const input = await this.input(prompt)
-            if (sequence === 1) {
-                const lottoQuantity = this.moneyToLotto(input)
-                this.purchasedLottery = this.purchaseNumbers(lottoQuantity)
-            }
-            if (sequence === 2) {
-                this.lotto = new Lotto(input.split(","))
-            }
-            if (sequence === 3) {//보너스 번호
-                this.lotto.setStatistics(this.purchasedLottery, Number(input))
-            }
-            sequence++
-        }
-    }
+        const purchaseNum = amountToNumber(await input(INPUT[0])) //입력금액 갯수로 변환 한걸 담은 변수
 
-    moneyToLotto(money) {
-        return Number(money) / 1000 //로또 가격 상수화 예정
-    }
+        const lottoMachine = new LottoMachine(purchaseNum)
+        const purchasedLottos = lottoMachine.lottoRelease()
 
-    purchaseNumbers(lottoQuantity) { //인자로 몇번인지를 넣자
-        let arr = []
-        for (let i = 0; i < lottoQuantity; i++) {
-            const sixRandomValues = this.getSixRandomValues()
-            arr.push(sixRandomValues)
-        }
-        console.log(arr)
-        return arr
-    }
+        const winningNum = stringToNumberArray(await input(INPUT[1]))
+        const lotto = new Lotto(winningNum)
 
-    getSixRandomValues() {
-        return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-    }
-
-    async input(message) {
-        const input = await Console.readLineAsync(message)
-        return this.#validate(input) && input
-    }
-
-    #validate(input) { //추후 구현
-        return input // 로또 1000 나눴을때 나머지 0 아닐때도 고려
+        const bonusNum = await input(INPUT[2]) //보너스 번호는 유효성 검사만 필요하다
+        const result = lotto.setStats(purchasedLottos, bonusNum)
     }
 
 }
