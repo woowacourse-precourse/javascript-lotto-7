@@ -4,10 +4,10 @@ import Lotto from './Lotto.js';
 class LottoGame {
   constructor(quantity) {
     this.quantity = quantity;
-    this.lottos = this.play();
+    this.lottos = this.createLottos();
   }
 
-  play() {
+  createLottos() {
     return Array.from(
       { length: this.quantity },
       () => new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6))
