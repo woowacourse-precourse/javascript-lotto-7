@@ -97,40 +97,15 @@ class App {
     }
 
     async function main() {
-      const USER_NUMBERS = await userInput();
-      const USER_PURCHASE = await userPurchase(USER_NUMBERS);
-      // console.log(USER_NUMBERS);
+      const USER_INPUT = await userInput();
+      const GAME_START = new Lotto(USER_INPUT[0]);
+      const USER_NUMBERS = GAME_START.addBonusDraw(
+        USER_INPUT[0],
+        USER_INPUT[1]
+      );
+      const USER_PURCHASE = await userPurchase(USER_INPUT);
+      const LOTTO_RESULTS = GAME_START.generateLotto(USER_PURCHASE);
     }
-
-    // async function main() {
-    //   let USER_FIRST_INPUT, USER_DRAW, USER_SECOND_INPUT, BONUS_DRAW;
-    //   let VALID_FIRST_INPUT,
-    //     VALID_SECOND_INPUT = false;
-    //   do {
-    //     try {
-    //       USER_FIRST_INPUT = await getUserDraw();
-    //       USER_DRAW = new Lotto(USER_FIRST_INPUT);
-    //       VALID_FIRST_INPUT = true;
-    //     } catch (FIRST_INPUT_ERROR) {
-    //       MissionUtils.Console.print(FIRST_INPUT_ERROR);
-    //     }
-    //   } while (!VALID_FIRST_INPUT);
-
-    //   do {
-    //     try {
-    //       USER_SECOND_INPUT = await getBonusDraw();
-    //       BONUS_DRAW = USER_DRAW.addBonusDraw(
-    //         USER_FIRST_INPUT,
-    //         USER_SECOND_INPUT
-    //       );
-    //       VALID_SECOND_INPUT = true;
-    //     } catch (SECOND_INPUT_ERROR) {
-    //       MissionUtils.Console.print(SECOND_INPUT_ERROR);
-    //     }
-    //   } while (!VALID_SECOND_INPUT);
-    //   // const USER_PURCHASE = checkUserPurchase(USER_DRAW_AND_BONUS);
-    //   // const LOTTO_RESULTS = USER_DRAW.generateLotto(USER_PURCHASE);
-    // }
 
     main();
   }

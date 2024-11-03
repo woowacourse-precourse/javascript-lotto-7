@@ -1,3 +1,4 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
 class Lotto {
   #numbers;
 
@@ -44,11 +45,9 @@ class Lotto {
   }
 
   addBonusDraw(draw, bonus) {
-    console.log(`addBonusDraw Before: numbers ${draw} bonus ${bonus}`);
     let TEMP_NUMBERS = [...draw];
     if (this.#numbers1to45([bonus])) TEMP_NUMBERS.push(bonus);
     if (this.#noRepeats(TEMP_NUMBERS)) this.#numbers = TEMP_NUMBERS;
-    console.log(`addBonusDraw After: numbers ${draw} bonus ${bonus}`);
     return [draw, bonus];
   }
 
@@ -63,16 +62,16 @@ class Lotto {
     return purchaseAmount;
   }
 
-  // generateLotto(purchase) {
-  //   let LOTTO_RESULTS = [];
-  //   let LOTTO_RESULT;
-  //   for (let COUNT = 0; COUNT < parseInt(parseInt(purchase) / 1000); COUNT++) {
-  //     LOTTO_RESULT = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-  //     MissionUtils.Console.print(LOTTO_RESULT);
-  //     LOTTO_RESULTS.append(LOTTO_RESULT);
-  //   }
-  //   return LOTTO_RESULTS;
-  // }
+  generateLotto(purchase) {
+    let LOTTO_RESULTS = [];
+    let LOTTO_RESULT;
+    for (let COUNT = 0; COUNT < parseInt(parseInt(purchase) / 1000); COUNT++) {
+      LOTTO_RESULT = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      MissionUtils.Console.print(LOTTO_RESULT);
+      LOTTO_RESULTS.push(LOTTO_RESULT);
+    }
+    return LOTTO_RESULTS;
+  }
 }
 
 export default Lotto;
