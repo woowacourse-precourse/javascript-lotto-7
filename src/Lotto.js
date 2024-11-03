@@ -1,4 +1,4 @@
-import { validateLottoCount } from './Validator.js';
+import { validateLottoCount, validateLottoSameNumber } from './Validator.js';
 import { ERROR_MESSAGE } from './constants.js';
 
 class Lotto {
@@ -12,6 +12,7 @@ class Lotto {
 
   #validate(numbers) {
     validateLottoCount(numbers, ERROR_MESSAGE.NUMBERS_LENGHT_SIX);
+    validateLottoSameNumber(numbers, ERROR_MESSAGE.SAME_NUMBER);
   }
 
   // TODO: 추가 기능 구현

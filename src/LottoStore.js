@@ -1,11 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import {
-  validateNumber,
-  validatePositiveInteger,
-  validateUnit,
-  validateMaximum,
-} from './Validator.js';
+import { validateNumber, validatePositiveInteger, validateUnit, validateMaximum } from './Validator.js';
 import { ERROR_MESSAGE } from './constants.js';
 
 class LottoStore {

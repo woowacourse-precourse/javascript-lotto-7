@@ -33,3 +33,11 @@ export const validateLottoCount = (input, message) => {
     throw new Error(message);
   }
 };
+
+export const validateLottoSameNumber = (input, message) => {
+  const hasSameNumber = new Set(input).size !== input.length;
+
+  if (hasSameNumber) {
+    throw new Error(message);
+  }
+};
