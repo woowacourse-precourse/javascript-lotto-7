@@ -10,11 +10,17 @@ class LottoInput {
   }
 
   async lottoWinInput() {
-    const lottoWinStr = await Console.readLineAsync(
-      LOTTO_INPUT.LOTTO_WIN_INPUT
-    );
+    let lottoWinStr = await Console.readLineAsync(LOTTO_INPUT.LOTTO_WIN_INPUT);
     const lottoWinArr = lottoWinStr.split(",").map(Number);
-    return lottoWinArr;
+    const lottoBonusNum = await this.lottoBonusInput();
+    return [lottoWinArr, lottoBonusNum];
+  }
+
+  async lottoBonusInput() {
+    const lottoBonusNum = await Console.readLineAsync(
+      LOTTO_INPUT.LOTTO_BONUS_INPUT
+    );
+    return lottoBonusNum;
   }
 }
 
