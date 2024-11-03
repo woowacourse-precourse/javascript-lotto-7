@@ -2,6 +2,7 @@ import { config } from './config.js';
 import LottoGameExecutor from './lotto/LottoGameExecutor.js';
 import LottoPayment from './lotto/LottoPayment.js';
 import LottoGenerator from './lotto/LottoGenerator.js';
+import LottoResultEvaluator from './lotto/LottoResultEvaluator.js';
 
 class App {
   async run() {
@@ -17,8 +18,11 @@ class App {
     }
     const lottoGenerator = new LottoGenerator(lottoNumberCount, lottoNumberRange);
 
+    const winningRules = lottoConfig.WINNING_RULES;
+    const lottoResultEvaluator = new LottoResultEvaluator(winningRules);
+
     const lottoGameExecutor = new LottoGameExecutor(
-      lottoPayment, lottoGenerator
+      lottoPayment, lottoGenerator, lottoResultEvaluator
     );
 
     await lottoGameExecutor.startGame();

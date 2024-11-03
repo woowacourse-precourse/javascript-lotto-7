@@ -22,6 +22,10 @@ class Lotto {
     return this.#numbers;
   }
 
+  isExistNumberInNumbers(number) {
+    return this.#numbers.some(myNumber => myNumber === Number(number));
+  }
+
   toString() {
     return `[${this.#numbers.join(', ')}]`;
   }

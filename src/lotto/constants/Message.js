@@ -27,4 +27,7 @@ export const INPUT_MESSAGE = Object.freeze({
 
 export const OUTPUT_MESSAGE = Object.freeze({
   PURCHASED_LOTTO_COUNT: (count) => `${count}개를 구매했습니다.\n`,
+  WINNING_RESULT_TITLE: '당첨 통계\n---',
+  WINNING_RESULT: (matchCount, amount, count) => `${matchCount}개 일치 (${amount}원) - ${count}개`,
+  WINNING_RESULT_WITH_BONUS: (matchCount, amount, count) => `${matchCount}개 일치, 보너스 볼 일치 (${amount}원) - ${count}개`,
 });

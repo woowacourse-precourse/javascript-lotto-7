@@ -1,4 +1,9 @@
-import { printEmptyLine, printPurchaseResult } from './view/OutputPrinter.js';
+import {
+  printEmptyLine,
+  printPurchaseResult,
+  printStartWinningResult,
+  printWinningResult
+} from './view/OutputPrinter.js';
 import { getWinningLottoNumbersAndBonusNumber } from './LottoWinningNumberReader.js';
 
 class LottoGameExecutor {
@@ -7,9 +12,12 @@ class LottoGameExecutor {
 
   #lottoGenerator;
 
-  constructor(lottoPayment, lottoGenerator) {
+  #lottoResultevaluator;
+
+  constructor(lottoPayment, lottoGenerator, lottoResultevaluator) {
     this.#lottoPayment = lottoPayment;
     this.#lottoGenerator = lottoGenerator;
+    this.#lottoResultevaluator = lottoResultevaluator;
   }
 
   async startGame() {
@@ -23,6 +31,17 @@ class LottoGameExecutor {
     printEmptyLine();
 
     const { winningNumbers, bonusNumber } = await getWinningLottoNumbersAndBonusNumber();
+
+    const winningResults = this.#lottoResultevaluator.generateWinningResult(lottos, winningNumbers, bonusNumber);
+    this.#printWinningResults(winningResults);
+  }
+
+  #printWinningResults(winningResults) {
+    printStartWinningResult();
+
+    winningResults.forEach(winningItem => {
+      printWinningResult(winningItem);
+    });
   }
 
   #printPurchaseLottos(lottoCount, lottos) {

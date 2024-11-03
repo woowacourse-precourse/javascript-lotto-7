@@ -8,3 +8,28 @@ export function printPurchaseResult(count, lottos) {
 export function printEmptyLine() {
   output('');
 }
+
+export function printStartWinningResult() {
+  output(OUTPUT_MESSAGE.WINNING_RESULT_TITLE);
+}
+
+function printWinningResultOnlyWinningNumbers(matchCount, amount, count) {
+  output(OUTPUT_MESSAGE.WINNING_RESULT(matchCount, amount, count));
+}
+
+function printWinningResultWithBonus(matchCount, amount, count) {
+  output(OUTPUT_MESSAGE.WINNING_RESULT_WITH_BONUS(matchCount, amount, count));
+}
+
+export function printWinningResult(winningResult) {
+  printWinningResultOnlyWinningNumbers(winningResult.matchNumberCount, winningResult.prize, winningResult.count);
+
+  if (winningResult.hasBonusNumberMatched) {
+    printWinningResultWithBonus(
+      winningResult.matchNumberCount,
+      winningResult.bonusNumberMatchedPrize,
+      winningResult.bonusNumberMatchedCount
+    );
+  }
+}
+
