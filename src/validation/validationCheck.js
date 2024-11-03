@@ -2,7 +2,7 @@ import {PURCHASE_PRICE, ERROR_CODE} from "../constants/constants.js";
 
 export const validationCheck = {
     isPositiveNumber(number) {
-        return /^[1-9]\d*$/.test(number)
+        return /^[1-9]\d*$/.test(number.trim())
     },
     isInRange(number, minValue = 1, maxValue = Number.MAX_SAFE_INTEGER) {
         return Number(number) <= maxValue && Number(number) >= minValue

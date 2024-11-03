@@ -14,6 +14,6 @@ export const winningNumbersUtils = {
         if (validationCheck.hasDuplicates(winningNumbers)) {
             throw new Error(ERROR_CODE.NUMBER_DUPLICATE)
         }
-        return winningNumbers;
+        return winningNumbers.map(Number);
     },
 }
