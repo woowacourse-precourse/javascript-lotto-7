@@ -1,6 +1,6 @@
 import Lotto from "./Lotto.js";
-import { LOTTO_MAX_NUMBER, LOTTO_MIN_NUMBER } from "./constant/constants.js";
-import { inValidMessages } from "./constant/message.js";
+import { LOTTO_MAX_NUMBER, LOTTO_MIN_NUMBER } from "../constant/constants.js";
+import { inValidMessages } from "../constant/message.js";
 
 export class WinningLotto extends Lotto {
   #bonusNumber;
@@ -26,5 +26,9 @@ export class WinningLotto extends Lotto {
     if (this.getNumbers().includes(bonusNumber)) {
       throw new Error(inValidMessages.duplicateWithWinningNumbers);
     }
+  }
+
+  getBonusNumber() {
+    return this.#bonusNumber;
   }
 }

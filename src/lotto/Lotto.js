@@ -1,5 +1,5 @@
-import { LOTTO_NUMBERS_COUNT } from "./constant/constants.js";
-import { inValidMessages } from "./constant/message.js";
+import { LOTTO_NUMBERS_COUNT } from "../constant/constants.js";
+import { inValidMessages } from "../constant/message.js";
 
 class Lotto {
   #numbers;

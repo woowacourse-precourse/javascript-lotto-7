@@ -1,5 +1,5 @@
-import { LOTTO_PRICE } from "./constant/constants.js";
-import { inValidMessages } from "./constant/message.js";
+import { LOTTO_PRICE } from "../constant/constants.js";
+import { inValidMessages } from "../constant/message.js";
 import { RandomNumberMaker } from "./RandomNumberMaker.js";
 import Lotto from "./Lotto.js";
 
