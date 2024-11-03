@@ -26,7 +26,6 @@ class App {
       winningLotto: this.#winningLotto,
       bonusNumber: this.#bonusNumber,
     });
-
     printMessage(MESSAGE.OUTPUT_RESULT + resultString);
 
     const profitRate = this.#lottoMachine.getProfitRate();
