@@ -3,18 +3,16 @@ import ValidateWinningNumbers from './models/ValidateWinningNumbers.js';
 class Lotto {
   #numbers;
 
-  #validator;
-
   constructor(numbers) {
-    this.#validator = new ValidateWinningNumbers();
     this.#validate(numbers);
     this.#numbers = numbers.sort((a, b) => a - b);
   }
 
   #validate(numbers) {
-    this.#validator.validateWinningNumbersFormat(numbers.join(','));
-    this.#validator.validateDuplicateNumbers(numbers);
-    numbers.forEach((number) => this.#validator.validateNumberRange(number));
+    const validator = new ValidateWinningNumbers();
+    validator.validateWinningNumbersFormat(numbers.join(','));
+    validator.validateDuplicateNumbers(numbers);
+    numbers.forEach((number) => validator.validateNumberRange(number));
   }
 
   getNumbers() {
