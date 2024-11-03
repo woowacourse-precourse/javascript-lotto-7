@@ -8,23 +8,27 @@ import Input from '../View/Input.js';
 
 class GameController {
   async init() {
-    const purchaseCount = await Input.getPurchaseAmount()(
-      this.#getValidatedPurchaseCount,
-    );
+    const purchaseCount = await this.#getValidatedPurchaseCount();
 
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
 
     const game = new LottoGame(purchaseCount);
     game.printLottos();
 
-    const winningNumbers = await Input.getWinningNumbers()(
-      this.#validateWinningNumbers,
-    );
+    const winningNumbers = await this.#getWinningLotto();
     const bonusNumber = await this.#getValidatedBonusNumber();
   }
 
-  #getValidatedPurchaseCount(input) {
-    const amount = +input;
+  async #getValidatedPurchaseCount() {
+    const amount = await Input.getPurchaseAmount()(
+      this.#validatePurchaseAmount,
+    );
+
+    return amount / 1000;
+  }
+
+  #validatePurchaseAmount(input) {
+    const amount = Number(input);
     if (!isNumber(amount)) {
       throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
     }
@@ -35,21 +39,35 @@ class GameController {
       );
     }
 
-    return amount / 1000;
+    return amount;
   }
 
-  #validateWinningNumbers(input) {
-    const numbers = input.split(',').map((value) => +value);
+  async #getWinningLotto() {
+    const lotto = await Input.getWinningNumbers()((input) => {
+      const numbers = input.split(',').map((value) => +value);
 
-    const lotto = new Lotto(numbers);
+      return new Lotto(numbers);
+    });
 
     return lotto;
   }
 
   async #getValidatedBonusNumber() {
-    const validateBonusNumber = Input.getBonusNumber();
+    const bonusNumber = await Input.getBonusNumber()(
+      this.#validatedBonusNumber,
+    );
 
-    return validateBonusNumber((input) => input);
+    return bonusNumber;
+  }
+
+  #validatedBonusNumber(input) {
+    const bonusNumber = Number(input);
+
+    if (!isNumber(bonusNumber)) {
+      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
+    }
+
+    return bonusNumber;
   }
 }
 
