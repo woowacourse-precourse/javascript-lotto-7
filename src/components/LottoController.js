@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputPrompts } from '../resources/Constants.js';
+import purchaseAmountValidator from '../validation/purchaseAmountValidator.js';
 
 class LottoController {
   #purchaseAmount;
@@ -16,7 +17,10 @@ class LottoController {
     const newPurchaseAmount = await Console.readLineAsync(
       InputPrompts.purchaseAmount,
     );
+
+    purchaseAmountValidator(newPurchaseAmount);
     this.setPurchaseAmount(newPurchaseAmount);
   }
 }
+
 export default LottoController;
