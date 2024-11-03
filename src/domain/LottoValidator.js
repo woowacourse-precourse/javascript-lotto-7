@@ -34,12 +34,16 @@ class LottoValidator {
       throw new Error(ERROR_MESSAGES.invalid_lotto_unique);
   }
 
-  // 공통
-  #isNotNumeric(input) {
-    return Number.isNaN(Number(input));
+  validateBonusNumber(bonusNumber, isDuplicate) {
+    if (isDuplicate) throw new Error(ERROR_MESSAGES.invalid_lotto_unique);
+
+    if (this.#isNotNumeric(bonusNumber))
+      throw new Error(ERROR_MESSAGES.numeric);
+
+    if (this.#isInvalidLottoRange(bonusNumber))
+      throw new Error(ERROR_MESSAGES.invalid_lotto_range);
   }
 
-  // validatePurchaseAmount 관련
   #isEmpty(input) {
     return input == null || input.trim() === '';
   }
@@ -56,7 +60,10 @@ class LottoValidator {
     return Number(input) > PRICE_MAX_AMOUNT;
   }
 
-  // validateWinningLotto 관련
+  #isNotNumeric(input) {
+    return Number.isNaN(Number(input));
+  }
+
   #hasInvalidNumber(numbers) {
     return numbers.some((number) => this.#isNotNumeric(number));
   }
