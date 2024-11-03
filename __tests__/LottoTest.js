@@ -1,4 +1,4 @@
-import {calcLottoCnt, getLottoCnt, isDivided1000, isIntNumber, isPositiveNumber } from "../src/BuyPrice.js";
+import {calcLottoCnt, getLottoCnt, isDivided1000, isIntNumber, isNumber, isPositiveNumber, isZero } from "../src/BuyPrice.js";
 import Lotto from "../src/Lotto.js";
 import { inputWinningNumbers, is1to45 } from "../src/winningNumber.js";
 
@@ -18,23 +18,23 @@ describe("로또 클래스 테스트", () => {
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
   test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
-    expect(()=> isPositiveNumber("1234")).not.toThrow("[ERROR]");
+    expect(()=> isNumber("1234")).not.toThrow("[ERROR]");
   });
 
   test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
-    expect(() => isPositiveNumber("00as")).toThrow("[ERROR]");
+    expect(() => isNumber("00as")).toThrow("[ERROR]");
   });
 
   test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
-    expect(() => isPositiveNumber("")).toThrow("[ERROR]");
+    expect(() => isNumber("")).toThrow("[ERROR]");
   });
 
   test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
-    expect(() => isPositiveNumber("-1000")).toThrow("[ERROR]");
+    expect(() => isNumber("-1000")).toThrow("[ERROR]");
   });
 
   test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
-    expect(() => isPositiveNumber("0")).toThrow("[ERROR]");
+    expect(() => isZero("0")).toThrow("[ERROR]");
   });
 
   test("구매 금액이 1000으로 나누어 떨어지지 않으면 예외가 발생한다", () => {

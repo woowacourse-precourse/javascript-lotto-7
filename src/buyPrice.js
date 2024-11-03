@@ -5,7 +5,8 @@ import { Console } from "@woowacourse/mission-utils";
 async function getLottoCnt(){
     const PRICE = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
     Console.print("");
-    isPositiveNumber(PRICE);
+    isNumber(PRICE);
+    isZero(PRICE);
     isIntNumber(PRICE);
     isDivided1000(PRICE);
     return calcLottoCnt(PRICE);
@@ -24,9 +25,15 @@ function isIntNumber(PRICE){
     }
 }
 
-function isPositiveNumber(PRICE){
-    if(!/^[0-9]+$/.test(PRICE) || parseInt(PRICE) === 0){
-        throw new Error("[ERROR] 구매 금액이 양수가 아닙니다.")
+function isNumber(PRICE){
+    if(!/^[0-9]+$/.test(PRICE)){
+        throw new Error("[ERROR] 숫자가 아닙니다.")
+    }
+}
+
+function isZero(PRICE){
+    if(parseInt(PRICE) === 0){
+        throw new Error("[ERROR] 0 값이 들어왔습니다.")
     }
 }
 
@@ -37,4 +44,4 @@ function isDivided1000(PRICE){
     }
 }
 
-export {getLottoCnt, isPositiveNumber, isDivided1000, isIntNumber, calcLottoCnt};
+export {getLottoCnt, isDivided1000, isIntNumber, calcLottoCnt, isZero, isNumber};

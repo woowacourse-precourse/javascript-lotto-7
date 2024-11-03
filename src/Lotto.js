@@ -9,6 +9,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
+    this.#duplicate(numbers);
     this.#numbers = numbers;
     this.#printNumbers();
     this.#correctCnt = 0;
@@ -21,8 +22,24 @@ class Lotto {
     }
   }
 
+  #duplicate(numbers){
+    const numberSet = new Set(numbers);
+    if(numberSet.size !== 6){
+      throw new Error("[ERROR] 중복된 값이 있습니다.");
+    }
+  }
+
   #printNumbers(){
-    Console.print(this.#numbers);
+    let string = "[";
+    this.#numbers.forEach((number, index)=>{
+      if(index === 5){
+        string += number;
+        return;
+      }
+      string += number + ", ";
+    })
+    string += "]"
+    Console.print(string);
   }
 
   getCorrectCnt(){
