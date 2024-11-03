@@ -7,7 +7,7 @@ function inputPrice(){
 }
 
 function isPositiveNumber(PRICE){
-    if(/^[0-9]+$/.test(PRICE)){
+    if(/^[0-9]+$/.test(PRICE) && parseInt(PRICE) !== 0){
         return true;
     }
     throw new Error("[ERROR] 구매 금액이 숫자가 아닙니다.")
