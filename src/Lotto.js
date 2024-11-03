@@ -1,4 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
+import { ERROR_TEXTS } from './Constants';
+
 class Lotto {
   #numbers;
 
@@ -9,7 +11,12 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      throw new Error(ERROR_TEXTS.OUT_OF_COUNT_LOTTO_NUMBER);
+    }
+
+    const checkDuplicationArr = new Set(numbers);
+    if(checkDuplicationArr.size !== numbers.length) {
+      throw new Error(ERROR_TEXTS.NOT_A_DUPLICATION_LOTTO_NUMBER);
     }
   }
 
@@ -18,7 +25,7 @@ class Lotto {
   }
 
   printNumbers() {
-    Console.print(this.#numbers);
+    Console.print('[' + this.#numbers.join(', ') + ']');
   }
 }
 
