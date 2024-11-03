@@ -77,6 +77,12 @@ function isBonusNumberInRange(bonusNumber) {
   }
 }
 
+function validateBonusNumber(bonusNumber, prizeNumbers) {
+  isNumber(bonusNumber);
+  isBonusNumberInRange(bonusNumber);
+  isDuplicateBonus(bonusNumber, prizeNumbers);
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
