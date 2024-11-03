@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.eslintrc.json
+.prettierrc
+.npmrc
+package-lock.json
+package.json

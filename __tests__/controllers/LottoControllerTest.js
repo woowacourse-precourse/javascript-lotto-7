@@ -1,9 +1,8 @@
-import LottoController from '../../src/controllers/lottoController.js';
-import LottoView from '../../src/views/lottoView.js';
+import LottoController from '../../src/controllers/LottoController.js';
+import LottoView from '../../src/views/LottoView.js';
 import Validator from '../../src/utils/validator.js';
-import retry from '../../src/utils/retry.js';
 
-jest.mock('../../src/views/lottoView.js');
+jest.mock('../../src/views/LottoView.js');
 jest.mock('../../src/utils/validator.js');
 jest.mock('../../src/utils/retry.js', () => jest.fn((fn) => fn()));
 
