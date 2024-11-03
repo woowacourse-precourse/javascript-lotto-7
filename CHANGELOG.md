@@ -1,2 +1,3 @@
+- feat($App.js): 구입 금액 입력 구현
 - docs: README.md
 - feat: setup project
