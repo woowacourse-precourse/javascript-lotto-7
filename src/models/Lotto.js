@@ -4,7 +4,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers); // 내부 유효성 검사
-    this.#numbers = numbers; // 이상 없으면 저장
+    this.#numbers = numbers.sort((a, b) => a - b); // 이상 없으면 저장
   }
 
   #validate(numbers) {
