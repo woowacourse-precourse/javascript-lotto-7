@@ -23,6 +23,12 @@ class ValidatorModule {
       Validator.isNumberInBoundary(number);
     });
   }
+
+  static checkBonusNumber(winnerNumbers, value) {
+    this.checkPositiveInteger(value);
+    Validator.isNumberInBoundary(value);
+    Validator.isNotIncludeList(value, winnerNumbers);
+  }
 }
 
 export default ValidatorModule;
