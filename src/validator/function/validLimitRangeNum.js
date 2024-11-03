@@ -1,11 +1,14 @@
-import { ERR_MESSAGE_NUMBERS } from "../../constants/errorMessages.js";
-
-export const limitRangeNum = (inputNumber, minNumValue, maxNumValue) => {
+export const limitRangeNum = (
+  inputNumber,
+  minNumValue,
+  maxNumValue,
+  errorMessage
+) => {
   if (
     minNumValue !== undefined &&
     maxNumValue !== undefined &&
     !(inputNumber >= minNumValue && inputNumber <= maxNumValue)
   ) {
-    throw new Error(ERR_MESSAGE_NUMBERS.LIMIT_RANGE_NUMBER);
+    throw new Error(errorMessage);
   }
 };
