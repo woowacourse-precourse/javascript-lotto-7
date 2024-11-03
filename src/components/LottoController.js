@@ -4,6 +4,7 @@ import {
   Lotto,
   OutputMessages,
   Prize,
+  PrizeMoney,
 } from '../resources/Constants.js';
 import purchaseAmountValidator from '../validation/purchaseAmountValidator.js';
 import { bonusNumberValidator } from '../validation/bonusNumberValidator.js';
@@ -138,10 +139,26 @@ class LottoController {
     winningResultMessage.forEach((message) => Console.print(message));
   }
 
+  printRateOfReturn(winningResult) {
+    const totalPrizeMoney = Object.entries(winningResult).reduce(
+      (acc, [matchCount, lottoCount]) =>
+        acc + lottoCount * PrizeMoney[matchCount],
+      0,
+    );
+
+    const rateOfReturn = (
+      (totalPrizeMoney / this.#purchaseAmount) *
+      100
+    ).toFixed(1);
+
+    Console.print(OutputMessages.TOTAL_ROR(rateOfReturn));
+  }
+
   displayWinningResult(winningNumbers) {
     const winningResult = this.compareLottoTickets(winningNumbers);
 
     this.PrintLottoWinningResult(winningResult);
+    this.printRateOfReturn(winningResult);
   }
 }
 

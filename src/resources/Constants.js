@@ -20,6 +20,7 @@ export const OutputMessages = {
   PURCHASE_MESSAGE: (ticketCount) => `${ticketCount}개를 구매했습니다.`,
   MATCH_MESSAGE_FORMAT: (matchText, lottoCount, prize) =>
     `${matchText} (${prize}원) - ${lottoCount}개`,
+  TOTAL_ROR: (rateOfReturn) => `총 수익률은 ${rateOfReturn}%입니다.`,
 };
 
 export const ErrorMessage = {
@@ -40,4 +41,12 @@ export const Prize = {
   MATCH_5: '1,500,000',
   MATCH_5_BONUS: '30,000,000',
   MATCH_6: '2,000,000,000',
+};
+
+export const PrizeMoney = {
+  3: 5000,
+  4: 50000,
+  5: 1500000,
+  '5B': 30000000,
+  6: 2000000000,
 };
