@@ -3,7 +3,7 @@ import OutputView from './views/OutputView.js';
 import Lotto from './Lotto.js';
 import LottoModel from './model/LottoModel.js';
 import LottoController from './controller/LottoController.js';
-import Validator from './validator/Validator.js';
+import BuyLottoCountValidator from './validator/BuyLottoCountValidator.js';
 
 class App {
   async run() {
@@ -14,7 +14,7 @@ class App {
     while (true) {
       try {
         const buyLottoCount = await InputView.getBuyLottoCount();
-        Validator.validateBuyLottoCount(buyLottoCount);
+        BuyLottoCountValidator.validateBuyLottoCount(buyLottoCount);
         model.setBuyLottoCount(buyLottoCount);
         break;
       } catch (error) {

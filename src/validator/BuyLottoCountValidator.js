@@ -1,4 +1,4 @@
-class Validator {
+class BuyLottoCountValidator {
   static validateBuyLottoCount(buyLottoCount) {
     this.isCharacter(buyLottoCount);
     this.isMultipleOfThousand(buyLottoCount);
@@ -40,4 +40,4 @@ class Validator {
   }
 }
 
-export default Validator;
+export default BuyLottoCountValidator;
