@@ -22,19 +22,19 @@ export const validateWinningNumberForm = (inputValue) => {
     throw new Error('[ERROR]당첨 번호 에러, 입력한 당첨번호의 형식이 맞지 않습니다.');
   }
 }
-export const validateWinningNumberOutOfBounds = (inputValue) => {
+export const validateLottoNumberOutOfBounds = (inputValue) => {
   inputValue.forEach((element) => {
     if(element > 45 || element < 1){
       throw new Error('[ERROR]당첨 번호 에러, 로또 번호는 1에서 45사이의 숫자입니다.');
     }
   });
 }
-export const validateWinningNumberAmount = (inputValue) => {
+export const validateLottoNumberAmount = (inputValue) => {
   if(inputValue.length > 6 || inputValue.length < 6){
     throw new Error('[ERROR]당첨 번호 에러, 로또 번호는 6개의 숫자를 입력해야합니다.');
   }
 }
-export const validateWinningNumberDecimal = (inputValue) => {
+export const validateLottoNumberDecimal = (inputValue) => {
   const decimalNumber = new RegExp('[.]+');
   inputValue.forEach((element) =>{
     if(decimalNumber.test(element)){

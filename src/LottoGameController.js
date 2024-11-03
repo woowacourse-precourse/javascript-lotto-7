@@ -1,6 +1,6 @@
 import {validateWinningNumberForm} from './validate.js'
 import {purchaseValidatePipe} from './purchaseValidatePipe.js' 
-import {winningNumberValidatePipe} from './winningNumberValidatePipe.js' 
+import {winningNumberValidatePipe} from './lottoNumberValidatePipe.js' 
 import {bonusNumberValidatePipe} from './bonusNumberValidatePipe.js'
 import parser from './utils/parser.js'
 
