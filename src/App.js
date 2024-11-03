@@ -13,8 +13,8 @@ class App {
       const lottos = lottoGenerator.getLottos();
       const lottosCount = lottoGenerator.lottoCount;
       Console.print(`\n${lottosCount}개를 구매했습니다.`);
-      lottos.map(lotto => {
-        Console.print(lotto.sort((a, b) => a - b));
+      lottos.forEach(lotto => {
+        Console.print(`[${lotto.sort((a, b) => a - b).join(", ")}]`);
       });
 
       const winningNumberInput = await Console.readLineAsync(

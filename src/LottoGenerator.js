@@ -9,21 +9,18 @@ class LottoGenerator {
   constructor(money) {
     this.money = new MoneyValidator(money).money;
     this.lottoCount = this.money / 1000;
-    this.lottos = this.generateLottos();
-    this.generateLottos();
-    this.getLottos();
   }
 
-  generateLottos() {
+  #generateLottos() {
     const lottos = [];
     for (let i = 0; i < this.lottoCount; i++) {
       lottos.push(Random.pickUniqueNumbersInRange(1, 45, 6));
     }
-    this.lottos = lottos;
+    return lottos;
   }
 
   getLottos() {
-    return this.lottos;
+    return this.#generateLottos();
   }
 }
 

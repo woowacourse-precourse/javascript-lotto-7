@@ -40,7 +40,7 @@ class Lotto {
     let matchCount = 0;
 
     winningNumber.map(winningNumber => {
-      if (numbers.includes(winningNumber)) {
+      if (numbers?.includes(winningNumber)) {
         matchCount++;
       }
     });
@@ -49,7 +49,7 @@ class Lotto {
 
   #matchBonusNumber(numbers, bonusNumber) {
     let isMatch = false;
-    if (numbers.includes(bonusNumber)) {
+    if (numbers?.includes(bonusNumber)) {
       isMatch = true;
     }
     return isMatch;
