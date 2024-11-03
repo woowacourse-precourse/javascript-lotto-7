@@ -1,9 +1,11 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import LottoMachine from '../model/LottoMachine.js';
+import LottoChecker from '../model/LottoChecker.js';
 
 class LottoGameController {
   #lottoMachine;
+  #lottoChecker;
 
   async startGame() {
     await this.#initializeGame();
@@ -22,6 +24,7 @@ class LottoGameController {
 
   async #runGame() {
     const winningNumbers = await InputView.getWinningNumbers();
+    this.#lottoChecker = new LottoChecker(winningNumbers);
   }
 
   #printAllLottoNumbers() {
