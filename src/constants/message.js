@@ -12,4 +12,5 @@ export const ERROR_MESSAGE = {
   WINNING_NUMBERS_IS_NOT_BASIC_COUNT: '[ERROR] 당첨 번호는 6개여야 합니다.',
   BONUS_NUMBER_IS_NOT_NUMBER: '[ERROR] 보너스 번호가 숫자가 아닙니다.',
   BONUS_NUMBER_IS_NOT_UNIQUE: '[ERROR] 보너스 번호가 당첨 번호에 속하지 않아야 합니다.',
+  LOTTO_NUMBERS_COUNT_IS_NOT_BASIC_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
 };
