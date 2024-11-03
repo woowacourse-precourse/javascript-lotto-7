@@ -1,9 +1,9 @@
 const PRIZE = Object.freeze({
-  three: 5000,
-  four: 50000,
-  five: 1500000,
-  fiveBonus: 30000000,
-  six: 2000000000,
+  THREE: 5000,
+  FOUR: 50000,
+  FIVE: 1500000,
+  FIVEBONUS: 30000000,
+  SIX: 2000000000,
 });
 
 const ERROR_MESSAGES = Object.freeze({
@@ -20,4 +20,16 @@ const ERROR_MESSAGES = Object.freeze({
   PURCHASE_AMOUNT_EMPTY: "[ERROR]: 구입 금액에 빈 문자열을 입력할 수 없습니다.",
 });
 
-export { PRIZE, ERROR_MESSAGES };
+const MESSAGE_STATISTICS = (num) =>
+  Object.freeze({
+    HEADER: "\n당첨 통계\n---",
+    COUNT: `${num}개를 구매했습니다.`,
+    MATCH_THREE: `3개 일치 (5,000원) - ${num}개`,
+    MATCH_FOUR: `4개 일치 (50,000원) - ${num}개`,
+    MATCH_FIVE: `5개 일치 (1,500,000원) - ${num}개`,
+    MATCH_FIVE_BONUS: `5개 일치, 보너스 볼 일치 (30,000,000원) - ${num}개`,
+    MATCH_SIX: `6개 일치 (2,000,000,000원) - ${num}개`,
+    RATE: `총 수익률은 ${num}%입니다.`,
+  });
+
+export { PRIZE, ERROR_MESSAGES, MESSAGE_STATISTICS };

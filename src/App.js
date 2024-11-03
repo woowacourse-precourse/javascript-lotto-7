@@ -1,6 +1,10 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { ERROR_MESSAGES, PRIZE } from "./constants/constant.js";
+import {
+  ERROR_MESSAGES,
+  MESSAGE_STATISTICS,
+  PRIZE,
+} from "./constants/constant.js";
 
 class App {
   async run() {
@@ -104,27 +108,25 @@ class App {
   }
   calculateRate(matchingResults, purchaseAmount) {
     const totalPrize =
-      PRIZE.three * matchingResults.three +
-      PRIZE.four * matchingResults.four +
-      PRIZE.five * matchingResults.five +
-      PRIZE.fiveBonus * matchingResults.fiveBonus +
-      PRIZE.six * matchingResults.six;
+      PRIZE.THREE * matchingResults.three +
+      PRIZE.FOUR * matchingResults.four +
+      PRIZE.FIVE * matchingResults.five +
+      PRIZE.FIVEBONUS * matchingResults.fiveBonus +
+      PRIZE.SIX * matchingResults.six;
 
     const rate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
     return rate;
   }
   async printStatistics(matchingResults, rate) {
-    await Console.print("\n당첨 통계\n---");
-    await Console.print(`3개 일치 (5,000원) - ${matchingResults.three}개`);
-    await Console.print(`4개 일치 (50,000원) - ${matchingResults.four}개`);
-    await Console.print(`5개 일치 (1,500,000원) - ${matchingResults.five}개`);
+    await Console.print(MESSAGE_STATISTICS().HEADER);
+    await Console.print(MESSAGE_STATISTICS(matchingResults.three).MATCH_THREE);
+    await Console.print(MESSAGE_STATISTICS(matchingResults.four).MATCH_FOUR);
+    await Console.print(MESSAGE_STATISTICS(matchingResults.five).MATCH_FIVE);
     await Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchingResults.fiveBonus}개`
+      MESSAGE_STATISTICS(matchingResults.fiveBonus).MATCH_FIVE_BONUS
     );
-    await Console.print(
-      `6개 일치 (2,000,000,000원) - ${matchingResults.six}개`
-    );
-    await Console.print(`총 수익률은 ${rate}%입니다.`);
+    await Console.print(MESSAGE_STATISTICS(matchingResults.six).MATCH_SIX);
+    await Console.print(MESSAGE_STATISTICS(rate).RATE);
   }
 
   validatePurchaseAmount(purchaseAmount) {
