@@ -1,6 +1,6 @@
-import Purchase from "./Purchase";
-import Lotto from "./Lotto";
-import Bonus from "./Bonus";
+import Purchase from "../Purchase";
+import Lotto from "../Lotto";
+import Bonus from "../Bonus";
 
 class CreateModel {
     createPurchaseModel(amount) {
@@ -10,7 +10,7 @@ class CreateModel {
         return new Lotto(winngNumbers);
     }
     createBonusModel(bonusNumber, lottoWinngNumbers) {
-        return new Bonus(bonusNumber, lottoWinngNumbers);
+        return new Bonus(bonusNumber, lottoWinngNumbers.getLotto());
     }
 }
 export default CreateModel;
