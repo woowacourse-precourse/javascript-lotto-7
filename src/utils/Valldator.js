@@ -31,6 +31,11 @@ class Validator {
     if (value < minValue || value > maxValue)
       throw new Error(`${ERROR_PREFIX} ${minValue}이상 ${maxValue}이하의 값이 입력되어야 합니다.`);
   }
+
+  static isRigthArrayLength(value, standard = SERVICE_CONSTANTS.defaultArrayLength) {
+    if (value.length != standard)
+      throw new Error(`${ERROR_PREFIX} 입력받은 데이터의 개수가 적절하지 않습니다.`);
+  }
 }
 
 export default Validator;
