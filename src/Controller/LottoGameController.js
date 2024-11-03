@@ -2,24 +2,26 @@ import { Console } from "@woowacourse/mission-utils";
 import { GAME_MESSAGES } from "../Utils/message";
 
 class LottoGame {
-    constructor(createModel, input, output) {
+    constructor(createModel, input, output, myLotto) {
         this.CreateModel = createModel;
         this.Input = input;
         this.Output = output;
+        this.MyLotto = myLotto;
     }
+
     // 로또 게임
     async lottoGamePlay() {
         const purchase = await this.getLottoPurchaseAmount();
-        this.Output.printResult(
-            purchase.getLottoTicketCount() + GAME_MESSAGES.lottoTicketCount,
-        );
+        this.generateLottoTicket(purchase);
     }
+
     // 로또 구매 금액 입력 받기
     async getLottoPurchaseAmount() {
         const purchaseAmount = await this.Input.readLottoPurchaseAmountInput();
         this.Output.printResult(purchaseAmount);
         return this.setLottoPurchaseAmount(purchaseAmount);
     }
+
     // 로또 구매 금액 저장
     setLottoPurchaseAmount(purchaseAmount) {
         try {
@@ -28,6 +30,14 @@ class LottoGame {
             this.Output.printResult(message);
             this.getLottoPurchaseAmount();
         }
+    }
+
+    // 로또 발행하기
+    generateLottoTicket(purchase) {
+        const lottoTicketCount = purchase.getLottoTicketCount();
+        this.Output.printResult(lottoTicketCount + GAME_MESSAGES.lottoTicketCount);
+        this.MyLotto.buyLottoTicket(lottoTicketCount);
+        // Console.print(this.MyLotto.getMyLottoList());
     }
 }
 export default LottoGame;
