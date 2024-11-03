@@ -11,7 +11,9 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
 
-    if (numbers.length !== set(numbers).size) {
+    const setNumbers = new Set(numbers);
+
+    if (numbers.length !== setNumbers.size) {
       throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
     }
 
@@ -19,7 +21,7 @@ class Lotto {
       throw new Error("[ERROR] 로또 1과 45 사이의 범위여야 합니다.");
     }
 
-    if (numbers.some((number) => number.isNaN())) {
+    if (numbers.some((number) => isNaN(number))) {
       throw new Error("[ERROR] 로또 1과 45 사이의 범위여야 합니다.");
     }
   }
