@@ -13,4 +13,12 @@ const LOTTO_INFO = Object.freeze({
   MIN_RANK: 5,
 });
 
-export default LOTTO_INFO;
+const LOTTO_RANKING_SYSTEM = Object.freeze({
+  1: Object.freeze({ MATCH_COUNT: 6, SHOULD_CONTAIN_BONUS_NUM: false }),
+  2: Object.freeze({ MATCH_COUNT: 5, SHOULD_CONTAIN_BONUS_NUM: true }),
+  3: Object.freeze({ MATCH_COUNT: 5, SHOULD_CONTAIN_BONUS_NUM: false }),
+  4: Object.freeze({ MATCH_COUNT: 4, SHOULD_CONTAIN_BONUS_NUM: false }),
+  5: Object.freeze({ MATCH_COUNT: 3, SHOULD_CONTAIN_BONUS_NUM: false }),
+});
+
+export { LOTTO_INFO, LOTTO_RANKING_SYSTEM };

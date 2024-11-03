@@ -1,4 +1,4 @@
-import LOTTO_INFO from './lotto.js';
+import { LOTTO_INFO } from './lotto.js';
 
 const ERROR_MESSAGE = Object.freeze({
   EMPTY: '[ERROR] 값을 입력해 주세요.\n',
