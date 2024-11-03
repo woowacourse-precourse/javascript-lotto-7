@@ -9,6 +9,7 @@
 <p align="center">
     <img src="./result_capture(lotto).png" alt="결과">
 </p>
+
 # 💬프로젝트 소개
 
 > 로또 발행 및 당첨 번호 추첨 시스템을 구현한 자바스크립트 프로젝트입니다.<br>
