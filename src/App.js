@@ -11,7 +11,7 @@ class App {
 
     OutputView.printPurchasedLottosAmount(issuedLottos.length);
     issuedLottos.forEach((lotto) =>
-      OutputView.printPurchasedLottoNumbers(lotto.getNumbers()),
+      OutputView.printPurchasedLottoNumbers(lotto.getSortedNumbers()),
     );
   }
 }

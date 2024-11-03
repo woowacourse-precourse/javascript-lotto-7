@@ -27,8 +27,8 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  getNumbers() {
-    return this.#numbers;
+  getSortedNumbers() {
+    return this.#numbers.slice().sort((a, b) => a - b);
   }
 }
 
