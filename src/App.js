@@ -38,6 +38,17 @@ class App {
     const lottoCount = amount / LOTTO.PRICE;
 
     this.#validateClearChange(lottoCount);
+    this.#printBuyLottoCount(lottoCount);
+  }
+
+  #printBuyLottoCount(lottoCount) {
+    const buyLottoCountMessage = this.#buyLottoCountMessage(lottoCount);
+
+    Console.print(buyLottoCountMessage);
+  }
+
+  #buyLottoCountMessage(lottoCount) {
+    return `\n${lottoCount}개를 구매했습니다.`;
   }
 
   #validateAmountInput(amountInput) {
