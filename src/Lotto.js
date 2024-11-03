@@ -15,7 +15,7 @@ class Lotto {
   }
 
   print() {
-    MissionUtils.Console.print(`[${this.#numbers.join(",")}]`);
+    MissionUtils.Console.print(`[${this.#numbers.join(", ")}]`);
   }
 }
 
