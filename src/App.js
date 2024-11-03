@@ -17,13 +17,22 @@ class App {
         Console.print(lotto.sort((a, b) => a - b));
       });
 
-      const winningNumber = await Console.readLineAsync(
+      const winningNumberInput = await Console.readLineAsync(
         "\n당첨 번호를 입력해 주세요.\n",
       );
-      const lotto = new Lotto(
-        winningNumber.split(",").map(number => number.trim()),
+
+      const winningNumber = winningNumberInput
+        .split(",")
+        .map(number => number.trim());
+
+      const lotto = new Lotto();
+      lotto.validateWinningNumber(winningNumber);
+      const additionalNumberInput = await Console.readLineAsync(
+        "\n보너스 번호를 입력해 주세요.\n",
       );
-      lotto.validateWinningNumber();
+
+      const additionalNumber = additionalNumberInput.trim();
+      lotto.validateAdditionalNumber(additionalNumber);
     } catch (error) {
       throw new Error(error);
     }

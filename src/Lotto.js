@@ -4,8 +4,6 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
-    this.validateWinningNumber();
     this.#numbers = numbers;
   }
 
@@ -24,13 +22,26 @@ class Lotto {
     });
 
     const setNumbers = new Set(numbers);
-    if (setNumbers.size !== numbers.length && numbers.length === 6) {
+    if (setNumbers.size !== numbers.length) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER.DUPLICATE);
     }
   }
 
-  validateWinningNumber() {
-    return this.#validate(this.#numbers);
+  #validateAdditional(numbers) {
+    if (isNaN(numbers)) {
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBER.IS_NOT_NUMBER);
+    }
+    if (numbers < 1 || numbers > 45) {
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBER.WRONG_RANGE);
+    }
+  }
+
+  validateWinningNumber(numbers) {
+    return this.#validate(numbers);
+  }
+
+  validateAdditionalNumber(additionalNumber) {
+    return this.#validateAdditional(additionalNumber);
   }
 }
 
