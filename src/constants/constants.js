@@ -28,3 +28,5 @@ export const ERROR_MESSAGE = {
   bonusRangeError : `${ERROR_PREFIX} 보너스 번호의 범위는 1~45 폐구간 입니다.`,
   bonusTypeError : `${ERROR_PREFIX} 보너스 번호는 자연수입니다.`,
 };
+
+export const LOTTO_PRICE = 1000;
