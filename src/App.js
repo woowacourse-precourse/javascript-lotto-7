@@ -16,19 +16,28 @@ class App {
       const results = this.checkResults(tickets, winningNumbers, bonusNumber);
       this.displayResults(results, purchase);
     } catch (error) {
-      throw new Error("[ERROR] " + error.message);
+      if (!error.message.startsWith("[ERROR]")) {
+        throw new Error("[ERROR] " + error.message);
+      }
+      throw error;
     }
   }
 
   async getPurchase() {
-    const moneyString = await Console.readLineAsync(
-      "구입금액을 입력해 주세요.\n"
-    );
-    const moneyNumber = parseInt(moneyString);
-    if (isNaN(moneyNumber) || moneyNumber % 1000 !== 0) {
-      throw new Error("구입 금액은 1,000원 단위로 입력해야 합니다.");
+    try {
+      const moneyString = await Console.readLineAsync(
+        "구입금액을 입력해 주세요.\n"
+      );
+      const moneyNumber = parseInt(moneyString);
+      if (isNaN(moneyNumber) || moneyNumber % 1000 !== 0) {
+        throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
+      }
+      return moneyNumber;
+    } catch (error) {
+      Console.print(error.message);
+      return this.getPurchase();
     }
-    return moneyNumber;
+
   }
 
   generateLotto(count) {
@@ -57,7 +66,8 @@ class App {
 
       return winningNumbers;
     } catch (error) {
-      throw new Error(error.message);
+      Console.print(error.message);
+      return this.getWinningNumbers();
     }
   }
 
@@ -67,15 +77,18 @@ class App {
         "\n보너스 번호를 입력해 주세요.\n"
       );
       const number = parseInt(input);
-      if (isNaN(number) || number < 1 || number > 45) {
-        throw new Error("보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+      if (input.includes(",") || isNaN(number) || number < 1 || number > 45) {
+        throw new Error(
+          "보너스 번호는 1부터 45 사이 단 하나의 숫자여야 합니다."
+        );
       }
-      if (number in winningNumbers) {
+      if (winningNumbers.includingNumber(number)) {
         throw new Error("보너스 번호는 기존 번호와 겹칠 수 없습니다.");
       }
       return number;
     } catch (error) {
-      throw new Error(error.message);
+      Console.print(error.message);
+      return this.getBonusNumber(winningNumbers);
     }
   }
 
@@ -90,10 +103,8 @@ class App {
 
     tickets.forEach((ticket) => {
       const ticketLotto = new Lotto(ticket);
-      const matchCount = ticketLotto
-        .getNumbers()
-        .filter((num) => winningNumbers.getNumbers().includes(num)).length;
-      const hasBonus = ticketLotto.getNumbers().includes(bonusNumber);
+      const matchCount = ticketLotto.matches(winningNumbers.getNumbers());
+      const hasBonus = ticketLotto.includingNumber(bonusNumber);
 
       if (matchCount === 6) result.first++;
       else if (matchCount === 5 && hasBonus) result.second++;
