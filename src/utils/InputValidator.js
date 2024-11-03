@@ -19,16 +19,22 @@ const InputValidator = {
   validateWinningNumbers(input) {
     this.validateEmpty(input);
     this.validateWinningNumberFormat(input);
+    const numbers = this.parseAndValidateNumbers(input);
+    this.validateUniqueNumbers(numbers);
+    return numbers;
+  },
 
+  parseAndValidateNumbers(input) {
     const numbers = input.split(",")
       .map(number => this.validateAndConvertNumber(number.trim()));
+    numbers.forEach(this.validateLottoNumber);
+    return numbers;
+  },
 
+  validateUniqueNumbers(numbers) {
     if (new Set(numbers).size !== LOTTO_CONFIG.numbers.LENGTH) {
       throw new Error(ERROR_MESSAGE.winningNumbers.DUPLICATE);
     }
-
-    numbers.forEach(this.validateLottoNumber);
-    return numbers;
   },
 
   validateBonusNumber(input, winningNumbers) {

@@ -15,10 +15,14 @@ class LottoGame {
 
   #generateLottos(count) {
     for (let i = 0; i < count; i++) {
-      const numbers = RandomLotto.generateLottoNumbers();
-      const lotto = new Lotto(numbers);
-      this.#lottos.push(lotto);
+      this.#createAndStoreLotto();
     }
+  }
+
+  #createAndStoreLotto() {
+    const numbers = RandomLotto.generateLottoNumbers();
+    const lotto = new Lotto(numbers);
+    this.#lottos.push(lotto);
   }
 
   getLottos() {
@@ -31,14 +35,24 @@ class LottoGame {
   }
 
   calculateResults() {
-    const results = { 3: 0, 4: 0, 5: 0, "5+": 0, 6: 0 };
-
-    this.#lottos.forEach((lotto) => {
-      const matchCount = lotto.match(this.#winningLotto.getNumbers());
-      this.#updateWinningRank(results, matchCount, lotto);
-    });
-
+    const results = this.#initializeResults();
+    this.#countMatchingResults(results);
     return results;
+  }
+
+  #initializeResults() {
+    return { 3: 0, 4: 0, 5: 0, "5+": 0, 6: 0 };
+  }
+
+  #countMatchingResults(results) {
+    this.#lottos.forEach(lotto => {
+      this.#processLottoResult(results, lotto);
+    });
+  }
+
+  #processLottoResult(results, lotto) {
+    const matchCount = lotto.match(this.#winningLotto.getNumbers());
+    this.#updateWinningRank(results, matchCount, lotto);
   }
 
   #updateWinningRank(results, matchCount, lotto) {
@@ -57,18 +71,35 @@ class LottoGame {
 
   calculateProfitRate(results) {
     const totalPrize = this.#calculateTotalPrize(results);
-    const purchaseAmount = this.#lottos.length * LOTTO_CONFIG.price.UNIT;
-    return ((totalPrize / purchaseAmount) * 100).toFixed(1);
+    const purchaseAmount = this.#getTotalPurchaseAmount();
+    return this.#calculateRate(totalPrize, purchaseAmount);
   }
 
   #calculateTotalPrize(results) {
-    return (
-      results[3] * LOTTO_CONFIG.prize.THREE +
-      results[4] * LOTTO_CONFIG.prize.FOUR +
-      results[5] * LOTTO_CONFIG.prize.FIVE +
-      results["5+"] * LOTTO_CONFIG.prize.FIVE_BONUS +
-      results[6] * LOTTO_CONFIG.prize.SIX
-    );
+    const prizes = this.#getPrizes(results);
+    return this.#sumPrizes(prizes);
+  }
+
+  #getPrizes(results) {
+    return [
+      [results[3], LOTTO_CONFIG.prize.THREE],
+      [results[4], LOTTO_CONFIG.prize.FOUR],
+      [results[5], LOTTO_CONFIG.prize.FIVE],
+      [results["5+"], LOTTO_CONFIG.prize.FIVE_BONUS],
+      [results[6], LOTTO_CONFIG.prize.SIX],
+    ];
+  }
+
+  #sumPrizes(prizes) {
+    return prizes.reduce((sum, [count, prize]) => sum + (count * prize), 0);
+  }
+
+  #getTotalPurchaseAmount() {
+    return this.#lottos.length * LOTTO_CONFIG.price.UNIT;
+  }
+
+  #calculateRate(prize, amount) {
+    return ((prize / amount) * 100).toFixed(1);
   }
 }
 
