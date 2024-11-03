@@ -1,9 +1,15 @@
-const moneyValidation = (money) => {
-  if (!money) {
-    throw new Error('구입 금액을 입력해 주세요.');
-  }
+const FIND_NOT_NUMBER = /[^\d+]/g;
 
-  if (/[^\d+]/g.test(money)) {
+const userInputEmpty = (input, message = '') => {
+  if (!input) {
+    throw new Error(`${message} 입력해 주세요.`);
+  }
+};
+
+const moneyValidation = (money) => {
+  userInputEmpty(money, '구입 금액을');
+
+  if (FIND_NOT_NUMBER.test(money)) {
     throw new Error('구입 금액은 정수 외 다른 문자열은 입력할 수 없어요.');
   }
 
@@ -18,9 +24,7 @@ const moneyValidation = (money) => {
 };
 
 const lottoNumbersValidation = (numbers) => {
-  if (!numbers) {
-    throw new Error('로또 번호는 빈 값이면 안됩니다.');
-  }
+  userInputEmpty(numbers, '로또 번호를');
 
   if (numbers.length !== 6) {
     throw new Error('로또 번호는 6개여야 합니다.');
@@ -34,17 +38,15 @@ const lottoNumbersValidation = (numbers) => {
     throw new Error('로또 번호는 최소 1이상 최대 45이하로 구성되어야 합니다.');
   }
 
-  if (numbers.some((number) => /[^\d+]/g.test(number))) {
+  if (numbers.some((number) => FIND_NOT_NUMBER.test(number))) {
     throw new Error('로또 번호는 숫자외 다른 문자열이 포함될 수 없습니다.');
   }
 };
 
 const bonusNumberValidation = (number) => {
-  if (!number) {
-    throw new Error('보너스 번호는 빈 값이면 안됩니다.');
-  }
+  userInputEmpty(number, '보너스 번호를');
 
-  if (/[^\d+]/g.test(number)) {
+  if (FIND_NOT_NUMBER.test(number)) {
     throw new Error('보너스 번호는 양수로만 구성되어야 합니다.');
   }
 
