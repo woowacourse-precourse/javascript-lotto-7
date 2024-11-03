@@ -1,4 +1,4 @@
-import {AMOUNT_ERROR, WINNING_LOTTO_ERROR} from "./Message.js";
+import {AMOUNT_ERROR, WINNING_LOTTO_ERROR, BONUS_ERROR} from "./Message.js";
 
 export const validAmount = (amount) => {
     const IS_NOT_1000 = amount % 1000 !== 0;
@@ -18,4 +18,10 @@ export const validWinningLotto = (winningLotto) => {
     if (IS_NOT_COUNT_6) throw new Error(WINNING_LOTTO_ERROR.ERROR_COUNT_6);
     if (IS_NOT_COMMA) throw new Error(WINNING_LOTTO_ERROR.ERROR_COMMA);
     if (IS_NOT_UNIQUE) throw new Error(WINNING_LOTTO_ERROR.ERROR_UNIQUE);
+}
+
+export const validBonus = (bonus, winningLotto) => {
+    const IS_NOT_UNIQUE = winningLotto.some(num => num === bonus);
+
+    if (IS_NOT_UNIQUE) throw new Error(BONUS_ERROR.ERROR_UNIQUE);
 }
