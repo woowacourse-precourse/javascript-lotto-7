@@ -8,7 +8,7 @@ class LottoOutputWriter {
   }
 
   static printWinningResults(winningResults) {
-    Console.print('\n당첨 통계\n---\n');
+    Console.print('\n당첨 통계\n---');
 
     for (let i = winningResults.length - 1; i >= 0; i--) {
       const { matchCount, prize, bonus } = LottoChecker.PRIZE_TIERS[i];
@@ -23,7 +23,7 @@ class LottoOutputWriter {
   }
 
   static #printLottoCount(lottoCount) {
-    Console.print(`${lottoCount}개를 구매했습니다.\n`);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
   }
 
   static #printLottoNumbers(lottos) {
