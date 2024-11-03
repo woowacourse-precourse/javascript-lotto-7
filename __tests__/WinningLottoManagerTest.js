@@ -90,4 +90,15 @@ describe('WinningLottoManager 테스트', () => {
       await testSelectWinningNumbers(inputs, errorMessage);
     },
   );
+
+  test.each([
+    ['1, 2, 3, 4, 5, 5'],
+    ['1, 2, 3, 3, 3, 3'],
+    ['1, 2, 3, 3, 2, 1'],
+    ['1, 1, 2, 3, 4, 5'],
+  ])('당첨 번호가 중복이면 예외 처리하는지 테스트 (%s)', async (inputs) => {
+    const errorMessage = ERROR_MESSAGE.isDuplicated;
+
+    await testSelectWinningNumbers(inputs, errorMessage);
+  });
 });
