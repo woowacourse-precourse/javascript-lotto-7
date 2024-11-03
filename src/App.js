@@ -5,6 +5,7 @@ class App {
   constructor() {
     this.numbers = [];
     this.bonusNumber = null;
+    this.lottoNumbers = null;
   }
 
   async getPurchaseAmount() {
@@ -51,6 +52,8 @@ class App {
     if (lottoNumbers.some((num) => isNaN(num) || num < 1 || num > 45)) {
       throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
     }
+
+    this.lottoNumbers = lottoNumbers;
 
     this.bonusNumber = await this.getBonusNumber();
 
@@ -115,6 +118,10 @@ class App {
       throw new Error('[ERROR] 1 ~ 45 사이의 숫자로 입력해 주세요.');
     }
 
+    if (this.lottoNumbers.includes(parseInt(bonusNumber))) {
+      throw new Error('[ERROR] 중복된 번호 입니다.');
+    }
+
     return parseInt(bonusNumber);
   }
 
@@ -134,7 +141,6 @@ class App {
   async run() {
     try {
       const purchaseAmount = await this.getPurchaseAmount();
-
       this.createLottoNumbers(purchaseAmount);
       const winningNumbers = await this.getWinningNumbers();
       const matchResult = this.getMatchResult(winningNumbers);
