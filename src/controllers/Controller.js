@@ -8,13 +8,36 @@ import calculate from '../utils/WinningDraw.js';
 
 class Controller {
   static async run() {
+    try {
+      const money = await this.getMoney();
+      const winningLotto = await this.getWinningLotto();
+      const bonus = await this.getBonus(winningLotto);
+      this.displayResults(money, winningLotto, bonus);
+    } catch (error) {
+      OutputView.printError(error);
+      throw error;
+    }
+  }
+
+  static async getMoney() {
     const money = await InputView.moneyInput();
     validateMoney(money);
     OutputView.printLotto(money);
+    return money;
+  }
+
+  static async getWinningLotto() {
     const winning = await InputView.WinningInput();
-    const winningLotto = new Lotto(winningParser(winning));
+    return new Lotto(winningParser(winning));
+  }
+
+  static async getBonus(winningLotto) {
     const bonus = await InputView.bonusInput();
     validateBonus(bonus, winningLotto.getNumbers());
+    return bonus;
+  }
+
+  static displayResults(money, winningLotto, bonus) {
     const { prizeCounts, totalPrize } = calculate(winningLotto.getNumbers(), bonus);
     OutputView.printStatistics(prizeCounts);
     const returnOnInvestment = (totalPrize / money) * 100; // 수익률 (%)

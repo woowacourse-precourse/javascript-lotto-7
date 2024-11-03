@@ -92,6 +92,13 @@ describe('로또 테스트', () => {
   });
 
   test('예외 테스트', async () => {
-    await runException('1000j');
+    const logSpy = getLogSpy();
+
+    await expect(async () => {
+      await runException('1000j');
+    }).rejects.toThrow();
+
+    // 예외 메시지 확인
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
   });
 });
