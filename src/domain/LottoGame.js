@@ -21,9 +21,10 @@ class LottoGame {
   }
 
   calculateCompareResults(winningLotto, bonusNumber) {
+    const winningNumbers = winningLotto.getLottoNumbers();
+
     return this.#lottos.map((lotto) => {
-      const winningNumbers = winningLotto.getLottoNumbers();
-      lotto.getCompareResults(winningNumbers, bonusNumber);
+      return lotto.getCompareResults(winningNumbers, bonusNumber);
     });
   }
 
