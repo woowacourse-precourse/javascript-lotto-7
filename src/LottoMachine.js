@@ -29,7 +29,8 @@ class LottoMachine {
 
   static async #getPaymentInput() {
     const payment = await inputView.askPayment();
-    const parsedPayment = Utils.parsingToNumber(payment);
+    const trimmedNumber = Utils.trimInput(payment);
+    const parsedPayment = Utils.parsingToNumber(trimmedNumber);
     return parsedPayment;
   }
 
