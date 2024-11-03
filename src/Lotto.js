@@ -43,20 +43,25 @@ class Lotto {
     return true;
   }
 
-  addBonusDraw(numbers, bonus) {
-    let TEMP_NUMBERS = numbers;
+  addBonusDraw(draw, bonus) {
+    console.log(`addBonusDraw Before: numbers ${draw} bonus ${bonus}`);
+    let TEMP_NUMBERS = [...draw];
     if (this.#numbers1to45([bonus])) TEMP_NUMBERS.push(bonus);
     if (this.#noRepeats(TEMP_NUMBERS)) this.#numbers = TEMP_NUMBERS;
-    return TEMP_NUMBERS;
+    console.log(`addBonusDraw After: numbers ${draw} bonus ${bonus}`);
+    return [draw, bonus];
   }
 
-  // checkPurchase(purchase) {
-  //   if (isNaN(purchase))
-  //     throw new Error("[ERROR] 로또 구입 금액을 입력하세요.");
-  //   if (parseInt(purchase / 1000).toString() != purchase.toString())
-  //     throw new Error("[ERROR] 잔돈은 계산하지 않습니다.");
-  //   return true;
-  // }
+  checkPurchase(purchaseAmount) {
+    if (isNaN(purchaseAmount) | (purchaseAmount < 0))
+      throw new Error("[ERROR] 숫자만 입력하세요.");
+    const change = "" + parseInt(purchaseAmount / 1000) * 1000;
+    const orig = "" + purchaseAmount;
+    if (purchaseAmount < 1000)
+      throw new Error("[ERROR] 한 로또 당 1000원 입니다.");
+    if (change != orig) throw new Error("[ERROR] 잔돈은 계산하지 않습니다.");
+    return purchaseAmount;
+  }
 
   // generateLotto(purchase) {
   //   let LOTTO_RESULTS = [];

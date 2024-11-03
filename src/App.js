@@ -72,30 +72,33 @@ class App {
       return USER_DRAW_AND_BONUS;
     }
 
-    // async function getUserPurchase() {
-    //   const INPUT = await MissionUtils.Console.readLineAsync(
-    //     "구입금액을 입력해 주세요.\n"
-    //   );
-    //   return INPUT;
-    // }
+    async function getUserPurchase() {
+      const INPUT = await MissionUtils.Console.readLineAsync(
+        "구입금액을 입력해 주세요.\n"
+      );
+      return INPUT;
+    }
 
-    // async function checkUserPurchase(USER_DRAW) {
-    //   let USER_INPUT;
-
-    //   do {
-    //     try {
-    //       USER_INPUT = await getUserDraw();
-    //       if (USER_DRAW.checkPurchase()) CORRECT_INPUT = true;
-    //     } catch (INPUT_ERROR) {
-    //       MissionUtils.Console.print(INPUT_ERROR);
-    //     }
-    //   } while (!CORRECT_INPUT);
-
-    //   return USER_INPUT;
-    // }
+    async function userPurchase(USER_NUMBERS) {
+      let USER_THIRD_INPUT, PURCHASE_COMPLETE;
+      let VALID_THIRD_INPUT = false;
+      do {
+        try {
+          USER_THIRD_INPUT = await getUserPurchase();
+          PURCHASE_COMPLETE = new Lotto(USER_NUMBERS[0]).checkPurchase(
+            USER_THIRD_INPUT
+          );
+          VALID_THIRD_INPUT = true;
+        } catch (THIRD_INPUT_ERROR) {
+          MissionUtils.Console.print(THIRD_INPUT_ERROR);
+        }
+      } while (!VALID_THIRD_INPUT);
+      return USER_THIRD_INPUT;
+    }
 
     async function main() {
       const USER_NUMBERS = await userInput();
+      const USER_PURCHASE = await userPurchase(USER_NUMBERS);
       // console.log(USER_NUMBERS);
     }
 
