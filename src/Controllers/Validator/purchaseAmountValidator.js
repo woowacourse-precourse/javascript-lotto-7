@@ -3,28 +3,26 @@ import { ERROR_MESSAGES } from '../../Constants/errorMessages.js';
 class PurchaseAmountValidator {
   constructor() {
     this.purchaseAmount = 0;
-    this.valid = true;
   }
 
-  isValidEmptyInput(purchaseAmount) {
-    return purchaseAmount !== '';
+  isValidEmptyInput() {
+    return this.purchaseAmount !== '';
   }
 
-  isValidPurchaseAmountUnit(purchaseAmount) {
+  isValidPurchaseAmountUnit() {
     const LOTTO_PRICE_UNIT = 1000;
-    const parsedPurchaseAmount = Number(purchaseAmount);
+    const parsedPurchaseAmount = Number(this.purchaseAmount);
 
-    return parsedPurchaseAmount % LOTTO_PRICE_UNIT === 0 && 0 < parsedPurchaseAmount;
+    return parsedPurchaseAmount % LOTTO_PRICE_UNIT === 0 && parsedPurchaseAmount > 0;
   }
 
   validatePurchaseAmount(purchaseAmount) {
-    if (!this.isValidEmptyInput(purchaseAmount)) {
-      this.valid = false;
+    this.purchaseAmount = purchaseAmount;
+    if (!this.isValidEmptyInput()) {
       throw new Error(ERROR_MESSAGES.purchaseAmount.EMPTY_INPUT);
     }
 
-    if (!this.isValidPurchaseAmountUnit(purchaseAmount)) {
-      this.valid = false;
+    if (!this.isValidPurchaseAmountUnit()) {
       throw new Error(ERROR_MESSAGES.purchaseAmount.UNIT_PRICE);
     }
 
