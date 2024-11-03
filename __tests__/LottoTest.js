@@ -1,3 +1,4 @@
+import ERROR_MESSAGES from '../src/constants/messages/errorMessages.js';
 import Lotto from '../src/models/Lotto.js';
 
 describe('로또 클래스 테스트', () => {
@@ -33,42 +34,42 @@ describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개보다 많으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrowError('[ERROR] 로또 번호는 6개여야 합니다.');
+    }).toThrowError(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_LENGTH_NOT_RIGHT}`);
   });
 
   test('로또 번호의 개수가 6개보다 적으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5]);
-    }).toThrowError('[ERROR] 로또 번호는 6개여야 합니다.');
+    }).toThrowError(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_LENGTH_NOT_RIGHT}`);
   });
 
   test('로또 번호로 숫자 타입이 아닌 값이 존재하면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, '6']);
-    }).toThrowError('[ERROR] 로또 번호는 숫자 타입이어야 합니다.');
+    }).toThrowError(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_TYPE_NOT_NUMBER}`);
   });
 
   test('로또 번호로 숫자 타입이 아닌 값이 존재하면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 'abc']);
-    }).toThrowError('[ERROR] 로또 번호는 숫자 타입이어야 합니다.');
+    }).toThrowError(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_TYPE_NOT_NUMBER}`);
   });
 
   test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrowError('[ERROR] 로또 번호는 중복된 번호가 존재하면 안 됩니다.');
+    }).toThrowError(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_DUPLICATION}`);
   });
 
   test('로또 번호로 시작과 끝 범위에 해당하지 않는 숫자가 존재하면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 46]);
-    }).toThrowError('[ERROR] 로또 번호의 숫자 범위는 1~45여야 합니다.');
+    }).toThrowError(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_RANGE_NOT_RIGHT}`);
   });
 
   test('로또 번호로 시작과 끝 범위에 해당하지 않는 숫자가 존재하면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([0, 1, 2, 3, 4, 5]);
-    }).toThrowError('[ERROR] 로또 번호의 숫자 범위는 1~45여야 합니다.');
+    }).toThrowError(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_RANGE_NOT_RIGHT}`);
   });
 });
