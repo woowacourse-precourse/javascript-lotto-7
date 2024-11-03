@@ -29,6 +29,10 @@ class Lotto {
     return this.#correctCnt;
   }
 
+  getIsBonus(){
+    return this.#isBonus;
+  }
+
   // TODO: 추가 기능 구현
   checkNumbers(winningNumbers){
     this.#numbers.forEach((number)=>{
