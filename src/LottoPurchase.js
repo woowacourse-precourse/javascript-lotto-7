@@ -5,18 +5,7 @@ class LottoPurchase {
   #purchaseAmount;
 
   constructor(purchaseAmount) {
-    this.#validate(purchaseAmount);
     this.#purchaseAmount = purchaseAmount;
-  }
-
-  #validate(amount) {
-    if (!Number.isInteger(amount) && amount > 0) {
-      throw new Error(Constants.ERROR_MESSAGES.NATURAL_NUMBER_ERROR);
-    }
-
-    if (amount % Constants.LOTTO_PRICE !== 0) {
-      throw new Error(Constants.ERROR_MESSAGES.THOUSAND_UNIT_ERROR);
-    }
   }
 
   #printPurchasesCount(purchasesCount) {
