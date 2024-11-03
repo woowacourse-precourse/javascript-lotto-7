@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import { GameOutput } from "./woowahanOutput.js";
 
@@ -6,6 +6,8 @@ export default class LottoStore {
   #countLotto;
   #winRanking = Array(4).fill(0);
   #fiveEqualWithBonusCount = 0;
+  #winPrize = [5000, 50000, 1500000, 2000000000];
+  #bonusPrize = 30000000;
 
   generateLottos() {
     const lottos = [];
@@ -50,17 +52,24 @@ export default class LottoStore {
     }
   }
 
+  resultRankingAnnounce() {
+    let earn = 0;
+
+    for (let n = 0; n < 4; n++) {
+      GameOutput.printGeneralRanking(n+3,this.#winPrize[n].toLocaleString(),this.#winRanking[n]);
+      earn += this.#winRanking[n] * this.#winPrize[n];
+      if (n === 2) {
+        GameOutput.printBonusRanking(this.#bonusPrize.toLocaleString(),this.#fiveEqualWithBonusCount);
+        earn += this.#fiveEqualWithBonusCount * this.#bonusPrize;
+      }
+    }
+
+    return earn
+  }
+
   getLottoTicketCount(input) {
     const inputNumber = Number(input);
     this.#countLotto = Math.floor(inputNumber / 1000);
     return this.#countLotto;
-  }
-
-  getWinRanking() {
-    return this.#winRanking;
-  }
-
-  getFiveEqualWithBonusCount() {
-    return this.#fiveEqualWithBonusCount;
   }
 }

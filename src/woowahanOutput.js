@@ -23,10 +23,19 @@ class GameOutput extends WoowahanOutput {
     static printWinningStatistics() {
         super.print(CONSTANT.WINNING_STATISTICS);
     }
+    
+    static printGeneralRanking(sameCount, winPrize, ticketCount){
+        super.print(`${sameCount}개 일치 (${winPrize}원) - ${ticketCount}개`);
+    }
+
+    static printBonusRanking(winPrize, fiveEqualWithBonusCount){
+        super.print(`5개 일치, 보너스 볼 일치 (${winPrize}원) - ${fiveEqualWithBonusCount}개`);
+    }
 
     static printTotalReturn(earn, buyMoney) { 
-        super.print(`${CONSTANT.TOTAL_RETURN_IS}${(earn / Number(buyMoney) * 100).toFixed(1)}${CONSTANT.IT_WAS}`);
+        super.print(`총 수익률은 ${(earn / Number(buyMoney) * 100).toFixed(1)}%입니다.`);
     }
+
 }
 
 class BuyMoneyOutput extends WoowahanOutput {

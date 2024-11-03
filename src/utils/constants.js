@@ -1,7 +1,5 @@
 const CONSTANT = Object.freeze({
     WINNING_STATISTICS: '당첨통계\n---',
-    TOTAL_RETURN_IS: '총 수익률은 ',
-    IT_WAS: '%입니다.'
 })
 
 const SUBJECT = Object.freeze({
