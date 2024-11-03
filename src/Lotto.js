@@ -16,10 +16,15 @@ class Lotto {
         if (new Set(numbers).size !== numbers.length) {
             throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
         }
-        const uniqueNumbers = new Set(numbers);
-        if (uniqueNumbers.size !== 6) {
-            throw new Error("[ERROR] 로또 번호는 서로 다른 6개의 값이어야 합니다.");
-        }
+
+        numbers.forEach(num => {
+            if (typeof num !== "number") {
+                throw new Error("[ERROR] 로또 번호는 숫자만 가능합니다.");
+            }
+            if (num < 1 || num > 45) {
+                throw new Error("[ERROR] 로또 번호의 숫자 범위는 1이상 45이하여야 합니다.");
+            }
+        });
     }
 
     static generateLottoNumbers(lottoCount) {
