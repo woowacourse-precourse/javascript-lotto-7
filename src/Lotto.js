@@ -24,18 +24,12 @@ class Lotto {
     const MATCHED_COUNT = this.#getMatchedCount(WINNING_NUMBER);
     const IS_BONUS_MATCHED = this.#isBonusMatched(BONUS_NUMBER);
 
-    switch (MATCHED_COUNT) {
-      case 6:
-        return 1;
-      case 5:
-        return IS_BONUS_MATCHED ? 2 : 3;
-      case 4:
-        return 4;
-      case 3:
-        return 5;
-      default:
-        return 0;
-    }
+    if (MATCHED_COUNT === 6) return 1;
+    if (MATCHED_COUNT === 5 && IS_BONUS_MATCHED) return 2;
+    if (MATCHED_COUNT === 5) return 3;
+    if (MATCHED_COUNT === 4) return 4;
+    if (MATCHED_COUNT === 3) return 5;
+    return 6;
   }
 
   #getMatchedCount(WINNING_NUMBER) {
