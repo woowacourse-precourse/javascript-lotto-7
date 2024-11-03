@@ -1,5 +1,5 @@
-import { generateError } from "../utils/generateError";
-import Validator from "../validators/Validator";
+import { generateError } from "../utils/generateError.js";
+import Validator from "../validators/Validator.js";
 
 class Lotto {
   // 로또 하나를 저장하는 6개의 숫자 배열
@@ -19,7 +19,7 @@ class Lotto {
   }
 
   #validateUniqueNumber(numbers) {
-    const set = new Set(...numbers);
+    const set = new Set(numbers);
 
     if (numbers.length !== set.size) {
       generateError("발행된 로또에 중복된 수가 포함되어 있습니다.");
