@@ -77,3 +77,26 @@ describe('금액별 구입 기능 검사', () => {
     expect(new LOTTO_MACHINE().purchaseLottoTickets(money)).toHaveLength(5);
   });
 });
+
+describe('로또 번호 생성 기능 검사', () => {
+  test('중복되지 않는 번호로 생성', () => {
+    const ticket = new LOTTO_MACHINE().drawSingleLottoTicket();
+    expect(
+      new Set(ticket.getNumbers()).size === ticket.getNumbers().length
+    ).toBeTruthy();
+  });
+
+  test('6개의 번호로 생성', () => {
+    const ticket = new LOTTO_MACHINE().drawSingleLottoTicket();
+    expect(ticket.getNumbers()).toHaveLength(6);
+  });
+
+  test('오름차순으로 생성', () => {
+    const numbers = [6, 5, 4, 1, 3, 2];
+    mockRandoms([numbers]);
+
+    const ticket = new LOTTO_MACHINE().drawSingleLottoTicket();
+
+    expect(ticket.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+});
