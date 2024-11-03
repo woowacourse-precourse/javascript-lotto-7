@@ -25,14 +25,14 @@ class Statistics {
     this.lottos.forEach((lotto) => {
       const matchedNumbers = lotto.get().filter((num) => this.winningNumbers.includes(String(num))).length;
       const isBonusMatched = lotto.get().includes(Number(this.bonusNumber));
+      if (matchedNumbers < 3) {
+        return;
+      }
       this.#calculateWinning(matchedNumbers, isBonusMatched);
     });
   }
 
   #calculateWinning(matchedNumbers, isBonusMatched) {
-    if (matchedNumbers < 3) {
-      return;
-    }
     let winning = '';
     if (matchedNumbers === 6) {
       winning = WINNING_KEYS.FIRST;
