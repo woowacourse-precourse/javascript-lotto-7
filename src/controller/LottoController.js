@@ -1,5 +1,8 @@
 import LottoView from "../view/LottoView.js";
-import { validatePurchasingAmount } from "../validation.js";
+import {
+  validatePurchasingAmount,
+  validateWinningNumberRange,
+} from "../validation.js";
 import LottoGenerator from "../model/LottoGenerator.js";
 class LottoController {
   constructor() {
@@ -9,6 +12,7 @@ class LottoController {
 
   async init() {
     await this.setLottoAmounts();
+    await this.getWinningNumbers();
   }
 
   async setLottoAmounts() {
@@ -43,8 +47,18 @@ class LottoController {
 
   //당첨번호 입력
   async getWinningNumbers() {
-    const getWinningNumber = await this.view.inputWinningNumber();
-    return getWinningNumber.split(",").map(Number);
+    try {
+      const getWinningNumber = await this.view.inputWinningNumber();
+      this.checkWinningNumbers(getWinningNumber);
+      return Number(getWinningNumber);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  //당첨숫자 검증
+  checkWinningNumbers(getWinningNumber) {
+    validateWinningNumberRange(getWinningNumber);
   }
 }
 

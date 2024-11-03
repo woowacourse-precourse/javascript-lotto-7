@@ -24,7 +24,7 @@ class LottoView {
     const winningNumbers = await Console.readLineAsync(
       MESSAGES.INPUT_WINNING_NUMBER
     );
-    return winningNumbers;
+    return winningNumbers.split(",").map(Number);
   }
 }
 
