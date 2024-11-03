@@ -17,6 +17,7 @@ const getLogSpy = () => {
 
 describe("App 단위 테스트", () => {
 	let app;
+	let output;
 	const COUNT_CASES = [
 		[100000, 100],
 		[1000, 1],
@@ -45,7 +46,7 @@ describe("App 단위 테스트", () => {
 		const logSpy = getLogSpy();
 
 		// when
-		const output = new Output();
+		output = new Output();
 		output.printLottoCount(INPUT);
 
 		RESULT.forEach((output) => {
@@ -72,6 +73,21 @@ describe("App 단위 테스트", () => {
 		LOTTOS.forEach((lotto, index) => {
 			expect(lotto).toEqual(RANDOM_NUMBERS[index]);
 		});
+	});
+
+	test("로또 번호 출력", () => {
+		// given
+		const INPUT = [1, 2, 3, 4, 5, 6];
+		const RESULT = "[1, 2, 3, 4, 5, 6]";
+
+		const logSpy = getLogSpy();
+
+		// when
+		output = new Output();
+		output.printLottoNumbers(INPUT);
+
+		// then
+		expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(RESULT));
 	});
 
 	test("당첨 등수 계산", async () => {
