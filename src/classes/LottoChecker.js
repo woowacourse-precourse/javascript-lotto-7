@@ -9,9 +9,8 @@ class LottoChecker {
 
   static checkWinningLottos(lottos, winningNumbers, bonusNumber) {
     const lottoCheckResults = new Array(5).fill(0);
-
     for (const lotto of lottos) {
-      const tier = this.#checkSingleLotto(lotto, winningNumbers, bonusNumber);
+      const tier = this.#checkSingleLotto(lotto, winningNumbers.getNumbers(), bonusNumber);
       this.#countCheckResults(lottoCheckResults, tier);
     }
     return lottoCheckResults;
