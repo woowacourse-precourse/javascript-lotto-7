@@ -112,4 +112,61 @@ describe('Validator Test', () => {
       expect(validate).not.toThrow(ERROR_PREFIX);
     });
   });
+
+  describe('isNumberInBoundary() : 숫자가 지정된 범위 안에 있는지 검증', () => {
+    test.each([-1, 0, 58, 10000])(
+      '기본 범위를 벗어난 숫자인 경우 에러를 발생시킨다.( %s )',
+      (value) => {
+        // when
+        const validate = () => {
+          Validator.isNumberInBoundary(value);
+        };
+
+        // then
+        expect(validate).toThrow(ERROR_PREFIX);
+      },
+    );
+
+    test.each([1, 18, 20, 45])('기본 범위 내 숫자인 경우 정상적으로 동작한다. ( %s )', (value) => {
+      // when
+      const validate = () => {
+        Validator.isNumberInBoundary(value);
+      };
+
+      expect(validate).not.toThrow();
+    });
+
+    test.each([
+      [-10, -1, 0],
+      [1, 2, 0],
+      [1000001, 100000001, -100000],
+    ])(
+      '커스텀 범위( %s ~ %s )를 벗어난 숫자( %s )인 경우 에러를 발생시킨다.',
+      (minValue, maxValue, value) => {
+        // when
+        const validate = () => {
+          Validator.isNumberInBoundary(value, minValue, maxValue);
+        };
+
+        // then
+        expect(validate).toThrow(ERROR_PREFIX);
+      },
+    );
+
+    test.each([
+      [-10, -1, -5],
+      [0, 0, 0],
+      [1, 40, 5],
+    ])(
+      '커스텀 범위( %s ~ %s )내인 숫자( %s )인 경우 에러를 발생시킨다.',
+      (minValue, maxValue, value) => {
+        // when
+        const validate = () => {
+          Validator.isNumberInBoundary(value, minValue, maxValue);
+        };
+
+        expect(validate).not.toThrow();
+      },
+    );
+  });
 });
