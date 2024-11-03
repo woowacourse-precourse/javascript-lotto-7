@@ -157,6 +157,9 @@ class Input {
       `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.results.second}개`
     );
     Console.print(`6개 일치 (2,000,000,000원) - ${this.results.first}개`);
+
+    const profitRate = ((this.totalProfit / this.price) * 100).toFixed(1);
+    Console.print(`총 수익률은 ${profitRate}% 입니다.`);
   }
 }
 
