@@ -1,12 +1,15 @@
 class LottoController {
   #InputView;
+  #lottoValidator;
 
-  constructor(inputView) {
+  constructor(inputView, lottoValidator) {
     this.#InputView = inputView;
+    this.#lottoValidator = lottoValidator;
   }
 
   async purchaseLotto() {
-    const purchseAmount = await this.#InputView.getPurchaseAmount();
+    const amount = await this.#InputView.getPurchaseAmount();
+    this.#lottoValidator.validatePurchaseAmount(amount);
   }
 }
 
