@@ -59,7 +59,7 @@ describe("로또 테스트", () => {
       [13, 14, 16, 38, 42, 45],
       [7, 11, 30, 40, 42, 43],
       [2, 13, 22, 32, 38, 45],
-      [1, 3, 5, 14, 22, 45],
+      [14, 22, 45, 1, 3, 5],
     ]);
     mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
@@ -93,5 +93,331 @@ describe("로또 테스트", () => {
 
   test("예외 테스트", async () => {
     await runException("1000j");
+  });
+
+  test("로또번호 입력 부적절 경우 및 5개 일치하는 경우", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 10];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,49", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 로또 번호는 1에서 45사이의 수입니다"));
+
+    const logs = [
+        "1개를 구매했습니다.",
+        "[1, 2, 3, 4, 5, 10]",
+        "3개 일치 (5,000원) - 0개",
+        "4개 일치 (50,000원) - 0개",
+        "5개 일치 (1,500,000원) - 1개",
+        "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
+        "6개 일치 (2,000,000,000원) - 0개",
+        "총 수익률은 150000.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("보너스 번호 입력 부적절 경우 및 보너스 번호 일치 경우", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 10];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "a", "10"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 보너스 번호는 숫자이어야 합니다"));
+
+    const logs = [
+        "1개를 구매했습니다.",
+        "[1, 2, 3, 4, 5, 10]",
+        "3개 일치 (5,000원) - 0개",
+        "4개 일치 (50,000원) - 0개",
+        "5개 일치 (1,500,000원) - 0개",
+        "5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
+        "6개 일치 (2,000,000,000원) - 0개",
+        "총 수익률은 3000000.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("로또 구매 금액 입력 부적절 경우 및 테스트 1", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [
+      [1, 2, 3, 4, 7, 12], /// 6
+      [1, 2, 3, 4, 20, 21],/// 4
+      [1, 2, 3, 4, 20, 22],/// 4
+      [1, 2, 3, 4, 30, 35],///  4
+      [1, 2, 10, 12, 14, 15], /// 3
+      [1, 2, 3, 4, 7, 12], /// 6
+      [1, 2, 3, 7, 8, 15], /// 4
+      [1, 2, 3, 4, 7, 16] /// 5b
+    ];
+    const INPUT_NUMBERS_TO_END = ["a", "8000", "1,2,3,4,7,12", "16"];
+
+    mockRandoms(RANDOM_NUMBERS_TO_END);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 로또 가격은 숫자이어야 합니다"));
+
+    const logs = [
+      "8개를 구매했습니다.",
+      "[1, 2, 3, 4, 7, 12]",
+      "[1, 2, 3, 4, 20, 21]",
+      "[1, 2, 3, 4, 20, 22]",
+      "[1, 2, 3, 4, 30, 35]",
+      "[1, 2, 10, 12, 14, 15]",
+      "[1, 2, 3, 4, 7, 12]",
+      "[1, 2, 3, 7, 8, 15]",
+      "[1, 2, 3, 4, 7, 16]",
+      "3개 일치 (5,000원) - 1개",
+      "4개 일치 (50,000원) - 4개",
+      "5개 일치 (1,500,000원) - 0개",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
+      "6개 일치 (2,000,000,000원) - 2개",
+      "총 수익률은 50377562.5%입니다.",
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("보너스 번호 입력 부적절 경우 및 보너스 번호 일치 경우", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 10];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "a", "10"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 보너스 번호는 숫자이어야 합니다"));
+
+    const logs = [
+        "1개를 구매했습니다.",
+        "[1, 2, 3, 4, 5, 10]",
+        "3개 일치 (5,000원) - 0개",
+        "4개 일치 (50,000원) - 0개",
+        "5개 일치 (1,500,000원) - 0개",
+        "5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
+        "6개 일치 (2,000,000,000원) - 0개",
+        "총 수익률은 3000000.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("로또 구매 금액 입력 부적절 경우 및 테스트 2", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [
+      [1, 2, 3, 4, 7, 12], /// 6
+      [1, 2, 3, 4, 20, 21],/// 4
+      [1, 2, 3, 4, 20, 22],/// 4
+      [1, 2, 3, 4, 30, 35],///  4
+      [1, 2, 10, 12, 14, 15], /// 3
+      [1, 2, 3, 4, 7, 12], /// 6
+      [1, 2, 3, 7, 8, 15], /// 4
+      [1, 2, 3, 4, 7, 16], /// 5b
+      [1, 2, 3, 4, 7, 16], /// 5b
+      [1, 2, 3, 4, 7, 16], /// 5b
+    ];
+    const INPUT_NUMBERS_TO_END = ["a", "10000", "1,2,3,4,7,12", "16"];
+
+    mockRandoms(RANDOM_NUMBERS_TO_END);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 로또 가격은 숫자이어야 합니다"));
+
+    const logs = [
+      "10개를 구매했습니다.",
+      "[1, 2, 3, 4, 7, 12]",
+      "[1, 2, 3, 4, 20, 21]",
+      "[1, 2, 3, 4, 20, 22]",
+      "[1, 2, 3, 4, 30, 35]",
+      "[1, 2, 10, 12, 14, 15]",
+      "[1, 2, 3, 4, 7, 12]",
+      "[1, 2, 3, 7, 8, 15]",
+      "[1, 2, 3, 4, 7, 16]",
+      "[1, 2, 3, 4, 7, 16]",
+      "[1, 2, 3, 4, 7, 16]",
+      "3개 일치 (5,000원) - 1개",
+      "4개 일치 (50,000원) - 4개",
+      "5개 일치 (1,500,000원) - 0개",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - 3개",
+      "6개 일치 (2,000,000,000원) - 2개",
+      "총 수익률은 40902050.0%입니다.",
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("보너스 번호 입력 부적절 경우 및 보너스 번호 일치 경우", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 10];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,12", "a", "10"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 보너스 번호는 숫자이어야 합니다"));
+
+    const logs = [
+        "1개를 구매했습니다.",
+        "[1, 2, 3, 4, 5, 10]",
+        "3개 일치 (5,000원) - 0개",
+        "4개 일치 (50,000원) - 0개",
+        "5개 일치 (1,500,000원) - 0개",
+        "5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
+        "6개 일치 (2,000,000,000원) - 0개",
+        "총 수익률은 3000000.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("보너스 번호 입력 부적절 경우 및 수익률이 0.0%인 경우", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 10];
+    const INPUT_NUMBERS_TO_END = ["1000", "11,12,13,14,15,16", "a", "17"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 보너스 번호는 숫자이어야 합니다"));
+
+    const logs = [
+        "1개를 구매했습니다.",
+        "[1, 2, 3, 4, 5, 10]",
+        "3개 일치 (5,000원) - 0개",
+        "4개 일치 (50,000원) - 0개",
+        "5개 일치 (1,500,000원) - 0개",
+        "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
+        "6개 일치 (2,000,000,000원) - 0개",
+        "총 수익률은 0.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("보너스 번호 입력 부적절 경우 및 보너스 번호 일치 경우", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 10];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,12", "a", "10"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 보너스 번호는 숫자이어야 합니다"));
+
+    const logs = [
+        "1개를 구매했습니다.",
+        "[1, 2, 3, 4, 5, 10]",
+        "3개 일치 (5,000원) - 0개",
+        "4개 일치 (50,000원) - 0개",
+        "5개 일치 (1,500,000원) - 0개",
+        "5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
+        "6개 일치 (2,000,000,000원) - 0개",
+        "총 수익률은 3000000.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("보너스 번호 입력 부적절 경우 및 로또번호 일치 테스트 3", async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [
+      [1, 2, 3, 4, 7, 12], /// 6
+      [1, 2, 3, 4, 20, 21],/// 4
+      [1, 2, 3, 4, 20, 22],/// 4
+      [1, 2, 3, 4, 7, 35],///  5
+      [1, 2, 10, 12, 14, 15], /// 3
+      [1, 2, 3, 4, 7, 12], /// 6
+      [1, 2, 3, 7, 12, 15], /// 5
+      [1, 2, 3, 4, 7, 16], /// 5b
+      [1, 2, 3, 4, 7, 16], /// 5b
+      [1, 2, 3, 4, 7, 16], /// 5b
+    ];
+    const INPUT_NUMBERS_TO_END = ["a", "10000", "1,2,3,4,7,12", "16"];
+
+    mockRandoms(RANDOM_NUMBERS_TO_END);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 로또 가격은 숫자이어야 합니다"));
+
+    const logs = [
+      "10개를 구매했습니다.",
+      "[1, 2, 3, 4, 7, 12]",
+      "[1, 2, 3, 4, 20, 21]",
+      "[1, 2, 3, 4, 20, 22]",
+      "[1, 2, 3, 4, 7, 35]",
+      "[1, 2, 10, 12, 14, 15]",
+      "[1, 2, 3, 4, 7, 12]",
+      "[1, 2, 3, 7, 12, 15]",
+      "[1, 2, 3, 4, 7, 16]",
+      "[1, 2, 3, 4, 7, 16]",
+      "[1, 2, 3, 4, 7, 16]",
+      "3개 일치 (5,000원) - 1개",
+      "4개 일치 (50,000원) - 2개",
+      "5개 일치 (1,500,000원) - 2개",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - 3개",
+      "6개 일치 (2,000,000,000원) - 2개",
+      "총 수익률은 40931050.0%입니다.",
+    ];
+
+    logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
   });
 });
