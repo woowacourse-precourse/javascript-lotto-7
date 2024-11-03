@@ -32,9 +32,15 @@ class Validator {
     ErrorHandler.throwIf(!Validator.isDivisibleBy1000(amount), ERRORS.NOT_DIVISIBLE_BY_1000);
   }
 
+  static validateBonusNumber(winningNumbers, bonusNumber) {
+    ErrorHandler.throwIf(Validator.isNaN(bonusNumber), ERRORS.NOT_A_NUMBER);
+    ErrorHandler.throwIf(!Validator.isValidLottoNumber(bonusNumber), ERRORS.INVALID_LOTTO_NUMBER);
+    ErrorHandler.throwIf(Validator.hasUniqueNumbers([...winningNumbers, bonusNumber]), ERRORS.DUPLICATED_WINNING_NUMBERS);
+  }
+
   static validateWinningNumbers(numbers) {
     ErrorHandler.throwIf(!Validator.isArrayWithLength(numbers, 6), ERRORS.INVALID_WINNING_NUMBERS_LENGTH);
-    
+
     numbers.forEach((number) => {
       ErrorHandler.throwIf(Validator.isNaN(number), ERRORS.NOT_A_NUMBER);
       ErrorHandler.throwIf(!Validator.isValidLottoNumber(number), ERRORS.INVALID_LOTTO_NUMBER);

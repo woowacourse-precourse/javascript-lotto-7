@@ -4,13 +4,17 @@ import Lotto from './Lotto.js';
 class LottoGame {
   #paymentAmount;
   #winningNumbers;
+  #bonusNumber;
   #lottoList;
 
   async initialize() {
     this.#paymentAmount = await UserInterface.queryPaymentAmout();
+
     this.#generateLottos(this.#paymentAmount / 1000);
     UserInterface.printLottos(this.#lottoList);
+
     this.#winningNumbers = await UserInterface.queryWinningNumbers();
+    this.#bonusNumber = await UserInterface.queryBonusNumber(this.#winningNumbers);
   }
 
   #generateLottos(count) {

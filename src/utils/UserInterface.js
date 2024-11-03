@@ -20,6 +20,15 @@ class UserInterface {
     return winningNumbers;
   }
 
+  static async queryBonusNumber(winningNumbers) {
+    Console.print('');
+    const input = await Console.readLineAsync(QUERIES.BONUS_NUMBER);
+    const bonusNumber = parseInt(input);
+    Validator.validateBonusNumber(winningNumbers, bonusNumber);
+
+    return bonusNumber;
+  }
+
   static printLottos(lottos) {
     Console.print('');
     Console.print(`${lottos.length}${ANSWERS.LOTTOS_PURCHASED}`);
