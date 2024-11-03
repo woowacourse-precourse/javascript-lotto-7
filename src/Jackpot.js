@@ -1,9 +1,9 @@
-import { INPUT } from '../constants/Constants.js';
+import { INPUT } from './constants/Constants.js';
 import { Console } from '@woowacourse/mission-utils';
-import Lotto from '../Lotto.js';
-import Validators from '../utils/Validation.js';
+import Lotto from './Lotto.js';
+import Validators from './utils/Validation.js';
 
-class JackpotController {
+class Jackpot {
   constructor() {
     this.jackpot = [];
   }
@@ -31,10 +31,10 @@ class JackpotController {
     Validators.checkBonus(this.jackpot, Number(number));
   }
 
-  async getJackpot() {
+  async getJackpotController() {
     await this.setJackpot();
     await this.setBonusJackpot();
   }
 }
 
-export default JackpotController;
+export default Jackpot;
