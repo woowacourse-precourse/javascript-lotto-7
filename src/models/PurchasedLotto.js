@@ -5,6 +5,7 @@ import { LOTTO_PRICE_UNIT } from "../constants/lottoConstants.js";
 
 class PurchasedLotto {
   constructor(purchaseAmount) {
+    this.purchaseAmount = purchaseAmount;
     this.numberOfTickets = purchaseAmount / LOTTO_PRICE_UNIT;
     this.tickets = this.#getTicketsArray(this.numberOfTickets);
   }
@@ -30,6 +31,10 @@ class PurchasedLotto {
 
   getTickets() {
     return this.tickets.map((ticket) => ticket.getNumbers());
+  }
+
+  getPurchaseAmount() {
+    return this.purchaseAmount;
   }
 }
 

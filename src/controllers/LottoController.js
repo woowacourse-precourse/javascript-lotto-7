@@ -1,15 +1,23 @@
 import errorMessages from "../constants/errorMessages.js";
+import { WINNING_RESULT } from "../constants/lottoConstants.js";
 import Lotto from "../models/Lotto.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Validator from "../utils/Validator.js";
 
 class LottoController {
   constructor(winningNumbers, bonusNum, purchasedLotto) {
     const nums = this.#splitNumsByComma(winningNumbers);
+    this.#validate(nums);
     this.winningNumbers = new Lotto(this.#convertStringToNumber(nums));
     this.bonusNum = bonusNum;
     this.purchasedLotto = purchasedLotto;
   }
 
+  #validate(numbers) {
+    Validator.validateNumsLength(numbers);
+    Validator.validateNumsInRange(numbers);
+    Validator.validateNumsDuplicate(numbers);
+  }
   #splitNumsByComma(winningNumbers) {
     return winningNumbers.split(",");
   }
@@ -32,6 +40,10 @@ class LottoController {
     }, {});
 
     this.printResult(awards);
+
+    const profitRate = this.#calculateProfitRate(awards);
+
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 
   #calculateMatchCount(numbers) {
@@ -50,37 +62,38 @@ class LottoController {
   }
 
   printResult(counts) {
-    const winningResult = [
-      {
-        count: 3,
-        price: "5,000",
-      },
-      {
-        count: 4,
-        price: "50,000원",
-      },
-      {
-        count: 5,
-        price: "1,500,000",
-      },
-      {
-        count: 5,
-        bonus: true,
-        price: "30,000,000",
-      },
-      {
-        count: 6,
-        print: "2,000,000,000",
-      },
-    ];
+    WINNING_RESULT.forEach((win) => {
+      let bonusText = "";
+      let matchCount = counts[String(win.count)] || 0;
 
-    winningResult.forEach((win) => {
+      if (win.bonus) {
+        bonusText = ", 보너스 볼 일치";
+        matchCount = counts[`${win.count}_bonus`] || 0;
+      }
+
       MissionUtils.Console.print(
-        `${win.count}개 일치${win.bonus === true && ", 보너스 볼 일치"} (${
-          win.price
-        }원) - ${counts[String(win.count) || 0]}개`
+        `${win.count}개 일치${bonusText} (${win.price}원) - ${matchCount}개`
       );
     });
+  }
+
+  #calculateProfitRate(counts) {
+    const purchaseAmount = this.purchasedLotto.getPurchaseAmount();
+    let totalPrize = 0;
+
+    WINNING_RESULT.forEach((win) => {
+      let matchCount;
+      if (win.bonus) {
+        matchCount = counts[`${win.count}_bonus`] || 0;
+      } else {
+        matchCount = counts[String(win.count)] || 0;
+      }
+
+      totalPrize += matchCount * parseInt(win.price.replace(/,/g, ""));
+    });
+
+    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+    return profitRate;
   }
 }
 

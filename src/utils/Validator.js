@@ -21,12 +21,14 @@ class Validator {
 
   static validateNumsDuplicate(numbers) {
     if (new Set(numbers).size !== LOTTO_NUMBER_COUNT)
-      return new Error(errorMessages.INVALID_DUPLICATE_NUMBER);
+      throw new Error(errorMessages.INVALID_DUPLICATE_NUMBER);
   }
 
   static validatePurchaseAmount(purchaseAmount) {
-    if (purchaseAmount % LOTTO_PRICE_UNIT !== 0)
+    const amount = Number(purchaseAmount);
+    if (isNaN(amount) || amount % LOTTO_PRICE_UNIT !== 0) {
       throw new Error(errorMessages.INVALID_AMOUNT);
+    }
   }
 }
 
