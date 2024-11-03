@@ -10,10 +10,10 @@ class User {
     this.#validator = new Validator();
   }
 
-  readPurchaseAmount() {
+  async readPurchaseAmount() {
     while (true) {
       try {
-        const purchaseAmount = Console.readLineAsync(
+        const purchaseAmount = await Console.readLineAsync(
           PROMPT_MESSAGE.PURCHASE_AMOUNT,
         );
         this.#validator.purchaseAmount(Number(purchaseAmount));
