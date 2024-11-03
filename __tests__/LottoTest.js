@@ -14,7 +14,7 @@ describe('로또 클래스 테스트', () => {
   });
 
   test.each([[[1, 2, 3, 4, 5, -4]], [[1, 2, 3, 4, 5, 0]], [[1, 2, 3, 4, 5, 46]]])(
-    '로또 번호가 1~45 사이의 숫자가 아닌 경우 예외가 발생한다. %o',
+    '로또 번호가 1~45 사이의 숫자가 아닌 경우 예외가 발생한다. %s',
     (numbers) => {
       expect(() => {
         new Lotto(numbers);
@@ -22,19 +22,28 @@ describe('로또 클래스 테스트', () => {
     },
   );
 
-  test('getMatchedCountWithWinningNumbers', () => {
-    const winningNumbers = [1, 2, 3, 4, 5, 6];
-
+  test.each([
+    [[1, 2, 3, 4, 5, 6], 6],
+    [[1, 2, 3, 4, 5, 7], 5],
+    [[1, 2, 3, 4, 8, 9], 4],
+    [[1, 2, 3, 10, 11, 12], 3],
+    [[1, 2, 9, 10, 11, 12], 2],
+    [[1, 38, 9, 10, 11, 12], 1],
+    [[29, 38, 9, 10, 11, 12], 0],
+  ])('getMatchedCountWithWinningNumbers - 로또 번호: %s', (numbers, expected) => {
     const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
 
-    expect(lotto.getMatchedCountWithWinningNumbers(winningNumbers)).toBe(6);
+    expect(lotto.getMatchedCountWithWinningNumbers(numbers)).toBe(expected);
   });
 
-  test('isMatchedWithBonusNumber', () => {
+  test.each([
+    [1, true],
+    [2, true],
+    [7, false],
+  ])('isMatchedWithBonusNumber - 보너스 번호: %d', (bonusNumber, expected) => {
     const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
 
-    expect(lotto.isMatchedWithBonusNumber(7)).toBe(false);
-    expect(lotto.isMatchedWithBonusNumber(3)).toBe(true);
+    expect(lotto.isMatchedWithBonusNumber(bonusNumber)).toBe(expected);
   });
 
   test('toString', () => {
