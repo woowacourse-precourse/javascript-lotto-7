@@ -40,7 +40,7 @@ class LottoResultCalculator{
     }
 
     calculateRate(purchaseAmount){
-        this.returnOfRate = (this.totalPrize / purchaseAmount * 100).toFixed(2);
+        this.returnOfRate = (this.totalPrize / purchaseAmount * 100).toFixed(1);
     }
 
     printLottoResult(){
