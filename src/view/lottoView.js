@@ -1,11 +1,12 @@
 import { Console } from "@woowacourse/mission-utils";
 import { LOTTO_RESULT } from "../constants/lottoDetails.js";
+import { DELIMITER, MESSAGE } from "../constants/message.js";
 
 class LottoView {
   printLottoList(lottoList) {
-    Console.print(`\n${lottoList.length}개를 구매했습니다.`);
+    Console.print(MESSAGE.printLottoList(lottoList.length));
     for (let lotto of lottoList){
-      Console.print(`[${lotto.getLottoNumber().join(', ')}]`);
+      Console.print(`[${lotto.getLottoNumber().join(DELIMITER.COMMA_WITH_SPACE)}]`);
     };
   };
 

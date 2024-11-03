@@ -1,4 +1,5 @@
 import { RANK } from "./constants/lottoDetails.js";
+import { BONUS_MATCH_RANK_INDEX, LOTTO_MATCH_COUNT } from "./constants/lottoNumbers.js";
 import InputValidate from "./utils/InputValidate.js";
 
 class Lotto {
@@ -25,13 +26,11 @@ class Lotto {
   compareLotto(winningNumber, bonusNumber) {
 
     const count = this.#numbers.filter((value) => winningNumber.includes(value)).length;
-    if(this.#numbers.includes(bonusNumber) && count === 5){
-      return RANK[7];
+    if(this.#numbers.includes(bonusNumber) && count === LOTTO_MATCH_COUNT){
+      return RANK[BONUS_MATCH_RANK_INDEX];
     }
     return RANK[this.#numbers.length - count];
   }
-
-
 }
 
 export default Lotto;

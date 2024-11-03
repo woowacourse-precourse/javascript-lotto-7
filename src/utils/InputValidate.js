@@ -1,64 +1,66 @@
+import { BONUS_NUMBER_ERROR, ERROR, LOTTO_ERROR, PRICE_ERROR } from "../constants/error.js";
+
 class InputValidate{
   inputExist(input) {
     if (!input){
-      throw new Error("[ERROR] 값을 입력하세요.");
+      throw new Error(ERROR.INPUT_BLANK_ERROR);
     }
   }
   inputType(input) {
     if (isNaN(Number(input))){
-      throw new Error("[ERROR] 숫자를 입력해 주세요.");
+      throw new Error(PRICE_ERROR.PRICE_TYPE_ERROR);
     }
   }
   inputUnit(input) {
     if (input%1000 !== 0){
-      throw new Error("[ERROR] 1000원 단위의 금액으로 입력하세요.");
+      throw new Error(PRICE_ERROR.INPUT_UNIT_ERROR);
     }
   }
   inputRange(input) {
     if(input<0) {
-      throw new Error("[ERROR] 양수를 입력하세요.");
+      throw new Error(PRICE_ERROR.INPUT_RANGE_ERROR);
     }
   }
   lottoNumberRange(input) {
     for (let number of input){
       if(number > 45 || number < 1){
-        throw new Error("[ERROR] 당첨번호는 1~45 사이의 숫자로 입력하세요.");
+        throw new Error(LOTTO_ERROR.LOTTO_RANGE_ERROR);
       }
     }
   }
   duplicateLottoNumber(input) {
     const noDuplicate = new Set(input);
     if(input.length !== noDuplicate.size){
-        throw new Error("[ERROR] 당첨번호는 중복없이 입력해야 합니다.");
+        throw new Error(LOTTO_ERROR.LOTTO_DUPLICATE_ERROR);
     }
   }
   lottoNumberLength(input) {
     if (input.length !== 6){
-        throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+        throw new Error(LOTTO_ERROR.LOTTO_LENGTH_ERROR);
     }
   }
 
   lottoNumberType(input) {
     for (let number of input){
       if (isNaN(Number(number))){
-        throw new Error("[ERROR] 숫자를 쉼표(,) 구분자로 나누어 입력해야 합니다.");
+        throw new Error(LOTTO_ERROR.LOTTO_TYPE_ERROR);
       }
     }
   }
 
   bonusNumberType(input) {
     if (isNaN(Number(input))){
-      throw new Error("[ERROR] 보너스 번호는 하나의 숫자로 입력하세요.");
+      throw new Error(BONUS_NUMBER_ERROR.BONUS_NUMBER_TYPE_ERROR);
     }
   }
   bonusNumberRange(input) {
     if (input > 45 || input < 1){
-      throw new Error("[ERROR] 보너스 번호는 1~45사이의 숫자로 입력하세요.");
+      throw new Error(BONUS_NUMBER_ERROR.BONUS_NUMBER_RANGE_ERROR);
     }
   }
   duplicateBonusNumber(bonusNumber, lottoNumber) {
     if (lottoNumber.includes(bonusNumber)) {
-      throw new Error("[ERROR] 보너스 번호는 당첨번호와 중복되면 안됩니다."); 
+      throw new Error(BONUS_NUMBER_ERROR.BONUS_NUMBER_DUPLICATE_ERROR); 
     }
   }
 

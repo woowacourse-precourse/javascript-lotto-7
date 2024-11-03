@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import InputValidate from "../utils/InputValidate.js";
 import LottoModel from "../model/lottoModel.js";
 import LottoView from "../view/lottoView.js";
+import { DELIMITER, MESSAGE } from "../constants/message.js";
 
 class LottoController{
   constructor() {
@@ -38,7 +39,7 @@ class LottoController{
     let isValid = false;
     let price;
     do {
-      price = await Console.readLineAsync("구입금액을 입력해 주세요.");
+      price = await Console.readLineAsync(MESSAGE.INPUT_PRICE);
       isValid = this.validateUserPrice(price);
     } while (!isValid);
     return price;
@@ -64,10 +65,10 @@ class LottoController{
     let isValid = false;
     let WinningNumber;
     do {
-      WinningNumber = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-      isValid = this.validateWinningNumber(WinningNumber.split(','));
+      WinningNumber = await Console.readLineAsync(MESSAGE.INPUT_WINNING_NUMBER);
+      isValid = this.validateWinningNumber(WinningNumber.split(DELIMITER.COMMA));
     } while (!isValid)
-    return WinningNumber.split(',').map(Number);
+    return WinningNumber.split(DELIMITER.COMMA).map(Number);
   }
 
   validateWinningNumber(numbers) {
@@ -83,7 +84,7 @@ class LottoController{
     let bonusNumber;
     let isValid = false;
     do {
-      bonusNumber = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+      bonusNumber = await Console.readLineAsync(MESSAGE.INPUT_BONUS_NUMBER);
       isValid = this.validateBonusNumber(bonusNumber);
     } while (!isValid)
     return Number(bonusNumber);
