@@ -43,7 +43,7 @@ class LottoInputReader {
     const lottoPurchaseAmount = Number(input);
 
     this.#validateIsNumber(lottoPurchaseAmount);
-    this.#validateIsPositive(lottoPurchaseAmount);
+    this.#validatePurchaseAmountISPositive(lottoPurchaseAmount);
     this.#validatePurchaseAmountUnit(lottoPurchaseAmount);
 
     return lottoPurchaseAmount;
@@ -54,7 +54,6 @@ class LottoInputReader {
     const bonusNumber = Number(input);
 
     this.#validateIsNumber(bonusNumber);
-    this.#validateIsPositive(bonusNumber);
     this.#validateBonusNumberRange(bonusNumber);
     this.#validateBonusNumberDuplicate(bonusNumber);
 
@@ -73,8 +72,8 @@ class LottoInputReader {
     }
   }
 
-  static #validateIsPositive(input) {
-    if (input <= 0) {
+  static #validatePurchaseAmountISPositive(purchaseAmount) {
+    if (purchaseAmount <= 0) {
       throw new Error(ERROR_MESSAGES.INPUT.NEGATIVE_OR_ZERO_AMOUNT);
     }
   }
