@@ -14,6 +14,7 @@ class LottoGameController {
 
     const winningNumbers = await this.#getWinningNumbers();
     const bonusNumber = await this.#getBonusNumber(winningNumbers);
+    this.#printWinningStats(winningNumbers, bonusNumber);
   }
 
   #createLottoGame(purchaseAmount) {
@@ -70,6 +71,18 @@ class LottoGameController {
       OutputView.print(error.message);
       return this.#getBonusNumber(winningNumbers);
     }
+  }
+
+  async #printWinningStats(winningNumbers, bonusNumber) {
+    const winningStats = this.#lottoGame.calculatePrize(
+      winningNumbers,
+      bonusNumber
+    );
+    const revenue = this.#lottoGame.calculateRevenue();
+
+    OutputView.printWinningStats();
+    OutputView.printMatchResult(winningStats);
+    OutputView.printTotalRevenue(revenue);
   }
 }
 

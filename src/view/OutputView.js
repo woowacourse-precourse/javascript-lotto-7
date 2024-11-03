@@ -14,7 +14,7 @@ const OutputView = {
     Console.print(OUTPUT_MESSAGES.WINNING_STATS);
   },
 
-  printMatchResult({ three, four, five, bonus, six }) {
+  printMatchResult({ 3: three, 4: four, 5: five, 5.5: bonus, 6: six }) {
     Console.print(OUTPUT_MESSAGES.THREE_MATCH(three));
     Console.print(OUTPUT_MESSAGES.FOUR_MATCH(four));
     Console.print(OUTPUT_MESSAGES.FIVE_MATCH(five));
@@ -22,8 +22,8 @@ const OutputView = {
     Console.print(OUTPUT_MESSAGES.SIX_MATCH(six));
   },
 
-  printTotalRevenue(rate) {
-    Console.print(OUTPUT_MESSAGES.TOTAL_REVENUE(rate));
+  printTotalRevenue(revenue) {
+    Console.print(OUTPUT_MESSAGES.TOTAL_REVENUE(revenue.toLocaleString()));
   },
 
   print(message) {

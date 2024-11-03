@@ -2,14 +2,14 @@ import { CONFIG, RANK } from './constants.js';
 
 const INPUT_MESSAGES = Object.freeze({
   PURCHASE_AMOUNT: `구입금액을 입력해 주세요.\n`,
-  WINNING_NUMBERS: `당첨 번호를 입력해 주세요.\n`,
-  BONUS_NUMBER: `보너스 번호를 입력해 주세요.\n`,
+  WINNING_NUMBERS: `\n당첨 번호를 입력해 주세요.\n`,
+  BONUS_NUMBER: `\n보너스 번호를 입력해 주세요.\n`,
 });
 
 const OUTPUT_MESSAGES = Object.freeze({
   LOTTO_AMOUNT: (amount) => `\n${amount}개를 구매했습니다.`,
   LOTTO_NUMBERS: (numbers) => `[${numbers.join(', ')}]`,
-  WINNING_STATS: `당첨 통계\n---`,
+  WINNING_STATS: `\n당첨 통계\n---`,
   THREE_MATCH: (count) =>
     `${
       RANK.FIFTH.matchCount
