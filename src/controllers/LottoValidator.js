@@ -8,13 +8,16 @@ class LottoValidator {
   }
 
   validateBonusNumber(bonusNumber) {
-    const bonusNumber = this.#validateBonusNumber(bonusNumber);
+    const validateBonusNumber = this.#validateBonusNumber(bonusNumber);
 
-    if (this.#winningNumbers.includes(bonusNumber)) {
+    if (this.#winningNumbers.includes(validateBonusNumber)) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
     }
 
-    return { winningNumbers: this.#winningNumbers, bonusNumber };
+    return {
+      winningNumbers: this.#winningNumbers,
+      bonusNumber: validateBonusNumber,
+    };
   }
 
   #validateWinningNumber(userInput) {
