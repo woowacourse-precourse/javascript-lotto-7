@@ -100,10 +100,10 @@
 ## 🔧 리팩토링 체크리스트
 
 ### 코드 구조화
-- [ ] MVC 패턴 적용
+- [x] MVC 패턴 적용
   - [x] Model(Lotto, LottoGame)
   - [x] View(Input, Output)
-  - [ ] Controller(App)
+  - [x] Controller(App)
 - [x] 상수 분리
   - [x] 에러 메시지
   - [x] 로또 설정값
