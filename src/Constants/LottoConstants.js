@@ -8,9 +8,9 @@ export const BOUND = Object.freeze({
 });
 
 export const LOTTO_REWARD = Object.freeze({
-  FIRST: 2000000000.0,
-  SECOND: 30000000.0,
-  THIRD: 1500000.0,
-  FOURTH: 50000.0,
-  FIFTH: 5000.0,
+  FIRST: 2_000_000_000,
+  SECOND: 30_000_000,
+  THIRD: 1_500_000,
+  FOURTH: 50_000,
+  FIFTH: 5_000,
 });
