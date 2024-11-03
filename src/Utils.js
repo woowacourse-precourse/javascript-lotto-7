@@ -8,3 +8,8 @@ export class Exception extends Error {
     this.name = this.constructor.name;
   }
 }
+
+/** @param {number} money */
+export function formatKRW(money) {
+  return money.toLocaleString('ko-KR');
+}
