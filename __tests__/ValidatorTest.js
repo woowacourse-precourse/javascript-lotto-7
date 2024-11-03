@@ -1,5 +1,5 @@
-import ERROR_MESSAGE from '../src/constants/ErrorConstant';
-import Validator from '../src/utils/Validator';
+import ERROR_MESSAGE from '../src/constants/ErrorConstant.js';
+import Validator from '../src/utils/Validator.js';
 
 describe('Validator', () => {
   test.each([

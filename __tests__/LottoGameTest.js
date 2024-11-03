@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import LottoGame from '../src/models/LottoGame';
-import Lotto from '../src/models/Lotto';
+import LottoGame from '../src/models/LottoGame.js';
+import Lotto from '../src/models/Lotto.js';
 
 const mockQuestions = inputs => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -65,9 +65,7 @@ describe('LottoGame', () => {
       [2, 15, 28, 35, 41, 42],
     ];
 
-    const mockLottos = mockLottoNumbers.map(
-      lottoNumer => new Lotto(lottoNumer),
-    );
+    const mockLottos = mockLottoNumbers.map(lottoNumer => new Lotto(lottoNumer));
     lottoGame.setLottos(mockLottos);
 
     const logSpy = getLogSpy();

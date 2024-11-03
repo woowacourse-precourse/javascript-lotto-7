@@ -1,5 +1,4 @@
-import Lotto from '../src/models/Lotto';
-import LottoWinningNumbers from '../src/models/LottoWinningNumbers';
+import LottoWinningNumbers from '../src/models/LottoWinningNumbers.js';
 
 describe('LottoWinningNumbers', () => {
   let lottoWinningNumbers;
