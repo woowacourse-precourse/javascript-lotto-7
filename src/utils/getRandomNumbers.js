@@ -7,7 +7,7 @@ class RandomUtil {
       LOTTO_NUMBERS.LOWER_BOUND,
       LOTTO_NUMBERS.UPPER_BOUND,
       LOTTO_NUMBERS.NUMBER_LENGTH,
-    );
+    ).sort((a, b) => a - b);
   }
 }
 
