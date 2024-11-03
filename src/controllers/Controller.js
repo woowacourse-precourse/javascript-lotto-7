@@ -14,6 +14,7 @@ class Controller {
     const winningLotto = new Lotto(winningParser(winning));
     const bonus = await InputView.bonusInput();
     validateBonus(bonus, winningLotto.getNumbers());
+    OutputView.printStatistics();
   }
 }
 

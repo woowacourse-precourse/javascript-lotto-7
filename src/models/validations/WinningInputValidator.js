@@ -33,7 +33,6 @@ const isDuplicate = input => {
 };
 
 const validateWinning = input => {
-  console.log(input);
   isNumeric(input);
   isEmpty(input);
   countOver(input);
