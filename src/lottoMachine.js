@@ -75,7 +75,7 @@ class LottoMachine {
   }
 
   static printRevenuePercent(totalPrize, cost) {
-    const revenuePercent = ((totalPrize - cost) / cost) * 100;
+    const revenuePercent = (totalPrize / cost) * 100;
     const formattedRevenuePercent = revenuePercent.toFixed(1) + "%";
 
     Console.print(`${OUTPUT_MESSAGE.REVENUE}${formattedRevenuePercent}입니다.`);
