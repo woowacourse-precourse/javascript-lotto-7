@@ -10,6 +10,7 @@ class LottoList{
     earningrate = 0;
     constructor(budget) {
         this.numitem = this.buy(budget);
+        this.lottolist = [];
         this.getlotto();
     }
 
@@ -25,22 +26,31 @@ class LottoList{
         for(let i=0;i<this.numitem;i++)
             this.lottolist.push(new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
     }
+
     async setwinnumbers(){
         let numsInput = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
         this.winnubmers = numsInput.split(',');
-        this.bonusnubmer = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
-        this.checkwinnumbers()
+        this.checkwinnumbers();
     }
     checkwinnumbers(){
         this.winnubmers.forEach(num=>{this.checksinglenum(num);})
-        this.checksinglenum(this.bonusnubmer);
+
         if(this.winnubmers.length!==6)
             this.makeError("당첨번호는 6개 입니다");
-        if(this.winnubmers.includes(this.bonusnubmer))
-            this.makeError("보너스 번호가 중복됩니다.");
         if(this.winnubmers.length!== new Set(this.winnubmers).size)
             this.makeError("당첨번호는 unique 해야합니다");
     }
+
+    async setbonusnumber(){
+        this.bonusnubmer = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+        this.checkbonusnumbers();
+    }
+    checkbonusnumbers(){
+        if(this.winnubmers.includes(this.bonusnubmer))
+            this.makeError("보너스 번호가 중복됩니다.");
+        this.checksinglenum(this.bonusnubmer);
+    }
+
     checksinglenum(num){
         if(isNaN(num))
             this.makeError("당첨번호는 숫자입니다.");
@@ -48,10 +58,12 @@ class LottoList{
         if(num<0 || num>45)
             this.makeError("당첨번호는 1~45 값입니다.");
     }
-    printbuyotto(){
+
+    printbuylotto(){
         Console.print(this.numitem+"개를 구매했습니다.");
         this.lottolist.forEach((lotto)=>{lotto.printnums();});
     }
+
     makeError(message){
         throw new Error("[ERROR] : "+ message);
     }
@@ -90,6 +102,7 @@ class LottoList{
         sum += 2000000000 * this.winlist[0];
         sum = sum/(this.numitem*1000);
         this.earningrate = Math.round(sum * 100) / 100;
+        this.earningrate = this.earningrate.toFixed(1);
     }
 }
 export default LottoList;

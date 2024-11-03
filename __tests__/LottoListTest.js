@@ -61,7 +61,7 @@ describe("LottoList 테스트", () => {
       let ll = new LottoList(1000);
       ll.bonusnubmer = 100;
       ll.winnubmers = [8, 21, 23, 14, 39, 41];
-      ll.checkwinnumbers();
+      ll.checkbonusnumbers();
     }).toThrow("[ERROR] : 당첨번호는 1~45 값입니다.");
   });
 
@@ -70,16 +70,16 @@ describe("LottoList 테스트", () => {
       let ll = new LottoList(1000);
       ll.bonusnubmer = "string";
       ll.winnubmers = [8, 21, 23, 14, 40, 41];
-      ll.checkwinnumbers();
+      ll.checkbonusnumbers();
     }).toThrow("[ERROR] : 당첨번호는 숫자입니다.");
   });
 
   test("보너스 번호 테스트3: 중복 입력", () => {
     expect(() => {
       let ll = new LottoList(1000);
+      ll.winnubmers = [8, 21, 23, 14, 40, 41];
       ll.bonusnubmer = 41;
-      ll.winnubmers = [8, 21, 23, 14, 41, 40];
-      ll.checkwinnumbers();
+      ll.checkbonusnumbers();
     }).toThrow("[ERROR] : 보너스 번호가 중복됩니다.");
   });
 
@@ -98,7 +98,7 @@ describe("LottoList 테스트", () => {
     ll.lottolist[0] = new Lotto([8, 21, 23, 14, 40, 41]);
     ll.allwincheck();
     ll.calearningrate();
-    expect(ll.earningrate).toBe(2000000);
+    expect(ll.earningrate).toBe("2000000.0");
   });
 
 });
