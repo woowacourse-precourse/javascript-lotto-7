@@ -34,7 +34,7 @@ describe('구매 금액 입력 테스트', () => {
       await app.run();
 
       // then
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorMessage));
     }
   );
 });
