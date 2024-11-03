@@ -10,8 +10,7 @@ class App {
         this.checkIsValidateMoney(MONEY);
 
         return MONEY;
-      } 
-      catch (error) {
+      } catch (error) {
         MissionUtils.Console.print(error.message);
       }
     }
@@ -33,6 +32,36 @@ class App {
     return money;
   }  
 
+  async validateWinningNumbers() {
+    while (true) {
+      try {
+        const input = await MissionUtils.Console.readLineAsync("당첨번호를 입력해 주세요 (예: 1,2,3,4,5,6):\n");
+        const numbers = input.split(",").map(Number);
+
+        this.checkWinningNumbers(numbers); 
+
+        return numbers;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+  }
+
+  checkWinningNumbers(numbers) {
+    if (numbers.length !== 6) {
+      throw new Error("[Error] 당첨번호는 6개의 숫자여야 합니다!");
+    }
+    if (numbers.some(isNaN)) { // some은 배열의 하나 이상의 요소가 조건을 만족하는지 확인
+      throw new Error("[Error] 당첨번호는 숫자여야 합니다!");
+    }
+    if (numbers.some((num) => num < 1 || num > 45)) {
+      throw new Error("[Error] 당첨번호는 1과 45 사이의 숫자여야 합니다!");
+    }
+    if (new Set(numbers).size !== numbers.length) {
+      throw new Error("[Error] 당첨번호는 중복될 수 없습니다!");
+    }
+  }
+
   async run() {
     try {
       const LOTTO = new Lotto([1,2,3,4,5,6]);
@@ -43,8 +72,6 @@ class App {
     catch (error) {
       throw error;
     }
-
-
 
   }
 }
