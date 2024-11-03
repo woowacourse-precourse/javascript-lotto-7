@@ -12,6 +12,21 @@ describe("사용자 로또 정보 클래스 테스트", () => {
     const userLotto = new UserLottoInfo(INPUT_PRICE);
     expect(userLotto.lottoCount).toBe(14);
   });
+
+  test.each([
+    [[6, false], { 1: 1, 2: 0, 3: 0, 4: 0, 5: 0 }],
+    [[5, true], { 1: 0, 2: 1, 3: 0, 4: 0, 5: 0 }],
+    [[5, false], { 1: 0, 2: 0, 3: 1, 4: 0, 5: 0 }],
+    [[4, false], { 1: 0, 2: 0, 3: 0, 4: 1, 5: 0 }],
+    [[3, false], { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1 }],
+  ])(
+    "로또 일치 개수와 보너스볼 일치 여부를 함께 정상적으로 판별 가능한지 확인한다.",
+    (userLotto, matchInfo) => {
+      const userLottoInfo = new UserLottoInfo(1000);
+      userLottoInfo.saveMatchInfo(userLotto[0], userLotto[1]);
+      expect(userLottoInfo.matchInfo).toStrictEqual(matchInfo);
+    }
+  );
 });
 
 describe("사용자 로또 정보 관련 출력 테스트", () => {

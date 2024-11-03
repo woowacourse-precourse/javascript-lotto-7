@@ -15,7 +15,28 @@ describe("로또 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
-  //TODO : 오름차순 정렬 테스트 추가
+  test.each([
+    [[1, 2, 3, 4, 5, 6], 6],
+    [[1, 2, 3, 4, 5, 11], 5],
+    [[1, 2, 3, 4, 5, 22], 5],
+    [[1, 2, 3, 4, 33, 44], 4],
+    [[1, 2, 3, 33, 44, 55], 3],
+    [[1, 2, 33, 44, 55, 66], 2],
+  ])("로또 일치 개수가 옳은지 판단한다", (userLotto, matchNumber) => {
+    const WINNER_LOTTO = [1, 2, 3, 4, 5, 6];
+    const lotto = new Lotto(userLotto);
+    expect(lotto.countLottoMatches(WINNER_LOTTO)).toBe(matchNumber);
+  });
+
+  test.each([
+    [[1, 2, 3, 4, 5, 6], false],
+    [[1, 2, 3, 4, 5, 11], true],
+    [[1, 2, 3, 4, 5, 22], false],
+  ])("보너스볼 일치 여부를 판단가능한지 확인한다", (userLotto, matchNumber) => {
+    const BONUS_BALL = 11;
+    const lotto = new Lotto(userLotto);
+    expect(lotto.hasBonusBall(BONUS_BALL)).toBe(matchNumber);
+  });
 });
 
 describe("로또 클래스 출력 테스트", () => {
