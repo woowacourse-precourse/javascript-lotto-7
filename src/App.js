@@ -4,6 +4,7 @@ class App {
   async run() {
     const lottoInput = new LottoInput();
     let lottoPrice = await lottoInput.lottoPriceInput();
+    let lottoWinArr = await lottoInput.lottoWinInput();
   }
 }
 

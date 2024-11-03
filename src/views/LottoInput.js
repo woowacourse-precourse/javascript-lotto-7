@@ -6,8 +6,15 @@ class LottoInput {
     const lottoPrice = await Console.readLineAsync(
       LOTTO_INPUT.LOTTO_PRICE_INPUT
     );
-
     return lottoPrice;
+  }
+
+  async lottoWinInput() {
+    const lottoWinStr = await Console.readLineAsync(
+      LOTTO_INPUT.LOTTO_WIN_INPUT
+    );
+    const lottoWinArr = lottoWinStr.split(",").map(Number);
+    return lottoWinArr;
   }
 }
 
