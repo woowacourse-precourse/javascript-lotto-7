@@ -1,4 +1,9 @@
-import { ERROR_MESSAGE, LOTTO_COUNT_MAX } from "./constants.js";
+import {
+  ERROR_MESSAGE,
+  LOTTO_COUNT_MAX,
+  LOTTO_MAX_NUMBER,
+  LOTTO_MIN_NUMBER,
+} from "./constants.js";
 import { hasDuplicatesArr } from "./util/duplicateCheck.js";
 
 class Lotto {
@@ -16,6 +21,12 @@ class Lotto {
     numbers.forEach((value) => {
       if (isNaN(value) || value === "") {
         throw new Error(ERROR_MESSAGE.WINNING_LOTTO_NUMBER_ERROR);
+      }
+      if (
+        Number(value) > LOTTO_MAX_NUMBER ||
+        Number(value) < LOTTO_MIN_NUMBER
+      ) {
+        throw new Error(ERROR_MESSAGE.WINNING_LOTTO_MAX_MIN_ERROR);
       }
     });
     if (hasDuplicatesArr(numbers)) {
