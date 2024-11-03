@@ -12,7 +12,7 @@ class LottoController {
 
     async start() {
         const inputAmount = await this.getValidatedInputAmount();
-        const lottoCount = inputAmount / 1000;
+        const lottoCount = this.getLottoCount(inputAmount);
         this.outputView.outputLottoCount(lottoCount);
     }
 
@@ -20,6 +20,10 @@ class LottoController {
         const inputAmount = await this.InputView.getInputAmount();
         InputValidator.isValidLottoAmount(inputAmount);
         return inputAmount;
+    }
+
+    getLottoCount(inputAmount) {
+        return inputAmount / 1000;
     }
 }
 
