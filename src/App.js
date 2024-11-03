@@ -108,6 +108,10 @@ function initializePrizeResults() {
   ]);
 }
 
+function countPrizeNumbers(issueNumbers, prizeNumbers) {
+  return issueNumbers.filter((v) => prizeNumbers.includes(v)).length;
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
