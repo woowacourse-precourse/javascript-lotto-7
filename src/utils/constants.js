@@ -5,6 +5,7 @@ const MESSAGES = Object.freeze({
 })
 
 const ERROR = Object.freeze({
+    BUY_MONEY_IS_NULL: '빈 값은 입력될 수 없습니다.',
     BUY_MONEY_NOT_NUMBER: '구입금액은 숫자만 입력해주세요.',
     BUY_MONEY_INVALID: '구입 금액은 유효한 숫자여야 합니다.',
     BUY_MONEY_MINUS: '구입금액은 양수만 입력해주세요.',

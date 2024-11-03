@@ -1,27 +1,17 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { ERROR, MESSAGES } from "./utils/constants.js";
+import { ERROR } from "./utils/constants.js";
 import WoowahanInput from "./woowahanInput.js";
+import { buyMoneyValidator } from "./utils/validators.js";
 
 class App {
   async run() {
-    let input;
-    let isValidNumber;
+    let input = 'start';
 
-    while (!isValidNumber) {
+    while (!buyMoneyValidator(input)) {
       input = await WoowahanInput.getBuyMoney();
-      isValidNumber = /^\d+$/.test(input);
-      if (isValidNumber) {
-        break
-      } else {
-        Console.print(`[ERROR] ${ERROR.BUY_MONEY_NOT_NUMBER}`);
-      }
     }
     const inputNumber = Number(input);
-
-    if (isNaN(inputNumber)) Console.print(`[ERROR] ${ERROR.BUY_MONEY_INVALID}`);
-    if (inputNumber < 0) Console.print(`[ERROR] ${ERROR.BUY_MONEY_MINUS}`);
-    if (inputNumber % 1000 !== 0) Console.print(`[ERROR] ${ERROR.BUY_MONEY_END_WITH_1000}`);
 
     const countLotto = inputNumber / 1000;
     const lottos = [];
