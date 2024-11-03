@@ -132,6 +132,53 @@ describe('당첨번호 입력 테스트', () => {
   });
 });
 
+describe('보너스 번호 입력 테스트', () => {
+  let app;
+
+  beforeEach(() => {
+    app = new App();
+    jest.restoreAllMocks();
+  });
+
+  test('숫자가 아닌 값을 입력했을 때 에러 메시지 출력', async () => {
+    mockQuestions(['hello', '7']);
+    const logSpy = getLogSpy();
+
+    const result = await app.validateBonusNumber([1, 2, 3, 4, 5, 6]);
+
+    expect(logSpy).toHaveBeenCalledWith('[Error] 보너스 번호는 숫자여야 합니다!');
+    expect(result).toBe(7);
+  });
+
+  test('1~45 범위를 벗어나는 보너스 번호 입력 시 에러 메시지 출력', async () => {
+    mockQuestions(['50', '8']);
+    const logSpy = getLogSpy();
+
+    const result = await app.validateBonusNumber([1, 2, 3, 4, 5, 6]);
+
+    expect(logSpy).toHaveBeenCalledWith('[Error] 보너스 번호는 1과 45 사이의 숫자여야 합니다!');
+    expect(result).toBe(8);
+  });
+
+  test('당첨 번호와 중복된 보너스 번호 입력 시 에러 메시지 출력', async () => {
+    mockQuestions(['3', '9']);
+    const logSpy = getLogSpy();
+
+    const result = await app.validateBonusNumber([1, 2, 3, 4, 5, 6]);
+
+    expect(logSpy).toHaveBeenCalledWith('[Error] 보너스 번호는 당첨 번호와 중복될 수 없습니다!');
+    expect(result).toBe(9);
+  });
+
+  test('유효한 보너스 번호 입력 시 해당 번호 반환', async () => {
+    mockQuestions(['7']);
+    const result = await app.validateBonusNumber([1, 2, 3, 4, 5, 6]);
+
+    expect(result).toBe(7);
+  });
+});
+
+
 describe('로또 테스트', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
