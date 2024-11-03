@@ -1,5 +1,5 @@
-import UserInput from './temp_view/UserInput.js';
-import UserOutput from './temp_view/UserOutput.js';
+import UserInput from './view/UserInput.js';
+import UserOutput from './view/UserOutput.js';
 import MoneyToLottos from './controller/MoneyToLottos.js';
 import LottoResultAnalysis from './controller/LottoResultAnalysis.js';
 
