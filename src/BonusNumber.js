@@ -1,8 +1,11 @@
+import { validateLottoNumber } from "./utils/validation.js";
+
 class BonusNumber {
   #bonusNumber;
 
   constructor(winningLotto, number) {
     this.#validate(winningLotto, number);
+    validateLottoNumber(number);
     this.#bonusNumber = number;
   }
 
