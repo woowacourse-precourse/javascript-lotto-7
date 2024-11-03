@@ -1,4 +1,4 @@
-import { LOTTO_CONSTANTS, OUTPUT_MESSAGE } from './util/constant.js';
+import { OUTPUT_MESSAGE } from './util/constant.js';
 import { printResult } from './util/missionUtil.js';
 
 const RANK_MESSAGE_MAP = Object.freeze({
@@ -30,6 +30,10 @@ class OutputView {
         const message = RANK_MESSAGE_MAP[rankIdx];
         await printResult(message(rankResult[rankIdx]));
       });
+  }
+
+  static printIncomeResult(income) {
+    printResult(OUTPUT_MESSAGE.income(income));
   }
 }
 
