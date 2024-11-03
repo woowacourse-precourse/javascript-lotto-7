@@ -7,6 +7,7 @@ import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import Rank from '../Rank.js';
 import Profit from '../Profit.js';
+import RankCounter from '../RankCounter.js';
 
 class LottoController {
   async run() {
@@ -31,7 +32,7 @@ class LottoController {
   }
 
   playLotto(userLotto, winningLottoNumbers, winningLottoBonusNumber) {
-    const rankCounter = [0, 0, 0, 0, 0];
+    const rankCounter = new RankCounter();
     userLotto.forEach((lotto) => {
       const rank = new Rank(
         winningLottoNumbers.getNumbers(),
@@ -39,11 +40,9 @@ class LottoController {
         lotto,
       );
 
-      if (rank.getRank() !== 6) {
-        rankCounter[5 - rank.getRank()] += 1;
-      }
+      rankCounter.increaseRankCounter(rank.getRank());
     });
-    return rankCounter;
+    return rankCounter.getRankCounterArray();
   }
 
   completeLotto(lottoMoney, rankCounter) {
