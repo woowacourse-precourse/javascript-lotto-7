@@ -14,5 +14,10 @@ describe("로또 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("기능 테스트: 등수 반환하기", () => {
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    const rank = lotto.calculateRank([1, 2, 3, 4, 5, 7], 8);
+    
+    expect(rank).toBe(3);
+  });
 });
