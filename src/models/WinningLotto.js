@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../constants/errorMessage.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import Lotto from './Lotto.js';
-import { lottoConfig } from './lottoConfig.js';
 
 export default class WinningLotto {
   #mainLotto;
@@ -36,7 +36,7 @@ export default class WinningLotto {
 
   #checkNumberInRange(number) {
     if (
-      !(number >= lottoConfig.MIN_NUMBER && number <= lottoConfig.MAX_NUMBER)
+      !(number >= LOTTO_CONFIG.MIN_NUMBER && number <= LOTTO_CONFIG.MAX_NUMBER)
     ) {
       throw new Error(ERROR_MESSAGE.LOTTO.INVALID_NUMBER_RANGE);
     }
@@ -45,7 +45,7 @@ export default class WinningLotto {
   #checkMainNumbersDuplication(mainNumbers) {
     const uniqueNumbers = new Set(mainNumbers);
 
-    if (uniqueNumbers.size !== lottoConfig.NUMBERS_COUNT) {
+    if (uniqueNumbers.size !== LOTTO_CONFIG.NUMBERS_COUNT) {
       throw new Error(ERROR_MESSAGE.LOTTO.MAIN_NUMBER_DUPLICATION);
     }
   }
@@ -56,7 +56,7 @@ export default class WinningLotto {
 
     if (
       uniqueNumbers.size !==
-      lottoConfig.NUMBERS_COUNT + lottoConfig.BONUS_NUMBERS_COUNT
+      LOTTO_CONFIG.NUMBERS_COUNT + LOTTO_CONFIG.BONUS_NUMBERS_COUNT
     ) {
       throw new Error(ERROR_MESSAGE.LOTTO.BONUS_NUMBER_DUPLICATION);
     }

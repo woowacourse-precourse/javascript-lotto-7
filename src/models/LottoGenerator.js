@@ -1,12 +1,12 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import { lottoConfig } from './lottoConfig.js';
 import { ERROR_MESSAGE } from '../constants/errorMessage.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class LottoGenerator {
   generate(price) {
     this.#validtePurchasePrice(price);
-    const lottoCount = price / lottoConfig.LOTTO_PRICE;
+    const lottoCount = price / LOTTO_CONFIG.LOTTO_PRICE;
 
     const lottos = this.#generateLottos(lottoCount);
 
@@ -16,9 +16,9 @@ export default class LottoGenerator {
   #generateLottos(lottoCount) {
     return Array.from({ length: lottoCount }, () => {
       const numbers = Random.pickUniqueNumbersInRange(
-        lottoConfig.MIN_NUMBER,
-        lottoConfig.MAX_NUMBER,
-        lottoConfig.NUMBERS_COUNT
+        LOTTO_CONFIG.MIN_NUMBER,
+        LOTTO_CONFIG.MAX_NUMBER,
+        LOTTO_CONFIG.NUMBERS_COUNT,
       );
 
       const sortedNumbers = this.#sortNumbers(numbers);
@@ -43,7 +43,7 @@ export default class LottoGenerator {
   }
 
   #checkLottoPriceUnit(purchasePrice) {
-    if (purchasePrice % lottoConfig.LOTTO_PRICE !== 0) {
+    if (purchasePrice % LOTTO_CONFIG.LOTTO_PRICE !== 0) {
       throw new Error(ERROR_MESSAGE.LOTTO_GENERATOR.INVALID_LOTTO_PRICE_UNIT);
     }
   }

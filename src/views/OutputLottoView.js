@@ -1,12 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
-import { lottoConfig } from '../models/lottoConfig.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class OutputLottoView {
   #OUTPUT_MESSAGE = {
     NOTIFY_PURCHASED_LOTTO_COUNT: '개를 구매했습니다.',
     LOTTO_RESULT_START: '\n당첨 통계\n---',
-    EARNING_RATE_START : '총 수익률은 ',
-    EARNING_RATE_END : '%입니다.'
+    EARNING_RATE_START: '총 수익률은 ',
+    EARNING_RATE_END: '%입니다.',
   };
 
   printMessage(message) {
@@ -18,7 +18,7 @@ export default class OutputLottoView {
     const lottos = lottoPurchaser.getLottos();
 
     Console.print(
-      `\n${lottoCount}${this.#OUTPUT_MESSAGE.NOTIFY_PURCHASED_LOTTO_COUNT}`
+      `\n${lottoCount}${this.#OUTPUT_MESSAGE.NOTIFY_PURCHASED_LOTTO_COUNT}`,
     );
     lottos.forEach((lotto) => {
       const formattedLotto = this.#joinArrayWithFormat(lotto.getNumbers());
@@ -27,25 +27,31 @@ export default class OutputLottoView {
   }
 
   printLottoResult(lottoResult) {
-    const result = lottoResult.getResult()
+    const result = lottoResult.getResult();
 
     Console.print(this.#OUTPUT_MESSAGE.LOTTO_RESULT_START);
 
-    Object.entries(result).forEach(([condition,count]) => {
-      const transformedString = this.#transformToFormat(condition,count)
-      
+    Object.entries(result).forEach(([condition, count]) => {
+      const transformedString = this.#transformToFormat(condition, count);
+
       Console.print(transformedString);
     });
   }
 
-  printEarningRate(lottoResult){
+  printEarningRate(lottoResult) {
     const earningRate = lottoResult.getEarningRate();
 
-    Console.print(`${this.#OUTPUT_MESSAGE.EARNING_RATE_START}${earningRate}${this.#OUTPUT_MESSAGE.EARNING_RATE_END}`)
+    Console.print(
+      `${this.#OUTPUT_MESSAGE.EARNING_RATE_START}${earningRate}${
+        this.#OUTPUT_MESSAGE.EARNING_RATE_END
+      }`,
+    );
   }
 
-  #transformToFormat(condition,count){
-    return `${condition} (${lottoConfig.WINNING_PRIZE_MAP[condition].toLocaleString()}원) - ${count}개`
+  #transformToFormat(condition, count) {
+    return `${condition} (${LOTTO_CONFIG.WINNING_PRIZE_MAP[
+      condition
+    ].toLocaleString()}원) - ${count}개`;
   }
 
   #joinArrayWithFormat(array) {

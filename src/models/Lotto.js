@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../constants/errorMessage.js';
-import { lottoConfig } from './lottoConfig.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class Lotto {
   #numbers;
@@ -44,7 +44,7 @@ export default class Lotto {
 
   #checkNumberRange(number) {
     if (
-      !(number >= lottoConfig.MIN_NUMBER && number <= lottoConfig.MAX_NUMBER)
+      !(number >= LOTTO_CONFIG.MIN_NUMBER && number <= LOTTO_CONFIG.MAX_NUMBER)
     ) {
       throw new Error(ERROR_MESSAGE.LOTTO.INVALID_NUMBER_RANGE);
     }

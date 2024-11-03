@@ -45,12 +45,12 @@ export default class LottoPurchaser {
 
       const matchCount = this.#getMatchCount(
         lottoNumbers,
-        winningLottoMainNumbers
+        winningLottoMainNumbers,
       );
 
       const isBonusNumberMatch = this.#getBonusNumberMatch(
         lottoNumbers,
-        winningLottoBonusNumber
+        winningLottoBonusNumber,
       );
 
       this.#lottoResult.saveResult(matchCount, isBonusNumberMatch);
@@ -60,7 +60,7 @@ export default class LottoPurchaser {
   calculateEarningRate() {
     const resultPrice = this.#lottoResult.getResultPrice();
 
-    const earningRate = resultPrice / this.#purchasePrice * 100;
+    const earningRate = (resultPrice / this.#purchasePrice) * 100;
     const roundedEarningRate = parseFloat(earningRate.toFixed(1));
 
     this.#lottoResult.setEarningRate(roundedEarningRate);
@@ -68,7 +68,7 @@ export default class LottoPurchaser {
 
   #getMatchCount(lottoNumbers, winningLottoMainNumbers) {
     return lottoNumbers.filter((number) =>
-      winningLottoMainNumbers.includes(number)
+      winningLottoMainNumbers.includes(number),
     ).length;
   }
 

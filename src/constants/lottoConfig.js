@@ -1,4 +1,4 @@
-const WINNING_CONDITIONS_DESC = {
+export const WINNING_CONDITIONS_DESC = {
   MATCH_3: '3개 일치',
   MATCH_4: '4개 일치',
   MATCH_5: '5개 일치',
@@ -6,7 +6,7 @@ const WINNING_CONDITIONS_DESC = {
   MATCH_6: '6개 일치',
 };
 
-export const lottoConfig = {
+export const LOTTO_CONFIG = {
   MIN_NUMBER: 1,
   MAX_NUMBER: 45,
   NUMBERS_COUNT: 6,

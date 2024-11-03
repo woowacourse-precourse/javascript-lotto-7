@@ -1,4 +1,4 @@
-import { lottoConfig } from './lottoConfig.js';
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class LottoResult {
   #resultPrice;
@@ -6,7 +6,7 @@ export default class LottoResult {
   #result;
 
   constructor() {
-    this.#result = Object.keys(lottoConfig.WINNING_PRIZE_MAP).reduce(
+    this.#result = Object.keys(LOTTO_CONFIG.WINNING_PRIZE_MAP).reduce(
       (acc, key) => {
         acc[key] = 0;
         return acc;
@@ -33,19 +33,16 @@ export default class LottoResult {
   }
 
   saveResult(matchCount, isBonusNumberMatch) {
-    const matchStandards = Object.keys(lottoConfig.WINNING_CONDITIONS).map(
+    const matchStandards = Object.keys(LOTTO_CONFIG.WINNING_CONDITIONS).map(
       Number,
     );
-    // console.log(matchStandards); //
     if (matchStandards.includes(matchCount)) {
       const matchKey =
-        lottoConfig.WINNING_CONDITIONS[matchCount]?.[isBonusNumberMatch];
-
-      // console.log(matchKey); //
+        LOTTO_CONFIG.WINNING_CONDITIONS[matchCount]?.[isBonusNumberMatch];
 
       if (matchKey && this.#result.hasOwnProperty(matchKey)) {
         this.#result[matchKey]++;
-        this.#resultPrice += lottoConfig.WINNING_PRIZE_MAP[matchKey];
+        this.#resultPrice += LOTTO_CONFIG.WINNING_PRIZE_MAP[matchKey];
       }
     }
   }
