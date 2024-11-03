@@ -1,10 +1,14 @@
+import { buyOneLotto } from "./utils/lotto.js";
+
 class LottoMachine {
   #amount;
+  #tickets;
 
   constructor(input) {
     const inputNumber = Number(input);
     this.#validate(inputNumber);
     this.#amount = inputNumber / 1000;
+    this.#tickets = this.#buyTickets();
   }
 
   #validate(number) {
@@ -16,8 +20,16 @@ class LottoMachine {
     }
   }
 
+  #buyTickets() {
+    return Array.from({ length: this.#amount }, () => buyOneLotto());
+  }
+
   getTicketAmountString() {
     return `${this.#amount}개를 구매했습니다.`;
+  }
+
+  getTicketsNumberString() {
+    return `${this.#tickets.map((ticket) => `[${ticket.join(", ")}]`).join("\n")}`;
   }
 }
 

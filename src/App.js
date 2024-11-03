@@ -8,6 +8,8 @@ class App {
 
     printEmptyLine();
     printMessage(lottoMachine.getTicketAmountString());
+
+    printMessage(lottoMachine.getTicketsNumberString());
   }
 }
 
