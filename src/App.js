@@ -13,18 +13,18 @@ class App {
 
     // 로또 구입금액 입력 유효 검사에 따른 에러 처리
     try {
-      this.validlottospurchase(purchaseAmount);
+      this.VALID_LOTTO_PURCHASE(purchaseAmount);
     } catch (error) {
       throw new Error(`[ERROR] ${error.message}`);
     }
 
     // 로또 발행 개수 
-    const lottoQuantity = inputlottospurchase / 1000;
-    Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
+    const LOTTO_QUANTITY = inputlottospurchase / 1000;
+    Console.print(`\n${LOTTO_QUANTITY}개를 구매했습니다.`);
 
     // 로또 번호 발행
     const lottoTickets = [];
-    for (let i = 0; i < lottoQuantity; i++) {
+    for (let i = 0; i < LOTTO_QUANTITY; i++) {
       const lotto = Lotto.generatedLottoNumbers();
       lottoTickets.push(lotto.getNumbers());
       Console.print(`[${lotto.getNumbers().join(", ")}]`);
@@ -40,7 +40,7 @@ class App {
       winningNumbers = inputWinningNumbers.split(',').map(num => parseInt(num, 10));
 
       // 당첨 번호 유효 검사
-      Lotto.validWinningNumbers(winningNumbers);
+      Lotto.VALID_WINNING_NUMBERS(winningNumbers);
     } catch (error) {
       throw new Error(`[ERROR] ${error.message}`);
     }
@@ -53,18 +53,17 @@ class App {
       );
 
       // 당첨 보너스 번호 유효 검사
-      Lotto.validBonusNumber(inputBonusNumbers, winningNumbers);
+      Lotto.VALID_BONUS_NUMBER(inputBonusNumbers, winningNumbers);
     } catch (error) {
       throw new Error(`[ERROR] ${error.message}`);
     }
 
     // 당첨 결과 및 출력
-    this.calculateResults(lottoTickets, winningNumbers, bonusNumber, purchaseAmount);
+    this.CALCULATE_RESULTS(lottoTickets, winningNumbers, bonusNumber, purchaseAmount);
   }
 
-
   // 로또금액 입력 받은 숫자 유효검사
-  validlottospurchase(purchaseAmount) {
+  VALID_LOTTO_PURCHASE(purchaseAmount) {
     if (!purchaseAmount) 
       throw new Error('로또 구입 금액을 입력해주세요.');
     if (isNaN(purchaseAmount))
@@ -76,17 +75,17 @@ class App {
   }
 
   // 결과 계산 
-  calculateResults(lottoTickets, winningNumbers, bonusNumber, purchaseAmount) {
-    const prizeTable = { 
+  CALCULATE_RESULTS(lottoTickets, winningNumbers, bonusNumber, purchaseAmount) {
+    const PRIZE_TABLE = { 
       3: 5000,
       4: 50000,
       5: 1500000,
-      "5+bonus": 30000000,
+      "5+BONUS": 30000000,
       6: 2000000000 };
 
-    const results = { 
+    const RESULTS = { 
       6: 0,
-      "5+bonus": 0,
+      "5+BONUS": 0,
       5: 0, 
       4: 0,
       3: 0 };
@@ -97,37 +96,34 @@ class App {
       const matchCount = ticket.filter(num => winningNumbers.includes(num)).length;
       const hasBonus = ticket.includes(bonusNumber);
 
-      if (matchCount === 6) results[6]++;
-      else if (matchCount === 5 && hasBonus) results["5+bonus"]++;
-      else if (matchCount === 5) results[5]++;
-      else if (matchCount === 4) results[4]++;
-      else if (matchCount === 3) results[3]++;
+      if (matchCount === 6) RESULTS[6]++;
+      else if (matchCount === 5 && hasBonus) RESULTS["5+BONUS"]++;
+      else if (matchCount === 5) RESULTS[5]++;
+      else if (matchCount === 4) RESULTS[4]++;
+      else if (matchCount === 3) RESULTS[3]++;
     });
 
     // 당첨 금액 합산
     totalPrize = 0;
 
-    for (let key in results) {
-      const count = results[key];
-      const prize = prizeTable[key];
+    for (let key in RESULTS) {
+      const count = RESULTS[key];
+      const prize = PRIZE_TABLE[key];
       totalPrize += count * prize;
     }
 
     // 수익률 계산
-    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
-
+    const PROFIT_RATE = ((totalPrize / purchaseAmount) * 100).toFixed(1);
 
     // 당첨 결과 출력
     Console.print("\n당첨 통계\n---");
-    Console.print(`3개 일치 (5,000원) - ${results[3]}개`);
-    Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results["5+bonus"]}개`);
-    Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
-    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+    Console.print(`3개 일치 (5,000원) - ${RESULTS[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${RESULTS[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${RESULTS[5]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${RESULTS["5+BONUS"]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${RESULTS[6]}개`);
+    Console.print(`총 수익률은 ${PROFIT_RATE}%입니다.`);
   }
-
 }
-
 
 export default App;
