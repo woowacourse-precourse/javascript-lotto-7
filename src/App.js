@@ -1,12 +1,31 @@
 import { Console } from '@woowacourse/mission-utils';
-import { inputAmount } from './utils/inputService.js';
-import { outputPayment } from './utils/outputService.js';
+import { inputAmount, inputBonusNumber, inputWinningLotto } from './utils/inputService.js';
+import { outputPayment, printLottos } from './utils/outputService.js';
+import { buyLottos } from './utils/buyLottos.js';
+import { printResult } from './utils/printResult.js';
 
 class App {
   async run() {
-    const amount = await inputAmount();
-    Console.print('');
-    outputPayment(amount);
+    try {
+      const amount = await inputAmount();
+      Console.print('');
+      outputPayment(amount);
+
+      const lottoCount = amount / 1000;
+      const lottos = buyLottos(lottoCount);
+      printLottos(lottos);
+
+      const winningNumbers = await inputWinningLotto();
+      Console.print('');
+
+      const bonusNumber = await inputBonusNumber();
+      Console.print('');
+
+      Console.print(`당첨 통계\n---`);
+      printResult(lottos, winningNumbers, bonusNumber);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 
