@@ -21,7 +21,7 @@ export default class InputUtils {
         while (1) {
             try {
                 const winningNumber = await Console.readLineAsync(MESSAGE.WINNING_NUMBER_INPUT);
-                const winningNumberList = this.getWinningNumberList(winningNumber);
+                const winningNumberList = this.getNumberList(winningNumber);
                 InputValidator.winningNumberValidator(winningNumberList);
 
                 return winningNumberList   
@@ -31,8 +31,22 @@ export default class InputUtils {
         }
     }
 
-    static getWinningNumberList(winningNumber){
-        return winningNumber.split(',')
+    static async inputBonusNumber() {
+        while (1) {
+            try {
+                const bonusNumber = await Console.readLineAsync(MESSAGE.BONUS_NUMBER_INPUT);
+                const bonusNumberList = this.getNumberList(bonusNumber);
+                InputValidator.bonusNumberValidator(bonusNumberList);
+
+                return bonusNumberList   
+            } catch (error) {
+                this.printErrorMessage(error.message);
+            }
+        }
+    }
+
+    static getNumberList(numbers){
+        return numbers.split(',')
     }
 
     static printErrorMessage(errorMessage) {
