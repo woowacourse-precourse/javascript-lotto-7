@@ -13,7 +13,7 @@ class IOHandler {
       this.Validator.purchaseAmount(purchaseAmount);
       return purchaseAmount;
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
       return this.getPurchaseAmount();
     }
   }
@@ -25,7 +25,7 @@ class IOHandler {
       this.Validator.lottoNumbers(lottoNumbers);
       return lottoNumbers.map((num) => Number(num));
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
       return this.getLottoNumbers();
     }
   }
@@ -36,7 +36,7 @@ class IOHandler {
       this.Validator.bonusNumber(bonusNumber);
       return Number(bonusNumber);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
       return this.getBonusNumber();
     }
   }

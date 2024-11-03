@@ -16,13 +16,21 @@ class LottoGame {
 
   // lottoAmount 만큼 로또 객체 생성하기
   CreateLotto() {
-    Console.print(`\n${this.#lottoAmount}개를 구매했습니다.`);
+    Console.print(`${this.#lottoAmount}개를 구매했습니다.`);
     for (let i = 0; i < this.#lottoAmount; i++) {
-      const lottoNum = this.#CreateLottoNumbers().map((num) => Number(num));
-      Console.print(lottoNum);
+      const lottoNum = this.#CreateLottoNumbers()
+        .map((num) => Number(num))
+        .sort((a, b) => a - b);
+      this.printLottoNum(lottoNum);
       const lotto = new Lotto(lottoNum);
       this.#lottoArr.push(lotto);
     }
+  }
+
+  // 로또 번호 출력
+  printLottoNum(arr) {
+    const nums = arr.join(", ");
+    Console.print(`[${nums}]`);
   }
 
   // lotto 숫자 랜덤 생성 메소드
@@ -66,7 +74,7 @@ class LottoGame {
     ];
     Console.print("당첨 통계\n---\n");
     for (let i = 5; i >= 1; i--) {
-      const message = `${resultMessage[i - 1]} - ${this.#Ranks.getRankCount(i)}\n`;
+      const message = `${resultMessage[i - 1]} - ${this.#Ranks.getRankCount(i)}개\n`;
       Console.print(message);
     }
     Console.print(`총 수익률은 ${this.#getRateOfReturn(purchaseAmount)}%입니다.`);
