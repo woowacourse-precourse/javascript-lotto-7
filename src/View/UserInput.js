@@ -12,9 +12,9 @@ class UserInput {
       `${PROGRESS_MESSAGE.ENTER_WINNING_NUMBERS}\n`
     );
   }
-  static async inputBonusNumbers() {
+  static async inputBonusNumber() {
     return await Console.readLineAsync(
-      `${PROGRESS_MESSAGE.ENTER_BONUSNUMBER}\n`
+      `${PROGRESS_MESSAGE.ENTER_BONUS_NUMBER}\n`
     );
   }
 }
