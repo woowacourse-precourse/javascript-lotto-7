@@ -1,3 +1,6 @@
+import { Console } from "@woowacourse/mission-utils";
+import { GAME_MESSAGES } from "../Utils/message";
+
 class LottoGame {
     constructor(createModel, input, output) {
         this.CreateModel = createModel;
@@ -7,6 +10,9 @@ class LottoGame {
     // 로또 게임
     async lottoGamePlay() {
         const purchase = await this.getLottoPurchaseAmount();
+        this.Output.printResult(
+            purchase.getLottoTicketCount() + GAME_MESSAGES.lottoTicketCount,
+        );
     }
     // 로또 구매 금액 입력 받기
     async getLottoPurchaseAmount() {
