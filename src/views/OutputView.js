@@ -1,12 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGES } from '../constants/consoleMessage';
+import { OUTPUT } from '../constants/consoleMessage.js';
 import {
-  BONUS_MATCH_COUNT,
-  MATCH_COUNT_FIFTH_PRIZE,
-  MATCH_COUNT_FIRST_PRIZE,
-  MATCH_COUNT_FOURTH_PRIZE,
-  MATCH_COUNT_SECOND_PRIZE,
-} from '../constants/constraints';
+  MATCH_COUNTS_BY_RANK,
+  PRIZE_MATCH_COUNTS,
+} from '../constants/constraints.js';
 
 class OutputView {
   printPurchasedLotto(lottos) {
@@ -18,24 +15,24 @@ class OutputView {
   }
 
   printWinningStatistics(matchCounts, earningsRatio) {
-    Console.print(MESSAGES.WINNING_STATISTICS_TITLE);
-    Console.print(MESSAGES.WINNING_STATISTICS_SEPARATOR);
+    Console.print(OUTPUT.WINNING_STATISTICS_TITLE);
+    Console.print(OUTPUT.WINNING_STATISTICS_SEPARATOR);
     Console.print(
-      MESSAGES.MATCH_COUNT_FIFTH_PRIZE(matchCounts[MATCH_COUNT_FIFTH_PRIZE]),
+      OUTPUT.MATCH_COUNT_FIFTH_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.FIFTH]),
     );
     Console.print(
-      MESSAGES.MATCH_COUNT_FOURTH_PRIZE(matchCounts[MATCH_COUNT_FOURTH_PRIZE]),
+      OUTPUT.MATCH_COUNT_FOURTH_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.FOURTH]),
     );
     Console.print(
-      MESSAGES.MATCH_COUNT_THIRD_PRIZE(matchCounts[MATCH_COUNT_SECOND_PRIZE]),
+      OUTPUT.MATCH_COUNT_THIRD_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.THIRD]),
     );
     Console.print(
-      MESSAGES.MATCH_COUNT_SECOND_PRIZE(matchCounts[BONUS_MATCH_COUNT]),
+      OUTPUT.MATCH_COUNT_SECOND_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.SECOND]),
     );
     Console.print(
-      MESSAGES.MATCH_COUNT_FIRST_PRIZE(matchCounts[MATCH_COUNT_FIRST_PRIZE]),
+      OUTPUT.MATCH_COUNT_FIRST_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.FIRST]),
     );
-    Console.print(MESSAGES.TOTAL_EARNINGS_RATIO(earningsRatio));
+    Console.print(OUTPUT.TOTAL_EARNINGS_RATIO(earningsRatio));
   }
 }
 

@@ -1,20 +1,23 @@
 export const LOTTO_NUMBERS_LENGTH = 6;
 export const COST_UNIT = 1000;
-export const DECIMAL_PLACES = {
-  MINIMUM_FRACTION_DIGITS: 1,
-  MAXIMUM_FRACTION_DIGITS: 1,
-};
 export const LOTTO_NUMBER_FORMAT = /^\d+$/;
 export const LOTTO_MIN_NUMBER = 1;
 export const LOTTO_MAX_NUMBER = 45;
-export const MATCH_COUNT_FIRST_PRIZE = 6;
-export const MATCH_COUNT_SECOND_PRIZE = 5;
-export const MATCH_COUNT_THIRD_PRIZE = 5;
-export const MATCH_COUNT_FOURTH_PRIZE = 4;
-export const MATCH_COUNT_FIFTH_PRIZE = 3;
-export const BONUS_MATCH_COUNT = 'bonus';
-export const FIRST_PRIZE = 2000000000;
-export const SECOND_PRIZE = 30000000;
-export const THIRD_PRIZE = 1500000;
-export const FOURTH_PRIZE = 50000;
-export const FIFTH_PRIZE = 5000;
+export const DECIMAL_PLACES = Object.freeze({
+  MINIMUM_FRACTION_DIGITS: 1,
+  MAXIMUM_FRACTION_DIGITS: 1,
+});
+export const MATCH_COUNTS_BY_RANK = Object.freeze({
+  FIRST: 6,
+  SECOND: 5,
+  THIRD: 'bonus',
+  FOURTH: 4,
+  FIFTH: 3,
+});
+export const LOTTO_PRIZES = Object.freeze({
+  FIRST: 2000000000,
+  SECOND: 30000000,
+  THIRD: 1500000,
+  FOURTH: 50000,
+  FIFTH: 5000,
+});

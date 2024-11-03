@@ -4,7 +4,7 @@ import {
   isNumbersInRange,
   isValidatePositiveInteger,
   isWinningNumbersFormat,
-} from './validatorUtils.js';
+} from '../utils/validatorUtils.js';
 import throwError from '../Error/handleError.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 import { LOTTO_NUMBERS_LENGTH } from '../constants/constraints.js';

@@ -3,7 +3,7 @@ import {
   LOTTO_MAX_NUMBER,
   LOTTO_MIN_NUMBER,
   LOTTO_NUMBER_FORMAT,
-} from '../constants/constraints';
+} from '../constants/constraints.js';
 
 export const isValidatePositiveInteger = (number) => {
   return !isNaN(number) && Number.isInteger(number) && number > 0;
