@@ -1,3 +1,4 @@
+import { PRINT_MESSAGES } from './constants/messages.js';
 import LottoStatistics from './LottoStatistics.js';
 import LottoStore from './LottoStore.js';
 import OutputView from './view/OutputView.js';
@@ -9,10 +10,14 @@ class App {
   }
 
   async run() {
-    const purchasedLottos = await this.lottoStore.purchaseLottos();
+    const { lottoCount, lottoBundle } = await this.lottoStore.purchaseLottos();
+    OutputView.printMessage(PRINT_MESSAGES.OUTPUT.LOTTO_COUNT(lottoCount));
+    OutputView.printLottoBundle(lottoBundle.getLottos());
+
     const winningLotto = await WinningLottoMachine.createWinningLotto();
+
     const statistics = new LottoStatistics(
-      purchasedLottos.getLottos(),
+      lottoBundle.getLottos(),
       winningLotto,
       this.lottoStore.getAmount(),
     );

@@ -18,11 +18,9 @@ class LottoStore {
   async purchaseLottos() {
     const userAmount = await LottoStore.#getValidAmount();
     this.#setPurchaseAmount(userAmount);
-    OutputView.printMessage(PRINT_MESSAGES.OUTPUT.LOTTO_COUNT(this.#lottoCount));
 
     const lottoBundle = this.#generateLottos();
-    OutputView.printLottoBundle(lottoBundle.getLottos());
-    return lottoBundle;
+    return { lottoCount: this.#lottoCount, lottoBundle };
   }
 
   static async #getValidAmount() {
