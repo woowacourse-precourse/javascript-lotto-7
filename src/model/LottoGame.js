@@ -17,6 +17,7 @@ class LottoGame {
     LottoGame.#validateWinningNumbersType(numbers);
     LottoGame.#validateWinningNumbersLength(numbers);
     LottoGame.#validateWinningNumbersRange(numbers);
+    LottoGame.#validateWinningNumbersDuplicated(numbers);
   }
 
   /** @param {number[]} numbers */
@@ -39,6 +40,13 @@ class LottoGame {
 
     if (!LottoValidator.isInRangeAll(numbers)) {
       throw new Exception(`당첨 번호는 ${MIN}에서 ${MAX}사이여야 합니다.`);
+    }
+  }
+
+  /** @param {number[]} numbers */
+  static #validateWinningNumbersDuplicated(numbers) {
+    if (LottoValidator.isDuplicated(numbers)) {
+      throw new Exception('당첨 번호는 중복될 수 없습니다.');
     }
   }
 }
