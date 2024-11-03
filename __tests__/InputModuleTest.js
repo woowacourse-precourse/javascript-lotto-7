@@ -25,4 +25,35 @@ describe('InputModule Test', () => {
       expect(purchaseCash).toBe(result);
     });
   });
+
+  describe('getLottoWinnerNumbers : 우승 로또 번호 입력 테스트', () => {
+    test.each([
+      '1,2,3,4',
+      '1,1,2,3,4,5',
+      ',2,3,4,5,6',
+      '-1,2,3,4,5,6',
+      '1.1,2,3,4,5,6',
+      '47,2,3,4,5,6',
+      '0,2,3,4,5,6',
+      'a,2,3,4,5,6',
+    ])('유효하지 않은 값이 포함되어 있는 경우 에러를 발생시킨다. ( %s )', (inputValue) => {
+      mockQuestions([inputValue]);
+
+      expect(InputModules.getLottoWinnerNumbers()).rejects.toThrow(ERROR_PREFIX);
+    });
+
+    test.each([
+      ['1,2,3,4,5,6', [1, 2, 3, 4, 5, 6]],
+      ['7,10,14,23,41,42', [7, 10, 14, 23, 41, 42]],
+    ])(
+      '유효한 값으로 이루어진 입력값인 경우 숫자 배열로 반환한다. ( %s )',
+      async (inputValue, result) => {
+        mockQuestions([inputValue]);
+
+        const winnerNumbers = await InputModules.getLottoWinnerNumbers();
+
+        expect(winnerNumbers).toEqual(result);
+      },
+    );
+  });
 });
