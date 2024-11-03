@@ -1,5 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import { ERROR, MESSAGES } from "./utils/constants.js";
+
 
 class App {
   async run() {
@@ -7,19 +9,19 @@ class App {
     let isValidNumber;
     
     while (!isValidNumber) {
-      input = await Console.readLineAsync('구입금액을 입력해 주세요\n');
+      input = await Console.readLineAsync(`${MESSAGES.BUY_MONEY_INPUT}`);
       isValidNumber = /^\d+$/.test(input);
       if (isValidNumber){
         break
       }else{
-        Console.print('[ERROR] 구입금액은 숫자만 입력해주세요.');
+        Console.print(`[ERROR] ${ERROR.BUY_MONEY_NOT_NUMBER}`);
       }
     }
     const inputNumber = Number(input);
 
-    if (isNaN(inputNumber)) Console.print('[ERROR] 구입 금액은 유효한 숫자여야 합니다.');
-    if (inputNumber < 0) Console.print('[ERROR] 구입금액은 양수만 입력해주세요.');
-    if (inputNumber % 1000 !== 0) Console.print('[ERROR] 구입금액은 1000원 단위입니다.');
+    if (isNaN(inputNumber)) Console.print(`[ERROR] ${ERROR.BUY_MONEY_INVALID}`);
+    if (inputNumber < 0) Console.print(`[ERROR] ${ERROR.BUY_MONEY_MINUS}`);
+    if (inputNumber % 1000 !== 0) Console.print(`[ERROR] ${ERROR.BUY_MONEY_END_WITH_1000}`);
 
     const countLotto = inputNumber / 1000;
     const lottos = [];
