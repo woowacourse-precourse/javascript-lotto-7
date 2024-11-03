@@ -1,6 +1,6 @@
 const LOG_MESSAGE = Object.freeze({
-  START_MESSAGE: "구입금액을 입력해 주세요.",
-  LOTTO_COUNT_MESSAGE: "개를 구매했습니다.",
+  ENTER_PURCHASE_AMOUNT: "구입금액을 입력해 주세요.",
+  PURCHASE_CONFIRMATION: "개를 구매했습니다.",
 })
 
 const PRICE_ERROR_MESSAGE = Object.freeze({
