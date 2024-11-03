@@ -11,6 +11,8 @@ class App {
 
     const lottoCount = price / LOTTO_PURCHASE_UNIT;
     const issuedLottos = Lotto.generateIssuedLottos(lottoCount);
+    this.printIssuedLottos(lottoCount, issuedLottos);
+
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
     const prizeManager = new LottoPrize(
@@ -21,7 +23,6 @@ class App {
     prizeManager.countMatchingNumbers();
     const roi = prizeManager.calculateROI(price);
 
-    this.printIssuedLottos(lottoCount, issuedLottos);
     this.printWinningStatistics(prizeManager.prizeManager, roi);
   }
 
