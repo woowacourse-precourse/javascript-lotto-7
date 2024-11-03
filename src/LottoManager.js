@@ -35,6 +35,7 @@ class LottoManager {
       this.#outputHandler.printWinningResult(winningResult);
 
       const profitRate = this.#calculateProfitRate(winningResult, amount);
+      this.#outputHandler.printProfitRate(profitRate);
     } catch (error) {
       throw error;
     }

@@ -31,6 +31,10 @@ class OutputHandler {
       Console.print(`${result.message}${result.count}${OUTPUT_MESSAGE.COUNT}`);
     });
   }
+
+  printProfitRate(profitRate) {
+    Console.print(`${OUTPUT_MESSAGE.PROFIT_RATE_PREFIX}${profitRate}${OUTPUT_MESSAGE.PROFIT_RATE_SUFFIX}`);
+  }
 }
 
 export default OutputHandler;
