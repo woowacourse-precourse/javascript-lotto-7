@@ -2,7 +2,7 @@ import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 export class Output {
   printLottoTicketCount(lottoTicketCount) {
-    Console.print(`\n${lottoTicketCount}개를 구매했습니다.`);
+    Console.print(`${lottoTicketCount}개를 구매했습니다.`);
   }
 
   printLottoTicket(lottoTicketCount) {
@@ -17,7 +17,7 @@ export class Output {
     }
 
     lottoTicket.forEach((ticket) => {
-      Console.print(ticket);
+      Console.print(`[${ticket.join(', ')}]`);
     });
 
     return lottoTicket;
