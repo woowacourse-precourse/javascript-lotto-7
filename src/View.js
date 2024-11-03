@@ -54,11 +54,21 @@ class View {
   };
 
   #validateWinningNumbers = (WINNING_NUMBERS) => {
-    if (WINNING_NUMBERS.trim() === "") {
-      Console.print("[ERROR] 당첨 번호를 입력해 주세요.");
-      throw new Error("[ERROR] 당첨 번호를 입력해 주세요.");
-    }
+    this.#checkIfEmpty(WINNING_NUMBERS);
+    this.#checkHasCorrectLength(WINNING_NUMBERS);
+    const WINNING_NUMBER_ARRAY = WINNING_NUMBERS.split(
+      WINNING_NUMBERS_DELIMITER,
+    );
+    WINNING_NUMBER_ARRAY.forEach((WINNING_NUMBER) => {
+      this.#checkIfNumber(WINNING_NUMBER);
+      this.#checkNumberInRange(WINNING_NUMBER);
+    });
+    return WINNING_NUMBER_ARRAY.map((WINNING_NUMBER) =>
+      parseInt(WINNING_NUMBER),
+    );
+  };
 
+  #checkHasCorrectLength = (WINNING_NUMBERS) => {
     const WINNING_NUMBER_ARRAY = WINNING_NUMBERS.split(
       WINNING_NUMBERS_DELIMITER,
     );
@@ -70,31 +80,6 @@ class View {
         `[ERROR] 당첨 번호는 ${WINNING_NUMBERS_COUNT}개여야 합니다.`,
       );
     }
-
-    WINNING_NUMBER_ARRAY.forEach((WINNING_NUMBER) => {
-      if (isNaN(WINNING_NUMBER)) {
-        Console.print("[ERROR] 숫자를 입력해 주세요.");
-        throw new Error("[ERROR] 숫자를 입력해 주세요.");
-      }
-    });
-
-    WINNING_NUMBER_ARRAY.forEach((WINNING_NUMBER) => {
-      if (
-        parseInt(WINNING_NUMBER) < LOTTO_MIN_NUMBER ||
-        parseInt(WINNING_NUMBER) > LOTTO_MAX_NUMBER
-      ) {
-        Console.print(
-          `[ERROR] ${LOTTO_MIN_NUMBER}부터 ${LOTTO_MAX_NUMBER}까지의 숫자를 입력해 주세요.`,
-        );
-        throw new Error(
-          `[ERROR] ${LOTTO_MIN_NUMBER}부터 ${LOTTO_MAX_NUMBER}까지의 숫자를 입력해 주세요.`,
-        );
-      }
-    });
-
-    return WINNING_NUMBER_ARRAY.map((WINNING_NUMBER) =>
-      parseInt(WINNING_NUMBER),
-    );
   };
 
   getBonusNumber = async () => {
@@ -108,20 +93,28 @@ class View {
   };
 
   #validateBonusNumber = (BONUS_NUMBER) => {
-    if (BONUS_NUMBER.trim() === "") {
+    this.#checkIfEmpty(BONUS_NUMBER);
+    this.#checkIfNumber(BONUS_NUMBER);
+    this.#checkNumberInRange(BONUS_NUMBER);
+  };
+
+  #checkIfEmpty = (INPUT) => {
+    if (INPUT.trim() === "") {
       Console.print("[ERROR] 보너스 번호를 입력해 주세요.");
       throw new Error("[ERROR] 보너스 번호를 입력해 주세요.");
     }
+  };
 
-    if (isNaN(BONUS_NUMBER)) {
+  #checkIfNumber = (NUMBER) => {
+    if (isNaN(NUMBER)) {
       Console.print("[ERROR] 숫자를 입력해 주세요.");
       throw new Error("[ERROR] 숫자를 입력해 주세요.");
     }
+  };
 
-    if (
-      parseInt(BONUS_NUMBER) < LOTTO_MIN_NUMBER ||
-      parseInt(BONUS_NUMBER) > LOTTO_MAX_NUMBER
-    ) {
+  #checkNumberInRange = (INPUT) => {
+    const NUMBER = parseInt(INPUT);
+    if (NUMBER < LOTTO_MIN_NUMBER || NUMBER > LOTTO_MAX_NUMBER) {
       Console.print(
         `[ERROR] ${LOTTO_MIN_NUMBER}부터 ${LOTTO_MAX_NUMBER}까지의 숫자를 입력해 주세요.`,
       );
@@ -129,8 +122,6 @@ class View {
         `[ERROR] ${LOTTO_MIN_NUMBER}부터 ${LOTTO_MAX_NUMBER}까지의 숫자를 입력해 주세요.`,
       );
     }
-
-    return;
   };
 
   printSTATS = (RESULTS, PROFIT_RATE) => {

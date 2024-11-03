@@ -6,23 +6,16 @@ class App {
   #MODEL = new Model();
   async run() {
     const PURCHASE_MONEY = await this.#VIEW.getPurchaseMoney();
-
     const LOTTOS = this.#MODEL.buyLottos(PURCHASE_MONEY);
-
     this.#VIEW.printLottos(LOTTOS);
-
     const WINNING_NUMBERS = await this.#VIEW.getWinningNumbers();
-
     const BONUS_NUMBER = await this.#VIEW.getBonusNumber();
-
     const RESULTS = this.#MODEL.getResults(
       LOTTOS,
       WINNING_NUMBERS,
       BONUS_NUMBER,
     );
-
     const PROFIT_RATE = this.#MODEL.getProfitRate(RESULTS, PURCHASE_MONEY);
-
     this.#VIEW.printSTATS(RESULTS, PROFIT_RATE);
   }
 }
