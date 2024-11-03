@@ -8,6 +8,7 @@ class LottoManager {
     #lottoCount
     #generatedLottos = []
     #winLotto
+    #bonusNumber
 
     constructor(){}
 
@@ -28,6 +29,7 @@ class LottoManager {
         this.generateLottos(this.#lottoCount);
         LottoManagerIO.printGeneratedLottos(this.#generatedLottos);
         this.generateWinLotto(await LottoManagerIO.getWinNumber());
+        this.#bonusNumber = await LottoManagerIO.getBonusNumber();
     }
 }
 
