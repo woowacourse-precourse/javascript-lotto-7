@@ -1,24 +1,26 @@
 import Lotto from '../model/Lotto.js';
 import LottoResult from '../model/LottoResult.js';
 import LottoStore from '../model/LottoStore.js';
+import retry from '../utils/retry.js';
+import Validator from '../utils/validator.js';
 import LottoView from '../views/LottoView.js';
 
 class LottoController {
   static async start() {
-    const inputAmount = await this.convertPurchaseAmount();
-    const lottoStore = new LottoStore(inputAmount);
+    const purchaseAmount = await retry(() => this.getPurchaseAmount());
+    const lottoStore = new LottoStore(purchaseAmount);
     LottoView.PrintLottos(lottoStore.getCount(), lottoStore.getLottos());
 
-    const inputWinningNumbers = await this.convertWinningNumber();
-    const winningNumber = new Lotto(inputWinningNumbers);
+    const winningNumbers = await retry(() => this.getWinningNumbers());
+    const lotto = new Lotto(winningNumbers);
 
-    const inputBonusNumber = await this.convertBonusNumber();
+    const bonusNumber = await retry(() => this.getBonusNumber(winningNumbers));
 
     const lottoResult = new LottoResult(
       lottoStore.getLottos(),
-      winningNumber.getNumber(),
-      inputBonusNumber,
-      inputAmount,
+      lotto.getNumber(),
+      bonusNumber,
+      purchaseAmount,
     );
 
     lottoResult.calculateResults();
@@ -30,22 +32,28 @@ class LottoController {
     );
   }
 
-  static async convertPurchaseAmount() {
-    const purchaseAmount = await LottoView.InputPurchaseAmount();
-    return Number(purchaseAmount);
+  static async getPurchaseAmount() {
+    const amountInput = await LottoView.InputPurchaseAmount();
+    const purchaseAmount = Number(amountInput);
+    Validator.validatePurchaseAmount(purchaseAmount);
+    return purchaseAmount;
   }
 
-  static async convertWinningNumber() {
-    const winningNumber = await LottoView.InputWinningNumbers();
-    return winningNumber
+  static async getWinningNumbers() {
+    const winningNumbersInput = await LottoView.InputWinningNumbers();
+    const winningNumbers = winningNumbersInput
       .trim()
       .split(',')
       .map((num) => Number(num.trim()));
+    Validator.validateLottoNumbers(winningNumbers);
+    return winningNumbers;
   }
 
-  static async convertBonusNumber() {
-    const bonusNumber = await LottoView.InputBonusNumber();
-    return Number(bonusNumber);
+  static async getBonusNumber(winningNumbers) {
+    const bonusNumberInput = await LottoView.InputBonusNumber();
+    const bonusNumber = Number(bonusNumberInput);
+    Validator.validateBonusNumber(bonusNumber, winningNumbers);
+    return bonusNumber;
   }
 }
 
