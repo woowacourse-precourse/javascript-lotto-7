@@ -1,4 +1,4 @@
-import { ConsoleIO } from '../io/index.js';
+import { Printer } from '../io/index.js';
 import { LottoValidator } from '../services/index.js';
 
 class Lotto {
@@ -19,7 +19,7 @@ class Lotto {
   }
 
   #printNumbers() {
-    ConsoleIO.print(`[${this.#numbers.join(', ')}]`);
+    Printer.print(`[${this.#numbers.join(', ')}]`);
   }
 
   getNumbers() {

@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { InputValidator } from '../services/index.js';
 import { tryAgain } from '../utils/validateUtils.js';
 
-class ConsoleIO {
+class InputHandler {
   async processMoneyInput(query) {
     return await tryAgain(async () => {
       const moneyString = await this.readInput(query);
@@ -29,14 +29,6 @@ class ConsoleIO {
   async readInput(query) {
     return await Console.readLineAsync(query);
   }
-
-  static print(query) {
-    Console.print(query);
-  }
-
-  static printNewline() {
-    Console.print('');
-  }
 }
 
-export default ConsoleIO;
+export default InputHandler;
