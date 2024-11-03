@@ -11,4 +11,5 @@ export const AMOUNT_ERROR = Object.freeze({
 export const WINNING_LOTTO_ERROR = Object.freeze({
     ERROR_COMMA: '[ERROR] 입력하신 로또번호는 ,로 구분해야 합니다.',
     ERROR_COUNT_6: '[ERROR] 입력하신 로또번호는 6개여야 합니다.',
+    ERROR_NO_INPUT: '[ERROR] 입력하신 로또번호가 없습니다.',
 });
