@@ -1,3 +1,4 @@
+import PRIZE_AMOUNTS from '../constants/prizeAmounts.js';
 import UserInterface from '../utils/UserInterface.js';
 import Lotto from './Lotto.js';
 
@@ -6,7 +7,8 @@ class LottoGame {
   #winningNumbers;
   #bonusNumber;
   #lottoList;
-  #result;
+  #matchCounts;
+  #totalYield;
 
   async initialize() {
     this.#paymentAmount = await UserInterface.queryPaymentAmout();
@@ -17,7 +19,7 @@ class LottoGame {
     this.#winningNumbers = new Set(await UserInterface.queryWinningNumbers());
     this.#bonusNumber = await UserInterface.queryBonusNumber(this.#winningNumbers);
 
-    this.#result = Array(8).fill(0);
+    this.#matchCounts = Array(8).fill(0);
   }
 
   #generateLottos(count) {
@@ -34,11 +36,23 @@ class LottoGame {
         );
 
         if (matchedCount === 5 && numbers.includes(this.#bonusNumber)) {
-          this.#result[7] += 1;
+          this.#matchCounts[7] += 1;
         } else {
-          this.#result[matchedCount] += 1;
+          this.#matchCounts[matchedCount] += 1;
         }
       });
+    
+    return this;
+  }
+
+  computeTotalYield() {
+    const totalPrize = this.#matchCounts.reduce(
+      (total, count, index) => total + count * PRIZE_AMOUNTS[index],
+      0
+    );
+
+    this.#totalYield = (totalPrize / this.#paymentAmount) * 100;
+    return this;
   }
 }
 

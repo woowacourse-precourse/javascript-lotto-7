@@ -5,7 +5,9 @@ class App {
     const lottoGame = new LottoGame();
 
     await lottoGame.initialize();
-    lottoGame.computeWinners();
+    lottoGame
+      .computeWinners()
+      .computeTotalYield();
   }
 }
 
