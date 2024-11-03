@@ -56,27 +56,27 @@
 
 1. 로또 번호 생성:
 
--     생성자 constructor(amount)에서 사용자가 입력한 금액에 따라 로또 번호를 생성합니다. getUniqueNumbersInRange() 함수를 호출하여 고유한 로또 번호를 생성하고, 이를 Lotto 클래스의 인스턴스로 변환하여 #lottoList에 저장합니다.
+- 생성자 constructor(amount)에서 사용자가 입력한 금액에 따라 로또 번호를 생성합니다. getUniqueNumbersInRange() 함수를 호출하여 고유한 로또 번호를 생성하고, 이를 Lotto 클래스의 인스턴스로 변환하여 #lottoList에 저장합니다.
 
 2. 로또 번호 목록 조회:
 
--     getLottoList() 메서드를 통해 생성된 로또 번호 목록을 반환합니다. 각 로또 인스턴스에서 getNumbers() 메서드를 호출하여 번호를 가져옵니다.
+- `getLottoList()` 메서드를 통해 생성된 로또 번호 목록을 반환합니다. 각 로또 인스턴스에서 getNumbers() 메서드를 호출하여 번호를 가져옵니다.
 
 3. 당첨 번호 설정:
 
--     setWinningNumbers(lottoNumbers, lottoBonusNumber) 메서드를 통해 당첨 번호와 보너스 번호를 설정합니다. 이를 통해 이후 당첨 결과 비교에 사용할 수 있습니다.
+- `setWinningNumbers(lottoNumbers, lottoBonusNumber)` 메서드를 통해 당첨 번호와 보너스 번호를 설정합니다. 이를 통해 이후 당첨 결과 비교에 사용할 수 있습니다.
 
 4. 당첨 결과 비교:
 
--     compare() 메서드는 각 로또 번호와 당첨 번호를 비교하여 당첨 결과를 계산합니다.
--     이 과정에서 각 로또의 일치 수 및 보너스 번호 일치를 확인하여 매칭 결과를 배열로 반환합니다.
--     이후 #initializeResultMap()과 #calculateResult()를 호출하여 각 등급별 당첨 통계를 집계합니다.
+- `compare()` 메서드는 각 로또 번호와 당첨 번호를 비교하여 당첨 결과를 계산합니다.
+- 이 과정에서 각 로또의 일치 수 및 보너스 번호 일치를 확인하여 매칭 결과를 배열로 반환합니다.
+- 이후 `#initializeResultMap()`과 `#calculateResult()`를 호출하여 각 등급별 당첨 통계를 집계합니다.
 
 5. 통계 계산:
 
--     #initializeResultMap() 메서드는 당첨 통계 결과를 저장할 맵을 초기화합니다.
--     #calculateResult() 메서드는 각 로또의 일치 결과에 따라 당첨 등급을 계산하고, 이를 결과 맵에 업데이트합니다.
+- `#initializeResultMap()` 메서드는 당첨 통계 결과를 저장할 맵을 초기화합니다.
+- `#calculateResult()` 메서드는 각 로또의 일치 결과에 따라 당첨 등급을 계산하고, 이를 결과 맵에 업데이트합니다.
 
 6. 등급 매칭:
 
--     #matchOption(matchAmount, isBonus) 메서드는 일치한 번호의 개수와 보너스 번호 여부에 따라 당첨 등급을 반환합니다.
+- `#matchOption(matchAmount, isBonus)` 메서드는 일치한 번호의 개수와 보너스 번호 여부에 따라 당첨 등급을 반환합니다.
