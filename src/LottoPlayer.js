@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import inputHandler from "./inputHandler.js";
 import Lotto from "./Lotto.js";
+import MESSAGES from "./MESSAGES.js";
 
 class LottoPlayer {
   static LOTTO_PRICE = 1000;
@@ -17,6 +18,7 @@ class LottoPlayer {
       const purchaseAmount = await inputHandler.requestPurchaseAmount();
       this.setNumberOfLottos(purchaseAmount);
       this.createLottos();
+      this.printLottos();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.play();
@@ -36,6 +38,13 @@ class LottoPlayer {
       );
       this.lottos.push(new Lotto(randomNumber));
     }
+  }
+
+  printLottos() {
+    MissionUtils.Console.print(
+      MESSAGES.SHOW_PURCHASE_COUNT.replace("{count}", this.numberOfLottos)
+    );
+    this.lottos.forEach((lotto) => lotto.print());
   }
 }
 
