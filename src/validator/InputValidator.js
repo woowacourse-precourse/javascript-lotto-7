@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import {
+  isBonusNumberInList,
   isCostInUnits,
   isNumbersInRange,
   isValidatePositiveInteger,
@@ -31,7 +32,7 @@ class InputValidator {
     if (!isNumbersInRange(bonusNumber)) {
       throwError(ERROR_MESSAGES.INVALID_NUMBER_RANGE);
     }
-    if (winningNumbers.includes(bonusNumber)) {
+    if (isBonusNumberInList(winningNumbers, bonusNumber)) {
       throwError(ERROR_MESSAGES.CONFLICTING_BONUS_NUMBER);
     }
   }
@@ -60,6 +61,7 @@ class InputValidator {
     }
     this.checkArrayElements(array);
   }
+
   static checkArrayElements(array) {
     if (array.some((num) => !isValidatePositiveInteger(num))) {
       throwError(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);

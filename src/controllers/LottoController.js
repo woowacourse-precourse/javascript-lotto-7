@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
 import {
   calculateEarningsRatio,

@@ -14,20 +14,14 @@ class OutputView {
   printWinningStatistics(matchCounts, earningsRatio) {
     Console.print(OUTPUT.WINNING_STATISTICS_TITLE);
     Console.print(OUTPUT.WINNING_STATISTICS_SEPARATOR);
-    Console.print(
-      OUTPUT.MATCH_COUNT_FIFTH_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.FIFTH]),
-    );
-    Console.print(
-      OUTPUT.MATCH_COUNT_FOURTH_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.FOURTH]),
-    );
-    Console.print(
-      OUTPUT.MATCH_COUNT_THIRD_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.THIRD]),
-    );
-    Console.print(
-      OUTPUT.MATCH_COUNT_SECOND_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.SECOND]),
-    );
-    Console.print(
-      OUTPUT.MATCH_COUNT_FIRST_PRIZE(matchCounts[MATCH_COUNTS_BY_RANK.FIRST]),
+    [
+      [MATCH_COUNTS_BY_RANK.FIFTH, OUTPUT.MATCH_COUNT_FIFTH_PRIZE],
+      [MATCH_COUNTS_BY_RANK.FOURTH, OUTPUT.MATCH_COUNT_FOURTH_PRIZE],
+      [MATCH_COUNTS_BY_RANK.THIRD, OUTPUT.MATCH_COUNT_THIRD_PRIZE],
+      [MATCH_COUNTS_BY_RANK.SECOND, OUTPUT.MATCH_COUNT_SECOND_PRIZE],
+      [MATCH_COUNTS_BY_RANK.FIRST, OUTPUT.MATCH_COUNT_FIRST_PRIZE],
+    ].forEach(([rank, outputFunc]) =>
+      Console.print(outputFunc(matchCounts[rank])),
     );
     Console.print(OUTPUT.TOTAL_EARNINGS_RATIO(earningsRatio));
   }

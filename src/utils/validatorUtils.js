@@ -20,3 +20,7 @@ export const isNumbersInRange = (number) => {
 export const isCostInUnits = (cost) => {
   return cost % COST_UNIT === 0;
 };
+
+export const isBonusNumberInList = (numbersList, bonusNumber) => {
+  return numbersList.includes(bonusNumber);
+};
