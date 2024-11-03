@@ -4,6 +4,7 @@ import OutputView from '../view/OutputView.js';
 import Lotto from '../model/Lotto.js';
 import BonusNumber from '../model/BonusNumber.js';
 import Purchase from '../model/Purchase.js';
+import Result from '../model/Result.js';
 
 class LottoController {
   #purchase; // purchase 인스턴스
@@ -12,11 +13,13 @@ class LottoController {
   #lotteryNumbers; // 구입한 로또 번호
   #winningLottoNumbers; // 당첨 번호
   #bonusNumber; // 보너스 번호
+  #result;
 
   async start() {
     await this.#getPurchase();
     await this.#getWinningLottoNumbers();
     await this.#getBonusNumber();
+    await this.#getWinningResult();
   }
 
   async #getPurchase() {
@@ -56,6 +59,21 @@ class LottoController {
       await this.#getBonusNumber();
     }
   }
+
+  async #getWinningResult() {
+    this.#result = new Result(
+      this.#winningLottoNumbers,
+      this.#bonusNumber,
+      this.#lotteryNumbers,
+      this.#purchaseAmount
+    );
+    await this.#result.winningResult();
+    OutputView.printWinningResult(
+      this.#result.getWinningRank(),
+      this.#result.getTotalRate()
+    );
+  }
+  s;
 }
 
 export default LottoController;
