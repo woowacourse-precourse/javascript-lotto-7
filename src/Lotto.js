@@ -12,7 +12,15 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  isDuplicate(array) {
+    const uniqueChars = new Set(array);
+    if (uniqueChars.size !== array.length) {
+      throw new Error(
+        "[ERROR] 로또 번호에 중복된 값이 존재합니다. 다시 입력해주세요."
+      );
+    }
+    return true;
+  }
 }
 
 export default Lotto;
