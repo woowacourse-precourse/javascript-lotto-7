@@ -36,10 +36,16 @@ class App {
 
   buyLottos(amount) {
     const lottoCount = amount / LOTTO.PRICE;
+
+    this.#validateClearChange(lottoCount);
   }
 
   #validateAmountInput(amountInput) {
     if (!Validate.number(amountInput)) throw new Error(ERROR_MESSAGE.AMOUNT_IS_NOT_NUMBER);
+  }
+
+  #validateClearChange(number) {
+    if (!Validate.integer(number)) throw new Error(ERROR_MESSAGE.EXIST_CHANGE);
   }
 }
 
