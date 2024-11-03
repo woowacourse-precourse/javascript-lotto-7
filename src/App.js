@@ -1,17 +1,20 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import Game from './game.js';
-import InputPrompt from './input-prompt.js';
+import InputPrompt from './input/input-prompt.js';
 import PurchasedLottos from './purchased-lottos.js';
 import WinningLotto from './winning-lotto.js';
+import InputParser from './input/input-parser.js';
+import validatePurchaseAmount from './validation/validate-purchase-amount.js';
 
 class App {
   async run() {
     try {
-      const purchaseAmount = await InputPrompt.getPurchaseAmount();
-      const isValid = /^[0-9]+$/.test(purchaseAmount);
-      if (!isValid) throw new Error('[ERROR]');
+      const purchaseAmountInput = await InputPrompt.getPurchaseAmount();
 
-      const lottoCount = parseInt(purchaseAmount, 10) / 1000;
+      const purchaseAmount = InputParser.parsePurchaseAmount(purchaseAmountInput);
+
+      validatePurchaseAmount(purchaseAmount);
+
       Console.print(`\n`);
       Console.print(`${lottoCount}개를 구매했습니다.`);
 
@@ -34,7 +37,7 @@ class App {
       const game = new Game(purchasedLottos, winningLotto);
       game.play();
     } catch (error) {
-      Console.print(error.message); // [ERROR] 출력
+      Console.print(error.message);
     }
   }
 }
