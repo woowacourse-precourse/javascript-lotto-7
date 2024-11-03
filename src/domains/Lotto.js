@@ -1,5 +1,5 @@
-import ERROR from "./constants/error.js";
-import CONSTANT from "./constants/costant.js";
+import ERROR from "../constants/error.js";
+import CONSTANT from "../constants/costant.js";
 
 class Lotto {
   #numbers;

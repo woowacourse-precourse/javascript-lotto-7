@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
-import MESSAGE from "./constants/message.js";
-import ERROR from "./constants/error.js";
-import CONSTANT from "./constants/costant.js";
+import MESSAGE from "../constants/message.js";
+import ERROR from "../constants/error.js";
+import CONSTANT from "../constants/costant.js";
 
 class Input {
   async getPurchaseAmount() {
