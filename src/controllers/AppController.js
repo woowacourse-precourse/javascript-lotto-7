@@ -1,6 +1,7 @@
-import { validationPipe } from "../validation/validationPipe.js";
+import LottoModel from "../models/LottoModel.js";
 import ConsoleView from "../views/ConsoleView.js";
 import LottoController from "./LottoController.js";
+import PurchaseAmountModel from "../models/PurchaseAmountModel.js";
 
 class AppController {
   constructor() {
@@ -10,11 +11,13 @@ class AppController {
 
   async run() {
     const purchaseAmount = await this.consoleView.getPurchaseAmount();
-    validationPipe(purchaseAmount);
+    new PurchaseAmountModel(purchaseAmount);
 
     this.lottoController.run(purchaseAmount);
 
     const winningNumbers = await this.consoleView.getWinningNumbers();
+
+    const lottoModel = new LottoModel(winningNumbers);
   }
 }
 
