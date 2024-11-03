@@ -4,6 +4,7 @@ import {
   isNotEmptyString,
   isNumericString,
   isPositiveNumericString,
+  sortNumbersAscendingOrder,
 } from '../src/lib/utils.js';
 
 describe('utils', () => {
@@ -94,6 +95,16 @@ describe('utils', () => {
       const result = isIntegerNumericString(value);
 
       expect(result).toBe(false);
+    });
+  });
+
+  describe('sortNumbersAscendingOrder', () => {
+    it('주어진 숫자 배열을 오름차순 정렬된 새로운 배열로 만들어 반환해야한다', () => {
+      const values = [5, 10, 3, 55, 2];
+
+      const result = sortNumbersAscendingOrder(values);
+
+      expect(result).toEqual([2, 3, 5, 10, 55]);
     });
   });
 });

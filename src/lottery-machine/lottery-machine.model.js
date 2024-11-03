@@ -48,6 +48,14 @@ class LotteryMachineModel {
 
   /**
    *
+   * @returns {number}
+   */
+  getBonusNumber() {
+    return this.#bonusNumber;
+  }
+
+  /**
+   *
    * @param {number} bonusNumber
    */
   setBonusNumber(bonusNumber) {

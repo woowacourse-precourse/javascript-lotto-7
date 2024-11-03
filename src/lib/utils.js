@@ -56,3 +56,16 @@ export function isIntegerNumericString(value) {
 export function generateUniqueNumbersInRange(start, end, count) {
   return Random.pickUniqueNumbersInRange(start, end, count);
 }
+
+/**
+ *
+ * @param {Array<number>} values
+ * @returns {Array<number>}
+ */
+export function sortNumbersAscendingOrder(values) {
+  const copiedValues = [...values];
+
+  copiedValues.sort((a, b) => a - b);
+
+  return copiedValues;
+}
