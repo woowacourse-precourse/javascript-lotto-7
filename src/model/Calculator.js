@@ -33,6 +33,15 @@ class Calculator {
   #computeRankList() {
     return this.#lottoList.map((lotto) => this.#game.rankFinder(lotto));
   }
+
+  #computeTotalCash() {
+    return this.#winningCountList.reduce((total, winningCount, rank) => {
+      const { cash } = LOTTO_PRIZE_LIST[rank];
+      const earnedCash = cash * winningCount;
+
+      return total + earnedCash;
+    }, 0);
+  }
 }
 
 export default Calculator;
