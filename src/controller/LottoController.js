@@ -22,15 +22,7 @@ export default class LottoController {
   async startLotto() {
     await this.getPurchaseAmount();
 
-    // 로또 구입하기
-    this.#purchasedLotto = new PurchasedLottoModel(this.#purchaseAmount);
-
-    const lottoCount = this.#purchasedLotto.calculateLottoCount();
-    this.view.showPurchasedLottoCount(lottoCount);
-
-    // 구입한 로또 보여주기
-    const purchasedLottos = this.#purchasedLotto.getPurchasedLottos();
-    this.view.showPurchasedLottos(purchasedLottos);
+    this.purchaseLotto();
 
     // 당첨 번호 입력 받기
     const winningLottoInput = await this.view.getWinningLottoNumbers();
@@ -42,7 +34,7 @@ export default class LottoController {
 
     // 당첨 내역
     const rankingModel = new RankingModel(
-      purchasedLottos,
+      this.#purchasedLotto,
       winningLottoNumbers,
       winningBonusInput
     );
@@ -72,5 +64,15 @@ export default class LottoController {
       this.view.printError(error.message);
       await this.getPurchaseAmount();
     }
+  }
+
+  purchaseLotto() {
+    const purchasedLottoModel = new PurchasedLottoModel(this.#purchaseAmount);
+
+    const lottoCount = purchasedLottoModel.calculateLottoCount();
+    this.view.showPurchasedLottoCount(lottoCount);
+
+    this.#purchasedLotto = purchasedLottoModel.getPurchasedLottos();
+    this.view.showPurchasedLottos(this.#purchasedLotto);
   }
 }
