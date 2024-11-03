@@ -38,3 +38,8 @@ export function validateLottoNumbers(numbers) {
   validateNoDuplicates(numbers);
   validateRange(numbers);
 }
+
+export function validateBonusNumber(numbers, bonusNumber) {
+  if (numbers.includes(bonusNumber))
+    throw new CustomError(ERROR.DUPLICATE_BONUS_NUMBER);
+}
