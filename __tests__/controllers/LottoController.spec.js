@@ -36,4 +36,23 @@ describe('controllers/LottoController', () => {
       },
     );
   });
+
+  describe('setWinningNumbers()', () => {
+    it.each([
+      ['1,2,3,4,5,6', 7, [1, 2, 3, 4, 5, 6], 7],
+      ['10,11,12,13,14,15', 16, [10, 11, 12, 13, 14, 15], 16],
+    ])(
+      'sets winning numbers %s and bonus number %i',
+      (winningNumbers, bonusNumber, expectedWinningNumbers, expectedBonus) => {
+        // when
+        lottoController.setWinningNumbers(winningNumbers, bonusNumber);
+
+        // then
+        expect(lottoController.getWinningNumbers()).toEqual(
+          expectedWinningNumbers,
+        );
+        expect(lottoController.getBonusNumber()).toBe(expectedBonus);
+      },
+    );
+  });
 });

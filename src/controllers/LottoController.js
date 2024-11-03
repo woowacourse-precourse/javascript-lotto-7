@@ -80,6 +80,15 @@ class LottoController {
     const totalPrize = Prize.calculateTotalPrize(result);
     return ((totalPrize / purchaseAmount) * 100).toFixed(1);
   }
+
+  // For testing
+  getWinningNumbers() {
+    return this.#winningNumbers;
+  }
+
+  getBonusNumber() {
+    return this.#bonusNumber;
+  }
 }
 
 export default LottoController;
