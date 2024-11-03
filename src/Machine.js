@@ -1,5 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import { moneyValidation } from "./validation.js";
 
 class Machine {
   #money;
@@ -37,6 +38,8 @@ class Machine {
   async readUserMoney() {
     const money =
       await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+      
+    moneyValidation(money);
     this.#money = parseInt(money, 10);
 
     this.#printBuyCount();
