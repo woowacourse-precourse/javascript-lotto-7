@@ -9,22 +9,15 @@ class App {
   async run() {
     const payment = await App.getUserPayment();
     const lottoMachine = App.getLottoMachine(payment, Lotto);
-
-    const lottos = lottoMachine.getLottos();
-    const amount = lottoMachine.getAmount();
-
-    outputView.printPurchaseAmount(amount);
-    outputView.printLotto(lottos);
+    const lottos = App.getIssuedLottos(lottoMachine);
+    App.showIssuingProcess(lottos);
 
     const winningLottoNumbers = await App.getWinningLottoNumbers();
     const analyzer = App.getAnalyzer(lottos, winningLottoNumbers);
-    const matchingTable = analyzer.getMatchingTable();
-    outputView.printStatisticsHeader();
-    outputView.printSeparatingMark();
-    outputView.printStatistics(matchingTable);
+    App.showTotalStatistics(analyzer);
 
-    const profit = App.estimateProfit(matchingTable, payment);
-    outputView.printProfit(profit);
+    const profit = App.estimateProfit(analyzer, payment);
+    App.showProfit(profit);
   }
 
   static async getUserPayment() {
@@ -35,6 +28,18 @@ class App {
   static getLottoMachine(payment, lotto) {
     const lottoMachine = new LottoMachine(payment, lotto);
     return lottoMachine;
+  }
+
+  static getIssuedLottos(lottoMachine) {
+    const lottos = lottoMachine.getLottos();
+    return lottos;
+  }
+
+  static showIssuingProcess(lottos) {
+    const amount = lottos.length;
+
+    outputView.printPurchaseAmount(amount);
+    outputView.printLotto(lottos);
   }
 
   static async getWinningLottoNumbers() {
@@ -49,9 +54,23 @@ class App {
     return analyzer;
   }
 
-  static estimateProfit(matchingTable, payment) {
+  static showTotalStatistics(analyzer) {
+    const matchingTable = analyzer.getMatchingTable();
+
+    outputView.printStatisticsHeader();
+    outputView.printSeparatingMark();
+    outputView.printStatistics(matchingTable);
+  }
+
+  static estimateProfit(analyzer, payment) {
+    const matchingTable = analyzer.getMatchingTable();
     const prizeCalculator = new PrizeCalculator(matchingTable, payment);
+
     return prizeCalculator.getProfit();
+  }
+
+  static showProfit(profit) {
+    outputView.printProfit(profit);
   }
 }
 
