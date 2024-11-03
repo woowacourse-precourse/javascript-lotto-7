@@ -1,3 +1,5 @@
+import * as Console from 'node:console';
+
 export class Calculate {
   #lottoList;
   #winningLotto;
@@ -22,5 +24,10 @@ export class Calculate {
       fourth: { count: 0, prize: 50000, match: 4, message: '4개 일치' },
       fifth: { count: 0, prize: 5000, match: 3, message: '3개 일치' },
     };
+  }
+
+  printResults() {
+    const results = this.#initializeResults();
+    Console.print(results);
   }
 }

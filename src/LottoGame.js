@@ -4,6 +4,7 @@ import { Console, Random } from '@woowacourse/mission-utils';
 import { ERROR } from './constant.js';
 import Lotto from './Lotto.js';
 import { Bonus } from './Bonus.js';
+import { Calculate } from './Calculate.js';
 
 export class LottoGame {
   #inputInstance;
@@ -61,5 +62,7 @@ export class LottoGame {
     this.printLotto(lottoList);
     const winningLotto = await this.winningLotto();
     const bonusNumber = await this.addBonusNumber(winningLotto);
+    const calculate = new Calculate(lottoList, winningLotto, bonusNumber);
+    calculate.printResults();
   }
 }
