@@ -1,6 +1,7 @@
 import {purchasePriceUtils} from "../../src/utils/purchasePrice.utils.js";
 import {ERROR_CODE, PURCHASE_PRICE, WINNING_NUMBER} from "../../src/constants/constants.js";
 import {winningNumbersUtils} from "../../src/utils/winningNumbers.utils.js";
+import {bonusNumberUtils} from "../../src/utils/bonusNumber.utils.js";
 
 describe("로또 구입 금액 테스트", () => {
 
@@ -41,7 +42,7 @@ describe("로또 구입 금액 테스트", () => {
 });
 
 
-describe.only("당첨 번호 유효성 테스트", () => {
+describe("당첨 번호 유효성 테스트", () => {
 
     test("정상 테스트", () => {
         const winningNumber = [1, 2, 3, 4, 5, 6]
@@ -83,4 +84,34 @@ describe.only("당첨 번호 유효성 테스트", () => {
         const winningNumber = [1, 12, 12, 35, 41, 42]
         expect(() => winningNumbersUtils.validate(winningNumber)).toThrow(ERROR_CODE.NUMBER_DUPLICATE);
     });
+});
+
+describe.only("보너스 번호 유효성 테스트", () => {
+
+    test("정상 테스트", () => {
+        const bonusNumber = 43
+        expect(bonusNumberUtils.validate(bonusNumber)).toEqual(bonusNumber);
+    });
+
+    test("예외 테스트 : 양의 정수를 입력하지 않은 경우", () => {
+        const bonusNumber = "0"
+        expect(() => bonusNumberUtils.validate(bonusNumber)).toThrow(ERROR_CODE.NOT_POSITIVE_NUMBER);
+    });
+
+    test("예외 테스트 : 양의 정수를 입력하지 않은 경우", () => {
+        const bonusNumber = "abc"
+        expect(() => bonusNumberUtils.validate(bonusNumber)).toThrow(ERROR_CODE.NOT_POSITIVE_NUMBER);
+    });
+
+    test("예외 테스트 : 보너스 번호가 범위를 넘어간 경우(1~45)", () => {
+        const bonusNumber = 46
+        expect(() => bonusNumberUtils.validate(bonusNumber)).toThrow(ERROR_CODE.OUT_OF_RANGE(WINNING_NUMBER.MIN_NUMBER, WINNING_NUMBER.MAX_NUMBER));
+    });
+
+    test("예외 테스트 : 당첨 번호에 중복값이 존재하는 경우", () => {
+        const winningNumber = [1, 12, 14, 35, 41, 42]
+        const bonusNumber = 1
+        expect(() => bonusNumberUtils.validateWithWinningNumbers(bonusNumber, winningNumber)).toThrow(ERROR_CODE.BONUS_NUMBER_DUPLICATE);
+    });
+
 });
