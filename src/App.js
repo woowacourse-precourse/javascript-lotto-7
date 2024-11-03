@@ -87,6 +87,20 @@ class App {
       Console.print(`[${lotto.getNumbers().join(', ')}]`)
     );
   }
+
+  #checkWinning(lotto, winningNumbers, bonusNumber) {
+    const matchCount = lotto
+      .getNumbers()
+      .filter((num) => winningNumbers.includes(num)).length;
+    const hasBonus = lotto.getNumbers().includes(bonusNumber);
+
+    if (matchCount === 6) return { rank: 1, prize: 2000000000 };
+    if (matchCount === 5 && hasBonus) return { rank: 2, prize: 30000000 };
+    if (matchCount === 5) return { rank: 3, prize: 1500000 };
+    if (matchCount === 4) return { rank: 4, prize: 50000 };
+    if (matchCount === 3) return { rank: 5, prize: 5000 };
+    return { rank: 0, prize: 0 };
+  }
 }
 
 export default App;
