@@ -8,12 +8,17 @@ class Lotto {
 
   constructor(numbers) {
     this.#numbers = this.#delimiter(numbers);
+    this.#numbers = this.#parseNumbers(numbers);
   }
 
   #delimiter(numbers) {
     if (!DELIMITER_REGEX.test(numbers)) {
       throw new Error(ERROR_MESSAGE + LOTTO_ERROR.INVALID_DELIMITER);
     }
+  }
+
+  #parseNumbers(numbers) {
+    return numbers.split(DELIMITER).map(Number);
   }
 }
 
