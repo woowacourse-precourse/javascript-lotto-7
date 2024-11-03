@@ -49,25 +49,26 @@ class Lotto {
     }
   }
 
-  getLottoNumbers() {
-    return this.#numbers;
-  }
-
   getLottoScore(betLists) {
     Console.print(PRINT_WINNING_RESULT);
     Console.print(PRINT_SPACER);
     const results = [];
     for (const betList of betLists) {
-      const matchNumber = betList.filter((number) =>
-        this.#numbers.basicNumbers.includes(number)
-      );
-      const isBonus = betList.includes(this.#numbers.bonusNumber);
-      results.push({
-        score: matchNumber.length,
-        isBonus: isBonus,
-      });
+      this.#compareLottoWithBet(betList,results);
     }
     return results;
+  }
+
+  #compareLottoWithBet(betList, results) {
+    const matchNumber = betList.filter((number) =>
+      this.#numbers.basicNumbers.includes(number)
+    );
+    const isBonus = betList.includes(this.#numbers.bonusNumber);
+    
+    results.push({
+      score: matchNumber.length,
+      isBonus: isBonus,
+    });
   }
 }
 
