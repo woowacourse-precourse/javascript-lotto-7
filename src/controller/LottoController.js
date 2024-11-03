@@ -20,40 +20,19 @@ export default class LottoController {
 
   #winningBonusNumber;
 
+  #rankingCount;
+
   constructor() {
     this.view = new LottoView();
   }
 
   async startLotto() {
     await this.getPurchaseAmount();
-
     this.purchaseLotto();
-
     await this.getWinningLottoNumbers();
-
     await this.getWinningBonusNumebr(this.#winningNumbers);
-
-    // 당첨 내역
-    const rankingModel = new RankingModel(
-      this.#purchasedLotto,
-      this.#winningNumbers,
-      this.#winningBonusNumber
-    );
-
-    // 당첨 내역 결과
-    const rankingCount = rankingModel.countMatch();
-
-    // 당첨 내역 출력
-    this.view.showWinningStatistics(rankingCount);
-
-    // 총 수익률 계산
-    const totalReturnRate = new CalculateTotalReturn(
-      this.#purchaseAmount,
-      rankingCount
-    ).calculateReturnRate();
-
-    // 총 수익률 출력
-    this.view.showTotalReturnRate(totalReturnRate);
+    this.displayWinningStatistics();
+    this.calculateAndDisplayTotalReturnRate();
   }
 
   async getPurchaseAmount() {
@@ -78,7 +57,6 @@ export default class LottoController {
   }
 
   async getWinningLottoNumbers() {
-    // 당첨 번호 입력 받기
     const winningLottoInput = await this.view.getWinningLottoNumbers();
     try {
       this.#winningNumbers = winningLottoInput.split(",").map(Number);
@@ -98,5 +76,26 @@ export default class LottoController {
       this.view.printError(error.message);
       await this.getWinningBonusNumebr(winningNumbers);
     }
+  }
+
+  displayWinningStatistics() {
+    const rankingModel = new RankingModel(
+      this.#purchasedLotto,
+      this.#winningNumbers,
+      this.#winningBonusNumber
+    );
+
+    this.#rankingCount = rankingModel.countMatch();
+
+    this.view.showWinningStatistics(this.#rankingCount);
+  }
+
+  calculateAndDisplayTotalReturnRate() {
+    const totalReturnRate = new CalculateTotalReturn(
+      this.#purchaseAmount,
+      this.#rankingCount
+    ).calculateReturnRate();
+
+    this.view.showTotalReturnRate(totalReturnRate);
   }
 }

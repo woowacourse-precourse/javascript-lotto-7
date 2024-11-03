@@ -1,15 +1,21 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { REWARDS } from "../config/constants.js";
+import {
+  REWARDS,
+  REWARD_MESSAGES,
+  USER_INPUT_MESSAGES,
+  PURCHASE_MESSAGES,
+  ERROR_MESSAGES,
+} from "../config/constants.js";
 
 export default class LottoView {
   async getPurchaseAmount() {
     return await MissionUtils.Console.readLineAsync(
-      "구입금액을 입력해 주세요.\n"
+      USER_INPUT_MESSAGES.purchaseAmount
     );
   }
 
   showPurchasedLottoCount(count) {
-    return MissionUtils.Console.print(`\n${count}개를 구매했습니다.`);
+    return MissionUtils.Console.print(PURCHASE_MESSAGES.purchasedCount(count));
   }
 
   showPurchasedLottos(lottos) {
@@ -20,18 +26,18 @@ export default class LottoView {
 
   async getWinningLottoNumbers() {
     return await MissionUtils.Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요.\n"
+      USER_INPUT_MESSAGES.winningLottoNumbers
     );
   }
 
   async getWinningLottoBonusNumbers() {
     return await MissionUtils.Console.readLineAsync(
-      "\n보너스 번호를 입력해 주세요.\n"
+      USER_INPUT_MESSAGES.winningBonusNumber
     );
   }
 
   showWinningStatistics(matchCounts) {
-    MissionUtils.Console.print("\n당첨 통계\n---");
+    MissionUtils.Console.print(REWARD_MESSAGES.winningStatistics);
     REWARDS.forEach((reward, index) => {
       MissionUtils.Console.print(
         `${reward.count} (${reward.prize}) - ${matchCounts[index]}개`
@@ -40,7 +46,9 @@ export default class LottoView {
   }
 
   showTotalReturnRate(totalReturnRate) {
-    MissionUtils.Console.print(`총 수익률은 ${totalReturnRate}%입니다.`);
+    MissionUtils.Console.print(
+      REWARD_MESSAGES.totalReturnRate(totalReturnRate)
+    );
   }
 
   printError(error) {

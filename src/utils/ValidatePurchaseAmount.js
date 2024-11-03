@@ -1,20 +1,23 @@
-export default class ValidatePurchaseAmount {
-  static MAX_AMOUNT = 100000;
-  static MIN_AMOUNT = 1000;
+import {
+  ERROR_MESSAGES,
+  LOTTO_POSSIBLE_MAX_PRICE,
+  LOTTO_UNIT_PRICE,
+} from "../config/constants.js";
 
+export default class ValidatePurchaseAmount {
   static validate(amount) {
     const parsedAmount = parseInt(amount, 10);
 
     if (!/^\d+$/.test(amount)) {
-      throw new Error("[ERROR] 구입 금액은 숫자여야 합니다.");
+      throw new Error(ERROR_MESSAGES.purchaseAmountNotANumber);
     }
 
-    if (parsedAmount <= 0 || parsedAmount % 1000 !== 0) {
-      throw new Error("[ERROR] 구입 금액은 1000의 배수인 양수여야 합니다.");
+    if (parsedAmount <= 0 || parsedAmount % LOTTO_UNIT_PRICE !== 0) {
+      throw new Error(ERROR_MESSAGES.purchaseAmountInvalid);
     }
 
-    if (parsedAmount > ValidatePurchaseAmount.MAX_AMOUNT) {
-      throw new Error("[ERROR] 구입 금액은 10만원 이하여야 합니다.");
+    if (parsedAmount > LOTTO_POSSIBLE_MAX_PRICE) {
+      throw new Error(ERROR_MESSAGES.purchaseAmountExceedsLimit);
     }
   }
 }
