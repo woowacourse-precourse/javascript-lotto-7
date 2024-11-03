@@ -70,42 +70,43 @@ class App {
     };
 
     userLottoNumbers.forEach((lotto) => {
-      const lottoNumbers = lotto.getNumbers();
-      let matchCount = 0;
-      let hasBonus = false;
-
-      lottoNumbers.forEach((num) => {
-        if (winningNumberSet.has(num)) {
-          matchCount++;
-        }
-      });
-
-      if (lottoNumbers.includes(bonusNumber)) {
-        hasBonus = true;
-      }
-
-      if (matchCount === 6) {
-        matchingResults.six++;
-        return;
-      }
-      if (matchCount === 5 && hasBonus) {
-        matchingResults.fiveBonus++;
-        return;
-      }
-      if (matchCount === 5) {
-        matchingResults.five++;
-        return;
-      }
-      if (matchCount === 4) {
-        matchingResults.four++;
-        return;
-      }
-      if (matchCount === 3) {
-        matchingResults.three++;
-      }
+      const matchCount = lotto
+        .getNumbers()
+        .filter((num) => winningNumberSet.has(num)).length;
+      this.updateMatchingResults(
+        matchingResults,
+        matchCount,
+        lotto,
+        bonusNumber
+      );
     });
+
     return matchingResults;
   }
+
+  updateMatchingResults(matchingResults, matchCount, lotto, bonusNumber) {
+    switch (matchCount) {
+      case 6:
+        matchingResults.six++;
+        break;
+      case 5:
+        if (lotto.getNumbers().includes(bonusNumber)) {
+          matchingResults.fiveBonus++;
+        } else {
+          matchingResults.five++;
+        }
+        break;
+      case 4:
+        matchingResults.four++;
+        break;
+      case 3:
+        matchingResults.three++;
+        break;
+      default:
+        break;
+    }
+  }
+
   calculateRate(matchingResults, purchaseAmount) {
     const totalPrize =
       PRIZE.THREE * matchingResults.three +
@@ -117,6 +118,7 @@ class App {
     const rate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
     return rate;
   }
+
   async printStatistics(matchingResults, rate) {
     await Console.print(MESSAGE_STATISTICS().HEADER);
     await Console.print(MESSAGE_STATISTICS(matchingResults.three).MATCH_THREE);
