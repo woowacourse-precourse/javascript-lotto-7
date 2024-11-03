@@ -69,4 +69,25 @@ describe('Validator Test', () => {
       expect(validate).not.toThrow();
     });
   });
+
+  describe('isInteger() Test : 입력값이 정수인지 검증', () => {
+    test.each([1.1, -0.1])('정수가 아닌 경우 에러를 발생시킨다.( %s )', (value) => {
+      // when
+      const validate = () => {
+        Validator.isInteger(value);
+      };
+
+      // then
+      expect(validate).toThrow(ERROR_PREFIX);
+    });
+
+    test.each([-1, 0, 10])('정수인 경우 정상적으로 동작한다. ( %s )', (value) => {
+      // when
+      const validate = () => {
+        Validator.isInteger(value);
+      };
+
+      expect(validate).not.toThrow();
+    });
+  });
 });
