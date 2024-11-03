@@ -1,11 +1,11 @@
 import Lotto from './Lotto.js';
-import generateRandomList from '../util/generateRandomList.js';
-import { CONFIG } from '../constants/constants.js';
+import generateRandomList from '../utils/generateRandomList.js';
+import { CONFIG, RANK } from '../constants/constants.js';
 
 class LottoGame {
   #generator;
   #lottoNumbers = [];
-  #rankCount;
+  #matchCount;
 
   constructor(purchaseAmount, generator = () => generateRandomList()) {
     const tickets = purchaseAmount / CONFIG.PURCHASE_AMOUNT_UNIT;
@@ -14,12 +14,12 @@ class LottoGame {
       const numbers = this.#generator();
       return new Lotto([...numbers].sort((a, b) => a - b));
     });
-    this.#rankCount = {
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
+    this.#matchCount = {
+      [RANK.FIRST.matchCount]: 0,
+      [RANK.SECOND.matchCount]: 0,
+      [RANK.THIRD.matchCount]: 0,
+      [RANK.FOURTH.matchCount]: 0,
+      [RANK.FIFTH.matchCount]: 0,
     };
   }
 
@@ -27,13 +27,33 @@ class LottoGame {
     return this.#lottoNumbers;
   }
 
-  getRankCount() {
-    return this.#rankCount;
+  calculatePrize(winningNumbers, bonusNumber) {
+    this.#lottoNumbers.forEach((lotto) => {
+      const matchCount = lotto.getMatchCount({ winningNumbers, bonusNumber });
+      if (matchCount >= RANK.FIFTH.matchCount) {
+        this.#matchCount[matchCount] += 1;
+      }
+    });
+
+    return this.#matchCount;
   }
 
-  calculatePrize() {}
-
-  calculateRevenue(prize) {}
+  getPrizeAmount(count) {
+    switch (count) {
+      case RANK.FIRST.matchCount:
+        return RANK.FIRST.prize;
+      case RANK.SECOND.matchCount:
+        return RANK.SECOND.prize;
+      case RANK.THIRD.matchCount:
+        return RANK.THIRD.prize;
+      case RANK.FOURTH.matchCount:
+        return RANK.FOURTH.prize;
+      case RANK.FIFTH.matchCount:
+        return RANK.FIFTH.prize;
+      default:
+        return 0;
+    }
+  }
 }
 
 export default LottoGame;
