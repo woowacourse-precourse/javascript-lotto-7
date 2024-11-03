@@ -26,5 +26,16 @@ export class LottoMachine {
         await this.promptPurchaseAmount();
     }
   }
+  
+  issueLottos() {
+    const count = this.purchaseAmount / 1000;
+    MissionUtils.Console.print(`${count}개를 구매했습니다.`);
+    for (let i = 0; i < count; i++) {
+      const lotto = Lotto.generate(); 
+      this.lottos.push(lotto);
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    }
+    this.promptWinningNumbers();
+  }
 }
 export default LottoMachine;
