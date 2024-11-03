@@ -7,12 +7,19 @@ import {
   LOTTO_PRICE_UNIT,
   LOTTO_NUMBER_STANDARD,
   PURCHASE_MONEY_INITIAL_VALUE,
+  PURCHASE_MONEY_MAX,
 } from './Constants/Constant.js';
 
 class basicValidation {
   static validateInputBlank(input) {
     if (input === '') {
       throw new Error(BASIC_ERROR.null);
+    }
+  }
+
+  static validateInputPurchaseMoneyMax(input) {
+    if (input > PURCHASE_MONEY_MAX) {
+      throw new Error(BASIC_ERROR.invalidPurchaseMoneyMax);
     }
   }
 

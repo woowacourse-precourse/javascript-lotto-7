@@ -13,6 +13,7 @@ class User {
     basicValidation.validateInputBlank(money);
     basicValidation.validateInputNumberType(money);
     basicValidation.validateInputPossiblePurchase(money);
+    basicValidation.validateInputPurchaseMoneyMax(money);
     basicValidation.validatePurchaseUnit(money);
   }
 
