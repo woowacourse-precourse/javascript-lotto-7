@@ -1,4 +1,4 @@
-import {calcLottoCnt, getLottoCnt, isDivided1000, isIntNumber, isNumber, isPositiveNumber, isZero } from "../src/BuyPrice.js";
+import {calcLottoCnt, getLottoCnt, isDivided1000, isIntNumber, isNumber, isPositiveNumber, isZero } from "../src/buyPrice.js";
 import Lotto from "../src/Lotto.js";
 import { inputWinningNumbers, is1to45 } from "../src/winningNumber.js";
 

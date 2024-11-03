@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { getLottoCnt } from "./BuyPrice.js";
+import { getLottoCnt } from "./buyPrice.js";
 import { checkLotto, makeLotto, organizeLotto, printResult } from "./lottoNumber.js";
 import { getBonusNumer, getWinningNumbers } from "./winningNumber.js";
 
