@@ -157,7 +157,12 @@
 
 ### Models Tests
 
-- [ ] Lotto 클래스 단위 테스트
+- [ ] 통합 테스트 통과
+
+  - ApplicationTest.js
+  - App.success.test.js
+
+- [x] Lotto 클래스 단위 테스트
   - 번호 개수 검증
   - 번호 범위 검증
   - 중복 번호 검증
@@ -165,32 +170,33 @@
 
 ### Services Tests
 
-- [ ] LottoService 클래스 단위 테스트
+- [x] LottoService 클래스 단위 테스트
   - 당첨 번호 비교 검증
   - 당첨 등수 계산 검증
   - 수익률 계산 검증
 
 ### Utils Tests
 
-- [ ] Validator 클래스 단위 테스트
+- [x] Validator 클래스 단위 테스트
   - 구매 금액 검증
   - 로또 번호 검증
   - 당첨/보너스 번호 검증
 
 ## 테스트 통과
 
-- [ ] ApllicationTest 통과
-- [ ] Lotto 단위 테스트 통과
-- [ ] Lotto Service 단위 테스트 통과
-- [ ] Validator 단위 테스트 통과
+- [x] ApllicationTest 통과
+- [ ] App.success.test 통과
+- [x] Lotto 단위 테스트 통과
+- [x] Lotto Service 단위 테스트 통과
+- [x] Validator 단위 테스트 통과
 
 ## 📌 공통 요구사항
 
-- [ ] 메서드 15라인 제한
-- [ ] else 사용 지양 (early return 활용)
-- [ ] 단위 테스트 작성
-- [ ] "[ERROR]" 프리픽스를 가진 에러 메시지 출력
-- [ ] 에러 발생 시 해당 부분부터 다시 입력받기
+- [x] 메서드 15라인 제한
+- [x] else 사용 지양 (early return 활용)
+- [x] 단위 테스트 작성
+- [x] "[ERROR]" 프리픽스를 가진 에러 메시지 출력
+- [x] 에러 발생 시 해당 부분부터 다시 입력받기
 
 ---
 
