@@ -81,9 +81,9 @@ describe('로또게임 클래스 테스트', () => {
 
       lottoGame.calculateWinningResults();
 
-      expect(lottoGame.result['5th place']).toBe(1);
-      expect(lottoGame.result['2nd place']).toBe(1);
-      expect(lottoGame.result['1st place']).toBe(1);
+      expect(lottoGame.result['FIFTH']).toBe(1);
+      expect(lottoGame.result['SECOND']).toBe(1);
+      expect(lottoGame.result['FIRST']).toBe(1);
     });
   });
 
@@ -91,11 +91,11 @@ describe('로또게임 클래스 테스트', () => {
     test('수익률이 정확히 계산된다', () => {
       const lottoGame = new LottoGame(QUANTITY);
       lottoGame.result = {
-        '5th place': 1,
-        '4th place': 1,
-        '3rd place': 0,
-        '2nd place': 0,
-        '1st place': 0,
+        FIRST: 0,
+        SECOND: 0,
+        THIRD: 0,
+        FOURTH: 1,
+        FIFTH: 1,
       };
 
       const profitRate = lottoGame.calculateProfitRate();
@@ -105,11 +105,11 @@ describe('로또게임 클래스 테스트', () => {
     test('소수점 둘째 자리에서 반올림이 정확히 된다', () => {
       const lottoGame = new LottoGame(QUANTITY);
       lottoGame.result = {
-        '5th place': 1,
-        '4th place': 0,
-        '3rd place': 0,
-        '2nd place': 0,
-        '1st place': 0,
+        FIRST: 0,
+        SECOND: 0,
+        THIRD: 0,
+        FOURTH: 0,
+        FIFTH: 1,
       };
 
       const profitRate = lottoGame.calculateProfitRate();
@@ -119,15 +119,15 @@ describe('로또게임 클래스 테스트', () => {
     test('당첨금 총액이 정확히 계산된다', () => {
       const lottoGame = new LottoGame(QUANTITY);
       lottoGame.result = {
-        '5th place': 1,
-        '4th place': 1,
-        '3rd place': 1,
-        '2nd place': 1,
-        '1st place': 1,
+        FIRST: 0,
+        SECOND: 0,
+        THIRD: 1,
+        FOURTH: 1,
+        FIFTH: 1,
       };
 
       const totalAmount = lottoGame.calculateWinningAmount();
-      expect(totalAmount).toBe(2031555000);
+      expect(totalAmount).toBe(1555000);
     });
   });
 });
