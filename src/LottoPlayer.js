@@ -26,6 +26,7 @@ class LottoPlayer {
       this.bonusNumber = await this.handleBonusNumber();
       this.compareLottoNumbers();
       this.printResults();
+      this.printRateOfReturn();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.play();
@@ -151,6 +152,13 @@ class LottoPlayer {
       (this.prizeAmount / (this.numberOfLottos * LottoPlayer.LOTTO_PRICE)) *
       100;
     return rateOfReturn.toFixed(1);
+  }
+
+  printRateOfReturn() {
+    const rateOfReturn = this.caclulateRateOfReturn();
+    MissionUtils.Console.print(
+      MESSAGES.SHOW_RETURN_RATE.replace("{percent}", rateOfReturn)
+    );
   }
 }
 
