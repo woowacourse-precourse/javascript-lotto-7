@@ -4,10 +4,19 @@ import { RULE } from '../constant/rule.js';
 class LottoGame {
   #lottoAmount;
   #lottos;
+  #winningResult;
+
+  #rankMapping = {
+    6: 1,
+    5: { true: 2, false: 3 },
+    4: 4,
+    3: 5,
+  };
 
   constructor(lottoAmount) {
     this.#lottoAmount = lottoAmount;
     this.#lottos = [];
+    this.#winningResult = Array(6).fill(0);
 
     this.#generateLottos();
   }
@@ -33,15 +42,25 @@ class LottoGame {
 
   calculateWinningRanks(winningLotto, bonusNumber) {
     this.#lottos.forEach((lotto) => {
-      const matchingNumbers = lotto.filter((number) =>
+      const matchingCount = lotto.filter((number) =>
         winningLotto.hasInNumbers(number),
       ).length;
 
-      const isBonusNumberIncluded = lotto.includes(bonusNumber);
+      const isBonusNumberMatched = lotto.includes(bonusNumber);
 
-      Console.print(matchingNumbers);
-      Console.print(isBonusNumberIncluded);
+      const rank = this.#calculateRank(matchingCount, isBonusNumberMatched);
+      if (rank !== 0) this.#winningResult[rank] += 1;
     });
+  }
+
+  #calculateRank(matchingCount, isBonusNumberMatched) {
+    const rank = this.#rankMapping[matchingCount];
+
+    if (rank && typeof rank === 'object') {
+      return rank[isBonusNumberMatched];
+    }
+
+    return rank || 0;
   }
 }
 
