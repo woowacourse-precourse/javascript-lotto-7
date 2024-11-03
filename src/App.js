@@ -25,7 +25,7 @@ class App {
       const winningStatistics = new Statistics(lottos, this.#purchasePrice, this.#winningNumbers, this.#bonusNumber);
       winningStatistics.result();
     } catch (error) {
-      handleError(true, error);
+      handleError(true, error.message);
     }
   }
 }
