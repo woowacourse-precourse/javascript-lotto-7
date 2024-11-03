@@ -9,7 +9,7 @@ class App {
     lottoController.generateLottoTickets();
     lottoController.displayLottoTickets();
 
-    const lotto = await Lotto.promptLotto();
+    const lotto = await Lotto.createLotto();
   }
 }
 

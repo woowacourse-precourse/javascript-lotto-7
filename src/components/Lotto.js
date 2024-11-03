@@ -23,7 +23,7 @@ class Lotto {
     return numbers.slice().sort((a, b) => a - b);
   }
 
-  static async promptLotto() {
+  static async createLotto() {
     const input = await Console.readLineAsync(InputPrompts.winningNumbers);
     const numbers = input.split(DELIMETER).map((number) => Number(number));
 

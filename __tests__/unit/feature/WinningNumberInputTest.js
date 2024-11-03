@@ -8,7 +8,7 @@ describe('당첨 번호 입력 기능 테스트', () => {
     const logspy = jest.spyOn(Console, 'readLineAsync');
     const log = [1, 2, 3, 4, 5, 6];
 
-    const lotto = await Lotto.promptLotto();
+    const lotto = await Lotto.createLotto();
 
     expect(logspy).toHaveBeenCalledWith('당첨 번호를 입력해 주세요.\n');
     expect(lotto.getNumbers()).toEqual(log);
@@ -20,7 +20,7 @@ describe('당첨 번호 입력 기능 테스트', () => {
     const logspy = jest.spyOn(Console, 'readLineAsync');
     const log = [1, 2, 3, 4, 5, 6];
 
-    const lotto = await Lotto.promptLotto();
+    const lotto = await Lotto.createLotto();
 
     expect(logspy).toHaveBeenCalledWith('당첨 번호를 입력해 주세요.\n');
     expect(lotto.getNumbers()).toEqual(log);
