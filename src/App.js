@@ -42,7 +42,7 @@ class App {
 	async getLotto(lottoCount) {
 		return Array.from({ length: lottoCount }, () => {
 			const lottos = this.getRandomNumbers();
-			this.#printLottoNumbers(lottos);
+			this.printLottoNumbers(lottos);
 			return lottos;
 		});
 	}
@@ -55,7 +55,7 @@ class App {
 		).sort((a, b) => a - b);
 	}
 
-	#printLottoNumbers(lottos) {
+	printLottoNumbers(lottos) {
 		printOutput(PROMPT.LOTTO_NUMBERS(lottos));
 	}
 

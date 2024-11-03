@@ -2,6 +2,13 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import App from "../src/App.js";
 import Output from "../src/Output.js";
 
+const mockRandoms = (numbers) => {
+	MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
+	numbers.reduce((acc, number) => {
+		return acc.mockReturnValueOnce(number);
+	}, MissionUtils.Random.pickUniqueNumbersInRange);
+};
+
 const getLogSpy = () => {
 	const logSpy = jest.spyOn(MissionUtils.Console, "print");
 	logSpy.mockClear();
@@ -9,16 +16,21 @@ const getLogSpy = () => {
 };
 
 describe("App 단위 테스트", () => {
-	// given
+	let app;
 	const COUNT_CASES = [
 		[100000, 100],
 		[1000, 1],
 		[50000, 50],
 	];
+	const RANDOM_NUMBERS = [
+		[1, 2, 3, 4, 5, 6],
+		[7, 8, 9, 10, 11, 12],
+		[13, 14, 15, 16, 17, 18],
+	];
 
 	test.each(COUNT_CASES)("로또 구매 개수 계산", async (money, count) => {
 		//when
-		const app = new App();
+		app = new App();
 		const RESULT = await app.calculateLottoCount(money);
 
 		// then
@@ -38,6 +50,27 @@ describe("App 단위 테스트", () => {
 
 		RESULT.forEach((output) => {
 			expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+		});
+	});
+
+	beforeEach(() => {
+		mockRandoms([RANDOM_NUMBERS]);
+	});
+
+	test("로또 번호 랜덤 생성", async () => {
+		// given
+		const LOTTO_COUNT = 6;
+
+		// when
+		app = new App();
+		const LOTTOS = await app.getRandomNumbers();
+
+		// then
+		LOTTOS.forEach((lotto) => {
+			expect(lotto).toHaveLength(LOTTO_COUNT);
+		});
+		LOTTOS.forEach((lotto, index) => {
+			expect(lotto).toEqual(RANDOM_NUMBERS[index]);
 		});
 	});
 });
