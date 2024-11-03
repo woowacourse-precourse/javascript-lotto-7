@@ -65,7 +65,7 @@ describe("금액 입력 테스트", () => {
 
     await app.validateMoney();
 
-    expect(logSpy).toHaveBeenCalledWith("[Error] 1000 이하의 단위는 입력할 수 없습니다!");
+    expect(logSpy).toHaveBeenCalledWith("[Error] 1000 보다 적은 단위는 입력할 수 없습니다!");
   });
 
   test("음수를 입력했을 때 에러 메시지 출력", async () => {
