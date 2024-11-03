@@ -9,7 +9,7 @@ class MakeWinningLotto {
     this.winningLottoNumber = lottoString.split(',').map(Number);
   }
 
-  async getBounusNumber() {
+  async getBonusNumber() {
     const bonusNumber = Number(await scan('\n보너스 번호를 입력해 주세요.'));
     this.validateIsRangeNumber(bonusNumber);
     this.validateDuplicate(bonusNumber);
