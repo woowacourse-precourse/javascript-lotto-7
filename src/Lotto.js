@@ -4,6 +4,7 @@ import {
   NUMBER_OF_LOTTO_NUMBERS,
   MIN_NUMBER,
   MAX_NUMBER,
+  LOTTO_ERROR_MESSAGE,
 } from './constants/constants.js';
 class Lotto {
   #numbers;
@@ -22,6 +23,12 @@ class Lotto {
   #validate(numbers) {
     if (numbers.length !== NUMBER_OF_LOTTO_NUMBERS) {
       throw new Error(LOTTO_MESSAGE.LOTTO_NUMBER_ERROR_MESSAGE);
+    }
+    if (new Set(numbers).size !== NUMBER_OF_LOTTO_NUMBERS) {
+      throw new Error(LOTTO_ERROR_MESSAGE.DUPLICATE_NUMBER_ERROR_MESSAGE);
+    }
+    if (numbers.some((number) => number < MIN_NUMBER || number > MAX_NUMBER)) {
+      throw new Error(LOTTO_ERROR_MESSAGE.OUT_OF_RANGE_NUMBER_ERROR_MESSAGE);
     }
   }
 
