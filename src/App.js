@@ -4,6 +4,8 @@ import Input from "./Input.js";
 import Output from "./Output.js";
 import Lotto from "./Lotto.js";
 
+import { lottoInfo } from "./Static/const.js";
+
 class App {
   #money;
   #lottos;
@@ -11,19 +13,17 @@ class App {
   #bonusNumber;
   #output;
 
-  #match = new Map();
+  #lottoResult = new Map();
 
   constructor() {
     this.input = new Input();
     this.#lottos = [];
 
-    this.#match = new Map([
-      ["three", 0],
-      ["four", 0],
-      ["five", 0],
-      ["fiveAndBonus", 0],
-      ["six", 0],
-    ]);
+    this.#lottoResult = new Map(
+      Object.keys(lottoInfo)
+        .reverse()
+        .map((rank) => [rank, 0])
+    );
   }
 
   async run() {
@@ -69,48 +69,44 @@ class App {
     this.#bonusNumber = bonusNumber;
   }
 
+  #getRank(matchCount, hasBonus) {
+    return Object.entries(lottoInfo).find(
+      ([_, info]) =>
+        info.match === matchCount && info.needBonusBall === hasBonus
+    )?.[0];
+  }
+
   #winning() {
     for (const lotto of this.#lottos) {
-      const match = lotto
+      const matchNumbers = lotto
         .getNumbers()
         .filter((number) => this.#winningNumber.getNumbers().includes(number));
 
-      switch (match.length) {
-        case 6:
-          this.#match.set("six", this.#match.get("six") + 1);
-          break;
-        case 5:
-          this.#checkBonus(lotto);
-          break;
-        case 4:
-          this.#match.set("four", this.#match.get("four") + 1);
-          break;
-        case 3:
-          this.#match.set("three", this.#match.get("three") + 1);
-          break;
+      const hasBonus =
+        matchNumbers.length === 5 &&
+        lotto.getNumbers().includes(this.#bonusNumber);
+
+      const rank = this.#getRank(matchNumbers.length, hasBonus);
+
+      if (rank) {
+        this.#lottoResult.set(rank, this.#lottoResult.get(rank) + 1);
       }
     }
   }
 
-  #checkBonus(lotto) {
-    if (lotto.getNumbers().includes(this.#bonusNumber)) {
-      this.#match.set("fiveAndBonus", this.#match.get("fiveAndBonus") + 1);
-      return;
-    }
-    this.#match.set("five", this.#match.get("five") + 1);
-  }
-
   #printResult() {
-    Console.print(`\n`);
-    Console.print(`3개 일치 (5,000원) - ${this.#match.get("three")}개`);
-    Console.print(`4개 일치 (50,000원) - ${this.#match.get("four")}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${this.#match.get("five")}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.#match.get(
-        "fiveAndBonus"
-      )}개`
-    );
-    Console.print(`6개 일치 (2,000,000,000원) - ${this.#match.get("six")}개`);
+    for (const [key, value] of this.#lottoResult) {
+      const { match, needBonusBall, prize } = lottoInfo[key];
+      if (!needBonusBall) {
+        Console.print(
+          `${match}개 일치 (${prize.toLocaleString()}원) - ${value}개`
+        );
+      } else {
+        Console.print(
+          `${match}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${value}개`
+        );
+      }
+    }
   }
 }
 
