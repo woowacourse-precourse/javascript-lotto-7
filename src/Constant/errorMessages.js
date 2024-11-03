@@ -16,7 +16,7 @@ export const ERROR_MESSAGES = Object.freeze({
     EMPTY_INPUT: `\n${ERROR} 당첨 번호가 입력되지 않았습니다.\n${MESSAGES.winningNumbers}`,
     NUMBER_LENGTH: `\n${ERROR} 입력하신 당첨번호의 개수가 6개가 아닙니다.\n${MESSAGES.winningNumbers}`,
     NUMBER_RANGE: `\n${ERROR} 입력하신 당첨번호 중 1부터 45 범위를 벗어난 숫자가 있습니다.\n${MESSAGES.winningNumbers}`,
-    COMMA_COUNT: `\n${ERROR} 입력하신 당첨번호들이 쉼표(,)로 구분 되어있지 않습니다.\n ${MESSAGES.winningNumbers}`,
+    COMMA_COUNT: `\n${ERROR} 입력하신 당첨번호들이 쉼표(,)로 구분 되어있지 않습니다.\n${MESSAGES.winningNumbers}`,
     UNIQUE_NUMBER: `\n${ERROR} 입력하신 당첨번호 중 중복된 숫자가 있습니다.\n${MESSAGES.winningNumbers}`,
   },
 
