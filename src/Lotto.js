@@ -33,6 +33,7 @@ class Lotto {
   lotto_bonus(lotto_bonus) {
     return this.#numbers.includes(lotto_bonus);
   }
+
   // TODO: 추가 기능 구현
 }
 

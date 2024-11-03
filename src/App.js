@@ -9,7 +9,7 @@ class App {
       const lotto_tickets = this.make_lotto_tickets(lotto_count);
       const lotto_numbers = await this.get_lotto_answer();
 
-      const lotto_bonus = await this.get_lotto_bonus();
+      const lotto_bonus = await this.get_lotto_bonus(lotto_numbers);
       this.check_lotto(lotto_tickets, lotto_numbers, lotto_bonus);
     } catch (e) {
       Console.print(e.message);
@@ -29,11 +29,12 @@ class App {
     );
     return lotto_answer.split(",").map((num) => parseInt(num));
   }
-  async get_lotto_bonus() {
-    const lotto_bonus = await Console.readLineAsync(
+  async get_lotto_bonus(lotto_numbers) {
+    const get_bonus = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요."
     );
-    return parseInt(lotto_bonus);
+    const lotto_bonus = parseInt(get_bonus, 10);
+    return lotto_bonus;
   }
   make_lotto_tickets(lotto_count) {
     let lotto_tickets = [];
