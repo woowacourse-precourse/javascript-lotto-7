@@ -3,7 +3,7 @@
 ### 시작하기
 
 - [x]  요구사항 분석하기 `README`
-- [ ]  constant 작성하기 `constant`
+- [x]  constant 작성하기 `constant`
 
 ### 입력받기 `input`
 
