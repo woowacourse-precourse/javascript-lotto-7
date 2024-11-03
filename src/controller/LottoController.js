@@ -1,13 +1,13 @@
 import { Random } from '@woowacourse/mission-utils';
-import BonusLotto from '../BonusLotto.js';
-import MONEY_UNIT from '../constants/lottoStandard.js';
-import Lotto from '../Lotto.js';
-import Money from '../Money.js';
+import BonusLotto from '../domain/BonusLotto.js';
+import Lotto from '../domain/Lotto.js';
+import Money from '../domain/Money.js';
+import Rank from '../domain/Rank.js';
+import Profit from '../domain/Profit.js';
+import RankCounter from '../domain/RankCounter.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import Rank from '../Rank.js';
-import Profit from '../Profit.js';
-import RankCounter from '../RankCounter.js';
+import MONEY_UNIT from '../constants/lottoStandard.js';
 
 class LottoController {
   async run() {

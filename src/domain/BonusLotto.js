@@ -1,6 +1,6 @@
-import ERROR_MESSAGE from './constants/errorMessage.js';
-import CustomError from './CustomError.js';
-import Validator from './Validator.js';
+import ERROR_MESSAGE from '../constants/errorMessage.js';
+import CustomError from '../CustomError.js';
+import LottoNumberValidator from '../LottoNumberValidator.js';
 
 class BonusLotto {
   #bonusNumber;
@@ -11,7 +11,7 @@ class BonusLotto {
   }
 
   #validate(winningNumbers, bonusNumber) {
-    Validator.validateLottoNumber(bonusNumber);
+    LottoNumberValidator.validateLottoNumber(bonusNumber);
     this.#validateContainWinningNumber(winningNumbers, bonusNumber);
   }
 

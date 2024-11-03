@@ -1,6 +1,6 @@
-import ERROR_MESSAGE from './constants/errorMessage.js';
-import CustomError from './CustomError.js';
-import Validator from './Validator.js';
+import ERROR_MESSAGE from '../constants/errorMessage.js';
+import CustomError from '../CustomError.js';
+import LottoNumberValidator from '../LottoNumberValidator.js';
 
 class Lotto {
   #numbers;
@@ -15,7 +15,7 @@ class Lotto {
     this.#validateNumbersDuplicate(numbers);
 
     numbers.forEach((number) => {
-      Validator.validateLottoNumber(number);
+      LottoNumberValidator.validateLottoNumber(number);
     });
   }
 
@@ -33,9 +33,7 @@ class Lotto {
 
   #sortNumbers(numbers) {
     const translatedNumbers = numbers.map(Number);
-    return translatedNumbers.sort(
-      (firstNumber, secondNumber) => firstNumber - secondNumber,
-    );
+    return translatedNumbers.sort((firstNumber, secondNumber) => firstNumber - secondNumber);
   }
 
   getNumbers() {

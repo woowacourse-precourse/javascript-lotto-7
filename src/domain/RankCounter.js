@@ -1,6 +1,7 @@
+const SIX_RANK = 6;
+
 class RankCounter {
   #rankCounter;
-  static SIX_RANK = 6;
 
   constructor() {
     this.#rankCounter = {
@@ -13,7 +14,7 @@ class RankCounter {
   }
 
   increaseRankCounter(rank) {
-    if (rank !== RankCounter.SIX_RANK) {
+    if (rank !== SIX_RANK) {
       const rankIndex = 5 - rank;
       this.#rankCounter[Object.keys(this.#rankCounter)[rankIndex]] += 1;
     }

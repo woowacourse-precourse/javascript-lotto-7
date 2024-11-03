@@ -3,7 +3,7 @@ import CustomError from './CustomError.js';
 
 const LOTTO_BOUNDARY = Object.freeze({ MIN: 1, MAX: 45 });
 
-class Validator {
+class LottoNumberValidator {
   static validateLottoNumber(number) {
     this.#validateNumberEmpty(number);
     this.#validateNumberType(number);
@@ -33,4 +33,4 @@ class Validator {
   }
 }
 
-export default Validator;
+export default LottoNumberValidator;

@@ -1,4 +1,4 @@
-import Profit from '../src/Profit.js';
+import Profit from '../src/domain/Profit.js';
 
 describe('수익 클래스 테스트', () => {
   test.each([
