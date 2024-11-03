@@ -1,6 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PrizeDescription } from '../Constants/prizeConfig.js';
-import Errors from '../Constants/Errors.js';
 import { OutputComment } from '../Constants/display.js';
 
 const OutputPrint = {

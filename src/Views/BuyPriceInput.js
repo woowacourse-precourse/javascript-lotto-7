@@ -3,7 +3,7 @@ import throwError from '../Utils/throwError.js';
 import Rules from '../Utils/Rules.js';
 import Errors from '../Constants/Errors.js';
 import { InputComment } from '../Constants/display.js';
-import BuyPriceConfig from '../Constants/buyPriceConfig.js';
+import BuyPriceConfig from '../Constants/BuyPriceConfig.js';
 
 const BuyPriceInput = {
   get: async () => {

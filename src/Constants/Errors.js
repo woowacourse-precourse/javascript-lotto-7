@@ -1,5 +1,4 @@
-import BuyPriceConfig from './buyPriceConfig.js';
-import { InputComment } from './display.js';
+import BuyPriceConfig from './BuyPriceConfig.js';
 
 const Errors = Object.freeze({
   PREFIX: '[ERROR]',
