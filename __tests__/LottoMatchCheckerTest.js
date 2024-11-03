@@ -8,4 +8,18 @@ describe("LottoMatchChecker 클래스 테스트", () => {
 
     expect(lottoMatchChecker.countMatchesIn(lotto)).toBe(6);
   });
+
+  test("보너스 번호와 일치하는 로또 번호가 존재하면 true를 리턴할 수 있다.", () => {
+    const lotto = new Lotto([1, 3, 5, 7, 9, 4]);
+    const lottoMatchChecker = new LottoMatchChecker(4, [1, 3, 5, 7, 9, 10]);
+
+    expect(lottoMatchChecker.isBonusNumberIn(lotto)).toBeTruthy();
+  });
+
+  test("보너스 번호와 일치하는 로또 번호가 없으면 false를 리턴할 수 있다.", () => {
+    const lotto = new Lotto([1, 3, 5, 7, 9, 44]);
+    const lottoMatchChecker = new LottoMatchChecker(4, [1, 3, 5, 7, 9, 10]);
+
+    expect(lottoMatchChecker.isBonusNumberIn(lotto)).toBeFalsy();
+  });
 });
