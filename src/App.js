@@ -64,12 +64,7 @@ class App {
       6: 2000000000,
     };
 
-    const totalPrize =
-      counts[3] * prizes[3] +
-      counts[4] * prizes[4] +
-      counts[5] * prizes[5] +
-      counts["5_bonus"] * prizes["5_bonus"] +
-      counts[6] * prizes[6];
+    const totalPrize = this.calculateTotalPrize(counts, prizes);
     const profitRate = (totalPrize / lottoPurchaseAmount) * 100;
     MissionUtils.Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
   }
@@ -110,6 +105,16 @@ class App {
         "[ERROR] : 보너스 번호는 당첨 번호와 중복될 수 없습니다."
       );
     }
+  }
+
+  calculateTotalPrize(counts, prizes) {
+    return (
+      counts[3] * prizes[3] +
+      counts[4] * prizes[4] +
+      counts[5] * prizes[5] +
+      counts["5_bonus"] * prizes["5_bonus"] +
+      counts[6] * prizes[6]
+    );
   }
 }
 
