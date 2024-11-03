@@ -3,7 +3,6 @@ import inputView from './userInterface/InputView.js';
 import Lotto from './Lotto.js';
 import LottoMachine from './LottoMachine.js';
 import Utils from './utils/Utils.js';
-import Validation from './Validation.js';
 import WinningLottoManager from './WinningLottoManager.js';
 import Analyzer from './Analyzer.js';
 import outputView from './userInterface/OutputView.js';
