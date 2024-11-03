@@ -14,6 +14,10 @@ class Ticket {
       randomNumber().sort((a, b) => a - b)
     );
   }
+
+  get results() {
+    return this.#tickets;
+  }
 }
 
 export default Ticket;
