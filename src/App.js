@@ -13,6 +13,17 @@ const ERROR_MESSAGES = {
   INVAILED_NUMBER: "[ERROR] 유효하지 않은 번호가 입력되었습니다.",
 };
 
+const STATISTICS_MESSAGES = {
+  WINNING_STATISTICS: "\n당첨 통계\n---",
+  THREE_MATCHES: (matches) => `3개 일치 (5,000원) - ${matches}개`,
+  FOUR_MATCHES: (matches) => `4개 일치 (50,000원) - ${matches}개`,
+  FIVE_MATCHES: (matches) => `5개 일치 (1,500,000원) - ${matches}개`,
+  FIVE_POINT_FIVE_MATCHES: (matches) =>
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matches}개`,
+  SIX_MATCHES: (matches) => `6개 일치 (2,000,000,000원) - ${matches}개`,
+  RATE_OF_RETURN: (rateOfReturn) => `총 수익률은 ${rateOfReturn}%입니다.`,
+};
+
 class App {
   #prizes = {
     3: 5000,
@@ -24,7 +35,7 @@ class App {
 
   async #getAmount() {
     MissionUtils.Console.print(PROMPT_MESSAGES.BUY_LOTTO);
-    const amount = parseInt(await MissionUtils.Console.readLineAsync(""), 10);
+    const amount = await MissionUtils.Console.readLineAsync("");
     if (!(amount > 0)) {
       throw new Error(ERROR_MESSAGES.INVAILED_AMOUNT);
     }
@@ -90,6 +101,21 @@ class App {
     return { results, totalPrize };
   }
 
+  #printStatistics(results, totalPrize, amount) {
+    MissionUtils.Console.print(STATISTICS_MESSAGES.WINNING_STATISTICS);
+    MissionUtils.Console.print(STATISTICS_MESSAGES.THREE_MATCHES(results[3]));
+    MissionUtils.Console.print(STATISTICS_MESSAGES.FOUR_MATCHES(results[4]));
+    MissionUtils.Console.print(STATISTICS_MESSAGES.FIVE_MATCHES(results[5]));
+    MissionUtils.Console.print(
+      STATISTICS_MESSAGES.FIVE_POINT_FIVE_MATCHES(results[5.5])
+    );
+    MissionUtils.Console.print(STATISTICS_MESSAGES.SIX_MATCHES(results[6]));
+    const rateOfReturn = ((totalPrize / amount) * 100).toFixed(1);
+    MissionUtils.Console.print(
+      STATISTICS_MESSAGES.RATE_OF_RETURN(rateOfReturn)
+    );
+  }
+
   async run() {
     const amount = await this.#getAmount();
     const count = await this.#getCount(amount);
@@ -101,6 +127,7 @@ class App {
       winningNumber,
       bonusNumber
     );
+    this.#printStatistics(results, totalPrize, amount);
   }
 }
 
