@@ -52,3 +52,106 @@ describe("로또 클래스 테스트", () => {
     })
 
 });
+
+
+describe.only("당첨 케이스 테스트", () => {
+    test("1등 당첨 케이스", () => {
+        const lottos = [
+            new Lotto([1, 3, 5, 8, 11, 38])
+        ]
+        const winningNumbers = [1, 3, 5, 8, 11, 38]
+        const bonusNumber = 39
+
+        const lottoResult = [0, 0, 0, 0, 0, 0, 0, 1] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
+
+        expect(
+            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+        ).toStrictEqual(lottoResult);
+    });
+
+    test("2등 당첨 케이스", () => {
+        const lottos = [
+            new Lotto([1, 3, 5, 8, 11, 39])
+        ]
+        const winningNumbers = [1, 3, 5, 8, 11, 38]
+        const bonusNumber = 39
+
+        const lottoResult = [0, 0, 0, 0, 0, 0, 1, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
+
+        expect(
+            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+        ).toStrictEqual(lottoResult);
+    });
+
+    test("3등 당첨 케이스", () => {
+        const lottos = [
+            new Lotto([1, 3, 5, 8, 11, 39])
+        ]
+        const winningNumbers = [1, 3, 5, 8, 11, 38]
+        const bonusNumber = 40
+
+        const lottoResult = [0, 0, 0, 0, 0, 1, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
+
+        expect(
+            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+        ).toStrictEqual(lottoResult);
+    });
+
+    test("4등 당첨 케이스", () => {
+        const lottos = [
+            new Lotto([1, 3, 5, 8, 11, 39])
+        ]
+        const winningNumbers = [1, 3, 5, 8, 14, 38]
+        const bonusNumber = 40
+
+        const lottoResult = [0, 0, 0, 0, 1, 0, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
+
+        expect(
+            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+        ).toStrictEqual(lottoResult);
+    });
+
+    test("5등 당첨 케이스", () => {
+        const lottos = [
+            new Lotto([1, 3, 5, 8, 11, 39])
+        ]
+        const winningNumbers = [1, 3, 5, 10, 14, 38]
+        const bonusNumber = 40
+
+        const lottoResult = [0, 0, 0, 1, 0, 0, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
+
+        expect(
+            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+        ).toStrictEqual(lottoResult);
+    });
+
+    test("0개 일치 케이스", () => {
+        const lottos = [
+            new Lotto([1, 3, 5, 8, 11, 39])
+        ]
+        const winningNumbers = [2, 4, 6, 10, 14, 38]
+        const bonusNumber = 40
+
+        const lottoResult = [1, 0, 0, 0, 0, 0, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
+
+        expect(
+            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+        ).toStrictEqual(lottoResult);
+    });
+
+    test("2개 이상 로또 ", () => {
+        const lottos = [
+            new Lotto([1, 3, 5, 8, 11, 40]),
+            new Lotto([1, 2, 6, 8, 11, 39])
+        ]
+        const winningNumbers = [1, 3, 5, 8, 11, 39]
+        const bonusNumber = 40
+
+        const lottoResult = [0, 0, 0, 0, 1, 0, 1, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
+
+        expect(
+            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+        ).toStrictEqual(lottoResult);
+    });
+
+});
