@@ -11,7 +11,7 @@ class LottoChecker {
   ];
 
   static checkWinningLottos(lottos, winningNumbers, bonusNumber) {
-    this.#validate(lottos);
+    this.#validateLottos(lottos);
 
     const lottoCheckResults = new Array(5).fill(0);
     this.#calculateResults(lottos, lottoCheckResults, winningNumbers, bonusNumber);
@@ -20,7 +20,7 @@ class LottoChecker {
   }
 
   // 검증 메서드
-  static #validate(lottos) {
+  static #validateLottos(lottos) {
     this.#validateLottosNotEmpty(lottos);
     this.#validateLottosInstanceOf(lottos);
   }
