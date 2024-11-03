@@ -1,35 +1,33 @@
 import { Console } from "@woowacourse/mission-utils";
 import Validation from "../models/Validation.js";
 
-const InputView = {
-  async readPurchaseAmount() {
-    try {
-      const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
-      Validation.ispurchaseMoneyValidated(input);
-      return Number(input) % 1000;
-    } catch (error) {
-      Console.print(error.message);
-      return this.readPurchaseAmount();
-    }
-  },
+export async function readPurchaseAmount() {
+  try {
+    const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    Validation.ispurchaseMoneyValidated(input);
+    const count = Number(input) / 1000;
+    return count;
+  } catch (error) {
+    Console.print(error.message);
+    return readPurchaseAmount();
+  }
+}
 
-  async readWinningNumber() {
-    const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+export async function readWinningNumber() {
+  const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+  const parseWinningNumber = input.split(",").map((number) => number.trim());
+  return parseWinningNumber;
+}
 
-    return this.parseWinningNumber(input);
-  },
-
-  parseWinningNumber(input) {
-    return input.split(",").map((number) => number.trim());
-  },
-
-  async readBonusNumber() {
+export async function readBonusNumber() {
+  try {
     const input = await Console.readLineAsync(
       "\n보너스 번호를 입력해 주세요.\n"
     );
-
+    Validation.isBonusNumberValidated(input);
     return input;
-  },
-};
-
-export default InputView;
+  } catch (error) {
+    Console.print(error.message);
+    return readBonusNumber();
+  }
+}
