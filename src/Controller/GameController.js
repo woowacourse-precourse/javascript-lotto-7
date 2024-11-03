@@ -3,6 +3,7 @@ import Input from '../View/Input.js';
 import { ERROR_MESSAGE } from '../constant/error.js';
 import Lotto from '../Lotto.js';
 import { isNumber } from '../util/validation.js';
+import { createErrorMessage } from '../util/error.js';
 
 class GameController {
   async init() {
@@ -22,11 +23,13 @@ class GameController {
   #validatePurchaseAmount(input) {
     const amount = +input;
     if (!isNumber(amount)) {
-      throw new Error(ERROR_MESSAGE.invalidNumberType);
+      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
     }
 
     if (amount % 1000 !== 0) {
-      throw new Error(ERROR_MESSAGE.invalidPurchaseAmountUnit);
+      throw new Error(
+        createErrorMessage(ERROR_MESSAGE.invalidPurchaseAmountUnit),
+      );
     }
 
     return amount;
