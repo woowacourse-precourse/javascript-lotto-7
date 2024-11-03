@@ -45,7 +45,7 @@ describe('Validator Module Test', () => {
     });
   });
 
-  describe('checkWinnerNumbers : 당첨 번호 입력값을 검증', () => {
+  describe('checkLottoNumbers: 당첨 번호 입력값을 검증', () => {
     test.each([
       ['중복 숫자가 존재하는 경우', [1, 2, 3, 4, 5]],
       ['번호 개수가 맞지 않는 경우', [1, 1, 3, 4, 5, 6]],
@@ -56,7 +56,7 @@ describe('Validator Module Test', () => {
       ['로또 범위를 벗어난 숫자가 포함된 경우', [1, 2, 3, 4, 5, 46]],
     ])('%s, 에러를 발생시킨다.', (_, value) => {
       const validate = () => {
-        ValidatorModule.checkWinnerNumbers(value);
+        ValidatorModule.checkLottoNumbers(value);
       };
 
       expect(validate).toThrow(ERROR_PREFIX);
@@ -66,7 +66,7 @@ describe('Validator Module Test', () => {
       '유효한 당첨 번호가 입력되었을 때 정상적으로 동작한다. ( %s )',
       (value) => {
         const validate = () => {
-          ValidatorModule.checkWinnerNumbers(value);
+          ValidatorModule.checkLottoNumbers(value);
         };
 
         expect(validate).not.toThrow(ERROR_PREFIX);
