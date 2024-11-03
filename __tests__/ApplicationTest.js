@@ -1,6 +1,6 @@
 import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ERRORS } from '../src/constants/Errors.js';
+import ERRORS from '../src/constants/Errors.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -98,85 +98,252 @@ describe('로또 테스트', () => {
 });
 
 describe('구입 금액 입력 관련 에러 처리', () => {
-  test('구입 금액이 비어있는 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processPurchaseAmount('');
-    }).toThrow(ERRORS.PURCHASE_AMOUNT_EMPTY);
+  test('구입 금액이 비어있는 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = [''];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.PURCHASE_AMOUNT_EMPTY),
+    );
   });
 
-  test('구입 금액이 숫자가 아닌 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processPurchaseAmount('one thousand');
-    }).toThrow(ERRORS.PURCHASE_AMOUNT_NOT_NUMBER);
+  test('구입 금액이 숫자가 아닌 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['100j'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.PURCHASE_AMOUNT_NOT_NUMBER),
+    );
   });
 
-  test('구입 금액이 0 또는 음수인 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processPurchaseAmount('0');
-    }).toThrow(ERRORS.PURCHASE_AMOUNT_NEGATIVE);
+  test('구입 금액이 0인 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
 
-    expect(() => {
-      new App().processPurchaseAmount('-1000');
-    }).toThrow(ERRORS.PURCHASE_AMOUNT_NEGATIVE);
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['0'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.PURCHASE_AMOUNT_NEGATIVE),
+    );
   });
 
-  test('구입 금액이 1,000원 단위가 아닌 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processPurchaseAmount('10500');
-    }).toThrow(ERRORS.PURCHASE_AMOUNT_INVALID_UNIT);
+  test('구입 금액이 음수인 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['-1000'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.PURCHASE_AMOUNT_NEGATIVE),
+    );
+  });
+
+  test('구입 금액이 1,000원 단위가 아닌 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['10500'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.PURCHASE_AMOUNT_INVALID_UNIT),
+    );
   });
 });
 
 describe('당첨 번호 및 보너스 번호 입력 관련 에러 처리', () => {
-  test('당첨 번호가 비어있는 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processWinningNumbers('');
-    }).toThrow(ERRORS.WINNING_NUMBERS_EMPTY);
+  test('당첨 번호가 비어있는 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', ''];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.WINNING_NUMBERS_EMPTY),
+    );
   });
 
-  test('당첨 번호에 숫자가 아닌 값이 포함된 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processWinningNumbers('1,2,three,4,5,6');
-    }).toThrow(ERRORS.WINNING_NUMBERS_NOT_NUMBER);
+  test('당첨 번호가 1~45 범위를 벗어나는 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,46', '6'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.WINNING_NUMBERS_NOT_NUMBER),
+    );
   });
 
-  test('당첨 번호에 중복된 숫자가 포함된 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processWinningNumbers('1,2,3,3,4,5');
-    }).toThrow(ERRORS.WINNING_NUMBERS_DUPLICATE);
+  test('당첨 번호에 숫자가 아닌 값이 포함된 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', '1,2,three,4,5,6'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.WINNING_NUMBERS_NOT_NUMBER),
+    );
   });
 
-  test('당첨 번호의 개수가 6개가 아닌 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processWinningNumbers('1,2,3,4,5'); // 5개
-    }).toThrow(ERRORS.WINNING_NUMBERS_INVALID_COUNT);
+  test('당첨 번호에 중복된 숫자가 포함된 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
 
-    expect(() => {
-      new App().processWinningNumbers('1,2,3,4,5,6,7'); // 7개
-    }).toThrow(ERRORS.WINNING_NUMBERS_INVALID_COUNT);
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', '1,2,2,4,5,6'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.WINNING_NUMBERS_DUPLICATE),
+    );
   });
 
-  test('보너스 번호가 비어있는 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processBonusNumber('');
-    }).toThrow(ERRORS.BONUS_NUMBER_EMPTY);
+  test('당첨 번호의 개수가 6개가 아닌 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5', '7'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.WINNING_NUMBERS_INVALID_COUNT),
+    );
   });
 
-  test('보너스 번호가 1~45 범위를 벗어나는 경우 에러가 발생한다.', () => {
-    expect(() => {
-      new App().processBonusNumber('0');
-    }).toThrow(ERRORS.BONUS_NUMBER_OUT_OF_RANGE);
+  test('보너스 번호가 비어있는 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
 
-    expect(() => {
-      new App().processBonusNumber('46');
-    }).toThrow(ERRORS.BONUS_NUMBER_OUT_OF_RANGE);
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', ''];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.BONUS_NUMBER_EMPTY),
+    );
   });
 
-  test('보너스 번호가 당첨 번호와 중복되는 경우 에러가 발생한다.', () => {
-    expect(() => {
-      const app = new App();
-      app.processWinningNumbers('1,2,3,4,5,6');
-      app.processBonusNumber('3'); // 중복된 번호
-    }).toThrow(ERRORS.BONUS_NUMBER_DUPLICATE);
+  test('보너스 번호가 1~45 범위를 벗어나는 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '46'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.BONUS_NUMBER_OUT_OF_RANGE),
+    );
+  });
+
+  test('보너스 번호가 당첨 번호와 중복되는 경우 에러가 발생한다.', async () => {
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '6'];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(INPUT_NUMBERS_TO_END);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERRORS.BONUS_NUMBER_DUPLICATE),
+    );
   });
 });

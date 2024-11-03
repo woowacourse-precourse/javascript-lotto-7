@@ -1,9 +1,6 @@
-// src/controllers/AppController.js
-
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import Validator from '../utils/Validator.js';
-import ERRORS from '../constants/Errors.js';
 import LottoController from './LottoController.js';
 
 class AppController {
