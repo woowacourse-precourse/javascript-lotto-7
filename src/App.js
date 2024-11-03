@@ -15,6 +15,7 @@ class App {
 
     const countedWinningLottos = this.countWinningLottos(lottos, winningNumbers, bonusNumber);
     this.#printLottosResult(countedWinningLottos);
+    this.#printProfitRate(amount, countedWinningLottos);
   }
 
   async userAmountInput() {
@@ -154,6 +155,12 @@ class App {
     Console.print(lottoResultMessage);
   }
 
+  #printProfitRate(amount, countedWinningLotto) {
+    const profitRateMessage = this.#profitRateMessage(amount, countedWinningLotto);
+
+    Console.print(profitRateMessage);
+  }
+
   #buyLottoCountMessage(lottoCount) {
     return `\n${lottoCount}개를 구매했습니다.`;
   }
@@ -173,6 +180,18 @@ class App {
     if (bonusCount > 0) return `${basicCount}개 일치, 보너스 볼 일치 (${convertedPrize}원) - ${count}개`;
 
     return `${basicCount}개 일치 (${convertedPrize}원) - ${count}개`;
+  }
+
+  #profitRateMessage(amount, countedWinningLotto) {
+    const totalPrize = countedWinningLotto.reduce(
+      (acc, countedWinningLotto) => acc + countedWinningLotto.prize * countedWinningLotto.count,
+      0
+    );
+    const profitRate = Convert.toPercent(totalPrize, amount);
+    const roundedProfitRate = Convert.toRoundNumber(profitRate, 1);
+    const formattedProfitRate = roundedProfitRate.toLocaleString(BASE_LOCALE);
+
+    return `총 수익률은 ${formattedProfitRate}%입니다.`;
   }
 
   #validateAmountInput(amountInput) {
