@@ -14,6 +14,7 @@ class App {
     this.validateNotThousandUnits(userPurchaseAmount);
     this.validateHaveSpecialCharacters(userWinningNumber);
     this.validateLottoNumberOutOfBounds(winningNumbers);
+    this.validateLottoNumberAmount(winningNumbers);
   }
 
   async getPurchaseAmount(){
@@ -65,6 +66,11 @@ class App {
         throw new Error('[ERROR]당첨 번호 에러, 로또 번호는 1에서 45사이의 숫자입니다.');
       }
     })
+  }
+  validateLottoNumberAmount(inputValue){
+    if(inputValue.length > 6 || inputValue.length < 6){
+      throw new Error('[ERROR]당첨 번호 에러, 로또 번호는 6개의 숫자를 입력해야합니다.');
+    }
   }
 }
 
