@@ -9,12 +9,7 @@ import WinningLottoManager from './WinningLottoManager.js';
 class App {
   async run() {
     const lottoMachine = await this.getLottoMachine();
-    const winningNumbers = await this.selectWinningNumbers();
-    const bonusNumber = await this.selectBonusNumber();
-    const winningLottoNumbers = App.makeWinningLottoNumbers(
-      winningNumbers,
-      bonusNumber,
-    );
+    const winningLottoNumbers = await App.getWinningLottoNumbers();
   }
 
   async getLottoMachine() {
@@ -35,22 +30,11 @@ class App {
     return parsedPayment;
   }
 
-  static async selectWinningNumbers() {
-    const winningLottoManager = new WinningLottoManager();
-    await winningLottoManager.setWinningNumbers();
+  static async getWinningLottoNumbers() {
+    const numbers = await WinningLottoManager.selectWinningNumbers();
+    const bonusNumber = await WinningLottoManager.selectBonusNumber(numbers);
 
-    return winningLottoManager.getWinningNumbers();
-  }
-
-  static async selectBonusNumber() {
-    const winningLottoManager = new WinningLottoManager();
-    await winningLottoManager.setBonusNumber();
-
-    return winningLottoManager.getBonusNumber();
-  }
-
-  static makeWinningLottoNumbers(winningNumbers, bonusNumber) {
-    return { numbers: winningNumbers, bonusNumber };
+    return { numbers, bonusNumber };
   }
 }
 
