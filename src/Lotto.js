@@ -28,6 +28,24 @@ class Lotto {
       LOTTO_NUMBER_COUNT
     ).sort((a, b) => a - b);
   }
+
+  static getScore(userPickedNumbers, lottoNumbers, userPickedBonusNum) {
+    let score = 0;
+    let bonus = false;
+
+    userPickedNumbers.forEach((userNumber) => {
+      for (let i = 0; i < lottoNumbers.length; i++) {
+        lottoNumbers[i].getNumbers().forEach((winNum) => {
+          if (userNumber === winNum) {
+            score++;
+          } else if (userPickedBonusNum === winNum) {
+            bonus = true;
+          }
+        });
+      }
+    });
+    return [score, bonus];
+  }
 }
 
 export default Lotto;
