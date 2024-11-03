@@ -13,6 +13,8 @@ const validator = {
     if (!this.validateDuplicatedNumber(numbers))
       throw new Error(ERROR_MESSAGES.duplicatedWinningNumber);
     if (!this.validateNumberRange(numbers)) throw new Error(ERROR_MESSAGES.invalidRangeNumber);
+    if (!this.validateWinningNumbersLength(numbers))
+      throw new Error(ERROR_MESSAGES.invalidWinningNumberLength);
   },
 
   validateBonusNumber(bonusNumber) {
