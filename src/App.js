@@ -1,6 +1,7 @@
 import { Input } from './View/inputViews.js';
-import { countPurchaseAmount } from './Model/purchasePriceUtils.js';
 import { Output } from './View/outputViews.js';
+
+import { countPurchaseAmount } from './Model/purchasePriceUtils.js';
 import { issueLottoList } from './Model/lottoListIssueUtils.js';
 import { WinningStatistics } from './Model/winningStatisticsUtils.js';
 import { produceRateOfReturn } from './Model/rateOfReturnUtils.js';
