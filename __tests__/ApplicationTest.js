@@ -94,4 +94,12 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("1000으로 나누어 떨어지지 않는 경우", async () => {
+    await runException("1010");
+  })
+
+  test(",가 아닌 문자가 입력된 경우", async () => {
+    await runException(["1010", "1,2,3,4,5,6", "a"]);
+  })
 });

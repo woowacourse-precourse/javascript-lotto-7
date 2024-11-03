@@ -89,20 +89,20 @@ class LottoMachine {
 
   async setBonusNumber() {
     let input = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-    input = parseInt(input);
     this.#validateBonusNumber(input);
+    input = parseInt(input);
     this.#bonusNumber = input;
   }
 
   #validateBonusNumber(bonus) {
     if (isNaN(bonus)) {
-      throw new Error('[ERROR] 로또 번호는 숫자여야 합니다.');
+      throw new Error('[ERROR] 보너스 번호는 숫자여야 합니다.');
     }
     if (bonus < 1 || bonus > 45) {
-      throw new Error('[ERROR] 로또 번호의 범위는 1~45까지입니다.');
+      throw new Error('[ERROR] 보너스 번호의 범위는 1~45까지입니다.');
     }
     if (this.#winningNumbers.includes(bonus)) {
-      throw new Error('[ERROR] 로또 번호는 중복이 없어야 합니다.');
+      throw new Error('[ERROR] 보너스 번호는 중복이 없어야 합니다.');
     }
   }
 
