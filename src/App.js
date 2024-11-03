@@ -169,6 +169,10 @@ function calculateProfit(totalPrize, payment) {
   return (totalPrize / payment) * 100;
 }
 
+function printProfit(profit) {
+  Console.print(`총 수익률은 ${profit.toFixed(1)}%입니다.`);
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
@@ -188,6 +192,7 @@ class App {
 
     const totalPrizeMoney = getTotalPrize(prizeResults);
     const profit = calculateProfit(totalPrizeMoney, payment);
+    printProfit(profit);
   }
 }
 
