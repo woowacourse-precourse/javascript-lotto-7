@@ -12,11 +12,9 @@ const OutputView = {
   },
 
   printWinningStatistics(statistics) {
-    const resultMessage = PRIZE_CRITERIA.map(({ rank, matchCount, prize, isBonusMatched }) => {
+    const resultMessage = Object.values(PRIZE_CRITERIA).map(({ rank, prize, description }) => {
       const count = statistics[rank]?.count || 0;
-      let bonusText = '';
-      if (isBonusMatched) bonusText = ', 보너스 볼 일치';
-      return `${matchCount}개 일치 (${prize.toLocaleString()}원)${bonusText} - ${count}개`;
+      return `${description} (${prize.toLocaleString()}원) - ${count}개`;
     }).join('\n');
 
     printMessage(`당첨 통계\n---\n${resultMessage}`);

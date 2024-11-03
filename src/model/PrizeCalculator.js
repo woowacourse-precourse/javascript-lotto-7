@@ -21,7 +21,7 @@ class PrizeCalculator {
 
   #initializeStatistics() {
     return Object.fromEntries(
-      PRIZE_CRITERIA.map(({ rank }) => [rank, { count: 0, prize: 0 }])
+      Object.values(PRIZE_CRITERIA).map(({ rank }) => [rank, { count: 0, prize: 0 }])
     );
   }
 
@@ -35,7 +35,7 @@ class PrizeCalculator {
   }
 
   #getMatchedCriteria({ matchCount, isBonusMatched }) {
-    return PRIZE_CRITERIA.find(
+    return Object.values(PRIZE_CRITERIA).find(
       criteria => criteria.matchCount === matchCount && criteria.isBonusMatched === isBonusMatched
     );
   }
