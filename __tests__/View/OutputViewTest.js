@@ -1,4 +1,4 @@
-import Lotto from '../../src/Lotto';
+import Lotto from '../../src/Domain/Lotto';
 import OutputView from '../../src/View/OutputView';
 import { getLogSpy } from '../ApplicationTest';
 

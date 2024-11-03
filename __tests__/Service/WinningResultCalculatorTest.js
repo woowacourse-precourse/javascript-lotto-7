@@ -1,4 +1,4 @@
-import Lotto from '../../src/Lotto';
+import Lotto from '../../src/Domain/Lotto';
 import WinningResultCalculatorService from '../../src/Service/WinningResultCalculatorService';
 
 describe('WinningResultCalculatorService 테스트', () => {

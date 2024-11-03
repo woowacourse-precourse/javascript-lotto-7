@@ -1,4 +1,4 @@
-import Lotto from '../Lotto.js';
+import Lotto from '../Domain/Lotto.js';
 import LottoNumberGenerateService from './LottoNumberGenerateService.js';
 
 class LottoTicketService {
