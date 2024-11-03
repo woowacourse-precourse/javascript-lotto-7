@@ -10,7 +10,7 @@ class App {
     const input = new Input();
     const output = new Output();
     const myLotto = new MyLotto(output);
-    const lottoGame = new LottoGame(createModel, input, output. myLotto);
+    const lottoGame = new LottoGame(createModel, input, output.myLotto);
     await lottoGame.lottoGamePlay();
   }
 }
