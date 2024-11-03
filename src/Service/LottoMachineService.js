@@ -1,12 +1,14 @@
 import InputView from '../View/InputView.js';
 import OutputView from '../View/OutputView.js';
 import LottoTicketService from './LottoTicketService.js';
+import WinningResultCalculator from './WinningResultCalculator.js';
 
 class LottoMachineService {
   constructor() {
     this.inputView = new InputView();
     this.outputView = new OutputView();
     this.lottoTicketService = new LottoTicketService();
+    this.winningResultCalculator = new WinningResultCalculator();
   }
 
   async run() {
@@ -20,11 +22,12 @@ class LottoMachineService {
     const winningNumbers = await this.inputView.readWinningNumbers();
     const bonusNumber = await this.inputView.readBonusNumber(winningNumbers);
 
-    const totalWinningRank = this.calculateWinningResults(
-      winningNumbers,
-      bonusNumber,
-      lottos
-    );
+    const totalWinningRank =
+      this.winningResultCalculator.calculateWinningResults(
+        winningNumbers,
+        bonusNumber,
+        lottos
+      );
     const totalReturnRate = this.calculateTotalReturnRate(
       purchaseAmount,
       totalWinningRank
@@ -32,59 +35,6 @@ class LottoMachineService {
 
     this.outputView.printWinningStatistics(totalWinningRank);
     this.outputView.printTotalReturnRate(totalReturnRate);
-  }
-
-  calculateWinningResults(winningNumbers, bonusNumber, lottos) {
-    const totalWinningRank = [0, 0, 0, 0, 0];
-
-    lottos.forEach(lotto => {
-      const winningRank = this.calculateWinningResult(
-        winningNumbers,
-        bonusNumber,
-        lotto.getNumbers()
-      );
-
-      if (winningRank >= 1 && winningRank <= 5) {
-        totalWinningRank[winningRank - 1] += 1;
-      }
-    });
-
-    return totalWinningRank;
-  }
-
-  calculateWinningResult(winningNumbers, bonusNumber, lottoNumbers) {
-    let winningCount = 0;
-    let winningRank;
-
-    lottoNumbers.forEach(lottoNumber => {
-      if (winningNumbers.includes(lottoNumber)) {
-        winningCount += 1;
-      }
-    });
-
-    switch (winningCount) {
-      case 3:
-        winningRank = 5;
-        break;
-      case 4:
-        winningRank = 4;
-        break;
-      case 5:
-        if (lottoNumbers.includes(bonusNumber)) {
-          winningRank = 2;
-          break;
-        }
-        winningRank = 3;
-        break;
-      case 6:
-        winningRank = 1;
-        break;
-      default:
-        winningRank = -1;
-        break;
-    }
-
-    return winningRank;
   }
 
   calculateTotalReturnRate(purchaseAmount, totalWinningRank) {
