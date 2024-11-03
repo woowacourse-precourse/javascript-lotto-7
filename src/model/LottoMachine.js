@@ -9,10 +9,14 @@ class LottoMachine {
   #lottoNumbers;
 
   constructor(purchaseAmount) {
-    validatePurchaseAmount(purchaseAmount);
+    this.#validate(purchaseAmount);
     this.#purchaseAmount = Number(purchaseAmount);
     this.#lottoCount = this.#calculateLottoCount();
     this.#lottoNumbers = this.#generateLottoNumbers();
+  }
+
+  #validate(purchaseAmount) {
+    validatePurchaseAmount(purchaseAmount);
   }
 
   #calculateLottoCount() {
