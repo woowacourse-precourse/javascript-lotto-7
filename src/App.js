@@ -20,7 +20,8 @@ class App {
       WINNING_NUMBERS,
       BONUS_NUMBER,
     );
-    console.log(RESULTS);
+
+    this.#VIEW.printSTATS(RESULTS, PROFIT_RATE);
   }
 }
 
