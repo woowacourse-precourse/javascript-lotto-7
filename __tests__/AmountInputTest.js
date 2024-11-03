@@ -3,25 +3,9 @@ import {
   amountInputSuccessTestCase,
 } from '../src/constant/amountInputTestCase.js';
 import App from '../src/App.js';
-import { MissionUtils } from '@woowacourse/mission-utils';
 import { inputAmount } from '../src/utils/inputService.js';
 import { outputPayment } from '../src/utils/outputService.js';
-
-const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, 'print');
-  logSpy.mockClear();
-  return logSpy;
-};
-
-const mockQuestions = (inputs) => {
-  MissionUtils.Console.readLineAsync = jest.fn();
-
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
-    const input = inputs.shift();
-
-    return Promise.resolve(input);
-  });
-};
+import { getLogSpy, mockQuestions } from './ApplicationTest.js';
 
 describe('구매 금액 입력 에러 테스트', () => {
   test.each(amountInputErrorTestCase)(
