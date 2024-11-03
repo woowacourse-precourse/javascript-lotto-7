@@ -27,7 +27,7 @@ class Lotto {
     }
   }
 
-  #validateAdditional(numbers) {
+  #validateBonusNumber(numbers) {
     if (isNaN(numbers)) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER.IS_NOT_NUMBER);
     }
@@ -36,12 +36,38 @@ class Lotto {
     }
   }
 
+  #matchLotto(numbers, winningNumber) {
+    let matchCount = 0;
+
+    winningNumber.map(winningNumber => {
+      if (numbers.includes(winningNumber)) {
+        matchCount++;
+      }
+    });
+    return matchCount;
+  }
+
+  #matchBonusNumber(numbers, bonusNumber) {
+    let isMatch = false;
+    if (numbers.includes(bonusNumber)) {
+      isMatch = true;
+    }
+    return isMatch;
+  }
+
   validateWinningNumber(numbers) {
     return this.#validate(numbers);
   }
 
-  validateAdditionalNumber(additionalNumber) {
-    return this.#validateAdditional(additionalNumber);
+  validateBonusNumber(bonusNumber) {
+    return this.#validateBonusNumber(bonusNumber);
+  }
+
+  getMatchCount(numbers, winningNumber, bonusNumber) {
+    return {
+      matchCount: this.#matchLotto(numbers, winningNumber),
+      isMatchBonusNumber: this.#matchBonusNumber(numbers, bonusNumber),
+    };
   }
 }
 
