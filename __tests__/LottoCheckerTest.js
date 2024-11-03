@@ -1,6 +1,5 @@
-import { LottoChecker } from '../src/models/index.js';
+import { Lotto, LottoChecker } from '../src/models/index.js';
 import { InputStore } from '../src/services/index.js';
-import Lotto from '../src/Lotto.js';
 
 describe('LottoChecker 클래스 테스트', () => {
   let lottoChecker;
@@ -9,7 +8,7 @@ describe('LottoChecker 클래스 테스트', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     lottoChecker = new LottoChecker();
-    inputStore = InputStore.getInstance();
+    inputStore = new InputStore();
     inputStore.setMainNumbers([1, 2, 3, 4, 5, 6]);
     inputStore.setBonusNumber(7);
   });

@@ -21,5 +21,5 @@ export const generateLottoNumbers = () => {
 };
 
 export const calculateEarningsRate = (totalPrizeMoney, investmentMoney) => {
-  ((totalPrizeMoney / investmentMoney) * 100).toFixed(1);
+  return ((totalPrizeMoney / investmentMoney) * 100).toFixed(1);
 };

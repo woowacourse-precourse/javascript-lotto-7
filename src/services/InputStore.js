@@ -15,14 +15,6 @@ class InputStore {
     InputStore.#instance = this;
   }
 
-  static getInstance() {
-    if (!InputStore.#instance) {
-      InputStore.#instance = new InputStore();
-    }
-
-    return InputStore.#instance;
-  }
-
   getMoney() {
     return this.#state.money;
   }
