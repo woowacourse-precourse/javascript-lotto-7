@@ -10,6 +10,7 @@ class App {
     await price.winLottoNumbers();
     await price.winBonusNumber();
     price.checkLottoMatch();
+    price.printResult();
   }
 }
 
