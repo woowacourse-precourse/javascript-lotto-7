@@ -45,14 +45,14 @@ export const PRIZE_CALCULATOR = {
 };
 
 export const INPUT_VIEW = {
-  paymentQuestion: '구입금액을 입력해 주세요.',
-  winningNumbersQuestion: '당첨 번호를 입력해 주세요.',
-  bonusNumberQuestion: '보너스 번호를 입력해 주세요.',
+  paymentQuestion: '구입금액을 입력해 주세요.\n',
+  winningNumbersQuestion: '\n당첨 번호를 입력해 주세요.\n',
+  bonusNumberQuestion: '\n보너스 번호를 입력해 주세요.\n',
 };
 
 export const OUTPUT_VIEW = {
-  purchaseAmount: (amount) => `${amount}개를 구매했습니다.`,
-  statisticsHeader: '당첨 통계',
+  purchaseAmount: (amount) => `\n${amount}개를 구매했습니다.`,
+  statisticsHeader: '\n당첨 통계',
   separatingMark: '---',
   winningStatistics: (numbersOfMatched, matchingCount, prize) =>
     `${numbersOfMatched}개 일치 (${prize}원) - ${matchingCount}개`,
