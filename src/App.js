@@ -30,6 +30,34 @@ class App {
       Console.print(`[${lotto.getNumbers().join(", ")}]`);
     }
 
+    // 당첨 번호 입력 받기
+    let winningNumbers; 
+    try {
+      const inputWinningNumbers = await Console.readLineAsync(
+        '\n당첨 번호를 입력해 주세요.\n'
+      );
+
+      winningNumbers = inputWinningNumbers.split(',').map(num => parseInt(num, 10));
+
+      // 당첨 번호 유효 검사
+      Lotto.validWinningNumbers(winningNumbers);
+    } catch (error) {
+      throw new Error(`[ERROR] ${error.message}`);
+    }
+    
+    // 당첨 보너스 번호 입력 받기
+    let bonusNumber;
+    try {
+      const inputBonusNumbers = await Console.readLineAsync(
+        '\n보너스 번호를 입력해 주세요.\n'
+      );
+
+      // 당첨 보너스 번호 유효 검사
+      Lotto.validBonusNumber(inputBonusNumbers, winningNumbers);
+    } catch (error) {
+      throw new Error(`[ERROR] ${error.message}`);
+    }
+
   }
 
 
@@ -45,7 +73,6 @@ class App {
       throw new Error('로또 구입 금액은 1000원 단위로 입력해주세요.');
   }
 
-  
 }
 
 
