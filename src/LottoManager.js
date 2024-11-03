@@ -20,7 +20,7 @@ class LottoManager {
     await Console.print(`\n${lottoCount}개를 구매했습니다.`);
     await Console.print(
       userLottoNumbers
-        .map((lotto) => `[ ${lotto.getNumbers().join(", ")} ]`)
+        .map((lotto) => `[${lotto.getNumbers().join(", ")}]`)
         .join("\n")
     );
   }

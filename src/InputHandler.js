@@ -14,7 +14,9 @@ class InputHandler {
     const inputWinningNumbers = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
     );
-    return inputWinningNumbers.split(",").map(Number);
+    const winningNumbers = inputWinningNumbers.split(",").map(Number);
+    this.validateWinningNumbers(winningNumbers);
+    return winningNumbers;
   }
 
   async getBonusNumber(winningNumbers) {
@@ -27,6 +29,7 @@ class InputHandler {
   }
 
   validatePurchaseAmount(purchaseAmount) {
+    purchaseAmount = Number(purchaseAmount);
     if (purchaseAmount === 0)
       throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_ZERO);
     if (purchaseAmount < 0)
@@ -35,6 +38,20 @@ class InputHandler {
       throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
     if (purchaseAmount === "")
       throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_EMPTY);
+  }
+
+  validateWinningNumbers(winningNumbers) {
+    if (winningNumbers.length !== 6) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT);
+    }
+    if (new Set(winningNumbers).size !== winningNumbers.length) {
+      throw new Error(ERROR_MESSAGES.DUPLICATE_LOTTO_NUMBER);
+    }
+    winningNumbers.forEach((num) => {
+      if (!Number.isInteger(num) || num < 1 || num > 45) {
+        throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_RANGE);
+      }
+    });
   }
 
   validateBonusNumber(bonusNumber, winningNumbers) {

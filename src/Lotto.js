@@ -10,16 +10,11 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT);
+      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
     if (new Set(numbers).size !== numbers.length) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_LOTTO_NUMBER);
     }
-    numbers.forEach((num) => {
-      if (typeof num !== "number" || num < 1 || num > 45) {
-        throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_RANGE);
-      }
-    });
   }
 
   getNumbers() {
