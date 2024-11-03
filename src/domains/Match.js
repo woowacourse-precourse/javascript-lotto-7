@@ -73,11 +73,9 @@ class Match {
 
   displayResult() {
     Console.print(RESULT.HEADER);
-    Console.print(`${RESULT[5]} ${this.ranks[5]}${RESULT.COUNT_CHAR}`);
-    Console.print(`${RESULT[4]} ${this.ranks[4]}${RESULT.COUNT_CHAR}`);
-    Console.print(`${RESULT[3]} ${this.ranks[3]}${RESULT.COUNT_CHAR}`);
-    Console.print(`${RESULT[2]} ${this.ranks[2]}${RESULT.COUNT_CHAR}`);
-    Console.print(`${RESULT[1]} ${this.ranks[1]}${RESULT.COUNT_CHAR}`);
+    for (let i = 5; i >= 1; i--) {
+      Console.print(`${RESULT[i]} ${this.ranks[i]}${RESULT.COUNT_CHAR}`);
+    }
   }
 }
 
