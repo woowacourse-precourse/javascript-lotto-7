@@ -16,23 +16,23 @@ class OutputView {
     );
   }
 
+  #formatString(prize, matchCount, index) {
+    const baseMessage = `${prize.MATCH_NUMBER}개 일치`;
+    const prizeAmount = `(${prize.PRIZE.toLocaleString()}원)`;
+    const countMessage = `${matchCount}개`;
+
+    if (index === 3) {
+      return `${baseMessage}, 보너스 볼 일치 ${prizeAmount} - ${countMessage}`;
+    }
+    return `${baseMessage} ${prizeAmount} - ${countMessage}`;
+  }
+
   printLottoResult(lottoResult) {
     Console.print('\n당첨 통계\n---');
-    for (let i = 0; i < LOTTO_PRIZE.length; i++) {
-      const outputCountString = `${LOTTO_PRIZE[i].MATCH_NUMBER}개 일치`;
-      const outputBonusString = ', 보너스 볼 일치';
-      const outputPrizeString = ` (${LOTTO_PRIZE[
-        i
-      ].PRIZE.toLocaleString()}원) - ${lottoResult[i]}개`;
-
-      if (i === 3) {
-        Console.print(
-          outputCountString + outputBonusString + outputPrizeString
-        );
-      } else {
-        Console.print(outputCountString + outputPrizeString);
-      }
-    }
+    LOTTO_PRIZE.forEach((prize, index) => {
+      const message = this.#formatString(prize, lottoResult[index], index);
+      Console.print(message);
+    });
   }
 
   printLottoProfit(profitRate) {
