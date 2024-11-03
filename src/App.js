@@ -1,11 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
 import { INPUT_MESSAGE, ERROR_MESSAGE } from './constants/message.js';
+import { LOTTO } from './constants/lotto.js';
 import Validate from './Validate.js';
 import Convert from './Convert.js';
 
 class App {
   async run() {
     const amount = await this.safeAsyncExecute(this.userAmountInput.bind(this));
+    const lottos = this.buyLottos(amount);
   }
 
   async userAmountInput() {
@@ -30,6 +32,10 @@ class App {
     const amount = Convert.toNumber(amountInput);
 
     return amount;
+  }
+
+  buyLottos(amount) {
+    const lottoCount = amount / LOTTO.PRICE;
   }
 
   #validateAmountInput(amountInput) {
