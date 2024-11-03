@@ -5,6 +5,7 @@ import LottoGame from '../Model/LottoGame.js';
 import { createErrorMessage } from '../util/error.js';
 import { isNumber } from '../util/validation.js';
 import Input from '../View/Input.js';
+import { RULE } from '../constant/rule.js';
 
 class GameController {
   async init() {
@@ -24,7 +25,7 @@ class GameController {
       this.#validatePurchaseAmount,
     );
 
-    return amount / 1000;
+    return amount / RULE.PURCHASE_AMOUNT_UNIT;
   }
 
   #validatePurchaseAmount(input) {
@@ -33,7 +34,7 @@ class GameController {
       throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
     }
 
-    if (amount % 1000 !== 0) {
+    if (amount % RULE.PURCHASE_AMOUNT_UNIT !== 0) {
       throw new Error(
         createErrorMessage(ERROR_MESSAGE.invalidPurchaseAmountUnit),
       );
