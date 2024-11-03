@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE } from "./constants/input.js";
-import { BONUS_NUMBER, COST } from "./constants/error.js";
+import { BONUS_NUMBER, COST, LOTTO_NUMBER } from "./constants/error.js";
 import Lotto from "./Lotto.js";
 
 class InputHandler {
@@ -8,14 +8,22 @@ class InputHandler {
     const costInput = (await Console.readLineAsync(INPUT_MESSAGE.COST)).trim();
     const cost = Number(costInput);
 
-    return cost;
+    const validatedCost = await InputHandler.validateCost(cost);
+
+    return validatedCost;
   }
 
-  static validateCost(cost) {
-    this.checkIsString(cost);
-    this.checkIsZero(cost);
-    this.checkIsNegative(cost);
-    this.checkIs1000Units(cost);
+  static async validateCost(cost) {
+    try {
+      this.checkIsString(cost);
+      this.checkIsZero(cost);
+      this.checkIsNegative(cost);
+      this.checkIs1000Units(cost);
+      return cost;
+    } catch (error) {
+      Console.print(error.message);
+      return await this.getCost();
+    }
   }
 
   static checkIsString(cost) {
@@ -51,30 +59,58 @@ class InputHandler {
       .split(",")
       .map((lottoNumber) => Number(lottoNumber.trim()));
 
-    return winningNumbers;
+    const validatedWinningNumbers = await InputHandler.validateWinningNumbers(
+      winningNumbers
+    );
+
+    return validatedWinningNumbers;
   }
 
-  static validateWinningNumbers(winningNumbers) {
-    this.checkCommaOnly(winningNumbers);
+  static async validateWinningNumbers(winningNumbers) {
+    try {
+      this.checkCommaOnly(winningNumbers);
+      return winningNumbers;
+    } catch (error) {
+      if (
+        error.message === LOTTO_NUMBER.EXCEPT_COMMA ||
+        error.message === LOTTO_NUMBER.LENGTH ||
+        error.message === LOTTO_NUMBER.DUPLICATION
+      ) {
+        return await this.getWinningNumbers();
+      }
+      Console.print(error.message);
+      return await this.getWinningNumbers();
+    }
   }
 
   static checkCommaOnly(winningNumbers) {
     new Lotto(winningNumbers);
   }
 
-  static async getBonusNumber() {
+  static async getBonusNumber(winningNumbers) {
     const bonusNumberInput = (
       await Console.readLineAsync(INPUT_MESSAGE.BONUS)
     ).trim();
 
     const bonusNumber = Number(bonusNumberInput);
 
-    return bonusNumber;
+    const validatedBonusNumber = await InputHandler.validateBonusNumber(
+      winningNumbers,
+      bonusNumber
+    );
+
+    return validatedBonusNumber;
   }
 
-  static validateBonusNumber(winningNumbersArray, bonusNumber) {
-    this.checkBetween1And45(bonusNumber);
-    this.checkWinningNumberEqualBonusNumber(winningNumbersArray, bonusNumber);
+  static async validateBonusNumber(winningNumbersArray, bonusNumber) {
+    try {
+      this.checkBetween1And45(bonusNumber);
+      this.checkWinningNumberEqualBonusNumber(winningNumbersArray, bonusNumber);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+      return await this.getBonusNumber(winningNumbersArray);
+    }
   }
 
   static checkBetween1And45(bonusNumber) {

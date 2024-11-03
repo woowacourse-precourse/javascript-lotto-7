@@ -7,8 +7,6 @@ class App {
     const cost = await InputHandler.getCost();
     const lottoMachine = new LottoMachine(cost);
 
-    InputHandler.validateCost(cost);
-
     lottoMachine.printQuantity();
 
     lottoMachine.lottos.forEach((element) => {
@@ -18,11 +16,7 @@ class App {
 
     const winningNumbers = await InputHandler.getWinningNumbers();
 
-    InputHandler.validateWinningNumbers(winningNumbers);
-
-    const bonusNumber = await InputHandler.getBonusNumber();
-
-    InputHandler.validateBonusNumber(winningNumbers, bonusNumber);
+    const bonusNumber = await InputHandler.getBonusNumber(winningNumbers);
 
     const { statistics, totalPrize } = lottoMachine.calculateWinnings(
       winningNumbers,
