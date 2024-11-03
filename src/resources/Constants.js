@@ -28,4 +28,6 @@ export const ErrorMessage = {
   WINNING_NUMBER_IS_NOT_NUMBER: `${ERROR_PREFIX} 당첨 번호는 숫자여야 합니다.`,
   WINNING_NUMBER_IS_NOT_UNIQUE: `${ERROR_PREFIX} 당첨 번호는 중복되지 않아야 합니다.`,
   WINNING_NUMBER_IN_NOT_VALID_RANGE: `${ERROR_PREFIX} 당첨 번호는 ${Lotto.MIN_NUMBER} ~ ${Lotto.MAX_NUMBER} 사이여야 합니다.`,
+  BONUS_NUMBER_IS_NOT_NUMBER: `${ERROR_PREFIX} 보너스 번호는 숫자여야 합니다.`,
+  BONUS_NUMBER_IN_NOT_VALID_RANGE: `${ERROR_PREFIX} 보너스 번호는 ${Lotto.MIN_NUMBER} ~ ${Lotto.MAX_NUMBER} 사이여야 합니다.`,
 };

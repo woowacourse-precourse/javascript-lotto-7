@@ -1,3 +1,5 @@
+import { bonusNumberValidator } from '../../../src/validation/bonusNumberValidator.js';
+
 const ERROR = '[ERROR]';
 
 describe('보너스 번호 검증 테스트, 정상 테스트', () => {

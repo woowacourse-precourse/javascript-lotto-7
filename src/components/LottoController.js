@@ -1,6 +1,7 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import { InputPrompts, Lotto, OutputMessages } from '../resources/Constants.js';
 import purchaseAmountValidator from '../validation/purchaseAmountValidator.js';
+import { bonusNumberValidator } from '../validation/bonusNumberValidator.js';
 
 class LottoController {
   #purchaseAmount;
@@ -25,6 +26,7 @@ class LottoController {
   }
 
   setBonusNumber(bonusNumber) {
+    bonusNumberValidator(bonusNumber);
     this.#bonusNumber = bonusNumber;
   }
 
@@ -82,9 +84,14 @@ class LottoController {
   }
 
   async promptBonusNumber() {
-    const bonusNumber = await Console.readLineAsync(InputPrompts.bonusNumber);
+    try {
+      const bonusNumber = await Console.readLineAsync(InputPrompts.bonusNumber);
 
-    this.setBonusNumber(Number(bonusNumber));
+      this.setBonusNumber(bonusNumber);
+    } catch (error) {
+      Console.print(`${error.message}\n`);
+      await this.promptBonusNumber();
+    }
   }
 }
 
