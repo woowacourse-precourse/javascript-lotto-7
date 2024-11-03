@@ -1,12 +1,7 @@
 import {Console} from "@woowacourse/mission-utils";
+import {MATCH_COUNTER} from "../constants/objects.js";
 
 class Lotto {
-    /*제공된 Lotto 클래스를 사용하여 구현해야 한다.
-    Lotto에 numbers 이외의 필드(인스턴스 변수)를 추가할 수 없다.
-    numbers의 접근 제어자인 #은 변경할 수 없다.
-    Lotto의 패키지를 변경할 수 있다.
-    통계를 내는 클래스 인거 같다
-   */
     #numbers;
 
     constructor(numbers) {
@@ -20,45 +15,43 @@ class Lotto {
         }
     }
 
-    setStats(lottos, bonusNumber) { //2 차원 배열
-        let matchCnt = 0
-        let isBonusNumberMatch = false
-        const statMatch = {
-            three: 0,
-            four: 0,
-            five: 0,
-            bonus: 0,
-            six: 0,
-        }
+    setStats(lottos) { //2 차원 배열
         for (const lotto of lottos) {
-            for (const lottoNum of lotto) {
-                if (this.#numbers.includes(lottoNum)) {
-                    matchCnt++
-                }
-                if (this.#numbers.includes(bonusNumber)) {
-                    isBonusNumberMatch = true
-                }
-            }
+            let {matchCnt, isBonusNumberMatch} = this.countMatches(lotto)
             switch (matchCnt) {
                 case 3:
-                    statMatch.three += matchCnt;
+                    MATCH_COUNTER.three += matchCnt;
                     break;
                 case 4:
-                    statMatch.four += matchCnt;
+                    MATCH_COUNTER.four += matchCnt;
                     break;
+                /*case matchCnt === 5 && isBonusNumberMatch:
+                    MATCH_COUNTER.bonus += matchCnt;
+                    break;*/
                 case 5:
-                    statMatch.five += matchCnt;
+                    MATCH_COUNTER.five += matchCnt;
                     break;
                 case 6:
-                    statMatch.six += matchCnt;
+                    MATCH_COUNTER.six += matchCnt;
                     break;
             }
-            if (matchCnt === 5 && isBonusNumberMatch) {
-                statMatch.bonus += matchCnt
-            }
-            matchCnt = 0
         }
-        return statMatch
+        return MATCH_COUNTER
+    }
+
+
+    countMatches(lotto) {
+        let matchCnt = 0
+        let isBonusNumberMatch = false
+        for (const lottoNum of lotto) {
+            if (this.#numbers.includes(lottoNum)) {
+                matchCnt++
+            }
+            /*       if (this.#numbers.includes(bonusNumber)) {
+                       isBonusNumberMatch = true
+                   }*/
+        }
+        return {matchCnt, isBonusNumberMatch}
     }
 
     resultOutput(statMatch) {
