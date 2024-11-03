@@ -1,6 +1,7 @@
 import InputView from '../View/InputView.js';
 import OutputView from '../View/OutputView.js';
 import LottoTicketService from './LottoTicketService.js';
+import ReturnRateCalculatorService from './ReturnRateCalculatorService.js';
 import WinningResultCalculatorService from './WinningResultCalculatorService.js';
 
 class LottoMachineService {
@@ -9,6 +10,7 @@ class LottoMachineService {
     this.outputView = new OutputView();
     this.lottoTicketService = new LottoTicketService();
     this.winningResultCalculator = new WinningResultCalculatorService();
+    this.returnRateCalculatorService = new ReturnRateCalculatorService();
   }
 
   async run() {
@@ -28,25 +30,14 @@ class LottoMachineService {
         bonusNumber,
         lottos
       );
-    const totalReturnRate = this.calculateTotalReturnRate(
-      purchaseAmount,
-      totalWinningRank
-    );
+    const totalReturnRate =
+      this.returnRateCalculatorService.calculateTotalReturnRate(
+        purchaseAmount,
+        totalWinningRank
+      );
 
     this.outputView.printWinningStatistics(totalWinningRank);
     this.outputView.printTotalReturnRate(totalReturnRate);
-  }
-
-  calculateTotalReturnRate(purchaseAmount, totalWinningRank) {
-    const prizeAmounts = [2000000000, 30000000, 1500000, 50000, 5000];
-    let totalPrize = 0;
-
-    totalWinningRank.map((rankCount, index) => {
-      totalPrize += rankCount * prizeAmounts[index];
-    });
-
-    const totalReturnRate = (totalPrize / purchaseAmount) * 100;
-    return Math.round(totalReturnRate * 100) / 100;
   }
 }
 
