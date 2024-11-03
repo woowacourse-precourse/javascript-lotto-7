@@ -13,12 +13,24 @@ class LottoGame {
     3: 5,
   };
 
+  #winningPriceMapping = {
+    1: 2000000000,
+    2: 30000000,
+    3: 1500000,
+    4: 50000,
+    5: 5000,
+  };
+
   constructor(lottoAmount) {
     this.#lottoAmount = lottoAmount;
     this.#lottos = [];
     this.#winningResult = Array(6).fill(0);
 
     this.#generateLottos();
+  }
+
+  getWinningResult(rank) {
+    return this.#winningResult[rank];
   }
 
   #generateLottos() {
@@ -63,8 +75,15 @@ class LottoGame {
     return rank || 0;
   }
 
-  getWinningResult(rank) {
-    return this.#winningResult[rank];
+  calculateWinningRate() {
+    const totalWinningAmount = this.#winningResult.reduce(
+      (acc, result, i) => acc + result * this.#winningPriceMapping[i],
+      0,
+    );
+    return (
+      (totalWinningAmount / (this.#lottoAmount * RULE.PURCHASE_AMOUNT_UNIT)) *
+      100
+    );
   }
 }
 
