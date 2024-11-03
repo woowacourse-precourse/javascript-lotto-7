@@ -7,7 +7,7 @@ class User {
   #validator;
 
   constructor() {
-    this.#validator = Validator();
+    this.#validator = new Validator();
   }
 
   readPurchaseAmount() {
