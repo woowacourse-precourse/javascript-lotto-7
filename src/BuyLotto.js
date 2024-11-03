@@ -1,11 +1,12 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Validator from "./Validator.js";
 import Lotto from "./Lotto.js";
+import WinLotto from "./WinLotto.js";
 
 export default class BuyLotto {
   #validator;
   #inputPrice = 0;
-  #winningNumber = [];
+  #winningLotto = [];
   #bonusNumber = 0;
   #purchaseAmount = 0;
   #purchasedLotto = [];
@@ -28,14 +29,15 @@ export default class BuyLotto {
     this.#getAmountOfLotto(this.#inputPrice);
     this.#validator.validatePrice(this.#inputPrice, this.#PRICE_OF_A_LOTTO);
     await this.enterWinningNumber();
+
+
   }
 
   async enterWinningNumber() {
     Console.print(this.#WINNING_NUMBER_PROMPT);
     this.input = await Console.readLineAsync("");
     this.#validator.validateWinningNumber(this.input);
-    this.#winningNumber = new Lotto(this.input.split(",").map(Number));
-
+    this.#winningLotto = new Lotto(this.input.split(",").map(Number));
     Console.print(this.#EMPTY_STRING);
     await this.enterBonusNumber();
   }
@@ -70,12 +72,15 @@ export default class BuyLotto {
     Console.print(`${purchaseAmount}${this.#PURCHASE_LOTTO_PROMPT}`);
     this.#purchasedLotto.forEach((array) => {
       const sortedArray = this.#sortLottoNumbers(array);
-      Console.print(sortedArray);
+      Console.print(`[${sortedArray.join(", ")}]`);
     });
     Console.print(this.#EMPTY_STRING);
   }
 
   #sortLottoNumbers(array) {
     return array.slice().sort((a, b) => a - b);
+  }
+  getPurchasedLotto() {
+    return this.#purchasedLotto;
   }
 }
