@@ -8,7 +8,7 @@ class ReturnRateCalculatorService {
     });
 
     const totalReturnRate = (totalPrize / purchaseAmount) * 100;
-    return Math.round(totalReturnRate * 100) / 100;
+    return Math.round(totalReturnRate * 10) / 10;
   }
 }
 
