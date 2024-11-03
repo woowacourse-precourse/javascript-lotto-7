@@ -10,7 +10,7 @@ export default class InputUtils {
                 const purchaseAmount = await Console.readLineAsync(MESSAGE.PURCHASE_AMOUNT_INPUT);
                 InputValidator.purchaseAmountValidator(purchaseAmount);
 
-                return purchaseAmount   
+                return await purchaseAmount   
             } catch (error) {
                 this.printErrorMessage(error.message);
             }
@@ -24,7 +24,7 @@ export default class InputUtils {
                 const winningNumberList = this.getNumberList(winningNumber);
                 InputValidator.winningNumberValidator(winningNumberList);
 
-                return winningNumberList   
+                return await winningNumberList   
             } catch (error) {
                 this.printErrorMessage(error.message);
             }
@@ -38,7 +38,7 @@ export default class InputUtils {
                 const bonusNumberList = this.getNumberList(bonusNumber);
                 InputValidator.bonusNumberValidator(bonusNumberList);
 
-                return bonusNumberList   
+                return await bonusNumberList   
             } catch (error) {
                 this.printErrorMessage(error.message);
             }
@@ -46,7 +46,11 @@ export default class InputUtils {
     }
 
     static getNumberList(numbers){
-        return numbers.split(',')
+        const numberList = numbers.split(',')
+        for (let i = 0; i < numberList.length ; i++) {
+            numberList[i] = Number(numberList[i]);
+        }
+        return numberList
     }
 
     static printErrorMessage(errorMessage) {

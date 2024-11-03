@@ -6,8 +6,6 @@ import InputUtils from "./Utils/Utils.js";
 
 class App {
   async run() {
-
-
     try {
 
       const purchaseAmount = await InputUtils.inputPurchaseAmount();
@@ -19,11 +17,12 @@ class App {
 
       const winningNumber = await InputUtils.inputWinningNumber();
       const bonusNumber = await InputUtils.inputBonusNumber();
+
+      lottoMachine.setWinningNumber(winningNumber, bonusNumber);
+      lottoMachine.checkWinningLotto();
+      
     } catch (error) {
     }
-
-
-
   }
 }
 
