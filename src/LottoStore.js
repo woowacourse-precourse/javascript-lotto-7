@@ -109,9 +109,13 @@ class LottoStore {
   }
 
   printWinningResult() {
+    let totalReward = 0;
     Object.keys(this.matchItem).forEach((key) => {
       MissionUtils.Console.print(`${PRINT_MESSAGE[key]} - ${this.matchItem[key]}개`);
+      totalReward += CONDITIONS[`REWARD_${key}`] * this.matchItem[key];
     });
+    const rateOfReturn = (totalReward / (this.#lottoList.length * 1000)) * 100;
+    MissionUtils.Console.print(`총 수익률은 ${rateOfReturn.toFixed(1)}%입니다.`);
   }
 }
 
