@@ -21,6 +21,15 @@ class InputHandler {
     Validation.validateUniqueNumbers(winningNumbers);
     return winningNumbers;
   }
+
+  getValidatedBonusNumbers(number, winningNumbers) {
+    const bonusNumber = Number(number);
+    Validation.validateIsNumber(bonusNumber);
+    Validation.validatePositiveInteger(bonusNumber);
+    Validation.validateNumberInRange(bonusNumber);
+    Validation.validateUniqueBonusNumber(winningNumbers, bonusNumber);
+    return bonusNumber;
+  }
 }
 
 export default InputHandler;
