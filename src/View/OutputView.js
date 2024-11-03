@@ -7,6 +7,7 @@ class OutputView {
 
   printLottoNumbers(lottoQuantity, lottos) {
     this.printOutput(`${lottoQuantity}개를 구매했습니다.`);
+
     lottos.map(lotto => {
       this.printOutput(`[${lotto.getNumbers().join(', ')}]`);
     });

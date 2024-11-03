@@ -1,11 +1,11 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import LottoMachineService from './Service/LottoMachineService.js';
+import LottoMachineController from './Controller/LottoMachineController';
 
 class App {
   async run() {
     try {
-      const lottoMachine = new LottoMachineService();
-      await lottoMachine.run();
+      const lottoMachineController = new LottoMachineController();
+      await lottoMachineController.run();
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
