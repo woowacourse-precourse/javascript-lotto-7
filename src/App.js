@@ -18,7 +18,7 @@ class App {
     const userLotteryNumbers = await handleLotteryNumInput();
     const bonusLotteryNumber = await handleBonusLotteryNum(userLotteryNumbers);
 
-    const usersLottery = userLotteryNumbers.map(num => Number(num));
+    const usersLottery = userLotteryNumbers.map((num) => Number(num));
     this.startLotto(lotteriesToCompare, usersLottery, bonusLotteryNumber);
   }
 
@@ -35,10 +35,20 @@ class App {
   }
 
   startLotto(lotteries, users, bonus) {
-    const matches = lotteries.map(lotto => {
-      return lotto.getLotteryMatches(users);
+    const [BONUS_CONDITION, BONUS_RETURN] = [5, 7];
+
+    const matches = lotteries.map((lotto) => {
+      if (
+        lotto.getLotteryMatches(users).length === BONUS_CONDITION &&
+        lotto.getLotteryMatches(bonus)
+      )
+        return BONUS_RETURN;
+
+      return lotto.getLotteryMatches(users).length;
     });
-  };
+    this.checkWins(matches);
+  }
+
 }
 
 export default App;
