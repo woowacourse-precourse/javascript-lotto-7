@@ -1,9 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
+import { LOTTO_EARNINGS } from '../constants/lottoNumbers.js';
 import LottoPurchase from '../models/LottoPurchase.js';
 import LottoGenerator from '../utils/LottoGenerator.js';
 import LottoView from '../views/LottoView.js';
 import LottoInput from '../models/LottoInput.js';
 import LottoResult from '../models/LottoResult.js';
+import LottoCalculate from '../utils/LottoCalculate.js';
 
 class LottoController {
   async start() {
@@ -30,6 +32,14 @@ class LottoController {
     LOTTO_RESULT.checkResults();
 
     LOTTO_VIEW.printResult(LOTTO_RESULT.getResults());
+
+    const LOTTO_CALCULATOR = new LottoCalculate(LOTTO_EARNINGS);
+    const LOTTO_RATE = LOTTO_CALCULATOR.calculateRate(
+      LOTTO_RESULT.getResults(),
+      PRICE.trim(),
+    );
+
+    LOTTO_VIEW.printRate(LOTTO_RATE);
   }
 
   getPriceInput() {

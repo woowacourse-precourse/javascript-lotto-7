@@ -1,5 +1,5 @@
 import { INPUT_ERROR, LOTTO_ERROR } from '../constants/error.js';
-import LOTTO_NUMBER_RANGE from '../constants/lottoNumbers.js';
+import { LOTTO_NUMBER_RANGE } from '../constants/lottoNumbers.js';
 
 const isBlank = input => input === '';
 

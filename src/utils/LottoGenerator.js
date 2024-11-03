@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from '../models/Lotto.js';
-import LOTTO_NUMBER_RANGE from '../constants/lottoNumbers.js';
+import { LOTTO_NUMBER_RANGE } from '../constants/lottoNumbers.js';
 
 class LottoGenerator {
   constructor(purchaseCount) {

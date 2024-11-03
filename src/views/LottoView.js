@@ -20,7 +20,7 @@ class LottoView {
     Console.print(`6개 일치 (2,000,000,000원) - ${result[6]}개`);
   }
 
-  printReturnRate(returnRate) {
+  printRate(returnRate) {
     Console.print(`총 수익률은 ${returnRate}%입니다.`);
   }
 }
