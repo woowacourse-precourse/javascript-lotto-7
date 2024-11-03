@@ -4,6 +4,7 @@ import { print, pickUniqueNumbersInRange } from '../Util/console.js';
 class LottoIssuance {
   constructor(lottoPrice) {
     this.lottoPrice = lottoPrice;
+    this.lottoNumberArray = [];
   }
   lottoCount() {
     return this.lottoPrice / 1000;
@@ -13,9 +14,16 @@ class LottoIssuance {
     print(OUTPUT_MESSAGES.lottoBuy(count));
   }
   printLottoNumber() {
-    const lottoNumber = pickUniqueNumbersInRange();
-    lottoNumber.sort((a, b) => a - b);
-    print(lottoNumber);
+    const count = this.lottoCount();
+    for (let i = 0; i < count; i++) {
+      const lottoNumber = pickUniqueNumbersInRange(count);
+      lottoNumber.sort((a, b) => a - b);
+      this.lottoNumberArray.push(lottoNumber);
+    }
+    print(this.lottoNumberArray);
+  }
+  getLottoNumbers() {
+    return this.lottoNumberArray;
   }
 }
 export default LottoIssuance;

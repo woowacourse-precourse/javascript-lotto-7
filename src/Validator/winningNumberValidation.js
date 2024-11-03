@@ -21,6 +21,7 @@ const WINNING_NUMBER_RANGE = (winningNumberArray) => {
 
 export const WINNING_NUMBER_VALIDATION = (winningNumber) => {
   const winningNumberArray = winningNumber.split(SYMBOLS.comma).map(Number);
+
   if (!SEPARATE_COMMA(winningNumber)) {
     throw new Error(ERROR_MESSAGES.IS_SEPARATE_COMMA);
   }

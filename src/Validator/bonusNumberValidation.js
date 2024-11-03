@@ -1,10 +1,10 @@
 import { ERROR_MESSAGES } from '../Constant/error.js';
 
 const BONUS_NUMBER_ONE = (bonusNumber) => {
-  return bonusNumber.length === 1;
+  return bonusNumber >= 1 && bonusNumber <= 45;
 };
-const BONUS_NUMBER_DUPLICATION = (bonusNumber, winningNumbers) => {
-  return winningNumbers.includes(bonusNumber[0]);
+const BONUS_NUMBER_DUPLICATION = (bonusNumber, winningNumber) => {
+  return winningNumber.split(',').map(Number).includes(bonusNumber);
 };
 
 export const BONUS_NUMBER_VALIDATION = (bonusNumber, winningNumber) => {
