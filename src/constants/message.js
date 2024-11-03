@@ -20,6 +20,14 @@ const LOTTO_ERROR_MESSAGE = Object.freeze({
   NOT_SORTED: "로또 번호는 오름차순으로 정렬되어야 합니다.",
 });
 
+const WINNING_NUMBERS_ERROR_MESSAGE = Object.freeze({
+  EMPTY_INPUT: "입력값이 비어 있습니다. 1 ~ 45사이의 6개의 당첨 번호를 콤마(,) 기준으로 입력해 주세요.",
+  DELIMITER_REQUIRED: "당첨 번호는 콤마(,)로 구분되어 있어야 합니다. 1 ~ 45사이의 6개의 당첨 번호를 입력해 주세요.",
+  INVALID_DELIMITER: "콤마(,)로만 숫자를 구분할 수 있습니다. 1 ~ 45사이의 6개의 당첨 번호를 콤마(,) 기준으로 입력해 주세요.",
+  OUT_OF_RANGE: "로또 번호는 1부터 45 사이의 양의 정수여야 합니다. 6개의 당첨 번호를 콤마(,) 기준으로 입력해 주세요.",
+  INVALID_NUMBER_COUNT: "로또 번호는 6개의 숫자로 구성되어야 합니다. 1 ~ 45사이의 당첨 번호를 콤마(,) 기준으로 입력해 주세요.",
+});
+
 const TAGS = Object.freeze({
   ERROR: "[ERROR]",
 });
@@ -28,5 +36,6 @@ export {
   LOG_MESSAGE,
   PRICE_ERROR_MESSAGE,
   LOTTO_ERROR_MESSAGE,
+  WINNING_NUMBERS_ERROR_MESSAGE,
   TAGS,
 };
