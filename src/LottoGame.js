@@ -5,6 +5,7 @@ class LottoGame {
   #winningNumbers;
   #lottoAmount;
   #lottoArr;
+
   constructor(lottoAmount) {
     this.#lottoAmount = lottoAmount;
     this.#lottoArr = [];
@@ -24,6 +25,11 @@ class LottoGame {
   // lotto 숫자 랜덤 생성 메소드
   CreateLottoNumbers() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
+
+  // 당첨 번호 확인
+  checkLottos() {
+    this.#lottoArr.forEach((lotto) => lotto.checkWinStatus(this.#winningNumbers));
   }
 }
 
