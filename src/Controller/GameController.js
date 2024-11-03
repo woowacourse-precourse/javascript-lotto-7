@@ -1,9 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 import Input from '../View/Input.js';
+import { ERROR_MESSAGE } from '../constant/error.js';
 
 class GameController {
   async init() {
-    const purchaseAmount = await this.#getValidatedPurchaseAmount();
+    const purchaseAmount = await Input.getPurchaseAmount()(
+      this.#validatePurchaseAmount,
+    );
     const winningNumbers = await this.#getValidatedWinningNumbers();
     const bonusNumber = await this.#getValidatedBonusNumber();
 
@@ -12,17 +15,17 @@ class GameController {
     Console.print(bonusNumber);
   }
 
-  async #getValidatedPurchaseAmount() {
-    const validatePurchaseAmount = Input.getPurchaseAmount();
+  #validatePurchaseAmount(input) {
+    const amount = +input;
+    if (Number.isNaN(amount)) {
+      throw new Error(ERROR_MESSAGE.invalidNumberType);
+    }
 
-    return validatePurchaseAmount((input) => {
-      const amount = +input;
-      if (Number.isNaN(amount)) {
-        throw new Error('숫자를 입력해주세요.');
-      }
+    if (amount % 1000 !== 0) {
+      throw new Error(ERROR_MESSAGE.invalidPurchaseAmountUnit);
+    }
 
-      return amount;
-    });
+    return amount;
   }
 
   async #getValidatedWinningNumbers() {
