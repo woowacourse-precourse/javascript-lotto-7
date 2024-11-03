@@ -23,7 +23,7 @@ JavaScript로 구현하고 Jest를 통해 테스트 하였으며, MVC패턴을 �
 - 구입 금액 입력
 - 당첨 번호 입력 (번호는 쉼표(,)를 기준으로 구분)
 - 보너스 번호 입력
-- 예외 처리
+- 예외 처리 후 해당 부분부터 다시 실행
     - 구입 금액이 숫자로 이루어지지 않은 값일 경우
     - 구입 금액이 1,000단위로 나누어 떨어지지 않는 값일 경우
     - 당첨 번호와 보너스 번호에 중복된 값이 있는 경우
@@ -52,7 +52,8 @@ JavaScript로 구현하고 Jest를 통해 테스트 하였으며, MVC패턴을 �
 
 
 ## 📦 다이어그램
-![Frame 1](https://github.com/user-attachments/assets/c609d004-868d-436e-98ca-8ec45ea24524)
+![LottoDiagram](https://github.com/user-attachments/assets/21686a9d-d0ab-41b2-a741-dcfcfdcac20f)
+
 
 
 
