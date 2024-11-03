@@ -9,6 +9,7 @@ class App {
     const count = payment / this.LOTTO_PRICE;
     const lotteries = this.getLotteries(count);
     const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
   }
 
   async getPayment() {
@@ -85,6 +86,32 @@ class App {
       }
       winningNumbers.push(number);
     });
+  }
+
+  async getBonusNumber(winningNumbers) {
+    try {
+      const input = await Console.readLineAsync(
+        "\n보너스 번호를 입력해 주세요.\n",
+      );
+      const bonusNumber = Number(input);
+
+      this.validateBonusNumber(bonusNumber);
+      return bonusNumber;
+    } catch (e) {
+      Console.print(e.message);
+      return this.getBonusNumber(winningNumbers);
+    }
+  }
+
+  validateBonusNumber(number, winningNumbers) {
+    if (isNaN(number) || number < 1 || number > 45) {
+      throw new Error(
+        "[ERROR] 보너스 번호는 1과 45 사이의 숫자로 입력하셔야 합니다.",
+      );
+    }
+    if (winningNumbers.includes(number)) {
+      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되면 안됩니다.");
+    }
   }
 }
 
