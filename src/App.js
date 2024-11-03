@@ -6,9 +6,9 @@ class App {
   async run() {
     try {
       const lottoMachine = new LottoMachine()
-      lottoMachine.run()
+      await lottoMachine.run()
     } catch (e) {
-      console.log(e.message)
+      Console.print(e.message)
     }
   }
 }
