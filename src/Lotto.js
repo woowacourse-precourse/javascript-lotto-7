@@ -27,13 +27,11 @@ class Lotto {
   compare(answerNum, bonusNum) {
     let count = 0;
     answerNum.map((value) => {
-      if (this.#numbers.includes(value))
-        count++;
-    })
+      if (this.#numbers.includes(value)) count++;
+    });
     answerNum.map((value) => {
-      if (this.#numbers.includes(bonusNum) && count == 5)
-        count = 7;
-    })
+      if (this.#numbers.includes(bonusNum) && count == 5) count = 7;
+    });
 
     return count;
   }
