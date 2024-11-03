@@ -1,12 +1,10 @@
 import Lotto from '../Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
-import { validatePurchaseAmount } from '../utils/validation.js';
 
 class LottoNumberGenerator {
   #lottoAmount;
 
   constructor(purchaseAmount) {
-    validatePurchaseAmount(purchaseAmount);
     this.#lottoAmount = purchaseAmount / 1000;
   }
 
