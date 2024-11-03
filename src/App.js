@@ -14,7 +14,7 @@ class App {
     const winNumbers = await this.getWinNumbers();
     const bonusNumber = await this.getBonusNumber(winNumbers);
 
-    lottoGame.getWholeWinResult(winNumbers, bonusNumber);
+    lottoGame.getTotalWinResult(winNumbers, bonusNumber);
     
     printWinResult(lottoGame);
     printYieldResult(lottoGame);

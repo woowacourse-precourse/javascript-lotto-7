@@ -21,12 +21,11 @@ class LottoGame {
         return this.quantity;
     }
 
-    getWholeWinResult(winNumbers, bonusNumber) {
+    getTotalWinResult(winNumbers, bonusNumber) {
         this.winRankList = this.lottoList.map(lotto => {
             const lottoObj = new Lotto(lotto);
             return lottoObj.getWinResult(winNumbers, bonusNumber);
-        });
-        return this.winRankList.filter(rank => rank <= 5);
+        }).filter(rank => rank <= 5);
     }
 
     getWinResult() {
