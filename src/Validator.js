@@ -21,12 +21,19 @@ class Validator {
   lottoNumbers(lottoNumbers) {
     // 1-45 사이의 숫자가 아닌 경우
     if (!lottoNumbers.every((number) => Number(number) > 0 && Number(number) < 46)) {
-      throw new Error(ERROR_MESSAGE.INVALID_LOTTO_NUMBER);
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
     }
 
     //6개가 아닌 경우
     if (lottoNumbers.length !== 6) {
       throw new Error(ERROR_MESSAGE.SIX_NUMBERS_NEEDED);
+    }
+  }
+
+  bonusNumber(bonusNumber) {
+    // 1-45 사이의 숫자가 아닌 경우
+    if (!(Number(bonusNumber) > 0 && Number(bonusNumber) < 46)) {
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
     }
   }
 }

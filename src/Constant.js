@@ -8,7 +8,7 @@ export const ERROR_MESSAGE = {
   NOT_A_NUMBER: "[ERROR] : 문자가 아닌 숫자를 입력해주세요.\n",
   MINIMUM_PURCHASE_AMOUNT: "[ERROR] : 최소 구매 금액은 1000원 입니다.\n",
   PURCHASE_UNIT_1000: "[ERROR] : 구입 금액은 1000원 단위 입니다.\n",
-  INVALID_LOTTO_NUMBER: "[ERROR] : 1-45 사이의 숫자를 입력해주세요.\n",
+  INVALID_NUMBER: "[ERROR] : 1-45 사이의 숫자를 입력해주세요.\n",
   SIX_NUMBERS_NEEDED: "[ERROR] : 6개의 번호를 입력해주세요.\n",
 };
 

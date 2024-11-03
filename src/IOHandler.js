@@ -29,6 +29,17 @@ class IOHandler {
       return this.getLottoNumbers();
     }
   }
+
+  async getBonusNumber() {
+    try {
+      const bonusNumber = await Console.readLineAsync(INPUT_MESSAGE.GET_LOTTO_NUMBERS);
+      this.Validator.bonusNumber(bonusNumber);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error);
+      return this.getBonusNumber();
+    }
+  }
 }
 
 export default IOHandler;

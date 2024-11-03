@@ -10,10 +10,18 @@ class App {
     this.IOHandler = new IOHandler();
   }
   async run() {
+    // 구매금액 입력
     const purchaseAmount = await this.IOHandler.getPurchaseAmount();
+
+    // 로또 게임 시작
     const lottoGame = new LottoGame(purchaseAmount / LOTTO_PRICE);
+
+    // 구매 개수만큼 로또 생성
     lottoGame.CreateLotto();
+
+    // 당첨번호, 보너스 번호 입력
     const lottoNumbers = await this.IOHandler.getLottoNumbers();
+    const bonusNumber = await this.IOHandler.getBonusNumber();
 
     // const bonusNumber = await this.IOHandler.getInput(INPUT_MESSAGE.GET_BONUS_NUMBER);
     // Console.print(bonusNumber);
