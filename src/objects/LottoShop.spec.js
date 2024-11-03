@@ -11,7 +11,9 @@ describe('LottoShop', () => {
       );
 
       lottos.forEach((lotto, index) =>
-        expect(lotto.numbers).toEqual(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS[index]),
+        expect(lotto.numbers).toStrictEqual(
+          MOCK_DATA_1.RANDOM.LOTTO_NUMBERS[index],
+        ),
       );
     });
   });

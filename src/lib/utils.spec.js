@@ -14,11 +14,11 @@ import {
 describe('유틸 함수', () => {
   describe('intersection', () => {
     test('두 배열에 곂치는 요소가 있다면 요소를 담은 배열을 반환한다.', () => {
-      expect(intersection([1, 2, 3], [1, 2, 4])).toEqual([1, 2]);
+      expect(intersection([1, 2, 3], [1, 2, 4])).toStrictEqual([1, 2]);
     });
     test('두 배열에 곂치는 요소가 없다면 빈 배열을 반환한다.', () => {
-      expect(intersection([], [])).toEqual([]);
-      expect(intersection([1, 2, 3], [4, 5, 6])).toEqual([]);
+      expect(intersection([], [])).toStrictEqual([]);
+      expect(intersection([1, 2, 3], [4, 5, 6])).toStrictEqual([]);
     });
   });
   describe('getIsNumeric', () => {
