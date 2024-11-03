@@ -16,12 +16,7 @@ class App {
     await this.printLottoNumbers(userLottoNumbers, lottoCount);
 
     const winningNumber = await this.getWinningNumbers();
-    const inputBonusNumber = await Console.readLineAsync(
-      "보너스 번호를 입력해 주세요.\n"
-    );
-
-    const bonusNumber = Number(inputBonusNumber);
-    this.validateBonusNumber(bonusNumber, winningNumber);
+    const bonusNumber = await this.getBonusNumber(winningNumber);
 
     const matchingResults = this.checkMatchingLottos(
       userLottoNumbers,
@@ -53,6 +48,15 @@ class App {
     );
     const inputWinningNumber = inputWinningNumbers.split(",").map(Number);
     return new Lotto(inputWinningNumber);
+  }
+
+  async getBonusNumber(winningNumber) {
+    const inputBonusNumber = await Console.readLineAsync(
+      "보너스 번호를 입력해 주세요.\n"
+    );
+    const bonusNumber = Number(inputBonusNumber);
+    this.validateBonusNumber(bonusNumber, winningNumber);
+    return bonusNumber;
   }
 
   generateLotto(lottoCount) {
