@@ -21,7 +21,7 @@ export default class WinningLotto {
   static validateBonusNumber(winningNumber, bonusNumber) {
     const number = Number(bonusNumber);
     if (number < 1 || number > 45) {
-      throw new Error(WinningLotto.#ERROR_MESSAGE.INVALID_BONUS_NUMBER);
+      throw new Error(WinningLotto.#ERROR_MESSAGE.INVALID_BONUS_NUMBER_RANGE);
     }
 
     if (winningNumber.includes(number)) {
