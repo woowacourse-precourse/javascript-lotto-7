@@ -1,7 +1,7 @@
 import ResultChecker from '../../src/models/ResultChecker';
 import { PRIZE_RANKS } from '../../src/constants/prizes';
 
-describe('ResultChecker', () => {
+describe('models/ResultChecker', () => {
   let resultChecker;
 
   beforeEach(() => {
