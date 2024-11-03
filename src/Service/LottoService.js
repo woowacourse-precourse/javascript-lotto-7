@@ -51,11 +51,16 @@ class LottoService {
    * @param {{ 3: number, 4: number, 5: number, BONUS: number, 6: number }} results
    */
   calculateEarningRate(purchaseAmount, results) {
-    const totalPrize = Object.entries(results).reduce((sum, [rank, count]) => {
-      return sum + LOTTO_CONFIG.PRIZE[rank] * count;
-    }, 0);
+    const totalPrize = this.calculateTotalPrize(results);
 
     return ((totalPrize / purchaseAmount) * 100).toFixed(1);
+  }
+
+  /**@param {{ 3: number, 4: number, 5: number, BONUS: number, 6: number }} results */
+  calculateTotalPrize(results) {
+    return Object.entries(results).reduce((sum, [rank, count]) => {
+      return sum + LOTTO_CONFIG.PRIZE[rank] * count;
+    }, 0);
   }
 }
 
