@@ -76,6 +76,15 @@ describe('LottoMachine 클래스 테스트', () => {
     },
   );
 
+  test.each([['123'], ['1'], ['54321'], ['1001'], ['1000.1']])(
+    '구입 금액이 1000 단위가 아닐 때 예외가 발생하는지 테스트 (%s)',
+    async (payment) => {
+      const errorMessage = ERROR_MESSAGE.notUnitPrice;
+
+      await testPayment(payment, errorMessage);
+    },
+  );
+
   test.each([
     [1000, 1],
     [2000, 2],
