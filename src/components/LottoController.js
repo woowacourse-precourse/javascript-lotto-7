@@ -11,6 +11,7 @@ class LottoController {
   }
 
   setPurchaseAmount(purchaseAmount) {
+    purchaseAmountValidator(purchaseAmount);
     this.#purchaseAmount = purchaseAmount;
   }
 
@@ -57,7 +58,6 @@ class LottoController {
       InputPrompts.purchaseAmount,
     );
 
-    purchaseAmountValidator(newPurchaseAmount);
     this.setPurchaseAmount(newPurchaseAmount);
   }
 }
