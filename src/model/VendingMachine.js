@@ -6,14 +6,29 @@ import {
   LOTTO_PRICE,
   PURCHASE_LIMIT_AMOUNT,
 } from '../Constants.js';
+import Lotto from './Lotto.js';
 
 class VendingMachine {
   /** @type {number} */
   #lottoCount;
 
-  /** @param {number} money */
-  constructor(money) {
+  /** @type {Lotto[]} */
+  #lottoList;
+
+  /**
+   * @param {number} money
+   * @param {(numbers: number[]) => Lotto} lottoConstructor
+   */
+  constructor(money, lottoConstructor) {
     this.#putInMoney(money);
+    this.#generateLottos(lottoConstructor);
+  }
+
+  /** @param {(numbers: number[]) => Lotto} lottoConstructor */
+  #generateLottos(lottoConstructor) {
+    this.#lottoList = Array.from({ length: this.#lottoCount }, () => {
+      return lottoConstructor(this.#getRandomNumbers());
+    });
   }
 
   /** @returns {number[]} */
