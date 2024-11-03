@@ -28,3 +28,20 @@ async function priceValidator() {
     return priceValidator();
   }
 }
+
+async function WinningNumberValidator() {
+  try {
+    let winningNumber = await Console.readLineAsync(
+      LOG_MESSAGE.WINNING_NUMBER_MESSAGE
+    );
+    winningNumber = winningNumber.split(",");
+
+    CheckWinningNumberInput(winningNumber);
+    isWinningNumberLength(winningNumber);
+    checkNumberRange(winningNumber);
+    isDuplicateNumber(winningNumber);
+  } catch (erro) {
+    Console.print(error.message);
+    return WinningNumberValidator();
+  }
+}
