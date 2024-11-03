@@ -13,15 +13,19 @@ export const validWinningLotto = (winningLotto) => {
     const IS_NOT_COUNT_6 = winningLotto.split(',').length !== 6;
     const IS_NO_INPUT = winningLotto.trim() === '';
     const IS_NOT_UNIQUE = new Set(winningLotto.split(',')).size !== 6;
+    const IS_NOT_RANGE = winningLotto.split(',').some(num => !((1 <= num) && (num <= 45)));
 
     if (IS_NO_INPUT) throw new Error(WINNING_LOTTO_ERROR.ERROR_NO_INPUT);
     if (IS_NOT_COUNT_6) throw new Error(WINNING_LOTTO_ERROR.ERROR_COUNT_6);
     if (IS_NOT_COMMA) throw new Error(WINNING_LOTTO_ERROR.ERROR_COMMA);
     if (IS_NOT_UNIQUE) throw new Error(WINNING_LOTTO_ERROR.ERROR_UNIQUE);
+    if (IS_NOT_RANGE) throw new Error(WINNING_LOTTO_ERROR.ERROR_RANGE);
 }
 
 export const validBonus = (bonus, winningLotto) => {
     const IS_NOT_UNIQUE = winningLotto.some(num => num === bonus);
+    const IS_NOT_RANGE = !((1 <= bonus) && (bonus <= 45));
 
     if (IS_NOT_UNIQUE) throw new Error(BONUS_ERROR.ERROR_UNIQUE);
+    if (IS_NOT_RANGE) throw new Error(BONUS_ERROR.ERROR_RANGE);
 }
