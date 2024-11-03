@@ -1,5 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
-import { getPurchaseAmount } from '../utils/getUserInput.js';
 import {
   GAME_SETTINGS,
   ERROR_MESSAGES,
@@ -8,49 +6,44 @@ import {
 } from '../utils/constants.js';
 
 class PurchaseValidator {
-  static async validatePurchaseAmount(purchaseAmount) {
-    try {
-      this.#isPositiveNumber(purchaseAmount);
-      this.#isNumber(purchaseAmount);
-      this.#isDivisibleByThousand(purchaseAmount);
-      return purchaseAmount;
-    } catch (error) {
-      Console.print(error.message);
-
-      const isValidInput = await getPurchaseAmount();
-      return this.validatePurchaseAmount(isValidInput);
+  static validate(purchaseAmount) {
+    if (this.#isNotNumber(purchaseAmount)) {
+      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
     }
+    const formattedAmount = this.#formatAmount(purchaseAmount);
+
+    if (this.#isNotPositiveNumber(formattedAmount)) {
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_POSITIVE);
+    }
+
+    if (this.#isNotDivisibleByThousand(formattedAmount)) {
+      throw new Error(
+        ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISIBILITY(LOTTO.TICKET_PRICE)
+      );
+    }
+    return formattedAmount;
   }
 
-  static #isNumber(purchaseAmount) {
+  static #isNotNumber(purchaseAmount) {
     const isValidFormat = [
       REGEX.NO_COMMA_NUMBER_REGEX,
       REGEX.THOUSANDS_COMMA_REGEX,
     ].some((regex) => regex.test(purchaseAmount));
-    if (!isValidFormat) {
-      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
-    }
+    return !isValidFormat;
   }
 
-  static #cleanAmount(purchaseAmount) {
+  static #formatAmount(purchaseAmount) {
     return Number(
       purchaseAmount.replace(REGEX.COMMA_REGEX, GAME_SETTINGS.EMPTY_STRING)
     );
   }
 
-  static #isPositiveNumber(purchaseAmount) {
-    if (this.#cleanAmount(purchaseAmount) <= GAME_SETTINGS.ZERO) {
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_POSITIVE);
-    }
+  static #isNotPositiveNumber(formattedAmount) {
+    return formattedAmount <= GAME_SETTINGS.ZERO;
   }
 
-  // TODO: 정상작동하지만 가독성을 위해 분기처리해야할까? 조건문이 길다.
-  static #isDivisibleByThousand(purchaseAmount) {
-    if (this.#cleanAmount(purchaseAmount) % LOTTO.TICKET_PRICE !== 0) {
-      throw new Error(
-        ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISIBILITY(LOTTO.TICKET_PRICE)
-      );
-    }
+  static #isNotDivisibleByThousand(formattedAmount) {
+    return formattedAmount % LOTTO.TICKET_PRICE !== 0;
   }
 }
 

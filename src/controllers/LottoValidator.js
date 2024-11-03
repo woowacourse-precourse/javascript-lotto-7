@@ -1,6 +1,5 @@
 import { LOTTO, ERROR_MESSAGES } from '../utils/constants.js';
 
-// TODO: 비슷한 비즈니스 로직을 가진 코드 합치기
 class LottoValidator {
   #winningNumbers;
 
