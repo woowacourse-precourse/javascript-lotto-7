@@ -8,7 +8,7 @@ export async function inputAmount() {
 
 export async function inputWinNumbers() {
     const userInput = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    return userInput.split(',').map(a => Number(a));
+    return userInput.split(',').map(number => Number(number));
 }
 
 export async function inputBonusNumber() {

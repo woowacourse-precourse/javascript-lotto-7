@@ -22,11 +22,11 @@ class LottoGame {
     }
 
     getWholeWinResult(winNumbers, bonusNumber) {
-        this.winRankList = this.lottoList.map(a => {
-            const lottoObj = new Lotto(a);
+        this.winRankList = this.lottoList.map(lotto => {
+            const lottoObj = new Lotto(lotto);
             return lottoObj.getWinResult(winNumbers, bonusNumber);
         });
-        return this.winRankList.filter(a => a <= 5);
+        return this.winRankList.filter(rank => rank <= 5);
     }
 
     getWinResult() {
@@ -37,12 +37,12 @@ class LottoGame {
             '5개 일치, 보너스 볼 일치 (30,000,000원)',
             '6개 일치 (2,000,000,000원)'
         ];
-        const results = [];
+        let results = [];
 
-        FORM.forEach((a, idx) => {
+        FORM.forEach((acc, idx) => {
             const rank = 5 - idx;
             const matchCount = this.getWinCount(this.winRankList, rank);
-            results.push(`${a} - ${matchCount}개`);
+            results.push(`${acc} - ${matchCount}개`);
         });
         return results;
     }
@@ -56,8 +56,8 @@ class LottoGame {
         }, 0);
     }
 
-    getWinCount(result, rank) {
-        return result.filter(a => a === rank).length;
+    getWinCount(winRankList, rank) {
+        return winRankList.filter(winRank => winRank === rank).length;
     }
 
     getYield() {

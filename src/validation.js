@@ -10,7 +10,7 @@ export function checkWinNumbers(input) {
     if (input.length !== 6) {
         throw new Error(ERROR.WIN_NUMBER_COUNT);
     }
-    if (!input.every(a => a >= 1 && a <= 45)) {
+    if (!input.every(number => number >= 1 && number <= 45)) {
         throw new Error(ERROR.WIN_NUMBER_RANGE);
     }
     if ([...new Set(input)].length !== 6) {
