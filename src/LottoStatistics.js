@@ -1,17 +1,11 @@
 import { LOTTO_PRIZES, MIN_MATCH_FOR_PRIZE, FIVE_BONUS_KEY } from './constants/lottoConstants.js';
 
 class LottoStatistics {
-  #purchasedLottos;
-
-  #winningLotto;
-
   #winningStatistics;
 
   #purchaseAmount;
 
-  constructor(purchasedLottos, winningLotto, purchaseAmount) {
-    this.#purchasedLottos = purchasedLottos;
-    this.#winningLotto = winningLotto;
+  constructor(purchaseAmount) {
     this.#purchaseAmount = purchaseAmount;
     this.#winningStatistics = {
       3: { count: 0, prize: LOTTO_PRIZES.THREE_MATCH },
@@ -22,11 +16,11 @@ class LottoStatistics {
     };
   }
 
-  calculateStatistics() {
-    const winningNumbers = this.#winningLotto.getNumbers();
-    const bonusNumber = this.#winningLotto.getBonusNumber();
+  calculateStatistics(purchasedLottos, winningLotto) {
+    const winningNumbers = winningLotto.getNumbers();
+    const bonusNumber = winningLotto.getBonusNumber();
 
-    this.#purchasedLottos.forEach((lotto) => {
+    purchasedLottos.forEach((lotto) => {
       const matchedNumCount = LottoStatistics.#getMatchedNumCount(lotto, winningNumbers);
       const hasBonus = LottoStatistics.#hasBonusNumber(lotto, bonusNumber);
       this.#recordMatchedResult(matchedNumCount, hasBonus);
