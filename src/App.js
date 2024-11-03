@@ -17,10 +17,6 @@ class App {
 
       const purchasedLottos = new PurchasedLottos();
       await purchasedLottos.generateLottos(lottoCount);
-      // App 클래스에서 로또 번호를 출력할 때 문자열로 변환하여 출력
-      // purchasedLottos.getLottos().forEach((lotto) => {
-      //   Console.print(`[${lotto.getNumbers().join(', ')}]`);
-      // });
 
       const winningNumberInput = await InputPrompt.getWinningNumber();
       const winningNumbers = winningNumberInput
