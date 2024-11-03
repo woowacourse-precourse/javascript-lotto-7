@@ -1,3 +1,5 @@
+import matchLottoNumbers from "./lottoUtils/matchLottoNumbers";
+
 class Lotto {
   #numbers;
 
@@ -19,6 +21,19 @@ class Lotto {
 
   #sortNumbers(numbers) {
     return numbers.sort((a, b) => a - b);
+  }
+
+  winningRank(winningNumbers, bonusNumber) {
+    const matchedCount = matchLottoNumbers(this.#numbers, winningNumbers);
+    const isBonusNumberMatched = this.#numbers.includes(bonusNumber);
+
+    if (matchedCount === 6) return 1;
+    if (matchedCount === 5 && isBonusNumberMatched) return 2;
+    if (matchedCount === 5) return 3;
+    if (matchedCount === 4) return 4;
+    if (matchedCount === 3) return 5;
+
+    return -1;
   }
 }
 
