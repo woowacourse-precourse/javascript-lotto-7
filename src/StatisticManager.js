@@ -19,9 +19,7 @@ class StatisticManager {
     await Console.print(MESSAGE_STATISTICS(matchingResults.three).MATCH_THREE);
     await Console.print(MESSAGE_STATISTICS(matchingResults.four).MATCH_FOUR);
     await Console.print(MESSAGE_STATISTICS(matchingResults.five).MATCH_FIVE);
-    await Console.print(
-      MESSAGE_STATISTICS(matchingResults.fiveBonus).MATCH_FIVE_BONUS
-    );
+    await Console.print(MESSAGE_STATISTICS(matchingResults.fiveBonus).MATCH_FIVE_BONUS);
     await Console.print(MESSAGE_STATISTICS(matchingResults.six).MATCH_SIX);
     await Console.print(MESSAGE_STATISTICS(rate).RATE);
   }
@@ -30,9 +28,7 @@ class StatisticManager {
     const matchingResults = new MatchingResults();
 
     userLottoNumbers.forEach((lotto) => {
-      const matchCount = lotto
-        .getNumbers()
-        .filter((num) => winningNumberSet.has(num)).length;
+      const matchCount = lotto.getNumbers().filter((num) => winningNumberSet.has(num)).length;
       const hasBonus = lotto.getNumbers().includes(bonusNumber);
 
       matchingResults.update(matchCount, hasBonus);

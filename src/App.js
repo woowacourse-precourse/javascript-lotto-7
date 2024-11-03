@@ -23,10 +23,7 @@ class App {
       new Set(winningNumber),
       bonusNumber
     );
-    const rate = this.statisticManager.calculateRate(
-      matchingResults,
-      purchaseAmount
-    );
+    const rate = this.statisticManager.calculateRate(matchingResults, purchaseAmount);
     await this.statisticManager.printStatistics(matchingResults, rate);
   }
 }

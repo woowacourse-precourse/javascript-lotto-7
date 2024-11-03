@@ -4,9 +4,7 @@ import { ERROR_MESSAGES } from "./constants/constant.js";
 class InputHandler {
   async getPurchaseAmount() {
     try {
-      const purchaseAmount = await Console.readLineAsync(
-        "구입금액을 입력해 주세요\n"
-      );
+      const purchaseAmount = await Console.readLineAsync("구입금액을 입력해 주세요\n");
       this.validatePurchaseAmount(purchaseAmount);
       return purchaseAmount;
     } catch (error) {
@@ -17,9 +15,7 @@ class InputHandler {
 
   async getWinningNumbers() {
     try {
-      const inputWinningNumbers = await Console.readLineAsync(
-        "\n당첨 번호를 입력해 주세요.\n"
-      );
+      const inputWinningNumbers = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
       const winningNumbers = inputWinningNumbers.split(",").map(Number);
       this.validateWinningNumbers(winningNumbers);
       return winningNumbers;
@@ -31,9 +27,7 @@ class InputHandler {
 
   async getBonusNumber(winningNumbers) {
     try {
-      const inputBonusNumber = await Console.readLineAsync(
-        "보너스 번호를 입력해 주세요.\n"
-      );
+      const inputBonusNumber = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
       const bonusNumber = Number(inputBonusNumber);
       this.validateBonusNumber(bonusNumber, winningNumbers);
       return bonusNumber;
@@ -45,14 +39,10 @@ class InputHandler {
 
   validatePurchaseAmount(purchaseAmount) {
     purchaseAmount = Number(purchaseAmount);
-    if (purchaseAmount === 0)
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_ZERO);
-    if (purchaseAmount < 0)
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_NEGATIVE);
-    if (purchaseAmount % 1000 !== 0)
-      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
-    if (purchaseAmount === "")
-      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_EMPTY);
+    if (purchaseAmount === 0) throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_ZERO);
+    if (purchaseAmount < 0) throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_NEGATIVE);
+    if (purchaseAmount % 1000 !== 0) throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+    if (purchaseAmount === "") throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_EMPTY);
   }
 
   validateWinningNumbers(winningNumbers) {
