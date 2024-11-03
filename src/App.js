@@ -20,25 +20,22 @@ function validatePayment(input) {
   isValidPaymentUnit(input);
 }
 
-function isPaymentValid(input) {
-  if (isNaN(input)) {
-    Console.print("[ERROR] 금액은 숫자여야 합니다.");
-    return false;
-  } else if (input % 1000 != 0) {
-    Console.print("[ERROR] 금액을 1000원 단위로 입력해주세요.");
-    return false;
+async function inputPayment() {
+  let payment;
+  while (true) {
+    payment = Number(await Console.readLineAsync("구입금액을 입력해 주세요."));
+    try {
+      validatePayment(payment);
+      return payment;
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
-  return true;
 }
 
 class App {
   async run() {
-    let payment;
-    do {
-      payment = Number(
-        await Console.readLineAsync("구입금액을 입력해 주세요.\n")
-      );
-    } while (!isPaymentValid(payment));
+    const payment = await inputPayment();
   }
 }
 
