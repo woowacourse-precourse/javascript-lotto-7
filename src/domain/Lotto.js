@@ -9,6 +9,7 @@ class Lotto {
   constructor(numbers) {
     this.#numbers = this.#delimiter(numbers);
     this.#numbers = this.#parseNumbers(numbers);
+    this.#validate(this.#numbers);
   }
 
   #delimiter(numbers) {
@@ -19,6 +20,15 @@ class Lotto {
 
   #parseNumbers(numbers) {
     return numbers.split(DELIMITER).map(Number);
+  }
+
+  #validate(numbers) {
+    const validate = new LottoValidate();
+    validate.validateLotto(numbers);
+  }
+
+  get value() {
+    return this.#numbers;
   }
 }
 
