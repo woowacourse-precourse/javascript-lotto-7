@@ -165,4 +165,19 @@ describe("App 단위 테스트", () => {
 		// then
 		expect(RESULT).toEqual(WINNING_RATE);
 	});
+
+	test("총 수익률 출력", () => {
+		// given
+		const INPUT = Number(100).toFixed(1);
+		const RESULT = "총 수익률은 100.0%입니다.";
+
+		const logSpy = getLogSpy();
+
+		// when
+		const output = new Output();
+		output.printWinningRate(INPUT);
+
+		// then
+		expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(RESULT));
+	});
 });
