@@ -23,11 +23,19 @@ describe('PriceInputHandler Class 테스트', () => {
 
 describe('LottoNumberInputHandler Class 테스트', () => {
   const winningNumbersArr = ['a,b,c,d,e,f', '!,@,3,$,^,7']
+  const lottoNumberInputHandler = new LottoNumberInputHandler();
 
   test.each(winningNumbersArr)('입력 받은 당첨 번호 중 숫자가 아닌 값이 존재하면 에러를 던진다.', async (winningNumbers) => {
     mockReadLineAsync(winningNumbers);
-    const lottoNumberInputHandler = new LottoNumberInputHandler();
-
     await expect(lottoNumberInputHandler.readWinningNumbers()).rejects.toThrow(inValidMessages.NaN);
+  })
+
+
+  const bonusNumberArr = ['a', '!', "1000j"]
+
+  test.each(bonusNumberArr)('입력 받은 보너스 번호가 숫자가 아니면 에러를 던진다.', async (bonusNumber) => {
+    mockReadLineAsync(bonusNumber);
+
+    await expect(lottoNumberInputHandler.readBonusNumber()).rejects.toThrow(inValidMessages.NaN);
   })
 });
