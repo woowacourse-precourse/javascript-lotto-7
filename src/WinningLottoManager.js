@@ -4,20 +4,16 @@ import Utils from './utils/Utils.js';
 import Validation from './Validation.js';
 
 class WinningLottoManager {
-  #winningNumbers;
-
-  #bonusNumber;
-
-  async setWinningNumbers() {
+  static async selectWinningNumbers() {
     try {
       const numbers = await WinningLottoManager.#getWinningNumbersInput();
-      WinningLottoManager.#validateWinningNumbers(numbers);
+      this.#validateWinningNumbers(numbers);
 
-      this.#winningNumbers = numbers;
+      return numbers;
     } catch (error) {
       Console.print(error.message);
 
-      await this.setWinningNumbers();
+      return this.selectWinningNumbers();
     }
   }
 
@@ -40,20 +36,16 @@ class WinningLottoManager {
     Validation.checkWinningNumbers([...numbers]);
   }
 
-  getWinningNumbers() {
-    return this.#winningNumbers;
-  }
-
-  async setBonusNumber() {
+  static async selectBonusNumber() {
     try {
       const bonusNumber = await WinningLottoManager.#getBonusNumberInput();
       this.#validateBonusNumber(bonusNumber);
 
-      this.#bonusNumber = bonusNumber;
+      return bonusNumber;
     } catch (error) {
       Console.print(error.message);
 
-      await this.setBonusNumber();
+      return this.selectBonusNumber();
     }
   }
 
@@ -68,13 +60,8 @@ class WinningLottoManager {
     return parsedBonusNumber;
   }
 
-  #validateBonusNumber(bonusNumber) {
-    const winningNumbers = [...this.#winningNumbers];
-    Validation.checkBonusNumber(bonusNumber, winningNumbers);
-  }
-
-  getBonusNumber() {
-    return this.#bonusNumber;
+  static #validateBonusNumber(bonusNumber, winningNumbers) {
+    Validation.checkBonusNumber(bonusNumber, [...winningNumbers]);
   }
 }
 
