@@ -5,33 +5,48 @@ class BonusNumberValidator {
     this.bonusNumber = bonusNumber;
   }
 
-  isValidEmptyInput(bonusNumber) {
-    return bonusNumber !== '';
+  isValidEmptyInput() {
+    return this.bonusNumber !== '';
   }
 
-  isValidNumberBonusNumber(bonusNumber) {
-    return !isNaN(bonusNumber);
+  isValidNumberBonusNumber() {
+    return !isNaN(this.bonusNumber);
   }
 
-  isValidateBonusNumberRange(bonusNumber) {
-    return bonusNumber > 0 && bonusNumber < 46;
+  isValidateBonusNumberRange() {
+    return this.bonusNumber > 0 && this.bonusNumber < 46;
+  }
+
+  getValidationRules() {
+    return [
+      [!this.isValidEmptyInput(), ERROR_MESSAGES.bonusNumber.EMPTY_INPUT],
+      [!this.isValidNumberBonusNumber(), ERROR_MESSAGES.bonusNumber.NUMBER_TYPE],
+      [!this.isValidateBonusNumberRange(), ERROR_MESSAGES.bonusNumber.NUMBER_RANGE],
+    ];
   }
 
   validateBonusNumber(bonusNumber) {
-    if (!this.isValidEmptyInput(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.bonusNumber.EMPTY_INPUT);
-    }
+    this.bonusNumber = bonusNumber;
+    const validationRules = this.getValidationRules();
 
-    if (!this.isValidNumberBonusNumber(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_TYPE);
-    }
-
-    if (!this.isValidateBonusNumberRange(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_RANGE);
-    }
+    validationRules.forEach((arr) => {
+      if (arr[0]) throw new Error(arr[1]);
+    });
 
     return true;
   }
 }
 
 export { BonusNumberValidator };
+
+// if (!this.isValidEmptyInput(bonusNumber)) {
+//   throw new Error(ERROR_MESSAGES.bonusNumber.EMPTY_INPUT);
+// }
+
+// if (!this.isValidNumberBonusNumber(bonusNumber)) {
+//   throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_TYPE);
+// }
+
+// if (!this.isValidateBonusNumberRange(bonusNumber)) {
+//   throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_RANGE);
+// }
