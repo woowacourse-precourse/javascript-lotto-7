@@ -41,7 +41,6 @@ const LoopWhileValid = {
       }
     } catch (error) {
       OutputPrint.error(error.message);
-      OutputPrint.basicNumbers(basicNumbers);
       OutputPrint.blankLine();
       return LoopWhileValid.getBonusNumbers(basicNumbers);
     }
