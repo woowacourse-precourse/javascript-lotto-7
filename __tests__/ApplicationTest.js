@@ -42,6 +42,23 @@ const runException = async (input) => {
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
 
+const testInputError = async (input) => {
+  // given
+  const logSpy = getLogSpy();
+  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+  mockRandoms([[7, 8, 9, 10, 11, 12]]);
+  mockQuestions(input);
+
+
+  // when
+  const app = new App();
+  await app.run();
+
+  // then
+  const logs = logSpy.mock.calls.map(call => call[0]);
+  expect(logs).toContainEqual(expect.stringContaining("[ERROR]"));
+};
+
 describe("로또 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -100,6 +117,14 @@ describe("로또 테스트", () => {
   })
 
   test(",가 아닌 문자가 입력된 경우", async () => {
-    await runException(["1010", "1,2,3,4,5,6", "a"]);
+    await testInputError(["1000", "1/2/3/4/5/6", "7"]);
+  })
+  
+  test("보너스 번호가 중복된 경우", async () => {
+    await testInputError(["1000", "1,2,3,4,5,6", "3"]);
+  })
+
+  test("당첨 번호가 범위를 벗어난 경우", async () => {
+    await testInputError(["1000", "1,200,3,4,5,6", "3"]);
   })
 });
