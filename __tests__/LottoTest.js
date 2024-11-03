@@ -8,9 +8,21 @@ describe("로또 클래스 테스트", () => {
     [[1, 2, 3, 4, 5, 0]],
     [[1, 2, 3, 4, 5, 46]],
     [[1, 2, 3, 4, 5, 7.1]],
-  ])("areAnagrams(%s, %s) returns %s", (list) => {
+  ])("areLottoNumbers(%s) returns %s", (list) => {
     expect(() => {
       new Lotto(list);
+    }).toThrow("[ERROR]");
+  });
+
+  test.each([
+    [[1, 2, 3, 4, 5, 6], 5],
+    [[1, 2, 3, 4, 5, 6], 46],
+    [[1, 2, 3, 4, 5, 6], 0],
+    [[1, 2, 3, 4, 5, 6], 7.1],
+    [[1, 2, 3, 4, 5, 6], -5],
+  ])("areBonusNumbers(%s, %s) returns %s", (list, bonus) => {
+    expect(() => {
+      new Lotto(list).addBonusDraw(bonus);
     }).toThrow("[ERROR]");
   });
 });

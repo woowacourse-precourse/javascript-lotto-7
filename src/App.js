@@ -96,7 +96,7 @@ class App {
 
     async function main() {
       const USER_NUMBERS = await userInput();
-      console.log(USER_NUMBERS);
+      // console.log(USER_NUMBERS);
     }
 
     // async function main() {
