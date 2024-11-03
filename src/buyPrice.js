@@ -7,7 +7,10 @@ function inputPrice(){
 }
 
 function isNumber(PRICE){
-    return /^[0-9]+$/.test(PRICE);
+    if(/^[0-9]+$/.test(PRICE)){
+        return true;
+    }
+    throw new Error("[ERROR] : 구매 금액이 숫자가 아닙니다.")
 }
 
 function isDivided1000(PRICE){
@@ -15,7 +18,6 @@ function isDivided1000(PRICE){
     if(DividedPrice === Math.floor(DividedPrice)){
         return true;
     }
-    
     throw new Error("[ERROR] : 1000으로 나누어 떨어지지 않습니다.");
 }
 
