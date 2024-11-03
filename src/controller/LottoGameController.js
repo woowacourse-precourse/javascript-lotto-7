@@ -4,6 +4,8 @@ import LottoMachine from '../model/LottoMachine.js';
 import LottoChecker from '../model/LottoChecker.js';
 import PrizeCalculator from '../model/PrizeCalculator.js';
 import ProfitAnalyzer from '../model/ProfitAnalyzer.js';
+import { printMessage } from '../utils/console.js';
+import retryOnError from '../utils/retryOnError.js';
 
 class LottoGameController {
   #lottoMachine;
@@ -11,13 +13,19 @@ class LottoGameController {
   #purchaseAmount;
 
   async startGame() {
-    await this.#initializeGame();
-    await this.#runGame();
+    try {
+      await this.#initializeGame();  
+      await this.#runGame();         
+    } catch (error) {
+      printMessage(error.message);
+    }
   }
 
   async #initializeGame() {
-    this.#purchaseAmount = await InputView.getPurchaseAmount();
-    this.#lottoMachine = new LottoMachine(this.#purchaseAmount); 
+    await retryOnError(async () => {
+      this.#purchaseAmount = await InputView.getPurchaseAmount();
+      this.#lottoMachine = new LottoMachine(this.#purchaseAmount); 
+    });
 
     const lottoCount = this.#lottoMachine.getLottoCount();
     OutputView.printPurchaseMessage(lottoCount);
@@ -36,7 +44,7 @@ class LottoGameController {
     const prizeCalculator = new PrizeCalculator(results);
     const statistics = prizeCalculator.getStatistics();
     const totalPrize = prizeCalculator.getTotalPrize();
-    
+
     this.#printWinningStatistic(statistics);
 
     const profitAnalyzer = new ProfitAnalyzer(totalPrize, this.#purchaseAmount);
@@ -55,7 +63,7 @@ class LottoGameController {
 
   #printAllLottoNumbers() {
     const lottoNumbers = this.#lottoMachine.getLottoNumbers();
-    OutputView.printLottoNumbers(lottoNumbers); 
+    OutputView.printLottoNumbers(lottoNumbers);
   }
 
   #printRateOfReturn(rateOfReturn) {
