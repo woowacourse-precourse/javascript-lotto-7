@@ -84,7 +84,7 @@ class App {
 
     const lottoCenter = new LottoCenter(winningNumbers, bonusNumber);
     const winningRanks = lottoCenter.getWinningRanks(
-      lottos.map((lotto) => lotto.getNumbers()),
+      lottos.map((lotto) => lotto.getLottoNumbers()),
     );
     const rankCounts = this.#getRankCounts(winningRanks);
 
