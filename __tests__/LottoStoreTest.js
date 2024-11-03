@@ -1,5 +1,4 @@
 import LottoStore from '../src/model/LottoStore.js';
-import { PRIZE_CONFIG } from '../src/constant/config.js';
 import { getUniqueNumbersInRange } from '../src/util/random.js';
 
 jest.mock('../src/util/random.js');
