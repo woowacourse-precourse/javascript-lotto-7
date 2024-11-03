@@ -8,6 +8,13 @@ describe('구입 금액 유효성 검사', () => {
     );
   });
 
+  test('구입 금액이 100000원 초과 시 예외 발생', () => {
+    const input = '200000';
+    expect(() => new User().setMoney(Number(input))).toThrow(
+      '[ERROR] 1회 한도는 100000원 입니다.'
+    );
+  });
+
   test('구입 금액이 숫자가 아닐 시 예외 발생', () => {
     const input = 'haku';
     expect(() => new User().setMoney(Number(input))).toThrow(
