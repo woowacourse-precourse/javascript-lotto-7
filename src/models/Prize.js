@@ -1,24 +1,23 @@
-import { PRIZE_ERROR_MESSAGES } from '../constants/errorMessages';
+import { PRIZE_ERROR_MESSAGES } from '../constants/index.js';
 import { MATCH_COUNT } from '../constants/lottoConfig.js';
-import ConsoleIO from '../io/ConsoleIO.js';
 import { throwError } from '../utils/validateUtils.js';
 
 class Prize {
   #prizeMoney = 0;
 
-  sumPrizeCount(tickets) {
+  combinePrizeCount(tickets) {
     const prizeCount = {
-      placeOf5: 0,
-      placeOf4: 0,
-      placeOf3: 0,
-      placeOf2: 0,
-      placeOf1: 0,
+      place5: 0,
+      place4: 0,
+      place3: 0,
+      place2: 0,
+      place1: 0,
     };
 
     tickets.forEach((lotto) => {
       const ranking = lotto.getRanking();
       if (ranking <= 6 && ranking >= 1) {
-        prizeCount[`placeOf${ranking}`] += 1;
+        prizeCount[`place${ranking}`] += 1;
       }
     });
 

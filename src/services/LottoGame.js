@@ -1,16 +1,16 @@
 import { MESSAGES, PRIZE_MESSAGES } from '../constants/index.js';
-import { ConsoleIO } from '../io/index.js';
+import { InputHandler, Printer } from '../io/index.js';
 import { Lotto, Prize } from '../models/index.js';
-import { calculateCountOfPurchase, generateLottoNumbers } from '../utils/LottoUtils.js';
-import { LottoStorage } from './index.js';
+import { calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
+import { InputStorage } from './index.js';
 
 class LottoGame {
   #tickets;
-  #countOfTickets = 0;
+  #ticketCount = 0;
 
   constructor() {
-    this.console = new ConsoleIO();
-    this.storage = new LottoStorage();
+    this.console = new InputHandler();
+    this.storage = new InputStorage();
     this.prize = new Prize();
   }
 
@@ -18,10 +18,10 @@ class LottoGame {
     const money = await this.console.processMoneyInput(MESSAGES.moneyInput);
     this.storage.setMoney(money);
 
-    this.#countOfTickets = calculateCountOfPurchase(money);
-    ConsoleIO.print(this.#countOfTickets + MESSAGES.howManyBought);
+    this.#ticketCount = calculateTicketCount(money);
+    Printer.print(MESSAGES.howManyBought(this.#ticketCount));
 
-    this.#tickets = this.#issueTickets();
+    this.#issueTickets();
   }
 
   async enterNumber() {
@@ -35,17 +35,16 @@ class LottoGame {
   presentResult() {
     const earningsRate = this.#makeStatistics();
     this.#printStatistics();
-    ConsoleIO.print(earningsRate);
-    ConsoleIO.print(MESSAGES.earningsRateIs(earningsRate));
+    Printer.print(MESSAGES.earningsRateIs(earningsRate));
   }
 
   #issueTickets() {
-    const tickets = [...Array(this.#countOfTickets)].reduce((acc) => {
+    const tickets = [...Array(this.#ticketCount)].reduce((acc) => {
       const numbers = generateLottoNumbers();
       return [...acc, new Lotto(numbers)];
     }, []);
 
-    return tickets;
+    this.#tickets = tickets;
   }
 
   #makeStatistics() {
@@ -76,11 +75,12 @@ class LottoGame {
   }
 
   #printStatistics() {
-    const prizeCount = this.prize.sumPrizeCount(this.#tickets);
+    const prizeCount = this.prize.combinePrizeCount(this.#tickets);
 
-    ConsoleIO.print(MESSAGES.winningStatistics);
+    Printer.print(MESSAGES.winningStatistics);
+
     for (const [rankingName, count] of Object.entries(prizeCount)) {
-      ConsoleIO.print(PRIZE_MESSAGES.howManyMatchAndCount(rankingName, count));
+      Printer.print(PRIZE_MESSAGES.howManyMatchAndCount(rankingName, count));
     }
   }
 }

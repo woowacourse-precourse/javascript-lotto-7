@@ -1,8 +1,8 @@
 import { Random } from '@woowacourse/mission-utils';
-import { COUNT_OF_LOTTO_BALLS, MAX_BALL_NUMBER, MIN_BALL_NUMBER, PRICE_PER_SHEET } from '../constants/lottoConfig.js';
+import { COUNT_OF_LOTTO_BALLS, MAX_BALL_NUMBER, MIN_BALL_NUMBER, LOTTO_PRICE } from '../constants/lottoConfig.js';
 
-export const calculateCountOfPurchase = (money) => {
-  return money / PRICE_PER_SHEET;
+export const calculateTicketCount = (money) => {
+  return money / LOTTO_PRICE;
 };
 
 export const generateNumberInRange = ({ start, end, count = 1 }) => {

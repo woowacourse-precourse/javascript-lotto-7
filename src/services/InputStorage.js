@@ -1,7 +1,7 @@
-class LottoStorage {
+class InputStorage {
   #money = 0;
   #mainNumbers;
-  #bonumNumber;
+  #bonusNumber;
 
   getMoney() {
     return this.#money;
@@ -20,12 +20,12 @@ class LottoStorage {
   }
 
   getBonusNumber() {
-    return this.#bonumNumber;
+    return this.#bonusNumber;
   }
 
   setBonusNumber(input) {
-    this.#bonumNumber = input;
+    this.#bonusNumber = input;
   }
 }
 
-export default LottoStorage;
+export default InputStorage;
