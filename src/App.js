@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from './Lotto.js';
 
 class App {
   async run() {
@@ -24,6 +25,18 @@ class App {
     } catch(error) {
       MissionUtils.Console.print(error.message);
       await checkRestZero();
+    }
+
+    MissionUtils.Console.print(`${ticketCount}개를 구매했습니다.`);
+
+    const pickNumber = [];
+    for (let i = 0; i < ticketCount; i++) {
+      const numbers = new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6));
+      pickNumber.push(numbers);
+    }
+
+    for (let i = 0; i < pickNumber.length; i++) {
+      MissionUtils.Console.print(`[${pickNumber[i].getNumbers().join(', ')}]`);
     }
   }
 }
