@@ -113,8 +113,7 @@ class LottoMatcher {
         }
 
         if (lottoResult.winNumberMatch === 5) {
-            if (lottoResult.bonusNumberMatch === 1)
-                this.#lottoRankResult[2] = 1;
+            if (lottoResult.bonusNumberMatch === 1) this.#lottoRankResult[2] = 1;
             else this.#lottoRankResult[3] = 1;
         }
     }

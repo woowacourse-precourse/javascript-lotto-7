@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import Script from "./script.js";
+import Script from "./Script.js";
 import LotteryGenerator from "./LotteryGenerator.js";
 import LottoMatcher from "./LottoMatcher.js";
 import ProfitCalculator from "./ProfitCalculator.js";
@@ -17,7 +17,16 @@ class App {
         await this.makeWinNumber();
         await this.makeBonusNumber();
 
-        if (this.#lottoList.lottoList.length && this.#lottoMatcher.bonusNubmer)
+        const sumOfwinNumberList = this.#lottoMatcher.winNumberList.reduce(
+            (acc, cur) => acc + cur,
+            0
+        );
+
+        if (
+            this.#lottoList.lottoList.length &&
+            sumOfwinNumberList === 6 &&
+            this.#lottoMatcher.bonusNubmer
+        )
             this.makeProfitResult();
     }
 
@@ -68,6 +77,7 @@ class App {
             this.#lottoMatcher,
             this.#lottoList
         );
+
         Console.print(Script.showTotalProfit(profitCalculator));
     }
 }
