@@ -108,7 +108,7 @@ class App {
       );
       const bonusNumber = Number(input);
 
-      this.validateBonusNumber(bonusNumber);
+      this.validateBonusNumber(bonusNumber, winningNumbers);
       return bonusNumber;
     } catch (e) {
       Console.print(e.message);
