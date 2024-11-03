@@ -11,11 +11,11 @@ class PrizeCalculator {
   }
 
   #calculateBasicPrize() {
-    const { defaultPrize, basicTag, bonusTag, prize } = PRIZE_CALCULATOR;
+    const { defaultPrize, basicTag, prize } = PRIZE_CALCULATOR;
     let basicWinningPrize = defaultPrize;
 
     this.#matchingTable.forEach((numbersOfLotto, numbersOfMatched) => {
-      if (numbersOfMatched !== bonusTag) {
+      if (PrizeCalculator.#isWinningBasicPrize(numbersOfMatched)) {
         const prizeAmount = prize[numbersOfMatched][basicTag] ?? defaultPrize;
 
         basicWinningPrize += prizeAmount * numbersOfLotto;
@@ -23,6 +23,14 @@ class PrizeCalculator {
     });
 
     return basicWinningPrize;
+  }
+
+  static #isWinningBasicPrize(numbersOfMatched) {
+    const { bonusTag, prize } = PRIZE_CALCULATOR;
+
+    return (
+      numbersOfMatched !== bonusTag && Object.hasOwn(prize, numbersOfMatched)
+    );
   }
 
   #calculateBonusPrize() {
