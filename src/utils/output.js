@@ -21,8 +21,9 @@ function calculateRate(results, quantity) {
   }, 0);
 
   const total = quantity * LOTTO_COAST_UNIT;
+  const rate = (sumResults / total) * 100;
 
-  return (sumResults / total) * 100;
+  return Math.round(rate * 100) / 100;
 }
 
 export function output(results, quantity) {
