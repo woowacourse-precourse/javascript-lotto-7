@@ -72,7 +72,7 @@ class App {
     this.validateBonusNumber(bonusNumberInput);
 
     Console.print("");
-    return bonusNumber;
+    return Number(bonusNumberInput);
   }
 
   validateBonusNumber(bonusNumber) {
