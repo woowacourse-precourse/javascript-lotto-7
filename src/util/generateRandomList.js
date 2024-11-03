@@ -1,7 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import { CONFIG } from '../constants/constants.js';
 
-const generateLotto = () => {
+const generateRandomList = () => {
   const lottoNumbers = new Set();
 
   while (lottoNumbers.size < CONFIG.LOTTO_COUNT) {
@@ -15,4 +15,4 @@ const generateLotto = () => {
   return [...lottoNumbers];
 };
 
-export default generateLotto;
+export default generateRandomList;

@@ -1,16 +1,17 @@
 import Lotto from './Lotto.js';
-import generateLotto from '../util/lottoGenarator.js';
+import generateRandomList from '../util/generateRandomList.js';
 import { CONFIG } from '../constants/constants.js';
 
 class LottoGame {
+  #generator;
   #lottoNumbers = [];
   #rankCount;
 
-  constructor(purchaseAmount) {
+  constructor(purchaseAmount, generator = () => generateRandomList()) {
     const tickets = purchaseAmount / CONFIG.PURCHASE_AMOUNT_UNIT;
-
+    this.#generator = generator;
     this.#lottoNumbers = Array.from({ length: tickets }, () => {
-      const numbers = generateLotto();
+      const numbers = this.#generator();
       return new Lotto([...numbers].sort((a, b) => a - b));
     });
     this.#rankCount = {
