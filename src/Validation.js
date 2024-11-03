@@ -13,12 +13,6 @@ class basicValidation {
     }
   }
 
-  static validateInputPurchaseMoneyMax(input) {
-    if (input > PURCHASE_MONEY_MAX) {
-      throw new Error(BASIC_ERROR.invalidPurchaseMoneyMax);
-    }
-  }
-
   static validateInputNumberType(input) {
     if (Number.isNaN(input)) {
       throw new Error(BASIC_ERROR.invalidType);
@@ -28,6 +22,12 @@ class basicValidation {
   static validateInputPossiblePurchase(input) {
     if (input <= PURCHASE_MONEY_INITIAL_VALUE) {
       throw new Error(BASIC_ERROR.invalidPossiblePurchase);
+    }
+  }
+
+  static validateInputPurchaseMoneyMax(input) {
+    if (input > PURCHASE_MONEY_MAX) {
+      throw new Error(BASIC_ERROR.invalidPurchaseMoneyMax);
     }
   }
 
