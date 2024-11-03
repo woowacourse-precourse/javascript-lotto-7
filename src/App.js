@@ -1,22 +1,21 @@
 import { Console } from '@woowacourse/mission-utils'
-import { LOTTO_PRICE } from "./constant.js";
 import LottoGame from "./LottoGame.js";
 import InputHandler from "./InputHandler.js";
 
-const checkWinning = (myLotto, winNumber, bonusNumber) => {
-  const answerArray = winNumber.split(',').map(Number).sort((a, b) => a - b);
+const checkWinning = (myLotto, winNumbers, bonusNumber) => {
+  const answerArray = winNumbers.map(Number).sort((a, b) => a - b);
   const correctArray = [];
   myLotto.forEach(lotto => {
     const myLottoNumbers = lotto.getNumbers();
     let count = answerArray.filter(item => myLottoNumbers.includes(item)).length;
-    let bonus = answerArray.filter((item) => {
-      if (item === bonusNumber) {
-        correctArray.push("");
-      }
-    });
+    const hasBonus = myLottoNumbers.includes(bonusNumber);
+
+    if (count === 5 && hasBonus) {
+      correctArray.push('5+bonus');
+    }
     correctArray.push(count);
   });
-  return correctArray.filter(item => item > 2);
+  return correctArray.filter(item => item === '5+bonus' || item > 2);
 }
 
 const countWonLotto = (wonRecord, target) => {
@@ -33,7 +32,7 @@ const printWinningResults = (wonRecord) => {
     { match: 3, reward: "5,000원", bonus: false },
     { match: 4, reward: "50,000원", bonus: false },
     { match: 5, reward: "1,500,000원", bonus: false },
-    { match: 5, reward: "30,000,000원", bonus: true },
+    { match: '5+bonus', reward: "30,000,000원", bonus: true },
     { match: 6, reward: "2,000,000,000원", bonus: false}
   ]
 
@@ -43,28 +42,30 @@ const printWinningResults = (wonRecord) => {
   results.forEach(result => {
     const count = countWonLotto(wonRecord, result.match);
     printSingleResult(result.match, result.reward, result.bonus, count);
-  })
-}
+  });
+};
 
-function calculateLottoCount(purchasePrice) {
-  return purchasePrice / LOTTO_PRICE;
-}
 
 class App {
   async run() {
-    const purchasePrice = await InputHandler.getPurchasePrice();
-    const NUMBER_OF_LOTTO = calculateLottoCount(purchasePrice);
-
-    Console.print(`${NUMBER_OF_LOTTO}개를 구매했습니다.`);
-
     const lottoGame = new LottoGame();
-    const myLotto = lottoGame.generateLotto(NUMBER_OF_LOTTO);
-    myLotto.forEach((lotto) => Console.print(lotto.toString()));
 
+    const purchasePrice = await InputHandler.getPurchasePrice();
+    lottoGame.setPurchasePrice(purchasePrice);
 
-    const { winNumber, bonusNumber } = await InputHandler.getWinningNumbers();
+    Console.print(`${lottoGame.calculateLottoCount()}개를 구매했습니다.`);
 
-    const wonRecord = checkWinning(myLotto, winNumber, bonusNumber);
+    const userLotto = lottoGame.generateLotto();
+    userLotto.forEach((lotto) => Console.print(lotto.toString()));
+
+    const winNumbers = await InputHandler.getWinNumbers();
+    lottoGame.setWinNumbers(winNumbers);
+
+    const bonusNumber = await InputHandler.getBonusNumber();
+    lottoGame.setBonusNumber(bonusNumber);
+
+    const wonRecord = checkWinning(userLotto, winNumber, bonusNumber);
+    console.log(wonRecord);
 
     printWinningResults(wonRecord);
   }
