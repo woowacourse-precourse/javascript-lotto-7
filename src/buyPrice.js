@@ -6,5 +6,12 @@ function inputPrice(){
     const PRICE = Console.readLineAsync();
 }
 
+function isDivided1000(PRICE){
+    const DividedPrice = PRICE / 1000;
+    if(DividedPrice === Math.floor(DividedPrice)){
+        return true;
+    }
+    return false;
+}
 
 export {inputPrice};
