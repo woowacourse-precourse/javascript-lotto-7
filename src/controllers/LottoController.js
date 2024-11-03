@@ -3,6 +3,7 @@ import Lotto from "../models/Lotto.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
 import InputValidator from "../validators/InputValidator.js";
+import { WINNING_CRITERIA } from "../constants/Messages.js";
 
 class LottoController {
     constructor() {
@@ -19,9 +20,20 @@ class LottoController {
         lottos.forEach((lotto) => this.outputView.outputLotto(lotto));
 
         const inputWinningNumbers = await this.getValidatedInputWinningNumbers();
-        const inputBonusNumber = await this.getValidatedInputBonusNumber(inputWinningNumbers);
+        const inputBonusNumber = await this.getValidatedInputBonusNumber(
+            inputWinningNumbers
+        );
+
         this.outputView.outputStatistics();
 
+        let winningRecord = [0, 0, 0, 0, 0, 0];
+        lottos.forEach((lotto) => {
+            winningRecord[lotto.convertRank(inputWinningNumbers, inputBonusNumber)]++;
+        });
+        await this.getResult(WINNING_CRITERIA, winningRecord);
+
+        const profitRate = await this.getProfitRate(winningRecord, inputAmount);
+        Console.print(`총 수익률은 ${profitRate}%입니다.`);
     }
 
     async getValidatedInputAmount() {
@@ -53,7 +65,9 @@ class LottoController {
 
         try {
             InputValidator.isValidWinningNumbers(inputWinningNumbers);
-            return inputWinningNumbers.split(",").map(num => Number(num.trim()));
+            return inputWinningNumbers
+                .split(",")
+                .map((num) => Number(num.trim()));
         } catch (error) {
             Console.print(error.message);
             return this.getValidatedInputWinningNumbers();
@@ -64,12 +78,31 @@ class LottoController {
         const inputBonusNumber = await this.InputView.getInputBonusNumber();
 
         try {
-            InputValidator.isValidBonusNumber(inputBonusNumber, inputWinningNumbers);
+            InputValidator.isValidBonusNumber(
+                inputBonusNumber,
+                inputWinningNumbers
+            );
             return inputBonusNumber;
         } catch (error) {
             Console.print(error.message);
             return this.getValidatedInputBonusNumber(inputWinningNumbers);
         }
+    }
+
+    async getResult(winningCriteria, winningRecord) {
+        for (let i = 5; i >= 1; i--) {
+            const { message, price } = winningCriteria[i];
+            Console.print(`${message} - ${winningRecord[i]}개`);
+        }
+    }
+
+    async getProfitRate(winningRecord, inputAmount) {
+        let profitRate = 0;
+        for (let i = 5; i >= 1; i--) {
+            profitRate += winningRecord[i] * WINNING_CRITERIA[i].price;
+        }
+
+        return (profitRate / inputAmount) * 100;
     }
 }
 
