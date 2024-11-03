@@ -1,17 +1,42 @@
-import { ERROR_MESSAGE, LOTTO_ERROR } from "../constants/error";
-import { DELIMITER_REGEX } from "../utils/regex";
+import {
+  ERROR_MESSAGE,
+  LOTTO_ERROR,
+  REQUEST_NUMBER_INPUT,
+} from "../constants/error.js";
+import { LOTTO_VALUES } from "../constants/message.js";
+import Validate from "./Validate.js";
 
 class LottoValidate extends Validate {
   validateLotto(lotto) {
     this.isEmpty(lotto);
-    this.isZero(lotto);
-    this.isNumber(lotto);
-    this.isWithinRange(lotto);
-    this.#delimiter(lotto);
+    this.#checkArrayForNotNumber(lotto);
+    this.#checkArrayForRange(lotto);
+    this.#checkArrayForDuplicates(lotto);
+    this.#checkArrayForExcess(lotto);
   }
-  #delimiter(lotto) {
-    if (!DELIMITER_REGEX.test(lotto)) {
-      throw new Error(ERROR_MESSAGE + LOTTO_ERROR.INVALID_DELIMITER);
+
+  #checkArrayForNotNumber(lotto) {
+    if (lotto.some((num) => isNaN(num))) {
+      throw new Error(ERROR_MESSAGE + REQUEST_NUMBER_INPUT);
+    }
+  }
+
+  #checkArrayForRange(lotto) {
+    if (lotto.some((num) => Number(num) >= LOTTO_VALUES.MAX)) {
+      throw new Error(ERROR_MESSAGE + LOTTO_ERROR.RANGE);
+    }
+  }
+
+  #checkArrayForDuplicates(lotto) {
+    const uniqueNumbers = new Set(lotto);
+    if (uniqueNumbers.size !== lotto.length) {
+      throw new Error(ERROR_MESSAGE + LOTTO_ERROR.DUPLICATE);
+    }
+  }
+
+  #checkArrayForExcess(lotto) {
+    if (lotto.length > LOTTO_VALUES.COUNT) {
+      throw new Error(ERROR_MESSAGE + LOTTO_ERROR.LENGTH);
     }
   }
 }
