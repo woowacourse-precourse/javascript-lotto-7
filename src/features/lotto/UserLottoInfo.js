@@ -23,6 +23,15 @@ export class UserLottoInfo {
     return this.#lottos;
   }
 
+  saveMatchInfo(matchCount, matchBonus) {
+    if (matchCount < 3) return;
+    if (matchCount === 5 && matchBonus) {
+      this.#matchInfo[7] += 1;
+      return;
+    }
+    this.#matchInfo[matchCount] += 1;
+  }
+
   createLotto() {
     for (let i = 0; i < this.#lottoCount; i++) {
       const lotto = new Lotto(generateRandomNum(LOTTO_NUMBER_COUNT));
@@ -30,12 +39,12 @@ export class UserLottoInfo {
       this.#lottos.push(lotto);
     }
   }
+
   checkLottoMatch(winningLotto, bonusBall) {
     this.#lottos.forEach((lotto) => {
       const matchCount = lotto.countLottoMatches(winningLotto.numbers);
       const matchBonus = lotto.hasBonusBall(bonusBall);
-      console.log(matchCount, matchBonus);
-      //   this.#matchInfo[matchCount] += 1;
+      this.saveMatchInfo(matchCount, matchBonus);
     });
   }
 }
