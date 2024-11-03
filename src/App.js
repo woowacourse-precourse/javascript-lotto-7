@@ -7,7 +7,7 @@ class App {
     this.amountExceptionHandler(amount);
 
     const possibleLottoCount = Number(amount / 1000);
-    Console.print(`\n${possibleLottoCount}개를 구매했습니다.`);
+    Console.print(`${possibleLottoCount}개를 구매했습니다.`);
 
     const lottoArray = this.createLotto(possibleLottoCount);
     this.displayLotto(lottoArray);
@@ -17,7 +17,7 @@ class App {
     this.notSixRangeLottoException(winningLotto);
     this.lottoNumberDuplicationCheckException(winningLotto);
 
-    for(let lottoNumber of winningLotto){
+    for (let lottoNumber of winningLotto) {
       this.lottoNumberOutOfRangeException(lottoNumber);
     }
 
@@ -73,10 +73,11 @@ class App {
         continue;
       }
 
-      if (lotto.getLotto().some(item => item == bonusLottoNumber)) {
+      if (correctCount === 5 && lotto.getLotto().some(item => item == bonusLottoNumber)) {
         winningArray.push(6);
         continue;
       }
+
       winningArray.push(correctCount);
     }
 
@@ -100,11 +101,14 @@ class App {
     Console.print(`5개 일치 (1,500,000원) - ${winningCount.get(5)}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCount.get(6)}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${winningCount.get(7)}개`);
-    Console.print(`총 수익률은 ${winningAmount / lottoAmount}%입니다.`);
+    Console.print(`총 수익률은 ${(winningAmount / lottoAmount) * 100}%입니다.`);
   }
 
   // 1000원 단위가 아닐 경우
   amountExceptionHandler(amount) {
+    if (!Number.isInteger(Number(amount))) {
+      throw new Error("[ERROR] 숫자만 입력해주세요.");
+    }
     if (amount % 1000 != 0) {
       throw new Error("[ERROR] 1,000원 단위만 입력해주세요.");
     }
@@ -118,16 +122,16 @@ class App {
   }
 
   // 입력한 로또 번호가 6개가 아닐 시
-  notSixRangeLottoException(winningLotto){
-    if(winningLotto.length!==6){
+  notSixRangeLottoException(winningLotto) {
+    if (winningLotto.length !== 6) {
       throw new Error("[ERROR] 로또 개수는 6개 입력해주세요.");
     }
   }
 
-  lottoNumberDuplicationCheckException(winningLotto){
+  lottoNumberDuplicationCheckException(winningLotto) {
     const winnginLottoSet = new Set(winningLotto);
-    if(winningLotto.length !== winnginLottoSet.size){
-      throw new Error("[ERROR] 같은 숫자를 입력할 수는 없습니다.")
+    if (winningLotto.length !== winnginLottoSet.size) {
+      throw new Error("[ERROR] 같은 숫자를 입력할 수는 없습니다.");
     }
   }
 
