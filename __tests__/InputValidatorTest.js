@@ -11,8 +11,6 @@ import {
   mockQuestions,
 } from "../src/utils/testUtils.js";
 
-const repeatException = async (input) => {};
-
 describe("입력값 유효성 test", () => {
   test.each([["123a", ERROR_MESSAGE.number.notNumber]])(
     "로또 구입 금액에 대한 입력 유효성 검사",
@@ -27,15 +25,32 @@ describe("입력값 유효성 test", () => {
 describe("구매 금액 입력값 유효성 test", () => {
   test.each([[["123a", "aaaa"]], [["123a"]], [["123a", "aaaa", "bbbb"]]])(
     "문자열이 입력으로 들어온 경우 정상적인 값이 들어올 때까지 반복",
-    async (input) => {
+    async (prices) => {
       const logSpy = getLogSpy();
 
       const INPUT_NUMBERS_TO_END = ["1000"];
-      mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+      mockQuestions([...prices, ...INPUT_NUMBERS_TO_END]);
       const result = await InputHandler.getPrice();
 
       expect(result).toBe("1000");
-      expect(logSpy).toHaveBeenCalledTimes(input.length);
+      expect(logSpy).toHaveBeenCalledTimes(prices.length);
+    }
+  );
+
+  test.each([
+    ["1200", false],
+    ["1000", true],
+    ["14000", true],
+  ])(
+    "금액 입력값이 1000원 단위가 아니라면 에러 반환",
+    async (price, result) => {
+      if (result) {
+        expect(() => Validator.isValidPrice(price)).not.toThrow();
+      } else {
+        expect(() => Validator.isValidPrice(price)).toThrow(
+          `[ERROR] ${ERROR_MESSAGE.lotto.invalidUnit}`
+        );
+      }
     }
   );
 });
