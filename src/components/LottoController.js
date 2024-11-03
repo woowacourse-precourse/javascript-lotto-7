@@ -1,5 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import {
+  DELIMETER,
   InputPrompts,
   Lotto,
   OutputMessages,
@@ -71,7 +72,7 @@ class LottoController {
       Console.print(OutputMessages.PURCHASE_MESSAGE(ticketCount));
 
       this.#lottoTickets.forEach((lottoTicket) => {
-        Console.print(lottoTicket);
+        Console.print(`[${lottoTicket.join(`${DELIMETER} `)}]`);
       });
     }
   }
