@@ -1,6 +1,7 @@
 import Draw from "../model/Draw.js";
 import Lotto from "../model/Lotto.js";
 import LottoCollection from "../model/LottoCollection.js";
+import Winning from "../model/Winning.js";
 import InputUtils from "../utils/InputUtils.js";
 import { generateRandomNumbers } from "../utils/LottoUtils.js";
 import InputView from "../view/InputView.js";
@@ -10,13 +11,16 @@ class LottoController {
   #inputView;
   #outputView;
   #draw;
-  #winningNumbers;
+  #lottoWinningNumbers;
   #lottoCollection;
+  #winning;
+  #lottoPurchaseAmount;
 
   constructor() {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
     this.#lottoCollection = new LottoCollection();
+    this.#winning = new Winning();
   }
 
   async run() {
@@ -26,16 +30,17 @@ class LottoController {
   }
 
   async #startPurchaseLotto() {
-    const lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
-    const lottoCount = this.#calculateLottoCount(lottoPurchaseAmount);
+    this.#lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
+    const lottoCount = this.#calculateLottoCount(this.#lottoPurchaseAmount);
     this.#printLottoCount(lottoCount);
     this.#generateLottos(lottoCount);
   }
 
   async #getLottoPurchaseAmount() {
-    const [purchaseAmount] = await this.#validInput(
+    const purchaseAmount = await this.#validInput(
       () => this.#inputView.inputPurchaseAmount(),
-      InputUtils.validatePurchaseAmount
+      InputUtils.validatePurchaseAmount,
+      this.#outputView
     );
     return purchaseAmount;
   }
@@ -63,15 +68,16 @@ class LottoController {
   }
 
   async #startDrawLotto() {
-    this.#winningNumbers = await this.#getLottoWinningNumber();
+    this.#lottoWinningNumbers = await this.#getLottoWinningNumber();
     const lottoBonusNumber = await this.#getLottoBonusNumber();
-    this.#draw = new Draw(this.#winningNumbers, lottoBonusNumber);
+    this.#draw = new Draw(this.#lottoWinningNumbers, lottoBonusNumber);
   }
 
   async #getLottoWinningNumber() {
     const winningNumber = await this.#validInput(
       () => this.#inputView.inputLottoWinningNumber(),
-      InputUtils.validateWinningNumber
+      InputUtils.validateWinningNumber,
+      this.#outputView
     );
 
     return winningNumber;
@@ -80,7 +86,9 @@ class LottoController {
   async #getLottoBonusNumber() {
     const bonusNumber = await this.#validInput(
       () => this.#inputView.inputLottoBonuseNumber(),
-      (input) => InputUtils.validateBonusNumber(input, this.#winningNumbers)
+      (input) =>
+        InputUtils.validateBonusNumber(input, this.#lottoWinningNumbers),
+      this.#outputView
     );
     return bonusNumber;
   }
@@ -96,8 +104,8 @@ class LottoController {
   async #validInput(inputFunction, validateFunction) {
     while (true) {
       try {
-        const inputs = [await inputFunction()];
-        const trimmedInputs = inputs[0]
+        const inputs = await inputFunction();
+        const trimmedInputs = inputs
           .split(",")
           .map((input) => Number(input.trim()));
         validateFunction(trimmedInputs);
@@ -118,7 +126,8 @@ class LottoController {
   async getLottoPurchaseAmountTest() {
     const [purchaseAmount] = await this.#validInput(
       () => this.#inputView.inputPurchaseAmount(),
-      InputUtils.validatePurchaseAmount
+      InputUtils.validatePurchaseAmount,
+      this.#outputView
     );
     return purchaseAmount;
   }
