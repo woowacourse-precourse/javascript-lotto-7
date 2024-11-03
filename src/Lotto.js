@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from './constant/error.js';
+import { RULE } from './constant/rule.js';
 import { isInRange, isInteger, isNumber } from './util/validation.js';
 
 class Lotto {
@@ -10,8 +11,10 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    if (numbers.length !== RULE.LOTTO.LOTTO_SIZE) {
+      throw new Error(
+        `[ERROR] 로또 번호는 ${RULE.LOTTO.LOTTO_SIZE}개여야 합니다.`,
+      );
     }
 
     numbers.forEach((number) => {
@@ -28,7 +31,7 @@ class Lotto {
       throw new Error(ERROR_MESSAGE.invalidIntegerType);
     }
 
-    if (!isInRange(number, 1, 45)) {
+    if (!isInRange(number, RULE.LOTTO.NUMBER_MIN, RULE.LOTTO.NUMBER_MAX)) {
       throw new Error(ERROR_MESSAGE.invalidNumberInRange);
     }
   }
