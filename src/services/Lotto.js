@@ -15,43 +15,44 @@ class Lotto {
         }
     }
 
-    setStats(lottos) { //2 차원 배열
+    setStats(lottos, bonusNum) { //2 차원 배열
         for (const lotto of lottos) {
-            let {matchCnt, isBonusNumberMatch} = this.countMatches(lotto)
-            switch (matchCnt) {
-                case 3:
-                    MATCH_COUNTER.three += matchCnt;
-                    break;
-                case 4:
-                    MATCH_COUNTER.four += matchCnt;
-                    break;
-                /*case matchCnt === 5 && isBonusNumberMatch:
-                    MATCH_COUNTER.bonus += matchCnt;
-                    break;*/
-                case 5:
-                    MATCH_COUNTER.five += matchCnt;
-                    break;
-                case 6:
-                    MATCH_COUNTER.six += matchCnt;
-                    break;
+            let matchCnt = this.countMatches(lotto)
+            this.makeRecord(matchCnt)
+            if (matchCnt === 5 && lotto.includes(bonusNum)) {
+                MATCH_COUNTER.five -= 1
+                MATCH_COUNTER.bonus += 1
             }
         }
         return MATCH_COUNTER
     }
 
+    makeRecord(matchCnt) {
+        switch (matchCnt) {
+            case 3:
+                MATCH_COUNTER.three += 1;
+                break;
+            case 4:
+                MATCH_COUNTER.four += 1;
+                break;
+            case 5:
+                MATCH_COUNTER.five += 1;
+                break;
+            case 6:
+                MATCH_COUNTER.six += 1;
+                break;
+        }
+    }
+
 
     countMatches(lotto) {
         let matchCnt = 0
-        let isBonusNumberMatch = false
         for (const lottoNum of lotto) {
             if (this.#numbers.includes(lottoNum)) {
                 matchCnt++
             }
-            /*       if (this.#numbers.includes(bonusNumber)) {
-                       isBonusNumberMatch = true
-                   }*/
         }
-        return {matchCnt, isBonusNumberMatch}
+        return matchCnt
     }
 
     resultOutput(statMatch) {
