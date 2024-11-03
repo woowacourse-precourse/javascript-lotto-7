@@ -12,17 +12,22 @@ class LottoChecker {
 
   static checkWinningLottos(lottos, winningNumbers, bonusNumber) {
     this.#validateLottos(lottos);
-
+    this.#validateWinningNumbers(winningNumbers);
+    
     const lottoCheckResults = new Array(5).fill(0);
     this.#calculateResults(lottos, lottoCheckResults, winningNumbers, bonusNumber);
 
     return lottoCheckResults;
   }
 
-  // 검증 메서드
   static #validateLottos(lottos) {
     this.#validateLottosNotEmpty(lottos);
-    this.#validateLottosInstanceOf(lottos);
+    this.#validateLottosInstanceOfLotto(lottos);
+  }
+
+  static #validateWinningNumbers(winningNumbers) {
+    this.#validateWinningNumbersNotEmpty(winningNumbers);
+    this.#validateWinningNumbersInstanceOfLotto(winningNumbers);
   }
 
   static #validateLottosNotEmpty(lottos) {
@@ -31,13 +36,24 @@ class LottoChecker {
     }
   }
 
-  static #validateLottosInstanceOf(lottos) {
+  static #validateLottosInstanceOfLotto(lottos) {
     if (!lottos.every((lotto) => lotto instanceof Lotto)) {
       throw new Error(ERROR_MESSAGES.LOTTOS.INVALID_INSTANCE);
     }
   }
 
-  // 결과 계산 메서드
+  static #validateWinningNumbersNotEmpty(winningNumbers) {
+    if (!winningNumbers) {
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS.EMPTY_WINNING_NUMBERS);
+    }
+  }
+
+  static #validateWinningNumbersInstanceOfLotto(input) {
+    if (!(input instanceof Lotto)) {
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS.INVALID_INSTANCE);
+    }
+  }
+
   static #calculateResults(lottos, lottoCheckResults, winningNumbers, bonusNumber) {
     for (const lotto of lottos) {
       const tier = this.#checkSingleLotto(lotto, winningNumbers.getNumbers(), bonusNumber);
@@ -59,7 +75,6 @@ class LottoChecker {
     }
   }
 
-  // 티어 검색 메서드
   static #findTier(matchCount, hasBonus) {
     const tier = LottoChecker.PRIZE_TIERS.find(
       (e) => e.matchCount === matchCount && (!e.bonus || hasBonus)
