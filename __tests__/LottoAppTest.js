@@ -4,6 +4,7 @@ import {
   ERROR_MESSAGES,
   LOTTO_PRICE,
   LOTTO_NUMBERS,
+  WINNING_PRIZES,
 } from "../src/constants.js";
 
 describe("LottoApp 클래스 테스트", () => {
@@ -173,5 +174,54 @@ describe("LottoApp 통계 계산 테스트", () => {
       fourth: 0,
       fifth: 0,
     });
+  });
+});
+
+describe("LottoApp 수익률 계산 테스트", () => {
+  let lottoApp;
+
+  beforeEach(() => {
+    lottoApp = new LottoApp();
+    lottoApp.statistics = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+  });
+
+  test("총 당첨 금액 계산이 정확히 이루어진다", () => {
+    lottoApp.statistics = {
+      first: 1,
+      second: 2,
+      third: 0,
+      fourth: 3,
+      fifth: 4,
+    };
+    const totalPrize = lottoApp.calculateTotalPrize();
+    const expectedTotalPrize =
+      1 * WINNING_PRIZES.first +
+      2 * WINNING_PRIZES.second +
+      0 * WINNING_PRIZES.third +
+      3 * WINNING_PRIZES.fourth +
+      4 * WINNING_PRIZES.fifth;
+
+    expect(totalPrize).toBe(expectedTotalPrize);
+  });
+
+  test("수익률 계산이 정확히 이루어진다", () => {
+    lottoApp.statistics = {
+      first: 1,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+    const purchaseAmount = 5000;
+    const profitRate = lottoApp.calculateProfitRate(purchaseAmount);
+    const expectedProfitRate = (WINNING_PRIZES.first / purchaseAmount) * 100;
+
+    expect(profitRate).toBeCloseTo(expectedProfitRate, 2);
   });
 });

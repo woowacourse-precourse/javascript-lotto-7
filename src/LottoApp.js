@@ -4,6 +4,7 @@ import {
   ERROR_MESSAGES,
   MESSAGES,
   LOTTO_NUMBERS,
+  WINNING_PRIZES,
 } from "./constants.js";
 import Lotto from "./Lotto.js";
 
@@ -166,6 +167,22 @@ class LottoApp {
 
   getStatistics() {
     return this.statistics;
+  }
+
+  calculateProfitRate(amount) {
+    const totalPrize = this.calculateTotalPrize();
+    const profitRate = (totalPrize / amount) * 100;
+    return Math.round(profitRate * 100) / 100;
+  }
+
+  calculateTotalPrize() {
+    return (
+      this.statistics.first * WINNING_PRIZES.first +
+      this.statistics.second * WINNING_PRIZES.second +
+      this.statistics.third * WINNING_PRIZES.third +
+      this.statistics.fourth * WINNING_PRIZES.fourth +
+      this.statistics.fifth * WINNING_PRIZES.fifth
+    );
   }
 }
 

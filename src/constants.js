@@ -26,3 +26,11 @@ export const LOTTO_NUMBERS = {
   MAX: 45,
   COUNT: 6,
 };
+
+export const WINNING_PRIZES = {
+  first: 2000000000,
+  second: 30000000,
+  third: 1500000,
+  fourth: 50000,
+  fifth: 5000,
+};

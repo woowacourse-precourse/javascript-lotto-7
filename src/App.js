@@ -9,6 +9,7 @@ class App {
     const winningLotto = await lottoApp.promptWinningNumbers();
     const bonusNumber = await lottoApp.promptBonusNumber(winningLotto);
     lottoApp.calculateStatistics(lottos, winningLotto, bonusNumber);
+    const profitRate = lottoApp.calculateProfitRate(amount);
   }
 }
 
