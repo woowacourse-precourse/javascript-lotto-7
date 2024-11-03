@@ -34,7 +34,9 @@ class LottoGame {
 
   displayLottos() {
     Console.print(`\n${this.quantity}개를 구매했습니다.`);
-    this.lottos.forEach((lotto) => Console.print(lotto.numbers));
+    this.lottos.forEach((lotto) =>
+      Console.print(`[${lotto.numbers.join(', ')}]`)
+    );
   }
 
   async inputWinningInfo() {
