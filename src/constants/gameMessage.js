@@ -25,7 +25,7 @@ const getMessagesByStatistics = (awards, count) => {
       return `6개 일치 (2,000,000,000원) - ${count}개`;
 
     default:
-      return;
+      return '';
   }
 };
 
