@@ -162,7 +162,7 @@ class App {
     return rate;
   }
   async printStatistics(matchingResults, rate) {
-    await Console.print("당첨 통계\n---");
+    await Console.print("\n당첨 통계\n---");
     await Console.print(`3개 일치 (5,000원) - ${matchingResults.three}개`);
     await Console.print(`4개 일치 (50,000원) - ${matchingResults.four}개`);
     await Console.print(`5개 일치 (1,500,000원) - ${matchingResults.five}개`);
