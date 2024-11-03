@@ -3,7 +3,7 @@ class PickLottoNumberValidator {
     const pickLottoNumberArray = pickLottoNumber.split(',').map(Number);
     this.isAnotherCharacter(pickLottoNumberArray);
     this.isRightCount(pickLottoNumberArray);
-    this.isNumberInRange(pickLottoNumberArray);
+    this.isOutOfRange(pickLottoNumberArray);
     this.isDuplicatedNumber(pickLottoNumberArray);
   }
 
@@ -19,7 +19,7 @@ class PickLottoNumberValidator {
     }
   }
 
-  static isNumberInRange(pickLottoNumberArray) {
+  static isOutOfRange(pickLottoNumberArray) {
     if (pickLottoNumberArray.some((number) => number < 1 || number > 45)) {
       throw new Error('[ERROR] 당첨 번호는 로또 번호의 숫자 범위(1~45) 안에서 입력해야 합니다.');
     }
