@@ -72,9 +72,9 @@
    ├─ Constants.js
    ├─ Lotto.js
    ├─ Utils.js
+   ├─ index.js
    ├─ controller
    │  └─ LottoController.js
-   ├─ index.js
    ├─ model
    │  ├─ Calculator.js
    │  ├─ Lotto.js
