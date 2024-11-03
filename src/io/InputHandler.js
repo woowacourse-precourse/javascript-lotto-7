@@ -5,7 +5,7 @@ import { tryAgain } from '../utils/validateUtils.js';
 class InputHandler {
   async processMoneyInput(query) {
     return await tryAgain(async () => {
-      const moneyString = await this.readInput(query);
+      const moneyString = await this.#readInput(query);
       InputValidator.validateMoneyString(moneyString);
       return Number(moneyString);
     });
@@ -13,7 +13,7 @@ class InputHandler {
 
   async processMainInput(query) {
     return await tryAgain(async () => {
-      const mainNumberString = await this.readInput(query);
+      const mainNumberString = await this.#readInput(query);
       const mainNumbers = mainNumberString.split(',').map(Number);
       return mainNumbers;
     });
@@ -21,12 +21,12 @@ class InputHandler {
 
   async processBonusInput(query) {
     return await tryAgain(async () => {
-      const BonusNumberString = await this.readInput(query);
+      const BonusNumberString = await this.#readInput(query);
       return Number(BonusNumberString);
     });
   }
 
-  async readInput(query) {
+  async #readInput(query) {
     return await Console.readLineAsync(query);
   }
 }

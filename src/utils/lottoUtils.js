@@ -5,7 +5,7 @@ export const calculateTicketCount = (money) => {
   return money / CONFIG.lottoPrice;
 };
 
-export const generateNumberInRange = ({ start, end, count = 1 }) => {
+const generateNumberInRange = ({ start, end, count = 1 }) => {
   return Random.pickUniqueNumbersInRange(start, end, count);
 };
 
