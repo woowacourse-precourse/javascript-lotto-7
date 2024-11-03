@@ -5,7 +5,7 @@ class Input {
     try {
       const money = await Console.readLineAsync("구입금액을 입력해 주세요. \n");
       Input.validateMoney(money);
-      return parseInt(money);
+      return parseInt(money, 10);
     } catch (error) {
       console.log(error.message);
       return Input.getMoney();
@@ -13,7 +13,7 @@ class Input {
   }
 
   static validateMoney(money) {
-    const checkMoney = parseInt(money);
+    const checkMoney = parseInt(money, 10);
     if(isNaN(checkMoney)) throw new Error("[ERROR] 로또 구입 금액은 숫자여야 합니다.");
     if(checkMoney <= 0) throw new Error("[ERROR] 로또 구입 금액은 양수여야 합니다.");
     if(checkMoney % 1000 !== 0) throw new Error("[ERROR] 금액은 1,000원 단위로 입력해야 합니다.");
@@ -23,7 +23,7 @@ class Input {
     try {
       const jackpotNumber = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
       Input.validateJackpotNumber(jackpotNumber);
-      return jackpotNumber.split(",").map(num => parseInt(num.trim()));
+      return jackpotNumber.split(",").map(num => parseInt(num.trim()), 10);
     } catch (error) {
       console.log(error.message);
       return Input.getJackpotNumber();
@@ -55,10 +55,9 @@ class Input {
   }
 
   static validateBonusNumber(jackpotNumber, bonusNumber) {
-    if(isNaN(bonusNumber)) throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
-    
-    const checkBonusNumber = parseInt(bonusNumber);
-    if(checkBonusNumber < 1 || bonusNumber > 45) throw new Error("[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자여야 합니다.");
+    const checkBonusNumber = parseInt(bonusNumber, 10);
+    if(isNaN(checkBonusNumber)) throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
+    if(checkBonusNumber < 1 || checkBonusNumber > 45) throw new Error("[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자여야 합니다.");
     if(jackpotNumber.includes(checkBonusNumber)) throw new Error("[ERROR] 보너스 번호는 당첨번호와 중복될 수 없습니다.");
   }
 }
