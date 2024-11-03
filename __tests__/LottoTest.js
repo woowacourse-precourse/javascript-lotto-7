@@ -34,4 +34,16 @@ describe("로또 클래스 테스트", () => {
       new Lotto([1, 2, 3, 4, 5, 6]);
     }).not.toThrow();
   });
+
+  describe("로또 번호 생성 및 검증 시나리오 테스트", () => {
+    test("정상적인 로또 번호로 객체 생성", () => {
+      const lotto = new Lotto([10, 15, 20, 25, 30, 35]);
+      expect(lotto.getNumbers()).toEqual([10, 15, 20, 25, 30, 35]);
+    });
+
+    test("정렬된 로또 번호를 반환한다.", () => {
+      const lotto = new Lotto([35, 10, 20, 15, 30, 25]);
+      expect(lotto.getNumbers()).toEqual([10, 15, 20, 25, 30, 35]);
+    });
+  });
 });
