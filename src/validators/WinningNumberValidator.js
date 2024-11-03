@@ -1,6 +1,7 @@
 import { WINNING_NUMBERS_ERROR_MESSAGE } from '../constants/message.js';
 import { GAME_RULES } from '../constants/gameRule.js';
 import { throwError } from '../utils/console.js';
+import { splitByDelimiter } from '../utils/game.js';
 
 const validate = {
   validateEmpty(input) {
@@ -51,7 +52,7 @@ function validateWinningNumber(input) {
   validate.validateEmpty(input);
   validate.validateDelimiter(input);
 
-  const numbers = input.split(',').map(num => Number(num.trim()));
+  const numbers = splitByDelimiter(input);
 
   validate.validateDuplicateNumber(numbers);
   validate.validateNumberCount(numbers);

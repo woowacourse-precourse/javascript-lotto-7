@@ -1,4 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
+import { GAME_RULES } from '../constants/gameRule.js';
 
 /**
  * 지정된 범위 내에서 고유한 숫자를 생성하는 함수
@@ -12,6 +13,9 @@ const getSortedRandomNumbers = (min, max, count) => {
     .sort((a, b) => a - b);
 };
 
+const splitByDelimiter = (input) => input.split(GAME_RULES.DELIMITER).map(num => Number(num.trim()));
+
 export { 
   getSortedRandomNumbers,
+  splitByDelimiter,
 };
