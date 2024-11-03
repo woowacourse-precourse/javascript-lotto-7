@@ -36,8 +36,8 @@ class App {
       lotto.validateBonusNumber(bonusNumber);
 
       const matchCountResult = {
-        "1th": 0,
-        "2th": 0,
+        "1st": 0,
+        "2nd": 0,
         "3th": 0,
         "4th": 0,
         "5th": 0,
@@ -59,30 +59,30 @@ class App {
             if (!isMatchBonusNumber) {
               return (matchCountResult["3th"] += 1);
             }
-            return (matchCountResult["2th"] += 1);
+            return (matchCountResult["2nd"] += 1);
           case 6:
-            return (matchCountResult["1th"] += 1);
+            return (matchCountResult["1st"] += 1);
           default:
             return;
         }
       });
 
       const totalMoney =
-        PRIZE["1th"] * matchCountResult["1th"] +
-        PRIZE["2th"] * matchCountResult["2th"] +
+        PRIZE["1st"] * matchCountResult["1st"] +
+        PRIZE["2nd"] * matchCountResult["2nd"] +
         PRIZE["3th"] * matchCountResult["3th"] +
         PRIZE["4th"] * matchCountResult["4th"] +
         PRIZE["5th"] * matchCountResult["5th"];
 
-      const totalProfit = (totalMoney / money) * 100;
+      const totalProfit = Math.round((totalMoney / money) * 10000) / 100;
 
       Console.print("\n당첨 통계\n---\n");
       Console.print(
         `3개 일치 (5,000원) - ${matchCountResult["5th"]}개\n` +
           `4개 일치 (50,000원) - ${matchCountResult["4th"]}개\n` +
           `5개 일치 (1,500,000원) - ${matchCountResult["3th"]}개\n` +
-          `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCountResult["2th"]}개\n` +
-          `6개 일치 (2,000,000,000원) - ${matchCountResult["1th"]}개\n` +
+          `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCountResult["2nd"]}개\n` +
+          `6개 일치 (2,000,000,000원) - ${matchCountResult["1st"]}개\n` +
           `총 수익률은 ${totalProfit}%입니다.`,
       );
     } catch (error) {

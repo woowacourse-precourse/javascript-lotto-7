@@ -3,7 +3,6 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class LottoGenerator {
   lottoCount;
-  lottos;
   money;
 
   constructor(money) {
