@@ -1,11 +1,11 @@
 import { RANK } from '../constants/constants.js';
-import { validateLottoNumbers } from '../util/validators.js';
+import Validator from '../validator/Validator.js';
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    validateLottoNumbers(numbers);
+    Validator.validateLottoNumbers(numbers);
     this.#numbers = numbers.sort((a, b) => a - b);
   }
 

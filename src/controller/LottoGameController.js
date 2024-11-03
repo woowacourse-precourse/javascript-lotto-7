@@ -2,11 +2,7 @@ import LottoGame from '../model/LottoGame.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import { INPUT_MESSAGES } from '../constants/messages.js';
-import {
-  validateBonusNumber,
-  validateLottoNumbers,
-  validatePurchaseAmount,
-} from '../util/validators.js';
+import Validator from '../validator/Validator.js';
 
 class LottoGameController {
   #lottoGame;
@@ -38,7 +34,7 @@ class LottoGameController {
       const purchaseAmount = await InputView.readUserInput(
         INPUT_MESSAGES.PURCHASE_AMOUNT
       );
-      validatePurchaseAmount(purchaseAmount);
+      Validator.validatePurchaseAmount(purchaseAmount);
       return purchaseAmount;
     } catch (error) {
       OutputView.print(error.message);
@@ -55,7 +51,7 @@ class LottoGameController {
         .split(',')
         .map((num) => Number(num.trim()));
 
-      validateLottoNumbers(winningNumbers);
+      Validator.validateLottoNumbers(winningNumbers);
       return winningNumbers;
     } catch (error) {
       OutputView.print(error.message);
@@ -68,7 +64,7 @@ class LottoGameController {
       const bonusNumber = await InputView.readUserInput(
         INPUT_MESSAGES.BONUS_NUMBER
       );
-      validateBonusNumber(bonusNumber, winningNumbers);
+      Validator.validateBonusNumber(bonusNumber, winningNumbers);
       return Number(bonusNumber);
     } catch (error) {
       OutputView.print(error.message);
