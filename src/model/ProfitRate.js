@@ -1,5 +1,5 @@
-import { prizeByMatchCount } from '../constant/prizeByMatchCount';
-import { LOTTO } from '../constant/constants';
+import { prizeByMatchCount } from '../constant/prizeByMatchCount.js';
+import { LOTTO } from '../constant/constants.js';
 
 export default class ProfitRate {
   #paidMoney;
