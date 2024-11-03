@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import LottoView from "./LottoView.js";
 
@@ -20,6 +20,8 @@ class LottoController {
 
     const results = this.#calculateResults(winningNumbers, bonusNumber);
     this.#view.showResults(results);
+
+    Console.print(this.#calculateProfit(results));
   }
 
   #generateRandomNumbers() {
@@ -51,6 +53,26 @@ class LottoController {
     });
 
     return result;
+  }
+
+  #calculateProfit(results) {
+    const prizeMap = {
+      1: 2000000000, // 1등 상금 20억
+      2: 30000000, // 2등 상금 3천만
+      3: 1500000, // 3등 상금 150만
+      4: 50000, // 4등 상금 5만
+      5: 5000, // 5등 상금 5천
+    };
+
+    const totalProfit = Object.entries(results).reduce((acc, [rank, count]) => {
+      return acc + count * prizeMap[rank];
+    }, 0);
+
+    return totalProfit;
+  }
+
+  #calculateProfitRate(totalProfit, purchaseAmount) {
+    return ((totalProfit / purchaseAmount) * 100).toFixed(1);
   }
 }
 
