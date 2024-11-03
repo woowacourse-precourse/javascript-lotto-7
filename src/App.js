@@ -3,16 +3,16 @@ import Lotto from './Lotto.js';
 
 class App {
   async run() {
-    let purchaseMoney = 0;
     const inputMoney = async () => {
       const money = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.');
       return Number(money);
     }
-    
+
+    let purchaseMoney = 0;
     const TICKET_PRICE = 1000;
     let ticketCount = 0;
     const checkRestZero = async () => {
-      purchaseMoney = await inputMoney();
+      purchaseMoney = Number(await inputMoney());
       if (purchaseMoney % TICKET_PRICE === 0) {
         ticketCount = purchaseMoney / TICKET_PRICE;
       } else {
@@ -90,14 +90,24 @@ class App {
         winningStatistics[0] += 1;
       }
     }
-  
+    
+    const prizeMoney = [5000, 50000, 1500000, 30000000, 2000000000];
     MissionUtils.Console.print('당첨 통계');
     MissionUtils.Console.print('---');
-    MissionUtils.Console.print(`3개 일치 (5,000원) - ${winningStatistics[0]}개`);
-    MissionUtils.Console.print(`4개 일치 (50,000원) - ${winningStatistics[1]}개`);
-    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${winningStatistics[2]}개`);
-    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningStatistics[3]}개`);
-    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${winningStatistics[4]}개`);
+    MissionUtils.Console.print(`3개 일치 (${prizeMoney[0].toLocaleString()}원) - ${winningStatistics[0]}개`);
+    MissionUtils.Console.print(`4개 일치 (${prizeMoney[1].toLocaleString()}원) - ${winningStatistics[1]}개`);
+    MissionUtils.Console.print(`5개 일치 (${prizeMoney[2].toLocaleString()}원) - ${winningStatistics[2]}개`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${prizeMoney[3].toLocaleString()}원) - ${winningStatistics[3]}개`);
+    MissionUtils.Console.print(`6개 일치 (${prizeMoney[4].toLocaleString()}원) - ${winningStatistics[4]}개`);
+
+    let winningAmount = 0;
+    for (let i = 0; i < prizeMoney.length; i++) {
+      winningAmount += prizeMoney[i] * winningStatistics[i];
+    }
+
+    const ADUJUST_POINT = 100;
+    const returnRate = Math.round(winningAmount / purchaseMoney * ADUJUST_POINT * ADUJUST_POINT) / ADUJUST_POINT;
+    MissionUtils.Console.print(`총 수익률은 ${returnRate}%입니다.`);
   }
 }
 
