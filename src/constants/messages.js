@@ -2,6 +2,8 @@ import {
   LOTTO_CONDITION,
   PRICE_MAX_AMOUNT,
   PRICE_PER_LOTTO,
+  PRIZE_KEY,
+  RANK,
 } from './constants.js';
 
 const PREFIX_ERROR = '[ERROR]';
@@ -13,7 +15,18 @@ const INPUT_MESSAGES = Object.freeze({
 });
 
 const OUTPUT_MESSAGES = Object.freeze({
-  purchaseAmount: (tickets) => `\n${tickets}개를 구매했습니다.`,
+  purchase_amount: (tickets) => `\n${tickets}개를 구매했습니다.`,
+  statics_title: `\n당첨통계\n---`,
+  total_statics: (key, value) => `${key} - ${value}개`,
+  total_profit_ratio: (profitRatio) => `총 수익률은 ${profitRatio}%입니다.`,
+});
+
+const STATISTIC_LABEL = Object.freeze({
+  [PRIZE_KEY.fifth_prize]: `${RANK.fifth}개 일치 (5,000원)`,
+  [PRIZE_KEY.fourth_prize]: `${RANK.fourth}개 일치 (50,000원)`,
+  [PRIZE_KEY.third_prize]: `${RANK.third}개 일치 (1,500,000원)`,
+  [PRIZE_KEY.second_prize]: `${RANK.second}개 일치, 보너스 볼 일치 (30,000,000원)`,
+  [PRIZE_KEY.first_prize]: `${RANK.first}개 일치 (2,000,000,000원)`,
 });
 
 const ERROR_MESSAGES = Object.freeze({
@@ -28,4 +41,10 @@ const ERROR_MESSAGES = Object.freeze({
   invalid_lotto_unique: `${PREFIX_ERROR} 로또 번호는 중복될 수 없습니다.\n`,
 });
 
-export { PREFIX_ERROR, INPUT_MESSAGES, OUTPUT_MESSAGES, ERROR_MESSAGES };
+export {
+  PREFIX_ERROR,
+  INPUT_MESSAGES,
+  OUTPUT_MESSAGES,
+  ERROR_MESSAGES,
+  STATISTIC_LABEL,
+};
