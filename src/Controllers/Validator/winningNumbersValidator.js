@@ -17,12 +17,14 @@ class WinningNumbersValidator {
   isValidNumbersRange(winningNumber) {
     const arr = winningNumber.split(',').map((x) => x.trim());
     const result = arr.every((range) => range > 0 && range < 46);
+    
     return result;
   }
 
   isValidFiveComma(winningNumber) {
     const arr = [...winningNumber];
     const onlyNumber = arr.filter((number) => number === ',');
+
     return onlyNumber.length === 5;
   }
 
@@ -32,6 +34,7 @@ class WinningNumbersValidator {
       .map((x) => x.trim())
       .filter((number) => !isNaN(number) === true);
     const uniqueWinningNumbers = new Set(onlyNumber);
+
     return onlyNumber.length === uniqueWinningNumbers.size;
   }
 

@@ -1,5 +1,5 @@
-const trimWinningNumbers = (winningNum) => {
-  const trimWinningNum = winningNum.split(',').map(Number);
+const trimWinningNumbers = (winningNumbers) => {
+  const trimWinningNum = winningNumbers.split(',').map(Number);
   return trimWinningNum;
 };
 

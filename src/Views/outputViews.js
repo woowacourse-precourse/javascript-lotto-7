@@ -8,6 +8,7 @@ class Output {
 
   printLottoList = (purchaseCount, lottoList) => {
     const totalLottoList = lottoList;
+    // TODO: 리펙토링 for 문 고치기
     for (let i = 0; i < purchaseCount; i += 1) {
       Console.print(`[${totalLottoList[i].join(', ')}]`);
     }
