@@ -2,6 +2,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import App from '../src/App';
 import Lotto from '../src/Lotto';
 import LottoStore from '../src/LottoStore';
+import { validateEmptyString } from '../src/Validator';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
@@ -22,7 +23,7 @@ describe('로또 클래스 테스트', () => {
   describe('App 클래스 테스트', () => {
     test.each(['', ' ', '  '])('입력값이 공백 문자이면 예외가 발생한다. 공백 : [%s]', (blank) => {
       expect(() => {
-        new App().validate(blank);
+        validateEmptyString(blank, '금액을 입력해주세요.');
       }).toThrow('금액을 입력해주세요.');
     });
   });
