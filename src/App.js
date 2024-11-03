@@ -1,3 +1,4 @@
+import Lotto from "./Lotto.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const { Console } = MissionUtils;
@@ -120,6 +121,21 @@ function updatePrizeResults(prizeResults, prizeCount, hasBonus) {
   }
 }
 
+function checkPrize(lottos, prizeLotto, bonusNumber) {
+  const prizeResults = initializePrizeResults();
+  const prizeNumbers = prizeLotto.getLottoNumbers();
+
+  lottos.forEach((lotto) => {
+    const issueNumbers = lotto.getLottoNumbers();
+    const hasBonus = issueNumbers.includes(bonusNumber);
+    const prizeCount = countPrizeNumbers(issueNumbers, prizeNumbers);
+
+    updatePrizeResults(prizeResults, prizeCount, hasBonus);
+  });
+
+  return prizeResults;
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
@@ -133,6 +149,8 @@ class App {
     const prizeNumbers = prizeNumberLotto.getLottoNumbers();
 
     const bonusNumberLotto = await inputBonusNumber(prizeNumbers);
+
+    const prizeResults = checkPrize(lottos, prizeNumberLotto, bonusNumberLotto);
   }
 }
 
