@@ -16,7 +16,7 @@ export class Validator {
   }
 
   validateLottoNumber(numbers) {
-    const regex = /^\d+(,\d+)*$/;
+    const regex = /^-?\d+(,-?\d+)*$/;
 
     if (!regex.test(numbers)) {
       throw new Error('[ERROR] 당첨 번호는 6개를 쉼표(,)로 구분하여 입력해 주세요.');
