@@ -51,9 +51,14 @@ export const validateWinningNumbers = (winningNumbers) => {
  * @param {number} bonusNumber - 보너스 번호
  * @throws {Error}
  */
-export const validateBonusNumber = (bonusNumber) => {
+export const validateBonusNumber = (bonusNumber, winningNumbers) => {
   const number = Number(bonusNumber);
   validateInvalidNumberRange(number);
+
+  const winningArray = winningNumbers.split(',').map(Number);
+  if (winningArray.includes(number)) {
+    throw new Error(ERROR_MSG.DUPLICATE_NUMBERS);
+  }
 };
 
 const validateInvalidNumberRange = (number) => {

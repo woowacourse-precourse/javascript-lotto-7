@@ -36,13 +36,13 @@ class Input {
     }
   }
 
-  static async getBonusNumber() {
+  static async getBonusNumber(winningNumbers) {
     while (true) {
       try {
         const input = await Console.readLineAsync(
           `\n${PROMPT_MSG.BONUS_NUMBER}\n`,
         );
-        validateBonusNumber(input);
+        validateBonusNumber(input, winningNumbers);
         return input;
       } catch (error) {
         Output.displayError(error.message);
