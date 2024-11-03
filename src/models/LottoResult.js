@@ -24,8 +24,8 @@ export default class LottoResult {
     return this.#earningRate;
   }
 
-  setEarningRate(earningRate){
-    this.#earningRate= earningRate
+  setEarningRate(earningRate) {
+    this.#earningRate = earningRate;
   }
 
   getResultPrice() {
@@ -33,18 +33,16 @@ export default class LottoResult {
   }
 
   saveResult(matchCount, isBonusNumberMatch) {
-    if (lottoConfig.WIN_MATCH_COUNTS.includes(matchCount)) {
-      let matchKey;
-
-      if (matchCount === 5 && isBonusNumberMatch) {
-        matchKey = '5개 일치, 보너스 볼 일치';
-      } else if (lottoConfig.WIN_MATCH_COUNTS.includes(matchCount)) {
-        matchKey = `${matchCount}개 일치`;
-      }
+    const matchStandards = Object.keys(lottoConfig.WINNING_CONDITIONS).map(
+      Number
+    );
+    if (matchStandards.includes(matchCount)) {
+      const matchKey =
+        lottoConfig.WINNING_CONDITIONS[matchCount]?.[isBonusNumberMatch];
 
       if (matchKey && this.#result.hasOwnProperty(matchKey)) {
         this.#result[matchKey]++;
-        this.#resultPrice += lottoConfig.WINNING_PRIZE_MAP[matchKey]
+        this.#resultPrice += lottoConfig.WINNING_PRIZE_MAP[matchKey];
       }
     }
   }
