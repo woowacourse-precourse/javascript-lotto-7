@@ -4,7 +4,7 @@ export const validateMoney = (inputMoney) => {
   checkEmpty(inputMoney);
   const money = Number(inputMoney);
 
-  checkNumber(money);
+  checkNumber(money, ERROR_MESSAGES.PURCHASE_PRICE.NOT_A_NUMBER);
   checkUnit(money);
 };
 
@@ -14,9 +14,9 @@ const checkEmpty = (input) => {
   }
 };
 
-const checkNumber = (money) => {
-  if (isNaN(money)) {
-    throw new Error(ERROR_MESSAGES.PURCHASE_PRICE.NOT_A_NUMBER);
+const checkNumber = (input, message) => {
+  if (isNaN(input)) {
+    throw new Error(message);
   }
 };
 
@@ -38,7 +38,7 @@ export const validateWinningNumber = (numbersInput) => {
   checkWinningNumberType(numbers);
   checkNumberCount(numbers);
   hasDuplicateNumbers(numbers);
-  checkNumberRange(numbers);
+  checkNumbersRange(numbers);
 };
 
 const hasComma = (numbersInput) => {
@@ -68,36 +68,34 @@ const hasSpecialSymbol = (numbersInput) => {
   }
 };
 
-const checkNumberRange = (numbers) => {
+const checkNumbersRange = (numbers) => {
   for (let i = 0; i < numbers.length; i++) {
-    if (
-      numbers[i] < LOTTO.LOTTO_NUMBER_RANGE_MIN ||
-      numbers[i] > LOTTO.LOTTO_NUMBER_RANGE_MAX
-    )
-      throw new Error(ERROR_MESSAGES.WINNING_NUMBER.OUT_OF_RANGE);
+    checkNumberRange(numbers[i], ERROR_MESSAGES.WINNING_NUMBER.OUT_OF_RANGE);
+  }
+};
+
+const checkNumberRange = (number, message) => {
+  if (
+    number < LOTTO.LOTTO_NUMBER_RANGE_MIN ||
+    number > LOTTO.LOTTO_NUMBER_RANGE_MAX
+  ) {
+    throw new Error(message);
   }
 };
 
 const checkWinningNumberType = (numbers) => {
   for (let i = 0; i < numbers.length; i++) {
-    if (isNaN(numbers[i]))
-      throw new Error(ERROR_MESSAGES.WINNING_NUMBER.NOT_A_NUMBER);
+    checkNumber(numbers[i], ERROR_MESSAGES.WINNING_NUMBER.NOT_A_NUMBER);
   }
 };
 
 export const validateBonusNumber = (bonusNumberInput, winningNumbers) => {
   checkEmpty(bonusNumberInput);
   const bonusNumber = Number(bonusNumberInput);
-  if (isNaN(bonusNumber)) {
-    throw new Error(ERROR_MESSAGES.BONUS_NUMBER.NOT_A_NUMBER);
-  }
+  checkNumber(bonusNumber, ERROR_MESSAGES.BONUS_NUMBER.NOT_A_NUMBER);
+
   if (winningNumbers.includes(bonusNumber)) {
     throw new Error(ERROR_MESSAGES.BONUS_NUMBER.DUPLICATION_NUMBER);
   }
-  if (
-    bonusNumber < LOTTO.LOTTO_NUMBER_RANGE_MIN ||
-    bonusNumber > LOTTO.LOTTO_NUMBER_RANGE_MAX
-  ) {
-    throw new Error(ERROR_MESSAGES.BONUS_NUMBER.OUT_OF_RANGE);
-  }
+  checkNumberRange(bonusNumber, ERROR_MESSAGES.BONUS_NUMBER.OUT_OF_RANGE);
 };
