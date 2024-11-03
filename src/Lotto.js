@@ -1,22 +1,44 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import InputHandler from "./InputHandler.js";
 import { MESSAGES, LOTTERY } from "./Constants.js";
 import { hasDuplicateWithWinningNumbers } from "./ValidationUtils.js"
 
 class Lotto {
     #numbers;
 
-    constructor(issuedLottos, numbers, bonusNumber) {
+    constructor(issuedLottos) {
         this.issuedLottos = issuedLottos;
-        this.#numbers = numbers;
-        this.bonusNumber = bonusNumber;
-        this.#validate();
+        this.#numbers = { winningNumbers: [], bonusNumber: null };
+        this.inputHandler = new InputHandler();
+    }
+
+    async initializeLotto() {
+        this.#numbers.winningNumbers = await this.inputHandler.askWinningNumbers();
+        
+        let isValid = false;
+        while (!isValid) {
+            try {
+                this.#numbers.bonusNumber = await this.inputHandler.askBonusNumber();
+                this.#validate();
+                isValid = true;
+            } catch (error) {
+                Console.print(error.message);
+            }
+        }
     }
 
     #validate() {
-        hasDuplicateWithWinningNumbers(this.#numbers, this.bonusNumber);
+        hasDuplicateWithWinningNumbers(this.#numbers.winningNumbers, this.#numbers.bonusNumber);
     }
 
-    // TODO: 추가 기능 구현
+    static issueLottos(money) {
+        const lottoCount = this.calculateLottoCount(money);
+        const issuedLottos = this.generateLottoNumbers(lottoCount);
+        this.printLottos(issuedLottos);
+
+        return issuedLottos;
+    }
+
     static calculateLottoCount(money) {
         return money / LOTTERY.PRICE;
     }
@@ -36,17 +58,21 @@ class Lotto {
             Console.print(`[${lottoNumbers.join(', ')}]`);
         });
     }
+
+    calculateResult() {
+        const result = { 3: 0, 4: 0, 5: 0, "5+bonus": 0, 6: 0 };
     
-    static issueLottos(money) {
-        const lottoCount = this.calculateLottoCount(money);
-        const issuedLottos = this.generateLottoNumbers(lottoCount);
-        this.printLottos(issuedLottos);
-
-        return issuedLottos;
+        this.issuedLottos.forEach(lotto => {
+            const matchCount = this.getMatchCount(lotto);
+            const hasBonus = lotto.includes(this.#numbers.bonusNumber);
+            this.updateResult(result, matchCount, hasBonus);
+        });
+    
+        return result;
     }
-
+    
     getMatchCount(lotto) {
-        const matchCount =  lotto.filter(num => this.#numbers.includes(num)).length;
+        const matchCount =  lotto.filter(num => this.#numbers.winningNumbers.includes(num)).length;
         return matchCount;
     }
     
@@ -63,17 +89,14 @@ class Lotto {
             result[3]++;
         }
     }
+   
+    printLottoSummary(result, userMoney) {
+        const formattedResult = this.formatResult(result);
 
-    calculateResult() {
-        const result = { 3: 0, 4: 0, 5: 0, "5+bonus": 0, 6: 0 };
-    
-        this.issuedLottos.forEach(lotto => {
-            const matchCount = this.getMatchCount(lotto);
-            const hasBonus = lotto.includes(this.bonusNumber);
-            this.updateResult(result, matchCount, hasBonus);
-        });
-    
-        return result;
+        Console.print(MESSAGES.OUTPUT.MATCH_RESULT_BELOW);
+        Console.print(formattedResult);
+        const profitRate = this.calculateProfitRate(result, userMoney);
+        Console.print(`총 수익률은 ${profitRate}%입니다.`);
     }
 
     formatResult(result) {
@@ -118,14 +141,6 @@ class Lotto {
         const profitRate =  ((totalPrize / userMoney) * 100).toFixed(1);
 
         return profitRate;
-    }
-    
-    printLottoSummary(result, userMoney) {
-        const formattedResult = this.formatResult(result);
-        Console.print(MESSAGES.OUTPUT.MATCH_RESULT_BELOW);
-        Console.print(formattedResult);
-        const profitRate = this.calculateProfitRate(result, userMoney);
-        Console.print(`총 수익률은 ${profitRate}%입니다.`);
     }
 }
 

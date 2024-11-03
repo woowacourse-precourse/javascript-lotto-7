@@ -1,19 +1,14 @@
-import Lotto from "./Lotto.js"
+import Lotto from "./Lotto.js";
 import InputHandler from "./InputHandler.js";
-import { validateMoney, validateWinningNumbers, validateBonusNumber } from "./Validator.js";
 
 class App {
     async run() {
         const inputHandler = new InputHandler();
-            
-        const userMoney =  await inputHandler.askUserMoney();
-        validateMoney(userMoney);
+        const userMoney = await inputHandler.askUserMoney();
         const issuedLottos = Lotto.issueLottos(userMoney);
 
-        const winningNumber =  await inputHandler.askWinningNumbers();
-        const bonusNumber = await inputHandler.askBonusNumber();
-
-        const lotto = new Lotto(issuedLottos, winningNumber, bonusNumber);
+        const lotto = new Lotto(issuedLottos);
+        await lotto.initializeLotto();
         this.printResult(lotto, userMoney);
     }
 
