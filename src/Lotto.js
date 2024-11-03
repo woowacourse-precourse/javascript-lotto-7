@@ -56,7 +56,7 @@ class Lotto {
   }
 
   #getWinningByMatch(basicMatch, bonusMatch) {
-    const filteredWinnings = this.getWinnings().filter(
+    const filteredWinnings = Lotto.getWinnings().filter(
       winning => winning.basicCount === basicMatch && winning.bonusCount <= bonusMatch
     );
 
