@@ -1,6 +1,7 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import InputModules from './views/InputModules.js';
+import OutputModules from './views/OutputModules.js';
 
 const rankBoard = {
   1: { correctNumber: 6, correctBonus: false },
@@ -47,7 +48,7 @@ class App {
 
       // 2. 구매된 로또 매수를 출력한다.
       this.#numberOfLotto = this.#cash / 1000;
-      Console.print(`${this.#numberOfLotto}개를 구매했습니다.`);
+      OutputModules.printMessage(`${this.#numberOfLotto}개를 구매했습니다.`);
 
       // 3. 매수 만큼 6개의 랜덤한 숫자로 이루어진 정수 배열을 출력한다.
       for (let i = 0; i < this.#numberOfLotto; i += 1) {
@@ -56,7 +57,7 @@ class App {
         const lottoInstance = new Lotto(sortedNumbers);
         this.#lottos.push(lottoInstance);
 
-        Console.print(`[${lottoInstance.getNumbers().join(', ')}]`);
+        OutputModules.printMessage(`[${lottoInstance.getNumbers().join(', ')}]`);
       }
 
       // 4. 당첨 번호를 입력받는다.
@@ -90,7 +91,7 @@ class App {
       });
 
       // 당첨 출력
-      Console.print('\n당첨 통계\n---');
+      OutputModules.printMessage('\n당첨 통계\n---');
       Object.keys(rankPrice)
         .reverse()
         .forEach((rank) => {
@@ -98,19 +99,21 @@ class App {
           const price = rankPrice[rank].toLocaleString();
 
           if (correctBonus) {
-            Console.print(
+            OutputModules.printMessage(
               `${correctNumber}개 일치, 보너스 볼 일치 (${price}원) - ${this.#lottoResults[rank]}개`,
             );
           } else {
-            Console.print(`${correctNumber}개 일치 (${price}원) - ${this.#lottoResults[rank]}개`);
+            OutputModules.printMessage(
+              `${correctNumber}개 일치 (${price}원) - ${this.#lottoResults[rank]}개`,
+            );
           }
         });
 
       // 7. 총 수익률을 출력한다.
       const earningRate = ((this.#totalPrice / this.#cash) * 100).toFixed(1);
-      Console.print(`총 수익률은 ${earningRate}%입니다.`);
+      OutputModules.printMessage(`총 수익률은 ${earningRate}%입니다.`);
     } catch (error) {
-      Console.print(error.message);
+      OutputModules.printMessage(error.message);
       return error;
     }
   }
