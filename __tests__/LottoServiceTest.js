@@ -7,7 +7,22 @@ const mockRandoms = (numbers) => {
   numbers.reduce((acc, number) => acc.mockReturnValueOnce(number), MissionUtils.Random.pickUniqueNumbersInRange);
 };
 
-describe('로또 서비스 클래스 테스트', () => {
+function getWinningInfo(rank) {
+  const winningInfoObject = {
+    '1st': 0,
+    '2nd': 0,
+    '3rd': 0,
+    '4th': 0,
+    '5th': 0,
+  };
+
+  if (rank) {
+    winningInfoObject[rank] += 1;
+  }
+  return winningInfoObject;
+}
+
+describe('로또 서비스 User Lotto 생성 테스트', () => {
   let lottoService;
 
   beforeEach(() => {
@@ -33,82 +48,61 @@ describe('로또 서비스 클래스 테스트', () => {
     lottoService.setUserLotto(10000);
     expect(lottoService.getUserLottoNumbers().length).toBe(10);
   });
+});
 
-  test('유저가 구매한 로또번호와 당첨번호를 비교하여 등수를 리턴한다.', () => {
-    // 필요한거
-    const USER_LOTTO_NUMBER = [1, 2, 3, 4, 5, 6];
-    const WINNING_LOTTO_NUMBER = [2, 3, 4, 5, 6, 7];
-    const BONUS_NUMBER = [8];
+describe('로또 서비스 당첨 내역 관리 테스트', () => {
+  let lottoService;
+  const PURCHASED_AMOUNT = 1000;
+  const USER_LOTTO_NUMBER = [1, 2, 3, 4, 5, 6];
 
-    lottoService.setWinningNumber(WINNING_LOTTO_NUMBER);
-    lottoService.setBonusNumber(BONUS_NUMBER);
-
-    expect(lottoService.getRank(USER_LOTTO_NUMBER)).toBe('3rd');
-  });
-
-  test('유저가 구매한 로또번호와 당첨번호를 비교하여 당첨 내역을 객체로 전달한다.', () => {
-    const PURCHASED_AMOUNT = 1000;
-    const USER_LOTTO_NUMBER = [1, 2, 3, 4, 5, 6];
-    const WINNING_LOTTO_NUMBER = [2, 3, 4, 5, 6, 7];
-    const BONUS_NUMBER = [8];
+  beforeEach(() => {
+    lottoService = new LottoService();
 
     mockRandoms([USER_LOTTO_NUMBER]);
     lottoService.setUserLotto(PURCHASED_AMOUNT);
-    lottoService.setWinningNumber(WINNING_LOTTO_NUMBER);
-    lottoService.setBonusNumber(BONUS_NUMBER);
-
-    const winningInfoObject = {
-      '1st': 0,
-      '2nd': 0,
-      '3rd': 1,
-      '4th': 0,
-      '5th': 0,
-    };
-
-    expect(lottoService.getWinningDetails()).toEqual(winningInfoObject);
   });
 
-  test('유저가 구매한 로또번호와 당첨번호를 비교하여 당첨 내역을 객체로 전달한다.', () => {
-    const PURCHASED_AMOUNT = 1000;
-    const USER_LOTTO_NUMBER = [1, 2, 3, 4, 5, 6];
-    const WINNING_LOTTO_NUMBER = [2, 3, 4, 5, 6, 7];
-    const BONUS_NUMBER = [1];
+  test.each([
+    [[1, 2, 3, 4, 5, 6], [10], '1st'],
+    [[2, 3, 4, 5, 6, 7], [1], '2nd'],
+    [[2, 3, 4, 5, 6, 7], [10], '3rd'],
+    [[3, 4, 5, 6, 7, 8], [10], '4th'],
+    [[4, 5, 6, 7, 8, 9], [10], '5th'],
+    [[5, 6, 7, 8, 9, 10], [1], null],
+  ])(
+    '유저가 구매한 로또번호와 당첨번호를 비교하여 당첨 내역을 객체로 전달한다.',
+    (winningNumbers, bonusNumber, rank) => {
+      // given
+      lottoService.setWinningNumber(winningNumbers);
+      lottoService.setBonusNumber(bonusNumber);
 
-    mockRandoms([USER_LOTTO_NUMBER]);
-    lottoService.setUserLotto(PURCHASED_AMOUNT);
-    lottoService.setWinningNumber(WINNING_LOTTO_NUMBER);
-    lottoService.setBonusNumber(BONUS_NUMBER);
+      // when
+      const winningInfo = lottoService.getRank(USER_LOTTO_NUMBER);
 
-    const winningInfoObject = {
-      '1st': 0,
-      '2nd': 1,
-      '3rd': 0,
-      '4th': 0,
-      '5th': 0,
-    };
+      // then
+      expect(winningInfo).toEqual(rank);
+    },
+  );
 
-    expect(lottoService.getWinningDetails()).toEqual(winningInfoObject);
-  });
+  test.each([
+    [[1, 2, 3, 4, 5, 6], [10], '1st'],
+    [[2, 3, 4, 5, 6, 7], [1], '2nd'],
+    [[2, 3, 4, 5, 6, 7], [10], '3rd'],
+    [[3, 4, 5, 6, 7, 8], [10], '4th'],
+    [[4, 5, 6, 7, 8, 9], [10], '5th'],
+    [[5, 6, 7, 8, 9, 10], [1], null],
+  ])(
+    '유저가 구매한 로또번호와 당첨번호를 비교하여 당첨 내역을 객체로 전달한다.',
+    (winningNumbers, bonusNumber, rank) => {
+      // given
+      lottoService.setWinningNumber(winningNumbers);
+      lottoService.setBonusNumber(bonusNumber);
 
-  test('유저가 구매한 로또번호와 당첨번호를 비교하여 당첨 내역을 객체로 전달한다.', () => {
-    const PURCHASED_AMOUNT = 1000;
-    const USER_LOTTO_NUMBER = [1, 2, 3, 4, 5, 6];
-    const WINNING_LOTTO_NUMBER = [12, 13, 14, 15, 16, 17];
-    const BONUS_NUMBER = [1];
+      // when
+      const winningInfo = lottoService.getWinningDetails();
 
-    mockRandoms([USER_LOTTO_NUMBER]);
-    lottoService.setUserLotto(PURCHASED_AMOUNT);
-    lottoService.setWinningNumber(WINNING_LOTTO_NUMBER);
-    lottoService.setBonusNumber(BONUS_NUMBER);
-
-    const winningInfoObject = {
-      '1st': 0,
-      '2nd': 0,
-      '3rd': 0,
-      '4th': 0,
-      '5th': 0,
-    };
-
-    expect(lottoService.getWinningDetails()).toEqual(winningInfoObject);
-  });
+      // then
+      expect(winningInfo).toEqual(getWinningInfo(rank));
+    },
+  );
 });

@@ -37,13 +37,16 @@ export default class LottoService {
 
     userLottoNumbers.forEach((userLottoNumber) => {
       const rank = this.getRank(userLottoNumber);
-
-      if (rank) {
-        this.#winningInfo[rank] += 1;
-      }
+      this.updateWinningInfo(rank);
     });
 
     return this.#winningInfo;
+  }
+
+  updateWinningInfo(rank) {
+    if (rank) {
+      this.#winningInfo[rank] += 1;
+    }
   }
 
   getRank(userLottoNumber) {
