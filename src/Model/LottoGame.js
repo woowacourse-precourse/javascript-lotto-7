@@ -14,13 +14,13 @@ class LottoGame {
 
   #generateLottos() {
     for (let i = 0; i < this.#lottoAmount; i++) {
-      this.#lottos.push(
-        Random.pickUniqueNumbersInRange(
-          RULE.LOTTO.NUMBER_MIN,
-          RULE.LOTTO.NUMBER_MAX,
-          RULE.LOTTO.LOTTO_SIZE,
-        ),
+      const randomNumbers = Random.pickUniqueNumbersInRange(
+        RULE.LOTTO.NUMBER_MIN,
+        RULE.LOTTO.NUMBER_MAX,
+        RULE.LOTTO.LOTTO_SIZE,
       );
+
+      this.#lottos.push(randomNumbers.sort((a, b) => a - b));
     }
   }
 
