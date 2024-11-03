@@ -32,6 +32,4 @@ const InputView = {
   },
 };
 
-InputView.readPurchaseAmount();
-
 export default InputView;
