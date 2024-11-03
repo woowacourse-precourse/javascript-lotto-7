@@ -14,4 +14,10 @@ export class Input {
 
     return winnginNumber.split(',');
   }
+
+  async inputBonusNumber() {
+    const bonusNumber = await Console.readLineAsync(MESSAGE.inputBonusNumber);
+
+    return Number(bonusNumber);
+  }
 }
