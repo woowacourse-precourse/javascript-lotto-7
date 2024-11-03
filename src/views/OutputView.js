@@ -1,6 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
 import MESSAGES from '../constants/Messages.js';
-import ERRORS from '../constants/Errors.js';
 
 class OutputView {
   static displayLottoCount(amount) {

@@ -12,12 +12,15 @@ class InputView {
     return input
       .split(',')
       .map((num) => num.trim())
-      .filter((num) => num); // 빈 문자열 제거
+      .filter((num) => num !== '')
+      .map((num) => Number(num));
   }
 
   static async askBonusNumber() {
     Console.print('');
-    return await Console.readLineAsync(MESSAGES.BONUS_NUMBER_PROMPT);
+    const input = await Console.readLineAsync(MESSAGES.BONUS_NUMBER_PROMPT);
+    // 입력값이 비어있거나 공백일 경우 빈 문자열 반환
+    return input.trim() === '' ? '' : Number(input);
   }
 }
 
