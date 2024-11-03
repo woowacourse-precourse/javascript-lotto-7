@@ -1,6 +1,6 @@
-class Money {
-  static LOTTO_PRICE_UNIT = 1000;
+import LOTTO_CONSTANTS from '../constants/lottoConstatns.js';
 
+class Money {
   #money;
 
   constructor(money) {
@@ -10,7 +10,7 @@ class Money {
   }
 
   calculateLottoCount() {
-    return this.#money / Money.LOTTO_PRICE_UNIT;
+    return this.#money / LOTTO_CONSTANTS.LOTTO_PRICE;
   }
 
   #validate(money) {
@@ -25,7 +25,7 @@ class Money {
   }
 
   #validateUnit(money) {
-    if (money % 1000 !== 0) {
+    if (money % LOTTO_CONSTANTS.LOTTO_PRICE !== 0) {
       throw Error('[ERROR] 구매 금액을 1000원 단위로 입력해 주세요!');
     }
   }
