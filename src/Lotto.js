@@ -10,10 +10,6 @@ class Lotto {
         this.#numbers = numbers;
     }
 
-    getNumbers() {
-        return this.#numbers;
-    }
-
     #validate(numbers) {
         if (!validationCheck.isCorrectSize(numbers, LOTTO.SIZE)) {
             throw new Error(ERROR_CODE.SIZE_OUT_OF_RANGE(LOTTO.SIZE));

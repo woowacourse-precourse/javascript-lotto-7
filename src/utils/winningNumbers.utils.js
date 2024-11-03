@@ -1,5 +1,5 @@
 import {validationCheck} from "../validation/validationCheck.js";
-import {ERROR_CODE, PURCHASE_PRICE, WINNING_NUMBER} from "../constants/constants.js";
+import {ERROR_CODE, WINNING_NUMBER} from "../constants/constants.js";
 
 export const winningNumbersUtils = {
     validate(winningNumbers) {

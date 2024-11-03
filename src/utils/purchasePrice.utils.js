@@ -12,7 +12,6 @@ export const purchasePriceUtils = {
             throw new Error(ERROR_CODE.NOT_DIVIDED_BY_VALUE(PURCHASE_PRICE.MIN_CURR_UNIT));
         return Number(purchasePrice);
     },
-
     getLottoAmount(purchasePrice) {
         return purchasePrice / PURCHASE_PRICE.MIN_CURR_UNIT;
     }

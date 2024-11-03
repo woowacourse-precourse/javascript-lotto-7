@@ -13,5 +13,5 @@ export const validationCheck = {
     },
     isCorrectSize(number, size) {
         return number.length === size;
-    }
+    },
 }
