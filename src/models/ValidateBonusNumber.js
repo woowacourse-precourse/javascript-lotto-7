@@ -1,19 +1,21 @@
+import { BONUS_NUMBER_MESSAGES } from '../constants/errorMessages.js';
+
 class ValidateBonusNumber {
   validateIsNumber(input) {
     if (Number.isNaN(Number(input))) {
-      throw new Error('[ERROR] 보너스 번호는 숫자여야 합니다.');
+      throw new Error(BONUS_NUMBER_MESSAGES.NOT_A_NUMBER);
     }
   }
 
   validateBonusNumberRange(number) {
     if (number < 1 || number > 45) {
-      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.');
+      throw new Error(BONUS_NUMBER_MESSAGES.INVALID_RANGE);
     }
   }
 
   validateDuplicateWithWinningNumbers(bonusNumber, winningNumbers) {
     if (winningNumbers.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+      throw new Error(BONUS_NUMBER_MESSAGES.DUPLICATE_WITH_WINNING);
     }
   }
 
