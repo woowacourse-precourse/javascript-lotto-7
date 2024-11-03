@@ -1,8 +1,7 @@
-import { Random } from '@woowacourse/mission-utils';
+import { Random, Console } from '@woowacourse/mission-utils';
 import LottoMachine from '../src/LottoMachine';
 import Lotto from '../src/Lotto';
 import { ERROR_MESSAGE } from '../src/utils/Constants';
-import Utils from '../src/utils/Utils';
 
 const mockingRandomNumbers = (numbersArray) => {
   Random.pickUniqueNumbersInRange = jest.fn();
@@ -11,6 +10,27 @@ const mockingRandomNumbers = (numbersArray) => {
     (prevChain, numbers) => prevChain.mockReturnValueOnce(numbers),
     Random.pickUniqueNumbersInRange,
   );
+};
+
+const mockQuestions = (inputs) => {
+  Console.readLineAsync = jest.fn();
+
+  inputs.reduce(
+    (prevChain, input) => prevChain.mockResolvedValueOnce(input),
+    Console.readLineAsync,
+  );
+};
+
+const getLogSpy = () => {
+  const logSpy = jest.spyOn(Console, 'print');
+  logSpy.mockClear();
+  return logSpy;
+};
+
+const getPaymentSpy = () => {
+  const paymentSpy = jest.spyOn(LottoMachine, 'getPayment');
+  paymentSpy.mockClear();
+  return paymentSpy;
 };
 
 describe('LottoMachine 클래스 테스트', () => {
@@ -22,13 +42,24 @@ describe('LottoMachine 클래스 테스트', () => {
     [undefined],
     ['$'],
     ['$2000$'],
-  ])('구입 금액이 숫자가 아닐 때 예외가 발생하는지 테스트 (%s)', (payment) => {
-    const parsedPayment = Utils.parsingToNumber(payment);
+  ])(
+    '구입 금액이 숫자가 아닐 때 예외가 발생하는지 테스트 (%s)',
+    async (payment) => {
+      const VALID_PAYMENT = '2000';
+      const ASKING_TIMES = 2;
+      const paymentSpy = getPaymentSpy();
+      const logSpy = getLogSpy();
 
-    expect(() => new LottoMachine(parsedPayment, Lotto)).toThrow(
-      ERROR_MESSAGE.notNumber,
-    );
-  });
+      mockQuestions([payment, VALID_PAYMENT]);
+
+      await LottoMachine.getPayment();
+
+      expect(paymentSpy).toHaveBeenCalledTimes(ASKING_TIMES);
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining(ERROR_MESSAGE.notNumber),
+      );
+    },
+  );
 
   test.each([
     [1000, 1],
