@@ -26,7 +26,7 @@ class LottoService {
   }
 
   compareLottos(winningNumbers, bonusNumber) {
-    const matchCounts = { 3: 0, 4: 0, 5: 0, bonus: 0, 6: 0 };
+    const matchCounts = { FIFTH: 0, FOURTH: 0, THIRD: 0, SECOND: 0, FIRST: 0 };
 
     this.#lottos.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers();
@@ -42,12 +42,12 @@ class LottoService {
   }
 
   calculateProfit(matchCounts, amount) {
-    const prize = Object.keys(matchCounts).reduce((total, key) => {
-      const prizeForMatch = this.#getPrizeForMatch(key);
-      return total + matchCounts[key] * prizeForMatch;
+    const totalPrize = Object.keys(matchCounts).reduce((total, key) => {
+      const prize = RANKS[key].prize || 0;
+      return total + matchCounts[key] * prize;
     }, 0);
 
-    return ((prize / amount) * 100).toFixed(1);
+    return ((totalPrize / amount) * 100).toFixed(1);
   }
 
   #checkWinningAndBonus(lottoNumbers, winningNumbers, bonusNumber) {
@@ -60,17 +60,10 @@ class LottoService {
   }
 
   #getMatchCountKey(winningCnt, bonusHit) {
-    if (winningCnt === 5 && bonusHit) return "bonus";
-    if (winningCnt > 2) return winningCnt;
-  }
-
-  #getPrizeForMatch(key) {
-    if (key === "bonus") return RANKS.SECOND.prize;
-
-    const rankKey = Object.keys(RANKS).find((r) => RANKS[r].match == key);
-    if (rankKey) return RANKS[rankKey].prize;
-
-    return 0;
+    return Object.keys(RANKS).find((key) => {
+      const rank = RANKS[key];
+      return rank.match === winningCnt && rank.bonus === bonusHit;
+    });
   }
 }
 

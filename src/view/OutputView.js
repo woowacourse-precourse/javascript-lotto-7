@@ -18,7 +18,7 @@ class OutputView {
     printResult(OUTPUT_MESSAGE.LOTTO_STATISTICS);
     Object.keys(RANKS).forEach((key) => {
       const rank = RANKS[key];
-      const count = matchCounts[rank.match] || 0;
+      const count = matchCounts[key];
       printResult(`${rank.message}${count}${OUTPUT_MESSAGE.COUNT}`);
     });
   }
