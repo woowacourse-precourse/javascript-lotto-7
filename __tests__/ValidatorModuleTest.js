@@ -44,4 +44,33 @@ describe('Validator Module Test', () => {
       expect(validate).not.toThrow(ERROR_PREFIX);
     });
   });
+
+  describe('checkWinnerNumber : 당첨 번호 입력값을 검증', () => {
+    test.each([
+      ['중복 숫자가 존재하는 경우', [1, 2, 3, 4, 5]],
+      ['번호 개수가 맞지 않는 경우', [1, 1, 3, 4, 5, 6]],
+      ['빈 값이 포함된 경우', [1, 2, 3, 4, 5, '']],
+      ['실수가 포함된 경우', [1, 2, 3, 4, 5, 1.1]],
+      ['음수가 포함된 경우', [1, 2, 3, 4, 5, -1]],
+      ['0이 포함된 경우', [1, 2, 3, 4, 5, 0]],
+      ['로또 범위를 벗어난 숫자가 포함된 경우', [1, 2, 3, 4, 5, 46]],
+    ])('%s, 에러를 발생시킨다.', (_, value) => {
+      const validate = () => {
+        ValidatorModule.checkWinnerNumber(value);
+      };
+
+      expect(validate).toThrow(ERROR_PREFIX);
+    });
+
+    test.each([[[1, 2, 3, 4, 5, 6]], [[4, 18, 25, 29, 40, 45]]])(
+      '유효한 당첨 번호가 입력되었을 때 정상적으로 동작한다. ( %s )',
+      (value) => {
+        const validate = () => {
+          ValidatorModule.checkWinnerNumber(value);
+        };
+
+        expect(validate).not.toThrow(ERROR_PREFIX);
+      },
+    );
+  });
 });
