@@ -14,6 +14,7 @@ class App {
     const bonusNumber = await InputHandler.getBonusNumber(winningNumbers);
 
     const lottoResult = new LottoCalculator(
+      buyPrice,
       lottos,
       winningNumbers,
       bonusNumber,

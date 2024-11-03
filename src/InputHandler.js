@@ -52,8 +52,8 @@ class InputHandler {
     }
   }
 
-  static #validateNumberType(buyPrice) {
-    if (Number.isNaN(parseInt(buyPrice, 10))) {
+  static #validateNumberType(inputNumber) {
+    if (Number.isNaN(Number(inputNumber))) {
       throw new Error(ERROR_MESSAGE.INPUT_TYPE);
     }
   }
