@@ -1,6 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import LottoMachine from './lottoMachine.js';
+import {
+  BONUS_NUMBER_INPUT_MESSAGE,
+  ERROR_MESSAGE,
+  LOTTO_INPUT_MAX,
+  LOTTO_INPUT_MESSAGE,
+  LOTTO_INPUT_MIN,
+} from './constant.js';
 
 class App {
   #lotto;
@@ -20,7 +27,7 @@ class App {
   async #inputFirstPlace() {
     while (true) {
       try {
-        Console.print('당첨 번호를 입력해 주세요.');
+        Console.print(LOTTO_INPUT_MESSAGE);
         const inputNumber = await Console.readLineAsync('');
         const numbers = inputNumber.split(',').map((item) => +item);
         this.#lotto = new Lotto(numbers);
@@ -36,10 +43,10 @@ class App {
   async #inputBonusNumber() {
     while (true) {
       try {
-        Console.print('보너스 번호를 입력해 주세요.');
+        Console.print(BONUS_NUMBER_INPUT_MESSAGE);
         const bonusNumber = +(await Console.readLineAsync(''));
         if (!this.#validateBonusNumber(bonusNumber)) {
-          throw new Error('[ERROR] 잘못된 입력입니다. 다시 입력해 주세요.');
+          throw new Error(ERROR_MESSAGE);
         }
         Console.print('');
         return bonusNumber;
@@ -51,7 +58,7 @@ class App {
 
   #validateBonusNumber(bonusNumber) {
     if (isNaN(bonusNumber)) return false;
-    if (bonusNumber < 1 || bonusNumber > 45) return false;
+    if (bonusNumber < LOTTO_INPUT_MIN || bonusNumber > LOTTO_INPUT_MAX) return false;
     if (bonusNumber !== Math.floor(bonusNumber)) return false;
     if (this.#firstPrice.includes(bonusNumber)) return false;
     return true;
