@@ -21,6 +21,8 @@ class App {
       const lotto = new Lotto(winningNums);
 
       const bonus = getBonusNumber(await getInput(MSG_BONUS_NUMBER));
+
+      lotto.printResult(fee, lottos, bonus);
     } catch (err) {
       throw err;
     }
