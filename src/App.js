@@ -15,9 +15,9 @@ class App {
       await userInput.inputPurchaseAmount();
 
       // 티켓 번호 생성
-      const ticketNumbers = lottoGenerator.generateTickets(userInput.purchaseAmount);
-      const tickets = ticketNumbers.map(numbers => new Lotto(numbers));
-      lottoGenerator.printTickets(ticketNumbers.length, ticketNumbers);
+      const ticketNumbers = await lottoGenerator.generateTickets(userInput.purchaseAmount);
+      const tickets = await Promise.all(ticketNumbers.map(numbers => new Lotto(numbers)));
+      await lottoGenerator.printTickets(ticketNumbers.length, ticketNumbers);
 
       // 당첨 번호 입력 및 유효성 검사
       await userInput.inputWinningNumbers();
@@ -26,10 +26,10 @@ class App {
       await userInput.inputBonusNumber();
 
       // 통계 계산
-      lottoStatistics.calculateStatistics(tickets, userInput.winningNumbers, userInput.bonusNumber);
+      await lottoStatistics.calculateStatistics(tickets, userInput.winningNumbers, userInput.bonusNumber);
 
       // 통계 출력
-      lottoStatistics.printStatistics(userInput.purchaseAmount);
+      await lottoStatistics.printStatistics(userInput.purchaseAmount);
       
     } catch (error) {
       MissionUtils.Console.print(error.message);
