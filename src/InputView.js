@@ -44,12 +44,11 @@ class InputView {
     const winningNumbersSet = new Set(winningNumbers);
     this.validateNumber(winningNumbers);
 
-    if (winningNumbers.length < 6) {
+    if (winningNumbers.length < 6)
       throw new Error(WINNING_NUMBER_MESSAGE.error.notOver6);
-    }
-    if (winningNumbersSet.size !== winningNumbers.length) {
+    if (winningNumbersSet.size !== winningNumbers.length)
       throw new Error(WINNING_NUMBER_MESSAGE.error.notDuplcate);
-    }
+
     return winningNumbers;
   }
 
@@ -61,15 +60,9 @@ class InputView {
         number < LOTTO_CONSTANTS.minLottoNumber ||
         number > LOTTO_CONSTANTS.maxLottoNumber
     );
-    if (isNotNumber) {
-      throw new Error(WINNING_NUMBER_MESSAGE.error.notNumber);
-    }
-    if (isIncludeBlank) {
-      throw new Error(WINNING_NUMBER_MESSAGE.error.notBlank);
-    }
-    if (isNotInRange) {
-      throw new Error(WINNING_NUMBER_MESSAGE.error.notInRange);
-    }
+    if (isNotNumber) throw new Error(WINNING_NUMBER_MESSAGE.error.notNumber);
+    if (isIncludeBlank) throw new Error(WINNING_NUMBER_MESSAGE.error.notBlank);
+    if (isNotInRange) throw new Error(WINNING_NUMBER_MESSAGE.error.notInRange);
   }
 
   static async processBonusNumber(winningNumbers) {
@@ -89,15 +82,10 @@ class InputView {
       bonusNumber < LOTTO_CONSTANTS.minLottoNumber ||
       bonusNumber > LOTTO_CONSTANTS.maxLottoNumber;
 
-    if (isDuplicate) {
-      throw new Error(BONUS_NUMBER_MESSAGE.error.notDuplicate);
-    }
-    if (isNaN(bonusNumber)) {
+    if (isDuplicate) throw new Error(BONUS_NUMBER_MESSAGE.error.notDuplicate);
+    if (isNaN(bonusNumber))
       throw new Error(BONUS_NUMBER_MESSAGE.error.notNumber);
-    }
-    if (isNotInRange) {
-      throw new Error(BONUS_NUMBER_MESSAGE.error.notInRange);
-    }
+    if (isNotInRange) throw new Error(BONUS_NUMBER_MESSAGE.error.notInRange);
   }
 }
 

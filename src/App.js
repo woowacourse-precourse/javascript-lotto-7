@@ -9,6 +9,7 @@ class App {
   #money;
   #winninNumbers;
   #bonusNumber;
+  #rankResult;
 
   async run() {
     this.#money = await InputView.processMoney();
@@ -17,6 +18,8 @@ class App {
     OutputView.printLottoNumbers(this.#lottos);
     this.#winninNumbers = await InputView.processWinningNumber();
     this.#bonusNumber = await InputView.processBonusNumber(this.#winninNumbers);
+    this.#rankResult = await this.getRankResult();
+    OutputView.printRankResult(this.#rankResult);
   }
 
   async createLottos() {
@@ -37,6 +40,18 @@ class App {
       LOTTO_CONSTANTS.length
     );
     return randomNumber.sort((a, b) => a - b);
+  }
+
+  getRankResult() {
+    const rankResult = Array.from({ length: 6 }, () => 0);
+    this.#lottos.forEach((lotto) => {
+      const RANK_INFO = lotto.getRankResult(
+        this.#winninNumbers,
+        this.#bonusNumber
+      );
+      rankResult[RANK_INFO] += 1;
+    });
+    return rankResult;
   }
 }
 

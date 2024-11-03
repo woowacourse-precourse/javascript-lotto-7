@@ -3,6 +3,7 @@ export const LOTTO_CONSTANTS = Object.freeze({
   minLottoNumber: 1,
   maxLottoNumber: 45,
   length: 6,
+  rank: 5,
 });
 
 export const LOTTO_MESSAGES = Object.freeze({
