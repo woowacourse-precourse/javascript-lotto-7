@@ -3,6 +3,7 @@ import Bonus from "./Bonus.js";
 import Money from "./Money.js";
 import { LOTTO_PRICE } from "./constants.js";
 import ScratchedLottos from "./ScratchedLottos.js";
+import showResultByLot from "./showResultByLot.js";
 
 class App {
   async run() {
@@ -17,15 +18,14 @@ class App {
     const lotto = await Lotto.createWinningNumbers();
 
     // // 3. 보너스 번호 받기
-    const bonusNumber = (await Bonus.createForLotto(lotto.winnningNumbers))
-      .number;
+    const bonusNumber = await Bonus.createForLotto(lotto.numbers);
 
     // 4. 추첨 결과
-    Lotto.showResultByLot(
+    showResultByLot(
       money.money,
       lottos.lottos,
-      lotto.winnningNumbers,
-      bonusNumber
+      lotto.numbers,
+      bonusNumber.number
     );
   }
 }

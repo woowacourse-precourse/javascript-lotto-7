@@ -30,7 +30,7 @@ class Lotto {
     return new Lotto(numbers.split(",").map(Number));
   }
 
-  get winnningNumbers() {
+  get numbers() {
     return [...this.#numbers];
   }
 
