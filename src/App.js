@@ -33,11 +33,22 @@ async function inputPayment() {
   }
 }
 
+function issueLottoTickets(ticketCount) {
+  const lottos = [];
+  let numbers;
+  for (let i = 0; i < ticketCount; i++) {
+    numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    lottos.push(new Lotto(numbers));
+  }
+  return lottos;
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
     const ticketNumber = payment / 1000;
     Console.print(`${ticketNumber}개를 구매했습니다.`);
+    const lottos = issueLottoTickets(ticketNumber);
   }
 }
 
