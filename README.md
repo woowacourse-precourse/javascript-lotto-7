@@ -53,7 +53,7 @@
 
 - [X] 환경변수 값 찾아서 상수화하기
 - [X] 15 줄 이하 함수인지 검증
-- [ ] indent 최대 2개인지 검증
+- [X] indent 최대 2개인지 검증
 - [ ] javascript convention 확인
 
 #### 입력
