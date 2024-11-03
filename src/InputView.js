@@ -9,13 +9,18 @@ import {
 class InputView {
   static async processMoney() {
     try {
-      const money = await readUserInput(MONEY_MESSAGES.question);
-      this.validateMoney(money.trim(''));
-      return money.trim('');
+      const money = await this.readMoney();
+      return money;
     } catch (error) {
       printResult(error.message);
       return await this.processMoney();
     }
+  }
+
+  static async readMoney() {
+    const money = await readUserInput(MONEY_MESSAGES.question);
+    this.validateMoney(money.trim(''));
+    return money.trim('');
   }
 
   static validateMoney(money) {
@@ -30,8 +35,7 @@ class InputView {
 
   static async processWinningNumber() {
     try {
-      let winningNumbers = await readUserInput(WINNING_NUMBER_MESSAGE.question);
-      winningNumbers = this.validateWinningNumbers(winningNumbers);
+      const winningNumbers = await this.readWinningNumber();
       return winningNumbers;
     } catch (error) {
       printResult(error.message);
@@ -39,12 +43,18 @@ class InputView {
     }
   }
 
+  static async readWinningNumber() {
+    let winningNumbers = await readUserInput(WINNING_NUMBER_MESSAGE.question);
+    winningNumbers = this.validateWinningNumbers(winningNumbers);
+    return winningNumbers;
+  }
+
   static validateWinningNumbers(numbers) {
     const winningNumbers = numbers.split(',').map((number) => number.trim());
     const winningNumbersSet = new Set(winningNumbers);
     this.validateNumber(winningNumbers);
 
-    if (winningNumbers.length < 6)
+    if (winningNumbers.length < 6 || winningNumbers.length > 6)
       throw new Error(WINNING_NUMBER_MESSAGE.error.notOver6);
     if (winningNumbersSet.size !== winningNumbers.length)
       throw new Error(WINNING_NUMBER_MESSAGE.error.notDuplcate);
@@ -67,13 +77,18 @@ class InputView {
 
   static async processBonusNumber(winningNumbers) {
     try {
-      const bonusNumber = await readUserInput(BONUS_NUMBER_MESSAGE.question);
-      this.validateBonusNumber(bonusNumber, winningNumbers);
+      const bonusNumber = await this.readBonusNumber(winningNumbers);
       return bonusNumber;
     } catch (error) {
       printResult(error.message);
       return await this.processBonusNumber(winningNumbers);
     }
+  }
+
+  static async readBonusNumber(winningNumbers) {
+    const bonusNumber = await readUserInput(BONUS_NUMBER_MESSAGE.question);
+    this.validateBonusNumber(bonusNumber, winningNumbers);
+    return bonusNumber;
   }
 
   static validateBonusNumber(bonusNumber, winningNumbers) {
