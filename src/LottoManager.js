@@ -21,6 +21,7 @@ class LottoManager {
         this.#purchasePrice = await LottoManagerIO.getPurchasePrice();
         this.#lottoCount = LottoManagerIO.printLottoCount(this.#purchasePrice);
         this.generateLottos(this.#lottoCount);
+        LottoManagerIO.printGeneratedLottos(this.#generatedLottos);
     }
 }
 

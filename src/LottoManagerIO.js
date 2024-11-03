@@ -15,6 +15,12 @@ class LottoManagerIO {
         Console.print(`${lottoCount}${this.#OUTPUT_PURCHASE_PRICE_MESSAGE}`);
         return lottoCount;
     }
+
+    static printGeneratedLottos(generatedLottos){
+        for(let i = 0; i < generatedLottos.length; i++){
+            Console.print(`[${generatedLottos[i].getNumbers().join(', ')}]`);
+        }
+    }
 }
 
 export default LottoManagerIO;
