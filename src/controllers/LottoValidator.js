@@ -27,7 +27,7 @@ class LottoValidator {
       throw new Error(ERROR_MESSAGES.NON_NUMERIC_VALUE);
     }
 
-    if (this.#isAllInRange(parsedNumbers)) {
+    if (!this.#isAllInRange(parsedNumbers)) {
       throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
     }
 
@@ -39,7 +39,9 @@ class LottoValidator {
   }
 
   #isAllInRange(arr) {
-    return arr.some((e) => e >= range.MIN && e <= range.MAX);
+    return arr.some(
+      (e) => e >= LOTTO.NUMBER_RANGE.MIN && e <= LOTTO.NUMBER_RANGE.MAX
+    );
   }
 
   #validateBonusNumber(bonusNumber) {
