@@ -6,7 +6,7 @@ import LottoMachine from './LottoMachine.js';
 import LottoWinningNumbers from './LottoWinningNumbers.js';
 import LottoStatistics from './LottoStatistics.js';
 
-import { INPUT_PROMPT, WINNING_NUMBERS_DELIMITER } from '../constants/inputConstant.js';
+import { INPUT_PROMPT, WINNING_NUMBERS_DELIMITER } from '../constants/InputConstant.js';
 
 class LottoGame {
   #lottos;
