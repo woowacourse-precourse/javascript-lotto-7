@@ -23,7 +23,7 @@ class App {
     }
     catch (error) {
       Console.print(error.message);
-      //throw error;
+      throw error;
     }
   }
 }
