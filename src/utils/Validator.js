@@ -55,7 +55,7 @@ class Validator {
     if (number <= 0) {
       throw new Error(ERROR.NUMBER.POSITIVE);
     }
-    if (number < LOTTO.NUMBER.MIN && number > LOTTO.NUMBER.MAX) {
+    if (number < LOTTO.NUMBER.MIN || number > LOTTO.NUMBER.MAX) {
       throw new Error(ERROR.LOTTO.RANGE);
     }
 
