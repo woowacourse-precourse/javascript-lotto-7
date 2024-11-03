@@ -23,6 +23,19 @@ class View {
 
     return;
   };
+
+  printLottos = (LOTTOS) => {
+    const PURCHASED_LOTTO_COUNT = LOTTOS.length;
+    Console.print(`${PURCHASED_LOTTO_COUNT}개를 구매했습니다.`);
+    for (const LOTTO of LOTTOS) {
+      this.printLotto(LOTTO);
+    }
+    Console.print("");
+  };
+
+  printLotto(LOTTO) {
+    Console.print(LOTTO.getNumbers());
+  }
 }
 
 export default View;
