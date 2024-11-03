@@ -47,6 +47,21 @@ class InputUtils {
       throw new Error(BONUS_NUMBER_MESSAGE.WINNING_IN_BONUS);
     }
   }
+
+  static async validInput(inputFunction, validateFunction, outputView) {
+    while (true) {
+      try {
+        const inputs = await inputFunction();
+        const trimmedInputs = inputs
+          .split(",")
+          .map((input) => Number(input.trim()));
+        validateFunction(trimmedInputs);
+        return trimmedInputs;
+      } catch (error) {
+        outputView.errorOccurred(error);
+      }
+    }
+  }
 }
 
 export default InputUtils;

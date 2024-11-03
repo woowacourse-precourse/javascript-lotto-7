@@ -37,7 +37,7 @@ class LottoController {
   }
 
   async #getLottoPurchaseAmount() {
-    const purchaseAmount = await this.#validInput(
+    const purchaseAmount = await InputUtils.validInput(
       () => this.#inputView.inputPurchaseAmount(),
       InputUtils.validatePurchaseAmount,
       this.#outputView
@@ -74,7 +74,7 @@ class LottoController {
   }
 
   async #getLottoWinningNumber() {
-    const winningNumber = await this.#validInput(
+    const winningNumber = await InputUtils.validInput(
       () => this.#inputView.inputLottoWinningNumber(),
       InputUtils.validateWinningNumber,
       this.#outputView
@@ -84,7 +84,7 @@ class LottoController {
   }
 
   async #getLottoBonusNumber() {
-    const bonusNumber = await this.#validInput(
+    const bonusNumber = await InputUtils.validInput(
       () => this.#inputView.inputLottoBonuseNumber(),
       (input) =>
         InputUtils.validateBonusNumber(input, this.#lottoWinningNumbers),
@@ -119,21 +119,6 @@ class LottoController {
     );
   }
 
-  async #validInput(inputFunction, validateFunction) {
-    while (true) {
-      try {
-        const inputs = await inputFunction();
-        const trimmedInputs = inputs
-          .split(",")
-          .map((input) => Number(input.trim()));
-        validateFunction(trimmedInputs);
-        return trimmedInputs;
-      } catch (error) {
-        this.#outputView.errorOccurred(error);
-      }
-    }
-  }
-
   async startPurchaseLottoTest() {
     const lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
     const lottoCount = this.#calculateLottoCount(lottoPurchaseAmount);
@@ -142,7 +127,7 @@ class LottoController {
   }
 
   async getLottoPurchaseAmountTest() {
-    const [purchaseAmount] = await this.#validInput(
+    const [purchaseAmount] = await InputUtils.validInput(
       () => this.#inputView.inputPurchaseAmount(),
       InputUtils.validatePurchaseAmount,
       this.#outputView
