@@ -5,7 +5,7 @@ import {
 } from '../constants/Message.js';
 
 class UserOutput {
-  static showPurchsedLotto(lottoTickets) {
+  showPurchsedLotto(lottoTickets) {
     Console.print(
       `\n${lottoTickets.length}${PROGRESS_MESSAGE.PURCHASE_RESULT}`
     );
@@ -13,7 +13,7 @@ class UserOutput {
       lottoTicket.showLottoNumber();
     });
   }
-  static showWinningStatus(WinningStatus) {
+  showWinningStatus(WinningStatus) {
     Console.print(`\n${PROGRESS_MESSAGE.WINNING_RESULT}`);
     Console.print(`${LOTTO_RESULT_MESSAGES.FIFTH}${WinningStatus[5]}개`);
     Console.print(`${LOTTO_RESULT_MESSAGES.FOURTH}${WinningStatus[4]}개`);
@@ -21,7 +21,7 @@ class UserOutput {
     Console.print(`${LOTTO_RESULT_MESSAGES.SECOND}${WinningStatus[2]}개`);
     Console.print(`${LOTTO_RESULT_MESSAGES.FIRST}${WinningStatus[1]}개`);
   }
-  static showProfitRate(profitRate) {
+  showProfitRate(profitRate) {
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }

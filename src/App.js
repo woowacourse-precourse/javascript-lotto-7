@@ -5,15 +5,16 @@ import LottoResultAnalysis from './Contoller/LottoResultAnalysis.js';
 
 class App {
   userInput;
-
+  userOutput;
   constructor() {
     this.userInput = new UserInput();
+    this.userOutput = new UserOutput();
   }
   async run() {
     const purchaseAmount = await this.userInput.inputPurchaseAmount();
     const moneyToLottos = new MoneyToLottos(purchaseAmount);
     const userLottos = moneyToLottos.generateLottoTickets();
-    UserOutput.showPurchsedLotto(userLottos);
+    this.userOutput.showPurchsedLotto(userLottos);
     const winningNumbers = await this.userInput.inputWinningNumbers();
     const bonusNumber = await this.userInput.inputBonusNumber(winningNumbers);
     const lottoResultAnalysis = new LottoResultAnalysis(
@@ -22,8 +23,8 @@ class App {
     );
     const { winningStatus, profitRate } =
       lottoResultAnalysis.winningStatusAnalaysis(userLottos);
-    UserOutput.showWinningStatus(winningStatus);
-    UserOutput.showProfitRate(profitRate);
+    this.userOutput.showWinningStatus(winningStatus);
+    this.userOutput.showProfitRate(profitRate);
   }
 }
 
