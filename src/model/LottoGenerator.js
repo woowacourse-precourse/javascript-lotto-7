@@ -3,10 +3,12 @@ import Lotto from "./Lotto.js";
 
 class LottoGenerator {
   #payment;
+  #amount;
 
   constructor(payment) {
     this.#payment = payment;
     this.#validatePayment(payment);
+    this.#amount = this.#payment / 1000;
   }
 
   #validatePayment(payment) {
@@ -15,23 +17,17 @@ class LottoGenerator {
   }
 
   buyLotto() {
-    const amount = this.#payment / 1000;
-    Console.print(`${amount}개를 구매했습니다.`);
-
-    const lotto = [];
-    this.generateLotto(lotto, amount);
-
-    return lotto;
+    return this.#amount;
   }
 
-  generateLotto(lotto, amount) {
-    for (let i = 0; i < amount; i++) {
+  generateLotto() {
+    const lotto = [];
+
+    for (let i = 0; i < this.#amount; i++) {
       const num = Random.pickUniqueNumbersInRange(1, 45, 6);
       lotto[i] = new Lotto(num);
-
-      Console.print(`[${lotto[i].getNumbers().join(", ")}]`);
     }
-    Console.print("\n");
+    return lotto;
   }
 }
 

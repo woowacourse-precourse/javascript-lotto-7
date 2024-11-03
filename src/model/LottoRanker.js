@@ -1,3 +1,5 @@
+import { PRIZE } from "../constants";
+
 class LottoRanker {
   #nums;
   #bonusNumber;
@@ -30,6 +32,18 @@ class LottoRanker {
     }
 
     return this.winning;
+  }
+
+  calculateReturnRate(payment) {
+    const totalPrize = Object.entries(this.winning).reduce(
+      (total, [rank, count]) => {
+        return total + count * PRIZE[rank];
+      },
+      0
+    );
+    const returnRate = ((totalPrize / payment) * 100).toFixed(1);
+
+    return returnRate;
   }
 }
 
