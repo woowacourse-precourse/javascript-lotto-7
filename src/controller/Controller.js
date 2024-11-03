@@ -5,12 +5,11 @@ import {
   validateWinningNumber,
   validateBonusNumber,
 } from '../utils/validation.js';
-import Lotto from '../Lotto.js';
-import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
 import { INPUT_MESSAGE } from '../constant/constants.js';
 import LottoResult from '../model/LottoResult.js';
 import ProfitRate from '../model/ProfitRate.js';
+import { getLottos } from '../utils/generateLottos.js';
 
 export default class Controller {
   constructor() {
@@ -20,7 +19,7 @@ export default class Controller {
 
   async start() {
     const paidMoney = await this.getMoney();
-    const lottos = this.getLottos(paidMoney);
+    const lottos = getLottos(paidMoney);
     this.outputView.printLottoPurchaseHistory(lottos);
 
     const winningNumbers = await this.getWinningNumberAndBonusNumber();
@@ -43,23 +42,6 @@ export default class Controller {
       winningNumber,
       bonusNumber,
     };
-  }
-
-  getLottos(paidMoney) {
-    const lottoCount = paidMoney / LOTTO.LOTTO_PRICE;
-    const lottos = this.generateLottos(lottoCount);
-
-    return lottos.map((lotto) => lotto.getNumbers().sort((a, b) => a - b));
-  }
-
-  generateLottos(lottoCount) {
-    return Array.from({ length: lottoCount }, () => this.createLotto());
-  }
-
-  createLotto() {
-    const lottoNumbers = getUniqueNumbers();
-
-    return new Lotto(lottoNumbers);
   }
 
   async getMoney() {
