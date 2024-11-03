@@ -2,23 +2,6 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoGame from '../src/models/LottoGame.js';
 import Lotto from '../src/models/Lotto.js';
 
-const mockQuestions = inputs => {
-  MissionUtils.Console.readLineAsync = jest.fn();
-
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
-    const input = inputs.shift();
-
-    return Promise.resolve(input);
-  });
-};
-
-const mockRandoms = numbers => {
-  MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickUniqueNumbersInRange);
-};
-
 const getLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, 'print');
   logSpy.mockClear();
@@ -55,7 +38,7 @@ describe('LottoGame', () => {
     expect(lottoGame.getLottos()).toEqual(expectedLottos);
   });
 
-  test('displayLottos()', () => {
+  test('printLottos()', () => {
     // given
     const mockLottoNumbers = [
       [6, 28, 31, 35, 37, 38],
@@ -71,7 +54,7 @@ describe('LottoGame', () => {
     const logSpy = getLogSpy();
 
     // when
-    lottoGame.displayLottos();
+    lottoGame.printLottos();
 
     // then
     const logs = [
