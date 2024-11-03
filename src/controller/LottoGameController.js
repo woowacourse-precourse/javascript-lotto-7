@@ -38,8 +38,9 @@ class LottoGameController {
       this.#lottoChecker = new LottoChecker(await InputView.getWinningNumbers());
     });
 
-    const bonusNumber = await InputView.getBonusNumber();
-    this.#lottoChecker.setBonusNumber(bonusNumber);
+    await retryOnError(async () => {
+      this.#lottoChecker.setBonusNumber(await InputView.getBonusNumber());
+    });
 
     const results = this.#checkLottoResults();
     const prizeCalculator = new PrizeCalculator(results);
