@@ -21,11 +21,9 @@ describe('로또 클래스 테스트', () => {
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 
   describe('LottoStore 클래스 테스트', () => {
-    let app;
     let lottoStore;
 
     beforeEach(() => {
-      app = new App();
       lottoStore = new LottoStore();
       jest.clearAllMocks();
     });
@@ -82,8 +80,26 @@ describe('로또 클래스 테스트', () => {
       { winningNumbers: '1,14,23,23,26,37', error: ERROR_MESSAGE.SAME_NUMBER },
     ])('로또 당첨 번호가 $winningNumbers 일 때 예외: $error', ({ winningNumbers, error }) => {
       expect(() => {
-        app.validate(winningNumbers);
+        lottoStore.setWinningLotto(winningNumbers);
       }).toThrow(error);
     });
+
+    test.each([
+      { winningNumbers: '1,6,11,25,33,37', bonusNumber: '', error: ERROR_MESSAGE.INPUT_EMPTY },
+      { winningNumbers: '1,6,11,25,33,37', bonusNumber: '!@#$', error: ERROR_MESSAGE.NOT_NUMBER },
+      { winningNumbers: '1,6,11,25,33,37', bonusNumber: '0', error: ERROR_MESSAGE.OUT_OF_RANGE },
+      { winningNumbers: '1,6,11,25,33,37', bonusNumber: '-20', error: ERROR_MESSAGE.OUT_OF_RANGE },
+      { winningNumbers: '1,6,11,25,33,37', bonusNumber: '100', error: ERROR_MESSAGE.OUT_OF_RANGE },
+      { winningNumbers: '1,6,11,25,33,37', bonusNumber: '11', error: ERROR_MESSAGE.SAME_NUMBER },
+      { winningNumbers: '11,13,21,29,30,44', bonusNumber: '44', error: ERROR_MESSAGE.SAME_NUMBER },
+    ])(
+      '로또 당첨 번호가 $winningNumbers, 보너스 번호가 $bonusNumber 일 때  예외: $error',
+      ({ winningNumbers, bonusNumber, error }) => {
+        expect(() => {
+          lottoStore.setWinningLotto(winningNumbers);
+          lottoStore.setBonusNumber(bonusNumber);
+        }).toThrow(error);
+      },
+    );
   });
 });

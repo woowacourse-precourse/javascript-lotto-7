@@ -17,9 +17,19 @@ class Validator {
 
   winningNumbers(numbers) {
     this.#checkEmpty(numbers);
-    this.#checkWinningNumbersFormat(numbers);
+    this.#checkWinningNumbersFormat(numbers.trim());
     const winningNumbers = numbers.trim().split(',').map(Number);
-    this.#checkNumberRange(winningNumbers);
+    winningNumbers.forEach((winningNumber) => {
+      this.#checkNumberRange(winningNumber);
+    });
+  }
+
+  bonusNumber(number, winningLotto) {
+    this.#checkEmpty(number);
+    const bonusNumber = Number(number.trim());
+    this.#checkNumber(bonusNumber);
+    this.#checkNumberRange(bonusNumber);
+    this.#checkIncludeNumber(bonusNumber, winningLotto);
   }
 
   #checkEmpty(input) {
@@ -31,15 +41,21 @@ class Validator {
   }
 
   #checkWinningNumbersFormat(input) {
-    if (!CONDITIONS.WINNING_NUMBERS_REGEX.test(input.trim())) throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS);
+    if (!CONDITIONS.WINNING_NUMBERS_REGEX.test(input.trim())) {
+      throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS);
+    }
   }
 
   #checkNumberCount(input) {
-    if (input.length !== CONDITIONS.LOTTO_NUMBER_COUNT) throw new Error(ERROR_MESSAGE.NUMBERS_COUNT);
+    if (input.length !== CONDITIONS.LOTTO_NUMBER_COUNT) {
+      throw new Error(ERROR_MESSAGE.NUMBERS_COUNT);
+    }
   }
 
   #checkDuplicates(input) {
-    if (new Set(input).size !== input.length) throw new Error(ERROR_MESSAGE.SAME_NUMBER);
+    if (new Set(input).size !== input.length) {
+      throw new Error(ERROR_MESSAGE.SAME_NUMBER);
+    }
   }
 
   #checkPositiveInteger(number) {
@@ -49,16 +65,27 @@ class Validator {
   }
 
   #checkCanUnit(number) {
-    if (number % CONDITIONS.PAYMENT_UNIT !== 0) throw new Error(ERROR_MESSAGE.INVALID_UNIT);
+    if (number % CONDITIONS.PAYMENT_UNIT !== 0) {
+      throw new Error(ERROR_MESSAGE.INVALID_UNIT);
+    }
   }
 
   #checkWithinLimit(number) {
-    if (number >= CONDITIONS.PAYMENT_LIMIT) throw new Error(ERROR_MESSAGE.OVER_MAXIMUM);
+    if (number >= CONDITIONS.PAYMENT_LIMIT) {
+      throw new Error(ERROR_MESSAGE.OVER_MAXIMUM);
+    }
   }
 
-  #checkNumberRange(numbers) {
-    if (numbers.some((number) => number < CONDITIONS.MIN_NUMBER || number > CONDITIONS.MAX_NUMBER))
+  #checkNumberRange(number) {
+    if (number < CONDITIONS.MIN_NUMBER || number > CONDITIONS.MAX_NUMBER) {
       throw new Error(ERROR_MESSAGE.OUT_OF_RANGE);
+    }
+  }
+
+  #checkIncludeNumber(number, winningLotto) {
+    if (winningLotto.checkNumber(number)) {
+      throw new Error(ERROR_MESSAGE.SAME_NUMBER);
+    }
   }
 }
 

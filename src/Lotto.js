@@ -23,6 +23,10 @@ class Lotto {
   print() {
     return `[${this.#numbers.join(', ')}]`;
   }
+
+  checkNumber(number) {
+    return this.#numbers.includes(number);
+  }
 }
 
 export default Lotto;

@@ -1,32 +1,39 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Lotto from './Lotto.js';
 import LottoStore from './LottoStore.js';
-import Validator from './Validator.js';
 import { PRINT_MESSAGE } from './constants.js';
 
 class App {
+  #lottoStore;
+
+  constructor() {
+    this.#lottoStore = new LottoStore();
+  }
+
   async run() {
     try {
-      const payment = await MissionUtils.Console.readLineAsync(PRINT_MESSAGE.INPUT_PAYMENT);
-      const lottoStore = new LottoStore();
-      lottoStore.buyLotto(payment);
-
-      MissionUtils.Console.print(`\n${lottoStore.getLottoCount()}${PRINT_MESSAGE.BUY_COUNT}`);
-      MissionUtils.Console.print(lottoStore.printLottoList());
-
-      const winningNumbers = await MissionUtils.Console.readLineAsync(PRINT_MESSAGE.INPUT_WINNING_NUMBERS);
-      this.validate(winningNumbers);
+      await this.#inputPayment();
+      MissionUtils.Console.print(`\n${this.#lottoStore.getLottoCount()}${PRINT_MESSAGE.BUY_COUNT}`);
+      MissionUtils.Console.print(this.#lottoStore.printLottoList());
+      await this.#inputWinningNumbers();
+      await this.#inputBonusNumber();
     } catch (error) {
       MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }
   }
 
-  validate(numbers) {
-    const vaildator = new Validator();
-    vaildator.winningNumbers(numbers);
-    const winningNumbers = numbers.trim().split(',').map(Number);
+  async #inputPayment() {
+    const payment = await MissionUtils.Console.readLineAsync(PRINT_MESSAGE.INPUT_PAYMENT);
+    this.#lottoStore.buyLotto(payment);
+  }
 
-    return new Lotto(winningNumbers);
+  async #inputWinningNumbers() {
+    const winningNumbers = await MissionUtils.Console.readLineAsync(PRINT_MESSAGE.INPUT_WINNING_NUMBERS);
+    this.#lottoStore.setWinningLotto(winningNumbers);
+  }
+
+  async #inputBonusNumber() {
+    const bonusNumber = await MissionUtils.Console.readLineAsync(PRINT_MESSAGE.INPUT_BONUS_NUMBER);
+    this.#lottoStore.setBonusNumber(bonusNumber);
   }
 }
 
