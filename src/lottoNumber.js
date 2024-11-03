@@ -1,6 +1,6 @@
 // 로또 번호와 관련있는 함수들
 
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 function makeLotto(count) {
@@ -9,7 +9,7 @@ function makeLotto(count) {
     let lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
     lottoClassList.push(new Lotto(lottoNumbers));
   }
-
+  Console.print("");
   return lottoClassList;
 }
 

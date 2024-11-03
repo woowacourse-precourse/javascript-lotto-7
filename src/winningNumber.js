@@ -4,9 +4,9 @@ import { Console } from "@woowacourse/mission-utils";
 
 async function getBonusNumer(winningNumbers){
     const BONUS_NUMBER = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
-    isWinningNumber(BONUS_NUMBER, winningNumbers);
+    isWinningNumber(parseInt(BONUS_NUMBER), winningNumbers);
 
-    return BONUS_NUMBER;
+    return parseInt(BONUS_NUMBER);
 }
 
 function isWinningNumber(BONUS_NUMBER, winningNumbers){
@@ -17,6 +17,7 @@ function isWinningNumber(BONUS_NUMBER, winningNumbers){
 
 async function getWinningNumbers(){
     const WINNING_NUMBERS = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    Console.print("");
     const winningList = WINNING_NUMBERS.split(",");
 
     isLength6(winningList);
@@ -46,16 +47,16 @@ function is1to45(number){
 }
 
 function isLength6(numberList){
-    if(!numberList.length !== 6){
+    if(numberList.length !== 6){
         throw new Error("[ERROR] 당첨 번호가 6개인지 확인하세요.");
     }
 }
 
 function isDuplicated(numberList){
     const numberSet = new Set(numberList);
-    if(!numberSet.size !== 6){
+    if(numberSet.size !== 6){
         throw new Error("[ERROR] 중복된 당첨 번호가 있는지 확인하세요.")
     }
 }
 
-export {isPositiveNumber, is1to45, isLength6, isDuplicated, getWinningNumbers}
+export {isPositiveNumber, is1to45, isLength6, isDuplicated, getWinningNumbers, getBonusNumer}
