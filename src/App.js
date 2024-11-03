@@ -35,12 +35,12 @@ class App {
   async validateWinningNumbers() {
     while (true) {
       try {
-        const input = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-        const numbers = input.split(',').map(Number);
+        const INPUT = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+        const NUMBERS = INPUT.split(',').map(Number);
 
-        this.checkWinningNumbers(numbers); 
+        this.checkWinningNumbers(NUMBERS); 
 
-        return numbers;
+        return NUMBERS;
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
@@ -65,11 +65,11 @@ class App {
   async validateBonusNumber(winningNumbers) {
     while (true) {
       try {
-        const input = await MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요:\n");
-        const bonusNumber = parseInt(input, 10);
+        const INPUT = await MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+        const BONUS_NUMBER = parseInt(INPUT, 10);
 
-        this.checkBonusNumber(bonusNumber, winningNumbers);
-        return bonusNumber;
+        this.checkBonusNumber(BONUS_NUMBER, winningNumbers);
+        return BONUS_NUMBER;
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
@@ -86,6 +86,22 @@ class App {
     if (winningNumbers.includes(bonusNumber)) {
       throw new Error("[Error] 보너스 번호는 당첨 번호와 중복될 수 없습니다!");
     }
+  }
+
+  generateLottos(money) {
+    const NUMBER_OF_LOTTO = Math.floor(money / 1000); // 소수점 내림 처리
+    const LOTTOS = [];
+
+    for (let i = 0; i < NUMBER_OF_LOTTO; i++) {
+      const lotto = this.generateLottoNumbers();
+      LOTTOS.push(lotto);
+    }
+
+    return LOTTOS;
+  }
+
+  generateLottoNumbers() { // 자동으로 중복 없이 제공
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
   async run() {
