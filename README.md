@@ -102,7 +102,7 @@
 ### 코드 구조화
 - [ ] MVC 패턴 적용
   - [ ] Model(Lotto, LottoGame)
-  - [ ] View(Input, Output)
+  - [x] View(Input, Output)
   - [ ] Controller(App)
 - [x] 상수 분리
   - [x] 에러 메시지
@@ -131,9 +131,9 @@
 - [ ] 도메인 패키지
   - [ ] Lotto.js
   - [ ] LottoGame.js
-- [ ] 뷰 패키지
-  - [ ] InputView.js
-  - [ ] OutputView.js
+- [x] 뷰 패키지
+  - [x] InputView.js
+  - [x] OutputView.js
 - [ ] 상수 패키지
   - [ ] constants.js
   - [ ] messages.js
