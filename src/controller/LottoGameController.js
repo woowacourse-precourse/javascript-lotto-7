@@ -2,6 +2,7 @@ import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import LottoMachine from '../model/LottoMachine.js';
 import LottoChecker from '../model/LottoChecker.js';
+import PrizeCalculator from '../model/PrizeCalculator.js';
 
 class LottoGameController {
   #lottoMachine;
@@ -30,7 +31,8 @@ class LottoGameController {
     this.#lottoChecker.setBonusNumber(bonusNumber);
 
     const results = this.#checkLottoResults();
-    const totalPrize = new PrizeCalculator(results).getTotalPrize();
+    const statistics = new PrizeCalculator(results).getStatistics();
+    this.#printWinningStatistic(statistics);
   }
 
   #checkLottoResults() {
@@ -38,8 +40,8 @@ class LottoGameController {
     return this.#lottoChecker.getMatchResults(lottoNumbersList);
   }
 
-  #printWinningStatistic() {
-    
+  #printWinningStatistic(statistics) {
+    OutputView.printWinningStatistics(statistics);
   }
 
   #printAllLottoNumbers() {
