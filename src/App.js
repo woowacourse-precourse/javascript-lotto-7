@@ -5,7 +5,6 @@ class App {
     const lottoInput = new LottoInput();
     let lottoPrice = await lottoInput.lottoPriceInput();
     let [lottoWinArr, lottoBonusNum] = await lottoInput.lottoWinInput();
-    console.log(lottoWinArr, lottoBonusNum);
   }
 }
 
