@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGE, CONSTANTS } from '../Constants';
+import { MESSAGE, CONSTANTS } from './Constants.js';
 
 export default class InputUtils {
 
@@ -7,9 +7,9 @@ export default class InputUtils {
         return await Console.readLineAsync(MESSAGE.PURCHASE_AMOUNT_INPUT);
     }
 
-    static async getNumberOfPurchase() {
-        const purchaseAmount = await this.inputPurchaseAmount();
-        return purchaseAmount / CONSTANTS.LOTTO_PRICE
+    static async getNumberOfPurchase(purchaseAmount) {
+        const numberOfPurchase = purchaseAmount / CONSTANTS.LOTTO_PRICE;
+        return numberOfPurchase
     }
 
 }
