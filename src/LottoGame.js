@@ -10,6 +10,8 @@ class LottoGame {
         validAmount(AMOUNT);
         const WINNING_LOTTO = await userInput(INPUT_MESSAGE.WINNING_LOTTO_INPUT);
         const lotto = new Lotto(WINNING_LOTTO);
+        const BONUS = await userInput(INPUT_MESSAGE.BONUS_INPUT);
+
     }
 }
 
