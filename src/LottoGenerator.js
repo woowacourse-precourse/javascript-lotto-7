@@ -6,7 +6,7 @@ class LottoGenerator {
 
     // 구입 금액에 맞춰 로또 티켓 생성
     generateTickets(purchaseAmount) {
-        const ticketCount = Math.floor(purchaseAmount / LottoGenerator.TICKET_PRICE);
+        const ticketCount = purchaseAmount / LottoGenerator.TICKET_PRICE;
         const tickets = [];
 
         for (let i = 0; i < ticketCount; i++) {
