@@ -51,7 +51,6 @@ class Ticket {
     await this.inputCost();
     this.calculateTicketCount();
     this.displayTicketCount();
-    this.displayTicket();
   }
 }
 

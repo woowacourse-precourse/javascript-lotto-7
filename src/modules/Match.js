@@ -20,6 +20,7 @@ class Match {
     const lottoTickets = new Ticket();
     await lottoTickets.startGetTicket();
     this.lottos = lottoTickets.getTicket();
+    lottoTickets.displayTicket();
   }
 
   async getJackpot() {
