@@ -11,7 +11,7 @@ export default class LottoResult {
         acc[key] = 0;
         return acc;
       },
-      {}
+      {},
     );
     this.#resultPrice = 0;
   }
@@ -34,11 +34,14 @@ export default class LottoResult {
 
   saveResult(matchCount, isBonusNumberMatch) {
     const matchStandards = Object.keys(lottoConfig.WINNING_CONDITIONS).map(
-      Number
+      Number,
     );
+    // console.log(matchStandards); //
     if (matchStandards.includes(matchCount)) {
       const matchKey =
         lottoConfig.WINNING_CONDITIONS[matchCount]?.[isBonusNumberMatch];
+
+      // console.log(matchKey); //
 
       if (matchKey && this.#result.hasOwnProperty(matchKey)) {
         this.#result[matchKey]++;
