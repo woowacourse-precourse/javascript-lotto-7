@@ -45,3 +45,19 @@ async function WinningNumberValidator() {
     return WinningNumberValidator();
   }
 }
+
+async function bonusNumberValidator() {
+  try {
+    let bonusNumber = await Console.readLineAsync(
+      LOG_MESSAGE.BONUS_NUMBER_MESSGE
+    );
+    bonusNumber = bonusNumber.trim();
+
+    isNumber(bonusNumber);
+    checkNUmberRange(bonusNumber);
+    isDuplicateBonusNumber(bonusNumber);
+  } catch (erro) {
+    Console.print(erro.message);
+    return bonusNumberValidator();
+  }
+}
