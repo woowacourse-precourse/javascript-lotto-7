@@ -42,12 +42,13 @@ class Lotto {
     });
 
     if (lotto.indexOf(Number(bonusNumber)) >= 0) winning.bonus = true;
+    console.log(winning);
     return winning;
   }
 
   #checkWinningCnt(winning, winningResult) {
     if (winning.winningCnt - NUM.MINIMUM_WINNING_CNT >= 0) {
-      if (winning.winningCnt - NUM.MINIMUM_WINNING_CNT === 2) {
+      if (winning.winningCnt === NUM.FIVE_WINNING) {
         winningResult[this.#checkWinningBonusNumber(winning.bonus)] += 1;
         return winningResult;
       }
@@ -57,8 +58,8 @@ class Lotto {
   }
 
   #checkWinningBonusNumber(bonusBoolean) {
-    if (bonusBoolean) return 3;
-    return 2;
+    if (bonusBoolean) return NUM.FIVE_WINNING_BONUS - NUM.MINIMUM_WINNING_CNT;
+    return NUM.FIVE_WINNING - NUM.MINIMUM_WINNING_CNT;
   }
 
   // calculateReturn(winningResult) {
