@@ -1,4 +1,3 @@
-import { Random } from '@woowacourse/mission-utils';
 import OutputView from './../views/OutputView.js';
 
 class LottoController {
@@ -10,17 +9,24 @@ class LottoController {
     const randomLottoNumbers = this.lottoModel.getRandomLottoNumbers();
     const pickBonusNumber = this.lottoModel.getPickBonusNumber();
     const pickLottoNumber = this.lottoModel.getPickLottoNumber();
-    const lottoNumberMatchCount = [];
-    const bonusNumberMatchCount = Array(randomLottoNumbers.length).fill(0);
-    randomLottoNumbers.forEach((lotto, idx) => {
-      const lottoNumber = lotto.getNumbers();
-      const result = lottoNumber.filter((number) => pickLottoNumber.includes(number)).length;
-      if (lottoNumber.includes(pickBonusNumber)) {
-        bonusNumberMatchCount[idx] = 1;
-      }
-      lottoNumberMatchCount.push(result);
-    });
+    const lottoNumberMatchCount = this.calculateMatches(randomLottoNumbers, pickLottoNumber, pickBonusNumber);
+    const bonusNumberMatchCount = this.calculateBonusMatches(randomLottoNumbers, pickBonusNumber);
+
     return { lottoNumberMatchCount, bonusNumberMatchCount };
+  }
+
+  calculateMatches(randomLottoNumbers, pickLottoNumber, pickBonusNumber) {
+    return randomLottoNumbers.map((lotto) => {
+      const lottoNumber = lotto.getNumbers();
+      return lottoNumber.filter((number) => pickLottoNumber.includes(number)).length;
+    });
+  }
+
+  calculateBonusMatches(randomLottoNumbers, pickBonusNumber) {
+    return randomLottoNumbers.map((lotto) => {
+      const lottoNumber = lotto.getNumbers();
+      return lottoNumber.includes(pickBonusNumber) ? 1 : 0;
+    });
   }
 
   calculateStatistics() {
