@@ -14,6 +14,7 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
+      MissionUtils.Console.print("[ERROR] 로또 번호는 6개여야 합니다.");
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
   }
@@ -27,6 +28,9 @@ class Lotto {
         (number < 1) |
         (number > 45)
       ) {
+        MissionUtils.Console.print(
+          "[ERROR] 로또 번호는 1에서 45까지 숫자이어야 합니다."
+        );
         throw new Error("[ERROR] 로또 번호는 1에서 45까지 숫자이어야 합니다.");
       }
     }
@@ -38,7 +42,7 @@ class Lotto {
     let CHECK_REPEAT = new Set();
     for (let number of numbers) CHECK_REPEAT.add(number);
     if (CHECK_REPEAT.size != numbers.length) {
-      console;
+      MissionUtils.Console.print("[ERROR] 로또 번호는 중복이 없습니다.");
       throw new Error("[ERROR] 로또 번호는 중복이 없습니다.");
     }
     return true;
