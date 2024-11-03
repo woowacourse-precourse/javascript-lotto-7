@@ -50,13 +50,31 @@ function printLotto(lottos) {
   });
 }
 
+async function inputPrizeLottoNumber() {
+  let numbers;
+  while (true) {
+    numbers = (await Console.readLineAsync("당첨 번호를 입력해 주세요."))
+      .split(",")
+      .map(Number);
+    try {
+      let prizeNumber = new Lotto(numbers);
+      return prizeNumber;
+    } catch (error) {
+      Console.print(error.message);
+    }
+  }
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
     const ticketNumber = payment / 1000;
     Console.print(`${ticketNumber}개를 구매했습니다.`);
+
     const lottos = issueLottoTickets(ticketNumber);
     printLotto(lottos);
+
+    const prizeNumberLotto = await inputPrizeLottoNumber();
   }
 }
 
