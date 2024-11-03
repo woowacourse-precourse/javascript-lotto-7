@@ -12,7 +12,7 @@ const checkEmpty = (input) => {
 /**@param {number} input */
 const checkNaN = (input) => {
   if (isNaN(input)) throwError(BONUS_NUMBER_ERROR_MESSAGE.NOT_NUMBER);
-  return Number(input);
+  return input;
 };
 
 /**@param {number} input */
@@ -40,7 +40,10 @@ const checkDuplicate = (input, winningNumbers) => {
   return input;
 };
 
-/**@param {string} input */
+/**
+ * @param {string} input
+ * @param {number[]} winningNumbers
+ * */
 const validateBonusNumber = (input, winningNumbers) => {
   _pipe(checkEmpty, checkNaN, checkRange, checkIsInteger, (number) =>
     checkDuplicate(number, winningNumbers)
