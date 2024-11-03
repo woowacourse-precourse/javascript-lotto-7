@@ -173,3 +173,27 @@ describe('당첨 내역 계산 기능 검사', () => {
     expect(lottomachine.calculateWinningResult(tickets)).toEqual(results);
   });
 });
+
+describe('총 수익률 계산 기능 검사', () => {
+  const lottomachine = new LOTTO_MACHINE();
+
+  test('총 수익률이 자연수', () => {
+    const money = 10000;
+    const results = { 0: 0, 1: 10, 2: 0, 3: 0, 4: 0, 5: 0 };
+    expect(lottomachine.calculateTotalReturn(money, results)).toEqual(
+      200000000
+    );
+  });
+
+  test('총 수익률이 소수점 두 자리 수 이상', () => {
+    const money = 8000;
+    const results = { 0: 7, 1: 0, 2: 0, 3: 0, 4: 0, 5: 1 };
+    expect(lottomachine.calculateTotalReturn(money, results)).toEqual(62.5);
+  });
+
+  test('총 수익률이 0', () => {
+    const money = 1000;
+    const results = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    expect(lottomachine.calculateTotalReturn(money, results)).toEqual(0);
+  });
+});
