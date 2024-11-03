@@ -5,6 +5,7 @@ class App {
     const userInput = new Input();
     await userInput.getPurchaseAmount();
     await userInput.getLottoNumber();
+    await userInput.getBonusNumber();
   }
 }
 

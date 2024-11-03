@@ -71,6 +71,42 @@ class Input {
       }
   });
   }
+
+  async getBonusNumber() {
+    try {
+        const bonus = await this.requestBonusNumber();
+        return bonus;
+    } catch (error) {
+        Console.print(error.message);
+        return await this.getBonusNumber();
+    }
+  }
+
+  async requestBonusNumber() {
+      const number = await Console.readLineAsync(MESSAGE.BONUS_NUMBER);
+      this.#bonusValidator(number);
+      return Number(number);
+  }
+
+  #bonusValidator(num) {
+    if (!num || num.trim() == '') {
+        throw new Error(ERROR.BLANK);
+    }
+
+    const number = Number(num);
+
+    if (number > 45 || number < 1) { 
+        throw new Error(ERROR.INVALID_RANGE_NUMBER);
+    }
+
+    if (isNaN(number)) {
+        throw new Error(ERROR.INVALID_VALUE);
+    }
+
+    if (!Number.isInteger(number)) {
+        throw new Error(ERROR.IS_NOT_INT);
+    }
+  };
 }
 
 export default Input;
