@@ -45,22 +45,18 @@ class Match {
       this.ranks[1]++;
       return;
     }
-
     if (matchCount === 5 && matchBonus) {
       this.ranks[3]++;
       return;
     }
-
     if (matchCount === 5) {
       this.ranks[2]++;
       return;
     }
-
     if (matchCount === 4) {
       this.ranks[4]++;
       return;
     }
-
     if (matchCount === 3) {
       this.ranks[5]++;
       return;
