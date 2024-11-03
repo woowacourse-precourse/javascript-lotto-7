@@ -2,32 +2,38 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 class App {
   async run() {
-    const money = await Console.readLineAsync("구입금액을 입력해 주세요.");
-    if (money % 1000 !== 0)
-      throw new Error("[ERROR] 1000원 단위로 입력해주세요.");
-    const lotto_count = parseInt(money / 1000);
-    Console.print(`${lotto_count}개를 구매했습니다.`);
-    let lotto_tickets = [];
-    for (let i = 0; i < lotto_count; i++) {
-      const lotto_numbers = new Lotto(
-        MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-          (a, b) => a - b
-        )
+    try {
+      const money = await Console.readLineAsync("구입금액을 입력해 주세요.");
+      if (isNaN(money) || money % 1000 !== 0) {
+        throw new Error("[ERROR] 1000원 단위로 입력해주세요.");
+      }
+      const lotto_count = parseInt(money / 1000);
+      Console.print(`${lotto_count}개를 구매했습니다.`);
+      let lotto_tickets = [];
+      for (let i = 0; i < lotto_count; i++) {
+        const lotto_numbers = new Lotto(
+          MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+            (a, b) => a - b
+          )
+        );
+        lotto_tickets.push(lotto_numbers);
+        Console.print(lotto_numbers.toString());
+      }
+      const lotto_answer = await Console.readLineAsync(
+        "당첨 번호를 입력해 주세요."
       );
-      lotto_tickets.push(lotto_numbers);
-      Console.print(lotto_numbers.toString());
+      const lotto_numbers = lotto_answer.split(",").map((num) => parseInt(num));
+      Console.print(lotto_numbers);
+
+      const lotto_bonus = await Console.readLineAsync(
+        "보너스 번호를 입력해 주세요."
+      );
+
+      this.check_lotto(lotto_tickets, lotto_numbers, lotto_bonus);
+    } catch (e) {
+      Console.print(e.message);
+      await this.run();
     }
-    const lotto_answer = await Console.readLineAsync(
-      "당첨 번호를 입력해 주세요."
-    );
-    const lotto_numbers = lotto_answer.split(",").map((num) => parseInt(num));
-    Console.print(lotto_numbers);
-
-    const lotto_bonus = await Console.readLineAsync(
-      "보너스 번호를 입력해 주세요."
-    );
-
-    this.check_lotto(lotto_tickets, lotto_numbers, lotto_bonus);
   }
 
   check_lotto(lotto_tickets, lotto_numbers, lotto_bonus) {
