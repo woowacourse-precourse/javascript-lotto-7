@@ -2,8 +2,8 @@ export const ERROR_CODE = {
     NOT_POSITIVE_NUMBER: "[ERROR] 1이상의 숫자를 입력해주세요.",
     OUT_OF_RANGE: (min, max) => `[ERROR] ${min}과 ${max}사이의 값을 입력해주세요.`,
     NOT_DIVIDED_BY_VALUE: (value) => `[ERROR] ${value}단위의 금액을 입력해주세요.`,
-    LOTTO_SIZE_OUT_OF_RANGE: (size) => `[ERROR] 로또 번호는 ${size}개여야 합니다.`,
-    LOTTO_NUMBER_DUPLICATE: `[ERROR] 로또 번호에 중복이 있습니다.`
+    SIZE_OUT_OF_RANGE: (size) => `[ERROR] 번호는 ${size}개여야 합니다.`,
+    NUMBER_DUPLICATE: `[ERROR] 번호에 중복이 있습니다.`
 };
 
 export const PURCHASE_PRICE = {

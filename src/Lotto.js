@@ -1,5 +1,6 @@
 import {Console} from '@woowacourse/mission-utils'
-import {ERROR_CODE, LOTTO} from "./constants/constants.js";
+import {ERROR_CODE, LOTTO, WINNING_NUMBER} from "./constants/constants.js";
+import {validationCheck} from "./validation/validationCheck.js";
 
 class Lotto {
     #numbers;
@@ -10,11 +11,11 @@ class Lotto {
     }
 
     #validate(numbers) {
-        if (numbers.length !== 6) {
-            throw new Error(ERROR_CODE.LOTTO_SIZE_OUT_OF_RANGE(LOTTO.SIZE));
+        if (!validationCheck.isCorrectSize(numbers, LOTTO.SIZE)) {
+            throw new Error(ERROR_CODE.SIZE_OUT_OF_RANGE(LOTTO.SIZE));
         }
-        if (new Set(numbers).size !== numbers.length) {
-            throw new Error(ERROR_CODE.LOTTO_NUMBER_DUPLICATE);
+        if (validationCheck.hasDuplicates(numbers)) {
+            throw new Error(ERROR_CODE.NUMBER_DUPLICATE)
         }
     }
 

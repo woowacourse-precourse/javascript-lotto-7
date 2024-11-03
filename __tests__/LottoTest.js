@@ -20,19 +20,19 @@ describe("로또 클래스 테스트", () => {
     test("예외 테스트 : 로또 번호의 개수가 6개가 넘어가는 경우", () => {
         expect(() => {
             new Lotto([1, 2, 3, 4, 5, 6, 7]);
-        }).toThrow(ERROR_CODE.LOTTO_SIZE_OUT_OF_RANGE(LOTTO.SIZE));
+        }).toThrow(ERROR_CODE.SIZE_OUT_OF_RANGE(LOTTO.SIZE));
     });
 
     test("예외 테스트 : 로또 번호의 개수가 6개 이하인 경우", () => {
         expect(() => {
             new Lotto([1, 2, 3, 4, 5]);
-        }).toThrow(ERROR_CODE.LOTTO_SIZE_OUT_OF_RANGE(LOTTO.SIZE));
+        }).toThrow(ERROR_CODE.SIZE_OUT_OF_RANGE(LOTTO.SIZE));
     });
 
     test("예외 테스트 : 로또 번호 중복이 있는 경우", () => {
         expect(() => {
             new Lotto([1, 2, 3, 4, 5, 5]);
-        }).toThrow(ERROR_CODE.LOTTO_NUMBER_DUPLICATE);
+        }).toThrow(ERROR_CODE.NUMBER_DUPLICATE);
     });
 
     test("정상 케이스 : 로또 오름차순 정렬 후 출력", () => {

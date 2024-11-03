@@ -18,5 +18,11 @@ export const validationCheck = {
             throw new Error(ERROR_CODE.NOT_DIVIDED_BY_VALUE(value))
         }
         return Number(number);
+    },
+    hasDuplicates(numbers) {
+        return new Set(numbers).size !== numbers.length;
+    },
+    isCorrectSize(number, size) {
+        return number.length === size;
     }
 }
