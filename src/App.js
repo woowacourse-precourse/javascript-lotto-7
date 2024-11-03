@@ -9,10 +9,7 @@ import MatchingResults from "./MatchingResults.js";
 
 class App {
   async run() {
-    const purchaseAmount = await Console.readLineAsync(
-      "구입금액을 입력해 주세요\n"
-    );
-    this.validatePurchaseAmount(purchaseAmount);
+    const purchaseAmount = await this.getPurchaseAmount();
     const lottoCount = purchaseAmount / 1000;
     const userLottoNumbers = this.generateLotto(lottoCount);
 
@@ -44,6 +41,13 @@ class App {
     );
     const rate = this.calculateRate(matchingResults, purchaseAmount);
     await this.printStatistics(matchingResults, rate);
+  }
+  async getPurchaseAmount() {
+    const purchaseAmount = await Console.readLineAsync(
+      "구입금액을 입력해 주세요\n"
+    );
+    this.validatePurchaseAmount(purchaseAmount);
+    return purchaseAmount;
   }
 
   generateLotto(lottoCount) {
