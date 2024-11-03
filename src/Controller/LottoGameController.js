@@ -94,7 +94,7 @@ class LottoGame {
     // 로또 발행하기
     generateLottoTicket(purchase) {
         const lottoTicketCount = purchase.getLottoTicketCount();
-        this.Output.printResultNewLine("\n" + lottoTicketCount + GAME_MESSAGES.lottoTicketCount);
+        this.Output.printResultNewLine(lottoTicketCount + GAME_MESSAGES.lottoTicketCount);
         this.MyLotto.buyLottoTicket(lottoTicketCount);
     }
 }

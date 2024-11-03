@@ -1,5 +1,5 @@
 import Purchase from "./Purchase.js";
-import Lotto from "./Lotto.js";
+import Lotto from "../Lotto.js";
 import Bonus from "./Bonus.js";
 
 class CreateModel {
