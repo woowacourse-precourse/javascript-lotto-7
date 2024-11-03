@@ -1,6 +1,9 @@
 export class Calculation {
   getLottoTicketCount(purchasePrice) {
-    return purchasePrice / 1000;
+    const oneLottoTicketPrice = 1000;
+    const lottoTicketCount = purchasePrice / oneLottoTicketPrice;
+
+    return lottoTicketCount;
   }
 
   getRateOfReturn(rankCounts, purchasePrice) {
