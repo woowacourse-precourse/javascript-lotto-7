@@ -7,9 +7,9 @@ export default class OutputView {
     Console.print(`${ERROR_PREFIX} ${message}`);
   }
 
-  printWinningStatistics(result) {
+  printWinningStatistics(lottoResult) {
     Console.print(INPUT_MESSAGE.RESULT);
-    const StatisticsString = this.#getStatisticsString(result);
+    const StatisticsString = this.#getStatisticsString(lottoResult.getResult());
     Console.print(StatisticsString);
   }
 

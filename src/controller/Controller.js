@@ -9,8 +9,8 @@ import Lotto from '../Lotto.js';
 import { getUniqueNumbers } from '../utils/getUniqueNumbers.js';
 import { LOTTO } from '../constant/constants.js';
 import { INPUT_MESSAGE } from '../constant/constants.js';
-import MatchingMachine from '../model/MatchingMachine.js';
 import { prizeByMatchCount } from '../constant/prizeByMatchCount.js';
+import LottoResult from '../model/LottoResult.js';
 
 export default class Controller {
   constructor() {
@@ -23,16 +23,17 @@ export default class Controller {
     const lottos = this.getLottos(paidMoney);
     this.outputView.printLottoPurchaseHistory(lottos);
 
-    const { winningNumber, bonusNumber } =
-      await this.getWinningNumberAndBonusNumber();
+    const winningNumbers = await this.getWinningNumberAndBonusNumber();
+    const lottoResult = new LottoResult(winningNumbers, lottos);
+    this.outputView.printWinningStatistics(lottoResult);
 
-    const result = this.getCalculatedResult(winningNumber, bonusNumber, lottos);
-    this.outputView.printWinningStatistics(result);
-    const profitRate = this.calculateProfitRate(paidMoney, result);
+    const profitRate = this.calculateProfitRate(paidMoney, lottoResult);
     this.outputView.printProfitRate(profitRate);
   }
 
-  calculateProfitRate(paidMoney, result) {
+  calculateProfitRate(paidMoney, lottoResult) {
+    const result = lottoResult.getResult();
+
     let sum = 0;
     for (let key in result) {
       if (result[key] > 0) {
@@ -55,17 +56,6 @@ export default class Controller {
       winningNumber,
       bonusNumber,
     };
-  }
-
-  getCalculatedResult(winningNumber, bonusNumber, lottos) {
-    const matchingMachine = new MatchingMachine(
-      winningNumber,
-      bonusNumber,
-      lottos,
-    );
-    matchingMachine.matchLotto();
-
-    return matchingMachine.getResult();
   }
 
   getLottos(paidMoney) {

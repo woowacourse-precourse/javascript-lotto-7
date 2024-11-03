@@ -1,14 +1,14 @@
 import { LOTTO } from '../constant/constants.js';
 
-export default class MatchingMachine {
+export default class LottoResult {
   #winningNumber;
   #bonusNumber;
   #lottos;
   #result;
 
-  constructor(winningNumber, bonusNumber, lottos) {
-    this.#winningNumber = winningNumber;
-    this.#bonusNumber = bonusNumber;
+  constructor(winningNumbers, lottos) {
+    this.#winningNumber = winningNumbers.winningNumber;
+    this.#bonusNumber = winningNumbers.bonusNumber;
     this.#lottos = lottos;
     this.#result = {
       1: 0,
@@ -17,9 +17,11 @@ export default class MatchingMachine {
       4: 0,
       5: 0,
     };
+
+    this.#matchLotto();
   }
 
-  matchLotto() {
+  #matchLotto() {
     this.#lottos.forEach((lotto) => {
       const count = this.#getMatchedLottoCount(lotto);
       if (count < LOTTO.MIN_WINNING_MATCH_COUNT) return;
