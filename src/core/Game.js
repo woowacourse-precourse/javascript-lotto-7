@@ -42,6 +42,7 @@ class Game {
         }
 
         lottoReult[0][matchedCount] += 1;
+        return lottoReult;
 
     }
 
@@ -51,7 +52,7 @@ class Game {
          * lottoResult = [[7등수, 6등수, 5등수, 4등수, 3등수, 2등수, 1등수], [보너스 당첨자 수]]
          * @param {Array<Array<number>>} lottoPackage - 2차원 배열
         */
-        const lottoReult = [Array(7).fill(0), [0]];
+        let lottoReult = [Array(7).fill(0), [0]];
         const orderedWinningNumber = [...winningNumber].sort((a,b) => a-b);
 
         for ( const lotto of lottoPackage ){
@@ -59,7 +60,7 @@ class Game {
             const bunusFlag = lottoNumbers.includes(bonusNumber);
 
             const matchedCount = this.countMatchingNumber(orderedWinningNumber, lottoNumbers);
-            this.updateWinnerrReult(lottoReult, matchedCount, bunusFlag);
+            lottoReult = this.updateWinnerrReult(lottoReult, matchedCount, bunusFlag);
 
         }
         return lottoReult;
