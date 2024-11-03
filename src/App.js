@@ -11,13 +11,13 @@ const printSingleResult = (match, reward, bonus, count) => {
   return Console.print(`${match}개 일치 (${reward}) - ${count}개`);
 }
 
-const printWinningResults = (wonRecord) => {
-  const results = [
-    { match: 3, reward: "5,000원", bonus: false },
-    { match: 4, reward: "50,000원", bonus: false },
-    { match: 5, reward: "1,500,000원", bonus: false },
-    { match: '5+bonus', reward: "30,000,000원", bonus: true },
-    { match: 6, reward: "2,000,000,000원", bonus: false}
+const printWinningResults = (lottoGame, userLotto, winningResults) => {
+  const resultMessages = [
+    `3개 일치 (5,000원) - ${winningResults[3]}개`,
+    `4개 일치 (50,000원) - ${winningResults[4]}개`,
+    `5개 일치 (1,500,000원) - ${winningResults[5]}개`,
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningResults['5+bonus']}개`,
+    `6개 일치 (2,000,000,000원) - ${winningResults[6]}개`
   ]
 
   Console.print("당첨 통계");
