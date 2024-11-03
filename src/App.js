@@ -11,8 +11,17 @@ import {
 } from './util/validator.js';
 
 class App {
+  #lottoMachine;
+
+  constructor() {
+    this.#lottoMachine = new LottoMachine();
+  }
+
   async run() {
-    const { lottos, purchaseAmount } = await this.#buyLottos();
+    const purchaseAmount = await this.#tryInput(() =>
+      this.#tryPurchaseAmount(),
+    );
+    const lottos = this.#buyLottos(purchaseAmount);
 
     Output.printLottos(lottos.map((lotto) => lotto.getLottoNumbers()));
 
@@ -54,14 +63,13 @@ class App {
     return bonusNumber;
   }
 
-  async #buyLottos() {
-    const purchaseAmount = await this.#tryInput(
-      this.#tryPurchaseAmount.bind(this),
-    );
-    const lottoMachine = new LottoMachine(Number(purchaseAmount));
-    const lottos = lottoMachine.getLottos().map((lotto) => new Lotto(lotto));
+  #buyLottos(purchaseAmount) {
+    this.#lottoMachine.buyLottos(purchaseAmount);
+    const lottos = this.#lottoMachine
+      .getLottos()
+      .map((lotto) => new Lotto(lotto));
 
-    return { lottos, purchaseAmount };
+    return lottos;
   }
 
   #getRankCounts(ranks) {

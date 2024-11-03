@@ -5,32 +5,28 @@ class LottoMachine {
   #lottoQuantity;
   #lottos;
 
-  constructor(purchaseAmount) {
-    this.#lottoQuantity = this.#calculateLottoQuantity(purchaseAmount);
-    this.#lottos = this.#generateLottos();
+  constructor() {
+    this.#lottos = [];
   }
 
   #calculateLottoQuantity(purchaseAmount) {
     return purchaseAmount / LOTTO_RULE.AMOUNT_UNIT;
   }
 
-  #generateLottos() {
-    const lottoList = [];
-
-    for (let i = 0; i < this.#lottoQuantity; i++) {
+  #generateLottos(lottoQuantity) {
+    for (let i = 0; i < lottoQuantity; i++) {
       const lotto = Random.pickUniqueNumbersInRange(
         LOTTO_RULE.LOTTO_NUMBER_RANGE.MIN,
         LOTTO_RULE.LOTTO_NUMBER_RANGE.MAX,
         LOTTO_RULE.LOTTO_NUMBER_LENGTH,
       );
-      lottoList.push(lotto.sort((a, b) => a - b));
+      this.#lottos.push(lotto.sort((a, b) => a - b));
     }
-
-    return lottoList;
   }
 
-  getLottoQuantity() {
-    return this.#lottoQuantity;
+  buyLottos(purchaseAmount) {
+    this.#lottoQuantity = this.#calculateLottoQuantity(purchaseAmount);
+    this.#generateLottos(this.#lottoQuantity);
   }
 
   getLottos() {
