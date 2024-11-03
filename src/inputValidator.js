@@ -14,6 +14,14 @@ const inputValidator = {
     this.isSix(numbers);
     return numbers;
   },
+  checkBonusNumber(value, winningNumbers) {
+    this.isEmpty(value);
+    this.isNumber(value);
+    const bonus = Number(value);
+    this.isBonusInRange(bonus);
+    this.isUniqueBonusNumber(bonus, winningNumbers);
+    return bonus;
+  },
   isEmpty(value) {
     if (!value || !value.trim()) {
       throw new Error("[ERROR] 입력이 비어 있습니다.");
@@ -52,6 +60,16 @@ const inputValidator = {
   isSix(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 6개의 번호가 아닙니다.");
+    }
+  },
+  isBonusInRange(number) {
+    if (number < 1 || number > 45) {
+      throw new Error("[ERROR] 1에서 45 사이의 번호가 아닙니다.");
+    }
+  },
+  isUniqueBonusNumber(bonus, winningNumbers) {
+    if (winningNumbers.includes(bonus)) {
+      throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.");
     }
   },
 };

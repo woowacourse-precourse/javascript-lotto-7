@@ -19,8 +19,8 @@ class LottoPlayer {
       this.setNumberOfLottos(purchaseAmount);
       this.createLottos();
       this.printLottos();
-      MissionUtils.Console.print("");
       this.winningNumbers = await this.handleWinningNumbers();
+      this.bonusNumber = await this.handleBonusNumber();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.play();
@@ -42,6 +42,15 @@ class LottoPlayer {
     } catch (error) {
       MissionUtils.Console.print(error.message);
       return await this.handleWinningNumbers();
+    }
+  }
+
+  async handleBonusNumber() {
+    try {
+      return await inputHandler.requestBonusNumber(this.winningNumbers);
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+      return await this.handleBonusNumber();
     }
   }
 

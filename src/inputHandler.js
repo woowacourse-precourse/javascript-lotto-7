@@ -16,6 +16,13 @@ const inputHandler = {
     );
     return inputValidator.checkWinningNumbers(winningNumbers);
   },
+
+  async requestBonusNumber(winningNumbers) {
+    const bonusNumber = await MissionUtils.Console.readLineAsync(
+      MESSAGES.REQUEST_BONUS_NUMBER
+    );
+    return inputValidator.checkBonusNumber(bonusNumber, winningNumbers);
+  },
 };
 
 export default inputHandler;
