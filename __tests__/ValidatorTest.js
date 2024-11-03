@@ -289,7 +289,7 @@ describe('Validator Test', () => {
   });
 
   describe('isNotIncludeDuplicatedNumber() : 중복된 값이 없는지 검증', () => {
-    test('입력 값에 중복된 값이 존재하는 경우 에러르 발샐시킨다. ', () => {
+    test('입력 값에 중복된 값이 존재하는 경우 에러를 발생시킨다. ', () => {
       // given
       const testArr = [1, 1, 2, 3, 4];
 
