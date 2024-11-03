@@ -26,12 +26,18 @@ class InputValidator {
     this.validateNumber(bonusNumber);
   }
 
+  static validatePurchasePrice(price) {
+    if (Number.isNaN(price) || price <= 0 || price % 1000 !== 0) {
+      throw new Error('[ERROR] 1000원 단위의 양수 금액을 입력해주세요.');
+    }
   }
 }
 
 class InputHandler {
   static async getPurchasePrice() {
-    return await Console.readLineAsync(CONSOLE_MESSAGES.buyPrice);
+    const purchasePrice = await Console.readLineAsync(CONSOLE_MESSAGES.buyPrice);
+    InputValidator.validatePurchasePrice(purchasePrice);
+    return purchasePrice;
   }
 
   static async getWinningNumbers() {
