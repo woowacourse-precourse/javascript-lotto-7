@@ -12,24 +12,22 @@ class LottoResultPrinter {
   }
 
   printResult() {
-    this.#print('\n당첨 통계\n---');
+    this.#print(MESSAGES.IO.OUTPUT.WINNING_STATISTICS);
     this.#printWinningResult();
     this.#printRateOfReturn();
   }
 
   #printWinningResult() {
-    const matchResults = [];
-
-    this.#matchedCountPerMatchOption.forEach(({ count, matchedCount, isBonus, prize }) => {
-      if (isBonus) {
-        matchResults.push(MESSAGES.IO.OUTPUT.BONUS_MATCH_RESULT(count, prize, matchedCount));
-        return;
-      }
-
-      matchResults.push(MESSAGES.IO.OUTPUT.MATCH_RESULT(count, prize, matchedCount));
-    });
-
+    const matchResults = this.#matchedCountPerMatchOption.map(this.#formatMatchResult);
     this.#print(matchResults.join('\n'));
+  }
+
+  #formatMatchResult({ count, matchedCount, isBonus, prize }) {
+    if (isBonus) {
+      return MESSAGES.IO.OUTPUT.BONUS_MATCH_RESULT(count, prize, matchedCount);
+    }
+
+    return MESSAGES.IO.OUTPUT.MATCH_RESULT(count, prize, matchedCount);
   }
 
   #printRateOfReturn() {
