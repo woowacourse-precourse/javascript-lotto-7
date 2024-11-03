@@ -3,8 +3,10 @@ import { LOTTO, PROMPT_MESSAGE } from './constant';
 import Validator from './Validator';
 
 class User {
-  #purchaseAmount;
   #validator;
+  #purchaseAmount;
+  #winningNumbers;
+  #bonusNumber;
 
   constructor() {
     this.#validator = new Validator();
@@ -26,6 +28,19 @@ class User {
 
   get purchaseCount() {
     return this.#purchaseAmount / LOTTO.PRICE;
+  }
+
+  async readWinningNumbers() {
+    while (true) {
+      try {
+        this.#winningNumbers = await Console.readLineAsync(
+          PROMPT_MESSAGE.WINNING_NUMBERS,
+        );
+        return;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
 }
 

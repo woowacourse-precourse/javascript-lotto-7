@@ -16,6 +16,7 @@ class App {
     );
     const lottoList = Lotto.purchaseLotto(this.user.purchaseCount);
     print.lottoList(lottoList);
+    this.user.readWinningNumbers();
   }
 }
 
