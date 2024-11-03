@@ -2,7 +2,7 @@ import {
   WINNING_NUMBER_MIN,
   WINNING_NUMBER_MAX,
   WINNING_NUMBER_COUNT,
-} from "../lottoConstants";
+} from "../lottoConstants.js";
 
 export const ERROR_MESSAGE_WINNING_NUMBER_SEPARATOR = "쉼표(,)";
 
