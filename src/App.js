@@ -17,6 +17,7 @@ class App {
     const winningLottoNumbers = await App.getWinningLottoNumbers();
     const analyzer = App.getAnalyzer(lottos, winningLottoNumbers);
     const matchingTable = analyzer.getMatchingTable();
+    outputView.printStatistics(matchingTable);
   }
 
   async getLottoMachine() {
