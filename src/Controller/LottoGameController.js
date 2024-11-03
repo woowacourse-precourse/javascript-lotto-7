@@ -29,7 +29,7 @@ class LottoGame {
             return this.CreateModel.createLottoModel(winngNumbers);
         } catch ({ message }) {
             this.Output.printResult(message);
-            // this.getLottoWinningNumbers();
+            this.getLottoWinningNumbers();
             return null;
         }
     }
