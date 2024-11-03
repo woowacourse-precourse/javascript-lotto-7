@@ -1,7 +1,7 @@
 export const PROMPT_MESSAGES = Object.freeze({
   INPUT_MONEY: '구입금액을 입력해 주세요.\n',
-  INPUT_LOTTOS: '당첨 번호를 입력해 주세요.\n',
-  INPUT_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
+  INPUT_LOTTOS: '\n당첨 번호를 입력해 주세요.\n',
+  INPUT_BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.\n',
 });
 
 export const ERROR_MESSAGES = Object.freeze({
@@ -17,10 +17,12 @@ export const ERROR_MESSAGES = Object.freeze({
 
 export const INFO_MESSAGES = Object.freeze({
   PRINT_LOTTOS: '개를 구매했습니다.',
+  PRINT_RESULT: '\n당첨 통계\n---',
 });
 
 export const NUMBER = Object.freeze({
   MIN: 1,
   MAX: 45,
   VALID_LENGTH: 6,
+  MATCH_MINIMUM_COUNT: 3,
 });

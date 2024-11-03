@@ -28,8 +28,17 @@ class App {
     const validWinningNumbers = this.#validateWinningNumbers(numbers);
     const winningLotto = new Lotto(validWinningNumbers);
 
-    const number = await View.readInput(PROMPT_MESSAGES.INPUT_BONUS_NUMBER);
-    const bonusNumber = new BonusNumber(number, winningLotto.numbers);
+    const bonusNumberInput = await View.readInput(
+      PROMPT_MESSAGES.INPUT_BONUS_NUMBER
+    );
+    const bonusNumber = new BonusNumber(bonusNumberInput, winningLotto.numbers);
+    const totalCounts = LottoMachine.getTotalCount(
+      lottos,
+      winningLotto.numbers,
+      bonusNumber.number
+    );
+
+    View.displayResult(totalCounts);
   }
 
   #validateWinningNumbers(numbers) {
