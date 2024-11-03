@@ -5,11 +5,11 @@ class Purchase{
 
     constructor(amount){
         this.#validate(amount);
-        this.#amount=amount;
+        this.#amount=Number(amount);
     }
 
     #validate(amount){
-        if(isNaN(amount)){
+        if(isNaN(Number(amount))){
             throw new Error (ERROR_MESSAGE.IS_NOT_NUMBER)
         }
     }

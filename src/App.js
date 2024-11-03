@@ -12,7 +12,7 @@ class App {
     while (true) {
       try {
         const amount = await Console.readLineAsync(INPUT_MESSAGE.PURCHASE_AMOUNT_MESSAGE);
-        return new Purchase(Number(amount));
+        return new Purchase(amount);
       } catch (error) {
         Console.print(`\n${error.message}\n`);
       }
