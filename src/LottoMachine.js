@@ -26,7 +26,7 @@ export class LottoMachine {
         await this.promptPurchaseAmount();
     }
   }
-  
+
   issueLottos() {
     const count = this.purchaseAmount / 1000;
     MissionUtils.Console.print(`${count}개를 구매했습니다.`);
@@ -36,6 +36,18 @@ export class LottoMachine {
       MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`);
     }
     this.promptWinningNumbers();
+  }
+
+  validateWinningNumbers(numbers) {
+    numbers.forEach(element => {
+        if (isNaN(element)) throw new Error("[ERROR] 당첨 번호는 중복되지 않는 6개 숫자여야 합니다.");
+    });
+    if (numbers.length !== 6 || new Set(numbers).size !== 6) {
+      throw new Error("[ERROR] 당첨 번호는 중복되지 않는 6개 숫자여야 합니다.");
+    }
+    if (!numbers.every(num => num >= 1 && num <= 45)) {
+      throw new Error("[ERROR] 당첨 번호는 1에서 45 사이여야 합니다.");
+    }
   }
 }
 export default LottoMachine;
