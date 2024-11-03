@@ -7,8 +7,17 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length > 6) {
+      throw new Error('[ERROR] 로또 번호가 6자리보다 많이 생성됨!');
+    }
+
+    if (numbers.length < 6) {
+      throw new Error('[ERROR] 로또 번호가 6자리보다 적게 생성됨!');
+    }
+    
+    // 위 과정에서 정상인 numbers가 set을 통해 수가 줄어들 경우 중복된 번호 판단
+    if (new Set(numbers).size !== numbers.length) {
+      throw new Error('[ERROR] 로또 번호에 중복된 값이 있음!');
     }
   }
 
