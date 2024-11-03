@@ -1,5 +1,5 @@
 import ERROR_MESSAGE from '../constants/ErrorConstant.js';
-import { WINNING_NUMBERS_DELIMITER } from '../constants/inputMessageConstant.js';
+import { WINNING_NUMBERS_DELIMITER } from '../constants/inputConstant.js';
 import { LOTTO_NUMBER_MAX, LOTTO_NUMBER_MIN, LOTTO_PRICE_UNIT, REQUIRED_WINNING_NUMBERS_COUNT } from '../constants/lottoConstant.js';
 import ErrorHandler from './ErrorHandler.js';
 
