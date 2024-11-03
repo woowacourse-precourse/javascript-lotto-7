@@ -7,9 +7,10 @@ import { GameOutput } from "./woowahanOutput.js";
 
 class App {
   async run() {
-    let input = 'start';
     const lottoStore = new LottoStore();
     const gameOutput = new GameOutput();
+
+    let input = 'start';
 
     while (!buyMoneyValidator(input)) {
       input = await WoowahanInput.getBuyMoney();
@@ -18,15 +19,16 @@ class App {
     const countLotto = lottoStore.getLottoTicketCount(input);
     gameOutput.printLottoTicketCount(countLotto);
 
-    const lottos = [];
+    const lottos = lottoStore.generateLottos();
+    // const lottos = [];
 
-    for (let i = 0; i < countLotto; i++) {
-      const random = Random.pickUniqueNumbersInRange(1, 45, 6);
-      random.sort((a, b) => a - b);
-      const lotto = new Lotto(random);
-      lottos.push(lotto);
-      Console.print(`[${random.join(', ')}]`);
-    }
+    // for (let i = 0; i < countLotto; i++) {
+    //   const random = Random.pickUniqueNumbersInRange(1, 45, 6);
+    //   random.sort((a, b) => a - b);
+    //   const lotto = new Lotto(random);
+    //   lottos.push(lotto);
+    //   Console.print(`[${random.join(', ')}]`);
+    // }
 
     const winInput = await WoowahanInput.getWinNumber();
     const winNumber = winInput.split(',').map(Number);

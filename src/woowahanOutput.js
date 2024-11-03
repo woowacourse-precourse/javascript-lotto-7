@@ -9,11 +9,19 @@ class WoowahanOutput {
     async statusPrint(prompt) {
         Console.print(`${prompt}`);
     }
+
+    static print(prompt){
+        Console.print(`${prompt}`);
+    }
 }
 
 class GameOutput extends WoowahanOutput {
     async printLottoTicketCount(countLotto){
         super.statusPrint(`${countLotto}개를 구매했습니다.`);
+    }
+
+    static printLottoOneLine(random){
+        super.print(`[${random.join(', ')}]`);
     }
 }
 
