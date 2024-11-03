@@ -1,4 +1,4 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import LottoView from "./LottoView.js";
 
@@ -13,16 +13,10 @@ class LottoController {
   async run() {
     const purchaseAmount = await this.#view.getPurchaseAmount();
     this.#generateLottos(purchaseAmount);
-
-    for (const lotto of this.#lottos) {
-      Console.print(lotto.getNumber());
-    }
+    this.#view.showLottoList(this.#lottos);
 
     const winningNumbers = await this.#view.getWinningNumbers();
     const bonusNumber = await this.#view.getBonusNumber();
-
-    Console.print(winningNumbers);
-    Console.print(bonusNumber);
   }
 
   #generateRandomNumbers() {
