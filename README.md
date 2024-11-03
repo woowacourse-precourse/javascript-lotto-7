@@ -64,6 +64,7 @@ sequenceDiagram
    2. `LottoCompany` : 로또를 추첨하는 로또 회사입니다.
    3. `LottoShop` : 로또를 판매하는 로또 가게입니다.
    4. `Lotto` : 로또입니다.
+   5. `LottoResult` : 로또 당첨 결과지입니다.
 3. [헬퍼 클래스](./src/helpers/)
    1. `InputManager` : 사용자로부터 입력을 받습니다.
    2. `OutputManager` : 사용자에게 결과를 출력합니다.
@@ -200,7 +201,7 @@ classDiagram
   }
   class LottoCompany{
 	  draw()
-	  checkWinningLotto
+	  getLottoResult
   }
 ```
 
@@ -221,10 +222,10 @@ classDiagram
   }
   class LottoCompany{
 	  draw()
-	  checkWinningLotto
+	  getLottoResult()
   }
   class Lotto{
-	  checkWinning()
+	  getRank()
 	  getRankInfo()
 	  getPrizeMoney()
   }
