@@ -42,13 +42,14 @@ class LottoGame {
 
   computeLottoStatistics() {
     this.lottoStatistics.computeLottoResults(this.getLottos(), this.getLottoWinningNumbers());
-
-    // TODO: 수익률 계산 함수 호출
+    this.lottoStatistics.computeProfitRate(this.getLottos());
   }
 
   printLottoStatistics() {
-    Console.print('\n당첨 통계\n---');
+    Console.print('\n');
+    Console.print('당첨 통계\n---');
     Console.print(this.lottoStatistics.statisticsToString());
+    Console.print(`총 수익률은 ${this.lottoStatistics.getProfitRate()}%입니다.`);
   }
 
   getLottos() {

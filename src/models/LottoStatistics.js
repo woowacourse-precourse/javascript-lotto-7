@@ -1,7 +1,11 @@
+import { LOTTO_PRICE_UNIT } from '../constants/lottoConstant.js';
+
 class LottoStatistics {
   #statistics;
 
   #lottoPrize;
+
+  #profitRate;
 
   constructor() {
     this.#statistics = new Map([
@@ -13,6 +17,7 @@ class LottoStatistics {
     ]);
 
     this.#lottoPrize = 0;
+    this.#profitRate = 0;
   }
 
   computeLottoResults(lottos, lottoWinningNumbers) {
@@ -37,16 +42,6 @@ class LottoStatistics {
     if (matchedCount === 6) return 'matchedSix';
 
     return null;
-  }
-
-  setStatistics(key) {
-    if (!key) return;
-
-    this.#statistics.set(key, this.#statistics.get(key) + 1);
-  }
-
-  getStatistics() {
-    return this.#statistics;
   }
 
   computLottoPrize() {
@@ -83,9 +78,34 @@ class LottoStatistics {
     if (key === 'matchedFour') return `4개 일치 (50,000원) - ${count}개\n`;
     if (key === 'matchedFiveAndBonus') return `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개\n`;
     if (key === 'matchedFive') return `5개 일치 (1,500,000원) - ${count}개\n`;
-    if (key === 'matchedSix') return `6개 일치 (2,000,000,000원) - ${count}개\n`;
+    if (key === 'matchedSix') return `6개 일치 (2,000,000,000원) - ${count}개`;
 
     return '';
+  }
+
+  computeProfitRate(lottos) {
+    const purchasePrice = lottos.length * LOTTO_PRICE_UNIT;
+    const profitRate = ((this.#lottoPrize / purchasePrice) * 100).toFixed(1);
+
+    this.setProfitRate(profitRate);
+  }
+
+  setStatistics(key) {
+    if (!key) return;
+
+    this.#statistics.set(key, this.#statistics.get(key) + 1);
+  }
+
+  getStatistics() {
+    return this.#statistics;
+  }
+
+  getProfitRate() {
+    return this.#profitRate;
+  }
+
+  setProfitRate(profitRate) {
+    this.#profitRate = profitRate;
   }
 }
 
