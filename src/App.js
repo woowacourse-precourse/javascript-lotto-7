@@ -14,6 +14,7 @@ class App {
 
     const inputWinningLotto = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
     const winningLotto = this.createWinningLotto(inputWinningLotto);
+    this.notSixRangeLottoException(winningLotto)
 
     for(let lottoNumber of winningLotto){
       this.lottoNumberOutOfRangeException(lottoNumber);
@@ -112,6 +113,13 @@ class App {
   lottoNumberOutOfRangeException(lottoNumber) {
     if (lottoNumber < 1 || lottoNumber > 45) {
       throw new Error("[ERROR] 1~45사이의 숫자만 입력해주세요.");
+    }
+  }
+
+  // 입력한 로또 번호가 6개가 아닐 시
+  notSixRangeLottoException(winningLotto){
+    if(winningLotto.length!==6){
+      throw new Error("[ERROR] 로또 개수는 6개 입력해주세요.");
     }
   }
 
