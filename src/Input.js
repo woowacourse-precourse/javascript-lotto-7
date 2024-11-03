@@ -14,7 +14,7 @@ class Input {
         this.#validatePurchaseAmount(purchaseAmount);
 
         const purchasedLottoCount = this.#getPurchasedLottoCount(purchaseAmount);
-        const purchasedLotto = this.#getPurchasedLotto(purchasedLottoCount);
+        const { purchasedLotto } = this.#getPurchasedLotto(purchasedLottoCount);
 
         return { purchasedLottoCount, purchasedLotto };
       } catch (error) {
@@ -45,7 +45,7 @@ class Input {
   }
 
   #getPurchasedLotto(purchasedLottoCount) {
-    const purchasedLottoList = Array.from({ length: purchasedLottoCount }, () => {
+    const purchasedLotto = Array.from({ length: purchasedLottoCount }, () => {
       const randomLottoNumber = this.#getRandomLottoNumber();
 
       Output.printPurchasedLottoNumber(randomLottoNumber);
@@ -53,7 +53,7 @@ class Input {
       return randomLottoNumber;
     });
 
-    return purchasedLottoList;
+    return { purchasedLotto };
   }
 
   #getRandomLottoNumber() {
@@ -70,7 +70,7 @@ class Input {
         const lottoWinningNumberInput = await Console.readLineAsync(INPUT_MESSAGE.LOTTO_NUMBER);
         const lottoWinningNumbers = new Set(lottoWinningNumberInput.split(",").map(Number));
 
-        const lottoClass = new Lotto(lottoWinningNumbers);
+        const lottoClass = new Lotto([...lottoWinningNumbers]);
 
         return { lottoClass };
       } catch (error) {
