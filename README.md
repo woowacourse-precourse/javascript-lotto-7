@@ -25,10 +25,12 @@
 ```
 📦src
  ┣ 📂constant
- ┃ ┣ 📜amountInputTestCase.js
+ ┃ ┣ 📂testCases
+ ┃ ┃ ┣ 📜amountInputTestCase.js
+ ┃ ┃ ┣ 📜bonusNumberCases.js
+ ┃ ┃ ┣ 📜lottoTestCase.js
  ┃ ┣ 📜errorMessage.js
  ┃ ┣ 📜ioMessage.js
- ┃ ┣ 📜lottoTestCase.js
  ┃ ┣ 📜prizeRanks.js
  ┃ ┗ 📜regex.js
  ┣ 📂utils
