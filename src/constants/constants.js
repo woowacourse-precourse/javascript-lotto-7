@@ -14,3 +14,17 @@ export const OUTPUT_MESSAGE = {
   printFirst : (count) => `6개 일치 (2,000,000,000원) - ${count}개`,
   printRateReturn : (rate) => `총 수익률은 ${rate}%입니다.`,
 };
+
+const ERROR_PREFIX = "[ERROR]";
+
+export const ERROR_MESSAGE = {
+  purchaseError : `${ERROR_PREFIX} 구입 금액은 1000으로 나누어 떨어지는 수 입니다.`,
+  purchaseRangeError : `${ERROR_PREFIX} 구입 금액 범위는 양수인 정수입니다.`,
+  lottoLengthError : `${ERROR_PREFIX} 당첨 번호는 6개여야 합니다.`,
+  lottoDuplicatedError : `${ERROR_PREFIX} 당첨 번호는 중복될 수 없습니다.`,
+  lottoRangeError : `${ERROR_PREFIX} 당첨 번호의 범위는 1~45 폐구간 입니다.`,
+  lottoTypeError : `${ERROR_PREFIX} 당첨 번호는 자연수입니다.`,
+  bonusDuplicatedError : `${ERROR_PREFIX} 보너스 번호는 당첨 번호와 중복될 수 없습니다.`,
+  bonusRangeError : `${ERROR_PREFIX} 보너스 번호의 범위는 1~45 폐구간 입니다.`,
+  bonusTypeError : `${ERROR_PREFIX} 보너스 번호는 자연수입니다.`,
+};
