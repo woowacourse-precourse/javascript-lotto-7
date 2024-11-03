@@ -5,7 +5,7 @@ import {
   VALID_HIGHEST_NUM,
   VALID_LOTTERY_NUM,
   VALID_LOWEST_NUM
-} from "./constants/validate.js";
+} from './constants/validate.js';
 
 class LottoGame {
   #purchasePrice;
@@ -71,6 +71,52 @@ class LottoGame {
   setBonusNumber(bonusNumber) {
     this.#validateBonusNumber(bonusNumber);
     this.#bonusNumber = bonusNumber;
+  }
+
+  checkWinning(userLotto) {
+    const winNumbersArray = this.#winNumbers.map(Number).sort((a, b) => a - b);
+    const result = {
+      3: 0,
+      4: 0,
+      5: 0,
+      '5+bonus': 0,
+      6: 0
+    }
+    userLotto.forEach((lotto) => {
+      const userLottoNumbers = lotto.getNumbers();
+
+      const matchCount = winNumbersArray.filter((number) => userLottoNumbers.includes(number)).length;
+      const hasBonus = userLottoNumbers.includes(Number(this.#bonusNumber));
+      console.log(hasBonus);
+      switch (matchCount) {
+        case 6:
+          result[6] += 1;
+          break;
+        case 5:
+          if (hasBonus) {
+            result['5+bonus'] += 1;
+          } else {
+            result[5] += 1;
+          }
+          break;
+        case 4:
+          result[4] += 1;
+          break;
+        case 3:
+          result[3] += 1;
+          break;
+      }
+    });
+    return result;
+  };
+
+  calculateProfit(userLotto) {
+    let result = this.checkWinning(userLotto);
+    const totalEarnings = (5000 * result[3]) + (50000 * result[4]) + (1500000 * result[5]) + (30000000 * result['5+bonus']) + (2000000000 * result[6]);
+    const investment = this.calculateLottoCount() * LOTTO_PRICE;
+    const profitRate = ((totalEarnings - investment) / investment * 100).toFixed(1);
+
+    return profitRate;
   }
 }
 export default LottoGame;

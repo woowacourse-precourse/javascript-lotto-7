@@ -2,22 +2,6 @@ import { Console } from '@woowacourse/mission-utils'
 import LottoGame from "./LottoGame.js";
 import InputHandler from "./InputHandler.js";
 
-const checkWinning = (myLotto, winNumbers, bonusNumber) => {
-  const answerArray = winNumbers.map(Number).sort((a, b) => a - b);
-  const correctArray = [];
-  myLotto.forEach(lotto => {
-    const myLottoNumbers = lotto.getNumbers();
-    let count = answerArray.filter(item => myLottoNumbers.includes(item)).length;
-    const hasBonus = myLottoNumbers.includes(bonusNumber);
-
-    if (count === 5 && hasBonus) {
-      correctArray.push('5+bonus');
-    }
-    correctArray.push(count);
-  });
-  return correctArray.filter(item => item === '5+bonus' || item > 2);
-}
-
 const countWonLotto = (wonRecord, target) => {
   return wonRecord.filter((record) => record === target).length;
 }
@@ -63,9 +47,6 @@ class App {
 
     const bonusNumber = await InputHandler.getBonusNumber();
     lottoGame.setBonusNumber(bonusNumber);
-
-    const wonRecord = checkWinning(userLotto, winNumber, bonusNumber);
-    console.log(wonRecord);
 
     printWinningResults(wonRecord);
   }
