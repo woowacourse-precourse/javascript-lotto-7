@@ -26,11 +26,12 @@ export const WINNING_NUMBER_MESSAGE = Object.freeze({
 });
 
 export const BONUS_NUMBER_MESSAGE = Object.freeze({
-  question: '보너스 번호를 입력해 주세요.\n',
+  question: '\n보너스 번호를 입력해 주세요.\n',
   error: {
     notBlank: '[ERROR] 보너스 번호를 입력하지 않았습니다.',
     notNumber: '[ERROR] 숫자를 입력해주세요.',
     notInRange: '[ERROR] 번호의 범위는 1 ~ 45 이어야 합니다.',
+    notDuplicate: '[ERROR] 번호는 중복되면 안됩니다.',
   },
 });
 

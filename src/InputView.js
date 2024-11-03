@@ -3,6 +3,7 @@ import {
   MONEY_MESSAGES,
   WINNING_NUMBER_MESSAGE,
   LOTTO_CONSTANTS,
+  BONUS_NUMBER_MESSAGE,
 } from './util/constant.js';
 
 class InputView {
@@ -51,10 +52,11 @@ class InputView {
     }
     return winningNumbers;
   }
-  static validateNumber(winningNumbers) {
-    const isNotNumber = winningNumbers.some((number) => isNaN(number));
-    const isIncludeBlank = winningNumbers.some((number) => number === '');
-    const isNotInRange = winningNumbers.some(
+
+  static validateNumber(numbers) {
+    const isNotNumber = numbers.some((number) => isNaN(number));
+    const isIncludeBlank = numbers.some((number) => number === '');
+    const isNotInRange = numbers.some(
       (number) =>
         number < LOTTO_CONSTANTS.minLottoNumber ||
         number > LOTTO_CONSTANTS.maxLottoNumber
@@ -67,6 +69,34 @@ class InputView {
     }
     if (isNotInRange) {
       throw new Error(WINNING_NUMBER_MESSAGE.error.notInRange);
+    }
+  }
+
+  static async processBonusNumber(winningNumbers) {
+    try {
+      const bonusNumber = await readUserInput(BONUS_NUMBER_MESSAGE.question);
+      this.validateBonusNumber(bonusNumber, winningNumbers);
+      return bonusNumber;
+    } catch (error) {
+      printResult(error.message);
+      return await this.processBonusNumber(winningNumbers);
+    }
+  }
+
+  static validateBonusNumber(bonusNumber, winningNumbers) {
+    const isDuplicate = winningNumbers.some((number) => number === bonusNumber);
+    const isNotInRange =
+      bonusNumber < LOTTO_CONSTANTS.minLottoNumber ||
+      bonusNumber > LOTTO_CONSTANTS.maxLottoNumber;
+
+    if (isDuplicate) {
+      throw new Error(BONUS_NUMBER_MESSAGE.error.notDuplicate);
+    }
+    if (isNaN(bonusNumber)) {
+      throw new Error(BONUS_NUMBER_MESSAGE.error.notNumber);
+    }
+    if (isNotInRange) {
+      throw new Error(BONUS_NUMBER_MESSAGE.error.notInRange);
     }
   }
 }

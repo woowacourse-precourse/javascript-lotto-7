@@ -8,6 +8,7 @@ class App {
   #lottos;
   #money;
   #winninNumbers;
+  #bonusNumber;
 
   async run() {
     this.#money = await InputView.processMoney();
@@ -15,6 +16,7 @@ class App {
     this.#lottos = await this.createLottos();
     OutputView.printLottoNumbers(this.#lottos);
     this.#winninNumbers = await InputView.processWinningNumber();
+    this.#bonusNumber = await InputView.processBonusNumber(this.#winninNumbers);
   }
 
   async createLottos() {
