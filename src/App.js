@@ -13,18 +13,18 @@ class App {
     this.displayLotto(lottoArray);
 
     const inputWinningLotto = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
-    const winningLotto = this.createWinningLotto(inputWinningLotto);
-    this.notSixRangeLottoException(winningLotto);
-    this.lottoNumberDuplicationCheckException(winningLotto);
+    const winningLotto = new Lotto(this.createWinningLotto(inputWinningLotto));
+    this.notSixRangeLottoException(winningLotto.getLotto());
+    this.lottoNumberDuplicationCheckException(winningLotto.getLotto());
 
-    for (let lottoNumber of winningLotto) {
+    for (let lottoNumber of winningLotto.getLotto()) {
       this.lottoNumberOutOfRangeException(lottoNumber);
     }
 
     const bonusLottoNumber = Number(await Console.readLineAsync("보너스 번호를 입력해 주세요.\n"));
     this.lottoNumberOutOfRangeException(bonusLottoNumber);
 
-    const winningArray = this.checkWinning(lottoArray, winningLotto, bonusLottoNumber);
+    const winningArray = this.checkWinning(lottoArray, winningLotto.getLotto(), bonusLottoNumber);
 
     this.displayPrizeMoney(winningArray, amount);
   }
@@ -46,7 +46,7 @@ class App {
 
   displayLotto(lottoArray) {
     for (let i of lottoArray) {
-      Console.print(i.getLotto());
+      Console.print(`[${i.getLotto().join(", ")}]`);;
     }
   }
 
@@ -106,7 +106,7 @@ class App {
 
   // 1000원 단위가 아닐 경우
   amountExceptionHandler(amount) {
-    if (!Number.isInteger(Number(amount))) {
+    if (isNaN(Number(amount))) {
       throw new Error("[ERROR] 숫자만 입력해주세요.");
     }
     if (amount % 1000 != 0) {
@@ -125,13 +125,6 @@ class App {
   notSixRangeLottoException(winningLotto) {
     if (winningLotto.length !== 6) {
       throw new Error("[ERROR] 로또 개수는 6개 입력해주세요.");
-    }
-  }
-
-  lottoNumberDuplicationCheckException(winningLotto) {
-    const winnginLottoSet = new Set(winningLotto);
-    if (winningLotto.length !== winnginLottoSet.size) {
-      throw new Error("[ERROR] 같은 숫자를 입력할 수는 없습니다.");
     }
   }
 
