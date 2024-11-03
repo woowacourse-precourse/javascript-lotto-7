@@ -9,7 +9,7 @@ const printMatchResult = (matchCountList) => {
   Console.print(
     `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCountList["5bounsBall"]}개`
   );
-  Console.print(`6개 일치 (2,000,000,000원) - ${matchCountList[6]}개\n`);
+  Console.print(`6개 일치 (2,000,000,000원) - ${matchCountList[6]}개`);
 };
 
 export default printMatchResult;

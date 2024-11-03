@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import purchaseLotto from "./purchaseLotto.js";
 import matchLotto from "./matchLotto.js";
 import printMatchResult from "./printMatchResult.js";
+import printRateOfReturn from "./printRateOfReturn.js";
 
 class App {
   async run() {
@@ -21,6 +22,8 @@ class App {
     const matchCountList = matchLotto(lottoList, winningNumbers, bonusNumber);
 
     printMatchResult(matchCountList);
+
+    printRateOfReturn(cost, 1000);
   }
 }
 
