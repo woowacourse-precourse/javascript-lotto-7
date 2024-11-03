@@ -1,4 +1,6 @@
-import Lotto from "../src/Lotto";
+import {calcLottoCnt, getLottoCnt, isDivided1000, isIntNumber, isNumber, isPositiveNumber, isZero } from "../src/buyPrice.js";
+import Lotto from "../src/Lotto.js";
+import { inputWinningNumbers, is1to45 } from "../src/winningNumber.js";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
@@ -15,4 +17,59 @@ describe("로또 클래스 테스트", () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
+    expect(()=> isNumber("1234")).not.toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
+    expect(() => isNumber("00as")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
+    expect(() => isNumber("")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
+    expect(() => isNumber("-1000")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 양수가 아니면 예외가 발생한다.", () => {
+    expect(() => isZero("0")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 1000으로 나누어 떨어지지 않으면 예외가 발생한다", () => {
+    expect(() => isDivided1000("1234")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 1000으로 나누어 떨어지지 않으면 예외가 발생한다", () => {
+    expect(() => isDivided1000("1000")).not.toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 정수 범위를 넘어가면 예외가 발생한다.", () => {
+    expect(() => isIntNumber("9007199254740994")).toThrow("[ERROR]");
+  });
+
+  test("구매 금액이 정수 범위를 넘어가면 예외가 발생한다.", () => {
+    expect(() => isIntNumber("9007199254740991")).not.toThrow("[ERROR]");
+  });
+
+  test("로또 개수가 맞는지 확인한다.", () => {
+    expect(calcLottoCnt("20000")).toBe(20);
+  });
+
+  test("로또 개수가 맞는지 확인한다.", () => {
+    expect(calcLottoCnt("1000")).toBe(1);
+  });
+
+  test("로또 개수가 맞는지 확인한다.", () => {
+    expect(calcLottoCnt("10000")).toBe(10);
+  });
+
+  test("값이 1이상 45이하가 아니면 예외가 발생한다.", () => {
+    expect(() => is1to45("10000")).toThrow("[ERROR]")
+  });
+
+  test("값이 1이상 45이하가 아니면 예외가 발생한다.", () => {
+    expect(() => is1to45("45")).not.toThrow("[ERROR]")
+  });
 });
