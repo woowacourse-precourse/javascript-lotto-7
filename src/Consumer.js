@@ -41,6 +41,7 @@ class Consumer {
   getOrderLotto() {
     for (i = 0; i < lottoCount; i++) {
       randomNumber = Random.pickUniqueNumbersInRange(1, 45, 6);
+      randomNumber.sort((a, b) => a - b);
       lotto = new Lotto(randomNumber);
       this.#lottoTickets.push(lotto);
     }
