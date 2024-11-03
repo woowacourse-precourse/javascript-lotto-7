@@ -19,5 +19,7 @@ class LottoMatchChecker {
     return matchCount;
   }
 
-  isBonusNumberIn(lotto) {}
+  isBonusNumberIn(lotto) {
+    return lotto.contains(this.#bonusNumber);
+  }
 }
