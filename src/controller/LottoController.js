@@ -63,49 +63,36 @@ class LottoController {
     return { winningLottoNumbers, winningLottoBonusNumber };
   }
 
-  async generateMoney() {
-    let lottoMoney;
-    let lottoMoneyRepeater = true;
-    while (lottoMoneyRepeater) {
+  async retryOnErrorTemplate(callback) {
+    while (true) {
       try {
-        const inputMoney = await InputView.readMoney();
-        lottoMoney = new Money(inputMoney);
-        lottoMoneyRepeater = false;
+        // eslint-disable-next-line no-await-in-loop
+        return await callback();
       } catch (error) {
         OutputView.printErrorMessage(error.message);
       }
     }
-    return lottoMoney;
+  }
+
+  async generateMoney() {
+    return this.retryOnErrorTemplate(async () => {
+      const inputMoney = await InputView.readMoney();
+      return new Money(inputMoney);
+    });
   }
 
   async generateWinningLottoNumbers() {
-    let winningLotto;
-    let winningLottoRepeater = true;
-    while (winningLottoRepeater) {
-      try {
-        const winningNumbers = await InputView.readWinningNumbers();
-        winningLotto = new Lotto(winningNumbers.split(','));
-        winningLottoRepeater = false;
-      } catch (error) {
-        OutputView.printErrorMessage(error.message);
-      }
-    }
-    return winningLotto;
+    return this.retryOnErrorTemplate(async () => {
+      const winningNumbers = await InputView.readWinningNumbers();
+      return new Lotto(winningNumbers.split(','));
+    });
   }
 
   async generateWinningLottoBonusNumber(winningLotto) {
-    let bonusLotto;
-    let bonusLottoRepeater = true;
-    while (bonusLottoRepeater) {
-      try {
-        const bonusNumber = await InputView.readBonusNumber();
-        bonusLotto = new BonusLotto(winningLotto.getNumbers(), bonusNumber);
-        bonusLottoRepeater = false;
-      } catch (error) {
-        OutputView.printErrorMessage(error.message);
-      }
-    }
-    return bonusLotto;
+    return this.retryOnErrorTemplate(async () => {
+      const bonusNumber = await InputView.readBonusNumber();
+      return new BonusLotto(winningLotto.getNumbers(), bonusNumber);
+    });
   }
 
   generateLottoCount(lottoMoney) {
