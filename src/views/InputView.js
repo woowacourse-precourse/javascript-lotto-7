@@ -6,12 +6,8 @@ class InputView {
     return Console.readLineAsync(INPUT_MESSAGES.purchase_amount);
   }
 
-  async getWinningNumbers() {
-    return Console.readLineAsync(INPUT_MESSAGES.winning_numbers);
-  }
-
-  async getBonusNumber() {
-    return Console.readLineAsync(INPUT_MESSAGES.bonus_number);
+  async getWinningLotto() {
+    return Console.readLineAsync(INPUT_MESSAGES.winning_lotto);
   }
 }
 
