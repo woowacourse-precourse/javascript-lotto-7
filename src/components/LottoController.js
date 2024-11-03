@@ -60,11 +60,16 @@ class LottoController {
   }
 
   async promptPurchaseAmount() {
-    const newPurchaseAmount = await Console.readLineAsync(
-      InputPrompts.purchaseAmount,
-    );
+    try {
+      const newPurchaseAmount = await Console.readLineAsync(
+        InputPrompts.purchaseAmount,
+      );
 
-    this.setPurchaseAmount(newPurchaseAmount);
+      this.setPurchaseAmount(newPurchaseAmount);
+    } catch (error) {
+      Console.print(`${error.message}\n`);
+      await this.promptPurchaseAmount();
+    }
   }
 }
 
