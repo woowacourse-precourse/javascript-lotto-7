@@ -10,6 +10,8 @@ class App {
     const LOTTOS = this.#MODEL.buyLottos(PURCHASE_MONEY);
 
     this.#VIEW.printLottos(LOTTOS);
+
+    const WINNING_NUMBERS = await this.#VIEW.getWinningNumbers();
   }
 }
 
