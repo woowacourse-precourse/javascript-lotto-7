@@ -1,14 +1,17 @@
-import { Console } from '@woowacourse/mission-utils';
 import PurchaseLotto from './PurchaseLotto.js';
+import { validatePurchaseMoney } from './validators/Validator.js';
+import { parsePurchaseMoney } from './utils/Parser.js';
+import { promptUserInput } from './utils/Prompt.js';
 
 class App {
   async run() {
-    const userInputMoney =
-      await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    const purchaseMoney = await promptUserInput(
+      '구입금액을 입력해 주세요.\n',
+      parsePurchaseMoney,
+      validatePurchaseMoney,
+    );
 
-    const parsedMoney = Number(userInputMoney);
-
-    const purchaseLotto = new PurchaseLotto(parsedMoney);
+    const purchaseLotto = new PurchaseLotto(purchaseMoney);
     const lottoQuantity = purchaseLotto.getQuantity();
   }
 }
