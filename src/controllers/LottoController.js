@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../models/Lotto.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
@@ -14,6 +14,9 @@ class LottoController {
         const inputAmount = await this.getValidatedInputAmount();
         const lottoCount = this.getLottoCount(inputAmount);
         this.outputView.outputLottoCount(lottoCount);
+
+        const lottos = this.getGeneratedLottos(lottoCount);
+        lottos.forEach((lotto) => this.outputView.outputLotto(lotto));
     }
 
     async getValidatedInputAmount() {
@@ -24,6 +27,19 @@ class LottoController {
 
     getLottoCount(inputAmount) {
         return inputAmount / 1000;
+    }
+
+    getGeneratedLottos(lottoCount) {
+        const lottos = [];
+        for (let i = 0; i < lottoCount; i++) {
+            const lotto = new Lotto(
+                MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
+            );
+            lotto.sortASC();
+            lottos.push(lotto);
+        }
+
+        return lottos;
     }
 }
 

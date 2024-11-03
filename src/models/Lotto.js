@@ -12,7 +12,13 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
+
+  sortASC() {
+    this.#numbers.sort((a, b) => a - b);
+}
 }
 
 export default Lotto;
