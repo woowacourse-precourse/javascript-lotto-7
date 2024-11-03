@@ -75,17 +75,10 @@ class LottoController {
         this.#prize = prize.getPrize();
         OutputView.outputPrint(PRIZE_MESSAGES.output_winning_statistics);
         Object.values(this.#prize).reverse().forEach(({ count, price, condition }) => {
-            OutputView.outputPrint(PRIZE_MESSAGES.output_prize_result(count, price, this.getConditionText(condition)));
+            OutputView.outputPrint(PRIZE_MESSAGES.output_prize_result(count, price, prize.getConditionText(condition)));
         });
         this.#rateReturn = prize.getRateReturn(this.#prize);
         OutputView.outputPrint(PRIZE_MESSAGES.output_rate_return(this.#rateReturn));
-    }
-    
-    getConditionText(condition) {
-        if (typeof condition === 'string') {
-            return PRIZE_MESSAGES.output_prize_bonus_text;
-        }
-        return PRIZE_MESSAGES.output_prize_condition_text(condition);
     }
 }
 

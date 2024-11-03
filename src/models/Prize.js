@@ -1,4 +1,5 @@
 import PurchaseAmount from "./PurchaseAmount.js";
+import { PRIZE_MESSAGES } from "../constants/prizeMessages.js";
 
 class Prize {
 
@@ -36,6 +37,13 @@ class Prize {
         }, 0);
         const totalExpenditure = this.#lottos.length * PurchaseAmount.AMOUNT_UNIT;
         return ((totalPrice / totalExpenditure) * 100).toFixed(1);
+    }
+
+    getConditionText(condition) {
+        if (typeof condition === 'string') {
+            return PRIZE_MESSAGES.output_prize_bonus_text;
+        }
+        return PRIZE_MESSAGES.output_prize_condition_text(condition);
     }
 
     getPrizeRankCounts(lotto) {
