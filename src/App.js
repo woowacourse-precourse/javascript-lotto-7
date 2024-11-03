@@ -21,6 +21,8 @@ class App {
     const bonusNumber = await this.getBonusNumber(winningNumbers);
     const rankCount = this.getRankCount(winningNumbers, bonusNumber, lotteries);
     const yields = this.getYields(payment, rankCount);
+
+    this.showResult(rankCount, yields);
   }
 
   async getPayment() {
@@ -142,6 +144,19 @@ class App {
     );
     const yields = (profit / payment) * 100;
     return yields.toFixed(1);
+  }
+
+  showResult(rankCount, yields) {
+    Console.print(`\n당첨 통계\n---`);
+    for (let i = 5; i > 0; i--) {
+      const rule = this.LOTTO_RULES[i];
+      const reward = this.LOTTO_REWARD[i] * this.LOTTO_PRICE;
+      const count = rankCount[i];
+      Console.print(
+        `${rule} (${reward.toLocaleString("ko-KR")}원) - ${count}개`,
+      );
+    }
+    Console.print(`총 수익률은 ${yields}%입니다.`);
   }
 }
 
