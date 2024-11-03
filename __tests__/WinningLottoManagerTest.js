@@ -40,7 +40,7 @@ describe('WinningLottoManager 테스트', () => {
 
     mockQuestions([inputs, VALID_NUMBERS]);
 
-    await WinningLottoManager.selectWinningNumbers(inputs);
+    await WinningLottoManager.selectWinningNumbers();
 
     expect(selectWinningNumbersSpy).toHaveBeenCalledTimes(ASKING_TIMES);
     expect(logSpy).toHaveBeenCalledWith(
@@ -56,7 +56,7 @@ describe('WinningLottoManager 테스트', () => {
 
     mockQuestions([inputs, VALID_NUMBER]);
 
-    await WinningLottoManager.selectBonusNumber(inputs, WINNING_NUMBERS);
+    await WinningLottoManager.selectBonusNumber(WINNING_NUMBERS);
 
     expect(selectBonusNumberSpy).toHaveBeenCalledTimes(ASKING_TIMES);
     expect(logSpy).toHaveBeenCalledWith(
