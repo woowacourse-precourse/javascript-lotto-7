@@ -1,4 +1,5 @@
 import { WINNING_NUMBERS_ERROR_MESSAGE } from '../constants/message.js';
+import { GAME_RULES } from '../constants/gameRule.js';
 import { throwError } from '../utils/console.js';
 
 const validate = {
@@ -9,7 +10,7 @@ const validate = {
   },
 
   validateDelimiter(input) {
-    if (!input.includes(',')) {
+    if (!input.includes(GAME_RULES.DELIMITER)) {
       throwError(WINNING_NUMBERS_ERROR_MESSAGE.DELIMITER_REQUIRED);
     }
 
@@ -26,7 +27,7 @@ const validate = {
   },
 
   validateRange(numbers) {
-    if (numbers.some(num => num < 1 || num > 45)) {
+    if (numbers.some(num => num < GAME_RULES.MIN_LOTTO_NUMBER || num > GAME_RULES.MAX_LOTTO_NUMBER)) {
       throwError(WINNING_NUMBERS_ERROR_MESSAGE.OUT_OF_RANGE);
     }
   },
@@ -39,7 +40,7 @@ const validate = {
   },
 
   validateNumberCount(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== GAME_RULES.LOTTO_NUMBER_COUNT) {
       throwError(WINNING_NUMBERS_ERROR_MESSAGE.INVALID_NUMBER_COUNT);
     }
   },
