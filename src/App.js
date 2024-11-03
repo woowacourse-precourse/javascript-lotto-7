@@ -16,6 +16,7 @@ class App {
     Output.printLottoCount(lottoCount);
     Output.printLottoNumbers(lottoList);
 
+    const jackpotNumber = await Input.getJackpotNumber();
   }
 }
 

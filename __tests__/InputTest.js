@@ -1,6 +1,6 @@
 import Input from "../src/Input.js";
 
-describe("입력 클래스 테스트", () => {
+describe("로또 구입 금액에 대한 입력 테스트", () => {
   test("로또 구입 금액이 숫자가 아닐 경우 예외가 발생한다.", () => {
     expect(() => {
       Input.validateMoney("abc");
@@ -23,5 +23,31 @@ describe("입력 클래스 테스트", () => {
     expect(() => {
       Input.validateMoney("5000");
     }).not.toThrow();
+  });
+});
+
+describe("당첨번호에 대한 입력 테스트", () => {
+  test("당첨번호가 쉼표(,)로 구분되지 않으면 예외가 발생한다.", () => {
+    expect(() => {
+      Input.validateJackpotNumber("1 2 3 4 5 6");
+    }).toThrow("[ERROR] ");
+  });
+
+  test("당첨번호에 문자가 포함되면 예외가 발생한다.", () => {
+    expect(() => {
+      Input.validateJackpotNumber("1,2,3,4,abc,dfg");
+    }).toThrow("[ERROR] ");
+  });
+
+  test("당첨번호가 1 ~ 45 사이의 숫자가 아니면 예외가 발생한다.", () => {
+    expect(() => {
+      Input.validateJackpotNumber("1,2,3,4,500,6");
+    }).toThrow("[ERROR] ");
+  });
+
+  test("당첨번호가 6개 입력되지 않으면 예외가 발생한다.", () => {
+    expect(() => {
+      Input.validateJackpotNumber("1,2,3");
+    }).toThrow();
   });
 });
