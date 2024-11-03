@@ -1,5 +1,5 @@
-import LottoIO from "./LottoIO.js";
-import { thousandComma } from "./utils.js";
+import LottoIO from "./class/LottoIO.js";
+import { thousandComma } from "../utils.js";
 import { EARNINGS_MONEYS } from "./constants.js";
 
 const showResultByLot = (

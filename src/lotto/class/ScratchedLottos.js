@@ -3,7 +3,7 @@ import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
   NUMBER_COUNT_BY_LOTTO,
-} from "./constants.js";
+} from "./lotto/constants.js";
 import LottoIO from "./LottoIO.js";
 import { isNumber } from "./utils.js";
 

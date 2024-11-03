@@ -1,6 +1,6 @@
 import LottoIO from "./LottoIO.js";
 import { duplicateNumbers, isNumber, isOutRangeNumber } from "./utils.js";
-import { LOTTO_NUMBER_MAX, LOTTO_NUMBER_MIN } from "./constants.js";
+import { LOTTO_NUMBER_MAX, LOTTO_NUMBER_MIN } from "./lotto/constants.js";
 
 class Bonus {
   #number;
