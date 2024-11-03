@@ -1,16 +1,14 @@
 // 유틸 함수들(입출력 및 계산)
 
-import Lotto from "./Lotto.js";
-
-function calcEarn(){
+function calcEarn(result, lottoCnt){
     let sum = 0;
-    sum += Lotto.getResult(3) * 5000;
-    sum += Lotto.getResult(4) * 50000;
-    sum += Lotto.getResult(5) * 1500000;
-    sum += Lotto.getResult(7) * 30000000;
-    sum += Lotto.getResult(6) * 2000000000;
+    sum += result[3] * 5000;
+    sum += result[4] * 50000;
+    sum += result[5] * 1500000;
+    sum += result[7] * 30000000;
+    sum += result[6] * 2000000000;
 
-    return sum;
+    return parseFloat(sum / (lottoCnt * 1000) * 100).toFixed(1);
 }
 
 export {calcEarn};

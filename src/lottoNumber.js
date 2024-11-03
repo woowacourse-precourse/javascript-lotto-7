@@ -16,18 +16,23 @@ function makeLotto(count) {
 }
 
 function checkLotto(lottoList, BONUS_NUMBER, winningNumbers) {
+  let correctCntBonusList = [];
   lottoList.forEach((lotto) => {
-    lotto.checkNumbers(winningNumbers);
-    lotto.isBonus(BONUS_NUMBER);
+    const correctCnt = lotto.checkNumbers(winningNumbers);
+    const isBonus = lotto.isBonus(BONUS_NUMBER);
+    correctCntBonusList.push([correctCnt, isBonus]);
   });
+  return correctCntBonusList;
 }
 
-function organizeLotto(lottoList) {
-  lottoList.forEach((lotto) => {
-    const correctCnt = lotto.getCorrectCnt();
-    const isBonus = lotto.getIsBonus();
-    Lotto.setResult(getResultNumber(isBonus, correctCnt));
+function organizeLotto(correctCntBonusList) {
+  let result = {3 : 0, 4 : 0, 5 : 0, 6 : 0, 7 : 0}; // 7 >> 5개 일치, 보너스 볼 일치
+  correctCntBonusList.forEach((item) => {
+    const correctCnt = item[0];
+    const isBonus = item[1];
+    result[getResultNumber(isBonus, correctCnt)]++;
   });
+  return result;
 }
 
 function getResultNumber(isBonus, correctCnt) {
@@ -44,15 +49,15 @@ function getResultNumber(isBonus, correctCnt) {
   }
 }
 
-function printResult(lottoCnt){
+function printResult(lottoCnt, result){
     Console.print("당첨 통계");
     Console.print("---");
-    Console.print(`3개 일치 (5,000원) - ${Lotto.getResult(3)}개`);
-    Console.print(`4개 일치 (50,000원) - ${Lotto.getResult(4)}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${Lotto.getResult(5)}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${Lotto.getResult(7)}개`);
-    Console.print(`6개 일치 (2,000,000,000원) - ${Lotto.getResult(6)}개`);
-    Console.print(`총 수익률은 ${parseFloat(calcEarn() / (lottoCnt * 1000) * 100).toFixed(1)}%입니다.`)
+    Console.print(`3개 일치 (5,000원) - ${result[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${result[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${result[5]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result[7]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${result[6]}개`);
+    Console.print(`총 수익률은 ${calcEarn(result, lottoCnt)}%입니다.`)
 
 }
 

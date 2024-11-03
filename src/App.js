@@ -11,9 +11,9 @@ class App {
       const LottoList = makeLotto(LottoCnt);
       const WinningNumberList = await getWinningNumbers();
       const BONUS_NUMBER = await getBonusNumer(WinningNumberList);
-      checkLotto(LottoList, BONUS_NUMBER, WinningNumberList);
-      organizeLotto(LottoList);
-      printResult(LottoCnt);
+      const correctCntBonusList = checkLotto(LottoList, BONUS_NUMBER, WinningNumberList);
+      const result = organizeLotto(correctCntBonusList);
+      printResult(LottoCnt, result);
     }catch(error){
       Console.print(error.message);
     }
