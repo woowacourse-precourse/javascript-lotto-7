@@ -1,6 +1,6 @@
 import { ERROR, PERCENT } from "../config/config.js";
 
-export const caclTotalReturn = (amount, total) => {
+export const calcTotalReturn = (amount, total) => {
   if (isNaN(amount) || isNaN(total)) {
     throw new Error(ERROR.NOT_NUMBER);
   }
