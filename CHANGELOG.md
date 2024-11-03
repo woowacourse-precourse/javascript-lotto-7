@@ -1,0 +1,8 @@
+- fix: 함수명 변경경
+- feat($Lotto.js): 메소드 생성
+- feat($App): 당첨 통계 구현
+- feat($App): 당첨 번호, 보너스 번호 입력 구현
+- feat($App): 로또 번호 생성 및 출력 구현
+- feat($App.js): 구입 금액 입력 구현
+- docs: README.md
+- feat: setup project
