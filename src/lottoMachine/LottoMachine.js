@@ -75,5 +75,8 @@ export class LottoMachine {
     const rankCounts = this.#statistics.findWinnerRank(lottoTicket, winningNumArr, bonusNumber);
 
     const rateOfReturn = this.#calculation.getRateOfReturn(rankCounts, purchasePrice);
+
+    this.#output.printWinnerRank(rankCounts);
+    this.#output.printRateOfReturn(rateOfReturn);
   }
 }
