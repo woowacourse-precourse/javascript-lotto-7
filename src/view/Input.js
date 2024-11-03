@@ -9,7 +9,12 @@ class Input {
     return amount;
   }
 
-  static async readWinningNumbers() {}
+  static async readWinningNumbers() {
+    const input = await Input.#readLine('당첨 번호를 입력해 주세요.');
+    const winningNumbers = input.split(',').map(Input.#convertStringToNumber);
+
+    return winningNumbers;
+  }
 
   static async readBonusNumber() {}
 
