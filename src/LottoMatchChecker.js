@@ -1,16 +1,8 @@
 class LottoMatchChecker {
-  #winningNumbers;
-  #bonusNumber;
-  // validate는 어떻게,, 코드 중복줄이려면 상속?
-  constructor(bonusNumber, winningNumbers) {
-    this.#bonusNumber = bonusNumber;
-    this.#winningNumbers = winningNumbers;
-  }
-  // 코드 줄여보기
-  countMatchesIn(lotto) {
+  countMatches(winningNumbers, lotto) {
     let matchCount = 0;
 
-    this.#winningNumbers.forEach((winningNumber) => {
+    winningNumbers.forEach((winningNumber) => {
       if (lotto.contains(winningNumber)) {
         matchCount++;
       }
@@ -19,8 +11,8 @@ class LottoMatchChecker {
     return matchCount;
   }
 
-  isBonusNumberIn(lotto) {
-    return lotto.contains(this.#bonusNumber);
+  hasBonusNumber(bonusNumber, lotto) {
+    return lotto.contains(bonusNumber);
   }
 }
 
