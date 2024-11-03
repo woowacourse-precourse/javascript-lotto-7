@@ -17,4 +17,26 @@ const moneyValidation = (money) => {
   }
 };
 
-export { moneyValidation };
+const lottoNumbersValidation = (numbers) => {
+  if (!numbers) {
+    throw new Error('로또 번호는 빈 값이면 안됩니다.');
+  }
+
+  if (numbers.length !== 6) {
+    throw new Error('로또 번호는 6개여야 합니다.');
+  }
+
+  if (numbers.length !== new Set([...numbers]).size) {
+    throw new Error('로또 번호는 중복되면 안됩니다.');
+  }
+
+  if (numbers.some((number) => number > 45 || number < 1)) {
+    throw new Error('로또 번호는 최소 1이상 최대 45이하로 구성되어야 합니다.');
+  }
+
+  if (numbers.some((number) => /[^\d+]/g.test(number))) {
+    throw new Error('로또 번호는 숫자외 다른 문자열이 포함될 수 없습니다.');
+  }
+};
+
+export { moneyValidation, lottoNumbersValidation };

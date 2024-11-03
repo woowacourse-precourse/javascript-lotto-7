@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { moneyValidation } from "./validation.js";
+import { moneyValidation, lottoNumbersValidation } from "./validation.js";
 
 class Machine {
   #money;
@@ -38,7 +38,7 @@ class Machine {
   async readUserMoney() {
     const money =
       await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-      
+
     moneyValidation(money);
     this.#money = parseInt(money, 10);
 
@@ -64,9 +64,9 @@ class Machine {
     const winNumbersString = await Console.readLineAsync(
       '\n당첨 번호를 입력해 주세요.\n',
     );
-    this.#winNumbers = winNumbersString
-      .split(',')
-      .map((number) => parseInt(number, 10));
+    const winNumbers = winNumbersString.split(',').map((number) => parseInt(number, 10));
+    lottoNumbersValidation(winNumbers);
+    this.#winNumbers = winNumbers;
   }
 
   async readUserBonusNumber() {
