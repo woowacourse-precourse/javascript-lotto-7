@@ -19,23 +19,26 @@ class MoneyManager {
   //빈 문자 검증
   checkMissingAmount(money) {
     if (money.length == 0) {
-      throw new Error(`[ERROR] : ${INPUT_ERROR_MESSAGES.missingMoney}`);
+      throw new Error(`${INPUT_ERROR_MESSAGES.missingMoney}`);
     }
   }
 
   //숫자 입력 검증
   checkNumericInput(money) {
     if (isNaN(money)) {
-      throw new Error(`[ERROR] : ${INPUT_ERROR_MESSAGES.nonNumericInput}`);
+      throw new Error(`${INPUT_ERROR_MESSAGES.nonNumericInput}`);
     }
   }
 
   checkPurchaseUnit(money) {
     if (parseInt(money, 10) % MoneyManager.#LOTTO_PRICE != 0) {
-      throw new Error(`[ERROR] : ${INPUT_ERROR_MESSAGES.notUnts1000Won}`);
+      throw new Error(`${INPUT_ERROR_MESSAGES.notUnits1000Won}`);
     }
   }
 
+  getLottoTicketCount() {
+    return this.#money / MoneyManager.#LOTTO_PRICE;
+  }
 }
 
 export default MoneyManager;
