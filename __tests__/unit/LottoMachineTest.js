@@ -1,3 +1,4 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
 import LottoMachine from '../../src/model/LottoMachine.js';
 
 const mockRandoms = (numbers) => {
