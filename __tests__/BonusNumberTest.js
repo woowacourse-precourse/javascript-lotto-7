@@ -25,6 +25,14 @@ describe("보너스 번호 테스트", () => {
         });
     });
 
+    test("실수가 입력되면 예외가 발생한다.", () => {
+        [2.1, 3.5].forEach((bonusNumber) => {
+            expect(() => {
+                new BonusNumber(bonusNumber, mockWinningNumbers);
+            }).toThrow("[ERROR] 보너스 번호는 실수가 될 수 없습니다.");
+        });
+    });
+
 
     test("올바른 보너스 번호가 입력되면 객체가 정상 생성된다.", () => {
         expect(() => {
@@ -42,6 +50,14 @@ describe("보너스 번호 테스트", () => {
 
     test("그 외 다양한 올바른 보너스 번호가 입력되면 객체가 정상 생성된다.", () => {
         [12, 30, 45].forEach((bonusNumber) => {
+            expect(() => {
+                new BonusNumber(bonusNumber, mockWinningNumbers);
+            }).not.toThrow();
+        });
+    });
+
+    test("실수지만 소수점 아래가 0인 값이 입력되면 객체가 정상 생성된다.", () => {
+        [9.0, 19.00].forEach((bonusNumber) => {
             expect(() => {
                 new BonusNumber(bonusNumber, mockWinningNumbers);
             }).not.toThrow();

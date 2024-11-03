@@ -12,6 +12,7 @@ class Lotto {
     if (numbers.length !== new Set(numbers).size) throw new Error(MESSAGES.ERROR.WINNING_NUMBERS_DUPLICATION);
     numbers.forEach((num) => {
       if (isNaN(num)) throw new Error(MESSAGES.ERROR.WINNING_NUMBERS_NOT_NUMBER);
+      if (!Number.isInteger(num)) throw new Error(MESSAGES.ERROR.WINNING_NUMBERS_INCLUDE_FLOATING_POINT_NUMBER);
       if (num < 1 || num > 45) throw new Error(MESSAGES.ERROR.WINNING_NUMBERS_OUT_OF_RANGE);
     });
 

@@ -399,6 +399,10 @@ describe("로또 테스트", () => {
     await runException(["3000", "gang,2,3,4,5,6"]);
   });
 
+  test("예외 테스트 - 실수가 포함되어 있는 당첨 번호", async () => {
+    await runException(["3000", "1.1,2,3,4,5,6"]);
+  });
+
 
   test("예외 테스트 - 숫자가 아닌 보너스 번호", async () => {
     await runException(["3000", "1,2,3,4,5,6", "OMG"]);
@@ -410,5 +414,9 @@ describe("로또 테스트", () => {
 
   test("예외 테스트 - 당첨 번호와 중복되는 보너스 번호", async () => {
     await runException(["3000", "1,2,3,4,5,6", "5"]);
+  });
+
+  test("예외 테스트 - 실수인 보너스 번호", async () => {
+    await runException(["3000", "1,2,3,4,5,6", "5.3"]);
   });
 });

@@ -29,11 +29,13 @@ export const MESSAGES = {
     },
     ERROR: {
         BONUS_NUMBER_NOT_NUMBER: '[ERROR] 숫자를 입력해주세요.',
+        BONUS_NUMBER_FLOATING_POINT_NUMBER: '[ERROR] 보너스 번호는 실수가 될 수 없습니다.',
         BONUS_NUMBER_OUT_OF_RANGE: '[ERROR] 보너스 번호는 1과 45 사이여야 합니다.',
         BONUS_NUMBER_DUPLICATE_WITH_WINNING_NUMBER: '[ERROR] 이미 당첨 번호에 있는 숫자예요! 중복되지 않는 다른 숫자를 입력해주세요.',
         WINNING_NUMBERS_NOT_SIX: '[ERROR] 로또 번호는 6개여야 합니다.',
         WINNING_NUMBERS_DUPLICATION: '[ERROR] 중복되는 숫자가 있습니다.',
         WINNING_NUMBERS_NOT_NUMBER: '[ERROR] 숫자가 아닌 값이 있습니다.',
+        WINNING_NUMBERS_INCLUDE_FLOATING_POINT_NUMBER: '[ERROR] 실수가 포함되어 있습니다.',
         WINNING_NUMBERS_OUT_OF_RANGE: '[ERROR] 모든 숫자는 1과 45 사이여야 합니다.',
         PURCHASE_AMOUNT_NOT_NUMBER: '[ERROR] 구입금액은 숫자여야 합니다.',
         PURCHASE_AMOUNT_NEGATIVE_NUMBER: '[ERROR] 구입금액은 음수가 될 수 없습니다.',
