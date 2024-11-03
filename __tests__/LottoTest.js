@@ -1,4 +1,4 @@
-import Lotto from "../src/Lotto";
+import Lotto from "../src/model/Lotto";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
@@ -15,4 +15,10 @@ describe("로또 클래스 테스트", () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("로또를 발행하는 경우 번호를 오름차순 정렬해야 한다.", () => {
+    const instance = new Lotto([5, 3, 8, 1, 32, 16]);
+    const sortedNumbers = instance.getNumbers();
+
+    expect(sortedNumbers).toEqual([1, 3, 5, 8, 16, 32]);
+  })
 });
