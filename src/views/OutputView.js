@@ -11,8 +11,10 @@ class OutputView {
   }
 
   printLottos(lottos) {
-    const lottoss = lottos.map((lotto) => `[${lotto.join(', ')}]`).join('\n');
-    Console.print(`${lottoss}\n`);
+    const lottoNumbers = lottos
+      .map((lotto) => `[${lotto.join(', ')}]`)
+      .join('\n');
+    Console.print(`${lottoNumbers}\n`);
   }
 }
 
