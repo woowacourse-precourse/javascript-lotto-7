@@ -4,6 +4,7 @@ class App {
   async run() {
     const userInput = new Input();
     await userInput.getPurchaseAmount();
+    await userInput.getLottoNumber();
   }
 }
 

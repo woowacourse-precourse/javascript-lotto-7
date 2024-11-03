@@ -3,15 +3,13 @@ import MESSAGE from "./constants/message.js";
 import ERROR from "./constants/error.js";
 
 class Input {
-  #number = [];
-
   async getPurchaseAmount() {
     try {
         const money = await this.requestPurchaseAmount();
         return money;
     } catch (error) {
         Console.print(error.message);
-        await this.getPurchaseAmount();
+        return await this.getPurchaseAmount();
     }
   }
 
@@ -33,6 +31,45 @@ class Input {
     if (money % 1000 !== 0) {
       throw new Error(ERROR.IS_NOT_DEVIDED);
     }
+  }
+
+  async getLottoNumber() {
+    try {
+        const numbers = await this.requestLottoNumber();
+        const numArray = numbers.split(',').map(Number);
+        return numArray;
+    } catch (error) {
+        Console.print(error.message);
+        return await this.getLottoNumber();
+    }
+  }
+
+  async requestLottoNumber() {
+    const numberString = await Console.readLineAsync(MESSAGE.WINNING_NUMBERS);
+    this.#lottoValidator(numberString);
+    return numberString;
+  }
+
+  #lottoValidator(numbers) {
+    if (!numbers || numbers.trim() == '') {
+        throw new Error(ERROR.BLANK);
+    }
+
+    const numArray = numbers.split(',').map(Number);
+
+    numArray.forEach((num) => {
+      if (num > 45 || num < 1) { 
+          throw new Error(ERROR.INVALID_RANGE_NUMBER);
+      }
+
+      if (isNaN(num)) {
+          throw new Error(ERROR.INVALID_VALUE);
+      }
+
+      if (!Number.isInteger(num)) {
+          throw new Error(ERROR.IS_NOT_INT);
+      }
+  });
   }
 }
 
