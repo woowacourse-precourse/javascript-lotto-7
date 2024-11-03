@@ -12,13 +12,13 @@ describe("LottoService", () => {
   });
 
   describe("getLottos", () => {
-    it("초기에는 빈 배열을 반환해야 한다", () => {
+    test("초기에는 빈 배열을 반환해야 한다", () => {
       expect(lottoService.getLottos()).toEqual([]);
     });
   });
 
   describe("generateLottos", () => {
-    it("올바른 수의 로또 번호를 생성해야 한다", () => {
+    test("올바른 개수의 로또 번호를 생성해야 한다", () => {
       const count = 5;
       const mockNumbers = [1, 2, 3, 4, 5, 6];
 
@@ -32,7 +32,7 @@ describe("LottoService", () => {
   });
 
   describe("compareLottos", () => {
-    it("정확한 일치 카운트를 반환해야 한다", () => {
+    test("정확한 일치 카운트를 반환해야 한다", () => {
       const winningNumbers = [1, 2, 3, 4, 5, 6];
       const bonusNumber = 7;
 
@@ -57,7 +57,7 @@ describe("LottoService", () => {
   });
 
   describe("calculateProfit", () => {
-    it("정확하게 수익을 계산해야 한다", () => {
+    test("정확한 수익률을 계산해야 한다", () => {
       const matchCounts = {
         FIFTH: 1,
         FOURTH: 0,
