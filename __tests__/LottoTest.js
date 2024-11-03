@@ -31,4 +31,8 @@ describe("로또 클래스 테스트", () => {
   test("구매 금액이 숫자가 아니면 예외가 발생한다.", () => {
     expect(() => isPositiveNumber("-1000")).toThrow("[ERROR]");
   });
+
+  test("구매 금액이 숫자가 아니면 예외가 발생한다.", () => {
+    expect(() => isPositiveNumber("0")).toThrow("[ERROR]");
+  });
 });
