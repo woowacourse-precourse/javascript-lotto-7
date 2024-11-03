@@ -68,5 +68,18 @@ export class LottoMachine {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1~45 사이의 숫자여야 합니다.");
     }
   }
+
+  async promptWinningNumbers() {
+    const input = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const numbers = input.split(',').map(Number);
+    try {
+        this.validateWinningNumbers(numbers);
+        this.winningNumbers = numbers;
+        this.promptBonusNumber();
+    } catch (error) {
+        MissionUtils.Console.print(error.message);
+        await this.promptWinningNumbers();
+    };
+  }
 }
 export default LottoMachine;
