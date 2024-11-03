@@ -1,18 +1,62 @@
+import { LOTTO_NUMBERS } from "./constants/lotto.js";
+import Validate from "./Validate.js";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+  checkLottoNumbers(purchasedLotto, bonusNumber) {
+    const result = Array(5).fill(0)
+
+    purchasedLotto.forEach((lotto) => {
+      let matchingNumberCount = 0
+      
+      lotto.forEach((number) => {
+        if(this.#numbers.has(number)){
+          matchingNumberCount += 1
+        }
+      })
+
+      // 1등 
+      if(matchingNumberCount === 6){
+        result[0] += 1
+      }
+
+      // 2등, 3등
+      if(matchingNumberCount === 5 && lotto.includes(bonusNumber)){
+        result[1] += 1
+      } else if(matchingNumberCount === 5) {
+        result[2] += 1
+      }
+
+      // 4등
+      if(matchingNumberCount === 4){
+        result[3] += 1
+      }
+
+      // 5등
+      if(matchingNumberCount === 3){
+        result[4] += 1
+      }
+    });
+
+    return result;
   }
 
-  // TODO: 추가 기능 구현
+  getProfitRate(lottoResult, purchaseAmount){
+    const prizeAmount = [2000000000, 30000000, 1500000, 50000, 5000];
+    
+    let profitSum = 0
+
+    for(let i = 0; i<5; i += 1){
+      profitSum += prizeAmount[i] * lottoResult[i]
+    }
+
+    return Math.round(profitSum / purchaseAmount * 100 * 100) / 100
+  }
 }
 
 export default Lotto;
