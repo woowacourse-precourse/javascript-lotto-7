@@ -3,17 +3,21 @@ import {
   validatePurchasingAmount,
   validateWinningNumberRange,
   validateWinningNumberDup,
+  validateBonusNumberRange,
 } from "../validation.js";
 import LottoGenerator from "../model/LottoGenerator.js";
 class LottoController {
   constructor() {
     this.view = new LottoView();
     this.generator = new LottoGenerator();
+    this.winningNumbers = [];
+    this.bonusNumbers = [];
   }
 
   async init() {
     await this.setLottoAmounts();
     await this.getWinningNumbers();
+    await this.getBonusNumbers();
   }
 
   async setLottoAmounts() {
@@ -24,7 +28,6 @@ class LottoController {
       const lottos = this.generator.getLottos();
       this.view.printGetLottos(lottoCount);
       this.view.printLottos(lottos);
-      await this.getWinningNumbers();
     } catch (error) {
       throw error;
     }
@@ -52,19 +55,34 @@ class LottoController {
       const getWinningNumber = await this.view.inputWinningNumber();
       this.checkWinningNumbers(getWinningNumber);
       this.checkWinningNumbersDup(getWinningNumber);
-      return Number(getWinningNumber);
+      this.winningNumbers = getWinningNumber;
     } catch (error) {
       throw error;
     }
   }
 
   //당첨숫자 범위 검증
-  checkWinningNumbers(getWinningNumber) {
-    validateWinningNumberRange(getWinningNumber);
+  checkWinningNumbers(winningNumbers) {
+    validateWinningNumberRange(winningNumbers);
   }
   //당첨숫자 중복 검증
-  checkWinningNumbersDup(getWinningNumber) {
-    validateWinningNumberDup(getWinningNumber);
+  checkWinningNumbersDup(winningNumbers) {
+    validateWinningNumberDup(winningNumbers);
+  }
+
+  //보너스번호 입력
+  async getBonusNumbers() {
+    try {
+      const getBonusNumber = await this.view.inputBonusNumber();
+      this.checkBounsNumber(getBonusNumber);
+      this.bonusNumbers = [getBonusNumber];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  checkBounsNumber(bonusNumbers) {
+    validateBonusNumberRange(bonusNumbers);
   }
 }
 
