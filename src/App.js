@@ -7,8 +7,7 @@ import LottoInputHandler from './handlers/LottoInputHandler.js';
 class App {
   async run() {
     const lottoPurchaseAmount = await LottoInputHandler.handleLottoPurchaseAmount();
-    const lottoCount = LottoIssuer.calculateLottoCount(lottoPurchaseAmount);
-    const lottos = LottoIssuer.generateLottos(lottoCount);
+    const lottos = LottoIssuer.generateLottos(lottoPurchaseAmount);
     LottoOutputWriter.printLottos(lottos);
 
     const winningNumbers = await LottoInputHandler.handleWinningNumbers();

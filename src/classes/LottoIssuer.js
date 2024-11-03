@@ -4,7 +4,14 @@ import Lotto from './Lotto.js';
 class LottoIssuer {
   static LOTTO_PRICE = 1000;
 
-  static calculateLottoCount(purchaseAmount) {
+  static generateLottos(purchaseAmount) {
+    return Array.from(
+      { length: this.#calculateLottoCount(purchaseAmount) },
+      () => new Lotto(this.#generateLottoNumbers())
+    );
+  }
+
+  static #calculateLottoCount(purchaseAmount) {
     const lottoCount = purchaseAmount / this.LOTTO_PRICE;
 
     return lottoCount;
@@ -16,13 +23,6 @@ class LottoIssuer {
     );
 
     return numbers;
-  }
-
-  static generateLottos(count) {
-    return Array.from(
-      { length: count },
-      () => new Lotto(this.#generateLottoNumbers())
-    );
   }
 }
 
