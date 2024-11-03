@@ -13,7 +13,7 @@ class LottoController {
 
   async run() {
     await this.getLottoCount();
-    await this.getLotto();
+    this.printLottos();
     await this.getWinningNumbers();
     await this.getBonusNumber();
     this.printWinningStatincs();
@@ -26,7 +26,7 @@ class LottoController {
     OutputView.printLottoCount(this.#lottoCount);
   }
 
-  async getLotto() {
+  printLottos() {
     this.#lottos = Lotto.getPurchaesdLotto(this.#lottoCount);
     this.#lottos.forEach((lotto) => OutputView.printMessage(lotto.convertNumbersToString()));
     OutputView.printNewLine();
