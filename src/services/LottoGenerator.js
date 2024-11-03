@@ -13,3 +13,8 @@ export const getLottoNums = (lottoNums) => {
   }
   return lottoArrs;
 };
+
+export const getWinningNumbers = (winningNums) => {
+  const numbers = winningNums.split(",").map((num) => Number(num.trim()));
+  return numbers;
+};
