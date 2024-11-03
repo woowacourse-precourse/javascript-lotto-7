@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PRIZE_MONEYS, WINNING_HISTORY } from './Constants.js';
+import { WINNING_HISTORY } from './Constants.js';
 
 class VerifyingLotto {
   #isMatchBonusNumber = false;
@@ -10,6 +10,10 @@ class VerifyingLotto {
     FOURTH: 0,
     FIFTH: 0,
   };
+
+  getWinningHistory() {
+    return this.#winningHistory;
+  }
 
   #matchNumber(winningNumbers, number) {
     if(winningNumbers.includes(number)) {

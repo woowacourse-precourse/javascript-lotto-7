@@ -38,4 +38,9 @@ const WINNING_HISTORY = Object.freeze({
   TITLE : '\n당첨 통계\n---',
 });
 
-export { INPUT_TEXTS, ERROR_TEXTS, PRIZE_MONEYS, WINNING_HISTORY };
+const REVENUE_RATE = Object.freeze({
+  PREFIX : '총 수익률은 ',
+  POSTFIX : '%입니다.',
+});
+
+export { INPUT_TEXTS, ERROR_TEXTS, PRIZE_MONEYS, WINNING_HISTORY, REVENUE_RATE };
