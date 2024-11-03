@@ -3,13 +3,16 @@ import InputValue from "./InputValue.js";
 import PurchaseMoney from "./PurchaseMoney.js";
 import LottoGenerator from "./LottoGenerator.js";
 import OutputValue from "./OutputValue.js";
+import Lotto from "./Lotto.js";
 
 class App {
   purchaseMoney;
+  winningNumbers;
 
   async run() {
     await this.inputPurchaseMoney();
     await this.outputLottoTickets();
+    await this.inputWinningNumbers();
   }
 
   async inputPurchaseMoney() {
@@ -30,6 +33,17 @@ class App {
     const { lottoQuantity, ticketList } = lottoData.getLottoData();
 
     OutputValue.printLottoSummary(lottoQuantity, ticketList);
+  }
+
+  async inputWinningNumbers() {
+    while (true) {
+      try {
+        this.winningNumbers = await InputValue.winningNumbers();
+        return this.winningNumbers;
+      } catch (e) {
+        Console.print(e.message);
+      }
+    }
   }
 }
 
