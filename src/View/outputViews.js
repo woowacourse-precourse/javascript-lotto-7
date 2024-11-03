@@ -1,16 +1,19 @@
 import { Console } from '@woowacourse/mission-utils';
-import { matchCount } from '../Model/winningStatisticsUtils.js';
+import { matchCount } from '../Model/winningStatisticsCalculator.js';
 
 export class Output {
+  constructor() {
+    this.purchaseCount = null;
+  }
+
   printPurchaseCount = (purchaseCount) => {
+    this.purchaseCount = purchaseCount;
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
   };
 
-  printLottoList = (purchaseCount, lottoList) => {
-    const totalLottoList = lottoList;
-
-    for (let i = 0; i < purchaseCount; i += 1) {
-      Console.print(`[${totalLottoList[i].join(', ')}]`);
+  printLottoList = (lottoList) => {
+    for (let i = 0; i < this.purchaseCount; i += 1) {
+      Console.print(`[${lottoList[i].join(', ')}]`);
     }
   };
 
