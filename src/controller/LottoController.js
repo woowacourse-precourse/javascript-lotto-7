@@ -4,6 +4,7 @@ import {
   validateWinningNumberRange,
   validateWinningNumberDup,
   validateBonusNumberRange,
+  validateBonusNumberDup,
 } from "../validation.js";
 import LottoGenerator from "../model/LottoGenerator.js";
 class LottoController {
@@ -75,7 +76,8 @@ class LottoController {
     try {
       const getBonusNumber = await this.view.inputBonusNumber();
       this.checkBounsNumber(getBonusNumber);
-      this.bonusNumbers = [getBonusNumber];
+      this.checkBonusNumberDup(getBonusNumber);
+      this.bonusNumbers = getBonusNumber;
     } catch (error) {
       throw error;
     }
@@ -83,6 +85,10 @@ class LottoController {
 
   checkBounsNumber(bonusNumbers) {
     validateBonusNumberRange(bonusNumbers);
+  }
+
+  checkBonusNumberDup(bonusNumbers) {
+    validateBonusNumberDup(bonusNumbers, this.winningNumbers);
   }
 }
 

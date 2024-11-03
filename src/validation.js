@@ -30,6 +30,6 @@ export const validateBonusNumberRange = (bounsNumbers) => {
 
 export const validateBonusNumberDup = (bounsNumbers, winningNumbers) => {
   if (winningNumbers.includes(bounsNumbers)) {
-    throw new Error("[ERROR] º¸³Ê½º ¹øÈ£´Â ´çÃ· ¹øÈ£¿Í Áßº¹µÉ ¼ö ¾ø½À´Ï´Ù.");
+    throw new Error("[ERROR] ë³´ë„ˆìŠ¤ ë²ˆí˜¸ëŠ” ë‹¹ì²¨ ë²ˆí˜¸ì™€ ì¤‘ë³µë  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
   }
 };
