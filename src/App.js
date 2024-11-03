@@ -24,7 +24,7 @@ class App {
 
       lotto.printResult(fee, lottos, bonus);
     } catch (err) {
-      throw err;
+      printOutput(err.message);
     }
   }
 }
