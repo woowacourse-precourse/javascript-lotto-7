@@ -35,7 +35,9 @@ export const validateLottoBuyPrice = (lottoBuyPrice) => {
     Integer(lottoBuyPrice);
     Positive(lottoBuyPrice);
     canDivide(lottoBuyPrice);
+    return true;
   } catch (error) {
     Console.print(error.message);
+    return false;
   }
 };
