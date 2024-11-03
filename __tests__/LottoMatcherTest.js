@@ -44,10 +44,18 @@ describe("로또 번호 매칭 테스트", () => {
             const winNumberList = "1,2,3,4,5,6";
             const bonusNumber = "7";
 
-            const result = {
-                winNumberMatch: index === 4 ? 5 : 6 - index,
-                bonusNumberMatch: index === 4 ? 1 : 0,
-            };
+            let result;
+            if (index === 4) {
+                result = {
+                    winNumberMatch: 5,
+                    bonusNumberMatch: 1,
+                };
+            } else {
+                result = {
+                    winNumberMatch: 6 - index,
+                    bonusNumberMatch: 0,
+                };
+            }
 
             const lottoMatcher = new LottoMatcher();
             lottoMatcher.winNumberList = winNumberList;
@@ -57,19 +65,45 @@ describe("로또 번호 매칭 테스트", () => {
     });
 
     Array.from({ length: 5 }).forEach((_, index) => {
-        test("matchLotto 메소드 테스트", () => {
-            const lottoResult = {
-                winNumberMatch: index === 4 ? 5 : 6 - index,
-                bonusNumberMatch: index === 4 ? 1 : 0,
-            };
+        test("matchRank 메소드 테스트", () => {
+            let lottoResult;
+            if (index === 4) {
+                lottoResult = {
+                    winNumberMatch: 5,
+                    bonusNumberMatch: 1,
+                };
+            } else {
+                lottoResult = {
+                    winNumberMatch: 6 - index,
+                    bonusNumberMatch: 0,
+                };
+            }
 
             const result = {
-                1: index === 0 ? 1 : 0,
-                2: index === 4 ? 1 : 0,
-                3: index === 1 ? 1 : 0,
-                4: index === 2 ? 1 : 0,
-                5: index === 3 ? 1 : 0,
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
             };
+
+            switch (index) {
+                case 0:
+                    result[1] = 1;
+                    break;
+                case 1:
+                    result[3] = 1;
+                    break;
+                case 2:
+                    result[4] = 1;
+                    break;
+                case 3:
+                    result[5] = 1;
+                    break;
+                case 4:
+                    result[2] = 1;
+                    break;
+            }
 
             const lottoMatcher = new LottoMatcher();
             lottoMatcher.matchRank(lottoResult);

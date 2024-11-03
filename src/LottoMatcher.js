@@ -1,7 +1,7 @@
 import {
     PLEASE_INPUT_RIGHT_BONUS_NUMBER,
     PLEASE_INPUT_RIGHT_WIN_NUMBERS,
-} from "./constant";
+} from "./constant.js";
 
 class LottoMatcher {
     #winNumberList;
@@ -67,7 +67,7 @@ class LottoMatcher {
 
     makeResult({ lottoList }) {
         for (let i = 0; i < lottoList.length; i++) {
-            const lotto = lottoList[0];
+            const lotto = lottoList[i];
             const lottoResult = this.matchLotto(lotto);
             this.matchRank(lottoResult);
         }
@@ -81,7 +81,6 @@ class LottoMatcher {
 
         for (let j = 0; j < lotto.length; j++) {
             const number = lotto[j];
-
             if (this.#winNumberList[number - 1] === 1) {
                 result.winNumberMatch += 1;
                 continue;
@@ -106,8 +105,7 @@ class LottoMatcher {
         }
 
         if (lottoResult.winNumberMatch === 5) {
-            if (lottoResult.bonusNumberMatch === 1)
-                this.#lottoRankResult[2] = 1;
+            if (lottoResult.bonusNumberMatch === 1) this.#lottoRankResult[2] = 1;
             else this.#lottoRankResult[3] = 1;
         }
     }
