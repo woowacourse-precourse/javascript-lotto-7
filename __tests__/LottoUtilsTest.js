@@ -12,4 +12,9 @@ describe("lotto utils 함수 테스트", () => {
     const lottos = generateLottoByAmount(5035);
     expect(lottos.length).toBe(5);
   });
+
+  test("로또 숫자 오름차순 정렬인지 확인", () => {
+    const lottos = new Lotto([3, 2, 1, 6, 5, 4]);
+    expect(lottos.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
+  });
 });
