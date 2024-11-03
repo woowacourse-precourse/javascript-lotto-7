@@ -2,9 +2,8 @@ import { Random, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 
 class PurchasedLottos {
-  constructor(lottoCount) {
+  constructor() {
     this.lottos = [];
-    this.generateLottos(lottoCount);
   }
 
   async generateLottos(lottoCount) {
