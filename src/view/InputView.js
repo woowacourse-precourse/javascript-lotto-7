@@ -39,13 +39,13 @@ class InputView {
     }
   }
 
-  async askBonusLotto() {
+  async askBonusLotto(lotto) {
     while (true) {
       try {
         const userInput = await Console.readLineAsync(
           MESSAGE.USER_BONUS_NUMBER_PROMPT,
         );
-        const userBonus = this.userLotto.setUserBonusLotto(userInput);
+        const userBonus = this.userLotto.setUserBonusLotto(lotto, userInput);
         Console.print('');
         return userBonus;
       } catch (error) {

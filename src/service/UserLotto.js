@@ -12,9 +12,10 @@ class UserLotto {
     return userLotto;
   }
 
-  setUserBonusLotto(userInput) {
+  setUserBonusLotto(lotto, userInput) {
     let inputValue = Number(userInput);
     const bonusNumber = this.userLottoValidator.validateBonusNumber(inputValue);
+    this.userLottoValidator.hasDuplicateBonusNumber(lotto, bonusNumber);
     return bonusNumber;
   }
 }

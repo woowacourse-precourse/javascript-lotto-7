@@ -36,5 +36,11 @@ class UserLottoValidate {
     }
     return number;
   }
+
+  hasDuplicateBonusNumber(lotto, bonus) {
+    if (lotto.includes(bonus)) {
+      throw new Error(ERROR_MESSAGE.BONUS_INPUT_ERROR);
+    }
+  }
 }
 export default UserLottoValidate;
