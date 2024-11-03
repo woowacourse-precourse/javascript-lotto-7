@@ -7,18 +7,7 @@ class App {
     const purchaseAmount = await Console.readLineAsync(
       "구입금액을 입력해 주세요\n"
     );
-    if (purchaseAmount === 0) {
-      throw new Error("[ERROR]: 구입 금액은 0을 입력할 수 없습니다.");
-    }
-    if (purchaseAmount < 0) {
-      throw new Error("[ERROR]: 구입 금액은 음수를 입력할 수 없습니다.");
-    }
-    if (purchaseAmount % 1000 !== 0 && purchaseAmount !== 0) {
-      throw new Error("[ERROR]: 구입 금액은 1,000원 단위로 입력 가능합니다.");
-    }
-    if (purchaseAmount === "") {
-      throw new Error("[ERROR]: 구입 금액에 빈 문자열을 입력할 수 없습니다.");
-    }
+    this.validatePurchaseAmount(purchaseAmount);
     const lottoCount = purchaseAmount / 1000;
     const userLottoNumbers = this.generateLotto(lottoCount);
 
@@ -147,6 +136,21 @@ class App {
       `6개 일치 (2,000,000,000원) - ${matchingResults.six}개`
     );
     await Console.print(`총 수익률은 ${rate}%입니다.`);
+  }
+
+  validatePurchaseAmount(purchaseAmount) {
+    if (purchaseAmount === 0) {
+      throw new Error("[ERROR]: 구입 금액은 0을 입력할 수 없습니다.");
+    }
+    if (purchaseAmount < 0) {
+      throw new Error("[ERROR]: 구입 금액은 음수를 입력할 수 없습니다.");
+    }
+    if (purchaseAmount % 1000 !== 0 && purchaseAmount !== 0) {
+      throw new Error("[ERROR]: 구입 금액은 1,000원 단위로 입력 가능합니다.");
+    }
+    if (purchaseAmount === "") {
+      throw new Error("[ERROR]: 구입 금액에 빈 문자열을 입력할 수 없습니다.");
+    }
   }
 }
 
