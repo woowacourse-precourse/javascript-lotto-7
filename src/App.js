@@ -79,11 +79,11 @@ class App {
       const number = parseInt(input);
       if (input.includes(",") || isNaN(number) || number < 1 || number > 45) {
         throw new Error(
-          "보너스 번호는 1부터 45 사이 단 하나의 숫자여야 합니다."
+          "[ERROR] 보너스 번호는 1부터 45 사이 단 하나의 숫자여야 합니다."
         );
       }
       if (winningNumbers.isIncludingNumber(number)) {
-        throw new Error("보너스 번호는 기존 번호와 겹칠 수 없습니다.");
+        throw new Error("[ERROR] 보너스 번호는 기존 번호와 겹칠 수 없습니다.");
       }
       return number;
     } catch (error) {

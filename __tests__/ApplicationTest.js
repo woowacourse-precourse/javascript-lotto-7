@@ -94,4 +94,12 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("구입 금액이 1000원 단위가 아닌 경우 예외 처리", async () => {
+    await runException("1500");
+  });
+
+  test("빈 입력값에 대한 예외 처리", async () => {
+    await runException("");
+  });
 });
