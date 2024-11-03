@@ -5,14 +5,15 @@ export default class WinningLotto {
 
   #bonusNumber;
 
-  constructor(winningNumbers, bonusNumber) {
-    this.validateWinningNumbers(winningNumbers);
-    this.validateBonusNumber(bonusNumber);
+  static validateWinningNumbers(winningNumbers) {
+    const splittedNumbers = winningNumbers.split(',').map(Number);
+    const validLottoNumbers = Lotto.validate(splittedNumbers);
+    return validLottoNumbers;
   }
 
-  validateWinningNumbers(winningNumbers) {
-    const splittedNumbers = winningNumbers.split(',').map(Number);
-    const lotto = new Lotto(splittedNumbers);
-    this.#winningNumbers = lotto.getSortedNumbers();
+  setWinningNumbers(winningNumbers) {
+    const validWinningNumbers =
+      WinningLotto.validateWinningNumbers(winningNumbers);
+    this.#winningNumbers = validWinningNumbers;
   }
 }

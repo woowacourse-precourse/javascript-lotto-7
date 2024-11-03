@@ -15,10 +15,9 @@ class App {
       OutputView.printPurchasedLottoNumbers(lotto.getSortedNumbers()),
     );
 
+    const winningLotto = new WinningLotto();
     const winningNumbers = await InputView.readWinningNumbers();
-    const bonusNumber = await InputView.readBonusNumber();
-
-    const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+    winningLotto.setWinningNumbers(winningNumbers);
   }
 }
 
