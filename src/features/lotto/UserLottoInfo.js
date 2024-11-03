@@ -12,7 +12,7 @@ export class UserLottoInfo {
   constructor(price) {
     this.#lottoCount = price / LOTTO_UNIT_PRICE;
     this.#lottos = [];
-    this.#matchInfo = { 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+    this.#matchInfo = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   }
 
   get lottoCount() {
@@ -22,14 +22,23 @@ export class UserLottoInfo {
   get lottos() {
     return this.#lottos;
   }
+  get matchInfo() {
+    return this.#matchInfo;
+  }
 
   saveMatchInfo(matchCount, matchBonus) {
     if (matchCount < 3) return;
-    if (matchCount === 5 && matchBonus) {
-      this.#matchInfo[7] += 1;
-      return;
-    }
-    this.#matchInfo[matchCount] += 1;
+    const matchBonusCase = {
+      true: 2,
+      false: 3,
+    };
+    const matchCase = {
+      6: 1,
+      5: matchBonusCase[matchBonus],
+      4: 4,
+      3: 5,
+    };
+    this.#matchInfo[matchCase[matchCount]] += 1;
   }
 
   createLotto() {

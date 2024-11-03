@@ -5,7 +5,11 @@ import { HELPER_MESSAGE, PRINT_MESSAGE } from "./constants/helperMessages.js";
 import Lotto from "./features/lotto/Lotto.js";
 import { UserLottoInfo } from "./features/lotto/UserLottoInfo.js";
 import { printOneLine } from "./utils/console.js";
-import { printLottoCount, printLottoList } from "./utils/outputHandler.js";
+import {
+  printLottoCount,
+  printLottoList,
+  printMatchInfo,
+} from "./utils/outputHandler.js";
 import { parserWinningNumber } from "./features/parserWinningNumber.js";
 
 class App {
@@ -19,6 +23,7 @@ class App {
     const winningLotto = new Lotto(winningNumber);
     const bonusBall = await InputHandler.getBonusBall();
     userLotto.checkLottoMatch(winningLotto, bonusBall);
+    printMatchInfo(userLotto);
   }
 }
 
