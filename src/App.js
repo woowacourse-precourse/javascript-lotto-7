@@ -2,6 +2,7 @@ import { Console, Random } from '@woowacourse/mission-utils';
 import { PRIZE_MONEY } from './constants.js';
 import Lotto from './Lotto.js';
 import Validator from './Validator.js';
+import ReturnRateCalculator from './ReturnRateCalculator.js';
 
 class App {
   constructor() {
@@ -9,6 +10,7 @@ class App {
     this.bonusNumber = null;
     this.lottoNumbers = null;
     this.validator = new Validator();
+    this.returnRateCalculator = new ReturnRateCalculator();
   }
 
   async getPurchaseAmount() {
@@ -117,7 +119,8 @@ class App {
       const matchResult = this.getMatchResult(winningNumbers);
       this.printLog(matchResult);
 
-      const returnRate = this.calculateReturnRate(matchResult, purchaseAmount);
+      const returnRate = this.returnRateCalculator.calculateReturnRate(matchResult, purchaseAmount);
+
       Console.print(`총 수익률은 ${returnRate}%입니다.`);
     } catch (error) {
       Console.print(error.message);
