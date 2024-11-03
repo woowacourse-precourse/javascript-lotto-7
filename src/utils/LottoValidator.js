@@ -1,6 +1,5 @@
 import { MAX_PURCHASE_AMOUNT } from '../constants/config.js';
 import { ERROR_MSG } from '../constants/messages.js';
-import Output from '../views/Output.js';
 
 /**
  * 구입 금액의 유효성을 검증합니다.
