@@ -22,6 +22,25 @@ class Model {
     }
     return LOTTOS;
   }
+
+  getResults(lottos, winningNumbers, bonusNumber) {
+    const RESULTS = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      0: 0,
+    };
+
+    for (const LOTTO of lottos) {
+      const RESULT = LOTTO.getRank(winningNumbers, bonusNumber);
+      RESULTS[RESULT]++;
+    }
+
+    return RESULTS;
+  }
 }
 
 export default Model;

@@ -14,6 +14,13 @@ class App {
     const WINNING_NUMBERS = await this.#VIEW.getWinningNumbers();
 
     const BONUS_NUMBER = await this.#VIEW.getBonusNumber();
+
+    const RESULTS = this.#MODEL.getResults(
+      LOTTOS,
+      WINNING_NUMBERS,
+      BONUS_NUMBER,
+    );
+    console.log(RESULTS);
   }
 }
 
