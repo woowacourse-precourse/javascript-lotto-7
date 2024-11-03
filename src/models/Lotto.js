@@ -1,4 +1,5 @@
 import LOTTO_CONSTANTS from '../constants/lottoConstatns.js';
+import ERROR_MESSAGES from '../constants/messages/errorMessages.js';
 import lottoGenerator from '../utils/lottoGenerator.js';
 
 class Lotto {
@@ -49,19 +50,21 @@ class Lotto {
 
   #validateLottoLength(numbers) {
     if (numbers.length !== LOTTO_CONSTANTS.LOTTO_LENGTH) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      throw new Error(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_LENGTH_NOT_RIGHT}`);
     }
   }
 
   #validateType(numbers) {
     if (numbers.some((number) => typeof number !== 'number' || Number.isNaN(number))) {
-      throw new Error('[ERROR] 로또 번호는 숫자 타입이어야 합니다.');
+      throw new Error(
+        `${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_TYPE_NOT_NUMBER}`,
+      );
     }
   }
 
   #validateDuplication(numbers) {
     if (numbers.length !== new Set(numbers).size) {
-      throw new Error('[ERROR] 로또 번호는 중복된 번호가 존재하면 안 됩니다.');
+      throw new Error(`${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_DUPLICATION}`);
     }
   }
 
@@ -71,7 +74,9 @@ class Lotto {
     );
 
     if (isValid) {
-      throw new Error('[ERROR] 로또 번호의 숫자 범위는 1~45여야 합니다.');
+      throw new Error(
+        `${ERROR_MESSAGES.ERROR_PREFIX}${ERROR_MESSAGES.LOTTO_NUMBER_RANGE_NOT_RIGHT}`,
+      );
     }
   }
 }
