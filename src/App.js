@@ -1,4 +1,4 @@
-import {InputHandler} from "./utils/InputHandler.js";
+import {IOHandler} from "./utils/IOHandler.js";
 import {INSTRUCTION} from "./constants/constants.js";
 import {purchasePriceUtils} from "./utils/purchasePrice.utils.js";
 import {Console} from '@woowacourse/mission-utils'
@@ -8,7 +8,7 @@ import {validator} from "./validation/validator.js";
 class App {
     async run() {
         try {
-            const purchasePrice = await InputHandler.getInput(INSTRUCTION.GET_PURCHASE_PRICE, validator.purchasePrice.validate);
+            const purchasePrice = await IOHandler.getInput(INSTRUCTION.GET_PURCHASE_PRICE, validator.purchasePrice.validate);
             const lottoAmount = purchasePriceUtils.getLottoAmount(purchasePrice);
             Console.print(INSTRUCTION.PRINT_LOTTO_AMOUNT(lottoAmount));
 
@@ -17,11 +17,10 @@ class App {
                 lotto.print()
             })
 
-            const winningNumbers = await InputHandler.getInput(INSTRUCTION.GET_WINNING_NUMBERS,
-                validator.winningNumbers.validate,
+            const winningNumbers = await IOHandler.getInput(INSTRUCTION.GET_WINNING_NUMBERS, validator.winningNumbers.validate, (str) => str.split(','));
+            const bonusNumber = await IOHandler.getInput(INSTRUCTION.GET_BONUS_NUMBER, validator.bonusNumbers.validate);
                 (str) => str.split(','));
 
-            const bonusNumber = await InputHandler.getInput(INSTRUCTION.GET_BONUS_NUMBER,
                 validator.bonusNumbers.validate);
             validator.bonusNumbers.validateWithWinningNumbers(bonusNumber, winningNumbers);
 

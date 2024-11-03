@@ -1,6 +1,7 @@
 import {INSTRUCTION, LOTTO} from "../constants/constants.js";
 import {Random, Console} from '@woowacourse/mission-utils';
 import Lotto from "../Lotto.js";
+import {IOHandler} from "./IOHandler.js";
 
 export const lottoUtils = {
     generateNLottos(n) {
@@ -34,18 +35,6 @@ export const lottoUtils = {
             default:
                 return 0
         }
-    },
-    printWinningStatistics(matchNumber, prize, matchAmount) {
-        if (matchNumber < 3) return
-        if (matchNumber === 6) {
-            Console.print(INSTRUCTION.PRINT_WINNING_STATISTICS(matchNumber - 1, this.makeMoneyFormat(prize), matchAmount, INSTRUCTION.EXTRA_MESSAGE_SECOND_PRIZE))
-            return
-        }
-        if (matchNumber === 7) {
-            Console.print(INSTRUCTION.PRINT_WINNING_STATISTICS(matchNumber - 1, this.makeMoneyFormat(prize), matchAmount))
-            return
-        }
-        Console.print(INSTRUCTION.PRINT_WINNING_STATISTICS(matchNumber, this.makeMoneyFormat(prize), matchAmount))
     },
     makeMoneyFormat(money, separator = ",") {
         return money.toString().split("").reverse().join("")
