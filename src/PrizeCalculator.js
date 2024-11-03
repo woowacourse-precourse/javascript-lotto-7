@@ -10,15 +10,17 @@ class PrizeCalculator {
     this.#payment = payment;
   }
 
-  #calculatePrize() {
-    let winningPrize = PRIZE_CALCULATOR.defaultPrize;
+  #calculateBasicPrize() {
+    let basicWinningPrize = PRIZE_CALCULATOR.defaultPrize;
 
     this.#matchingTable.forEach((numbersOfLotto, numbersOfMatched) => {
-      const prizeAmount = PRIZE_CALCULATOR.amount[numbersOfMatched];
-      winningPrize += prizeAmount * numbersOfLotto;
+      const prizeAmount =
+        PRIZE_CALCULATOR.amount[numbersOfMatched][PRIZE_CALCULATOR.basicTag];
+
+      basicWinningPrize += prizeAmount * numbersOfLotto;
     });
 
-    return winningPrize;
+    return basicWinningPrize;
   }
 
   #calculateProfit(totalPrize) {
