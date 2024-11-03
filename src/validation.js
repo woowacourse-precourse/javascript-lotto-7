@@ -20,3 +20,11 @@ export const validateWinningNumberDup = (winningNumbers) => {
     throw new Error(ERROR_MESSAGE.WINNING_NUMBER_DUP);
   }
 };
+
+export const validateBonusNumberRange = (bounsNumbers) => {
+  bounsNumbers.forEach((number) => {
+    if (number < 1 || number > 45) {
+      throw new Error(ERROR_MESSAGE.BONUS__NUMBER_RANGE);
+    }
+  });
+};
