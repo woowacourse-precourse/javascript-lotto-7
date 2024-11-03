@@ -7,6 +7,7 @@ class LottoManager {
     #purchasePrice
     #lottoCount
     #generatedLottos = []
+    #winLotto
 
     constructor(){}
 
@@ -17,11 +18,16 @@ class LottoManager {
         }
     }
 
+    generateWinLotto(lottoNumbers){
+        this.#winLotto = new Lotto(lottoNumbers);
+    }
+
     async run(){
         this.#purchasePrice = await LottoManagerIO.getPurchasePrice();
         this.#lottoCount = LottoManagerIO.printLottoCount(this.#purchasePrice);
         this.generateLottos(this.#lottoCount);
         LottoManagerIO.printGeneratedLottos(this.#generatedLottos);
+        this.generateWinLotto(await LottoManagerIO.getWinNumber());
     }
 }
 
