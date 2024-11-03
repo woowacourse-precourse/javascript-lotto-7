@@ -16,7 +16,9 @@ class LottoController {
 
   async start() {
     const tickets = await this.purchaseLotto();
-    this.#lottoGame.setLotto(tickets);
+    this.#lottoGame.setLottos(tickets);
+    this.#outputView.printTickets(tickets);
+    this.#outputView.printLottos(this.#lottoGame.getLottos());
   }
 
   async purchaseLotto() {

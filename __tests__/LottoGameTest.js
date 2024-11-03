@@ -8,11 +8,11 @@ describe('로또 게임 테스트', () => {
 
   beforeEach(() => {
     lottoGame = new LottoGame();
-    lottoGame.setLotto(tickets);
+    lottoGame.setLottos(tickets);
   });
 
   test(`${tickets}장의 로또에 숫자 배열 길이가 ${LOTTO_CONDITION.length}개가 맞는지 확인한다.`, () => {
-    const lottos = lottoGame.getLotto();
+    const lottos = lottoGame.getLottos();
 
     lottos.forEach((lotto) => {
       expect(lotto).toBeInstanceOf(Array);

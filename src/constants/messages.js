@@ -12,6 +12,10 @@ const INPUT_MESSAGES = Object.freeze({
   bonus_number: '보너스 번호를 입력해 주세요.\n',
 });
 
+const OUTPUT_MESSAGES = Object.freeze({
+  purchaseAmount: (amount) => `\n${amount}개를 구매했습니다.`,
+});
+
 const ERROR_MESSAGES = Object.freeze({
   empty: `${PREFIX_ERROR} 값을 입력해주세요.\n`,
   numeric: `${PREFIX_ERROR} 숫자만 입력 가능합니다.\n`,
@@ -20,4 +24,4 @@ const ERROR_MESSAGES = Object.freeze({
   invalid_range: `${PREFIX_ERROR} 구입 금액은 ${PRICE_MAX_AMOUNT}원 이하여야 합니다.\n`,
 });
 
-export { PREFIX_ERROR, INPUT_MESSAGES, ERROR_MESSAGES };
+export { PREFIX_ERROR, INPUT_MESSAGES, OUTPUT_MESSAGES, ERROR_MESSAGES };
