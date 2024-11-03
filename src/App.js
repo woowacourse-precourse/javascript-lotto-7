@@ -76,29 +76,6 @@ class App {
     return matchingResults.getResults();
   }
 
-  updateMatchingResults(matchingResults, matchCount, lotto, bonusNumber) {
-    switch (matchCount) {
-      case 6:
-        matchingResults.six++;
-        break;
-      case 5:
-        if (lotto.getNumbers().includes(bonusNumber)) {
-          matchingResults.fiveBonus++;
-        } else {
-          matchingResults.five++;
-        }
-        break;
-      case 4:
-        matchingResults.four++;
-        break;
-      case 3:
-        matchingResults.three++;
-        break;
-      default:
-        break;
-    }
-  }
-
   calculateRate(matchingResults, purchaseAmount) {
     const totalPrize =
       PRIZE.THREE * matchingResults.three +
