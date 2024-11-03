@@ -33,4 +33,11 @@ describe('User 클래스의 readPurchaseAmount 메서드 테스트', () => {
       await runException(input, ERROR_MESSAGE.NOT_NATURAL_NUMBER);
     },
   );
+
+  test.each([['8001']])(
+    "1,000원 단위가 아닌 '%s' 입력 시 예외 처리",
+    async (input) => {
+      await runException(input, ERROR_MESSAGE.NOT_THOUSAND_UNIT);
+    },
+  );
 });
