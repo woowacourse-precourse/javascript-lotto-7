@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { INPUT_MESSAGES } from "./constants/InputMessage.js";
+import { INPUT_MESSAGES } from "./constants/inputMessage.js";
 
 const InputValue = {
   async purchaseMoney() {
