@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES } from '../Constant/error.js';
 
 const BONUS_NUMBER_ONE = (bonusNumber) => {
-  return bonusNumber >= 1 && bonusNumber <= 45;
+  return parseInt(bonusNumber) >= 1 && parseInt(bonusNumber) <= 45;
 };
 const BONUS_NUMBER_DUPLICATION = (bonusNumber, winningNumber) => {
   return winningNumber.split(',').map(Number).includes(bonusNumber);

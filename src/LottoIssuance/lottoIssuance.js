@@ -20,7 +20,9 @@ class LottoIssuance {
       lottoNumber.sort((a, b) => a - b);
       this.lottoNumberArray.push(lottoNumber);
     }
-    print(this.lottoNumberArray);
+    this.lottoNumberArray.forEach((numbers) => {
+      print(numbers);
+    });
   }
   getLottoNumbers() {
     return this.lottoNumberArray;

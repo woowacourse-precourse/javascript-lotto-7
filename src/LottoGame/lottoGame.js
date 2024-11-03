@@ -15,6 +15,8 @@ class LottoGame {
     lottoIssuance.printLottoBuyMessage();
     lottoIssuance.printLottoNumber();
     const WINNING_NUMBER = await readLineAsync(INPUT_MESSAGES.winningNumber);
+    const lotto = new Lotto(WINNING_NUMBER);
+    console.log(lotto);
     const BONUS_NUMBER = await readLineAsync(INPUT_MESSAGES.bonusNumber);
     BONUS_NUMBER_VALIDATION(BONUS_NUMBER, WINNING_NUMBER);
 

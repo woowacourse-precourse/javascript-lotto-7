@@ -9,4 +9,7 @@ export const ERROR_MESSAGES = Object({
   IS_BONUS_NUMBER_ONE: '[ERROR] 보너스 번호는 1개여야 합니다.',
   IS_BONUS_NUMBER_DUPLICATION:
     '[ERROR] 보너스 번호와 당첨 번호는 중복될 수 없습니다.',
+  IS_BONUS_NUMBER_DUPLICATION:
+    '[ERROR] 보너스 번호와 당첨 번호는 중복될 수 없습니다.',
+  IS_ONLY_INT: '[ERROR] 숫자외의 문자는 입력될 수 없습니다.',
 });
