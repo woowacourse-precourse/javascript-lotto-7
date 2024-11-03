@@ -26,14 +26,22 @@ class LottoMatcher {
         });
     }
 
-    set bounusNumber(bounusNumber) {
-        bounusNumber = +bounusNumber;
-        this.validateBonusNumber(bounusNumber);
-        this.#bonusNumber = bounusNumber;
+    set bonusNumber(bonusNumber) {
+        bonusNumber = +bonusNumber;
+        this.validateBonusNumber(bonusNumber);
+        this.#bonusNumber = bonusNumber;
     }
 
     get lottoRankResult() {
         return this.#lottoRankResult;
+    }
+
+    get bonusNubmer() {
+        return this.#bonusNumber;
+    }
+
+    get winNumberList() {
+        return this.#winNumberList;
     }
 
     validateWinNumbers(numberList) {
@@ -105,7 +113,8 @@ class LottoMatcher {
         }
 
         if (lottoResult.winNumberMatch === 5) {
-            if (lottoResult.bonusNumberMatch === 1) this.#lottoRankResult[2] = 1;
+            if (lottoResult.bonusNumberMatch === 1)
+                this.#lottoRankResult[2] = 1;
             else this.#lottoRankResult[3] = 1;
         }
     }

@@ -4,13 +4,21 @@ import LotteryGenerator from "./LotteryGenerator.js";
 import LottoMatcher from "./LottoMatcher.js";
 import ProfitCalculator from "./ProfitCalculator.js";
 class App {
+    #lottoList;
+    #lottoMatcher;
+
+    constructor() {
+        this.#lottoMatcher = new LottoMatcher();
+    }
+
     async run() {
-        const lottoList = await this.buyLotto();
-        const lottoMatcher = new LottoMatcher();
-        await this.makeWinNumber(lottoMatcher);
-        await this.makeBonusNumber(lottoMatcher);
-        if (lottoList && lottoMatcher)
-            this.makeProfitResult(lottoList, lottoMatcher);
+        this.#lottoList = await this.buyLotto();
+
+        await this.makeWinNumber();
+        await this.makeBonusNumber();
+
+        if (this.#lottoList.lottoList.length && this.#lottoMatcher.bonusNubmer)
+            this.makeProfitResult();
     }
 
     async buyLotto() {
@@ -28,35 +36,38 @@ class App {
         }
     }
 
-    async makeWinNumber(lottoMatcher) {
+    async makeWinNumber() {
         try {
             const winNumbersInput = await Console.readLineAsync(
                 Script.PLEASE_INPUT_WIN_NUMBERS
             );
 
-            lottoMatcher.winNumberList = winNumbersInput;
+            this.#lottoMatcher.winNumberList = winNumbersInput;
         } catch (error) {
             Console.print(error.message);
-            await this.makeWinNumber(lottoMatcher);
+            await this.makeWinNumber();
         }
     }
 
-    async makeBonusNumber(lottoMatcher) {
+    async makeBonusNumber() {
         try {
             const bonusNumberInput = await Console.readLineAsync(
                 Script.PLEASE_INPUT_BONUS_NUMBER
             );
-            lottoMatcher.bounusNumber = bonusNumberInput;
+            this.#lottoMatcher.bonusNumber = bonusNumberInput;
         } catch (error) {
             Console.print(error.message);
-            await this.makeBonusNumber(lottoMatcher);
+            await this.makeBonusNumber();
         }
     }
 
-    makeProfitResult(lottoList, lottoMatcher) {
-        lottoMatcher.makeResult(lottoList);
+    makeProfitResult() {
+        this.#lottoMatcher.makeResult(this.#lottoList);
 
-        const profitCalculator = new ProfitCalculator(lottoMatcher, lottoList);
+        const profitCalculator = new ProfitCalculator(
+            this.#lottoMatcher,
+            this.#lottoList
+        );
         Console.print(Script.showTotalProfit(profitCalculator));
     }
 }

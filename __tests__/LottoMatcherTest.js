@@ -26,7 +26,7 @@ describe("로또 번호 매칭 테스트", () => {
             const lottoMatcher = new LottoMatcher();
             const winNumberList = "1,2,3,4,5,6";
             lottoMatcher.winNumberList = winNumberList;
-            expect(() => (lottoMatcher.bounusNumber = value)).toThrow(
+            expect(() => (lottoMatcher.bonusNumber = value)).toThrow(
                 PLEASE_INPUT_RIGHT_BONUS_NUMBER
             );
         }
@@ -59,7 +59,7 @@ describe("로또 번호 매칭 테스트", () => {
 
             const lottoMatcher = new LottoMatcher();
             lottoMatcher.winNumberList = winNumberList;
-            lottoMatcher.bounusNumber = bonusNumber;
+            lottoMatcher.bonusNumber = bonusNumber;
             expect(lottoMatcher.matchLotto(lotto)).toEqual(result);
         });
     });
