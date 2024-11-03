@@ -1,17 +1,12 @@
 import LottoController from "../src/controller/lottoController";
 
 describe("로또 컨트롤러 기능 테스트", () => {
-  const LOTTO_EACH_AMOUNT = 1000; // Assumed constant for each lotto ticket cost
-  const WINNING_FIRST_PRIZE = 2000000000; // Sample prize for 1st place
-  const WINNING_SECOND_PRIZE = 30000000; // Sample prize for 2nd place
-  const WINNING_THIRD_PRIZE = 1500000; // Sample prize for 3rd place
-  const WINNING_FOURTH_PRIZE = 50000; // Sample prize for 4th place
-  const WINNING_FIFTH_PRIZE = 5000; // Sample prize for 5th place
+  const LOTTO_EACH_AMOUNT = 1000;
 
   let lottoController;
 
   beforeEach(() => {
-    lottoController = new LottoController(5000); // Creates 5 lottos if LOTTO_EACH_AMOUNT is 1000
+    lottoController = new LottoController(5000);
   });
 
   test("로또 구매 갯수와 생성된 로또 배열 확인", () => {
@@ -27,19 +22,19 @@ describe("로또 컨트롤러 기능 테스트", () => {
 
     lottoController.getAllLottos()[0] = {
       getNumbers: () => [1, 2, 3, 4, 5, 6],
-    }; // Matches 6
+    };
     lottoController.getAllLottos()[1] = {
       getNumbers: () => [1, 2, 3, 4, 5, 45],
-    }; // Matches 5 + bonus
+    };
     lottoController.getAllLottos()[2] = {
       getNumbers: () => [1, 2, 3, 4, 5, 7],
-    }; // Matches 5
+    };
     lottoController.getAllLottos()[3] = {
       getNumbers: () => [1, 2, 3, 4, 8, 9],
-    }; // Matches 4
+    };
     lottoController.getAllLottos()[4] = {
       getNumbers: () => [1, 2, 3, 10, 11, 12],
-    }; // Matches 3
+    };
 
     lottoController.calculateWinningLottos(winningLotto, bonusNumber);
 
