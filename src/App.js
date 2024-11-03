@@ -13,6 +13,9 @@ class App {
     issuedLottos.forEach((lotto) =>
       OutputView.printPurchasedLottoNumbers(lotto.getSortedNumbers()),
     );
+
+    const winningNumbers = await InputView.readWinningNumbers();
+    console.log(winningNumbers);
   }
 }
 
