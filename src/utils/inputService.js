@@ -11,9 +11,9 @@ export async function inputAmount() {
 
 export async function inputWinningLotto() {
   const inputNumbers = await Console.readLineAsync(`${inputMessage.lotto}`);
-  validateNumbers(inputNumbers);
+  const validatedNumbers = validateNumbers(inputNumbers);
 
-  const winningNumbers = new Lotto(inputNumbers.split(',').map(Number));
+  const winningNumbers = new Lotto(validatedNumbers);
   return winningNumbers;
 }
 
