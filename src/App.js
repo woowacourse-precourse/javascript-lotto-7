@@ -1,4 +1,4 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import {
   ERROR_MESSAGES,
@@ -6,14 +6,18 @@ import {
   PRIZE,
 } from "./constants/constant.js";
 import MatchingResults from "./MatchingResults.js";
+import LottoManager from "./LottoManager.js";
 
 class App {
+  constructor() {
+    this.lottoManager = new LottoManager();
+  }
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
     const lottoCount = purchaseAmount / 1000;
-    const userLottoNumbers = this.generateLotto(lottoCount);
+    const userLottoNumbers = this.lottoManager.generateLotto(lottoCount);
 
-    await this.printLottoNumbers(userLottoNumbers, lottoCount);
+    await this.lottoManager.printLottoNumbers(userLottoNumbers, lottoCount);
 
     const winningNumber = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumber);
@@ -26,6 +30,7 @@ class App {
     const rate = this.calculateRate(matchingResults, purchaseAmount);
     await this.printStatistics(matchingResults, rate);
   }
+
   async getPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync(
       "구입금액을 입력해 주세요\n"
@@ -34,14 +39,6 @@ class App {
     return purchaseAmount;
   }
 
-  async printLottoNumbers(userLottoNumbers, lottoCount) {
-    await Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    await Console.print(
-      userLottoNumbers
-        .map((lotto) => `[ ${lotto.getNumbers().join(", ")} ]`)
-        .join("\n")
-    );
-  }
   async getWinningNumbers() {
     const inputWinningNumbers = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
@@ -57,21 +54,6 @@ class App {
     const bonusNumber = Number(inputBonusNumber);
     this.validateBonusNumber(bonusNumber, winningNumber);
     return bonusNumber;
-  }
-
-  generateLotto(lottoCount) {
-    let userLottoNumbers = [];
-    for (let i = 0; i < lottoCount; i++) {
-      const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6
-      );
-      lottoNumbers.sort((a, b) => a - b);
-      const lotto = new Lotto(lottoNumbers);
-      userLottoNumbers.push(lotto);
-    }
-    return userLottoNumbers;
   }
 
   checkMatchingLottos(userLottoNumbers, winningNumberSet, bonusNumber) {
