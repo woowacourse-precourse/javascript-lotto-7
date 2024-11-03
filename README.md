@@ -53,3 +53,35 @@
 - 총 수익률 계산 기능
   - 계산한 당첨 갯수 목록을 기반하여 총 당첨금 취합
   - 총 당첨금에 구입 금액을 나누어 총 수익률 계산
+
+<br />
+
+## 폴더 구조
+
+```
+📦 
+├─ __tests__
+│  ├─ ApplicationTest.js
+│  ├─ CalculatorTest.js
+│  ├─ InputTest.js
+│  ├─ LottoGameTest.js
+│  ├─ LottoTest.js
+│  └─ VendingMachineTest.js
+└─ src
+   ├─ App.js
+   ├─ Constants.js
+   ├─ Lotto.js
+   ├─ Utils.js
+   ├─ controller
+   │  └─ LottoController.js
+   ├─ index.js
+   ├─ model
+   │  ├─ Calculator.js
+   │  ├─ Lotto.js
+   │  ├─ LottoGame.js
+   │  ├─ LottoValidator.js
+   │  └─ VendingMachine.js
+   └─ view
+      ├─ Input.js
+      └─ Output.js
+```
