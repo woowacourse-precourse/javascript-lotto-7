@@ -40,17 +40,21 @@ class App {
     }
 
     const arrayInputNumbers = [];
+    let arrayWinningNumbers = [];
+    let arrayBonusNumbers = [];
     const inputWinningNumbers = async () => {
       const stringNumbers = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.');
       const arrayNumbers = stringNumbers.split(',');
       arrayNumbers.forEach(element => {
         arrayInputNumbers.push(element);
       });
+      arrayWinningNumbers = arrayNumbers;
     }
 
     const inputBonusNumber = async () => {
       const number = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.');
       arrayInputNumbers.push(number);
+      arrayBonusNumbers = number;
     }
 
     const functionInputNumber = async () => {
@@ -67,6 +71,33 @@ class App {
       MissionUtils.Console.print(error.message);
       await functionInputNumber();
     }
+
+    const winningStatistics = [0, 0, 0, 0, 0];
+    for (const ticket of pickNumber) {
+      const ticketNumbers = ticket.getNumbers();
+      const matchedNumbers = ticketNumbers.filter((num) => arrayWinningNumbers.includes(String(num))).length;
+      const hasBonus = arrayBonusNumbers === ticketNumbers.find((num) => String(num) === arrayBonusNumbers);
+  
+      if (matchedNumbers === 6) {
+        winningStatistics[4] += 1;
+      } else if (matchedNumbers === 5 && hasBonus) {
+        winningStatistics[3] += 1;
+      } else if (matchedNumbers === 5) {
+        winningStatistics[2] += 1;
+      } else if (matchedNumbers === 4) {
+        winningStatistics[1] += 1;
+      } else if (matchedNumbers === 3) {
+        winningStatistics[0] += 1;
+      }
+    }
+  
+    MissionUtils.Console.print('당첨 통계');
+    MissionUtils.Console.print('---');
+    MissionUtils.Console.print(`3개 일치 (5,000원) - ${winningStatistics[0]}개`);
+    MissionUtils.Console.print(`4개 일치 (50,000원) - ${winningStatistics[1]}개`);
+    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${winningStatistics[2]}개`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningStatistics[3]}개`);
+    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${winningStatistics[4]}개`);
   }
 }
 
