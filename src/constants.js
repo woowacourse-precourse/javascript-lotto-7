@@ -20,7 +20,8 @@ const ERROR_MESSAGE = Object.freeze({
     '로또 번호는 1부터 45 사이의 숫자여야 합니다.',
   LOTTO_NUMBER_IS_POSITIVE_NUMBER:
     '로또 번호는 숫자외 다른 문자열이 포함될 수 없습니다.',
-  BONUS_NUMBER_IS_POSITIVE_NUMBER: '보너스 번호는 양수로만 구성되어야 합니다.',
+  BONUS_NUMBER_IS_POSITIVE_NUMBER:
+    '보너스 번호는 양의 정수로만 구성되어야 합니다.',
   BONUS_NUMBERS_IS_MIN_ONE_MAX_FORTY_FIVE:
     '보너스 번호는 숫자는 1부터 45 사이의 숫자여야 합니다.',
 });
