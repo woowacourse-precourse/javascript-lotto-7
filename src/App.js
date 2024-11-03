@@ -4,6 +4,7 @@ import PurchaseMoney from "./PurchaseMoney.js";
 import LottoGenerator from "./LottoGenerator.js";
 import OutputValue from "./OutputValue.js";
 import Lotto from "./Lotto.js";
+import BonusLotto from "./BonusLotto.js";
 
 class App {
   purchaseMoney;
@@ -53,7 +54,7 @@ class App {
     while (true) {
       try {
         this.bonusNumber = await InputValue.bonusNumber();
-
+        new BonusLotto(this.bonusNumber, this.winningNumbers);
         return this.bonusNumber;
       } catch (e) {
         Console.print(e.message);
