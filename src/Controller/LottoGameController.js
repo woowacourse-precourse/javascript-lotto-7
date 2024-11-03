@@ -13,22 +13,22 @@ class LottoGame {
     async lottoGamePlay() {
         const purchase = await this.getLottoPurchaseAmount();
         this.generateLottoTicket(purchase);
-        await this.getLottoWinningNumbers();
-        await this.getLottoBonusNumber();
+        const lottoWinngNumbers = await this.getLottoWinningNumbers();
+        await this.getLottoBonusNumber(lottoWinngNumbers);
     }
 
     // 보너스 번호 입력 받기
-    async getLottoBonusNumber() {
+    async getLottoBonusNumber(lottoWinngNumbers) {
         const bonusNumber = await this.Input.readLottoBonusNumberInput();
         this.Output.printResult(bonusNumber);
         const bonusNumberArray = this.stringToNumberArray(bonusNumber);
-        return this.setLottoBonusNumber(bonusNumberArray);
+        return this.setLottoBonusNumber(bonusNumberArray, lottoWinngNumbers);
     }
 
     // 보너스 번호 저장
-    setLottoBonusNumber(bonusNumber) {
+    setLottoBonusNumber(bonusNumber, lottoWinngNumbers) {
         try {
-            return this.CreateModel.createBonusModel(bonusNumber);
+            return this.CreateModel.createBonusModel(bonusNumber, lottoWinngNumbers);
         } catch ({ message }) {
             this.Output.printResult(message);
             // this.getLottoBonusNumber();
@@ -54,7 +54,7 @@ class LottoGame {
             return null;
         }
     }
-    
+
     // 문자열 숫자 배열로
     stringToNumberArray(string) {
         return string.split(",").map(Number);
