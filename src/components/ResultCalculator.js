@@ -1,3 +1,5 @@
+import PrizeResults from './PrizeResults.js';
+
 export default class {
   #winningNumbers;
 
@@ -9,26 +11,29 @@ export default class {
   }
 
   calculatePrizes(lottoList) {
+    const prizeResults = new PrizeResults();
     lottoList.forEach((lotto) => {
       const matchedCount = this.countWinningNumbers(lotto);
       const hasBonusNumber = this.hasMatchedBonusNumbers(lotto);
+      prizeResults.save(matchedCount, hasBonusNumber);
     });
+    return prizeResults.get();
   }
 
   countWinningNumbers(lotto) {
-    const matchedCount = this.count(lotto.getNumbers, this.#winningNumbers);
+    const matchedCount = this.countSameNumber(lotto, this.#winningNumbers);
 
     return matchedCount;
   }
 
   hasMatchedBonusNumbers(lotto) {
-    const matchedCount = this.count(lotto.getNumbers(), this.#bonusNumber);
+    const matchedCount = this.countSameNumber(lotto, this.#bonusNumber);
 
-    if (matchedCount === this.#bonusNumber.length()) return true;
+    if (matchedCount === this.#bonusNumber.length) return true;
     return false;
   }
 
-  count(lotto, targetNumbers) {
+  countSameNumber(lotto, targetNumbers) {
     const lottoNumberSet = new Set(lotto.getNumbers());
     const targetNumberSet = new Set(targetNumbers);
     const unionNumberSet = new Set([...lottoNumberSet, ...targetNumberSet]);
