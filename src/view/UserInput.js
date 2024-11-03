@@ -31,12 +31,24 @@ class UserInput {
         }
 
         MissionUtils.Console.print(DISPLAY_MESSAGE.ERROR_WINNING_NUMBER_MESSAGE);
-
       }
     }
 
     async getBonusNumber() {
-      const bonusNumber = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQEUST_BUONUS_NUMBER_MESSAGE);
+      let bonusNumber = 0; 
+      let validateBonusNumberFlag = false;
+
+      while (!validateBonusNumberFlag) {
+        bonusNumber = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQEUST_BUONUS_NUMBER_MESSAGE);
+        validateBonusNumberFlag = Validator.validateBonusNumber(bonusNumber)
+
+        if (validateBonusNumberFlag) {
+          return bonusNumber;
+        }
+
+        MissionUtils.Console.print(DISPLAY_MESSAGE.ERROR_BONUS_NUMBER_MESSAGE);
+      }
+
       return bonusNumber;
     }
 

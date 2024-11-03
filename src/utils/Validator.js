@@ -11,6 +11,10 @@ class Validator {
         return winningNumberArray.length === 6 && winningNumberArray.every(num => Number(num) >= 1 && Number(num) <= 45);
     }
 
+    static validateBonusNumber(bonusNumber) {
+        return Number(bonusNumber) >= 1 && Number(bonusNumber) <= 45;
+    }
+
 }
 
 export default Validator;
