@@ -24,7 +24,7 @@ describe('WinningLottoManager 테스트', () => {
     selectSpy.mockClear();
   });
 
-  const testSelectWinningNumbers = async (inputs, errorMessage) => {
+  const testSelectWinningNumbers = async (inputs, expectedMessage) => {
     const VALID_NUMBERS = '1, 2, 3, 4, 5, 6';
     const ASKING_TIMES = 2;
     const logSpy = getLogSpy();
@@ -34,7 +34,9 @@ describe('WinningLottoManager 테스트', () => {
     await WinningLottoManager.selectWinningNumbers(inputs);
 
     expect(selectSpy).toHaveBeenCalledTimes(ASKING_TIMES);
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorMessage));
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(expectedMessage),
+    );
   };
 
   test.each([
