@@ -53,6 +53,18 @@ class LottoMachine {
 5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.#winningTicketsRank.fiveMatchAndBonus}개
 6개 일치 (2,000,000,000원) - ${this.#winningTicketsRank.allMatch}개`;
   }
+
+  getProfitRate() {
+    const investAmount = this.#amount * 1000;
+    const profitAmount =
+      this.#winningTicketsRank.threeMatch * 5000 +
+      this.#winningTicketsRank.fourMatch * 50000 +
+      this.#winningTicketsRank.fiveMatch * 1500000 +
+      this.#winningTicketsRank.fiveMatchAndBonus * 30000000 +
+      this.#winningTicketsRank.allMatch * 2000000000;
+
+    return ((profitAmount / investAmount) * 100).toFixed(1);
+  }
 }
 
 export default LottoMachine;

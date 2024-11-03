@@ -29,6 +29,9 @@ class App {
     printMessage("당첨 통계");
     printMessage("---");
     printMessage(resultString);
+
+    const profitRate = this.#lottoMachine.getProfitRate();
+    printMessage(`총 수익률은 ${profitRate}%입니다.`);
   }
 
   async #getUserMoneyInput() {
