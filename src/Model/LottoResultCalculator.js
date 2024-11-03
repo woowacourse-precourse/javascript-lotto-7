@@ -19,7 +19,9 @@ export default class LottoResultCalculator {
   calculateResults() {
     this.#lottos.forEach((lotto) => {
       const rank = this.#winningLotto.calculateRank(lotto.getNumbers());
-      this.#result.get(rank).count += 1;
+      if (rank) {
+        this.#result.get(rank).count += 1;
+      }
     });
 
     return this.#result;
