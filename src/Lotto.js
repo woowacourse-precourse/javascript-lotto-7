@@ -1,5 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
-import LottoIO from "./LottoIO.js";
+import { LottoIO } from "./LottoIO.js ";
+import { isNumber, isOutRangeNumber } from "./utils.js";
 
 export const LOTTO_PRICE = 1000;
 const LOTTO_NUMBER_MIN = 1;
@@ -43,29 +44,32 @@ class Lotto {
 
   static #validateLottoNumbers(numbers) {
     if (typeof numbers !== "object") {
-      this.#throwLottoError(
+      LottoIO.throwError(
         "당첨 번호는 콤마(,)를 기준으로 숫자를 입력해 주세요. (ex: 1,2,3)"
       );
     }
 
     if (numbers.length !== NUMBER_COUNT_BY_LOTTO) {
-      this.#throwLottoError(
+      LottoIO.throwError(
         `${NUMBER_COUNT_BY_LOTTO}개의 당첨 번호를 입력해 주세요.`
       );
     }
 
-    if (numbers.some((n) => !this.#isNumber(n))) {
-      this.#throwLottoError("숫자와 콤마(,)만 입력해 주세요.");
+    if (numbers.some((n) => !isNumber(n))) {
+      LottoIO.throwError("숫자와 콤마(,)만 입력해 주세요.");
     }
 
-    if (numbers.some(this.#isOutRangeLottoNumber)) {
-      this.#throwLottoError(
+    const isIncludeOutRangeNumber = numbers.some((n) =>
+      isOutRangeNumber(n, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX)
+    );
+    if (isIncludeOutRangeNumber) {
+      LottoIO.throwError(
         `당첨 번호는 ${LOTTO_NUMBER_MIN} ~ ${LOTTO_NUMBER_MAX} 사이로 입력해 주세요.`
       );
     }
 
     if (new Set(numbers).size !== numbers.length) {
-      this.#throwLottoError("모든 당첨 번호를 서로 다르게 입력해 주세요.");
+      LottoIO.throwError("모든 당첨 번호를 서로 다르게 입력해 주세요.");
     }
   }
 
@@ -87,18 +91,18 @@ class Lotto {
   }
 
   static #validateBonusNumber(bonus, numbers) {
-    if (!this.#isNumber(bonus)) {
-      this.#throwLottoError("보너스 번호는 숫자로 입력해 주세요.");
+    if (!isNumber(bonus)) {
+      LottoIO.throwError("보너스 번호는 숫자로 입력해 주세요.");
     }
 
-    if (this.#isOutRangeLottoNumber(bonus)) {
-      this.#throwLottoError(
+    if (isOutRangeNumber(bonus, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX)) {
+      LottoIO.throwError(
         `보너스 번호는 ${LOTTO_NUMBER_MIN} ~ ${LOTTO_NUMBER_MAX} 사이로 입력해 주세요.`
       );
     }
 
     if (new Set([bonus, ...numbers]).size !== numbers.length + 1) {
-      this.#throwLottoError(
+      LottoIO.throwError(
         "보너스 번호는 이전에 입력한 당첨 번호와 중복되지 않게 입력해 주세요."
       );
     }
@@ -162,16 +166,16 @@ class Lotto {
   }
 
   static #validateAmount(amount) {
-    if (!this.#isNumber(amount)) {
-      this.#throwLottoError("숫자를 입력해 주세요.");
+    if (!isNumber(amount)) {
+      LottoIO.throwError("숫자를 입력해 주세요.");
     }
 
     if (!Number.isInteger(amount) || amount < LOTTO_PRICE) {
-      this.#throwLottoError(`${LOTTO_PRICE}원 이상 입력해 주세요.`);
+      LottoIO.throwError(`${LOTTO_PRICE}원 이상 입력해 주세요.`);
     }
 
     if (!Number.isSafeInteger(amount)) {
-      this.#throwLottoError(
+      LottoIO.throwError(
         `금액이 너무 큽니다. ${Number.MAX_SAFE_INTEGER} 이하로 입력해 주세요`
       );
     }
@@ -179,7 +183,7 @@ class Lotto {
     const lottoCount = this.#pay2Lotto(amount, LOTTO_PRICE);
     const isDemical = !Number.isInteger(lottoCount);
     if (isDemical) {
-      this.#throwLottoError(`${LOTTO_PRICE}원 단위로 입력해 주세요.`);
+      LottoIO.throwError(`${LOTTO_PRICE}원 단위로 입력해 주세요.`);
     }
   }
 
@@ -190,12 +194,12 @@ class Lotto {
   }
 
   static #validatePay2Lotto(money, price) {
-    if (!this.#isNumber(money) || !this.#isNumber(price)) {
-      this.#throwLottoError("로또의 금액과 가격은 숫자로 입력해 주세요.");
+    if (!isNumber(money) || !isNumber(price)) {
+      LottoIO.throwError("로또의 금액과 가격은 숫자로 입력해 주세요.");
     }
 
     if (money < 0 || price < 0) {
-      this.#throwLottoError("로또의 금액과 가격은 양수입니다.");
+      LottoIO.throwError("로또의 금액과 가격은 양수입니다.");
     }
   }
 
@@ -273,18 +277,6 @@ class Lotto {
     const earningsRate = (totalEarning / usedMoney) * 100;
 
     LottoIO.print(`총 수익률은 ${earningsRate.toFixed(1)}%입니다.`);
-  }
-
-  static #isNumber(number) {
-    return typeof number === "number" && !Number.isNaN(number);
-  }
-
-  static #isOutRangeLottoNumber(number) {
-    return number < LOTTO_NUMBER_MIN || LOTTO_NUMBER_MAX < number;
-  }
-
-  static #throwLottoError(message) {
-    throw new Error(`[ERROR] ${message}`);
   }
 }
 
