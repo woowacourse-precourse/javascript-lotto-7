@@ -28,11 +28,11 @@ export default class LottoMachine {
     }
 
     printNumberofPurchase() {
-        Console.print(`\n${this.numberOfPurchase}개를 구매했습니다.`);
+        Console.print(`${this.numberOfPurchase}개를 구매했습니다.`);
     }
 
     printLotto() {
-        this.lottos.map(lotto => Console.print(lotto.getNumbers()));
+        this.lottos.map(lotto => Console.print(`[${lotto.getNumbers().join(', ')}]`));
     }
 
     setWinningNumber(winningNumber, bonusNumber) {
@@ -96,21 +96,16 @@ export default class LottoMachine {
 
         for (let i = 5; i >= 1; i--) {
             if (i == 2) {
-                Console.print(`${CONSTANTS.RANKING[i].match}개 일치, 보너스 볼 일치 (${CONSTANTS.RANKING[i].prize}원) - ${this.rank[i]}개`);
+                Console.print(`${CONSTANTS.RANKING[i].match}개 일치, 보너스 볼 일치 (${CONSTANTS.RANKING[i].prizeString}원) - ${this.rank[i]}개`);
                 continue;
             }
 
-            Console.print(`${CONSTANTS.RANKING[i].match}개 일치 (${CONSTANTS.RANKING[i].prize}원) - ${this.rank[i]}개`);
+            Console.print(`${CONSTANTS.RANKING[i].match}개 일치 (${CONSTANTS.RANKING[i].prizeString}원) - ${this.rank[i]}개`);
         }
     }
 
     calculatePropit(totalWinningAmount) {
-        const netPropit = (totalWinningAmount - this.purchaseAmount)
-        if (netPropit == 0) {
-            return 0
-        }
-
-        const propit = netPropit / this.purchaseAmount * 100;
+        const propit = (totalWinningAmount / this.purchaseAmount) * 100;
 
         return Math.round(propit * 100) / 100;
     }

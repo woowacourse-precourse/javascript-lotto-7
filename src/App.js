@@ -6,30 +6,27 @@ import InputUtils from "./Utils/Utils.js";
 
 class App {
   async run() {
-    try {
 
-      const purchaseAmount = await InputUtils.inputPurchaseAmount();
+    const purchaseAmount = await InputUtils.inputPurchaseAmount();
 
-      const lottoMachine = new LottoMachine(purchaseAmount);
+    const lottoMachine = new LottoMachine(purchaseAmount);
 
-      lottoMachine.printNumberofPurchase();
-      lottoMachine.printLotto();
+    lottoMachine.printNumberofPurchase();
+    lottoMachine.printLotto();
 
-      const winningNumber = await InputUtils.inputWinningNumber();
-      const bonusNumber = await InputUtils.inputBonusNumber(winningNumber);
+    const winningNumber = await InputUtils.inputWinningNumber();
+    const bonusNumber = await InputUtils.inputBonusNumber(winningNumber);
 
-      lottoMachine.setWinningNumber(winningNumber, bonusNumber);
+    lottoMachine.setWinningNumber(winningNumber, bonusNumber);
 
-      const totalWinningAmount = lottoMachine.checkWinningLotto();
-      lottoMachine.printWinningStatistics();
+    const totalWinningAmount = lottoMachine.checkWinningLotto();
+    lottoMachine.printWinningStatistics();
 
-      const propit = lottoMachine.calculatePropit(totalWinningAmount);
+    const propit = lottoMachine.calculatePropit(totalWinningAmount);
 
-      lottoMachine.printPropit(propit);
+    lottoMachine.printPropit(propit);
 
-    } catch (error) {
 
-    }
   }
 }
 
