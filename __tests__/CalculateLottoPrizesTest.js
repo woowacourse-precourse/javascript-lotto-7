@@ -2,85 +2,94 @@ import {
   calculateProfitRate,
   calculateTotalPrize,
 } from '../src/utils/calculateLottoPrizes.js';
+import { LOTTO_PRIZES } from '../src/constants/lottoPrize.js';
+import { LOTTO_PRIZES_TEST_MESSAGES } from '../src/constants/testMessages.js';
 
-describe('로또 당첨금 계산', () => {
-  describe('단일 등수 당첨금 계산', () => {
-    test('5등(3개 일치) 1회 당첨 시 5,000원을 반환한다', () => {
+describe(LOTTO_PRIZES_TEST_MESSAGES.LOTTO_PRIZES_TEST, () => {
+  describe(LOTTO_PRIZES_TEST_MESSAGES.DESCRIBE_MESSAGES.SINGLE_PRIZE, () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_SINGLE_PRIZES.FIFTH, () => {
       const statistics = createEmptyStatistics();
       statistics[3].count = 1;
 
-      expect(calculateTotalPrize(statistics)).toBe(5000);
+      expect(calculateTotalPrize(statistics)).toBe(LOTTO_PRIZES[3].prize);
     });
 
-    test('4등(4개 일치) 1회 당첨 시 50,000원을 반환한다', () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_SINGLE_PRIZES.FOURTH, () => {
       const statistics = createEmptyStatistics();
       statistics[4].count = 1;
 
-      expect(calculateTotalPrize(statistics)).toBe(50000);
+      expect(calculateTotalPrize(statistics)).toBe(LOTTO_PRIZES[4].prize);
     });
 
-    test('3등(5개 일치) 1회 당첨 시 1,500,000원을 반환한다', () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_SINGLE_PRIZES.THIRD, () => {
       const statistics = createEmptyStatistics();
       statistics[5].count = 1;
 
-      expect(calculateTotalPrize(statistics)).toBe(1500000);
+      expect(calculateTotalPrize(statistics)).toBe(LOTTO_PRIZES[5].prize);
     });
 
-    test('2등(5개+보너스 일치) 1회 당첨 시 30,000,000원을 반환한다', () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_SINGLE_PRIZES.SECOND, () => {
       const statistics = createEmptyStatistics();
       statistics['5+bonus'].count = 1;
 
-      expect(calculateTotalPrize(statistics)).toBe(30000000);
+      expect(calculateTotalPrize(statistics)).toBe(
+        LOTTO_PRIZES['5+bonus'].prize,
+      );
     });
 
-    test('1등(6개 일치) 1회 당첨 시 2,000,000,000원을 반환한다', () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_SINGLE_PRIZES.FIRST, () => {
       const statistics = createEmptyStatistics();
       statistics[6].count = 1;
 
-      expect(calculateTotalPrize(statistics)).toBe(2000000000);
+      expect(calculateTotalPrize(statistics)).toBe(LOTTO_PRIZES[6].prize);
     });
   });
 
-  describe('복수 당첨 시 당첨금 계산', () => {
-    test('같은 등수 여러번 당첨 시 당첨금의 합을 반환한다', () => {
+  describe(LOTTO_PRIZES_TEST_MESSAGES.DESCRIBE_MESSAGES.MULTIPLE_PRIZE, () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_MULTIPLE_PRIZES.SAME_RANK, () => {
       const statistics = createEmptyStatistics();
       statistics[3].count = 2;
 
-      expect(calculateTotalPrize(statistics)).toBe(10000);
+      expect(calculateTotalPrize(statistics)).toBe(LOTTO_PRIZES[3].prize * 2);
     });
 
-    test('서로 다른 등수 당첨 시 당첨금의 합을 반환한다', () => {
-      const statistics = createEmptyStatistics();
-      statistics[3].count = 1;
-      statistics[4].count = 1;
+    test(
+      LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_MULTIPLE_PRIZES.DIFFERENT_RANK,
+      () => {
+        const statistics = createEmptyStatistics();
+        statistics[3].count = 1;
+        statistics[4].count = 1;
 
-      expect(calculateTotalPrize(statistics)).toBe(55000);
-    });
+        expect(calculateTotalPrize(statistics)).toBe(
+          LOTTO_PRIZES[3].prize + LOTTO_PRIZES[4].prize,
+        );
+      },
+    );
   });
 
-  describe('수익률 계산', () => {
-    test('당첨금과 구매금액이 같으면 수익률은 100%이다', () => {
+  describe(LOTTO_PRIZES_TEST_MESSAGES.DESCRIBE_MESSAGES.PROFIT_RATE, () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_PROFIT_RATE.EQUAL, () => {
       const profitRate = calculateProfitRate(1000, 1000);
       expect(profitRate).toBe(100.0);
     });
 
-    test('당첨금이 구매금액의 2배면 수익률은 200%이다', () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_PROFIT_RATE.DOUBLE, () => {
       const profitRate = calculateProfitRate(10000, 5000);
       expect(profitRate).toBe(200.0);
     });
 
-    test('당첨금이 구매금액의 절반이면 수익률은 50%이다', () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_PROFIT_RATE.HALF, () => {
       const profitRate = calculateProfitRate(5000, 10000);
       expect(profitRate).toBe(50.0);
     });
 
-    test('당첨금이 0원이면 수익률은 0%이다', () => {
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_PROFIT_RATE.ZERO, () => {
       const profitRate = calculateProfitRate(0, 10000);
       expect(profitRate).toBe(0.0);
     });
 
-    test('수익률은 소수점 첫째 자리에서 반올림한다', () => {
-      const profitRate = calculateProfitRate(5555, 10000); // 55.55%
+    test(LOTTO_PRIZES_TEST_MESSAGES.CALCULATE_PROFIT_RATE.ROUND, () => {
+      const profitRate = calculateProfitRate(5555, 10000);
       expect(profitRate).toBe(55.6);
     });
   });
@@ -88,10 +97,10 @@ describe('로또 당첨금 계산', () => {
 
 function createEmptyStatistics() {
   return {
-    3: { count: 0, prize: 5000 },
-    4: { count: 0, prize: 50000 },
-    5: { count: 0, prize: 1500000 },
-    '5+bonus': { count: 0, prize: 30000000 },
-    6: { count: 0, prize: 2000000000 },
+    3: { count: 0, prize: LOTTO_PRIZES[3].prize },
+    4: { count: 0, prize: LOTTO_PRIZES[4].prize },
+    5: { count: 0, prize: LOTTO_PRIZES[5].prize },
+    '5+bonus': { count: 0, prize: LOTTO_PRIZES['5+bonus'].prize },
+    6: { count: 0, prize: LOTTO_PRIZES[6].prize },
   };
 }

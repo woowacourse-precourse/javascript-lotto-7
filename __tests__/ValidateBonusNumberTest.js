@@ -1,37 +1,43 @@
 import ValidateBonusNumber from '../src/models/ValidateBonusNumber.js';
+import { BONUS_NUMBER_TEST_MESSAGES } from '../src/constants/testMessages.js';
+import { BONUS_NUMBER_MESSAGES } from '../src/constants/errorMessages.js';
+import { TEST_NUMBERS } from '../src/constants/testValues.js';
 
-describe('보너스 번호 검증 테스트', () => {
+describe(BONUS_NUMBER_TEST_MESSAGES.BONUS_NUMBER_TEST, () => {
   let validator;
 
   beforeEach(() => {
     validator = new ValidateBonusNumber();
   });
 
-  test('보너스 번호가 숫자가 아니면 예외가 발생한다.', () => {
+  test(BONUS_NUMBER_TEST_MESSAGES.NOT_A_NUMBER, () => {
     expect(() => {
       validator.validateIsNumber('a');
-    }).toThrow('[ERROR]');
+    }).toThrow(BONUS_NUMBER_MESSAGES.NOT_A_NUMBER);
   });
 
-  test('보너스 번호가 1-45 범위를 벗어나면 예외가 발생한다.', () => {
+  test(BONUS_NUMBER_TEST_MESSAGES.OUT_OF_RANGE, () => {
     expect(() => {
-      validator.validateBonusNumberRange(46);
-    }).toThrow('[ERROR]');
+      validator.validateBonusNumberRange(TEST_NUMBERS.OUT_OF_RANGE_HIGH);
+    }).toThrow(BONUS_NUMBER_MESSAGES.INVALID_RANGE);
 
     expect(() => {
-      validator.validateBonusNumberRange(0);
-    }).toThrow('[ERROR]');
+      validator.validateBonusNumberRange(TEST_NUMBERS.OUT_OF_RANGE_LOW);
+    }).toThrow(BONUS_NUMBER_MESSAGES.INVALID_RANGE);
   });
 
-  test('보너스 번호가 당첨 번호와 중복되면 예외가 발생한다.', () => {
+  test(BONUS_NUMBER_TEST_MESSAGES.DUPLICATE_WITH_WINNING, () => {
     expect(() => {
-      validator.validateDuplicateWithWinningNumbers(1, [1, 2, 3, 4, 5, 6]);
-    }).toThrow('[ERROR]');
+      validator.validateDuplicateWithWinningNumbers(
+        1,
+        TEST_NUMBERS.VALID_NUMBERS,
+      );
+    }).toThrow(BONUS_NUMBER_MESSAGES.DUPLICATE_WITH_WINNING);
   });
 
-  test('정상적인 보너스 번호는 검증을 통과한다.', () => {
+  test(BONUS_NUMBER_TEST_MESSAGES.VALID_NUMBER, () => {
     expect(() => {
-      validator.validateBonusNumber('7', [1, 2, 3, 4, 5, 6]);
+      validator.validateBonusNumber('7', TEST_NUMBERS.VALID_NUMBERS);
     }).not.toThrow();
   });
 });

@@ -1,45 +1,52 @@
 import ValidateWinningNumbers from '../src/models/ValidateWinningNumbers.js';
+import { WINNING_NUMBERS_TEST_MESSAGES } from '../src/constants/testMessages.js';
+import { WINNING_NUMBERS_MESSAGES } from '../src/constants/errorMessages.js';
+import { TEST_NUMBERS, TEST_INPUTS } from '../src/constants/testValues.js';
 
-describe('당첨 번호 검증 테스트', () => {
+describe(WINNING_NUMBERS_TEST_MESSAGES.WINNING_NUMBERS_TEST, () => {
   let validator;
 
   beforeEach(() => {
     validator = new ValidateWinningNumbers();
   });
 
-  test('쉼표로 구분되지 않은 입력은 예외가 발생한다.', () => {
+  test(WINNING_NUMBERS_TEST_MESSAGES.INVALID_FORMAT, () => {
     expect(() => {
-      validator.validateWinningNumbersFormat('1 2 3 4 5 6');
-    }).toThrow('[ERROR]');
+      validator.validateWinningNumbersFormat(
+        TEST_INPUTS.INVALID_FORMAT_NUMBERS,
+      );
+    }).toThrow(WINNING_NUMBERS_MESSAGES.INVALID_FORMAT);
   });
 
-  test('당첨 번호가 6개가 아닌 경우 예외가 발생한다.', () => {
+  test(WINNING_NUMBERS_TEST_MESSAGES.INVALID_COUNT, () => {
     expect(() => {
-      validator.validateWinningNumbersFormat('1,2,3,4,5');
-    }).toThrow('[ERROR]');
+      validator.validateWinningNumbersFormat(TEST_INPUTS.INVALID_COUNT_NUMBERS);
+    }).toThrow(WINNING_NUMBERS_MESSAGES.INVALID_FORMAT);
   });
 
-  test('숫자 범위가 1-45를 벗어나면 예외가 발생한다.', () => {
+  test(WINNING_NUMBERS_TEST_MESSAGES.OUT_OF_RANGE, () => {
     expect(() => {
-      validator.validateNumberRange(0);
-    }).toThrow('[ERROR]');
+      validator.validateNumberRange(TEST_NUMBERS.OUT_OF_RANGE_LOW);
+    }).toThrow(WINNING_NUMBERS_MESSAGES.INVALID_RANGE);
 
     expect(() => {
-      validator.validateNumberRange(46);
-    }).toThrow('[ERROR]');
+      validator.validateNumberRange(TEST_NUMBERS.OUT_OF_RANGE_HIGH);
+    }).toThrow(WINNING_NUMBERS_MESSAGES.INVALID_RANGE);
   });
 
-  test('중복된 번호가 있으면 예외가 발생한다.', () => {
+  test(WINNING_NUMBERS_TEST_MESSAGES.DUPLICATE_NUMBERS, () => {
     expect(() => {
-      validator.validateDuplicateNumbers([1, 2, 3, 3, 4, 5]);
-    }).toThrow('[ERROR]');
+      validator.validateDuplicateNumbers(TEST_NUMBERS.DUPLICATE_NUMBERS);
+    }).toThrow(WINNING_NUMBERS_MESSAGES.DUPLICATE_NUMBERS);
   });
 
-  test('정상적인 당첨 번호는 검증을 통과한다.', () => {
+  test(WINNING_NUMBERS_TEST_MESSAGES.VALID_NUMBERS, () => {
     expect(() => {
-      validator.validateWinningNumbersFormat('1,2,3,4,5,6');
-      validator.validateDuplicateNumbers([1, 2, 3, 4, 5, 6]);
-      [1, 2, 3, 4, 5, 6].forEach((num) => validator.validateNumberRange(num));
+      validator.validateWinningNumbersFormat(TEST_INPUTS.VALID_WINNING_NUMBERS);
+      validator.validateDuplicateNumbers(TEST_NUMBERS.VALID_NUMBERS);
+      TEST_NUMBERS.VALID_NUMBERS.forEach((num) =>
+        validator.validateNumberRange(num),
+      );
     }).not.toThrow();
   });
 });

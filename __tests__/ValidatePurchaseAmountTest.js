@@ -1,37 +1,42 @@
+import { PURCHASE_AMOUNT_TEST_MESSAGES } from '../src/constants/testMessages.js';
+import { PURCHASE_AMOUNT_MESSAGES } from '../src/constants/errorMessages.js';
+import { TEST_INPUTS } from '../src/constants/testValues.js';
 import ValidatePurchaseAmount from '../src/models/ValidatePurchaseAmount.js';
 
-describe('구입 금액 검증 테스트', () => {
+describe(PURCHASE_AMOUNT_TEST_MESSAGES.PURCHASE_AMOUNT_TEST, () => {
   let validator;
 
   beforeEach(() => {
     validator = new ValidatePurchaseAmount();
   });
 
-  test('1000원 단위가 아닌 금액이 입력되면 예외가 발생한다.', () => {
+  test(PURCHASE_AMOUNT_TEST_MESSAGES.NOT_THOUSAND_UNIT, () => {
     expect(() => {
-      validator.validatePurchaseAmount('1500');
-    }).toThrow('[ERROR] 1000원 단위로 입력해주셔야 됩니다.');
+      validator.validatePurchaseAmount(TEST_INPUTS.INVALID_AMOUNT);
+    }).toThrow(PURCHASE_AMOUNT_MESSAGES.NOT_THOUSAND_UNIT);
   });
 
-  test('숫자가 아닌 입력이 들어오면 예외가 발생한다.', () => {
+  test(PURCHASE_AMOUNT_TEST_MESSAGES.NOT_A_NUMBER, () => {
     expect(() => {
-      validator.validatePurchaseAmount('1000a');
-    }).toThrow('[ERROR] 숫자만 입력이 가능합니다.');
+      validator.validatePurchaseAmount(TEST_INPUTS.INVALID_NUMBER);
+    }).toThrow(PURCHASE_AMOUNT_MESSAGES.NOT_A_NUMBER);
   });
 
-  test('오버플로우를 발생하는 금액이 입력되면 예외가 발생한다.', () => {
+  test(PURCHASE_AMOUNT_TEST_MESSAGES.OVERFLOW, () => {
     expect(() => {
       validator.validatePurchaseAmount(Number.MAX_SAFE_INTEGER + 1);
-    }).toThrow('[ERROR]');
+    }).toThrow(PURCHASE_AMOUNT_MESSAGES.OVERFLOW(Number.MAX_SAFE_INTEGER));
   });
 
-  test('정상적인 구매 금액은 검증을 통과한다.', () => {
+  test(PURCHASE_AMOUNT_TEST_MESSAGES.VALID_AMOUNT, () => {
     expect(() => {
-      validator.validatePurchaseAmount('1000');
+      validator.validatePurchaseAmount(TEST_INPUTS.VALID_AMOUNT);
     }).not.toThrow();
 
     expect(() => {
-      validator.validatePurchaseAmount('2000');
+      validator.validatePurchaseAmount(
+        `${parseInt(TEST_INPUTS.VALID_AMOUNT) * 2}`,
+      );
     }).not.toThrow();
   });
 });
