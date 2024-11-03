@@ -16,7 +16,12 @@ class Input {
     return winningNumbers;
   }
 
-  static async readBonusNumber() {}
+  static async readBonusNumber() {
+    const input = await Input.#readLine('보너스 번호를 입력해 주세요.');
+    const bonusNumber = Input.#convertStringToNumber(input);
+
+    return bonusNumber;
+  }
 
   /** @param {string} message */
   static async #readLine(message) {
