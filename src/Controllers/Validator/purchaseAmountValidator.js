@@ -16,15 +16,27 @@ class PurchaseAmountValidator {
     return parsedPurchaseAmount % LOTTO_PRICE_UNIT === 0 && parsedPurchaseAmount > 0;
   }
 
+  getValidationRules() {
+    return [
+      [!this.isValidEmptyInput(), EMPTY_INPUT],
+      [!this.isValidPurchaseAmountUnit(), UNIT_PRICE],
+    ];
+  }
+
+  getValidationRules() {
+    return [
+      [!this.isValidEmptyInput(), ERROR_MESSAGES.purchaseAmount.EMPTY_INPUT],
+      [!this.isValidPurchaseAmountUnit(), ERROR_MESSAGES.purchaseAmount.UNIT_PRICE],
+    ];
+  }
+
   validatePurchaseAmount(purchaseAmount) {
     this.purchaseAmount = purchaseAmount;
-    if (!this.isValidEmptyInput()) {
-      throw new Error(ERROR_MESSAGES.purchaseAmount.EMPTY_INPUT);
-    }
+    const validationRules = this.getValidationRules();
 
-    if (!this.isValidPurchaseAmountUnit()) {
-      throw new Error(ERROR_MESSAGES.purchaseAmount.UNIT_PRICE);
-    }
+    validationRules.forEach((arr) => {
+      if (arr[0]) throw new Error(arr[1]);
+    });
 
     return true;
   }
