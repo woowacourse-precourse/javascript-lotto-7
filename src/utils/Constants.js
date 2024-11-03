@@ -1,6 +1,7 @@
 export const GLOBAL_CONSTANTS = {
   bonusWinningStandard: 5,
   bonusTag: 'bonus',
+  basicTag: 'basic',
   drawNumbers: 6,
   unitPrice: 1000,
   minimumNumber: 1,
@@ -24,11 +25,15 @@ export const ANALYZER = {
 
 export const PRIZE_CALCULATOR = {
   prize: {
-    3: { default: 5000 },
-    4: { default: 50000 },
-    5: { default: 1500000, [GLOBAL_CONSTANTS.bonusTag]: 30000000 },
-    6: { default: 2000000000 },
+    3: { [GLOBAL_CONSTANTS.basicTag]: 5000 },
+    4: { [GLOBAL_CONSTANTS.basicTag]: 50000 },
+    5: {
+      [GLOBAL_CONSTANTS.basicTag]: 1500000,
+      [GLOBAL_CONSTANTS.bonusTag]: 30000000,
+    },
+    6: { [GLOBAL_CONSTANTS.basicTag]: 2000000000 },
   },
+  basicTag: [GLOBAL_CONSTANTS.basicTag],
   defaultPrize: 0,
   profitRatio: 100,
   profitDecimalPlace: 1,
