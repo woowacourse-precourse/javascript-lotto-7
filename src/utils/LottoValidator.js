@@ -2,6 +2,7 @@ import InputValidator from './InputValidator.js';
 
 class LottoValidator {
   static validatePurchaseAmount(input) {
+    InputValidator.isMaxAmount(input);
     InputValidator.isNaturalNumber(input);
     InputValidator.isDivisibleByThousand(input);
   }
@@ -13,10 +14,11 @@ class LottoValidator {
     InputValidator.isWinningLength(inputArray);
     InputValidator.isSameNumber(inputArray);
   }
-  static validateBonusNumber(input) {
+  static validateBonusNumber(input, inputArray) {
     InputValidator.isLottoRangeNumber(input);
     InputValidator.isNaturalNumber(input);
     InputValidator.isLottoRangeNumber(input);
+    InputValidator.isSameBonusNumber(input, inputArray);
   }
   static validateGeneratedLottoNumber(inputArray) {
     inputArray.forEach((number) => {

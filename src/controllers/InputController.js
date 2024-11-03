@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import Parser from '../utils/Parser.js';
 import LottoValidator from '../utils/LottoValidator.js';
 import InputView from '../views/InputView.js';
+import LottoManager from '../models/LottoManager.js';
 
 class InputController {
   static async getValidPurchaseAmount() {
@@ -9,7 +10,6 @@ class InputController {
       const input = await InputView.inputPurchaseAmount();
       const purchaseAmount = Parser.parseNumber(input);
       LottoValidator.validatePurchaseAmount(purchaseAmount);
-      //const purchaseNumber = purchaseAmount / 1000;
       return purchaseAmount;
     } catch (error) {
       Console.print(error.message);
@@ -29,15 +29,15 @@ class InputController {
     }
   }
 
-  static async getValidBonusNumber() {
+  static async getValidBonusNumber(winningNumbers) {
     try {
       const input = await InputView.inputBonusNumber();
       const bonusNumber = Parser.parseNumber(input);
-      LottoValidator.validateBonusNumber(bonusNumber);
+      LottoValidator.validateBonusNumber(bonusNumber, winningNumbers);
       return bonusNumber;
     } catch (error) {
       Console.print(error.message);
-      return InputController.getValidBonusNumber();
+      return InputController.getValidBonusNumber(winningNumbers);
     }
   }
 }

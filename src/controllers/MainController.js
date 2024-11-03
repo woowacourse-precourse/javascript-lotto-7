@@ -16,7 +16,8 @@ class MainController {
     const winningNumbers = await InputController.getValidWinningNumbers();
     OutputView.printLineBreak();
 
-    const bonusNumber = await InputController.getValidBonusNumber();
+    const bonusNumber =
+      await InputController.getValidBonusNumber(winningNumbers);
 
     lottoManager.setWinningNumbers(winningNumbers, bonusNumber);
 

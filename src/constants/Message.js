@@ -13,6 +13,7 @@ const MESSAGES = Object.freeze({
   },
   ERROR: {
     IS_EMPTY: '[ERROR] 입력값이 비었습니다.',
+    IS_MAX_AMOUNT: '[ERROR] 10억 이하의 금액만 구매 가능합니다.',
     NOT_NUMBER: '[ERROR] 숫자를 입력해주세요.',
     NOT_NATURAL_NUMBER: '[ERROR] 자연수를 입력해주세요.',
     NOT_DIVISIBLE_BY_THOUSAND: '[ERROR] 1000의 배수를 입력해주세요.',
@@ -20,6 +21,8 @@ const MESSAGES = Object.freeze({
       '[ERROR] 로또 당첨 번호는 1부터 45까지의 자연수를 입력해주세요.',
     NOT_WINNING_LENGTH: '[ERROR] 당첨 번호는 6개를 입력해야합니다.',
     IS_SAME_NUMBER: '[ERROR] 당첨 번호 입력에 중복된 숫자가 있습니다.',
+    IS_SAME_BONUS_NUMBER:
+      '[ERROR] 당첨 번호에 이미 입력된 숫자입니다. 다른 숫자를 입력해주세요.',
   },
   PRIZE: {
     MATCH_3: '3개 일치 (5,000원) - {count}개',

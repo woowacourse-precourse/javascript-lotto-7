@@ -11,6 +11,11 @@ const InputValidator = {
       throw new Error(MESSAGES.ERROR.NOT_NUMBER);
     }
   },
+  isMaxAmount: (input) => {
+    if (input > 1000000000) {
+      throw new Error(MESSAGES.ERROR.IS_MAX_AMOUNT);
+    }
+  },
   isNaturalNumber: (input) => {
     if (!Number.isInteger(input) || Number(input) <= 0) {
       throw new Error(MESSAGES.ERROR.NOT_NATURAL_NUMBER);
@@ -35,6 +40,12 @@ const InputValidator = {
     const distinctNumber = new Set(inputArray);
     if (distinctNumber.size !== inputArray.length) {
       throw new Error(MESSAGES.ERROR.IS_SAME_NUMBER);
+    }
+  },
+  isSameBonusNumber: (input, inputArray) => {
+    const distinctNumber = new Set([...inputArray, input]);
+    if (distinctNumber.size !== inputArray.length + 1) {
+      throw new Error(MESSAGES.ERROR.IS_SAME_BONUS_NUMBER);
     }
   },
 };
