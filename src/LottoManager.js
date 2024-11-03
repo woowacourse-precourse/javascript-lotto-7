@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import Validator from './Validator.js';
+import LottoValidator from './LottoValidator.js';
 import { PRIZE_MONEY } from './constants.js';
 
 class LottoManager {
@@ -8,7 +8,7 @@ class LottoManager {
 
   constructor() {
     this.numbers = [];
-    this.#validator = new Validator();
+    this.#validator = new LottoValidator();
     this.bonusNumber = null;
     this.lottoNumbers = null;
   }

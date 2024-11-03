@@ -1,7 +1,7 @@
-import Validator from '../src/Validator.js';
+import LottoValidator from '../src/LottoValidator.js';
 
 describe('Validator 클래스 테스트', () => {
-  const validator = new Validator();
+  const validator = new LottoValidator();
 
   describe('validatePurchaseAmount 메서드 테스트', () => {
     test.each([
