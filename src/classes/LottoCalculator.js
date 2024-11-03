@@ -17,7 +17,7 @@ class LottoCalculator {
   calculateLottoProfit() {
     const lottoPrize = this.calculateLottoPrize();
     const profitRate = ((lottoPrize / this.purchasePrice) * 100).toFixed(1);
-    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+    return profitRate;
   }
 
   calculateLottoRank(count, index, bonusMatch) {
@@ -41,11 +41,6 @@ class LottoCalculator {
       default:
         break;
     }
-  }
-
-  calculateLotto() {
-    this.calculateLottoPrize();
-    this.calculateLottoProfit();
   }
 
   getLottoResults() {

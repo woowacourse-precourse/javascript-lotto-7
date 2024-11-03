@@ -1,20 +1,20 @@
-import { Console } from '@woowacourse/mission-utils';
 import Lotto from './classes/Lotto.js';
 import LottoGenerator from './classes/LottoGenerator.js';
 import LottoGame from './classes/LottoGame.js';
-import LottoCalculator from './classes/LottoCalculator.js';
 import InputView from './views/InputView.js';
+import OutputView from './views/OutputView.js';
 
 class App {
   async run() {
     const inputView = new InputView();
+    const outputView = new OutputView();
     const purchasePrice = await inputView.inputPurchaseAmount();
 
     // 구입 금액으로 로또 생성
     const lottoManager = new LottoGenerator(purchasePrice);
 
     // 로또 개수 출력
-    Console.print(`\n${lottoManager.lottoCount}개를 구매했습니다.`);
+    outputView.printLottoCount(lottoManager.lottoCount);
 
     // 로또 개수로 무작위 번호 추첨하여 로또 생성
     lottoManager.generateLottos();
@@ -23,9 +23,7 @@ class App {
     const myLottos = lottoManager.getLottos();
 
     // 생성된 로또 형식에 맞게 출력
-    myLottos.forEach((myLotto) =>
-      Console.print(`[${myLotto.toString().split(',').join(', ')}]`)
-    );
+    outputView.printMyLotto(myLottos);
 
     // 로또 당첨 번호 입력
     const winningNumbersInput = await inputView.inputWinningNumbers();
@@ -49,9 +47,12 @@ class App {
       purchasePrice
     );
 
-    Console.print('\n당첨 통계\n---');
+    const lottoResult = lottoGame.drawLotto();
+    outputView.printLottoResult(lottoResult);
     //  로또 추첨, 로또 결과 출력 (분리 필요성)
-    const results = lottoGame.drawLotto();
+
+    const profitRate = lottoGame.calculateLotto();
+    outputView.printLottoProfit(profitRate);
   }
 }
 
