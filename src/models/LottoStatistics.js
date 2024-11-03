@@ -109,13 +109,17 @@ class LottoStatistics {
   convertToString(key) {
     const count = this.#statistics.get(key);
 
-    if (key === LOTTO_STATISTICS_KEYS.THREE) return `3개 일치 (5,000원) - ${count}개\n`;
-    if (key === LOTTO_STATISTICS_KEYS.FOUR) return `4개 일치 (50,000원) - ${count}개\n`;
-    if (key === LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS) return `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개\n`;
-    if (key === LOTTO_STATISTICS_KEYS.FIVE) return `5개 일치 (1,500,000원) - ${count}개\n`;
-    if (key === LOTTO_STATISTICS_KEYS.SIX) return `6개 일치 (2,000,000,000원) - ${count}개`;
+    const keyMessageMap = {
+      [LOTTO_STATISTICS_KEYS.THREE]: `3개 일치 (5,000원) - ${count}개\n`,
+      [LOTTO_STATISTICS_KEYS.FOUR]: `4개 일치 (50,000원) - ${count}개\n`,
+      [LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS]: `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개\n`,
+      [LOTTO_STATISTICS_KEYS.FIVE]: `5개 일치 (1,500,000원) - ${count}개\n`,
+      [LOTTO_STATISTICS_KEYS.SIX]: `6개 일치 (2,000,000,000원) - ${count}개`,
+    };
 
-    return '';
+    if (!keyMessageMap[key]) return '';
+
+    return keyMessageMap[key];
   }
 }
 
