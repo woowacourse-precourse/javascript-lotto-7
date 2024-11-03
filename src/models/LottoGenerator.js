@@ -32,18 +32,18 @@ export default class LottoGenerator {
   }
 
   #validtePurchasePrice(purchasePrice) {
-    this.#checkPositiveNumber(purchasePrice);
+    this.#checkMinimumPrice(purchasePrice);
     this.#checkLottoPriceUnit(purchasePrice);
   }
 
-  #checkPositiveNumber(purchasePrice) {
-    if (purchasePrice <= 0) {
-      throw new Error(ERROR_MESSAGE.LOTTO_GENERATOR.INVALID_POSITIVE_NUMBER);
+  #checkMinimumPrice(purchasePrice) {
+    if (purchasePrice < LOTTO_CONFIG.LOTTO_PRICE) {
+      throw new Error(ERROR_MESSAGE.LOTTO_GENERATOR.INVALID_MINIMUM_PRICE);
     }
   }
 
   #checkLottoPriceUnit(purchasePrice) {
-    if (purchasePrice % LOTTO_CONFIG.LOTTO_PRICE !== 0) {
+    if (purchasePrice % LOTTO_CONFIG.LOTTO_PRICE) {
       throw new Error(ERROR_MESSAGE.LOTTO_GENERATOR.INVALID_LOTTO_PRICE_UNIT);
     }
   }

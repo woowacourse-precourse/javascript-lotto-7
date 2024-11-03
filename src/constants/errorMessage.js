@@ -12,6 +12,6 @@ export const ERROR_MESSAGE = Object.freeze({
   },
   LOTTO_GENERATOR: {
     INVALID_LOTTO_PRICE_UNIT: `[ERROR] 구매금액은 ${LOTTO_CONFIG.LOTTO_PRICE}원 단위여야합니다.`,
-    INVALID_POSITIVE_NUMBER: '[ERROR] 구매금액은 0보다 커야합니다.',
+    INVALID_MINIMUM_PRICE: `[ERROR] 구매금액은 ${LOTTO_CONFIG.LOTTO_PRICE}보다 커야합니다.`,
   },
 });
