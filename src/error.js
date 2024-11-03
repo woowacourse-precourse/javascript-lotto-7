@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE } from "../src/message.js";
 
+
 export function validateCost(cost) {
     if (isNaN(cost)) throw new Error(ERROR_MESSAGE.NOT_NUMBER);
     if (!Number.isInteger(cost)) throw new Error(ERROR_MESSAGE.NOT_INTEGER);
@@ -29,3 +30,4 @@ export function validatePickedBonusNumbers(userPickedBonusNumber, pickedNumbers)
   if (bonusNumber < 1 || bonusNumber > 45) throw new Error(ERROR_MESSAGE.OUT_OF_RANGE);
   if (pickedNumbers.includes(bonusNumber)) throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
 }
+
