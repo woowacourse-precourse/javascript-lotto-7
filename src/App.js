@@ -18,6 +18,9 @@ class App {
     const winningLotto = new WinningLotto();
     const winningNumbers = await InputView.readWinningNumbers();
     winningLotto.setWinningNumbers(winningNumbers);
+
+    const bonusNumber = await InputView.readBonusNumber();
+    winningLotto.setBonusNumber(bonusNumber);
   }
 }
 
