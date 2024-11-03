@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import purchaseLotto from "./purchaseLotto.js";
 import matchLotto from "./matchLotto.js";
+import printMatchResult from "./printMatchResult.js";
 
 class App {
   async run() {
@@ -17,7 +18,9 @@ class App {
     );
     const bonusNumber = Number(inputBonusNumber);
 
-    matchLotto(lottoList, winningNumbers, bonusNumber);
+    const matchCountList = matchLotto(lottoList, winningNumbers, bonusNumber);
+
+    printMatchResult(matchCountList);
   }
 }
 
