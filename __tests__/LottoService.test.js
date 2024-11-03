@@ -1,6 +1,5 @@
 import LottoService from '../src/services/LottoService.js';
 import { LOTTO_CONFIG } from '../src/constants/lottoConfig.js';
-import { ERRORS } from '../src/constants/errors.js';
 
 describe('LottoService 클래스 테스트', () => {
   describe('getWinningResult 메서드 테스트', () => {

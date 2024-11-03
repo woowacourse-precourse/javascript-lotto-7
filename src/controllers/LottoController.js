@@ -107,6 +107,7 @@ class LottoController {
       return bonusNumber;
     } catch (error) {
       this.#outputView.printError(error.message);
+      return this.#getBonusNumber(winningNumbers);
     }
   }
 
