@@ -24,7 +24,7 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
+const runException = async (...input) => {
   // given
   const logSpy = getLogSpy();
 
@@ -32,7 +32,7 @@ const runException = async (input) => {
   const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
 
   // when
   const app = new App();
@@ -91,7 +91,40 @@ describe('로또 테스트', () => {
     });
   });
 
-  test('예외 테스트', async () => {
-    await runException('1000j');
-  });
+  test.each([
+    {
+      description: '구매 금액이 0원일 때 에러를 콘솔에 출력한다.',
+      input: ['0'],
+    },
+    {
+      description: '구매 금액이 1000원으로 나누어 떨어지지 않을 때 에러를 콘솔에 출력한다.',
+      input: ['500'],
+    },
+    {
+      description: '당첨 번호가 6개가 아닌 경우 에러를 콘솔에 출력한다.',
+      input: ['1000', '1,2,3,4,5'],
+    },
+    {
+      description: '당첨 번호가 1~45 사이의 숫자가 아닌 경우 에러를 콘솔에 출력한다.',
+      input: ['1000', '1,2,3,4,5,46'],
+    },
+    {
+      description: '당첨 번호에 숫자가 아닌 값이 있으면 예외가 발생한다.',
+      input: ['1000', '1,2,3,4,5,;'],
+    },
+    {
+      description: '당첨 번호가 중복되는 경우 에러를 콘솔에 출력한다.',
+      input: ['1000', '1,1,2,3,4,5'],
+    },
+    {
+      description: '보너스 볼이 1~45 사이의 숫자가 아닌 경우 에러를 콘솔에 출력한다.',
+      input: ['1000', '1,2,3,4,5,6', '46'],
+    },
+    {
+      description: '보너스 볼이 당첨 번호와 중복되는 경우 에러를 콘솔에 출력한다.',
+      input: ['1000', '1,2,3,4,5,6', '6'],
+    },
+  ])('%description', async ({ input}) => {
+    await runException(input);
+  })
 });

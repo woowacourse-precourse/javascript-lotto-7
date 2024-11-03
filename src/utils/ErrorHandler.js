@@ -18,7 +18,7 @@ class ErrorHandler {
       try {
         return await callback();
       } catch {
-        return await callback();
+        return await ErrorHandler.createRetryLoop(callback)();
       }
     }
   }
