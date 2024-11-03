@@ -33,9 +33,10 @@ class User {
   async readWinningNumbers() {
     while (true) {
       try {
-        this.#winningNumbers = await Console.readLineAsync(
+        const input = await Console.readLineAsync(
           PROMPT_MESSAGE.WINNING_NUMBERS,
         );
+        this.#winningNumbers = input.split(',');
         return;
       } catch (error) {
         Console.print(error.message);
