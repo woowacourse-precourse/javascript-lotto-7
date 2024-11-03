@@ -13,11 +13,11 @@ async function getWinningNumbers(){
         is1to45(winningList);
     })
 
-    return winningList;
+    return string2Number(winningList);
 }
 
 function string2Number(numberList){
-    return numberList.map((number)=> parseInt(number));
+    return numberList.map((number)=> parseInt(number)); 
 }
 
 function isPositiveNumber(number){
