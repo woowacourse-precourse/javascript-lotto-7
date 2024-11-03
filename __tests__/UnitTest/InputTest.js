@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import ERROR from '../../src/constants/error';
+import ERROR from '../../src/constants/error.js';
 
 const mockQuestions = (input) => {
   Console.readLineAsync = jest.fn();
