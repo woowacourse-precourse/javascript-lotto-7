@@ -44,7 +44,9 @@ export class Simulator {
   }
 
   async #getPurchaseInfo() {
-    this.#purchaseAmount = await retryOnError(() => getPurchaseAmount(this.#validator));
+    this.#purchaseAmount = await retryOnError(() =>
+      getPurchaseAmount(this.#validator),
+    );
     this.#purchaseQuantity = calculateQuatity(this.#purchaseAmount);
   }
 
@@ -55,8 +57,12 @@ export class Simulator {
   }
 
   async #getWinningInfo() {
-    this.#winningNumber = await retryOnError(() => getWinningNumbers(this.#validator));
-    this.#bonusNumber = await retryOnError(() => getBonusNumber(this.#validator));
+    this.#winningNumber = await retryOnError(() =>
+      getWinningNumbers(this.#validator),
+    );
+    this.#bonusNumber = await retryOnError(() =>
+      getBonusNumber(this.#winningNumber, this.#validator),
+    );
     this.#publisher.setLottoNumber(this.#winningNumber, this.#bonusNumber);
   }
 
