@@ -9,13 +9,13 @@ class ProfitAnalyzer {
     this.#rateOfReturn = this.#calculateRateOfReturn(); 
   }
 
+  getRateOfReturn() {
+    return this.#rateOfReturn;
+  }
+
   #calculateRateOfReturn() {
     if (this.#purchaseAmount === 0) return 0;
     return (this.#totalPrize / this.#purchaseAmount) * 100;
-  }
-
-  getRateOfReturn() {
-    return this.#rateOfReturn;
   }
 }
 

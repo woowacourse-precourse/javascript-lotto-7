@@ -15,6 +15,18 @@ class LottoMachine {
     this.#lottoNumbers = this.#generateLottoNumbers();
   }
 
+  getLottoCount() {
+    return this.#lottoCount;
+  }
+
+  getLottoNumbers() {
+    return this.#lottoNumbers;
+  }
+
+  getPurchaseAmount() {
+    return this.#purchaseAmount;
+  }
+
   #validate(purchaseAmount) {
     validatePurchaseAmount(purchaseAmount);
   }
@@ -28,21 +40,13 @@ class LottoMachine {
   }
 
   #createValidatedLottoNumbers() {
-    const numbers = getSortedRandomNumbers(GAME_RULES.MIN_LOTTO_NUMBER, GAME_RULES.MAX_LOTTO_NUMBER, GAME_RULES.LOTTO_NUMBER_COUNT);
-    const lotto = new Lotto(numbers); 
-    return lotto.getNumbers(); 
-  }
-
-  getLottoCount() {
-    return this.#lottoCount;
-  }
-
-  getLottoNumbers() {
-    return this.#lottoNumbers;
-  }
-
-  getPurchaseAmount() {
-    return this.#purchaseAmount;
+    const numbers = getSortedRandomNumbers(
+      GAME_RULES.MIN_LOTTO_NUMBER,
+      GAME_RULES.MAX_LOTTO_NUMBER,
+      GAME_RULES.LOTTO_NUMBER_COUNT
+    );
+    const lotto = new Lotto(numbers);
+    return lotto.getNumbers();
   }
 }
 

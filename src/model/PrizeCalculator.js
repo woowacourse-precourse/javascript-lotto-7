@@ -19,12 +19,6 @@ class PrizeCalculator {
     return this.#statistics;
   }
 
-  #initializeStatistics() {
-    return Object.fromEntries(
-      Object.values(PRIZE_CRITERIA).map(({ rank }) => [rank, { count: 0, prize: 0 }])
-    );
-  }
-
   #calculateStatistics() {
     const statistics = this.#initializeStatistics();
     this.#results.forEach(result => {
@@ -32,6 +26,12 @@ class PrizeCalculator {
       if (matchedCriteria) this.#updateStatistics(statistics, matchedCriteria);
     });
     return statistics;
+  }
+
+  #initializeStatistics() {
+    return Object.fromEntries(
+      Object.values(PRIZE_CRITERIA).map(({ rank }) => [rank, { count: 0, prize: 0 }])
+    );
   }
 
   #getMatchedCriteria({ matchCount, isBonusMatched }) {
