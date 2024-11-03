@@ -9,7 +9,9 @@ class LottoController {
   static async start() {
     const purchaseAmount = await retry(() => this.getPurchaseAmount());
     const lottoStore = new LottoStore(purchaseAmount);
-    LottoView.PrintLottos(lottoStore.getCount(), lottoStore.getLottos());
+
+    LottoView.printCount(lottoStore.getCount());
+    LottoView.PrintLottos(lottoStore.getLottos());
 
     const winningNumbers = await retry(() => this.getWinningNumbers());
     const lotto = new Lotto(winningNumbers);
