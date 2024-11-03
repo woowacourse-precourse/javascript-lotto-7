@@ -1,3 +1,5 @@
+import { ERROR } from './constant.js';
+
 class Lotto {
   #numbers;
 
@@ -7,12 +9,36 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+    this.#validateWinningNumber(numbers);
   }
 
-  // TODO: 추가 기능 구현
+  #validRange(numberArray) {
+    return (
+      numberArray.length === 6 &&
+      numberArray.every((number) => number >= 1 && number <= 45)
+    );
+  }
+
+  #validFormat(numberArray) {
+    return numberArray.every((number) => !Number.isNaN(Number(number.trim())));
+  }
+
+  #validDuplication(numberArray) {
+    const uniqueNumbers = new Set(numberArray);
+    return uniqueNumbers.size === numberArray.length;
+  }
+
+  #validateWinningNumber(winningNumber) {
+    const numberArray = winningNumber.split(',');
+
+    if (
+      !this.#validRange(numberArray) ||
+      !this.#validFormat(numberArray) ||
+      !this.#validDuplication(numberArray)
+    ) {
+      throw Error(ERROR.message);
+    }
+  }
 }
 
 export default Lotto;
