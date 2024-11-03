@@ -1,3 +1,4 @@
+import asyncFunctionErrorHandler from '../utils/asyncFunctionErrorHandler.js';
 import BounsNumber from '../models/BonusNumber.js';
 import Lotto from '../models/Lotto.js';
 import Money from '../models/Money.js';
@@ -12,10 +13,10 @@ class LottoController {
   #bonusNumber;
 
   async run() {
-    await this.getLottoCount();
+    await asyncFunctionErrorHandler(this.getLottoCount, this);
     this.printLottos();
-    await this.getWinningNumbers();
-    await this.getBonusNumber();
+    await asyncFunctionErrorHandler(this.getWinningNumbers, this);
+    await asyncFunctionErrorHandler(this.getBonusNumber, this);
     this.printWinningStatincs();
   }
 
