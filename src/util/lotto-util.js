@@ -1,6 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
 import Prize from "../Prize.js";
-import { CONSTANT_LOTTO, NUMBERS, } from "./const.js";
+import { CONSTANT_LOTTO, NUMBERS, PRIZE_AMOUNT, } from "./const.js";
 import EXECUTE_MESSAGE from "./messages/execute-message.js";
 import { print, printEmptyLine } from "./io.js";
 import { getRate } from "./util.js";
@@ -78,9 +78,9 @@ const calculateTotalRate = (lottoCount) => {
 };
 
 const matchingNumbers = {
-  ThreeMatch: new Prize(3, 5000, false),
-  FourMatch: new Prize(4, 50000, false),
-  FiveMatch: new Prize(5, 1500000, false),
-  FiveBonusMatch: new Prize(5, 30000000, true),
-  SixMatch: new Prize(6, 2000000000, false),
+  ThreeMatch: new Prize(NUMBERS.THREE, PRIZE_AMOUNT.THREE, false),
+  FourMatch: new Prize(NUMBERS.FOUR, PRIZE_AMOUNT.FOUR, false),
+  FiveMatch: new Prize(NUMBERS.FIVE, PRIZE_AMOUNT.FIVE, false),
+  FiveBonusMatch: new Prize(NUMBERS.FIVE, PRIZE_AMOUNT.FIVE_BONUS, true),
+  SixMatch: new Prize(NUMBERS.SIX, PRIZE_AMOUNT.SIX, false),
 };

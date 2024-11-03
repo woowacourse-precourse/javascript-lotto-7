@@ -1,4 +1,5 @@
 import Validate from "./Validate.js";
+import { CONSTANT_LOTTO } from './util/const.js';
 
 class Price {
   #price;
@@ -13,7 +14,7 @@ class Price {
   }
 
   get lottoCount() {
-    return this.#price / 1000;
+    return this.#price / CONSTANT_LOTTO.PRICE;
   }
 }
 

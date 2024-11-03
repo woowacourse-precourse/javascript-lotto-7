@@ -1,5 +1,6 @@
 import { print } from "./util/io.js";
 import EXECUTE_MESSAGE from "./util/messages/execute-message.js";
+import { NUMBERS } from './util/const.js';
 
 class Prize {
   #matchingNumber;
@@ -10,7 +11,7 @@ class Prize {
     this.#matchingNumber = matchingNumber;
     this.#price = price;
     this.#isBonus = isBonus;
-    this.#count = 0;
+    this.#count = NUMBERS.ZERO;
   }
 
   printResult() {

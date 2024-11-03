@@ -15,3 +15,11 @@ export const NUMBERS = Object.freeze({
   SIX: 6,
   HUNDRED: 100,
 });
+
+export const PRIZE_AMOUNT = Object.freeze({
+  THREE: 5000,
+  FOUR: 50000,
+  FIVE: 1500000,
+  FIVE_BONUS: 30000000,
+  SIX: 2000000000,
+});
