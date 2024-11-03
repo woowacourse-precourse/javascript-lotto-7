@@ -53,6 +53,7 @@ class App {
 
   convertToWinningNumber(stringWinningNumber) {
     this.#validateWinningNumberIsNumber(stringWinningNumber);
+    this.#validateWinningNumberRange(stringWinningNumber);
 
     const winningNumber = Convert.toNumber(stringWinningNumber);
 
@@ -112,6 +113,11 @@ class App {
 
   #validateWinningNumberIsNumber(winningNumber) {
     if (!Validate.number(winningNumber)) throw new Error(ERROR_MESSAGE.WINNING_NUMBER_IS_NOT_NUMBER);
+  }
+
+  #validateWinningNumberRange(winningNumber) {
+    if (!Validate.range(winningNumber, LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER))
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBERS_IS_NOT_LOTTO_RANGE);
   }
 }
 

@@ -6,6 +6,10 @@ class Validate {
   static integer(number) {
     return Number.isInteger(number);
   }
+
+  static range(value, min, max) {
+    return min <= value && value <= max;
+  }
 }
 
 export default Validate;
