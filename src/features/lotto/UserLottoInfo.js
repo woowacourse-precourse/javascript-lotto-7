@@ -15,7 +15,5 @@ export class UserLottoInfo {
     return this.#lottoCount;
   }
 
-  createLotto() {
-    Console.print(this.#lottoCount);
-  }
+  createLotto() {}
 }
