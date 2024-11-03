@@ -23,7 +23,7 @@ class App {
     );
     LottoOutputWriter.printWinningResults(winningResult);
 
-    const totalYield = LottoRevenueCalculator.cal(
+    const totalYield = LottoRevenueCalculator.calculateYield(
       lottoPurchaseAmount,
       winningResult
     );

@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class LottoInputReader {
   static async readLottoPurchaseAmount() {
@@ -10,16 +11,20 @@ class LottoInputReader {
 
   static async readWinningNumbers() {
     const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    const winningNumber = input
-      .split(',')
-      .map(Number)
-      .sort((a, b) => a - b);
+    const winningNumber = new Lotto(
+      input
+        .split(',')
+        .map(Number)
+        .sort((a, b) => a - b)
+    );
 
     return winningNumber;
   }
 
   static async readBonusNumber() {
-    const input = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const input = await Console.readLineAsync(
+      '\n보너스 번호를 입력해 주세요.\n'
+    );
     const bonusNumber = Number(input);
 
     return bonusNumber;
