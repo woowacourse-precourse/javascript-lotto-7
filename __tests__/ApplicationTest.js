@@ -42,29 +42,39 @@ const runException = async (input) => {
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
 };
 
-describe('금액 입력 테스트', () => {
+describe("금액 입력 테스트", () => {
   let app;
 
   beforeEach(() => {
     app = new App();
-  });
-  
-  test('금액이 1000단위가 아님',() => {
-    expect(() => {
-      app.validateMoney(1500)
-    }).toThrow('[Error] 1000 이하의 단위는 입력할 수 없습니다!');
+    jest.restoreAllMocks();
   });
 
-  test('숫자외 값을 입력',() => {
-    expect(() => {
-      app.validateMoney('hello')
-    }).toThrow('[Error] 숫자가 아닌 값을 입력할 수 없습니다!');
+  test("숫자가 아닌 값을 입력했을 때 에러 메시지 출력", async () => {
+    mockQuestions(["hello", "3000"]);
+    const logSpy = getLogSpy();
+
+    await app.validateMoney();
+
+    expect(logSpy).toHaveBeenCalledWith("[Error] 숫자가 아닌 값을 입력할 수 없습니다!");
   });
 
-  test('음수를 입력',() => {
-    expect(() => {
-      app.validateMoney(-1000)
-    }).toThrow('[Error] 음수는 입력할 수 없습니다!');
+  test("1000의 배수가 아닌 값을 입력했을 때 에러 메시지 출력", async () => {
+    mockQuestions(["1500", "3000"]);
+    const logSpy = getLogSpy();
+
+    await app.validateMoney();
+
+    expect(logSpy).toHaveBeenCalledWith("[Error] 1000 이하의 단위는 입력할 수 없습니다!");
+  });
+
+  test("음수를 입력했을 때 에러 메시지 출력", async () => {
+    mockQuestions(["-1000", "3000"]);
+    const logSpy = getLogSpy();
+
+    await app.validateMoney();
+
+    expect(logSpy).toHaveBeenCalledWith("[Error] 음수는 입력할 수 없습니다!");
   });
 });
 
