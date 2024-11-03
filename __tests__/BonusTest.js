@@ -1,4 +1,4 @@
-import Bonus from "../src/model/Bonus";
+import Bonus from "../src/Model/Bonus.js";
 describe("보너스 번호 클래스 테스트", () => {
     test("보너스 번호가 한 개가 아니면 예외가 발생한다.", () => {
         expect(() => {

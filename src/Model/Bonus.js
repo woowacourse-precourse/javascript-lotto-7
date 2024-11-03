@@ -1,5 +1,5 @@
-import LOTTO_CONSTANT from "../utils/constant.js";
-import { ERROR_MESSAGES } from "../utils/message.js";
+import LOTTO_CONSTANT from "../Utils/constant.js";
+import { ERROR_MESSAGES } from "../Utils/message.js";
 
 class Bonus {
     #number;

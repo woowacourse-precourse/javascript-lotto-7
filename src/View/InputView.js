@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GAME_MESSAGES } from "../utils/message.js";
+import { GAME_MESSAGES } from "../Utils/message.js";
 
 class Input {
   constructor() {}

@@ -1,13 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
-import LottoGame from "./controller/LottoGameController.js";
-import CreateModel from "./model/CreateModel.js";
-import Input from "./view/InputView.js";
-import Output from "./view/OutputView.js";
-import MyLotto from "./model/MyLotto.js";
-import Result from "./model/Result.js";
+import LottoGame from "./Controller/LottoGameController.js";
+import CreateModel from "./Model/CreateModel.js";
+import Input from "./View/InputView.js";
+import Output from "./View/OutputView.js";
+import MyLotto from "./Model/MyLotto.js";
+import Result from "./Model/Result.js";
 
 class App {
-  async play() {
+  async run() {
     const createModel = new CreateModel();
     const input = new Input();
     const output = new Output();

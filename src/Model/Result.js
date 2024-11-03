@@ -1,4 +1,4 @@
-import LOTTO_CONSTANT from "../utils/constant.js";
+import LOTTO_CONSTANT from "../Utils/constant.js";
 
 class Result {
   constructor() {

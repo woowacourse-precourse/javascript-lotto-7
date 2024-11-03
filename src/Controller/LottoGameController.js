@@ -1,4 +1,4 @@
-import { GAME_MESSAGES } from "../utils/message.js";
+import { GAME_MESSAGES } from "../Utils/message.js";
 
 class LottoGame {
     constructor(createModel, input, output, myLotto, result) {
