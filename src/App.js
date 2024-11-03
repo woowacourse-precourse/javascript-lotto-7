@@ -1,23 +1,23 @@
 import { Console } from '@woowacourse/mission-utils';
 import ReturnRateCalculator from './ReturnRateCalculator.js';
-import LottoManager from './lottoManager.js';
+import LottoController from './LottoController.js';
 
 class App {
-  #lottoManager;
+  #lottoController;
   #returnRateCalculator;
 
   constructor() {
-    this.#lottoManager = new LottoManager();
+    this.#lottoController = new LottoController();
     this.#returnRateCalculator = new ReturnRateCalculator();
   }
 
   async run() {
     try {
-      const purchaseAmount = await this.#lottoManager.getPurchaseAmount();
-      this.#lottoManager.createLottoNumbers(purchaseAmount);
-      const winningNumbers = await this.#lottoManager.getWinningNumbers();
-      const matchResult = this.#lottoManager.getMatchResult(winningNumbers);
-      this.#lottoManager.printLog(matchResult);
+      const purchaseAmount = await this.#lottoController.getPurchaseAmount();
+      this.#lottoController.createLottoNumbers(purchaseAmount);
+      const winningNumbers = await this.#lottoController.getWinningNumbers();
+      const matchResult = this.#lottoController.getMatchResult(winningNumbers);
+      this.#lottoController.printLog(matchResult);
 
       const returnRate = this.#returnRateCalculator.calculateReturnRate(matchResult, purchaseAmount);
 
