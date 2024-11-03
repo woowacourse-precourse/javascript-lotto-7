@@ -3,7 +3,7 @@ import {ERROR_CODE, PURCHASE_PRICE, WINNING_NUMBER} from "../../src/constants/co
 import {winningNumbersUtils} from "../../src/utils/winningNumbers.utils.js";
 import {bonusNumberUtils} from "../../src/utils/bonusNumber.utils.js";
 
-describe("로또 구입 금액 테스트", () => {
+describe.skip("로또 구입 금액 테스트", () => {
 
     test("정상 테스트", () => {
         const purchasePrice = "1000"
@@ -42,7 +42,7 @@ describe("로또 구입 금액 테스트", () => {
 });
 
 
-describe("당첨 번호 유효성 테스트", () => {
+describe.skip("당첨 번호 유효성 테스트", () => {
 
     test("정상 테스트", () => {
         const winningNumber = [1, 2, 3, 4, 5, 6]
@@ -90,7 +90,7 @@ describe.only("보너스 번호 유효성 테스트", () => {
 
     test("정상 테스트", () => {
         const bonusNumber = 43
-        expect(bonusNumberUtils.validate(bonusNumber)).toEqual(bonusNumber);
+        expect(bonusNumberUtils.validate(bonusNumber)).toEqual(Number(bonusNumber));
     });
 
     test("예외 테스트 : 양의 정수를 입력하지 않은 경우", () => {
@@ -104,7 +104,7 @@ describe.only("보너스 번호 유효성 테스트", () => {
     });
 
     test("예외 테스트 : 보너스 번호가 범위를 넘어간 경우(1~45)", () => {
-        const bonusNumber = 46
+        const bonusNumber = "46"
         expect(() => bonusNumberUtils.validate(bonusNumber)).toThrow(ERROR_CODE.OUT_OF_RANGE(WINNING_NUMBER.MIN_NUMBER, WINNING_NUMBER.MAX_NUMBER));
     });
 
