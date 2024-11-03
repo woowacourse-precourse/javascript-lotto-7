@@ -78,6 +78,49 @@ class LottoApp {
   parseWinningNumbers(input) {
     return input.split(",").map((num) => Number(num.trim()));
   }
+
+  async promptBonusNumber(winningLotto) {
+    try {
+      const input = await MissionUtils.Console.readLineAsync(
+        MESSAGES.BONUS_NUMBER_PROMPT
+      );
+      const bonusNumber = this.parseBonusNumber(input);
+      this.validateBonusNumber(bonusNumber, winningLotto.getNumbers());
+      return bonusNumber;
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+      return this.promptBonusNumber(winningLotto);
+    }
+  }
+
+  parseBonusNumber(input) {
+    const number = Number(input.trim());
+    this.checkBonusNumberType(number);
+    return number;
+  }
+
+  checkBonusNumberType(number) {
+    if (isNaN(number)) {
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_TYPE);
+    }
+  }
+
+  validateBonusNumber(bonusNumber, winningNumbers) {
+    this.checkBonusNumberRange(bonusNumber);
+    this.checkBonusNumberDuplication(bonusNumber, winningNumbers);
+  }
+
+  checkBonusNumberRange(bonusNumber) {
+    if (bonusNumber < LOTTO_NUMBERS.MIN || bonusNumber > LOTTO_NUMBERS.MAX) {
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
+    }
+  }
+
+  checkBonusNumberDuplication(bonusNumber, winningNumbers) {
+    if (winningNumbers.includes(bonusNumber)) {
+      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
+    }
+  }
 }
 
 export default LottoApp;

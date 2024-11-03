@@ -6,7 +6,8 @@ class App {
     const lottoApp = new LottoApp();
     const amount = await lottoApp.promptPurchaseAmount();
     lottoApp.purchaseLottos(amount);
-    const winningNumber = await lottoApp.promptWinningNumbers();
+    const winningLotto = await lottoApp.promptWinningNumbers();
+    const bonusNumber = await lottoApp.promptBonusNumber(winningLotto);
   }
 }
 

@@ -63,4 +63,34 @@ describe("LottoApp 클래스 테스트", () => {
       expect(num).toBeLessThanOrEqual(LOTTO_NUMBERS.MAX);
     });
   });
+
+  test("보너스 번호가 숫자가 아닐 경우 예외가 발생한다.", () => {
+    expect(() => {
+      lottoApp.checkBonusNumberType("a");
+    }).toThrow(ERROR_MESSAGES.INVALID_BONUS_NUMBER_TYPE);
+  });
+
+  test("보너스 번호가 유효한 범위를 벗어날 경우 예외가 발생한다.", () => {
+    expect(() => {
+      lottoApp.checkBonusNumberRange(0);
+    }).toThrow(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
+
+    expect(() => {
+      lottoApp.checkBonusNumberRange(46);
+    }).toThrow(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
+  });
+
+  test("보너스 번호가 당첨 번호와 중복될 경우 예외가 발생한다.", () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    expect(() => {
+      lottoApp.checkBonusNumberDuplication(3, winningNumbers);
+    }).toThrow(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
+  });
+
+  test("보너스 번호가 1에서 45 사이의 유효한 번호이고 당첨 번호와 중복되지 않으면 예외가 발생하지 않는다.", () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    expect(() => {
+      lottoApp.validateBonusNumber(7, winningNumbers);
+    }).not.toThrow();
+  });
 });

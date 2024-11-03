@@ -6,6 +6,10 @@ export const ERROR_MESSAGES = {
   DUPLICATE_WINNING_NUMBER: "[ERROR] 로또 번호에 중복된 숫자가 있습니다.",
   INVALID_WINNING_NUMBER_RANGE:
     "[ERROR] 로또 번호는 1에서 45 사이의 숫자여야 합니다.",
+  INVALID_BONUS_NUMBER_TYPE: "[ERROR] 보너스 번호는 숫자여야 합니다.",
+  INVALID_BONUS_NUMBER_RANGE: "[ERROR] 보너스 번호는 1에서 45 사이여야 합니다.",
+  DUPLICATE_BONUS_NUMBER:
+    "[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.",
 };
 
 export const LOTTO_PRICE = 1000;
@@ -14,6 +18,7 @@ export const MESSAGES = {
   PURCHASE_AMOUNT_PROMPT: "구입 금액을 입력해 주세요.\n",
   LOTTO_PURCHASED: "개를 구매했습니다.",
   WINNING_NUMBER_PROMPT: "\n당첨 번호를 입력해 주세요.\n",
+  BONUS_NUMBER_PROMPT: "\n보너스 번호를 입력해 주세요.\n",
 };
 
 export const LOTTO_NUMBERS = {
