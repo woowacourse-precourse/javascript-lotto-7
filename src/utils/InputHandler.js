@@ -3,20 +3,20 @@ import { Validator } from "../features/validator/Validator.js";
 import { getInput, printOneLine } from "./console.js";
 
 export class InputHandler {
-  static async tryUserInput(helperMessages, validator) {
+  static async #tryUserInput(helperMessages, validator) {
     try {
       const userInput = await getInput(helperMessages);
       validator(userInput);
-      return userInput;
+      return Number(userInput);
     } catch (error) {
       printOneLine(error.message);
-      return this.tryUserInput(helperMessages, validator);
+      return this.#tryUserInput(helperMessages, validator);
     }
   }
 
-  static getPrice() {
+  static async getPrice() {
     const helperMessages = HELPER_MESSAGE.getPrice;
     const validator = Validator.isValidPrice;
-    return this.tryUserInput(helperMessages, validator);
+    return await this.#tryUserInput(helperMessages, validator);
   }
 }
