@@ -9,7 +9,7 @@ import {
 	PRIZE_MAP,
 	PROMPT,
 } from "./constant.js";
-import { printOutput, randomNumbersInRange } from "./missionUtils.js";
+import { randomNumbersInRange } from "./missionUtils.js";
 
 class App {
 	constructor() {
