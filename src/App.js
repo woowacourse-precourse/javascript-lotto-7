@@ -7,9 +7,7 @@ class App {
       try {
         const MONEY = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
         
-        this.checkIsNumber(MONEY);
-        this.checkIsPositive(MONEY);
-        this.checkIsThousandUnit(MONEY);
+        this.checkIsValidateMoney(MONEY);
 
         return MONEY;
       } 
@@ -19,25 +17,21 @@ class App {
     }
   }
 
-  checkIsNumber(money) {
+  checkIsValidateMoney(money) {
     if (isNaN(money)) {
       throw new Error('[Error] 숫자가 아닌 값을 입력할 수 없습니다!');
     }
-  }
 
-  checkIsPositive(money) {
     if (money < 0) {
       throw new Error('[Error] 음수는 입력할 수 없습니다!');
     }
-  }
 
-  checkIsThousandUnit(money) {
     if (money % 1000 !== 0) {
       throw new Error('[Error] 1000 보다 적은 단위는 입력할 수 없습니다!');
     }
-  }
 
-  
+    return money;
+  }  
 
   async run() {
     try {
