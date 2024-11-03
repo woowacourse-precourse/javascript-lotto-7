@@ -17,7 +17,7 @@ describe("input test", () => {
     );
     expect(() => p1.parseMoney("가")).toThrow(ERROR_MESSAGE_MONEY_INPUT.nan);
     expect(() => p1.parseMoney("11.4")).toThrow(
-      ERROR_MESSAGE_MONEY_INPUT.notInteger
+      ERROR_MESSAGE_MONEY_INPUT.nonInteger
     );
   });
   test("parseJackpot() test", () => {
@@ -34,7 +34,7 @@ describe("input test", () => {
       ERROR_MESSAGE_JACKPOT_INPUT.duplicated
     );
     expect(() => p1.parseJackpot("11.4,13,17,24,36,43")).toThrow(
-      ERROR_MESSAGE_JACKPOT_INPUT.notInteger
+      ERROR_MESSAGE_JACKPOT_INPUT.nonInteger
     );
     expect(() => p1.parseJackpot("1,11,-13,24,36,44")).toThrow(
       ERROR_MESSAGE_JACKPOT_INPUT.outOfBound
@@ -64,7 +64,7 @@ describe("input test", () => {
     );
     expect(() => p1.parseBonus("가")).toThrow(ERROR_MESSAGE_BONUS_INPUT.nan);
     expect(() => p1.parseBonus("13.5")).toThrow(
-      ERROR_MESSAGE_BONUS_INPUT.notInteger
+      ERROR_MESSAGE_BONUS_INPUT.nonInteger
     );
     expect(() => p1.parseBonus("-13.5")).toThrow(
       ERROR_MESSAGE_BONUS_INPUT.nonPositive
