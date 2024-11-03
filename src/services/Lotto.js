@@ -1,4 +1,5 @@
 import {MATCH_COUNTER} from "../constants/objects.js";
+import {calculateAmount, findKeyToIncrease, toObjectValueArr} from "../utils/objectUtils.js";
 
 class Lotto {
     #numbers;
@@ -14,33 +15,23 @@ class Lotto {
         }
     }
 
-    setStats(lottos, bonusNum) { //2 차원 배열
+    recordStats(lottos, bonusNum) { //2 차원 배열
         for (const lotto of lottos) {
             const matchCnt = this.countMatches(lotto)
-            const foundKey = this.findKeyToIncrease(matchCnt)
-            foundKey && (MATCH_COUNTER[foundKey] += 1)
+            const foundKey = findKeyToIncrease(matchCnt)
+            foundKey && (MATCH_COUNTER[foundKey].cnt += 1)
             if (matchCnt === 5 && lotto.includes(bonusNum)) {
-                MATCH_COUNTER.five -= 1
-                MATCH_COUNTER.bonus += 1
+                MATCH_COUNTER.five.cnt -= 1
+                MATCH_COUNTER.bonus.cnt += 1
             }
         }
-        return MATCH_COUNTER
     }
 
-    findKeyToIncrease(matchCnt) {
-        switch (matchCnt) {
-            case 3:
-                return "three"
-            case 4:
-                return "four"
-            case 5:
-                return "five"
-            case 6:
-                return "six"
-            default:
-                return null
-        }
+    calculateYield(purchaseAmount) {
+        return (calculateAmount(toObjectValueArr(MATCH_COUNTER)) / purchaseAmount * 100)
+            .toFixed(2)
     }
+
 
     countMatches(lotto) {
         let matchCnt = 0
