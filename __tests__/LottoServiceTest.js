@@ -27,4 +27,22 @@ describe("LottoService 클래스 테스트", () => {
       match_3: 0,
     });
   });
+
+  test("최종 수익을 구할 수 있다.", () => {
+    const lottos = [new Lotto([1, 3, 5, 7, 9, 10]), new Lotto([1, 3, 4, 5, 7, 9])];
+    const lottoMatchChecker = new LottoMatchChecker(4, [1, 3, 5, 7, 9, 10]);
+    const lottoService = new LottoService(lottoMatchChecker, lottos);
+    const winningStats = lottoService.getWinningStats();
+
+    expect(lottoService.calculateTotalProfit(winningStats)).toBe(2030000000);
+  });
+
+  test("최종 수익률을 구할 수 있다.", () => {
+    const lottos = [new Lotto([1, 3, 5, 7, 9, 10]), new Lotto([1, 3, 4, 5, 7, 9])];
+    const lottoMatchChecker = new LottoMatchChecker(4, [1, 3, 5, 7, 9, 10]);
+    const lottoService = new LottoService(lottoMatchChecker, lottos);
+    const winningStats = lottoService.getWinningStats();
+
+    expect(lottoService.calculateProfitMargin(1000, winningStats)).toBe("1015000.0");
+  });
 });
