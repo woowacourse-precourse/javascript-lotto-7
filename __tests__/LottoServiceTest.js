@@ -25,6 +25,7 @@ describe('로또 서비스 User Lotto 생성 테스트', () => {
   let lottoService;
 
   beforeEach(() => {
+    jest.restoreAllMocks();
     lottoService = new LottoService();
   });
 

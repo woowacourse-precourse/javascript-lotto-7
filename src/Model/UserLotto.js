@@ -3,15 +3,13 @@ import { PURCHASE_AMOUNT_RANGE, LOTTO_PRICE, ERROR_MSG } from '../constants/cons
 import { checkRange } from '../util/util.js';
 import Lotto from './Lotto.js';
 
-export default class userLotto {
+export default class UserLotto {
   #count;
   #lottoList = [];
 
   constructor(purchasedAmount) {
     this.#validate(purchasedAmount);
-
     this.#count = purchasedAmount / LOTTO_PRICE;
-    this.#draw();
   }
 
   getNumbers() {
@@ -28,7 +26,7 @@ export default class userLotto {
     return this.#count * LOTTO_PRICE;
   }
 
-  #draw() {
+  draw() {
     for (let i = 0; i < this.#count; i += 1) {
       const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
       this.#lottoList.push(new Lotto(numbers));

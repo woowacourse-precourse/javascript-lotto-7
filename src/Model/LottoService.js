@@ -18,6 +18,7 @@ export default class LottoService {
 
   setUserLotto(price) {
     this.#userLotto = new UserLotto(price);
+    this.#userLotto.draw();
   }
 
   setWinningNumber(numbers) {
