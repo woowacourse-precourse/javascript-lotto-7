@@ -22,7 +22,7 @@ const printResult = (resultCount, earningRate) => {
   Console.print("\n당첨 통계\n---");
   for (let i = 4; i >= 0; i--) {
     if (i == 1) {
-      Console.print(`${matchNum[i]}개 일치, 보너스 볼 일치 (${prize[i].toLocaleString()}원) - ${resultCoun[i]}개`);
+      Console.print(`${matchNum[i]}개 일치, 보너스 볼 일치 (${prize[i].toLocaleString()}원) - ${resultCount[i]}개`);
       continue;
     }
     Console.print(`${matchNum[i]}개 일치 (${prize[i].toLocaleString()}원) - ${resultCount[i]}개`);

@@ -76,17 +76,13 @@ class LottoMachine {
     if (numbers.length !== 6) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }
-    for (let i = 0; i < numbers.length; i++) {
-      if (isNaN(numbers[i])) {
-        throw new Error('[ERROR] 로또 번호는 숫자여야 합니다.');
-      }
-      if (numbers[i] < 1 || numbers[i] > 45) {
-        throw new Error('[ERROR] 로또 번호의 범위는 1~45까지입니다.');
-      }
+    if (numbers.filter((num) => isNaN(num)).length > 0) {
+      throw new Error('[ERROR] 로또 번호는 숫자여야 합니다.');
     }
-    if (
-      numbers.filter((num, index) => numbers.indexOf(num) !== index).length > 0
-    ) {
+    if (numbers.filter((num) => num < 1 || num > 45).length > 0) {
+      throw new Error('[ERROR] 로또 번호의 범위는 1~45까지입니다.');
+    }
+    if (numbers.filter((num, index) => numbers.indexOf(num) !== index).length > 0) {
       throw new Error('[ERROR] 로또 번호는 중복이 없어야 합니다.');
     }
   }
