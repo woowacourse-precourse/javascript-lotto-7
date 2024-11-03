@@ -8,12 +8,8 @@ const outputView = {
 
   printLotto: (lottos) => {
     const lottoNumbers = lottos.map((lotto) => lotto.getNumbers());
-    const numbersToString = lottoNumbers.map((numbers) =>
-      numbers.join(OUTPUT_VIEW.numberSeparator),
-    );
-
-    numbersToString.forEach((numbers) => {
-      Console.print(OUTPUT_VIEW.lotto(numbers));
+    lottoNumbers.forEach((numbers) => {
+      Console.print(numbers);
     });
   },
 

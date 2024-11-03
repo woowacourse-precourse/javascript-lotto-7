@@ -43,7 +43,6 @@ export const INPUT_VIEW = {
 
 export const OUTPUT_VIEW = {
   purchaseAmount: (amount) => `${amount}개를 구매했습니다.`,
-  lotto: (numbersFormation) => `[${numbersFormation}]`,
   statisticsHeader: '당첨 통계',
   separatingMark: '---',
   winningStatistics: (numbersOfMatched, matchingCount, prize) =>
