@@ -7,7 +7,7 @@ export class InputHandler {
     try {
       const userInput = await getInput(helperMessages);
       validator(userInput);
-      return Number(userInput);
+      return userInput;
     } catch (error) {
       printOneLine(error.message);
       return this.#tryUserInput(helperMessages, validator);
@@ -17,12 +17,13 @@ export class InputHandler {
   static async getPrice() {
     const helperMessages = HELPER_MESSAGE.getPrice;
     const validator = Validator.isValidPrice;
-    return await this.#tryUserInput(helperMessages, validator);
+    const price = await this.#tryUserInput(helperMessages, validator);
+    return Number(price);
   }
 
   static async getWinningNumbers() {
     const helperMessages = HELPER_MESSAGE.getWinningNumbers;
-    //TODO : Validator 추가
-    return await this.#tryUserInput(helperMessages);
+    const validator = Validator.isValidWinningNumbers;
+    return await this.#tryUserInput(helperMessages, validator);
   }
 }

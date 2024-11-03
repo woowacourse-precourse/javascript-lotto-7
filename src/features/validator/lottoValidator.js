@@ -11,4 +11,9 @@ const isValidUnit = (unit, value) => {
   return true;
 };
 
-export { isNumber, isValidUnit };
+const isNotNull = (value) => {
+  if (!value) errorHandler(ERROR_MESSAGE.string.notNull);
+  return true;
+};
+
+export { isNumber, isValidUnit, isNotNull };
