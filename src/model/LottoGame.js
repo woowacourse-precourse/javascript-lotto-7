@@ -58,10 +58,14 @@ class LottoGame {
     }
   }
 
-  /** @param {number} bonusNumber */
-  static validateBonusNumber(bonusNumber) {
+  /**
+   * @param {number} bonusNumber
+   * @param {number[]} winningNumbers
+   */
+  static validateBonusNumber(bonusNumber, winningNumbers) {
     LottoGame.#validateBonusNumberType(bonusNumber);
     LottoGame.#validateBonusNumberRange(bonusNumber);
+    LottoGame.#validateBonusNumberInWinningNumbers(bonusNumber, winningNumbers);
   }
 
   /** @param {number} bonusNumber */
@@ -77,6 +81,18 @@ class LottoGame {
 
     if (!LottoValidator.isInRange(bonusNumber)) {
       throw new Exception(`보너스 번호는 ${MIN}에서 ${MAX}사이여야 합니다.`);
+    }
+  }
+
+  /**
+   * @param {number} bonusNumber
+   * @param {number[]} winningNumbers
+   */
+  static #validateBonusNumberInWinningNumbers(bonusNumber, winningNumbers) {
+    const numbers = new Set(winningNumbers);
+
+    if (numbers.has(bonusNumber)) {
+      throw new Exception('보너스 번호는 당첨 번호와 중복될 수 없습니다.');
     }
   }
 }
