@@ -76,6 +76,13 @@ describe("금액 입력 테스트", () => {
 
     expect(logSpy).toHaveBeenCalledWith("[Error] 음수는 입력할 수 없습니다!");
   });
+
+  test("유효한 금액을 입력했을 때 해당 값이 반환", async () => {
+    mockQuestions(["3000"]);
+    const result = await app.validateMoney();
+
+    expect(result).toBe("3000");
+  });
 });
 
 describe('로또 테스트', () => {
