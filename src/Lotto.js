@@ -2,6 +2,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const LOTTO_NUMBER_MIN = 1;
 const LOTTO_NUMBER_MAX = 45;
 const LOTTO_NUMBER_COUNT = 6;
+const SECOND_PRIZE = ["2등", 30000000];
+const FOURTH_PRIZE = ["4등", 50000];
+const FIFTH_PRIZE = ["5등", 5000];
+const NO_PRIZE = ["꽝", 0];
 
 class Lotto {
   #numbers;
@@ -45,6 +49,17 @@ class Lotto {
       }
     });
     return [score, bonus];
+  }
+
+  static getResult(scoreObj) {
+    const score = scoreObj[0];
+    const bonus = scoreObj[1];
+    if (score === 6) return FIRST_PRIZE;
+    else if (score === 5 && bonus) return SECOND_PRIZE;
+    else if (score === 5) return THIRD_PRIZE;
+    else if (score === 4) return FOURTH_PRIZE;
+    else if (score === 3) return FIFTH_PRIZE;
+    else return NO_PRIZE;
   }
 }
 
