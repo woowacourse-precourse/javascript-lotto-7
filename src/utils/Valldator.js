@@ -46,6 +46,10 @@ class Validator {
     if (new Set(value).size != value.length)
       throw new Error(`${ERROR_PREFIX} 중복된 값이 존재합니다.`);
   }
+
+  static isNotIncludeList(value, array) {
+    if (array.includes(value)) throw new Error(`${ERROR_PREFIX} 중복된 값을 활용할 수 없습니다.`);
+  }
 }
 
 export default Validator;
