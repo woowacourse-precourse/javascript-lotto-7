@@ -16,9 +16,14 @@ class Lotto {
         await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
       Console.print('');
 
-      Lotto.validateLottoNumbers(lottoNumbers);
+      const lottoNumberArray = lottoNumbers
+        .split(',')
+        .map((num) => num.trim())
+        .map(Number);
 
-      return lottoNumbers.map(Number);
+      Lotto.validateLottoNumbers(lottoNumberArray);
+
+      return lottoNumberArray.map(Number);
     } catch (error) {
       Console.print(error.message);
       return this.createLottoWithInput();
