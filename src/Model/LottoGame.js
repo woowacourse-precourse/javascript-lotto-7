@@ -26,7 +26,7 @@ class LottoGame {
 
   printLottos() {
     this.#lottos.forEach((lotto) => {
-      Console.print(lotto);
+      Console.print(`[${lotto.join(', ')}]`);
     });
     Console.print('');
   }
