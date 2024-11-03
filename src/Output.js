@@ -6,6 +6,10 @@ class Output {
 		printOutput(PROMPT.LOTTO_COUNT(lottoCount));
 	}
 
+	async printLottoNumbers(lottos) {
+		printOutput(PROMPT.LOTTO_NUMBERS(lottos));
+	}
+
 	async printWinningCount(winningMap) {
 		printOutput(PROMPT.LOTTO_WINNING_COUNT(winningMap));
 	}

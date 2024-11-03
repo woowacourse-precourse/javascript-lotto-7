@@ -36,7 +36,10 @@ class App {
 		this.getWinningCount(winningNumber, lottoNumbers, bonusNumber);
 
 		await this.userOutput.printWinningCount(this.winningMap);
-		const winningRate = await this.getTotalWinnings(lottoMoney);
+		const winningRate = await this.getTotalWinnings(
+			lottoMoney,
+			this.winningMap
+		);
 		await this.userOutput.printWinningRate(winningRate);
 	}
 
@@ -47,7 +50,7 @@ class App {
 	async getLotto(lottoCount) {
 		return Array.from({ length: lottoCount }, () => {
 			const lottos = this.getRandomNumbers();
-			this.printLottoNumbers(lottos);
+			this.userOutput.printLottoNumbers(lottos);
 			return lottos;
 		});
 	}
@@ -58,10 +61,6 @@ class App {
 			LOTTO_MAX_NUMBER,
 			LOTTO_LENGTH
 		).sort((a, b) => a - b);
-	}
-
-	printLottoNumbers(lottos) {
-		printOutput(PROMPT.LOTTO_NUMBERS(lottos));
 	}
 
 	getWinningCount(winningNumber, lottoNumbers, bonusNumber) {
@@ -75,12 +74,12 @@ class App {
 		});
 	}
 
-	async getTotalWinnings(lottoMoney) {
+	async getTotalWinnings(lottoMoney, winningMap) {
 		let totalWinnings = 0;
 
-		for (const rank in this.winningMap) {
+		for (const rank in winningMap) {
 			if (PRIZE_MAP[rank]) {
-				totalWinnings += this.winningMap[rank] * PRIZE_MAP[rank];
+				totalWinnings += winningMap[rank] * PRIZE_MAP[rank];
 			}
 		}
 
