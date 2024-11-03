@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE } from './constants.js';
 
 export default class LotteryResult {
    static printResults(tickets, winningNumbers, bonusNumber, purchaseAmount) {
@@ -26,8 +25,6 @@ export default class LotteryResult {
          }
       });
 
-      //   Console.print(`${tickets.length}개를 구매했습니다.`);
-      //   tickets.forEach((ticket) => Console.print(`[${ticket.join(', ')}]`));
       this.printResultSummary(resultCount, purchaseAmount);
    }
 
