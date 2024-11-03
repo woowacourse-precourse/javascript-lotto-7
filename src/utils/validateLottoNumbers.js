@@ -8,6 +8,14 @@ export function validateLength(numbers) {
   }
 }
 
+export function validateType(numbers) {
+  numbers.forEach((number) => {
+    if (typeof number !== 'number' || Number(number)) {
+      throw new CustomError(ERROR.INVALID_NUMBER_TYPE);
+    }
+  });
+}
+
 export function validateNoDuplicates(numbers) {
   if (new Set(numbers).size !== LOTTO_NUMBERS.NUMBER_LENGTH) {
     throw new CustomError(ERROR.DUPLICATE_LOTTO_NUMBER);
