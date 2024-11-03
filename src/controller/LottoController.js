@@ -95,10 +95,21 @@ class LottoController {
 
   #startWinningLotto() {
     this.#printWinningStatsHead();
+    this.#printResultMatchCount();
   }
 
   #printWinningStatsHead() {
     this.#outputView.outputWinningHead();
+  }
+
+  #printResultMatchCount() {
+    this.#outputView.outputWinningStats(
+      this.#winning.getMatchCount(
+        this.#lottoCollection.getLottoCollection(),
+        this.#draw.getWinningNumber(),
+        this.#draw.getBonusNumber()
+      )
+    );
   }
 
   async #validInput(inputFunction, validateFunction) {

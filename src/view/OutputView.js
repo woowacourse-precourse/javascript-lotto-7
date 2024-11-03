@@ -3,6 +3,7 @@ import {
   PRINT_MESSAGE,
   START_ERROR,
   WINNING_STATS_HEADER,
+  WINNING_STATS_MESSAGE,
 } from "../constant/constant.js";
 
 class OutputView {
@@ -24,6 +25,27 @@ class OutputView {
 
   outputWinningHead() {
     MissionUtils.Console.print(WINNING_STATS_HEADER);
+  }
+
+  outputWinningStats(matchCount) {
+    MissionUtils.Console.print(
+      WINNING_STATS_MESSAGE.THREE_MATCH.replace("{count}", matchCount[3])
+    );
+    MissionUtils.Console.print(
+      WINNING_STATS_MESSAGE.FOUR_MATCH.replace("{count}", matchCount[4])
+    );
+    MissionUtils.Console.print(
+      WINNING_STATS_MESSAGE.FIVE_MATCH.replace("{count}", matchCount[5])
+    );
+    MissionUtils.Console.print(
+      WINNING_STATS_MESSAGE.FIVE_MATCH_BONUS.replace(
+        "{count}",
+        matchCount["5+bonus"]
+      )
+    );
+    MissionUtils.Console.print(
+      WINNING_STATS_MESSAGE.SIX_MATCH.replace("{count}", matchCount[6])
+    );
   }
 }
 

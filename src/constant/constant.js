@@ -38,3 +38,12 @@ export const BONUS_NUMBER_MESSAGE = Object.freeze({
 });
 
 export const WINNING_STATS_HEADER = "\n당첨 통계\n---";
+
+export const WINNING_STATS_MESSAGE = Object.freeze({
+  THREE_MATCH: "3개 일치 (5,000원) - {count}개",
+  FOUR_MATCH: "4개 일치 (50,000원) - {count}개",
+  FIVE_MATCH: "5개 일치 (1,500,000원) - {count}개",
+  FIVE_MATCH_BONUS: "5개 일치, 보너스 볼 일치 (30,000,000원) - {count}개",
+  SIX_MATCH: "6개 일치 (2,000,000,000원) - {count}개",
+  TOTAL_PROFIT: "총 수익률은 {profitRate}%입니다.",
+});
