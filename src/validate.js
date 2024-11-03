@@ -13,6 +13,7 @@ export class Validator {
    static validateWinningNumber(winningNumbers) {
       const numbers = winningNumbers.split(',').map(Number);
       this.validateLottoNumbers(numbers);
+      this.checkDuplicateNumbers(numbers);
       return numbers;
    }
 
@@ -28,6 +29,12 @@ export class Validator {
             throw new Error(ERR_MSG.ERR_NUMBERS_RANGE);
          }
       });
+   }
+
+   static checkDuplicateNumbers(numbers) {
+      if (new Set(numbers).size !== numbers.length) {
+         throw new Error(ERR_MSG.ERR_DUPLICATE_NUMBERS); // 중복 번호에 대한 에러 메시지
+      }
    }
 
    static validateBonusNumber(bonusNumber) {
