@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 const isValidCost = (cost) => {
@@ -13,6 +13,7 @@ const purchaseLotto = (cost) => {
   for (let i = 0; i < purchaseCount; i++) {
     const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
     const lotto = new Lotto(randomNumbers);
+    Console.print(lotto.getNumbers());
   }
 };
 
