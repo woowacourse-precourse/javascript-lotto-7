@@ -66,4 +66,18 @@ describe('로또 게임 클래스 테스트', () => {
       expect(() => new LottoGame(winningNumbers, input)).toThrow(ERROR_PREFIX);
     });
   });
+  test('랭킹 검색 시 모든 번호가 일치할 경우 1등을 반환한다.', () => {
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    const bonusNumber = 7;
+
+    const matchingNumbers = winningNumbers;
+    const withBonus = false;
+
+    const mockedLotto = { compare: () => ({ matchingNumbers, withBonus }) };
+
+    const game = new LottoGame(winningNumbers, bonusNumber);
+    const rank = game.rankFinder(mockedLotto);
+
+    expect(rank).toBe(0);
+  });
 });
