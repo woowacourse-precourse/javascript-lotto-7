@@ -29,7 +29,7 @@ describe('로또 클래스 테스트', () => {
       errorMessage: '[ERROR] 양의 정수만 입력하셔야 됩니다.',
     },
   ])(
-    '유효하지 않은 로또 번호($numbers)로 생성 시 예외 메시지 출력',
+    '유효하지 않은 로또 번호($numbers)로 생성 시 에러 메시지 출력',
     ({ numbers, errorMessage }) => {
       expect(() => {
         new Lotto(numbers);
