@@ -31,6 +31,16 @@ const WINNING_NUMBERS_ERROR_MESSAGE = Object.freeze({
   INVALID_NUMBER_COUNT: "당첨 번호는 6개의 숫자로 구성되어야 합니다. 1 ~ 45사이의 당첨 번호를 콤마(,) 기준으로 입력해 주세요.",
 });
 
+const BONUS_NUMBER_ERROR_MESSAGE = Object.freeze({
+  EMPTY_INPUT: "입력값이 비어 있습니다. 1 ~ 45사이의 숫자 하나를 입력해 주세요",
+  INVALID_NUMBER: "보너스 번호는 숫자여야 합니다. 1 ~ 45사이의 숫자 하나를 입력해 주세요",
+  INVALID_POSITIVE_INTEGER: "보너스 번호는 양의 정수여야 합니다. 1 ~ 45사이의 숫자 하나를 입력해 주세요.",
+  OUT_OF_RANGE: "보너스 번호는 1부터 45 사이의 양의 정수여야 합니다. 조건에 맞는 숫자 하나를 입력해 주세요.",
+  DUPLICATE_NUMBER: (winningNumbers) => 
+  `보너스 번호와 당첨번호는 중복되어서는 안됩니다. 1 ~ 45사이의 숫자 하나를 입력해 주세요.
+  현재 당첨 번호: [${winningNumbers.join(", ")}]`,
+});
+
 const TAGS = Object.freeze({
   ERROR: "[ERROR]",
 });
@@ -40,5 +50,6 @@ export {
   PRICE_ERROR_MESSAGE,
   LOTTO_ERROR_MESSAGE,
   WINNING_NUMBERS_ERROR_MESSAGE,
+  BONUS_NUMBER_ERROR_MESSAGE,
   TAGS,
 };

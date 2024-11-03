@@ -31,18 +31,18 @@ describe("validateBonusNumber() 테스트", () => {
     ["1보다 작아 범위를 벗어난 경우 '0'", "0"],
     ["45보다 커 범위를 벗어난 경우 '46'", "46"],
   ])("보너스 번호가 %s일 경우, 1 ~ 45의 범위를 벗어나 에러가 발생해야 한다", (_, input) => {
-    expect(() => validateBonusNumber(Number(input), winningNumbers)).toThrow(TAGS.ERROR);
+    expect(() => validateBonusNumber(input, winningNumbers)).toThrow(TAGS.ERROR);
   });
 
   test.each([
-    ["이전 당첨 번호와 중복된 경우 '6'", 6], 
+    ["이전 당첨 번호와 중복된 경우 '6'", "6"], 
   ])("보너스 번호가 %s일 경우, 중복된 숫자가 있어 에러가 발생해야 한다", (_, input) => {
     expect(() => validateBonusNumber(input, winningNumbers)).toThrow(TAGS.ERROR);
   });
 
   test.each([
-    ["올바른 범위의 숫자 '7'", 7],
-    ["올바른 범위의 숫자 '42'", 42],
+    ["올바른 범위의 숫자 '7'", "7"],
+    ["올바른 범위의 숫자 '42'", "42"],
   ])("%s일 경우, 예외가 발생하지 않아야 한다", (_, input) => {
     expect(() => validateBonusNumber(input, winningNumbers)).not.toThrow();
   });
