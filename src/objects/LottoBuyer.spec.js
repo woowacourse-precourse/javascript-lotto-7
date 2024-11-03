@@ -1,6 +1,6 @@
 import { MOCK_DATA_1 } from '../lib/mock/data.js';
 import { getLogSpy, mockQuestions, mockRandoms } from '../lib/mock/utils.js';
-import { LottoBuyer, LottoCompany, LottoShop } from '.';
+import { LottoBuyer, LottoCompany, LottoShop } from './index.js';
 
 describe('LottoBuyer', () => {
   beforeEach(() => {

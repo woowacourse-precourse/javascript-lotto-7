@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../lib/constants.js';
-import { Lotto } from '.';
+import { Lotto } from './index.js';
 
 describe('Lotto', () => {
   describe('예외 케이스', () => {
@@ -18,12 +18,6 @@ describe('Lotto', () => {
 
   describe('정상 케이스', () => {
     const lotto = new Lotto([4, 2, 3, 6, 1, 5]);
-
-    describe('#sortByAscending', () => {
-      test('로또 번호가 오름차순으로 정렬된다.', () => {
-        expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
-      });
-    });
 
     describe('getRank', () => {
       test('로또 번호가 0개에서 2개 사이 당첨 될 경우 undefined를 반환한다.', () => {

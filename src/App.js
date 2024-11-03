@@ -1,4 +1,4 @@
-import { LottoBuyer, LottoCompany } from './objects';
+import { LottoBuyer, LottoCompany } from './objects/index.js';
 
 class App {
   #lottoBuyer;

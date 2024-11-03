@@ -1,4 +1,4 @@
-import { LottoResult } from '.';
+import { LottoResult } from './index.js';
 
 describe('LottoResult', () => {
   describe('getWinningCount', () => {

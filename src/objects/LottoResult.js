@@ -1,4 +1,4 @@
-import { Lotto } from '.';
+import { Lotto } from './index.js';
 
 class LottoResult {
   #rankMap;

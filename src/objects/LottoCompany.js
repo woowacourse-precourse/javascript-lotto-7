@@ -1,5 +1,5 @@
-import { InputController } from '../controllers';
-import { LottoResult } from '.';
+import { InputController } from '../controllers/index.js';
+import { LottoResult } from './index.js';
 
 class LottoCompany {
   #winningNumbers;

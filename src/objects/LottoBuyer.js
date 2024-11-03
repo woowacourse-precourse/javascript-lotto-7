@@ -1,6 +1,6 @@
-import { InputController, OutputController } from '../controllers';
+import { InputController, OutputController } from '../controllers/index.js';
 import { calculateRate } from '../lib/utils.js';
-import { LottoShop } from '.';
+import LottoShop from './LottoShop.js';
 
 class LottoBuyer {
   #purchasePrice;
