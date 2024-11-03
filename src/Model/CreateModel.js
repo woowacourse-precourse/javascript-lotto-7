@@ -1,6 +1,6 @@
-import Purchase from "../Purchase";
-import Lotto from "../Lotto";
-import Bonus from "../Bonus";
+import Purchase from "./Purchase.js";
+import Lotto from "./Lotto.js";
+import Bonus from "./Bonus.js";
 
 class CreateModel {
     createPurchaseModel(amount) {

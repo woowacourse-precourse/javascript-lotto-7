@@ -1,4 +1,4 @@
-import Result from "../src/Model/Result";
+import Result from "../src/model/Result";
 describe("로또 당첨 결과 테스트", () => {
     describe("당첨 번호, 보너스 번호, 내 번호로 당첨 여부 조회", () => {
         it("1등 1개, 2등 2개, 3등 1개, 4등 1개, 5등 1개", () => {

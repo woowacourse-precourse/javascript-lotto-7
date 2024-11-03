@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import LOTTO_CONSTANT from "../Utils/constant";
+import LOTTO_CONSTANT from "../utils/constant.js";
 
 class MyLotto {
     #lottoList;

@@ -1,4 +1,4 @@
-import { GAME_MESSAGES } from "../Utils/message";
+import { GAME_MESSAGES } from "../utils/message.js";
 
 class LottoGame {
     constructor(createModel, input, output, myLotto, result) {
@@ -56,7 +56,6 @@ class LottoGame {
     // 당첨 번호 입력 받기
     async getLottoWinningNumbers() {
         const winngNumbers = await this.Input.readLottoWinningNumbersInput();
-        this.Output.printResult(winngNumbers);
         const winngNumbersArray = this.stringToNumberArray(winngNumbers);
         return this.setLottoWinngNumbers(winngNumbersArray);
     }
@@ -79,7 +78,6 @@ class LottoGame {
     // 로또 구매 금액 입력 받기
     async getLottoPurchaseAmount() {
         const purchaseAmount = await this.Input.readLottoPurchaseAmountInput();
-        this.Output.printResult(purchaseAmount);
         return this.setLottoPurchaseAmount(purchaseAmount);
     }
 
