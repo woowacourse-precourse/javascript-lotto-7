@@ -1,3 +1,5 @@
+import Lotto from './Lotto.js';
+
 export default class LottoResultCalculator {
   #lottos;
 
@@ -25,5 +27,16 @@ export default class LottoResultCalculator {
     });
 
     return this.#result;
+  }
+
+  calculateProfitRate() {
+    const purchaseAmount = this.#lottos.length * Lotto.PRICE;
+    const totalPrize = Array.from(this.#result.values()).reduce(
+      (acc, { count, prize }) => acc + count * prize,
+      0,
+    );
+
+    const profitRate = (totalPrize / purchaseAmount) * 100;
+    return Number(profitRate.toFixed(2));
   }
 }
