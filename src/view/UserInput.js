@@ -5,13 +5,13 @@ import Validator from "../utils/Validator.js";
 class UserInput {
     async getUserPaidMoney() {
       let paidMoney;
-      let validatePaidMoneyflag = false;
+      let validatePaidMoneyFlag = false;
 
-      while ( !validatePaidMoneyflag) { 
+      while ( !validatePaidMoneyFlag) { 
         paidMoney = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQUEST_MONEY_MESSAGE);
-        validatePaidMoneyflag = Validator.validatePaidMoney(paidMoney);
+        validatePaidMoneyFlag = Validator.validatePaidMoney(paidMoney);
 
-        if(validatePaidMoneyflag) {
+        if(validatePaidMoneyFlag) {
           return paidMoney;
         }
 
@@ -20,8 +20,19 @@ class UserInput {
     }
 
     async getWinningNumber() {
-      const winningNumber = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQUST_WINNING_NUMBER_MESSAGE);
-      return winningNumber;
+      let validateWinngingNumberFlag = false;
+
+      while (!validateWinngingNumberFlag) {
+        const winningNumber = await MissionUtils.Console.readLineAsync(DISPLAY_MESSAGE.REQUST_WINNING_NUMBER_MESSAGE);
+        validateWinngingNumberFlag = Validator.validateWinningNumber(winningNumber)
+
+        if (validateWinngingNumberFlag) {
+          return winningNumber;
+        }
+
+        MissionUtils.Console.print(DISPLAY_MESSAGE.ERROR_WINNING_NUMBER_MESSAGE);
+
+      }
     }
 
     async getBonusNumber() {
