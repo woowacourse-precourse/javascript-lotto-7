@@ -1,6 +1,11 @@
 import { Exception } from '../Utils.js';
-import { LOTTO_NUMBER_LENGTH, LOTTO_NUMBER_RANGE } from '../Constants.js';
+import {
+  LOTTO_NUMBER_LENGTH,
+  LOTTO_NUMBER_RANGE,
+  LOTTO_PRIZE_LIST,
+} from '../Constants.js';
 import LottoValidator from './LottoValidator.js';
+import Lotto from './Lotto.js';
 
 class LottoGame {
   /** @type {number[]} */
@@ -18,6 +23,22 @@ class LottoGame {
     this.#winningNumbers = winningNumbers;
     LottoGame.validateBonusNumber(bonusNumber, winningNumbers);
     this.#bonusNumber = bonusNumber;
+  }
+
+  /** @param {Lotto} lotto */
+  rankFinder(lotto) {
+    const winner = [this.#winningNumbers, this.#bonusNumber];
+    const { matchingNumbers, withBonus } = lotto.compare(...winner);
+
+    return LOTTO_PRIZE_LIST.findIndex(({ count, bonus }) => {
+      const isMatches = matchingNumbers.length === count;
+
+      if (bonus) {
+        return isMatches && withBonus;
+      }
+
+      return isMatches;
+    });
   }
 
   /** @param {number[]} numbers */
