@@ -27,5 +27,10 @@ describe("로또 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
+  test("로또 번호가 6개 보다 적으면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5]);
+    }).toThrow("[ERROR]");
+  });
 
 });
