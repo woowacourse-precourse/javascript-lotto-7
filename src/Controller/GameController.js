@@ -26,6 +26,8 @@ class GameController {
     game.calculateWinningRanks(winningLotto, bonusNumber);
 
     this.#printWinningHistory(game);
+
+    this.#printWinningRate(game);
   }
 
   async #getValidatedPurchaseCount() {
@@ -77,12 +79,17 @@ class GameController {
     return bonusNumber;
   }
 
-  #printWinningHistory(lottoGame) {
+  #printWinningHistory(game) {
     WINNING_HISTORY.forEach((prize) => {
       Console.print(
-        `${prize.description} (${prize.amount}) - ${lottoGame.getWinningResult(prize.rank)}개`,
+        `${prize.description} (${prize.amount}) - ${game.getWinningResult(prize.rank)}개`,
       );
     });
+  }
+
+  #printWinningRate(game) {
+    const winningRate = game.calculateWinningRate();
+    Console.print(`총 수익률은 ${winningRate.toFixed(1)}%입니다.`);
   }
 }
 
