@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 export class Output {
   printLottoTicket(lottoTicketArr) {
-    Console.print(`${lottoTicketArr.length}개를 구매했습니다.`);
+    Console.print(`\n${lottoTicketArr.length}개를 구매했습니다.`);
 
     lottoTicketArr.forEach((ticket) => {
       const ticketNumArr = ticket.lottoNumbers;
