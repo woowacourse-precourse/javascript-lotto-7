@@ -24,6 +24,10 @@ class OutputHandler {
       `6개 일치 (2,000,000,000원) - ${rankCounts['first']}개`,
     );
   }
+
+  printProfit(profit) {
+    MissionUtils.Console.print(`총 수익률은 ${profit}%입니다.`);
+  }
 }
 
 export default OutputHandler;
