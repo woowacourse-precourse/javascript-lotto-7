@@ -14,7 +14,7 @@ class ValidatorModule {
     Validator.isNumberIsDividable(value);
   }
 
-  static checkWinnerNumber(value) {
+  static checkWinnerNumbers(value) {
     Validator.isRigthArrayLength(value);
     Validator.isNotIncludeDuplicatedNumber(value);
 
