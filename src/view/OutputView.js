@@ -19,6 +19,10 @@ const OutputView = {
 
     printMessage(`당첨 통계\n---\n${resultMessage}`);
   },
+
+  printRateOfReturn(rateOfReturn) {
+    printMessage(`총 수익률은 ${rateOfReturn.toFixed(1)}%입니다.`);
+  }
 };
 
 export default OutputView;
