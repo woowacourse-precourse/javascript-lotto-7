@@ -11,19 +11,19 @@ class App {
   #bonusNumber;
   #output;
 
-  #match;
+  #match = new Map();
 
   constructor() {
     this.input = new Input();
     this.#lottos = [];
 
-    this.#match = new Map({
-      three: 0,
-      four: 0,
-      five: 0,
-      fiveAndBonus: 0,
-      six: 0,
-    });
+    this.#match = new Map([
+      ["three", 0],
+      ["four", 0],
+      ["five", 0],
+      ["fiveAndBonus", 0],
+      ["six", 0],
+    ]);
   }
 
   async run() {
@@ -42,6 +42,7 @@ class App {
       this.isDuplicateBonus(bonusNumber);
 
       this.#winning();
+      this.#printResult();
     } catch (error) {
       Console.print(error.message);
       throw error;
@@ -70,11 +71,11 @@ class App {
 
   #winning() {
     for (const lotto of this.#lottos) {
-      const match = this.#winningNumber
-        .getNumbersSet()
-        .intersection(lotto.getNumbersSet());
+      const match = lotto
+        .getNumbers()
+        .filter((number) => this.#winningNumber.getNumbers().includes(number));
 
-      switch (match.size) {
+      switch (match.length) {
         case 6:
           this.#match.set("six", this.#match.get("six") + 1);
           break;
@@ -92,11 +93,24 @@ class App {
   }
 
   #checkBonus(lotto) {
-    if (lotto.getNumbersSet().has(this.#bonusNumber)) {
+    if (lotto.getNumbers().includes(this.#bonusNumber)) {
       this.#match.set("fiveAndBonus", this.#match.get("fiveAndBonus") + 1);
       return;
     }
     this.#match.set("five", this.#match.get("five") + 1);
+  }
+
+  #printResult() {
+    Console.print(`\n`);
+    Console.print(`3개 일치 (5,000원) - ${this.#match.get("three")}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.#match.get("four")}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.#match.get("five")}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.#match.get(
+        "fiveAndBonus"
+      )}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.#match.get("six")}개`);
   }
 }
 
