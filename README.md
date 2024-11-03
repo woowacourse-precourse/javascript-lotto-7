@@ -101,17 +101,17 @@
 
 ### 코드 구조화
 - [ ] MVC 패턴 적용
-  - [ ] Model(Lotto, LottoGame)
+  - [x] Model(Lotto, LottoGame)
   - [x] View(Input, Output)
   - [ ] Controller(App)
 - [x] 상수 분리
   - [x] 에러 메시지
   - [x] 로또 설정값
   - [x] 당첨금액
-- [ ] 유틸리티 분리
+- [x] 유틸리티 분리
   - [x] 입력값 검증
-  - [ ] 번호 생성
-  - [ ] 당첨 계산
+  - [x] 번호 생성
+  - [x] 당첨 계산
 
 ### 클린 코드
 - [ ] 함수 분리
@@ -128,9 +128,9 @@
   - [ ] readonly 속성
 
 ### 패키지 구조화
-- [ ] 도메인 패키지
-  - [ ] Lotto.js
-  - [ ] LottoGame.js
+- [x] 도메인 패키지
+  - [x] Lotto.js
+  - [x] LottoGame.js
 - [x] 뷰 패키지
   - [x] InputView.js
   - [x] OutputView.js
