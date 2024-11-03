@@ -11,7 +11,7 @@ class Lotto {
 
     constructor(numbers) {
         this.#validate(numbers);
-        this.#numbers = numbers.map((number) => Number(number));
+        this.#numbers = numbers;
     }
 
     #validate(numbers) {
@@ -20,7 +20,7 @@ class Lotto {
         }
     }
 
-    setStatistics(lottoes, bonusNumber) { //2 차원 배열
+    setStats(lottos, bonusNumber) { //2 차원 배열
         let matchCnt = 0
         let isBonusNumberMatch = false
         const statMatch = {
@@ -30,7 +30,7 @@ class Lotto {
             bonus: 0,
             six: 0,
         }
-        for (const lotto of lottoes) {
+        for (const lotto of lottos) {
             for (const lottoNum of lotto) {
                 if (this.#numbers.includes(lottoNum)) {
                     matchCnt++
@@ -58,7 +58,7 @@ class Lotto {
             }
             matchCnt = 0
         }
-        return this.resultOutput(statMatch)
+        return statMatch
     }
 
     resultOutput(statMatch) {
