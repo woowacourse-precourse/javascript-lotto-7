@@ -1,7 +1,7 @@
 const DEFAULT_RULES = Object.freeze({
-  empty: Object.freeze({
-    isValid: (input) => input.trim() !== '',
-    errorMessage: '입력값이 존재하지 않습니다.',
+  notEmpty: Object.freeze({
+    isValid: (input) => input,
+    errorMessage: '빈 값이 입력되었습니다.',
   }),
 });
 
