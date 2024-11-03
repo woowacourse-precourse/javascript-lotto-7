@@ -1,4 +1,5 @@
 import Lotto from './Lotto.js';
+import { Prize, Standard } from './Enum.js';
 
 class Logic {
   static parseWinningNumbers(input) {
@@ -31,12 +32,12 @@ class Logic {
     let sum = 0;
     sum =
       sum +
-      result[0] * 5000 +
-      result[1] * 50000 +
-      result[2] * 1500000 +
-      result[3] * 30000000 +
-      result[4] * 2000000000;
-    sum /= amount * 1000;
+      result[0] * Prize.FIFTH_PRIZE +
+      result[1] * Prize.FORUTH_PRIZE +
+      result[2] * Prize.THIRD_PRIZE +
+      result[3] * Prize.SECOND_PRIZE +
+      result[4] * Prize.FIRST_PRIZE;
+    sum /= amount * Standard.PRICE_OF_LOTTO;
     return sum.toFixed(1);
   }
 }
