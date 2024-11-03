@@ -65,10 +65,7 @@ class LottoManager {
   #validateBonusRange(number) {
     if (number < RULE.LOTTO_MIN_NUMBER || number > RULE.LOTTO_MAX_NUMBER) {
       throw new Error(
-        ERROR_MESSAGE.OUT_OF_RANGE_NUMBER(
-          RULE.LOTTO_MIN_NUMBER,
-          RULE.LOTTO_MAX_NUMBER,
-        ),
+        ERROR_MESSAGE.OUT_OF_RANGE_NUMBER(RULE.LOTTO_MIN_NUMBER, RULE.LOTTO_MAX_NUMBER),
       );
     }
   }

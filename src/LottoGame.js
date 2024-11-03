@@ -1,10 +1,6 @@
 import LottoManager from './LottoManager.js';
 import { Console } from '@woowacourse/mission-utils';
-import {
-  INPUT_MESSAGES,
-  LOTTO_PRIZE,
-  OUTPUT_MESSAGES,
-} from './constants/index.js';
+import { INPUT_MESSAGES, LOTTO_PRIZE, OUTPUT_MESSAGES } from './constants/index.js';
 class LottoGame {
   constructor() {
     this.lottoManager = new LottoManager();
@@ -53,11 +49,7 @@ class LottoGame {
   async #processGameResult(lottos, purchasePrice) {
     const winningNumber = await this.#getWinningNumber();
     const bonusNumber = await this.#getBonusNumber(winningNumber);
-    const result = this.lottoManager.getResult(
-      lottos,
-      winningNumber,
-      bonusNumber,
-    );
+    const result = this.lottoManager.getResult(lottos, winningNumber, bonusNumber);
     this.#printGameResult(result, purchasePrice);
   }
 
