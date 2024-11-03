@@ -10,6 +10,10 @@ class Validate {
   static range(value, min, max) {
     return min <= value && value <= max;
   }
+
+  static arrayCount(array, count) {
+    return array.length === count;
+  }
 }
 
 export default Validate;

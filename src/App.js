@@ -48,6 +48,8 @@ class App {
       .split(',')
       .map(stringWinningNumber => this.convertToWinningNumber(stringWinningNumber));
 
+    this.#validateWinningNumbersCount(winningNumbers);
+
     return winningNumbers;
   }
 
@@ -109,6 +111,11 @@ class App {
 
   #validateClearChange(number) {
     if (!Validate.integer(number)) throw new Error(ERROR_MESSAGE.EXIST_CHANGE);
+  }
+
+  #validateWinningNumbersCount(winningNumbers) {
+    if (!Validate.arrayCount(winningNumbers, LOTTO.BASIC_COUNT))
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBERS_IS_NOT_BASIC_COUNT);
   }
 
   #validateWinningNumberIsNumber(winningNumber) {
