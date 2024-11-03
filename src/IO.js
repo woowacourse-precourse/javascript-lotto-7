@@ -35,10 +35,27 @@ export async function userPickedBonusNumber(pickedNumbers) {
 }
 
 
-export function printResults(rankCount) {
-  Console.print(MESSAGE.CORRECT_THREE+`${rankCount[3].count}개`);
-  Console.print(MESSAGE.CORRECT_FOUR+`${rankCount[4].count}개`);
-  Console.print(MESSAGE.CORRECT_FIVE+`${rankCount[5].count}개`);
-  Console.print(MESSAGE.CORRECT_FIVE_WITH_BONUS+`${rankCount['5+bonus'].count}개`);
-  Console.print(MESSAGE.CORRECT_SIX+`${rankCount[6].count}개`);
+export function printResults(rankCount, cost) {
+  const prizes = {
+    1: 2000000000,
+    2: 30000000,
+    3: 1500000,
+    4: 50000,
+    5: 5000 
+  };
+
+  let totalPrize = 0;
+  Object.keys(rankCount).forEach(rank => {
+    totalPrize += rankCount[rank] * prizes[rank];
+  });
+
+  const yieldPercentage = ((totalPrize / cost) * 100).toFixed(1);
+
+  Console.print("\n"+MESSAGE.PRIZE_STATISTICS);
+  Console.print(MESSAGE.CORRECT_THREE+`${rankCount[5]}개`);
+  Console.print(MESSAGE.CORRECT_FOUR+`${rankCount[4]}개`);
+  Console.print(MESSAGE.CORRECT_FIVE+`${rankCount[3]}개`);
+  Console.print(MESSAGE.CORRECT_FIVE_WITH_BONUS+`${rankCount[2]}개`);
+  Console.print(MESSAGE.CORRECT_SIX+`${rankCount[1]}개`);
+  Console.print(MESSAGE.TOTAL_YIELD_1+`${yieldPercentage}%`+MESSAGE.TOTAL_YIELD_2);
 }
