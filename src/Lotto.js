@@ -1,34 +1,28 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import InputHandler from "./InputHandler.js";
 import { MESSAGES, LOTTERY } from "./Constants.js";
-import { hasDuplicateWithWinningNumbers } from "./ValidationUtils.js"
+import { validateWinningNumbers } from "./Validator.js";
 
 class Lotto {
     #numbers;
 
-    constructor(issuedLottos) {
+    constructor(winningNumbers) {
+        this.#numbers = winningNumbers.join(',');
+        this.#validate(this.#numbers);
+        this.bonusNumber = null;
+        this.issuedLottos = [];
+    }
+
+    #validate(numbers) {
+        validateWinningNumbers(numbers);
+        this.#numbers = numbers.split(',').map(num => parseInt(num.trim(), 10));
+    }
+
+    getBonusNumber(bonusNumber) {
+        this.bonusNumber = bonusNumber;
+    }
+
+    getIssuedLottos(issuedLottos) {
         this.issuedLottos = issuedLottos;
-        this.#numbers = { winningNumbers: [], bonusNumber: null };
-        this.inputHandler = new InputHandler();
-    }
-
-    async initializeLotto() {
-        this.#numbers.winningNumbers = await this.inputHandler.askWinningNumbers();
-        
-        let isValid = false;
-        while (!isValid) {
-            try {
-                this.#numbers.bonusNumber = await this.inputHandler.askBonusNumber();
-                this.#validate();
-                isValid = true;
-            } catch (error) {
-                Console.print(error.message);
-            }
-        }
-    }
-
-    #validate() {
-        hasDuplicateWithWinningNumbers(this.#numbers.winningNumbers, this.#numbers.bonusNumber);
     }
 
     static issueLottos(money) {
@@ -53,7 +47,7 @@ class Lotto {
     }
     
     static printLottos(issuedLottos) {
-        Console.print(`\n${issuedLottos.length}개를 구매했습니다.\n`);
+        Console.print(`\n${issuedLottos.length}개를 구매했습니다.`);
         issuedLottos.forEach(lottoNumbers => {
             Console.print(`[${lottoNumbers.join(', ')}]`);
         });
@@ -64,7 +58,7 @@ class Lotto {
     
         this.issuedLottos.forEach(lotto => {
             const matchCount = this.getMatchCount(lotto);
-            const hasBonus = lotto.includes(this.#numbers.bonusNumber);
+            const hasBonus = lotto.includes(this.bonusNumber);
             this.updateResult(result, matchCount, hasBonus);
         });
     
@@ -72,7 +66,7 @@ class Lotto {
     }
     
     getMatchCount(lotto) {
-        const matchCount =  lotto.filter(num => this.#numbers.winningNumbers.includes(num)).length;
+        const matchCount =  lotto.filter(num => this.#numbers.includes(num)).length;
         return matchCount;
     }
     

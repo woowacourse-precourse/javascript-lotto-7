@@ -7,6 +7,7 @@ import {
     isInRange,
     isSixNumbers,
     hasDuplicates,
+    hasDuplicateWithWinningNumbers,
 } from './ValidationUtils.js';
 
 const validateMoney = (userMoney) => {
@@ -30,11 +31,12 @@ const validateWinningNumbers = (winningNumbers) => {
     hasDuplicates(sixNumbers);
 };
 
-const validateBonusNumber = (bonusNumber) => {
+const validateBonusNumber = (winningNumbers, bonusNumber) => {
     isEmpty(bonusNumber);
     const verifiedBonusNumber = isNumber(bonusNumber);
     isNegative(verifiedBonusNumber);
     isInRange(verifiedBonusNumber);
+    hasDuplicateWithWinningNumbers(winningNumbers, verifiedBonusNumber);
 };
 
 export { validateMoney, validateWinningNumbers, validateBonusNumber };

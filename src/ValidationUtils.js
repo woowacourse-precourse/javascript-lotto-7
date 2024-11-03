@@ -1,4 +1,3 @@
-import InputHandler from "./InputHandler.js";
 import { MESSAGES, LOTTERY } from "./Constants.js";
 
 const isNumber = (input) => {
@@ -59,7 +58,7 @@ const hasDuplicates = (numbers) => {
 }
 
 const hasDuplicateWithWinningNumbers = (winningNumbers, bonusNumber) => {
-    if (winningNumbers.includes(bonusNumber)) {
+    if (winningNumbers.includes(Number(bonusNumber))) {
         throw new Error(MESSAGES.ERROR.BONUS_NUMBER_IN_WINNING_NUMBERS);
     }
 };

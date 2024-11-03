@@ -7,8 +7,13 @@ class App {
         const userMoney = await inputHandler.askUserMoney();
         const issuedLottos = Lotto.issueLottos(userMoney);
 
-        const lotto = new Lotto(issuedLottos);
-        await lotto.initializeLotto();
+        const winningNumbers = await inputHandler.askWinningNumbers();
+        const winningNumbersArray = winningNumbers.split(',').map(num => num.trim());
+        const bonusNumber = await inputHandler.askBonusNumber(winningNumbers);
+
+        const lotto = new Lotto(winningNumbersArray);
+        lotto.getBonusNumber(bonusNumber);
+        lotto.getIssuedLottos(issuedLottos);
         this.printResult(lotto, userMoney);
     }
 

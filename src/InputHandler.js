@@ -18,22 +18,21 @@ class InputHandler {
         try {
             const winningNumbers = await Console.readLineAsync(MESSAGES.INPUT.ASK_WINNING_NUMBERS);
             validateWinningNumbers(winningNumbers);
-            const winningNumbersArray = winningNumbers.split(',').map(num => parseInt(num.trim(), 10));
-            return winningNumbersArray;
+            return winningNumbers;
         } catch (error) {
             Console.print(error.message);
             return this.askWinningNumbers();
         }
     }
 
-    async askBonusNumber() {
+    async askBonusNumber(winningNumbers) {
         try {
             const bonusNumber = await Console.readLineAsync(MESSAGES.INPUT.ASK_BONUS_NUMBER);
-            validateBonusNumber(bonusNumber);
+            validateBonusNumber(winningNumbers, bonusNumber);
             return parseInt(bonusNumber, 10);
         } catch (error) {
             Console.print(error.message);
-            return this.askBonusNumber();
+            return this.askBonusNumber(winningNumbers);
         }
     }
 }
