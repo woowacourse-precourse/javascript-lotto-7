@@ -30,6 +30,7 @@ class LottoManager {
       const winningLotto = await this.#createWinningLotto();
       const bonusNumber = await this.#createBonusNumber(winningLotto);
       const winningResult = this.#checkWinningRank(lottoTickets, winningLotto, bonusNumber);
+      this.#outputHandler.printWinningResult(winningResult);
     } catch (error) {
       throw error;
     }
