@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class Lotto {
+
   #numbers;
 
   constructor(numbers) {
@@ -16,6 +17,16 @@ class Lotto {
 
   getNumbers() {
     return this.#numbers;
+  }
+
+  getCorrectCount(winningNumber, bonusNumber) {
+    const correctCount = this.#numbers.map(number => winningNumber.includes(number)).filter(win => win).length;
+    const isBonusMatch = this.#numbers.includes(bonusNumber);
+    Console.print(isBonusMatch)
+    if (correctCount === 5 && isBonusMatch) {
+      return 7; // 5개 일치하고 보너스 볼 일치한 경우를 7이라고 임의로 지정함
+    }
+    return correctCount;
   }
 }
 
