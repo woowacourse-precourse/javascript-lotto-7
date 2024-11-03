@@ -16,6 +16,7 @@ class App {
     this.validateWinningNumberOutOfBounds(winningNumbers);
     this.validateWinningNumberAmount(winningNumbers);
     this.validateWinningNumberDecimal(winningNumbers);
+    this.validateBonusNumberOutOfBounds(userWinningBonus);
   }
 
   async getPurchaseAmount(){
@@ -80,6 +81,11 @@ class App {
         throw new Error('[ERROR]당첨 번호 에러, 당첨 번호는 정수의 숫자만 입력해주세요.');
       }
     });
+  }
+  validateBonusNumberOutOfBounds(inputValue){
+    if(inputValue > 45 || inputValue < 1){
+      throw new Error('[ERROR]보너스 번호 에러, 보너스 번호는 1에서 45사이의 숫자입니다.');
+    }
   }
 } 
 
