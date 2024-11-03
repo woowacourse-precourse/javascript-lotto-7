@@ -10,7 +10,7 @@ import { printLottoCount } from "./utils/outputHandler.js";
 class App {
   async run() {
     const inputPrice = await InputHandler.getPrice();
-    const userLotto = new UserLottoInfo(inputPrice);
+    const userLotto = new UserLottoInfo(inputPrice, []);
     printLottoCount(userLotto);
     userLotto.createLotto();
   }

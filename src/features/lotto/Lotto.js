@@ -1,3 +1,6 @@
+import { printOneLine } from "../../utils/console.js";
+import { generateRandomNum } from "../../utils/generateRandomNum.js";
+
 class Lotto {
   #numbers;
 
@@ -12,7 +15,9 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
