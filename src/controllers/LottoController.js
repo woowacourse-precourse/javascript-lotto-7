@@ -1,6 +1,4 @@
-import InputView from '../views/InputView.js';
-
-export default class LottoController {
+class LottoController {
   #InputView;
 
   constructor(inputView) {
@@ -11,3 +9,5 @@ export default class LottoController {
     const purchseAmount = await this.#InputView.getPurchaseAmount();
   }
 }
+
+export default LottoController;

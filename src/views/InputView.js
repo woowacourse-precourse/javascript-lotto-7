@@ -1,8 +1,10 @@
-import { INPUT_MSG } from '../constants/messages.js';
+import { INPUT_MESSAGES } from '../constants/messages';
 import { Console } from '@woowacourse/mission-utils';
 
-export default class InputView {
+class InputView {
   async getPurchaseAmount() {
-    return Console.readLineAsync(INPUT_MSG.purchaseAmount);
+    return Console.readLineAsync(INPUT_MESSAGES.purchase_amount);
   }
 }
+
+export default InputView;
