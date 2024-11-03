@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from "./Model/Error";
+import { ERROR_MESSAGES, throwError } from "../Error/Error.js";
 
 class Lotto {
   #numbers;
@@ -15,13 +15,13 @@ class Lotto {
   // numbers의 유효성을 검사하는 private 메서드
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throwError(ERROR_MESSAGES.lotteryNumber.ONLY_6_NUMBERS);
     }
     if (numbers.some((num) => num < 1 || num > 45)) {
-      throw new Error("[ERROR] 로또 번호의 범위는 1~45입니다.");
+      throwError(ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     }
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
+      throwError(ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER);
     }
   }
 }
