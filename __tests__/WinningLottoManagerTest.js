@@ -135,4 +135,13 @@ describe('WinningLottoManager 테스트', () => {
       await testSelectBonusNumber(inputs, errorMessage);
     },
   );
+
+  test.each([['46'], ['0'], ['-777']])(
+    '지정 범위가 아닌 보너스 번호를 예외 처리하는지 테스트 (%s)',
+    async (inputs) => {
+      const errorMessage = ERROR_MESSAGE.notInRangeNumber;
+
+      await testSelectBonusNumber(inputs, errorMessage);
+    },
+  );
 });
