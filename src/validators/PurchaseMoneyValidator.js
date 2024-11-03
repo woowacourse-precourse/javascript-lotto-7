@@ -6,6 +6,7 @@ class PurchaseMoneyValidator {
   static checkValid(purchaseMoney) {
     this.#isNotNumber(purchaseMoney);
     this.#isNotThousandUnit(purchaseMoney);
+    this.#isUnderThousand(purchaseMoney);
   }
 
   // 숫자가 아닌 경우
@@ -19,6 +20,13 @@ class PurchaseMoneyValidator {
   static #isNotThousandUnit(purchaseMoney) {
     if (purchaseMoney % 1000 !== 0) {
       generateError("1,000원 단위가 아닙니다. 로또 금액은 1,000원 단위로 입력가능합니다.");
+    }
+  }
+
+  // 1,000원 미만인 경우
+  static #isUnderThousand(purchaseMoney) {
+    if (purchaseMoney < 1000) {
+      generateError("로또 금액은 1,000원부터 입력가능합니다.");
     }
   }
 }
