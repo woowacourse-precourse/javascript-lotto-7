@@ -109,11 +109,11 @@ class LottoStatistics {
   convertToString(key) {
     const count = this.#statistics.get(key);
 
-    if (key === 'matchedThree') return `3개 일치 (5,000원) - ${count}개\n`;
-    if (key === 'matchedFour') return `4개 일치 (50,000원) - ${count}개\n`;
-    if (key === 'matchedFiveAndBonus') return `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개\n`;
-    if (key === 'matchedFive') return `5개 일치 (1,500,000원) - ${count}개\n`;
-    if (key === 'matchedSix') return `6개 일치 (2,000,000,000원) - ${count}개`;
+    if (key === LOTTO_STATISTICS_KEYS.THREE) return `3개 일치 (5,000원) - ${count}개\n`;
+    if (key === LOTTO_STATISTICS_KEYS.FOUR) return `4개 일치 (50,000원) - ${count}개\n`;
+    if (key === LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS) return `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개\n`;
+    if (key === LOTTO_STATISTICS_KEYS.FIVE) return `5개 일치 (1,500,000원) - ${count}개\n`;
+    if (key === LOTTO_STATISTICS_KEYS.SIX) return `6개 일치 (2,000,000,000원) - ${count}개`;
 
     return '';
   }
