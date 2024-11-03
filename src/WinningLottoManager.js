@@ -36,10 +36,10 @@ class WinningLottoManager {
     Validation.checkWinningNumbers([...numbers]);
   }
 
-  static async selectBonusNumber() {
+  static async selectBonusNumber(winningNumbers) {
     try {
       const bonusNumber = await this.#getBonusNumberInput();
-      this.#validateBonusNumber(bonusNumber);
+      this.#validateBonusNumber(bonusNumber, [...winningNumbers]);
 
       return bonusNumber;
     } catch (error) {
