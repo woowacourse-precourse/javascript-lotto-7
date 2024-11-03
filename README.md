@@ -131,3 +131,27 @@
 6개 일치 (2,000,000,000원) - 0개
 총 수익률은 62.5%입니다.
 ```
+
+## 📁 패키지 구조 및 파일명
+```
+- 📂 _test_
+  - 📜 ApplicationTest.js
+  - 📜 LottoTest.js
+- 📂 src
+  - 📜 AllLotto.js
+  - 📜 CheckLotto.js
+  - 📜 index.js
+  - 📜 ErrorMessages.js
+  - 📜 Lotto.js
+  - 📜 LottoResult.js
+  - 📜 MakeLotto.js
+  - 📜 RandomNumber.js
+```
+
+## 💬 커밋 메세지 컨벤션
+```
+- ✨ feat (feature)
+- 🐛 fix (bug fix)
+- 📝 docs (documentation)
+- ♻️  refactor
+```
