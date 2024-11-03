@@ -14,11 +14,11 @@ class LottoMachine {
   }
 
   #buyLottos() {
-    return Array.from({ length: this.#lottoCount }, () => this.#makeLotto());
+    return Array.from({ length: this.#lottoCount }, () => new Lotto(this.#makeRandomNumbers()));
   }
 
-  #makeLotto() {
-    return new Lotto(Random.pickUniqueNumbersInRange(1, 45, this.#lottoDigitCount));
+  #makeRandomNumbers() {
+    return Random.pickUniqueNumbersInRange(1, 45, this.#lottoDigitCount);
   }
 }
 
