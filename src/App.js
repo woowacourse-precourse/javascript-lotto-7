@@ -7,9 +7,8 @@ class App {
     const io = new IOHandler(Console);
     const price = await io.retryUntilValid(io.getLottoPrice, (price) => new Price(price));
 
-    const lottoPurchaseCount = LottoStore.getLottoPurchaseCount(price);
-    const lottoNumbers = LottoStore.generateLottoNumbers(lottoPurchaseCount);
-    io.printPurchaseCountAndLottoNumbers(lottoPurchaseCount, lottoNumbers);
+    const lottoNumbers = LottoStore.getLottoNumbers(price);
+    io.printPurchaseCountAndLottoNumbers(lottoNumbers);
 
     const winningNumbers = await io.retryUntilValid(io.getWinningNumbers, (winningNumber) => new Lotto(winningNumber));
     const bonusNumber = await io.retryUntilValid(

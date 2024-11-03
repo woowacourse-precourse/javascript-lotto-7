@@ -35,8 +35,8 @@ class IOHandler {
     this.outputHandler(result.join("\n"));
   };
 
-  printPurchaseCountAndLottoNumbers = (lottoPurchaseCount, lottoNumbers) => {
-    this.printLottoPurchaseCount(lottoPurchaseCount);
+  printPurchaseCountAndLottoNumbers = (lottoNumbers) => {
+    this.printLottoPurchaseCount(lottoNumbers.length);
     this.printLottoNumbers(lottoNumbers);
   };
 
