@@ -55,8 +55,11 @@ export default class Validator {
     }
   }
 
-  validateBonusNumnber(number) {
+  validateBonusNumnber(number, winningNumbers) {
     this.validateInteger(number, this.#BONUS_NUMBER_ERROR);
     this.validateNumberRange(Number(number), this.#BONUS_NUMBER_ERROR);
+    if (winningNumbers.includes(Number(number))) {
+      throw new Error(this.#DUPLICATE_NUMBER_ERROR);
+    }
   }
 }

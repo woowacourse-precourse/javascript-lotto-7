@@ -54,7 +54,7 @@ export default class BuyLotto {
     try{
       Console.print(this.#BONUS_NUMBER_PROMPT);
       this.input = await Console.readLineAsync("");
-      this.#validator.validateBonusNumnber(this.input);
+      this.#validator.validateBonusNumnber(this.input, this.#winningLotto.getNumbers());
       this.#bonusNumber = Number(this.input);
       Console.print(this.#EMPTY_STRING);
     }catch (error) {
