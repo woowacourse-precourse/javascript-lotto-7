@@ -1,14 +1,12 @@
-import { Console } from "@woowacourse/mission-utils";
-import { RUN_MESSAGE } from "./constants/runMessages.js";
-import { validationPipe } from "./validation/validationPipe.js";
+import AppController from "./controllers/AppController.js";
 
 class App {
-  async run() {
-    const getPurchaseAmount = await Console.readLineAsync(
-      RUN_MESSAGE.PURCHASE_AMOUNT
-    );
+  constructor() {
+    this.appController = new AppController();
+  }
 
-    validationPipe(getPurchaseAmount);
+  async run() {
+    await this.appController.run();
   }
 }
 
