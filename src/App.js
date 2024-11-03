@@ -5,11 +5,14 @@ import LottoMachine from './LottoMachine.js';
 import Utils from './utils/Utils.js';
 import Validation from './Validation.js';
 import WinningLottoManager from './WinningLottoManager.js';
+import Analyzer from './Analyzer.js';
 
 class App {
   async run() {
     const lottoMachine = await this.getLottoMachine();
+    const lottos = lottoMachine.getLottos();
     const winningLottoNumbers = await App.getWinningLottoNumbers();
+    const analyzer = App.getAnalyzer(lottos, winningLottoNumbers);
   }
 
   async getLottoMachine() {
@@ -35,6 +38,11 @@ class App {
     const bonusNumber = await WinningLottoManager.selectBonusNumber(numbers);
 
     return { numbers, bonusNumber };
+  }
+
+  static getAnalyzer(lottos, winningLottoNumbers) {
+    const analyzer = new Analyzer(lottos, winningLottoNumbers);
+    return analyzer;
   }
 }
 
