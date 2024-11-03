@@ -1,11 +1,11 @@
 const RESULT = {
   RESULT_HEADER: '\n당첨 통계\n---',
   RESULT_MATCH: (count, isBonus) => `${count}개 일치${RESULT.BONUS(isBonus)}`,
-  RESULT_PRIZE: (amount) => ` (${amount})원 `,
+  RESULT_PRIZE: (amount) => ` (${amount}원) `,
   RESULT_MATCH_COUNT: (count) => `- ${count}개`,
   RESULT_YEILD: (percent) => `총 수익률은 ${percent}%입니다.`,
   BONUS(isBonus) {
-    if (isBonus) return ', 보너스볼 일치';
+    if (isBonus) return ', 보너스 볼 일치';
     return '';
   },
 };

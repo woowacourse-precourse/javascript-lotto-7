@@ -33,10 +33,8 @@ class LottoMachine {
   async start() {
     this.money = await this.handleMoneyInput(); // TODO : this.money로 변경
     const numOfLotto = countLotto(this.money);
-    Output.printNumOfLotto(numOfLotto);
-
     const lottoController = new LottoController(numOfLotto);
-    Output.printLottos(lottoController.lottos);
+    Output.printLottos(lottoController.lottos, numOfLotto);
 
     this.winningNumbers = await this.handleWinningNumberInput();
     this.bonusNumber = await this.handleBonusNumberInput();

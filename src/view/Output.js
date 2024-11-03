@@ -3,9 +3,12 @@ import LOTTO_MESSAGE from '../constants/LottoMessage.js';
 import { generateSummary } from '../utils/index.js';
 
 class Output {
-  static printLottos(lottos) {
-    lottos.forEach((ticket) => Console.print(ticket.lottoNumbers));
-    Console.print('\n');
+  static printLottos(lottos, numOfLottos) {
+    let lottoString = `\n${LOTTO_MESSAGE.PRINT_LOTTO_COUNT(numOfLottos)}\n`;
+    lottos.forEach((ticket) => {
+      lottoString += `${LOTTO_MESSAGE.START_MARK + ticket.lottoNumbers.join(', ') + LOTTO_MESSAGE.END_MARK}\n`;
+    });
+    Console.print(lottoString);
   }
 
   static printNumOfLotto(number) {
