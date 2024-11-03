@@ -7,6 +7,7 @@ class LottoMachine {
   constructor(cost) {
     this.lottoQuantity = cost / 1000;
     this.lottos = this.generateLottos();
+    this.cost = cost;
   }
 
   printQuantity() {
@@ -56,6 +57,27 @@ class LottoMachine {
     if (matches === 3) return { level: "FIFTH_PLACE", prize: 5000 };
 
     return { level: STATISTICS.FAIL, prize: 0 };
+  }
+
+  printWinningStatistics(statistics, totalPrize) {
+    Console.print("당첨 통계\n");
+    Console.print("---");
+    this.constructor.printResult(statistics);
+    this.constructor.printRevenuePercent(totalPrize, this.cost);
+  }
+
+  static printResult(statistics) {
+    Console.print(`${OUTPUT_MESSAGE.FIFTH_PLACE}${statistics.FIFTH_PLACE}개`);
+    Console.print(`${OUTPUT_MESSAGE.FOURTH_PLACE}${statistics.FOURTH_PLACE}개`);
+    Console.print(`${OUTPUT_MESSAGE.THIRD_PLACE}${statistics.THIRD_PLACE}개`);
+    Console.print(`${OUTPUT_MESSAGE.SECOND_PLACE}${statistics.SECOND_PLACE}개`);
+    Console.print(`${OUTPUT_MESSAGE.FIRST_PLACE}${statistics.FIRST_PLACE}개`);
+  }
+
+  static printRevenuePercent(totalPrize, cost) {
+    const revenuePercent = ((totalPrize - cost) / cost) * 100;
+
+    Console.print(`${OUTPUT_MESSAGE.REVENUE}${revenuePercent}%입니다.`);
   }
 }
 

@@ -28,6 +28,8 @@ class App {
       winningNumbers,
       bonusNumber
     );
+
+    lottoMachine.printWinningStatistics(statistics, totalPrize);
   }
 }
 
