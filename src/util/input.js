@@ -6,7 +6,7 @@ export const repeatUtilComplete = (message) => async (validationCallback) => {
     const result = validationCallback(input);
     return result;
   } catch (error) {
-    Console.print(error.message);
+    Console.print(`${error.message}\n`);
     return repeatUtilComplete(message)(validationCallback); // 재귀 호출
   }
 };
