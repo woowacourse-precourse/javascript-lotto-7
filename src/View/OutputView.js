@@ -5,6 +5,7 @@ class Output {
         Console.print(result);
     }
     async printResultNewLine(result) {
+        Console.print("");
         Console.print(result);
     }
     async printWinngStatistics(result, profitMargin) {
