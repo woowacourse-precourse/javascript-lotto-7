@@ -10,7 +10,7 @@ class App {
     const amount = await this.safeAsyncExecute(this.userAmountInput.bind(this));
     const lottos = this.buyLottos(amount);
     const winningNumbers = await this.userWinningNumbersInput();
-    const bonusNumber = await this.userBonusNumberInput();
+    const bonusNumber = await this.userBonusNumberInput(winningNumbers);
   }
 
   async userAmountInput() {
@@ -27,9 +27,11 @@ class App {
     return winningNumbers;
   }
 
-  async userBonusNumberInput() {
+  async userBonusNumberInput(winningNumbers) {
     const bonusNumberInput = await Console.readLineAsync(`\n${INPUT_MESSAGE.BONUS_NUMBERS}\n`);
     const bonusNumber = this.convertToBonusNumber(bonusNumberInput);
+
+    this.#validateBonusNumberUnique(winningNumbers, bonusNumber);
 
     return bonusNumber;
   }
@@ -145,6 +147,10 @@ class App {
 
   #validateBonusNumberIsNumber(bonusInput) {
     if (!Validate.number(bonusInput)) throw new Error(ERROR_MESSAGE.BONUS_NUMBER_IS_NOT_NUMBER);
+  }
+
+  #validateBonusNumberUnique(winningNumbers, bonusNumber) {
+    if (!Validate.valueIsUnique(winningNumbers, bonusNumber)) throw new Error(ERROR_MESSAGE.BONUS_NUMBER_IS_NOT_UNIQUE);
   }
 }
 

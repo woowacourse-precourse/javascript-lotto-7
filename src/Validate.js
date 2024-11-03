@@ -14,6 +14,10 @@ class Validate {
   static arrayCount(array, count) {
     return array.length === count;
   }
+
+  static valueIsUnique(array, target) {
+    return array.every(element => element !== target);
+  }
 }
 
 export default Validate;
