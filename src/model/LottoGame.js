@@ -6,10 +6,18 @@ class LottoGame {
   /** @type {number[]} */
   #winningNumbers;
 
-  /** @param {number[]} winningNumbers */
-  constructor(winningNumbers) {
+  /** @type {number} */
+  #bonusNumber;
+
+  /**
+   * @param {number[]} winningNumbers
+   * @param {number} bonusNumber
+   */
+  constructor(winningNumbers, bonusNumber) {
     LottoGame.validateWinningNumbers(winningNumbers);
     this.#winningNumbers = winningNumbers;
+    LottoGame.validateBonusNumber(bonusNumber, winningNumbers);
+    this.#bonusNumber = bonusNumber;
   }
 
   /** @param {number[]} numbers */
@@ -47,6 +55,18 @@ class LottoGame {
   static #validateWinningNumbersDuplicated(numbers) {
     if (LottoValidator.isDuplicated(numbers)) {
       throw new Exception('당첨 번호는 중복될 수 없습니다.');
+    }
+  }
+
+  /** @param {number} bonusNumber */
+  static validateBonusNumber(bonusNumber) {
+    LottoGame.#validateBonusNumberType(bonusNumber);
+  }
+
+  /** @param {number} bonusNumber */
+  static #validateBonusNumberType(bonusNumber) {
+    if (!LottoValidator.isSafeNumber(bonusNumber)) {
+      throw new Exception('유효하지 않은 보너스 번호입니다.');
     }
   }
 }
