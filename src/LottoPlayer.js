@@ -15,13 +15,33 @@ class LottoPlayer {
 
   async play() {
     try {
-      const purchaseAmount = await inputHandler.requestPurchaseAmount();
+      const purchaseAmount = await this.handlePurchaseAmount();
       this.setNumberOfLottos(purchaseAmount);
       this.createLottos();
       this.printLottos();
+      MissionUtils.Console.print("");
+      this.winningNumbers = await this.handleWinningNumbers();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.play();
+    }
+  }
+
+  async handlePurchaseAmount() {
+    try {
+      return await inputHandler.requestPurchaseAmount();
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+      return await this.handlePurchaseAmount();
+    }
+  }
+
+  async handleWinningNumbers() {
+    try {
+      return await inputHandler.requestWinningNumbers();
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+      return await this.handleWinningNumbers();
     }
   }
 

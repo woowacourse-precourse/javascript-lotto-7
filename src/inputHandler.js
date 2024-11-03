@@ -9,6 +9,13 @@ const inputHandler = {
     );
     return inputValidator.checkPurchaseAmount(purchaseAmount);
   },
+
+  async requestWinningNumbers() {
+    const winningNumbers = await MissionUtils.Console.readLineAsync(
+      MESSAGES.REQUEST_WINNING_NUMBER
+    );
+    return inputValidator.checkWinningNumbers(winningNumbers);
+  },
 };
 
 export default inputHandler;
