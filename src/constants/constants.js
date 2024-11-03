@@ -5,7 +5,7 @@ export const INPUT_MESSAGE = {
 };
 
 export const OUTPUT_MESSAGE = {
-  printPurchaseNumber : (count) => `\n${count}개 구매했습니다.`,
+  printPurchaseNumber : (count) => `\n${count}개를 구매했습니다.`,
   printWinningStatistics : "\n당첨 통계\n---",
   printFifth : (count) => `3개 일치 (5,000원) - ${count}개`,
   printFourth : (count) => `4개 일치 (50,000원) - ${count}개`,
