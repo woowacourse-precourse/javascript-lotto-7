@@ -12,17 +12,10 @@ class App {
     const lottoQuantity = lottoPurchaseAmount / 1000;
     MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
 
-    const allLottos = [];
-    for (let i = 0; i < lottoQuantity; i++) {
-      const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6
-      );
-      lottoNumbers.sort((a, b) => a - b);
+    const allLottos = this.generateLottoNumbers(lottoQuantity);
+    allLottos.forEach((lottoNumbers) => {
       MissionUtils.Console.print(`[${lottoNumbers.join(", ")}]`);
-      allLottos.push(lottoNumbers);
-    }
+    });
 
     const winningNumbersInput = await MissionUtils.Console.readLineAsync(
       "당첨 번호를 입력해 주세요.\n"
@@ -96,6 +89,20 @@ class App {
       counts[6] * prizes[6];
     const profitRate = (totalPrize / lottoPurchaseAmount) * 100;
     MissionUtils.Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
+  }
+
+  generateLottoNumbers(quantity) {
+    const allLottos = [];
+    for (let i = 0; i < quantity; i++) {
+      const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
+        1,
+        45,
+        6
+      );
+      lottoNumbers.sort((a, b) => a - b);
+      allLottos.push(lottoNumbers);
+    }
+    return allLottos;
   }
 }
 
