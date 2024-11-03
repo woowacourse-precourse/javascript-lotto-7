@@ -24,9 +24,9 @@ class App {
   }
 
   async createLottoTickets() {
-    // 로또 수량과 랜덤 티켓 배열이 포함된 변수
+    // 로또 수량과 로또 랜덤 티켓
     const lottoData = new LottoGenerator(this.purchaseMoney);
-    const { quantity } = lottoData.getLottoGeneratorData();
+    const { lottoQuantity, ticketlist } = lottoData.getLottoData();
   }
 }
 
