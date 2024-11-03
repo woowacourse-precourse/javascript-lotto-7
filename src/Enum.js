@@ -12,3 +12,11 @@ export const Standard = {
   MAX_LOTTO_NUM: 45,
   PRICE_OF_LOTTO: 1000,
 };
+
+export const Prize = {
+  FIFTH_PRIZE: 5000,
+  FORUTH_PRIZE: 50000,
+  THIRD_PRIZE: 1500000,
+  SECOND_PRIZE: 30000000,
+  FIRST_PRIZE: 2000000000,
+};
