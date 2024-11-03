@@ -1,4 +1,4 @@
-const matchCount = {
+export const matchCount = {
   threeMatch: 0,
   fourMatch: 0,
   fiveMatch: 0,
@@ -6,7 +6,7 @@ const matchCount = {
   sixMatch: 0,
 };
 
-class WinningStatistics {
+export class WinningStatistics {
   countLottoWinning = (winningNumbers, lottoList, getWinningNumPlusBonusNum) => {
     lottoList.forEach((element) => {
       const matchFilter = element.filter((it) => winningNumbers.includes(it)).length;
@@ -44,5 +44,3 @@ class WinningStatistics {
     return winningAmount;
   };
 }
-
-export { WinningStatistics, matchCount };

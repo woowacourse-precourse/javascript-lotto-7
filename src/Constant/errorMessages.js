@@ -6,7 +6,7 @@ const MESSAGES = Object.freeze({
   bonusNumber: '1개의 숫자로 입력해 주세요.\n',
 });
 
-const ERROR_MESSAGES = Object.freeze({
+export const ERROR_MESSAGES = Object.freeze({
   purchaseAmount: {
     EMPTY_INPUT: `\n${ERROR} 구입금액이 입력되지 않았습니다.\n${MESSAGES.purchaseAmount}`,
     UNIT_PRICE: `\n${ERROR} 입력하신 금액 단위가 올바르지 않습니다.\n${MESSAGES.purchaseAmount}`,
@@ -26,5 +26,3 @@ const ERROR_MESSAGES = Object.freeze({
     NUMBER_RANGE: `\n${ERROR} 입력하신 보너스 번호는 1에서 45 사이의 숫자가 아닙니다.\n${MESSAGES.bonusNumber}`,
   },
 });
-
-export { ERROR_MESSAGES };

@@ -1,4 +1,4 @@
-import { WinningNumbersValidator } from '../src/Controllers/Validator/winningNumbersValidator.js';
+import { WinningNumbersValidator } from '../src/Controller/winningNumbersValidator.js';
 
 describe('로또 당첨 번호 유효성 클래스 테스트', () => {
   test('빈값으로 입력한 경우 예외가 발생한다.', () => {

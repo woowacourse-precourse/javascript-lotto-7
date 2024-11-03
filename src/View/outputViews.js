@@ -1,14 +1,14 @@
 import { Console } from '@woowacourse/mission-utils';
-import { matchCount } from '../Models/winningStatisticsUtils.js';
+import { matchCount } from '../Model/winningStatisticsUtils.js';
 
-class Output {
+export class Output {
   printPurchaseCount = (purchaseCount) => {
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
   };
 
   printLottoList = (purchaseCount, lottoList) => {
     const totalLottoList = lottoList;
-    // TODO: 리펙토링 for 문 고치기
+
     for (let i = 0; i < purchaseCount; i += 1) {
       Console.print(`[${totalLottoList[i].join(', ')}]`);
     }
@@ -30,5 +30,3 @@ class Output {
     Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
   };
 }
-
-export { Output };

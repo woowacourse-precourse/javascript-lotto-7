@@ -1,6 +1,6 @@
-import { ERROR_MESSAGES } from '../../Constants/errorMessages.js';
+import { ERROR_MESSAGES } from '../Constant/errorMessages.js';
 
-class WinningNumbersValidator {
+export class WinningNumbersValidator {
   constructor() {
     this.winningNumbers = 0;
   }
@@ -58,5 +58,3 @@ class WinningNumbersValidator {
     return true;
   }
 }
-
-export { WinningNumbersValidator };

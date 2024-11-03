@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 
-const issueLottoList = (lottoCount) => {
+export const issueLottoList = (lottoCount) => {
   const lottoList = [];
   for (let i = 0; i < lottoCount; i += 1) {
     const issueOneLottoList = Random.pickUniqueNumbersInRange(1, 45, 6);
@@ -10,5 +10,3 @@ const issueLottoList = (lottoCount) => {
 
   return lottoList;
 };
-
-export { issueLottoList };

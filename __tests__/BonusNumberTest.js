@@ -1,4 +1,4 @@
-import { BonusNumberValidator } from '../src/Controllers/Validator/bonusNumberValidator.js';
+import { BonusNumberValidator } from '../src/Controller/bonusNumberValidator.js';
 
 describe('보너스 번호 당첨 번호 유효성 클래스 테스트', () => {
   test('빈값으로 입력한 경우 입력한 경우 예외가 발생한다.', () => {

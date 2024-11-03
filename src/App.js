@@ -1,10 +1,10 @@
-import { Input } from './Views/inputViews.js';
-import { countPurchaseAmount } from './Models/purchasePriceUtils.js';
-import { Output } from './Views/outputViews.js';
-import { issueLottoList } from './Models/lottoListIssueUtils.js';
-import { WinningStatistics } from './Models/winningStatisticsUtils.js';
-import { produceRateOfReturn } from './Models/rateOfReturnUtils.js';
-import { trimWinningNumbers } from './Models/winningNumbersUtils.js';
+import { Input } from './View/inputViews.js';
+import { countPurchaseAmount } from './Model/purchasePriceUtils.js';
+import { Output } from './View/outputViews.js';
+import { issueLottoList } from './Model/lottoListIssueUtils.js';
+import { WinningStatistics } from './Model/winningStatisticsUtils.js';
+import { produceRateOfReturn } from './Model/rateOfReturnUtils.js';
+import { trimWinningNumbers } from './Model/winningNumbersUtils.js';
 
 class App {
   constructor() {

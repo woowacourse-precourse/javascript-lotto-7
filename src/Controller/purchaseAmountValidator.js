@@ -1,6 +1,6 @@
-import { ERROR_MESSAGES } from '../../Constants/errorMessages.js';
+import { ERROR_MESSAGES } from '../Constant/errorMessages.js';
 
-class PurchaseAmountValidator {
+export class PurchaseAmountValidator {
   constructor() {
     this.purchaseAmount = 0;
   }
@@ -34,5 +34,3 @@ class PurchaseAmountValidator {
     return true;
   }
 }
-
-export { PurchaseAmountValidator };

@@ -1,4 +1,4 @@
-import { PurchaseAmountValidator } from '../src/Controllers/Validator/purchaseAmountValidator.js';
+import { PurchaseAmountValidator } from '../src/Controller/purchaseAmountValidator.js';
 
 // TODO: 에러 메시지 상수 처리 후, 메시지란에 상수 삽입
 describe('로또 구입 금액 유효성 클래스 테스트', () => {
