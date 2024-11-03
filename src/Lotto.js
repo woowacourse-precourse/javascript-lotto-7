@@ -39,9 +39,9 @@ class Lotto {
       );
 
       // 유효성 검사 부분
-      const lotto = new Lotto(RANDOM_LOTTO);
-      USER_LOTTO_LIST.push(lotto.#numbers);
-      Console.print(lotto.#numbers);
+      const VALIDATE_LOTTO = new Lotto(RANDOM_LOTTO);
+      USER_LOTTO_LIST.push(VALIDATE_LOTTO.#numbers);
+      Console.print(VALIDATE_LOTTO.#numbers);
     }
   }
 }
