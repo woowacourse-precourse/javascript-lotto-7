@@ -13,3 +13,20 @@ export function validateNoDuplicates(numbers) {
     throw new CustomError(ERROR.DUPLICATE_LOTTO_NUMBER);
   }
 }
+
+export function validateRange(numbers) {
+  numbers.forEach((number) => {
+    if (
+      number < LOTTO_NUMBERS.LOWER_BOUND ||
+      number > LOTTO_NUMBERS.UPPER_BOUND
+    ) {
+      throw new CustomError(ERROR.INVALID_NUMBER_RANGE);
+    }
+  });
+}
+
+export function validateLottoNumbers(numbers) {
+  validateLength(numbers);
+  validateNoDuplicates(numbers);
+  validateRange(numbers);
+}
