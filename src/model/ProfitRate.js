@@ -19,7 +19,7 @@ export default class ProfitRate {
 
     for (const [rank, count] of Object.entries(this.#result)) {
       if (count > 0) {
-        totalPrizeMoney += prizeByMatchCount[rank].money;
+        totalPrizeMoney += prizeByMatchCount[rank].money * count;
       }
     }
 
