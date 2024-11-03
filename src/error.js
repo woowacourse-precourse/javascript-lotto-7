@@ -4,4 +4,5 @@ export const ERR_MSG = {
    ERR_NUMBERS_COUNT: '[ERROR] 로또 번호는 6개여야 합니다.',
    ERR_NUMBERS_RANGE: '[ERROR] 1 ~ 45 범위의 숫자만 입력해주세요.',
    ERR_ONLYONE_NUMBER: '[ERROR] 숫자 하나만 입력해주세요',
+   ERR_DUPLICATE_NUMBERS: '[ERROR] 중복되는 숫자가 있습니다.',
 };
