@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
-import { RESULT } from './constants/Constants.js';
-import Ticket from './modules/Ticket.js';
-import Jackpot from './modules/Jackpot.js';
+import { RESULT } from '../constants/Constants.js';
+import Ticket from './Ticket.js';
+import Jackpot from './Jackpot.js';
 
 class Match {
   constructor() {
