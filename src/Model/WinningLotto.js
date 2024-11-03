@@ -1,6 +1,8 @@
 import { ERROR_MSG } from '../constants/constants.js';
 import Lotto from './Lotto.js';
 
+const BONUS_NUMBER_COUNT = 1;
+
 class WinningLotto extends Lotto {
   #bonusNumber;
 
@@ -13,7 +15,7 @@ class WinningLotto extends Lotto {
   }
 
   validateBonusNumberCount(number) {
-    if (number.length !== 1) {
+    if (number.length !== BONUS_NUMBER_COUNT) {
       throw new Error(ERROR_MSG.invalidBonusNumberCount);
     }
   }
