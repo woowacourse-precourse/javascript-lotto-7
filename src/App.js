@@ -3,7 +3,6 @@ import Lotto from "./Lotto.js";
 import Input from "./Input.js";
 import Output from "./Output.js";
 import { LOTTO_NUMBERS } from "./constants/lotto.js";
-import Validate from "./Validate.js";
 
 class App {
   async run() {
