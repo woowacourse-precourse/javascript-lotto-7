@@ -40,13 +40,13 @@ export default class Controller {
       }
     }
 
-    return ((sum / paidMoney) * 100).toFixed(1);
+    return ((sum / paidMoney) * 100).toFixed(LOTTO.PROFIT_RATE_DECIMAL_PLACE);
   }
 
   async getWinningNumberAndBonusNumber() {
     const winningNumberInput = await this.getWinningNumber();
     const winningNumber = winningNumberInput
-      .split(',')
+      .split(LOTTO.LOTTO_NUMBER_SEPARATOR)
       .map((number) => +number);
     const bonusNumberInput = await this.getBonusNumber(winningNumber);
     const bonusNumber = Number(bonusNumberInput);

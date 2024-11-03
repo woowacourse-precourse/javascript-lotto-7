@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../constant/constants.js';
+import { ERROR_MESSAGES, LOTTO } from '../constant/constants.js';
 
 export const validateMoney = (inputMoney) => {
   const money = Number(inputMoney);
@@ -14,7 +14,7 @@ const checkNumber = (money) => {
 };
 
 const checkUnit = (money) => {
-  if (money % 1000 !== 0) {
+  if (money % LOTTO.LOTTO_PRICE !== 0) {
     throw new Error(ERROR_MESSAGES.PURCHASE_PRICE.INVALID_UNIT);
   }
 };
@@ -23,7 +23,9 @@ export const validateWinningNumber = (numbersInput) => {
   hasSpecialSymbol(numbersInput);
   hasComma(numbersInput);
 
-  const numbers = numbersInput.split(',').map((number) => +number);
+  const numbers = numbersInput
+    .split(LOTTO.LOTTO_NUMBER_SEPARATOR)
+    .map((number) => +number);
 
   checkWinningNumberType(numbers);
   checkNumberCount(numbers);
@@ -32,13 +34,13 @@ export const validateWinningNumber = (numbersInput) => {
 };
 
 const hasComma = (numbersInput) => {
-  if (numbersInput.indexOf(',') === -1) {
+  if (numbersInput.indexOf(LOTTO.LOTTO_NUMBER_SEPARATOR) === -1) {
     throw new Error(ERROR_MESSAGES.WINNING_NUMBER.INVALID_COMMA);
   }
 };
 
 const checkNumberCount = (numbers) => {
-  if (numbers.length !== 6) {
+  if (numbers.length !== LOTTO.LOTTO_NUMBER_COUNT) {
     throw new Error(ERROR_MESSAGES.WINNING_NUMBER.INVALID_COUNT);
   }
 };
@@ -60,7 +62,10 @@ const hasSpecialSymbol = (numbersInput) => {
 
 const checkNumberRange = (numbers) => {
   for (let i = 0; i < numbers.length; i++) {
-    if (numbers[i] < 1 || numbers[i] > 45)
+    if (
+      numbers[i] < LOTTO.LOTTO_NUMBER_RANGE_MIN ||
+      numbers[i] > LOTTO.LOTTO_NUMBER_RANGE_MAX
+    )
       throw new Error(ERROR_MESSAGES.WINNING_NUMBER.OUT_OF_RANGE);
   }
 };
@@ -74,16 +79,16 @@ const checkWinningNumberType = (numbers) => {
 
 export const validateBonusNumber = (bonusNumberInput, winningNumbers) => {
   const bonusNumber = Number(bonusNumberInput);
-
   if (isNaN(bonusNumber)) {
     throw new Error(ERROR_MESSAGES.BONUS_NUMBER.NOT_A_NUMBER);
   }
-
   if (winningNumbers.includes(bonusNumber)) {
     throw new Error(ERROR_MESSAGES.BONUS_NUMBER.DUPLICATION_NUMBER);
   }
-
-  if (bonusNumber < 1 || bonusNumber > 45) {
+  if (
+    bonusNumber < LOTTO.LOTTO_NUMBER_RANGE_MIN ||
+    bonusNumber > LOTTO.LOTTO_NUMBER_RANGE_MAX
+  ) {
     throw new Error(ERROR_MESSAGES.BONUS_NUMBER.OUT_OF_RANGE);
   }
 };

@@ -1,3 +1,5 @@
+import { LOTTO } from '../constant/constants.js';
+
 export default class MatchingMachine {
   #winningNumber;
   #bonusNumber;
@@ -20,7 +22,7 @@ export default class MatchingMachine {
   matchLotto() {
     this.#lottos.forEach((lotto) => {
       const count = this.#getMatchedLottoCount(lotto);
-      if (count < 3) return;
+      if (count < LOTTO.MIN_WINNING_MATCH_COUNT) return;
 
       const rank = this.#getRank(count, lotto);
       this.#result[rank] += 1;
@@ -36,14 +38,17 @@ export default class MatchingMachine {
   }
 
   #getRank(count, lotto) {
-    if (count === 6) {
-      return 1;
+    if (count === LOTTO.FIRST_PLACE_MATCH_COUNT) {
+      return LOTTO.FIRST_PLACE_RANK;
     }
-    if (count === 5 && this.#isBonusMatching(lotto)) {
-      return 2;
+    if (
+      count === LOTTO.SECOND_PLACE_MATCH_COUNT &&
+      this.#isBonusMatching(lotto)
+    ) {
+      return LOTTO.SECOND_PLACE_RANK;
     }
 
-    return 8 - count;
+    return LOTTO.MATCH_COUNT_BASE - count;
   }
 
   #isBonusMatching(lotto) {

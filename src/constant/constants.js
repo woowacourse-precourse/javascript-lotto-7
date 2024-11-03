@@ -18,10 +18,22 @@ export const ERROR_MESSAGES = {
     OUT_OF_RANGE: '보너스 번호는 1부터 45 사이의 숫자여야 합니다.',
     NOT_A_NUMBER: '보너스 번호는 숫자로 입력해야 합니다.',
   },
+  INPUT_ERROR: '입력 중 오류가 발생했습니다.',
 };
 
 export const LOTTO = {
   LOTTO_PRICE: 1000,
+  LOTTO_NUMBER_COUNT: 6,
+  LOTTO_NUMBER_RANGE_MIN: 1,
+  LOTTO_NUMBER_RANGE_MAX: 45,
+  LOTTO_NUMBER_SEPARATOR: ',',
+  PROFIT_RATE_DECIMAL_PLACE: 1,
+  FIRST_PLACE_MATCH_COUNT: 6,
+  SECOND_PLACE_MATCH_COUNT: 5,
+  MIN_WINNING_MATCH_COUNT: 3,
+  MATCH_COUNT_BASE: 8,
+  FIRST_PLACE_RANK: 1,
+  SECOND_PLACE_RANK: 2,
 };
 
 export const INPUT_MESSAGE = {
