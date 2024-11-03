@@ -5,12 +5,12 @@ import { Random } from '@woowacourse/mission-utils';
 class LottoMachine {
   #lottoCount;
   #lottoDigitCount;
-  #allLottos;
+  #boughtLottos;
   constructor(money) {
     Validate.validateMoney(money);
     this.#lottoCount = parseInt(money / 1000, 10);
     this.#lottoDigitCount = 6;
-    this.#allLottos = this.#buyLottos(this.#lottoCount, this.#lottoDigitCount);
+    this.#boughtLottos = this.#buyLottos(this.#lottoCount, this.#lottoDigitCount);
   }
 
   #buyLottos() {
