@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 
-class View {
+class InputView {
   static async getPayment() {
     const payment = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
     this.validatePayment(payment);
@@ -53,4 +53,4 @@ class View {
   }
 }
 
-export default View;
+export default InputView;
