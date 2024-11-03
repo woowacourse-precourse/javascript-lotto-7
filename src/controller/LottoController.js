@@ -22,8 +22,13 @@ class LottoController {
   }
 
   async #chargeMoneyToLottoMachine() {
-    const money = await readAndValidateMoney();
-    this.#lottoMachine = new LottoMachine(money);
+    try {
+      const money = await readAndValidateMoney();
+      this.#lottoMachine = new LottoMachine(money);
+    } catch (error) {
+      OuputView.printMessage(error.message);
+      await this.#chargeMoneyToLottoMachine();
+    }
   }
 
   #buyLottos() {
@@ -36,10 +41,14 @@ class LottoController {
   }
 
   async createAnswerNumbers() {
-    const winningNumber = await readAndValidateWinningNumber();
-    const bonusNumber = await readAndValidateBonusNumber(winningNumber);
-
-    this.#lottoMatcher = new LottoMatcher(winningNumber, bonusNumber);
+    try {
+      const winningNumber = await readAndValidateWinningNumber();
+      const bonusNumber = await readAndValidateBonusNumber(winningNumber);
+      this.#lottoMatcher = new LottoMatcher(winningNumber, bonusNumber);
+    } catch (error) {
+      OuputView.printMessage(error.message);
+      await this.createAnswerNumbers();
+    }
   }
 }
 
