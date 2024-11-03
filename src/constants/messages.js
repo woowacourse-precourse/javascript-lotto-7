@@ -11,7 +11,10 @@ const CONFIRMATION_MESSAGES = Object.freeze({
 });
 
 const ERROR_MESSAGES = Object.freeze({
-  INVALID_PURCHASE_AMOUNT: '[ERROR] 구입 금액은 1,000원 단위로 입력해 주세요.',
+  INVALID_PURCHASE_AMOUNT_NOT_NUMBER:
+    '[ERROR] 구입 금액은 숫자만 입력해 주세요.',
+  INVALID_PURCHASE_AMOUNT_NOT_TICKET_UNIT:
+    '[ERROR] 구입 금액은 1,000원 단위로 입력해 주세요.',
   INVALID_WINNING_NUMBER:
     '[ERROR] 당첨 번호는 1~45 사이의 숫자여야 하며, 중복되지 않아야 합니다.',
   INVALID_BONUS_NUMBER:
