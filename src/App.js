@@ -12,19 +12,22 @@ class App {
       if (!isValid) throw new Error('[ERROR]');
 
       const lottoCount = parseInt(purchaseAmount, 10) / 1000;
-      // Console.print(`\n`);
+      Console.print(`\n`);
       Console.print(`${lottoCount}개를 구매했습니다.`);
 
       const purchasedLottos = new PurchasedLottos();
       await purchasedLottos.generateLottos(lottoCount);
+      Console.print(`\n`);
 
       const winningNumberInput = await InputPrompt.getWinningNumber();
+      Console.print(`\n`);
       const winningNumbers = winningNumberInput
         .trim()
         .split(',')
         .map((number) => parseInt(number, 10));
 
       const bonusNumberInput = await InputPrompt.getBonusNumber();
+      Console.print(`\n`);
       const bonusNumber = parseInt(bonusNumberInput, 10);
 
       const winningLotto = new WinningLotto(winningNumbers, bonusNumber);

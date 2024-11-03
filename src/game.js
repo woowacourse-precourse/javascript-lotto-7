@@ -17,8 +17,8 @@ class Game {
   }
 
   printResult() {
-    Console.print('당첨 통계\n');
-    Console.print('---\n');
+    Console.print('당첨 통계');
+    Console.print('---');
 
     ['3', '4', '5', '5_BONUS', '6'].forEach((key) => {
       const count = this.#matchingNumberCount[key];
