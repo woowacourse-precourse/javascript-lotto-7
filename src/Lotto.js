@@ -24,6 +24,15 @@ class Lotto {
   toString() {
     return `[${this.#numbers.join(", ")}]`;
   }
+
+  lotto_match(lotto_answer) {
+    return this.#numbers.filter((number) => lotto_answer.includes(number))
+      .length;
+  }
+
+  lotto_bonus(lotto_bonus) {
+    return this.#numbers.includes(lotto_bonus);
+  }
   // TODO: 추가 기능 구현
 }
 
