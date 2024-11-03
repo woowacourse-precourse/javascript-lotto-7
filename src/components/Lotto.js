@@ -36,7 +36,7 @@ class Lotto {
 
       return new Lotto(sortedNumbers);
     } catch (error) {
-      Console.print(error.message);
+      Console.print(`${error.message}\n`);
       return this.createLotto();
     }
   }
