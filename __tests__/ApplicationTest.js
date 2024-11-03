@@ -1,5 +1,6 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "../src/Lotto.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -93,5 +94,66 @@ describe("로또 테스트", () => {
 
   test("예외 테스트", async () => {
     await runException("1000j");
+  });
+});
+
+describe("단위 테스트", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test("calculatePurchaseCount 테스트", () => {
+    const app = new App();
+    expect(app.calculatePurchaseCount(3000)).toBe(3);
+  });
+
+  test("calculatePurchaseCount 예외 테스트", () => {
+    const app = new App();
+    expect(() => app.calculatePurchaseCount(3100)).toThrow("[ERROR]");
+  });
+
+  test("generateLottos 테스트", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms([
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+    ]);
+
+    // when
+    const app = new App();
+    app.generateLottos(2)
+
+    // then
+    const logs = [
+      "[8, 21, 23, 41, 42, 43]",
+      "[3, 5, 11, 16, 32, 38]"
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("calculateLottoResults 테스트", () => {
+    const app = new App();
+
+    const generatedLottos = [new Lotto([8, 21, 23, 41, 42, 43]), new Lotto([3, 5, 11, 16, 32, 38])];
+    const winningNumbers = [8, 21, 23, 38, 41, 42];
+    const bonusNumber = 43;
+    const purchaseAmount = 2;
+
+    const result = {
+      3: 0,
+      4: 0,
+      5: 0,
+      5.5: 1,
+      6: 0,
+      totalPrize: 30000000,
+      profitRate: "1,500,000,000.0",
+    };
+
+    expect(app.calculateLottoResults(generatedLottos, winningNumbers, bonusNumber, purchaseAmount)).toEqual(result);
   });
 });

@@ -139,7 +139,6 @@ class App {
 
     lottoResults.profitRate = ((lottoResults.totalPrize / purchaseAmount) * 100).toFixed(1);
     lottoResults.profitRate = lottoResults.profitRate.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
     return lottoResults;
   }
 
