@@ -41,6 +41,11 @@ class Validator {
     if (operator % operand)
       throw new Error(`${ERROR_PREFIX} 입력값은(${operator})는 ${operand}로 나누어지지 않습니다.`);
   }
+
+  static isNotIncludeDuplicatedNumber(value) {
+    if (new Set(value).size != value.length)
+      throw new Error(`${ERROR_PREFIX} 중복된 값이 존재합니다.`);
+  }
 }
 
 export default Validator;
