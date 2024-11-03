@@ -1,14 +1,16 @@
+import winningNumberValidator from '../../../src/validation/winningNumberValidator.js';
+
 const ERROR = '[ERROR]';
 
 describe('당첨 번호 검증 테스트, 정상 테스트', () => {
   test('당첨 번호 : 1,2,3,4,5,6', () => {
     const winningNumbers = '1,2,3,4,5,6';
-    expect(() => winningNumberValidator(winningNumbers)).not.thThrow();
+    expect(() => winningNumberValidator(winningNumbers)).not.toThrow();
   });
 
   test('당첨 번호 : 6,5,4,3,2,1', () => {
     const winningNumbers = '6,5,4,3,2,1';
-    expect(() => winningNumberValidator(winningNumbers)).not.thThrow();
+    expect(() => winningNumberValidator(winningNumbers)).not.toThrow();
   });
 });
 
