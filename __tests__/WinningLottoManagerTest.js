@@ -18,10 +18,19 @@ const getLogSpy = () => {
 };
 
 describe('WinningLottoManager 테스트', () => {
-  const selectSpy = jest.spyOn(WinningLottoManager, 'selectWinningNumbers');
+  const selectWinningNumbersSpy = jest.spyOn(
+    WinningLottoManager,
+    'selectWinningNumbers',
+  );
+
+  const selectBonusNumberSpy = jest.spyOn(
+    WinningLottoManager,
+    'selectBonusNumber',
+  );
 
   beforeEach(() => {
-    selectSpy.mockClear();
+    selectWinningNumbersSpy.mockClear();
+    selectBonusNumberSpy.mockClear();
   });
 
   const testSelectWinningNumbers = async (inputs, expectedMessage) => {
@@ -33,7 +42,23 @@ describe('WinningLottoManager 테스트', () => {
 
     await WinningLottoManager.selectWinningNumbers(inputs);
 
-    expect(selectSpy).toHaveBeenCalledTimes(ASKING_TIMES);
+    expect(selectWinningNumbersSpy).toHaveBeenCalledTimes(ASKING_TIMES);
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(expectedMessage),
+    );
+  };
+
+  const testSelectBonusNumber = async (inputs, expectedMessage) => {
+    const VALID_NUMBER = 7;
+    const WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
+    const ASKING_TIMES = 2;
+    const logSpy = getLogSpy();
+
+    mockQuestions([inputs, VALID_NUMBER]);
+
+    await WinningLottoManager.selectBonusNumber(inputs, WINNING_NUMBERS);
+
+    expect(selectBonusNumberSpy).toHaveBeenCalledTimes(ASKING_TIMES);
     expect(logSpy).toHaveBeenCalledWith(
       expect.stringContaining(expectedMessage),
     );
