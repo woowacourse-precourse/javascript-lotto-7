@@ -17,13 +17,13 @@ describe("PrizeCalculator 클래스 테스트", () => {
   });
 
   test("1등부터 5등까지의 매칭 결과에 따라 올바른 상금을 계산해야 한다", () => {
-    const totalPrize = prizeCalculator.getPrize();
+    const totalPrize = prizeCalculator.getTotalPrize();
     const expectedPrize = 2000000000 + 30000000 + 1500000 + 50000 + 5000; 
     expect(totalPrize).toBe(expectedPrize);
   });
 
   test("미당첨 결과는 상금 계산에 포함되지 않아야 한다", () => {
-    const totalPrize = prizeCalculator.getPrize();
+    const totalPrize = prizeCalculator.getTotalPrize();
     const expectedPrize = 2000000000 + 30000000 + 1500000 + 50000 + 5000; 
     expect(totalPrize).toBe(expectedPrize);
   });
@@ -36,7 +36,7 @@ describe("PrizeCalculator 클래스 테스트", () => {
     ];
 
     prizeCalculator = new PrizeCalculator(noPrizeResults);
-    const totalPrize = prizeCalculator.getPrize();
+    const totalPrize = prizeCalculator.getTotalPrize();
     expect(totalPrize).toBe(0);
   });
 });
