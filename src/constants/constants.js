@@ -1,9 +1,42 @@
 const PRICE_PER_LOTTO = Object.freeze(1_000);
+
 const PRICE_MAX_AMOUNT = Object.freeze(100_000_000);
+
 const LOTTO_CONDITION = Object.freeze({
   startRange: 1,
   endRange: 45,
   length: 6,
 });
 
-export { LOTTO_CONDITION, PRICE_PER_LOTTO, PRICE_MAX_AMOUNT };
+const RANK = Object.freeze({
+  first: 6,
+  second: 5,
+  third: 5,
+  fourth: 4,
+  fifth: 3,
+});
+
+const PRIZE_KEY = Object.freeze({
+  first_prize: 'firstPrize',
+  second_prize: 'secondPrize',
+  third_prize: 'thirdPrize',
+  fourth_prize: 'fourthPrize',
+  fifth_prize: 'fifthPrize',
+});
+
+const PRIZE_AMOUNT = Object.freeze({
+  [PRIZE_KEY.first_prize]: 2_000_000_000,
+  [PRIZE_KEY.second_prize]: 30_000_000,
+  [PRIZE_KEY.third_prize]: 1_500_000,
+  [PRIZE_KEY.fourth_prize]: 50_000,
+  [PRIZE_KEY.fifth_prize]: 5_000,
+});
+
+export {
+  LOTTO_CONDITION,
+  PRICE_PER_LOTTO,
+  PRICE_MAX_AMOUNT,
+  RANK,
+  PRIZE_KEY,
+  PRIZE_AMOUNT,
+};
