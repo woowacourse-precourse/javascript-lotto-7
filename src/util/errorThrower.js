@@ -1,6 +1,6 @@
 //@ts-check
 
-import { ERROR_PREFIX } from '../constants/errorMessage';
+import { ERROR_PREFIX } from '../constants/errorMessage.js';
 
 /**@param {string} message */
 const throwError = (message) => {
