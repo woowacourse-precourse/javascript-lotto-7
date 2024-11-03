@@ -1,4 +1,4 @@
-const SIX_RANK = 6;
+import { LOTTO_RANK } from '../constants/lottoStandard.js';
 
 class RankCounter {
   #rankCounter;
@@ -14,7 +14,7 @@ class RankCounter {
   }
 
   increaseRankCounter(rank) {
-    if (rank !== SIX_RANK) {
+    if (rank !== LOTTO_RANK.SIXTH_RANK) {
       const rankIndex = 5 - rank;
       this.#rankCounter[Object.keys(this.#rankCounter)[rankIndex]] += 1;
     }

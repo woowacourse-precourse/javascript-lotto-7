@@ -7,7 +7,7 @@ import Profit from '../domain/Profit.js';
 import RankCounter from '../domain/RankCounter.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import MONEY_UNIT from '../constants/lottoStandard.js';
+import { MONEY_UNIT, LOTTO_BOUNDARY, LOTTO_RANK } from '../constants/lottoStandard.js';
 
 class LottoController {
   async run() {
@@ -103,15 +103,21 @@ class LottoController {
 
   #generateRandomLotto(lottoCounter) {
     const lottoList = [];
-
     for (let i = 0; i < lottoCounter; i++) {
-      const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
+      const lotto = new Lotto(this.#selectRandomNumber());
       lottoList.push(lotto.getNumbers());
     }
 
     OutputView.printLottoNumbers(lottoList);
-
     return lottoList;
+  }
+
+  #selectRandomNumber() {
+    return Random.pickUniqueNumbersInRange(
+      LOTTO_BOUNDARY.MIN,
+      LOTTO_BOUNDARY.MAX,
+      LOTTO_RANK.SIXTH_RANK,
+    );
   }
 }
 

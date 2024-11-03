@@ -1,7 +1,6 @@
 import ERROR_MESSAGE from './constants/errorMessage.js';
+import { LOTTO_BOUNDARY } from './constants/lottoStandard.js';
 import CustomError from './CustomError.js';
-
-const LOTTO_BOUNDARY = Object.freeze({ MIN: 1, MAX: 45 });
 
 class LottoNumberValidator {
   static validateLottoNumber(number) {

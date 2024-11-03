@@ -8,7 +8,7 @@ const ERROR_MESSAGE = Object.freeze({
   EMPTY_MONEY: `구입금액은 빈 수일 수 없습니다.`,
   STRING_MONEY: `구입금액은 문자일 수 없습니다.`,
   FLOAT_MONEY: `구입금액은 실수일 수 없습니다.`,
-  NOT_POSITIVE_MONEY: `구입금액은 양수여야 합니다.`,
+  NOT_POSITIVE_MONEY: `구입금액은 양수이며, 2**53 – 1 수를 초과하지 않아야 합니다.`,
   NOT_DIVIDE_BY_BASIC_MONEY: `구입금액이 1000으로 나누어 떨어지지 않습니다.`,
 });
 
