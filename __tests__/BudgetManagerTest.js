@@ -12,4 +12,10 @@ describe("BudgetManager 클래스 테스트", () => {
       new BudgetManager(200, 1000);
     }).toThrow("[ERROR]");
   });
+
+  test("구매가능한 최대 로또 개수를 구할 수 있다.", () => {
+    const budgetManager = new BudgetManager(7000, 1000);
+
+    expect(budgetManager.calculateMaxLottos()).toBe(7);
+  });
 });
