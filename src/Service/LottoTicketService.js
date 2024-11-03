@@ -3,14 +3,18 @@ import LottoNumberGenerateService from './LottoNumberGenerateService.js';
 
 class LottoTicketService {
   #lottos;
+  #lottoCount;
 
   constructor() {
-    this.#lottos = [];
     this.lottoNumberGenerateService = new LottoNumberGenerateService();
+    this.#lottos = [];
+    this.#lottoCount = null;
   }
 
   generateLottoTickets(purchaseAmount) {
-    for (let i = 0; i < purchaseAmount / 1000; i++) {
+    this.calculateLottoCount(purchaseAmount);
+
+    for (let i = 0; i < this.#lottoCount; i++) {
       const lottoNumbers =
         this.lottoNumberGenerateService.generateUniqueLottoNumbers();
       const lotto = new Lotto(lottoNumbers);
@@ -18,8 +22,12 @@ class LottoTicketService {
     }
   }
 
+  calculateLottoCount(purchaseAmount) {
+    this.#lottoCount = purchaseAmount / 1000;
+  }
+
   getLottos() {
-    return this.#lottos;
+    return { lottoCount: this.#lottoCount, lottos: this.#lottos };
   }
 }
 

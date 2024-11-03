@@ -9,7 +9,8 @@ describe('LottoTicketService 테스트', () => {
       [3, 5, 11, 16, 32, 38],
       [7, 11, 16, 35, 36, 44],
     ];
-    const output = [
+    const outputLottoCount = 3;
+    const outputLottos = [
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
       [7, 11, 16, 35, 36, 44],
@@ -19,10 +20,12 @@ describe('LottoTicketService 테스트', () => {
 
     const lottoTicketService = new LottoTicketService();
     lottoTicketService.generateLottoTickets(purchaseAmount);
-    const lottos = lottoTicketService.getLottos();
+    const { lottoCount, lottos } = lottoTicketService.getLottos();
+
+    expect(lottoCount).toBe(outputLottoCount);
 
     lottos.forEach((lotto, index) => {
-      expect(lotto.getNumbers()).toEqual(output[index]);
+      expect(lotto.getNumbers()).toEqual(outputLottos[index]);
     });
   });
 });

@@ -11,23 +11,24 @@ class LottoMachineController {
 
   async run() {
     const purchaseAmount = await this.inputView.readPurchaseAmount();
-    const lottos =
+    const { lottoCount, lottos } =
       this.lottoMachineService.generateLottoTickets(purchaseAmount);
 
-    this.outputView.printLottoNumbers(purchaseAmount / 1000, lottos);
+    this.outputView.printLottoNumbers(lottoCount, lottos);
 
     const winningNumbers = await this.inputView.readWinningNumbers();
     const bonusNumber = await this.inputView.readBonusNumber(winningNumbers);
 
-    const results = this.lottoMachineService.calculateResults(
-      purchaseAmount,
-      winningNumbers,
-      bonusNumber,
-      lottos
-    );
+    const { totalWinningRank, totalReturnRate } =
+      this.lottoMachineService.calculateResults(
+        purchaseAmount,
+        winningNumbers,
+        bonusNumber,
+        lottos
+      );
 
-    this.outputView.printWinningStatistics(results.totalWinningRank);
-    this.outputView.printTotalReturnRate(results.totalReturnRate);
+    this.outputView.printWinningStatistics(totalWinningRank);
+    this.outputView.printTotalReturnRate(totalReturnRate);
   }
 }
 
