@@ -29,7 +29,7 @@ class Validate {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_A_NUMBER);
     }
 
-    const hasOutOfRange = lottoArray.some((lottoNumber) => Validate.checkOutOfRange(lottoNumber));
+    const hasOutOfRange = lottoArray.some((lottoNumber) => this.checkOutOfRange(lottoNumber));
 
     if (hasOutOfRange) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.OUT_OF_RANGE_1_to_45);
@@ -43,7 +43,7 @@ class Validate {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.NOT_A_NUMBER);
     }
 
-    const bonusNumberOutOfRange = Validate.checkOutOfRange(bonusNumber);
+    const bonusNumberOutOfRange = this.checkOutOfRange(bonusNumber);
 
     if (bonusNumberOutOfRange) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_INPUT.OUT_OF_RANGE_1_to_45);

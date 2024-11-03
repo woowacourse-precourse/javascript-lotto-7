@@ -6,40 +6,36 @@ import { LOTTO_NUMBERS } from "./constants/lotto.js";
 
 class App {
   async run() {
-    try {
-      const { purchaseAmount } = await Input.getPurchaseAmount();
+    const { purchaseAmount } = await Input.getPurchaseAmount();
 
-      const lottoCount = purchaseAmount / 1000;
+    const lottoCount = purchaseAmount / 1000;
 
-      Output.printLottoCount(lottoCount);
+    Output.printLottoCount(lottoCount);
 
-      const purchasedLotto = Array.from({ length: lottoCount }, () => {
-        const randomLottoNumber = Random.pickUniqueNumbersInRange(
-          LOTTO_NUMBERS.MIN_RANGE_1,
-          LOTTO_NUMBERS.MAX_RANGE_45,
-          LOTTO_NUMBERS.COUNT_6,
-        ).sort((a, b) => a - b);
+    const purchasedLotto = Array.from({ length: lottoCount }, () => {
+      const randomLottoNumber = Random.pickUniqueNumbersInRange(
+        LOTTO_NUMBERS.MIN_RANGE_1,
+        LOTTO_NUMBERS.MAX_RANGE_45,
+        LOTTO_NUMBERS.COUNT_6,
+      ).sort((a, b) => a - b);
 
-        Output.printPurchasedLottoNumber(randomLottoNumber);
+      Output.printPurchasedLottoNumber(randomLottoNumber);
 
-        return randomLottoNumber;
-      });
+      return randomLottoNumber;
+    });
 
-      const { lottoWinningNumbers } = await Input.getLottoWinningNumbers();
+    const { lottoWinningNumbers } = await Input.getLottoWinningNumbers();
 
-      const { bonusNumber } = await Input.getBonusNumber(lottoWinningNumbers);
+    const { bonusNumber } = await Input.getBonusNumber(lottoWinningNumbers);
 
-      const lotto = new Lotto(lottoWinningNumbers);
+    const lotto = new Lotto(lottoWinningNumbers);
 
-      const lottoResult = lotto.checkLottoNumbers(purchasedLotto, bonusNumber);
+    const lottoResult = lotto.checkLottoNumbers(purchasedLotto, bonusNumber);
 
-      const profitRate = lotto.getProfitRate(lottoResult, purchaseAmount);
+    const profitRate = lotto.getProfitRate(lottoResult, purchaseAmount);
 
-      Output.printLottoResult(lottoResult);
-      Output.printProfitRate(profitRate);
-    } catch (error) {
-      Output.printErrorMessage(error);
-    }
+    Output.printLottoResult(lottoResult);
+    Output.printProfitRate(profitRate);
   }
 }
 

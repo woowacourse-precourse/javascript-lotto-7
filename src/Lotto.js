@@ -5,31 +5,28 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validateLottoNumbers(numbers);
+    this.#validate(numbers);
     this.#numbers = numbers;
   }
 
-  #validateLottoNumbers(lottoArray) {
+  #validate(lottoArray) {
     const isNotSixNumbers = lottoArray.size != LOTTO_NUMBERS.COUNT_6;
 
     if (isNotSixNumbers) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_SIX_NUMBERS);
     }
 
-    const hasNaN = [...lottoArray].some(
-      (lottoNumber) => !Number.isInteger(lottoNumber)
-    );
+    const hasNaN = [...lottoArray].some((lottoNumber) => !Number.isInteger(lottoNumber));
 
     if (hasNaN) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_A_NUMBER);
     }
 
     const hasOutOfRange = [...lottoArray].some((lottoNumber) => {
-      const checkOutOfRange =
-        lottoNumber < LOTTO_NUMBERS.MIN_RANGE_1 ||
-        lottoNumber > LOTTO_NUMBERS.MAX_RANGE_45;
+      const isOutOfRange =
+        lottoNumber < LOTTO_NUMBERS.MIN_RANGE_1 || lottoNumber > LOTTO_NUMBERS.MAX_RANGE_45;
 
-      return checkOutOfRange
+      return isOutOfRange;
     });
 
     if (hasOutOfRange) {
