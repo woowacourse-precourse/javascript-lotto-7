@@ -56,10 +56,19 @@ export class LottoService {
     let totalPrize = 0;
     const results = [];
 
-    for (const [key, { count, prize }] of Object.entries(prizeTable)) {
+    const order = [3, 4, 5, '5', 6];
+
+    order.forEach(key => {
+      const { count, prize } = prizeTable[key];
+      let description;
+      if (key === '5') {
+        description = '5개 일치, 보너스 볼 일치';
+      } else {
+        description = `${key}개 일치`;
+      }
+      results.push(`${description} (${prize.toLocaleString()}원) - ${count}개`);
       totalPrize += count * prize;
-      results.push(`${key}개 일치 (${prize.toLocaleString()}원) - ${count}개`);
-    }
+    });
 
     const totalReturn = ((totalPrize / totalSpent) * 100).toFixed(1);
     results.totalReturn = totalReturn;
