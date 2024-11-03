@@ -13,6 +13,9 @@ export const ERROR_MESSAGE_PREFIX = '[ERROR]';
 
 export const ERROR_MESSAGE = {
   BUY_PRICE_UNIT: `${ERROR_MESSAGE_PREFIX} 1000원 단위로 입력하셔야 합니다.`,
-  BUY_PRICE_TYPE: `${ERROR_MESSAGE_PREFIX} 금액은 숫자로 입력하셔야 합니다.`,
-  BUY_PRICE_POSITIVE: `${ERROR_MESSAGE_PREFIX} 음수를 입력할 수 없습니다.`,
+  INPUT_TYPE: `${ERROR_MESSAGE_PREFIX} 숫자로 입력하셔야 합니다.`,
+  NUMBER_POSITIVE: `${ERROR_MESSAGE_PREFIX} 음수를 입력할 수 없습니다.`,
+  WINNING_NUMBER_COUNT: `${ERROR_MESSAGE_PREFIX} 당첨 번호는 6개여야 합니다.`,
+  WINNING_NUMBER_RANGE: `${ERROR_MESSAGE_PREFIX} 당첨 번호의 범위는 1~45입니다.`,
+  WINNING_NUMBER_DUPLICATE: `${ERROR_MESSAGE_PREFIX} 당첨 번호는 중복될 수 없습니다.`,
 };

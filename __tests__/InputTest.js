@@ -56,7 +56,7 @@ describe('구입 금액 예외처리 테스트', () => {
     mockQuestions([input]);
 
     await expect(InputHandler.getBuyPrice()).rejects.toThrow(
-      ERROR_MESSAGE.BUY_PRICE_TYPE,
+      ERROR_MESSAGE.INPUT_TYPE,
     );
   });
 
@@ -65,7 +65,63 @@ describe('구입 금액 예외처리 테스트', () => {
     mockQuestions([input]);
 
     await expect(InputHandler.getBuyPrice()).rejects.toThrow(
-      ERROR_MESSAGE.BUY_PRICE_POSITIVE,
+      ERROR_MESSAGE.NUMBER_POSITIVE,
+    );
+  });
+});
+
+describe('당첨 번호 예외처리 테스트', () => {
+  test('당첨 번호 개수가 6개가 아닌 경우', async () => {
+    const input = '1,2,3,4,5';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
+      ERROR_MESSAGE.WINNING_NUMBER_COUNT,
+    );
+  });
+
+  test('당첨 번호 입력이 숫자가 아닌 경우', async () => {
+    const input = '1,2,3,a,b,c';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
+      ERROR_MESSAGE.INPUT_TYPE,
+    );
+  });
+
+  test('당첨 번호 입력이 자연수가 아닌 경우', async () => {
+    const input = '1,2,3,4,5,-6';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
+      ERROR_MESSAGE.NUMBER_POSITIVE,
+    );
+  });
+
+  test('당첨 번호 범위가 틀린 경우', async () => {
+    const input = '1,2,3,4,5,48';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
+      ERROR_MESSAGE.WINNING_NUMBER_RANGE,
+    );
+  });
+
+  test('당첨 번호 중복된 번호가 있는 경우', async () => {
+    const input = '1,2,3,4,5,5';
+    mockQuestions([input]);
+
+    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
+      ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE,
+    );
+  });
+
+  test('보너스 번호가 당첨 번호와 중복된 경우', async () => {
+    const inputs = ['5000', '1,2,3,4,5,6', '5'];
+    mockQuestions(inputs);
+
+    await expect(InputHandler.getUserInput()).rejects.toThrow(
+      ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE,
     );
   });
 });
