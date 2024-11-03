@@ -222,13 +222,12 @@ export default [
         },
       ],
     },
-    overrides: [
-      {
-        files: ['./__tests__/**/*.js'], // __tests__ 디렉토리 내 모든 .js 파일에 적용
-        rules: {
-          'max-lines-per-function': 'off', // __tests__ 내 파일에서 규칙 비활성화
-        },
-      },
-    ],
+  },
+  {
+    // __tests__ 디렉토리에 위치한 파일에 대한 규칙
+    files: ['__tests__/**/*.js'],
+    rules: {
+      'max-lines-per-function': 'off', // 테스트 파일에서 규칙 비활성화
+    },
   },
 ];
