@@ -45,25 +45,45 @@ class LottoController {
     this.#Lottos.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers();
       const lottoMatchCount = lottoNumbers.filter((number) =>
-        winningLotto.includes(number)
-      );
+        winningLotto.getNumbers().includes(number)
+      ).length;
       const bonusMatch = lottoNumbers.includes(bonusNumber);
+
+      this.updateWinningCount(lottoMatchCount, bonusMatch);
     });
   }
 
   updateWinningCount(matchedCount, bonusMatch) {
     // 일치하는 개수와 보너스 번호 여부에 따라 당첨 결과 처리
-    // if (matchedCount === 6) {
-    //     this.#winningCountArr[4] += 1; // 1등 (6개 일치)
-    //   } else if (matchedCount === 5 && bonusMatch) {
-    //     this.#winningCountArr[3] += 1; // 2등 (5개 + 보너스 번호 일치)
-    //   } else if (matchedCount === 5) {
-    //     this.#winningCountArr[2] += 1; // 3등 (5개 일치)
-    //   } else if (matchedCount === 4) {
-    //     this.#winningCountArr[1] += 1; // 4등 (4개 일치)
-    //   } else if (matchedCount === 3) {
-    //     this.#winningCountArr[0] += 1; // 5등 (3개 일치)
-    //   }
+    if (matchedCount === 6) {
+      this.#winningCountArr[4] += 1; // 1등 (6개 일치)
+    } else if (matchedCount === 5 && bonusMatch) {
+      this.#winningCountArr[3] += 1; // 2등 (5개 + 보너스 번호 일치)
+    } else if (matchedCount === 5) {
+      this.#winningCountArr[2] += 1; // 3등 (5개 일치)
+    } else if (matchedCount === 4) {
+      this.#winningCountArr[1] += 1; // 4등 (4개 일치)
+    } else if (matchedCount === 3) {
+      this.#winningCountArr[0] += 1; // 5등 (3개 일치)
+    }
+  }
+
+  getWinningPrizeStatistics() {
+    return this.#winningCountArr;
+  }
+
+  getTotalProfit() {
+    let totalProfit = 0;
+    this.#winningCountArr.forEach((count, index) => {
+      totalProfit += count * this.#winningPrizeArr[index];
+    });
+    return totalProfit;
+  }
+
+  getProfitRate() {
+    const totalProfit = this.getTotalProfit();
+    const lottoAmount = this.#lottoTotalNumber * LOTTO_EACH_AMOUNT;
+    return ((totalProfit / lottoAmount) * 100).toFixed(1);
   }
 }
 

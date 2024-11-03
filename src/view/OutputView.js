@@ -18,7 +18,7 @@ const OutputView = {
 
   printLottos(lottoController) {
     lottoController.getAllLottos().forEach((lotto) => {
-      Console.print(lotto.getNumbers());
+      Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
   },
 
@@ -32,6 +32,23 @@ const OutputView = {
 
   printDivider() {
     Console.print(OUTPUT_MESSAGE.DIVIDER);
+  },
+
+  printWinningStatistics(winningPrizeStatistic) {
+    winningPrizeStatistic.forEach((count, index) => {
+      const messageGenerators = [
+        OUTPUT_MESSAGE.STATISTIC_WINNING_FIFTH_PLACE,
+        OUTPUT_MESSAGE.STATISTIC_WINNING_FOURTH_PLACE,
+        OUTPUT_MESSAGE.STATISTIC_WINNING_THIRD_PLACE,
+        OUTPUT_MESSAGE.STATISTIC_WINNING_SECOND_PLACE,
+        OUTPUT_MESSAGE.STATISTIC_WINNING_FIRST_PLACE,
+      ];
+      Console.print(messageGenerators[index](count));
+    });
+  },
+
+  printProfit(rate) {
+    Console.print(OUTPUT_MESSAGE.PROFIT_RATE(rate));
   },
 };
 
