@@ -4,7 +4,7 @@ import Lotto from "./Lotto.js";
 class App {
   async run() {
     const amount = Number(await Console.readLineAsync("구입금액을 입력해 주세요.\n"));
-    this.amountExceptionHandler();
+    this.amountExceptionHandler(amount);
 
     const possibleLottoCount = Number(amount / 1000);
     Console.print(`\n${possibleLottoCount}개를 구매했습니다.`);
