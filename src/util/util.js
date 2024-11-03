@@ -1,4 +1,4 @@
-import { CONSTANT_LOTTO, NUMBERS, } from "./const.js";
+import { CONSTANT_LOTTO, NUMBERS } from "./const.js";
 
 export const isOutOfRange = (number) =>
   +number < CONSTANT_LOTTO.MIN_NUMBER || +number > CONSTANT_LOTTO.MAX_NUMBER;

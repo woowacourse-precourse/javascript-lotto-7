@@ -1,10 +1,10 @@
 import { Random } from "@woowacourse/mission-utils";
 import Prize from "../Prize.js";
-import { CONSTANT_LOTTO, NUMBERS, PRIZE_AMOUNT, } from "./const.js";
+import { CONSTANT_LOTTO, NUMBERS, PRIZE_AMOUNT } from "./const.js";
 import EXECUTE_MESSAGE from "./messages/execute-message.js";
 import { print, printEmptyLine } from "./io.js";
 import { getRate } from "./util.js";
-import COMMON_MESSAGES from './messages/message.js';
+import COMMON_MESSAGES from "./messages/message.js";
 
 export const generateLottoNumbers = (count) => {
   const lottoNumberDoubleArray = [];
@@ -28,7 +28,7 @@ export const loopPrintLottoNumbers = (lottoCount, lottoNumbersDoubleArray) => {
   printEmptyLine();
   print(EXECUTE_MESSAGE.LOTTO.RECEIPT(lottoCount));
   lottoNumbersDoubleArray.forEach((lottoNumbers) => {
-    print(`[${lottoNumbers.join(', ')}]`);
+    print(`[${lottoNumbers.join(", ")}]`);
   });
   printEmptyLine();
 };
@@ -47,21 +47,20 @@ export const printResult = (lottoNumbers, bonusNumber, generatedNumbers) => {
 
 export const getMatchCount = (generatedLotto, lottoNumbers) => {
   return generatedLotto.filter((number) => {
-    const lottoNumbersSplit = lottoNumbers.split(',').map(Number);
+    const lottoNumbersSplit = lottoNumbers.split(",").map(Number);
     return lottoNumbersSplit.includes(number);
-  })
-    .length;
+  }).length;
 };
 
 const increaseMatchCount = (count, hasBonus) => {
   const matchActions = {
-  [NUMBERS.THREE]: () => matchingNumbers.ThreeMatch.addCount(),
-  [NUMBERS.FOUR]: () => matchingNumbers.FourMatch.addCount(),
-  [NUMBERS.FIVE]: () =>
+    [NUMBERS.THREE]: () => matchingNumbers.ThreeMatch.addCount(),
+    [NUMBERS.FOUR]: () => matchingNumbers.FourMatch.addCount(),
+    [NUMBERS.FIVE]: () =>
       hasBonus
         ? matchingNumbers.FiveBonusMatch.addCount()
         : matchingNumbers.FiveMatch.addCount(),
-  [NUMBERS.SIX]: () => matchingNumbers.SixMatch.addCount(),
+    [NUMBERS.SIX]: () => matchingNumbers.SixMatch.addCount(),
   };
 
   if (matchActions[count]) {

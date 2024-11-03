@@ -1,6 +1,6 @@
 import { print } from "./util/io.js";
 import EXECUTE_MESSAGE from "./util/messages/execute-message.js";
-import { NUMBERS } from './util/const.js';
+import { NUMBERS } from "./util/const.js";
 
 class Prize {
   #matchingNumber;

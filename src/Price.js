@@ -1,5 +1,5 @@
 import Validate from "./Validate.js";
-import { CONSTANT_LOTTO } from './util/const.js';
+import { CONSTANT_LOTTO } from "./util/const.js";
 
 class Price {
   #price;
