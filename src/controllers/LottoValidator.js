@@ -1,70 +1,54 @@
 import { LOTTO, ERROR_MESSAGES } from '../utils/constants.js';
 
+// TODO: 비슷한 비즈니스 로직을 가진 코드 합치기
 class LottoValidator {
-  static validateWinningNumber(numbers) {
-    const parsedNumbers = this.#validateSixNumbers(numbers);
-    this.#validateAllNumeric(parsedNumbers);
-    this.#validateAllInRange(parsedNumbers);
+  #winningNumbers;
 
-    return parsedNumbers;
+  constructor(winningNumbers) {
+    this.#winningNumbers = this.#validateWinningNumber(winningNumbers);
   }
 
-  static validateBonusNumber(winningNumbers, bonusNumber) {
-    this.#validateIsNumeric(bonusNumber);
-    this.#validateInRange(bonusNumber);
-    this.#validateBonusNumberUniqueness(winningNumbers, bonusNumber);
+  validateBonusNumber(bonusNumber) {
+    const bonusNumber = this.#validateBonusNumber(bonusNumber);
 
-    return Number(bonusNumber);
-  }
-
-  static #validateSixNumbers(numbers) {
-    const parsedNumbers = numbers
-      .split(LOTTO.SEPARATOR)
-      .map((num) => Number(num.trim()));
-    if (parsedNumbers.length !== LOTTO.WINNING_NUMBERS_COUNT) {
-      throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
-    }
-
-    return parsedNumbers;
-  }
-
-  static #validateAllNumeric(numbers) {
-    numbers.forEach((number) => {
-      if (isNaN(number)) {
-        throw new Error(ERROR_MESSAGES.NON_NUMERIC_VALUE);
-      }
-    });
-  }
-
-  static #validateAllInRange(numbers) {
-    numbers.forEach((number) => {
-      if (!this.#isInRange(number)) {
-        throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
-      }
-    });
-  }
-
-  static #validateIsNumeric(bonusNumber) {
-    if (Number.isNaN(Number(bonusNumber))) {
-      throw new Error(ERROR_MESSAGES.NON_NUMERIC_BONUS);
-    }
-  }
-
-  static #validateInRange(bonusNumber) {
-    if (!this.#isInRange(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
-    }
-  }
-
-  static #validateBonusNumberUniqueness(winningNumbers, bonusNumber) {
-    const parsedWinningNumbers = winningNumbers.map(Number);
-    if (parsedWinningNumbers.includes(Number(bonusNumber))) {
+    if (this.#winningNumbers.includes(bonusNumber)) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
     }
+
+    return { winningNumbers: this.#winningNumbers, bonusNumber };
   }
 
-  static #isInRange(number, range = LOTTO.NUMBER_RANGE) {
-    return number >= range.MIN && number <= range.MAX;
+  #validateWinningNumber(userInput) {
+    return this.#parseUserInput(userInput);
+  }
+
+  #parseUserInput(userInput) {
+    const parsedNumbers = userInput
+      .split(LOTTO.SEPARATOR)
+      .map((e) => Number(e.trim()));
+
+    if (this.#hasNonNumericValue(parsedNumbers)) {
+      throw new Error(ERROR_MESSAGES.NON_NUMERIC_VALUE);
+    }
+
+    if (this.#isAllInRange(parsedNumbers)) {
+      throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
+    }
+
+    return parsedNumbers;
+  }
+
+  #hasNonNumericValue(arr) {
+    return arr.some((e) => e.isNaN());
+  }
+
+  #isAllInRange(arr) {
+    return arr.some((e) => e >= range.MIN && e <= range.MAX);
+  }
+
+  #validateBonusNumber(bonusNumber) {
+    const [parsed] = this.#parseUserInput(bonusNumber);
+    return parsed;
   }
 }
 
