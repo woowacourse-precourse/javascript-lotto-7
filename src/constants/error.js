@@ -1,7 +1,7 @@
 import CONSTANT from "./costant";
 
 const ERROR = Object.freeze({
-  IS_NOT_DEVIED: `[ERROR] ${CONSTANT.PURCHASE_UNIT.UNIT_OF_LOTTO}원 단위로 입력해주세요.`,
+  IS_NOT_DEVIDED: `[ERROR] ${CONSTANT.PURCHASE_UNIT.UNIT_OF_LOTTO}원 단위로 입력해주세요.`,
   SMALL_THAN_THOUSAND: `[ERROR] ${CONSTANT.PURCHASE_UNIT.UNIT_OF_LOTTO}원 이상 입력해주세요.`,
   INVALID_VALUE: '[ERROR] 숫자만 입력해주세요.',
   BLANK: '[ERROR] 값을 입력해주세요.',
