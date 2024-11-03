@@ -1,3 +1,7 @@
+const CONSTANT = Object.freeze({
+    START: 'start'
+})
+
 const SUBJECT = Object.freeze({
     BUY_MONEY: '구입 금액은 ',
     WIN_NUMBER: '당첨 번호는 ',
@@ -16,6 +20,7 @@ const ERROR = Object.freeze({
     MINUS: '양수만 입력해주세요.',
     END_WITH_1000: '1000원 단위입니다.',
     OUT_OF_RANGE: '1 ~ 45 사이의 숫자만 가능합니다.',
+    IS_NOT_SIX: '로또 번호의 개수가 6개가 아닙니다.',
 })
 
-export { MESSAGES, ERROR, SUBJECT };
+export { CONSTANT, MESSAGES, ERROR, SUBJECT };

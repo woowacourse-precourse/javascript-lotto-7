@@ -40,6 +40,13 @@ class BuyMoneyOutput extends WoowahanOutput {
     }
 }
 
+class WinInputOutput extends WoowahanOutput {
+
+    async printCountNotSix() {
+        super.errorPrint(SUBJECT.WIN_NUMBER, ERROR.IS_NOT_SIX)
+    }
+}
+
 class WinNumberOutput extends WoowahanOutput {
 
     async printEmptyValue() {
@@ -59,4 +66,4 @@ class WinNumberOutput extends WoowahanOutput {
     }
 }
 
-export { BuyMoneyOutput, GameOutput, WinNumberOutput }
+export { BuyMoneyOutput, GameOutput, WinNumberOutput, WinInputOutput }

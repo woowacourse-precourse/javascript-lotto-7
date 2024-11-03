@@ -1,14 +1,15 @@
 import { Console } from "@woowacourse/mission-utils";
 import WoowahanInput from "./woowahanInput.js";
-import { buyMoneyValidator, winNumberValidator } from "./utils/validators.js";
+import { buyMoneyValidator, winInputValidator, winNumberValidator } from "./utils/validators.js";
 import LottoStore from "./LottoStore.js";
 import { GameOutput } from "./woowahanOutput.js";
+import { CONSTANT } from "./utils/constants.js";
 
 class App {
   async run() {
     const lottoStore = new LottoStore();
 
-    let buyMoney = 'start';
+    let buyMoney = CONSTANT.START;
 
     while (!buyMoneyValidator(buyMoney)) {
       buyMoney = await WoowahanInput.getBuyMoney();
@@ -19,18 +20,14 @@ class App {
 
     const lottos = lottoStore.generateLottos();
 
-    let flag = true;
+    let isWinNumberValidate = true;
     let winNumber = [];
 
-    while (flag) {
-        const winInput = await WoowahanInput.getWinNumber();
-        winNumber = winInput.split(',').map(Number);
-        if (winNumber.length !== 6){
-          console.log('[ERROR] 당첨 번호는 6자리입니다.');
-          continue
-        } 
-
-        flag = winNumber.some((number) => !winNumberValidator(number));
+    while (isWinNumberValidate) {
+      const winInput = await WoowahanInput.getWinNumber();
+      winNumber = winInput.split(',').map(Number);
+      if (!winInputValidator(winNumber)) continue;
+      isWinNumberValidate = winNumber.some((number) => !winNumberValidator(number));
     }
 
     const inputBonus = await WoowahanInput.getBonusNumber();

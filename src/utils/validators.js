@@ -1,6 +1,6 @@
 import { isEmpty, isMinusNumber, isNotNumber, isEndWith1000 } from "../validateInput/validateInputMoney.js";
 import { isWinEmpty, isWinMinusNumber, isWinNotNumber, isWinOutOfRange } from "../validateInput/validateInputWinNumber.js";
-import { BuyMoneyOutput, WinNumberOutput } from "../woowahanOutput.js";
+import { BuyMoneyOutput, WinInputOutput, WinNumberOutput } from "../woowahanOutput.js";
 
 const buyMoneyValidator = (input) => {
     const output = new BuyMoneyOutput();
@@ -23,6 +23,16 @@ const buyMoneyValidator = (input) => {
     return true;
 };
 
+const winInputValidator = (input) => {
+    const output = new WinInputOutput();
+
+    if (input.length !== 6) {
+        output.printCountNotSix();
+        return false
+    }
+    return true
+}
+
 const winNumberValidator = (input) => {
     const output = new WinNumberOutput();
 
@@ -43,4 +53,4 @@ const winNumberValidator = (input) => {
     return true;
 };
 
-export { buyMoneyValidator , winNumberValidator };
+export { buyMoneyValidator, winNumberValidator, winInputValidator };
