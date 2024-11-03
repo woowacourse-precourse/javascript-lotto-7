@@ -1,6 +1,6 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { PRIZE } from "./constants/constant.js";
+import { ERROR_MESSAGES, PRIZE } from "./constants/constant.js";
 
 class App {
   async run() {
@@ -143,16 +143,11 @@ class App {
   }
 
   validateBonusNumber(bonusNumber, winningNumber) {
-    if (isNaN(bonusNumber)) {
-      throw new Error("[ERROR]: 보너스 번호는 숫자만 입력 가능합니다.");
-    }
     if (!Number.isInteger(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error(
-        "[ERROR]: 보너스 번호는 1부터 45 사이의 정수여야 합니다."
-      );
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_RANGE);
     }
     if (winningNumber.getNumbers().includes(bonusNumber)) {
-      throw new Error("[ERROR]: 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER_WITH_WINNING);
     }
   }
 }

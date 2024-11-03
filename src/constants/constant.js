@@ -11,6 +11,8 @@ const ERROR_MESSAGES = Object.freeze({
   DUPLICATE_LOTTO_NUMBER: "[ERROR]: 로또 번호는 중복될 수 없습니다.",
   INVALID_LOTTO_NUMBER_RANGE:
     "[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.",
+  DUPLICATE_BONUS_NUMBER_WITH_WINNING:
+    "[ERROR]: 보너스 번호는 당첨 번호와 중복될 수 없습니다.",
 });
 
 export { PRIZE, ERROR_MESSAGES };
