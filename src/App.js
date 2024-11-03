@@ -144,6 +144,19 @@ function checkPrize(lottos, prizeLotto, bonusNumber) {
   return prizeResults;
 }
 
+function printPrizeResults(prizeResults) {
+  Console.print("당첨 통계");
+  Console.print("---");
+
+  for (const [key, count] of prizeResults) {
+    Console.print(
+      `${PRIZE_TABLE[key].description} (${PRIZE_TABLE[
+        key
+      ].money.toLocaleString()}원) - ${count}개`
+    );
+  }
+}
+
 class App {
   async run() {
     const payment = await inputPayment();
@@ -159,6 +172,7 @@ class App {
     const bonusNumberLotto = await inputBonusNumber(prizeNumbers);
 
     const prizeResults = checkPrize(lottos, prizeNumberLotto, bonusNumberLotto);
+    printPrizeResults(prizeResults);
   }
 }
 
