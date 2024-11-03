@@ -59,8 +59,8 @@ class Consumer {
     }
   }
 
-  numberRangeCheck() {
-    // 보너스 번호 범위도 여기서 함
+  checkNumberRange() {
+    // 보너스 번호, 당첨 번호 범위도 여기서 함
     const MIN_NUMBER = 1;
     const MAX_NUMBER = 45;
     if (winningNumber < MIN_NUMBER || MAX_NUMBER < winningNumber) {
@@ -68,7 +68,7 @@ class Consumer {
     }
   }
 
-  isduplicateNumber() {
+  isDuplicateNumber() {
     checkduplicate = new set(winningNumber);
     if (checkduplicate.size !== winningNumber.length) {
       throw new Error(NUMBER_INPUT_ERROR_MESSAGE.DUPLICATE_NUMBER);
