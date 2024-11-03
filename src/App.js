@@ -1,19 +1,19 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import { ERROR, MESSAGES } from "./utils/constants.js";
-
+import WoowahanInput from "./woowahanInput.js";
 
 class App {
   async run() {
     let input;
     let isValidNumber;
-    
+
     while (!isValidNumber) {
-      input = await Console.readLineAsync(`${MESSAGES.BUY_MONEY_INPUT}`);
+      input = await WoowahanInput.getBuyMoney();
       isValidNumber = /^\d+$/.test(input);
-      if (isValidNumber){
+      if (isValidNumber) {
         break
-      }else{
+      } else {
         Console.print(`[ERROR] ${ERROR.BUY_MONEY_NOT_NUMBER}`);
       }
     }
@@ -29,13 +29,13 @@ class App {
     Console.print(`${countLotto}개를 구매했습니다.`);
     for (let i = 0; i < countLotto; i++) {
       const random = Random.pickUniqueNumbersInRange(1, 45, 6);
-      random.sort((a,b) => a-b);
+      random.sort((a, b) => a - b);
       const lotto = new Lotto(random);
       lottos.push(lotto);
       Console.print(`[${random.join(', ')}]`);
     }
 
-    const winInput = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const winInput = await WoowahanInput.getWinNumber();
     const winNumber = winInput.split(',').map(Number);
     winNumber.forEach((number) => {
       if (number === isNaN) {
@@ -49,7 +49,7 @@ class App {
       }
     })
 
-    const inputBonus = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const inputBonus = await WoowahanInput.getBonusNumber();
     const bonusNumber = Number(inputBonus);
     if (bonusNumber === isNaN) {
       Console.print('[ERROR] 당첨 번호는 유효한 숫자여야 합니다.');
