@@ -4,6 +4,7 @@ import Lotto from './Lotto.js';
 import LottoModel from './model/LottoModel.js';
 import LottoController from './controller/LottoController.js';
 import BuyLottoCountValidator from './validator/BuyLottoCountValidator.js';
+import PickLottoNumberValidator from './validator/PickLottoNumberValidator.js';
 
 class App {
   async run() {
@@ -27,9 +28,17 @@ class App {
     OutputView.printRandomLottoNumbers(model.getRandomLottoNumbers());
 
     // 당첨 번호 및 보너스 번호 입력
-    const pickLottoNumber = await InputView.getPickLottoNumber();
+    while (true) {
+      try {
+        const pickLottoNumber = await InputView.getPickLottoNumber();
+        PickLottoNumberValidator.validatePickLottoNumber(pickLottoNumber);
+        model.setPickLottoNumber(pickLottoNumber);
+        break;
+      } catch (error) {
+        OutputView.printMessage(error.message);
+      }
+    }
     const pickBonusNumber = await InputView.getBonusLottoNumber();
-    model.setPickLottoNumber(pickLottoNumber);
     model.setPickBonusNumber(pickBonusNumber);
 
     // 당첨 통계 및 수익률 계산
