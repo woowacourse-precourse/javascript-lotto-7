@@ -1,8 +1,8 @@
-import {amountToNumber, stringToNumberArray} from "./services/utils/preprocessing.js";
 import {INPUT} from "./constants/message.js";
 import {input, purchaseOutput, winningStatsOutput} from "./ui/view.js";
 import LottoMachine from "./services/LottoMachine.js";
 import Lotto from "./services/Lotto.js";
+import {amountToNumber, stringToNumberArray} from "./utils/methods.js";
 
 class App {
 
