@@ -20,8 +20,8 @@ export class UserLottoInfo {
 
   createLotto() {
     for (let i = 0; i < this.#lottoCount; i++) {
-      Console.print(generateRandomNum(6));
       const lotto = new Lotto(generateRandomNum(6));
+      lotto.orderNumbers();
       this.#lottos.push(lotto);
     }
   }
