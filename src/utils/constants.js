@@ -36,12 +36,12 @@ export const UI_MESSAGES = {
 };
 
 export const ERROR_MESSAGES = {
-  INVALID_PURCHASE_AMOUNT: `${ERROR_PREFIX}구매 금액은 1,000원 이상이어야 합니다.`,
-  INVALID_PURCHASE_UNIT: `${ERROR_PREFIX}구입 금액은 1,000원 단위여야 합니다.`,
-  INVALID_NUMBER: `${ERROR_PREFIX}숫자만 입력 가능합니다.`,
-  INVALID_NUMBER_RANGE: `${ERROR_PREFIX}로또 번호는 1부터 45 사이의 숫자여야 합니다.`,
-  DUPLICATE_NUMBER: `${ERROR_PREFIX}중복된 숫자는 사용할 수 없습니다.`,
-  INVALID_NUMBER_COUNT: `${ERROR_PREFIX}6개의 숫자를 입력해야 합니다.`,
-  INVALID_BONUS_NUMBER: `${ERROR_PREFIX}보너스 번호는 당첨 번호와 중복될 수 없습니다.`,
-  EMPTY_INPUT: `${ERROR_PREFIX}입력값이 없습니다.`,
+  INVALID_PURCHASE_AMOUNT: `${ERROR_PREFIX}구매 금액은 1,000원 이상이어야 합니다.\n`,
+  INVALID_PURCHASE_UNIT: `${ERROR_PREFIX}구입 금액은 1,000원 단위여야 합니다.\n`,
+  INVALID_NUMBER: `${ERROR_PREFIX}숫자만 입력 가능합니다.\n`,
+  INVALID_NUMBER_RANGE: `${ERROR_PREFIX}로또 번호는 1부터 45 사이의 숫자여야 합니다.\n`,
+  DUPLICATE_NUMBER: `${ERROR_PREFIX}중복된 숫자는 사용할 수 없습니다.\n`,
+  INVALID_NUMBER_COUNT: `${ERROR_PREFIX}6개의 숫자를 입력해야 합니다.\n`,
+  INVALID_BONUS_NUMBER: `${ERROR_PREFIX}보너스 번호는 당첨 번호와 중복될 수 없습니다.\n`,
+  EMPTY_INPUT: `${ERROR_PREFIX}입력값이 없습니다.\n`,
 };
