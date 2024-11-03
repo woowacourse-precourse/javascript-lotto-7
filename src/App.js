@@ -9,6 +9,7 @@ class App {
   async run() {
     const amount = await this.safeAsyncExecute(this.userAmountInput.bind(this));
     const lottos = this.buyLottos(amount);
+    const winningNumbers = await this.userWinningNumbersInput();
   }
 
   async userAmountInput() {
@@ -16,6 +17,10 @@ class App {
     const amount = this.convertToAmount(amountInput);
 
     return amount;
+  }
+
+  async userWinningNumbersInput() {
+    const winningNumbersInput = await Console.readLineAsync(`\n${INPUT_MESSAGE.WINNING_NUMBERS}\n`);
   }
 
   async safeAsyncExecute(callback) {
