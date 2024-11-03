@@ -15,6 +15,10 @@ class LottoController {
       // 당첨 번호 입력받기
       const winningNumbers = await InputView.getWinningNumbers();
       MissionUtils.Console.print(`당첨 번호: ${winningNumbers.join(", ")}`);
+
+      // 보너스 번호 입력받기
+      const bonusNumber = await InputView.getBonusNumber(winningNumbers);
+      MissionUtils.Console.print(`보너스 번호: ${bonusNumber}`);
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
