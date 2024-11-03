@@ -7,6 +7,13 @@ class LottoValidator {
   }
 
   /** @param {number[]} numbers */
+  static isDuplicated(numbers) {
+    const { size } = new Set(numbers);
+
+    return size !== numbers.length;
+  }
+
+  /** @param {number[]} numbers */
   static isInRangeAll(numbers) {
     return numbers.every(LottoValidator.isInRange);
   }
