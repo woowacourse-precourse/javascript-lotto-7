@@ -38,15 +38,3 @@ class BonusNumberValidator {
 }
 
 export { BonusNumberValidator };
-
-// if (!this.isValidEmptyInput(bonusNumber)) {
-//   throw new Error(ERROR_MESSAGES.bonusNumber.EMPTY_INPUT);
-// }
-
-// if (!this.isValidNumberBonusNumber(bonusNumber)) {
-//   throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_TYPE);
-// }
-
-// if (!this.isValidateBonusNumberRange(bonusNumber)) {
-//   throw new Error(ERROR_MESSAGES.bonusNumber.NUMBER_RANGE);
-// }

@@ -18,13 +18,6 @@ class PurchaseAmountValidator {
 
   getValidationRules() {
     return [
-      [!this.isValidEmptyInput(), EMPTY_INPUT],
-      [!this.isValidPurchaseAmountUnit(), UNIT_PRICE],
-    ];
-  }
-
-  getValidationRules() {
-    return [
       [!this.isValidEmptyInput(), ERROR_MESSAGES.purchaseAmount.EMPTY_INPUT],
       [!this.isValidPurchaseAmountUnit(), ERROR_MESSAGES.purchaseAmount.UNIT_PRICE],
     ];
