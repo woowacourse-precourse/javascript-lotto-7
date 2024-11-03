@@ -25,7 +25,8 @@ class App {
 
       const propit = lottoMachine.calculatePropit(totalWinningAmount);
 
-
+      lottoMachine.printPropit(propit);
+      
     } catch (error) {
 
     }

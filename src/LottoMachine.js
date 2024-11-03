@@ -105,12 +105,12 @@ export default class LottoMachine {
     }
 
     calculatePropit(totalWinningAmount) {
-        const netPropit = (totalWinningAmount-this.purchaseAmount)
+        const netPropit = (totalWinningAmount - this.purchaseAmount)
         if (netPropit == 0) {
             return 0
         }
 
-        const propit =  netPropit/ this.purchaseAmount * 100 ;
+        const propit = netPropit / this.purchaseAmount * 100;
 
         return Math.round(propit * 100) / 100;
     }
@@ -118,6 +118,4 @@ export default class LottoMachine {
     printPropit(propit) {
         Console.print(`총 수익률은 ${propit}%입니다.`);
     }
-
-
 }
