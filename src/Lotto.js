@@ -17,6 +17,10 @@ class Lotto {
   print() {
     MissionUtils.Console.print(`[${this.#numbers.join(", ")}]`);
   }
+
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;

@@ -21,6 +21,7 @@ class LottoPlayer {
       this.printLottos();
       this.winningNumbers = await this.handleWinningNumbers();
       this.bonusNumber = await this.handleBonusNumber();
+      this.compareLottoNumbers();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.play();
@@ -75,6 +76,24 @@ class LottoPlayer {
       MESSAGES.SHOW_PURCHASE_COUNT.replace("{count}", this.numberOfLottos)
     );
     this.lottos.forEach((lotto) => lotto.print());
+  }
+
+  compareLottoNumbers() {
+    for (let i = 0; i < this.numberOfLottos; i++) {
+      const lottoNumbers = this.lottos[i].numbers;
+      const matchCount = this.countMatchingNumbers(lottoNumbers);
+    }
+  }
+
+  countMatchingNumbers(numbers) {
+    const matchCount = this.winningNumbers.filter((number) =>
+      numbers.includes(number)
+    ).length;
+    return matchCount;
+  }
+
+  isBonusNumberMatched(numbers) {
+    return numbers.includes(this.bonusNumber);
   }
 }
 
