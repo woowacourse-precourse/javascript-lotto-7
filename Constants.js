@@ -25,6 +25,8 @@ export const WINNING = {
 
 export const ERROR_MESSAGES = {
   INVALID_PURCHASE_AMOUNT: "[ERROR] 구입 금액은 1,000원 단위여야 합니다.",
+  INVALID_AMOUNT_TYPE: "[ERROR] 구입 금액은 숫자로 입력해 주세요.",
+  NEGATIVE_OR_ZERO_AMOUNT: "[ERROR] 구입 금액은 양수로 입력해 주세요.",
   INVALID_WINNING_NUMBERS_COUNT: "[ERROR] 당첨 번호는 6개여야 합니다.",
   WINNING_NUMBER_RANGE: "[ERROR] 당첨 번호는 1~45 사이의 숫자여야 합니다.",
   WINNING_NUMBER_DUPLICATE: "[ERROR] 당첨 번호에는 중복된 숫자가 없어야 합니다.",
