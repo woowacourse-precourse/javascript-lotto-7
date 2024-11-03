@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { OUTPUT_VIEW } from '../utils/Constants.js';
+import { OUTPUT_VIEW, PRIZE_CALCULATOR } from '../utils/Constants.js';
 
 const outputView = {
   printPurchaseAmount: (amount) => {
@@ -19,6 +19,21 @@ const outputView = {
 
   printSeparatingMark: () => {
     Console.print(OUTPUT_VIEW.separatingMark);
+  },
+
+  printStatistics: (matchingTable, prizeTable = PRIZE_CALCULATOR.prize) => {
+    const { bonusWinningStandard, basicTag, bonusTag } = PRIZE_CALCULATOR;
+
+    prizeTable.forEach((targetPrize, matchedCount) => {
+      const lottoCount = matchingTable.get(matchedCount);
+      const basicPrize = targetPrize[basicTag];
+      outputView.printWinningStatistics(matchedCount, lottoCount, basicPrize);
+
+      if (matchedCount === bonusWinningStandard) {
+        const bonusPrize = targetPrize[bonusTag];
+        outputView.printBonusStatistics(matchedCount, lottoCount, bonusPrize);
+      }
+    });
   },
 
   printWinningStatistics: (numbersOfMatched, matchingCount, prize) => {
