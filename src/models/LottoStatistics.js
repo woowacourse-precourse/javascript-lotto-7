@@ -35,13 +35,17 @@ class LottoStatistics {
   }
 
   getWinningStatisticKey(matchedCount, isBonusNumberMatch) {
-    if (matchedCount === 3) return LOTTO_STATISTICS_KEYS.THREE;
-    if (matchedCount === 4) return LOTTO_STATISTICS_KEYS.FOUR;
-    if (matchedCount === 5 && isBonusNumberMatch) return LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS;
-    if (matchedCount === 5) return LOTTO_STATISTICS_KEYS.FIVE;
-    if (matchedCount === 6) return LOTTO_STATISTICS_KEYS.SIX;
+    const statisticKeyMap = {
+      3: LOTTO_STATISTICS_KEYS.THREE,
+      4: LOTTO_STATISTICS_KEYS.FOUR,
+      5: LOTTO_STATISTICS_KEYS.FIVE,
+      6: LOTTO_STATISTICS_KEYS.SIX,
+    };
 
-    return null;
+    if (!statisticKeyMap[matchedCount]) return null;
+    if (matchedCount === 5 && isBonusNumberMatch) return LOTTO_STATISTICS_KEYS.FIVE_AND_BONUS;
+
+    return statisticKeyMap[matchedCount];
   }
 
   computLottoPrize() {
