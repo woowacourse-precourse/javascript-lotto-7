@@ -1,3 +1,4 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
 import App from '../src/App';
 import Lotto from '../src/Lotto';
 import LottoStore from '../src/LottoStore';
@@ -31,6 +32,7 @@ describe('로또 클래스 테스트', () => {
 
     beforeEach(() => {
       lottoStore = new LottoStore();
+      jest.clearAllMocks();
     });
 
     test.each([
@@ -50,6 +52,22 @@ describe('로또 클래스 테스트', () => {
       expect(() => {
         lottoStore.buyLotto(Number(payment));
       }).toThrow(error);
+    });
+
+    test('로또 구입 테스트', () => {
+      const mockLottoNumbers = [
+        [3, 15, 22, 33, 41, 45],
+        [1, 5, 9, 10, 23, 35],
+      ];
+      MissionUtils.Random.pickUniqueNumbersInRange = jest
+        .fn()
+        .mockReturnValueOnce(mockLottoNumbers[0])
+        .mockReturnValueOnce(mockLottoNumbers[1]);
+
+      lottoStore.buyLotto(2000);
+
+      expect(lottoStore.getLotto(0).getNumbers()).toEqual(mockLottoNumbers[0]);
+      expect(lottoStore.getLotto(1).getNumbers()).toEqual(mockLottoNumbers[1]);
     });
   });
 });

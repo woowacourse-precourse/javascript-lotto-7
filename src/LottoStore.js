@@ -35,6 +35,10 @@ class LottoStore {
     const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     return new Lotto(lottoNumbers);
   }
+
+  getLotto(index) {
+    return this.#lottoList[index];
+  }
 }
 
 export default LottoStore;
