@@ -28,7 +28,7 @@
  ┃ ┣ 📂testCases
  ┃ ┃ ┣ 📜amountInputTestCase.js
  ┃ ┃ ┣ 📜bonusNumberCases.js
- ┃ ┃ ┣ 📜lottoTestCase.js
+ ┃ ┃ ┗ 📜lottoTestCase.js
  ┃ ┣ 📜errorMessage.js
  ┃ ┣ 📜ioMessage.js
  ┃ ┣ 📜prizeRanks.js
