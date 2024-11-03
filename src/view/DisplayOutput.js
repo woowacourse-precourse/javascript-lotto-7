@@ -31,7 +31,8 @@ class DisplayOutput {
         ];
     
         MissionUtils.Console.print(DISPLAY_MESSAGE.RESULT_MESSAGE);
-    
+        
+        // 일반 등수 (5등~ 2등) 발표
         for (let i = 0; i < 3; i++) {
             MissionUtils.Console.print(`${i + 3}개 일치 (${this.changeNumberStyle(LOTTO_INFO.PRIZE[prizeKeys[i]])}원) - ${lottoResult[0][i + 3]}개`);
         }

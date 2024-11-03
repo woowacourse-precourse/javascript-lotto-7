@@ -70,14 +70,12 @@ class Game {
         const prizeKeys = Object.keys(LOTTO_INFO.PRIZE);
         const bonusPrizeKey = Object.keys(LOTTO_INFO.BONUS_PRIZE);
         let i = 0;
-        // Add bonus winner prize
 
         for (const prizeKeyword of prizeKeys){
             totalPrize  += LOTTO_INFO.PRIZE[prizeKeyword] * lottoReult[0][i] ;
             i += 1;
         }
 
-        // Add normal winner prize
         totalPrize += LOTTO_INFO.BONUS_PRIZE[bonusPrizeKey] * lottoReult[1][0];
 
         return totalPrize;
