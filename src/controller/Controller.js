@@ -111,12 +111,14 @@ export default class Controller {
     try {
       const input = await this.inputView.getInput(message);
       validate(input, winningNumber);
-
       return input;
     } catch (error) {
       this.outputView.printError(error.message);
-
-      return await this.getValidatedInputWithRetry(message, validate);
+      return await this.getValidatedInputWithRetry(
+        message,
+        validate,
+        winningNumber,
+      );
     }
   }
 }
