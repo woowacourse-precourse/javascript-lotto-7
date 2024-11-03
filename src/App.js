@@ -12,13 +12,7 @@ import {
 import { printOutput, randomNumbersInRange } from "./missionUtils.js";
 
 class App {
-	#lottoMoney = 0;
-	#lottoCount = 0;
-	#lottoNumbers = Array.from({ length: 3 }, () => 0);
-	#winningNumber = "1,2,3,4,5,6";
-	#bonusNumber = "7";
 	#winningMap = { "5rank": 0, "4rank": 0, "3rank": 0, "2rank": 0, "1rank": 0 };
-	#winningRate = "0.0";
 
 	constructor() {
 		this.userInput = new Input();
@@ -26,29 +20,27 @@ class App {
 	}
 
 	async run() {
-		this.#lottoMoney = await this.userInput.getLottoMoney();
-		this.#lottoCount = await this.#calculateLottoCount();
+		const lottoMoney = await this.userInput.getLottoMoney();
+		const lottoCount = await this.calculateLottoCount(lottoMoney);
 
-		await this.userOutput.printLottoCount(this.#lottoCount);
-		this.#lottoNumbers = await this.#getLotto();
+		await this.userOutput.printLottoCount(lottoCount);
+		const lottoNumbers = await this.getLotto(lottoCount);
 
-		this.#winningNumber = await this.userInput.getWinningNumber();
-		this.#bonusNumber = await this.userInput.getBonusNumber(
-			this.#winningNumber
-		);
-		this.#getWinningCount();
+		const winningNumber = await this.userInput.getWinningNumber();
+		const bonusNumber = await this.userInput.getBonusNumber(winningNumber);
+		this.getWinningCount(winningNumber, lottoNumbers, bonusNumber);
 
 		await this.userOutput.printWinningCount(this.#winningMap);
-		this.#winningRate = await this.#getTotalWinnings();
-		await this.userOutput.printWinningRate(this.#winningRate);
+		const winningRate = await this.getTotalWinnings(lottoMoney);
+		await this.userOutput.printWinningRate(winningRate);
 	}
 
-	async #calculateLottoCount() {
-		return Math.floor(this.#lottoMoney / LOTTO_MONEY);
+	async calculateLottoCount(lottoMoney) {
+		return Math.floor(lottoMoney / LOTTO_MONEY);
 	}
 
-	async #getLotto() {
-		return Array.from({ length: this.#lottoCount }, () => {
+	async getLotto(lottoCount) {
+		return Array.from({ length: lottoCount }, () => {
 			const lottos = this.getRandomNumbers();
 			this.#printLottoNumbers(lottos);
 			return lottos;
@@ -67,13 +59,10 @@ class App {
 		printOutput(PROMPT.LOTTO_NUMBERS(lottos));
 	}
 
-	#getWinningCount() {
-		this.#lottoNumbers.forEach((lottoNumber) => {
+	getWinningCount(winningNumber, lottoNumbers, bonusNumber) {
+		lottoNumbers.forEach((lottoNumber) => {
 			const lotto = new Lotto(lottoNumber);
-			const winningRank = lotto.checkWinning(
-				this.#winningNumber,
-				this.#bonusNumber
-			);
+			const winningRank = lotto.checkWinning(winningNumber, bonusNumber);
 
 			if (winningRank) {
 				this.#winningMap[winningRank] += 1;
@@ -81,7 +70,7 @@ class App {
 		});
 	}
 
-	async #getTotalWinnings() {
+	async getTotalWinnings(lottoMoney) {
 		let totalWinnings = 0;
 
 		for (const rank in this.#winningMap) {
@@ -90,7 +79,7 @@ class App {
 			}
 		}
 
-		return ((totalWinnings / this.#lottoMoney) * 100).toFixed(1);
+		return ((totalWinnings / lottoMoney) * 100).toFixed(1);
 	}
 }
 
