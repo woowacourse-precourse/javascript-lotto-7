@@ -3,29 +3,44 @@ import { ERROR_MESSAGES } from "./constants/constant.js";
 
 class InputHandler {
   async getPurchaseAmount() {
-    const purchaseAmount = await Console.readLineAsync(
-      "구입금액을 입력해 주세요\n"
-    );
-    this.validatePurchaseAmount(purchaseAmount);
-    return purchaseAmount;
+    try {
+      const purchaseAmount = await Console.readLineAsync(
+        "구입금액을 입력해 주세요\n"
+      );
+      this.validatePurchaseAmount(purchaseAmount);
+      return purchaseAmount;
+    } catch (error) {
+      Console.print(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+      return await this.getPurchaseAmount();
+    }
   }
 
   async getWinningNumbers() {
-    const inputWinningNumbers = await Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요.\n"
-    );
-    const winningNumbers = inputWinningNumbers.split(",").map(Number);
-    this.validateWinningNumbers(winningNumbers);
-    return winningNumbers;
+    try {
+      const inputWinningNumbers = await Console.readLineAsync(
+        "\n당첨 번호를 입력해 주세요.\n"
+      );
+      const winningNumbers = inputWinningNumbers.split(",").map(Number);
+      this.validateWinningNumbers(winningNumbers);
+      return winningNumbers;
+    } catch (error) {
+      Console.print(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);
+      return await this.getWinningNumbers();
+    }
   }
 
   async getBonusNumber(winningNumbers) {
-    const inputBonusNumber = await Console.readLineAsync(
-      "보너스 번호를 입력해 주세요.\n"
-    );
-    const bonusNumber = Number(inputBonusNumber);
-    this.validateBonusNumber(bonusNumber, winningNumbers);
-    return bonusNumber;
+    try {
+      const inputBonusNumber = await Console.readLineAsync(
+        "보너스 번호를 입력해 주세요.\n"
+      );
+      const bonusNumber = Number(inputBonusNumber);
+      this.validateBonusNumber(bonusNumber, winningNumbers);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(ERROR_MESSAGES.INVALID_BONUS_NUMBER);
+      return await this.getBonusNumber;
+    }
   }
 
   validatePurchaseAmount(purchaseAmount) {
