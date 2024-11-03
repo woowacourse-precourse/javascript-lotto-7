@@ -7,12 +7,14 @@ class LottoMachine {
   #lottoDigitCount;
   #boughtLottos;
   #bonusNum;
+  #winningLotto;
   constructor(money) {
     Validate.validateMoney(money);
     this.#lottoCount = parseInt(money / 1000, 10);
     this.#lottoDigitCount = 6;
     this.#boughtLottos = this.#buyLottos(this.#lottoCount, this.#lottoDigitCount);
     this.#bonusNum = null;
+    this.winningLotto = null;
   }
 
   #buyLottos() {
@@ -33,6 +35,11 @@ class LottoMachine {
 
   setBonusNum(num) {
     this.#bonusNum = num;
+  }
+
+  setWinningLotto(strWinningNumbers) {
+    const winningNumbers = strWinningNumbers.split(',').map((number) => Number(number));
+    this.winningLotto = new Lotto(winningNumbers);
   }
 
   getLottoCount() {
