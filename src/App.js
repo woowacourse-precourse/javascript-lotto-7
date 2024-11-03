@@ -24,6 +24,7 @@ class App {
     const bonusBall = await InputHandler.getBonusBall();
     userLotto.checkLottoMatch(winningLotto, bonusBall);
     printMatchInfo(userLotto);
+    Console.print(userLotto.rateOfReturn());
   }
 }
 

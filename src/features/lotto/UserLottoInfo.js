@@ -1,15 +1,22 @@
 import { Console } from "@woowacourse/mission-utils";
-import { LOTTO_NUMBER_COUNT, LOTTO_UNIT_PRICE } from "../../constants/lotto.js";
+import {
+  LOTTO_NUMBER_COUNT,
+  LOTTO_UNIT_PRICE,
+  WINNER_PRICE,
+} from "../../constants/lotto.js";
 import Lotto from "./Lotto.js";
 import { generateRandomNum } from "../../utils/generateRandomNum.js";
 import { printOneLine } from "../../utils/console.js";
 
 export class UserLottoInfo {
+  #price;
   #lottoCount;
   #lottos;
   #matchInfo;
+  #rateOfReturn;
 
   constructor(price) {
+    this.#price = price;
     this.#lottoCount = price / LOTTO_UNIT_PRICE;
     this.#lottos = [];
     this.#matchInfo = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -55,5 +62,16 @@ export class UserLottoInfo {
       const matchBonus = lotto.hasBonusBall(bonusBall);
       this.saveMatchInfo(matchCount, matchBonus);
     });
+  }
+
+  rateOfReturn() {
+    const totalWinningPrice = Object.entries(this.#matchInfo).reduce(
+      (total, [matchCount, count]) => {
+        return total + count * WINNER_PRICE[matchCount];
+      },
+      0
+    );
+    this.#rateOfReturn = totalWinningPrice / this.#price;
+    return this.#rateOfReturn;
   }
 }
