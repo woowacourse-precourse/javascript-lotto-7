@@ -4,6 +4,7 @@ import LottoMachine from "./LottoMachine.js";
 import { PURCHASE_AMOUNT_MESSAGE } from "./constants/output.js";
 import { INPUT_MESSAGE } from "./constants/input.js";
 import Lotto from "./Lotto.js";
+import LottoBonus from "./LottoBonus.js";
 
 class App {
   async run() {
@@ -16,7 +17,8 @@ class App {
     lottos.forEach((lotto) => Console.print(`[${lotto.join(', ')}]`));
 
     // 당첨 번호 입력
-    const winningLottos = await this.getLottoNumbers();
+    const winningLottoNumbers = await this.getLottoNumbers();
+    const bonusLottoNumber = await this.getLottoBonusNumber(winningLottoNumbers);
   }
 
   async getPurchasedAmount() {
@@ -38,6 +40,16 @@ class App {
     } catch (error) {
       Console.print(error.message);
       return this.getLottoNumbers();
+    }
+  }
+
+  async getLottoBonusNumber(winningLottoNumbers) {
+    try {
+      const input = await Console.readLineAsync(INPUT_MESSAGE.LOTTO_BONUS_NUMBER);
+      return new LottoBonus(Number(input), winningLottoNumbers);
+    } catch (error) {
+      Console.print(error.message);
+      return this.getLottoBonusNumber(winningLottoNumbers);
     }
   }
 }
