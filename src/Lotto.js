@@ -4,6 +4,7 @@ import {
   checkEmpty,
   handleError,
   checkValidNumber,
+  checkInRange,
 } from './shared/index.js';
 
 class Lotto {
@@ -15,11 +16,12 @@ class Lotto {
   }
 
   #validate(numbers) {
-    this.#checkDelimiterPosition(numbers);
-    this.#checkValidLength(numbers);
-    this.#checkOnlyNumbers(numbers);
-    this.#checkDuplicatedNumber(numbers);
-    this.#checkRange1To45(numbers);
+    const stringToNumber = numbers.map(Number);
+    this.#checkDelimiterPosition(stringToNumber);
+    this.#checkValidLength(stringToNumber);
+    this.#checkOnlyNumbers(stringToNumber);
+    this.#checkDuplicatedNumber(stringToNumber);
+    this.#checkRange1To45(stringToNumber);
   }
 
   get numbers() {

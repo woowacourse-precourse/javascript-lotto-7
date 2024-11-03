@@ -16,16 +16,15 @@ class BonusNumber {
   }
 
   #validate(number, winningNumbers) {
-    checkEmpty(number, ERROR_MESSAGES.INVALID_EMPTY);
-    checkInRange(NUMBER.START, NUMBER.MAX, number);
-    checkValidNumber(number);
-    this.#checkDuplicateWithWinningNumbers(number, winningNumbers);
+    const stringToNumber = Number(number);
+    checkEmpty(stringToNumber, ERROR_MESSAGES.INVALID_EMPTY);
+    checkInRange(NUMBER.MIN, NUMBER.MAX, stringToNumber);
+    checkValidNumber(stringToNumber);
+    this.#checkDuplicateWithWinningNumbers(stringToNumber, winningNumbers);
   }
 
   #checkDuplicateWithWinningNumbers(number, winningNumbers) {
-    const isDuplicateWithWinningNumbers = winningNumbers.includes(
-      Number(number)
-    );
+    const isDuplicateWithWinningNumbers = winningNumbers.includes(number);
 
     handleError(
       isDuplicateWithWinningNumbers,
@@ -34,7 +33,7 @@ class BonusNumber {
   }
 
   get number() {
-    return this.#number;
+    return Number(this.#number);
   }
 }
 
