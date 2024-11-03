@@ -23,5 +23,3 @@ export const LOTTO = Object.freeze({
     6: 2000000000,
   }),
 });
-
-export const ERROR_PREFIX = '[ERROR] ';

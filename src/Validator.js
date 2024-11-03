@@ -1,7 +1,9 @@
 class Validator {
+  #ERROR_PREFIX = '[ERROR] ';
+
   #validateNaturalNumber(value) {
     if (Number.isInteger(value) && value > 0) {
-      throw Error(`${ERROR_PREFIX} 자연`);
+      throw Error(`${this.#ERROR_PREFIX} 자연`);
     }
   }
 
