@@ -16,4 +16,5 @@ export const NUMBER_ERROR_MESSAGES = Object.freeze({
   tooManyNumber: '[ERROR] : 입력하신 숫자가 너무 많습니다.\n',
   numberOutOfRange: '[ERROR] : 잘못된 숫자 입력입니다.',
   dupicateNumber: '[ERROR] : 중복된 수를 입력하실 수 없습니다.\n',
+  dupicateWinnig: '[ERROR] : 당첨번호와 중복될 수 없습니다.'
 });
