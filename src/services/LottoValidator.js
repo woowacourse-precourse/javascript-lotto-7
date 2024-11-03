@@ -1,4 +1,4 @@
-import { LOTTO_ERROR_MESSAGES } from '../constants/index.js';
+import { LOTTO_ERROR_MESSAGES } from '../constants';
 import { throwError } from '../utils/validateUtils.js';
 
 const rules = {

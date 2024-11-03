@@ -1,4 +1,4 @@
-import { INPUT_ERROR_MESSAGES } from '../constants/index.js';
+import { INPUT_ERROR_MESSAGES } from '../constants';
 import { throwError } from '../utils/validateUtils.js';
 
 const rules = {

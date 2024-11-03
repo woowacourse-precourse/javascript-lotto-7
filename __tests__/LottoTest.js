@@ -1,4 +1,4 @@
-import { Lotto } from '../src/models/index.js';
+import { Lotto } from '../src/models';
 
 describe('로또 클래스 테스트', () => {
   beforeEach(() => {

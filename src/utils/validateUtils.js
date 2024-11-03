@@ -1,5 +1,5 @@
-import { CONFIG } from '../constants/index.js';
-import { Printer } from '../io/index.js';
+import { CONFIG } from '../constants';
+import { Printer } from '../io';
 
 export const throwError = (message) => {
   throw new Error(CONFIG.errorPrefix + message);

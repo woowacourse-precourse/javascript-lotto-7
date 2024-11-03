@@ -1,6 +1,6 @@
-import { MATCHES, PRIZE, RANK } from '../constants/index.js';
-import { InputStore } from '../services/index.js';
-import { LottoResult } from './index.js';
+import { MATCHES, PRIZE, RANK } from '../constants';
+import { InputStore } from '../services';
+import { LottoResult } from './';
 
 class LottoChecker {
   constructor() {
