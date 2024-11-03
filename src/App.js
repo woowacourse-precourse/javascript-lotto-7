@@ -9,12 +9,13 @@ class App {
     const userLottoAmount = this.computeLottoForPurchase();
     const winningNumbers = this.separateString(userWinningNumber, ',');
 
-    this.validateDecimalNumber(userPurchaseAmount);
+    this.validatePayDecimalNumber(userPurchaseAmount);
     this.validateNotNumber(userPurchaseAmount);
     this.validateNotThousandUnits(userPurchaseAmount);
-    this.validateHaveSpecialCharacters(userWinningNumber);
-    this.validateLottoNumberOutOfBounds(winningNumbers);
-    this.validateLottoNumberAmount(winningNumbers);
+    this.validateWinningNumberForm(userWinningNumber);
+    this.validateWinningNumberOutOfBounds(winningNumbers);
+    this.validateWinningNumberAmount(winningNumbers);
+    this.validateWinningNumberDecimal(winningNumbers);
   }
 
   async getPurchaseAmount(){
@@ -43,10 +44,10 @@ class App {
       throw new Error('[ERROR]입력 에러, 금액 및 번호 입력 시 숫자만 입력해주세요.');
     }
   }
-  validateDecimalNumber(inputValue){
+  validatePayDecimalNumber(inputValue){
     const decimalNumber = new RegExp('[.]+');
     if(decimalNumber.test(inputValue)){
-      throw new Error('[ERROR]입력 에러, 금액 및 번호 입력 시 정수의 숫자만 입력해주세요.');
+      throw new Error('[ERROR]입력 에러, 금액 입력 시 정수의 숫자만 입력해주세요.');
     }
   }
   validateNotThousandUnits(inputValue){
@@ -54,24 +55,32 @@ class App {
       throw new Error('[ERROR]구입 금액 에러, 1000원 단위 금액을 입력해주세요.')
     }
   }
-  validateHaveSpecialCharacters(inputValue){
+  validateWinningNumberForm(inputValue){
     const matchWinningNumberFormat = new RegExp('/[^\d],{1,1}|[a-zA-Z]|[\s]/g');
     if(matchWinningNumberFormat.test(inputValue)){
       throw new Error('[ERROR]당첨 번호 에러, 입력한 당첨번호의 형식이 맞지 않습니다.');
     }
   }
-  validateLottoNumberOutOfBounds(inputValue){
+  validateWinningNumberOutOfBounds(inputValue){
     inputValue.forEach((element) => {
       if(element > 45 || element < 1){
         throw new Error('[ERROR]당첨 번호 에러, 로또 번호는 1에서 45사이의 숫자입니다.');
       }
-    })
+    });
   }
-  validateLottoNumberAmount(inputValue){
+  validateWinningNumberAmount(inputValue){
     if(inputValue.length > 6 || inputValue.length < 6){
       throw new Error('[ERROR]당첨 번호 에러, 로또 번호는 6개의 숫자를 입력해야합니다.');
     }
   }
-}
+  validateWinningNumberDecimal(inputValue){
+    const decimalNumber = new RegExp('[.]+');
+    inputValue.forEach((element) =>{
+      if(decimalNumber.test(element)){
+        throw new Error('[ERROR]당첨 번호 에러, 당첨 번호는 정수의 숫자만 입력해주세요.');
+      }
+    });
+  }
+} 
 
 export default App;
