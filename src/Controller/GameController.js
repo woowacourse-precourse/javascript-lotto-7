@@ -1,13 +1,17 @@
 import { Console } from '@woowacourse/mission-utils';
 import Input from '../View/Input.js';
 import { ERROR_MESSAGE } from '../constant/error.js';
+import Lotto from '../Lotto.js';
+import { isNumber } from '../util/validation.js';
 
 class GameController {
   async init() {
     const purchaseAmount = await Input.getPurchaseAmount()(
       this.#validatePurchaseAmount,
     );
-    const winningNumbers = await this.#getValidatedWinningNumbers();
+    const winningNumbers = await Input.getWinningNumbers()(
+      this.#validateWinningNumbers,
+    );
     const bonusNumber = await this.#getValidatedBonusNumber();
 
     Console.print(purchaseAmount);
@@ -17,7 +21,7 @@ class GameController {
 
   #validatePurchaseAmount(input) {
     const amount = +input;
-    if (Number.isNaN(amount)) {
+    if (!isNumber(amount)) {
       throw new Error(ERROR_MESSAGE.invalidNumberType);
     }
 
@@ -28,10 +32,12 @@ class GameController {
     return amount;
   }
 
-  async #getValidatedWinningNumbers() {
-    const validateWinningNumbers = Input.getWinningNumbers();
+  #validateWinningNumbers(input) {
+    const numbers = input.split(',').map((value) => +value);
 
-    return validateWinningNumbers((input) => input);
+    const lotto = new Lotto(numbers);
+
+    return lotto;
   }
 
   async #getValidatedBonusNumber() {
