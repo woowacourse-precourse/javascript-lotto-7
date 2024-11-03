@@ -8,6 +8,19 @@ class InputHandler {
     Validation.validateThousandUnit(purchseAmount);
     return purchseAmount;
   }
+
+  getValidatedWinningNumbers(numbers) {
+    Validation.validateCommaSeparatedFormat(numbers);
+    const winningNumbers = numbers.split(',').map(Number);
+    Validation.validateSixNumbers(winningNumbers);
+    winningNumbers.forEach((number) => {
+      Validation.validateIsNumber(number);
+      Validation.validatePositiveInteger(number);
+      Validation.validateNumberInRange(number);
+    });
+    Validation.validateUniqueNumbers(winningNumbers);
+    return winningNumbers;
+  }
 }
 
 export default InputHandler;
