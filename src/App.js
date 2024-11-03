@@ -7,6 +7,12 @@ class App {
       const purchaseAmount = await this.#inputPurchaseAmount();
       const winningNumbers = await this.#inputWinningNumbers();
       const bonusNumber = await this.#inputBonusNumber(winningNumbers);
+
+      const ticketCount = this.#calculateTicketCount(purchaseAmount);
+      this.#printTicketCount(ticketCount);
+
+      const lottos = this.#generateLottos(ticketCount);
+      this.#printLottos(lottos);
     } catch (error) {
       Console.print(error.message);
     }
@@ -64,6 +70,23 @@ class App {
     return bonusNumber;
   }
 
+  #printTicketCount(ticketCount) {
+    Console.print(`${ticketCount}개를 구매했습니다.`);
+  }
+
+  #calculateTicketCount(purchaseAmount) {
+    return Math.floor(purchaseAmount / 1000);
+  }
+
+  #generateLottos(ticketCount) {
+    return Array.from({ length: ticketCount }, () => Lotto.generate());
+  }
+
+  #printLottos(lottos) {
+    lottos.forEach((lotto) =>
+      Console.print(`[${lotto.getNumbers().join(', ')}]`)
+    );
+  }
 }
 
 export default App;
