@@ -4,14 +4,14 @@ class App {
   async run() {
     const LOTTO_PER_PRICE = 1000;
     const orderPrice = await Console.readLineAsync(
-      `구입금액을 입력해 주세요.\n`
+      '구입금액을 입력해 주세요.\n'
     );
 
     const lottoQuantity = orderPrice / LOTTO_PER_PRICE;
 
     const lottoGame = new LottoGame(lottoQuantity);
 
-    lottoGame.start()
+    lottoGame.start();
   }
 }
 
