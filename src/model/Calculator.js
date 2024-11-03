@@ -22,6 +22,19 @@ class Calculator {
     this.#init();
   }
 
+  /**
+   * @param {number} money
+   * @param {(rate: number) => void | undefined} printer
+   */
+  computeTotalProfitRate(money, printer) {
+    const totalCash = this.#computeTotalCash();
+    const totalProfitRate = (totalCash / money) * 100;
+
+    printer?.(totalProfitRate);
+
+    return totalProfitRate;
+  }
+
   #init() {
     const rankList = this.#computeRankList();
 
