@@ -61,12 +61,22 @@ class LottoGame {
   /** @param {number} bonusNumber */
   static validateBonusNumber(bonusNumber) {
     LottoGame.#validateBonusNumberType(bonusNumber);
+    LottoGame.#validateBonusNumberRange(bonusNumber);
   }
 
   /** @param {number} bonusNumber */
   static #validateBonusNumberType(bonusNumber) {
     if (!LottoValidator.isSafeNumber(bonusNumber)) {
       throw new Exception('유효하지 않은 보너스 번호입니다.');
+    }
+  }
+
+  /** @param {number} n */
+  static #validateBonusNumberRange(bonusNumber) {
+    const [MIN, MAX] = LOTTO_NUMBER_RANGE;
+
+    if (!LottoValidator.isInRange(bonusNumber)) {
+      throw new Exception(`보너스 번호는 ${MIN}에서 ${MAX}사이여야 합니다.`);
     }
   }
 }
