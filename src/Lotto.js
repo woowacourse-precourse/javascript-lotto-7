@@ -20,7 +20,7 @@ class Lotto {
   }
 
   #validFormat(numberArray) {
-    return numberArray.every((number) => !Number.isNaN(Number(number.trim())));
+    return numberArray.every((number) => !Number.isNaN(number));
   }
 
   #validDuplication(numberArray) {
@@ -28,13 +28,12 @@ class Lotto {
     return uniqueNumbers.size === numberArray.length;
   }
 
-  #validateWinningNumber(winningNumber) {
-    const numberArray = winningNumber.split(',');
-
+  #validateWinningNumber(numbers) {
+    const parsedNumbers = numbers.map((number) => Number(number));
     if (
-      !this.#validRange(numberArray) ||
-      !this.#validFormat(numberArray) ||
-      !this.#validDuplication(numberArray)
+      !this.#validRange(parsedNumbers) ||
+      !this.#validFormat(parsedNumbers) ||
+      !this.#validDuplication(parsedNumbers)
     ) {
       throw Error(ERROR.message);
     }
