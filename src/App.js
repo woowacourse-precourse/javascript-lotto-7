@@ -1,4 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 const PRIZE = {
   three: 5000,
@@ -29,7 +30,9 @@ class App {
 
     await Console.print(`\n${lottoCount}개를 구매했습니다.`);
     await Console.print(
-      userLottoNumbers.map((numbers) => `[ ${numbers.join(", ")} ]`).join("\n")
+      userLottoNumbers
+        .map((lotto) => `[ ${lotto.getNumbers().join(", ")} ]`)
+        .join("\n")
     );
 
     const winningNumbers = await Console.readLineAsync(
@@ -96,10 +99,9 @@ class App {
         45,
         6
       );
-      const sortedLottoNumbers = lottoNumbers.sort(function (a, b) {
-        return a - b;
-      });
-      userLottoNumbers.push(sortedLottoNumbers);
+      lottoNumbers.sort((a, b) => a - b);
+      const lotto = new Lotto(lottoNumbers);
+      userLottoNumbers.push(lotto);
     }
     return userLottoNumbers;
   }
@@ -114,7 +116,7 @@ class App {
     };
 
     userLottoNumbers.forEach((lotto) => {
-      const lottoNumbers = lotto;
+      const lottoNumbers = lotto.getNumbers();
       let matchCount = 0;
       let hasBonus = false;
 
