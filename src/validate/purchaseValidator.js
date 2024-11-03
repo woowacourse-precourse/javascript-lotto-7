@@ -5,11 +5,11 @@ import throwError from '../util/errorThrower.js';
 import { LOTTO_CONFIG } from '../constants/lotto.js';
 import { PURCHASE_ERROR_MESSAGE } from '../constants/errorMessage.js';
 
-/**@param {number} input */
+/**@param {string} input */
 const checkEmpty = (input) => {
-  if (!input) throwError(PURCHASE_ERROR_MESSAGE.NO_INPUT);
+  if (!input.trim()) throwError(PURCHASE_ERROR_MESSAGE.NO_INPUT);
 
-  return input;
+  return Number(input);
 };
 
 /**@param {number} input */
@@ -22,7 +22,7 @@ const checkCurrencyUnit = (input) => {
 
 /**@param {number} input */
 const checkNaN = (input) => {
-  if (isNaN(Number(input))) throwError(PURCHASE_ERROR_MESSAGE.NOT_NUMBER);
+  if (isNaN(input)) throwError(PURCHASE_ERROR_MESSAGE.NOT_NUMBER);
 
   return input;
 };
@@ -34,7 +34,6 @@ const checkNegativeNumber = (input) => {
   return input;
 };
 
-/**@param {number} input */
 const validateLottoPurchase = _pipe(
   checkEmpty,
   checkNaN,
