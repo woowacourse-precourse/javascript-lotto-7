@@ -1,4 +1,5 @@
-import { ERROR_MESSAGE, LOTTO_CONFIG } from "../static/Static.js";
+import ERROR_MESSAGE from "../static/Error";
+import LOTTO_CONFIG from "../static/LottoConfig";
 
 const InputValidator = {
   validatePurchaseAmount(input) {

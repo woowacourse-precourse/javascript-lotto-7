@@ -134,9 +134,10 @@
 - [x] 뷰 패키지
   - [x] InputView.js
   - [x] OutputView.js
-- [ ] 상수 패키지
-  - [ ] constants.js
-  - [ ] messages.js
+- [x] 상수 패키지
+  - [x] Error.js
+  - [x] LottoConfig.js
+  - [x] Message.js
 
 ## 📝 프로그래밍 요구사항 체크리스트
 

@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { PRINT_MESSAGE } from "../static/Static.js";
+import PRINT_MESSAGE from "../static/Message";
 
 const OutputView = {
   printPurchaseCount(count) {
