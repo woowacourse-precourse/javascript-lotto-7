@@ -6,6 +6,7 @@ import Lotto from "./features/lotto/Lotto.js";
 import { UserLottoInfo } from "./features/lotto/UserLottoInfo.js";
 import { printOneLine } from "./utils/console.js";
 import { printLottoCount, printLottoList } from "./utils/outputHandler.js";
+import { parserWinningNumber } from "./features/parserWinningNumber.js";
 
 class App {
   async run() {
@@ -14,7 +15,8 @@ class App {
     printLottoCount(userLotto);
     userLotto.createLotto();
     printLottoList(userLotto);
-    const winningNumbers = await InputHandler.getWinningNumbers();
+    const winningNumber = await InputHandler.getWinningNumbers();
+    const winningNumbers = parserWinningNumber(winningNumber);
     // Console.print(winningNumbers);
   }
 }
