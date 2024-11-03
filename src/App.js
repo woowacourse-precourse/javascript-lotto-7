@@ -4,7 +4,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async run() {
     const lottoApp = new LottoApp();
-    const purchaseAmount = await lottoApp.promptPurchaseAmount();
+    const amount = await lottoApp.promptPurchaseAmount();
+    lottoApp.purchaseLottos(amount);
   }
 }
 

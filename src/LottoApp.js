@@ -1,5 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { LOTTO_PRICE, ERROR_MESSAGES, MESSAGES } from "./constants.js";
+import Lotto from "./Lotto.js";
+import { LOTTO_NUMBERS } from "./constants.js";
 
 class LottoApp {
   async promptPurchaseAmount() {
@@ -15,6 +17,12 @@ class LottoApp {
     }
   }
 
+  purchaseLottos(amount) {
+    const count = Math.floor(amount / LOTTO_PRICE);
+    const lottos = this.generateLottos(count);
+    this.printLottoTickets(lottos);
+  }
+
   validateAmount(amount) {
     const parsedAmount = Number(amount);
     if (
@@ -24,6 +32,29 @@ class LottoApp {
     ) {
       throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
     }
+  }
+
+  generateLottoNumbers() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBERS.MIN,
+      LOTTO_NUMBERS.MAX,
+      LOTTO_NUMBERS.COUNT
+    ).sort((a, b) => a - b);
+  }
+
+  generateLottos(count) {
+    MissionUtils.Console.print(`\n${count}${MESSAGES.LOTTO_PURCHASED}`);
+    const lottos = [];
+    for (let i = 0; i < count; i++) {
+      lottos.push(new Lotto(this.generateLottoNumbers()));
+    }
+    return lottos;
+  }
+
+  printLottoTickets(lottos) {
+    lottos.forEach((lotto) => {
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
+    });
   }
 }
 
