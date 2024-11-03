@@ -3,7 +3,7 @@ import { ERROR_MESSAGE } from '../constant/error.js';
 import Lotto from '../Model/Lotto.js';
 import LottoGame from '../Model/LottoGame.js';
 import { createErrorMessage } from '../util/error.js';
-import { isNumber } from '../util/validation.js';
+import { isInteger, isNumber } from '../util/validation.js';
 import Input from '../View/Input.js';
 import { RULE } from '../constant/rule.js';
 import { CONSOLE_MESSAGE } from '../constant/message.js';
@@ -69,6 +69,10 @@ class GameController {
 
     if (!isNumber(bonusNumber)) {
       throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
+    }
+
+    if (!isInteger(bonusNumber)) {
+      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidIntegerType));
     }
 
     return bonusNumber;
