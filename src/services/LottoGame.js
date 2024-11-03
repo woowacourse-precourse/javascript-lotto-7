@@ -33,6 +33,7 @@ class LottoGame {
   }
 
   presentResult() {
+    // #lottoChecker.checkLotto(lotto);
     const earningsRate = this.#makeStatistics();
     this.#printStatistics();
     Printer.print(MESSAGES.earningsRateIs(earningsRate));
