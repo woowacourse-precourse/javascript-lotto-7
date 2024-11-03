@@ -69,7 +69,7 @@ describe('LottoResultAnaysis 테스트', () => {
       new Lotto([1, 2, 3, 4, 5, 9]),
     ];
 
-    const result = lottoResultAnalysis.winningStatusAnalaysis(lottoTickets);
+    const result = lottoResultAnalysis.winningStatusAnalysis(lottoTickets);
 
     const expectWinningStatus = [0, 1, 1, 1, 0, 0];
     const expectedRewardSum =

@@ -28,7 +28,7 @@ class Lotto {
       .length;
   }
 
-  hasBunusNumber(bonusNumber) {
+  hasBonusNumber(bonusNumber) {
     return this.#numbers.includes(bonusNumber);
   }
 }

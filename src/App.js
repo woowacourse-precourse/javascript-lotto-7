@@ -22,7 +22,7 @@ class App {
       bonusNumber
     );
     const { winningStatus, profitRate } =
-      lottoResultAnalysis.winningStatusAnalaysis(userLottos);
+      lottoResultAnalysis.winningStatusAnalysis(userLottos);
     this.userOutput.showWinningStatus(winningStatus);
     this.userOutput.showProfitRate(profitRate);
   }

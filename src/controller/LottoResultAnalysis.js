@@ -7,7 +7,7 @@ class LottoResultAnalysis {
     this.winningStatus = new Array(6).fill(0);
     this.rewardSum = 0;
   }
-  winningStatusAnalaysis(lottoTickets) {
+  winningStatusAnalysis(lottoTickets) {
     lottoTickets.forEach((ticket) => {
       const rank = this.checkRank(ticket);
       this.updateWinningStatus(rank);
@@ -21,10 +21,10 @@ class LottoResultAnalysis {
     const matchedWinningCount = lottoTicket.countMatchedWinningNumbers(
       this.winningNumbers
     );
-    const hasBunusNumber = lottoTicket.hasBunusNumber(this.bonusNumber);
+    const hasBonusNumber = lottoTicket.hasBonusNumber(this.bonusNumber);
     if (matchedWinningCount === 6) return 1;
-    if (matchedWinningCount === 5 && hasBunusNumber) return 2;
-    if (matchedWinningCount === 5 && !hasBunusNumber) return 3;
+    if (matchedWinningCount === 5 && hasBonusNumber) return 2;
+    if (matchedWinningCount === 5 && !hasBonusNumber) return 3;
     if (matchedWinningCount === 4) return 4;
     if (matchedWinningCount === 3) return 5;
 
