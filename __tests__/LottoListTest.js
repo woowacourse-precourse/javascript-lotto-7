@@ -85,11 +85,20 @@ describe("LottoList 테스트", () => {
 
   test("당첨 테스트", () => {
       let ll = new LottoList(1000);
-      ll.bonusnubmer = "string";
+      ll.bonusnubmer = 1;
       ll.winnubmers = [8, 21, 23, 14, 40, 41];
       ll.lottolist[0] = new Lotto([8, 21, 23, 14, 40, 41]);
       ll.allwincheck();
       expect(ll.winlist[0]).toBe(1);
     });
+  test("수익률 테스트", () => {
+    let ll = new LottoList(1000);
+    ll.bonusnubmer = 1;
+    ll.winnubmers = [8, 21, 23, 14, 40, 41];
+    ll.lottolist[0] = new Lotto([8, 21, 23, 14, 40, 41]);
+    ll.allwincheck();
+    ll.calearningrate();
+    expect(ll.earningrate).toBe(2000000);
+  });
 
 });

@@ -78,7 +78,18 @@ class LottoList{
         Console.print("5개 일치 (1,500,000원) - " + this.winlist[2] + "개");
         Console.print("5개 일치, 보너스 볼 일치 (30,000,000원) - " + this.winlist[1] + "개");
         Console.print("6개 일치 (2,000,000,000원) - " + this.winlist[0] + "개");
+        this.calearningrate();
         Console.print("총 수익률은 " + this.earningrate + "%입니다.");
+    }
+    calearningrate(){
+        let sum = 0;
+        sum += 5000 * this.winlist[4];
+        sum += 50000 * this.winlist[3];
+        sum += 1500000 * this.winlist[2];
+        sum += 30000000 * this.winlist[1];
+        sum += 2000000000 * this.winlist[0];
+        sum = sum/(this.numitem*1000);
+        this.earningrate = Math.round(sum * 100) / 100;
     }
 }
 export default LottoList;
