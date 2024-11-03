@@ -10,6 +10,8 @@ const purchaseLotto = (cost) => {
   isValidCost(cost);
 
   const purchaseCount = cost / 1000;
+
+  Console.print(`\n${purchaseCount}개를 구매했습니다.`);
   for (let i = 0; i < purchaseCount; i++) {
     const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
     const lotto = new Lotto(randomNumbers);
