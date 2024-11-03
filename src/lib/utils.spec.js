@@ -1,5 +1,5 @@
 import {
-  calculateRateOfReturn,
+  calculateRate,
   getIsAllItemsBetweenNumbers,
   getIsAllItemsNumeric,
   getIsAllItemsUnique,
@@ -91,14 +91,19 @@ describe('유틸 함수', () => {
     test('중복되는 값이 없다면 true를 반환한다.', () => {
       expect(getIsAllItemsUnique([1, 2, 3, 4, 5])).toBeTruthy();
       expect(getIsAllItemsUnique([])).toBeTruthy();
+      expect(getIsAllItemsUnique(['a', 'b', 'c'])).toBeTruthy();
     });
     test('중복되는 값이 하나 이상 있다면 false를 반환한다.', () => {
       expect(getIsAllItemsUnique([1, 1])).toBeFalsy();
+      expect(getIsAllItemsUnique(['a', 'a'])).toBeFalsy();
     });
   });
-  describe('calculateRateOfReturn', () => {
-    test('수익률을 반환한다.', () => {
-      expect(calculateRateOfReturn(1000, 5000)).toBe(20);
+  describe('calculateRate', () => {
+    test('part를 total로 나누고 100을 곱한 비율을 반환한다.', () => {
+      expect(calculateRate(1000, 5000)).toBe(20);
+      expect(calculateRate(0, 5000)).toBe(0);
+      expect(calculateRate(25, 10000)).toBe(0.25);
+      expect(calculateRate(1, 5000)).toBe(0.02);
     });
   });
 });
