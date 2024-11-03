@@ -13,6 +13,18 @@ class App {
 
       const lottos = this.#generateLottos(ticketCount);
       this.#printLottos(lottos);
+
+      const prizeCount = this.#calculatePrizes(
+        lottos,
+        winningNumbers,
+        bonusNumber
+      );
+
+      const profitRate = this.#calculateProfitRate(
+        purchaseAmount,
+        prizeCount.totalPrize
+      );
+      Console.print(`총 수익률은 ${profitRate}%입니다.`);
     } catch (error) {
       Console.print(error.message);
     }
@@ -100,6 +112,29 @@ class App {
     if (matchCount === 4) return { rank: 4, prize: 50000 };
     if (matchCount === 3) return { rank: 5, prize: 5000 };
     return { rank: 0, prize: 0 };
+  }
+
+  #calculatePrizes(lottos, winningNumbers, bonusNumber) {
+    let totalPrize = 0;
+    const prizeCount = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    lottos.forEach((lotto) => {
+      const { rank, prize } = this.#checkWinning(
+        lotto,
+        winningNumbers,
+        bonusNumber
+      );
+      if (rank > 0) {
+        prizeCount[rank]++;
+        totalPrize += prize;
+      }
+    });
+    prizeCount.totalPrize = totalPrize;
+    return prizeCount;
+  }
+
+  #calculateProfitRate(totalSpent, totalPrize) {
+    return ((totalPrize / totalSpent) * 100).toFixed(1);
   }
 }
 
