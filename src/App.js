@@ -1,4 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import { PRIZE_MONEY } from './constants.js';
 import Lotto from './Lotto.js';
 
 class App {
@@ -87,15 +88,8 @@ class App {
   }
 
   printLog(logs) {
-    const money = {
-      3: '5,000',
-      4: '50,000',
-      5: '1,500,000',
-      6: '2,000,000,000',
-    };
-
     const result = logs.map((log) => {
-      let amount = ` (${money[log.matchCount]}원)`;
+      let amount = ` (${PRIZE_MONEY[log.matchCount]}원)`;
       if (log.matchCount === 5 && log.bonusNumber) {
         amount = `, 보너스 볼 일치 (30,000,000원)`;
       }
