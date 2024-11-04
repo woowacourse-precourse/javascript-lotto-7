@@ -6,6 +6,13 @@ class App {
     this.lottos = [];
     this.winningNumbers = [];
     this.bonusNumber = 0;
+    this.prizeTable = {
+      3: { count: 0, prize: 5000 },
+      4: { count: 0, prize: 50000 },
+      5: { count: 0, prize: 1500000 },
+      "5+bonus": { count: 0, prize: 30000000 },
+      6: { count: 0, prize: 2000000000 },
+    };
   }
 
   async run() {
@@ -16,6 +23,7 @@ class App {
     this.printLottos();
     await this.inputWinningNumbers();
     await this.inputBonusNumber();
+    this.calculateResults();
     // 이후 기능은 아직 구현되지 않았습니다.
   }
 
@@ -84,6 +92,29 @@ class App {
       Console.print(error.message);
       return this.inputBonusNumber();
     }
+  }
+
+  calculateResults() {
+    this.lottos.forEach((lotto) => {
+      const numbers = lotto.getNumbers();
+      const matchCount = numbers.filter((num) =>
+        this.winningNumbers.includes(num)
+      ).length;
+      const hasBonus = numbers.includes(this.bonusNumber);
+
+      if (matchCount === 6) {
+        this.prizeTable[6].count += 1;
+      } else if (matchCount === 5 && hasBonus) {
+        this.prizeTable["5+bonus"].count += 1;
+      } else if (matchCount === 5) {
+        this.prizeTable[5].count += 1;
+      } else if (matchCount === 4) {
+        this.prizeTable[4].count += 1;
+      } else if (matchCount === 3) {
+        this.prizeTable[3].count += 1;
+      }
+      // 2개 이하 맞춘 경우는 집계하지 않음
+    });
   }
 }
 
