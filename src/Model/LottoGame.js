@@ -1,5 +1,6 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 import { RULE } from '../constant/rule.js';
+import Lotto from './Lotto.js';
 
 class LottoGame {
   #lottoAmount;
@@ -24,34 +25,25 @@ class LottoGame {
 
   #generateLottos() {
     for (let i = 0; i < this.#lottoAmount; i++) {
-      const randomNumbers = Random.pickUniqueNumbersInRange(
+      const sortedRandomNumbers = Random.pickUniqueNumbersInRange(
         RULE.lotto.minNumber,
         RULE.lotto.maxNumber,
         RULE.lotto.lottoSize,
-      );
+      ).sort((a, b) => a - b);
 
-      this.#lottos.push(randomNumbers.sort((a, b) => a - b));
+      this.#lottos.push(new Lotto(sortedRandomNumbers));
     }
   }
 
   getLottosForPrint() {
-    return this.#lottos.map((lotto) => `[${lotto.join(', ')}]`);
-  }
-
-  printLottos() {
-    this.#lottos.forEach((lotto) => {
-      Console.print(`[${lotto.join(', ')}]`);
-    });
-    Console.print('');
+    return this.#lottos.map((lotto) => `[${lotto.getLottoForPrint()}]`);
   }
 
   calculateWinningRanks(winningLotto, bonusNumber) {
     this.#lottos.forEach((lotto) => {
-      const matchingCount = lotto.filter((number) =>
-        winningLotto.hasInNumbers(number),
-      ).length;
+      const matchingCount = lotto.countMatchingNumbers(winningLotto);
 
-      const isBonusNumberMatched = lotto.includes(bonusNumber);
+      const isBonusNumberMatched = lotto.hasInNumbers(bonusNumber);
 
       const rank = this.#calculateRank(matchingCount, isBonusNumberMatched);
       if (rank !== 0) this.#winningResult[rank] += 1;

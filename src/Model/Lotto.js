@@ -25,6 +25,10 @@ class Lotto {
     });
   }
 
+  getLottoForPrint() {
+    return this.#numbers.join(', ');
+  }
+
   hasInNumbers(number) {
     return this.#numbers.includes(number);
   }
