@@ -87,6 +87,20 @@ describe("당첨번호 입력값 유효성 test", () => {
       `[ERROR] ${errorMessage}`
     );
   });
+
+  test.each([
+    [[1, 2, 3, 4, 5, 45], true],
+    [[1, 2, 3, 4, 44, 45], true],
+    [[1, 2, 3, 3, 5, 46], false],
+    [[1, 2, 3, 3, 5, 0], false],
+    [[1, 2, 3, 3, 5, 1000], false],
+  ])("당첨번호의 값이 범위가 1~45 사이 값인지 확인한다", (price, result) => {
+    if (result) {
+      expect(() => Validator.isValidWinningLotto(price)).not.toThrow();
+    } else {
+      expect(() => Validator.isValidWinningLotto(price)).toThrow(`[ERROR]`);
+    }
+  });
 });
 
 describe("보너스 번호 입력값 유효성 test", () => {
@@ -100,5 +114,18 @@ describe("보너스 번호 입력값 유효성 test", () => {
     expect(() => Validator.isValidBonusBall(price)).toThrow(
       `[ERROR] ${errorMessage}`
     );
+  });
+
+  test.each([
+    [1, true],
+    [45, true],
+    [46, false],
+    [1000, false],
+  ])("보너스 번호의 값의 범위가 1~45 사이 값인지 확인한다", (price, result) => {
+    if (result) {
+      expect(() => Validator.isValidBonusBall(price)).not.toThrow();
+    } else {
+      expect(() => Validator.isValidBonusBall(price)).toThrow(`[ERROR]`);
+    }
   });
 });
