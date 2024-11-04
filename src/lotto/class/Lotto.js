@@ -54,7 +54,7 @@ class Lotto {
   static #checkNumberCount(numbers) {
     if (numbers.length !== NUMBER_COUNT_BY_LOTTO) {
       LottoIO.throwError(
-        `${NUMBER_COUNT_BY_LOTTO}개의 당첨 번호를 입력해 주세요.`
+        `${NUMBER_COUNT_BY_LOTTO}개의 당첨 번호를 콤마(,)로 분리하여 입력해 주세요.`
       );
     }
   }
