@@ -15,14 +15,26 @@ class LottoMachine {
     this.#lottoNumbers = this.#generateLottoNumbers();
   }
 
+    /**
+   * 생성된 로또 개수를 반환하는 메서드
+   * @returns {number} 로또 개수
+   */
   getLottoCount() {
     return this.#lottoCount;
   }
 
+    /**
+   * 생성된 모든 로또 번호 배열을 반환하는 메서드
+   * @returns {Array} 로또 번호 배열
+   */
   getLottoNumbers() {
     return this.#lottoNumbers;
   }
 
+    /**
+   * 구매 금액을 반환하는 메서드
+   * @returns {number} 구매 금액
+   */
   getPurchaseAmount() {
     return this.#purchaseAmount;
   }

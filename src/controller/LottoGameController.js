@@ -22,12 +22,20 @@ class LottoGameController {
     }
   }
 
+    /**
+   * 게임 초기화 메서드
+   * 로또 구매 후 구매 확인 메시지와 생성된 로또 번호를 출력한다.
+   */
   async #initializeGame() {
     await this.#purchaseLotto();
     this.#printPurchaseMessage();
     this.#printAllLottoNumbers();
   }
 
+    /**
+   * 게임 실행 메서드
+   * 당첨 번호 설정 후 통계 및 수익률을 계산하고 출력한다.
+   */
   async #runGame() {
     await this.#setWinningNumbers();
 

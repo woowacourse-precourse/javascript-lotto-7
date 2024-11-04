@@ -11,10 +11,26 @@ class PrizeCalculator {
     this.#totalPrize = this.#calculateTotalPrize();
   }
 
+    /**
+   * 총 상금을 반환하는 메서드
+   * @returns {number} 총 상금
+   */
   getTotalPrize() {
     return this.#totalPrize;
   }
 
+    /**
+   * 각 등수에 대한 통계를 반환하는 메서드
+   * @returns {object} 당첨 통계 객체
+   * // 예시 반환 형태
+   * {
+   *   1: { count: 2, prize: 4000000000 }, // 1등에 당첨된 개수와 총 상금
+   *   2: { count: 1, prize: 30000000 },    // 2등에 당첨된 개수와 총 상금
+   *   3: { count: 0, prize: 0 },           // 3등에 당첨된 개수와 총 상금
+   *   4: { count: 5, prize: 250000 },      // 4등에 당첨된 개수와 총 상금
+   *   5: { count: 10, prize: 50000 }       // 5등에 당첨된 개수와 총 상금
+   * }
+   */
   getStatistics() {
     return this.#statistics;
   }

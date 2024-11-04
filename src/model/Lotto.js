@@ -8,12 +8,16 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
-    validateLottoNumbers(numbers);
-  }
-
+  /**
+   * 로또 번호를 반환하는 메서드
+   * @returns {number[]} 로또 번호 배열
+   */
   getNumbers() {
     return this.#numbers;
+  }
+
+  #validate(numbers) {
+    validateLottoNumbers(numbers);
   }
 }
 
