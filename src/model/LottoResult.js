@@ -16,12 +16,7 @@ class LottoResult {
     this.#bonusNumber = bonusNumber;
     this.#lottos = lotto;
     this.#totalCost = ticketCount * TICKET_PRICE;
-    this.resetRank(); // RANK를 초기화하여 안전한 상태로 유지
     this.calculateResults();
-  }
-
-  getLottos() {
-    return this.#lottos;
   }
 
   // RANK 초기화 메서드
