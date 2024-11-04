@@ -1,10 +1,10 @@
 export const INPUT_MESSAGES = {
-  MONEY_INPUT: "로또 구입 금액을 입력해주세요 (1000원 단위로 입력)",
-  WINNING_NUMBER: "당첨 번호를 입력해주세요 (쉼표(,)로 구분해서 입력)",
-  BONUS_NUMBER: "보너스 번호를 입력해주세요",
+  MONEY_INPUT: "로또 구입 금액을 입력해주세요 (1000원 단위로 입력)\n",
+  WINNING_NUMBER: "\n당첨 번호를 입력해주세요 (쉼표(,)로 구분해서 입력)\n",
+  BONUS_NUMBER: "\n보너스 번호를 입력해주세요\n",
 };
 export const OUTPUT_MESSAGES = {
-  WINNING_RESULT: "딩첨통계",
+  WINNING_RESULT: "당첨통계---",
 };
 export const ERROR_MESSAGES = {
   ERROR_MESSAGE_PREFIX: "[ERROR]",

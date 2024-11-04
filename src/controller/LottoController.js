@@ -7,16 +7,14 @@ import {
   calculateTotalPrize,
 } from "../utils/result.js";
 import { calculateProfitRate } from "../utils/calculator.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
 
 class LottoController {
   async run() {
     try {
       const purchaseAmount = await InputView.getPurchaseAmount();
-      MissionUtils.Console.print(`${purchaseAmount}개를 구매했습니다.`);
 
       // 로또 생성
-      const lottos = Array.from({ length: purchaseAmount }, () => new Lotto());
+      const lottos = this.createLottos(purchaseAmount);
       OutputView.printLottos(lottos);
 
       // 당첨 번호와 보너스 번호 입력받기
@@ -31,13 +29,22 @@ class LottoController {
       );
       OutputView.printResultStatistics(results);
 
-      // 총 당첨 금액 계산 및 수익률 출력
+      // 총 당첨 금액 계산
       const totalPrize = calculateTotalPrize(results);
-      const profitRate = calculateProfitRate(totalPrize, purchaseAmount * 1000);
+
+      // 수익률 계산
+      const profitRate = calculateProfitRate(totalPrize, purchaseAmount);
+
+      // 수익률 출력
       OutputView.printProfitRate(profitRate);
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      return;
     }
+  }
+
+  createLottos(purchaseAmount) {
+    const lottoCount = purchaseAmount / 1000;
+    return Array.from({ length: lottoCount }, () => new Lotto());
   }
 }
 
