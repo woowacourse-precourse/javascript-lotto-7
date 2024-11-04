@@ -1,6 +1,6 @@
 import PrizeCalculator from '../../src/model/PrizeCalculator.js';
 
-describe("PrizeCalculator 클래스 테스트", () => {
+describe("getTotalPrize() 테스트", () => {
   let prizeCalculator;
 
   beforeEach(() => {
@@ -38,5 +38,55 @@ describe("PrizeCalculator 클래스 테스트", () => {
     prizeCalculator = new PrizeCalculator(noPrizeResults);
     const totalPrize = prizeCalculator.getTotalPrize();
     expect(totalPrize).toBe(0);
+  });
+});
+
+describe("getStatistics() 테스트", () => {
+  let prizeCalculator;
+
+  beforeEach(() => {
+    const results = [
+      { matchCount: 6, isBonusMatched: false },  
+      { matchCount: 5, isBonusMatched: true },   
+      { matchCount: 5, isBonusMatched: false },  
+      { matchCount: 4, isBonusMatched: false },  
+      { matchCount: 3, isBonusMatched: false }, 
+      { matchCount: 2, isBonusMatched: false }, 
+    ];
+    
+    prizeCalculator = new PrizeCalculator(results);
+  });
+
+  test("각 등수에 대한 통계가 올바르게 계산되어야 한다", () => {
+    const statistics = prizeCalculator.getStatistics();
+    const expectedStatistics = {
+      1: { count: 1, prize: 2000000000 },
+      2: { count: 1, prize: 30000000 },
+      3: { count: 1, prize: 1500000 },
+      4: { count: 1, prize: 50000 },
+      5: { count: 1, prize: 5000 },
+    };
+    
+    expect(statistics).toEqual(expectedStatistics);
+  });
+
+  test("모든 결과가 미당첨인 경우 각 등수의 통계가 0이어야 한다", () => {
+    const noPrizeResults = [
+      { matchCount: 2, isBonusMatched: false },
+      { matchCount: 1, isBonusMatched: false },
+      { matchCount: 0, isBonusMatched: false },
+    ];
+
+    prizeCalculator = new PrizeCalculator(noPrizeResults);
+    const statistics = prizeCalculator.getStatistics();
+    const expectedStatistics = {
+      1: { count: 0, prize: 0 },
+      2: { count: 0, prize: 0 },
+      3: { count: 0, prize: 0 },
+      4: { count: 0, prize: 0 },
+      5: { count: 0, prize: 0 },
+    };
+
+    expect(statistics).toEqual(expectedStatistics);
   });
 });
