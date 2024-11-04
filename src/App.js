@@ -12,7 +12,11 @@ import {
   setLottoPrizeRank,
   splitByComma,
 } from './functions/LottoPrize.js';
-import { tempLottoPrizeList } from './data/LottoPrizeList.js';
+
+import {
+  getLottoPrifitPercent,
+  printLottoPrifitPercent,
+} from './functions/LottoProfit.js';
 class App {
   async run() {
     try {
@@ -68,13 +72,13 @@ class App {
 
       //* 당첨 관련 //
       const lottoPrizeNumbersInput = await Console.readLineAsync(
-        '당첨 번호를 입력해 주세요.\n',
+        '\n당첨 번호를 입력해 주세요.\n',
       );
 
       const lottoPrizeNumbers = splitByComma(lottoPrizeNumbersInput);
 
       const lottoBounsNumber = await Console.readLineAsync(
-        '보너스 번호를 입력해 주세요.\n',
+        '\n보너스 번호를 입력해 주세요.\n',
       );
 
       lottoArray.forEach((lotto) => {
@@ -96,7 +100,12 @@ class App {
       //* 수익률 구하기
 
       const sumLottoPrizeMoney = getSumLottoPrizeMoney(LottoPrizeList);
-      console.log(sumLottoPrizeMoney);
+      const lottoProfitPercent = getLottoPrifitPercent(
+        sumLottoPrizeMoney,
+        lottoBuyMoneyInput,
+      );
+      printLottoPrifitPercent(lottoProfitPercent);
+
       // * ==== //
     } catch (error) {}
   }
