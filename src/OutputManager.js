@@ -4,12 +4,7 @@ export class OutputManager {
   static printLotteryPurchase(lotteryGroup) {
     Console.print(`\n${lotteryGroup.length}개를 구매했습니다.`);
     lotteryGroup.forEach((lotto) => {
-      Console.print(
-        `[${lotto
-          .getLottoNumbers()
-          .sort((a, b) => a - b)
-          .join(", ")}]`
-      );
+      Console.print(`[${lotto.getLottoNumbers().join(", ")}]`);
     });
   }
 
