@@ -1,5 +1,4 @@
 import { BONUS_DUPLICATE, ERROR_MESSAGE, PRICE } from "../constants/error.js";
-import { PRICE_NUMBER } from "../constants/message.js";
 import Validate from "./Validate.js";
 
 class BonusValidate extends Validate {
