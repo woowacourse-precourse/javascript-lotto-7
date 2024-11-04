@@ -39,13 +39,17 @@ class Validation {
     }
   }
 
-  static isBonusNumberValidated(bonusNumber) {
+  static isBonusNumberValidated(bonusNumber, winningLotto) {
     if (Number.isNaN(Number(bonusNumber))) {
       throw new CustomError(ERROR_MESSAGES.invalidBonusNumberType);
     }
 
     if (bonusNumber > 45 || bonusNumber < 1) {
       throw new CustomError(ERROR_MESSAGES.invalidBonusNumberRange);
+    }
+
+    if (winningLotto.includes(Number(bonusNumber))) {
+      throw new CustomError(ERROR_MESSAGES.invalidBonusNumberDuplicate);
     }
   }
 }
