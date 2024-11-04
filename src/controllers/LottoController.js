@@ -3,11 +3,11 @@ import Lotto from "../models/Lotto.js";
 
 class LottoController {
   #prizeTable = {
-    1: 2000000000,
-    2: 30000000,
-    3: 1500000,
-    4: 50000,
-    5: 5000,
+    first: 2000000000,
+    second: 30000000,
+    third: 1500000,
+    fourth: 50000,
+    fifth: 5000,
   };
 
   generateLottos(purchaseAmount) {
@@ -47,6 +47,16 @@ class LottoController {
     if (matchCount === 4) return 'fourth';
     if (matchCount === 3) return 'fifth';
     return 'noPrize';
+  }
+
+  calculateRateOfReturn(purchaseAmount, resultPrize) {
+    const totalPrize = Object.keys(resultPrize).reduce((sum, rank) => {
+      const prize = this.#prizeTable[rank] || 0;
+      return sum + prize * resultPrize[rank];
+    }, 0);
+
+    const rateOfReturn = (totalPrize / purchaseAmount) * 100;
+    return rateOfReturn;
   }
 }
 
