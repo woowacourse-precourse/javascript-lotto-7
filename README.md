@@ -15,7 +15,7 @@
 
 - [ ] **Presentation Layer**의 입력값을 처리하는 기능 
 
-  * [ ] 입력된 Raw Input의 유효성을 검증하는 기능 (validation)
+  * [x] 입력된 Raw Input의 유효성을 검증하는 기능 (validation)
     + 입력값은 공백이 될 수 없다.
     + 입력값은 숫자 이외의 값이 될 수 없다.
     + 입력값은 소수가 될 수 없다.
