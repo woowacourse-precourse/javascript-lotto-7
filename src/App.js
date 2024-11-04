@@ -1,5 +1,6 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 import InputHandler from "./InputHandler.js";
+import Lotto from "./Lotto.js";
 
 class App {
   constructor() {
@@ -26,17 +27,11 @@ class App {
   //로또 번호 출력
   printLottoNumbers(lottoCount) {
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    while (lottoCount > 0) {
-      let lottoNumbers = this.generateLottoNumbers();
-      Console.print(`[${lottoNumbers.join(", ")}]`);
+    for (let i = 0; i < lottoCount; i++) {
+      let lottoNumbers = Lotto.generateLottoNumbers();
+      Console.print(lottoNumbers.getNumbers());
       this.PurchaseLottoNumbersArray.push(lottoNumbers);
-      lottoCount--;
     }
-  }
-
-  // random 로또 번호 생성 + 오름차순 정렬
-  generateLottoNumbers() {
-    return Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
   }
 
   // 당첨 번호 가공
@@ -53,28 +48,20 @@ class App {
 
   // 내가 산 로또 번호와 당첨 번호 비교
   compareLottoNumbers() {
-    this.PurchaseLottoNumbersArray.forEach((lottoNumber) => {
-      let { count, isBonusMatched } = this.countWinningNumber(lottoNumber);
-      this.updateWinningRanks(count, isBonusMatched);
+    this.PurchaseLottoNumbersArray.forEach((lotto) => {
+      const matchCount = lotto.countMatchingNumbers(
+        this.WinningLottoNumbersArray
+      );
+      const isBonusMatched = lotto.hasBonusNumber(
+        this.WinningLottoNumbersArray
+      );
+      this.updateWinningRanks(matchCount, isBonusMatched);
     });
   }
 
-  // 당첨 번호와 비교 후 맞는 갯수 리턴
-  countWinningNumber(lottoNumber) {
-    let count = 0;
-    let isBonusMatched = false;
-    lottoNumber.forEach((number) => {
-      if (this.WinningLottoNumbersArray[number] === 1) {
-        count++;
-      } else if (this.WinningLottoNumbersArray[number] === 2) {
-        isBonusMatched = true;
-      }
-    });
-    return { count, isBonusMatched };
-  }
   //winningRanks 업데이트
-  updateWinningRanks(count, isBonusMatched) {
-    switch (count) {
+  updateWinningRanks(matchCount, isBonusMatched) {
+    switch (matchCount) {
       case 6:
         this.winningRanks[1]++;
         break;
