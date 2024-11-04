@@ -16,7 +16,7 @@ const OutputView = {
   },
   
   printRateOfReturn(rateOfReturn) {
-    printMessage(`총 수익률은 ${rateOfReturn.toFixed(1)}%입니다.`);
+    printMessage(LOG_MESSAGE.RATE_RETURN(rateOfReturn.toFixed(1)));
   }
 };
 
