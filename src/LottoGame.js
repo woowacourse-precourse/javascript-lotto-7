@@ -26,6 +26,19 @@ class LottoGame {
       }
     }
   }
-}
 
+  async #getPurchaseAmount() {
+    const amount = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    if (!/^\d+$/.test(amount)) {
+      throw new Error("[ERROR] 구입 금액은 정수여야 합니다.");
+    }
+    const parsedAmount = parseInt(amount, 10);
+
+    if (parsedAmount % 1000 !== 0) {
+      throw new Error("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+    }
+
+    return parsedAmount / 1000;
+  }
+}
 export default LottoGame;
