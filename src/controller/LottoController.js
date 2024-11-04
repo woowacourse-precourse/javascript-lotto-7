@@ -1,138 +1,45 @@
-import Draw from "../model/Draw.js";
-import Lotto from "../model/Lotto.js";
 import LottoCollection from "../model/LottoCollection.js";
-import Winning from "../model/Winning.js";
-import InputUtils from "../utils/InputUtils.js";
-import { generateRandomNumbers } from "../utils/LottoUtils.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
+import LottoDrawController from "./LottoDrawController.js";
+import LottoPurchaseController from "./LottoPurchaseController.js";
+import LottoWinningController from "./LottoWinningController.js";
 
 class LottoController {
   #inputView;
   #outputView;
-  #draw;
-  #lottoWinningNumbers;
   #lottoCollection;
-  #winning;
-  #lottoPurchaseAmount;
+  #purchaseController;
+  #drawController;
+  #winningController;
 
   constructor() {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
     this.#lottoCollection = new LottoCollection();
-    this.#winning = new Winning();
+    this.#purchaseController = new LottoPurchaseController(
+      this.#inputView,
+      this.#outputView,
+      this.#lottoCollection
+    );
+    this.#drawController = new LottoDrawController(
+      this.#inputView,
+      this.#outputView
+    );
+    this.#winningController = new LottoWinningController(
+      this.#outputView,
+      this.#lottoCollection
+    );
   }
 
   async run() {
-    await this.#startPurchaseLotto();
-    await this.#startDrawLotto();
-    this.#startWinningLotto();
-  }
-
-  async #startPurchaseLotto() {
-    this.#lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
-    const lottoCount = this.#calculateLottoCount(this.#lottoPurchaseAmount);
-    this.#printLottoCount(lottoCount);
-    this.#generateLottos(lottoCount);
-  }
-
-  async #getLottoPurchaseAmount() {
-    const purchaseAmount = await InputUtils.validInput(
-      () => this.#inputView.inputPurchaseAmount(),
-      InputUtils.validatePurchaseAmount,
-      this.#outputView
+    await this.#purchaseController.startPurchaseLotto();
+    await this.#drawController.startDrawLotto();
+    this.#winningController.startWinningLotto(
+      this.#purchaseController.getPurchaseAmount(),
+      this.#drawController.getWinningNumbers(),
+      this.#drawController.getBonusNumber()
     );
-    return purchaseAmount;
-  }
-
-  #printLottoCount(lottoCount) {
-    this.#outputView.outputLottoCount(lottoCount);
-  }
-
-  #calculateLottoCount(purchaseAmount) {
-    const lottoCount = Math.floor(purchaseAmount / 1000);
-    return lottoCount;
-  }
-
-  #generateLottos(lottoCount) {
-    for (let i = 0; i < lottoCount; i++) {
-      const lottoNumbers = generateRandomNumbers();
-      const lotto = new Lotto(lottoNumbers);
-      this.#lottoCollection.addLotto(lotto);
-      this.#printLottoNumbers(lotto);
-    }
-  }
-
-  #printLottoNumbers(lotto) {
-    this.#outputView.outputLottoNumbers(lotto);
-  }
-
-  async #startDrawLotto() {
-    this.#lottoWinningNumbers = await this.#getLottoWinningNumber();
-    const lottoBonusNumber = await this.#getLottoBonusNumber();
-    this.#draw = new Draw(this.#lottoWinningNumbers, lottoBonusNumber);
-  }
-
-  async #getLottoWinningNumber() {
-    const winningNumber = await InputUtils.validInput(
-      () => this.#inputView.inputLottoWinningNumber(),
-      InputUtils.validateWinningNumber,
-      this.#outputView
-    );
-
-    return winningNumber;
-  }
-
-  async #getLottoBonusNumber() {
-    const bonusNumber = await InputUtils.validInput(
-      () => this.#inputView.inputLottoBonuseNumber(),
-      (input) =>
-        InputUtils.validateBonusNumber(input, this.#lottoWinningNumbers),
-      this.#outputView
-    );
-    return bonusNumber;
-  }
-
-  #startWinningLotto() {
-    this.#printWinningStatsHead();
-    this.#printResultMatchCount();
-    this.#printProfitRate();
-  }
-
-  #printWinningStatsHead() {
-    this.#outputView.outputWinningHead();
-  }
-
-  #printResultMatchCount() {
-    this.#outputView.outputWinningStats(
-      this.#winning.getMatchCount(
-        this.#lottoCollection.getLottoCollection(),
-        this.#draw.getWinningNumber(),
-        this.#draw.getBonusNumber()
-      )
-    );
-  }
-
-  #printProfitRate() {
-    this.#outputView.outputProfitRate(
-      this.#winning.getProfitRate(this.#lottoPurchaseAmount)
-    );
-  }
-
-  async startPurchaseLottoTest() {
-    const lottoPurchaseAmount = await this.#getLottoPurchaseAmount();
-    const lottoCount = this.#calculateLottoCount(lottoPurchaseAmount);
-    this.#printLottoCount(lottoCount);
-    this.#generateLottos(lottoCount);
-  }
-
-  async getLottoPurchaseAmountTest() {
-    const [purchaseAmount] = await InputUtils.validInput(
-      () => this.#inputView.inputPurchaseAmount(),
-      InputUtils.validatePurchaseAmount,
-      this.#outputView
-    );
-    return purchaseAmount;
   }
 }
 

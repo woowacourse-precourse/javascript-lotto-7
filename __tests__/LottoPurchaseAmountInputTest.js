@@ -1,5 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import LottoController from "../src/controller/LottoController.js";
+import LottoPurchaseController from "../src/controller/LottoPurchaseController.js";
+import InputView from "../src/view/InputView.js";
+import OutputView from "../src/view/OutputView.js";
+import LottoCollection from "../src/model/LottoCollection.js";
+
+const inputView = new InputView();
+const outputView = new OutputView();
+const lottoCollection = new LottoCollection();
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -19,8 +26,13 @@ const getLogSpy = () => {
 
 const runTest = async (input) => {
   mockQuestions(input);
-  const lottoController = new LottoController();
-  await lottoController.getLottoPurchaseAmountTest();
+
+  const lottoPurchaseController = new LottoPurchaseController(
+    inputView,
+    outputView,
+    lottoCollection
+  );
+  await lottoPurchaseController.startPurchaseLotto();
   expect(true).toBe(true);
 };
 
@@ -31,8 +43,12 @@ const runException = async (input) => {
 
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
-  const lottoController = new LottoController();
-  await lottoController.getLottoPurchaseAmountTest();
+  const lottoPurchaseController = new LottoPurchaseController(
+    inputView,
+    outputView,
+    lottoCollection
+  );
+  await lottoPurchaseController.startPurchaseLotto();
 
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };

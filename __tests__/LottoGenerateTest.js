@@ -1,5 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import LottoController from "../src/controller/LottoController.js";
+import LottoPurchaseController from "../src/controller/LottoPurchaseController.js";
+import InputView from "../src/view/InputView.js";
+import OutputView from "../src/view/OutputView.js";
+import LottoCollection from "../src/model/LottoCollection.js";
+
+const inputView = new InputView();
+const outputView = new OutputView();
+const lottoCollection = new LottoCollection();
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -29,8 +36,12 @@ const runTest = async (questions, logs) => {
 
   mockQuestions(questions);
 
-  const LottoottoController = new LottoController();
-  await LottoottoController.startPurchaseLottoTest();
+  const lottoPurchaseController = new LottoPurchaseController(
+    inputView,
+    outputView,
+    lottoCollection
+  );
+  await lottoPurchaseController.startPurchaseLotto();
 
   logs.forEach((log) => {
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
@@ -38,9 +49,9 @@ const runTest = async (questions, logs) => {
 };
 
 describe("로또 발행 테스트", () => {
-  // beforeEach(() => {
-  //   jest.restoreAllMocks();
-  // });
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
 
   test("성공 테스트 - 로또 금액에 맞는 로또 개수 출력", async () => {
     await runTest(["5000"], ["5개를 구매했습니다."]);
