@@ -1,14 +1,18 @@
-import { Console } from '@woowacourse/mission-utils';
 import LottoMachine from './LottoMachine.js';
+import LottoResult from './LottoResult.js';
 
 class App {
   async run() {
     const lottoMachine = new LottoMachine();
+    const lottoResult = new LottoResult();
 
     const purchaseAmount = await lottoMachine.readPurchaseAmount();
     const purchasedLottos = lottoMachine.purchaseLottos(purchaseAmount);
 
-    Console.print(purchaseAmount, purchasedLottos);
+    await lottoResult.readWinningNumbers();
+    await lottoResult.readBonusNumber();
+
+    lottoResult.printWinnerStatistics(purchaseAmount, purchasedLottos);
   }
 }
 
