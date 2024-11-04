@@ -23,8 +23,8 @@ class LottoGame {
 
     async start() {
         const AMOUNT = await amountInput(INPUT_MESSAGE.AMOUNT_INPUT);
-
         countOutput(AMOUNT);
+
         this.generateLotto(AMOUNT / 1000);
         lottosOutput(AMOUNT, this.lottos);
 

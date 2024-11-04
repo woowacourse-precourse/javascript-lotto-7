@@ -5,7 +5,7 @@ export const INPUT_MESSAGE = Object.freeze({
 });
 
 export const OUTPUT_MESSAGE = Object.freeze({
-    COUNT: '개를 구매했습니다.\n',
+    COUNT: '개를 구매했습니다.',
     RESULT: '\n당첨 통계\n---',
     MATCH_3: '3개 일치 (5,000원) - ',
     MATCH_4: '4개 일치 (50,000원) - ',

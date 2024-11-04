@@ -2,12 +2,12 @@ import {Console} from "@woowacourse/mission-utils";
 import {OUTPUT_MESSAGE} from "./Message.js";
 
 export const countOutput = (amount) => {
-    return Console.print('\n' + amount / 1000 + OUTPUT_MESSAGE.COUNT);
+    return Console.print('\n'+amount / 1000 + OUTPUT_MESSAGE.COUNT);
 }
 
 export const lottosOutput = (amount, lottos) => {
     for (let i = 0; i < amount / 1000; i++) {
-        Console.print(lottos[i]);
+        Console.print('[' + lottos[i].join(', ') + ']');
     }
 }
 

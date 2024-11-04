@@ -9,11 +9,11 @@ export const validAmount = (amount) => {
 }
 
 export const validWinningLotto = (winningLotto) => {
-    const IS_NOT_COMMA = winningLotto.split(',').length - 1 !== 5;
-    const IS_NOT_COUNT_6 = winningLotto.split(',').length !== 6;
-    const IS_NO_INPUT = winningLotto.trim() === '';
-    const IS_NOT_UNIQUE = new Set(winningLotto.split(',')).size !== 6;
-    const IS_NOT_RANGE = winningLotto.split(',').some(num => !((1 <= num) && (num <= 45)));
+    const IS_NOT_COMMA = winningLotto.length - 1 !== 5;
+    const IS_NOT_COUNT_6 = winningLotto.length !== 6;
+    const IS_NO_INPUT = winningLotto.map(num=>String(num).trim()).includes('') ;
+    const IS_NOT_UNIQUE = new Set(winningLotto).size !== 6;
+    const IS_NOT_RANGE = winningLotto.some(num => !((1 <= num) && (num <= 45)));
 
     if (IS_NO_INPUT) throw new Error(WINNING_LOTTO_ERROR.ERROR_NO_INPUT);
     if (IS_NOT_COUNT_6) throw new Error(WINNING_LOTTO_ERROR.ERROR_COUNT_6);

@@ -30,7 +30,7 @@ export const winningInput = async (content) => {
     while (true) {
         try {
             const winning = await Console.readLineAsync(content);
-            const lotto = new Lotto(winning);
+            const lotto = new Lotto(winning.split(','));
             return lotto.winningNumbers;
         } catch (error) {
             Console.print(error.message);
