@@ -9,9 +9,9 @@ const OutputView = {
   updatePrize({ prize, returnRate }) {
     OutputView.printResultHeader();
     prize.forEach(({
-      rank, condition, money, count,
+      condition, money, count, isBonus,
     }) => {
-      if (rank === "second") OutputView.printBonusResult(condition, money, count);
+      if (isBonus) OutputView.printBonusResult(condition, money, count);
       else OutputView.printResult(condition, money, count);
     });
     OutputView.printReturnRate(returnRate);

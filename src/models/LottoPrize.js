@@ -51,10 +51,10 @@ class LottoPrize extends ObservableModel {
     const formattedPrize = LottoPrize.PRIZE_KEYS.map((rank) => {
       const { condition, money, count } = this.#prize[rank];
       return {
-        rank,
         condition,
         money: money.toLocaleString(),
         count,
+        isBonus: rank === "second",
       };
     });
     return formattedPrize;
