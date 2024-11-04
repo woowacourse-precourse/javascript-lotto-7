@@ -6,16 +6,19 @@ export function validateAmount(amount) {
     throw new Error(ERROR_MESSAGE.LOTTO_AMOUNT_UNIT_ERROR);
 }
 
-export function validateNumbers(input) {
+export function validateNumbers(userInput) {
   const formatRegex = /^(\d{1,2},){5}\d{1,2}$/;
-  if (!formatRegex.test(input)) {
+  if (!formatRegex.test(userInput)) {
     throw new Error(ERROR_MESSAGE.LOTTO_NUM_FORMAT_ERROR);
   }
-  numbers = input.split(',').map((num) => parseInt(num));
+  const numbers = userInput
+    .toString()
+    .split(',')
+    .map((num) => parseInt(num, 10));
   if (numbers.length != 6) {
     throw new Error(ERROR_MESSAGE.LOTTO_CNT_ERROR);
   }
-  numbers.array.forEach((num) => {
+  numbers.forEach((num) => {
     if (num < 1 || num > 45) throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
   });
 }
