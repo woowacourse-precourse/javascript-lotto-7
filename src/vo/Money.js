@@ -20,6 +20,12 @@ class Money {
       throwValidationError(ERROR_MESSAGES.UNDER_LOTTO_PRICE);
     }
   }
+
+  #checkDivisibility(amount) {
+    if (amount % LOTTO.PRICE !== 0) {
+      throwValidationError(ERROR_MESSAGES.NOT_DIVISIBLE);
+    }
+  }
 }
 
 export default Money;
