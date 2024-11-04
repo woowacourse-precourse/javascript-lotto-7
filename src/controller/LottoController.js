@@ -5,6 +5,7 @@ import Lotto from '../model/Lotto.js';
 import BonusNumber from '../model/BonusNumber.js';
 import Purchase from '../model/Purchase.js';
 import Result from '../model/Result.js';
+import { UNIT } from '../constant/constant.js';
 
 class LottoController {
   #purchase; // purchase 인스턴스
@@ -27,7 +28,7 @@ class LottoController {
       const input = await InputView.inputAmount();
       this.#purchaseAmount = Number(input);
       this.#purchase = new Purchase(this.#purchaseAmount);
-      this.#tickets = this.#purchase.purchaseTickets();
+      this.#tickets = this.#purchaseAmount / UNIT;
       await OutputView.printLottoTickets(this.#tickets);
       this.#lotteryNumbers = this.#purchase.generateLotteryNumbers();
       await OutputView.printLottoNumbers(this.#tickets, this.#lotteryNumbers);

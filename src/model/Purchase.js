@@ -39,10 +39,6 @@ class Purchase {
       throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_RANGE);
     }
   }
-
-  purchaseTickets(amount) {
-    return this.#tickets;
-  }
 }
 
 export default Purchase;
