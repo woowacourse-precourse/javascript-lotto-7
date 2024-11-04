@@ -66,9 +66,7 @@ class App {
     const bonusNumberInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     const bonusNumber = Number(bonusNumberInput);
 
-    if(bonusNumber < 1 || bonusNumber > 45){
-      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
-    }
+    this.validateBonusNumber(bonusNumber, winningNumbers);
       
     return {winningNumbers, bonusNumber};
   }
@@ -83,6 +81,25 @@ class App {
     }
     if (new Set(winningNumbers).size !== winningNumbers.length) {
       throw new Error("[ERROR] 당첨 번호는 중복될 수 없습니다.");
+    }
+  }
+
+  // 보너스 번호 유효성 검사
+  validateBonusNumber(bonusNumber, winningNumbers) {
+    if (!bonusNumber) {
+      throw new Error("[ERROR] 보너스 번호를 입력해야 합니다.");
+    }
+
+    if (isNaN(bonusNumber) || bonusNumber <= 0) {
+      throw new Error("[ERROR] 보너스 번호는 양수여야 합니다.");
+    }
+
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    }
+
+    if (winningNumbers.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
   }
 
