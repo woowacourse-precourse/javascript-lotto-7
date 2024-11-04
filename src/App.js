@@ -28,12 +28,12 @@ class App {
       matches: lotto.confirmMatches(winningNumber),
       matchBonus: lotto.confirmBonus(bonusNumber),
     }));
-    Console.print(matchResults);
 
     // 통계 출력
     Console.print("\n당첨 통계\n---");
     const winningStats = this.calculateWinningStats(matchResults);
     this.printWinningStats(winningStats);
+    this.printReturnRate(matchResults, purchaseMoney);
   }
 
   calculateWinningStats(results) {
@@ -50,13 +50,32 @@ class App {
   }
 
   printWinningStats(stats) {
-    console.log(`3개 일치 (5,000원) - ${stats[3]}개`);
-    console.log(`4개 일치 (50,000원) - ${stats[4]}개`);
-    console.log(`5개 일치 (1,500,000원) - ${stats[5]}개`);
-    console.log(
+    Console.print(`3개 일치 (5,000원) - ${stats[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${stats[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${stats[5]}개`);
+    Console.print(
       `5개 일치, 보너스 볼 일치 (30,000,000원) - ${stats["5_bonus"]}개`
     );
-    console.log(`6개 일치 (2,000,000,000원) - ${stats[6]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${stats[6]}개`);
+  }
+
+  printReturnRate(results, money) {
+    const PRIZE_MONEY = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      "5_bonus": 30000000,
+      6: 2000000000,
+    };
+    let totalPrizeMoney = 0;
+    results.map(({ matches }) => {
+      if (prizeMoney[matches]) {
+        totalPrizeMoney += PRIZE_MONEY[matches];
+      }
+    });
+
+    const returnRate = Math.round((totalPrizeMoney / money) * 1000) / 10;
+    Console.print(`총 수익률은 ${returnRate}%입니다.`);
   }
 }
 
