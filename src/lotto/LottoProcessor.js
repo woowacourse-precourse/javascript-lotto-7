@@ -1,3 +1,4 @@
+import { LOTTO_UNIT, PRIZE_AMOUNT } from "../utils/constants.js";
 import Lotto from "./Lotto.js";
 
 //로또 관련 비즈니스 로직 처리
@@ -45,12 +46,11 @@ class LottoProcessor {
 
   // 수익률 계산
   calculateRateOfReturn(lottoCount) {
-    const prize = [0, 2000000000, 30000000, 1500000, 50000, 5000];
     const totalPrize = Object.keys(this.winningRanks).reduce(
-      (acc, rank) => acc + this.winningRanks[rank] * prize[rank],
+      (acc, rank) => acc + this.winningRanks[rank] * PRIZE_AMOUNT[rank],
       0
     );
-    const rate = (totalPrize / (lottoCount * 1000)) * 100;
+    const rate = (totalPrize / (lottoCount * LOTTO_UNIT)) * 100;
 
     if (rate % 1 === 0) {
       return rate;
