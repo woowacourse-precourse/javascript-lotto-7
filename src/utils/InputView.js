@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import VIEWMESSAGES from '../resources/VIEWMESSAGES.js';
-import validateInputMoney from './validation/validateInputMoney.js';
+import validateInputMoney from './validator/validateInputMoney.js';
 
 export async function inputPurchaseAmount() {
   while (true) {
