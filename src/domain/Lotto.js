@@ -1,9 +1,9 @@
 class Lotto {
-  numbers;
+  #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.numbers = numbers;
+    this.#numbers = numbers;
   }
 
   #validate(numbers) {
@@ -12,8 +12,8 @@ class Lotto {
     }
   }
 
-  getNumbers() {
-    return this.numbers;
+  getLotto() {
+    return this.#numbers;
   }
 }
 
