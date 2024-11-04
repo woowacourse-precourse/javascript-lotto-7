@@ -32,20 +32,24 @@ class Statistics {
       const numbers = lotto.getNumbers();
       let cnt = numbers.filter((num) => winningNumbers.includes(num)).length;
 
-      if (cnt === 3) {
-        this.#three++;
-      } else if (cnt === 4) {
-        this.#four++;
-      } else if (cnt === 5) {
-        if (numbers.includes(Number(this.bonus))) {
-          this.#fiveBonus++;
-        } else {
-          this.#five++;
-        }
-      } else if (cnt === 6) {
-        this.#six++;
-      }
+      this.#cntFilter(cnt, numbers);
     });
+  }
+
+  #cntFilter(cnt, numbers) {
+    if (cnt === 3) {
+      this.#three++;
+    } else if (cnt === 4) {
+      this.#four++;
+    } else if (cnt === 5) {
+      if (numbers.includes(Number(this.bonus))) {
+        this.#fiveBonus++;
+      } else {
+        this.#five++;
+      }
+    } else if (cnt === 6) {
+      this.#six++;
+    }
   }
 
   #calculateProfit() {
