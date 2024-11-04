@@ -17,17 +17,8 @@ class LottoResult {
       ).length;
       const matchingBonus = ticket.includes(lottoBonusNumber);
 
-      if (matchingNumbers === 6) {
-        this.ranks[1] += 1;
-      } else if (matchingNumbers === 5 && matchingBonus) {
-        this.ranks[2] += 1;
-      } else if (matchingNumbers === 5) {
-        this.ranks[3] += 1;
-      } else if (matchingNumbers === 4) {
-        this.ranks[4] += 1;
-      } else if (matchingNumbers === 3) {
-        this.ranks[5] += 1;
-      }
+      const rank = this.getRank(matchingNumbers, matchingBonus);
+      if (rank) this.ranks[rank] += 1;
     });
   }
 
@@ -42,6 +33,15 @@ class LottoResult {
   calculateProfitRate(totalWinningAmount, purchaseAmount) {
     const profitRate = (totalWinningAmount / purchaseAmount) * 100;
     return Math.round(profitRate * 10) / 10;
+  }
+
+  getRank(matchingNumbers, matchingBonus) {
+    if (matchingNumbers === 6) return 1;
+    if (matchingNumbers === 5 && matchingBonus) return 2;
+    if (matchingNumbers === 5) return 3;
+    if (matchingNumbers === 4) return 4;
+    if (matchingNumbers === 3) return 5;
+    return null;
   }
 }
 
