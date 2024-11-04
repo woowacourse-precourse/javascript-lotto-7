@@ -9,7 +9,7 @@ class LottoView {
 
   async receiveBudget() {
     const userBudget = await this.#console.readLineAsync("구입금액을 입력해 주세요.\n");
-    return Number(userBudget);
+    return userBudget;
   }
 
   async receiveWinningNumber() {
@@ -22,6 +22,10 @@ class LottoView {
     return Number(bonusNumber);
   }
 
+  print(message) {
+    this.#console.print(message);
+  }
+
   printNumberOfLottos(maxLottoCount) {
     this.#console.print(`${maxLottoCount}개를 구매했습니다.`);
   }
@@ -32,9 +36,8 @@ class LottoView {
       this.#console.print(`[${lottoNumbers.join(", ")}]`);
     });
   }
-  // 전달받은 winningStats의 내부 정보를 view가 알고있음
+
   printWinningStats(winngingStats) {
-    console.log(winngingStats);
     this.#console.print("당첨 통계\n---");
 
     const winningStatTemplates = Object.keys(winngingStats).map((rank) => {
