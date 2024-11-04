@@ -15,14 +15,21 @@ const outputView = {
     Console.print(`[${numbers.join(", ")}]`);
   },
 
-  printResults(results) {
+  printResultHeader() {
     Console.print(OUTPUT_MESSAGES.RESULTS_HEADER);
+  },
+
+  printResults(results) {
     for (let i = 3; i <= 6; i++) {
       Console.print(OUTPUT_MESSAGES[`MATCH_${i}`](results[i]));
       if (i === 5) {
         Console.print(OUTPUT_MESSAGES.MATCH_5_BONUS(results[5.5]));
       }
     }
+  },
+
+  printProfitRate(rate) {
+    Console.print(`총 수익률은 ${rate}%입니다.`);
   },
 };
 
