@@ -40,20 +40,29 @@ class GameOutput extends WoowahanOutput {
 
 class BuyMoneyOutput extends WoowahanOutput {
 
+    constructor() {
+        super();
+        this.subject = SUBJECT.BUY_MONEY;
+    }
+
+    async errorPrint(prompt) {
+        super.errorPrint(this.subject, prompt);
+    }
+
     async printEmptyValue() {
-        super.errorPrint(SUBJECT.BUY_MONEY, ERROR.IS_NULL);
+        this.errorPrint(ERROR.IS_NULL);
     }
 
     async printNotNumber() {
-        super.errorPrint(SUBJECT.BUY_MONEY, ERROR.NOT_NUMBER);
+        this.errorPrint(ERROR.NOT_NUMBER);
     }
 
     async printMinusNumber() {
-        super.errorPrint(SUBJECT.BUY_MONEY, ERROR.MINUS);
+        this.errorPrint(ERROR.MINUS);
     }
 
     async printEndWith1000() {
-        super.errorPrint(SUBJECT.BUY_MONEY, ERROR.END_WITH_1000);
+        this.errorPrint(ERROR.END_WITH_1000);
     }
 }
 
@@ -66,39 +75,57 @@ class WinInputOutput extends WoowahanOutput {
 
 class WinNumberOutput extends WoowahanOutput {
 
+    constructor(){
+        super();
+        this.subject = SUBJECT.WIN_NUMBER;
+    }
+
+    async errorPrint(prompt) {
+        super.errorPrint(this.subject, prompt);
+    }
+
     async printEmptyValue() {
-        super.errorPrint(SUBJECT.WIN_NUMBER, ERROR.IS_NULL);
+        super.errorPrint(ERROR.IS_NULL);
     }
 
     async printNotNumber() {
-        super.errorPrint(SUBJECT.WIN_NUMBER, ERROR.NOT_NUMBER);
+        super.errorPrint(ERROR.NOT_NUMBER);
     }
 
     async printMinusNumber() {
-        super.errorPrint(SUBJECT.WIN_NUMBER, ERROR.MINUS);
+        super.errorPrint(ERROR.MINUS);
     }
 
     async printOutOfRange() {
-        super.errorPrint(SUBJECT.WIN_NUMBER, ERROR.OUT_OF_RANGE);
+        super.errorPrint(ERROR.OUT_OF_RANGE);
     }
 }
 
 class BonusNumberOutput extends WoowahanOutput {
 
+    constructor(){
+        super();
+        this.subject = SUBJECT.BONUS_NUMBER;
+    }
+
+    async errorPrint(prompt) {
+        super.errorPrint(this.subject, prompt);
+    }
+
     async printEmptyValue() {
-        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.IS_NULL);
+        super.errorPrint(ERROR.IS_NULL);
     }
 
     async printNotNumber() {
-        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.NOT_NUMBER);
+        super.errorPrint(ERROR.NOT_NUMBER);
     }
 
     async printMinusNumber() {
-        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.MINUS);
+        super.errorPrint(ERROR.MINUS);
     }
 
     async printOutOfRange() {
-        super.errorPrint(SUBJECT.BONUS_NUMBER, ERROR.OUT_OF_RANGE);
+        super.errorPrint(ERROR.OUT_OF_RANGE);
     }
 }
 
