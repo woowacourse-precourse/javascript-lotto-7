@@ -3,48 +3,32 @@ import BonusNumberInput from './BonusNumberInput.js';
 import BuyPriceInput from './BuyPriceInput.js';
 import OutputPrint from './OutputPrint.js';
 
+// func[], number[] => string
 const LoopWhileValid = {
-  getBuyPrice: async () => {
+  async getValidatedInput(inputModule, validateArgs = []) {
     try {
-      const userInput = await BuyPriceInput.get();
-      if (BuyPriceInput.validate(userInput)) {
+      const userInput = await inputModule.get();
+      if (inputModule.validate(userInput, ...validateArgs)) {
         OutputPrint.blankLine();
-        return BuyPriceInput.parse(userInput);
+        return inputModule.parse(userInput);
       }
     } catch (error) {
       OutputPrint.error(error.message);
       OutputPrint.blankLine();
-      return LoopWhileValid.getBuyPrice();
+      return this.getValidatedInput(inputModule, validateArgs);
     }
   },
 
-  getBasicNumbers: async () => {
-    try {
-      const userInput = await BasicNumbersInput.get();
-      if (BasicNumbersInput.validate(userInput)) {
-        OutputPrint.blankLine();
-        return BasicNumbersInput.parse(userInput);
-      }
-    } catch (error) {
-      OutputPrint.error(error.message);
-      OutputPrint.blankLine();
-      return LoopWhileValid.getBasicNumbers();
-    }
+  getBuyPrice: async function () {
+    return this.getValidatedInput(BuyPriceInput);
   },
 
-  getBonusNumbers: async (basicNumbers) => {
-    try {
-      const userInput = await BonusNumberInput.get();
-      if (BonusNumberInput.validate(userInput, basicNumbers)) {
-        OutputPrint.blankLine();
-        return BonusNumberInput.parse(userInput);
-      }
-    } catch (error) {
-      OutputPrint.error(error.message);
-      OutputPrint.basicNumbers(basicNumbers);
-      OutputPrint.blankLine();
-      return LoopWhileValid.getBonusNumbers(basicNumbers);
-    }
+  getBasicNumbers: async function () {
+    return this.getValidatedInput(BasicNumbersInput);
+  },
+
+  getBonusNumbers: async function (basicNumbers) {
+    return this.getValidatedInput(BonusNumberInput, [basicNumbers]);
   },
 };
 
