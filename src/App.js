@@ -1,7 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
 import { CONSTANTS } from './constants.js';
 import Lotto from './Lotto.js';
-import { validateAmount, validateWinningNumbers } from './Validation.js';
+import {
+  validateAmount,
+  validateWinningNumbers,
+  validateBonusNumber,
+} from './Validation.js';
 
 class App {
   async run() {
@@ -22,6 +26,9 @@ class App {
 
       Console.print(CONSTANTS.MESSAGE_WINNING_NUMBERS);
       const winningNumbers = await this.getWinningNumbers();
+
+      Console.print(CONSTANTS.MESSAGE_BONUS_NUMBER);
+      const bonusNumber = await this.getBonusNumber(winningNumbers);
     } catch (error) {
       Console.print(error.message);
       throw error;
@@ -47,6 +54,13 @@ class App {
     const winningNumbers = input.split(',').map(Number);
     validateWinningNumbers(winningNumbers);
     return winningNumbers;
+  }
+
+  async getBonusNumber(winningNumbers) {
+    const input = await Console.readLineAsync('');
+    const bonusNumber = Number(input);
+    validateBonusNumber(bonusNumber, winningNumbers);
+    return bonusNumber;
   }
 }
 

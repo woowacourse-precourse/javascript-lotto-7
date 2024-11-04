@@ -4,7 +4,7 @@ export const CONSTANTS = {
   MESSAGE_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
   MESSAGE_PURCHASED_TICKETS: '개를 구매했습니다.',
   MESSAGE_WINNING_NUMBERS: '\n당첨 번호를 입력해 주세요.',
-  MESSAGE_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
+  MESSAGE_BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.',
   MESSAGE_WINNING_STATISTICS: '당첨 통계',
   MESSAGE_PROFIT_RATE: '총 수익률은',
 

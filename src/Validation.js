@@ -4,7 +4,7 @@ export function validateAmount(amount) {
   if (isNaN(amount) || amount % CONSTANTS.LOTTO_PRICE !== 0) {
     throw new Error(CONSTANTS.ERROR_INVALID_AMOUNT);
   }
-};
+}
 
 export function validateWinningNumbers(numbers) {
   if (numbers.length !== 6) {
@@ -19,5 +19,14 @@ export function validateWinningNumbers(numbers) {
   const isUnique = new Set(numbers).size === 6;
   if (!isUnique) {
     throw new Error(CONSTANTS.ERROR_INVALID_WINNING_NUMBERS);
+  }
+}
+
+export function validateBonusNumber(bonusNumber, winningNumbers) {
+  if (bonusNumber < 1 || bonusNumber > 45) {
+    throw new Error(CONSTANTS.ERROR_INVALID_RANGE);
+  }
+  if (winningNumbers.includes(bonusNumber)) {
+    throw new Error(CONSTANTS.ERROR_DUPLICATE_BONUS_NUMBER);
   }
 }
