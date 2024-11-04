@@ -1,5 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { PROMPTS, INFO, PRIZE } from './constants.js';
+import {
+  validateUserMoney,
+  validateLottoNumbers,
+  validateBonusNumber,
+} from './validation.js';
 import Lotto from './Lotto.js';
 
 class App {
@@ -19,11 +24,11 @@ class App {
       userLotto.push(
         new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6))
       );
-      MissionUtils.Console.print(userLotto[i].showNumber());
+      const showLottoNumber = userLotto[i].showNumber();
+      MissionUtils.Console.print(`[${showLottoNumber.join(', ').trim()}]`);
     }
-    const userWinningNumber = await this.getUserWinningNumber();
-    const winningNumber = userWinningNumber.split(',').map((num) => num.trim());
-    const bonusNumber = await this.getBonusNumber();
+    const winningNumber = await this.getUserWinningNumber();
+    const bonusNumber = await this.getBonusNumber(winningNumber);
 
     for (let i = 0; i < countLotto; i++) {
       const resultLotto = this.findWinningMatch(
@@ -49,23 +54,56 @@ class App {
   }
 
   async getUserMoney() {
-    const userMoney = await MissionUtils.Console.readLineAsync(
-      PROMPTS.INPUT_USER_MONEY
-    );
+    let validInput = false;
+    let userMoney;
+    while (!validInput) {
+      try {
+        const inputMoney = await MissionUtils.Console.readLineAsync(
+          PROMPTS.INPUT_USER_MONEY
+        );
+        userMoney = validateUserMoney(inputMoney);
+
+        validInput = true;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
     return userMoney;
   }
 
   async getUserWinningNumber() {
-    const userWinningNumber = await MissionUtils.Console.readLineAsync(
-      PROMPTS.INPUT_USER_WINNING_NUMBER
-    );
-    return userWinningNumber;
+    let validInput = false;
+    let winningNumber;
+    while (!validInput) {
+      try {
+        const userWinningNumber = await MissionUtils.Console.readLineAsync(
+          PROMPTS.INPUT_USER_WINNING_NUMBER
+        );
+        winningNumber = userWinningNumber.split(',').map((num) => num.trim());
+        winningNumber = validateLottoNumbers(winningNumber);
+        validInput = true;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+    return winningNumber;
   }
 
-  async getBonusNumber() {
-    const userBonusNumber = await MissionUtils.Console.readLineAsync(
-      PROMPTS.INPUT_USER_BONUS_NUMBER
-    );
+  async getBonusNumber(winningNumber) {
+    let validInput = false;
+    let userBonusNumber;
+    while (!validInput) {
+      try {
+        const BonusNumber = await MissionUtils.Console.readLineAsync(
+          PROMPTS.INPUT_USER_BONUS_NUMBER
+        );
+        userBonusNumber = validateBonusNumber(BonusNumber, winningNumber);
+        validInput = true;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+
     return userBonusNumber;
   }
 
