@@ -7,9 +7,9 @@ class App {
       const match = new Match();
       await match.getLottos();
       await match.getJackpot();
-      match.resetRanks(); // 매 실행 시 rank를 초기화
+      match.resetRanks();
       match.matchLottos();
-      match.displayResult(); // 결과를 출력
+      match.displayResult();
     } catch (error) {
       Console.print(error.message);
     }

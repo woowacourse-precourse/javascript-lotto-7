@@ -1,5 +1,3 @@
-// 사용자에게 로또 당첨 번호를 입력받는다.
-
 import { Console } from '@woowacourse/mission-utils';
 import { INPUT } from '../constants/Constants.js';
 import Validators from '../utils/Validation.js';
