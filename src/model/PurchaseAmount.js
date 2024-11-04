@@ -3,9 +3,9 @@ import { isPerThousandWon } from '../util/validate.js';
 
 class PurchaseAmount {
   #amount;
-  constructor(purchaseAmount) {
-    this.#validate(purchaseAmount);
-    this.#amount = purchaseAmount;
+  constructor(amount) {
+    this.#validate(amount);
+    this.#amount = amount;
   }
 
   #validate(amount) {
