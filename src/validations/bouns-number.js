@@ -14,10 +14,11 @@ const validateNumberRange = (number) => {
 };
 
 const validateNumber = (input) => {
-  if (Number.isNaN(input)) {
+  const parsedNumber = Number(input);
+  if (Number.isNaN(parsedNumber)) {
     throw new Error(INVALID_NUMBER_INPUT);
   }
-  return input;
+  return parsedNumber;
 };
 
 const validateDuplicateBonusNumber = (bonusNumber, winningNumbers) => {
