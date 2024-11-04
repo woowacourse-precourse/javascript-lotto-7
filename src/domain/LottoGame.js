@@ -12,14 +12,14 @@ class LottoGame {
   #lottos;
 
   setLottos(tickets) {
-    this.#lottos = this.#generateLotto(tickets);
+    this.#lottos = this.#generateLottos(tickets);
   }
 
   getLottos() {
     return this.#lottos.map((lotto) => lotto.getLottoNumbers());
   }
 
-  #generateLotto(amount) {
+  #generateLottos(amount) {
     return Array.from(
       { length: amount },
       () => new Lotto(generateLottoNumbers()),
@@ -65,7 +65,11 @@ class LottoGame {
 
   getProfitRatio(totalPrizeAmount) {
     const totalTicketCost = this.#lottos.length * PRICE_PER_LOTTO;
-    return ((totalPrizeAmount / totalTicketCost) * 100).toFixed(1);
+    const ratio = (totalPrizeAmount / totalTicketCost) * 100;
+    return ratio.toLocaleString('ko-KR', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    });
   }
 }
 
