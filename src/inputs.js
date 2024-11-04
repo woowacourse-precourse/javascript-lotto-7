@@ -29,3 +29,18 @@ export const getWinningNums = async () => {
   }
   return winningNumbers;
 };
+
+/** 보너스 숫자 입력받기 */
+export const getBonusNums = async () => {
+  const bonusNumberInput = await Console.readLineAsync(
+    "\n보너스 번호를 입력해 주세요.\n"
+  );
+  if (
+    isNaN(bonusNumberInput) ||
+    bonusNumberInput < 1 ||
+    bonusNumberInput > 45
+  ) {
+    throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+  }
+  return bonusNumberInput;
+};
