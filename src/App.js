@@ -27,7 +27,7 @@ class App {
   }
 
   validateAmount(amount) {
-    if (isNaN(amount) || amount % 1000 !== 0) {
+    if (isNaN(amount) || amount % 1000 !== 0 || amount <= 0) {
       throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
     }
   }
@@ -102,31 +102,59 @@ class App {
   }
 
   printResults() {
-    const results = this.lottos.map((lotto) =>
-      lotto.getRank(this.winningNumbers, this.bonusNumber)
-    );
+    const results = this.lottos.map((lotto) => this.getLottoRank(lotto));
     const stats = this.calculateStatistics(results);
     this.printStatistics(stats);
   }
 
+  getLottoRank(lotto) {
+    const matchCount = lotto
+      .getNumbers()
+      .filter((number) => this.winningNumbers.includes(number)).length;
+    const hasBonus = lotto.getNumbers().includes(this.bonusNumber);
+
+    if (matchCount === 6) return 1;
+    if (matchCount === 5 && hasBonus) return 2;
+    if (matchCount === 5) return 3;
+    if (matchCount === 4) return 4;
+    if (matchCount === 3) return 5;
+    return 0;
+  }
+
   calculateStatistics(results) {
-    const stats = [0, 0, 0, 0, 0];
+    const stats = [0, 0, 0, 0, 0, 0];
     results.forEach((result) => {
-      if (result >= 3 && result <= 6) {
-        stats[result - 3]++;
+      if (result > 0) {
+        stats[result]++;
       }
     });
     return stats;
   }
 
   printStatistics(stats) {
-    const prize = [5000, 50000, 1500000, 30000000, 2000000000];
+    const prize = [0, 2000000000, 30000000, 1500000, 50000, 5000];
     let totalPrize = 0;
     Console.print("\n당첨 통계\n---");
     stats.forEach((count, index) => {
-      Console.print(
-        `${index + 3}개 일치 (${prize[index].toLocaleString()}원) - ${count}개`
-      );
+      if (index === 2) {
+        Console.print(
+          `5개 일치, 보너스 볼 일치 (${prize[
+            index
+          ].toLocaleString()}원) - ${count}개`
+        );
+      } else if (index > 2) {
+        Console.print(
+          `${index + 1}개 일치 (${prize[
+            index
+          ].toLocaleString()}원) - ${count}개`
+        );
+      } else if (index > 0) {
+        Console.print(
+          `${index + 2}개 일치 (${prize[
+            index
+          ].toLocaleString()}원) - ${count}개`
+        );
+      }
       totalPrize += count * prize[index];
     });
     const investment = this.lottos.length * 1000;
