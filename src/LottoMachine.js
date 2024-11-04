@@ -1,10 +1,16 @@
 import { Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 import { LOTTO_NUMBERS_CONDITION, LOTTO_SINGLE_TICKET_PRICE } from './constants.js';
 import { validatePurchaseAmount } from './validate.js';
 
 class LottoMachine {
+  #lottos;
+
   constructor(purchaseAmount) {
     validatePurchaseAmount(purchaseAmount);
+    this.#lottos = [];
+    this.generateLottos(purchaseAmount);
+    console.log(this.#lottos);
   }
 
   calculateLottoCount(purchaseAmount) {
@@ -17,6 +23,21 @@ class LottoMachine {
       LOTTO_NUMBERS_CONDITION.maxNumber,
       LOTTO_NUMBERS_CONDITION.count
     );
+  }
+
+  #sortASCNumbers(numbers) {
+    return numbers.sort((a, b) => a - b);
+  }
+
+  generateLottos(purchaseAmount) {
+    const lottoCount = this.calculateLottoCount(purchaseAmount);
+
+    for (let i = 0; i < lottoCount; i += 1) {
+      const numbers = this.pickRandomLottoNumbers();
+      const lotto = new Lotto(this.#sortASCNumbers(numbers));
+
+      this.#lottos.push(lotto);
+    }
   }
 }
 
