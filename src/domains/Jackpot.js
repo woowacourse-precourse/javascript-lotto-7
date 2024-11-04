@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { INPUT } from '../constants/Constants.js';
-import Validators from '../utils/Validation.js';
 import Lotto from '../Lotto.js';
+import ValidateBonus from '../validator/ValidateBonus.js';
 
 class Jackpot {
   #jackpot;
@@ -30,9 +30,10 @@ class Jackpot {
   }
 
   validateBonus(number) {
-    Validators.checkNumber(number);
-    Validators.checkRange(number);
-    Validators.checkBonus(this.#jackpot, Number(number));
+    ValidateBonus.checkNumber(number);
+    ValidateBonus.checkInteger(number);
+    ValidateBonus.checkRange(number);
+    ValidateBonus.checkRepeat(this.#jackpot, number);
   }
 
   getJackpot() {

@@ -52,4 +52,5 @@ export const ERROR = {
   LOTTO_TYPE: '[ERROR] 숫자와 쉼표가 아닌 잘못된 값이 입력되었습니다.',
   LOTTO_REPEAT: '[ERROR] 중복된 숫자가 존재합니다.',
   BONUS_REPEAT: '[ERROR] 당첨 번호와 중복된 숫자가 존재합니다.',
+  BONUS_RANGE: '[ERROR] 보너스 숫자는 1부터 45 사이의 숫자여야 합니다.',
 };
