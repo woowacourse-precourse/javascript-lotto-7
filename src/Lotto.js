@@ -1,4 +1,4 @@
-import { Random } from '@woowacourse/mission-utils';
+import {Random} from '@woowacourse/mission-utils';
 
 class Lotto {
   #numbers;
@@ -15,13 +15,10 @@ class Lotto {
     if (new Set(numbers).size !== 6) {
       throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
     }
-    if (!numbers.every(num => Number.isInteger(num) && num >= 1 && num <= 45)) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 정수여야 합니다.");
-    }
   }
 
   getNumbers() {
-    return this.#numbers;
+    return `[${this.#numbers.join(', ')}]`; // 배열을 문자열로 반환
   }
 
   static generateRandomNumbers() {
