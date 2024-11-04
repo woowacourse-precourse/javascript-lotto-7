@@ -31,10 +31,21 @@ describe('LottoResult', () => {
 
   test('보너스 번호 입력 후 유효성 검사를 진행한다.', async () => {
     const lottoResult = new LottoResult();
+    mockQuestions(['1,2,3,4,5,6']);
+    await lottoResult.readWinningNumbers();
     mockQuestions(['7']);
     await lottoResult.readBonusNumber();
 
     expect(lottoResult.readBonusNumber).toBeDefined();
+  });
+
+  test('당첨번호 중에 보너스 번호가 중복일 경우 에러를 발생시킨다.', async () => {
+    const lottoResult = new LottoResult();
+    mockQuestions(['1,2,3,4,5,6']);
+    await lottoResult.readWinningNumbers();
+    mockQuestions(['6']);
+
+    await expect(lottoResult.readBonusNumber()).rejects.toThrow('[ERROR]');
   });
 
   test('로또 결과 통계 및 수익률 출력한다.', async () => {

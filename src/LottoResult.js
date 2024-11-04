@@ -1,6 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 import { readUserInput } from './utils/readUserInput.js';
-import { isNumber, isNumberInRange } from './utils/validators.js';
+import {
+  hasDuplicateInArray,
+  isNumber,
+  isNumberInRange,
+} from './utils/validators.js';
 import {
   INPUT_MESSAGE,
   LOTTO_DELIMITER,
@@ -33,7 +37,7 @@ export default class LottoResult {
   }
 
   async readWinningNumbers() {
-    retryOnError(async () => {
+    await retryOnError(async () => {
       const winningNumbers = await readUserInput(
         INPUT_MESSAGE.READ_WINNING_NUMBERS
       );
@@ -47,7 +51,15 @@ export default class LottoResult {
   async readBonusNumber() {
     const bonusNumber = await readUserInput(
       `\n${INPUT_MESSAGE.READ_BONUS_NUMBER}`,
-      [isNumber, validateLottoNumber]
+      [
+        isNumber,
+        validateLottoNumber,
+        (input, throwOnError) =>
+          hasDuplicateInArray(
+            [...this.#winningLotto.getNumbers(), Number(input)],
+            throwOnError
+          ),
+      ]
     );
     this.#bonusNumber = bonusNumber;
   }
