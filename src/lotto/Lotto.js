@@ -1,5 +1,5 @@
 import { LOTTO_JOIN_SEPARATOR, MESSAGES } from '../constants.js';
-import throwError from '../utils/throwError.js';
+import { throwError } from '../utils/index.js';
 
 class Lotto {
   #numbers;

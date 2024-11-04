@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputParser from './InputParser.js';
 import { MESSAGES } from '../constants.js';
-import throwError from '../utils/throwError.js';
+import { throwError } from '../utils/index.js';
 
 class BonusNumberInputParser extends InputParser {
   async readLoop() {
@@ -25,7 +25,7 @@ class BonusNumberInputParser extends InputParser {
 
   #validate(bonusNumber) {
     if (Number.isNaN(bonusNumber)) {
-      throwError(MESSAGES.ERROR.BONUS_NUMBER.SHOULD_BE_NUMBER);
+      throw MESSAGES.ERROR.BONUS_NUMBER.SHOULD_BE_NUMBER;
     }
 
     if (bonusNumber < 1 || bonusNumber > 45) {

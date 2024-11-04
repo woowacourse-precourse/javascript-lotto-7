@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputParser from './InputParser.js';
 import { MESSAGES, WINNING_NUMBERS_SEPARATOR } from '../constants.js';
-import throwError from '../utils/throwError.js';
+import { throwError } from '../utils/index.js';
 
 class WinningNumbersInputParser extends InputParser {
   async readLoop() {

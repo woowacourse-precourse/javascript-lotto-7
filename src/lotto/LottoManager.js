@@ -1,9 +1,7 @@
-import { Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import LottoResultPrinter from './LottoResultPrinter.js';
 import { MATCH_OPTIONS, MESSAGES, PRICE_UNIT } from '../constants.js';
-import getUniqueRandomNumbers from '../utils/getUniqueRandomNumbers.js';
-import throwError from '../utils/throwError.js';
+import { throwError, getUniqueRandomNumbers, print } from '../utils/index.js';
 
 class LottoManager {
   #winningNumbers;
@@ -49,7 +47,7 @@ class LottoManager {
   }
 
   #printLottosCount() {
-    this.#print(`\n${MESSAGES.IO.OUTPUT.PURCHASED_LOTTO_COUNT(this.#lottosCount)}`);
+    print(`\n${MESSAGES.IO.OUTPUT.PURCHASED_LOTTO_COUNT(this.#lottosCount)}`);
   }
 
   #getMatchedCountInLottos() {
@@ -72,13 +70,9 @@ class LottoManager {
     });
   }
 
-  #print(message) {
-    Console.print(message);
-  }
-
   #printLottos() {
     this.#lottos.forEach((lotto) => {
-      this.#print(lotto.toString());
+      print(lotto.toString());
     });
   }
 

@@ -1,5 +1,5 @@
-import { Console } from '@woowacourse/mission-utils';
 import { MESSAGES } from '../constants.js';
+import { print } from '../utils/index.js';
 
 class LottoResultPrinter {
   #matchedCountPerMatchOption;
@@ -12,14 +12,14 @@ class LottoResultPrinter {
   }
 
   printResult() {
-    this.#print(MESSAGES.IO.OUTPUT.WINNING_STATISTICS);
+    print(MESSAGES.IO.OUTPUT.WINNING_STATISTICS);
     this.#printWinningResult();
     this.#printRateOfReturn();
   }
 
   #printWinningResult() {
     const matchResults = this.#matchedCountPerMatchOption.map(this.#formatMatchResult);
-    this.#print(matchResults.join('\n'));
+    print(matchResults.join('\n'));
   }
 
   #formatMatchResult({ count, matchedCount, isBonus, prize }) {
@@ -40,11 +40,7 @@ class LottoResultPrinter {
     const rateOfReturnPercent = (totalPrize / this.#price) * 100;
     const rateOfReturn = rateOfReturnPercent.toFixed(1);
 
-    this.#print(MESSAGES.IO.OUTPUT.TOTAL_RATE_OF_RETURN(rateOfReturn));
-  }
-
-  #print(message) {
-    Console.print(message);
+    print(MESSAGES.IO.OUTPUT.TOTAL_RATE_OF_RETURN(rateOfReturn));
   }
 }
 

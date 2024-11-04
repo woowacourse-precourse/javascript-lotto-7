@@ -1,4 +1,4 @@
-import throwError from '../utils/throwError.js';
+import { throwError } from '../utils/index.js';
 
 class InputParser {
   async readLoop() {

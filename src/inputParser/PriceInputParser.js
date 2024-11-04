@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputParser from './InputParser.js';
 import { MESSAGES, PRICE_UNIT } from '../constants.js';
-import throwError from '../utils/throwError.js';
+import { throwError } from '../utils/index.js';
 
 class PriceInputParser extends InputParser {
   async readLoop() {
