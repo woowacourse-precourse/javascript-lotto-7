@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import InputHandler from './Model/InputHandler.js';
 import Lotto from './Model/Lotto.js';
 import Input from './View/Input.js';
@@ -7,8 +8,16 @@ import ErrorHandler from './Model/ErrorHandler.js';
 
 class App {
   async run() {
-    const purchaseAmount = await Input.purchaseAmount();
-    ErrorHandler.validateNumericInput(purchaseAmount);
+    let purchaseAmount;
+    while (true) {
+      try {
+        purchaseAmount = await Input.purchaseAmount();
+        ErrorHandler.validateNumericInput(purchaseAmount);
+        break; // 유효한 입력일 경우 루프 종료
+      } catch (error) {
+        Console.print(error.message); // 에러 메시지 출력
+      }
+    }
 
     const user = new User(purchaseAmount);
     const userLottoList = user.getLottoList();
@@ -16,12 +25,30 @@ class App {
     Output.printLottoCount(purchaseCount);
     Output.printLottoList(userLottoList);
 
-    const lotteryNumber = await Input.lotteryNumber();
+    let lotteryNumber;
+    while (true) {
+      try {
+        lotteryNumber = await Input.lotteryNumber();
+        ErrorHandler.validateLottoNumber(lotteryNumber);
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+
     const lottoArray = InputHandler.lottoArray(lotteryNumber);
     const lotto = new Lotto(lottoArray);
 
-    const bonusNumber = await Input.bonusNumber();
-    ErrorHandler.validateNumericInput(bonusNumber);
+    let bonusNumber;
+    while (true) {
+      try {
+        bonusNumber = await Input.bonusNumber();
+        ErrorHandler.validateNumericInput(bonusNumber);
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
 
     userLottoList.forEach((myLotto) => {
       const count = lotto.lotteryStatus(myLotto);
