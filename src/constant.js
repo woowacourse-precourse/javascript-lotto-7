@@ -9,3 +9,5 @@ export const OUPUT_MESSGE = Object.freeze({
 });
 
 export const LOTTO_PRICE = 1000;
+
+export const DELERIMETER = ',';
