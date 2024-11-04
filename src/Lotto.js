@@ -89,3 +89,26 @@ class Lotto {
 
     return bonusNumber;
   }
+
+  calculateResults(lottos, winningNumbers, bonusNumber) {
+    const prizes = {
+      3: { prize: 5000, count: 0 },
+      4: { prize: 50000, count: 0 },
+      5: { prize: 1500000, count: 0 },
+      "5+bonus": { prize: 30000000, count: 0 },
+      6: { prize: 2000000000, count: 0 },
+    };
+
+    lottos.forEach((lotto) => {
+      const matchCount = lotto.getNumbers().filter((num) => winningNumbers.includes(num)).length;
+      const hasBonus = lotto.getNumbers().includes(bonusNumber);
+
+      if (matchCount === 6) prizes[6].count++;
+      else if (matchCount === 5 && hasBonus) prizes["5+bonus"].count++;
+      else if (matchCount === 5) prizes[5].count++;
+      else if (matchCount === 4) prizes[4].count++;
+      else if (matchCount === 3) prizes[3].count++;
+    });
+
+    return prizes;
+  }
