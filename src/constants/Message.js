@@ -18,4 +18,12 @@ export const ERROR_MESSAGE = Object.freeze({
   INVALID_LOTTO_LENGTH: "[ERROR] 로또 번호는 6개여야 합니다.",
   INVALID_DUPLICATE_NUMBER: "[ERROR] 로또 번호는 중복없이 입력되어야 합니다.",
   INVALID_NUMBER_ONLY: "[ERROR] 로또 번호는 정수로만 입력되어야 합니다.",
+  INVALID_NUMBER_RANGE: "[ERROR] 로또 번호는 1~45 사이로 입력되어야 합니다.",
+  INVALID_INPUT_MONEY_TYPE: "[ERROR] 입력 금액은 정수로만 입력되어야 합니다.",
+  INVALID_POSITIVE_INPUT_MONEY:
+    "[ERROR] 입력 금액은 0이 넘는 금액이 입력되어야 합니다.",
+  INVALID_INPUT_MONEY_UNIT:
+    "[ERROR] 입력 금액은 1000원 단위로 입력되어야 합니다.",
+  INVALID_WINNING_NUM_TYPE: "[ERROR] 로또 번호는 정수로만 입력되어야 합니다.",
+  INVALID_INPUT: "[ERROR] 잘못된 형식의 당첨 번호가 입력되었습니다.",
 });
