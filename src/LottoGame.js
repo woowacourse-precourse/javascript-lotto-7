@@ -61,6 +61,15 @@ class LottoGame {
     }
   }
 
+  #calculateResults() {
+    this.#lotto.forEach(lotto => {
+      const result = lotto.getResult(this.#resultNumbers, this.#bonusNumber);
+      if (result > 0) {
+        this.#matchResults[result]++;
+      }
+    });
+  }
+
   #getLottoCount(totalCost) {
     return totalCost / 1000;
   }
