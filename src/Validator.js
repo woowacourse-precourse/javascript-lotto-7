@@ -18,6 +18,7 @@ class Validator {
    */
   static validateWinningNumbers(winningNumbers) {
     this.#isWinningNumberRange(winningNumbers);
+    this.#isWinningNumberLength(winningNumbers);
     this.#isWinningNumberDuplicate(winningNumbers);
   }
 
@@ -69,6 +70,15 @@ class Validator {
       )
     ) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER_INVALID_RANGE);
+    }
+  }
+
+  /**
+   *
+   */
+  static #isWinningNumberLength(winningNumbers) {
+    if (winningNumbers.length !== NUMBER_RANGE.COUNT) {
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBER_LENGTH);
     }
   }
 
