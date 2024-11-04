@@ -1,4 +1,5 @@
 import App from '../src/App.js';
+import Lotto from '../src/Lotto.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 const mockQuestions = (inputs) => {
@@ -182,7 +183,12 @@ describe('로또 생성 테스트', () => {
   test('금액에 따른 로또 반복 생성', () => {
     const app = new App();
     const lottos = app.generateLottos(5000);
+
     expect(lottos.length).toBe(5);
+
+    lottos.forEach(lotto => { // Lotto 객체 확인
+      expect(lotto).toBeInstanceOf(Lotto);
+    });
   })
 })
 
