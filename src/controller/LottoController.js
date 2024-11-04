@@ -11,6 +11,7 @@ class LottoController {
     await this.#buyLotto();
     this.#issueLotto();
     await this.#drawNumbers();
+    this.#calculateResult();
   }
 
   async #buyLotto() {
@@ -33,6 +34,10 @@ class LottoController {
 
     const bonusNumber = await this.#lottoView.getBonusNumber();
     this.#lottoModel.setBonusNumber(bonusNumber);
+  }
+
+  #calculateResult() {
+    this.#lottoModel.calculateResult();
   }
 }
 
