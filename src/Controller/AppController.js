@@ -21,10 +21,6 @@ export default class AppController {
         this.showEarningsRate(userMoney, statisticsCountMap);
     }
 
-    async userInput(message) {
-        return await Console.readLineAsync(message);
-    }
-
     userInputInit() {
         this.#userInputMap = new Map();
         this.#userInputMap.set(lottoMesaage.INPUT_MONEY, this.checkUserMoney.bind(this));
@@ -48,6 +44,10 @@ export default class AppController {
         return input;
     }
 
+    async userInput(message) {
+        return await Console.readLineAsync(message);
+    }
+
     handleProcessUserInput(message, value) {
         const checkUserInput = this.#userInputMap.get(message);
 
@@ -58,7 +58,7 @@ export default class AppController {
         Validator.isValidUserMoney(inputMoney);
         const lottoCount = Calculator.divide(inputMoney,number.LOTTO_UNITS);
         ViweOutput.printText(`\n${lottoCount}${lottoMesaage.PRINT_BUYCOUNT}`);
-        
+
         this.#userLottoList = LottoController.getUserLotto(lottoCount);
         ViweOutput.printLottoList(this.#userLottoList);
     }
