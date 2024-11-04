@@ -24,7 +24,14 @@ class WinningStatsManager {
         return;
       }
 
-      this.#winningStats[`match_${matchCount + hasBonusNumber}`]++;
+      if (matchCount > 2) {
+        this.#winningStats[`match_${matchCount + hasBonusNumber}`]++;
+        return;
+      }
+
+      if (hasBonusNumber && matchCount > 1) {
+        this.#winningStats[`match_${matchCount + hasBonusNumber}`]++;
+      }
     });
   }
 
@@ -35,7 +42,7 @@ class WinningStatsManager {
   }
 
   calculateProfitMargin(lottoPurchaseCost) {
-    const lottoProfitMargin = this.#totalProfit / lottoPurchaseCost;
+    const lottoProfitMargin = (this.#totalProfit / lottoPurchaseCost) * 100;
 
     return lottoProfitMargin.toFixed(1);
   }
