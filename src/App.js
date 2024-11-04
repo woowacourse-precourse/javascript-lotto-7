@@ -26,6 +26,39 @@ class App {
     const bonusNumber = await this.inputBonusNumber(lottoNumber);
     const winningNumber = { lottoNumber, bonusNumber };
     const winning = this.compareLotto(winningNumber, lottos);
+    this.calculateStatistics(winning, money);
+  }
+
+  calculateStatistics(winning, money) {
+    const amount = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      6: 2000000000,
+      7: 30000000,
+    };
+    let totalAmount = 0;
+    const matchCount = Object.keys(winning);
+    matchCount.forEach(count => {
+      if (winning[count] > 0) {
+        totalAmount += amount[count] * winning[count];
+      }
+    });
+    const rate = ((totalAmount / money) * 100).toFixed(1);
+    this.printStatistics(winning, rate);
+  }
+
+  printStatistics(winning, rate) {
+    Console.print('\n당첨 통계');
+    Console.print('---');
+    Console.print(`3개 일치 (5,000원) - ${winning['3']}개`);
+    Console.print(`4개 일치 (50,000원) - ${winning['4']}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${winning['5']}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winning['7']}개`,
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${winning['6']}개`);
+    Console.print(`총 수익률은 ${rate}%입니다.`);
   }
 
   compareLotto(winningNumber, lottos) {
