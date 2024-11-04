@@ -118,6 +118,11 @@ const validation = Object.freeze({
         throw new Error(ERRORMESSAGE.BONUSNUMBER.ISNOTINRANGE);
     },
 
+    isNotInteger: function (number, undefuned) {
+      if (Number(number) % 1 !== 0)
+        throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISNOTINTEGER);
+    },
+
     isNotDuplicate: function (number, winningNumber) {
       if (winningNumber.indexOf(number) >= 0)
         throw new Error(ERRORMESSAGE.BONUSNUMBER.ISNOTDUPLICATE);
