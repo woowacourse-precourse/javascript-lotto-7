@@ -10,8 +10,8 @@ class App {
       const lottoTickets = this.generateLottoTickets(purchaseAmount);
       this.printLottoTickets(lottoTickets);
 
-      // 사용자로부터 당첨 번호 입력 받기
-      
+      const winningNumbers = await this.getWinningNumbers();
+      // Console.print(`당첨 번호는 ${winningNumbers.join(", ")}입니다.`);
 
       // 사용자로부터 보너스 번호 입력 받기
       
@@ -51,6 +51,17 @@ class App {
   printLottoTickets(tickets) {
     Console.print(`\n${tickets.length}개를 구매했습니다.`);
     tickets.forEach((ticket) => Console.print(`[${ticket.getNumbers().join(", ")}]`));
+  }
+
+  async getWinningNumbers() {
+    const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+    const numbers = input.split(",").map(Number); //TODO : ,가 아닌 경우에 대한 예외처리
+    
+    // 입력된 당첨 번호의 유효성 확인 (총 6개, 1~45 범위의 숫자)
+    if (numbers.length !== 6 || numbers.some((num) => isNaN(num) || num < 1 || num > 45)) {
+      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 중복되지 않는 숫자여야 합니다.");
+    }
+    return numbers;
   }
 }
 
