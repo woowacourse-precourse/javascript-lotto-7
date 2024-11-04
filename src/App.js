@@ -1,5 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import { lottoNumberOutOfRangeException } from "./Exception/validation.js";
 
 class App {
   async run() {
@@ -16,12 +17,8 @@ class App {
     const winningLotto = new Lotto(this.createWinningLotto(inputWinningLotto));
     this.notSixRangeLottoException(winningLotto.getLotto());
 
-    for (let lottoNumber of winningLotto.getLotto()) {
-      this.lottoNumberOutOfRangeException(lottoNumber);
-    }
-
     const bonusLottoNumber = Number(await Console.readLineAsync("보너스 번호를 입력해 주세요.\n"));
-    this.lottoNumberOutOfRangeException(bonusLottoNumber);
+    lottoNumberOutOfRangeException(bonusLottoNumber);
 
     const winningArray = this.checkWinning(lottoArray, winningLotto.getLotto(), bonusLottoNumber);
 
@@ -105,18 +102,11 @@ class App {
 
   // 1000원 단위가 아닐 경우
   amountExceptionHandler(amount) {
-    if (isNaN(Number(amount))) {
+    if (Number.isNaN(amount)) {
       throw new Error("[ERROR] 숫자만 입력해주세요.");
     }
     if (amount % 1000 != 0) {
       throw new Error("[ERROR] 1,000원 단위만 입력해주세요.");
-    }
-  }
-
-  // 범위에 맞지 않는 로또 번호 입력시
-  lottoNumberOutOfRangeException(lottoNumber) {
-    if (lottoNumber < 1 || lottoNumber > 45) {
-      throw new Error("[ERROR] 1~45사이의 숫자만 입력해주세요.");
     }
   }
 

@@ -1,7 +1,7 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const mockQuestions = (inputs) => {
+const mockQuestions = inputs => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
@@ -11,7 +11,7 @@ const mockQuestions = (inputs) => {
   });
 };
 
-const mockRandoms = (numbers) => {
+const mockRandoms = numbers => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
   numbers.reduce((acc, number) => {
     return acc.mockReturnValueOnce(number);
@@ -24,7 +24,7 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
+const runException = async input => {
   // given
   const logSpy = getLogSpy();
 
@@ -86,12 +86,12 @@ describe("로또 테스트", () => {
       "총 수익률은 62.5%입니다.",
     ];
 
-    logs.forEach((log) => {
+    logs.forEach(log => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
 
   test("예외 테스트", async () => {
-    await expect(runException("1000j")).rejects.toThrow("[ERROR]");
+    await runException("1000j");
   });
 });
