@@ -1,3 +1,6 @@
+import { ERROR_MESSAGE } from "./constants/message.js";
+import { LOTTO } from "./constants/Constants.js";
+
 class Lotto {
   #numbers;
 
@@ -6,13 +9,50 @@ class Lotto {
     this.#numbers = numbers;
   }
 
+  static changeStringToArray(inputNumbers) {
+    return inputNumbers.split(",").map((num) => Number(num.trim()));
+  }
+
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    const pormattedNumbers = Lotto.changeStringToArray(numbers);
+    this.#validateArrayLength(pormattedNumbers);
+    this.#validateNumericValues(pormattedNumbers);
+    this.#validateNumberRange(pormattedNumbers);
+    this.#validateUniqueNumbers(pormattedNumbers);
+  }
+
+  #validateArrayLength(numbers) {
+    if (numbers.length !== LOTTO.length) {
+      throw new Error(ERROR_MESSAGE.out_of_length_lotto);
     }
   }
 
-  // TODO: 추가 기능 구현
+  #validateNumericValues(numbers) {
+    numbers.forEach((number) => {
+      if (isNaN(number)) {
+        throw new Error(ERROR_MESSAGE.non_numeric_lotto);
+      }
+    });
+  }
+
+  #validateNumberRange(numbers) {
+    numbers.forEach((number) => {
+      if (number < LOTTO.minimum || number > LOTTO.maximum) {
+        throw new Error(ERROR_MESSAGE.out_of_range_lotto);
+      }
+    });
+  }
+
+  #validateUniqueNumbers(numbers) {
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error(ERROR_MESSAGE.duplicate_lotto);
+    }
+  }
+
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
