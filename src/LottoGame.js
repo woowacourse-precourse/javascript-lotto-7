@@ -1,11 +1,10 @@
 import Lotto from "./Lotto.js";
-import { Random } from '@woowacourse/mission-utils';
 import { Random, Console } from '@woowacourse/mission-utils';
 import {
   LOTTO_PRICE,
   VALID_HIGHEST_NUM,
+  VALID_LOWEST_NUM,
   VALID_LOTTERY_NUM,
-  VALID_LOWEST_NUM
   MAX_LIMIT
 } from './constants/validate.js';
 
@@ -36,7 +35,8 @@ class LottoGame {
   }
 
   #validateBonusNumber(bonusNumber) {
-    this.#validateNumber(bonusNumber);
+    const bonusNum = Number(bonusNumber);
+    this.#validateNumber(bonusNum);
 
     if (this.#winNumbers.includes(bonusNumber)) {
       throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
@@ -116,7 +116,6 @@ class LottoGame {
     const totalEarnings = (5000 * result[3]) + (50000 * result[4]) + (1500000 * result[5]) + (30000000 * result['5+bonus']) + (2000000000 * result[6]);
     const investment = this.calculateLottoCount() * LOTTO_PRICE;
     const profitRate = ((totalEarnings / investment)*100).toFixed(1);
-
     return profitRate;
   }
 }
