@@ -77,7 +77,7 @@ class LottoController {
     let totalEarnings = 0;
     for (const key in statistics) {
       const count = statistics[key];
-      totalEarnings += PRIZE[key] * count;
+      totalEarnings += parseInt(PRIZE[key].replace(/,/g, ''), 10) * count;
     }
     return ((totalEarnings / totalSpent) * 100).toFixed(1);
   }

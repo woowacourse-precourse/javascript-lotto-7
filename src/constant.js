@@ -18,20 +18,21 @@ export const INPUT_MESSAGE = {
 export const OUTPUT_MESSAGE = {
   LOTTO_CNT: (cnt) => `\n${cnt}개를 구매했습니다.`,
   HEADER: `\n당첨 통계\n---`,
-  MATCH_3: (cnt) => `3개 일치 (5,000원) - ${cnt}개`,
-  MATCH_4: (cnt) => `4개 일치 (50,000원) - ${cnt}개`,
-  MATCH_5: (cnt) => `5개 일치 (1,500,000원) - ${cnt}개`,
-  MATCH_BONUS: (cnt) => `5개 일치, 보너스 볼 일치 (30,000,000원) - ${cnt}개`,
-  MATCH_6: (cnt) => `6개 일치 (2,000,000,000원) - ${cnt}개`,
+  MATCH_3: (cnt) => `3개 일치 (${PRIZE[3]}원) - ${cnt}개`,
+  MATCH_4: (cnt) => `4개 일치 (${PRIZE[4]}원) - ${cnt}개`,
+  MATCH_5: (cnt) => `5개 일치 (${PRIZE[5]}원) - ${cnt}개`,
+  MATCH_BONUS: (cnt) =>
+    `5개 일치, 보너스 볼 일치 (${PRIZE['bonus']}원) - ${cnt}개`,
+  MATCH_6: (cnt) => `6개 일치 (${PRIZE[6]}원) - ${cnt}개`,
   TOTAL_RETURN: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
 export const PRIZE = {
-  3: 5000,
-  4: 50000,
-  5: 1500000,
-  bonus: 30000000,
-  6: 2000000000,
+  3: '5,000',
+  4: '50,000',
+  5: '1,500,000',
+  bonus: '30,000,000',
+  6: '2,000,000,000',
 };
 export const REGEX = {
   LOTTO_NUM_FORMAT: /^(\d{1,2},){5}\d{1,2}$/,
