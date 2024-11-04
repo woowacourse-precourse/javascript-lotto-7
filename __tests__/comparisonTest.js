@@ -1,5 +1,5 @@
 import {describe, expect, test, beforeEach} from "@jest/globals";
-import Comparison from "../src/service/Comparision.js";
+import Comparison from "../src/service/Comparison.js";
 import Lotto from "../src/Lotto.js";
 import { errorMessage } from "../src/constant/errorMessage.js";
 

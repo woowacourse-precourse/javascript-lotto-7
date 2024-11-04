@@ -1,13 +1,13 @@
-import { boardMessage } from "../constant/boardMessage.js";
+import { BOARD } from "../constant/boardMessage.js";
 
 export class Calculator {
     static #prizeMoney = {
-        FIRST : boardMessage.FIRST,
-        SECOND : boardMessage.SECOND,
-        THIRD : boardMessage.THIRD,
-        FOURTH : boardMessage.FOURTH,
-        FIFTH : boardMessage.FIFTH,
-        NONE : boardMessage.NONE
+        NONE : BOARD.NONE_WINNING_CASH,
+        FIRST : BOARD.FIRST_WINNING_CASH,
+        SECOND : BOARD.SECOND_WINNING_CASH,
+        THIRD : BOARD.THIRD_WINNING_CASH,
+        FOURTH : BOARD.FOURTH_WINNING_CASH,
+        FIFTH : BOARD.FIFTH_WINNING_CASH
     }
     static #lottoPrize = 1000;
 
@@ -40,7 +40,10 @@ export class Calculator {
     }
 
     #calculateTotalPrize(rank){
+        if (!rank) return 0;
+
         const prizes = [
+            Calculator.#prizeMoney.NONE,
             Calculator.#prizeMoney.FIRST,
             Calculator.#prizeMoney.SECOND,
             Calculator.#prizeMoney.THIRD,
@@ -48,7 +51,10 @@ export class Calculator {
             Calculator.#prizeMoney.FIFTH
         ];
 
-        return rank.reduce((sum, count, rank) => sum + (prizes[rank] * count), 0);
+        return rank.reduce((sum, count, index) => {
+            if (index === 0) return sum;
+            return sum + (prizes[index] * count)
+        }, 0);
     }
 
     #roundToDecimal(number, decimals) {
@@ -56,18 +62,42 @@ export class Calculator {
         return Math.round(number * factor) / factor;
     }
 
-    #calculateProfitRate(rankCounts, total){
+    #calculateProfitRate(rankCounts, lottos){
+
         const totalPrize = parseInt(this.#calculateTotalPrize(rankCounts));
-        const totalCoast = total * Calculator.#lottoPrize;
+        const totalCoast = parseInt(lottos.length) * Calculator.#lottoPrize;
+
+        if (totalPrize === 0 || totalCoast === 0 || rankCounts === 0){
+            console.log("0");
+            return 0;
+        }
 
         return this.#roundToDecimal((totalPrize / totalCoast * 100), 2);
     }
 
     calculateGameResults(lottos, comparison) {
+
+        if (!lottos || lottos.length === 0) {
+            return {
+                statistics: {
+                    first: { count: 0, prize: Calculator.#prizeMoney.FIRST },
+                    second: { count: 0, prize: Calculator.#prizeMoney.SECOND },
+                    third: { count: 0, prize: Calculator.#prizeMoney.THIRD },
+                    fourth: { count: 0, prize: Calculator.#prizeMoney.FOURTH },
+                    fifth: { count: 0, prize: Calculator.#prizeMoney.FIFTH }
+                },
+                profitRate: 0
+            };
+        }
+
         const results = this.#calculateLottoResults(lottos, comparison);
         const rankCounts = this.#countRankResult(results);
         const winningStatistics = this.#calculateWinningStatics(lottos, comparison);
-        const profitRate = this.#calculateProfitRate(rankCounts);
+        let profitRate = this.#calculateProfitRate(rankCounts, lottos);
+
+        if (isNaN(profitRate) || profitRate === undefined) {
+            profitRate = 0;
+        }
 
         return {
             statistics: winningStatistics,

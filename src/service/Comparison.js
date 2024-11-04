@@ -1,7 +1,7 @@
 import Lotto from "../Lotto.js";
 import { errorMessage } from "../constant/errorMessage.js";
 
-class Comparison {
+export class Comparison {
     #winningNumber;
     #bonusNumber;
 
@@ -50,5 +50,3 @@ class Comparison {
         return 0;
     }
 }
-
-export default Comparison;

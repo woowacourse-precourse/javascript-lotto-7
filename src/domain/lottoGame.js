@@ -2,7 +2,7 @@ import Lotto from "../Lotto.js";
 import { inputCash, inputWinningNumbers, inputBonusNumbers } from "../utils/inputView.js";
 import Consumer from "./Consumer.js";
 import { printAllLotto, printGuideBuyLotto, printWinningBoard, printRateOfReturn } from "../utils/outputView.js";
-import Comparison from "../service/Comparision.js";
+import { Comparison } from "../service/Comparison.js";
 import { Calculator } from "../service/Calculator.js";
 
 export class LottoGame {
@@ -14,6 +14,10 @@ export class LottoGame {
         this.#calculator = new Calculator();
     }
 
+    #getLottos() {
+        return [...this.#lottos];
+    }
+
     async playGame() {
         const cash = await inputCash();
         const consumer = new Consumer(cash);
@@ -23,7 +27,7 @@ export class LottoGame {
         this.#displayLotto(lottoCount);
     }
 
-    async resultGame(){
+    async resultGame() {
         await this.#processWinning();
         this.#displayResult();
     }
@@ -34,7 +38,7 @@ export class LottoGame {
 
     #displayLotto(count) {
         printGuideBuyLotto(count);
-        printAllLotto(this.#lottos);
+        printAllLotto(this.#getLottos());
     }
 
     async #processWinning() {
@@ -45,15 +49,14 @@ export class LottoGame {
     }
 
     #displayResult() {
-        const results = this.#calculator.calculateLottoResults(this.#lottos, this.#comparison);
-        const statistics = this.#calculator.calculateWinningStatatics(results, this.#lottos.length);
+        const gameResults = this.#calculator.calculateGameResults(this.#getLottos(), this.#comparison);
 
-        this.#displayStatistics(statistics);
-        this.#displayProfitRate(statistics.profitRate);
+        this.#displayStatistics(gameResults.statistics);
+        this.#displayProfitRate(gameResults.profitRate);
     }
 
     #displayStatistics(statistics) {
-        printWinningBoard(statistics.rank);
+        printWinningBoard(statistics);
     }
 
     #displayProfitRate(profitRate) {

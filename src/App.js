@@ -1,10 +1,15 @@
-import { inputCash, inputWinningNumbers, inputBonusNumbers } from "./utils/inputView.js";
+import { LottoGame } from "./domain/lottoGame.js";
 
 class App {
+  #lottoGame;
+
+  constructor() {
+    this.#lottoGame = new LottoGame();
+  }
+
   async run() {
-    const cash = await inputCash();
-    const winningNumbers = await inputWinningNumbers();
-    const BonusNumbers = await inputBonusNumbers();
+    await this.#lottoGame.playGame();
+    await this.#lottoGame.resultGame();
   }
 }
 
