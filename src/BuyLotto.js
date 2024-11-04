@@ -1,31 +1,25 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGES, AMOUNT } from './constants.js';
+import { AMOUNT } from './constants.js';
+import { validateBuyAmount, validatePurchaseAmount } from './validate.js';
+
 import Lotto from './Lotto.js';
-import { validatePurchaseAmount, validateBuyAmount } from './validate.js';
 
 class BuyLotto {
   #quantityOfLotto;
 
-  constructor() {
+  constructor(amount) {
+    this.amount = amount;
+    this.#validate(amount);
     this.lottos = [];
   }
 
-  #countQuantitiyOfLotto(amount) {
-    this.#quantityOfLotto = amount / AMOUNT.lottoAmount;
+  #validate(amount) {
+    validatePurchaseAmount(amount);
+    validateBuyAmount(amount);
   }
 
-  async getPurchaseAmount() {
-    const input = await Console.readLineAsync(
-      INPUT_MESSAGES.lottoAmountInput + '\n'
-    );
-    try {
-      validatePurchaseAmount(input);
-      validateBuyAmount(input);
-      return Number(input);
-    } catch (error) {
-      Console.print(error.message);
-      return this.getPurchaseAmount();
-    }
+  #countQuantitiyOfLotto() {
+    this.#quantityOfLotto = this.amount / AMOUNT.lottoAmount;
   }
 
   #createRandomLottos() {
@@ -47,12 +41,11 @@ class BuyLotto {
   }
 
   async buyLotto() {
-    const purchasedAmount = await this.getPurchaseAmount();
-    this.#countQuantitiyOfLotto(purchasedAmount);
+    this.#countQuantitiyOfLotto();
     this.#createRandomLottos();
     this.#printLottoQuantity();
     this.#printLottos();
-    return [this.lottos, purchasedAmount];
+    return this.lottos;
   }
 }
 

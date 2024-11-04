@@ -12,7 +12,6 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  // TODO: validate 함수 추가
   #validate(numbers) {
     validateNumbersLength(numbers);
     validateDuplicatelottoNumber(numbers);

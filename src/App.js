@@ -1,34 +1,77 @@
 import BuyLotto from './BuyLotto.js';
 import LottoResult from './LottoResult.js';
-import { Console } from '@woowacourse/mission-utils';
-import { OUTPUT_MESSAGES, SIGNS } from './constants.js';
+import BonusLotto from './BonusLotto.js';
+import Lotto from './Lotto.js';
 import LottoReturn from './LottoReturn.js';
+import { Console } from '@woowacourse/mission-utils';
+import { INPUT_MESSAGES, OUTPUT_MESSAGES, SIGNS } from './constants.js';
 
 class App {
+  async #getPurchaseLotto() {
+    const amount = await Console.readLineAsync(
+      INPUT_MESSAGES.lottoAmountInput + '\n'
+    );
+    try {
+      const buyLotto = new BuyLotto(amount);
+      const lottos = await buyLotto.buyLotto();
+      return [lottos, amount];
+    } catch (error) {
+      Console.print(error.message);
+      return this.#getPurchaseLotto();
+    }
+  }
+
+  async #getLottoWinningNumbers() {
+    const numbers = await Console.readLineAsync(
+      INPUT_MESSAGES.matchNumberInput
+    );
+    try {
+      const winningNumbers = numbers.split(',');
+      const lotto = new Lotto(winningNumbers);
+      return lotto.createLotto();
+    } catch (error) {
+      Console.print(error.message);
+      return this.#getLottoWinningNumbers();
+    }
+  }
+
+  async #getBonusNumbers() {
+    const number = await Console.readLineAsync(INPUT_MESSAGES.bonusNumberInput);
+    try {
+      const bonus = new BonusLotto(number);
+      const bonusNumber = bonus.createBonusLotto();
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+      return this.#getBonusNumbers();
+    }
+  }
+
   async run() {
-    const buyLotto = new BuyLotto();
-    const [lottos, parchasedAmount] = await buyLotto.buyLotto();
-    const lottoResult = new LottoResult(lottos);
-    const result = await lottoResult.lottoResult();
-    const lottoReturn = new LottoReturn(parchasedAmount, result);
+    const [lottos, amount] = await this.#getPurchaseLotto();
+    const winningNumbers = await this.#getLottoWinningNumbers();
+    const bonusNumber = await this.#getBonusNumbers();
+    const lottoResult = new LottoResult(winningNumbers, bonusNumber, lottos);
+    const matchresult = await lottoResult.lottoResult();
+    const lottoReturn = new LottoReturn(amount, matchresult);
 
     Console.print(OUTPUT_MESSAGES.matchStatistics);
     Console.print(SIGNS.threeHyphen);
     Console.print(
       '3개 일치 (5,000원) - ' +
-        result[3] +
+        matchresult[3] +
         '개\n' +
         '4개 일치 (50,000원) - ' +
-        result[4] +
+        matchresult[4] +
         '개\n' +
         '5개 일치 (1,500,000원) - ' +
-        result[5] +
+        matchresult[5] +
         '개\n' +
         '5개 일치, 보너스 볼 일치 (30,000,000원) - ' +
-        result.bonus +
+        matchresult.bonus +
         '개\n' +
         '6개 일치 (2,000,000,000원) - ' +
-        result[6] +
+        matchresult[6] +
         '개'
     );
     Console.print('총 수익률은 ' + lottoReturn.caculateReturn() + '%입니다.');

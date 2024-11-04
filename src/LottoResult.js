@@ -1,17 +1,14 @@
-import { Console } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGES, MATCH_COUNT } from './constants.js';
-import {
-  validateDuplicatelottoNumber,
-  validateNumberRange,
-  validateNumbersLength,
-} from './validate.js';
+import { MATCH_COUNT } from './constants.js';
 
 class LottoResult {
-  #lottoWinningNumbers;
-  #lottoBonusNumber;
+  #winningNumbers;
+  #bonusNumber;
+  #purchasedLottos;
 
-  constructor(purchasedLottos) {
-    this.purchasedLottos = purchasedLottos;
+  constructor(winningNumbers, bonusNumber, purchasedLottos) {
+    this.#winningNumbers = winningNumbers;
+    this.#bonusNumber = bonusNumber;
+    this.#purchasedLottos = purchasedLottos;
     this.winningRank = {
       [MATCH_COUNT.three]: 0,
       [MATCH_COUNT.four]: 0,
@@ -19,36 +16,6 @@ class LottoResult {
       [MATCH_COUNT.six]: 0,
       bonus: 0,
     };
-  }
-
-  #validate(numbers) {
-    validateNumbersLength(numbers);
-    validateDuplicatelottoNumber(numbers);
-
-    numbers.forEach((number) => validateNumberRange(number));
-  }
-
-  async #getLottoWinningNumbers() {
-    const input = await Console.readLineAsync(INPUT_MESSAGES.matchNumberInput);
-    try {
-      const numbers = input.split(',');
-      this.#validate(numbers);
-      return input;
-    } catch (error) {
-      Console.print(error.message);
-      return this.#getLottoWinningNumbers();
-    }
-  }
-
-  async #getBonusNumbers() {
-    const input = await Console.readLineAsync(INPUT_MESSAGES.bonusNumberInput);
-    try {
-      validateNumberRange(input);
-      return input;
-    } catch (error) {
-      Console.print(error.message);
-      return this.#getBonusNumbers();
-    }
   }
 
   #countWinningNumber(purchasedLotto, winningNumber, count) {
@@ -60,14 +27,15 @@ class LottoResult {
 
   #compareLottoNumbers(purchasedLotto) {
     let count = 0;
-    this.#lottoWinningNumbers.forEach((winningNumber) => {
+    console.log(this.#winningNumbers);
+    this.#winningNumbers.forEach((winningNumber) => {
       count = this.#countWinningNumber(purchasedLotto, winningNumber, count);
     });
     return count;
   }
 
   #bonus(purchasedLotto) {
-    if (purchasedLotto.includes(this.#lottoBonusNumber)) {
+    if (purchasedLotto.includes(this.#bonusNumber)) {
       this.winningRank.bonus += 1;
     } else this.winningRank[MATCH_COUNT.five] += 1;
   }
@@ -82,16 +50,13 @@ class LottoResult {
   }
 
   #getWinningResult() {
-    this.purchasedLottos.map((purchasedLotto) => {
+    this.#purchasedLottos.map((purchasedLotto) => {
       const matchCount = this.#compareLottoNumbers(purchasedLotto);
       this.#toRank(matchCount, purchasedLotto);
     });
   }
 
   async lottoResult() {
-    const winningNumbers = await this.#getLottoWinningNumbers();
-    this.#lottoWinningNumbers = winningNumbers.split(',');
-    this.#lottoBonusNumber = await this.#getBonusNumbers();
     this.#getWinningResult();
     return this.winningRank;
   }
