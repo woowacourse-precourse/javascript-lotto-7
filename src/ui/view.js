@@ -10,11 +10,12 @@ export const input = async (message) => {
 export const purchaseOutput = (purchasedLottos) => {
     const purchasesNum = purchasedLottos.length
     Console.print(purchasesNum + OUTPUT.PURCHASE)
-    purchasedLottos.map((lotto) => Console.print("[" + lotto + "]"))
+    purchasedLottos.map((lotto) => Console.print(JSON.stringify(lotto).replaceAll(",", ", ")))
 }
 
 export const winningStatsOutput = (calculateYield) => {
-    Console.print(`당첨통계\n---`)
+    Console.print("당첨통계")
+    Console.print("---")
     toObjectValueArr(MATCH_COUNTER).map((elem, idx) => {
         Console.print(OUTPUT_OBJ[idx].content + elem.cnt + "개")
     })
