@@ -24,10 +24,15 @@ describe('로또 클래스 테스트', () => {
         [[1, 2, 3, 4, 8, 9], 4, false],
         [[1, 2, 3, 8, 9, 10], 3, false],
       ])(' 입력 : %s 결과 : %s )', (lottoNumbers, expectedMatchCount, expectedMatchBonus) => {
-        const { matchCount, matchBonus } = new Lotto(lottoNumbers).draw(winningNumber, bonusNumber);
+        // when
+        const result = new Lotto(lottoNumbers).draw(winningNumber, bonusNumber);
+        const expectedResult = {
+          matchCount: expectedMatchCount,
+          matchBonus: expectedMatchBonus,
+        };
 
-        expect(matchCount).toBe(expectedMatchCount);
-        expect(matchBonus).toBe(expectedMatchBonus);
+        // then
+        expect(result).toEqual(expectedResult);
       });
     },
   );
