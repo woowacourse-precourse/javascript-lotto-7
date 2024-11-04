@@ -75,6 +75,16 @@ class LottoCalculator {
                 `6개 일치 (2,000,000,000원) - ${summarizeResult[6]}개`
         );
     }
+
+    calculateReturnRate(summarizeResult, money) {
+        let totalPrize = 0;
+        for (const [key, count] of Object.entries(summarizeResult)) {
+            const PRIZE = PRIZE_MONEY[key] || 0;
+            totalPrize += PRIZE * count;
+        }
+        const RATE_RETURN = ((totalPrize / money) * 100).toFixed(1);
+        Console.print(`총 수익률은 ${RATE_RETURN}%입니다.`);
+    }
 }
 
 export default LottoCalculator;
