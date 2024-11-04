@@ -178,6 +178,20 @@ class App {
     return totalPrize;
   }
 
+  async getPrizeAmount(money, statistic, bonusNumber) {
+    let totalPrize = 0;
+
+    Object.values(App.PRIZE_INFO).forEach(({ matchCount, prize, message, bonus }) => {
+      let count = this.getLottoCount(matchCount, statistic, bonus, bonusNumber);
+      totalPrize += this.calculatePrize(count, prize, message);
+    });
+
+    const rate = (totalPrize / money) * 100;
+    const roundedRate = Math.round(rate * 10) / 10;
+
+    return roundedRate;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
