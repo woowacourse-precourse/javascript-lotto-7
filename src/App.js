@@ -62,7 +62,7 @@ class App {
     );
 
     Print.lottoResult(this.#result);
-    this.#printProfitRate();
+    Print.profitRate(this.#money, this.#result);
   }
 
   // 입력받은 보너스 숫자가 당첨 번호와 중복되는지?
@@ -71,20 +71,6 @@ class App {
       throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.");
 
     this.#bonusNumber = bonusNumber;
-  }
-
-  #printProfitRate() {
-    let totalPrize = 0;
-
-    for (const [rank, count] of this.#result) {
-      if (!count) continue;
-
-      const { prize } = lottoInfo[rank];
-      totalPrize += count * prize;
-    }
-
-    const profitRate = (totalPrize / this.#money) * 100;
-    Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
   }
 }
 

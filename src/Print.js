@@ -29,6 +29,20 @@ class Print {
       Console.print(`${matchText} (${prize.toLocaleString()}원) - ${count}개`);
     }
   }
+
+  static profitRate(money, result) {
+    let totalPrize = 0;
+
+    for (const [rank, count] of result) {
+      if (!count) continue;
+
+      const { prize } = lottoInfo[rank];
+      totalPrize += count * prize;
+    }
+
+    const rate = (totalPrize / money) * 100;
+    Console.print(`총 수익률은 ${rate.toFixed(1)}%입니다.`);
+  }
 }
 
 export default Print;
