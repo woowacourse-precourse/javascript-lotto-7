@@ -9,6 +9,10 @@ class App {
 
   async run() {
     this.amountOfPurchasedMoney = await this.getPurchasedAmount();
+
+    this.purchasedLottoList = await this.purchaseLottos(
+      this.amountOfPurchasedMoney / 1000
+    );
   }
 
   async getPurchasedAmount() {
@@ -35,6 +39,11 @@ class App {
       throw new Error("[ERROR] 1000원 이상 입력해야 합니다.");
     if (inputtedMoney % 1000 !== 0)
       throw new Error("[ERROR] 1000 단위로 입력해야 합니다.");
+  }
+
+  async purchaseLottos(count) {
+    MissionUtils.Console.print(`${count}개를 구매했습니다.`);
+    const lottoList = [];
   }
 }
 
