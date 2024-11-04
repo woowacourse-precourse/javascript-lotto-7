@@ -36,3 +36,13 @@ export const REGEX = {
   validNumberFormat: /^\d+$/,
   lottoNumberRange: /^[1-9]$|^[1-3][0-9]$|^4[0-5]$/,
 };
+
+export const RANK_INFO = [
+  { rank: 1, matchedCount: 6, winnings: 2000000000 },
+  { rank: 2, matchedCount: 5, winnings: 30000000 },
+  { rank: 3, matchedCount: 5, winnings: 1500000 },
+  { rank: 4, matchedCount: 4, winnings: 50000 },
+  { rank: 5, matchedCount: 3, winnings: 5000 },
+];
+
+export const INITIAL_COUNT = 0;
