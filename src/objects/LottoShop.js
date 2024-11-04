@@ -19,13 +19,13 @@ class LottoShop {
   }
 
   static #generateLottoNumbers() {
-    const lotto = MissionUtils.Random.pickUniqueNumbersInRange(
+    const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
       LOTTO.MIN_NUMBER,
       LOTTO.MAX_NUMBER,
       LOTTO.NUMBER_COUNT,
     );
 
-    return lotto;
+    return lottoNumbers;
   }
 }
 
