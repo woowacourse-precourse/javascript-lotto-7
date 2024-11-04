@@ -12,6 +12,7 @@ class LottoController {
     this.#issueLotto();
     await this.#drawNumbers();
     this.#calculateResult();
+    this.#printResult();
   }
 
   async #buyLotto() {
@@ -38,6 +39,12 @@ class LottoController {
 
   #calculateResult() {
     this.#lottoModel.calculateResult();
+  }
+
+  #printResult() {
+    const { statistics, profitRate } = this.#lottoModel.getResults();
+    this.#lottoView.printStatistics(statistics);
+    this.#lottoView.printProfitRate(profitRate);
   }
 }
 
