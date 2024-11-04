@@ -21,6 +21,16 @@ class Statistics {
       this.fifth += 1;
     }
   }
+
+  calculateRate(totalSpent) {
+    const totalPrize =
+      this.first * 2000000000 +
+      this.second * 30000000 +
+      this.third * 1500000 +
+      this.fourth * 50000 +
+      this.fifth * 5000;
+    this.rate = ((totalPrize / totalSpent) * 100).toFixed(1);
+  }
 }
 
 export default Statistics;

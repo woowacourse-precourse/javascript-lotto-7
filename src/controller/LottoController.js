@@ -105,6 +105,15 @@ class LottoController {
     });
     this.statistics.calculateRate(this.totalSpent);
   }
+
+  getMatchCount(lottoNumbers, winningNumbers) {
+    return lottoNumbers.filter((number) => winningNumbers.includes(number))
+      .length;
+  }
+
+  printStatistics() {
+    this.view.printStatistics(this.statistics);
+  }
 }
 
 export default LottoController;
