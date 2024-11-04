@@ -13,6 +13,34 @@ describe("로또 클래스 테스트", () => {
       new Lotto([1, 2, 3, 4, 5, 5]);
     }).toThrow("[ERROR]");
   });
-
+  
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("로또 번호에 음수가 있는 경우",()=>{
+    expect(()=>{
+      new Lotto([1,2,-3,4,5,6]);
+    }).toThrow("[ERROR]");
+  })
+
+  test("로또 번호에 소수가 있는 경우",()=>{
+    expect(()=>{
+      new Lotto([1,2,3.5,4,5,6]);
+    }).toThrow("[ERROR]");
+  })
+
+  test("로또 번호에 45이상의 수가 있는 경우",()=>{
+    expect(()=>{
+      new Lotto([1,2,3,4,5,46]);
+    }).toThrow("[ERROR]");
+  })
+  test("로또 번호에 0이 있는 경우",()=>{
+    expect(()=>{
+      new Lotto([1,2,0,4,5,6]);
+    }).toThrow("[ERROR]");
+  })
+  test("로또 번호에 문자열 있는 경우",()=>{
+    expect(()=>{
+      new Lotto([1,2,3,str,5,6]);
+    }).toThrow("[ERROR]");
+  })
+
 });
