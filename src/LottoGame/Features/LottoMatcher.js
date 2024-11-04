@@ -49,3 +49,5 @@ class LottoMatcher {
     return this.#ranks;
   }
 }
+
+export default LottoMatcher;
