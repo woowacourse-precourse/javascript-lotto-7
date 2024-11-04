@@ -1,4 +1,5 @@
 import { ERROR_MESSAGES } from "../constants/ErrorMessages.js";
+import { LOTTO_SETTING } from "../constants/Settings.js";
 
 const validators = {
   checkMoneyInput(value) {
@@ -8,13 +9,13 @@ const validators = {
   },
 
   checkMinMoneyInput(value) {
-    if (value <= 1000) {
+    if (value <= LOTTO_SETTING.PRICE_OF_EACH_LOTTO) {
       throw new Error(ERROR_MESSAGES.MIN_MONEY_INPUT);
     }
   },
 
   checkLottoLength(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO_SETTING.LOTTO_NUMBER_LENGTH) {
       throw new Error(ERROR_MESSAGES.NUMBER_OF_INPUT);
     }
   },
@@ -28,13 +29,13 @@ const validators = {
 
   checkLimitMoney(value) {
     // 100_000_000을 넘으면 Error
-    if (value > 100_000_000) {
+    if (value > LOTTO_SETTING.PRICE_LIMIT) {
       throw new Error(ERROR_MESSAGES.LIMIT_MONEY_INPUT);
     }
   },
 
   checkNumberOfLotto(value) {
-    if (value.length !== 6) {
+    if (value.length !== LOTTO_SETTING.LOTTO_NUMBER_LENGTH) {
       throw new Error(ERROR_MESSAGES.NUMBER_OF_INPUT);
     }
   },
@@ -48,7 +49,7 @@ const validators = {
 
   checkRangeOfNumber(value) {
     // 1~45 사이의 값이 아니면 Error
-    if (value < 1 || value > 45) {
+    if (value < LOTTO_SETTING.MIN_NUMBER || value > LOTTO_SETTING.MAX_NUMBER) {
       throw new Error(ERROR_MESSAGES.OUT_OF_RANGE_NUMBER_INPUT);
     }
   },

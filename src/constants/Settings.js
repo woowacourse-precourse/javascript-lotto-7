@@ -4,6 +4,7 @@ export const LOTTO_SETTING = Object.freeze({
   LOTTO_NUMBER_LENGTH: 6,
   //BONUS_NUMBER_LENGTH : 1,
   PRICE_OF_EACH_LOTTO: 1000,
+  PRICE_LIMIT: 100_000_000,
 });
 
 export const RANKING_MATCH_COUNT = Object.freeze({
