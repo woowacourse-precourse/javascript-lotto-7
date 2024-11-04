@@ -12,7 +12,6 @@ class LottoMachine {
     validatePurchaseAmount(purchaseAmount);
     this.#purchaseAmount = purchaseAmount;
     this.#lottos = [];
-    this.generateLottos(purchaseAmount);
   }
 
   calculateLottoCount(purchaseAmount) {
@@ -40,6 +39,10 @@ class LottoMachine {
 
       this.#lottos.push(lotto);
     }
+  }
+
+  run() {
+    this.generateLottos(this.#purchaseAmount);
   }
 
   get lottoCount() {

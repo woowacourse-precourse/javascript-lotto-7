@@ -13,6 +13,7 @@ class App {
 
   async run() {
     await this.readPurchaseAmount();
+    this.#lottoMachine.run();
     this.printGeneratedLottos();
     await this.readWinningNumbers();
     await this.readBonusNumber();
