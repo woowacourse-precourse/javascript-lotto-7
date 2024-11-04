@@ -3,7 +3,7 @@ import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
 import LottoCalculator from './LottoCalculator.js';
-import { validateAmount, validateWinningNumbers } from './validation.js';
+import Validator from './validation.js';
 import { LOTTO_PRICE, LOTTO_RESULT_MESSAGE, LOTTO_WINNIG_PRICE } from './constant.js';
 
 /**
@@ -41,7 +41,7 @@ class LottoController {
    *
    */
   buyLottos(amount) {
-    validateAmount(amount);
+    Validator.validateAmount(amount);
 
     const lottoSize = amount / LOTTO_PRICE;
     this.#lottos = Array.from({ length: lottoSize }, () => new Lotto(this.generateLotto()));
@@ -65,7 +65,7 @@ class LottoController {
     const stringParser = new StringParser();
     this.#winningNumbers = stringParser.parseString(winningNumbers).map(Number);
 
-    validateWinningNumbers(this.#winningNumbers);
+    Validator.validateWinningNumbers(this.#winningNumbers);
   }
 
   /**
