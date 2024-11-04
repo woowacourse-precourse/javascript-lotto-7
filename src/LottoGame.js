@@ -1,7 +1,7 @@
 import { Input } from './Input.js';
 import { Money } from './Money.js';
 import { Console, Random } from '@woowacourse/mission-utils';
-import { ERROR as WinningLotto, ERROR } from './constant.js';
+import { ERROR } from './constant.js';
 import Lotto from './Lotto.js';
 import { Bonus } from './Bonus.js';
 import { Calculate } from './Calculate.js';
