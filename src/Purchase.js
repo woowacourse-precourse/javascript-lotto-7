@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "./constants.js";
+import { PURCHASE_ERROR_MESSAGE} from "./constants.js";
 import { Random } from "@woowacourse/mission-utils";
 
 class Purchase{
@@ -12,16 +12,16 @@ class Purchase{
 
     #validate(amount){
         if(isNaN(Number(amount))){
-            throw new Error (ERROR_MESSAGE.IS_NOT_NUMBER);
+            throw new Error (PURCHASE_ERROR_MESSAGE.IS_NOT_NUMBER);
         }
         else if(amount.trim()===""){
-            throw new Error(ERROR_MESSAGE.INVALID_BLANK);
+            throw new Error(PURCHASE_ERROR_MESSAGE.INVALID_BLANK);
         }
         else if(Number(amount)<0){
-            throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_NUMBER);
+            throw new Error(PURCHASE_ERROR_MESSAGE.IS_NOT_POSITIVE_NUMBER);
         }
         else if(Number(amount)%1000!==0){
-            throw new Error(ERROR_MESSAGE.IS_NOT_MULTIPLE_OF_THOUSAND);
+            throw new Error(PURCHASE_ERROR_MESSAGE.IS_NOT_MULTIPLE_OF_THOUSAND);
         }
     }
 
