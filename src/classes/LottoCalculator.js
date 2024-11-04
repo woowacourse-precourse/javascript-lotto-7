@@ -1,4 +1,4 @@
-import { LOTTO_PRIZE } from '../constant.js';
+import { LOTTO_PRIZE, LOTTO_RANK } from '../constant.js';
 
 class LottoCalculator {
   constructor(purchasePrice) {
@@ -15,31 +15,21 @@ class LottoCalculator {
 
   calculateLottoProfit() {
     const lottoPrize = this.calculateLottoPrize();
-    const profitRate = ((lottoPrize / this.purchasePrice) * 100).toFixed(1);
-    return profitRate;
+    return ((lottoPrize / this.purchasePrice) * 100).toFixed(1);
   }
 
   calculateLottoRank(count, index, bonusMatch) {
-    switch (count) {
-      case 3:
-        this.lottoResults[0]++;
-        break;
-      case 4:
-        this.lottoResults[1]++;
-        break;
-      case 5:
-        if (bonusMatch[index]) {
-          this.lottoResults[3]++;
-        } else {
-          this.lottoResults[2]++;
-        }
-        break;
-      case 6:
-        this.lottoResults[4]++;
+    const rank = LOTTO_RANK[count];
+    if (!rank) return; // 3개 미만으로 맞출
+    const resultIndex = this.getResultIndex(rank, index, bonusMatch);
+    this.lottoResults[resultIndex]++;
+  }
 
-      default:
-        break;
+  getResultIndex(rank, index, bonusMatch) {
+    if (rank.checkBonus && bonusMatch[index]) {
+      return 3;
     }
+    return rank.index;
   }
 
   getLottoResults() {

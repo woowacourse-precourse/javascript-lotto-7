@@ -16,7 +16,7 @@ class LottoMatcher {
   }
 
   #hasBonusNumber(lotto) {
-    return lotto.filter((number) => number === Number(this.bonusNumber));
+    return lotto.filter((number) => number === this.bonusNumber);
   }
 
   #matchBonusNumber() {

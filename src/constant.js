@@ -20,6 +20,13 @@ export const LOTTO_PRIZE = [
     PRIZE: 2000000000,
   },
 ];
+
+export const LOTTO_RANK = {
+  3: { index: 0 },
+  4: { index: 1 },
+  5: { index: 2, checkBonus: true },
+  6: { index: 4 },
+};
 export const LOTTO_PRICE = 1000;
 export const LOTTO_MIN_NUMBER = 1;
 export const LOTTO_MAX_NUMBER = 45;
