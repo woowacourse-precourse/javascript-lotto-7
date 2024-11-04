@@ -22,3 +22,26 @@ export const getIsBonusNumber = (lotto, lottoBonusNumber, lottoPrizeCount) => {
   }
   return false;
 };
+
+export const setLottoPrizeRank = (
+  lottoPrizeCount,
+  LottoPrizeList,
+  isBonusNumber,
+) => {
+  const result = LottoPrizeList.map((lottoPrize) => {
+    if (lottoPrizeCount === 5 && isBonusNumber) {
+      return {
+        ...lottoPrize,
+        count: lottoPrize.count + 1,
+      };
+    } else if (lottoPrize.id === lottoPrizeCount) {
+      return {
+        ...lottoPrize,
+        count: lottoPrize.count + 1,
+      };
+    }
+    return lottoPrize;
+  });
+
+  return result;
+};
