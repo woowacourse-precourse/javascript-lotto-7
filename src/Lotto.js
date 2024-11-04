@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 class Lotto {
   #numbers;
+
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
@@ -24,7 +25,41 @@ class Lotto {
       throw new Error("[ERROR] 당첨번호는 중복되지 않는 6개 숫자여야 합니다.");
     }
   }
-  // TODO: 추가 기능 구현
+
+  getResult(money, lottos, bonus) {
+    let result = Array(5).fill(0);
+    for (let lotto of lottos) {
+      let rank = this.checkWinNum(lotto, bonus)
+      result[rank] += 1;
+    }
+  }
+
+  checkWinNum(lotto, bonus) {
+    let result = 0;
+    let bonusResult = 0;
+    for (let num of lotto) {
+      if (this.#numbers.include(num)) {
+        result += 1;
+      } else if (bonus === num) {
+        bonusResult += 1
+      }
+    }
+    return this.ranking(result, bonusResult);
+  }
+
+  ranking(result, bonusResult) {
+    if (bonusResult === 1 && result === 5) {
+      return 3;
+    } else if (bonusResult === 0 && result === 5) {
+      return 2;
+    } else if (result === 6) {
+      return 4;
+    } else if (result === 4) {
+      return 1;
+    } else if (result === 3) {
+      return 0;
+    }
+  }
 }
 
 export default Lotto;
