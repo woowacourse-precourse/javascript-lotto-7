@@ -1,3 +1,5 @@
+import ERROR_MESSAGES from "./ERROR_MESSAGES";
+
 const inputValidator = {
   checkPurchaseAmount(value) {
     this.isEmpty(value);
@@ -29,52 +31,52 @@ const inputValidator = {
   },
   isEmpty(value) {
     if (!value || !value.trim()) {
-      throw new Error("[ERROR] 입력이 비어 있습니다.");
+      throw new Error(ERROR_MESSAGES.EMPTY_INPUT);
     }
   },
   isNumber(value) {
     if (isNaN(value)) {
-      throw new Error("[ERROR] 입력에 숫자가 아닌 문자가 포함되어 있습니다.");
+      throw new Error(ERROR_MESSAGES.INCLUDE_NOT_A_NUMBER);
     }
   },
   isThousandUnit(value) {
     if (Number(value) % 1000 !== 0) {
-      throw new Error("[ERROR] 입력이 1000원 단위가 아닙니다.");
+      throw new Error(ERROR_MESSAGES.IS_NOT_THOUSAND_UNIT);
     }
   },
   isOnlyNumber(text) {
     const values = text.split(",");
     values.forEach((value) => {
       if (isNaN(value) || value.trim() === "") {
-        throw new Error("[ERROR] 입력에 숫자가 아닌 문자가 포함되어 있습니다.");
+        throw new Error(ERROR_MESSAGES.INCLUDE_NOT_A_NUMBER);
       }
     });
   },
   isInRange(numbers) {
     const isOutOfRange = numbers.some((num) => num < 1 || num > 45);
     if (isOutOfRange) {
-      throw new Error("[ERROR] 모든 번호가 1에서 45 사이의 번호가 아닙니다.");
+      throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
     }
   },
   isUniqueNumbers(numbers) {
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== numbers.length) {
-      throw new Error("[ERROR] 중복된 번호가 있습니다.");
+      throw new Error(ERROR_MESSAGES.HAS_DUPLICATE_NUMBER);
     }
   },
   isSix(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 6개의 번호가 아닙니다.");
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_LENGTH);
     }
   },
   isBonusInRange(number) {
     if (number < 1 || number > 45) {
-      throw new Error("[ERROR] 1에서 45 사이의 번호가 아닙니다.");
+      throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
     }
   },
   isUniqueBonusNumber(bonus, winningNumbers) {
     if (winningNumbers.includes(bonus)) {
-      throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.");
+      throw new Error(ERROR_MESSAGES.HAS_DUPLICATE_NUMBER);
     }
   },
 };
