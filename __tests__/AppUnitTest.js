@@ -10,7 +10,6 @@ const mockRandoms = (numbers) => {
 
 describe("App 단위 테스트", () => {
 	let app;
-	let output;
 	const COUNT_CASES = [
 		[100000, 100],
 		[1000, 1],
