@@ -15,7 +15,9 @@ class LottoService {
   #generateRandomLotto() {
     const lottoNumbers = this.#random(LOTTO_RELATED_CONSTANTS.lottoRangeStart, LOTTO_RELATED_CONSTANTS.lottoRangeEnd, LOTTO_RELATED_CONSTANTS.lottoLength);
     lottoNumbers.sort((a, b) => a - b);
-    this.#lottoRepository.saveLotto(lottoNumbers);
+
+    const lotto = new Lotto(lottoNumbers);
+    this.#lottoRepository.saveLotto(lotto);
   }
   
   generateLottos(number) {
