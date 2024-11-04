@@ -7,7 +7,6 @@ class LottoGame {
     FIRST: {
       prize: 2000000000,
       matchCount: 6,
-      needsBonus: false,
     },
     SECOND: {
       prize: 30000000,
@@ -22,12 +21,10 @@ class LottoGame {
     FOURTH: {
       prize: 50000,
       matchCount: 4,
-      needsBonus: false,
     },
     FIFTH: {
       prize: 5000,
       matchCount: 3,
-      needsBonus: false,
     },
   };
 
@@ -123,12 +120,15 @@ class LottoGame {
   }
 
   recordResult({ matchCount, hasBonus }) {
-    Object.entries(LottoGame.RANK_INFO)
-      .filter(
-        ([_, info]) =>
-          info.matchCount === matchCount && info.needsBonus === hasBonus
-      )
-      .forEach(([rank]) => this.result[rank]++);
+    const { FIRST, SECOND, THIRD, FOURTH, FIFTH } = LottoGame.RANK_INFO;
+
+    if (matchCount === FIFTH.matchCount) this.result.FIFTH++;
+    if (matchCount === FOURTH.matchCount) this.result.FOURTH++;
+    if (matchCount === THIRD.matchCount && hasBonus === THIRD.needsBonus)
+      this.result.THIRD++;
+    if (matchCount === SECOND.matchCount && hasBonus === SECOND.needsBonus)
+      this.result.SECOND++;
+    if (matchCount === FIRST.matchCount) this.result.FIRST++;
   }
 
   displayResult() {
@@ -152,13 +152,9 @@ class LottoGame {
   }
 
   calculateWinningAmount() {
-    return (
-      this.result.FIFTH * LottoGame.RANK_INFO.FIFTH.prize +
-      this.result.FOURTH * LottoGame.RANK_INFO.FOURTH.prize +
-      this.result.THIRD * LottoGame.RANK_INFO.THIRD.prize +
-      this.result.SECOND * LottoGame.RANK_INFO.SECOND.prize +
-      this.result.FIRST * LottoGame.RANK_INFO.FIRST.prize
-    );
+    return Object.entries(LottoGame.RANK_INFO).reduce((total, [rank, info]) => {
+      return total + this.result[rank] * info.prize;
+    }, 0);
   }
 }
 
