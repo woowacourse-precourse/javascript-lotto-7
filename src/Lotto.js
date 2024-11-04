@@ -25,7 +25,22 @@ class Lotto {
     MissionUtils.Console.print(`[${this.#numbers.join(", ")}]`);
   }
 
-  // TODO: 추가 기능 구현
+  #countMatchingNumbers(correctNumbers) {
+    return this.#numbers.filter(num => correctNumbers.includes(num)).length;
+  }
+
+  lottoResult(correctNumbers, bonusNumber) {
+    const matchedCount = this.#countMatchingNumbers(correctNumbers);
+
+    const hasBonus = this.#numbers.includes(parseInt(bonusNumber));
+
+    if (matchedCount === 6) return 1;
+    if (matchedCount === 5 && hasBonus) return 2;
+    if (matchedCount === 5) return 3;
+    if (matchedCount === 4) return 4;
+    if (matchedCount === 3) return 5;
+    return 0;
+  }
 }
 
 export default Lotto;
