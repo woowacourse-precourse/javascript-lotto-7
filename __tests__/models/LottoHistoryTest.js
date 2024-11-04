@@ -43,7 +43,7 @@ describe("LottoHistory 클래스 테스트", () => {
       const purchaseHistory = lottoHistory.getPurchaseHistory();
 
       // then
-      expect(purchaseHistory.lottos).toHaveLength(3);
+      expect(purchaseHistory.lottos).toHaveLength(2);
       expect(purchaseHistory.lottos).toContain(lotto1);
       expect(purchaseHistory.lottos).toContain(lotto2);
     });
