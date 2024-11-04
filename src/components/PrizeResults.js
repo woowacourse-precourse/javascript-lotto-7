@@ -1,4 +1,4 @@
-import RULES from '../resources/RULES';
+import RULES from '../resources/RULES.js';
 
 export default class {
   #prizeResults = new Map();
