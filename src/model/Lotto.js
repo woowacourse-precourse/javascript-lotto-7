@@ -1,11 +1,16 @@
 import Validator from '../controller/Validator.js';
+import { parseNumbers } from '../utils/Parser.js';
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    Validator.checkLottoNumbers(numbers);
+    this.#validate(numbers);
     this.#numbers = numbers;
+  }
+
+  #validate(numbers) {
+    // Validator.checkLottoNumbers(numbers);
   }
 
   getNumbers() {

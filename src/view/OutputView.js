@@ -9,7 +9,9 @@ class OutputView {
   }
 
   static printLottoTicket(lottos) {
-    OutputView.#printMessage(`[${lottos}]`);
+    lottos.forEach((lotto) => {
+      OutputView.#printMessage(`[${lotto.join(', ')}]`);
+    });
   }
 
   static printLottoResult(result) {

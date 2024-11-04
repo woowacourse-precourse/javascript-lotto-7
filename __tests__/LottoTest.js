@@ -68,12 +68,28 @@ describe('로또 클래스 테스트', () => {
   });
 
   test('로또 티켓 생성 함수 테스트', () => {
-    expect(() => {
-      LottoController.generateLottoTickets(1);
-    }).not.toThrow();
+    const ticketCount1 = 1;
+    const ticketCount2 = 100;
 
-    expect(() => {
-      LottoController.generateLottoTickets(100);
-    }).not.toThrow();
+    const tickets1 = LottoController.generateLottoTickets(ticketCount1);
+    const tickets2 = LottoController.generateLottoTickets(ticketCount2);
+
+    expect(() =>
+      LottoController.generateLottoTickets(ticketCount1)
+    ).not.toThrow();
+    expect(() =>
+      LottoController.generateLottoTickets(ticketCount2)
+    ).not.toThrow();
+
+    expect(tickets1.length).toBe(ticketCount1);
+    expect(tickets2.length).toBe(ticketCount2);
+
+    tickets1.forEach((ticket) => {
+      expect(ticket.length).toBe(6);
+      ticket.forEach((number) => {
+        expect(number).toBeGreaterThanOrEqual(1);
+        expect(number).toBeLessThanOrEqual(45);
+      });
+    });
   });
 });

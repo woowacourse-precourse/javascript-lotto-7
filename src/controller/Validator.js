@@ -1,6 +1,3 @@
-import { ERROR_MESSAGE } from '../constants/messages.js';
-import { parseNumbers } from '../utils/Parser.js';
-
 class Validator {
   static #WINNING_NUMBER_COUNT = 6;
   static #NUMBER_MIN = 1;
@@ -11,8 +8,6 @@ class Validator {
   static #PURCHASE_AMOUNT_MAX = 1000000;
   static #PURCHASE_DIVISION_UNIT = 1000;
 
-  constructor() {}
-
   static checkLottoNumbers(numbers) {
     Validator.#checkLottoNumbersCount(numbers);
     Validator.#checkLottoNumbersDuplicate(numbers);
@@ -20,14 +15,14 @@ class Validator {
   }
 
   static checkBonusNumber(bonusNumber) {
+    if (typeof bonusNumber !== 'number') {
+      throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_RANGE);
+    }
     Validator.#checkBonusNumberEmptyInput(bonusNumber);
-    Validator.#checkBonusNumberCount(bonusNumber);
     Validator.#checkBonusNumberRange(bonusNumber);
   }
 
   static checkBonusNumberDuplicate(numbers, bonusNumber) {
-    numbers = parseNumbers(numbers);
-    bonusNumber = Number(bonusNumber);
     if (numbers.includes(bonusNumber)) {
       throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_DUPLICATE);
     }
@@ -36,18 +31,16 @@ class Validator {
   static checkPurchaseAmount(amount) {
     Validator.#checkPurchaseAmountEmptyInput(amount);
     Validator.#checkPurchaseAmountRange(amount);
-    Validator.#checkPurchaseAmountPositive(amount);
+    Validator.#checkPurchaseAmountDivisibleByThousand(amount);
   }
 
   static #checkLottoNumbersCount(numbers) {
-    numbers = parseNumbers(numbers);
     if (numbers.length !== Validator.#WINNING_NUMBER_COUNT) {
       throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_COUNT);
     }
   }
 
   static #checkLottoNumbersDuplicate(numbers) {
-    numbers = parseNumbers(numbers);
     const setNumbers = new Set(numbers);
     if (numbers.length !== setNumbers.size) {
       throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_DUPLICATE);
@@ -55,37 +48,23 @@ class Validator {
   }
 
   static #checkLottoNumbersRange(numbers) {
-    numbers = parseNumbers(numbers);
     numbers.forEach((number) => {
-      if (
-        !Number.isInteger(number) ||
-        number < Validator.#NUMBER_MIN ||
-        number > Validator.#NUMBER_MAX
-      ) {
-        throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_COUNT);
+      if (number < Validator.#NUMBER_MIN || number > Validator.#NUMBER_MAX) {
+        throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_RANGE);
       }
     });
   }
 
-  static #checkBonusNumberEmptyInput(number) {
-    if (!number || number.trim() === Validator.#EMPTY_STRING) {
+  static #checkBonusNumberEmptyInput(bonusNumber) {
+    if (!bonusNumber) {
       throw new Error(ERROR_MESSAGE.INVALID_EMPTY_BONUS_NUMBER);
     }
   }
 
-  static #checkBonusNumberCount(number) {
-    number = parseNumbers(number);
-    if (number.length > Validator.#BONUS_NUMBER_MIN_LENGTH) {
-      throw new Error(ERROR_MESSAGE.INVALID_WINNING_NUMBERS_COUNT);
-    }
-  }
-
-  static #checkBonusNumberRange(number) {
-    number = Number(number);
+  static #checkBonusNumberRange(bonusNumber) {
     if (
-      !Number.isInteger(number) ||
-      number < Validator.#NUMBER_MIN ||
-      number > Validator.#NUMBER_MAX
+      bonusNumber < Validator.#NUMBER_MIN ||
+      bonusNumber > Validator.#NUMBER_MAX
     ) {
       throw new Error(ERROR_MESSAGE.INVALID_BONUS_NUMBER_RANGE);
     }
@@ -107,9 +86,9 @@ class Validator {
     }
   }
 
-  static #checkPurchaseAmountPositive(amount) {
+  static #checkPurchaseAmountDivisibleByThousand(amount) {
     const price = Number(amount);
-    if (!Number.isInteger(price / Validator.#PURCHASE_DIVISION_UNIT)) {
+    if (price % Validator.#PURCHASE_DIVISION_UNIT !== 0) {
       throw new Error(
         ERROR_MESSAGE.INVALID_PURCHASE_AMOUNT_DIVISIBLE_BY_THOUSAND
       );

@@ -1,68 +1,53 @@
-import Validator from './Validator.js';
-import WinningNumbers from '../model/WinningNumbers.js';
 import InputView from '../view/InputView.js';
-import { generateRandomNumbers } from '../utils/RandomNumberGenerator.js';
 import OutputView from '../view/OutputView.js';
+import Validator from './Validator.js';
+import LottoTickets from '../model/LottoTickets.js';
+import WinningNumbers from '../model/WinningNumbers.js';
 import LottoGame from '../model/LottoGame.js';
+import { parseNumbers } from '../utils/Parser.js';
 
 class LottoController {
   static #DIVISION_UNIT = 1000;
 
-  constructor() {}
-
   async init() {
-    this.purchaseAmount = await LottoController.getPurchaseAmount();
-    this.lottoCount = this.purchaseAmount / LottoController.#DIVISION_UNIT;
-    this.lottoTickets = LottoController.generateLottoTickets(this.lottoCount);
+    const purchaseAmount = await this.#getPurchaseAmount();
+    const lottoCount = purchaseAmount / LottoController.#DIVISION_UNIT;
 
-    const winningNumbersInput = await InputView.readWinningNumbers();
-    const bonusNumberInput = await InputView.readBonusNumber();
-    const lottoWinningNumbers = new WinningNumbers(
-      winningNumbersInput,
-      bonusNumberInput
-    );
-    this.winningNumbers = lottoWinningNumbers.getWinningNumbers();
-    this.bonusNumber = lottoWinningNumbers.getBonusNumber();
-    LottoController.printLottoTickets(this.purchaseAmount, this.lottoTickets);
+    const lottoTickets = new LottoTickets(lottoCount).getTickets();
+    OutputView.printPurchaseAmount(purchaseAmount);
+    OutputView.printLottoTicket(lottoTickets);
 
+    const winningNumbers = await this.#getWinningNumbers();
     const lottoGame = new LottoGame(
-      this.lottoTickets,
-      this.winningNumbers,
-      this.bonusNumber,
-      this.purchaseAmount
+      lottoTickets,
+      winningNumbers.numbers,
+      winningNumbers.bonusNumber,
+      purchaseAmount
     );
-    OutputView.printLottoResult(lottoGame.result);
+
+    const gameResult = lottoGame.calculateResult();
+    OutputView.printLottoResult(gameResult);
     OutputView.printProfitRate(lottoGame.calculateProfitRate());
   }
 
-  static async getPurchaseAmount() {
-    const money = await InputView.readPurchaseAmount();
-    Validator.checkPurchaseAmount(money);
-
-    return money;
+  async #getPurchaseAmount() {
+    const purchaseAmount = await InputView.readPurchaseAmount();
+    Validator.checkPurchaseAmount(purchaseAmount);
+    return Number(purchaseAmount);
   }
 
-  static generateLottoTickets(lottoCounts) {
-    const lottoTickets = [];
-    for (let i = 0; i < lottoCounts; i++) {
-      const lottoTicket = generateRandomNumbers();
-      lottoTickets.push(lottoTicket);
-    }
-    lottoTickets.forEach((lottoTicket) => {
-      // Validator.checkWinningNumbers(lottoTicket);
-    });
+  async #getWinningNumbers() {
+    const winningNumbersInput = await InputView.readWinningNumbers();
+    const bonusNumberInput = await InputView.readBonusNumber();
 
-    if (lottoTickets.length !== lottoCounts) {
-      throw new Error('[ERROR]');
-    }
-    return lottoTickets;
-  }
-
-  static printLottoTickets(money, lottos) {
-    OutputView.printPurchaseAmount(money);
-    lottos.forEach((lotto) => {
-      OutputView.printLottoTicket(lotto);
-    });
+    const winningNumbers = new WinningNumbers(
+      parseNumbers(winningNumbersInput),
+      Number(bonusNumberInput)
+    );
+    return {
+      numbers: winningNumbers.getWinningNumbers(),
+      bonusNumber: winningNumbers.getBonusNumber(),
+    };
   }
 }
 

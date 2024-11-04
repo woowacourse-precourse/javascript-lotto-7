@@ -1,5 +1,4 @@
 import Validator from '../controller/Validator.js';
-import { parseNumbers } from '../utils/Parser.js';
 
 class WinningNumbers {
   #winningNumbers;
@@ -15,11 +14,11 @@ class WinningNumbers {
   }
 
   getWinningNumbers() {
-    return parseNumbers(this.#winningNumbers);
+    return this.#winningNumbers;
   }
 
   getBonusNumber() {
-    return Number.parseInt(this.#bonusNumber);
+    return this.#bonusNumber;
   }
 }
 
