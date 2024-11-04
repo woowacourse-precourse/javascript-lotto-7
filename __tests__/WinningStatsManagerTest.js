@@ -1,5 +1,5 @@
 import WinningStatsManager from "../src/WinningStatsManager";
-import { PRIZE_MONEY_BY_RANK } from "../src/constants";
+import { NUMBER_PRIZE_MONEY } from "../src/constants";
 
 describe("WinningStatsManager 클래스 테스트", () => {
   const inputs = [
@@ -21,8 +21,8 @@ describe("WinningStatsManager 클래스 테스트", () => {
   });
 
   test("최종 수익률을 구할 수 있다.", () => {
-    winningStats.calculateTotalProfit(PRIZE_MONEY_BY_RANK);
+    winningStats.calculateTotalProfit(NUMBER_PRIZE_MONEY);
 
-    expect(winningStats.calculateProfitMargin(2000)).toBe("1015000.0");
+    expect(winningStats.calculateProfitMargin(2000)).toBe("101500000.0");
   });
 });
