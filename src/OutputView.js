@@ -1,6 +1,4 @@
-Console;
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE } from './constants.js';
 
 const OutputView = {
   printEmptyLine() {
