@@ -6,6 +6,7 @@ const ERROR_MESSAGE = Object.freeze({
   WINNING_NUMBER_DUP:
     "[ERROR] 당첨번호는 겹치지 않는 6개의 숫자로 이루어져야 합니다.",
   BONUS_NUMBER: "[ERROR] 보너스 번호는 1~45 사이의 숫자이어야 합니다.",
+  BONUS_NUMBER_DUP: "[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.",
 });
 
 export default ERROR_MESSAGE;
