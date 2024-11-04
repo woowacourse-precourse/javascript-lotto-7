@@ -9,6 +9,7 @@ export const MESSAGE = Object.freeze({
 	COST_MESSAGE: '구입금액을 입력해 주세요.\n',
 	WINNING_NUMBER_MESSAGE: '당첨 번호를 입력해 주세요.\n',
 	BONUS_NUMBER_MESSAGE: '보너스 번호를 입력해 주세요.\n',
+	STATISTIC_MESSAGE: '당첨 통계\n---',
 });
 
 export const ERROR_PREFIX = '[ERROR]';
