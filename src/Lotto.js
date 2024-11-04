@@ -4,7 +4,13 @@ class Lotto {
   #numbers;
 
   constructor() {
-    this.#numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    this.#numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+      (a, b) => a - b
+    );
+  }
+
+  printNumberArray() {
+    Console.print(this.#numbers);
   }
 }
 

@@ -12,13 +12,16 @@ class LottoManager {
 
   async #start() {
     const money = await this.#getMoney();
-    this.#lottoArray = Array.from({ length: money }, () => new Lotto());
+    this.#lottoArray = Array.from({ length: money / 1000 }, () => new Lotto());
+    this.#printLottoArray();
 
     const winningNumbers = await this.#getWinningNumbers();
     this.#winningNumbers = winningNumbers;
 
     const bonusNumber = await this.#getBonusNumber();
     this.#bonusNumber = bonusNumber;
+
+    Console.print(this.#lottoArray);
   }
 
   async #getMoney() {
@@ -95,6 +98,12 @@ class LottoManager {
     if (number < 1 || number > 45) {
       throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
+  }
+
+  #printLottoArray() {
+    this.#lottoArray.forEach((lotto) => {
+      lotto.printNumberArray();
+    });
   }
 }
 
