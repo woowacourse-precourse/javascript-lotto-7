@@ -7,17 +7,20 @@ class Lotto {
   }
 
   #validate(numbers) {
-    let isValid = false;
-    while(!isValid) {
-      try{
-        if (numbers.length !== 6) {
-          throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-        }
-      } catch(e) {
-        console.error(e.message);
-      }
+    if (numbers.length !== 6) {
+      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
 
+    const numberSet = new Set();
+    numbers.forEach((number) => {
+      if (number < 1 || number > 45) {
+        throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      }
+      if (numberSet.has(number)) {
+        throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+      }
+      numberSet.add(number);
+    });
   }
 
   // TODO: 추가 기능 구현
