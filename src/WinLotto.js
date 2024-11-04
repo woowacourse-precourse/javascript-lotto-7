@@ -37,7 +37,8 @@ export default class WinLotto {
 
       this.#determineRank(matchedCount, hasBonus);
     });
-    this.printResults();
+    this.printPrizes();
+    this.printTotalReturn()
   }
 
   #determineRank(matchedCount, hasBonus) {
@@ -54,7 +55,7 @@ export default class WinLotto {
     }
   }
 
-  printResults() {
+  printPrizes() {
     Console.print(this.#WINNING_STATISTICS_PROMPT);
     Console.print(this.#DIVIDING_LINE);
     Console.print(`${this.#MATCH_THREE_PROMPT}${this.#results[3]}개`);
@@ -65,6 +66,9 @@ export default class WinLotto {
     );
     Console.print(`${this.#MATCH_SIX_PROMPT}${this.#results[6]}개`);
 
+  }
+  
+  printTotalReturn(){
     const totalPrize = Object.entries(this.#results).reduce(
       (acc, [key, count]) => acc + this.#PRIZES[key] * count,
       0
