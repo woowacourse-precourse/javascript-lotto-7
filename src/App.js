@@ -93,6 +93,11 @@ class App {
     return MissionUtils.Console.readLineAsync("\n당첨 번호를 입력해 주세요..\n");
   }
 
+  splitWinningNumber(winningNumber) {
+    const winningArray = winningNumber.split(",").map(Number);
+    return winningArray;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
