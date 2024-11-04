@@ -12,21 +12,36 @@ class LottoController {
   #winningNumbers;
   #winningBonusNumber;
   #resultTable;
+  #ioProcessor;
 
   /**
    *
    */
-  constructor(amount) {
-    this.ioProcessor = new IOProcessor();
+  constructor() {
+    this.#winningNumbers = [];
+    this.#winningBonusNumber = 0;
+    this.#resultTable = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
+    this.#ioProcessor = new IOProcessor();
+  }
 
+  /**
+   *
+   */
+  buyLottos(amount) {
     const lottoSize = amount / LOTTO_PRICE;
     this.#lottos = Array.from(
       { length: lottoSize },
       () => new Lotto(this.generateLotto())
     );
 
-    this.ioProcessor.processOuput('');
-    this.ioProcessor.processOuput(
+    this.#ioProcessor.processOuput('');
+    this.#ioProcessor.processOuput(
       lottoSize + OUPUT_MESSGE.OUTPUT_BOUGHT_LOTTOS
     );
     this.#lottos.forEach((lotto) => lotto.printLotto());
@@ -58,14 +73,6 @@ class LottoController {
    *
    */
   calculateLottoResult() {
-    this.#resultTable = {
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-    };
-
     this.#lottos.forEach((lotto) => {
       const rank = lotto.getLottoResult(
         this.#winningNumbers,

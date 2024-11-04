@@ -8,6 +8,7 @@ class App {
    */
   constructor() {
     this.ioProcessor = new IOProcessor();
+    this.LottoController = new LottoController();
   }
 
   /**
@@ -26,7 +27,7 @@ class App {
       INPUT_MESSAGE.INPUT_AMOUNT
     );
 
-    this.LottoController = new LottoController(amout);
+    this.LottoController.buyLottos(amout);
   }
 
   /**
