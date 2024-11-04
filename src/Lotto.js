@@ -1,3 +1,6 @@
+import ValidateNumbers from "../src/utils/ValidateNumbers.js";
+import ValidateBonusNumber from "./utils/ValidateBonusNumber.js";
+
 class Lotto {
   #numbers;
 
@@ -7,12 +10,19 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+    const validateNumbers = new ValidateNumbers(numbers);
+    validateNumbers.isNumLengthSix();
+    validateNumbers.isNumValid();
+    validateNumbers.isUniqueNumber();
   }
 
-  // TODO: 추가 기능 구현
+  validateBonusNumber(bonusNum) {
+    const validateBonusNumber = new ValidateBonusNumber(
+      bonusNum,
+      this.#numbers
+    );
+    validateBonusNumber.validate();
+  }
 }
 
 export default Lotto;
