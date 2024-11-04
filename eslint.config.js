@@ -117,7 +117,7 @@ export default [
       // 증감 연산자 사용 금지
       'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
       // 코드 길이 제한 설정 (Airbnb 권장: 100자)
-      'max-len': ['error', { code: 100, ignoreComments: true, ignoreUrls: true }],
+      'max-len': ['error', { code: 150, ignoreComments: true, ignoreUrls: true }],
       // 연산자 줄바꿈 통일
       'operator-linebreak': ['error', 'before'],
       // 사용하지 않는 변수 금지
