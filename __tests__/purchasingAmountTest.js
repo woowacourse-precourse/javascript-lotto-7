@@ -1,5 +1,5 @@
-import { validatePurchasingAmount } from "../src/validation";
-import ERROR_MESSAGE from "../src/constants/error";
+import { validatePurchasingAmount } from "../src/validation.js";
+import ERROR_MESSAGE from "../src/constants/error.js";
 describe("Purchasing Amount Validation", () => {
   test.each([
     {
