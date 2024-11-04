@@ -20,7 +20,19 @@ class App {
     const amountInput = await Console.readLineAsync("구입금액을 입력해 주세요.\n"); // await 추가
     const amount = parseInt(amountInput, 10);
 
+    this.validatePurchaseAmount(amount);
     return amount;
+  }
+
+  /**
+   * @description 구입 금액을 검증하는 함수
+   * @param {number} amount - 구입 금액
+   * @throws {Error} 1,000원 단위가 아닐 경우 오류 발생
+   */
+  validatePurchaseAmount(amount) {
+    if (isNaN(amount) || amount <= 0 || amount % 1000 !== 0) {
+      throw new Error("[ERROR] 구입 금액은 1,000원 단위의 양수여야 합니다.");
+    }
   }
 
   /**
