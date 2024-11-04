@@ -1,4 +1,4 @@
-import Lotto from "../src/Lotto";
+import Lotto from "../src/Lotto.js";
 
 const RANK_CASES = [
 	["1, 2, 3, 4, 5, 6", "7", "1rank"],
