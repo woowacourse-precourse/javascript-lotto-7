@@ -7,7 +7,7 @@ import {
 } from '../constants/constants.js';
 
 export function validateRangeOfLottoPrice(price) {
-  if (price < 0) {
+  if (price <= 0) {
     throw new Error(LOTTO_ERROR_MESSAGE.UNDER_PRICE_ERROR_MESSAGE);
   }
 }
