@@ -25,14 +25,7 @@ class Controller {
       this.#amount = rawAmount;
 
       const lottoCount = this.#amount / ONE_LOTTO_AMOUNT;
-      this.view.promptPurchaseLotto(lottoCount);
-
-      this.#lottos = Array.from(
-        { length: lottoCount },
-        () => new Lotto(this.#makeRandomNumbers())
-      );
-
-      this.#lottos.forEach((lotto) => this.view.printLotto(lotto.getNumbers()));
+      this.#makeLottos(lottoCount);
     }
   }
 
@@ -84,6 +77,17 @@ class Controller {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort(
       (a, b) => a - b
     );
+  }
+
+  #makeLottos(lottoCount) {
+    this.view.promptPurchaseLotto(lottoCount);
+
+    this.#lottos = Array.from(
+      { length: lottoCount },
+      () => new Lotto(this.#makeRandomNumbers())
+    );
+
+    this.#lottos.forEach((lotto) => this.view.printLotto(lotto.getNumbers()));
   }
 
   #parseNumbers(numbers) {
