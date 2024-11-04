@@ -8,14 +8,19 @@ const ASK_PAYMENT_MESSAGE = '\n구입금액을 입력해 주세요.\n'
 const ASK_WINNING_NUMBERS_MESSAGE = '\n당첨 번호를 입력해 주세요.\n'
 const ASK_BOUNS_NUMBER_MESSAGE = '\n보너스 번호를 입력해 주세요.\n'
 
-const LottoMachine = {
-  score: {
+const LottoMachine = Object.seal({
+  quantity: 0,
+  lottoList: [],
+  winningNumbers: {},
+  bonusNumber: 0,
+  score: Object.seal({
     THREE_MATCHES: 0,
     FOUR_MATCHES: 0,
     FIVE_MATCHES: 0,
     FIVE_BONUS_MATCHES: 0,
     SIX_MATCHES: 0,
-  },
+  }),
+  profit: 0,
 
   async askPayment() {
     try {
@@ -140,6 +145,6 @@ const LottoMachine = {
     MissionUtils.Console.print(str)
   },
 
-}
+});
 
 export default LottoMachine;
