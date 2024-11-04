@@ -50,7 +50,7 @@ class App {
 
   async inputWinningNumbers() {
     const numbers = await Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요.\n"
+      "\n당첨 번호를 입력해 주세요. (쉼표로 구분된 숫자 6개)\n"
     );
     try {
       this.winningNumbers = this.validateNumbers(

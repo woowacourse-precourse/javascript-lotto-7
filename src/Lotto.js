@@ -1,32 +1,35 @@
 class Lotto {
-  #numbers;
-
   constructor(numbers) {
-    this.#validate(numbers);
-    this.#numbers = numbers;
+    this.validateNumbers(numbers);
+    this.numbers = numbers;
   }
 
-  #validate(numbers) {
+  validateNumbers(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
     if (new Set(numbers).size !== 6) {
-      throw new Error("[ERROR] 중복되지 않는 숫자 6개를 입력해야 합니다.");
+      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
+    }
+    if (numbers.some((number) => number < 1 || number > 45)) {
+      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
   }
 
   getNumbers() {
-    return this.#numbers;
+    return this.numbers;
   }
 
   getRank(winningNumbers, bonusNumber) {
-    const matchedCount = this.#numbers.filter((num) =>
+    const matchCount = this.numbers.filter((num) =>
       winningNumbers.includes(num)
     ).length;
-    if (matchedCount === 5 && this.#numbers.includes(bonusNumber)) {
-      return 5.5;
-    }
-    return matchedCount;
+    if (matchCount === 6) return 6;
+    if (matchCount === 5 && this.numbers.includes(bonusNumber)) return 5;
+    if (matchCount === 5) return 4;
+    if (matchCount === 4) return 3;
+    if (matchCount === 3) return 2;
+    return 1;
   }
 }
 
