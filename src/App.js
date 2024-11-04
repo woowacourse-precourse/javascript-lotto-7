@@ -7,7 +7,17 @@ class App {
   winningLottoNumbers = [];
   bonusLottoNumber;
 
-  async run() {}
+  async run() {
+    this.amountOfPurchasedMoney = await this.getPurchasedAmount();
+  }
+
+  async getPurchasedAmount() {
+    while (true) {
+      const inputtedMoney = await MissionUtils.Console.readLineAsync(
+        `구입금액을 입력해주세요./n`
+      );
+    }
+  }
 }
 
 export default App;
