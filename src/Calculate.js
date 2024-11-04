@@ -46,5 +46,35 @@ export class Calculate {
     return money[rank] || 0;
   }
 
-  printResults() {}
+  #calculateResult(lotto) {
+    const matchCount = this.#getMatchCount(lotto);
+    const hasBonus = matchCount === 5 && this.#hasBonus(lotto);
+    const rank = this.#getPrizeRank(matchCount, hasBonus);
+    return { rank, prize: this.#getPrizeMoney(rank) };
+  }
+
+  #calculateAllResults() {
+    const winningStats = [0, 0, 0, 0, 0];
+    let totalPrize = 0;
+
+    for (const lotto of this.#lottoList) {
+      const { rank, prize } = this.#calculateResult(lotto);
+      if (rank > 0) {
+        winningStats[5 - rank]++;
+        totalPrize += prize;
+      }
+    }
+
+    return { winningStats, totalPrize };
+  }
+
+  #calculateReturnRate(totalPrize) {
+    const totalCost = this.#lottoList.length * 1000;
+    return ((totalPrize / totalCost) * 100).toFixed(1);
+  }
+
+  printResults() {
+    const { winningStats, totalPrize } = this.#calculateAllResults();
+    const returnRate = this.#calculateReturnRate(totalPrize);
+  }
 }
