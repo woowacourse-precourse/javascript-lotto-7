@@ -3,3 +3,9 @@ export function validateNumber(input, subject) {
         throw new Error(`[ERROR] ${subject} 숫자로 구성되어 있어야 합니다.`);
     }
 }
+
+export function validateDuplicate(input, subject) {
+    if (new Set(input).size !== input.length) {
+        throw new Error(`[ERROR] ${subject} 중복되면 안됩니다.`);
+    }
+}

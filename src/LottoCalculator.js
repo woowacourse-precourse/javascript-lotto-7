@@ -21,9 +21,7 @@ class LottoCalculator {
         /*if (winningNumber.some((x) => 1 <= x <= 45)) {
             throw new Error('[ERROR] 당첨 번호는 1~45 숫자여야 합니다.');
         }*/
-        if (new Set(winningNumber).size !== winningNumber.length) {
-            throw new Error('[ERROR] 당첨 번호는 중복되면 안됩니다.');
-        }
+        validateDuplicate(winningNumber, '당첨 번호는');
         if (winningNumber.length !== 6) {
             throw new Error('[ERROR] 당첨 번호는 6개여야 합니다.');
         }
