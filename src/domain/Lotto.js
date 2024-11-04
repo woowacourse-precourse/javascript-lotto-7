@@ -21,6 +21,10 @@ class Lotto {
     }
   }
 
+  checkCount(winningNumbers) {
+    return this.#numbers.filter((number) => winningNumbers.includes(number)).length;
+  }
+
   get numbers() {
     return this.#numbers;
   }
