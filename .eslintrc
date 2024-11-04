@@ -1,0 +1,22 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb",
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "error",
+        "no-console": "warn",
+        "react/jsx-filename-extension": [
+            1,
+            { "extensions": [".jsx", ".js"] }
+        ],
+        "react/react-in-jsx-scope": "off"
+    }
+}
