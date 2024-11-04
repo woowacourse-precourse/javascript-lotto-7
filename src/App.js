@@ -41,7 +41,7 @@ class App {
       return totalCounts;
     } catch (error) {
       View.printResult(error.message);
-      return this.getTotalCounts();
+      return this.getTotalCounts(lottos, winningLotto);
     }
   }
 

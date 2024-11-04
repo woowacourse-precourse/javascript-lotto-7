@@ -11,8 +11,8 @@ class BonusNumber {
   #number;
 
   constructor(number, winningNumbers) {
-    this.#validate(number, winningNumbers);
     this.#number = number;
+    this.#validate(number, winningNumbers);
   }
 
   #validate(number, winningNumbers) {
