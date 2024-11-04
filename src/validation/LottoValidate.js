@@ -1,18 +1,26 @@
 import {
   ERROR_MESSAGE,
   LOTTO_ERROR,
+  MINIMUM_VALUE,
   REQUEST_NUMBER_INPUT,
+  ZERO,
 } from "../constants/error.js";
 import { LOTTO_VALUES } from "../constants/message.js";
 import Validate from "./Validate.js";
 
 class LottoValidate extends Validate {
   validateLotto(lotto) {
-    this.isEmpty(lotto);
+    this.#checkArrayForZero(lotto);
     this.#checkArrayForNotNumber(lotto);
     this.#checkArrayForRange(lotto);
     this.#checkArrayForDuplicates(lotto);
     this.#checkArrayLength(lotto);
+  }
+
+  #checkArrayForZero(lotto) {
+    if (lotto.some((num) => num === ZERO)) {
+      throw new Error(ERROR_MESSAGE + MINIMUM_VALUE);
+    }
   }
 
   #checkArrayForNotNumber(lotto) {
