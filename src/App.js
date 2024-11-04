@@ -22,6 +22,7 @@ class App {
       "당첨 번호를 입력해 주세요.\n"
     );
     const winningNumbers = winningNumbersInput.split(",").map(Number);
+    Lotto.validateWinningNumbers(winningNumbers);
 
     const bonusNumberInput = await MissionUtils.Console.readLineAsync(
       "보너스 번호를 입력해 주세요.\n"
