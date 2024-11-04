@@ -6,7 +6,7 @@ export class Input {
 		const input = await Console.readLineAsync("");
 
 		// 가능한 에러
-		// 숫자가 아닌 경우
+		// 정수가 아닌 경우
 		// 금액이 1000 미만일 경우
 		// 금액이 1000 단위가 아닐 경우
 		// 구입 금액 제한
@@ -26,5 +26,17 @@ export class Input {
 		// 1 ~ 45 사이의 수가 아닌 경우
 
 		return numbers;
+	}
+
+	static async getLottoBonusNumber() {
+		Console.prin("보너스 번호를 입력해 주세요.");
+		const input = await Console.readLineAsync("");
+
+		// 가능한 에러
+		// 정수가 아닌 값인 경우
+		// 1 ~ 45 사이의 수가 아닌 경우
+		// 당첨 번호와 중복된 경우
+
+		return Number(input);
 	}
 }
