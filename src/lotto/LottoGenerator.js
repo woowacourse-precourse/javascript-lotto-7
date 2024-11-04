@@ -14,14 +14,14 @@ class LottoGenerator {
   generateLottosBycount(count) {
     const lottos = [];
     for (let i = 0; i < count; i++) {
-      const lotto = this.generateLotto();
+      const lotto = this.#generateLotto();
       lottos.push(lotto);
     }
 
     return lottos;
   }
 
-  generateLotto() {
+  #generateLotto() {
     const numbers = this.#getNumbers();
     return new Lotto(numbers);
   }
