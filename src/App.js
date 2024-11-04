@@ -22,10 +22,13 @@ class App {
   async run() {
     this.#money = await InputView.processMoney();
     OutputView.printLottoCount(this.#money);
-    this.#lottos = await this.createLottos();
+
+    this.#lottos = this.createLottos();
     OutputView.printLottoNumbers(this.#lottos);
+
     this.winNumbers = await InputView.processWinningNumber();
     this.bonusNumber = await InputView.processBonusNumber(this.winNumbers);
+
     this.#rankResult = await this.getRankResult();
     await OutputView.printRankResult(this.#rankResult);
     this.getIncomeResult();
@@ -43,19 +46,18 @@ class App {
     this.#rankResult = result;
   }
 
-  async createLottos() {
+  createLottos() {
     const lottoCount = this.#money / LOTTO_CONSTANTS.price;
 
-    const lottoNumberPromises = Array.from({ length: lottoCount }, async () => {
-      const randomNumber = await this.getSortedRandomNumber();
+    const lottoNumbers = Array.from({ length: lottoCount }, () => {
+      const randomNumber = this.getSortedRandomNumber();
       return new Lotto(randomNumber);
     });
-    const lottoNumbers = await Promise.all(lottoNumberPromises);
     return lottoNumbers;
   }
 
-  async getSortedRandomNumber() {
-    const randomNumber = await pickUniqueNumbersInRange(
+  getSortedRandomNumber() {
+    const randomNumber = pickUniqueNumbersInRange(
       LOTTO_CONSTANTS.minLottoNumber,
       LOTTO_CONSTANTS.maxLottoNumber,
       LOTTO_CONSTANTS.length
