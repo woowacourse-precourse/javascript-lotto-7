@@ -22,6 +22,13 @@ class Lotto {
   }
   
   // TODO: 추가 기능 구현
+  get numbers () {
+    return Array.from(this.#numbers);
+  }
+  
+  has (number) {
+    return this.#numbers.has(number);
+  }
 }
 
 export default Lotto;

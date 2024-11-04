@@ -27,4 +27,20 @@ describe('로또 클래스 테스트', () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test('로또 번호를 받아올 수 있다.', () => {
+    const lotto = new Lotto([1,2,3,4,5,6]);
+    expect(lotto.numbers).toStrictEqual([1,2,3,4,5,6]);
+  })
+
+  test('로또 번호에 숫자가 있는지 확인할 수 있다.', () => {
+    const lotto =  new Lotto([1,2,3,4,5,6]);
+    const include = lotto.has(5);
+    expect(include).toBe(true);
+  });
+
+  test('로또 번호에 숫자가 있는지 확인할 수 있다.', () => {
+    const lotto =  new Lotto([1,2,3,4,5,6]);
+    const notInclude = lotto.has(7);
+    expect(notInclude).toBe(false);
+  });
 });
