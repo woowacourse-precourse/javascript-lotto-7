@@ -19,23 +19,16 @@ describe("FormatOutput 테스트", () => {
     const intermediate = Object.entries(LOTTO_RESULT_TABLE)
       .filter((pair) => pair[1] !== LOTTO_RESULT_TABLE[0])
       .map((pair) => {
-        return `${pair[1]} (${formatNumber(REWARD[pair[1]])}원) - ${
-          TEST_OBJECT[pair[1]]
-        }개`;
+        return `${pair[1]} (${formatNumber(REWARD[pair[1]])}원) - ${TEST_OBJECT[pair[1]]}개`;
       })
       .reduce((previous, current) => {
         return `${previous}\n${current}`;
-      }, "---");
-    const totalReward = Object.values(LOTTO_RESULT_TABLE).reduce(
-      (previous, current) => {
-        return previous + REWARD[current] * TEST_OBJECT[current];
-      },
-      0
-    );
+      }, "");
+    const totalReward = Object.values(LOTTO_RESULT_TABLE).reduce((previous, current) => {
+      return previous + REWARD[current] * TEST_OBJECT[current];
+    }, 0);
     const profitRatio = (totalReward / MONEY).toFixed(1);
-    expect(f1.print()).toBe(
-      `${intermediate}\n총 수익률은 ${TEST_PROFIT_RATIO}\%입니다.`
-    );
+    expect(f1.print()).toBe(`${intermediate}\n총 수익률은 ${TEST_PROFIT_RATIO}\%입니다.`);
 
     // TODO: add exception cases
   });

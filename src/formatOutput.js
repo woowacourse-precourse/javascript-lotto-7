@@ -18,7 +18,7 @@ export class FormatOutput {
       })
       .reduce((previous, current) => {
         return `${previous}\n${current}`;
-      }, "---");
+      }, "");
     const profit = (
       (Object.entries(REWARD)
         .filter((pair) => pair[0] !== "당첨 없음")

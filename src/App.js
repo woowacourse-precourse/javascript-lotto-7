@@ -66,7 +66,7 @@ class App {
     const outputInstance = new FormatOutput(this.#moneyInput, pickUpInstance.checkJackpot());
     // 3. 출력
     this.#output = `${this.#output}\n${MESSAGE.result}\n${MESSAGE.line}`;
-    this.#output = `${this.#output}\n${outputInstance.print()}`;
+    this.#output = `${this.#output}${outputInstance.print()}`;
     Console.print(this.#output);
   }
 }
