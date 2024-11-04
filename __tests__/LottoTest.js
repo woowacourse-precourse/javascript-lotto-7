@@ -1,6 +1,6 @@
 import { LOTTO } from '../src/constant/index.js';
 import Lotto from '../src/Lotto.js';
-import { mockRandoms } from './testUtil';
+import { mockRandoms } from '../src/util/testUtil.js';
 
 describe('Lotto 클래스의 purchaseLotto 메서드 테스트', () => {
   beforeEach(() => {
