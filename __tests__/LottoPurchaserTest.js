@@ -10,31 +10,34 @@ describe('로또 구매자 테스트', () => {
     lottoPurchaser = new LottoPurchaser();
   });
 
-  describe('로또 구매 금액 예외 테스트',()=>{
-    test('로또 구매 금액이 잘 들어왔을 경우', () => {
-      const purchasePrice = LOTTO_CONFIG.LOTTO_PRICE;
+  test('로또 구매 금액이 잘 들어왔을 경우', () => {
+    const purchasePrice = LOTTO_CONFIG.LOTTO_PRICE;
 
-      expect(() => lottoPurchaser.purchase(purchasePrice)).not.toThrow('[ERROR]');
-    });
+    expect(() => lottoPurchaser.purchase(purchasePrice)).not.toThrow('[ERROR]');
+  });
 
-    test('로또 구매 금액이 음수일 경우 예외가 발생', () => {
-      const purchasePrice = -LOTTO_CONFIG.LOTTO_PRICE;
-
+  describe('로또 구매 금액 예외 테스트', () => {
+    test.each([
+      {
+        description: '로또 구매 금액이 음수일 경우 예외가 발생',
+        purchasePrice: -LOTTO_CONFIG.LOTTO_PRICE,
+      },
+      {
+        description: '로또 구매 금액 단위보다 작은 경우 예외가 발생',
+        purchasePrice: LOTTO_CONFIG.LOTTO_PRICE * 0.5,
+      },
+      {
+        description: '로또 구매 금액이 단위에 맞지 않을 경우 예외가 발생',
+        purchasePrice: LOTTO_CONFIG.LOTTO_PRICE * 1.5,
+      },
+      {
+        description: '로또 구매 금액이 0일 경우 예외가 발생',
+        purchasePrice: 0,
+      },
+    ])('$description', ({ purchasePrice }) => {
       expect(() => lottoPurchaser.purchase(purchasePrice)).toThrow('[ERROR]');
     });
-
-    test('로또 구매 금액이 단위에 맞지 않을 경우 예외가 발생', () => {
-      const purchasePrice = LOTTO_CONFIG.LOTTO_PRICE * 0.5;
-
-      expect(() => lottoPurchaser.purchase(purchasePrice)).toThrow('[ERROR]');
-    });
-
-    test('로또 구매 금액이 0일 경우 예외가 발생', () => {
-      const purchasePrice = 0
-
-      expect(() => lottoPurchaser.purchase(purchasePrice)).toThrow('[ERROR]');
-    });
-  })
+  });
 
   test('로또 구매 기능 검증', () => {
     // given
