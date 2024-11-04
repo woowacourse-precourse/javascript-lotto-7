@@ -74,11 +74,21 @@ class LottoController {
   }
 
   async calculateResults(winningNumbers) {
-    const countMap = this.winningResult.result(
-      winningNumbers,
-      this.lottos,
-      this.bonusNumber
-    );
+    const countMap = { 3: 0, 4: 0, 5: 0, "5+bonus": 0, 6: 0 };
+
+    this.lottos.forEach((lotto) => {
+      const matchCount = lotto.filter((num) =>
+        winningNumbers.includes(num)
+      ).length;
+      if (matchCount === 6) {
+        countMap[6] += 1; // 1등
+      } else if (matchCount === 5 && lotto.includes(this.bonusNumber)) {
+        countMap["5+bonus"] += 1; // 2등
+      } else if (countMap[matchCount] !== undefined) {
+        countMap[matchCount] += 1;
+      }
+    });
+
     const totalPrize = this.calculateTotalPrize(countMap);
     const profitRate = this.calculateRateOfReturn(
       totalPrize,
@@ -89,7 +99,7 @@ class LottoController {
 
   calculateRateOfReturn(totalPrize, purchaseAmount) {
     const rate = (totalPrize / purchaseAmount) * 100;
-    return parseFloat(rate.toFixed(2)); // 소수점 둘째 자리까지 반올림
+    return parseFloat(rate.toFixed(2));
   }
 
   calculateTotalPrize(countMap) {

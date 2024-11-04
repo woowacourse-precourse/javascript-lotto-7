@@ -7,7 +7,7 @@ class WinningResult {
         winningNumbers.includes(num)
       ).length;
       if (matchCount === 5 && lotto.includes(bonusNumber)) {
-        countMap["5+bonus"] += 1; // 2등: 5개 + 보너스 번호 일치
+        countMap["5+bonus"] += 1;
       } else if (countMap[matchCount] !== undefined) {
         countMap[matchCount] += 1;
       }
