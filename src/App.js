@@ -1,4 +1,5 @@
-import { LOTTO_PRICE } from "./constants.js";
+import { LOTTO_PRICE, PRIZES } from "./constants.js";
+
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { calculateTotalPrize } from "./resultCal.js";
 import { generateLottoNumbers } from "./lottoGenerate.js";
@@ -93,15 +94,8 @@ class App {
 
   displayResult(counts, lottoPurchaseAmount) {
     printResult(counts);
-    const prizes = {
-      3: 5000,
-      4: 50000,
-      5: 1500000,
-      "5_bonus": 30000000,
-      6: 2000000000,
-    };
 
-    const totalPrize = calculateTotalPrize(counts, prizes);
+    const totalPrize = calculateTotalPrize(counts, PRIZES);
     const profitRate = (totalPrize / lottoPurchaseAmount) * 100;
     MissionUtils.Console.print(`총 수익률은 ${profitRate.toFixed(1)}%입니다.`);
   }
