@@ -9,4 +9,8 @@ export default class InputView {
 
     return inputMoney;
   }
+
+  static async readWinningNumber() {
+    return await Console.readLineAsync("당첨 번호를 입력해주세요" + "\n");
+  }
 }
