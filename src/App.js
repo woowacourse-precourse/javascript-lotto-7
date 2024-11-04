@@ -1,6 +1,7 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { numOfLotto, chkSelectedNum } from '../src/InputComponent.js';
 import { verifyLotto, showLottoStatistics } from '../src/VerifyLotto.js';
+import Lotto from './Lotto.js';
 
 class App {
     async run() {
@@ -16,7 +17,8 @@ class App {
             Console.print(`\n${lotto}개를 구매했습니다.`);
             for (let i = 0; i < lotto; i++) {
                 const sortedNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
-                lottoArr.push(sortedNumbers);
+                const lottoInstance = new Lotto(sortedNumbers);
+                lottoArr.push(lottoInstance.getNumbers());
             }
             for (let i = 0; i < lotto; i++) {
                 Console.print(lottoArr[i]);
@@ -25,12 +27,14 @@ class App {
             // 당첨 번호 입력
             Console.print('\n당첨 번호를 입력해 주세요.');
             const numbers = (await Console.readLineAsync('')).split(',');
-            const selectedNum = chkSelectedNum(numbers);
+            let selectedNum = chkSelectedNum(numbers);
             if (!selectedNum) this.throwError('당첨 번호 입력 오류');
+            const selectedNumInstance = new Lotto(selectedNum);
+            selectedNum = selectedNumInstance.getNumbers();
 
             // 보너스 번호 입력
             Console.print('\n보너스 번호를 입력해 주세요.');
-            const bonusNum = await Console.readLineAsync('');
+            const bonusNum = parseInt(await Console.readLineAsync(''));
 
             // 당첨 통계 출력
             Console.print('\n당첨 통계');

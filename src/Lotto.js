@@ -13,6 +13,15 @@ class Lotto {
     }
 
     // TODO: 추가 기능 구현
+    // 정수형으로 변환
+    #changeToInt() {
+        this.#numbers = this.#numbers.map((num) => parseInt(num, 10));
+    }
+
+    getNumbers() {
+        this.#changeToInt(this.#numbers);
+        return this.#numbers;
+    }
 }
 
 export default Lotto;
