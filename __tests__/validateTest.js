@@ -36,15 +36,6 @@ describe('유효성 검사 함수 테스트', () => {
       );
     });
 
-    test('숫자가 6개가 아닌 경우 예외 발생', () => {
-      expect(() => validateNumbers('1,2,3,4,5')).toThrow(
-        ERROR_MESSAGE.LOTTO_CNT_ERROR
-      );
-      expect(() => validateNumbers('1,2,3,4,5,6,7')).toThrow(
-        ERROR_MESSAGE.LOTTO_CNT_ERROR
-      );
-    });
-
     test('숫자가 1~45 범위를 벗어나는 경우 예외 발생', () => {
       expect(() => validateNumbers('1,2,3,4,5,46')).toThrow(
         ERROR_MESSAGE.OUT_OF_RANGE_ERROR

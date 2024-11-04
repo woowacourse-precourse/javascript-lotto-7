@@ -1,7 +1,6 @@
 export const ERROR_MESSAGE = {
   OUT_OF_RANGE_ERROR: '[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.',
   NOT_NUM_ERROR: '[ERROR] 숫자만 입력 가능합니다.',
-  LOTTO_CNT_ERROR: '[ERROR] 로또 번호는 6개여야 합니다.',
   LOTTO_NUM_FORMAT_ERROR:
     '[ERROR] 로또 번호 6개를 쉼표로 구분하여 입력해야 합니다.',
   LOTTO_AMOUNT_UNIT_ERROR: '[ERROR] 로또 구입 금액은 1000원 단위여야 합니다.',
