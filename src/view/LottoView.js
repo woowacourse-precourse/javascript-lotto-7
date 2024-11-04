@@ -9,7 +9,7 @@ class LottoView {
     );
     return userInputAmounts;
   }
-  //로또 발행 숫자
+
   printGetLottos(count) {
     Console.print(`\n${count}${MESSAGES.USER_LOTTO_PURCHASE}`);
   }
@@ -20,7 +20,6 @@ class LottoView {
     });
   }
 
-  //당첨번호 입력
   async inputWinningNumber() {
     const winningNumbers = await Console.readLineAsync(
       MESSAGES.INPUT_WINNING_NUMBER
@@ -28,7 +27,6 @@ class LottoView {
     return winningNumbers.split(",").map(Number);
   }
 
-  //보너스번호 입력
   async inputBonusNumber() {
     const bonusNumbers = await Console.readLineAsync(
       MESSAGES.INPUT_BONUS_NUMBER

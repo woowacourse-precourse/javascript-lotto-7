@@ -33,7 +33,6 @@ class LottoController {
     this.view.printError(error.message);
   }
 
-  // 구매 금액 설정 함수 분리
   async setLottoAmounts() {
     const purchaseAmount = await this.getPurchaseAmount();
     this.totalSpent = purchaseAmount;
@@ -68,7 +67,6 @@ class LottoController {
     this.view.printLottos(lottos);
   }
 
-  // 당첨 번호 입력
   async getWinningNumbers() {
     try {
       const winningNumbersInput = await this.view.inputWinningNumber();
