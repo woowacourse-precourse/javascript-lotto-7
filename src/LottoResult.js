@@ -29,7 +29,6 @@ class LottoResult {
         profit += this.getMatchCount(5, false) * PRIZE.matchCount_5_withoutBonus;
         profit += this.getMatchCount(5, true) * PRIZE.matchCount_5_withBonus;
         profit += this.getMatchCount(6) * PRIZE.matchCount_6;
-        Console.print(`profit${profit}`);
         this.#totalProfit = profit;
     }
 

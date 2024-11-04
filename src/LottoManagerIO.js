@@ -22,9 +22,10 @@ class LottoManagerIO {
             throw new Error("[Error] 로또 구매 금액은 1000의 배수로 입력 가능합니다.");
         }
     }
-    
+
     static async inputPurchasePrice(){
         let purchasePrice = await Console.readLineAsync(LottoManagerIO.#INPUT_PURCHASE_PRICE_MESSAGE);
+        purchasePrice = parseInt(purchasePrice, 10);
         this.#validatePrice(purchasePrice);
         return purchasePrice;
     }
