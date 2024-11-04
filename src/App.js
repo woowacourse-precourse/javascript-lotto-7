@@ -1,5 +1,13 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import {
+  LOTTO_PRICE,
+  LOTTO_NUMBER_COUNT,
+  LOTTO_NUMBER_RANGE,
+  WINNING_PRIZES,
+  MATCH_COUNTS,
+  ERROR_MESSAGES,
+} from "./constants.js";
 
 class App {
   run() {
@@ -14,8 +22,8 @@ class App {
   validatePurchaseAmount(amount) {
     const purchaseAmount = Number(amount);
 
-    if (Number.isNaN(purchaseAmount) || purchaseAmount % 1000 !== 0) {
-      this.handleError("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
+    if (Number.isNaN(purchaseAmount) || purchaseAmount % LOTTO_PRICE !== 0) {
+      this.handleError(ERROR_MESSAGES.INVALID_AMOUNT);
       this.inputPurchaseAmount();
       return;
     }
@@ -24,7 +32,7 @@ class App {
   }
 
   printPurchasedLotto() {
-    const lottoCount = this.purchaseAmount / 1000;
+    const lottoCount = this.purchaseAmount / LOTTO_PRICE;
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
     this.lottoTickets = this.generateLottoTickets(lottoCount);
     this.displayLottoTickets();
@@ -53,13 +61,15 @@ class App {
   }
 
   validateWinningNumbers(numbers) {
-    if (numbers.length !== 6 || new Set(numbers).size !== 6) {
-      this.handleError("[ERROR] 당첨 번호는 중복되지 않는 6개의 숫자여야 합니다.");
+    if (numbers.length !== LOTTO_NUMBER_COUNT || new Set(numbers).size !== LOTTO_NUMBER_COUNT) {
+      this.handleError(ERROR_MESSAGES.INVALID_LOTTO_COUNT);
       this.inputWinningNumbers();
       return;
     }
-    if (numbers.some((number) => number < 1 || number > 45)) {
-      this.handleError("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    if (
+      numbers.some((number) => number < LOTTO_NUMBER_RANGE.MIN || number > LOTTO_NUMBER_RANGE.MAX)
+    ) {
+      this.handleError(ERROR_MESSAGES.INVALID_NUMBER_RANGE);
       this.inputWinningNumbers();
       return;
     }
@@ -74,13 +84,17 @@ class App {
   }
 
   validateBonusNumber(number) {
-    if (Number.isNaN(number) || number < 1 || number > 45) {
-      this.handleError("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    if (
+      Number.isNaN(number) ||
+      number < LOTTO_NUMBER_RANGE.MIN ||
+      number > LOTTO_NUMBER_RANGE.MAX
+    ) {
+      this.handleError(ERROR_MESSAGES.INVALID_NUMBER_RANGE);
       this.inputBonusNumber();
       return;
     }
     if (this.winningNumbers.includes(number)) {
-      this.handleError("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+      this.handleError(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
       this.inputBonusNumber();
       return;
     }
@@ -97,28 +111,28 @@ class App {
         .filter((num) => this.winningNumbers.includes(num)).length;
       const isBonusMatched = ticket.getNumbers().includes(this.bonusNumber);
 
-      if (matchedCount === 6) {
-        this.results[1] += 1; // 1등
+      if (matchedCount === MATCH_COUNTS.FIRST) {
+        this.results[1] += 1;
         return;
       }
 
-      if (matchedCount === 5 && isBonusMatched) {
-        this.results[2] += 1; // 2등
+      if (matchedCount === MATCH_COUNTS.SECOND && isBonusMatched) {
+        this.results[2] += 1;
         return;
       }
 
-      if (matchedCount === 5) {
-        this.results[3] += 1; // 3등
+      if (matchedCount === MATCH_COUNTS.THIRD) {
+        this.results[3] += 1;
         return;
       }
 
-      if (matchedCount === 4) {
-        this.results[4] += 1; // 4등
+      if (matchedCount === MATCH_COUNTS.FOURTH) {
+        this.results[4] += 1;
         return;
       }
 
-      if (matchedCount === 3) {
-        this.results[5] += 1; // 5등
+      if (matchedCount === MATCH_COUNTS.FIFTH) {
+        this.results[5] += 1;
       }
     });
 
@@ -127,11 +141,11 @@ class App {
 
   printResults() {
     Console.print("\n당첨 통계\n---");
-    Console.print(`3개 일치 (5,000원) - ${this.results[5]}개`);
-    Console.print(`4개 일치 (50,000원) - ${this.results[4]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${this.results[3]}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.results[2]}개`);
-    Console.print(`6개 일치 (2,000,000,000원) - ${this.results[1]}개`);
+    Console.print(`3개 일치 (${WINNING_PRIZES.FIFTH}원) - ${this.results[5]}개`);
+    Console.print(`4개 일치 (${WINNING_PRIZES.FOURTH}원) - ${this.results[4]}개`);
+    Console.print(`5개 일치 (${WINNING_PRIZES.THIRD}원) - ${this.results[3]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (${WINNING_PRIZES.SECOND}원) - ${this.results[2]}개`);
+    Console.print(`6개 일치 (${WINNING_PRIZES.FIRST}원) - ${this.results[1]}개`);
 
     this.calculateProfit();
   }
