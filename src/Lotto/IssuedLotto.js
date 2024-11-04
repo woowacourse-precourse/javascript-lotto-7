@@ -49,12 +49,12 @@ class IssuedLotto extends Lotto {
             this.#winningGrade = '1등';
             return;
         }
-        if(this.#matchNumber === 5){
-            this.#winningGrade = '2등';
+        if(this.#matchNumber === 5 && this.isMatchedBonus){
+            this.#winningGrade = '보너스';
             return;
         }
-        if(this.#matchNumber === 5 && isMatchedBonus){
-            this.#winningGrade = '보너스';
+        if(this.#matchNumber === 5){
+            this.#winningGrade = '2등';
             return;
         }
         if(this.#matchNumber === 4){

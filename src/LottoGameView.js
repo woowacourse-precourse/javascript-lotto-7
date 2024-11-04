@@ -27,7 +27,7 @@ class LottoGameView{
         outputMessages.push('당첨 통계\n---\n');
         outputMessages.push(`3개 일치 (5,000원) - ${result.gradeQuantity['4등']}개\n`);
         outputMessages.push(`4개 일치 (50,000원) - ${result.gradeQuantity['3등']}개\n`);
-        outputMessages.push(`5개 일치 (1,500,000원) - ${result.gradeQuantity['2등']}개]\n`);
+        outputMessages.push(`5개 일치 (1,500,000원) - ${result.gradeQuantity['2등']}개\n`);
         outputMessages.push(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.gradeQuantity['보너스']}개\n`);
         outputMessages.push(`6개 일치 (2,000,000,000원) - ${result.gradeQuantity['1등']}개\n`);
         outputMessages.push(`총 수익률은 ${result.incomeRate}%입니다.\n`);
