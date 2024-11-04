@@ -5,7 +5,7 @@ class GenerateNumbers {
     for (let i = 0; i < bills; i++) {
       const randomNum = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
       randomNum.sort((a, b) => a - b);
-      console.log(randomNum);
+      MissionUtils.Console.print(`[${randomNum.join(", ")}]`);
     }
   }
 }
