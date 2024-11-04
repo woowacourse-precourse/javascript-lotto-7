@@ -14,6 +14,15 @@ class App {
     first: { matchCount: 6, prize: 2000000000, message: "6개 일치 (2,000,000,000원) - " },
   };
 
+  async retryOnError(asyncFunc) {
+    try {
+      return await asyncFunc();
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+      return this.retryOnError(asyncFunc);
+    }
+  }
+
   inputPurchase() {
     return MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
   }
