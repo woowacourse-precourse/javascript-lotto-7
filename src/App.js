@@ -22,9 +22,10 @@ class App {
 
     const winningLotto = await this.getWinningLotto();
     const totalCounts = await this.getTotalCounts(lottos, winningLotto);
-
     View.displayResultMessages(totalCounts);
+
     const profitRate = LottoMachine.getProfitRate(totalCounts, amount);
+    View.displayProfitRate(profitRate);
   }
 
   async getTotalCounts(lottos, winningLotto) {

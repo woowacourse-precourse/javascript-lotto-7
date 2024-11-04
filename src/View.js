@@ -30,6 +30,10 @@ class View {
     });
   }
 
+  static displayProfitRate(rate) {
+    return this.printResult(`총 수익률은 ${rate}% 입니다.`);
+  }
+
   static #sortAscending = (numbers) => numbers.sort((a, b) => a - b);
 
   static #generateMatchMessages = (results) => {
