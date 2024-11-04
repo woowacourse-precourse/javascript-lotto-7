@@ -9,7 +9,7 @@ class LottoView {
     );
     return userInputAmounts;
   }
-  //∑Œ∂« πﬂ«‡ º˝¿⁄
+  //Î°úÎòê Î∞úÌñâ Ïà´Ïûê
   printGetLottos(count) {
     Console.print(`\n${count}${MESSAGES.USER_LOTTO_PURCHASE}`);
   }
@@ -20,7 +20,7 @@ class LottoView {
     });
   }
 
-  //¥Á√∑π¯»£ ¿‘∑¬
+  //ÎãπÏ≤®Î≤àÌò∏ ÏûÖÎ†•
   async inputWinningNumber() {
     const winningNumbers = await Console.readLineAsync(
       MESSAGES.INPUT_WINNING_NUMBER
@@ -28,7 +28,7 @@ class LottoView {
     return winningNumbers.split(",").map(Number);
   }
 
-  //∫∏≥ Ω∫π¯»£ ¿‘∑¬
+  //Î≥¥ÎÑàÏä§Î≤àÌò∏ ÏûÖÎ†•
   async inputBonusNumber() {
     const bonusNumbers = await Console.readLineAsync(
       MESSAGES.INPUT_BONUS_NUMBER
@@ -38,11 +38,11 @@ class LottoView {
 
   printStatistics(statistics) {
     Console.print(STATISTICS_MESSAGE.STATISTICS_DEFAULT_MESSAGE);
-    Console.print(`${STATISTICS_MESSAGE.FIFTH}${statistics.fifth}∞≥`);
-    Console.print(`${STATISTICS_MESSAGE.FOURTH}${statistics.fourth}∞≥`);
-    Console.print(`${STATISTICS_MESSAGE.THIRD}${statistics.third}∞≥`);
-    Console.print(`${STATISTICS_MESSAGE.SECOND}${statistics.second}∞≥`);
-    Console.print(`${STATISTICS_MESSAGE.FIRST}${statistics.first}∞≥`);
+    Console.print(`${STATISTICS_MESSAGE.FIFTH}${statistics.fifth}Í∞ú`);
+    Console.print(`${STATISTICS_MESSAGE.FOURTH}${statistics.fourth}Í∞ú`);
+    Console.print(`${STATISTICS_MESSAGE.THIRD}${statistics.third}Í∞ú`);
+    Console.print(`${STATISTICS_MESSAGE.SECOND}${statistics.second}Í∞ú`);
+    Console.print(`${STATISTICS_MESSAGE.FIRST}${statistics.first}Í∞ú`);
     Console.print(
       `${STATISTICS_MESSAGE.RATE_OF_RETURN}${statistics.rate}${STATISTICS_MESSAGE.PERCENT}`
     );
