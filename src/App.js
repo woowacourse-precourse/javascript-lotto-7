@@ -20,11 +20,39 @@ class App {
     let lottoCount = this.getLottoNumbers(count);
     Console.print(lottoCount.map((nums) => `[${nums.join(", ")}]`).join("\n"));
 
+    let winningNumbersInput = await Console.readLineAsync(
+      "당첨 번호를 입력해 주세요.\n"
+    );
+
+    let winningNumbers = winningNumbersInput
+      .split(",")
+      .map((num) => parseInt(num.trim()));
+
+    try {
+      new Lotto(winningNumbers);
+    } catch (error) {
+      Console.print(error.message);
+      return;
+    }
+
+    let bonusNumberInput = await Console.readLineAsync(
+      "보너스 번호를 입력해 주세요.\n"
+    );
+
     let result = this.getResult(comparedList);
     let rate = this.getRate(result[1], price);
     Console.print("당첨 통계\n---");
     Console.print(result[0]);
     Console.print(`총 수익률은 ${rate}%입니다.`);
+  }
+
+  getLottoNumbers(num) {
+    let lottoNumbers = [];
+    for (let i = 0; i < num; i++) {
+      let numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      lottoNumbers.push(numbers);
+    }
+    return lottoNumbers;
   }
 
   getRate(result, price) {
