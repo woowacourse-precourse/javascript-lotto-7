@@ -1,45 +1,41 @@
 import { makeInputToPurchaseMoneyNumber } from '../../src/Utills/Check/PurchaseMoney.js';
 import { ERROR_MESSAGE } from '../../src/View/Error.js';
-import { emptyString } from '../../src/Utills/Check/emptyStr.js';
+
 // 빈 문자열 체크를 위한 테스트
 describe('makeInputToPurchaseMoneyNumber 함수 테스트', () => {
-  test('입력이 비어있으면 NEED_INPUT 에러를 발생시킨다', () => {
-    expect(() => makeInputToPurchaseMoneyNumber('')).toThrow(
-      `[ERROR] ${ERROR_MESSAGE.NEED_INPUT}`
+  test.each([
+    ['', ERROR_MESSAGE.NEED_INPUT],
+    ['    ', ERROR_MESSAGE.NEED_INPUT],
+  ])('입력이 "%s"일 경우, %s 에러를 발생시킨다', (input, expectedError) => {
+    expect(() => makeInputToPurchaseMoneyNumber(input)).toThrow(
+      `[ERROR] ${expectedError}`
     );
   });
 
-  test('공백만 포함된 입력이 있을 경우 NEED_INPUT 에러를 발생시킨다', () => {
-    expect(() => makeInputToPurchaseMoneyNumber('    ')).toThrow(
-      `[ERROR] ${ERROR_MESSAGE.NEED_INPUT}`
+  test.each([
+    ['0', ERROR_MESSAGE.PURCHASE_MONEY_ERROR_MINIMUN],
+    ['-1000', ERROR_MESSAGE.PURCHASE_MONEY_ERROR_MINIMUN],
+  ])('금액이 %s일 경우, %s 에러를 발생시킨다', (input, expectedError) => {
+    expect(() => makeInputToPurchaseMoneyNumber(input)).toThrow(
+      `[ERROR] ${expectedError}`
     );
   });
 
-  test('금액이 0 이하일 경우 PURCHASE_MONEY_ERROR_MINIMUN 에러를 발생시킨다', () => {
-    expect(() => makeInputToPurchaseMoneyNumber('0')).toThrow(
-      `[ERROR] ${ERROR_MESSAGE.PURCHASE_MONEY_ERROR_MINIMUN}`
-    );
-    expect(() => makeInputToPurchaseMoneyNumber('-1000')).toThrow(
-      `[ERROR] ${ERROR_MESSAGE.PURCHASE_MONEY_ERROR_MINIMUN}`
-    );
-  });
-
-  test('천 단위로 나눠 떨어지지 않는 금액에 대해 PURCHASE_MONEY_ERROR_DEVIDE 에러를 발생시킨다', () => {
-    expect(() => makeInputToPurchaseMoneyNumber('1001')).toThrow(
-      `[ERROR] ${ERROR_MESSAGE.PURCHASE_MONEY_ERROR_DEVIDE}`
-    );
-    expect(() => makeInputToPurchaseMoneyNumber('500')).toThrow(
-      `[ERROR] ${ERROR_MESSAGE.PURCHASE_MONEY_ERROR_DEVIDE}`
+  test.each([
+    ['1001', ERROR_MESSAGE.PURCHASE_MONEY_ERROR_DEVIDE],
+    ['500', ERROR_MESSAGE.PURCHASE_MONEY_ERROR_DEVIDE],
+    ['1.2000', ERROR_MESSAGE.PURCHASE_MONEY_ERROR_DEVIDE],
+  ])('금액이 %s일 경우, %s 에러를 발생시킨다', (input, expectedError) => {
+    expect(() => makeInputToPurchaseMoneyNumber(input)).toThrow(
+      `[ERROR] ${expectedError}`
     );
   });
 
-  test('정상적인 입력이 들어오면 금액을 반환한다', () => {
-    const result = makeInputToPurchaseMoneyNumber('1000');
-    expect(result).toBe(1000);
-  });
-
-  test('천 단위로 구분된 숫자를 입력하면 금액을 반환한다', () => {
-    const result = makeInputToPurchaseMoneyNumber('1,000');
-    expect(result).toBe(1000);
+  test.each([
+    ['1000', 1000],
+    ['1,000', 1000],
+  ])('입력이 %s일 경우, %i를 반환한다', (input, expectedValue) => {
+    const result = makeInputToPurchaseMoneyNumber(input);
+    expect(result).toBe(expectedValue);
   });
 });
