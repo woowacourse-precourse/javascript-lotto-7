@@ -2,6 +2,7 @@ import { InputPriceModel } from "../model/inputPriceModel.js";
 import { OutputLottoNumbers } from "../model/OutputLottoModel.js";
 import { InputPrizeNumModel } from "../model/InputPrizeNumModel.js";
 import { InputBonusNumModel } from "../model/InputBonusNumModel.js";
+import { OutputStatisticsModel } from "../model/OutputStatisticsModel.js";
 
 export class LottoController {
   constructor() {
@@ -9,13 +10,15 @@ export class LottoController {
     this.outputLottoNumbers = new OutputLottoNumbers();
     this.inputPrizeNumModel = new InputPrizeNumModel();
     this.inputBonusNumModel = new InputBonusNumModel();
+    this.outputStatisticsModel = new OutputStatisticsModel();
   }
 
   async startLottoGame() {
     const price = await this.getPriceResult();
-    this.getLottoNumberResult(price);
-    await this.getPrizeNumbersResult();
-    await this.getBonusNumberResult();
+    const randomNumbers = this.getLottoNumberResult(price);
+    const prizeNumbers = await this.getPrizeNumbersResult();
+    const bonusNumber = await this.getBonusNumberResult();
+    this.getLottoStatistics(price, randomNumbers, prizeNumbers, bonusNumber);
   }
 
   async getPriceResult() {
@@ -32,5 +35,14 @@ export class LottoController {
 
   async getBonusNumberResult() {
     return await this.inputBonusNumModel.getBonusNumber();
+  }
+
+  getLottoStatistics(price, randomNumbers, prizeNumbers, bonusNumber) {
+    return this.outputStatisticsModel.getPrizeStatistics(
+      price,
+      randomNumbers,
+      prizeNumbers,
+      bonusNumber
+    );
   }
 }
