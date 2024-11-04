@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { CONSOLE_MESSAGES } from './constants/message.js';
-import { SPLITTER } from './constants/validate.js';
+import { SPLITTER } from './constants/utils.js';
 
 class InputHandler {
   static async getPurchasePrice() {

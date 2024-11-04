@@ -6,7 +6,7 @@ import {
   VALID_LOWEST_NUM,
   VALID_LOTTERY_NUM,
   MAX_LIMIT
-} from './constants/validate.js';
+} from './constants/utils.js';
 
 class LottoGame {
   #purchasePrice;

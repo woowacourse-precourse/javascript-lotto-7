@@ -1,4 +1,4 @@
-import { VALID_LOTTERY_NUM } from "./constants/validate.js";
+import { VALID_LOTTERY_NUM } from "./constants/utils.js";
 
 class Lotto {
   #numbers;
