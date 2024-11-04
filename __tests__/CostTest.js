@@ -10,7 +10,7 @@ describe('로또 구매 가격 입력값 예외 테스트', () => {
 
   test('사용자가 입력한 금액이 1,000원 단위가 아니면 예외가 발생한다.', () => {
     expect(() => {
-      ValidateCost.checkCost(12345);
+      ValidateCost.checkCost(1001);
     }).toThrow(ERROR.COST_UNIT);
   });
 
