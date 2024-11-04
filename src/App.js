@@ -15,7 +15,13 @@ class App {
       const bonusNumber = await this.promptBonusNumber(winningNumbers);
       MissionUtils.Console.print(`보너스 번호: ${bonusNumber}`);
 
-      this.calculateStatistics(lottoNumbers, winningNumbers, bonusNumber);
+      const totalPrize = this.calculateStatistics(
+        lottoNumbers,
+        winningNumbers,
+        bonusNumber
+      );
+
+      this.calculateProfitRate(purchaseAmount, totalPrize);
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
@@ -105,18 +111,25 @@ class App {
 
   calculateStatistics(lottoNumbers, winningNumbers, bonusNumber) {
     const prizeArray = [
-      { match: 3, text: "3개 일치 (5,000원)", key: "3" },
-      { match: 4, text: "4개 일치 (50,000원)", key: "4" },
-      { match: 5, text: "5개 일치 (1,500,000원)", key: "5" },
+      { match: 3, text: "3개 일치 (5,000원)", key: "3", prize: 5000 },
+      { match: 4, text: "4개 일치 (50,000원)", key: "4", prize: 50000 },
+      { match: 5, text: "5개 일치 (1,500,000원)", key: "5", prize: 1500000 },
       {
         match: "5_bonus",
         text: "5개 일치, 보너스 볼 일치 (30,000,000원)",
         key: "5_bonus",
+        prize: 30000000,
       },
-      { match: 6, text: "6개 일치 (2,000,000,000원)", key: "6" },
+      {
+        match: 6,
+        text: "6개 일치 (2,000,000,000원)",
+        key: "6",
+        prize: 2000000000,
+      },
     ];
 
     const winCounts = { 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
+    let totalPrize = 0;
 
     lottoNumbers.forEach((lotto) => {
       const matchCount = lotto.filter((num) =>
@@ -126,8 +139,12 @@ class App {
 
       if (matchCount === 5 && bonusMatch) {
         winCounts["5_bonus"]++;
+        totalPrize += 30000000;
       } else if (matchCount >= 3) {
         winCounts[matchCount]++;
+        totalPrize += prizeArray.find(
+          (prize) => prize.key === String(matchCount)
+        ).prize;
       }
     });
 
@@ -135,6 +152,13 @@ class App {
     prizeArray.forEach(({ key, text }) => {
       MissionUtils.Console.print(`${text} - ${winCounts[key]}개`);
     });
+
+    return totalPrize;
+  }
+
+  calculateProfitRate(purchaseAmount, totalPrize) {
+    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
