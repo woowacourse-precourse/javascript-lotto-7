@@ -60,7 +60,8 @@ class App {
   }
 
   displayResults(statisticsResult, ticketCount) {
-    this.finishLotto(statisticsResult, ticketCount);
+    const results = this.finishLotto(statisticsResult, ticketCount);
+    this.showProfitRate(...results);
   }
 
   startLotto(lotteries, users, bonus) {
@@ -101,7 +102,7 @@ class App {
       }
       printResult(result);
     });
-    this.showProfitRate(results, tickets);
+    return [results, tickets];
   }
 
   showProfitRate(result, tickets) {
