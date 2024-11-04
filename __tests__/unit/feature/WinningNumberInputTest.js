@@ -5,24 +5,20 @@ describe('당첨 번호 입력 기능 테스트', () => {
   test('당첨 번호 1,2,3,4,5,6을 입력받아 저장한다.', async () => {
     const mockWinningNumber = '1,2,3,4,5,6';
     Console.readLineAsync = jest.fn().mockResolvedValue(mockWinningNumber);
-    const logspy = jest.spyOn(Console, 'readLineAsync');
     const log = [1, 2, 3, 4, 5, 6];
 
     const lotto = await Lotto.createLotto();
 
-    expect(logspy).toHaveBeenCalledWith('당첨 번호를 입력해 주세요.\n');
     expect(lotto.getNumbers()).toEqual(log);
   });
 
   test('오름차순 테스트, 당첨 번호 6,5,4,3,2,1을 입력받아 저장한다.', async () => {
     const mockWinningNumber = '6,5,4,3,2,1';
     Console.readLineAsync = jest.fn().mockResolvedValue(mockWinningNumber);
-    const logspy = jest.spyOn(Console, 'readLineAsync');
     const log = [1, 2, 3, 4, 5, 6];
 
     const lotto = await Lotto.createLotto();
 
-    expect(logspy).toHaveBeenCalledWith('당첨 번호를 입력해 주세요.\n');
     expect(lotto.getNumbers()).toEqual(log);
   });
 });

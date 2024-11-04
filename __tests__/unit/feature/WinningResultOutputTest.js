@@ -1,8 +1,7 @@
-import { Console } from '@woowacourse/mission-utils';
 import LottoController from '../../../src/components/LottoController.js';
 
 describe('당첨 결과 출력 기능 테스트', () => {
-  test('당첨 결과 출력 테스트', () => {
+  test('당첨 결과 일치 테스트', () => {
     const mockWinningResult = {
       3: 1,
       4: 2,
@@ -10,7 +9,7 @@ describe('당첨 결과 출력 기능 테스트', () => {
       '5B': 4,
       6: 5,
     };
-    const logSpy = jest.spyOn(Console, 'print');
+
     const logs = [
       '당첨 통계',
       '---',
@@ -22,10 +21,9 @@ describe('당첨 결과 출력 기능 테스트', () => {
     ];
 
     const lottoController = new LottoController();
-    lottoController.displayHandler.printLottoWinningResult(mockWinningResult);
+    const winningResultMessage =
+      lottoController.displayHandler.getWinningResultMessage(mockWinningResult);
 
-    logs.forEach((log) => {
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
-    });
+    expect(winningResultMessage).toEqual(logs);
   });
 });
