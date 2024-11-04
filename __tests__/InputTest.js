@@ -6,7 +6,7 @@ describe("입력받은 값 처리 테스트", () => {
   test("구매 금액이 문자열이면 예외 발생", () => {
     expect(() => {
       const app = new App();
-      app.checkMoney("abc");
+      app.checkMoney(Number("abc"));
     }).toThrow("[ERROR]");
 
   })
