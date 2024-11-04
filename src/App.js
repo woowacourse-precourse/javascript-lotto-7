@@ -192,6 +192,12 @@ class App {
     return roundedRate;
   }
 
+  async getStatistic(money, statistic, bonusNumber) {
+    MissionUtils.Console.print("\n당첨 통계\n---");
+    const rate = await this.getPrizeAmount(money, statistic, bonusNumber);
+    MissionUtils.Console.print(`총 수익률은 ${rate}%입니다.`);
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
@@ -204,6 +210,7 @@ class App {
       const bonusNumber = await this.inputBonus(winningLotto);
 
       const statistic = this.checkLottos(lottos, winningLotto.getNumbers());
+      await this.getStatistic(money, statistic, bonusNumber);
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
