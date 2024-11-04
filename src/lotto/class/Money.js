@@ -76,7 +76,7 @@ class Money {
       LottoIO.throwError("로또의 금액과 가격은 숫자로 입력해 주세요.");
     }
 
-    if (money < 0 || price < 0) {
+    if (money <= 0 || price <= 0) {
       LottoIO.throwError("로또의 금액과 가격은 양수입니다.");
     }
   }
