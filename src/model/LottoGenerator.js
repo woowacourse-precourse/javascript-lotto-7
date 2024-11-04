@@ -1,5 +1,4 @@
 import { Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
 
 class LottoGenerator {
   constructor() {
@@ -12,7 +11,6 @@ class LottoGenerator {
         (a, b) => a - b
       );
       this.lottos.push(numbers);
-      console.log(this.lottos);
     }
   }
 
