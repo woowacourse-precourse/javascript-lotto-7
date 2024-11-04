@@ -3,12 +3,12 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 export class LottoMarket {
   makeLottoNumbers() {
-    const numbers = new Set();
-    while (numbers.size < LOTTO.NUMBERS_COUNT) {
-      const number = MissionUtils.Random.pickNumberInRange(LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER);
-      numbers.add(number);
-    }
-    return Array.from(numbers).sort((a, b) => a - b);
+    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO.MIN_NUMBER,
+      LOTTO.MAX_NUMBER,
+      LOTTO.NUMBERS_COUNT
+    );
+    return numbers.sort((a, b) => a - b);
   }
 
   userLottoNumbers(count) {
