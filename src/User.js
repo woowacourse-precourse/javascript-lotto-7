@@ -26,6 +26,10 @@ class User {
     }
   }
 
+  get purchaseAmount() {
+    return this.#purchaseAmount;
+  }
+
   get purchaseCount() {
     return this.#purchaseAmount / LOTTO.PRICE;
   }

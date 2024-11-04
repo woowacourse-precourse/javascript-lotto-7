@@ -7,6 +7,7 @@ export const PROMPT_MESSAGE = Object.freeze({
 export const OUTPUT_MESSAGE = Object.freeze({
   PURCHASE_COUNT: '개를 구매했습니다.',
   RESULT_STATISTICS: '당첨 통계\n---',
+  TOTAL_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 });
 
 export const LOTTO = Object.freeze({

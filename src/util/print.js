@@ -21,4 +21,9 @@ function winningStatistics() {
   });
 }
 
-export default { lottoList, winningStatistics };
+function profitRate(purchaseAmount, totalProfit) {
+  const fixedRate = ((totalProfit / purchaseAmount) * 100).toFixed(2);
+  Console.print(OUTPUT_MESSAGE.TOTAL_PROFIT_RATE(Number(fixedRate)));
+}
+
+export default { lottoList, winningStatistics, profitRate };
