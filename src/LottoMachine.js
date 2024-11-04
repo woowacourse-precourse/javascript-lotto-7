@@ -41,12 +41,17 @@ class LottoMachine {
     });
   }
 
+  #calculateProfitRate() {
+    const investAmount = this.#amount * LOTTO_RULE.PRICE;
+    const profitAmount = this.#winningCount.calculateProfit();
+    return ((profitAmount / investAmount) * 100).toFixed(1);
+  }
+
   getLottoResultString() {
     const winningCountString = this.#winningCount.getWinningRankCountString();
 
-    const investAmount = this.#amount * LOTTO_RULE.PRICE;
-    const profitAmount = this.#winningCount.calculateProfit();
-    const profitRateString = `\n총 수익률은 ${((profitAmount / investAmount) * 100).toFixed(1)}%입니다.`;
+    const profitRate = this.#calculateProfitRate();
+    const profitRateString = `\n총 수익률은 ${profitRate}%입니다.`;
 
     return winningCountString + profitRateString;
   }
