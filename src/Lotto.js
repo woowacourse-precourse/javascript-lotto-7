@@ -1,3 +1,5 @@
+import Errors from "./constants";
+
 class Lotto {
   #numbers;
 
@@ -8,21 +10,19 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(Errors.lotto.NOT_SIX_NUMBER);
     }
 
-    const setNumbers = new Set(numbers);
-
-    if (numbers.length !== setNumbers.size) {
-      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
+    if (numbers.length !== new Set(numbers).size) {
+      throw new Error(Errors.lotto.NOT_UNIQUE_NUMBER);
     }
 
     if (numbers.some((number) => number < 1 || number > 45)) {
-      throw new Error("[ERROR] 로또 번호가 1과 45 사이의 범위여야 합니다.");
+      throw new Error(Errors.lotto.NOT_VALID_RANGE);
     }
 
     if (numbers.some((number) => isNaN(number))) {
-      throw new Error("[ERROR] 로또 번호가 숫자여야 합니다.");
+      throw new Error(Errors.lotto.NOT_NUMBER);
     }
   }
 
