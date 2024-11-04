@@ -1,3 +1,4 @@
+import { Console } from "@woowacourse/mission-utils";
 import Lottery from "../Lottery/Lottery.js";
 import { ERROR_INPUT_MONEY_NAN, ERROR_INPUT_MONEY_THOUSAND } from "../Util/ErrosMessages.js";
 
@@ -42,11 +43,13 @@ class Slot{
 
     #validateInteger(money){
         if(isNaN(money)){
+            Console.print(ERROR_INPUT_MONEY_NAN)
             throw new Error(ERROR_INPUT_MONEY_NAN)
         }
     }
     #validateThousand(money){
         if(Number(money) % 1000 !== 0){
+            Console.print(ERROR_INPUT_MONEY_THOUSAND)
             throw new Error(ERROR_INPUT_MONEY_THOUSAND);
         }
     }
