@@ -31,7 +31,7 @@ class Lotto {
 
   // 구매한 로또 개수를 출력
   printTicketCount() {
-    Console.print(`${this.ticketCount}개를 구매했습니다.`);
+    Console.print(`\n${this.ticketCount}개를 구매했습니다.`);
   }
 }
 
