@@ -31,6 +31,12 @@ const BONUS_MESSAGE={
     INPUT_BONUS_NUMBER:'\n보너스 번호를 입력해 주세요.\n',
 }
 
+const BONUS_ERROR_MESSAGE={
+    OUT_OF_RANGE: `${ERROR_PREFIX} 보너스 번호는 ${MIN_LOTTO_NUMBER}과 ${MAX_LOTTO_NUMBER} 사이의 숫자여야 합니다.`,
+    IS_NOT_NUMBER: `${ERROR_PREFIX} 보너스 번호는 숫자만 입력 가능합니다.`,
+    IS_EMPTY: `${ERROR_PREFIX} 보너스 번호는 빈 값일 수 없습니다.`
+}
+
 export {PURCHASE_MESSAGE, 
     PURCHASE_ERROR_MESSAGE, 
     LOTTO_MESSAGE, 
@@ -39,5 +45,6 @@ export {PURCHASE_MESSAGE,
     MIN_LOTTO_NUMBER,
     MAX_LOTTO_NUMBER,
     LOTTO_COUNT,
-    BONUS_MESSAGE
+    BONUS_MESSAGE,
+    BONUS_ERROR_MESSAGE
 }
