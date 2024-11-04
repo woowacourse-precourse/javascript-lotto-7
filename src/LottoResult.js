@@ -21,12 +21,18 @@ class LottoResult {
     };
   }
 
+  #validate(numbers) {
+    validateNumbersLength(numbers);
+    validateDuplicatelottoNumber(numbers);
+
+    numbers.forEach((number) => validateNumberRange(number));
+  }
+
   async #getLottoWinningNumbers() {
     const input = await Console.readLineAsync(INPUT_MESSAGES.matchNumberInput);
     try {
       const numbers = input.split(',');
-      validateNumbersLength(numbers);
-      validateDuplicatelottoNumber(numbers);
+      this.#validate(numbers);
       return input;
     } catch (error) {
       Console.print(error.message);
