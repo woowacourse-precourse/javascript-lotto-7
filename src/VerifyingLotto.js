@@ -8,7 +8,7 @@ class VerifyingLotto {
     SECOND: 0,
     THIRD: 0,
     FOURTH: 0,
-    FIFTH: 0,
+    FIFTH: 0
   };
 
   getWinningHistory() {
@@ -23,11 +23,11 @@ class VerifyingLotto {
     }
   }
 
-  #matchBonusNumber(bonusNumber, number) {
-    if(bonusNumber === number) {
-      return true;
+  #matchBonusNumber(bonusNumber, numbers) {
+    if(numbers.includes(bonusNumber)) {
+      this.#isMatchBonusNumber = true;
     } else {
-      return false;
+      this.#isMatchBonusNumber = false;
     }
   }
 
@@ -35,8 +35,10 @@ class VerifyingLotto {
     let matchCount = 0;
     numbers.forEach((number) => {
       matchCount += this.#matchNumber(winningNumbers, number);
-      this.#isMatchBonusNumber = this.#matchBonusNumber(bonusNumber, number);
     });
+    
+    this.#matchBonusNumber(bonusNumber, numbers);
+
     return matchCount;
   }
 
