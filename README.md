@@ -69,9 +69,9 @@
 
   * [x] 총 수익금을 계산하는 기능
 
-- [ ] **Opportunity Domain**
+- [x] **Opportunity Domain**
 
-  * [ ] 구입 금액에 총 수익금을 나누어 수익률을 계산하는 기능
+  * [x] 구입 금액에 총 수익금을 나누어 수익률을 계산하는 기능
 
 ### Application Layer
 
