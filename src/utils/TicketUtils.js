@@ -9,7 +9,7 @@ export function generateTickets(ticketCount) {
     let ticket = Random.pickUniqueNumbersInRange(1, 45, 6);
     ticket = ticket.sort((a, b) => a - b);
     const lotto = new Lotto(ticket);
-    tickets.push(lotto.getNumbers());
+    tickets.push(lotto);
   }
 
   return tickets;

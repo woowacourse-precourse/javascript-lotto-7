@@ -11,7 +11,7 @@ class App {
 
       const tickets = generateTickets(ticketCount);
       tickets.forEach(ticket => {
-        Console.print(`[${ticket.join(", ")}]`);
+        Console.print(`[${ticket.getNumbers().join(", ")}]`);
       });
 
       const winningNumbers = await getWinningNumbers();

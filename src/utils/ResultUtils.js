@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import Lotto from "../Lotto.js";
 
 // 당첨 번호가 일치한 수를 카운트
 export function countPrizeResults(tickets, winningNumbers, bonusNumber) {
@@ -10,14 +11,16 @@ export function countPrizeResults(tickets, winningNumbers, bonusNumber) {
     '6': 0
   }
 
-  tickets.forEach(ticket => updatePrizeResults(ticket, winningNumbers, bonusNumber, prizeResults));
+  const winningLotto = new Lotto(winningNumbers); // 사용자가 입력한 6개 숫자
+
+  tickets.forEach(ticket => updatePrizeResults(ticket, winningLotto.getNumbers(), bonusNumber, prizeResults));
 
   return prizeResults;
 }
 
 function updatePrizeResults(ticket, winningNumbers, bonusNumber, prizeResults) {
-  const matchCount = ticket.filter(num => winningNumbers.includes(num)).length;
-  const hasBonus = ticket.includes(bonusNumber);
+  const matchCount = ticket.matchCount(winningNumbers);
+  const hasBonus = ticket.hasBonusNumber(bonusNumber);
 
   if (matchCount == 6) {
     prizeResults['6']++;

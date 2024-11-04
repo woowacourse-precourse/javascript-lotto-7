@@ -1,6 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { validateBudget, validateBounsNumber } from "./Validator.js";
-import Lotto from "../Lotto.js";
+import { validateBudget, validateBounsNumber, validateWinningNumbers } from "./Validator.js";
 
 // 구입금액 입력받는 함수
 export async function getTicketCount() {
@@ -21,7 +20,7 @@ export async function getWinningNumbers() {
   );
   const winningNumbers = winningNumbersInput.split(",").map(Number);
 
-  new Lotto(winningNumbers);
+  validateWinningNumbers(winningNumbers);
 
   return winningNumbers;
 }
