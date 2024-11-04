@@ -20,3 +20,7 @@ export const winningStatsOutput = (calculateYield) => {
     })
     Console.print(`총 수익률은 ${calculateYield}%입니다.`)
 }
+
+export const errorOutput = (message) => {
+    Console.print(message)
+}
