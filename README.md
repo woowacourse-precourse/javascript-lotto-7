@@ -163,8 +163,8 @@
 2. UserLotto 클래스 구현
 
 - 사용자 구입 금액에 따라 로또 티켓 생성 기능 구현
-  - [ ] `generateUserLottos(amount)` - 구입 금액에 따라 로또 티켓을 생성
-  - [ ] `getUserLottos()` - 생성된 로또 티켓 배열을 반환
+  - [O] `generateUserLottos(amount)` - 구입 금액에 따라 로또 티켓을 생성
+  - [O] `getUserLottos()` - 생성된 로또 티켓 배열을 반환
 
 3. Lotto 클래스 구현
 

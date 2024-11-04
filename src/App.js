@@ -1,9 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 import Parser from "./Parser.js";
+import UserLotto from "./UserLotto.js";
 
 class App {
   constructor() {
     this.parser = new Parser();
+    this.userLotto = new UserLotto();
   }
 
   async run() {
@@ -11,6 +13,16 @@ class App {
       "구입금액을 입력해 주세요.\n"
     );
     const purchaseAmount = this.parser.parsePurchaseAmount(purchaseAmountInput);
+
+    // 로또 티켓 생성
+    Console.print(``);
+    this.userLotto.generateUserLottos(purchaseAmount);
+    const userLottos = this.userLotto.getUserLottos();
+    Console.print(`${userLottos.length}개를 구매했습니다.`);
+    for (let i = 0; i < userLottos.length; i++) {
+      const ticket = userLottos[i];
+      Console.print("[" + ticket.join(", ") + "]");
+    }
 
     const winningNumbersInput = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
@@ -21,10 +33,6 @@ class App {
       "\n보너스 번호를 입력해 주세요.\n"
     );
     const bonusNumber = this.parser.parseBonusNumber(bonusNumberInput);
-
-    Console.print(`구입 금액: ${purchaseAmount}`);
-    Console.print(`당첨 번호: ${winningNumbers}`);
-    Console.print(`보너스 번호: ${bonusNumber}`);
   }
 }
 
