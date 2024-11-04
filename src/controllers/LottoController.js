@@ -3,7 +3,7 @@ import Lotto from "../models/Lotto.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
 import InputValidator from "../validators/InputValidator.js";
-import { WINNING_CRITERIA } from "../constants/Constants.js";
+import { WINNING_CRITERIA, THOUSAND_UNIT, HUNDRED_PERCENT, MINIMUM_INDEX, PICK_AMOUNT, RANK_INDEX } from "../constants/Constants.js";
 
 class LottoController {
     constructor() {
@@ -38,7 +38,7 @@ class LottoController {
     }
 
     getLottoCount(inputAmount) {
-        return inputAmount / 1000;
+        return inputAmount / THOUSAND_UNIT;
     }
 
     getGeneratedLottos(lottoCount) {
@@ -69,7 +69,7 @@ class LottoController {
     }
 
     async getWinningRecord(lottos, inputWinningNumbers, inputBonusNumber) {
-        let winningRecord = [0, 0, 0, 0, 0, 0];
+        let winningRecord = Array(PICK_AMOUNT).fill(0);
         lottos.forEach((lotto) => {
             winningRecord[lotto.convertRank(inputWinningNumbers, inputBonusNumber)]++;
         });
@@ -77,7 +77,7 @@ class LottoController {
     }
 
     async getResult(winningCriteria, winningRecord) {
-        for (let i = 5; i >= 1; i--) {
+        for (let i = RANK_INDEX; i >= MINIMUM_INDEX; i--) {
             const { message } = winningCriteria[i];
             this.outputView.outputResult(message, winningRecord[i]);
         }
@@ -85,11 +85,11 @@ class LottoController {
 
     async getProfitRate(winningRecord, inputAmount) {
         let profitRate = 0;
-        for (let i = 5; i >= 1; i--) {
+        for (let i = RANK_INDEX; i >= MINIMUM_INDEX; i--) {
             profitRate += winningRecord[i] * WINNING_CRITERIA[i].price;
         }
 
-        return (profitRate / inputAmount) * 100;
+        return (profitRate / inputAmount) * HUNDRED_PERCENT;
     }
 }
 
