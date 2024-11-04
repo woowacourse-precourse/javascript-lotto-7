@@ -12,9 +12,21 @@ class Lotto {
     }
   }
   bonusErrorCheck(bonusNumber) {
-    if (bonusNumber in this.#numbers) {
+    if (this.#numbers.includes(bonusNumber)) {
       throw new Error("[ERROR] 보너스 번호는 로또 번호와 달라야 합니다.");
     }
+  }
+  equalWinning(lotto) {
+    let count = 0;
+    this.#numbers.forEach((number) => {
+      if (lotto.equalCheck(number)) {
+        count += 1;
+      }
+    });
+    return count;
+  }
+  equalCheck(inputNumber) {
+    return this.#numbers.some((number) => number == inputNumber);
   }
 
   // TODO: 추가 기능 구현

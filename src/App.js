@@ -10,6 +10,7 @@ import {
   makeLottos,
   makeWinningLotto,
   buyCountErrorCheck,
+  calculateLottos,
 } from "./Function.js";
 
 class App {
@@ -26,12 +27,14 @@ class App {
     const winningLottoString = await MissionUtils.Console.readLineAsync(
       ENTER + WINNING_LOTTO_STRING + ENTER
     );
-    const winningLotto = makeWinningLotto(winningLottoString);
 
+    const winningLotto = makeWinningLotto(winningLottoString);
     const bonusNumber = await MissionUtils.Console.readLineAsync(
       ENTER + BONUS_NUMBER_STRING + ENTER
     );
     winningLotto.bonusErrorCheck(bonusNumber);
+
+    const equalCounts = calculateLottos(lottos, winningLotto, bonusNumber);
   }
 }
 
