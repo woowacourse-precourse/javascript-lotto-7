@@ -1,5 +1,5 @@
 import Lotto from '../Lotto.js';
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 export default class LottoGame {
   constructor() {
@@ -82,18 +82,9 @@ export default class LottoGame {
 
   #generateLottos(count) {
     for (let i = 0; i < count; i++) {
-      const lottoNumbers = this.#generateLottoNumbers();
+      const lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       this.lottos.push(new Lotto(lottoNumbers));
     }
-  }
-
-  #generateLottoNumbers() {
-    const numbers = new Set();
-    while (numbers.size < 6) {
-      const number = Math.floor(Math.random() * 45) + 1;
-      numbers.add(number);
-    }
-    return Array.from(numbers).sort((a, b) => a - b);
   }
 
   #validateWinningNumbers(winningNumbers, bonusNumber) {

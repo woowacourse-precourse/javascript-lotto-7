@@ -1,22 +1,9 @@
 class Lotto {
   #numbers;
 
-  constructor(numbers = null) {
-    if (!numbers) {
-      this.#numbers = this.generateNumbers();
-    } else {
-      this.#validate(numbers);
-      this.#numbers = numbers;
-    }
-  }
-
-  generateNumbers() {
-    const numbers = new Set();
-    while (numbers.size < 6) {
-      const number = Math.floor(Math.random() * 45) + 1;
-      numbers.add(number);
-    }
-    return Array.from(numbers).sort((a, b) => a - b);
+  constructor(numbers) {
+    this.#validate(numbers);
+    this.#numbers = numbers;
   }
 
   #validate(numbers) {
