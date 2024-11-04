@@ -28,6 +28,9 @@ class Inputs {
     }
 
     #check_count_input(numbers) {
+        if (!Array.isArray(numbers) || numbers === undefined) {
+            throw new Error("[ERROR] 입력값은 배열이어야 합니다.");
+        }
         if (numbers.length !== make_random_number_constant) {
             throw new Error(input_error_length_not_6);
         }
