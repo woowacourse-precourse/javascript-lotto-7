@@ -1,4 +1,5 @@
 import Opportunity from "../../domain/Opportunity/Opportunity.js";
+import retry from "../utils/retry.js";
 
 class PurchaseCommand {
   #inputPort;
@@ -18,13 +19,17 @@ class PurchaseCommand {
   }
 
   async handleCost() {
-    const cost = Number(await this.#inputPort.readCost());
-    this.#validator.validate(cost);
-    const opportunity = new Opportunity(cost);
-    this.#outputPort.displayNewLine();
-    this.#outputPort.displayCount(opportunity.count);
+    const processCostFlow = async() => {
+      const cost = Number(await this.#inputPort.readCost());
+      this.#validator.validate(cost);
+      const opportunity = new Opportunity(cost);
+      this.#outputPort.displayNewLine();
+      this.#outputPort.displayCount(opportunity.count);
 
-    return opportunity;
+      return opportunity;
+    };
+
+    return retry(processCostFlow);
   }
 }
 
