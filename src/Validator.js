@@ -27,9 +27,7 @@ export class Validator {
 
   static #validateWinNumberCount(numbers) {
     if (numbers.length !== LOTTERY_NUMBER_COUNT) {
-      throw new Error(
-        `[ERROR] 당첨 번호는 ${LOTTERY_NUMBER_COUNT}개여야 합니다.`
-      );
+      throw new Error(`[ERROR] 당첨 번호는 ${LOTTERY_NUMBER_COUNT}개여야 합니다.`);
     }
   }
 

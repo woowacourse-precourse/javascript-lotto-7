@@ -17,9 +17,7 @@ export class InputManager {
   }
 
   static async readBonusNumber(winningNumbers) {
-    const input = await Console.readLineAsync(
-      `\n보너스 번호를 입력해 주세요\n`
-    );
+    const input = await Console.readLineAsync(`\n보너스 번호를 입력해 주세요\n`);
     const bonus = this.#parseNumber(input);
     Validator.isValidBonusNumber(bonus, winningNumbers);
     return bonus;

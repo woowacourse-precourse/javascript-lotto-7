@@ -21,9 +21,7 @@ class Lotto {
   }
 
   matchLottoNumbers(winningNumbers, bonus) {
-    let matchCount = winningNumbers.filter((num) =>
-      this.#numbers.includes(num)
-    ).length;
+    let matchCount = winningNumbers.filter((num) => this.#numbers.includes(num)).length;
     let hasBonus = this.#numbers.includes(bonus);
 
     return { matchCount, hasBonus };
