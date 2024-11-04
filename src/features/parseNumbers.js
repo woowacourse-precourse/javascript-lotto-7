@@ -7,7 +7,7 @@ export const parseNumbers = (strings) => {
   }
   const result = [];
   const numbers = strings.split(DELIMITER);
-  if (numbers.length <= 1) {
+  if (numbers.length !== 6) {
     throw new Error(ERROR.NOT_NUMBER);
   }
 
