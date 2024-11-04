@@ -53,4 +53,39 @@ describe('Lotto 클래스 테스트', () => {
       });
     });
   });
+
+  describe('calculateRank 메서드', () => {
+    const winningLotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    const bonusNumber = 7;
+
+    test('1등 당첨 여부를 계산하는지 테스트', () => {
+      const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+      expect(lotto.calculateRank(winningLotto, bonusNumber)).toBe('first');
+    });
+
+    test('2등 당첨 여부를 계산하는지 테스트', () => {
+      const lotto = new Lotto([1, 2, 3, 4, 5, 7]);
+      expect(lotto.calculateRank(winningLotto, bonusNumber)).toBe('second');
+    });
+
+    test('3등 당첨 여부를 계산하는지 테스트', () => {
+      const lotto = new Lotto([1, 2, 3, 4, 5, 8]);
+      expect(lotto.calculateRank(winningLotto, bonusNumber)).toBe('third');
+    });
+
+    test('4등 당첨 여부를 계산하는지 테스트', () => {
+      const lotto = new Lotto([1, 2, 3, 4, 8, 9]);
+      expect(lotto.calculateRank(winningLotto, bonusNumber)).toBe('fourth');
+    });
+
+    test('5등 당첨 여부를 계산하는지 테스트', () => {
+      const lotto = new Lotto([1, 2, 3, 8, 9, 10]);
+      expect(lotto.calculateRank(winningLotto, bonusNumber)).toBe('fifth');
+    });
+
+    test('낙첨 여부를 계산하는지 테스트', () => {
+      const lotto = new Lotto([8, 9, 10, 11, 12, 13]);
+      expect(lotto.calculateRank(winningLotto, bonusNumber)).toBeUndefined();
+    });
+  });
 });
