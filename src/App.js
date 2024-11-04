@@ -34,9 +34,7 @@ class App {
 
   generateLottos(count) {
     for (let i = 0; i < count; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-        (a, b) => a - b
-      );
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       this.lottos.push(new Lotto(numbers));
     }
   }
