@@ -104,7 +104,7 @@ class GenerateNumbers {
 
   calculateReturn(bills) {
     const totalPrice = bills * 1000;
-    const profit = this.totalPrizeMoney / totalPrice;
+    const profit = (this.totalPrizeMoney / totalPrice) * 100;
     // console.log(this.totalPrizeMoney);
     // console.log(totalPrice);
     return profit;
