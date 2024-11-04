@@ -1,31 +1,40 @@
-import OutputHandler from './view/OuputHandler.js';
-import LottoResult from './model/LottoResult.js';
-import LottoGenerator from './model/LottoGenerator.js';
-import InputValidator from './controller/InputValidator.js';
 import InputHandler from './view/InputHandler.js';
+import OutputHandler from './view/OuputHandler.js';
+import InputValidator from './controller/InputValidator.js';
+import LottoGenerator from './model/LottoGenerator.js';
+import LottoResult from './model/LottoResult.js';
 
 class App {
+  constructor() {
+    this.output = new OutputHandler();
+    this.input = new InputHandler();
+  }
+
   async run() {
-    const print = new OutputHandler();
-    const input = new InputHandler();
-
-    const ticketCount = await InputValidator.promptForMoney(input);
+    const ticketCount = await InputValidator.promptForMoney(this.input);
     const lottos = LottoGenerator.generateMultipleLottos(ticketCount);
-    print.printLottos(ticketCount, lottos);
+    this.output.printLottos(ticketCount, lottos);
 
-    const winningNumbers = await InputValidator.promptForWinningNumbers(input);
+    const winningNumbers = await InputValidator.promptForWinningNumbers(
+      this.input,
+    );
     const bonusNumber = await InputValidator.promptForBonusNumber(
-      input,
+      this.input,
       winningNumbers,
     );
+
     const lottoResult = new LottoResult(
       winningNumbers,
       bonusNumber,
       ticketCount,
       lottos,
     );
-    print.printResult(lottoResult.calculateResults());
-    print.printProfit(lottoResult.calculateProfitRate());
+    this.displayResults(lottoResult);
+  }
+
+  displayResults(lottoResult) {
+    this.output.printResult(lottoResult.calculateResults());
+    this.output.printProfit(lottoResult.calculateProfitRate());
   }
 }
 
