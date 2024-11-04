@@ -20,30 +20,29 @@ const LottoMachine = {
   async askPayment() {
     try {
       const input = await MissionUtils.Console.readLineAsync(ASK_PAYMENT_MESSAGE);
-      LottoMachine.isValidPayment(input);
+      this.isValidPayment(input);
       this.quantity = Number(input) / PRICE;
 
     } catch (err) {
       MissionUtils.Console.print(err.message);
-      return await LottoMachine.askPayment();
+      return await this.askPayment();
     }
   },
 
   isValidPayment(input) {
     isInteger(input);
-    if (input < PRICE) throw Error(ERROR_MESSAGE.PAYMENT_IS_UNDER_PRICE);
-    if ((input % PRICE) !== 0) throw Error(ERROR_MESSAGE.PAYMENT_IS_NOT_PRICE_PER_UNIT);
+    if (Number(input) < PRICE) throw Error(ERROR_MESSAGE.PAYMENT_IS_UNDER_PRICE);
+    if ((Number(input) % PRICE) !== 0) throw Error(ERROR_MESSAGE.PAYMENT_IS_NOT_PRICE_PER_UNIT);
   },
 
   async askWinningNumbers() {
     try {
       const input = await MissionUtils.Console.readLineAsync(ASK_WINNING_NUMBERS_MESSAGE);
-      const winningNumbers = this.stringToNumbers(input);
-      this.winningNumbers = new Lotto(winningNumbers)
+      this.winningNumbers = new Lotto(this.stringToNumbers(input))
 
     } catch (err) {
       MissionUtils.Console.print(err.message);
-      return await LottoMachine.askWinningNumbers();
+      return await this.askWinningNumbers();
     }
   },
 
@@ -62,14 +61,14 @@ const LottoMachine = {
 
     } catch (err) {
       MissionUtils.Console.print(err.message);
-      return await LottoMachine.askBonusNumber();
+      return await this.askBonusNumber();
     }
   },
 
   isValidBonusNumber(input) {
     isInteger(input);
     Lotto.isValidNumber(input);
-    if (this.winningNumbers.numbers.includes(Number(input)))
+    if (this.winningNumbers.getNumbers().includes(Number(input)))
       throw Error(ERROR_MESSAGE.NUMBERS_ARE_REPEATED)
   },
 
@@ -83,14 +82,14 @@ const LottoMachine = {
 
   sortLotto() {
     this.lottoList.map(lotto =>
-      lotto.numbers.sort((a, b) => a - b)
+      lotto.getNumbers().sort((a, b) => a - b)
     );
   },
 
   printLotto() {
     MissionUtils.Console.print(`\n${this.quantity}개를 구매했습니다.`);
     this.lottoList.forEach(lotto =>
-      MissionUtils.Console.print(`[${lotto.numbers.join(', ')}]`)
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`)
     );
   },
 
@@ -99,17 +98,17 @@ const LottoMachine = {
       this.countScore(lotto);
     });
     this.countProfit();
-    this.printScore();
+    this.printScoreProfit();
   },
 
   countScore(lotto) {
     // 당첨 번호와 일치하는 로또 번호의 개수
-    const matches = lotto.numbers.filter(number =>
-      this.winningNumbers.numbers.includes(number)
+    const matches = lotto.getNumbers().filter(number =>
+      this.winningNumbers.getNumbers().includes(number)
     ).length;
 
     // 보너스 번호가 당첨 번호에 포함되는지 여부
-    const bonus = lotto.numbers.some((element) =>
+    const bonus = lotto.getNumbers().some((element) =>
       element == this.bonusNumber
     );
     if (matches === 6) return this.score.SIX_MATCHES += 1;
@@ -128,7 +127,7 @@ const LottoMachine = {
     this.profit = profit;
   },
 
-  printScore(score = this.score) {
+  printScoreProfit(score = this.score) {
     const str = `
 당첨 통계
 ---
