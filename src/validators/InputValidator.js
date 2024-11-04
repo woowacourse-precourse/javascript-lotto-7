@@ -7,7 +7,6 @@ class InputValidator {
         isBlank(lottoAmount, ERROR_MESSAGE.IS_BLANK);
 
         lottoAmount = Number(lottoAmount);
-
         isInteger(lottoAmount, ERROR_MESSAGE.NOT_INTEGER);
 
         if (lottoAmount < 0) {
@@ -26,19 +25,8 @@ class InputValidator {
     static isValidWinningNumbers(winningNumbers) {
         isBlank(winningNumbers, ERROR_MESSAGE.IS_BLANK);
 
-        // 콤마 외 다른 구분자 사용
-        if (!REGEX_ONLY_DIGITS_AND_COMMAS.test(winningNumbers)) {
-            throw Error(
-                formatErrorMessage(ERROR_MESSAGE.INVALID_FORMAT)
-            );
-        }
-
-        // 1~45 사이의 정수만 가능
-        if (!REGEX_LOTTO_NUMBERS.test(winningNumbers)) {
-            throw Error(
-                formatErrorMessage(ERROR_MESSAGE.OUT_OF_RANGE)
-            );
-        }
+        validateWithRegex(REGEX_ONLY_DIGITS_AND_COMMAS, winningNumbers, ERROR_MESSAGE.INVALID_FORMAT);  // 콤마 외 다른 구분자 사용
+        validateWithRegex(REGEX_LOTTO_NUMBERS, winningNumbers, ERROR_MESSAGE.OUT_OF_RANGE); // 1~45 사이의 정수만 가능
 
         winningNumbers = winningNumbers.split(",").map(num => Number(num.trim())); // 로또 번호는 항상 6개
         if (winningNumbers.length != 6) {
