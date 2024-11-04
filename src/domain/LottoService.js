@@ -1,7 +1,8 @@
 import Lotto from "./Lotto.js";
 import LottoRepository from "./LottoRepository.js";
 import { LOTTO_RELATED_CONSTANTS } from "../constants/constants.js";
-import { MATCH_REWARD } from "../constants/constants.js";
+import { MATCH } from "../constants/constants.js";
+import { MATCH_RANK } from "../constants/constants.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class LottoService {
@@ -36,33 +37,35 @@ class LottoService {
     return this.#lottoRepository.getLottos();
   }
 
+  #updateMatch(match, isHaveBonus) {
+    switch(match){
+      case MATCH.three : this.#lottoRepository.updateMatch(MATCH_RANK.fifit); break;
+      case MATCH.four : this.#lottoRepository.updateMatch(MATCH_RANK.fourth); break;
+      case MATCH.six : this.#lottoRepository.updateMatch(MATCH_RANK.first); break;
+    }
+    if (match == MATCH.five && !isHaveBonus){
+      this.#lottoRepository.updateMatch(MATCH_RANK.third);
+    }
+    if (match == MATCH.five && isHaveBonus){
+      this.#lottoRepository.updateMatch(MATCH_RANK.second);
+    }
+  }
+
   compareWithWinningNumbers(winningNumbers, bonusNumber) {
-    let matching = [0,0,0,0,0];
     const myLottos = this.getLottos();
 
     for (let lotto of myLottos) {
       let match = lotto.getNumbers().filter(element => winningNumbers.includes(element)).length;
-      let isHave = lotto.getNumbers().includes(bonusNumber);
+      let isHaveBonus = lotto.getNumbers().includes(bonusNumber);
 
-      switch(match){
-        case 3 : matching[0]++; break;
-        case 4 : matching[1]++; break;
-        case 6 : matching[4]++; break;
-      }
-      if (match == 5 && !isHave){
-        matching[2]++;
-      }
-      if (match == 5 && isHave){
-        matching[3]++;
-      }
+      this.#updateMatch(match, isHaveBonus);
     }
 
-    return matching;
+    return this.#lottoRepository.getMatch();
   }
 
   calculateRate(match, payment) {
-    let matchReward = [MATCH_REWARD.fifth, MATCH_REWARD.fourth, MATCH_REWARD.third, MATCH_REWARD.second, MATCH_REWARD.first];
-
+    let matchReward = this.#lottoRepository.getMatchReward();
     let reward = match.reduce((sum, value, index) => {
       return sum + (value * matchReward[index]);
     }, 0);

@@ -42,4 +42,20 @@ export const MATCH_REWARD = {
   third : 1500000,
   second : 30000000, 
   first : 2000000000,
-}
+};
+
+export const MATCH = {
+  init : 0,
+  three : 3,
+  four : 4,
+  five : 5,
+  six : 6,
+};
+
+export const MATCH_RANK = {
+  fifit : 0,
+  fourth : 1,
+  third : 2,
+  second : 3,
+  first : 4,
+};
