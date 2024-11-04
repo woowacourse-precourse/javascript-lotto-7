@@ -1,5 +1,5 @@
-import { PROMPTS, lotteryStatistics } from "./constants.js";
-import { printParam } from "./handler/printHandlers.js";
+import { BONUS_ARRAY, BONUS_MENT, PROMPTS, lotteryStatistics } from "./constants.js";
+import { printParam, printResult } from "./handler/printHandlers.js";
 import {
   handlePurchaseInput,
   handleLotteryNumInput,
@@ -35,15 +35,15 @@ class App {
   }
 
   startLotto(lotteries, users, bonus) {
-    const [BONUS_CONDITION, BONUS_RETURN] = [5, 7];
+    const [BONUS_CONDITION, BONUS_RETURN] = BONUS_ARRAY;
 
     const matches = lotteries.map((lotto) => {
       const userMatches = lotto.getLotteryMatches(users).length;
       const isBonus = lotto.getLotteryMatches([bonus]).length;
+
       if (userMatches === BONUS_CONDITION && isBonus) {
         return BONUS_RETURN;
       }
-
       return userMatches;
     });
     const statisticsResult = this.checkWins(matches);

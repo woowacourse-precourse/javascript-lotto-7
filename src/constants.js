@@ -47,4 +47,21 @@ const ERROR_MESSAGES = {
   PURCHASE_STRING: "로또 구입 금액은 1,000원 단위로 입력해주세요.",
 };
 
-export { PROMPTS, ERROR_MESSAGES, LOTTERY_NUM_RANGE, lotteryStatistics };
+const PRINT_PERCENT = ["총 수익률은", "%입니다."];
+
+const BONUS_ARRAY = [5, 7];
+
+const BONUS_MENT = ", 보너스 볼 일치";
+
+const ZERO_AMOUNT_TO_COMPARE = "000";
+
+export {
+  PROMPTS,
+  ERROR_MESSAGES,
+  LOTTERY_NUM_RANGE,
+  lotteryStatistics,
+  PRINT_PERCENT,
+  BONUS_ARRAY,
+  BONUS_MENT,
+  ZERO_AMOUNT_TO_COMPARE
+};
