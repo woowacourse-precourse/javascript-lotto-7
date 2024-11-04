@@ -4,7 +4,9 @@ export const getLottoPrifitPercent = (
   sumLottoPrizeMoney,
   lottoBuyMoneyInput,
 ) => {
-  return (sumLottoPrizeMoney / lottoBuyMoneyInput) * 100;
+  const result = (sumLottoPrizeMoney / lottoBuyMoneyInput) * 100;
+
+  return result;
 };
 
 export const printLottoPrifitPercent = (lottoProfitPercent) => {

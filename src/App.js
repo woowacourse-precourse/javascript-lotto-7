@@ -17,6 +17,10 @@ import {
   getLottoPrifitPercent,
   printLottoPrifitPercent,
 } from './functions/LottoProfit.js';
+import {
+  checkLottoPrizeNumbers,
+  checkLottoPrizeNumbersDup,
+} from './functions/Exceptions.js';
 class App {
   async run() {
     try {
@@ -107,7 +111,9 @@ class App {
       printLottoPrifitPercent(lottoProfitPercent);
 
       // * ==== //
-    } catch (error) {}
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
 
