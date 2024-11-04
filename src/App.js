@@ -7,6 +7,7 @@ import {
 import {
   getIsBonusNumber,
   getLottoPrizeCount,
+  getSumLottoPrizeMoney,
   printLottoPrizeResult,
   setLottoPrizeRank,
   splitByComma,
@@ -92,6 +93,10 @@ class App {
 
       printLottoPrizeResult(LottoPrizeList);
 
+      //* 수익률 구하기
+
+      const sumLottoPrizeMoney = getSumLottoPrizeMoney(LottoPrizeList);
+      console.log(sumLottoPrizeMoney);
       // * ==== //
     } catch (error) {}
   }

@@ -55,3 +55,12 @@ export const printLottoPrizeResult = (LottoPrizeList) => {
     );
   });
 };
+
+export const getSumLottoPrizeMoney = (LottoPrizeList) => {
+  let sumLottoPrizeMoney = 0;
+  LottoPrizeList.forEach((lottoPrizeItem) => {
+    sumLottoPrizeMoney += lottoPrizeItem.value * lottoPrizeItem.count;
+  });
+
+  return sumLottoPrizeMoney;
+};
