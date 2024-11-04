@@ -29,6 +29,6 @@ describe("로또 클래스 테스트", () => {
   test("로또 번호는 숫자여야 한다.", () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, "s"]);
-    }).toThrow(Errors.lotto.NOT_NUMBER);
+    }).toThrow(Errors.lotto.NOT_INTEGER_NUMBER);
   });
 });

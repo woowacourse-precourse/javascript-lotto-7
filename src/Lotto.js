@@ -21,8 +21,8 @@ class Lotto {
       throw new Error(Errors.lotto.NOT_VALID_RANGE);
     }
 
-    if (numbers.some((number) => isNaN(number))) {
-      throw new Error(Errors.lotto.NOT_NUMBER);
+    if (numbers.some((number) => !Number.isInteger(number))) {
+      throw new Error(Errors.lotto.NOT_INTEGER_NUMBER);
     }
   }
 
