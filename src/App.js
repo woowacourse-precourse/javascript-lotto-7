@@ -4,6 +4,8 @@ import {
   purchaseAmountValidation,
   winningLottoValidation,
 } from './inputHandler/inputValidation.js';
+import lottoMachine from './lottoHandler/lottoMachine.js';
+import calculateUserPrize from './lottoHandler/calculateUserPrize.js';
 
 class App {
   async readPurchaseAmount() {
@@ -32,9 +34,21 @@ class App {
 
   async run() {
     try {
-      const purchaseAmount = await this.readPurchaseAmount();
+      const myLottos = await this.readPurchaseAmount();
       const winningLotto = await this.readWinningLotto();
       const bonusLotto = await this.readBonusLotto(winningLotto);
+      const matchedNumbers = lottoMachine(winningLotto, myLottos, bonusLotto);
+      const calculateLotto = calculateUserPrize(matchedNumbers);
+
+      Console.print(`
+당첨 통계
+---
+3개 일치 (5,000원) - ${calculateLotto['3'] || 0}개
+4개 일치 (50,000원) - ${calculateLotto['4'] || 0}개
+5개 일치 (1,500,000원) - ${calculateLotto['5'] || 0}개
+5개 일치, 보너스 볼 일치 (30,000,000원) - ${calculateLotto['7'] || 0}개
+6개 일치 (2,000,000,000원) - ${calculateLotto['6'] || 0}개
+`);
     } catch (error) {
       throw new Error('[ERROR] ' + error);
     }
