@@ -1,4 +1,6 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
+
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
@@ -10,8 +12,8 @@ class App {
       this.#validatePurchaseAmount(input);
       const amount = parseInt(input, 10);
       const lottoCount = Math.floor(amount / 1000);
-      Console.print(`\n${lottoCount}개를 구매하였습니다.`);
-      // TODO: 로또 자동 발행 기능 호출
+      Console.print(`\n${lottoCount}개를 구매했습니다.\n`);
+      this.#generateLottos(lottoCount);
     });
   }
 
@@ -20,6 +22,20 @@ class App {
     if (isNaN(amount) || amount % 1000 !== 0) {
       throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해 주세요.");
     }
+  }
+
+  #generateLottos(count) {
+    const lottos = [];
+    for (let i = 0; i < count; i++) {
+      const numbers = this.#generateLottoNumbers();
+      lottos.push(new Lotto(numbers));
+      Console.print(`[${numbers.join(", ")}]`);
+    }
+  }
+
+  #generateLottoNumbers() {
+    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    return numbers.sort((a, b) => a - b);
   }
 }
 
