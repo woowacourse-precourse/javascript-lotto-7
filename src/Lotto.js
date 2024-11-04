@@ -19,18 +19,6 @@ class Lotto {
   getNumbers() {
     return this.numbers;
   }
-
-  getRank(winningNumbers, bonusNumber) {
-    const matchCount = this.numbers.filter((num) =>
-      winningNumbers.includes(num)
-    ).length;
-    if (matchCount === 6) return 6;
-    if (matchCount === 5 && this.numbers.includes(bonusNumber)) return 5;
-    if (matchCount === 5) return 4;
-    if (matchCount === 4) return 3;
-    if (matchCount === 3) return 2;
-    return 1;
-  }
 }
 
 export default Lotto;
