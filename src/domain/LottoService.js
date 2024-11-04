@@ -1,6 +1,7 @@
 import Lotto from "./Lotto.js";
 import LottoRepository from "./LottoRepository.js";
 import { LOTTO_RELATED_CONSTANTS } from "../constants/constants.js";
+import { MATCH_REWARD } from "../constants/constants.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class LottoService {
@@ -57,6 +58,18 @@ class LottoService {
     }
 
     return matching;
+  }
+
+  calculateRate(match, payment) {
+    let matchReward = [MATCH_REWARD.fifth, MATCH_REWARD.fourth, MATCH_REWARD.third, MATCH_REWARD.second, MATCH_REWARD.first];
+
+    let reward = match.reduce((sum, value, index) => {
+      return sum + (value * matchReward[index]);
+    }, 0);
+
+    let rate = (reward / payment).toFixed(1);
+
+    return rate;
   }
 }
 

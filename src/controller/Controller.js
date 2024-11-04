@@ -25,10 +25,9 @@ class Controller {
     const bonusNumber = await this.#inputView.readBonusNumber();       // 보너스 번호 유효성 검사 필요
 
     const match = this.#lottoService.compareWithWinningNumbers(winningNumber, Number(bonusNumber));
+    const rewardRate = this.#lottoService.calculateRate(match, payment);
 
-    console.log(match);
-
-    this.#outputView.printResult();
+    this.#outputView.printResult(match, rewardRate);
   }
 }
 
