@@ -1,12 +1,9 @@
 import App from '../src/App.js';
-import { mockQuestions, mockRandoms } from '../src/utils/test/testUtils.js';
-import { MissionUtils } from '@woowacourse/mission-utils';
-
-const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, 'print');
-  logSpy.mockClear();
-  return logSpy;
-};
+import {
+  mockQuestions,
+  mockRandoms,
+  getLogSpy,
+} from '../src/utils/test/testUtils.js';
 
 const runException = async (input) => {
   // given
