@@ -2,33 +2,33 @@
 
 ## 📂 폴더 구조
 
-📦src
-┣ 📂config            // 애플리케이션 전역 설정과 상수
-┃ ┣ 📜errors.js       // 에러 메시지 상수
-┃ ┣ 📜lottoConfig.js  // 로또 기본 설정 값 (예: 가격)
-┃ ┗ 📜messages.js     // 출력 및 입력 메시지 상수
-┣ 📂controllers       // 애플리케이션 로직을 제어하는 컨트롤러
-┃ ┗ 📜LottoController.js // 로또 발매기 컨트롤러
-┣ 📂models            // 데이터와 비즈니스 로직을 처리하는 모델
-┃ ┣ 📜Lotto.js         // 로또 모델 (번호 저장 및 관리)
-┃ ┗ 📜LottoResult.js   // 로또 당첨 결과 모델
-┣ 📂services          // 비즈니스 로직을 처리하는 서비스 계층
-┃ ┗ 📜LottoService.js  // 로또 생성 및 결과 확인 서비스
-┣ 📂utils             // 공통 유틸리티 및 검증 함수
-┃ ┣ 📜validators.js    // 입력값 검증 유틸리티
-┃ ┗ 📜formatter.js     // 포매팅 유틸리티 (예: 숫자 콤마 포맷)
-┣ 📂views             // 사용자 입출력 처리 뷰 컴포넌트
-┃ ┣ 📜InputView.js     // 사용자 입력을 처리하는 뷰
-┃ ┗ 📜OutputView.js    // 결과 출력을 처리하는 뷰
-┣ 📜App.js            // 애플리케이션 초기화 및 실행 담당
-┗ 📜index.js          // 애플리케이션 진입점
+### src
+- 📂 config // 애플리케이션 전역 설정과 상수
+  - errors.js // 에러 메시지 상수
+  - lottoConfig.js // 로또 기본 설정 값 (예: 가격)
+  - messages.js // 출력 및 입력 메시지 상수
+- 📂 controllers // 애플리케이션 로직을 제어하는 컨트롤러
+  - LottoController.js // 로또 발매기 컨트롤러
+- 📂 models // 데이터와 비즈니스 로직을 처리하는 모델
+  - Lotto.js // 로또 모델 (번호 저장 및 관리)
+  - LottoResult.js // 로또 당첨 결과 모델
+- 📂 services // 비즈니스 로직을 처리하는 서비스 계층
+  - LottoService.js // 로또 생성 및 결과 확인 서비스
+- 📂 utils // 공통 유틸리티 및 검증 함수
+  - validators.js // 입력값 검증 유틸리티
+  - formatter.js // 포매팅 유틸리티 (예: 숫자 콤마 포맷)
+- 📂 views // 사용자 입출력 처리 뷰 컴포넌트
+  - InputView.js // 사용자 입력을 처리하는 뷰
+  - OutputView.js // 결과 출력을 처리하는 뷰
+- App.js // 애플리케이션 초기화 및 실행 담당
+- index.js // 애플리케이션 진입점
 
-📂tests
-┣ 📜LottoTest.js         // Lotto 클래스 단위 테스트
-┣ 📜LottoServiceTest.js  // LottoService 클래스 단위 테스트
-┣ 📜InputViewTest.js     // InputView 테스트
-┣ 📜OutputViewTest.js    // OutputView 테스트
-┗ 📜ApplicationTest.js   // 통합 테스트 (전체 애플리케이션 시나리오)
+### tests
+- LottoTest.js // Lotto 클래스 단위 테스트
+- LottoServiceTest.js // LottoService 클래스 단위 테스트
+- InputViewTest.js // InputView 테스트
+- OutputViewTest.js // OutputView 테스트
+- ApplicationTest.js // 통합 테스트 (전체 애플리케이션 시나리오)
 
 
 ## 📋 구현 기능 목록
