@@ -13,9 +13,9 @@ const mockQuestions = (inputs) => {
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickUniqueNumbersInRange);
+  numbers.forEach((number) => {
+    MissionUtils.Random.pickUniqueNumbersInRange.mockReturnValueOnce(number);
+  });
 };
 
 const getLogSpy = () => {
@@ -91,7 +91,17 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  test("구매 금액이 1,000원 단위가 아닌 경우 예외가 발생한다.", async () => {
+    // given
+    const logSpy = getLogSpy();
+    mockQuestions(["1500", "1,2,3,4,5,6", "7"]);
+    
+    // when
+    const app = new App();
+    await app.run();
+    
+    // then
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 구입금액은 1,000원 단위로 입력해야 합니다."));
   });
+  
 });
