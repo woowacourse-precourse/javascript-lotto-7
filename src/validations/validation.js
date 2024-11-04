@@ -13,8 +13,8 @@ const validation = {
     }
   },
   integer(value) {
-    validation.numericString(value);
-    validation.safeInteger(Number(value));
+    this.numericString(value);
+    this.safeInteger(Number(value));
   },
 };
 
