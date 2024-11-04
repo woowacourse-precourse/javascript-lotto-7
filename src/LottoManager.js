@@ -7,18 +7,19 @@ class LottoManager {
   #bonusNumber;
 
   async play() {
-    await this.#start();
-  }
-
-  async #start() {
     const money = await this.#getMoney();
-    this.#lottoArray = Array.from({ length: money / 1000 }, () => new Lotto());
+    this.#lottoArray = Array.from(
+      { length: money / 1000 },
+      () =>
+        new Lotto(
+          Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)
+        )
+    );
     this.#printLottoCount();
     this.#printLottoArray();
 
     const winningNumbers = await this.#getWinningNumbers();
     this.#winningNumbers = winningNumbers;
-    Console.print(this.#winningNumbers);
 
     const bonusNumber = await this.#getBonusNumber();
     this.#bonusNumber = bonusNumber;
@@ -141,7 +142,6 @@ class LottoManager {
   #printWinningResult() {
     const winningCounts = this.#calculateWinningCounts();
 
-    Console.print("당첨 통계\n---");
     Console.print(`3개 일치 (5,000원) - ${winningCounts[5]}개`);
     Console.print(`4개 일치 (50,000원) - ${winningCounts[4]}개`);
     Console.print(`5개 일치 (1,500,000원) - ${winningCounts[3]}개`);

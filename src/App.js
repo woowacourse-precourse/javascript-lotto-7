@@ -4,7 +4,7 @@ class App {
   async run() {
     try {
       const game = new LottoManager();
-      game.play();
+      await game.play();
     } catch (error) {
       throw new Error(error.message);
     }
