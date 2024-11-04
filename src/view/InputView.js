@@ -23,6 +23,14 @@ const InputView = {
     }
 
     return numbers;
+  },
+
+  async getBonusNumber() {
+    Console.print("보너스 번호를 입력해 주세요.");
+    const input = await Console.readLineAsync();
+    const bonus = parseInt(input);
+
+    return bonus;
   }
 }
 
