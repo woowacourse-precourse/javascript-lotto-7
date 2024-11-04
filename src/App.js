@@ -82,7 +82,46 @@ class App {
       return;
     }
     this.bonusNumber = number;
-    Console.print("당첨 번호와 보너스 번호가 설정되었습니다.");
+    this.calculateResults();
+  }
+
+  calculateResults() {
+    this.results = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    this.lottoTickets.forEach((ticket) => {
+      const matchedCount = ticket.filter((num) => this.winningNumbers.includes(num)).length;
+      const isBonusMatched = ticket.includes(this.bonusNumber);
+
+      if (matchedCount === 6) this.results[1] += 1; // 1등
+      else if (matchedCount === 5 && isBonusMatched) this.results[2] += 1; // 2등
+      else if (matchedCount === 5) this.results[3] += 1; // 3등
+      else if (matchedCount === 4) this.results[4] += 1; // 4등
+      else if (matchedCount === 3) this.results[5] += 1; // 5등
+    });
+
+    this.printResults();
+  }
+
+  printResults() {
+    Console.print("\n당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${this.results[5]}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.results[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.results[3]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.results[2]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.results[1]}개`);
+
+    this.calculateProfit();
+  }
+
+  calculateProfit() {
+    const prizeAmounts = { 1: 2000000000, 2: 30000000, 3: 1500000, 4: 50000, 5: 5000 };
+    const totalPrize = Object.keys(this.results).reduce(
+      (sum, key) => sum + this.results[key] * prizeAmounts[key],
+      0,
+    );
+
+    const profitRate = ((totalPrize / this.purchaseAmount) * 100).toFixed(1);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 
   handleError(message) {
