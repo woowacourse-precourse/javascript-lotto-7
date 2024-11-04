@@ -11,12 +11,13 @@ class Lotto {
     this.#printNumbers();
   }
 
-  #printNumbers() {
-    Printer.print(MESSAGES.eachNumbers(this.#numbers.join(CONFIG.numbersOutputDelimiter)));
-  }
-
   getNumbers() {
     return this.#numbers;
+  }
+
+  #printNumbers() {
+    const message = MESSAGES.wrapNumbers(this.#numbers.join(CONFIG.numbersOutputDelimiter));
+    Printer.print(message);
   }
 }
 

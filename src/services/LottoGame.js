@@ -15,18 +15,13 @@ class LottoGame {
 
   async putMoney() {
     const money = await this.console.processMoneyInput(MESSAGES.moneyInput);
+
     this.store.setMoney(money);
 
     const ticketCount = calculateTicketCount(money);
     this.#issueTickets(ticketCount);
-    Printer.print(MESSAGES.howManyBought(ticketCount));
-  }
 
-  #issueTickets(ticketCount) {
-    this.#tickets = Array.from({ length: ticketCount }, () => {
-      const numbers = generateLottoNumbers();
-      return new Lotto(numbers);
-    });
+    Printer.print(MESSAGES.howManyBought(ticketCount));
   }
 
   async enterNumber() {
@@ -38,10 +33,17 @@ class LottoGame {
 
   presentResult() {
     const lottoResults = this.#tickets.map((lotto) => this.lottoChecker.checkLotto(lotto));
-    this.#printStatistics(lottoResults);
-
     const earningsRate = this.#calculateLottoEarningsRate(lottoResults);
+
+    this.#printStatistics(lottoResults);
     Printer.print(MESSAGES.earningsRateIs(earningsRate));
+  }
+
+  #issueTickets(ticketCount) {
+    this.#tickets = Array.from({ length: ticketCount }, () => {
+      const numbers = generateLottoNumbers();
+      return new Lotto(numbers);
+    });
   }
 
   #printStatistics(lottoResults) {
