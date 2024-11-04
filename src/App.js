@@ -1,14 +1,13 @@
-import {Console, Random} from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 class App {
   async run() {
-    const money =  await this.moneyInput();
+    const money = await this.moneyInput();
     const lottos = this.generateLottos(money / 1000);
     this.printLottos(lottos);
     const winnerLotto = await this.winnerLottoInput();
-    const bonusNumber = await this.bonusNumberInput();
-
+    const bonusNumber = await this.bonusNumberInput(winnerLotto);
   }
 
   async moneyInput() {
@@ -25,6 +24,7 @@ class App {
     }
     return money;
   }
+
   validateMoney(money) {
     const amount = Number(money);
     if (isNaN(amount) || amount % 1000 !== 0) {
@@ -53,11 +53,42 @@ class App {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
     }
+
+    const numberSet = new Set();
+    numbers.forEach((number) => {
+      if (number < 1 || number > 45) {
+        throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.");
+      }
+      if (numberSet.has(number)) {
+        throw new Error("[ERROR] 당첨 번호에 중복된 숫자가 있습니다.");
+      }
+      numberSet.add(number);
+    });
   }
 
-  async bonusNumberInput(){
-    const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.')
-    return bonusNumber
+  async bonusNumberInput(winnerLotto) {
+    let isValid = false;
+    let bonusNumber;
+    while (!isValid) {
+      try {
+        bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.');
+        bonusNumber = Number(bonusNumber);
+        this.validateBonusNumber(bonusNumber, winnerLotto);
+        isValid = true;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+    return bonusNumber;
+  }
+
+  validateBonusNumber(bonusNumber, winnerLotto) {
+    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    }
+    if (winnerLotto.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+    }
   }
 
   generateLotto() {
@@ -79,7 +110,6 @@ class App {
       Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
   }
-
 }
 
 export default App;
