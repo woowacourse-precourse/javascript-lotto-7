@@ -12,6 +12,11 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+    numbers.forEach((num) => {
+      if (num < 1 || num > 45) {
+        throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      }
+    });
   }
 
   // 매칭 결과로 개수 업데이트
