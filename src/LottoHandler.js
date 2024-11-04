@@ -36,16 +36,20 @@ export class LottoHandler {
 			if (matchNumberCount === 6) {
 				first++;
 				winMoney += 2000000000;
-			} else if (matchNumberCount === 5 && isSecond) {
+			}
+			if (matchNumberCount === 5 && isSecond) {
 				second++;
 				winMoney += 30000000;
-			} else if (matchNumberCount === 5) {
+			}
+			if (matchNumberCount === 5) {
 				third++;
 				winMoney += 1500000;
-			} else if (matchNumberCount === 4) {
+			}
+			if (matchNumberCount === 4) {
 				fourth++;
 				winMoney += 50000;
-			} else if (matchNumberCount === 3) {
+			}
+			if (matchNumberCount === 3) {
 				fifth++;
 				winMoney += 5000;
 			}
