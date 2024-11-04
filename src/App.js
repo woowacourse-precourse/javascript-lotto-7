@@ -11,22 +11,27 @@ class App {
   async run() {
     const lottoCount = await this.inputMoney();
     const lottos = this.getLotto(lottoCount);
+    this.printLottos(lottos);
   }
 
   getLotto(lottoCount) {
     const lottos = [];
-    Console.print(`${lottoCount}개를 구매했습니다.`);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
     for (let i = 0; i < lottoCount; i += 1) {
       lottos.push(this.getRandomLottoNumber());
     }
     this.sortLotto(lottos);
-    lottos.forEach(lotto => Console.print(lotto));
     return lottos;
   }
 
   sortLotto(lottos) {
     lottos.forEach(lotto => lotto.sort((a, b) => a - b));
     return lottos;
+  }
+
+  printLottos(lottos) {
+    lottos.forEach(lotto => Console.print(lotto));
+    Console.print('');
   }
 
   getRandomLottoNumber() {
