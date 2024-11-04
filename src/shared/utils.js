@@ -1,10 +1,12 @@
 import { ERROR_MESSAGES } from './constants.js';
 
+// error handling
 export const handleError = (boolean, message) => {
   const formattedMessage = `[ERROR] ${message}`;
   if (boolean) throw Error(formattedMessage);
 };
 
+// validation check
 export const checkEmpty = (value, message) => {
   handleError(!value, message);
 };
