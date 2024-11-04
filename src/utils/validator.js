@@ -1,63 +1,76 @@
 import {
-  BONUS_NUMBER_ERROR,
-  NUMBERS_ERROR,
+  TYPE_ERROR,
+  LOTTO_NUMBER_ERROR,
   PURCHASE_AMOUNT_ERROR,
 } from "../constants/errorMessage.js";
-import { LOTTO_PRICE } from "../constants/gameRules.js";
+import {
+  LOTTO_MAX_NUMBER,
+  LOTTO_MIN_NUMBER,
+  LOTTO_PRICE,
+  NUMBERS_COUNT,
+} from "../constants/gameRules.js";
 import { hasDuplicates, isDuplicateInArray } from "./checkDuplicateValue.js";
 
-export const validatePurchaseAmount = (purchaseAmount) => {
-  if (Number.isNaN(purchaseAmount)) {
-    throw new Error(PURCHASE_AMOUNT_ERROR.NOT_A_NUMBER);
+const validateNumberRange = (number) => {
+  if (number < LOTTO_MIN_NUMBER || number > LOTTO_MAX_NUMBER) {
+    throw new Error(LOTTO_NUMBER_ERROR.INVALID_RANGE);
+  }
+};
+
+const validateNumberType = (number) => {
+  if (Number.isNaN(number)) {
+    throw new Error(TYPE_ERROR.NOT_A_NUMBER);
   }
 
-  if (purchaseAmount !== 0 && !purchaseAmount) {
-    throw new Error(PURCHASE_AMOUNT_ERROR.EMPTY_VALUE);
+  if (!Number.isInteger(number)) {
+    throw new Error(TYPE_ERROR.NOT_AN_INTEGER);
   }
+};
 
-  if (purchaseAmount < LOTTO_PRICE) {
+const validateValue = (value) => {
+  if (!value && value !== 0) {
+    throw new Error(TYPE_ERROR.EMPTY_VALUE);
+  }
+};
+
+export const validatePurchaseAmount = (number) => {
+  validateNumberType(number);
+  validateValue(number);
+
+  if (number < LOTTO_PRICE) {
     throw new Error(PURCHASE_AMOUNT_ERROR.UNDER_MIN_PRICE);
   }
 
-  if (purchaseAmount % 1000 !== 0) {
+  if (number % 1000 !== 0) {
     throw new Error(PURCHASE_AMOUNT_ERROR.NOT_DIVIDED);
   }
 };
 
 export const validateNumbers = (numbers) => {
-  if (numbers.length !== 6) {
-    throw new Error(NUMBERS_ERROR.COUNT_NOT_MET);
+  validateValue(numbers);
+
+  if (numbers.length !== NUMBERS_COUNT) {
+    throw new Error(LOTTO_NUMBER_ERROR.COUNT_NOT_MET);
   }
 
   if (hasDuplicates(numbers)) {
-    throw new Error(NUMBERS_ERROR.DUPLICATE_NUMBERS);
+    throw new Error(LOTTO_NUMBER_ERROR.DUPLICATE_NUMBERS);
   }
 
   numbers.forEach((number) => {
-    if (Number.isNaN(number)) {
-      throw new Error(NUMBERS_ERROR.NOT_A_NUMBER);
-    }
-
-    if (number < 1 || number > 45) {
-      throw new Error(NUMBERS_ERROR.INVALID_RANGE);
-    }
-
-    if (!Number.isInteger(number)) {
-      throw new Error(NUMBERS_ERROR.NOT_AN_INTEGER);
-    }
+    validateNumberType(number);
+    validateValue(number);
+    validateNumberRange(number);
   });
 };
 
 export const validateBonusNumber = (array, number) => {
-  if (Number.isNaN(number)) {
-    throw new Error(BONUS_NUMBER_ERROR.NOT_A_NUMBER);
-  }
+  validateValue(number);
+  validateNumberType(number);
 
   if (isDuplicateInArray(array, number)) {
     throw new Error(BONUS_NUMBER_ERROR.DUPLICATE_NUMBERS);
   }
 
-  if (number < 1 || number > 45) {
-    throw new Error(BONUS_NUMBER_ERROR.INVALID_RANGE);
-  }
+  validateNumberRange(number);
 };
