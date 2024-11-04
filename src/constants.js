@@ -6,6 +6,10 @@ const Errors = {
     NOT_VALID_RANGE: "[ERROR] 로또 번호가 1과 45 사이의 범위여야 합니다.",
     NOT_NUMBER: "[ERROR] 로또 번호가 숫자여야 합니다.",
   },
+  bonusNumber: {
+    NOT_INTEGER_NUMBER: "[ERROR] 보너스 번호가 정수가 아닙니다.",
+    NOT_UNIQUE_NUMBER: "[ERROR] 보너스 번호가 당첨 번호에 포함됩니다.",
+  },
 };
 
 export default Errors;

@@ -5,6 +5,7 @@ import matchLotto from "./matchLotto.js";
 import printMatchResult from "./printMatchResult.js";
 import calculateWinningSum from "./calculateWinningSum.js";
 import printRateOfReturn from "./printRateOfReturn.js";
+import { isValidBonusNumber } from "./validate.js";
 
 class App {
   async run() {
@@ -23,6 +24,8 @@ class App {
       "\n보너스 번호를 입력해 주세요.\n"
     );
     const bonusNumber = Number(inputBonusNumber);
+
+    isValidBonusNumber(bonusNumber, winningNumbers.getNumbers());
 
     const matchCountList = matchLotto(
       lottos.getLottos(),
