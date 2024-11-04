@@ -66,3 +66,35 @@
 ### Utility
 - `InputView`: 로또 구입 금액, 당첨 번호, 보너스 번호를 입력하는 기능이 존재한다.
 - `OutputView`: 로또 구매 결과 및 당첨 통계 출력 기능이 존재한다.
+
+# 폴더 구조
+```
+📦src
+ ┣ 📂components
+ ┃ ┣ 📂Lotto
+ ┃ ┃ ┣ 📜Lotto.js                  // 로또 객체 관리 컴포넌트
+ ┃ ┃ ┗ 📜LottoGenerator.js         // 로또 객체 생성 컴포넌트
+ ┃ ┣ 📜PrizeResults.js             // 각 로또 성과 합 관리 컴포넌트
+ ┃ ┣ 📜ResultCalculator.js         // 개별 로또 성과 산정 컴포넌트
+ ┃ ┗ 📜StatisticCalculation.js     // 로또 성과 합을 통한 당첨 통계 산정 컴포넌트
+ ┣ 📂resources   
+ ┃ ┣ 📂ERROR   
+ ┃ ┃ ┣ 📜BONUSNUMBER.js            // 보너스 번호 관련 에러 메시지 정의 파일
+ ┃ ┃ ┣ 📜INPUTMONEY.js             // 구매 금액 관련 에러 메시지 정의 파일
+ ┃ ┃ ┣ 📜LOTTONUMBERS.js           // 생성 로또 번호 관련 에러 메시지 정의 파일
+ ┃ ┃ ┗ 📜WINNINGNUMBERS.js         // 당첨 번호 관련 에러 메시지 정의 파일
+ ┃ ┣ 📜REGEX.js                    // 정규 표현식 정의 파일
+ ┃ ┣ 📜RULES.js                    // 로또 규칙 관련 상수 정의 파일
+ ┃ ┗ 📜VIEWMESSAGES.js             // UI 메시지 정의 파일
+ ┣ 📂utils   
+ ┃ ┣ 📂io   
+ ┃ ┃ ┣ 📜InputView.js              // 사용자 입력 처리 기능
+ ┃ ┃ ┗ 📜OutputView.js             // 컨텐츠 출력 기능
+ ┃ ┗ 📂validator   
+ ┃ ┃ ┣ 📜validateBonusNumber.js    // 입력된 보너스 번호의 타당성 검증 기능
+ ┃ ┃ ┣ 📜validateInputMoney.js     // 입력된 구매 금액의 타당성 검증 기능
+ ┃ ┃ ┣ 📜validateLottoNumbers.js   // 생성된 로또 번호의 타당성 검증 기능
+ ┃ ┃ ┗ 📜validateWinningNumbers.js // 입력된 당첨 번호의 타당성 검증 기능
+ ┣ 📜App.js
+ ┗ 📜index.js
+ ```
