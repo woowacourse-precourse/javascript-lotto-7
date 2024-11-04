@@ -1,13 +1,15 @@
 class Validation {
   static inputNaturalNumber(number) {
     let validatedNumber = Number(number);
-    if (
-      isNaN(validatedNumber) ||
-      !Number.isInteger(validatedNumber) ||
-      validatedNumber < 1
-    ) {
+
+    if (isNaN(validatedNumber)) {
       throw new Error("[ERROR] 숫자는 자연수로 입력 되어야 합니다.");
     }
+
+    if (!Number.isInteger(validatedNumber) || validatedNumber < 1) {
+      throw new Error("[ERROR] 숫자는 자연수로 입력 되어야 합니다.");
+    }
+
     return validatedNumber;
   }
 
