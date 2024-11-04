@@ -42,7 +42,7 @@
 
   * [ ] 구매한 로또 갯수만큼 무작위 로또를 발행하는 기능
 
-- [ ] **Winnig Lotto Domain** 
+- [ ] **Winning Lotto Domain** 
 
   * [ ] 당첨 번호에 대한 유효성을 확인하는 기능 (validation)
     - 각각의 당첨 번호는 1 ~ 45 사이의 숫자이다.
