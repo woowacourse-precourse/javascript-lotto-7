@@ -11,7 +11,7 @@ const calculateWinningSum = (matchCountList) => {
       return winning * count + isBonusMatchWinning * isBonusMatchCount;
     })
     .reduce((acc, curr) => acc + curr, 0);
-
+  console.log("calculateWinningSum", matchCountList, totalWinning);
   return totalWinning;
 };
 

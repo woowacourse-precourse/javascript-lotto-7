@@ -1,4 +1,5 @@
 import Lotto from "../src/Lotto";
+import Lottos from "../src/Lottos";
 import { Errors } from "../src/constants.js";
 
 describe("로또 클래스 테스트", () => {
@@ -30,5 +31,19 @@ describe("로또 클래스 테스트", () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, "s"]);
     }).toThrow(Errors.lotto.NOT_INTEGER_NUMBER);
+  });
+});
+
+describe("로또 발행 테스트", () => {
+  test("구매 금액은 1000원 단위로 나누어지지 않으면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lottos(1001);
+    }).toThrow(Errors.cost.NOT_CORRECT_UNIT);
+  });
+
+  test("구매 금액은 1000원 단위로 나누어져야한다.", () => {
+    expect(() => {
+      new Lottos(1000);
+    }).not.toThrow();
   });
 });
