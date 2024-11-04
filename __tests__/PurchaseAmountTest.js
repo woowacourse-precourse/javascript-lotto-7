@@ -1,4 +1,3 @@
-// PurchaseAmountValidator.test.js
 import { Console } from '@woowacourse/mission-utils';
 import PurchaseAmountGenerator from '../src/getInput/PurchaseAmountGenerator.js';
 
