@@ -7,8 +7,10 @@ import { PRIZE } from "./constants/prize.js";
 class App {
   async run() {
     try {
-      const money = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
-      new MoneyValidator(money);
+      const moneyInput =
+        await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
+      const moneyValidator = new MoneyValidator();
+      const money = moneyValidator.validateMoney(moneyInput);
 
       const lottoGenerator = new LottoGenerator(money);
       const lottos = lottoGenerator.getLottos();
@@ -27,7 +29,7 @@ class App {
         .map(number => Number(number.trim()));
 
       const lotto = new Lotto();
-      lotto.validateWinningNumber(winningNumber);
+      lotto.validateLottoNumber(winningNumber);
       const bonusNumberInput = await Console.readLineAsync(
         "\n보너스 번호를 입력해 주세요.\n",
       );

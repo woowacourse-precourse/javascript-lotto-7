@@ -4,8 +4,6 @@ class MoneyValidator {
   money;
 
   constructor(money) {
-    this.isNumber(money);
-    this.isInvalid(money);
     this.money = money;
   }
 
@@ -21,6 +19,12 @@ class MoneyValidator {
       throw new Error(ERROR_MESSAGE.MONEY.VALIDATE);
     }
     return money;
+  }
+
+  validateMoney(money) {
+    this.isNumber(money);
+    this.isInvalid(money);
+    return Number(money);
   }
 }
 

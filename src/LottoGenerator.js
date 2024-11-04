@@ -3,11 +3,11 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class LottoGenerator {
   lottoCount;
-  money;
+  #money;
 
   constructor(money) {
-    this.money = new MoneyValidator(money).money;
-    this.lottoCount = this.money / 1000;
+    this.#money = money;
+    this.lottoCount = this.#money / 1000;
   }
 
   #generateLottos() {
