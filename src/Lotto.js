@@ -9,6 +9,7 @@ class Lotto {
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
+    this.#numbers.sort((a, b) => a - b);
   }
 
   #validate(numbers) {
