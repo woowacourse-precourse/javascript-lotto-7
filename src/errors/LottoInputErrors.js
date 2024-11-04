@@ -5,11 +5,23 @@ export const isValidPrice = (lottoPrice) => {
     );
 };
 
+export const isPriceNum = (lottoPrice) => {
+  if (Number.isNaN(lottoPrice)) {
+    throw new Error("[ERROR] 숫자로 된 금액을 입력해 주세요.");
+  }
+};
+
 export const isZeroPrice = (lottoPrice) => {
   const price = parseInt(lottoPrice, 10);
 
   if (isNaN(price) || price <= 0) {
     throw new Error(`[ERROR] : 금액을 입력해주세요`);
+  }
+};
+
+export const isBonusPriceNum = (bonusNum) => {
+  if (Number.isNaN(bonusNum)) {
+    throw new Error("[ERROR] 숫자로 된 보너스 번호를 입력해 주세요.");
   }
 };
 
