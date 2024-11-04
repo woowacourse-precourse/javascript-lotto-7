@@ -34,3 +34,8 @@ export const LOTTO_RESULT_MESSAGE = Object.freeze({
   4: '4개 일치 (50,000원)',
   5: '3개 일치 (5,000원)',
 });
+
+const ERROR_TAG = '[ERROR] ';
+export const ERROR_MESSAGE = Object.freeze({
+  AMOUNT_NOT_NUMBER: ERROR_TAG.concat('금액은 숫자여야 합니다.'),
+});

@@ -3,6 +3,7 @@ import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
 import LottoCalculator from './LottoCalculator.js';
+import { validateAmount } from './validation.js';
 import {
   LOTTO_PRICE,
   LOTTO_RESULT_MESSAGE,
@@ -44,6 +45,8 @@ class LottoController {
    *
    */
   buyLottos(amount) {
+    validateAmount(amount);
+
     const lottoSize = amount / LOTTO_PRICE;
     this.#lottos = Array.from(
       { length: lottoSize },
