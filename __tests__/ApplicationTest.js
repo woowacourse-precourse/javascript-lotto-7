@@ -94,4 +94,28 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("로또 구매 시 올바른 개수의 로또가 발행된다.", async () => {
+    // given
+    const logSpy = getLogSpy();
+    const purchaseAmount = "3000"; // 3000원 입력, 1000원당 한 장이므로 3개 발행 예상
+    const expectedLottoCount = 3;
+    mockQuestions([purchaseAmount]);
+    mockRandoms([
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+    ]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(`${expectedLottoCount}개를 구매했습니다.`);
+    expect(logSpy).toHaveBeenCalledWith("[8, 21, 23, 41, 42, 43]");
+    expect(logSpy).toHaveBeenCalledWith("[3, 5, 11, 16, 32, 38]");
+    expect(logSpy).toHaveBeenCalledWith("[7, 11, 16, 35, 36, 44]");
+  });
+  
 });
