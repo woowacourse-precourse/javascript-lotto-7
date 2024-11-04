@@ -16,7 +16,7 @@ const inputUtils = {
   /** 당첨번호 입력받기 */
   getWinningNums: async () => {
     const winningNumberInput = await Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요 (쉼표로 구분)\n"
+      "\n당첨 번호를 입력해 주세요.\n"
     );
     const winningNumbers = winningNumberInput.split(",").map(Number);
     if (
