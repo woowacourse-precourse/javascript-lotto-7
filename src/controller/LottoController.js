@@ -16,6 +16,7 @@ class LottoController {
     this.#lottoModel.calculateLottoAmount(moneyInput);
 
     const lottoAmount = this.#lottoModel.getLottoAmount();
+    this.#lottoView.printLottoAmount(lottoAmount);
   }
 }
 

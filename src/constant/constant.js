@@ -2,6 +2,10 @@ export const INPUT_MESSAGES = Object.freeze({
   MONEY: '구입금액을 입력해 주세요.\n',
 });
 
+export const OUTPUT_MESSAGES = Object.freeze({
+  LOTTO_AMOUNT: (amount) => `${amount}개를 구매했습니다.`,
+});
+
 export const ERROR_PREFIX = '[ERROR]';
 
 export const ERROR_MESSAGES = Object.freeze({
