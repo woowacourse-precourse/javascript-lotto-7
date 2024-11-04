@@ -7,8 +7,16 @@ class App {
   }
 
   async moneyInput() {
-    const money = await Console.readLineAsync('구입금액을 입력해 주세요.');
-    this.validateMoney(money);
+    let isValid = false;
+    while (!isValid) {
+      try {
+        const money = await Console.readLineAsync('구입금액을 입력해 주세요.');
+        this.validateMoney(money);
+        isValid = true;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
   validateMoney(money) {
     const amount = Number(money);
