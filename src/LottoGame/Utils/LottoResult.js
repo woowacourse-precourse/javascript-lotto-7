@@ -3,7 +3,7 @@ class LottoResult {
 
   constructor(ranks) {
     this.#results = Array.from({ length: 5 }, (_, index) => ({
-      rank: index + 1,
+      rank: 5 - index,
       count: 0,
     }));
 

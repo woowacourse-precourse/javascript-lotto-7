@@ -6,11 +6,11 @@ describe("LottoResult", () => {
     const lottoResult = new LottoResult(ranks);
 
     const expectedResults = [
-      { rank: 1, count: 2 },
-      { rank: 2, count: 2 },
+      { rank: 5, count: 2 },
+      { rank: 4, count: 2 },
       { rank: 3, count: 2 },
-      { rank: 4, count: 0 },
-      { rank: 5, count: 0 },
+      { rank: 2, count: 0 },
+      { rank: 1, count: 0 },
     ];
 
     expect(lottoResult.getResults()).toEqual(expectedResults);
