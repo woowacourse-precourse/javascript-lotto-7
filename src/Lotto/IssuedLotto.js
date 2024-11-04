@@ -1,4 +1,5 @@
 import Lotto from './Lotto.js'
+import {random} from '../utils/random.js'
 
 class IssuedLotto extends Lotto {
     #lottoTable;
@@ -7,13 +8,12 @@ class IssuedLotto extends Lotto {
 
     constructor(numbers) {
         super(numbers);
-        this.#lottoTable = this.applyLottoToTable(numbers);
         this.#winningGrade = '꼴등';
         this.#matchNumber = 0;
     }
 
     static create(amount) {
-        return Array.from({length: amount}, () => new IssuedLotto(randomNumber.getUniqueRandomNumbers(1, 45, 6)));
+        return Array.from({length: amount}, () => new IssuedLotto(random.makeUniqueNumbers(1, 45, 6)));
     }
     // makeLottoTable(numbers) {
     //     let lottoTables = []
@@ -35,9 +35,13 @@ class IssuedLotto extends Lotto {
         });
     }
     #setMatchNumber(answer) {
+        this.applyLottoToTable(super.getNumbers());
         answer.getNumbers().forEach((element) => {
-            this.#matchNumber += this.#lottoTable[element];
+            this.#matchNumber += this.#lottoTable[element-1];
         });
+    }
+    checkWinningIssuedLotto(answer){
+        this.setWinningGrade(answer);
     }
     setWinningGrade(answer) {
         this.#setMatchNumber(answer);
@@ -64,8 +68,12 @@ class IssuedLotto extends Lotto {
         this.#winningGrade = '꼴등';
         return;
     }
+
     isMatchedBonus(bonus){
         return this.#lottoTable[bonus] === 1;
+    }
+    getLottoTable(){
+        return this.#lottoTable;
     }
 }
 

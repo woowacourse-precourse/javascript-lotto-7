@@ -6,7 +6,8 @@ const WINNING_GRADE_PRIZE = {
     '2등': 1500000, 
     '3등': 50000, 
     '4등': 5000, 
-    '보너스': 30000000
+    '보너스': 30000000,
+    '꼴등': 0,
 };
 
 class LottoGameService{
@@ -23,30 +24,28 @@ class LottoGameService{
             '2등': 0, 
             '3등': 0, 
             '4등': 0, 
-            '보너스': 0};
+            '보너스': 0,
+            '꼴등': 0,
+        };
         this.#purchaseAmount = 0;
-        this.#totalIncome = 0;
+        
     }
 
-    ready(purchaseAmount, purchaseQuantity, winningNumbers, bonusNumber){
+    start(purchaseAmount, issuedLottos, answerLotto){
+        const lottos = issuedLottos.map((issuedlotto) => new IssuedLotto(issuedlotto.getNumbers()));
+        const lotto = new AnswerLotto(answerLotto.getNumbers(), answerLotto.getBonusNumber());
         this.#purchaseAmount = purchaseAmount;
-        this.#issuedLottos = IssuedLotto.create(purchaseQuantity);
-        this.#answerLotto = AnswerLotto.create(winningNumbers, bonusNumber);
-    }
-    start(){
-        this.#checkIssuedLotto();
+        this.#issuedLottos = lottos;
+        this.#answerLotto = lotto;
+
+        this.#issuedLottos.forEach((lotto) => {
+            lotto.checkWinningIssuedLotto(this.#answerLotto);
+            this.#countWinningLotto(lotto);
+        });
         this.#getTotalIncome();
         this.#calculateIncomeRate();
     }
-    #checkIssuedLotto(){
-        this.#issuedLottos.forEach((issuedLotto) => {
-            this.#checkIssuedLottoWinngGrade(issuedLotto);
-            this.#countWinningLotto(issuedLotto);
-        })
-    }
-    #checkIssuedLottoWinngGrade(issuedLotto){
-        issuedLotto.setWinningGrade(this.#answerLotto);
-    }
+    
     #countWinningLotto(issuedLotto){
         this.#winningGradeQuantity[issuedLotto.getWinningGrade()]++;
     }
@@ -54,12 +53,18 @@ class LottoGameService{
         this.#incomeRate = this.#totalIncome / this.#purchaseAmount * 100;
     }
     #getTotalIncome(){
+        this.#totalIncome = 0;
         Object.keys(this.#winningGradeQuantity).forEach((key) => {
             const gradePrize = WINNING_GRADE_PRIZE[key];
             const gradeQuantity = this.#winningGradeQuantity[key];
-
             this.#totalIncome += gradePrize * gradeQuantity;
         });
+    }
+    getResult(){
+        return {
+            gradeQuantity : this.#winningGradeQuantity,
+            incomeRate : this.#incomeRate
+        };
     }
 }
 
