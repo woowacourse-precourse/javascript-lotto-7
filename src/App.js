@@ -160,6 +160,18 @@ class App {
     return statistic;
   }
 
+  getLottoCount(matchCount, statistic, bonus, bonusNumber) {
+    if (matchCount !== 5) {
+      return statistic[matchCount].length;
+    }
+
+    if (bonus) {
+      return statistic[matchCount].filter((lotto) => lotto.includes(bonusNumber)).length;
+    }
+
+    return statistic[matchCount].filter((lotto) => !lotto.includes(bonusNumber)).length;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
