@@ -172,6 +172,12 @@ class App {
     return statistic[matchCount].filter((lotto) => !lotto.includes(bonusNumber)).length;
   }
 
+  calculatePrize(count, prize, message) {
+    const totalPrize = count * prize;
+    MissionUtils.Console.print(`${message}${count}개`);
+    return totalPrize;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
