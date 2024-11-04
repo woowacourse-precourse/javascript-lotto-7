@@ -110,7 +110,7 @@ export default class LottoResult {
         Console.print(
           OUTPUT_MESSAGE.STATISTICS_PRIZE(
             `${this.#formatStatisticsTitle(matchCount, hasBonus)}`,
-            prizeAmount,
+            prizeAmount.toLocaleString(),
             winningLottos.length
           )
         );
