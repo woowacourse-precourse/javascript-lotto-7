@@ -21,6 +21,8 @@ class App {
       const bonusNumber = Number(bonusInput);
       validateBonusNumber(bonusNumber, winningNumbers);
 
+      const results = calculateResults(lottos, winningNumbers, bonusNumber);
+      printResults(results, amount);
     } catch (error) {
       Console.print(error.message);
     }
