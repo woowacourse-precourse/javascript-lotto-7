@@ -33,7 +33,6 @@ export default class LottoGame {
     }
 
     async start() {
-        // TODO: refactor
         this.buyLottos();
         await this.getWinNumbers();
         this.validateWinNumbers();
@@ -69,7 +68,6 @@ export default class LottoGame {
     }
 
     validateWinNumbers() {
-        // TODO: 분리
         const winNumbers = this.#winNumbers.trim().split(',').map(Number);
 
         if (!this.#winNumbers) {
@@ -90,7 +88,6 @@ export default class LottoGame {
         
     }
     validateBonusNumber() {
-        // TODO: 분리
         const winNumbers = this.#winNumbers.trim().split(',').map(Number);
         const bonusNumber = parseInt(this.#bonusNumber.trim());
 
