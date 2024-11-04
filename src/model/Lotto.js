@@ -1,9 +1,9 @@
-import { ERROR_MESSAGES } from "../constant/errors";
+import { ERROR_MESSAGES } from "../constant/errors.js";
 import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
   LOTTO_NUMBER_COUNT,
-} from "../constant/number";
+} from "../constant/number.js";
 
 class Lotto {
   #numbers;
@@ -20,18 +20,21 @@ class Lotto {
     this.#validateNumberRange(numbers);
   }
   #validateNumbersType(numbers) {
-    if (numbers.some((number) => isNaN(number))) {
-      throw new Error(ERROR_MESSAGES.invalid_lotto_number_type);
+    console.log(numbers, "!!");
+    if (
+      numbers.some((number) => isNaN(number) || parseInt(number) !== number)
+    ) {
+      throw Error(ERROR_MESSAGES.invalid_lotto_number_type);
     }
   }
   #validateNumbersCount(numbers) {
     if (numbers.length !== LOTTO_NUMBER_COUNT) {
-      throw new Error(ERROR_MESSAGES.invalid_lotto_number_count);
+      throw Error(ERROR_MESSAGES.invalid_lotto_number_count);
     }
   }
   #validateNumberUniqueness(numbers) {
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error(ERROR_MESSAGES.invalid_lotto_number_uniqueness);
+      throw Error(ERROR_MESSAGES.invalid_lotto_number_uniqueness);
     }
   }
   #validateNumberRange(numbers) {
@@ -40,7 +43,7 @@ class Lotto {
         (number) => number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX
       )
     ) {
-      throw new Error(ERROR_MESSAGES.invalid_lotto_number_range);
+      throw Error(ERROR_MESSAGES.invalid_lotto_number_range);
     }
   }
   getLottoNumbers() {
