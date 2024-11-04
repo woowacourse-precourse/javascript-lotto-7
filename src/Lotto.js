@@ -4,15 +4,9 @@ import validator from './utils/Validator.js';
 class Lotto {
   #numbers;
 
-  #state;
-
   constructor(numbers) {
     validator.validateLottoNumbers(numbers);
     this.#numbers = numbers;
-    this.#state = {
-      matchCount: 0,
-      matchBonus: false,
-    };
   }
 
   getNumber() {
@@ -21,11 +15,11 @@ class Lotto {
 
   #drawWinningNumber(winningNumbers) {
     const matchCount = this.#numbers.filter((number) => winningNumbers.includes(number)).length;
-    this.#state.matchCount = matchCount;
+    return matchCount;
   }
 
   #drawBonusNumber(bonusNumber) {
-    this.#state.matchBonus = bonusNumber
+    return bonusNumber
       .map((number) => {
         return this.#numbers.includes(number);
       })
@@ -33,9 +27,13 @@ class Lotto {
   }
 
   draw(winningNumbers, bonusNumber) {
-    this.#drawWinningNumber(winningNumbers);
-    if (this.#state.matchCount === VALUES.matchBonusCount) this.#drawBonusNumber(bonusNumber);
-    return this.#state;
+    const state = {
+      matchCount: this.#drawWinningNumber(winningNumbers),
+      matchBonus: false,
+    };
+    if (state.matchCount === VALUES.matchBonusCount)
+      state.matchBonus = this.#drawBonusNumber(bonusNumber);
+    return state;
   }
 }
 
