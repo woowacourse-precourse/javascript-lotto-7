@@ -135,6 +135,27 @@ class App {
     MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${resultCounter[1]}개`);
   }
 
+  resultRateCalculator(resultCounter, money) {
+    const PRIZE = {
+      5: 5000,
+      4: 50000,
+      3: 1500000,
+      2: 30000000,
+      1: 2000000000
+    };
+  
+    const totalPrize =
+      resultCounter[5] * PRIZE[5] +
+      resultCounter[4] * PRIZE[4] +
+      resultCounter[3] * PRIZE[3] +
+      resultCounter[2] * PRIZE[2] +
+      resultCounter[1] * PRIZE[1];
+  
+    const RESULT_RATE = (totalPrize / money) * 100;
+    
+    MissionUtils.Console.print(`총 수익률은 ${RESULT_RATE.toFixed(1)}%입니다.`);
+  }
+
 
   async run() {
     try {
@@ -146,7 +167,9 @@ class App {
       });
 
       const RESULT_COUNT = await this.lottoResultCounter(LOTTOS);
+      
       this.printResult(RESULT_COUNT);
+      this.resultRateCalculator(RESULT_COUNT, MONEY);
     }
     catch (error) {
       throw error;
