@@ -8,7 +8,7 @@ const validators = {
   },
 
   checkLottoLength(value) {
-    if (value.length != 6) {
+    if (value.length !== 6) {
       throw new Error(ERROR_MESSAGES.NUMBER_OF_INPUT);
     }
   },
