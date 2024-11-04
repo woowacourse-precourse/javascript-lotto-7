@@ -7,9 +7,9 @@ export const IOHandler = {
         const input = await Console.readLineAsync(instruction)
         return validator(process(input))
     },
-    printLottoArray(lottos){
+    printLottoArray(lottos) {
         lottos.map(lotto => {
-            lotto.print()
+            Console.print(lotto.toString())
         })
     },
     printWinningStatistics(matchNumber, prize, matchAmount) {

@@ -1,5 +1,5 @@
 import Lotto from "../src/Lotto";
-import {MissionUtils} from "@woowacourse/mission-utils";
+import {MissionUtils, Console} from "@woowacourse/mission-utils";
 import {lottoUtils} from "../src/utils/lotto.utils.js";
 import {ERROR_CODE, LOTTO} from "../src/constants/constants.js";
 
@@ -45,7 +45,7 @@ describe("로또 클래스 테스트", () => {
 
         const lottos = lottoUtils.generateNLottos(1)
         lottos.forEach(lotto => {
-            lotto.print()
+            Console.print(lotto.toString())
             expect(logSpy).toHaveBeenCalledWith(log);
         })
 

@@ -19,8 +19,8 @@ class Lotto {
         }
     }
 
-    print() {
-        Console.print(`[${this.#numbers.join(", ")}]`);
+    toString() {
+        return `[${this.#numbers.join(", ")}]`;
     }
 
     countLottoMatches(winningNumbers) {
