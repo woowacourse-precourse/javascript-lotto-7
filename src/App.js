@@ -129,6 +129,15 @@ class App {
     });
   }
 
+  initialStatistic() {
+    const statistic = {};
+
+    Object.values(App.PRIZE_INFO).forEach(({ matchCount }) => {
+      statistic[matchCount] = [];
+    });
+    return statistic;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
