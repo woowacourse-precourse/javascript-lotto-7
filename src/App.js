@@ -20,6 +20,7 @@ class App {
     await this.buyLotto();
     await this.winLottoInput();
     await this.bonusInput();
+    this.result();
   }
 
   async buyLotto() {
@@ -105,6 +106,34 @@ class App {
       }
       break;
     }
+  }
+
+  calculate() {
+    let winCost = 0;
+    this.buyLottoNumbers.forEach((lotto) => {
+      let earn = lotto.winningCheck(
+        this.winLottoNumber.getNumber(),
+        this.bonusNumber
+      );
+      this.hit[earn] = this.hit[earn] + 1;
+      winCost += earn;
+    });
+    this.hit["revenue"] = (
+      (winCost / (this.buyLottoNumbers.length * 1000)) *
+      100
+    ).toFixed(1);
+  }
+
+  result() {
+    this.calculate();
+    Console.print(`3개 일치 (5,000원) - ${this.hit[5000]}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.hit[50000]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.hit[1500000]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.hit[30000000]}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.hit[2000000000]}개`);
+    Console.print(`총 수익률은 ${this.hit["revenue"]}%입니다.`);
   }
 
   isNum(number) {
