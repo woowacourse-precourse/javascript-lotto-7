@@ -3,7 +3,7 @@ import TicketManager from './TicketManager.js';
 import StatisticsCalculator from './StatisticsCalculator.js';
 import InputManager from './InputManager.js';
 
-import { LOTTO_QUOTIENT } from './constants.js';
+import { LOTTO_QUOTIENT } from '../error/constants.js';
 
 class LottoGame {
 	constructor() {

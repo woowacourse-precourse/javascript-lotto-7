@@ -1,7 +1,7 @@
 import Lotto from './Lotto.js';
 import { Console, Random } from '@woowacourse/mission-utils';
 
-import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS } from './constants.js';
+import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS } from '../error/constants.js';
 
 class TicketManager {
 	static generateLottos(ticketCount) {
