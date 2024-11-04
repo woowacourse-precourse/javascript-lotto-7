@@ -8,8 +8,8 @@ export default class LottoPurchaser {
   #lottos;
   #lottoResult;
 
-  getPurchasePrice() {
-    return this.#purchasePrice;
+  constructor() {
+    this.#lottoResult = new LottoResult();
   }
 
   setPurchasePrice(purchasePrice) {
@@ -24,6 +24,10 @@ export default class LottoPurchaser {
     return this.#lottos;
   }
 
+  setLottos(lottos){
+    this.#lottos = lottos;
+  }
+
   getLottoResult() {
     return this.#lottoResult;
   }
@@ -33,7 +37,6 @@ export default class LottoPurchaser {
 
     [this.#lottoCount, this.#lottos] = lottoGenerator.generate(purchasePrice);
     this.#purchasePrice = purchasePrice;
-    this.#lottoResult = new LottoResult();
   }
 
   compareLottosWithWinningLotto(winningLotto) {
