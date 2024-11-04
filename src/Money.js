@@ -1,5 +1,6 @@
 import {
   ERROR_MESSAGES,
+  checkEmpty,
   checkValidNumber,
   handleError,
 } from './shared/index.js';
@@ -14,6 +15,7 @@ class Money {
   }
 
   #validate(amount) {
+    checkEmpty(amount, ERROR_MESSAGES.INVALID_EMPTY);
     checkValidNumber(amount);
     this.#checkValidAmount(amount);
   }
