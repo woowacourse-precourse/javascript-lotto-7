@@ -140,7 +140,7 @@
  ┣ 📂Controller
  ┃ ┗ 📜GameController.js # 전체 애플리케이션의 흐름을 제어하는 컨트롤러 클래스
  ┣ 📂Model
- ┃ ┣ 📜Lotto.js # 로또 번호 생성 및 검증 관련 클래스
+
  ┃ ┗ 📜LottoGame.js # 로또 게임의 비즈니스 로직 관리 클래스
  ┣ 📂View
  ┃ ┣ 📜Input.js # 사용자 입력을 처리하는 클래스
@@ -154,6 +154,7 @@
  ┃ ┣ 📜error.js # 에러 처리 관련 유틸리티 함수
  ┃ ┣ 📜input.js # 반복 입력 관련 유틸리티 함수
  ┃ ┗ 📜validation.js # 입력 값 검증 유틸리티 함수
+ ┣ 📜Lotto.js # 로또 번호 생성 및 검증 관련 클래스
  ┣ 📜App.js # 애플리케이션 진입점
  ┗ 📜index.js
 ```

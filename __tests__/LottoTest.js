@@ -1,4 +1,4 @@
-import Lotto from '../src/Model/Lotto.js';
+import Lotto from '../src/Lotto.js';
 
 const testCases = {
   getLottoForPrint: [

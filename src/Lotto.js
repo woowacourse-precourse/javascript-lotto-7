@@ -1,7 +1,7 @@
-import { ERROR_MESSAGE } from '../constant/error.js';
-import { RULE } from '../constant/rule.js';
-import { throwWoowaError } from '../util/error.js';
-import { validateLottoNumber } from '../util/validation.js';
+import { ERROR_MESSAGE } from './constant/error.js';
+import { RULE } from './constant/rule.js';
+import { throwWoowaError } from './util/error.js';
+import { validateLottoNumber } from './util/validation.js';
 
 class Lotto {
   #numbers;

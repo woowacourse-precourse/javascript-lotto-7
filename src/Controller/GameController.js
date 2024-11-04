@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../constant/error.js';
 import { RULE } from '../constant/rule.js';
-import Lotto from '../Model/Lotto.js';
+import Lotto from '../Lotto.js';
 import LottoGame from '../Model/LottoGame.js';
 import { throwWoowaError } from '../util/error.js';
 import { isNumber, validateLottoNumber } from '../util/validation.js';

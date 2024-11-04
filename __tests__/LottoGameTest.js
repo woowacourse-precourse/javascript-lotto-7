@@ -1,4 +1,4 @@
-import Lotto from '../src/Model/Lotto.js';
+import Lotto from '../src/Lotto.js';
 import LottoGame from '../src/Model/LottoGame.js';
 import { mockRandoms } from './ApplicationTest.js';
 

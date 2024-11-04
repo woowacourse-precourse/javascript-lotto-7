@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 import { RULE } from '../constant/rule.js';
-import Lotto from './Lotto.js';
+import Lotto from '../Lotto.js';
 
 class LottoGame {
   #lottoAmount;
