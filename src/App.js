@@ -57,7 +57,6 @@ class App {
     }
 
     const purchaseAmount = await getLottoPurchaseAmount();
-    MissionUtils.Console.print(`Validated purchase amount: ${purchaseAmount}`);
   }
 }
 
