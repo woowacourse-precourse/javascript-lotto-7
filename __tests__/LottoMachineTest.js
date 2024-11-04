@@ -67,6 +67,6 @@ describe("LottoMachine 클래스 테스트", () => {
       numOfLottos
     );
 
-    expect(Number(rateOfReturn)).toBe(338591.7);
+    expect(Number(rateOfReturn)).toBe(33859166.7);
   });
 });

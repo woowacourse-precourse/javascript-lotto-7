@@ -1,4 +1,5 @@
 import { IOUtils } from "../Util/IOUtils.js";
+import { EarningTable } from "./EarningTable.js";
 
 class IOHandler {
   #inputMessage = Object.freeze({
@@ -25,18 +26,11 @@ class IOHandler {
   }
 
   async inputBonusNumber() {
+    IOUtils.newLine();
     const bonusNumber = await IOUtils.input(
       this.#inputMessage.inputBonusNumber
     );
     return Number(bonusNumber);
-  }
-
-  #outputResultLine(lotto) {
-    IOUtils.output(
-      `${lotto.getMatchedTotalCnt()}개 일치 (${lotto.getRank().prize}원) - ${
-        lotto.getMatchedTotalCnt() - lotto.getMatchedNumberCnt()
-      }개`
-    );
   }
 
   #outputRateOfReturn(rate) {
@@ -51,7 +45,22 @@ class IOHandler {
     IOUtils.output(this.#outputMessage.outputPurchaseLottoNum(number));
   }
 
+  #outputResultMainContent(matchingTable) {
+    const updatedEarningTable = Object.entries(EarningTable)
+      .reverse()
+      .filter(([k, v]) => v.title);
+
+    updatedEarningTable.forEach(([k, v]) =>
+      IOUtils.output(
+        `${v.title} (${String(v.prize.toLocaleString())}원) - ${
+          matchingTable.find((ele) => ele.includes(k))[1]
+        }개`
+      )
+    );
+  }
+
   outputLottos(lottos) {
+    IOUtils.newLine();
     this.#outputPurchaseLottoNum(lottos.length);
     lottos.forEach((lotto) => {
       this.#outputLottoNumbers(lotto.getNumbers());
@@ -59,9 +68,10 @@ class IOHandler {
     IOUtils.newLine();
   }
 
-  outputResult(lottos, rate) {
+  outputResult(matchingTable, rate) {
+    IOUtils.newLine();
     IOUtils.output(this.#outputMessage.outputTitle);
-    lottos.forEach((lotto) => this.#outputResultLine(lotto));
+    this.#outputResultMainContent(matchingTable);
     this.#outputRateOfReturn(rate);
   }
 }
