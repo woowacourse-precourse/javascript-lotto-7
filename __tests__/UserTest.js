@@ -99,3 +99,62 @@ describe('User 클래스의 readWinningNumbers 메서드 테스트', () => {
     },
   );
 });
+
+describe('User 클래스의 readBonusNumber 메서드 테스트', () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  const runException = async (winningInput, bonusInput, expectedMessage) => {
+    const logSpy = getLogSpy();
+    mockQuestions([winningInput, bonusInput, '7']);
+
+    const user = new User();
+    await user.readWinningNumbers();
+    await user.readBonusNumber();
+
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(expectedMessage),
+    );
+  };
+
+  test('유효한 보너스 번호 입력 시 정상 처리', async () => {
+    const logSpy = getLogSpy();
+    mockQuestions(['1,2,3,4,5,6', '15']);
+
+    const user = new User();
+    await user.readWinningNumbers();
+    await user.readBonusNumber();
+
+    expect(logSpy).not.toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
+  });
+
+  test.each([['-100'], ['jnary'], ['123.45'], ['']])(
+    "자연수가 아닌 '%s' 입력 시 예외 처리",
+    async (input) => {
+      await runException(
+        '1,2,3,4,5,6',
+        input,
+        ERROR_MESSAGE.NOT_NATURAL_NUMBER,
+      );
+    },
+  );
+
+  test.each([['46'], ['100']])(
+    "자연수인데 로또 번호 범위에 벗어난 '%s' 입력 시 예외 처리",
+    async (input) => {
+      await runException('1,2,3,4,5,6', input, ERROR_MESSAGE.NOT_VALID_RANGE);
+    },
+  );
+
+  test.each([['1,2,3,4,5,6', '1']])(
+    '당첨 번호와 중복된 숫자 입력 시 예외 처리',
+    async (winningInput, bonusInput) => {
+      await runException(
+        winningInput,
+        bonusInput,
+        ERROR_MESSAGE.ITEM_CONTAINED('당첨 번호'),
+      );
+    },
+  );
+});
