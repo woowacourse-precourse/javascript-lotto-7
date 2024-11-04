@@ -26,4 +26,13 @@ describe('OutputModule Test', () => {
 
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(result));
   });
+
+  test.each([
+    [2, 2, '5개 일치, 보너스 볼 일치 (30,000,000원) - 2개'],
+    [3, 0, '5개 일치 (1,500,000원) - 0개'],
+  ])('printRankStatus', (rank, result, log) => {
+    OutputModules.printRankStatus(rank, result);
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+  });
 });
