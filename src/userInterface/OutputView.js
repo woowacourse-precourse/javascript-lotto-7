@@ -2,6 +2,10 @@ import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT_VIEW, PRIZE_CALCULATOR } from '../utils/Constants.js';
 
 const outputView = {
+  print: (contents) => {
+    Console.print(contents);
+  },
+
   printPurchaseAmount: (amount) => {
     Console.print(OUTPUT_VIEW.purchaseAmount(amount));
   },
