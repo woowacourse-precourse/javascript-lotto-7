@@ -61,7 +61,13 @@ const validation = Object.freeze({
      * @param {Array<string>} numberArr
      */
     isNotInRange: function (numberArr) {
-      if (numberArr.some((number) => Number(number) < 1 || Number(number) > 45))
+      if (
+        numberArr.some(
+          (number) =>
+            Number(number) < NUM.STARTINCLUSIVE ||
+            Number(number) > NUM.ENDINCLUSIVE,
+        )
+      )
         throw new Error(ERRORMESSAGE.WINNINGNUMBER.ISNOTINRANGE);
     },
 
@@ -105,7 +111,10 @@ const validation = Object.freeze({
     },
 
     isNotInRange: function (number, undefined) {
-      if (Number(number) < 1 || Number(number) > 45)
+      if (
+        Number(number) < NUM.STARTINCLUSIVE ||
+        Number(number) > NUM.ENDINCLUSIVE
+      )
         throw new Error(ERRORMESSAGE.BONUSNUMBER.ISNOTINRANGE);
     },
 
