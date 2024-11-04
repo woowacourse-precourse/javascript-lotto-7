@@ -1,13 +1,16 @@
 class LottoComparer {
-  static compare(lottoNumbers, winningNumbers, bonusNumber) {
-    const matchCount = lottoNumbers.filter((num) =>
-      winningNumbers.includes(num),
-    ).length;
-    const bonusMatch = lottoNumbers.includes(bonusNumber);
+  static countMatches(lottoNumbers, winningNumbers) {
+    return lottoNumbers.filter((num) => winningNumbers.includes(num)).length;
+  }
 
+  static hasBonusMatch(lottoNumbers, bonusNumber) {
+    return lottoNumbers.includes(bonusNumber);
+  }
+
+  static compare(lottoNumbers, winningNumbers, bonusNumber) {
     return {
-      matchCount,
-      bonusMatch,
+      matchCount: this.countMatches(lottoNumbers, winningNumbers),
+      bonusMatch: this.hasBonusMatch(lottoNumbers, bonusNumber),
     };
   }
 }
