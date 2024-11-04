@@ -1,5 +1,30 @@
 # javascript-lotto-precourse
 
+## 파일 구조
+
+```bash
+📦src
+ ┣ 📂Controller
+ ┃ ┗ 📜GameController.js
+ ┣ 📂Model
+ ┃ ┣ 📜Lotto.js
+ ┃ ┗ 📜LottoGame.js
+ ┣ 📂View
+ ┃ ┣ 📜Input.js
+ ┃ ┗ 📜Output.js
+ ┣ 📂constant
+ ┃ ┣ 📜error.js
+ ┃ ┣ 📜message.js
+ ┃ ┣ 📜prizes.js
+ ┃ ┗ 📜rule.js
+ ┣ 📂util
+ ┃ ┣ 📜error.js
+ ┃ ┣ 📜input.js
+ ┃ ┗ 📜validation.js
+ ┣ 📜App.js
+ ┗ 📜index.js
+```
+
 ## 기능 목록 정리
 
 ### 사용자 입력 받기
