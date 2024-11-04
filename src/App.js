@@ -5,7 +5,8 @@ import Purchase from "./Purchase.js";
 
 class App {
   async run() {
-    //1. 로또 구매
+    try {
+       //1. 로또 구매
     const purchase = await this.purchaseLotto();
     purchase.printTickets();
     //2. 로또 리스트 생성
@@ -28,14 +29,28 @@ class App {
     const profitRate = this.calculateProfitRate(results, purchase.getMoney());
     this.printProfitRate(profitRate);
 
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+    }
+    
+   
+
   }
 
 
   //로또 번호를 입력받아 구매 객체를 생성
   async purchaseLotto() {
-    const input = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
-    const money = Number(input);
-    return new Purchase(money);
+    while (true) {
+      try {
+        const input = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
+        const money = Number(input);
+        return new Purchase(money);
+      }
+      catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+    
   }
 
 
@@ -62,16 +77,30 @@ class App {
 
   //당첨 번호 입력 
   async inputWinningLotto() {
-      const input = await MissionUtils.Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+    while (true) {
+      try {
+
+        const input = await MissionUtils.Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
       
-      return new Lotto(input.split(",").map((number) => Number(number)));
+        return new Lotto(input.split(",").map((number) => Number(number)));
+      }
+      catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
   }
 
 
   //보너스 숫자 입력
   async inputBonusNumber() {
-    const input = await MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
-    return Number(input.trim());
+    while (true) {
+      try {
+        const input = await MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+        return Number(input.trim());
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
   }
 
 

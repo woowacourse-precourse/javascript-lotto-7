@@ -91,7 +91,19 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  test("예외 테스트 - 잘못된 구입 금액 입력", async () => {
     await runException("1000j");
+  });
+
+  test("예외 테스트 - 구입 금액이 1,000원 미만인 경우", async () => {
+    await runException("500");
+  });
+
+  test("예외 테스트 - 구입 금액이 음수인 경우", async () => {
+    await runException("-1000");
+  });
+
+  test("예외 테스트 - 구입 금액이 1,000원 단위가 아닌 경우", async () => {
+    await runException("1500");
   });
 });
