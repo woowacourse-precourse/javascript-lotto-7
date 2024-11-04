@@ -3,6 +3,7 @@ import Lotto from "./Lotto.js";
 import purchaseLotto from "./purchaseLotto.js";
 import matchLotto from "./matchLotto.js";
 import printMatchResult from "./printMatchResult.js";
+import calculateWinningSum from "./calculateWinningSum.js";
 import printRateOfReturn from "./printRateOfReturn.js";
 
 class App {
@@ -30,6 +31,10 @@ class App {
     );
 
     printMatchResult(matchCountList);
+
+    const winningSum = calculateWinningSum(matchCountList);
+
+    printRateOfReturn(cost, winningSum);
   }
 }
 
