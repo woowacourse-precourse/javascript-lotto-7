@@ -53,8 +53,11 @@ export class LottoGame {
   }
 
   printLotto(lottoList) {
-    Console.print(`${lottoList.length}개를 구매 했습니다.`);
-    lottoList.forEach((lotto) => Console.print(lotto));
+    Console.print(`${lottoList.length}개를 구매했습니다.`);
+    lottoList.forEach((lotto) => {
+      const formattedLotto = `[${lotto.join(', ')}]`;
+      Console.print(formattedLotto);
+    });
   }
 
   async start() {
