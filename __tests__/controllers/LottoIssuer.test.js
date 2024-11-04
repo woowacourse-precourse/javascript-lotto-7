@@ -26,6 +26,7 @@ describe('LottoIssuer 클래스 테스트', () => {
   });
 
   test('구입 금액에 따른 올바른 로또 티켓 개수가 발행된다.', () => {
+    // given
     const purchaseAmount = 3000;
     const mockNumbers = [
       [1, 2, 3, 4, 5, 6],
@@ -35,13 +36,16 @@ describe('LottoIssuer 클래스 테스트', () => {
 
     mockRandoms(mockNumbers.flat());
 
-    const lottoTickets = LottoIssuer.issueLottoTickets(purchaseAmount);
+    // when
+    const lottoTickets = LottoIssuer.createLottoTickets(purchaseAmount);
 
+    // then
     expect(lottoTickets).toHaveLength(purchaseAmount / LOTTO.TICKET_PRICE);
     expect(lottoTickets.every((ticket) => ticket instanceof Lotto)).toBe(true);
   });
 
   test('구매 금액에 따른 로또 발행 상황이 콘솔에 출력된다.', () => {
+    // given
     const purchaseAmount = 2000;
     const mockNumbers = [
       [1, 2, 3, 4, 5, 6],
@@ -50,8 +54,10 @@ describe('LottoIssuer 클래스 테스트', () => {
 
     spy = mockUniqueRandoms(mockNumbers);
 
-    LottoIssuer.issueLottoTickets(purchaseAmount);
+    // when
+    LottoIssuer.createLottoTickets(purchaseAmount);
 
+    // then
     expect(logSpy).toHaveBeenCalledWith(`2${MESSAGES.TICKET_PURCHASED}`);
     mockNumbers.forEach((numbers) => {
       expect(logSpy).toHaveBeenCalledWith(`[${numbers.join(', ')}]`);
