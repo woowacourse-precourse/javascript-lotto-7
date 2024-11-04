@@ -2,6 +2,7 @@ import InputView from '../views/InputView.js';
 import {
   calculateEarningsRatio,
   calculateLottoAmount,
+  convertStringsToNumbers,
 } from '../utils/lottoFormatUtils.js';
 import LottoService from '../services/LottoService.js';
 import OutputView from '../views/OutputView.js';
@@ -31,7 +32,7 @@ class LottoController {
   async getValidatedPurchaseCost() {
     const purchaseCost = await this.inputView.getPurchaseCost();
     InputValidator.validatePurchaseCost(purchaseCost);
-    return purchaseCost;
+    return Number(purchaseCost);
   }
   generateLottos(lottoAmount) {
     const generatedLottos = this.service.getGeneratedLottos(lottoAmount);
@@ -39,16 +40,14 @@ class LottoController {
     return generatedLottos;
   }
   async getValidatedWinningNumbers() {
-    const { winningNumbers, winningNumbersOrigin } =
-      await this.inputView.getWinningNumbers();
-    InputValidator.validateNumbers(winningNumbers, winningNumbersOrigin);
-    return winningNumbers;
+    const winningNumbers = await this.inputView.getWinningNumbers();
+    InputValidator.validateNumbers(winningNumbers);
+    return convertStringsToNumbers(winningNumbers);
   }
-
   async getValidatedBonusNumber(winningNumbers) {
     const bonusNumber = await this.inputView.getBonusNumber();
     InputValidator.validateBonusNumber(bonusNumber, winningNumbers);
-    return bonusNumber;
+    return Number(bonusNumber);
   }
   drawLottoAndPrintResults(
     generatedLottos,

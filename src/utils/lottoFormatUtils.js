@@ -20,3 +20,7 @@ export const calculateEarningsRatio = (totalEarnings, purchaseCost) => {
     maximumFractionDigits: DECIMAL_PLACES.MAXIMUM_FRACTION_DIGITS,
   });
 };
+
+export const convertStringsToNumbers = (strings) => {
+  return strings.map((num) => Number(num.trim()));
+};

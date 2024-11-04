@@ -6,7 +6,11 @@ import {
 } from '../constants/constraints.js';
 
 export const isValidatePositiveInteger = (number) => {
-  return !isNaN(number) && Number.isInteger(number) && number > 0;
+  return (
+    !isNaN(Number(number)) &&
+    Number.isInteger(Number(number)) &&
+    Number(number) > 0
+  );
 };
 
 export const isWinningNumbersFormat = (number) => {
@@ -14,7 +18,9 @@ export const isWinningNumbersFormat = (number) => {
 };
 
 export const isNumbersInRange = (number) => {
-  return number >= LOTTO_MIN_NUMBER && number <= LOTTO_MAX_NUMBER;
+  return (
+    Number(number) >= LOTTO_MIN_NUMBER && Number(number) <= LOTTO_MAX_NUMBER
+  );
 };
 
 export const isCostInUnits = (cost) => {
@@ -22,5 +28,5 @@ export const isCostInUnits = (cost) => {
 };
 
 export const isBonusNumberInList = (numbersList, bonusNumber) => {
-  return numbersList.includes(bonusNumber);
+  return numbersList.includes(Number(bonusNumber));
 };

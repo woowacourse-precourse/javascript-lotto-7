@@ -9,7 +9,6 @@ import throwError from '../Error/handleError.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 import { LOTTO_NUMBERS_LENGTH } from '../constants/constraints.js';
 import { isUnderMaxPurchaseAmount } from '../utils/lottoFormatUtils.js';
-import { Console } from '@woowacourse/mission-utils';
 
 class InputValidator {
   static validatePurchaseCost(purchaseCost) {
@@ -22,15 +21,15 @@ class InputValidator {
     }
   }
 
-  static validateNumbers(numbers, numbersOrigin) {
-    this.checkLottoArray(numbers, numbersOrigin);
+  static validateNumbers(numbers) {
+    this.checkLottoArray(numbers);
     this.checkDuplicates(numbers);
   }
 
   static validateBonusNumber(bonusNumber, winningNumbers) {
     this.checkPositiveInteger(bonusNumber);
     if (!isNumbersInRange(bonusNumber)) {
-      throwError(ERROR_MESSAGES.INVALID_NUMBER_RANGE);
+      throwError(ERROR_MESSAGES.OUT_OF_BOUNDS_NUMBER_RANGE);
     }
     if (isBonusNumberInList(winningNumbers, bonusNumber)) {
       throwError(ERROR_MESSAGES.CONFLICTING_BONUS_NUMBER);
@@ -44,7 +43,7 @@ class InputValidator {
   }
 
   static checkPositiveInteger(number) {
-    if (number === null) {
+    if (number === '') {
       throwError(ERROR_MESSAGES.EMPTY_INPUT_FIELD);
     }
     if (!isValidatePositiveInteger(number)) {
@@ -52,24 +51,23 @@ class InputValidator {
     }
   }
 
-  static checkLottoArray(array, arrayOrigin) {
-    if (arrayOrigin.some((num) => !isWinningNumbersFormat(num))) {
+  static checkLottoArray(array) {
+    if (array.some((num) => !isWinningNumbersFormat(num))) {
       throwError(ERROR_MESSAGES.INVALID_WINNING_NUMBERS_FORMAT);
     }
     if (
-      arrayOrigin.length !== LOTTO_NUMBERS_LENGTH ||
-      array.some((num) => num === null)
+      array.length !== LOTTO_NUMBERS_LENGTH ||
+      array.some((num) => num === '')
     ) {
       throwError(ERROR_MESSAGES.INVALID_LOTTO_NUMBERS_COUNT);
     }
-    this.checkArrayElements(array, arrayOrigin);
+    this.checkArrayElements(array);
   }
 
   static checkArrayElements(array) {
     if (array.some((num) => !isValidatePositiveInteger(num))) {
       throwError(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);
     }
-
     if (array.some((num) => !isNumbersInRange(num))) {
       throwError(ERROR_MESSAGES.OUT_OF_BOUNDS_NUMBER_RANGE);
     }
