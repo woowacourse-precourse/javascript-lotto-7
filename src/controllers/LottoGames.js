@@ -1,4 +1,7 @@
+// src/controllers/LottoGame.js
+
 import Lotto from '../Lotto.js';
+import { Console } from '@woowacourse/mission-utils';
 
 export default class LottoGame {
   constructor() {
@@ -10,6 +13,7 @@ export default class LottoGame {
     this.#validateAmount(amount);
     const lottoCount = Math.floor(amount / this.LOTTO_PRICE);
     this.#generateLottos(lottoCount);
+    this.printLottoResults(); // 로또 생성 후 결과 출력
   }
 
   #validateAmount(amount) {
@@ -32,6 +36,13 @@ export default class LottoGame {
       numbers.add(number);
     }
     return Array.from(numbers).sort((a, b) => a - b);
+  }
+
+  printLottoResults() {
+    Console.print(`${this.lottos.length}개를 구매했습니다.`);
+    this.lottos.forEach((lotto) => {
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
   }
 
   getLottos() {
