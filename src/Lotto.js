@@ -25,6 +25,12 @@ class Lotto {
     }
     return "[" + formattedResult.slice(0, -2) + "]";
   }
+  countMatchingLotto(winningNumbers, bonusNumber) {
+    let matchedCount = winningNumbers.filter((num) =>
+      this.#lottoNumbers.includes(num)
+    ).length;
+    return [matchedCount, this.#lottoNumbers.includes(bonusNumber)];
+  }
 }
 
 export default Lotto;
