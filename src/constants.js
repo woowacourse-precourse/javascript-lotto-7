@@ -19,6 +19,7 @@ export const statisticsMesssage = {
 };
 
 export const number = {
+    ZERO: 0,
     THREE: 3,
     FOUR: 4,
     FIVE: 5,
@@ -32,7 +33,6 @@ export const number = {
     HUNDRED: 100,
     LOTTO_UNITS: 1000,
     DEFAULT_COUNT: 0,
-    ZERO: 0,
     ROUND_NUMBER: 1,
     LIMIT_BOUNS_COUNT: 1,
     LIMIT_LOTTO_COUNT: 6,
