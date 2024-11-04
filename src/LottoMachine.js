@@ -1,4 +1,4 @@
-export const getLottoNumbers = () => {
+export const createLottoNumbers = () => {
     let numberSet = new Set();
     while(numberSet.size < 6){
         let number = Math.floor(Math.random() * 45) + 1
@@ -7,7 +7,7 @@ export const getLottoNumbers = () => {
     return [...numberSet].sort((a, b) => a - b);
 }
 
-export const getBonusNumber = (numbers) => {
+export const createBonusNumber = (numbers) => {
     let number = Math.floor(Math.random() * 45) + 1;
     console.log(numbers);
     console.log(number);

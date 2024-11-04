@@ -1,10 +1,11 @@
-import { getLottoNumbers, offerLottoSheet } from "./LottoMachine.js";
-import { getMoney } from "./View.js";
+// import { createLottoSheet } from "./LottoMachine.js";
+import { getLottoNumber, getMoney } from "./View.js";
 
 class App {
   async run() {
-    const  lottoQuantity = await getMoney();
-    offerLottoSheet(lottoQuantity);
+    const lottoQuantity = await getMoney();
+    const userLotto = createLottoSheet(lottoQuantity);
+    const winningNumbers = getLottoNumber();
   }
 }
 
