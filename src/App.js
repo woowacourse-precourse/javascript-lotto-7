@@ -5,6 +5,7 @@ import {
   printLottos,
 } from "../modules/lottoService.js";
 import {
+  getValidatedBonusNumber,
   getValidatedPurchaseAmount,
   getValidatedWinningNumbers,
 } from "../modules/userInput.js";
