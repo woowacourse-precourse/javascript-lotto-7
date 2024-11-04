@@ -15,14 +15,7 @@ class App {
     }
 
     const winningNumbers = await this.getWinningNumbers();
-
-    Console.print("");
-    Console.print("보너스 번호를 입력해 주세요.");
-    const bonusInput = await Console.readLineAsync("");
-    const bonusNumber = LottoInputValidator.validateBonusNumber(
-      bonusInput,
-      winningNumbers
-    );
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
   }
 
   async getPurchaseAmount() {
@@ -43,6 +36,18 @@ class App {
         Console.print("당첨 번호를 입력해 주세요.");
         const input = await Console.readLineAsync("");
         return LottoInputValidator.validateWinningNumbers(input);
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
+  async getBonusNumber(winningNumbers) {
+    while (true) {
+      try {
+        Console.print("보너스 번호를 입력해 주세요.");
+        const input = await Console.readLineAsync("");
+        return LottoInputValidator.validateBonusNumber(input, winningNumbers);
       } catch (error) {
         Console.print(error.message);
       }
