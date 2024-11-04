@@ -1,6 +1,5 @@
 class Validator {
   static isNotNumber(value) {
-    // [], "", null => 0
     if (Array.isArray(value) || value === "" || value === null) {
       return true;
     }
