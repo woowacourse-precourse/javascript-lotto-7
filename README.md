@@ -39,11 +39,11 @@
  ┃ ┣ 📜checkNumberRange.js
  ┃ ┣ 📜inputService.js
  ┃ ┣ 📜outputService.js
- ┃ ┗ 📜printResult.js
+ ┃ ┣ 📜printResult.js
+ ┃ ┗ 📜Validator.js
  ┣ 📜App.js
  ┣ 📜index.js
- ┣ 📜Lotto.js
- ┗ 📜Validator.js
+ ┗ 📜Lotto.js
 ```
 
 ### 예외 케이스
