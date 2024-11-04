@@ -13,6 +13,13 @@ class Validator {
       throw new Error("[ERROR] 로또 구매 금액은 1000원 단위로 이루어져야 합니다.");
     }
   }
+
+  validateWinningNumbersInput(winningNumbersInput) {
+    const winningNumbersInputRegex = /^[\d,]+$/;
+    if (!winningNumbersInputRegex.test(winningNumbersInput)) {
+      throw new Error("[ERROR] 당첨 번호는 숫자와 쉼표로만 이루어져야 합니다.");
+    }
+  }
 }
 
 export default Validator;

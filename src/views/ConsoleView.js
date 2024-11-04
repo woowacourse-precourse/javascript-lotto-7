@@ -11,8 +11,10 @@ class ConsoleView {
   }
 
   async getWinningNumbers() {
+    const validator = new Validator();
     const winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-    
+    validator.validateWinningNumbersInput(winningNumbersInput);
+
     return winningNumbersInput;
   }
 
