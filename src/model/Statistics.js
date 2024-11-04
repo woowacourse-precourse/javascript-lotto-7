@@ -29,7 +29,11 @@ class Statistics {
       this.third * 1500000 +
       this.fourth * 50000 +
       this.fifth * 5000;
-    this.rate = ((totalPrize / totalSpent) * 100).toFixed(1);
+    if (totalSpent === 0) {
+      this.rate = 0;
+    } else {
+      this.rate = ((totalPrize / totalSpent) * 100).toFixed(1);
+    }
   }
 }
 

@@ -27,6 +27,7 @@ class LottoController {
   async setLottoAmounts() {
     try {
       const purchaseAmount = await this.getLottoAmounts();
+      this.totalSpent = purchaseAmount;
       const lottoCount = this.calculateLotto(purchaseAmount);
       this.generator.generateLottos(lottoCount);
       const lottos = this.generator.getLottos();
