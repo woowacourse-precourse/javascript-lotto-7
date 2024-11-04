@@ -88,30 +88,36 @@ describe('로또 번호 입력값 테스트', () => {
 describe('보너스 번호 입력값 테스트', () => {
   const input = new Input();  
   const PASS_CASES = ['1', '7', '3', '45'];
+  const lottoNum = [2, 4, 8, 4, 44, 33];
 
   test.each(PASS_CASES)('올바른 보너스 번호 입력값', async (number) => {
     mockQuestions(number);
-    const result = await input.requestBonusNumber();
+    const result = await input.requestBonusNumber(lottoNum);
     expect(result).toStrictEqual(Number(number));
   });
 
   test('보너스 번호를 입력하지 않을 경우 예외가 발생한다.', async () => {
     mockQuestions('');
-    await expect(input.requestBonusNumber()).rejects.toThrow(ERROR.BLANK);
+    await expect(input.requestBonusNumber(lottoNum)).rejects.toThrow(ERROR.BLANK);
   });
 
   test('범위를 벗어난 보너스 번호를 입력할 경우 예외가 발생한다.', async () => {
     mockQuestions('46');
-    await expect(input.requestBonusNumber()).rejects.toThrow(ERROR.INVALID_RANGE_NUMBER);
+    await expect(input.requestBonusNumber(lottoNum)).rejects.toThrow(ERROR.INVALID_RANGE_NUMBER);
   });
 
   test('숫자가 아닌 값을 입력했을 경우 예외가 발생한다.', async () => {
     mockQuestions('a');
-    await expect(input.requestBonusNumber()).rejects.toThrow(ERROR.INVALID_VALUE);
+    await expect(input.requestBonusNumber(lottoNum)).rejects.toThrow(ERROR.INVALID_VALUE);
   });
 
   test('정수가 아닌 값을 입력했을 경우 예외가 발생한다.', async () => {
     mockQuestions('4.3');
-    await expect(input.requestBonusNumber()).rejects.toThrow(ERROR.IS_NOT_INT);
+    await expect(input.requestBonusNumber(lottoNum)).rejects.toThrow(ERROR.IS_NOT_INT);
+  });
+
+  test('로또 번호와 중복된 값을 입력했을 경우 예외가 발생한다.', async () => {
+    mockQuestions('2');
+    await expect(input.requestBonusNumber(lottoNum)).rejects.toThrow(ERROR.DUPLICATED_NUMBER);
   });
 });

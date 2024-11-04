@@ -14,7 +14,7 @@ class LottoGame {
     this.#getLottoList(count);
 
     const winNumber = await input.getLottoNumber();
-    const bonusNumber = await input.getBonusNumber();
+    const bonusNumber = await input.getBonusNumber(winNumber);
 
     this.#printTotalResult(winNumber, bonusNumber, purchase);
   }

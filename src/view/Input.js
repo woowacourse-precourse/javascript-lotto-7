@@ -84,23 +84,23 @@ class Input {
   });
   }
 
-  async getBonusNumber() {
+  async getBonusNumber(lottoNumbers) {
     try {
-        const bonus = await this.requestBonusNumber();
+        const bonus = await this.requestBonusNumber(lottoNumbers);
         return bonus;
     } catch (error) {
         Console.print(error.message);
-        return await this.getBonusNumber();
+        return await this.getBonusNumber(lottoNumbers);
     }
   }
 
-  async requestBonusNumber() {
+  async requestBonusNumber(lottoNumbers) {
       const number = await Console.readLineAsync(MESSAGE.INPUT_MESSAGE.BONUS_NUMBER);
-      this.#bonusValidator(number);
+      this.#bonusValidator(number, lottoNumbers);
       return Number(number);
   }
 
-  #bonusValidator(num) {
+  #bonusValidator(num, lottoNumbers) {
     if (!num || num.trim() == '') {
         throw new Error(ERROR.BLANK);
     }
@@ -117,6 +117,10 @@ class Input {
 
     if (!Number.isInteger(number)) {
         throw new Error(ERROR.IS_NOT_INT);
+    }
+
+    if(lottoNumbers.includes(Number(num))){
+      throw new Error(ERROR.DUPLICATED_NUMBER);
     }
   };
 }
