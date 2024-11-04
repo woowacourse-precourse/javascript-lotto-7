@@ -9,10 +9,11 @@ export const lottoValidator = {
     );
   },
   validateWinningNumberList(winningNumberList) {
-    this.validateWinningNumberLength(winningNumberList);
-    this.validateWinningNumber(winningNumberList);
+    this.validateLengthBy(winningNumberList);
+    this.validateWinningNumberBy(winningNumberList);
+    this.validateDuplicatedBy(winningNumberList);
   },
-  validateWinningNumberLength(winningNumberList) {
+  validateLengthBy(winningNumberList) {
     const VALID_WINNING_NUMBER_LENGTH = 6;
 
     if (winningNumberList.length === VALID_WINNING_NUMBER_LENGTH) {
@@ -21,7 +22,7 @@ export const lottoValidator = {
 
     throw new Error("[ERROR] : 당첨 번호는 6개 입력해주세요.\n");
   },
-  validateWinningNumber(winningNumberList) {
+  validateWinningNumberBy(winningNumberList) {
     if (winningNumberList.every(this.isValidWinningNumber.bind(this))) {
       return;
     }
@@ -36,5 +37,12 @@ export const lottoValidator = {
     const MIN_WINNING_NUMBER = 1;
 
     return number >= MIN_WINNING_NUMBER && number <= MAX_WINNING_NUMBER;
+  },
+  validateDuplicatedBy(winningNumberList) {
+    if (new Set(winningNumberList).size === winningNumberList.length) {
+      return;
+    }
+
+    throw new Error("[ERROR] : 중복된 숫자를 입력할 수 없습니다.\n");
   },
 };
