@@ -33,6 +33,8 @@ class App {
       throw new Error("[ERROR] 숫자를 입력해야 합니다.");
     if (inputtedMoney <= 0)
       throw new Error("[ERROR] 1000원 이상 입력해야 합니다.");
+    if (inputtedMoney % 1000 !== 0)
+      throw new Error("[ERROR] 1000 단위로 입력해야 합니다.");
   }
 }
 
