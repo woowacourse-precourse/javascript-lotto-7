@@ -32,10 +32,10 @@ class InputView {
       // winningNuber = '1,2,3,4,5,6'
       winningNumber = winningNumber.split(",");
 
-      NumberValidator.CheckWinningNumberInput(winningNumber);
-      NumberValidator.isWinningNumberLength(winningNumber);
-      NumberValidator.checkNumberRange(winningNumber);
-      NumberValidator.isDuplicateNumber(winningNumber);
+      CheckWinningNumberInput(winningNumber);
+      isWinningNumberLength(winningNumber);
+      checkNumberRange(winningNumber);
+      isDuplicateNumber(winningNumber);
     } catch (error) {
       Console.print(error.message);
       return getWinningNumber();
@@ -49,9 +49,9 @@ class InputView {
       ); // bonusNumber = '7'
       bonusNumber = bonusNumber.trim();
 
-      PriceValidator.isNumber(bonusNumber);
-      NumberValidator.checkNUmberRange(bonusNumber);
-      NumberValidator.isDuplicateBonusNumber(bonusNumber);
+      isNumber(bonusNumber);
+      checkNUmberRange(bonusNumber);
+      isDuplicateBonusNumber(bonusNumber);
     } catch (erro) {
       Console.print(erro.message);
       return getBonusNumber();
