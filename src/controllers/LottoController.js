@@ -18,7 +18,6 @@ class LottoController {
     );
     lottoNum.sort((a, b) => a - b);
     LottoController.userLottoArr.push(lottoNum);
-
     return lottoNum;
   }
 
@@ -27,14 +26,19 @@ class LottoController {
       let winCnt = LottoController.userLottoArr[i].filter((num) =>
         winLottoArr.getNumbers().includes(num)
       ).length;
-      let isBonus = false;
-      if (LottoController.userLottoArr[i].includes(lottoBonusNum)) {
-        isBonus = true;
-      }
+      let isBonus = this.calcBonus(lottoBonusNum, i);
       LottoController.matchNumCnt(winCnt, isBonus);
     }
     this.lottoOutput.printWinStat(LottoController.matchCntArr);
     this.calcReturnRate(lottoPrice);
+  }
+
+  calcBonus(lottoBonusNum, i) {
+    let isBonus = false;
+    if (LottoController.userLottoArr[i].includes(lottoBonusNum)) {
+      isBonus = true;
+    }
+    return isBonus;
   }
 
   static matchNumCnt(winCnt, isBonus) {
