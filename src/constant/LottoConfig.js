@@ -1,5 +1,7 @@
 import deepFreeze from "./utils/deepFreeze.js";
 
+const LOTTO_SPLITTER = ",";
+
 const LOTTO_CONFIG = deepFreeze({
   PRICE: 1000,
   NUMBER: {
@@ -9,4 +11,4 @@ const LOTTO_CONFIG = deepFreeze({
   COUNT: 6,
 });
 
-export { LOTTO_CONFIG };
+export { LOTTO_SPLITTER, LOTTO_CONFIG };

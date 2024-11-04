@@ -1,4 +1,5 @@
 import WinningLotto from "../../domain/WinningLotto/WinningLotto.js";
+import parse from "../utils/parse.js";
 import retry from "../utils/retry.js";
 
 class WinningLottoCommand {
@@ -19,7 +20,7 @@ class WinningLottoCommand {
   async handleWinningLotto() {
     const handleWinnigLottoFlow = async() => {
       const numbers = await this.#inputPort.readWinningLotto();
-      const parsedNumbers = numbers.split(",");
+      const parsedNumbers = parse(numbers);
       parsedNumbers.forEach((number) => this.#validator.validate(number));
       return WinningLotto.create(parsedNumbers);
     };
