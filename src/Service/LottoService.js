@@ -13,6 +13,11 @@ class LottoService {
     });
   }
 
+  /**@param {string} purchaseAmount  */
+  calculateLottoCount(purchaseAmount) {
+    return Number(purchaseAmount) / LOTTO_CONFIG.PRICE_PER;
+  }
+
   /**
    * @param {Lotto[]} lottos
    * @param {number[]} winningNumbers
