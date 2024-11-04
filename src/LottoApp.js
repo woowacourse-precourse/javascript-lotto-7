@@ -8,6 +8,7 @@ import {
 } from "./constants.js";
 import Lotto from "./Lotto.js";
 import LottoIO from "./LottoIO.js";
+import LottoValidator from "./LottoValidator.js";
 
 class LottoApp {
   constructor() {
@@ -24,7 +25,7 @@ class LottoApp {
   async promptPurchaseAmount() {
     try {
       const amount = await this.io.promptPurchaseAmount();
-      this.validateAmount(amount);
+      LottoValidator.validateAmount(amount);
       return Number(amount);
     } catch (error) {
       MissionUtils.Console.print(error.message);
@@ -37,17 +38,6 @@ class LottoApp {
     const lottos = this.generateLottos(count);
     this.io.printLottoTickets(lottos);
     return lottos;
-  }
-
-  validateAmount(amount) {
-    const parsedAmount = Number(amount);
-    if (
-      isNaN(parsedAmount) ||
-      parsedAmount <= 0 ||
-      parsedAmount % LOTTO_PRICE !== 0
-    ) {
-      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
-    }
   }
 
   generateLottoNumbers() {
@@ -86,7 +76,10 @@ class LottoApp {
     try {
       const input = await this.io.promptBonusNumber();
       const bonusNumber = this.parseBonusNumber(input);
-      this.validateBonusNumber(bonusNumber, winningLotto.getNumbers());
+      LottoValidator.validateBonusNumber(
+        bonusNumber,
+        winningLotto.getNumbers()
+      );
       return bonusNumber;
     } catch (error) {
       MissionUtils.Console.print(error.message);
@@ -96,31 +89,8 @@ class LottoApp {
 
   parseBonusNumber(input) {
     const number = Number(input.trim());
-    this.checkBonusNumberType(number);
+    LottoValidator.checkBonusNumberType(number);
     return number;
-  }
-
-  checkBonusNumberType(number) {
-    if (isNaN(number)) {
-      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_TYPE);
-    }
-  }
-
-  validateBonusNumber(bonusNumber, winningNumbers) {
-    this.checkBonusNumberRange(bonusNumber);
-    this.checkBonusNumberDuplication(bonusNumber, winningNumbers);
-  }
-
-  checkBonusNumberRange(bonusNumber) {
-    if (bonusNumber < LOTTO_NUMBERS.MIN || bonusNumber > LOTTO_NUMBERS.MAX) {
-      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
-    }
-  }
-
-  checkBonusNumberDuplication(bonusNumber, winningNumbers) {
-    if (winningNumbers.includes(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
-    }
   }
 
   calculateStatistics(lottos, winningLotto, bonusNumber) {
