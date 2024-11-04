@@ -1,7 +1,7 @@
-import { errorMessage } from './constant/errorMessage.js';
-import { regex } from './constant/regex.js';
-import { checkDuplication } from './utils/checkDuplication.js';
-import { checkNumbersRange } from './utils/checkNumbersRange.js';
+import { errorMessage } from '../constant/errorMessage.js';
+import { regex } from '../constant/regex.js';
+import { checkDuplication } from './checkDuplication.js';
+import { checkNumbersRange } from './checkNumbersRange.js';
 
 export function validateAmount(input) {
   const amount = parseInt(input.trim());
