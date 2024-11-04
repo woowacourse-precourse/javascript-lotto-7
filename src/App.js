@@ -1,5 +1,6 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { numOfLotto, chkSelectedNum } from '../src/InputComponent.js';
+import { verifyLotto, showLottoStatistics } from '../src/VerifyLotto.js';
 
 class App {
     async run() {
@@ -33,7 +34,9 @@ class App {
 
             // 당첨 통계 출력
             Console.print('\n당첨 통계');
-            Console.print('\n---');
+            Console.print('---');
+            const result = verifyLotto(lottoArr, selectedNum, bonusNum);
+            showLottoStatistics(result);
         } catch (error) {
             Console.print(error.message);
             throw error;
