@@ -13,7 +13,7 @@ import LOTTO_CONFIG from './constants/lottoConfig.js';
 
 class App {
   async run() {
-    const purchasePrice = await this.getPurchasePrice();
+    const purchasePrice = await this.#getPurchasePrice();
     const lottoPurchaseAmount = purchasePrice / LOTTO_CONFIG.TICKET_PRICE;
     printString(`\n${lottoPurchaseAmount}개를 구매했습니다.`);
 
@@ -22,10 +22,10 @@ class App {
       lotto.print();
     });
 
-    const winningNumbers = await this.getWinningNumbers();
+    const winningNumbers = await this.#getWinningNumbers();
     const winningLotto = new Lotto(winningNumbers);
 
-    const lottoBonusNumber = await this.getBonusNumber(winningLotto);
+    const lottoBonusNumber = await this.#getBonusNumber(winningLotto);
 
     printString('\n당첨 통계\n---');
     const lottoResults = calculateLottoStatistics(lottoList, winningLotto, lottoBonusNumber);
@@ -34,7 +34,7 @@ class App {
     printString(`총 수익률은 ${profitRate}%입니다.`);
   }
 
-  async getPurchasePrice() {
+  async #getPurchasePrice() {
     let purchasePrice;
     while (true) {
       try {
@@ -47,7 +47,7 @@ class App {
     }
   }
 
-  async getWinningNumbers() {
+  async #getWinningNumbers() {
     let winningNumbers;
     while (true) {
       try {
@@ -59,7 +59,7 @@ class App {
     }
   }
 
-  async getBonusNumber(winningLotto) {
+  async #getBonusNumber(winningLotto) {
     let lottoBonusNumber;
     while (true) {
       try {
