@@ -6,5 +6,5 @@ export const getResultMessages = winningResults => {
     `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningResults['5+bonus']}개`,
     `6개 일치 (2,000,000,000원) - ${winningResults[6]}개`
   ]
-  return resultMessages;
+  return resultMessages.map(message => message.trim());
 }
