@@ -37,7 +37,7 @@ function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
   let fiveCorrectCount = 0;
   let fiveBonusCorrectCount = 0;
   let sixCorrectCount = 0;
-
+  let totalWinningPrice = 0;
   lottoList.forEach((lottoNumber) => {
     let count = 0;
     winningNumbers.forEach((number) => {
@@ -58,16 +58,21 @@ function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
       sixCorrectCount += 1;
     }
   });
-  howManyCorrectResult(3, THREE_PRICE, threeCorrectCount);
-  howManyCorrectResult(4, FOUR_PRICE, fourCorrectCount);
-  howManyCorrectResult(5, FIVE_PRICE, fiveCorrectCount);
-  BonusCorrectResult(5, BONUS_PRICE, fiveBonusCorrectCount);
-  howManyCorrectResult(6, SIX_PRICE, sixCorrectCount);
+  totalWinningPrice += howManyCorrectResult(3, THREE_PRICE, threeCorrectCount);
+  totalWinningPrice += howManyCorrectResult(4, FOUR_PRICE, fourCorrectCount);
+  totalWinningPrice += howManyCorrectResult(5, FIVE_PRICE, fiveCorrectCount);
+  totalWinningPrice += BonusCorrectResult(
+    5,
+    BONUS_PRICE,
+    fiveBonusCorrectCount,
+  );
+  totalWinningPrice += howManyCorrectResult(6, SIX_PRICE, sixCorrectCount);
+  return totalWinningPrice;
 }
 
-function generateLottoNumbers() {
+function generateLottoNumbers(amountOfLotto) {
   const lottoNumbers = [];
-  for (let i = 0; i < NUMBER_OF_LOTTO_NUMBERS; i += 1) {
+  for (let i = 0; i < amountOfLotto; i += 1) {
     lottoNumbers.push(
       Random.pickUniqueNumbersInRange(
         MIN_NUMBER,
@@ -77,6 +82,10 @@ function generateLottoNumbers() {
     );
   }
   return lottoNumbers;
+}
+
+function calculatePercentage(lottoPrice, winningPrice) {
+  return (Number.parseFloat(winningPrice / lottoPrice) * 100).toFixed(1);
 }
 
 class App {
@@ -92,17 +101,30 @@ class App {
       const amountOfLotto = purchaseLotto(price);
       Console.print(`${amountOfLotto}개를 구매했습니다.`);
 
-      const lottoList = generateLottoNumbers().map((lotto) => new Lotto(lotto));
+      const lottoList = generateLottoNumbers(amountOfLotto).map(
+        (lotto) => new Lotto(lotto),
+      );
       lottoList.forEach((lotto) => {
         lotto.sortLottoNumbers();
-        Console.print(`[${lotto.getNumbers().join(', ')}]`);
+        lotto.printNumbers();
       });
 
       const winningNumbers = await getWinningNumbers();
       const bonusWinningNumber = await getBonusWinningNumber();
 
       Console.print(LOTTO_MESSAGE.LOTTO_RESULT_MESSAGE);
-      howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber);
+      Console.print(LOTTO_MESSAGE.LOTTO_RESULT_SEPERATOR);
+      const totalWinningPrice = howManyCorrectNumbers(
+        lottoList,
+        winningNumbers,
+        bonusWinningNumber,
+      );
+      const percentage = calculatePercentage(
+        parseInt(price, 10),
+        totalWinningPrice,
+      );
+
+      Console.print(`총 수익률은 ${percentage}%입니다.`);
     } catch (error) {
       Console.print(`오류가 발생했습니다: ${error.message}`);
     }
