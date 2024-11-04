@@ -7,6 +7,13 @@ class Output {
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
   }
 
+  static printLottos(formattedLottos) {
+    formattedLottos.forEach((lotto) => {
+      Console.print(lotto);
+    });
+    Console.print('');
+  }
+
   static printResultMessage() {
     Console.print(CONSOLE_MESSAGE.resultMessage);
   }

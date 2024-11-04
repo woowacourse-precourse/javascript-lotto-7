@@ -34,6 +34,10 @@ class LottoGame {
     }
   }
 
+  getLottosForPrint() {
+    return this.#lottos.map((lotto) => `[${lotto.join(', ')}]`);
+  }
+
   printLottos() {
     this.#lottos.forEach((lotto) => {
       Console.print(`[${lotto.join(', ')}]`);

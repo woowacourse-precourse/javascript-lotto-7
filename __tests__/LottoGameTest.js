@@ -25,26 +25,6 @@ describe('LottoGame 클래스 테스트', () => {
     expect(lottoGame.getLottoAmount()).toBe(lottoAmount);
   });
 
-  test('printLottos 메서드를 호출하면 생성된 모든 lotto가 출력되어야 한다.', () => {
-    // given
-    mockRandoms([
-      [8, 21, 23, 41, 42, 43],
-      [3, 5, 11, 16, 32, 38],
-    ]);
-    const logSpy = getLogSpy();
-    const lottoGame = new LottoGame(2);
-
-    // when
-    lottoGame.printLottos();
-
-    // then
-    const logs = ['[8, 21, 23, 41, 42, 43]', '[3, 5, 11, 16, 32, 38]'];
-
-    logs.forEach((log) => {
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
-    });
-  });
-
   test('calculateWinningRanks 메서드 테스트', () => {
     mockRandoms([
       [8, 21, 23, 41, 42, 43], // 일치하는 6개 번호

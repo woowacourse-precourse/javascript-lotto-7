@@ -13,8 +13,7 @@ class GameController {
 
     const game = new LottoGame(purchaseCount);
 
-    Output.printPurchaseCount(purchaseCount);
-    game.printLottos();
+    this.#printPurchasedLottos(purchaseCount, game);
 
     const winningLotto = await this.#getWinningLotto();
     const bonusNumber = await this.#getValidatedBonusNumber(winningLotto);
@@ -61,6 +60,7 @@ class GameController {
   async #getValidatedBonusNumber(winningLotto) {
     const bonusNumber = await Input.getBonusNumber()((input) => {
       const number = Number(input);
+
       validateLottoNumber(number);
       if (winningLotto.hasInNumbers(number)) {
         throwWoowaError(ERROR_MESSAGE.invalidDuplicateNumber);
@@ -70,6 +70,11 @@ class GameController {
     });
 
     return bonusNumber;
+  }
+
+  #printPurchasedLottos(purchaseCount, game) {
+    Output.printPurchaseCount(purchaseCount);
+    Output.printLottos(game.getLottosForPrint());
   }
 
   #printResult(game) {
