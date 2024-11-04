@@ -19,6 +19,7 @@ class PurchaseAmountValidationStrategy extends ValidationStrategy {
 
   static STRATEGY = Object.freeze({
     DIVISOR: 1000,
+    LIMITATION: 10000000000,
   });
 
   static ERROR_MESSAGE = Object.freeze({
@@ -26,6 +27,7 @@ class PurchaseAmountValidationStrategy extends ValidationStrategy {
     AMOUNT_MUST_BE_POSITIVE_INTEGER: '[ERROR] 구입 금액은 양의 정수만 입력할 수 있어요',
     AMOUNT_CAN_NOT_BE_ZERO: '[ERROR] 0은 입력할 수 없어요',
     AMOUNT_MUST_BE_IN_MULTIPLES_OF_DIVISOR: `[ERROR] 구입 금액은 ${PurchaseAmountValidationStrategy.STRATEGY.DIVISOR} 단위로만 입력할 수 있어요`,
+    AMOUNT_MUST_BE_IN_MAX_SAFE_INTEGER: `[ERROR] 구입 금액은 ${PurchaseAmountValidationStrategy.STRATEGY.LIMITATION} 이하로만 입력할 수 있어요`,
   });
 
   /**
@@ -82,6 +84,15 @@ class PurchaseAmountValidationStrategy extends ValidationStrategy {
 
   /**
    *
+   * @param {number} purchaseAmount
+   * @returns {boolean}
+   */
+  #isInMaxSafeInteger(purchaseAmount) {
+    return purchaseAmount <= PurchaseAmountValidationStrategy.STRATEGY.LIMITATION;
+  }
+
+  /**
+   *
    * @param {Validator} validator
    * @returns {Validator}
    */
@@ -110,6 +121,9 @@ class PurchaseAmountValidationStrategy extends ValidationStrategy {
       .with(this.#isDivisible, {
         message:
           PurchaseAmountValidationStrategy.ERROR_MESSAGE.AMOUNT_MUST_BE_IN_MULTIPLES_OF_DIVISOR,
+      })
+      .with(this.#isInMaxSafeInteger, {
+        message: PurchaseAmountValidationStrategy.ERROR_MESSAGE.AMOUNT_MUST_BE_IN_MAX_SAFE_INTEGER,
       });
   }
 
