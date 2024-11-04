@@ -18,44 +18,50 @@ export class LottoMachine {
 
   async start() {
     await this.promptPurchaseAmount();
-    await this.issueLottos();
+    // this.issueLottos();
     await this.promptWinningNumbers();
     await this.promptBonusNumber();
     await this.checkResults();
   }
 
   async promptPurchaseAmount() {
-    const amount = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
-    this.purchaseAmount = Number(amount);
-    try {
-      if (isNaN(this.purchaseAmount) || this.purchaseAmount % 1000 !== 0 || this.purchaseAmount <= 0) {
-        throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+    while (true) {
+      try {
+        const amount = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
+        this.purchaseAmount = Number(amount);
+        if (isNaN(this.purchaseAmount) || this.purchaseAmount % 1000 !== 0 || this.purchaseAmount <= 0) {
+          throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+        }
+        this.issueLottos();
+        return;
+      } catch (error) {
+        Console.print(error.message);
       }
-    } catch (error) {
-      Console.print(error.message);
-      return this.promptPurchaseAmount();
     }
   }
   
-  issueLottos() {
+  async issueLottos() {
     const count = this.purchaseAmount / 1000;
     MissionUtils.Console.print(`${count}개를 구매했습니다.`);
     for (let i = 0; i < count; i++) {
       const lotto = Lotto.generate();
       this.lottos.push(lotto);
-      MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`);
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
     }
   }
 
   async promptWinningNumbers() {
-    const input = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
-    const numbers = input.split(',').map(Number);
-    try {
-      this.validateWinningNumbers(numbers);
-      this.winningNumbers = numbers;
-    } catch (error) {
-      Console.print(error.message);
-      return this.promptWinningNumbers();
+    while (true) {
+      const input = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+      const numbers = input.split(',').map(Number);
+      try {
+        this.validateWinningNumbers(numbers);
+        this.winningNumbers = numbers;
+        return;
+      }
+      catch (error) {
+        Console.print(error.message);
+      }
     }
   }
 
@@ -63,20 +69,22 @@ export class LottoMachine {
     if (numbers.length !== 6 || new Set(numbers).size !== 6) {
       throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
     }
-    if (!numbers.every(num => num >= 1 && num <= 45)) {
+    if (!numbers.every(num => !isNaN(num) && num >= 1 && num <= 45)) {
       throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS_RANGE);
     }
   }
 
   async promptBonusNumber() {
-    const input = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
-    const bonus = Number(input);
-    try {
-      this.validateBonusNumber(bonus);
-      this.bonusNumber = bonus;
-    } catch (error) {
-      Console.print(error.message);
-      return this.promptBonusNumber();
+    while (true) {
+      const input = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+      const bonus = Number(input);
+      try {
+        this.validateBonusNumber(bonus);
+        this.bonusNumber = bonus;
+        return;
+      } catch (error) {
+        Console.print(error.message);
+      }
     }
   }
 
@@ -86,7 +94,7 @@ export class LottoMachine {
     }
   }
 
-  checkResults() {
+  async checkResults() {
     const results = { 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
     this.lottos.forEach(lotto => {
       const matchedCount = this.getMatchedCount(lotto.getNumbers());
@@ -107,7 +115,7 @@ export class LottoMachine {
     return numbers.filter(num => this.winningNumbers.includes(num)).length;
   }
 
-  printResults(results) {
+  async printResults(results) {
     const prizeMoney = {
       3: 5000,
       4: 50000,
