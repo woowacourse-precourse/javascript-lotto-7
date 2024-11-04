@@ -28,8 +28,8 @@ class LottoCalculate {
 
   calculateRate(statistics, totalSpent) {
     const totalEarnings = this.calculateTotalEarnings(statistics);
-    const returnRate = (totalEarnings / totalSpent) * 100;
-    return this.formatRate(returnRate);
+    const returnRate = ((totalEarnings / totalSpent) * 100).toFixed(1);
+    return returnRate;
   }
 }
 
