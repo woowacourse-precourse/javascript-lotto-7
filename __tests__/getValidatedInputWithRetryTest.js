@@ -1,5 +1,5 @@
 import Controller from '../src/controller/Controller.js';
-import { mockQuestions } from './ApplicationTest.js';
+import { mockQuestions } from '../src/utils/test/testUtils.js';
 import { ERROR_MESSAGES } from '../src/constant/constants';
 
 describe('잘못된 입력 시 재입력 후 올바른 값 반환 테스트', () => {

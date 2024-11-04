@@ -1,5 +1,5 @@
 import { getLottos } from '../src/utils/generateLottos';
-import { mockRandoms } from './ApplicationTest.js';
+import { mockRandoms } from '../src/utils/test/testUtils';
 
 describe('로또 번호 생성 유틸함수 테스트', () => {
   test('구매 금액에 따라 로또 번호들을 반환한다.', () => {
