@@ -5,6 +5,7 @@ class ResultCalculator {
             5: 1500000,
             4: 50000,
             3: 5000,
+            bonus: 30000000
         };
         const stats = { 3: 0, 4: 0, 5: 0, 6: 0, bonus: 0 };
         let totalEarnings = 0;
@@ -15,7 +16,10 @@ class ResultCalculator {
                 totalEarnings += rewards[6];
             } else if (matchedCount === 5 && hasBonus) {
                 stats["bonus"]++;
-                totalEarnings += 30000000;
+                totalEarnings += rewards.bonus;
+            } else if (matchedCount === 5) {
+                stats[5]++;
+                totalEarnings += rewards[5];
             } else if (matchedCount >= 3) {
                 stats[matchedCount]++;
                 totalEarnings += rewards[matchedCount];
@@ -25,7 +29,7 @@ class ResultCalculator {
     }
 
     static calculateProfitRate(totalEarnings, purchaseAmount) {
-        return ((totalEarnings / purchaseAmount) * 100).toFixed(1);
+        return parseFloat(((totalEarnings / purchaseAmount) * 100).toFixed(1));
     }
 }
 
