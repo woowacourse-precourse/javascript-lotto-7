@@ -46,7 +46,7 @@ const validateBonusNumberTestCases = [
     errorLog: ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER,
   },
 ];
-const additionalTestCases = [
+const boundaryTestCases = [
   {
     description: `NaN을 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
     input: Number.NaN.toString(),
@@ -106,6 +106,7 @@ const additionalTestCases = [
 ];
 
 // 추가 테스트 케이스 실행
-additionalTestCases.forEach(runErrorLogTest(validateBonusNumber));
 
 validateBonusNumberTestCases.forEach(runErrorLogTest(validateBonusNumber));
+
+boundaryTestCases.forEach(runErrorLogTest(validateBonusNumber));
