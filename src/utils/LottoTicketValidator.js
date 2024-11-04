@@ -1,9 +1,7 @@
-import { LOTTO_ERROR } from '../constant/Constants.js';
+import { LOTTO_ERROR, LOTTO } from '../constant/Constants.js';
 import { Console } from '@woowacourse/mission-utils';
 
 export default class LottoTicketValidator {
-  static PRICE_UNIT = 1000;
-
   #checkNumber(amount) {
     const regex = /^[0-9]*$/;
     if (!regex.test(amount)) {
@@ -15,8 +13,7 @@ export default class LottoTicketValidator {
 
   #checkPriceUnit(amount) {
     const money = Number(amount);
-
-    if (money % PRICE_UNIT !== 0) {
+    if (money % LOTTO.PRICE !== 0) {
       Console.print(LOTTO_ERROR.INVALID_AMOUNT);
       return false;
     }
@@ -24,7 +21,7 @@ export default class LottoTicketValidator {
   }
 
   #checkMinimumPrice(amount) {
-    if (Math.floor(amount / PRICE_UNIT) === 0) {
+    if (Math.floor(amount / LOTTO.PRICE) === 0) {
       Console.print(LOTTO_ERROR.INVALID_MINIMUM_PRICE);
       return false;
     }
