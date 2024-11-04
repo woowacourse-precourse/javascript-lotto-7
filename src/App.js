@@ -2,7 +2,7 @@ import {Console} from "@woowacourse/mission-utils";
 
 class App {
   async run() {
-    
+
   }
 
   async moneyInput(){
@@ -12,6 +12,11 @@ class App {
   async winnerLottoInput(){
     const winnerLotto = await Console.readLineAsync('당첨 번호를 입력해 주세요.')
     return winnerLotto
+  }
+
+  async bonusNumberInput(){
+    const bonusNumber = await Console.readLineAsync('보너스 번호를 입력해 주세요.')
+    return bonusNumber
   }
 
 }
