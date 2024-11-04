@@ -30,3 +30,11 @@ export const isCostInUnits = (cost) => {
 export const isBonusNumberInList = (numbersList, bonusNumber) => {
   return numbersList.includes(Number(bonusNumber));
 };
+
+export const isArrayUnique = (numbers) => {
+  return numbers.length === new Set(numbers).size;
+};
+
+export const isInputEmpty = (number) => {
+  return number === '';
+};

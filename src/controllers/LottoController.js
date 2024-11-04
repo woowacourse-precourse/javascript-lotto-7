@@ -25,6 +25,7 @@ class LottoController {
     const generatedLottos = this.#generateLottos(lottoAmount);
     const winningNumbers = await this.#getValidatedWinningNumbers();
     const bonusNumber = await this.#getValidatedBonusNumber(winningNumbers);
+
     this.#drawLottoAndPrintResults(
       generatedLottos,
       winningNumbers,

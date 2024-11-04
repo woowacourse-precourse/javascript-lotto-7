@@ -1,6 +1,8 @@
 import {
+  isArrayUnique,
   isBonusNumberInList,
   isCostInUnits,
+  isInputEmpty,
   isNumbersInRange,
   isValidatePositiveInteger,
   isWinningNumbersFormat,
@@ -12,7 +14,7 @@ import { isUnderMaxPurchaseAmount } from '../utils/lottoFormatUtils.js';
 
 class InputValidator {
   static validatePurchaseCost(purchaseCost) {
-    this.checkPositiveInteger(purchaseCost);
+    this.#checkPositiveInteger(purchaseCost);
     if (!isCostInUnits(purchaseCost)) {
       throwError(ERROR_MESSAGES.INVALID_COST_UNITS);
     }
@@ -22,12 +24,12 @@ class InputValidator {
   }
 
   static validateNumbers(numbers) {
-    this.checkLottoArray(numbers);
-    this.checkDuplicates(numbers);
+    this.#checkLottoArray(numbers);
+    this.#checkDuplicates(numbers);
   }
 
   static validateBonusNumber(bonusNumber, winningNumbers) {
-    this.checkPositiveInteger(bonusNumber);
+    this.#checkPositiveInteger(bonusNumber);
     if (!isNumbersInRange(bonusNumber)) {
       throwError(ERROR_MESSAGES.OUT_OF_BOUNDS_NUMBER_RANGE);
     }
@@ -36,14 +38,14 @@ class InputValidator {
     }
   }
 
-  static checkDuplicates(numbers) {
-    if (numbers.length !== new Set(numbers).size) {
+  static #checkDuplicates(numbers) {
+    if (!isArrayUnique(numbers)) {
       throwError(ERROR_MESSAGES.DUPLICATE_LOTTO_NUMBER);
     }
   }
 
-  static checkPositiveInteger(number) {
-    if (number === '') {
+  static #checkPositiveInteger(number) {
+    if (isInputEmpty(number)) {
       throwError(ERROR_MESSAGES.EMPTY_INPUT_FIELD);
     }
     if (!isValidatePositiveInteger(number)) {
@@ -51,20 +53,20 @@ class InputValidator {
     }
   }
 
-  static checkLottoArray(array) {
+  static #checkLottoArray(array) {
     if (array.some((num) => !isWinningNumbersFormat(num))) {
       throwError(ERROR_MESSAGES.INVALID_WINNING_NUMBERS_FORMAT);
     }
     if (
       array.length !== LOTTO_NUMBERS_LENGTH ||
-      array.some((num) => num === '')
+      array.some((num) => isInputEmpty(num))
     ) {
       throwError(ERROR_MESSAGES.INVALID_LOTTO_NUMBERS_COUNT);
     }
-    this.checkArrayElements(array);
+    this.#checkArrayElements(array);
   }
 
-  static checkArrayElements(array) {
+  static #checkArrayElements(array) {
     if (array.some((num) => !isValidatePositiveInteger(num))) {
       throwError(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);
     }
