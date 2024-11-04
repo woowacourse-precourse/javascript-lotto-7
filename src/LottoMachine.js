@@ -24,24 +24,26 @@ class LottoMachine {
     }
   }
 
-  static #buyMultipleTickets = (amount) =>
-    Array.from({ length: amount }, () =>
+  static #buyMultipleTickets(amount) {
+    return Array.from({ length: amount }, () =>
       Random.pickUniqueNumbersInRange(LOTTO_RULE.MIN_NUMBER, LOTTO_RULE.MAX_NUMBER, 6).sort(
         (a, b) => a - b,
       ),
     );
+  }
 
   getTicketsString() {
     return `\n${this.#amount}개를 구매했습니다.\n${this.#tickets.map((ticket) => `[${ticket.join(", ")}]`).join("\n")}`;
   }
 
-  static #createWinningRankCount = () =>
-    Object.keys(LOTTO_WIN_RANK).reduce((acc, rank) => {
+  static #createWinningRankCount() {
+    return Object.keys(LOTTO_WIN_RANK).reduce((acc, rank) => {
       acc[rank] = 0;
       return acc;
     }, {});
+  }
 
-  static #getRankType = (matchCount, isBonusMatch) => {
+  static #getRankType(matchCount, isBonusMatch) {
     const [rankType] = Object.entries(LOTTO_WIN_RANK)
       .filter(
         ([, details]) =>
@@ -50,15 +52,15 @@ class LottoMachine {
       .map(([rank]) => rank);
 
     return rankType;
-  };
+  }
 
-  static #parseWinningRankCountToString = (
-    winningRankCount,
-  ) => `${LOTTO_WIN_RANK.threeMatch.string} (${LOTTO_WIN_RANK.threeMatch.prize.toLocaleString()}원) - ${winningRankCount.threeMatch}개
+  static #parseWinningRankCountToString(winningRankCount) {
+    return `${LOTTO_WIN_RANK.threeMatch.string} (${LOTTO_WIN_RANK.threeMatch.prize.toLocaleString()}원) - ${winningRankCount.threeMatch}개
 ${LOTTO_WIN_RANK.fourMatch.string} (${LOTTO_WIN_RANK.fourMatch.prize.toLocaleString()}원) - ${winningRankCount.fourMatch}개
 ${LOTTO_WIN_RANK.fiveMatch.string} (${LOTTO_WIN_RANK.fiveMatch.prize.toLocaleString()}원) - ${winningRankCount.fiveMatch}개
 ${LOTTO_WIN_RANK.fiveMatchAndBonus.string} (${LOTTO_WIN_RANK.fiveMatchAndBonus.prize.toLocaleString()}원) - ${winningRankCount.fiveMatchAndBonus}개
 ${LOTTO_WIN_RANK.allMatch.string} (${LOTTO_WIN_RANK.allMatch.prize.toLocaleString()}원) - ${winningRankCount.allMatch}개`;
+  }
 
   getWinningLottoString({ winningLotto, bonusNumber }) {
     this.#winningRankCount = LottoMachine.#createWinningRankCount();
@@ -73,12 +75,15 @@ ${LOTTO_WIN_RANK.allMatch.string} (${LOTTO_WIN_RANK.allMatch.prize.toLocaleStrin
     return LottoMachine.#parseWinningRankCountToString(this.#winningRankCount);
   }
 
-  static #calculateProfit = (winningRankCount) =>
-    winningRankCount.threeMatch * LOTTO_WIN_RANK.threeMatch.prize +
-    winningRankCount.fourMatch * LOTTO_WIN_RANK.fourMatch.prize +
-    winningRankCount.fiveMatch * LOTTO_WIN_RANK.fiveMatch.prize +
-    winningRankCount.fiveMatchAndBonus * LOTTO_WIN_RANK.fiveMatchAndBonus.prize +
-    winningRankCount.allMatch * LOTTO_WIN_RANK.allMatch.prize;
+  static #calculateProfit(winningRankCount) {
+    return (
+      winningRankCount.threeMatch * LOTTO_WIN_RANK.threeMatch.prize +
+      winningRankCount.fourMatch * LOTTO_WIN_RANK.fourMatch.prize +
+      winningRankCount.fiveMatch * LOTTO_WIN_RANK.fiveMatch.prize +
+      winningRankCount.fiveMatchAndBonus * LOTTO_WIN_RANK.fiveMatchAndBonus.prize +
+      winningRankCount.allMatch * LOTTO_WIN_RANK.allMatch.prize
+    );
+  }
 
   getProfitRateString() {
     const investAmount = this.#amount * LOTTO_RULE.PRICE;
