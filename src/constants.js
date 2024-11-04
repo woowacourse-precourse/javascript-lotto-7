@@ -1,4 +1,4 @@
-const Errors = {
+export const Errors = {
   cost: { NOT_CORRECT_UNIT: "[ERROR] 구매 금액은 1000원 단위여야 합니다." },
   lotto: {
     NOT_SIX_NUMBER: "[ERROR] 로또 번호는 6개여야 합니다.",
@@ -12,4 +12,10 @@ const Errors = {
   },
 };
 
-export default Errors;
+export const WinningInfo = {
+  fifth: { count: 3, WINNING: 5000 },
+  fourth: { count: 4, WINNING: 50000 },
+  third: { count: 5, WINNING: 1500000 },
+  second: { count: 5, isBonusMatch: true, WINNING: 30000000 },
+  first: { count: 6, WINNING: 2000000000 },
+};

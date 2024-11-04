@@ -1,15 +1,22 @@
+import { WinningInfo } from "./constants.js";
+
 const matchLotto = (lottoList, winningNumbers, bonusNumber) => {
-  const matchCountList = {
-    3: { count: 0, winning: 5000 },
-    4: { count: 0, winning: 50000 },
-    5: {
+  const matchCountList = {};
+
+  for (const key in WinningInfo) {
+    const { count, WINNING, isBonusMatch } = WinningInfo[key];
+
+    matchCountList[count] = {
       count: 0,
-      isBonusMatchCount: 0,
-      winning: 1500000,
-      isBonusMatchWinning: 30000000,
-    },
-    6: { count: 0, winning: 2000000000 },
-  };
+      winning: WINNING,
+    };
+
+    if (isBonusMatch) {
+      matchCountList[count].isBonusMatchCount = 0;
+      matchCountList[count].isBonusMatchWinning = WinningInfo.second.WINNING;
+    }
+  }
+
   lottoList.forEach((lotto) => {
     const matchedCount = lotto.getMatchedCount(winningNumbers);
     const bonusMatch = lotto.getIsBonusMatch(bonusNumber);

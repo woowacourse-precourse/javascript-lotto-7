@@ -1,4 +1,4 @@
-import Errors from "./constants";
+import { Errors } from "./constants.js";
 
 export const isValidCost = (cost) => {
   if (cost % 1000 !== 0) throw new Error(Errors.cost.NOT_CORRECT_UNIT);
