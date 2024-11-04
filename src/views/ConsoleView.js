@@ -4,10 +4,16 @@ import Validator from "../utils/Validator.js";
 class ConsoleView {
   async getPurchaseAmount() {
     const validator = new Validator();
-    const purchaseAmount = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    const purchaseAmount = await Console.readLineAsync("구매금액을 입력해 주세요.\n");
     validator.validatePurchaseAmount(purchaseAmount);
 
     return purchaseAmount;
+  }
+
+  async getWinningNumbers() {
+    const winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+    
+    return winningNumbersInput;
   }
 
   printLottoCount(purchaseAmount) {
