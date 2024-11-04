@@ -67,19 +67,28 @@ function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
         count += 1;
       }
     });
-    if (count === 3) {
-      threeCorrectCount += 1;
-    } else if (count === 4) {
-      fourCorrectCount += 1;
-    } else if (count === 5) {
-      if (lottoNumber.includes(bonusWinningNumber)) {
-        fiveBonusCorrectCount += 1;
-      }
-      fiveCorrectCount += 1;
-    } else if (count === 6) {
-      sixCorrectCount += 1;
+    switch (count) {
+      case 3:
+        threeCorrectCount += 1;
+        break;
+      case 4:
+        fourCorrectCount += 1;
+        break;
+      case 5:
+        if (lottoNumber.getNumbers().includes(bonusWinningNumber)) {
+          fiveBonusCorrectCount += 1;
+          break;
+        }
+        fiveCorrectCount += 1;
+        break;
+      case 6:
+        sixCorrectCount += 1;
+        break;
+      default:
+        break;
     }
   });
+
   totalWinningPrice += howManyCorrectResult(3, THREE_PRICE, threeCorrectCount);
   totalWinningPrice += howManyCorrectResult(4, FOUR_PRICE, fourCorrectCount);
   totalWinningPrice += howManyCorrectResult(5, FIVE_PRICE, fiveCorrectCount);
