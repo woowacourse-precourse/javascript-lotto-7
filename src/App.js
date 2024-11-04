@@ -2,14 +2,6 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
-  async getInput(message) {
-    return new Promise((resolve) => {
-      Console.readLineAsync(message).then((input) => {
-        resolve(input.trim());
-      });
-    });
-  }
-
   async run() {
     try {
       const purchaseAmount = await this.getInput("구입금액을 입력해 주세요.\n");
@@ -17,6 +9,14 @@ class App {
     } catch (error) {
       Console.print(`[ERROR] ${error.message}`);
     }
+  }
+
+  getInput(message) {
+    return new Promise((resolve) => {
+      Console.readLineAsync(message).then((input) => {
+        resolve(input.trim());
+      });
+    });
   }
 
   validatePurchaseAmount(amount) {
