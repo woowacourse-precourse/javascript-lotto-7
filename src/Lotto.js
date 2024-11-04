@@ -5,7 +5,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = numbers.sort((a, b) => a - b); // 정렬된 숫자들로 저장
   }
 
   #validate(numbers) {
@@ -17,7 +17,7 @@ class Lotto {
 
   // TODO: 추가 기능 구현
   getLottoNumbers() {
-    return this.#numbers;
+    return [...this.#numbers];
   }
 
   matchLottoNumbers(winningNumbers, bonus) {
