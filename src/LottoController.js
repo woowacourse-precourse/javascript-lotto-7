@@ -8,6 +8,8 @@ export class LottoController {
 
   async play() {
     await this.inputPurchasePrice();
+
+    this.printPurchasedLottoList();
   }
 
   async inputPurchasePrice() {
@@ -18,6 +20,7 @@ export class LottoController {
 
       const lottoQuantity = this.calculateLottoQuantity(price);
       this.generateLottoList(lottoQuantity);
+      lottoOutputView.showEmptyLine();
     } catch (error) {
       lottoOutputView.showMessage(error.message);
       this.inputPurchasePrice(error);
@@ -32,5 +35,11 @@ export class LottoController {
 
   generateLottoList(quantity) {
     this.#lottoList = new LottoList(quantity);
+  }
+
+  printPurchasedLottoList() {
+    lottoOutputView.showLottoQuantity(this.#lottoList.lottoList.length);
+    lottoOutputView.showLottoListNumber(this.#lottoList.lottoList);
+    lottoOutputView.showEmptyLine();
   }
 }

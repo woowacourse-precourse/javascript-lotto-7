@@ -13,4 +13,8 @@ export class LottoList {
 
     this.#lottoList = lottoList.map((lotto) => new Lotto(lotto));
   }
+
+  get lottoList() {
+    return this.#lottoList;
+  }
 }
