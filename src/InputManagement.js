@@ -107,53 +107,44 @@ class InputManagement {
   }
 
   async inputPurchaseAmount() {
-    let isFailed = true;
-    do {
+    while(true) {
       try {
         const purchaseAmount = await Console.readLineAsync(INPUT_TEXTS.PURCHASE_AMOUNT);
 
         this.#purchaseAmout = this.#validationPA(purchaseAmount);
         this.#availablePublicationCount = this.#calculatePublicationCount(purchaseAmount);
 
-        isFailed = false;
+        break;
       } catch(error) {
         Console.print(error.message);
-
-        isFailed = true;
       }
-    } while(isFailed);
+    };
   }
 
   async inputWinningNumbers() {
-    let isFailed = true;
-    do {
+    while(true) {
       try {
         const winningNumbers = await Console.readLineAsync(INPUT_TEXTS.WINNING_NUMBER);
         this.#winningNumbers = this.#validationWN(winningNumbers);
 
-        isFailed = false;
+        break;
       } catch(error) {
         Console.print(error.message);
-
-        isFailed = true;
       }
-    } while(isFailed);
+    };
   }
 
   async inputBonusNumber() {
-    let isFailed = true;
-    do {
+    while(true) {
       try {
         const bonusNumber = await Console.readLineAsync(INPUT_TEXTS.BONUS_NUMBER);
         this.#bonusNumber = this.#validationBN(bonusNumber);
-
-        isFailed = false;
+        
+        break;
       } catch(error) {
         Console.print(error.message);
-
-        isFailed = true;
       }
-    } while(isFailed);
+    };
   }
 }
 
