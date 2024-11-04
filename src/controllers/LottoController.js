@@ -52,7 +52,7 @@ class LottoController {
       LottoController.matchCntArr[2] * 30000000 +
       LottoController.matchCntArr[1] * 2000000000;
     let returnRate = (returnSum / lottoPrice) * 100;
-    this.lottoOutput.printReturnRate(returnRate);
+    this.lottoOutput.printReturnRate(returnRate.toFixed(1));
   }
 }
 
