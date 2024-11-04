@@ -1,5 +1,6 @@
 import { LOTTO } from './constants/constants.js';
 import getRandomUniqueNumbers from './utils/getRandomUniqueNumbers.js';
+import Lotto from './Lotto.js';
 
 class LottoMachine {
   #count;
@@ -14,13 +15,13 @@ class LottoMachine {
 
   generateLottoNumbers() {
     for (let i = 0; i < this.#count; i += 1) {
-      this.#lottoNumbers.push(
-        getRandomUniqueNumbers(
-          LOTTO.START_NUMBER,
-          LOTTO.END_NUMBER,
-          LOTTO.COUNT_NUMBER
-        ).sort((a, b) => a - b)
-      );
+      const randomNumbers = getRandomUniqueNumbers(
+        LOTTO.START_NUMBER,
+        LOTTO.END_NUMBER,
+        LOTTO.COUNT_NUMBER
+      ).sort((a, b) => a - b);
+
+      this.#lottoNumbers.push(new Lotto(randomNumbers));
     }
   }
 
@@ -45,8 +46,15 @@ class LottoMachine {
 
   checkLottoNumbers(winningNumbers, bonusNumber) {
     this.#lottoNumbers.forEach((lottoNumbers) => {
-      const matchingCount = this.getMatchingCount(lottoNumbers, winningNumbers);
-      this.updateWinningCount(matchingCount, lottoNumbers, bonusNumber);
+      const matchingCount = this.getMatchingCount(
+        lottoNumbers.getNumber(),
+        winningNumbers
+      );
+      this.updateWinningCount(
+        matchingCount,
+        lottoNumbers.getNumber(),
+        bonusNumber
+      );
     });
   }
 
