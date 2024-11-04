@@ -17,7 +17,7 @@ class LottoGenerator {
   }
 
   #validate(purchasePrice) {
-    if (purchasePrice <= 0 || isNaN(purchasePrice)) {
+    if (purchasePrice <= 0 || !Number.isInteger(purchasePrice)) {
       throw new Error('[ERROR] 구입금액은 양수여야 합니다.');
     }
 
