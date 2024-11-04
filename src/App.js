@@ -1,14 +1,15 @@
 import InputHandler from "./utils/InputHandler.js"
 import InputValidator from "./utils/InputValidator.js";
 import Lotto from './Lotto.js';
-import { Console, Random } from '@woowacourse/mission-utils';
+import {Console, Random} from '@woowacourse/mission-utils';
 
 class App {
   constructor() {
     this.inputHandler = new InputHandler();
     this.inputValidator = new InputValidator();
-    this.lottos = []; // Lotto 객체들을 저장할 배열.
-    this.bonusNumber = null;
+    this.lottos = []; // Lotto 객체들을 저장할 배열.(구매한 로또)
+    this.winLotto = []; // 당첨 번호
+    this.bonusNumber = null; //보너스 번호
   }
   async run() {
     try{
@@ -40,7 +41,7 @@ class App {
   async getWinningNumbers() {
     const winningNumbersInput = await this.inputHandler.getInput("당첨 번호를 입력해 주세요. \n");
     const winningNumbers = winningNumbersInput.split(",").map(num => Number(num.trim()));
-    const lotto = new Lotto(winningNumbers);
+    this.winLotto = new Lotto(winningNumbers);
     const bonusNumberInput = await this.inputHandler.getInput("보너스 번호를 입력해주세요. \n");
     this.bonusNumber = Number(bonusNumberInput);
   }
