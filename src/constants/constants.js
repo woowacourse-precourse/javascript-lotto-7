@@ -34,6 +34,8 @@ export const LOTTO_RELATED_CONSTANTS = {
   lottoRangeStart : 1,
   lottoRangeEnd : 45,
   lottoLength : 6,
+  rate : 100,
+  rounding : 1,
 };
 
 export const MATCH_REWARD = {

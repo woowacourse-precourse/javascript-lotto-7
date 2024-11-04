@@ -70,8 +70,7 @@ class LottoService {
       return sum + (value * matchReward[index]);
     }, 0);
 
-    let rate = (reward / payment * 100).toFixed(1);
-
+    let rate = (reward / payment * LOTTO_RELATED_CONSTANTS.rate).toFixed(LOTTO_RELATED_CONSTANTS.rounding);
     return rate;
   }
 }
