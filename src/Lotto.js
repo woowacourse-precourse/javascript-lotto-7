@@ -1,9 +1,10 @@
-import { END_NUMBER, START_NUMBER } from "./Constant.js";
+import { END_NUMBER, NUMBER_COUNT, START_NUMBER, ZERO } from "./Constant.js";
 import {
   LOTTO_ERROR_COUNT,
   LOTTO_ERROR_DUPLICATE,
   LOTTO_ERROR_NUMBER,
   LOTTO_ERROR_RANGE,
+  LOTTO_ERROR_INTEGER,
   BONUS_DUPLICATE,
 } from "./Constant.js";
 
@@ -16,11 +17,11 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== NUMBER_COUNT) {
       throw new Error(LOTTO_ERROR_COUNT);
     }
     const setNumbers = new Set(numbers);
-    if (setNumbers.size !== 6) {
+    if (setNumbers.size !== NUMBER_COUNT) {
       throw new Error(LOTTO_ERROR_DUPLICATE);
     }
     numbers.forEach((number) => {
@@ -29,6 +30,9 @@ class Lotto {
       }
       if (number > END_NUMBER || number < START_NUMBER) {
         throw new Error(LOTTO_ERROR_RANGE);
+      }
+      if (number % 1 !== ZERO) {
+        throw new Error(LOTTO_ERROR_INTEGER);
       }
     });
   }

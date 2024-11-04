@@ -43,4 +43,5 @@ export const LOTTO_ERROR_COUNT = "[ERROR] 로또 번호는 6개여야 합니다.
 export const LOTTO_ERROR_DUPLICATE = "[ERROR] 로또 번호는 중복이 없어야 합니다.";
 export const LOTTO_ERROR_NUMBER = "[ERROR] 로또 번호는 숫자여야 합니다.";
 export const LOTTO_ERROR_RANGE = "[ERROR] 로또 번호는 1~45의 숫자여야 합니다.";
+export const LOTTO_ERROR_INTEGER = "[ERROR] 로또 번호는 1~45의 정수여야 합니다.";
 export const BONUS_DUPLICATE = "[ERROR] 보너스 번호는 로또 번호와 달라야 합니다.";
