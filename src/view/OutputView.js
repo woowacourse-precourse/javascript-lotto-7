@@ -9,7 +9,7 @@ class OutputView {
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
 
     lottos.forEach((lotto) => {
-      Console.print(`[${lotto.getNumbers().join(",")}]`);
+      Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
   }
 
