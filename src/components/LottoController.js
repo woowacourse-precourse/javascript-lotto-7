@@ -4,7 +4,7 @@ import purchaseAmountValidator from '../utils/validation/purchaseAmountValidator
 import { bonusNumberValidator } from '../utils/validation/bonusNumberValidator.js';
 import LottoIOHandler from './LottoIOHandler.js';
 import isEmpty from '../utils/isEmpty.js';
-import Input from '../utils/Input.js';
+import Input from '../utils/io/Input.js';
 
 class LottoController {
   #purchaseAmount;

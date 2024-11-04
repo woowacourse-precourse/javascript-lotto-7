@@ -1,5 +1,5 @@
 import LottoController from '../../../src/components/LottoController.js';
-import Input from '../../../src/utils/Input.js';
+import Input from '../../../src/utils/io/Input.js';
 
 describe('로또 발행 테스트', () => {
   let lottoController;

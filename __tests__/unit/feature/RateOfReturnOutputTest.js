@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import LottoController from '../../../src/components/LottoController.js';
-import Input from '../../../src/utils/Input.js';
+import Input from '../../../src/utils/io/Input.js';
 
 describe('수익률 출력 테스트', () => {
   beforeAll(() => {
