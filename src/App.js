@@ -19,6 +19,7 @@ class App {
     this.outputLottoTickets();
     await this.inputWinningNumbers();
     await this.inputBonusNumber();
+    this.outputCheckWinning();
   }
 
   async inputPurchaseMoney() {
@@ -77,6 +78,8 @@ class App {
       this.purchaseMoney,
       winningStatisticsList
     );
+
+    OutputValue.printResult(winningStatisticsList, profitability);
   }
 }
 
