@@ -1,4 +1,4 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 export function purchaseAmountValidation(purchaseAmount) {
   if (!purchaseAmount.trim()) throw '구매금액은 1000단위의 숫자만 입력해주세요';
@@ -11,6 +11,7 @@ export function purchaseAmountValidation(purchaseAmount) {
     const myLotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     myLotto.sort((a, b) => a - b);
     myLottos.push(myLotto);
+    Console.print(myLotto);
   }
 
   return myLottos;
@@ -28,7 +29,7 @@ export function winningLottoValidation(winningLottoInput) {
   if (winningLottoArray.length !== 6) throw '당첨번호는 6자리로 입력해주세요';
   const winningLottoDuplicateValid = new Set(winningLottoArray);
   if (winningLottoDuplicateValid.size !== 6) throw '번호는 중복될 수 없습니다.';
-  return winningLottoArray;
+  return winningLottoArray.map(Number);
 }
 
 export function bonusLottoValidation(bonusLottoNum, winningLotto) {
@@ -36,7 +37,7 @@ export function bonusLottoValidation(bonusLottoNum, winningLotto) {
     throw '로또 번호는 1 ~ 45까지의 숫자만 가능합니다.';
   if (winningLotto.find((lottoNum) => lottoNum === bonusLottoNum))
     throw '보너스 번호는 당첨번호와 중복될 수 없습니다.';
-  return bonusLottoNum;
+  return Number(bonusLottoNum);
 }
 
 function lottoNumberValidation(lottoNumber) {
