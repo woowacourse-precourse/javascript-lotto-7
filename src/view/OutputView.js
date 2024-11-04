@@ -6,15 +6,15 @@ class OutputView {
   }
 
   static printPurchaseInfo(lottoCount, lottos) {
-    Console.print(`${lottoCount}개를 구매했습니다.`);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
 
     lottos.forEach((lotto) => {
-      Console.print(lotto.getNumbers());
+      Console.print(`[${lotto.getNumbers().join(",")}]`);
     });
   }
 
   static printRankResult(lottoRankResult) {
-    Console.print("당첨 통계\n---");
+    Console.print("\n당첨 통계\n---");
     const rank = lottoRankResult.rank;
     Console.print(`3개 일치 (5,000원) - ${rank.fifth[0]}개`);
     Console.print(`4개 일치 (50,000원) - ${rank.fourth[0]}개`);
