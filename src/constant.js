@@ -38,4 +38,5 @@ export const LOTTO_RESULT_MESSAGE = Object.freeze({
 const ERROR_TAG = '[ERROR] ';
 export const ERROR_MESSAGE = Object.freeze({
   AMOUNT_NOT_NUMBER: ERROR_TAG.concat('금액은 숫자여야 합니다.'),
+  AMOUNT_NEGATIVE: ERROR_TAG.concat('금액은 0보다 커야 합니다.'),
 });
