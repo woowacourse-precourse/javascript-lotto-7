@@ -31,6 +31,8 @@ class App {
   validateMoneyInput(inputtedMoney) {
     if (isNan(inputtedMoney))
       throw new Error("[ERROR] 숫자를 입력해야 합니다.");
+    if (inputtedMoney <= 0)
+      throw new Error("[ERROR] 1000원 이상 입력해야 합니다.");
   }
 }
 
