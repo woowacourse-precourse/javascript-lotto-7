@@ -169,7 +169,7 @@ class App {
   }
 
   printLottos(lottos) {
-    lottos.forEach(lotto => Console.print(lotto));
+    lottos.forEach(lotto => Console.print(`[${lotto.join(', ')}]`));
     Console.print('');
   }
 
