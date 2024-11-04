@@ -9,7 +9,7 @@ class App {
     );
 
     if (price % 1000 !== 0) {
-      throw new Error("[ERROR]");
+      throw new Error("구입 금액은 1000원 단위로 입력해야 합니다.");
     }
 
     const resultprice = price / 1000;
@@ -23,19 +23,23 @@ class App {
     }
 
     const winningNumbers = await collectLottoNumbers();
-    const bonusNumber = await collectBonusNumber();
+    const bonusNumber = await collectBonusNumber(userLottos);
 
     const totalStatistics = Lotto.getTotalStatistics(
       userLottos,
       winningNumbers,
       bonusNumber
     );
-    MissionUtils.Console.print("당첨 통계\n---");
+
+    // 출력 형식 맞추기
+    MissionUtils.Console.print("당첨 통계");
+    MissionUtils.Console.print("---");
     Object.keys(totalStatistics).forEach((key) => {
       MissionUtils.Console.print(`${key} - ${totalStatistics[key]}개`);
     });
+
     const totalPrize = this.calculateTotalPrize(totalStatistics);
-    const yieldRate = ((totalPrize / price) * 100).toFixed(1);
+    const yieldRate = this.calculateYieldRate(totalPrize, price);
     MissionUtils.Console.print(`총 수익률은 ${yieldRate}%입니다.`);
   }
 
@@ -51,6 +55,10 @@ class App {
     return Object.keys(statistics).reduce((total, key) => {
       return total + PRIZES[key] * statistics[key];
     }, 0);
+  }
+
+  calculateYieldRate(totalPrize, price) {
+    return ((totalPrize / price) * 100).toFixed(1); // 소수점 둘째 자리에서 반올림
   }
 }
 

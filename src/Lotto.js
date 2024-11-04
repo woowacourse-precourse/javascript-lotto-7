@@ -18,7 +18,7 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
     }
 
-    numbers.forEach(num => {
+    numbers.forEach((num) => {
       if (num < 1 || num > 45) {
         throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
       }
@@ -57,7 +57,7 @@ class Lotto {
     else if (winningCount === 3) {
       result["3개 일치 (5,000원)"]++;
       if (isBonusMatched) {
-        result["3개 일치 (5,000원)"]--; // 보너스가 일치하면 3개 일치에서 제외
+        result["3개 일치 (5,000원)"]--;
       }
     }
 
