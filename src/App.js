@@ -22,9 +22,6 @@ const prompt = async (message, validation, rest) => {
   return prompt(message, validation, rest);
 };
 
-const makeLottoCount = (lottoBuyPrice) =>
-  Number(lottoBuyPrice) / ONE_LOTTO_PRICE;
-
 class App {
   constructor() {
     this.lottoBuyPrice = null;
@@ -66,9 +63,13 @@ class App {
   }
 
   getLottoCount() {
-    const lottoCount = makeLottoCount(this.lottoBuyPrice);
+    const lottoCount = this.makeLottoCount(this.lottoBuyPrice);
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
     this.lottoCount = Number(lottoCount);
+  }
+
+  makeLottoCount(lottoBuyPrice) {
+    return Number(lottoBuyPrice) / ONE_LOTTO_PRICE;
   }
 
   makeLottos() {
