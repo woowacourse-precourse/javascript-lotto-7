@@ -8,6 +8,7 @@ class App {
     this.requestPurchaseAmount(); // 구입 금액 요청
   }
 
+  // 1. 구입 금액 입력
   requestPurchaseAmount() {
     Console.readLine("구입금액을 입력해 주세요.\n", (input) => {
       try {
@@ -15,7 +16,7 @@ class App {
         const lottoCount = purchaseAmount / App.PURCHASE_UNIT;
         this.#issueLottos(lottoCount);
 
-        // 구입 금액이 유효할 때만 getWinningNumbers 호출
+        // 구입 금액이 유효할 때만 당첨 번호 요청
         this.getWinningNumbers();
       } catch (error) {
         Console.print(error.message);
@@ -23,7 +24,6 @@ class App {
       }
     });
   }
-
 
   #getValidatedAmount(input) {
     const amount = Number(input);
@@ -36,20 +36,25 @@ class App {
     return amount;
   }
 
+  // 2. 로또 발행
   #issueLottos(count) {
     Console.print(`${count}개를 구매했습니다.`);
+    this.lottos = [];
     for (let i = 0; i < count; i++) {
       const randomNumbers = Lotto.generateRandomNumbers().sort((a, b) => a - b);
       const lotto = new Lotto(randomNumbers);
+      this.lottos.push(lotto);
       Console.print(lotto.getNumbers());
     }
   }
 
+  // 3. 당첨 번호 입력
   getWinningNumbers() {
     Console.readLine("당첨 번호를 입력해 주세요\n", (input) => {
       try {
-        const winningNumbers = this.validateWinningNumbers(input);
-        Console.print(`입력된 당첨 번호: ${winningNumbers}`);
+        this.winningNumbers = this.validateWinningNumbers(input);
+        Console.print(`입력된 당첨 번호: ${this.winningNumbers}`);
+        this.getBonusNumber(); // 보너스 번호 입력 요청
       } catch (error) {
         Console.print(error.message);
         this.getWinningNumbers(); // 오류 발생 시 재시도
@@ -72,6 +77,38 @@ class App {
     });
     return numbers;
   }
+
+  // 4. 보너스 번호 입력
+  getBonusNumber() {
+    Console.readLine("보너스 번호를 입력해 주세요\n", (input) => {
+      try {
+        this.bonusNumber = this.validateBonusNumber(input);
+        Console.print(`입력된 보너스 번호: ${this.bonusNumber}`);
+        this.calculateResults(); // 당첨 결과 계산
+      } catch (error) {
+        Console.print(error.message);
+        this.getBonusNumber(); // 오류 발생 시 재시도
+      }
+    });
+  }
+
+  validateBonusNumber(input) {
+    const bonusNumber = Number(input);
+
+    if (isNaN(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 숫자로 입력해 주세요.");
+    }
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    }
+    if (this.winningNumbers.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.");
+    }
+
+    return bonusNumber;
+  }
+
+
 }
 
-  export default App;
+export default App;

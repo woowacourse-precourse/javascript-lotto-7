@@ -1,4 +1,4 @@
-import {Random} from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
 class Lotto {
   #numbers;
@@ -18,7 +18,7 @@ class Lotto {
   }
 
   getNumbers() {
-    return `[${this.#numbers.join(', ')}]`; // 배열을 문자열로 반환
+    return this.#numbers; // 배열 자체를 반환합니다.
   }
 
   static generateRandomNumbers() {
