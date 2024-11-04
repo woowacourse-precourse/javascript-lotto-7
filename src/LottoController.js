@@ -8,11 +8,10 @@ export default class LottoController {
         return Array.from({ length: lottoCount }, () => RandomNum.getNumber().sort((a,b) => a-b)); 
     }
 
-    static createrWinningLottoNumbers(winningNumbers) {
-        const winningNumbersList = Parser.separaterLottoNumber(winningNumbers);
-        return new Lotto(winningNumbersList);
+    static createrWinningLotto(winningNumbers) {
+        const winningLotto = Parser.separaterLottoNumber(winningNumbers);
+        return new Lotto(winningLotto);
     }
 
-
-
+    
 }
