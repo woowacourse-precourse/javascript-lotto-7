@@ -11,17 +11,21 @@ export class LottoController {
 	}
 
 	async run() {
-		const price = await this.input.getLottoPrice();
-		const lottoList = this.issueLotto(price);
-		await this.output.printLottoCount(lottoList);
+		try {
+			const price = await this.input.getLottoPrice();
+			const lottoList = this.issueLotto(price);
+			this.output.printLottoCount(lottoList);
 
-		const winningNumbers = await this.input.getLottoNumbers();
-		const bonusNumber = await this.input.getLottoBonusNumber();
+			const winningNumbers = await this.input.getLottoNumbers();
+			const bonusNumber = await this.input.getLottoBonusNumber(winningNumbers);
 
-		const lottoResult = this.getLottoResult(lottoList, winningNumbers, bonusNumber);
-		await this.output.printLottoResult(lottoResult);
-		const profitRate = this.calculateProfitRate(lottoResult, price);
-		await this.output.printProfitRate(profitRate);
+			const lottoResult = this.getLottoResult(lottoList, winningNumbers, bonusNumber);
+			this.output.printLottoResult(lottoResult);
+			const profitRate = this.calculateProfitRate(lottoResult, price);
+			this.output.printProfitRate(profitRate);
+		} catch (error) {
+			throw error;
+		}
 	}
 
 	issueLotto(price) {
