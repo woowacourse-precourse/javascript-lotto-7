@@ -7,6 +7,7 @@ import {
   isNumber,
   isPositive,
   isTooLarge,
+  isUniqueBonusBall,
   isValidLength,
   isValidRange,
   isValidUnit,
@@ -45,6 +46,10 @@ export class Validator {
     isPositive(bonusBall);
     isInteger(bonusBall);
     isValidRange(bonusBall);
+  }
+
+  static isUniqueBonusBall(bonusBall, winningNumbers) {
+    isUniqueBonusBall(bonusBall, winningNumbers);
   }
 
   static isNested(counter) {

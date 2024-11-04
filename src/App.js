@@ -22,7 +22,7 @@ class App {
     printLottoList(userLotto);
     const winningNumber = await InputHandler.getWinningNumbers();
     const winningLotto = new Lotto(winningNumber);
-    const bonusBall = await InputHandler.getBonusBall();
+    const bonusBall = await InputHandler.getBonusBall(winningLotto.numbers);
     userLotto.checkLottoMatch(winningLotto, bonusBall);
     printMatchInfo(userLotto);
     const ans = userLotto.rateOfReturn();

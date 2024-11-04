@@ -46,10 +46,23 @@ export class InputHandler {
     return this.getWinningLotto(winningNumbers);
   }
 
-  static async getBonusBall() {
+  static async isUniqueBonusBall(bonusBall, winningNumbers) {
+    this.#nested += 1;
+    try {
+      Validator.isUniqueBonusBall(bonusBall, winningNumbers);
+      this.#nested = 0;
+      return Number(bonusBall);
+    } catch (error) {
+      Validator.isNested(this.#nested);
+      printOneLine(error.message);
+      return this.getBonusBall(winningNumbers);
+    }
+  }
+
+  static async getBonusBall(winningNumbers) {
     const helperMessages = HELPER_MESSAGE.getBonusBall;
     const validator = Validator.isValidBonusBall;
     const bonusBall = await this.#tryUserInput(helperMessages, validator);
-    return Number(bonusBall);
+    return this.isUniqueBonusBall(bonusBall, winningNumbers);
   }
 }
