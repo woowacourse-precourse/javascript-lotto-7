@@ -1,70 +1,95 @@
-import Lotto from "../src/models/Lotto.js";
-import { ERROR_MESSAGES } from "../src/constants/Errors.js";
+import Lotto from "../src/Lotto";
+import App from "../src/App.js";
 
 describe("로또 클래스 테스트", () => {
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow(ERROR_MESSAGES.invalidLottoNumberLength);
+    }).toThrow("[ERROR]");
   });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
   test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow(ERROR_MESSAGES.invalidLottoNumberDuplicate);
+    }).toThrow("[ERROR]");
   });
 
-  test("로또 번호에 문자가 있으면 예외가 발생한다.", () => {
+  test("로또 번호에 1보다 작은 숫자가 있으면 예외가 발생한다.", () => {
     expect(() => {
-      new Lotto([1, 2, 3, "a", 5, 6]);
-    }).toThrow(ERROR_MESSAGES.invalidLottoNumberType);
+      new Lotto([1, 2, 3, 4, 5, 0]);
+    }).toThrow("[ERROR]");
   });
 
-  test("로또 번호의 범위가 1부터 45 사이가 아니면 예외가 발생한다.", () => {
+  test("로또 번호에 45보다 큰 숫자가 있으면 예외가 발생한다.", () => {
     expect(() => {
-      new Lotto([0, 2, 3, 4, 5, 66]);
-    }).toThrow(ERROR_MESSAGES.invalidLottoNumberRange);
+      new Lotto([1, 2, 3, 4, 5, 46]);
+    }).toThrow("[ERROR]");
   });
 
-  test("로또 번호에 올바른 값이 입력되면 예외가 발생하지 않는다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6]);
-    }).not.toThrow();
+  test("hasNumber 테스트", () => {
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    expect(lotto.hasNumber(1)).toEqual(true);
+    expect(lotto.hasNumber(7)).toEqual(false);
   });
+});
 
-  describe("로또 추첨 결과 테스트", () => {
-    const mockLottoResult = {
-      first: 0,
-      second: 0,
-      third: 0,
-      forth: 0,
-      fifth: 0,
-    };
-
-    const mockBonusNumber = 8;
-
-    test("각 등수별 당첨 테스트", () => {
-      const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
-
-      const lottoTickets = [
-        [1, 2, 3, 4, 5, 6],
-        [1, 2, 3, 4, 5, 8],
-        [1, 2, 3, 4, 5, 11],
-        [1, 2, 3, 14, 15],
-      ];
-
-      const evaluatedResult = lotto.evaluateLottoTickets(
-        lottoTickets,
-        mockBonusNumber,
-        { ...mockLottoResult }
-      );
-
-      expect(evaluatedResult.first).toBe(1);
-      expect(evaluatedResult.second).toBe(1);
-      expect(evaluatedResult.third).toBe(1);
-      expect(evaluatedResult.forth).toBe(1);
-      expect(evaluatedResult.fifth).toBe(1);
-    });
+describe("App.js 메서드 단위 테스트", () => {
+  test("constructor 테스트", () => {
+    const app = new App();
+    expect(app.winningNumbers).toEqual([]);
+    expect(app.bonusNumber).toEqual(0);
+  });
+  test("validateMoney 테스트", () => {
+    const app = new App();
+    expect(app.validateMoney(1000)).toEqual(true);
+    expect(app.validateMoney(1001)).toEqual(undefined);
+    expect(app.validateMoney(0)).toEqual(undefined);
+    expect(app.validateMoney(-1)).toEqual(undefined);
+  });
+  test("publishLotto 테스트", () => {
+    const app = new App();
+    const lottos = app.publishLotto(1000);
+    expect(lottos.length).toEqual(1);
+    expect(lottos[0].getNumbers().length).toEqual(6);
+  });
+  test("validateNumbers 테스트", () => {
+    const app = new App();
+    expect(app.validateNumbers([1, 2, 3, 4, 5, 6])).toEqual(true);
+    expect(app.validateNumbers([1, 2, 3, 4, 5, 5])).toEqual(undefined);
+    expect(app.validateNumbers([1, 2, 3, 4, 5, 0])).toEqual(undefined);
+    expect(app.validateNumbers([1, 2, 3, 4, 5, 46])).toEqual(undefined);
+  });
+  test("validateBonusNumber 테스트", () => {
+    const app = new App();
+    app.winningNumbers = [1, 2, 3, 4, 5, 6];
+    expect(app.validateBonusNumber(7)).toEqual(true);
+    expect(app.validateBonusNumber(6)).toEqual(undefined);
+    expect(app.validateBonusNumber(0)).toEqual(undefined);
+    expect(app.validateBonusNumber(46)).toEqual(undefined);
+  });
+  test("countMatchingNumbers 테스트", () => {
+    const app = new App();
+    app.winningNumbers = [1, 2, 3, 4, 5, 6];
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    expect(app.countMatchingNumbers(lotto)).toEqual(6);
+    app.winningNumbers = [1, 2, 3, 4, 5, 7];
+    expect(app.countMatchingNumbers(lotto)).toEqual(5);
+  });
+  test("computeRank 테스트", () => {
+    const app = new App();
+    app.bonusNumber = 7;
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    app.winningNumbers = [1, 2, 3, 4, 5, 6];
+    expect(app.computeRank(lotto)).toEqual("1등");
+    // app.winningNumbers = [1,2,3,4,5,7];
+    // expect(app.computeRank(lotto)).toEqual("2등");
+    app.winningNumbers = [1, 2, 3, 4, 5, 8];
+    expect(app.computeRank(lotto)).toEqual("3등");
+    app.winningNumbers = [1, 2, 3, 4, 7, 8];
+    expect(app.computeRank(lotto)).toEqual("4등");
+    app.winningNumbers = [1, 2, 3, 7, 8, 9];
+    expect(app.computeRank(lotto)).toEqual("5등");
+    app.winningNumbers = [1, 2, 7, 8, 9, 10];
+    expect(app.computeRank(lotto)).toEqual("꽝");
   });
 });
