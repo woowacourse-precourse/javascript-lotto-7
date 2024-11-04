@@ -25,7 +25,7 @@ class Controller {
       winningLotto,
       bonusNumber
     );
-    this.#outputView.displayLottoResult(lottoResult, purchasePrice);
+    this.#outputView.displayLottoResult(lottoResult);
 
     const lottoRateOfReturn = calculationLotto.rateOfReturn(
       lottoResult,
