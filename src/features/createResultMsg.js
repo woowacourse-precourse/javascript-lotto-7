@@ -8,6 +8,7 @@ import {
   OPEN_PROFIT,
   RANK_MAP,
   RANK_LIST,
+  BONUS,
 } from "../config/config.js";
 
 export const createResultMsg = (lottoRankMap, profit) => {
@@ -16,7 +17,7 @@ export const createResultMsg = (lottoRankMap, profit) => {
     const rankCount = lottoRankMap.get(rank) || 0;
     const { AMOUNT, MESSAGE } = RANK_MAP.get(rank);
 
-    if (rank === "BONUS") rank = 5;
+    if (rank === BONUS) rank = 5;
     resultMsg += `${rank}${COUNT} ${MESSAGE} ${OPEN_PARENS}${AMOUNT.toLocaleString()}${CLOSE_PARENS} ${LINE} ${rankCount}${COUNT}\n`;
   });
   resultMsg += `${OPEN_PROFIT} ${profit}${CLOSE_PROFIT}`;
