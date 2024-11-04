@@ -1,7 +1,6 @@
 import Lotto from "../model/Lotto.js";
-import InputView from "../view/InputView.js";
-import { Console, Random } from "@woowacourse/mission-utils";
-import { MESSAGES } from "../constant/messages.js";
+import inputView from "../view/InputView.js";
+import { Random } from "@woowacourse/mission-utils";
 import { validator } from "../utils/validator.js";
 import { PROFIT_PER_MATCHING } from "../constant/profit.js";
 import {
@@ -11,24 +10,20 @@ import {
   MATCHING_COUNT,
   PERCENTAGE,
   ROUNDING_DIGITS,
-  TICKET_PRICE_UNIT,
+  LOTTO_TICKET_PRICE_UNIT,
 } from "../constant/number.js";
+import outputView from "../view/OutputView.js";
 
 class LottoController {
-  #inputView;
-  #lottoAmount;
-  #totalProfitRatio;
+  #lottoAmount; // 로또 금액
+  #totalProfitRatio; // 총 수익률
   #numberOfLotto;
   #lottoTickets;
   #winningLottoNumbers;
   #bonusNumber;
-  #isAllInputValidationPass;
-  #totalStatistic;
+  #totalStatistic; // 당첨 통계
   constructor() {
-    this.#inputView = new InputView();
     this.#totalProfitRatio = 0;
-    this.#isAllInputValidationPass = false;
-
     this.#totalStatistic = {
       [MATCHING_COUNT.three]: 0,
       [MATCHING_COUNT.four]: 0,
@@ -48,13 +43,12 @@ class LottoController {
       );
       tickets.push(new Lotto(numbers));
     }
-    return tickets;
+    this.#lottoTickets = tickets;
   }
 
   async getWinningLottoNumbers() {
     try {
-      const winningLottoNumbers =
-        await this.#inputView.readWinningLottoNumbers();
+      const winningLottoNumbers = await inputView.readWinningLottoNumbers();
       this.#winningLottoNumbers = validator.validateWinningLottoNumbers(
         winningLottoNumbers.trim()
       );
@@ -66,14 +60,13 @@ class LottoController {
 
   async getBonusNumber() {
     try {
-      const bonusNumber = await this.#inputView.readBonusNumbers();
+      const bonusNumber = await inputView.readBonusNumbers();
 
       validator.validateBonusNumber(
         this.#winningLottoNumbers,
         Number(bonusNumber.trim())
       );
 
-      this.#isAllInputValidationPass = true;
       this.#bonusNumber = Number(bonusNumber.trim());
     } catch (error) {
       console.log(error);
@@ -97,42 +90,12 @@ class LottoController {
   }
 
   showTotalStatistic() {
-    Console.print(MESSAGES.output.winning_statistic);
-    Console.print(
-      MESSAGES.output.matchingCount(
-        MATCHING_COUNT.three,
-        false,
-        this.#totalStatistic[MATCHING_COUNT.three]
-      )
-    );
-    Console.print(
-      MESSAGES.output.matchingCount(
-        MATCHING_COUNT.four,
-        false,
-        this.#totalStatistic[MATCHING_COUNT.four]
-      )
-    );
-    Console.print(
-      MESSAGES.output.matchingCount(
-        MATCHING_COUNT.five,
-        false,
-        this.#totalStatistic[MATCHING_COUNT.five]
-      )
-    );
-    Console.print(
-      MESSAGES.output.matchingCount(
-        MATCHING_COUNT.five,
-        true,
-        this.#totalStatistic["bonus"]
-      )
-    );
-    Console.print(
-      MESSAGES.output.matchingCount(
-        MATCHING_COUNT.six,
-        false,
-        this.#totalStatistic[MATCHING_COUNT.six]
-      )
-    );
+    outputView.printWinningStatistic();
+    outputView.printMatchingCountIsThree(this.#totalStatistic);
+    outputView.printMatchingCountIsFour(this.#totalStatistic);
+    outputView.printMatchingCountIsFive(this.#totalStatistic);
+    outputView.printMatchingCountIsFiveAndBonus(this.#totalStatistic);
+    outputView.printMatchingCountIsSix(this.#totalStatistic);
   }
   getWinningResult() {
     for (const ticket of this.#lottoTickets) {
@@ -161,12 +124,12 @@ class LottoController {
   }
 
   showTotalProfitRatio() {
-    Console.print(MESSAGES.output.ratioOfProfit(this.#totalProfitRatio));
+    outputView.printotalProfitRatio(this.#totalProfitRatio);
   }
 
   async getLottoAmount() {
     try {
-      const lottoAmountInput = await this.#inputView.readLottoAmount();
+      const lottoAmountInput = await inputView.readLottoAmount();
       const lottoAmount = Number(lottoAmountInput);
 
       validator.validateLottoAmount(lottoAmount);
@@ -174,18 +137,6 @@ class LottoController {
     } catch (error) {
       console.log(error);
       return this.getLottoAmount();
-    }
-  }
-
-  printLottoTicketCount() {
-    this.#numberOfLotto = this.#lottoAmount / TICKET_PRICE_UNIT;
-    // 로또 티켓 개수 출력
-    Console.print(MESSAGES.output.lottoCount(this.#numberOfLotto));
-  }
-
-  printLottoTickets() {
-    for (const ticket of this.#lottoTickets) {
-      Console.print(ticket.getLottoNumbers());
     }
   }
 
@@ -200,14 +151,19 @@ class LottoController {
 
     this.showTotalProfitRatio();
   }
+
+  calculateNumberOfTickets() {
+    this.#numberOfLotto = this.#lottoAmount / LOTTO_TICKET_PRICE_UNIT;
+  }
   async run() {
     await this.getLottoAmount();
-    this.printLottoTicketCount();
-    this.#lottoTickets = this.makeLottoTickets();
-    this.printLottoTickets();
+    this.calculateNumberOfTickets();
+    outputView.printLottoTicketCount(this.#numberOfLotto);
+    this.makeLottoTickets();
+    outputView.printLottoTickets(this.#lottoTickets);
     await this.getWinningLottoNumbers();
     await this.getBonusNumber();
-    if (this.#isAllInputValidationPass) this.showWinningResult();
+    this.showWinningResult();
   }
 }
 export default LottoController;
