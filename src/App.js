@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import LottoManager from "./LottoManager";
-import InputValidator from "./InputValidator";
+import LottoManager from "./models/LottoManager";
+import InputValidator from "./utils/InputValidator";
 
 class App {
   run() {

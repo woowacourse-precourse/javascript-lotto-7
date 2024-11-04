@@ -1,3 +1,5 @@
+import Lotto from "../models/Lotto";
+
 class InputValidator{
     static PurchaseAmount(input){
         const amount = parseInt(input, 10);
@@ -7,17 +9,10 @@ class InputValidator{
         return amount;
     }
 
-    static WinningNumbers(input){
-        const numbers = input.split(',').map(Number);
-        if(numbers.length !== 6){
-            throw new Error("ERROR] 당첨 번호를 6개 입력해야합니다.");
-        }
-        if (new Set(numbers).size !== numbers.length){
-            throw new Error("[ERROR] 로또 번호는 중복 없는 6개의 숫자여야 합니다.")
-        }
-        if (numbers.some(num => isModuleNamespaceObject(num) || num < 1 || num > 45)){
-            throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.")
-        }
+    static validateWinningNumbers(input) {
+        const numbers = input.split(",").map(Number);
+        const lotto = new Lotto(numbers); // Lotto 인스턴스를 통해 검증 수행
+        return lotto.getNumbers();
     }
 
     static bonusNumber(input, winningNumbers) {
