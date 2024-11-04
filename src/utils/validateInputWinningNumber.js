@@ -7,7 +7,7 @@ const validateInputWinningNumber = async () => {
   while (true) {
     try {
       const inputNumbers = await getUserInput(INPUT_MESSAGE.WINNING_NUMBERS);
-      const lotto = new Lotto(inputNumbers);
+      const lotto = new Lotto(inputNumbers.split(',').map(Number));
 
       return lotto.getNumber();
     } catch (error) {

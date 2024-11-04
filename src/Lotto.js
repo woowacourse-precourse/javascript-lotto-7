@@ -36,15 +36,14 @@ class Lotto {
   }
 
   #validate(numbers) {
-    const winningNumbers = numbers.split(',').map(Number);
-    this.isCountInvalid(winningNumbers);
-    this.isNumberDuplicate(winningNumbers);
-    this.isFormatInvalid(winningNumbers);
-    this.isOutOfRange(winningNumbers);
+    this.isCountInvalid(numbers);
+    this.isNumberDuplicate(numbers);
+    this.isFormatInvalid(numbers);
+    this.isOutOfRange(numbers);
   }
 
   getNumber() {
-    return this.#numbers.split(',').map(Number);
+    return this.#numbers;
   }
 }
 
