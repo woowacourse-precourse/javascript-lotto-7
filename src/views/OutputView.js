@@ -7,35 +7,39 @@ class OutputView {
     Console.print(MESSAGE.PURCHASE_COUNT(count));
   }
 
+  static printLottoTicket(ticket) {
+    Console.print(`[${ticket.join(', ')}]`);
+  }
+
   static printWinningStatistics() {
     Console.print(MESSAGE.WINNING_STATISTICS);
   }
 
   static printMatchResult(matchCount, count) {
     switch (matchCount) {
-      case 3:
+      case '3':
         Console.print(`${MESSAGE.THREE_MATCHES} ${count}개`);
         break;
-      case 4:
+      case '4':
         Console.print(`${MESSAGE.FOUR_MATCHES} ${count}개`);
         break;
-      case 5:
+      case '5':
         Console.print(`${MESSAGE.FIVE_MATCHES} ${count}개`);
         break;
       case '5+':
         Console.print(`${MESSAGE.FIVE_BONUS_MATCHES} ${count}개`);
         break;
-      case 6:
+      case '6':
         Console.print(`${MESSAGE.SIX_MATCHES} ${count}개`);
         break;
       default:
-        Console.print(`${ERROR.INVALID_MATCH_COUNT}`);
+        Console.print(ERROR.INVALID_MATCH_COUNT);
         break;
     }
   }
 
   static printRateOfReturn(revenue) {
-    Console.print(MESSAGE.RATE_OF_RETURN(revenue));
+    Console.print(MESSAGE.RATE_OF_RETURN(revenue)); // revenue 인자 전달
   }
 
   static printError(message, name) {
