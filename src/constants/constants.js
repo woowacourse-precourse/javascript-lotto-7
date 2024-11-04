@@ -17,27 +17,27 @@ const RANK = Object.freeze({
 });
 
 const PRIZE_KEY = Object.freeze({
-  first_prize: 'firstPrize',
-  second_prize: 'secondPrize',
-  third_prize: 'thirdPrize',
-  fourth_prize: 'fourthPrize',
-  fifth_prize: 'fifthPrize',
+  first_prize: 'first_prize',
+  second_prize: 'second_prize',
+  third_prize: 'third_prize',
+  fourth_prize: 'fourth_prize',
+  fifth_prize: 'fifth_prize',
 });
 
 const PRIZE_AMOUNT = Object.freeze({
-  [PRIZE_KEY.first_prize]: 2_000_000_000,
-  [PRIZE_KEY.second_prize]: 30_000_000,
-  [PRIZE_KEY.third_prize]: 1_500_000,
-  [PRIZE_KEY.fourth_prize]: 50_000,
   [PRIZE_KEY.fifth_prize]: 5_000,
+  [PRIZE_KEY.fourth_prize]: 50_000,
+  [PRIZE_KEY.third_prize]: 1_500_000,
+  [PRIZE_KEY.second_prize]: 30_000_000,
+  [PRIZE_KEY.first_prize]: 2_000_000_000,
 });
 
 const INITIAL_STATISTICS = Object.freeze({
-  [PRIZE_KEY.first_prize]: 0,
-  [PRIZE_KEY.second_prize]: 0,
-  [PRIZE_KEY.third_prize]: 0,
-  [PRIZE_KEY.fourth_prize]: 0,
   [PRIZE_KEY.fifth_prize]: 0,
+  [PRIZE_KEY.fourth_prize]: 0,
+  [PRIZE_KEY.third_prize]: 0,
+  [PRIZE_KEY.second_prize]: 0,
+  [PRIZE_KEY.first_prize]: 0,
 });
 
 export {
