@@ -2,7 +2,10 @@ import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import { validatePurchaseAmount } from '../utils/validateInput.js';
 import CustomError from '../utils/CustomError.js';
-import { validateLottoNumbers } from '../utils/validateLottoNumbers.js';
+import {
+  validateBonusNumber,
+  validateLottoNumbers,
+} from '../utils/validateLottoNumbers.js';
 
 class LottoController {
   static async handlePurchaseAmount() {
@@ -32,6 +35,21 @@ class LottoController {
       if (error instanceof CustomError) {
         OutputView.printError(error.message, error.name);
         return this.getWinningNumbers();
+      }
+      throw error;
+    }
+  }
+
+  static async getBonusNumber(winningNumbers) {
+    try {
+      const bonusNumberString = await InputView.readBonusNumber();
+      const bonusNumber = parseFloat(bonusNumberString, 10);
+      validateBonusNumber(winningNumbers, bonusNumber);
+      return bonusNumber;
+    } catch (error) {
+      if (error instanceof CustomError) {
+        OutputView.printError(error.message, error.name);
+        return this.getBonusNumber(winningNumbers);
       }
       throw error;
     }
