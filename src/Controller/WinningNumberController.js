@@ -34,13 +34,20 @@ class WinningNumberController {
   async getBonusNumber(winningNumbers) {
     while (true) {
       try {
-        const input = await this.user.readUserInput(GAME_MESSAGE.BONUS_NUMBER);
-        validateBonusNumber(input, winningNumbers);
-        return input;
+        return await this.processBonusNumber(winningNumbers);
       } catch (error) {
         outputView.printErrorMessage(error);
       }
     }
+  }
+
+  /**@param {number[]} winningNumbers */
+  async processBonusNumber(winningNumbers) {
+    const bonusNumber = await this.user.readUserInput(
+      GAME_MESSAGE.BONUS_NUMBER
+    );
+    validateBonusNumber(bonusNumber, winningNumbers);
+    return bonusNumber;
   }
 }
 
