@@ -12,6 +12,12 @@ const mockQuestions = (inputs) => {
   });
 };
 
+const getLogSpy = () => {
+  const logSpy = jest.spyOn(Console, 'print');
+  logSpy.mockClear();
+  return logSpy;
+};
+
 describe('InputHandler 테스트', () => {
   test('구입금액 입력 테스트', async () => {
     const input = '5000';
@@ -43,85 +49,113 @@ describe('InputHandler 테스트', () => {
 
 describe('구입 금액 예외처리 테스트', () => {
   test('구입금액 입력이 천원 단위가 아닌 경우', async () => {
-    const input = '5500';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
 
-    await expect(InputHandler.getBuyPrice()).rejects.toThrow(
-      ERROR_MESSAGE.BUY_PRICE_UNIT,
+    mockQuestions(['5500', '5000']);
+
+    const buyPrice = await InputHandler.getBuyPrice();
+
+    expect(buyPrice).toBe('5000');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.BUY_PRICE_UNIT),
     );
   });
 
   test('구입금액 입력이 숫자가 아닌 경우', async () => {
-    const input = 'abc';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
+    mockQuestions(['abc', '1000']);
 
-    await expect(InputHandler.getBuyPrice()).rejects.toThrow(
-      ERROR_MESSAGE.INPUT_TYPE,
+    const buyPrice = await InputHandler.getBuyPrice();
+
+    expect(buyPrice).toBe('1000');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.INPUT_TYPE),
     );
   });
 
   test('구입금액 입력이 자연수가 아닌 경우', async () => {
-    const input = '-10000';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
+    mockQuestions(['-10000', '1000']);
 
-    await expect(InputHandler.getBuyPrice()).rejects.toThrow(
-      ERROR_MESSAGE.NUMBER_POSITIVE,
+    const buyPrice = await InputHandler.getBuyPrice();
+
+    expect(buyPrice).toBe('1000');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.NUMBER_POSITIVE),
     );
   });
 });
 
 describe('당첨 번호 예외처리 테스트', () => {
   test('당첨 번호 개수가 6개가 아닌 경우', async () => {
-    const input = '1,2,3,4,5';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
+    mockQuestions(['1,2,3,4,5', '1,2,3,4,5,6']);
 
-    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
-      ERROR_MESSAGE.WINNING_NUMBER_COUNT,
+    const winningNumbers = await InputHandler.getWinningNumbers();
+
+    expect(winningNumbers).toBe('1,2,3,4,5,6');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.WINNING_NUMBER_COUNT),
     );
   });
 
   test('당첨 번호 입력이 숫자가 아닌 경우', async () => {
-    const input = '1,2,3,a,b,c';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
+    mockQuestions(['1,2,3,a,b,c', '1,2,3,4,5,6']);
 
-    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
-      ERROR_MESSAGE.INPUT_TYPE,
+    const winningNumbers = await InputHandler.getWinningNumbers();
+
+    expect(winningNumbers).toBe('1,2,3,4,5,6');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.INPUT_TYPE),
     );
   });
 
   test('당첨 번호 입력이 자연수가 아닌 경우', async () => {
-    const input = '1,2,3,4,5,-6';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
+    mockQuestions(['1,2,3,4,5,-6', '1,2,3,4,5,6']);
 
-    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
-      ERROR_MESSAGE.NUMBER_POSITIVE,
+    const winningNumbers = await InputHandler.getWinningNumbers();
+
+    expect(winningNumbers).toBe('1,2,3,4,5,6');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.NUMBER_POSITIVE),
     );
   });
 
   test('당첨 번호 범위가 틀린 경우', async () => {
-    const input = '1,2,3,4,5,48';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
+    mockQuestions(['1,2,3,4,5,48', '1,2,3,4,5,6']);
 
-    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
-      ERROR_MESSAGE.WINNING_NUMBER_RANGE,
+    const winningNumbers = await InputHandler.getWinningNumbers();
+
+    expect(winningNumbers).toBe('1,2,3,4,5,6');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.WINNING_NUMBER_RANGE),
     );
   });
 
   test('당첨 번호 중복된 번호가 있는 경우', async () => {
-    const input = '1,2,3,4,5,5';
-    mockQuestions([input]);
+    const logSpy = getLogSpy();
+    mockQuestions(['1,2,3,4,5,5', '1,2,3,4,5,6']);
 
-    await expect(InputHandler.getWinningNumbers()).rejects.toThrow(
-      ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE,
+    const winningNumbers = await InputHandler.getWinningNumbers();
+
+    expect(winningNumbers).toBe('1,2,3,4,5,6');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE),
     );
   });
 
   test('보너스 번호가 당첨 번호와 중복된 경우', async () => {
-    const input = ['5'];
-    mockQuestions(input);
+    const logSpy = getLogSpy();
+    mockQuestions(['5', '7']);
 
-    await expect(InputHandler.getBonusNumber('1,2,3,4,5,6')).rejects.toThrow(
-      ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE,
+    const bonusNumber = await InputHandler.getBonusNumber('1,2,3,4,5,6');
+
+    expect(bonusNumber).toBe('7');
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining(ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE),
     );
   });
 });
