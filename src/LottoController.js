@@ -4,11 +4,7 @@ import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
 import LottoCalculator from './LottoCalculator.js';
 import { validateAmount, validateWinningNumbers } from './validation.js';
-import {
-  LOTTO_PRICE,
-  LOTTO_RESULT_MESSAGE,
-  LOTTO_WINNIG_PRICE,
-} from './constant.js';
+import { LOTTO_PRICE, LOTTO_RESULT_MESSAGE, LOTTO_WINNIG_PRICE } from './constant.js';
 
 /**
  *
@@ -48,10 +44,7 @@ class LottoController {
     validateAmount(amount);
 
     const lottoSize = amount / LOTTO_PRICE;
-    this.#lottos = Array.from(
-      { length: lottoSize },
-      () => new Lotto(this.generateLotto())
-    );
+    this.#lottos = Array.from({ length: lottoSize }, () => new Lotto(this.generateLotto()));
 
     this.#ioProcessor.processOuput('');
     this.#ioProcessor.processOuput(`${lottoSize}개를 구매했습니다.`);
@@ -109,9 +102,7 @@ class LottoController {
       .reverse();
 
     resultTableArray.forEach(([rank, count]) => {
-      this.#ioProcessor.processOuput(
-        `${LOTTO_RESULT_MESSAGE[rank]} - ${count}개`
-      );
+      this.#ioProcessor.processOuput(`${LOTTO_RESULT_MESSAGE[rank]} - ${count}개`);
     });
   }
 
@@ -119,10 +110,7 @@ class LottoController {
    *
    */
   printEarningRate() {
-    const earningRate = (
-      this.#totalEarningPrice /
-      (this.#lottos.length * LOTTO_PRICE)
-    ).toFixed(1);
+    const earningRate = (this.#totalEarningPrice / (this.#lottos.length * LOTTO_PRICE)).toFixed(1);
 
     this.#ioProcessor.processOuput(`총 수익률은 ${earningRate}% 입니다.`);
   }

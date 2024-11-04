@@ -23,11 +23,9 @@ export const validateAmount = (amount) => {
 export const validateWinningNumbers = (winningNumbers) => {
   if (
     winningNumbers.some((number) =>
-      [
-        !Number.isInteger(number),
-        number < NUMBER_RANGE.MIN,
-        number > NUMBER_RANGE.MAX,
-      ].some(Boolean)
+      [!Number.isInteger(number), number < NUMBER_RANGE.MIN, number > NUMBER_RANGE.MAX].some(
+        Boolean
+      )
     )
   ) {
     throw new Error(ERROR_MESSAGE.WINNING_NUMBER_INVALID_RANGE);

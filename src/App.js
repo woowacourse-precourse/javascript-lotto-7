@@ -24,9 +24,7 @@ class App {
    *
    */
   async makeLottos() {
-    const amout = await this.ioProcessor.processInput(
-      INPUT_MESSAGE.INPUT_AMOUNT
-    );
+    const amout = await this.ioProcessor.processInput(INPUT_MESSAGE.INPUT_AMOUNT);
 
     this.LottoController.buyLottos(Number(amout));
   }
@@ -37,9 +35,7 @@ class App {
   async makeWinningLottos() {
     this.ioProcessor.processOuput('');
 
-    const winningNummber = await this.ioProcessor.processInput(
-      INPUT_MESSAGE.INPUT_WINNING_NUMBER
-    );
+    const winningNummber = await this.ioProcessor.processInput(INPUT_MESSAGE.INPUT_WINNING_NUMBER);
     const winningBonusNumber = await this.ioProcessor.processInput(
       INPUT_MESSAGE.INPUT_WINNING_BONUS_NUMBER
     );
