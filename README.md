@@ -9,19 +9,18 @@
 - 프로그램 종료시 process.exit() 금지
 - indent의 depth 3 미만(2까지만 허용, 필요시 메서드 분리)
 - 3항 연산자 금지
+- else를 지양하고 if에서 return 권장
 - 함수가 한가지 일만 하도록 작게 만듦
+- 함수(또는 메서드)의 길이가 15라인을 넘어가지 않도록 구현한다.
 - Jest를 사용하여 테스트 코드로 확인
 - @woowacourse/mission-utils 의 [Random, Console] API 사용
 
     - MissionUtils.Random.pickNumberInRange() 을 사용해 랜덤한 정수 값 반환
-        > `pickNumberInRange(startInclusive, endInclusive)`
+        > `pickNumberInRange(startInclusive, endInclusive, )`
         
-        - 숫자 범위를 지정하면 시작 또는 끝 숫자를 포함하여 범위의 숫자를 반환한다.
+        - param : 시작범위, 끝 범위, 반환할 숫자
         ```
-        Random.pickNumberInRange(1, 10); // 1
-        Random.pickNumberInRange(1, 10); // 10
-        Random.pickNumberInRange(1, 10); // 4
-        Random.pickNumberInRange(1, 10); // 5
+        MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
         ```
     - MissionUtils.Console.readLineAsync()와 MissionUtils.Console.print() 를 사용하여 입출력 활용
         > `readLineAsync(query)`
@@ -40,6 +39,12 @@
         ```js
         Console.print('안녕하세요.');
         ```
+
+- Lotto 클래스
+    - 제공된 Lotto 클래스를 사용하여 구현해야 한다.
+    - Lotto에 numbers 이외의 필드(인스턴스 변수)를 추가할 수 없다.
+    - numbers의 접근 제어자인 #은 변경할 수 없다.
+    - Lotto의 패키지를 변경할 수 있다.
 
 ## 2. 기능 요구사항
 - 로또 번호의 숫자 범위는 1~45까지이다.
@@ -139,3 +144,25 @@
 6개 일치 (2,000,000,000원) - 0개
 총 수익률은 62.5%입니다.
 ```
+
+
+## 구현
+
+### 1. Lotto.js 구현
+#### validate 메서드 구현
+- 번호의 개수가 6개인지 확인(구현)
+- 번호에 중복된 숫자가 없는지 확인
+- 모든 번호가 1 이상 45 이하의 숫자인지 확인
+#### Lottotest 구현
+- 번호의 개수가 6개 이상
+- 번호에 중복된 숫자가 존재
+- 숫자가 아닌 번호가 입력됨
+- 45 이상의 숫자가 입력됨
+
+### 2. run()메서드의 실행흐름
+1. 구입 금액 입력 및 검증
+2. 구입 금액만큼의 로또 발행 및 출력
+3. 당첨 번호 입력 및 검증
+4. 보너스 번호 입력 및 검증
+5. 당첨 통계 출력
+6. 수익률 출력
