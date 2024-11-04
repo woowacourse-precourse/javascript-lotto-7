@@ -1,6 +1,6 @@
-import { CONFIG, MESSAGES } from '../constants';
-import { LottoValidator } from '../services';
-import { Printer } from '../io';
+import { CONFIG, MESSAGES } from '../constants/index.js';
+import { LottoValidator } from '../services/index.js';
+import { Printer } from '../io/index.js';
 
 class Lotto {
   #numbers;

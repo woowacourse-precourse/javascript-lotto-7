@@ -1,5 +1,5 @@
-import { Lotto, LottoChecker } from '../src/models';
-import { InputStore } from '../src/services';
+import { Lotto, LottoChecker } from '../src/models/index.js';
+import { InputStore } from '../src/services/index.js';
 
 describe('LottoChecker 클래스 테스트', () => {
   let lottoChecker;

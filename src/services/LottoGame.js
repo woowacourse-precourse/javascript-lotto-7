@@ -1,8 +1,8 @@
-import { MESSAGES, PRIZE_MESSAGES, RANKS } from '../constants';
-import { calculateEarningsRate, calculateTicketCount, generateLottoNumbers } from '../utils/lottoUtils.js';
-import { InputHandler, Printer } from '../io';
-import { Lotto, LottoChecker } from '../models';
-import { InputStore } from './';
+import { MESSAGES, PRIZE_MESSAGES } from '../constants/index.js';
+import { calculateEarningsRate, calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
+import { InputHandler, Printer } from '../io/index.js';
+import { Lotto, LottoChecker } from '../models/index.js';
+import { InputStore } from './index.js';
 
 class LottoGame {
   #tickets;

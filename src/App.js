@@ -1,4 +1,4 @@
-import { LottoGame } from './services';
+import { LottoGame } from './services/index.js';
 
 class App {
   async run() {

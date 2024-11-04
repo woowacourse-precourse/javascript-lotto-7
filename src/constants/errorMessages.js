@@ -5,7 +5,9 @@ export const INPUT_ERROR_MESSAGES = Object.freeze({
 
 export const LOTTO_ERROR_MESSAGES = Object.freeze({
   notSixNumbers: '로또 번호는 6개여야 합니다.',
-  notDubplicated: '중복되지 않은 로또 번호를 입력해주세요.',
+  notDubplicated: '로또 번호는 중복되지 않아야 합니다.',
+  notInteger: '로또 번호는 숫자여야 합니다.',
+  outOfRange: '로또 번호는 1~45 사이의 숫자여야 합니다.',
 });
 
 export const PRIZE_ERROR_MESSAGES = Object.freeze({

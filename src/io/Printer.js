@@ -1,6 +1,5 @@
-// 사용 시 Printer 네임스페이스로 import
 import { Console } from '@woowacourse/mission-utils';
-import { CONFIG } from '../constants';
+import { CONFIG } from '../constants/index.js';
 
 export const print = (query) => {
   Console.print(query);

@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import { CONFIG } from '../constants';
+import { CONFIG } from '../constants/index.js';
 
 export const calculateTicketCount = (money) => {
   return money / CONFIG.lottoPrice;
