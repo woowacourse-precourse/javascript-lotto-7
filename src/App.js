@@ -2,6 +2,7 @@ import { CONFIG, INFO_MESSAGE } from "./libs/constants.js";
 import { createWinningLotto, getLottoPurchaseCountByAmountInput } from "./libs/helpers.js";
 import { pickUniqueNumbersInRange, printResult } from "./libs/utils.js";
 import Lotto from "./models/Lotto.js";
+import { printWinningStatus } from "./views/winningStatus.js";
 
 class App {
   async run() {
@@ -18,7 +19,9 @@ class App {
     lottoNumbers.forEach((lotto) => `${lotto.print()}\n`);
 
     const win = await createWinningLotto();
-    lottoNumbers.forEach((lottos) => console.log(win.getMatchCount(lottos.getNumbers())));
+    const results = [];
+    lottoNumbers.forEach((lottos) => results.push(win.getMatchCount(lottos.getNumbers())));
+    printWinningStatus(results, calculatedAmount);
   }
 }
 

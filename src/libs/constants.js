@@ -3,6 +3,7 @@ export const INFO_MESSAGE = Object.freeze({
   PURCHASE_CONFORM: (count) => `\n${count}개를 구매했습니다.`,
   WINNER_LOTTO_NUMBERS_INPUT: "\n당첨 번호를 입력해 주세요.\n",
   BONUS_NUMBERS_INPUT: "\n보너스 번호를 입력해 주세요.\n",
+  PRIZE_STATUS_TITLE: "당첨 통계\n---",
 });
 
 export const ERROR_MESSAGE = Object.freeze({
