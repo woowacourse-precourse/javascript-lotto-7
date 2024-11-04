@@ -7,7 +7,7 @@ import LottoResult from "./LottoResult.js";
 import Display from "./Display.js";
 
 /**
- * App 클래스.
+ * @class App
  */
 class App {
   constructor() {
@@ -20,12 +20,12 @@ class App {
   }
 
   /**
-   * 전체 애플리케이션 실행 메서드.
-   * 단계별 메서드를 순차적으로 호출.
+   * @description 전체 애플리케이션 실행 메서드.
+   * @description 단계별 메서드를 순차적으로 호출.
    * @async
    */
   async run() {
-    const purchaseAmount = await this.getPurchaseAmount();
+    const purchaseAmount = this.getPurchaseAmount();
     const userLottos = this.generateLottos(purchaseAmount);
     const { winningNumbers, bonusNumber } = await this.getWinningNumbers();
 
@@ -34,7 +34,7 @@ class App {
   }
 
   /**
-   * 구입 금액을 입력받고 파싱하여 반환.
+   * @description 구입 금액을 입력받고 파싱하여 반환.
    * @returns {number} 파싱된 구입 금액
    * @async
    */
@@ -46,7 +46,7 @@ class App {
   }
 
   /**
-   * 구입 금액에 따라 로또 티켓을 생성.
+   * @description 구입 금액에 따라 로또 티켓을 생성.
    * @param {number} purchaseAmount 구입 금액
    * @returns {Array} 생성된 로또 티켓 배열
    */
@@ -59,7 +59,7 @@ class App {
   }
 
   /**
-   * 당첨 번호와 보너스 번호를 입력받아 설정.
+   * @description 당첨 번호와 보너스 번호를 입력받아 설정.
    * @returns {Object} 당첨 번호와 보너스 번호 객체
    * @async
    */
@@ -71,7 +71,7 @@ class App {
   }
 
   /**
-   * 당첨 번호를 입력받고 파싱하여 반환.
+   * @description 당첨 번호를 입력받고 파싱하여 반환.
    * @returns {Array} 파싱된 당첨 번호 배열
    * @async
    */
@@ -85,7 +85,7 @@ class App {
   }
 
   /**
-   * 보너스 번호를 입력받고 파싱하여 반환.
+   * @description 보너스 번호를 입력받고 파싱하여 반환.
    * @param {Array} winningNumbers 당첨 번호 배열
    * @returns {number} 파싱된 보너스 번호
    * @async
@@ -100,7 +100,7 @@ class App {
   }
 
   /**
-   * 사용자 로또 티켓과 당첨 번호, 보너스 번호를 비교하여 당첨 결과를 계산.
+   * @description 사용자 로또 티켓과 당첨 번호, 보너스 번호를 비교하여 당첨 결과를 계산.
    * @param {Array} userLottos 사용자 로또 티켓 배열
    * @param {Array} winningNumbers 당첨 번호 배열
    * @param {number} bonusNumber 보너스 번호
@@ -110,7 +110,7 @@ class App {
   }
 
   /**
-   * 당첨 결과 및 수익률을 출력.
+   * @description 당첨 결과 및 수익률을 출력.
    * @param {number} purchaseAmount 구입 금액
    */
   displayResults(purchaseAmount) {

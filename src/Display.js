@@ -1,6 +1,14 @@
 import { Console } from "@woowacourse/mission-utils";
 
+/**
+ * @class Display
+ * @description 로또 티켓과 당첨 결과를 출력하는 클래스
+ */
 class Display {
+  /**
+   * @description 구매한 로또 티켓을 출력
+   * @param {number[][]} tickets - 구매한 로또 티켓 배열
+   */
   displayTickets(tickets) {
     Console.print(`${tickets.length}개를 구매했습니다.`);
     for (let i = 0; i < tickets.length; i++) {
@@ -9,6 +17,10 @@ class Display {
     }
   }
 
+  /**
+   * @description 당첨 통계를 출력
+   * @param {object} totalRank - 등수별 당첨 개수 객체
+   */
   displayRankNumber(totalRank) {
     Console.print("\n당첨 통계");
     Console.print("---");
@@ -21,6 +33,10 @@ class Display {
     Console.print(`6개 일치 (2,000,000,000원) - ${totalRank[1]}개`);
   }
 
+  /**
+   * @description 수익률을 출력
+   * @param {number} profitRate - 계산된 수익률 값
+   */
   displayReturn(profitRate) {
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
