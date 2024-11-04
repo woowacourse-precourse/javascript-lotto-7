@@ -1,15 +1,10 @@
+import { Console } from '@woowacourse/mission-utils';
+
 class Lotto {
   #numbers;
-  #bonus;
-  #money;
-  #userLotto;
-
-  constructor(numbers, bonus, money, userLotto) {
+  constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
-    this.#bonus = bonus;
-    this.#money = money;
-    this.#userLotto = userLotto;
   }
 
   #validate(numbers) {
@@ -29,7 +24,6 @@ class Lotto {
       throw new Error("[ERROR] 당첨번호는 중복되지 않는 6개 숫자여야 합니다.");
     }
   }
-
   // TODO: 추가 기능 구현
 }
 
