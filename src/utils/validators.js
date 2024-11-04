@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../config/errors.js'; // 에러 메시지 상수 가져오기
+import { ERROR_MESSAGES } from '../config/errors.js'; 
 
 // 구매 금액 입력 처리
 // - 1,000원 단위로 나누어 떨어지지 않는 경우 예외 처리

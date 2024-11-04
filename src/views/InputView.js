@@ -1,10 +1,10 @@
-import { Console } from '@woowacourse/mission-utils'; // Console 객체를 사용하여 입력 및 출력 처리
-import { MESSAGES } from '../config/messages.js'; // 메시지 상수 사용
-import { validateAmount, validateNumbers } from '../utils/validators.js'; // 입력값 검증 함수 사용
+import { Console } from '@woowacourse/mission-utils'; 
+import { MESSAGES } from '../config/messages.js'; 
+import { validateAmount, validateNumbers } from '../utils/validators.js'; 
 
 class InputView {
-  // [] 구매 금액 입력 처리 (`Console.readLineAsync()` 사용)
-  // - [] 1,000원 단위로 나누어 떨어지지 않는 경우 예외 처리
+  // 구매 금액 입력 처리 (`Console.readLineAsync()` 사용)
+  // -1,000원 단위로 나누어 떨어지지 않는 경우 예외 처리
   static async getPurchaseAmount() {
     while (true) {
       try {
@@ -18,7 +18,7 @@ class InputView {
     }
   }
 
-  // [] 당첨 번호 입력 처리
+  // 당첨 번호 입력 처리
   // - 중복되지 않는 숫자 6개 입력
   // - 범위: 1 ~ 45
   static async getWinningNumbers() {
@@ -34,7 +34,7 @@ class InputView {
     }
   }
 
-  // [] 보너스 번호 입력 처리
+  // 보너스 번호 입력 처리
   // - 범위: 1 ~ 45
   // - 숫자 유효성 검사
   static async getBonusNumber() {
