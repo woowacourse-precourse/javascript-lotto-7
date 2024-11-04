@@ -31,4 +31,21 @@ describe('보너스 번호 클래스 테스트', () => {
       new BonusNumber(winningNumber, '6');
     }).toThrow('[ERROR]');
   });
+
+  test.each([
+    [
+      [
+        [1, 2, 3, 11, 12, 13],
+        [1, 3, 11, 17, 7, 8],
+        [1, 3, 5, 6, 18, 33],
+        [1, 2, 3, 4, 5, 37],
+        [35, 42, 1, 5, 6, 2],
+        [1, 2, 3, 4, 5, 7],
+      ],
+      [1, 2, 1, 1, 0],
+    ],
+  ])('보너스 번호 클래스에서 당첨을 확인하는 테스트', (myLotto, expected) => {
+    const bonusNumber = new BonusNumber(winningNumber, 7);
+    expect(bonusNumber.checkWinning(myLotto)).toEqual(expected);
+  });
 });
