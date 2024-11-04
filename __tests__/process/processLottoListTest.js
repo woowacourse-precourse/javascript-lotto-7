@@ -12,11 +12,10 @@ describe('로또 구매 리스트 통합 기능 테스트', () => {
       const userPurchase = purchase;
       
       // when
-      const { LOTTO_LIST, PURCHASE_COUNT } = processLottoList(userPurchase);
+      const LOTTO_LIST = processLottoList(userPurchase);
 
       // then
       expect(LOTTO_LIST.length).toBe(result);
-      expect(PURCHASE_COUNT).toBe(result);
     }
   );
 });
