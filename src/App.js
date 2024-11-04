@@ -3,6 +3,7 @@ import Parser from "./Parser.js";
 import UserLotto from "./UserLotto.js";
 import Lotto from "./Lotto.js";
 import BonusNumber from "./BonusNumber.js";
+import LottoResult from "./LottoResult.js";
 
 class App {
   constructor() {
@@ -10,6 +11,7 @@ class App {
     this.userLotto = new UserLotto();
     this.lotto = null;
     this.bonusNumber = null;
+    this.lottoResult = new LottoResult();
   }
 
   async run() {
@@ -42,6 +44,34 @@ class App {
       bonusNumber,
       this.lotto.getLottoNumber()
     );
+
+    // 등수 계산
+    this.lottoResult.calculateRank(
+      userLottos,
+      this.lotto.getLottoNumber(),
+      this.bonusNumber.getBonusNumber()
+    );
+
+    // 당첨 금액과 수익률 계산
+    const winningAmount = this.lottoResult.calculateWinningAmount();
+    const profitRate = this.lottoResult.calculateProfitRate(
+      winningAmount,
+      purchaseAmount
+    );
+
+    // 결과 출력
+    Console.print("\n당첨 통계");
+    Console.print("---");
+    Console.print(`3개 일치 (5,000원) - ${this.lottoResult.ranks[5]}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.lottoResult.ranks[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.lottoResult.ranks[3]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.lottoResult.ranks[2]}개`
+    );
+    Console.print(
+      `6개 일치 (2,000,000,000원) - ${this.lottoResult.ranks[1]}개`
+    );
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
