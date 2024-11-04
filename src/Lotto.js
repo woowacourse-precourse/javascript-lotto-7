@@ -18,6 +18,9 @@ class Lotto {
         throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
       }
     }
+    if (new Set(numbers).size !== numbers.length) {
+      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
+    }
   }
 
   #createRandom() {
@@ -49,21 +52,21 @@ class Lotto {
   }
 
   calculatePrize(matchCount, isBonusMatch = false) {
-    const prizeTable = {
-      3: 5000,
-      4: 50000,
-      6: 2000000000
-    };
-
+    if (matchCount === 6)
+      return 2000000000;
     if (matchCount === 5) {
-      if (isBonusMatch) {
-        prizeTable[5] = 30000000;
+      if (isBonusMatch) { //보너스 번호 추가 일치
+        return 30000000;
       } else {
-        prizeTable[5] = 1500000;
+        return 1500000;
       }
     }
+    if (matchCount === 4)
+      return 50000;
+    if (matchCount === 3)
+      return 5000;
 
-    return prizeTable[matchCount] || 0;
+    return 0;
   }
 }
 
