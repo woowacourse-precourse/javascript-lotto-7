@@ -8,19 +8,36 @@ class LottoStore {
   #lottoList;
   #winningLotto;
   #bonusNumber;
-  matchItem = {
-    [this.getKey('3')]: 0,
-    [this.getKey('4')]: 0,
-    [this.getKey('5')]: 0,
-    [this.getKey('5_BONUS')]: 0,
-    [this.getKey('6')]: 0,
-  };
+  #matchResults;
 
   constructor() {
     this.#vaildator = new Validator();
     this.#lottoList = [];
     this.#winningLotto = null;
     this.#bonusNumber = 0;
+    this.#initMatchResults();
+  }
+
+  getLotto(index) {
+    return this.#lottoList[index];
+  }
+
+  getLottoCount() {
+    return this.#lottoList.length;
+  }
+
+  #initMatchResults() {
+    this.#matchResults = {
+      MATCH_3: 0,
+      MATCH_4: 0,
+      MATCH_5: 0,
+      MATCH_5_BONUS: 0,
+      MATCH_6: 0,
+    };
+  }
+
+  #getKey(index) {
+    return `MATCH_${index}`;
   }
 
   #validatePayment(payment) {
@@ -44,30 +61,24 @@ class LottoStore {
 
   buyLotto(payment) {
     const validPayment = this.#validatePayment(payment);
-    const lottoCount = validPayment / 1000;
+    const lottoCount = validPayment / CONDITIONS.PAYMENT_UNIT;
+    this.#generateLottos(lottoCount);
+  }
 
-    for (let i = 0; i < lottoCount; i++) {
-      const lotto = this.#publishLotto();
-      this.#lottoList.push(lotto);
+  #generateLottos(count) {
+    for (let i = 0; i < count; i++) {
+      this.#lottoList.push(this.#createLotto());
     }
   }
 
-  #publishLotto() {
-    const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-
-    return new Lotto(lottoNumbers);
-  }
-
-  getLotto(index) {
-    return this.#lottoList[index];
-  }
-
-  getLottoCount() {
-    return this.#lottoList.length;
-  }
-
-  printLottoList() {
-    return this.#lottoList.map((lotto) => lotto.print()).join('\n');
+  #createLotto() {
+    return new Lotto(
+      MissionUtils.Random.pickUniqueNumbersInRange(
+        CONDITIONS.MIN_NUMBER,
+        CONDITIONS.MAX_NUMBER,
+        CONDITIONS.LOTTO_NUMBER_COUNT,
+      ),
+    );
   }
 
   setWinningLotto(winningNumbers) {
@@ -83,22 +94,12 @@ class LottoStore {
   checkWinningLotto() {
     this.#lottoList.forEach((lotto) => {
       let correctCount = this.#winningLotto.checkCorrectCount(lotto);
-
-      if (correctCount === 5) {
-        correctCount = this.checkBonusNumber(lotto);
-      }
-
-      if (correctCount >= 3) {
-        this.matchItem[this.getKey(correctCount)] += 1;
-      }
+      if (correctCount === 5) correctCount = this.#checkBonusNumber(lotto, correctCount);
+      this.#updateMatchResults(correctCount);
     });
   }
 
-  getKey(index) {
-    return `MATCH_${index}`;
-  }
-
-  checkBonusNumber(lotto, correctCount) {
+  #checkBonusNumber(lotto, correctCount) {
     const hasBonusNumber = lotto.checkBonusNumber(this.#bonusNumber);
 
     if (hasBonusNumber) {
@@ -108,14 +109,37 @@ class LottoStore {
     return correctCount;
   }
 
+  #updateMatchResults(correctCount) {
+    if (correctCount >= 3) {
+      this.#matchResults[this.#getKey(correctCount)] += 1;
+    }
+  }
+
+  printLottoList() {
+    return this.#lottoList.map((lotto) => lotto.print()).join('\n');
+  }
+
   printWinningResult() {
-    let totalReward = 0;
-    Object.keys(this.matchItem).forEach((key) => {
-      MissionUtils.Console.print(`${PRINT_MESSAGE[key]} - ${this.matchItem[key]}개`);
-      totalReward += CONDITIONS[`REWARD_${key}`] * this.matchItem[key];
+    Object.keys(this.#matchResults).forEach((key) => {
+      MissionUtils.Console.print(`${PRINT_MESSAGE[key]} - ${this.#matchResults[key]}개`);
     });
-    const rateOfReturn = (totalReward / (this.#lottoList.length * 1000)) * 100;
-    MissionUtils.Console.print(`총 수익률은 ${rateOfReturn.toFixed(1)}%입니다.`);
+    const rateOfReturn = this.#calculateRateOfReturn();
+    MissionUtils.Console.print(PRINT_MESSAGE.RATE_OF_RETURN(rateOfReturn));
+  }
+
+  #calculateRateOfReturn() {
+    const totalReward = this.#calculateTotalReward();
+    const investment = this.#lottoList.length * CONDITIONS.PAYMENT_UNIT;
+    const rateOfReturn = ((totalReward / investment) * 100).toFixed(1);
+
+    return rateOfReturn;
+  }
+
+  #calculateTotalReward() {
+    return Object.keys(this.#matchResults).reduce(
+      (total, key) => total + CONDITIONS[`REWARD_${key}`] * this.#matchResults[key],
+      0,
+    );
   }
 }
 

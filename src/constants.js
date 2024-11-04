@@ -23,6 +23,7 @@ export const PRINT_MESSAGE = {
   MATCH_5: `5개 일치 (${CONDITIONS.REWARD_MATCH_5.toLocaleString()}원)`,
   MATCH_5_BONUS: `5개 일치, 보너스 볼 일치 (${CONDITIONS.REWARD_MATCH_5_BONUS.toLocaleString()}원)`,
   MATCH_6: `6개 일치 (${CONDITIONS.REWARD_MATCH_6.toLocaleString()}원)`,
+  RATE_OF_RETURN: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
 export const ERROR_MESSAGE = {
