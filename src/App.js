@@ -30,6 +30,10 @@ class App {
       const bonus = new Bonus(bonusInput, lottoNumber.value);
 
       await getOutput(`\n` + RATE + `\n` + SECTION);
+
+      const lottoResult = new Rate(lottoNumber.value, bonus.value);
+      const winningStatus = lottoResult.calculateResult(userLottos);
+      const rate = lottoResult.calculateRate(userLottos);
     } catch (error) {
       throw new Error(error.message);
     }
