@@ -21,6 +21,12 @@ const validators = {
     }
   },
 
+  checkNumberOfLotto(value) {
+    if (value.length !== 6) {
+      throw new Error(ERROR_MESSAGES.NUMBER_OF_INPUT);
+    }
+  },
+
   checkNumber(value) {
     // 숫자가 아니면 Error
     if (typeof value !== "number") {

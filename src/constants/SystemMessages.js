@@ -1,6 +1,6 @@
-const SYSTEM_MESSAGES = Object.freeze({
+export const SYSTEM_MESSAGES = Object.freeze({
   INPUT_MONEY: "구입금액을 입력해 주세요.\n",
-  INPUT_LOTTO: "당첨 번호를 입력해 주세요.\n",
+  INPUT_NUMBERS: "당첨 번호를 입력해 주세요.\n",
   INPUT_BONUS: "보너스 번호를 입력해 주세요.\n",
   OUPUT_STATIC: "당첨 통계\n---\n",
 
