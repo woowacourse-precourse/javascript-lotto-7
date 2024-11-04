@@ -37,4 +37,27 @@ describe('outputView 테스트', () => {
     expect(Console.print).toHaveBeenCalledWith('[7, 8, 9, 10, 11, 12]');
     expect(Console.print).toHaveBeenCalledWith('');
   });
+
+  test('displayLottoResult가 당첨 통계 메시지를 출력하는지 테스트', () => {
+    const lottoResult = {
+      first: { count: 1 },
+      second: { count: 2 },
+      third: { count: 3 },
+      fourth: { count: 4 },
+      fifth: { count: 5 },
+    };
+    outputView.displayLottoResult(lottoResult);
+
+    expect(Console.print).toHaveBeenCalledWith('');
+    expect(Console.print).toHaveBeenCalledWith('당첨 통계\n---');
+    expect(Console.print).toHaveBeenCalledWith('3개 일치 (5,000원) - 5개');
+    expect(Console.print).toHaveBeenCalledWith('4개 일치 (50,000원) - 4개');
+    expect(Console.print).toHaveBeenCalledWith('5개 일치 (1,500,000원) - 3개');
+    expect(Console.print).toHaveBeenCalledWith(
+      '5개 일치, 보너스 볼 일치 (30,000,000원) - 2개'
+    );
+    expect(Console.print).toHaveBeenCalledWith(
+      '6개 일치 (2,000,000,000원) - 1개'
+    );
+  });
 });
