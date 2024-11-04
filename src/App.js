@@ -1,6 +1,7 @@
 import LottoGenerator from './components/Lotto/LottoGenerator.js';
 import ResultCalculator from './components/ResultCalculator.js';
 import StatisticCalculation from './components/StatisticCalculation.js';
+import { printGeneratedList, printfinalResults } from './utils/OutputView.js';
 
 class App {
   async run() {
