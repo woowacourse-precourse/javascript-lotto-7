@@ -1,6 +1,6 @@
 import {MATCH_COUNTER} from "../constants/objects.js";
 import {calculateAmount, findKeyToIncrease, toObjectValueArr} from "../utils/objectUtils.js";
-import {lottoValid} from "./utils/validation.js";
+import {bonusNumValid, lottoValid} from "./utils/validation.js";
 
 class Lotto {
     #numbers;
@@ -10,14 +10,15 @@ class Lotto {
         this.#numbers = numbers;
     }
 
-    #validate(numbers) { //함수로 나중에 분리
-        const {hasError, message} = lottoValid(numbers)
-        if (hasError) {
-            throw new Error(message)
-        }
+    #validate(numbers) {
+        return lottoValid(numbers)
     }
 
-    recordStats(lottos, bonusNum) { //2 차원 배열
+    bonusNumValidate(number) {
+        return bonusNumValid(this.#numbers, number)
+    }
+
+    recordStats(lottos, bonusNum) {
         for (const lotto of lottos) {
             const matchCnt = this.countMatches(lotto)
             const foundKey = findKeyToIncrease(matchCnt)
