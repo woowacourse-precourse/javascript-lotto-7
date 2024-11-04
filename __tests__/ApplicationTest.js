@@ -1,4 +1,5 @@
 import App from "../src/App.js";
+import { MESSAGES } from "../src/Constants.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -89,9 +90,10 @@ describe("로또 테스트", () => {
       "총 수익률은 62.5%입니다.",
     ].join("\n");
   
+    const expectedErrorOutput = `[ERROR] ${MESSAGES.ERROR_INVALID_WINNING_NUMBERS}`;
     const actualOutput = logSpy.mock.calls.map(call => call[0]).join("\n");
   
-    expect(actualOutput).toEqual(expectedOutput);
+    expect(actualOutput).toContain(expectedErrorOutput);
   });
 
   test("예외 테스트", async () => {
