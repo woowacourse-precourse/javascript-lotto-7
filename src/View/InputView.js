@@ -14,7 +14,7 @@ import { Console } from '@woowacourse/mission-utils';
  *
  * @example
  * // 숫자만 허용하는 유효성 검사 함수와 함께 사용 예제
- * const isNumber = (input) => !isNaN(input) && input.trim() !== '';
+ * const isNumber = (input) => !isNaN(input);
  * const userNumber = await getInputWhileValid(isNumber, "숫자를 입력하세요:");
  */
 export default async function getInputWhileValid(validator, promptMessage) {

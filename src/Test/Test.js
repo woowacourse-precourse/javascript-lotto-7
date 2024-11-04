@@ -43,7 +43,7 @@ const runException = async (input) => {
   // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
 };
-// 후에 리펙토링 필요.
+// 조금 난잡하게 리펙토링 된 구석이 있음.
 const runErrorLogTest =
   (func) =>
   ({ description, input, lottoNumbers, expected, errorLog }) => {

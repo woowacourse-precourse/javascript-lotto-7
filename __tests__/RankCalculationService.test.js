@@ -5,7 +5,7 @@ describe('RankCalculationService', () => {
   let rankService;
 
   beforeEach(() => {
-    rankService = new RankCalculationService(RANKS); // RANKS로 초기화
+    rankService = new RankCalculationService(RANKS);
   });
 
   test('pickRank - matchingCount와 hasBonus 값에 따라 올바른 랭크 키를 반환한다', () => {

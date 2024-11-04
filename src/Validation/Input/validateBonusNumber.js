@@ -35,15 +35,12 @@ const validateDuplicate = (bonusNumber, lottoNumbers) => {
 export default function validateBonusNumber(input, lottoNumbers) {
   const initialValidators = [validateIsNumber, validateRange];
 
-  // Run initial validations on raw input
   const isInitialValid = runValidators(input, initialValidators);
 
   if (!isInitialValid) return false;
 
-  // Parse input only after initial validations pass
   const parsedNumber = Number(input);
 
-  // Run duplicate check with parsed number
   if (!validateDuplicate(parsedNumber, lottoNumbers)) {
     return false;
   }

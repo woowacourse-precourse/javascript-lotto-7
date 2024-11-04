@@ -47,7 +47,6 @@ const validateRange = (input) => {
   return true;
 };
 
-// Validate raw input
 export default function validateLottoNumber(input) {
   const validators = [
     validateLength,
@@ -58,7 +57,6 @@ export default function validateLottoNumber(input) {
 
   const isValid = runValidators(input, validators);
 
-  // Parse only if all validations pass
   if (isValid) {
     return input.replace(/\s/g, '').split(',').map(Number);
   }

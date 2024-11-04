@@ -105,8 +105,6 @@ const boundaryTestCases = [
   },
 ];
 
-// 추가 테스트 케이스 실행
-
 validateBonusNumberTestCases.forEach(runErrorLogTest(validateBonusNumber));
 
 boundaryTestCases.forEach(runErrorLogTest(validateBonusNumber));
