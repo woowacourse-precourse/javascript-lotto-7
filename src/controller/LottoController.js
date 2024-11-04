@@ -2,6 +2,7 @@ import { Console, Random } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
+import ValidateBonusNumber from '../models/ValidateBonusNumber.js';
 import Lotto from '../Lotto.js';
 
 class LottoController {
@@ -11,6 +12,7 @@ class LottoController {
 	#winningLotto;
 	#purchaseAmount;
 	#bonusNumber;
+	#validateBonusNumber;
 	#validatePurchaseAmount;
 
 	constructor() {
@@ -19,6 +21,7 @@ class LottoController {
 		this.#lottos = [];
 		this.#winningLotto = null;
 		this.#purchaseAmount = 0;
+		this.#validateBonusNumber = new ValidateBonusNumber();
 		this.#validatePurchaseAmount = new ValidatePurchaseAmount();
 	}
 
@@ -26,6 +29,7 @@ class LottoController {
 		try {
 			await this.#handlePurchase();
 			await this.#handleWinningNumber();
+			await this.#handleBonusNumber();
 		} catch (error) {
 			Console.print(error.message);
 			// throw error;
@@ -44,6 +48,14 @@ class LottoController {
 		const winningNumberInput = await this.#inputView.readWinningNumbers();
 		const numbers = this.#parseWinningNumbers(winningNumberInput);
 		this.#winningLotto = new Lotto(numbers);
+	}
+
+	async #handleBonusNumber() {
+		const bonusNumberInput = await this.#inputView.readBonusNumber();
+		this.#bonusNumber = this.#validateBonusNumber.validate(
+			bonusNumberInput,
+			this.#winningLotto.getNumbers()
+		);
 	}
 
 	#generateLottos(amount) {

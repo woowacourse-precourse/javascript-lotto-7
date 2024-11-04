@@ -10,9 +10,9 @@ class Lotto {
 
 	#validate(numbers) {
 		const validator = new ValidateWinningNumbers();
-		validator.validateFormat(numbers.join(', '));
-		validator.validateDuplicate(numbers);
-		numbers.forEach((num) => validator.validateRange(num));
+		validator.isValidFormat(numbers.join(', '));
+		validator.isValidDuplicate(numbers);
+		numbers.forEach((num) => validator.isValidRange(num));
 	}
 
 	getNumbers() {
