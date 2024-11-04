@@ -1,9 +1,3 @@
-import {
-    validateDuplicate,
-    validateSix,
-    validateRangeNumber,
-} from './handleError.js';
-
 class Lotto {
     #numbers;
 
@@ -13,9 +7,15 @@ class Lotto {
     }
 
     #validate(numbers) {
-        validateSix(numbers, '로또 번호는');
-        validateDuplicate(numbers, '로또 번호는');
-        validateRangeNumber(numbers, '로또 번호는');
+        if (new Set(numbers).size !== numbers.length) {
+            throw new Error('[ERROR] 로또 번호는 중복되면 안됩니다.');
+        }
+        if (numbers.length !== 6) {
+            throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+        }
+        if (!numbers.every((x) => x >= 1 && x <= 45)) {
+            throw new Error('[ERROR] 로또 번호는 1~45 숫자여야 합니다.');
+        }
     }
 
     compareWinning(winningNumber, bonusNumber) {
