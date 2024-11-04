@@ -19,4 +19,7 @@ export const ERROR_MESSAGES = Object.freeze({
 
 export const LOTTO = Object.freeze({
   PRICE: 1000,
+  LENGTH: 6,
+  MIN_NUM: 1,
+  MAX_NUM: 45,
 });
