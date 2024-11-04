@@ -40,27 +40,29 @@ class LottoResult {
   }
 
   #saveResult(matchNum, isBonusMatch) {
-    // 각 로또마다 결과 저장
-    switch (matchNum) {
-      case 3:
-        this.#result[0]++;
-        break;
-      case 4:
-        this.#result[1]++;
-        break;
-      case 5:
-        if (isBonusMatch) {
-          this.#result[3]++;
-          return;
-        }
-        this.#result[2]++;
-        break;
-      case 6:
-        this.#result[4]++;
-        break;
-      default:
-        break;
+    if (matchNum === 3) {
+      this.#result[0]++;
+      return;
     }
+    if (matchNum === 4) {
+      this.#result[1]++;
+      return;
+    }
+    if (matchNum === 5) {
+      this.#processFiveMatchResult(isBonusMatch);
+      return;
+    }
+    if (matchNum === 6) {
+      this.#result[4]++;
+    }
+  }
+
+  #processFiveMatchResult(isBonusMatch) {
+    if (isBonusMatch) {
+      this.#result[3]++;
+      return;
+    }
+    this.#result[2]++;
   }
 
   getLottoResult() {
