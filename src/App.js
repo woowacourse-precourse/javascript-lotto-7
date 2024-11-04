@@ -9,7 +9,7 @@ class App {
 
     let lottoPrice = await lottoInput.lottoPriceInput();
     let [lottoWinArr, lottoBonusNum] = await lottoInput.lottoWinInput();
-    const winLottoValid = new Lotto(lottoWinArr);
+    const winLottoValid = new Lotto(lottoWinArr, lottoBonusNum);
     lottoController.calcWinStat(winLottoValid, lottoBonusNum, lottoPrice);
   }
 }
