@@ -169,16 +169,16 @@
 3. Lotto 클래스 구현
 
 - 당첨 번호 관리 기능 구현
-  - [ ] `constructor(numbers)` - 당첨 번호를 초기화하고 유효성 검사
-  - [ ] `#validate(numbers)` - 당첨 번호의 개수 및 유효성 검사
-  - [ ] `getLottoNumber()` - 설정된 로또 번호 배열을 반환
+  - [O] `constructor(numbers)` - 당첨 번호를 초기화하고 유효성 검사
+  - [O] `#validate(numbers)` - 당첨 번호의 개수 및 유효성 검사
+  - [O] `getLottoNumber()` - 설정된 로또 번호 배열을 반환
 
 4. BonusNumber 클래스 구현
 
 - 보너스 번호 관리 기능 구현
-  - [ ] `constructor(number)` - 보너스 번호를 초기화하고 유효성 검사
-  - [ ] `#validate(number, winningNumbers)` - 보너스 번호의 범위와 중복 여부 검사
-  - [ ] `getBonusNumber()` - 설정된 보너스 번호를 반환
+  - [O] `constructor(number)` - 보너스 번호를 초기화하고 유효성 검사
+  - [O] `#validate(number, winningNumbers)` - 보너스 번호의 범위와 중복 여부 검사
+  - [O] `getBonusNumber()` - 설정된 보너스 번호를 반환
 
 5. LottoResult 클래스 구현
 

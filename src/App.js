@@ -2,12 +2,14 @@ import { Console } from "@woowacourse/mission-utils";
 import Parser from "./Parser.js";
 import UserLotto from "./UserLotto.js";
 import Lotto from "./Lotto.js";
+import BonusNumber from "./BonusNumber.js";
 
 class App {
   constructor() {
     this.parser = new Parser();
     this.userLotto = new UserLotto();
     this.lotto = null;
+    this.bonusNumber = null;
   }
 
   async run() {
@@ -31,12 +33,15 @@ class App {
     );
     const winningNumbers = this.parser.parseNumbers(winningNumbersInput);
     this.lotto = new Lotto(winningNumbers);
-    Console.print(`당첨 번호: ${this.lotto.getLottoNumber().join(", ")}`);
 
     const bonusNumberInput = await Console.readLineAsync(
       "\n보너스 번호를 입력해 주세요.\n"
     );
     const bonusNumber = this.parser.parseBonusNumber(bonusNumberInput);
+    this.bonusNumber = new BonusNumber(
+      bonusNumber,
+      this.lotto.getLottoNumber()
+    );
   }
 }
 
