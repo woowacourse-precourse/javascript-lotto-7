@@ -1,5 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import { ERROR } from "./constants.js";
 
 class LottoManager {
   #lottoArray;
@@ -72,40 +73,46 @@ class LottoManager {
 
   #validateMoney(input) {
     if (isNaN(input)) {
-      throw new Error("[ERROR] 금액은 숫자여야 합니다.");
+      throw new Error(ERROR.MONEY.INVALID_NUMBER);
     }
     if (input % 1000 !== 0) {
-      throw new Error("[ERROR] 금액은 1000으로 나누어 떨어져야 합니다.");
+      throw new Error(ERROR.MONEY.INVALID_UNIT);
     }
   }
 
   #validateWinningNumbers(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(ERROR.LOTTO.INVALID_LENGTH);
     }
 
     for (const number of numbers) {
       if (number === "") {
-        throw new Error("[ERROR] 로또 번호는 공백일 수 없습니다.");
+        throw new Error(ERROR.LOTTO.EMPTY_NUMBER);
       }
       if (isNaN(number)) {
-        throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+        throw new Error(ERROR.LOTTO.INVALID_NUMBER);
+      }
+      if (!Number.isInteger(Number(number))) {
+        throw new Error(ERROR.BONUS.NOT_INTEGER);
+      }
+      if (Number(number) < 1 || Number(number) > 45) {
+        throw new Error(ERROR.LOTTO.INVALID_RANGE);
       }
     }
   }
 
   #validateBonusNumber(number) {
     if (number === "") {
-      throw new Error("[ERROR] 보너스 번호는 공백일 수 없습니다.");
+      throw new Error(ERROR.BONUS.EMPTY_NUMBER);
     }
     if (isNaN(number)) {
-      throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
+      throw new Error(ERROR.BONUS.INVALID_NUMBER);
     }
     if (!Number.isInteger(Number(number))) {
-      throw new Error("[ERROR] 보너스 번호는 정수여야 합니다.");
+      throw new Error(ERROR.BONUS.NOT_INTEGER);
     }
-    if (number < 1 || number > 45) {
-      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    if (Number(number) < 1 || Number(number) > 45) {
+      throw new Error(ERROR.BONUS.INVALID_RANGE);
     }
   }
 
