@@ -1,4 +1,4 @@
-import { DELIMETER, ErrorMessage, Lotto } from '../resources/Constants.js';
+import { DELIMETER, ErrorMessage, Lotto } from '../../resources/Constants.js';
 
 function validateDelimeterSeperated(numbers) {
   const regex = new RegExp(`^\\d+(${DELIMETER}\\d+)*$`);

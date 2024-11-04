@@ -1,4 +1,4 @@
-import purchaseAmountValidator from '../../../src/validation/purchaseAmountValidator.js';
+import purchaseAmountValidator from '../../../src/utils/validation/purchaseAmountValidator.js';
 
 const ERROR = '[ERROR]';
 

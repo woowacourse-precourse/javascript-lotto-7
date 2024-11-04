@@ -1,4 +1,4 @@
-import { bonusNumberValidator } from '../../../src/validation/bonusNumberValidator.js';
+import { bonusNumberValidator } from '../../../src/utils/validation/bonusNumberValidator.js';
 
 const ERROR = '[ERROR]';
 

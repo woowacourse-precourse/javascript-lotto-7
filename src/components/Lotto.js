@@ -1,5 +1,5 @@
 import { DELIMETER, InputMessages } from '../resources/Constants.js';
-import winningNumberValidator from '../validation/winningNumberValidator.js';
+import winningNumberValidator from '../utils/validation/winningNumberValidator.js';
 import Input from '../utils/Input.js';
 
 class Lotto {

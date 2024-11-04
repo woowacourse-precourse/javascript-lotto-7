@@ -1,4 +1,4 @@
-import { PURCHASE_UNIT, ErrorMessage } from '../resources/Constants.js';
+import { PURCHASE_UNIT, ErrorMessage } from '../../resources/Constants.js';
 
 function validatePositiveNumber(purchaseAmount) {
   const isPositiveNumber = !Number.isNaN(purchaseAmount) && purchaseAmount > 0;

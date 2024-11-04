@@ -1,7 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import { InputMessages, Lotto } from '../resources/Constants.js';
-import purchaseAmountValidator from '../validation/purchaseAmountValidator.js';
-import { bonusNumberValidator } from '../validation/bonusNumberValidator.js';
+import purchaseAmountValidator from '../utils/validation/purchaseAmountValidator.js';
+import { bonusNumberValidator } from '../utils/validation/bonusNumberValidator.js';
 import LottoIOHandler from './LottoIOHandler.js';
 import isEmpty from '../utils/isEmpty.js';
 import Input from '../utils/Input.js';

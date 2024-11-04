@@ -1,4 +1,4 @@
-import { ErrorMessage, Lotto } from '../resources/Constants.js';
+import { ErrorMessage, Lotto } from '../../resources/Constants.js';
 
 function validateBonusNumberIsNumber(bonusNumber) {
   const isNumber = bonusNumber !== null && !Number.isNaN(Number(bonusNumber));

@@ -1,4 +1,4 @@
-import winningNumberValidator from '../../../src/validation/winningNumberValidator.js';
+import winningNumberValidator from '../../../src/utils/validation/winningNumberValidator.js';
 
 const ERROR = '[ERROR]';
 
