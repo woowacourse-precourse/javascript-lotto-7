@@ -1,12 +1,12 @@
 const STATISTICS_MESSAGE = Object.freeze({
-  STATISTICS_DEFAULT_MESSAGE: "´çÃ· Åë°è\n---",
-  FIFTH: "3°³ ÀÏÄ¡ (5,000¿ø) - ",
-  FOURTH: "4°³ ÀÏÄ¡ (50,000¿ø) - ",
-  THIRD: "5°³ ÀÏÄ¡ (1,500,000¿ø) - ",
-  SECOND: "5°³ ÀÏÄ¡, º¸³Ê½º º¼ ÀÏÄ¡ (30,000,000¿ø) - ",
-  FIRST: "6°³ ÀÏÄ¡ (2,000,000,000¿ø) - ",
-  RATE_OF_RETURN: "ÃÑ ¼öÀÍ·üÀº ",
-  PERCENT: "%ÀÔ´Ï´Ù.",
+  STATISTICS_DEFAULT_MESSAGE: "ë‹¹ì²¨ í†µê³„\n---",
+  FIFTH: "3ê°œ ì¼ì¹˜ (5,000ì›) - ",
+  FOURTH: "4ê°œ ì¼ì¹˜ (50,000ì›) - ",
+  THIRD: "5ê°œ ì¼ì¹˜ (1,500,000ì›) - ",
+  SECOND: "5ê°œ ì¼ì¹˜, ë³´ë„ˆìŠ¤ ë³¼ ì¼ì¹˜ (30,000,000ì›) - ",
+  FIRST: "6ê°œ ì¼ì¹˜ (2,000,000,000ì›) - ",
+  RATE_OF_RETURN: "ì´ ìˆ˜ìµë¥ ì€ ",
+  PERCENT: "%ìž…ë‹ˆë‹¤.",
 });
 
 export default STATISTICS_MESSAGE;
