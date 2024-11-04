@@ -40,22 +40,10 @@ export default class LottoPurchaser {
   }
 
   compareLottosWithWinningLotto(winningLotto) {
-    const winningLottoMainNumbers = winningLotto.getMainLotto()
-      .getNumbers();
-    const winningLottoBonusNumber = winningLotto.getBonusNumber();
-
     this.#lottos.forEach((lotto) => {
       const lottoNumbers = lotto.getNumbers();
 
-      const matchCount = this.#getMatchCount(
-        lottoNumbers,
-        winningLottoMainNumbers,
-      );
-
-      const isBonusNumberMatch = this.#getBonusNumberMatch(
-        lottoNumbers,
-        winningLottoBonusNumber,
-      );
+      const [matchCount, isBonusNumberMatch] = this.#compareLottoWithWinningLotto(lottoNumbers, winningLotto);
 
       this.#lottoResult.saveResult(matchCount, isBonusNumberMatch);
     });
@@ -68,6 +56,20 @@ export default class LottoPurchaser {
     const roundedEarningRate = parseFloat(earningRate.toFixed(LOTTO_CONFIG.EARNING_RATE_PRECISION));
 
     this.#lottoResult.setEarningRate(roundedEarningRate);
+  }
+
+  #compareLottoWithWinningLotto(lottoNumbers, winningLotto) {
+    const matchCount = this.#getMatchCount(
+      lottoNumbers,
+      winningLotto.getMainLotto()
+        .getNumbers(),
+    );
+    const isBonusNumberMatch = this.#getBonusNumberMatch(
+      lottoNumbers,
+      winningLotto.getBonusNumber(),
+    );
+
+    return [matchCount, isBonusNumberMatch];
   }
 
   #getMatchCount(lottoNumbers, winningLottoMainNumbers) {
