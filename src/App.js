@@ -30,6 +30,10 @@ class App {
             // 보너스 번호 입력
             Console.print('\n보너스 번호를 입력해 주세요.');
             const bonusNum = await Console.readLineAsync('');
+
+            // 당첨 통계 출력
+            Console.print('\n당첨 통계');
+            Console.print('\n---');
         } catch (error) {
             Console.print(error.message);
             throw error;
