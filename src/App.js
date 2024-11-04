@@ -1,4 +1,5 @@
 import IOProcessor from './IOProcessor.js';
+import LottoController from './LottoController.js';
 import { INPUT_MESSAGE } from './constant.js';
 
 class App {
@@ -10,6 +11,8 @@ class App {
     const amout = await this.ioProcessor.processInput(
       INPUT_MESSAGE.INPUT_AMOUNT
     );
+
+    this.LottoController = new LottoController(amout);
   }
 }
 
