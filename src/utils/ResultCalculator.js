@@ -1,3 +1,6 @@
+import { LOTTO_VALUES } from '../constants/values';
+import { WINNING_AMOUNTS } from '../constants/values';
+
 class ResultCalculator {
   static calculateResults(lottoList, winningNumbers, bonusNumber) {
     let money = 0;
@@ -22,25 +25,28 @@ class ResultCalculator {
   }
 
   static calculatePrize(matchCount, lottoNumbers, bonusNumber, matchTable) {
-    if (matchCount === 6) {
+    if (matchCount === LOTTO_VALUES.LOTTO_COUNT) {
       matchTable[0] += 1;
-      return 2000000000;
+      return WINNING_AMOUNTS.FIRST;
     }
-    if (matchCount === 5 && lottoNumbers.includes(bonusNumber)) {
+    if (
+      matchCount === LOTTO_VALUES.LOTTO_COUNT - 1 &&
+      lottoNumbers.includes(bonusNumber)
+    ) {
       matchTable[1] += 1;
-      return 30000000;
+      return WINNING_AMOUNTS.SECOND;
     }
-    if (matchCount === 5) {
+    if (matchCount === LOTTO_VALUES.LOTTO_COUNT - 1) {
       matchTable[2] += 1;
-      return 1500000;
+      return WINNING_AMOUNTS.THIRD;
     }
-    if (matchCount === 4) {
+    if (matchCount === LOTTO_VALUES.LOTTO_COUNT - 2) {
       matchTable[3] += 1;
-      return 50000;
+      return WINNING_AMOUNTS.FORTH;
     }
-    if (matchCount === 3) {
+    if (matchCount === LOTTO_VALUES.LOTTO_COUNT - 3) {
       matchTable[4] += 1;
-      return 5000;
+      return WINNING_AMOUNTS.FIFTH;
     }
     return 0;
   }
