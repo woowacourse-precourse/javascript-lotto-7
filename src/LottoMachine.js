@@ -124,23 +124,22 @@ const LottoMachine = Object.seal({
   },
 
   countProfit() {
-    const profit = Math.round(
+    this.profit = Math.round(
       ((5000 * this.score.THREE_MATCHES) + (50000 * this.score.FOUR_MATCHES)
         + (1500000 * this.score.FIVE_MATCHES) + (30000000 * this.score.FIVE_BONUS_MATCHES)
         + (2000000000 * this.score.SIX_MATCHES)) // 총 수익
       / (this.quantity * PRICE) * 100 * 10) / 10;
-    this.profit = profit;
   },
 
-  printScoreProfit(score = this.score) {
+  printScoreProfit() {
     const str = `
 당첨 통계
 ---
-3개 일치 (5,000원) - ${score.THREE_MATCHES}개
-4개 일치 (50,000원) - ${score.FOUR_MATCHES}개
-5개 일치 (1,500,000원) - ${score.FIVE_MATCHES}개
-5개 일치, 보너스 볼 일치 (30,000,000원) - ${score.FIVE_BONUS_MATCHES}개
-6개 일치 (2,000,000,000원) - ${score.SIX_MATCHES}개
+3개 일치 (5,000원) - ${this.score.THREE_MATCHES}개
+4개 일치 (50,000원) - ${this.score.FOUR_MATCHES}개
+5개 일치 (1,500,000원) - ${this.score.FIVE_MATCHES}개
+5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.score.FIVE_BONUS_MATCHES}개
+6개 일치 (2,000,000,000원) - ${this.score.SIX_MATCHES}개
 총 수익률은 ${this.profit}%입니다.`
     MissionUtils.Console.print(str)
   },
