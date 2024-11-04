@@ -51,6 +51,11 @@ class App {
     MissionUtils.Console.print(`\n${amount}개를 구매했습니다.`);
   }
 
+  createLotto() {
+    const lotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return lotto;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
