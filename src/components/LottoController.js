@@ -85,13 +85,17 @@ class LottoController {
     return matchCount;
   }
 
+  #isMatchCountValid(matchCount) {
+    return matchCount !== 0 && matchCount !== 1 && matchCount !== 2;
+  }
+
   #compareLottoTickets(winningNumbers) {
     const winningResult = { 3: 0, 4: 0, 5: 0, '5B': 0, 6: 0 };
 
     this.#lottoTickets.forEach((lottoTicket) => {
       const matchCount = this.#getMatchCount(lottoTicket, winningNumbers);
 
-      if (matchCount !== 0 && matchCount !== 1 && matchCount !== 2) {
+      if (this.#isMatchCountValid(matchCount)) {
         winningResult[matchCount] += 1;
       }
     });
