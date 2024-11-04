@@ -30,7 +30,7 @@ class View {
 
   displayLottos (lottos) {
     const messagses = [
-      `${NEW_LINE}${lottos.length}${OUTPUT_MESSAGE.BUY_AMOUNT}`,
+      `${NEW_LINE}${lottos.length}${OUTPUT_MESSAGE.BUY_AMOUNT}${NEW_LINE}`,
       ...lottos.map(View.#lottoForm),
     ];
     this.out(messagses.join(''));
