@@ -10,9 +10,12 @@ class LottoModel {
     );
   }
 
+  // 로또 번호 생성
   getLottoTickets() {
     return this.#lotto.map((lotto) => lotto.getNumber());
   }
+
+  // 당첨 통계 계산
 }
 
 export default LottoModel;

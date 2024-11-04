@@ -4,14 +4,18 @@ import { generateLottoNumbers } from "../utils/generateLottoNumbers.js";
 import { Console } from "@woowacourse/mission-utils";
 import OutputLotto from "../views/OutputLotto.js";
 import LottoModel from "../models/LottoModel.js";
+import Lotto from "../Lotto.js";
+import { LOTTO_SETTING } from "../constants/Settings.js";
 
 class LottoController {
   #inputLotto;
   #outputLotto;
+  #lotto;
 
   constructor() {
     this.#inputLotto = new InputLotto();
     this.#outputLotto = new OutputLotto();
+    this.#lotto = new Lotto();
   }
 
   async start() {
@@ -21,7 +25,9 @@ class LottoController {
       validators.checkDivisible(purchaseAmount);
       validators.checkLimitMoney(purchaseAmount);
 
-      const lottoModel = new LottoModel(Math.floor(purchaseAmount / 1000));
+      const lottoModel = new LottoModel(
+        Math.floor(purchaseAmount / LOTTO_SETTING.PRICE_OF_EACH_LOTTO)
+      );
       const lottoTickets = lottoModel.getLottoTickets();
       this.#outputLotto.showLottoNumbers(lottoTickets);
 
