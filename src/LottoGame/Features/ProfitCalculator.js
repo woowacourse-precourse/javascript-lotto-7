@@ -1,4 +1,4 @@
-import { findInformation } from "../Utils/LottoInformation";
+import GameUtils from "../Utils/GameUtils";
 
 class ProfitCalculator {
   #profit;
@@ -11,7 +11,7 @@ class ProfitCalculator {
   #calculatePrize(results) {
     let prizeSum = 0;
     for (let result of results) {
-      let rankInfo = findInformation(result.rank).prize;
+      let rankInfo = GameUtils.findInformation(result.rank).prize;
       let prize = rankInfo * result.count;
       prizeSum += prize;
     }

@@ -1,4 +1,4 @@
-import { findInformation } from "../Utils/LottoInformation";
+import GameUtils from "../Utils/GameUtils";
 
 class ResultFormatter {
   #results;
@@ -11,7 +11,7 @@ class ResultFormatter {
   }
 
   #generateCountFormat(rank) {
-    let rankInfo = findInformation(rank);
+    let rankInfo = GameUtils.findInformation(rank);
     if (rankInfo.rank === 2) {
       return `${rankInfo.targetCount}개 일치, 보너스 볼 일치`;
     }
@@ -20,7 +20,7 @@ class ResultFormatter {
   }
 
   #generatePrizeFormat(rank) {
-    let rankInfo = findInformation(rank);
+    let rankInfo = GameUtils.findInformation(rank);
     return rankInfo.prize.toLocaleString();
   }
 

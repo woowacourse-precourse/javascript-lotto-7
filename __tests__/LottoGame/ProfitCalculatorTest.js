@@ -1,5 +1,5 @@
 import ProfitCalculator from "../../src/LottoGame/Features/ProfitCalculator.js";
-import { findInformation } from "../../src/LottoGame/Utils/LottoInformation";
+import GameUtils from "../../src/LottoGame/Utils/GameUtils.js";
 
 describe("ProfitCalculator", () => {
   test("수익률이 잘 계산되는지 확인한다.", () => {
@@ -13,7 +13,8 @@ describe("ProfitCalculator", () => {
     ];
 
     const expectedPrizeSum =
-      findInformation(5).prize * 3 + findInformation(4).prize * 2;
+      GameUtils.findInformation(5).prize * 3 +
+      GameUtils.findInformation(4).prize * 2;
 
     const profitCalculator = new ProfitCalculator(price, results);
     const expectedProfit = ((expectedPrizeSum / price) * 100).toFixed(1) + "%";
