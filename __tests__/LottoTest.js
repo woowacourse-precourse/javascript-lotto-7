@@ -1,18 +1,21 @@
-import Lotto from "../src/Lotto";
+import {
+  lottoInputErrorTestCase,
+  lottoInputSuccessTestCase,
+} from '../src/constant/testCases/lottoTestCase.js';
+import { validateNumbers } from '../src/utils/validation.js';
 
-describe("로또 클래스 테스트", () => {
-  test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow("[ERROR]");
-  });
+describe('로또 입력 테스트', () => {
+  test.each(lottoInputErrorTestCase)(
+    '$description 예외가 발생한다.',
+    ({ numbers, errorMessage }) => {
+      expect(() => validateNumbers(numbers)).toThrow(errorMessage);
+    }
+  );
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
-  test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow("[ERROR]");
-  });
-
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test.each(lottoInputSuccessTestCase)(
+    '$description $expected를 반환한다.',
+    async ({ numbers, expected }) => {
+      expect(validateNumbers(numbers)).toEqual(expected);
+    }
+  );
 });
