@@ -1,4 +1,4 @@
-import Lotto from "../src/Lotto.js";
+import Lotto from "../src/model/Lotto.js";
 import ERROR_MESSAGE from "../src/constants/error.js";
 
 describe("Lotto 클래스 테스트", () => {
