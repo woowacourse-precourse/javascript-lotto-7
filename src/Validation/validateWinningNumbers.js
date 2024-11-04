@@ -1,18 +1,23 @@
-import { ERROR_MESSAGES, throwError } from "../Error/Error.js";
+import { printError } from "../View/output.js";
+import { ERROR_MESSAGES } from "../Error/Error.js";
 
 // 입력값이 6개의 숫자인지 확인
 function checkNumberCount(numbers) {
   if (numbers.length !== 6) {
-    throwError(ERROR_MESSAGES.lotteryNumber.ONLY_6_NUMBERS);
+    printError(ERROR_MESSAGES.lotteryNumber.ONLY_6_NUMBERS);
+    return false;
   }
+  return true;
 }
 
 // 모든 값이 숫자인지 확인
 function checkAllNumbers(numbers) {
   numbers.forEach((num) => {
     if (isNaN(num)) {
-      throwError(ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED);
+      printError(ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED);
+      return false;
     }
+    return true;
   });
 }
 
@@ -20,8 +25,10 @@ function checkAllNumbers(numbers) {
 function checkNumberRange(numbers) {
   numbers.forEach((number) => {
     if (number < 1 || number > 45) {
-      throwError(ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
+      printError(ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
+      return false;
     }
+    return true;
   });
 }
 
@@ -29,8 +36,10 @@ function checkNumberRange(numbers) {
 function checkForDuplicates(numbers) {
   const uniqueNumbers = new Set(numbers);
   if (uniqueNumbers.size !== numbers.length) {
-    throwError(ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER);
+    printError(ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER);
+    return false;
   }
+  return true;
 }
 
 // 유효성 검사 함수

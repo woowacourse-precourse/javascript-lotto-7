@@ -1,13 +1,19 @@
 import { Console } from "@woowacourse/mission-utils";
 import RANKS from "../Model/Rank.js";
+import { ERROR_PREFIX } from "../Error/Error.js";
+
+export function printError(message) {
+  Console.print(ERROR_PREFIX + message);
+}
 
 export function printTicketCount(ticketCount) {
-  Console.print(`\n${ticketCount}개를 구매했습니다.`);
+  Console.print(`${ticketCount}개를 구매했습니다.`);
 }
 
 export function printLottoTickets(lottoTickets) {
   lottoTickets.forEach((ticket) => {
-    Console.print(`${ticket.getNumbers().join(", ")}`);
+    const formattedNumbers = `[${ticket.getNumbers().join(", ")}]`;
+    Console.print(formattedNumbers);
   });
 }
 
