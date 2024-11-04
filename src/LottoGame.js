@@ -66,7 +66,9 @@ class LottoGame {
         for (const matchLotto in this.matchLottos) {
             this.revenue += this.matchLottos[matchLotto] * this.lottoRevenue[matchLotto];
         }
-        this.revenue = Math.round((this.revenue / amount) * 10) / 10;
+        let profit = (this.revenue / amount) * 100;
+        this.revenue = profit.toFixed(1);
+
     }
 }
 
