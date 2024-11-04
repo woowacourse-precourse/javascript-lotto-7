@@ -40,7 +40,6 @@ class App {
         outputView.outputError(error.message);
       }
     }
-    console.log(lottoWinningNumbers);
 
     while (true) {
       try {
