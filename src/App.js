@@ -22,6 +22,7 @@ class App {
     }
 
     const winningNumbers = await Input.inputWinningNumbers();
+    const bonusNumber = await Input.inputBonusNumber(winningNumbers);
   }
 }
 

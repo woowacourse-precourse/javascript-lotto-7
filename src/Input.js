@@ -22,8 +22,11 @@ class Input {
     return winningNumbers;
   }
 
-  static inputBonusNumber() {
-    Console.readLineAsync(INPUT_MESSAGE.BONUS_NUMBER);
+  static async inputBonusNumber(winningNumbers) {
+    const input = await Console.readLineAsync(INPUT_MESSAGE.BONUS_NUMBER);
+    const bonusNumber = Validation.checkBonusNumberError(input, winningNumbers);
+
+    return bonusNumber;
   }
 }
 
