@@ -6,22 +6,6 @@ class LottoGame {
   #lottos;
   #winningResult;
 
-  #rankMapping = {
-    6: 1,
-    5: { true: 2, false: 3 },
-    4: 4,
-    3: 5,
-  };
-
-  #winningPriceMapping = {
-    0: 0,
-    1: 2000000000,
-    2: 30000000,
-    3: 1500000,
-    4: 50000,
-    5: 5000,
-  };
-
   constructor(lottoAmount) {
     this.#lottoAmount = lottoAmount;
     this.#lottos = [];
@@ -71,7 +55,7 @@ class LottoGame {
   }
 
   #calculateRank(matchingCount, isBonusNumberMatched) {
-    const rank = this.#rankMapping[matchingCount];
+    const rank = RULE.lotto.rankRules[matchingCount];
 
     if (rank && typeof rank === 'object') {
       return rank[isBonusNumberMatched];
@@ -82,7 +66,7 @@ class LottoGame {
 
   calculateWinningRate() {
     const totalWinningAmount = this.#winningResult.reduce(
-      (acc, result, i) => acc + result * this.#winningPriceMapping[i],
+      (acc, result, i) => acc + result * RULE.lotto.prizeAmounts[i],
       0,
     );
     return (
