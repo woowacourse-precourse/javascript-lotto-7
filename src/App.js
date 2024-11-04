@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import { IO_MESSAGES, ERROR_MESSAGES } from '../constants/messages.js';
+import { IO_MESSAGES, ERROR_MESSAGES } from './constants/messages.js';
 
 class App {
   async run() {
