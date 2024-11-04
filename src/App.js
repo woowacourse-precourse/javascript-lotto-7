@@ -9,60 +9,72 @@ import { validateWinningNumbers } from "./validateWinningNumbers.js";
 
 class App {
   async run() {
-    let lottoPurchaseAmount;
+    const lottoPurchaseAmount = await this.getPurchaseAmount();
+    const allLottos = this.purchaseLottos(lottoPurchaseAmount);
+    const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
+
+    const counts = this.calculateMatches(
+      allLottos,
+      winningNumbers,
+      bonusNumber
+    );
+    this.displayResult(counts, lottoPurchaseAmount);
+  }
+
+  async getPurchaseAmount() {
     while (true) {
       try {
-        lottoPurchaseAmount = await MissionUtils.Console.readLineAsync(
+        const amount = await MissionUtils.Console.readLineAsync(
           "구입금액을 입력해 주세요.\n"
         );
-        validatePurchaseAmount(lottoPurchaseAmount);
-        break;
+        validatePurchaseAmount(amount);
+        return amount;
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
     }
+  }
 
-    const lottoQuantity = lottoPurchaseAmount / LOTTO_PRICE;
+  purchaseLottos(amount) {
+    const lottoQuantity = amount / LOTTO_PRICE;
     MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
 
     const allLottos = generateLottoNumbers(lottoQuantity);
     allLottos.forEach((lotto) => {
       MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
+    return allLottos;
+  }
 
-    let winningNumbers;
+  async getWinningNumbers() {
     while (true) {
       try {
         const winningNumbersInput = await MissionUtils.Console.readLineAsync(
           "당첨 번호를 입력해 주세요.\n"
         );
-        winningNumbers = validateWinningNumbers(winningNumbersInput);
-        break;
+        return validateWinningNumbers(winningNumbersInput);
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
     }
+  }
 
-    let bonusNumber;
+  async getBonusNumber(winningNumbers) {
     while (true) {
       try {
         const bonusNumberInput = await MissionUtils.Console.readLineAsync(
           "보너스 번호를 입력해 주세요.\n"
         );
-        bonusNumber = validateBonusNumber(bonusNumberInput, winningNumbers);
-        break;
+        return validateBonusNumber(bonusNumberInput, winningNumbers);
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
     }
+  }
 
-    const counts = {
-      3: 0,
-      4: 0,
-      5: 0,
-      "5_bonus": 0,
-      6: 0,
-    };
+  calculateMatches(allLottos, winningNumbers, bonusNumber) {
+    const counts = { 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
 
     allLottos.forEach((lotto) => {
       const { matchedCount, hasBouns } = lotto.getMatchResult(
@@ -76,9 +88,11 @@ class App {
         counts[matchedCount]++;
       }
     });
+    return counts;
+  }
 
+  displayResult(counts, lottoPurchaseAmount) {
     printResult(counts);
-
     const prizes = {
       3: 5000,
       4: 50000,
