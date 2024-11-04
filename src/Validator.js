@@ -29,15 +29,15 @@ class Validator {
             this.invalidNumber,
             this.isvalidNumberRange,
             this.isNotDuplicateNumbers
-        ]
+        ];
     }
 
     static validateWinningNumbersWithBonusNumber(winningNumbers, bonusNumber) {
-        if (winningNumbers.includes(bonusNumber)) throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.")
+        if (winningNumbers.includes(bonusNumber)) throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.");
     }
 
     static invalidNumber(number) {
-        if (!Number(number)) throw new Error("[ERROR] 숫자를 입력해주세요.")
+        if (!Number(number)) throw new Error("[ERROR] 숫자를 입력해주세요.");
     }
 
     static checkAmountUnit(moneyPaid) {
@@ -45,34 +45,34 @@ class Validator {
     }
 
     static isPositiveNumber(number) {
-        if (Number(number) < 0) throw new Error("[ERROR] 입력 값이 음수입니다.")
+        if (Number(number) < 0) throw new Error("[ERROR] 입력 값이 음수입니다.");
     }
 
     static isZero(number) {
-        if (Number(number) === 0) throw new Error("[ERROR] 입력값이 0 입니다.")
+        if (Number(number) === 0) throw new Error("[ERROR] 입력값이 0 입니다.");
     }
 
     static isSixNumbers(numbers) {
-        if (numbers.length !== 6) throw new Error("[ERROR] 입력한 당첨 숫자가 6개가 아닙니다.")
+        if (numbers.length !== 6) throw new Error("[ERROR] 입력한 당첨 숫자가 6개가 아닙니다.");
     }
 
     static isNotDuplicateNumbers(numbers) {
-        if (new Set(numbers).size !== numbers.length) throw new Error("[ERROR] 입력한 당첨 숫자간 중복된 숫자가 있습니다.")
+        if (new Set(numbers).size !== numbers.length) throw new Error("[ERROR] 입력한 당첨 숫자간 중복된 숫자가 있습니다.");
     }
 
     static isvalidNumbers(numbers) {
         numbers.forEach(number => {
-            if (!Number(number)) throw new Error("[ERROR] 숫자를 입력해주세요.")
+            if (!Number(number)) throw new Error("[ERROR] 숫자를 입력해주세요.");
         })
     }
 
     static isvalidNumberRange(number) {
-        if (Number(number) > 45 || Number(number) < 1) throw new Error("[ERROR] 입력 값이 범위 밖에 있습니다.")
+        if (Number(number) > 45 || Number(number) < 1) throw new Error("[ERROR] 입력 값이 범위 밖에 있습니다.");
     }
 
     static isvalidNumbersRange(numbers) {
         numbers.forEach(number => {
-            if (Number(number) > 45 || Number(number) < 1) throw new Error("[ERROR] 입력 값이 범위 밖에 있습니다.")
+            if (Number(number) > 45 || Number(number) < 1) throw new Error("[ERROR] 입력 값이 범위 밖에 있습니다.");
         })
     }
 

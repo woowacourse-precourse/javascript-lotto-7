@@ -11,13 +11,13 @@ class LottoController {
         OutputView.writeLottoCounts(countGame);
 
         const lottos = new Lottos(countGame).getLottos();
-        OutputView.writeLottos(lottos)
+        OutputView.writeLottos(lottos);
 
         const winningNumbers = await InputView.readWinningNumbers();
         const bonusNumber = await InputView.readBonusNumber();
         Validator.validateWinningNumbersWithBonusNumber(winningNumbers, bonusNumber);
 
-        const matcher = this.#generateMatcher(lottos, winningNumbers, bonusNumber)
+        const matcher = this.#generateMatcher(lottos, winningNumbers, bonusNumber);
         const { matchResult, matchFiveNumbersWithBonusNumber } = matcher.getResults();
 
         OutputView.writeMatchStatistics(matchResult, matchFiveNumbersWithBonusNumber);

@@ -11,7 +11,7 @@ class Lottos {
 
     #generateLottos(countGame) {
         for (let index = 0; index < countGame; index++) {
-            this.#lottos.push(this.#generateLotto())
+            this.#lottos.push(this.#generateLotto());
         }
     }
 
