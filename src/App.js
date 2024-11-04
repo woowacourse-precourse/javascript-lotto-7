@@ -13,11 +13,17 @@ class App {
   validatePurchaseAmount(amount) {
     const purchaseAmount = Number(amount);
 
-    if (Number.isNaN(purchaseAmount) || purchaseAmount % 1000 !== 0) {
+    if (isNaN(purchaseAmount) || purchaseAmount % 1000 !== 0) {
       this.handleError("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
     } else {
       this.purchaseAmount = purchaseAmount;
+      this.printPurchasedLotto();
     }
+  }
+
+  printPurchasedLotto() {
+    const lottoCount = this.purchaseAmount / 1000;
+    Console.print(`${lottoCount}개를 구매했습니다.`);
   }
 
   handleError(message) {
