@@ -22,3 +22,5 @@ class LottoResult {
     return this.#results;
   }
 }
+
+export default LottoResult;
