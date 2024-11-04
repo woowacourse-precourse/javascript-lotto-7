@@ -13,6 +13,9 @@ class LottoController {
 
   async #buyLotto() {
     const moneyInput = await this.#lottoView.getMoney();
+    this.#lottoModel.calculateLottoAmount(moneyInput);
+
+    const lottoAmount = this.#lottoModel.getLottoAmount();
   }
 }
 
