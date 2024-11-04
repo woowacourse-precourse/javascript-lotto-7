@@ -7,6 +7,7 @@ import {
   WINNING_PRIZES,
 } from "./constants.js";
 import Lotto from "./Lotto.js";
+import LottoIO from "./LottoIO.js";
 
 class LottoApp {
   constructor() {
@@ -17,13 +18,12 @@ class LottoApp {
       fourth: 0,
       fifth: 0,
     };
+    this.io = new LottoIO();
   }
 
   async promptPurchaseAmount() {
     try {
-      const amount = await MissionUtils.Console.readLineAsync(
-        MESSAGES.PURCHASE_AMOUNT_PROMPT
-      );
+      const amount = await this.io.promptPurchaseAmount();
       this.validateAmount(amount);
       return Number(amount);
     } catch (error) {
@@ -35,7 +35,7 @@ class LottoApp {
   purchaseLottos(amount) {
     const count = Math.floor(amount / LOTTO_PRICE);
     const lottos = this.generateLottos(count);
-    this.printLottoTickets(lottos);
+    this.io.printLottoTickets(lottos);
     return lottos;
   }
 
@@ -59,7 +59,6 @@ class LottoApp {
   }
 
   generateLottos(count) {
-    MissionUtils.Console.print(`\n${count}${MESSAGES.LOTTO_PURCHASED}`);
     const lottos = [];
     for (let i = 0; i < count; i++) {
       lottos.push(new Lotto(this.generateLottoNumbers()));
@@ -67,17 +66,9 @@ class LottoApp {
     return lottos;
   }
 
-  printLottoTickets(lottos) {
-    lottos.forEach((lotto) => {
-      MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
-    });
-  }
-
   async promptWinningNumbers() {
     try {
-      const input = await MissionUtils.Console.readLineAsync(
-        MESSAGES.WINNING_NUMBER_PROMPT
-      );
+      const input = await this.io.promptWinningNumbers();
       const numbers = this.parseWinningNumbers(input);
       const winningLotto = new Lotto(numbers);
       return winningLotto;
@@ -93,9 +84,7 @@ class LottoApp {
 
   async promptBonusNumber(winningLotto) {
     try {
-      const input = await MissionUtils.Console.readLineAsync(
-        MESSAGES.BONUS_NUMBER_PROMPT
-      );
+      const input = await this.io.promptBonusNumber();
       const bonusNumber = this.parseBonusNumber(input);
       this.validateBonusNumber(bonusNumber, winningLotto.getNumbers());
       return bonusNumber;
@@ -186,13 +175,7 @@ class LottoApp {
   }
 
   printStatistics(profitRate) {
-    MissionUtils.Console.print(MESSAGES.RESULT_HEADING);
-    MESSAGES.PRIZES.forEach(({ message, key }) => {
-      MissionUtils.Console.print(`${message}${this.statistics[key]}개`);
-    });
-    MissionUtils.Console.print(
-      `${MESSAGES.PROFIT_RATE}${profitRate.toFixed(1)}${MESSAGES.PROFIT_SUFFIX}`
-    );
+    this.io.printStatistics(this.statistics, profitRate);
   }
 }
 
