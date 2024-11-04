@@ -1,10 +1,5 @@
-import Lotto from "../src/Lotto.js";
 import LottoApp from "../src/LottoApp";
-import {
-  LOTTO_PRICE,
-  LOTTO_NUMBERS,
-  WINNING_PRIZES,
-} from "../src/constants.js";
+import { LOTTO_PRICE, LOTTO_NUMBERS } from "../src/constants.js";
 
 describe("LottoApp 클래스 테스트", () => {
   let lottoApp;
