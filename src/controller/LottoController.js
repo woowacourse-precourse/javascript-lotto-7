@@ -2,6 +2,7 @@ import Lotto from "../model/Lotto.js";
 import InputView from "../view/InputView.js";
 import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES } from "../constant/messages.js";
+import { ERROR_MESSAGES } from "../constant/errors.js";
 class LottoController {
   #inputView;
   #totalProfitRatio;
@@ -11,11 +12,11 @@ class LottoController {
   }
   validateLottoAmount(amount) {
     if (isNaN(amount)) {
-      throw new Error(`[ERROR] 로또 금액은 숫자로 입력해야합니다.\n`);
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_TYPE);
     }
 
     if (amount < 0 || amount % 1000 !== 0) {
-      throw new Error(`[ERROR] 로또 금액은 1000원 단위의 양수여야 합니다.\n`);
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_DIVIDE_BY_1000);
     }
   }
   makeLottoTickets(numberOfLotto) {
@@ -36,19 +37,17 @@ class LottoController {
 
   validateBonusNumberType(bonusNumber) {
     if (isNaN(bonusNumber)) {
-      throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_TYPE);
     }
   }
   validateBonusNumberUniqueness(winningNumbers, bonusNumber) {
     if (winningNumbers.some((number) => bonusNumber === number)) {
-      throw new Error(
-        "[ERROR] 보너스 번호는 로또 당첨 번호 숫자와 겹치지 않아야 합니다."
-      );
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_UNIQUENESS);
     }
   }
   validateBonusNumberRange(bonusNumber) {
     if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error("[ERROR] 보너스 번호는 1에서 45 사이의 양수여야 합니다.");
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
     }
   }
 
