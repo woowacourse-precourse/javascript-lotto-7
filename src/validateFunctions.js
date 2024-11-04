@@ -72,7 +72,7 @@ const checkDuplicateNumbers = (string) => {
 
 export const bonusNumberAlreadyExist = (bonusNumber, answerNumbers) => {
   toThrowNewError(
-    answerNumbers.includes(bonusNumber),
+    answerNumbers.includes(Number(bonusNumber)),
     '중복되는 보너스 수는 안됩니다.',
   );
 };
