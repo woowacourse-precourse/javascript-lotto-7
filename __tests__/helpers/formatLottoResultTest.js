@@ -1,4 +1,4 @@
-import { formatLottoResult } from '../../src/helpers/formatLottoResult';
+import { formatLottoResult } from '../../src/helpers/formatLottoResult.js';
 
 describe('formatLottoResult 테스트', () => {
   test('각 등수에 맞는 포맷된 문자열을 반환하는지 테스트', () => {
