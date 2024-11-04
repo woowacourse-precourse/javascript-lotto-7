@@ -10,10 +10,18 @@ describe('App 클래스 단위 테스트', () => {
     '구입 금액에 따른 로또 개수 테스트',
     async (money, count) => {
       const app = new App();
-      app.money = money;
+      app.setMoney(money);
 
       const lottos = await app.createLottos();
       expect(lottos.length).toEqual(count);
     }
   );
+
+  test('수익률 계산 테스트', () => {
+    const app = new App();
+    app.setMoney(8000);
+    app.setRankResult([0, 0, 0, 0, 0, 1]);
+
+    expect(app.calculateIncomePercentage()).toEqual('62.5');
+  });
 });
