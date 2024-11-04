@@ -57,15 +57,6 @@ class App {
     }
 
     this.printResult()
-    
-
-    
-
-
-    
-    
-
-
   }
 }
 
