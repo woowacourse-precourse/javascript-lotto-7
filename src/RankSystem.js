@@ -64,7 +64,9 @@ class RankSystem {
   }
 
   calculateTotalWinnings() {
-    // 수익률 계산위한 총 당첨금 구하기
+    let totalWinnings = 0;
+    this.#result.forEach((rank) => (totalWinnings += rank.winnings * rank.winningCount));
+    return totalWinnings;
   }
 }
 
