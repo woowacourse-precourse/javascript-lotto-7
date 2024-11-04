@@ -18,7 +18,7 @@ class BonusNumber {
       NUMBER_ERROR_MESSAGES.BonusNumberGuid,
     );
     if (winningNum.includes(bonusNum)) {
-      throw new Error(NUMBER_ERROR_MESSAGES.dupicateWinnig);
+      throw new Error(NUMBER_ERROR_MESSAGES.duplicateWithWinningNumbers);
     }
   }
 }
