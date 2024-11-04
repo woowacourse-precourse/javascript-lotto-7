@@ -2,7 +2,6 @@ import ERROR_MESSAGE from '../constants/errorMessage.js';
 import LOTTO_CONFIG from '../constants/lottoConfig.js';
 
 export function checkLottoPurchasePrice(price) {
-  price = Number(price);
   if (Number.isNaN(price)) {
     throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_NAN);
   }
