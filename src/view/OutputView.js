@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { PRIZE } from "../constants";
+import { PRIZE } from "../constants.js";
 
 class OutputView {
   static printLottoQuantity(amount) {
