@@ -1,13 +1,13 @@
 import Customer from "./model/Customer.js";
-import Lotto from "./model/Lotto.js";
-import LottoValidator from "./validators/LottoValidator.js";
+import Lotto from "./Lotto.js";
+import LottoChecker from "./model/LottoChecker.js";
 import InputView from "./view/InputView.js";
 
 class App {
   async run() {
     const input = new InputView();
     const customer = new Customer();
-    const lotto = new Lotto();
+    const lottoChecker = new LottoChecker();
     
 
     // 로또 구매 및 출력
@@ -16,15 +16,18 @@ class App {
     customer.getLottoNumberList();
     
     // 생성한 번호 출력
+    customer.lottoNumbersPrint();
 
     const winningNumbers = await input.readWinningNumbers();
+    const lotto = new Lotto(winningNumbers);
+    const validWinningNumbers = lotto.getNumbers();
     const bonusNumber = await input.readBonusNumber();
-    const allLottoNumbers = [...winningNumbers, bonusNumber];
-    LottoValidator.validateDuplicateNumbers(allLottoNumbers);
-    allLottoNumbers.forEach(LottoValidator.validatorSingleNumber);
 
-    lotto.setWinningAndBonusNumbers(winningNumbers, bonusNumber);
-    customer.getLottoResults(lotto);
+    lottoChecker.setWinningAndBonusNumbers(validWinningNumbers, bonusNumber);
+    customer.getLottoResults(lottoChecker);
+
+    customer.calculateProfit();
+    customer.lottoResultPrint();
 
     
 
