@@ -1,4 +1,13 @@
-const MESSAGES = Object.freeze({
+const deepFreeze = (obj) => {
+  Object.keys(obj).forEach((key) => {
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      deepFreeze(obj[key]);
+    }
+  });
+  return Object.freeze(obj);
+};
+
+const MESSAGES = deepFreeze({
   INFO: {
     START_PROGRAM: '프로그램이 시작되었습니다.\n',
     PURCHASE_QUANTITY: '{count}개를 구매했습니다.',
