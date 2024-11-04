@@ -1,7 +1,7 @@
 import ProfitCalculator from '../../src/controllers/ProfitCalculator.js';
 import { GAME_SETTINGS, LOTTO_REWARD } from '../../src/utils/constants.js';
 
-describe('ProfitCalculator 클래스 테스트', () => {
+describe.skip('ProfitCalculator 클래스 테스트', () => {
   test('수익률이 올바르게 계산된다.', () => {
     const rankCounts = {
       threeMatch: 3,

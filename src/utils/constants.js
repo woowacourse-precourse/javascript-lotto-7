@@ -16,7 +16,6 @@ export const ERROR_MESSAGES = {
     '[ERROR] 입력할 로또 번호는 6개이며 ,(쉼표)로 구분합니다.',
   NON_NUMERIC_VALUE: '[ERROR] 입력값은 숫자여야 합니다.',
   LOTTO_RANGE: '[ERROR] 로또 번호는 1부터 45까지의 숫자입니다.',
-  NON_NUMERIC_BONUS: '[ERROR] 입력은 숫자와 구분자 ,만 허용됩니다.',
   DUPLICATE_BONUS_NUMBER:
     '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
 };

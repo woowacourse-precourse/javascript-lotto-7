@@ -15,7 +15,17 @@ class LottoValidator {
   }
 
   validateWinningNumber(userInput) {
-    return this.#parseUserInput(userInput);
+    const parsedNumbers = this.#parseUserInput(userInput);
+
+    if (!this.#isCorrectCount(parsedNumbers)) {
+      throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
+    }
+
+    return parsedNumbers;
+  }
+
+  #isCorrectCount(arr) {
+    return arr.length === LOTTO.WINNING_NUMBERS_COUNT;
   }
 
   #parseUserInput(userInput) {
@@ -39,7 +49,7 @@ class LottoValidator {
   }
 
   #isAllInRange(arr) {
-    return arr.some(
+    return arr.every(
       (e) => e >= LOTTO.NUMBER_RANGE.MIN && e <= LOTTO.NUMBER_RANGE.MAX
     );
   }
