@@ -7,18 +7,22 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
+  #validate(number) {
+    if (isNaN(number)) {
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBER.IS_NOT_NUMBER);
+    }
+    if (number < 1 || number > 45) {
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBER.WRONG_RANGE);
+    }
+  }
+
+  validateLottoNumber(numbers) {
     if (numbers.length !== 6) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER.WRONG_LENGTH);
     }
 
     numbers.forEach(number => {
-      if (isNaN(number)) {
-        throw new Error(ERROR_MESSAGE.WINNING_NUMBER.IS_NOT_NUMBER);
-      }
-      if (number < 1 || number > 45) {
-        throw new Error(ERROR_MESSAGE.WINNING_NUMBER.WRONG_RANGE);
-      }
+      this.#validate(number);
     });
 
     const setNumbers = new Set(numbers);
@@ -27,13 +31,8 @@ class Lotto {
     }
   }
 
-  #validateBonusNumber(numbers) {
-    if (isNaN(numbers)) {
-      throw new Error(ERROR_MESSAGE.WINNING_NUMBER.IS_NOT_NUMBER);
-    }
-    if (numbers < 1 || numbers > 45) {
-      throw new Error(ERROR_MESSAGE.WINNING_NUMBER.WRONG_RANGE);
-    }
+  validateBonusNumber(bonusNumber) {
+    return this.#validate(bonusNumber);
   }
 
   #matchLotto(numbers, winningNumber) {
@@ -53,14 +52,6 @@ class Lotto {
       isMatch = true;
     }
     return isMatch;
-  }
-
-  validateWinningNumber(numbers) {
-    return this.#validate(numbers);
-  }
-
-  validateBonusNumber(bonusNumber) {
-    return this.#validateBonusNumber(bonusNumber);
   }
 
   getMatchCount(numbers, winningNumber, bonusNumber) {
