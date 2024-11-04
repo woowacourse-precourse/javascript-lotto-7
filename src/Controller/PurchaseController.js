@@ -5,6 +5,7 @@ import { LOTTO_CONFIG } from '../constants/lotto.js';
 import Lotto from '../Lotto.js';
 import LottoService from '../Service/LottoService.js';
 import User from '../User/User.js';
+import { tryCatch } from '../util/tryCatch.js';
 import { validateLottoPurchase } from '../validate/purchaseValidator.js';
 import LottoResultView from '../views/LottoResultView.js';
 import { outputView } from '../views/outputView.js';
@@ -23,11 +24,14 @@ class PurchaseController {
 
   async handlePurchase() {
     while (true) {
-      try {
-        return await this.processPurchase();
-      } catch (error) {
+      const [error, lottoData] = await tryCatch(this.processPurchase());
+
+      if (error) {
         outputView.printErrorMessage(error);
+        continue;
       }
+
+      return lottoData;
     }
   }
 

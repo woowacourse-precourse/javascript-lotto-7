@@ -2,6 +2,7 @@
 
 import { GAME_MESSAGE } from '../constants/gameMessage.js';
 import User from '../User/User.js';
+import { tryCatch } from '../util/tryCatch.js';
 import { validateBonusNumber } from '../validate/bonusNumberValidator.js';
 import { validateWinningNumber } from '../validate/winningNumberValidator.js';
 import { outputView } from '../views/outputView.js';
@@ -14,11 +15,16 @@ class WinningNumberController {
 
   async getWinningNumbers() {
     while (true) {
-      try {
-        return await this.processWinningNumbers();
-      } catch (error) {
+      const [error, winningNumbersData] = await tryCatch(
+        this.processWinningNumbers()
+      );
+
+      if (error) {
         outputView.printErrorMessage(error);
+        continue;
       }
+
+      return winningNumbersData;
     }
   }
 
@@ -33,11 +39,16 @@ class WinningNumberController {
   /**@param {number[]} winningNumbers */
   async getBonusNumber(winningNumbers) {
     while (true) {
-      try {
-        return await this.processBonusNumber(winningNumbers);
-      } catch (error) {
+      const [error, bonusNumberData] = await tryCatch(
+        this.processBonusNumber(winningNumbers)
+      );
+
+      if (error) {
         outputView.printErrorMessage(error);
+        continue;
       }
+
+      return bonusNumberData;
     }
   }
 
