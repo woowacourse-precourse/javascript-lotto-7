@@ -1,24 +1,42 @@
-import InputView from "../views/InputView.js";
-import OutputView from "../views/OutputView.js";
-import Lotto from "../models/Lotto.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { OUTPUT_MESSAGES } from "../utils/messages.js";
 
-class LottoController {
-  async run() {
-    try {
-      const lottoCount = await InputView.getPurchaseAmount();
-      MissionUtils.Console.print(`${lottoCount}개 구매했습니다.`);
+class OutputView {
+  static printLottos(lottos) {
+    MissionUtils.Console.print(`${lottos.length}개 구매했습니다.`);
+    lottos.forEach((lotto) => {
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
+    });
+  }
 
-      const lottos = Array.from({ length: lottoCount }, () => new Lotto());
-      OutputView.printLottos(lottos);
-
-      // 당첨 번호 입력받기
-      const winningNumbers = await InputView.getWinningNumbers();
-      MissionUtils.Console.print(`당첨 번호: ${winningNumbers.join(", ")}`);
-    } catch (error) {
-      MissionUtils.Console.print(error.message);
-    }
+  static printResultStatistics(results) {
+    MissionUtils.Console.print(OUTPUT_MESSAGES.WINNING_RESULT);
+    MissionUtils.Console.print(
+      `3개 일치 (${results[5].prize.toLocaleString()}원) - ${
+        results[5].count
+      }개`
+    );
+    MissionUtils.Console.print(
+      `4개 일치 (${results[4].prize.toLocaleString()}원) - ${
+        results[4].count
+      }개`
+    );
+    MissionUtils.Console.print(
+      `5개 일치 (${results[3].prize.toLocaleString()}원) - ${
+        results[3].count
+      }개`
+    );
+    MissionUtils.Console.print(
+      `5개 일치, 보너스 볼 일치 (${results[2].prize.toLocaleString()}원) - ${
+        results[2].count
+      }개`
+    );
+    MissionUtils.Console.print(
+      `6개 일치 (${results[1].prize.toLocaleString()}원) - ${
+        results[1].count
+      }개`
+    );
   }
 }
 
-export default LottoController;
+export default OutputView;
