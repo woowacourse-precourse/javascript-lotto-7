@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 
+// 당첨 번호가 일치한 수를 카운트
 export function countPrizeResults(tickets, winningNumbers, bonusNumber) {
   const prizeResults = {
     '3': 0,
@@ -31,6 +32,7 @@ function updatePrizeResults(ticket, winningNumbers, bonusNumber, prizeResults) {
   }
 }
 
+// 당첨 통계 출력
 export function showStatistics(prizeResults, ticketCount) {
   const prizeMoney = {
     '3': 5_000,

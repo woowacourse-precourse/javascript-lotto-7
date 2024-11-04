@@ -1,6 +1,7 @@
 import { Random } from "@woowacourse/mission-utils";
 import Lotto from "../Lotto.js";
 
+// 랜덤으로 티켓을 뽑는 함수
 export function generateTickets(ticketCount) {
   const tickets = [];
 
