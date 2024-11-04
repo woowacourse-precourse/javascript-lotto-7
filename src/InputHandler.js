@@ -27,10 +27,9 @@ class InputHandler {
     );
   }
 
-  async getBonusNumber() {
-    return this.handleInput(
-      "\n보너스 번호를 입력해 주세요.\n",
-      this.validateBonusNumber
+  async getBonusNumber(WinningLottoNumbersArray) {
+    return this.handleInput("\n보너스 번호를 입력해 주세요.\n", (input) =>
+      this.validateBonusNumber(input, WinningLottoNumbersArray)
     );
   }
 
@@ -60,12 +59,13 @@ class InputHandler {
     return numbers;
   }
 
-  validateBonusNumber(input) {
+  validateBonusNumber(input, WinningLottoNumbersArray) {
     const bonusNumber = Number(input);
     if (isNaN(bonusNumber)) throw new Error("[ERROR] 숫자만 입력해주세요.");
     if (bonusNumber < 1 || bonusNumber > 45)
       throw new Error("[ERROR] 1~45 사이의 숫자만 입력해주세요.");
-
+    if (WinningLottoNumbersArray[bonusNumber] === 1)
+      throw new Error("[ERROR] 당첨 번호와 중복됩니다.");
     return bonusNumber;
   }
 }
