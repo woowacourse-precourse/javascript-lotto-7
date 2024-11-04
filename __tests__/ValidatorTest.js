@@ -41,14 +41,14 @@ describe('Validator 테스트', () => {
     [[1, 2, 3, 4, 5, 5], false],
   ])('중복된 값에 대한 유효성 검사', (lottoNumbers, expectedResult) => {
     // when & then
-    expect(validator.validateDuplicatedNumber(lottoNumbers)).toBe(expectedResult);
+    expect(validator.uniqueNumber(lottoNumbers)).toBe(expectedResult);
   });
 
   test.each([
     [[0, 1, 2, 3, 4, 5], false],
     [[1, 2, 3, 4, 5, 46], false],
   ])('숫자의 범위에 대한 유효성 검사', (lottoNumbers, expectedResult) => {
-    expect(validator.validateNumberRange(lottoNumbers)).toBe(expectedResult);
+    expect(validator.validRangeInteger(lottoNumbers)).toBe(expectedResult);
   });
 
   test.each([
@@ -58,7 +58,7 @@ describe('Validator 테스트', () => {
     '로또 번호 수량에 대한 유효성 검사 ( 로또번호 : %s 결과 : %s )',
     (lottoNumbers, expectedResult) => {
       // when & then
-      expect(validator.validateWinningNumbersLength(lottoNumbers)).toBe(expectedResult);
+      expect(validator.validWinningNumbersLength(lottoNumbers)).toBe(expectedResult);
     },
   );
 
@@ -69,9 +69,9 @@ describe('Validator 테스트', () => {
 
     // when
     const methods = [
-      validator.validateNumberRange,
-      validator.validateDuplicatedNumber,
-      validator.validateWinningNumbersLength,
+      validator.validRangeInteger,
+      validator.uniqueNumber,
+      validator.validWinningNumbersLength,
     ];
     const result = methods.map((method) => method(LOTTO_NUMBERS)).every(Boolean);
 
@@ -86,9 +86,7 @@ describe('Validator 테스트', () => {
         [[6], false],
         [[7], true],
       ])('보너스번호 : %s 결과 : %s)', (bonusNumber, expectedResult) => {
-        expect(validator.validateBonusNumberDuplicated(lottoNumbers, bonusNumber)).toBe(
-          expectedResult,
-        );
+        expect(validator.uniqueBonusNumber(lottoNumbers, bonusNumber)).toBe(expectedResult);
       });
     },
   );
