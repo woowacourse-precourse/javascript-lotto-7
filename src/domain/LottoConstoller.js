@@ -1,8 +1,8 @@
-import Lottos from "./domain/Lottos.js";
-import InputView from "./views/InputView.js";
-import OutputView from "./views/OutputView.js";
-import Validator from "./utils/Validator.js";
-import Matcher from "./domain/Matcher.js";
+import Lottos from "./Lottos.js";
+import InputView from "../views/InputView.js";
+import OutputView from "../views/OutputView.js";
+import Validator from "../utils/Validator.js";
+import Matcher from "./Matcher.js";
 
 class LottoController {
     async gameStart() {
