@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { BONUS, ZERO_AMOUNT_TO_COMPARE } from "../constants.js";
+import { BONUS, PROMPTS, ZERO_AMOUNT_TO_COMPARE } from "../constants.js";
 
 const printError = (msg) => {
   Console.print("[ERROR]" + msg);
@@ -22,9 +22,14 @@ const printResult = ({ matches, price, amount }, bonus = "") => {
   Console.print(`${displayMatches}개 일치${bonus} (${totalPrice}원) - ${amount}개`);
 };
 
+const printPercent = (percent) => {
+  const [start, end] = PROMPTS.PRINT_PERCENT;
+  Console.print(start + percent + end);
+}
 
 export {
   printError,
   printParam,
   printResult,
+  printPercent,
 };

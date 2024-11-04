@@ -31,7 +31,7 @@ const PROMPTS = {
   PURCAHSE_INFO_PROMPT: "개를 구매했습니다.",
   LOTTERY_NUM_PROMPT: "당첨 번호를 입력해 주세요. : ",
   LOTTERY_BONUS_PROMPT: "보너스 번호를 입력해 주세요. : ",
-  PRINT_PERCENT: ["총 수익률은", "%입니다."],
+  PRINT_PERCENT: ["총 수익률은 ", "%입니다."],
   SHOW_STATISTICS: `
   당첨 통계
   ------------------`,
