@@ -1,8 +1,12 @@
-import { validatePurchaseAmount, validateUserWinningNumber, validateBonusNumber } from './errorHandling.js';
 import { Console, Random } from '@woowacourse/mission-utils';
-import { inputMoney } from './inputMoney.js';
-import { inputWinningNumber } from './inputWinningNumber.js';
-import { inputBonusNumber } from './inputBonusNumber.js';
+
+import { validatePurchaseAmount } from './error/validatePurchaseAmount.js';
+import { validateUserWinningNumber } from './error/validateUserWinningNumber.js';
+import { validateBonusNumber } from './error/validateBonusNumber.js';
+
+import { inputMoney } from './view/inputMoney.js';
+import { inputWinningNumber } from './view/inputWinningNumber.js';
+import { inputBonusNumber } from './view/inputBonusNumber.js';
 
 // 필드, 생성자, 메소드 순서대로 정의해야함
 
