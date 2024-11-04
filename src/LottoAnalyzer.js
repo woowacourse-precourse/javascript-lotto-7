@@ -1,3 +1,4 @@
+import Validate from './Validate.js';
 class LottoAnalyzer {
   #winningLottoSet;
   #bonusNum;
@@ -10,6 +11,7 @@ class LottoAnalyzer {
   #loseIndex = -1;
 
   constructor(winningLotto, buyLottos, bonusNum, invest) {
+    Validate.validateBonusNum(bonusNum, winningLotto);
     this.#winningLottoSet = new Set(winningLotto);
     this.#buyLottos = buyLottos;
     this.#bonusNum = bonusNum;

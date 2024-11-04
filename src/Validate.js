@@ -15,6 +15,12 @@ class Validate {
     if (this.#hasDuplicates(lottoNumbers)) throw new Error('[Error] 로또 번호에 중복된 수가 존재합니다.');
   }
 
+  static validateBonusNum(bonusNum, winningLottoNumbers) {
+    if (!this.#isPositiveInteger(bonusNum)) throw new Error('[Error] 보너스 번호는 양의 정수만 가능합니다.');
+    if (!this.#isInRange(bonusNum)) throw new Error('[Error] 보너스 번호는 1과 45 사이의 양의 정수만 가능합니다.');
+    if (this.#hasDuplicates([bonusNum, ...winningLottoNumbers])) throw new Error('[Error] 보너스 번호는 당첨 번호가 중복됩니다.');
+  }
+
   static #isPositiveInteger(value) {
     return Number.isInteger(value) && value > 0;
   }
