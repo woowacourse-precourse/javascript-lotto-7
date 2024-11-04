@@ -21,12 +21,35 @@ import {
   validateRangeOfLottoPrice,
   validateNumberTypeLottoPrice,
   validateAmountOfLotto,
+  validateDuplicateLottoNumber,
+  validateLottoNumberRange,
+  validateNumberOfLottoNumbers,
 } from './validate/validator.js';
 
 function purchaseLotto(price) {
   const amountOfLotto = price / LOTTO_PRICE;
   validateAmountOfLotto(amountOfLotto);
   return amountOfLotto;
+}
+
+function howManyCorrectResult(howMany, price, count) {
+  function addCommas(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  const winningPrice = count * price;
+  Console.print(`${howMany}개 일치 (${addCommas(price)}원) - ${count}개`);
+  return winningPrice;
+}
+
+function BonusCorrectResult(howMany, price, count) {
+  function addCommas(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  const winningPrice = count * price;
+  Console.print(
+    `${howMany}개 일치, 보너스 볼 일치 (${addCommas(price)}원) - ${count}개`,
+  );
+  return winningPrice;
 }
 
 function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
@@ -36,6 +59,7 @@ function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
   let fiveBonusCorrectCount = 0;
   let sixCorrectCount = 0;
   let totalWinningPrice = 0;
+
   lottoList.forEach((lottoNumber) => {
     let count = 0;
     winningNumbers.forEach((number) => {
@@ -66,26 +90,6 @@ function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
   );
   totalWinningPrice += howManyCorrectResult(6, SIX_PRICE, sixCorrectCount);
   return totalWinningPrice;
-}
-
-function howManyCorrectResult(howMany, price, count) {
-  function addCommas(amount) {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-  const winningPrice = count * price;
-  Console.print(`${howMany}개 일치 (${addCommas(price)}원) - ${count}개`);
-  return winningPrice;
-}
-
-function BonusCorrectResult(howMany, price, count) {
-  function addCommas(amount) {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-  const winningPrice = count * price;
-  Console.print(
-    `${howMany}개 일치, 보너스 볼 일치 (${addCommas(price)}원) - ${count}개`,
-  );
-  return winningPrice;
 }
 
 function generateLottoNumbers(amountOfLotto) {
@@ -128,6 +132,10 @@ class App {
       });
 
       const winningNumbers = await getWinningNumbers();
+      validateDuplicateLottoNumber(winningNumbers);
+      validateLottoNumberRange(winningNumbers);
+      validateNumberOfLottoNumbers(winningNumbers);
+
       const bonusWinningNumber = await getBonusWinningNumber();
 
       Console.print(LOTTO_MESSAGE.LOTTO_RESULT_MESSAGE);
