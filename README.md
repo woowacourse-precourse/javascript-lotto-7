@@ -119,8 +119,8 @@ const Random = MissionUtils.Random;
   - [x] Lotto 내 #validate 등 기존 코드 수정
   - [x] Lotto.checkJackpot 구현
 * [x] 처리 로직
-  - [x] pick
-  - [x] checkJackpot
+  - [x] PickUp.pick
+  - [x] PickUp.checkJackpot
 * [ ] 출력 포매팅
 * [ ] 테스트 수행
 

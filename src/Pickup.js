@@ -2,7 +2,8 @@
 import { Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto";
 
-const lottoResultTable = {
+// PickUp.checkJackpot의 키-값 정의
+export const LOTTORESULTTABLE = {
   0: "당첨 없음",
   1: "3개 일치",
   2: "4개 일치",
@@ -39,8 +40,8 @@ export class PickUp {
       .map((lotto) => lotto.equals(this.#jackpot, this.#bonus))
       .reduce(
         (prev, curr) => {
-          if (!prev[lottoResultTable[curr]]) prev[lottoResultTable[curr]] = 1;
-          else prev[lottoResultTable[curr]] += 1;
+          if (!prev[LOTTORESULTTABLE[curr]]) prev[LOTTORESULTTABLE[curr]] = 1;
+          else prev[LOTTORESULTTABLE[curr]] += 1;
           return prev;
         },
         {
