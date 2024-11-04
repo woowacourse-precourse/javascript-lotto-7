@@ -6,6 +6,7 @@ import { rankConditions } from "./rankConditions.js";
 
 class LottoPlayer {
   static LOTTO_PRICE = 1000;
+  static PERCENTAGE = 100;
 
   constructor() {
     this.numberOfLottos = 0;
@@ -150,7 +151,7 @@ class LottoPlayer {
   caclulateRateOfReturn() {
     const rateOfReturn =
       (this.prizeAmount / (this.numberOfLottos * LottoPlayer.LOTTO_PRICE)) *
-      100;
+      LottoPlayer.PERCENTAGE;
     return rateOfReturn.toFixed(1);
   }
 
