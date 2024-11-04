@@ -1,97 +1,200 @@
-import App from "../src/App.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
+import App from '../src/App.js';
+import { ERROR_MESSAGE } from '../src/lib/constants.js';
+import {
+  MOCK_DATA_1,
+  MOCK_DATA_2,
+  MOCK_DATA_3,
+  MOCK_DATA_4,
+} from '../src/lib/mock/data.js';
+import {
+  getLogSpy,
+  mockQuestions,
+  mockRandoms,
+} from '../src/lib/mock/utils.js';
 
-const mockQuestions = (inputs) => {
-  MissionUtils.Console.readLineAsync = jest.fn();
-
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
-    const input = inputs.shift();
-
-    return Promise.resolve(input);
-  });
-};
-
-const mockRandoms = (numbers) => {
-  MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickUniqueNumbersInRange);
-};
-
-const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, "print");
-  logSpy.mockClear();
-  return logSpy;
-};
-
-const runException = async (input) => {
-  // given
+const runException = async (inputs, errorMessage) => {
   const logSpy = getLogSpy();
 
-  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+  const inputNumbersToEndStartIndex = inputs.length - 1;
 
-  mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  const INPUT_NUMBERS_TO_END = [
+    MOCK_DATA_1.INPUT.PURCHASE_PRICE,
+    MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+    MOCK_DATA_1.INPUT.BONUS_MUMBER,
+  ].slice(inputNumbersToEndStartIndex, 3);
 
-  // when
+  mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
+  mockQuestions([...inputs, ...INPUT_NUMBERS_TO_END]);
+
   const app = new App();
   await app.run();
 
-  // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(errorMessage));
 };
 
-describe("로또 테스트", () => {
+describe('App', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
 
-  test("기능 테스트", async () => {
-    // given
-    const logSpy = getLogSpy();
+  describe('정상 케이스', () => {
+    describe('8장의 복권을 구매했을 때 상황을 테스트한다.', () => {
+      test('5등 1개 당첨', async () => {
+        const logSpy = getLogSpy();
 
-    mockRandoms([
-      [8, 21, 23, 41, 42, 43],
-      [3, 5, 11, 16, 32, 38],
-      [7, 11, 16, 35, 36, 44],
-      [1, 8, 11, 31, 41, 42],
-      [13, 14, 16, 38, 42, 45],
-      [7, 11, 30, 40, 42, 43],
-      [2, 13, 22, 32, 38, 45],
-      [1, 3, 5, 14, 22, 45],
-    ]);
-    mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
+        mockRandoms(MOCK_DATA_1.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA_1.INPUT).flat());
 
-    // when
-    const app = new App();
-    await app.run();
+        const app = new App();
+        await app.run();
 
-    // then
-    const logs = [
-      "8개를 구매했습니다.",
-      "[8, 21, 23, 41, 42, 43]",
-      "[3, 5, 11, 16, 32, 38]",
-      "[7, 11, 16, 35, 36, 44]",
-      "[1, 8, 11, 31, 41, 42]",
-      "[13, 14, 16, 38, 42, 45]",
-      "[7, 11, 30, 40, 42, 43]",
-      "[2, 13, 22, 32, 38, 45]",
-      "[1, 3, 5, 14, 22, 45]",
-      "3개 일치 (5,000원) - 1개",
-      "4개 일치 (50,000원) - 0개",
-      "5개 일치 (1,500,000원) - 0개",
-      "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
-      "6개 일치 (2,000,000,000원) - 0개",
-      "총 수익률은 62.5%입니다.",
-    ];
+        Object.values(MOCK_DATA_1.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
 
-    logs.forEach((log) => {
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+      test('1등 1개 & 5등 1개당첨', async () => {
+        const logSpy = getLogSpy();
+
+        mockRandoms(MOCK_DATA_3.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA_3.INPUT).flat());
+
+        const app = new App();
+        await app.run();
+
+        Object.values(MOCK_DATA_3.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
+
+      test('1등 8개 당첨', async () => {
+        const logSpy = getLogSpy();
+
+        mockRandoms(MOCK_DATA_4.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA_4.INPUT).flat());
+
+        const app = new App();
+        await app.run();
+
+        Object.values(MOCK_DATA_4.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
+    });
+    describe('80개의 데이터를 입력했을 때의 상황을 테스트한다.', () => {
+      test('5등 10개 당첨', async () => {
+        const logSpy = getLogSpy();
+
+        mockRandoms(MOCK_DATA_2.RANDOM.LOTTO_NUMBERS);
+        mockQuestions(Object.values(MOCK_DATA_2.INPUT).flat());
+
+        const app = new App();
+        await app.run();
+
+        Object.values(MOCK_DATA_2.OUTPUT)
+          .flat()
+          .forEach((log) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+          });
+      });
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  describe('예외 케이스', () => {
+    describe('입력된 구입 금액이 올바르지 않은 경우 예외를 처리한다.', () => {
+      test('숫자가 아닌 경우', async () => {
+        await runException(['1000j'], ERROR_MESSAGE.NOT_NUMERIC);
+      });
+      test('1,000원 단위가 아닌 경우', async () => {
+        await runException(['1010'], ERROR_MESSAGE.NOT_THOUSAND_UNIT);
+      });
+      test('양수가 아닌 경우', async () => {
+        await runException(['-1000'], ERROR_MESSAGE.NOT_POSITIVE);
+      });
+    });
+
+    describe('입력된 당첨 번호가 올바르지 않은 경우 예외를 처리한다.', () => {
+      test('6개의 숫자보다 적거나 많게 입력한 경우', async () => {
+        await runException(
+          [MOCK_DATA_1.INPUT.PURCHASE_PRICE, '1,2,3'],
+          ERROR_MESSAGE.NOT_SIX,
+        );
+        await runException(
+          [MOCK_DATA_1.INPUT.PURCHASE_PRICE, '1,2,3,4,5,6,7,8'],
+          ERROR_MESSAGE.NOT_SIX,
+        );
+      });
+      test('하나의 숫자라도 1~45 사이의 숫자가 아닌 경우', async () => {
+        await runException(
+          [MOCK_DATA_1.INPUT.PURCHASE_PRICE, '1,2,3,4,5,90'],
+          ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
+        );
+        await runException(
+          [MOCK_DATA_1.INPUT.PURCHASE_PRICE, '1,2,3,4,5,-10'],
+          ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
+        );
+      });
+      test('중복된 숫자를 입력했을 경우', async () => {
+        await runException(
+          [MOCK_DATA_1.INPUT.PURCHASE_PRICE, '1,2,3,4,5,5'],
+          ERROR_MESSAGE.NOT_UNIQUE,
+        );
+      });
+    });
+
+    describe('입력된 보너스 번호가 올바르지 않은 경우 예외를 처리한다.', () => {
+      test('입력한 값이 숫자가 아닌 경우', async () => {
+        await runException(
+          [
+            MOCK_DATA_1.INPUT.PURCHASE_PRICE,
+            MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+            'a',
+          ],
+          ERROR_MESSAGE.NOT_NUMERIC,
+        );
+        await runException(
+          [
+            MOCK_DATA_1.INPUT.PURCHASE_PRICE,
+            MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+            '\\',
+          ],
+          ERROR_MESSAGE.NOT_NUMERIC,
+        );
+      });
+      test('1~45 사이의 숫자가 아닌 경우', async () => {
+        await runException(
+          [
+            MOCK_DATA_1.INPUT.PURCHASE_PRICE,
+            MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+            '90',
+          ],
+          ERROR_MESSAGE.NOT_BETWEEN_1_AND_45,
+        );
+        await runException(
+          [
+            MOCK_DATA_1.INPUT.PURCHASE_PRICE,
+            MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+            '-10',
+          ],
+          ERROR_MESSAGE.NOT_POSITIVE,
+        );
+      });
+      test('로또 번호와 중복되는 번호가 있는 경우', async () => {
+        await runException(
+          [
+            MOCK_DATA_1.INPUT.PURCHASE_PRICE,
+            MOCK_DATA_1.INPUT.WINNING_NUMBERS,
+            '6',
+          ],
+          ERROR_MESSAGE.NOT_UNIQUE,
+        );
+      });
+    });
   });
 });
