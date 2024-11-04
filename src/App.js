@@ -34,6 +34,9 @@ class App {
       const lottoResult = new Rate(lottoNumber.value, bonus.value);
       const winningStatus = lottoResult.calculateResult(userLottos);
       const rate = lottoResult.calculateRate(userLottos);
+
+      await getResult(winningStatus);
+      await getOutput(`총 수익률은 ${rate}%입니다.`);
     } catch (error) {
       throw new Error(error.message);
     }
