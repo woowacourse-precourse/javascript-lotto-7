@@ -1,4 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
+import {
+  ERROR_MESSAGES,
+  LOTTO_NUM_MAX,
+  LOTTO_NUM_MIN,
+} from '../constant/constant.js';
+
 class BonusNumber {
   #bonusNumber;
 
@@ -9,20 +15,20 @@ class BonusNumber {
   }
 
   #validate(bonusNumber) {
-    if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error('[ERROR] 보너스 번호 숫자 범위는 1~45 입니다.');
+    if (bonusNumber < LOTTO_NUM_MIN || bonusNumber > LOTTO_NUM_MAX) {
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
     }
     if (bonusNumber % 1 !== 0) {
-      throw new Error('[ERROR] 보너스 번호는 정수만 입력 가능합니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_INTEGER);
     }
     if (isNaN(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 하나의 숫자만 입력 가능합니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_COUNT);
     }
   }
 
   #checkInclude(bonusNumber, winningNumbers) {
     if (winningNumbers.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_DUPLICATE);
     }
   }
 }

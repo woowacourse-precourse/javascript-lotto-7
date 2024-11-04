@@ -1,4 +1,10 @@
 import { Random } from '@woowacourse/mission-utils';
+import {
+  ERROR_MESSAGES,
+  LOTTO_NUM_MAX,
+  LOTTO_NUM_MIN,
+  UNIT,
+} from '../constant/constant.js';
 
 class Purchase {
   #amount;
@@ -8,15 +14,15 @@ class Purchase {
   constructor(amount) {
     this.#validate(amount);
     this.#amount = amount;
-    this.#tickets = this.#amount / 1000;
+    this.#tickets = this.#amount / UNIT;
   }
 
   #validate(amount) {
-    if (amount % 1000 !== 0) {
-      throw new Error('[ERROR] 잘못된 구입 금액입니다.');
+    if (amount % UNIT !== 0) {
+      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_FORM);
     }
-    if (amount < 1000) {
-      throw new Error('[ERROR] 구입 금액은 1000원 이상이어야 합니다.');
+    if (amount < UNIT) {
+      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_RANGE);
     }
   }
 
@@ -26,7 +32,11 @@ class Purchase {
 
   generateLotteryNumbers() {
     for (let i = 0; i < this.#tickets; i++) {
-      let numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      let numbers = Random.pickUniqueNumbersInRange(
+        LOTTO_NUM_MIN,
+        LOTTO_NUM_MAX,
+        6
+      );
       this.#lotteryNumbers[i] = numbers.sort((a, b) => a - b).join(', ');
     }
     return this.#lotteryNumbers;

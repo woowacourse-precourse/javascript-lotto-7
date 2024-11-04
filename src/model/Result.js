@@ -1,3 +1,11 @@
+import {
+  LOTTO_FIRST_PRIZE,
+  LOTTO_SECOND_PRIZE,
+  LOTTO_THIRD_PRIZE,
+  LOTTO_FOURTH_PRIZE,
+  LOTTO_FIFTH_PRIZE,
+} from '../constant/constant.js';
+
 class Result {
   #winningLottoNumbers;
   #bonusNumber;
@@ -56,11 +64,11 @@ class Result {
 
   #calculateTotalPrice() {
     this.#totalPrice =
-      this.#ranks.first * 2000000000 +
-      this.#ranks.second * 30000000 +
-      this.#ranks.third * 1500000 +
-      this.#ranks.fourth * 50000 +
-      this.#ranks.fifth * 5000;
+      this.#ranks.first * LOTTO_FIRST_PRIZE +
+      this.#ranks.second * LOTTO_SECOND_PRIZE +
+      this.#ranks.third * LOTTO_THIRD_PRIZE +
+      this.#ranks.fourth * LOTTO_FOURTH_PRIZE +
+      this.#ranks.fifth * LOTTO_FIFTH_PRIZE;
   }
 
   #calculateTotalRate() {

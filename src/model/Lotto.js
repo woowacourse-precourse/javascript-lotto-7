@@ -1,3 +1,10 @@
+import {
+  ERROR_MESSAGES,
+  LOTTO_NUM_MAX,
+  LOTTO_NUM_MIN,
+  LOTTO_NUM_LENGTH,
+} from '../constant/constant.js';
+
 class Lotto {
   #numbers;
 
@@ -7,25 +14,25 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    if (numbers.length !== LOTTO_NUM_LENGTH) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_LENGTH);
     }
 
     if (numbers.length !== new Set(numbers).size) {
-      throw new Error('[ERROR] 로또 번호는 중복하여 입력할 수 없습니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_DUPLICATE);
     }
 
     numbers.forEach((num) => {
-      if (num < 1 || num > 45) {
-        throw new Error('[ERROR] 로또 번호 숫자 범위는 1~45입니다.');
+      if (num < LOTTO_NUM_MIN || num > LOTTO_NUM_MAX) {
+        throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_RANGE);
       }
 
       if (isNaN(num)) {
-        throw new Error('[ERROR] 로또 번호는 숫자만 입력 가능합니다.');
+        throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_TYPE);
       }
 
       if (num % 1 !== 0) {
-        throw new Error('[ERROR] 로또 번호는 정수만 입력 가능합니다.');
+        throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_TYPE);
       }
     });
   }
