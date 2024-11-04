@@ -2,6 +2,24 @@ import App from "../src/App.js";
 import {MissionUtils} from "@woowacourse/mission-utils";
 import {MATCH_COUNTER} from "../src/constants/objects.js";
 
+
+const runLottoTest = async (mockRandomNumbers, mockInputs, expectedLogs) => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms(mockRandomNumbers);
+    mockQuestions(mockInputs);
+
+    // when
+    const app = new App();
+    await app.run();
+    console.log(logSpy.mock.calls.map(call => call[0]));
+
+    // then
+    expectedLogs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+};
 const mockQuestions = (inputs) => {
     MissionUtils.Console.readLineAsync = jest.fn();
 
@@ -53,24 +71,6 @@ describe("로또 테스트", () => {
         MATCH_COUNTER.six.cnt = 0;
     });
 
-
-    const runLottoTest = async (mockRandomNumbers, mockInputs, expectedLogs) => {
-        // given
-        const logSpy = getLogSpy();
-
-        mockRandoms(mockRandomNumbers);
-        mockQuestions(mockInputs);
-
-        // when
-        const app = new App();
-        await app.run();
-        console.log(logSpy.mock.calls.map(call => call[0]));
-
-        // then
-        expectedLogs.forEach((log) => {
-            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
-        });
-    };
 
     test("기능 테스트 - 1등 2번", async () => {
         await runLottoTest(
@@ -140,5 +140,35 @@ describe("로또 테스트", () => {
                 "총 수익률은 25018750.0%입니다.",
             ]
         );
+    });
+});
+describe("로또 예외 상황 테스트", () => {
+    // 1. 구매 금액이 잘못된 경우 - 숫자가 아닌 문자 입력
+    test("구매 금액이 숫자가 아닐 경우 오류 발생", async () => {
+        await runException("천원"); // 잘못된 금액 입력
+    });
+
+    // 2. 구매 금액이 1000원 단위가 아닌 경우
+    test("구매 금액이 1000원 단위가 아닌 경우 오류 발생", async () => {
+        await runException("1500"); // 1000원 단위가 아닌 금액 입력
+    });
+
+    // 3. 입력 번호가 6개가 아닌 경우
+    test("입력 번호가 6개가 아닌 경우 오류 발생", async () => {
+        await runException("1,2,3,4,5"); // 숫자 5개만 입력
+    });
+
+    // 4. 입력 번호에 중복된 숫자가 있을 경우
+    test("입력 번호에 중복된 숫자가 있을 경우 오류 발생", async () => {
+        await runException("1,2,3,3,4,5"); // 중복된 숫자 입력
+    });
+
+    // 5. 입력 번호가 1~45 범위를 벗어나는 경우
+    test("입력 번호가 1~45 범위를 벗어나는 경우 오류 발생", async () => {
+        await runException("0,2,3,4,5,6"); // 0은 유효한 번호가 아님
+    });
+
+    test("입력 번호가 1~45 범위를 벗어나는 경우 오류 발생", async () => {
+        await runException("1,2,3,4,5,46"); // 46은 유효한 번호가 아님
     });
 });
