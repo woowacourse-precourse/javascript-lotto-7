@@ -26,7 +26,7 @@ class Lotto {
     const matchCount = lotto.filter((number) =>
       answerLotto.includes(number),
     ).length;
-    const isBonusMatch = answerLotto.includes(lottoBonusNumber);
+    const isBonusMatch = lotto.includes(lottoBonusNumber);
     return { matchCount, isBonusMatch };
   }
 
