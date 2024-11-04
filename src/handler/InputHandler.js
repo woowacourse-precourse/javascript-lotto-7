@@ -27,7 +27,7 @@ export class InputHandler {
   }
 
   #validateNumber(input) {
-    if (isNaN(input) || input === 0) throw new Error(inValidMessages.NaN);
+    if (isNaN(input)) throw new Error(inValidMessages.NaN);
     if (!Number.isInteger(Number(input))) {
       throw new Error(inValidMessages.integer);
     }
