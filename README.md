@@ -92,3 +92,171 @@
 - [x] 당첨 통계를 주어진 형식에 맞춰 출력하는 기능
 
 - [x] 수익률을 주어진 형식에 맞춰 출력하는 기능
+
+
+<br /><br />
+
+## 🗄️ UML DIAGRAM
+
+<div style="text-align: center; margin: auto;">
+
+
+``` mermaid
+classDiagram
+    
+    %% Presentation Layer
+    namespace UI {
+        class ConsoleInput {
+            +readCost()
+            +readWinningLotto()
+            +readBonusNumber()
+        }
+        
+        class ConsoleOutput {
+            +displayNewLine()
+            +displayCount()
+            +displayMyLottoList()
+            +displayStats()
+            +displayRate()
+        }
+    }
+    
+    %% Application Layer
+    namespace Application {
+        class App {
+            -LottoService
+            +run()
+        }
+        
+        class LottoService {
+            -purchaseCommand
+            -winningLottoCommand
+            -resultCommand
+            +play()
+        }
+        
+        class PurchaseCommand {
+            -inputPort
+            -outputPort
+            +execute()
+        }
+        
+        class WinningLottoCommand {
+            -inputPort
+            +execute()
+        }
+        
+        class ResultCommand {
+            -outputPort
+            +execute()
+        }
+    }
+    
+    %% Domain Layer
+    namespace Domain {
+        class Lotto {
+            -numbers
+            +getNumbers()
+        }
+        
+        class LottoNumber {
+            -number
+            +getNumber()
+        }
+        
+        class WinningLotto {
+            -numbers
+            -bonusNumber
+            +addBonusNumber()
+        }
+        
+        class MyLottoList {
+            -myLottoList
+            -stats
+            +matchMyLottoList()
+            +compileStats()
+        }
+        
+        class Opportunity {
+            -cost
+            -outcome
+            -rate
+            +calculateOutcome()
+            +calculateRate()
+        }
+    }
+
+    App --> LottoService
+    LottoService --> PurchaseCommand
+    LottoService --> WinningLottoCommand
+    LottoService --> ResultCommand
+    ResultCommand --> ConsoleOutput
+    PurchaseCommand --> MyLottoList
+    PurchaseCommand --> Opportunity
+    PurchaseCommand --> ConsoleInput
+    PurchaseCommand --> ConsoleOutput
+    WinningLottoCommand --> WinningLotto
+    WinningLottoCommand --> ConsoleInput
+    WinningLotto --|> Lotto
+    MyLottoList --> "many" Lotto
+    Lotto --> "6" LottoNumber
+
+```
+
+</div>
+
+<br /><br />
+
+
+##  🗂️ 파일 트리
+
+
+```
+📂 Lotto
+├─ 📂 src
+│  ├─ index.js
+│  ├─ App.js
+│  ├─ 📂 application
+│  │  ├─ 📂 command
+│  |  |  ├─ PurchaseCommand.js
+│  |  |  ├─ ResultCommand.js
+│  │  │  └─ WinningLottoCommand.js
+│  │  ├─ 📂 utils
+│  |  |  ├─ parse.js
+│  |  |  ├─ retry.js
+│  │  │  └─ Validator.js
+│  │  └─ LottoService.js
+│  ├─ 📂 constant
+│  │  ├─ 📂 utils
+│  │  │  └─ deepFreeze.js
+│  │  ├─ Error.js
+│  │  ├─ LottoConfig.js
+│  │  ├─ Prompt.js
+│  │  └─ Rank.js
+│  ├─ 📂 domain
+│  │  ├─ 📂 utils
+│  │  │  ├─ generateLotto.js
+│  │  │  └─ isMatched.js
+│  │  ├─ 📂 MyLotto
+│  │  │  ├─ Matcher.js
+│  │  │  ├─ MyLotto.js
+│  │  │  ├─ MyLottoList.js
+│  │  │  └─ Stats.js
+│  │  ├─ 📂 Opportunity
+│  │  │  ├─ Cost.js
+│  │  │  ├─ Opportunity.js
+│  │  │  └─ Outcome.js
+│  │  ├─ 📂 WinningLotto
+│  │  │  ├─ BonusNumber.js
+│  │  │  └─ WinningLotto.js
+│  ├─ 📂 port
+│  │  ├─ InputPort.js
+│  │  └─ OutputPort.js
+│  └─ 📂 presentation
+│     ├─ Format.js
+|     ├─ ConsoleInput.js 
+│     └─ ConsoleOutput.js
+├─ 📂 __tests__
+└─ README.MD
+```
+
