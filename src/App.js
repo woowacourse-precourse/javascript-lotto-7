@@ -1,8 +1,17 @@
+import { Console, Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
+
 class App {
+  constructor() {
+    this.lottos = [];
+  }
+
   async run() {
     const amount = await this.promptPurchaseAmount();
     const count = amount / 1000;
     Console.print(`${count}개를 구매했습니다.`);
+    this.generateLottos(count);
+    this.printLottos();
   }
 
   async promptPurchaseAmount() {
@@ -17,6 +26,23 @@ class App {
       Console.print(error.message);
       return this.promptPurchaseAmount();
     }
+  }
+
+  generateLottos(count) {
+    for (let i = 0; i < count; i++) {
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+        (a, b) => a - b
+      );
+      const lotto = new Lotto(numbers);
+      this.lottos.push(lotto);
+    }
+  }
+
+  printLottos() {
+    this.lottos.forEach((lotto) => {
+      const numbers = lotto.getNumbers();
+      Console.print(`[${numbers.join(", ")}]`);
+    });
   }
 }
 
