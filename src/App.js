@@ -33,7 +33,7 @@ class App {
 
   printPurchasedLotto() {
     const lottoCount = this.purchaseAmount / LOTTO_PRICE;
-    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    Console.print(`${lottoCount}개를 구매했습니다.`);
     this.lottoTickets = this.generateLottoTickets(lottoCount);
     this.displayLottoTickets();
     this.inputWinningNumbers();
@@ -53,9 +53,7 @@ class App {
   }
 
   async inputWinningNumbers() {
-    const winningNumbersInput = await Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요. (예: 1,2,3,4,5,6)\n",
-    );
+    const winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
     const winningNumbers = winningNumbersInput.split(",").map(Number);
     this.validateWinningNumbers(winningNumbers);
   }
@@ -140,22 +138,23 @@ class App {
   }
 
   printResults() {
-    Console.print("\n당첨 통계\n---");
-    Console.print(`3개 일치 (${WINNING_PRIZES.FIFTH}원) - ${this.results[5]}개`);
-    Console.print(`4개 일치 (${WINNING_PRIZES.FOURTH}원) - ${this.results[4]}개`);
-    Console.print(`5개 일치 (${WINNING_PRIZES.THIRD}원) - ${this.results[3]}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (${WINNING_PRIZES.SECOND}원) - ${this.results[2]}개`);
-    Console.print(`6개 일치 (${WINNING_PRIZES.FIRST}원) - ${this.results[1]}개`);
+    Console.print("당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${this.results[5]}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.results[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.results[3]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.results[2]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.results[1]}개`);
 
     this.calculateProfit();
   }
 
   calculateProfit() {
-    const prizeAmounts = { 1: 2000000000, 2: 30000000, 3: 1500000, 4: 50000, 5: 5000 };
-    const totalPrize = Object.keys(this.results).reduce(
-      (sum, key) => sum + this.results[key] * prizeAmounts[key],
-      0,
-    );
+    const totalPrize =
+      this.results[1] * WINNING_PRIZES.FIRST +
+      this.results[2] * WINNING_PRIZES.SECOND +
+      this.results[3] * WINNING_PRIZES.THIRD +
+      this.results[4] * WINNING_PRIZES.FOURTH +
+      this.results[5] * WINNING_PRIZES.FIFTH;
 
     const profitRate = ((totalPrize / this.purchaseAmount) * 100).toFixed(1);
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
