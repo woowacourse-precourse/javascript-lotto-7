@@ -9,8 +9,7 @@ import OutputView from "../view/OutputView.js";
 
 class LottoController {
   async execute() {
-    // 사용자가 올바른 입력을 할 때까지 구입 금액 입력
-    const purchaseMoney = await this.#repeatUntilCorrectPurchaseMoney();
+    const purchaseMoney = await this.#repeatUntilValidInput(() => this.#getPurChaseMoney());
 
     // 로또 머신을 생성
     const lottoMachine = new LottoMachine(purchaseMoney);
@@ -24,10 +23,12 @@ class LottoController {
     OutputView.printPurchaseInfo(purchaseHistory.lottoCount, purchaseHistory.lottos);
 
     // 사용자가 올바른 입력을 할 때까지 당첨 번호 입력
-    const winningNumbers = await this.#repeatUntilCorrectWinningNumbers();
+    const winningNumbers = await this.#repeatUntilValidInput(() => this.#getWinningNumbers());
 
     // 사용자가 올바른 입력을 할 때까지 보너스 번호 입력
-    const bonusNumber = await this.#repeatUntilCorrectBonusNumber(winningNumbers);
+    const bonusNumber = await this.#repeatUntilValidInput(() =>
+      this.#getBonusNumber(winningNumbers)
+    );
 
     // 등수 계산기 생성
     const rankCalculator = new RankCalculator(purchaseHistory, winningNumbers, bonusNumber);
@@ -38,28 +39,10 @@ class LottoController {
     OutputView.printRankResult(rankResult.getLottoRankResult());
   }
 
-  async #repeatUntilCorrectPurchaseMoney() {
-    try {
-      return await this.#getPurChaseMoney();
-    } catch (error) {
-      OutputView.printError(error.message);
-      return this.#repeatUntilCorrectPurchaseMoney();
-    }
-  }
-
   async #getPurChaseMoney() {
     const purchaseMoney = await InputView.enterPurchaseMoney();
     PurchaseMoneyValidator.checkValid(purchaseMoney);
     return purchaseMoney;
-  }
-
-  async #repeatUntilCorrectWinningNumbers() {
-    try {
-      return await this.#getWinningNumbers();
-    } catch (error) {
-      OutputView.printError(error.message);
-      return this.#repeatUntilCorrectWinningNumbers();
-    }
   }
 
   async #getWinningNumbers() {
@@ -69,20 +52,20 @@ class LottoController {
     return convertedWinningNumbers;
   }
 
-  async #repeatUntilCorrectBonusNumber(winningNumbers) {
-    try {
-      return await this.#getBonusNumber(winningNumbers);
-    } catch (error) {
-      OutputView.printError(error.message);
-      return this.#repeatUntilCorrectBonusNumber(winningNumbers);
-    }
-  }
-
   async #getBonusNumber(winningNumbers) {
     const bonusNumber = await InputView.enterBonusNumber();
     const convertedBonusNumber = Utils.convertBonusNumberToNumber(bonusNumber);
     BonusNumberValidator.checkValid(convertedBonusNumber, winningNumbers);
     return convertedBonusNumber;
+  }
+
+  async #repeatUntilValidInput(callback) {
+    try {
+      return await callback();
+    } catch (error) {
+      OutputView.printError(error.message);
+      return this.#repeatUntilValidInput(callback);
+    }
   }
 }
 
