@@ -7,16 +7,23 @@ import Validator from "../utils/Validator.js";
 class LottoController {
   constructor(winningNumbers, bonusNum, purchasedLotto) {
     const nums = this.#splitNumsByComma(winningNumbers);
-    this.#validate(nums);
+    this.#validateWinningNums(nums);
     this.winningNumbers = new Lotto(this.#convertStringToNumber(nums));
+
+    this.#validateBonusNum(nums, bonusNum);
     this.bonusNum = bonusNum;
+
     this.purchasedLotto = purchasedLotto;
   }
 
-  #validate(numbers) {
+  #validateWinningNums(numbers) {
     Validator.validateNumsLength(numbers);
     Validator.validateNumsInRange(numbers);
     Validator.validateNumsDuplicate(numbers);
+  }
+
+  #validateBonusNum(nums, bonusNum) {
+    Validator.checkBonusNotInWinning(nums, bonusNum);
   }
 
   #splitNumsByComma(winningNumbers) {
@@ -42,10 +49,15 @@ class LottoController {
   }
 
   #countAwards(counts) {
-    return counts.reduce((acc, value) => {
-      acc[value] = (acc[value] || 0) + 1;
-      return acc;
-    }, {});
+    return counts.reduce(
+      (acc, value) => {
+        acc[value] = (acc[value] || 0) + 1;
+        return acc;
+      },
+      {
+        "5+bonus": 0, // 기본값 추가
+      }
+    );
   }
 
   #calculateMatchCount(numbers) {
@@ -71,11 +83,27 @@ class LottoController {
   }
 
   #printResultLine(win, counts) {
-    const matchCount = win.bonus
-      ? counts[`${win.count}_bonus`] || 0
-      : counts[String(win.count)] || 0;
-    const bonusText = win.bonus ? ", 보너스 볼 일치" : "";
+    const matchCount = this.#determineMatchCount(win, counts);
+    const bonusText = this.#getBonusText(win);
 
+    this.#printOutput(win, matchCount, bonusText);
+  }
+
+  #determineMatchCount(win, counts) {
+    if (win.bonus) {
+      return counts[`${win.count}_bonus`] || 0;
+    }
+    return counts[String(win.count)] || 0;
+  }
+
+  #getBonusText(win) {
+    if (win.bonus) {
+      return ", 보너스 볼 일치";
+    }
+    return "";
+  }
+
+  #printOutput(win, matchCount, bonusText) {
     MissionUtils.Console.print(
       `${win.count}개 일치${bonusText} (${win.price}원) - ${matchCount}개`
     );
@@ -89,18 +117,16 @@ class LottoController {
 
   #calculateTotalPrize(counts) {
     return WINNING_RESULT.reduce((total, win) => {
-      let matchCount = 0;
-
-      if (win.bonus) {
-        matchCount = counts[`${win.count}_bonus`] || 0;
-      }
-
-      if (!win.bonus) {
-        matchCount = counts[String(win.count)] || 0;
-      }
-
+      const matchCount = this.#getMatchCountForWin(win, counts);
       return total + matchCount * parseInt(win.price.replace(/,/g, ""));
     }, 0);
+  }
+
+  #getMatchCountForWin(win, counts) {
+    if (win.bonus) {
+      return counts[`${win.count}_bonus`] || 0;
+    }
+    return counts[String(win.count)] || 0;
   }
 
   #printProfitRate(profitRate) {

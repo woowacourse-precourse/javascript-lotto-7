@@ -6,6 +6,10 @@ import {
 } from "../constants/lottoConstants.js";
 
 class Validator {
+  static checkBonusNotInWinning(winningNums, bonusNum) {
+    if (winningNums.includes(bonusNum))
+      throw new Error(errorMessages.INVALID_DUPLICATE_NUMBER);
+  }
   static validateNumsLength(numbers) {
     this.#validateLength(numbers);
   }

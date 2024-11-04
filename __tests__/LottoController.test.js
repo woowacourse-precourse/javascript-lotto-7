@@ -1,44 +1,76 @@
-// LottoController.test.js
 import LottoController from "../src/controllers/LottoController.js";
-import PurchasedLotto from "../src/models/PurchasedLotto.js";
+import Validator from "../src/utils/Validator.js";
+import errorMessages from "../src/constants/errorMessages.js";
+import Lotto from "../src/models/Lotto.js";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
-describe("LottoController", () => {
-  let controller;
+jest.mock("../src/utils/Validator.js");
+jest.mock("@woowacourse/mission-utils");
 
-  beforeEach(() => {
-    const winningNumbers = [1, 2, 3, 4, 5, 6];
+describe("LottoController 테스트", () => {
+  const purchasedLottoMock = {
+    getTickets: jest.fn().mockReturnValue([[1, 2, 3, 4, 5, 6]]),
+    getPurchaseAmount: jest.fn().mockReturnValue(1000),
+  };
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test("중복 번호 유효성 검사", () => {
+    const winningNumbers = "1,2,3,4,5,5";
+    const bonusNum = 6;
+
+    Validator.validateNumsLength.mockImplementation(() => {});
+    Validator.validateNumsInRange.mockImplementation(() => {});
+    Validator.validateNumsDuplicate.mockImplementation(() => {
+      throw new Error(errorMessages.INVALID_DUPLICATE_NUMBER);
+    });
+
+    expect(() => {
+      new LottoController(winningNumbers, bonusNum, purchasedLottoMock);
+    }).toThrow(errorMessages.INVALID_DUPLICATE_NUMBER);
+
+    expect(Validator.validateNumsDuplicate).toHaveBeenCalled();
+  });
+
+  test("정상적인 LottoController 인스턴스 생성", () => {
+    const winningNumbers = "1,2,3,4,5,6";
     const bonusNum = 7;
-    const purchasedLotto = new PurchasedLotto(2000);
-    controller = new LottoController(
-      winningNumbers.join(","),
+
+    Validator.validateNumsLength.mockImplementation(() => {});
+    Validator.validateNumsInRange.mockImplementation(() => {});
+    Validator.validateNumsDuplicate.mockImplementation(() => {});
+    Validator.checkBonusNotInWinning.mockImplementation(() => {});
+
+    const lottoController = new LottoController(
+      winningNumbers,
       bonusNum,
-      purchasedLotto
+      purchasedLottoMock
     );
+
+    expect(lottoController).toBeInstanceOf(LottoController);
+    expect(lottoController.winningNumbers).toBeInstanceOf(Lotto);
+    expect(lottoController.bonusNum).toBe(bonusNum);
+    expect(lottoController.purchasedLotto).toBe(purchasedLottoMock);
   });
 
-  test("valid start with winning numbers", () => {
-    const consoleSpy = jest.spyOn(console, "log");
-    controller.start();
-    expect(consoleSpy).toHaveBeenCalled();
-    consoleSpy.mockRestore();
-  });
+  test("보너스 번호 유효성 검사", () => {
+    const winningNumbers = "1,2,3,4,5,6";
+    const bonusNum = 5;
 
-  test("calculate match count via public method", () => {
-    const numbers = [1, 2, 3, 4, 5, 6];
-    controller.checkWinningNumbers(numbers);
-    expect(controller.getMatchCount()).toBe(6);
-  });
+    Validator.validateNumsLength.mockImplementation(() => {});
+    Validator.validateNumsInRange.mockImplementation(() => {});
+    Validator.validateNumsDuplicate.mockImplementation(() => {});
 
-  test("check bonus ball match via public method", () => {
-    const numbers = [1, 2, 3, 4, 5, 7];
-    controller.checkWinningNumbers(numbers);
-    expect(controller.isBonusBallMatched()).toBe(true);
-  });
+    Validator.checkBonusNotInWinning.mockImplementation(() => {
+      throw new Error(errorMessages.INVALID_DUPLICATE_NUMBER);
+    });
 
-  test("calculate profit rate via public method", () => {
-    const awards = { 6: 1 };
-    controller.setAwards(awards);
-    const profitRate = controller.getProfitRate();
-    expect(profitRate).toBeGreaterThan(0);
+    expect(() => {
+      new LottoController(winningNumbers, bonusNum, purchasedLottoMock);
+    }).toThrow(errorMessages.INVALID_DUPLICATE_NUMBER);
+
+    expect(Validator.checkBonusNotInWinning).toHaveBeenCalled();
   });
 });

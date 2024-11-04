@@ -3,7 +3,7 @@ import PurchasedLotto from "../src/models/PurchasedLotto.js";
 import { LOTTO_PRICE_UNIT } from "../src/constants/lottoConstants.js";
 
 describe("PurchasedLotto", () => {
-  test("create PurchasedLotto with valid amount", () => {
+  test("유효한 값으로 PurchasedLotto 생성", () => {
     const purchaseAmount = 2000;
     const purchasedLotto = new PurchasedLotto(purchaseAmount);
     expect(purchasedLotto.numberOfTickets).toBe(2);
@@ -11,7 +11,7 @@ describe("PurchasedLotto", () => {
     expect(purchasedLotto.getTickets().length).toBe(2);
   });
 
-  test("create PurchasedLotto with zero amount", () => {
+  test("0원 PurchasedLotto 생성", () => {
     const purchaseAmount = 0;
     const purchasedLotto = new PurchasedLotto(purchaseAmount);
     expect(purchasedLotto.numberOfTickets).toBe(0);
