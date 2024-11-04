@@ -1,4 +1,4 @@
-import Lotto from "../model/Lotto";
+import Lotto from "../model/Lotto.js";
 
 export default class LottoValidator {
   static LOTTO_REGEX = /^[0-9]{1,2}(,\s*[0-9]{1,2}){5}$/;
