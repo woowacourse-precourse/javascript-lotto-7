@@ -10,6 +10,7 @@ export function createLottoInstances(count) {
       MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
     );
 
+    lottoInstance.sortNumber();
     lottoInstances.push(lottoInstance);
   }
 
