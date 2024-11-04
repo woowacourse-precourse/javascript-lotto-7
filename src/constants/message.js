@@ -13,8 +13,6 @@ export const PRINT_PROFIT = (profitRate) => {
   return `총 수익률은 ${profitRate}%입니다.`
 }
 
-export const PRINT_INVALID_MAX = (MAX)
-
 export const ERROR_MSG = Object.freeze({
   invalidNumber: `${PREFIX_ERRMSG} 1부터 45까지의 숫자만 입력해주세요.`,
   invalidLottoNumber: `${PREFIX_ERRMSG} 로또 번호는 6개여야 합니다.`,
