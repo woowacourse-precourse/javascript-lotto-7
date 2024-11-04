@@ -1,4 +1,4 @@
-import { MoneyValidation } from '../../../src/shared/validation/MoneyValidation.js';
+import { MoneyValidation } from '../../../src/shared/validation/index.js';
 import { ERROR_MESSAGE, LOTTO } from '../../../src/shared/constants/constants.js';
 
 describe('MoneyValidation 테스트', () => {

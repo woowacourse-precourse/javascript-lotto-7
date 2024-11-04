@@ -1,5 +1,5 @@
-import { BonusNumberValidation } from '../../../src/shared/validation/BonusNumberValidation.js';
-import { ERROR_MESSAGE } from '../../../src/shared/constants/constants.js';
+import { BonusNumberValidation } from '../../../src/shared/validation/index.js';
+import { ERROR_MESSAGE } from '../../../src/shared/constants/error.js';
 describe('BonusNumberValidation 테스트', () => {
   const VALID_WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
 

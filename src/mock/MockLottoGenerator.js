@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from '../entities/Lotto.js';
+
 /**
  * @example
  * console.log(
@@ -10,10 +11,9 @@ import Lotto from '../entities/Lotto.js';
  * );
  */
 export const MockLottoGenerator = (lottoNumbers) => {
-  const lottos = lottoNumbers;
-  lottos.forEach((element) => {
+  const lotto = lottoNumbers;
+  lotto.forEach((element) => {
     MissionUtils.Console.print(`[${element.join(', ')}]`);
   });
-  const lotto = lottos.map((element) => new Lotto(element));
-  return lotto;
+  return lotto.map((element) => new Lotto(element));
 };

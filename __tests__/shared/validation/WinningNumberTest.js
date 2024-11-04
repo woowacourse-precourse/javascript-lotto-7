@@ -1,5 +1,5 @@
-import { WinningNumberValidation } from '../../../src/shared/validation/WinningNumberValidation.js';
-import { ERROR_MESSAGE } from '../../../src/shared/constants/constants.js';
+import { WinningNumberValidation } from '../../../src/shared/validation/index.js';
+import { ERROR_MESSAGE } from '../../../src/shared/constants/error.js';
 
 describe('WinningNumberValidation 테스트', () => {
   test.each([
