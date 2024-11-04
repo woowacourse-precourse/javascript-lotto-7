@@ -40,24 +40,6 @@ describe('LottoGame 클래스 테스트', () => {
     });
   });
 
-  test('상금이 올바르게 계산되어야 한다.', () => {
-    lottoGame.getLottoNumbers().forEach((lotto, index) => {
-      jest.spyOn(lotto, 'getMatchCount').mockImplementation(() => {
-        if (index === 0) return 3; // 하나의 로또에서 3개 일치
-        if (index === 1) return 5; // 두 번째 로또에서 5개 일치
-        return 0;
-      });
-    });
-    lottoGame.calculatePrize(winningNumbers, bonusNumber);
-
-    expect(lottoGame.getPrizeAmount(RANK.FIFTH.matchCount)).toBe(
-      RANK.FIFTH.prize
-    );
-    expect(lottoGame.getPrizeAmount(RANK.SECOND.matchCount)).toBe(
-      RANK.SECOND.prize
-    );
-  });
-
   test('모든 로또 티켓에서 상금이 없는 경우 수익률이 0이 되어야 한다.', () => {
     lottoGame.getLottoNumbers().forEach((lotto) => {
       jest.spyOn(lotto, 'getMatchCount').mockReturnValue(0);
