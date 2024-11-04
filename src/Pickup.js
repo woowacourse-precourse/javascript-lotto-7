@@ -18,6 +18,7 @@ export class PickUp {
 
   setJackpot(value) {
     this.#jackpot = value;
+    return this; // 이러면 setter를 chaining할 수 있다.
   }
 
   getBonus() {
@@ -26,6 +27,7 @@ export class PickUp {
 
   setBonus(value) {
     this.#bonus = value;
+    return this; // 이러면 setter를 chaining할 수 있다.
   }
 
   getLottoArrays() {
@@ -37,10 +39,13 @@ export class PickUp {
   checkJackpot() {
     return this.#lottoArray
       .map((lotto) => lotto.equals(this.#jackpot, this.#bonus))
-      .reduce((prev, curr) => {
-        if (!prev[LOTTO_RESULT_TABLE[curr]]) prev[LOTTO_RESULT_TABLE[curr]] = 1;
-        else prev[LOTTO_RESULT_TABLE[curr]] += 1;
-        return prev;
+      .reduce((previous, current) => {
+        if (!previous[LOTTO_RESULT_TABLE[current]]) {
+          previous[LOTTO_RESULT_TABLE[current]] = 1;
+          return previous;
+        }
+        previous[LOTTO_RESULT_TABLE[current]] += 1;
+        return previous;
       }, INITIAL_LOTTO_RESULT_TABLE);
   }
 }

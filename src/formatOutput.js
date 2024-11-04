@@ -20,14 +20,14 @@ export class FormatOutput {
         Console.print(message);
         return message;
       })
-      .reduce((prev, curr) => {
-        return `${prev}\n${curr}`;
+      .reduce((previous, current) => {
+        return `${previous}\n${current}`;
       }, "---");
     const profit = (
       (Object.entries(REWARD)
         .filter((pair) => pair[0] !== "당첨 없음")
-        .reduce((prev, curr) => {
-          return prev + curr[1] * this.#result[curr[0]];
+        .reduce((previous, current) => {
+          return previous + current[1] * this.#result[current[0]];
         }, 0) *
         100) /
       this.#money

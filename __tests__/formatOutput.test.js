@@ -23,12 +23,12 @@ describe("FormatOutput 테스트", () => {
           TEST_OBJECT[pair[1]]
         }개`;
       })
-      .reduce((prev, curr) => {
-        return `${prev}\n${curr}`;
+      .reduce((previous, current) => {
+        return `${previous}\n${current}`;
       }, "---");
     const totalReward = Object.values(LOTTO_RESULT_TABLE).reduce(
-      (prev, curr) => {
-        return prev + REWARD[curr] * TEST_OBJECT[curr];
+      (previous, current) => {
+        return previous + REWARD[current] * TEST_OBJECT[current];
       },
       0
     );
