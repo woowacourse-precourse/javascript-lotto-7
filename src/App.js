@@ -10,6 +10,8 @@ import {
   LottoWinningPrice,
   LottoWinningPriceChar,
   PROMPT_MESSAGES,
+  LOTTO_WINNING_KEYS_IN_ORDER,
+  LOTTO_WINNING_KEYS,
 } from './constants.js';
 
 const prompt = async (message, validation, rest) => {
@@ -31,11 +33,11 @@ class App {
     this.lottoAnswerNumbers = null;
     this.lottoBonusNumber = null;
     this.lottoWinningResult = {
-      3: 0,
-      4: 0,
-      5: 0,
-      5.5: 0,
-      6: 0,
+      [LOTTO_WINNING_KEYS.MATCH_3]: 0,
+      [LOTTO_WINNING_KEYS.MATCH_4]: 0,
+      [LOTTO_WINNING_KEYS.MATCH_5]: 0,
+      [LOTTO_WINNING_KEYS.MATCH_BONUS]: 0,
+      [LOTTO_WINNING_KEYS.MATCH_6]: 0,
     };
     this.winningMoney = 0;
   }
@@ -115,7 +117,7 @@ class App {
         return;
       }
       if (isBonusMatch && matchCount === 5) {
-        this.lottoWinningResult['5.5'] += 1;
+        this.lottoWinningResult[LOTTO_WINNING_KEYS.MATCH_BONUS] += 1;
         return;
       }
       this.lottoWinningResult[matchCount] += 1;
@@ -136,16 +138,16 @@ class App {
   }
 
   printLottoWinningCount() {
-    const keys = ['3', '4', '5', '5.5', '6'];
+    const keys = LOTTO_WINNING_KEYS_IN_ORDER;
     keys.forEach((key) => {
-      if (key === '5.5') {
+      if (key === 'MATCH_BONUS') {
         Console.print(
-          `5개 일치, 보너스 볼 일치 (${LottoWinningPriceChar[key]}원) - ${this.lottoWinningResult[key]}개`,
+          `5개 일치, 보너스 볼 일치 (${LottoWinningPriceChar[LOTTO_WINNING_KEYS[key]]}원) - ${this.lottoWinningResult[LOTTO_WINNING_KEYS[key]]}개`,
         );
         return;
       }
       Console.print(
-        `${key}개 일치 (${LottoWinningPriceChar[key]}원) - ${this.lottoWinningResult[key]}개`,
+        `${LOTTO_WINNING_KEYS[key]}개 일치 (${LottoWinningPriceChar[LOTTO_WINNING_KEYS[key]]}원) - ${this.lottoWinningResult[LOTTO_WINNING_KEYS[key]]}개`,
       );
     });
   }
