@@ -10,6 +10,12 @@ class App {
       const lottoTickets = this.generateLottoTickets(lottoCount);
 
       lottoTickets.forEach(ticket => Console.print(`[${ticket.join(", ")}]`));
+
+      const winningNumbers = await this.getWinningNumbers();
+      const bonusNumber = await this.getBonusNumber(winningNumbers);
+
+      const results = this.calculateResults(lottoTickets, winningNumbers, bonusNumber);
+      this.displayResults(results);
     } catch (error) {
       Console.print(error.message);
     }
@@ -67,6 +73,71 @@ class App {
   generateLottoNumbers() {
     const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
     return numbers.sort((a, b) => a - b); // 오름차순 정렬
+  }
+
+
+  async getWinningNumbers() {
+    const winningInput = await Console.readLineAsync("당첨 번호를 입력해 주세요. (쉼표로 구분)\n");
+    const winningNumbers = winningInput.split(",").map(num => parseInt(num.trim(), 10));
+    this.validateWinningNumbers(winningNumbers);
+    return winningNumbers;
+  }
+
+  async getBonusNumber(winningNumbers) {
+    const bonusInput = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    const bonusNumber = parseInt(bonusInput, 10);
+    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45 || winningNumbers.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 1~45 사이의 숫자 중 당첨 번호와 중복되지 않도록 입력해 주세요.");
+    }
+    return bonusNumber;
+  }
+
+  validateWinningNumbers(numbers) {
+    if (numbers.length !== 6 || numbers.some(num => isNaN(num) || num < 1 || num > 45)) {
+      throw new Error("[ERROR] 당첨 번호는 1~45 사이의 숫자 6개여야 합니다.");
+    }
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== 6) {
+      throw new Error("[ERROR] 당첨 번호는 중복되지 않아야 합니다.");
+    }
+  }
+
+  /**
+   * @description 각 로또와 당첨 번호를 비교해 결과를 계산하는 함수
+   * @param {number[][]} tickets - 구매한 로또 티켓 배열
+   * @param {number[]} winningNumbers - 당첨 번호 배열
+   * @param {number} bonusNumber - 보너스 번호
+   * @returns {Object} 당첨 결과
+   */
+  calculateResults(tickets, winningNumbers, bonusNumber) {
+    // 보너스 볼은 5.5
+    const results = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
+
+    tickets.forEach(ticket => {
+      const matchCount = ticket.filter(num => winningNumbers.includes(num)).length;
+      const isBonusMatch = ticket.includes(bonusNumber);
+
+      if (matchCount === 6) results[6] += 1;
+      else if (matchCount === 5 && isBonusMatch) results[5.5] += 1;
+      else if (matchCount === 5) results[5] += 1;
+      else if (matchCount === 4) results[4] += 1;
+      else if (matchCount === 3) results[3] += 1;
+    });
+
+    return results;
+  }
+
+  /**
+   * @description 당첨 결과를 출력하는 함수
+   * @param {Object} results - 당첨 결과
+   */
+  displayResults(results) {
+    Console.print("당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${results[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results[5.5]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
   }
 }
 
