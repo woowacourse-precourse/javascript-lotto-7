@@ -21,4 +21,25 @@ async readLottoPurchaseAmount(){
   return purchaseAmount;
 }
 
+// 2. 로또 번호 발행
+generateLottoNumbers(amount){
+  const lottoCount = amount / 1000;
+  const lottos = [];
+
+  for (let i = 0; i < lottoCount; i++) {
+    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    lottos.push(new Lotto(numbers.sort((a, b) => a - b))); //오름차순 정렬
+  }
+
+  return lottos;
+}
+
+// 발행된 로또 번호 출력
+displayLottoNumbers(lottos){
+  MissionUtils.Console.print(`${lottos.length}개를 구매했습니다.`);
+  lottos.forEach(lotto => {
+    MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`);
+  });
+}
+
 export default App;
