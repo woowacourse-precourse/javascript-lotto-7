@@ -29,7 +29,7 @@ class Game {
       this.#printResults(result, inputAmount);
 
     } catch (error) {
-      console.error(error.message);
+      Console.print(`[ERROR] ${error.message}`);
     };
   };
 
