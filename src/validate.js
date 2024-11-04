@@ -1,0 +1,43 @@
+import {
+  ERROR_MESSAGE,
+  LOTTO_NUMBER_MAX,
+  LOTTO_NUMBER_MIN,
+  REGEX,
+} from './constant.js';
+
+export function validateAmount(amount) {
+  if (isNaN(amount)) throw new Error(ERROR_MESSAGE.NOT_NUM_ERROR);
+  if (amount % 1000 !== 0)
+    throw new Error(ERROR_MESSAGE.LOTTO_AMOUNT_UNIT_ERROR);
+}
+
+export function validateNumbers(userInput) {
+  const formatRegex = REGEX.LOTTO_NUM_FORMAT;
+  if (!formatRegex.test(userInput)) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_FORMAT_ERROR);
+  }
+  const numbers = userInput
+    .toString()
+    .split(',')
+    .map((num) => parseInt(num, 10));
+  if (numbers.length != 6) {
+    throw new Error(ERROR_MESSAGE.LOTTO_CNT_ERROR);
+  }
+  numbers.forEach((num) => {
+    if (num < LOTTO_NUMBER_MIN || num > LOTTO_NUMBER_MAX)
+      throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
+  });
+
+  const uniqueNumbers = new Set(numbers);
+  if (uniqueNumbers.size !== numbers.length) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_NOT_UNIQUE_ERROR);
+  }
+}
+
+export function validateBonus(bonus, numbers) {
+  if (isNaN(bonus)) throw new Error(ERROR_MESSAGE.NOT_NUM_ERROR);
+  if (bonus < LOTTO_NUMBER_MIN || bonus > LOTTO_NUMBER_MAX)
+    throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
+  if (numbers.includes(parseInt(bonus, 10)))
+    throw new Error(ERROR_MESSAGE.BONUS_NUM_NOT_UNIQUE_ERROR);
+}
