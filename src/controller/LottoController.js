@@ -1,8 +1,8 @@
 import { RANK_INFO, SERVICE_CONSTANTS } from '../constants.js';
 import InputModules from '../views/InputModules.js';
 import OutputModules from '../views/OutputModules.js';
-import { Random } from '@woowacourse/mission-utils';
 import Lotto from '../models/Lotto.js';
+import RandomUtil from '../utils/Random.js';
 
 class LottoController {
   #cash;
@@ -47,11 +47,7 @@ class LottoController {
 
   #createLottos() {
     this.#lottos = Array.from({ length: this.#numberOfLotto }, () => {
-      const randomNumbers = Random.pickUniqueNumbersInRange(
-        SERVICE_CONSTANTS.numberMinBoundary,
-        SERVICE_CONSTANTS.numberMaxBoundsary,
-        SERVICE_CONSTANTS.defaultArrayLength,
-      );
+      const randomNumbers = RandomUtil.getRandomNumbers();
       const sortedNumbers = randomNumbers.sort((a, b) => a - b);
       return new Lotto(sortedNumbers);
     });
