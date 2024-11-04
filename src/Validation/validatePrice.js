@@ -19,6 +19,24 @@ function checkIfNumeric(price) {
   return true;
 }
 
+// 양수인지 확인
+function checkIfPositive(price) {
+  if (price < 0) {
+    printError(ERROR_MESSAGES.price.ONLY_POSITIVE_ALLOWED);
+    return false;
+  }
+  return true;
+}
+
+// 0인지 확인
+function checkIfZero(price) {
+  if (price === 0) {
+    printError(ERROR_MESSAGES.price.ZERO_MONEY_NOT_ALLOWED);
+    return false;
+  }
+  return true;
+}
+
 // 1,000원 단위로 나누어 떨어지는지 확인
 function checkIfDivisibleByThousand(price) {
   if (price % 1000 !== 0) {
@@ -30,10 +48,19 @@ function checkIfDivisibleByThousand(price) {
 
 // 전체 가격 유효성 검사 함수
 function validatePrice(price) {
-  checkIfEmpty(price);
-  checkIfNumeric(price);
-  checkIfDivisibleByThousand(price);
-  return price;
+  const checks = [
+    checkIfEmpty,
+    checkIfNumeric,
+    checkIfPositive,
+    checkIfZero,
+    checkIfDivisibleByThousand,
+  ];
+
+  for (const check of checks) {
+    if (!check(price)) return false; // 조건 검사 중 하나라도 실패하면 false 반환
+  }
+
+  return price; // 모든 조건을 통과한 경우에만 price 반환
 }
 
 export { validatePrice };
