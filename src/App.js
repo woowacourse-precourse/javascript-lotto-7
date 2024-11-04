@@ -2,7 +2,8 @@ import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
   static ERROR_MESSAGE = {
-    MONEY_INPUT_ERROR: '올바른 숫자를 입력해주세요!',
+    NUMBER_INPUT_ERROR: '올바른 숫자를 입력해주세요!',
+    NUMBER_NOT_INTEGER_ERROR: '숫자는 정수만 올 수 있습니다!',
     MONEY_INPUT_MINIMUM_ERROR: '0이상의 숫자를 입력해주세요!',
     MONEY_INPUT_DIVISIBILITY_ERROR:
       '1000으로 나누어 떨어지는 숫자를 입력해주세요!',
@@ -11,7 +12,9 @@ class App {
     LOTTO_NUMBER_RANGE_ERROR:
       '쉼표(,)로 구분되는 1~45사이의 숫자를 입력해주세요!',
     LOTTO_NUMBER_DUPLICATION_ERROR: '로또 번호는 중복될 수 없습니다!',
-    LOTTO_NUMBER_NOT_INTEGER_ERROR: '로또 번호는 정수만 올 수 있습니다!',
+    BONUS_NUMBER_RANGE_ERROR: '1~45사이의 숫자를 입력해주세요!',
+    BONUS_NUMBER_DUPLICATION_ERROR:
+      '보너스 번호는 로또 번호와 중복될 수 없습니다!',
   };
 
   async run() {
@@ -19,6 +22,36 @@ class App {
     const lottos = this.getLotto(lottoCount);
     this.printLottos(lottos);
     const lottoNumber = await this.inputLottoNumber();
+    const bonusNumber = await this.inputBonusNumber(lottoNumber);
+  }
+
+  async inputBonusNumber(lottoNumber) {
+    const bonusNumberInput = await this.input('보너스 번호를 입력해 주세요.');
+    return this.parseBonusNumber(bonusNumberInput, lottoNumber);
+  }
+
+  parseBonusNumber(bonusNumberInput, lottoNumber) {
+    this.validateBonusNumber(bonusNumberInput, lottoNumber);
+    const bonusNumber = Number(bonusNumberInput);
+    return bonusNumber;
+  }
+
+  validateBonusNumber(bonusNumberInput, lottoNumber) {
+    const bonusNumber = Number(bonusNumberInput);
+    if (bonusNumberInput === '' || Number.isNaN(bonusNumber)) {
+      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_INPUT_ERROR}`);
+    }
+    if (bonusNumber > 45 || bonusNumber < 1) {
+      throw Error(`[Error] ${App.ERROR_MESSAGE.BONUS_NUMBER_RANGE_ERROR}`);
+    }
+    if (lottoNumber.findIndex(number => number === bonusNumber) !== -1) {
+      throw Error(
+        `[Error] ${App.ERROR_MESSAGE.BONUS_NUMBER_DUPLICATION_ERROR}`,
+      );
+    }
+    if (!Number.isInteger(bonusNumber)) {
+      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_NOT_INTEGER_ERROR}`);
+    }
   }
 
   async inputLottoNumber() {
@@ -50,9 +83,7 @@ class App {
       );
     }
     if (lottoNumber.some(number => !Number.isInteger(number))) {
-      throw Error(
-        `[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_NOT_INTEGER_ERROR}`,
-      );
+      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_NOT_INTEGER_ERROR}`);
     }
   }
 
@@ -99,7 +130,7 @@ class App {
   validateMoney(moneyInput) {
     const money = Number(moneyInput);
     if (moneyInput === '' || Number.isNaN(money)) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.MONEY_INPUT_ERROR}`);
+      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_INPUT_ERROR}`);
     }
     if (money < 0) {
       throw Error(`[Error] ${App.ERROR_MESSAGE.MONEY_INPUT_MINIMUM_ERROR}`);
