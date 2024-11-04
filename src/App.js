@@ -46,7 +46,14 @@ class App {
         const bonusNumberInput = await MissionUtils.Console.readLineAsync(
           "보너스 번호를 입력해 주세요.\n"
         );
-        bonusNumber = Number(bonusNumberInput);
+        const bonusNumbers = bonusNumberInput.split(",").map(Number);
+        if (bonusNumbers.length !== 1) {
+          throw new Error("[ERROR] 보너스 번호는 하나여야 합니다.");
+        }
+        if (bonusNumbers.some(isNaN)) {
+          throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
+        }
+        bonusNumber = bonusNumbers[0];
         Lotto.validateBonusNumber(bonusNumber, new Set(winningNumbers));
         break;
       } catch (error) {
