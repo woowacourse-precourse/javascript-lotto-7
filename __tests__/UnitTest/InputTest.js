@@ -13,7 +13,7 @@ const mockQuestions = (input) => {
 describe('로또 구입 금액 입력값 테스트', () => {
   const input = new Input();
   const PASS_CASES = ['1000', '2000', '5000'];
-  test.each(PASS_CASES)('옳바른 로또 구매 금액 입력', async (purchase) => {
+  test.each(PASS_CASES)('올바른 로또 구매 금액 입력', async (purchase) => {
     mockQuestions(purchase);
     const result = await input.requestPurchaseAmount();
     expect(result).toBe(Number(purchase));
@@ -49,7 +49,7 @@ describe('로또 번호 입력값 테스트', () => {
     '11, 14, 26, 32, 33, 45',
   ];
 
-  test.each(PASS_CASES)('옳바른 로또 번호 입력값', async (numbers) => {
+  test.each(PASS_CASES)('올바른 로또 번호 입력값', async (numbers) => {
     mockQuestions(numbers);
     await expect(input.requestLottoNumber()).resolves.toStrictEqual(numbers);
   });
