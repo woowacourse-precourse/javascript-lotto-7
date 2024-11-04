@@ -1,7 +1,9 @@
+import { Console } from '@woowacourse/mission-utils';
 import PurchaseLotto from './PurchaseLotto.js';
 import { validatePurchaseMoney } from './validators/validatePurchaseMoney.js';
 import { parsePurchaseMoney } from './utils/Parser.js';
 import { promptUserInput } from './utils/Prompt.js';
+import LottoList from './LottoList.js';
 
 class App {
   async run() {
@@ -12,7 +14,8 @@ class App {
     );
 
     const purchaseLotto = new PurchaseLotto(purchaseMoney);
-    const lottoQuantity = purchaseLotto.getQuantity();
+    const lottoList = new LottoList(purchaseLotto.getQuantity());
+    lottoList.printTickets();
   }
 }
 
