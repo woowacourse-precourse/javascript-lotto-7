@@ -11,11 +11,6 @@ async function getPurchase() {
 };
 
 async function getWinNumber() {
-  /** TODO : 
-   * 1. 쉼표(,)로 구분된 6개의 숫자를 입력 받는다.
-   * 2. 입력 받은 문자열을 반환 한다. 
-   */
-
   try {
     const USER_INPUT = await Console.readLineAsync('\n당첨 번호를 입력해 주세요\n');
     return USER_INPUT;
