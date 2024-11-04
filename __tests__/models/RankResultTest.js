@@ -11,11 +11,11 @@ describe("RankResult 클래스 테스트", () => {
 
       // then
       const result = rankResult.getLottoRankResult();
-      expect(result.rank.first.getCount()).toBe(1);
-      expect(result.rank.second.getCount()).toBe(0);
-      expect(result.rank.third.getCount()).toBe(0);
-      expect(result.rank.fourth.getCount()).toBe(0);
-      expect(result.rank.fifth.getCount()).toBe(0);
+      expect(result.ranks.first.getCount()).toBe(1);
+      expect(result.ranks.second.getCount()).toBe(0);
+      expect(result.ranks.third.getCount()).toBe(0);
+      expect(result.ranks.fourth.getCount()).toBe(0);
+      expect(result.ranks.fifth.getCount()).toBe(0);
     });
 
     test("5개 일치와 보너스 번호 일치 시 2등 로또의 개수를 갱신한다", () => {
@@ -27,11 +27,11 @@ describe("RankResult 클래스 테스트", () => {
 
       // then
       const result = rankResult.getLottoRankResult();
-      expect(result.rank.first.getCount()).toBe(0);
-      expect(result.rank.second.getCount()).toBe(1);
-      expect(result.rank.third.getCount()).toBe(0);
-      expect(result.rank.fourth.getCount()).toBe(0);
-      expect(result.rank.fifth.getCount()).toBe(0);
+      expect(result.ranks.first.getCount()).toBe(0);
+      expect(result.ranks.second.getCount()).toBe(1);
+      expect(result.ranks.third.getCount()).toBe(0);
+      expect(result.ranks.fourth.getCount()).toBe(0);
+      expect(result.ranks.fifth.getCount()).toBe(0);
     });
   });
 

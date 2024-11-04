@@ -1,3 +1,4 @@
+import RankDTO from "../dto/RankDTO.js";
 import RankCalculator from "../models/RankCalculator.js";
 
 class LottoResultController {
@@ -9,7 +10,8 @@ class LottoResultController {
 
   async showLottoResult(purchaseHistory, winningNumbers, bonusNumber) {
     const rankResult = this.#calculateRank(purchaseHistory, winningNumbers, bonusNumber);
-    this.#outputView.printRankResult(rankResult.getLottoRankResult());
+    const rankDTO = RankDTO.from(rankResult);
+    this.#outputView.printRankResult(rankDTO);
   }
 
   #calculateRank(purchaseHistory, winningNumbers, bonusNumber) {

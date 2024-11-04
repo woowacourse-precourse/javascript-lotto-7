@@ -1,3 +1,4 @@
+import PurchaseDTO from "../dto/PurchaseDTO.js";
 import LottoMachine from "../models/LottoMachine.js";
 import PurchaseMoneyValidator from "../validators/PurchaseMoneyValidator.js";
 
@@ -13,7 +14,9 @@ class LottoPurchaseController {
   async purchaseLotto() {
     const purchaseMoney = await this.#repeatUntilValidInput(() => this.#getPurChaseMoney());
     const purchaseHistory = this.#purchaseLotto(purchaseMoney);
-    this.#outputView.printPurchaseInfo(purchaseHistory.lottoCount, purchaseHistory.lottos);
+
+    const purchaseDTO = PurchaseDTO.from(purchaseHistory);
+    this.#outputView.printPurchaseInfo(purchaseDTO);
     return purchaseHistory;
   }
 

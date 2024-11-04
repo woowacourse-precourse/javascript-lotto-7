@@ -38,7 +38,7 @@ class RankResult {
 
   getLottoRankResult() {
     return {
-      rank: this.#ranks,
+      ranks: this.#ranks,
       profit: this.#profitRate,
     };
   }
