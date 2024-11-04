@@ -105,13 +105,16 @@ class LotteryMachineView {
     this.printPurchaseLotteryTickets(lotteryTickets);
   }
 
+  printWinningStatisticsInfo() {
+    output(LotteryMachineView.MESSAGE.WINNING_STATISTICS.INFO);
+  }
+
   /**
    *
    * @param {WinningStatistics} winningStatistics
    * @param {WinningAmount} winningAmount
    */
   printWinningStatistics(winningStatistics, winningAmount) {
-    output(LotteryMachineView.MESSAGE.WINNING_STATISTICS.INFO);
     output(
       LotteryMachineView.MESSAGE.WINNING_STATISTICS.BASIC(3, winningStatistics, winningAmount),
     );

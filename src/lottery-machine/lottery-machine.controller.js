@@ -85,6 +85,7 @@ class LotteryMachineController {
     const { winningStatistics, winningAmount } =
       this.#lotteryMachineService.generateWinningStatistics();
 
+    this.#lotteryMachineView.printWinningStatisticsInfo();
     this.#lotteryMachineView.printWinningStatistics(winningStatistics, winningAmount);
 
     const totalReturnRate = this.#lotteryMachineService.calculateTotalReturnRate(
