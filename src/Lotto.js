@@ -19,12 +19,7 @@ class Lotto {
       throw new Error(ERRORS.NO_REPEATED_NUMBER);
     }
 
-    if (
-      !numbers.every(
-        (number) =>
-          number >= CONDITIONS.START_NUM && number <= CONDITIONS.END_NUM
-      )
-    ) {
+    if (!numbers.every((number) => number >= CONDITIONS.START_NUM && number <= CONDITIONS.END_NUM)) {
       throw new Error(ERRORS.NOT_1_TO_45);
     }
   }
@@ -35,8 +30,7 @@ class Lotto {
   }
 
   matches(winningLotto) {
-    return this.#numbers.filter((number) => winningLotto.contains(number))
-      .length;
+    return this.#numbers.filter((number) => winningLotto.contains(number)).length;
   }
 
   contains(number) {
