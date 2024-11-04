@@ -37,8 +37,17 @@ class StatisticsCalculator {
 			5.5: "30,000,000원",
 			6: "2,000,000,000원",
 		};
-		const label = match === 5.5 ? "5개 일치, 보너스 볼 일치" : `${match}개 일치`;
+
+		const label = this.getLabel(match);
+
 		return `${label} (${prizeMoney[match]}) - ${count}개`;
+	}
+
+	static getLabel(match) {
+		if (match === 5.5) {
+			return "5개 일치, 보너스 볼 일치";
+		}
+		return `${match}개 일치`;
 	}
 
 	static calculateProfitRate(statistics, purchaseAmount) {
