@@ -134,6 +134,11 @@ class LottoGame {
     if (new Set(resultNumbers.split(',')).size !== 6) {
       throw new Error('[ERROR] 잘못된 입력입니다. 중복된 숫자가 있습니다.');
     }
+    resultNumbers.split(',').forEach(number => {
+      if (Number(number) < 1 || Number(number) > 45) {
+        throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.');
+      }
+    });
   }
 
   #isValidBonusNumber(bonusNumber) {
