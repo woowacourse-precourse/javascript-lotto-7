@@ -1,6 +1,7 @@
 // Lotto.js
 import { Console } from '@woowacourse/mission-utils';
 import NumberValidator from './utils/NumberValidator.js';
+import { LOTTO_ERRORS } from './constants/constants.js';
 
 class Lotto {
   #numbers;
@@ -48,14 +49,14 @@ class Lotto {
 
   static validateLottoLength(numbers) {
     if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      throw new Error(LOTTO_ERRORS.NOT_SIX_NUMBER);
     }
   }
 
   static validateDuplicatedNumber(numbers) {
     const hasDuplicatedNumber = new Set(numbers).size !== numbers.length;
     if (hasDuplicatedNumber) {
-      throw new Error('[ERROR] 로또 번호가 중복됩니다.');
+      throw new Error(LOTTO_ERRORS.DUPLICATED_LOTTO_NUMBER);
     }
   }
 }
