@@ -1,3 +1,4 @@
+// 당첨 번호 및 보너스 번호 관리
 class WinningLotto {
   #winningNumbersArray;
 
