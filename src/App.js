@@ -23,7 +23,7 @@ class App {
 
   async run() {
     const purchaseAmount = await this.#tryInput(() =>
-      this.#tryPurchaseAmount(),
+      this.#getPurchaseAmount(),
     );
     const lottos = this.#buyLottos(purchaseAmount);
 
@@ -48,19 +48,19 @@ class App {
     }
   }
 
-  async #tryPurchaseAmount() {
+  async #getPurchaseAmount() {
     const purchaseAmount = await Input.getPurchaseAmountInput();
     validatePurchaseAmount(purchaseAmount);
     return purchaseAmount;
   }
 
-  async #tryWinningNumbers() {
+  async #getWinningNumbers() {
     const winningNumbers = await Input.getWinningNumbersInput();
     validateWinningNumbers(winningNumbers);
     return winningNumbers;
   }
 
-  async #tryBonusNumber(winningNumbers) {
+  async #getBonusNumber(winningNumbers) {
     const bonusNumber = await Input.getBonusNumberInput();
     validateBonusNumber(bonusNumber, winningNumbers);
     return bonusNumber;
@@ -77,10 +77,10 @@ class App {
 
   async #drawWinningNumbers() {
     const winningNumbers = await this.#tryInput(() =>
-      this.#tryWinningNumbers(),
+      this.#getWinningNumbers(),
     );
     const bonusNumber = await this.#tryInput(() =>
-      this.#tryBonusNumber(winningNumbers),
+      this.#getBonusNumber(winningNumbers),
     );
 
     this.#lottoCenter.setWinningNumbers(winningNumbers, bonusNumber);
