@@ -8,19 +8,22 @@ import Input from '../View/Input.js';
 import Output from '../View/Output.js';
 
 class GameController {
+  #purchaseCount;
+  #game;
+
   async init() {
-    const purchaseCount = await this.#getValidatedPurchaseCount();
+    this.#purchaseCount = await this.#getValidatedPurchaseCount();
 
-    const game = new LottoGame(purchaseCount);
+    this.#game = new LottoGame(this.#purchaseCount);
 
-    this.#printPurchasedLottos(purchaseCount, game);
+    this.#printPurchasedLottos();
 
     const winningLotto = await this.#getWinningLotto();
     const bonusNumber = await this.#getValidatedBonusNumber(winningLotto);
 
-    game.calculateWinningRanks(winningLotto, bonusNumber);
+    this.#game.calculateWinningRanks(winningLotto, bonusNumber);
 
-    this.#printResult(game);
+    this.#printResult();
   }
 
   async #getValidatedPurchaseCount() {
@@ -72,16 +75,16 @@ class GameController {
     return bonusNumber;
   }
 
-  #printPurchasedLottos(purchaseCount, game) {
-    Output.printPurchaseCount(purchaseCount);
-    Output.printLottos(game.getLottosForPrint());
+  #printPurchasedLottos() {
+    Output.printPurchaseCount(this.#purchaseCount);
+    Output.printLottos(this.#game.getLottosForPrint());
   }
 
-  #printResult(game) {
+  #printResult() {
     Output.printResultMessage();
-    Output.printWinningHistory(game);
+    Output.printWinningHistory(this.#game);
 
-    const winningRate = game.calculateWinningRate();
+    const winningRate = this.#game.calculateWinningRate();
     Output.printWinningRate(winningRate);
   }
 }
