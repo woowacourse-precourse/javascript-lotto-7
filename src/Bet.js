@@ -5,7 +5,7 @@ class Bet {
   count;
 
   constructor(money) {
-    money = this.#replaceSpace(); 
+    money = this.#replaceSpace(money); 
     this.#validate(money);
     this.#money = money;
     this.count = money / 1000;
