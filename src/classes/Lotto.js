@@ -13,11 +13,12 @@ class Lotto {
   }
 
   #validate(numbers) {
-    this.#validateNumber(numbers);
+    this.#validateLength(numbers);
     this.#validateDuplicate(numbers);
     this.#validateRange(numbers);
+    this.#validateNumber(numbers);
   }
-  #validateNumber(numbers) {
+  #validateLength(numbers) {
     if (numbers.length !== LOTTO_LENGTH) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
     }
@@ -34,6 +35,13 @@ class Lotto {
     );
     if (isInvalid) {
       throw new Error('[ERROR] 로또 번호는 1부터 45사이의 숫자여야 합니다.');
+    }
+  }
+
+  #validateNumber(numbers) {
+    const isInvalid = numbers.some((number) => isNaN(number));
+    if (isInvalid) {
+      throw new Error('[ERROR] 로또 번호는 양수여야 합니다.');
     }
   }
 
