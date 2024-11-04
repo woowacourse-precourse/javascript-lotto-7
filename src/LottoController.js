@@ -59,19 +59,20 @@ class LottoController {
         lotto.getNumbers(),
         winningNumbers
       );
-      const isBonusMatch = machine.compareBonusNumber(
-        lotto.getNumbers(),
-        bonusNumber
-      );
-
-      if (matchCount === 6) statistics[6]++;
-      else if (matchCount === 5 && isBonusMatch) statistics['bonus']++;
-      else if (matchCount === 5) statistics[5]++;
-      else if (matchCount === 4) statistics[4]++;
-      else if (matchCount === 3) statistics[3]++;
+      if (matchCount < 3 || matchCount > 6) return;
+      if (
+        matchCount === 5 &&
+        machine.compareBonusNumber(lotto.getNumbers(), bonusNumber)
+      ) {
+        statistics['bonus']++;
+        return;
+      }
+      statistics[matchCount]++;
     });
+
     return statistics;
   }
+
   calculateProfitRate(statistics, totalSpent) {
     let totalEarnings = 0;
     for (const key in statistics) {
