@@ -13,12 +13,11 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      makeError(ERROR_MESSAGE.WINNING_NUMBER_LENGTH);
     }
   }
 
-  // TODO: 추가 기능 구현
-  makeLottoTickets(ticketCount) {
+  makeLottoTicketsAsCount(ticketCount) {
     const tickets = [];
 
     for (let i = 0; i < ticketCount; i++) {
@@ -27,6 +26,16 @@ class Lotto {
     }
 
     return tickets;
+  }
+
+  getAllofLottoTicketsResult(tickets, winnerRankCount, bonusNumber) {
+    let rankCount = winnerRankCount;
+    tickets.forEach((ticket) => {
+      const matchInfo = this.calculateMatchInfo(ticket, bonusNumber);
+      rankCount = this.updateWinnerRankCount(matchInfo, rankCount);
+    });
+
+    return rankCount;
   }
 
   calculateMatchInfo(ticket, bonusNumber) {
@@ -62,7 +71,6 @@ class Lotto {
       default:
         break;
     }
-
 
     return winnerRank;
   }
