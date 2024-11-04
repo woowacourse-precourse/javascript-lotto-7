@@ -2,13 +2,22 @@ import { Random } from "@woowacourse/mission-utils";
 
 import Lotto from "./Lotto.js";
 
-import { lottoInfo } from "./Static/const.js";
+import {
+  MIN_RANGE,
+  MAX_RANGE,
+  LOTTO_NUMBERS_COUNT,
+  lottoInfo,
+} from "./Static/const.js";
 
 class Game {
   constructor() {}
 
   static buyLotto() {
-    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    const numbers = Random.pickUniqueNumbersInRange(
+      MIN_RANGE,
+      MAX_RANGE,
+      LOTTO_NUMBERS_COUNT
+    );
     return new Lotto(numbers);
   }
 

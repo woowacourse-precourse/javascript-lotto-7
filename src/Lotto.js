@@ -1,3 +1,5 @@
+import { MIN_RANGE, MAX_RANGE, LOTTO_NUMBERS_COUNT } from "./Static/const.js";
+
 class Lotto {
   #numbers;
 
@@ -7,13 +9,17 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.\n");
+    if (numbers.length !== LOTTO_NUMBERS_COUNT) {
+      throw new Error(
+        `[ERROR] 로또 번호는 ${LOTTO_NUMBERS_COUNT}개여야 합니다.\n`
+      );
     }
 
     for (let number of numbers) {
-      if (number < 1 || number > 45) {
-        throw new Error("[ERROR] 입력값은 1과 45 사이의 숫자여야 합니다.\n");
+      if (number < MIN_RANGE || number > MAX_RANGE) {
+        throw new Error(
+          `[ERROR] 입력값은 ${MIN_RANGE}과 ${MAX_RANGE} 사이의 숫자여야 합니다.\n`
+        );
       }
     }
 
