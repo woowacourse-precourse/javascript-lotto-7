@@ -35,7 +35,7 @@ const handleLotteryNumInput = async () => {
   return lotteryNumArray;
 };
 
-const isValidLotteryNumInput = (arr) => {
+export const isValidLotteryNumInput = (arr) => {
   const ARR_RANGE = 6;
 
   switch (true) {

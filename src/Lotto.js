@@ -18,6 +18,7 @@ class Lotto {
     if (new Set(numbers).size !== ARR_RANGE) {
       return printError(ERROR_MESSAGES.LOTTERY_NUM_DUPLICATE);
     }
+    isValidLotteryNumInput(numbers);
   }
 
   // TODO: 추가 기능 구현
