@@ -24,6 +24,16 @@ class LottoGame {
     }
   }
 
+  #generateLottoNumbers() {
+    Console.print(`${this.#lottoCount}개를 구매했습니다.`);
+    for (let i = 0; i < this.#lottoCount; i++) {
+      const num = Random.pickUniqueNumbersInRange(1, 45, 6);
+      num.sort((a, b) => a - b);
+      this.#lotto.push(new Lotto(num));
+      Console.print(`[${num.join(', ')}]`);
+    }
+  }
+
   #getLottoCount(totalCost) {
     return totalCost / 1000;
   }
