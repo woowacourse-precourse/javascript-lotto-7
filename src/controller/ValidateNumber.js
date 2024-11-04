@@ -10,6 +10,18 @@ class ValidateNumber {
       throw new Error(errorMessage);
     }
   }
+
+  static checkArrayLength(array, expectedLength, errorMessage) {
+    if (array.length !== expectedLength) {
+      throw new Error(errorMessage);
+    }
+  }
+
+  static checkForDuplicates(array, errorMessage) {
+    if (new Set(array).size !== array.length) {
+      throw new Error(errorMessage);
+    }
+  }
 }
 
 export default ValidateNumber;

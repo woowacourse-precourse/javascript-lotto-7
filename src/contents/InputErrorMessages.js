@@ -9,12 +9,8 @@ export const INPUT_ERROR_MESSAGES = Object.freeze({
 
 export const NUMBER_ERROR_MESSAGES = Object.freeze({
   winningNumberGuid:
-    '쉼표(,)로 구분하여 1 ~ 45 사이의 정수를 5개 입력해 주세요. 1 ~ 45 사이의 정수를 5개 입력해 주세요.\n',
-  BonusNumberGuid: '1 ~ 45 사이의 정수를 1개 입력해 주세요.\n',
-  noComma: '[ERROR] : 잘못된 문자 입력입니다.\n',
-  tooFewNumber: '[ERROR] : 입력하신 숫자가 너무 적습니다.\n',
-  tooManyNumber: '[ERROR] : 입력하신 숫자가 너무 많습니다.\n',
-  numberOutOfRange: '[ERROR] : 잘못된 숫자 입력입니다.',
+    '[ERROR] : 쉼표(,)로 구분하여 1 ~ 45 사이의 정수를 5개 입력해 주세요. \n',
+  BonusNumberGuid: '[ERROR] : 1 ~ 45 사이의 정수를 1개 입력해 주세요.\n',
   dupicateNumber: '[ERROR] : 중복된 수를 입력하실 수 없습니다.\n',
-  dupicateWinnig: '[ERROR] : 당첨번호와 중복될 수 없습니다.'
+  dupicateWinnig: '[ERROR] : 당첨번호와 중복될 수 없습니다.',
 });
