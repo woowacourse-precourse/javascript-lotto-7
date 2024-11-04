@@ -1,13 +1,14 @@
 import InputView from './InputView.js';
 import LottoMachine from './LottoMachine.js';
 import OutputView from './OutputView.js';
-import { INPUT_PROMPT } from './constants.js';
+import { INPUT_PROMPT, OUTPUT_MESSAGE } from './constants.js';
 
 class App {
   #lottoMachine;
 
   async run() {
     await this.readPurchaseAmount();
+    this.printGeneratedLottos();
   }
 
   async readPurchaseAmount() {
@@ -20,6 +21,14 @@ class App {
         OutputView.printErrorMessage(error.message);
       }
     }
+  }
+
+  printGeneratedLottos() {
+    OutputView.printMessage(`${this.#lottoMachine.lottoCount}${OUTPUT_MESSAGE.lottoCount}`);
+    this.#lottoMachine.lottos.forEach((lotto) => {
+      OutputView.printMessage(lotto.numbers);
+    });
+    OutputView.printEmptyLine();
   }
 }
 
