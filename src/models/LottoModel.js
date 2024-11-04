@@ -12,7 +12,7 @@ class LottoModel {
     );
   }
 
-  // 로또 번호 생성
+  // 로또 출력
   getLottoTickets() {
     return this.#lotto.map((lotto) => lotto.getNumber());
   }

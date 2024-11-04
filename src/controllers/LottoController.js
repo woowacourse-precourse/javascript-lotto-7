@@ -10,7 +10,6 @@ import { LOTTO_SETTING } from "../constants/Settings.js";
 class LottoController {
   #inputLotto;
   #outputLotto;
-  #lotto;
 
   constructor() {
     this.#inputLotto = new InputLotto();
@@ -54,7 +53,7 @@ class LottoController {
         lottoModel.calc_rate_of_return(matchCounts, purchaseAmount)
       );
     } catch (error) {
-      Console.print(`[ERROR] ${error.message}`);
+      Console.print(`${error.message}`);
     }
   }
 }
