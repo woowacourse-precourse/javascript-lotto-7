@@ -7,6 +7,7 @@ import {
 } from './utils/validators.js';
 import {
   INPUT_MESSAGE,
+  LOTTO_DELIMITER,
   LOTTO_NUMBER_END,
   LOTTO_NUMBER_START,
   OUTPUT_MESSAGE,
@@ -98,7 +99,7 @@ export default class LottoResult {
     if (hasBonus) {
       title.push(OUTPUT_MESSAGE.STATISTICS_TITLE_BONUS);
     }
-    return title.join(', ');
+    return title.join(LOTTO_DELIMITER);
   }
 
   #printStatistics() {

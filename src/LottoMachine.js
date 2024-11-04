@@ -6,6 +6,7 @@ import { throwError } from './utils/throwError.js';
 import {
   ERROR_MESSAGE,
   INPUT_MESSAGE,
+  LOTTO_DELIMITER,
   LOTTO_LENGTH,
   LOTTO_NUMBER_END,
   LOTTO_NUMBER_START,
@@ -67,7 +68,7 @@ export default class LottoMachine {
   }
 
   #printLotto(lotto) {
-    Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    Console.print(`[${lotto.getNumbers().join(LOTTO_DELIMITER)}]`);
   }
 
   #printPurchaseSummary(lottoCount) {
