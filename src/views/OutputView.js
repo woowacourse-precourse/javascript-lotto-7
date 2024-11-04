@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { LOTTO_PRIZES } from "../Constants/PrizeOfConstant.js";
+import { LOTTO_PRIZES } from "../constants/PrizeOfConstant.js";
 
 const OutputView = {
     writeLottoCounts(countGame) {
