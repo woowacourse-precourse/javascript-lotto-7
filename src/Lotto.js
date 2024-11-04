@@ -11,6 +11,9 @@ class Lotto {
   #validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    }    
+    else if (!numbers.every(num => typeof num === 'number' && !isNaN(num))) {
+        throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
     }
     else if (new Set(numbers).size != numbers.length){
       throw new Error("[ERROR] 로또 번호는 서로 중복돼선 안됩니다.");
