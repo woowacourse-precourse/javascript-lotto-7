@@ -15,7 +15,7 @@ export const ERROR_MESSAGES = {
 export const LOTTO_PRICE = 1000;
 
 export const MESSAGES = {
-  PURCHASE_AMOUNT_PROMPT: "구입 금액을 입력해 주세요.\n",
+  PURCHASE_AMOUNT_PROMPT: "구입금액을 입력해 주세요.\n",
   LOTTO_PURCHASED: "개를 구매했습니다.",
   WINNING_NUMBER_PROMPT: "\n당첨 번호를 입력해 주세요.\n",
   BONUS_NUMBER_PROMPT: "\n보너스 번호를 입력해 주세요.\n",
