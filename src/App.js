@@ -83,7 +83,27 @@ class App {
       uniqueNumbers.size === numbers.length
     );
   }
-  
+
+  calculateResults() {
+    this.lottos.forEach((lotto) => {
+      const matchCount = lotto.getNumbers().filter((num) => this.winningNumbers.includes(num)).length;
+      const hasBonus = lotto.getNumbers().includes(this.bonusNumber);
+
+      if (matchCount === 6) this.result.first += 1;
+      else if (matchCount === 5 && hasBonus) this.result.second += 1;
+      else if (matchCount === 5) this.result.third += 1;
+      else if (matchCount === 4) this.result.fourth += 1;
+      else if (matchCount === 3) this.result.fifth += 1;
+    });
+  }
+
+  printResults() {
+    MissionUtils.Console.print(`1등 - 2,000,000,000원`);
+    MissionUtils.Console.print(`2등 - 30,000,000원`);
+    MissionUtils.Console.print(`3등 - 1,500,000원`);
+    MissionUtils.Console.print(`4등 - 50,000원`);
+    MissionUtils.Console.print(`5등 - 5,000원`);
+  }
 }
 
 export default App;
