@@ -29,34 +29,34 @@ class App {
       matchBonus: lotto.confirmBonus(bonusNumber),
     }));
 
-    // // 통계 출력
-    // Console.print("\n당첨 통계\n---");
-    // const winningStats = calculateWinningStats(matchResults);
-    // printWinningStats(winningStats);
+    // 통계 출력
+    Console.print("\n당첨 통계\n---");
+    const winningStats = this.calculateWinningStats(matchResults);
+    this.printWinningStats(winningStats);
   }
 
-  // calculateWinningStats(results) {
-  //   const stats = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
+  calculateWinningStats(results) {
+    const stats = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
 
-  //   results.forEach(({ matches, hasBonus }) => {
-  //     if (matches === 5 && hasBonus) {
-  //       winningStats["5_bonus"] += 1;
-  //     } else {
-  //       winningStats[matches] += 1;
-  //     }
-  //   });
-  //   return stats;
-  // }
+    results.forEach(({ matches, hasBonus }) => {
+      if (matches === 5 && hasBonus) {
+        stats["5_bonus"] += 1;
+      } else {
+        stats[matches] += 1;
+      }
+    });
+    return stats;
+  }
 
-  // printWinningStats(stats) {
-  //   console.log(`3개 일치 (5,000원) - ${stats[3]}개`);
-  //   console.log(`4개 일치 (50,000원) - ${stats[4]}개`);
-  //   console.log(`5개 일치 (1,500,000원) - ${stats[5]}개`);
-  //   console.log(
-  //     `5개 일치, 보너스 볼 일치 (30,000,000원) - ${stats["5_bonus"]}개`
-  //   );
-  //   console.log(`6개 일치 (2,000,000,000원) - ${stats[6]}개`);
-  // }
+  printWinningStats(stats) {
+    console.log(`3개 일치 (5,000원) - ${stats[3]}개`);
+    console.log(`4개 일치 (50,000원) - ${stats[4]}개`);
+    console.log(`5개 일치 (1,500,000원) - ${stats[5]}개`);
+    console.log(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${stats["5_bonus"]}개`
+    );
+    console.log(`6개 일치 (2,000,000,000원) - ${stats[6]}개`);
+  }
 }
 
 export default App;
