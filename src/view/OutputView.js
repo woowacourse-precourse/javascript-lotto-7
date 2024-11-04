@@ -20,7 +20,11 @@ class OutputView {
   static printStatistics(winning) {
     Console.print("당첨 통계\n---");
 
-    Object.entries(winning).forEach(([rank, count]) => {
+    const entries = Object.entries(winning).sort(
+      ([rankA], [rankB]) => rankA - rankB
+    );
+
+    entries.forEach(([rank, count]) => {
       if (rank == 5.5) {
         Console.print(
           `5개 일치, 보너스 볼 일치 (${PRIZE[rank].toLocaleString()}원) - ${count}개`
