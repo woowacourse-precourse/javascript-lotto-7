@@ -15,7 +15,7 @@ const ERROR = Object.freeze({
   },
   DUPLICATE_LOTTO_NUMBER: {
     name: 'DuplicateLottoNumberError',
-    message: `${ERROR_TAG} 입력하신 당첨 번호에 중복된 숫자가 있습니다.`,
+    message: `${ERROR_TAG} 로또 번호에 중복된 숫자가 있습니다.`,
   },
   DUPLICATE_BONUS_NUMBER: {
     name: 'DuplicateBonusNumberError',
