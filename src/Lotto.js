@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import inputValidator from "./inputValidator";
+import inputValidator from "./inputValidator.js";
 
 class Lotto {
   #numbers;

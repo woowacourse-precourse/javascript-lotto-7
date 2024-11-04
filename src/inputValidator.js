@@ -1,4 +1,4 @@
-import ERROR_MESSAGES from "./ERROR_MESSAGES";
+import ERROR_MESSAGES from "./ERROR_MESSAGES.js";
 
 const inputValidator = {
   checkPurchaseAmount(value) {
