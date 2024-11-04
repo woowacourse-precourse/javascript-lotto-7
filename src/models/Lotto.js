@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
-import NumberValidator from './utils/NumberValidator.js';
-import LottoNumberValidator from './utils/LottoNumberValidator.js';
-import { LOTTO_ERRORS } from './constants/constants.js';
+import NumberValidator from '../utils/NumberValidator.js';
+import LottoNumberValidator from '../utils/LottoNumberValidator.js';
+import { LOTTO_ERRORS } from '../constants/constants.js';
 
 class Lotto {
   #numbers;
