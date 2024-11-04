@@ -49,7 +49,7 @@ class App {
 
   // 발행된 로또 번호 출력
   displayLottoNumbers(lottos){
-    Console.print(`${lottos.length}개를 구매했습니다.`);
+    Console.print(`\n${lottos.length}개를 구매했습니다.`);
     lottos.forEach(lotto => {
       Console.print(`[${lotto.getNumbers().join(', ')}]`);
     });
@@ -57,13 +57,13 @@ class App {
 
   // 3. 당첨 번호 및 보너스 번호 입력 처리
   async readWinningNumbers(){
-    const winningNumbersInput = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+    const winningNumbersInput = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
     const winningNumbers = winningNumbersInput.split(',').map(Number);
 
     // 당첨 번호, 보너스 번호 예외 처리
     this.validateWinningNumbers(winningNumbers);
 
-    const bonusNumberInput = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+    const bonusNumberInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
     const bonusNumber = Number(bonusNumberInput);
 
     if(bonusNumber < 1 || bonusNumber > 45){
@@ -125,11 +125,20 @@ class App {
       6: 2000000000,
     };
 
-    Object.entries(statistics).forEach(([key, count]) => {
-      if (count > 0) {
-        Console.print(`${key}개 일치 (${prizeMoney[key]}원) - ${count}개`);
-      }
-    });
+    Console.print('\n당첨 통계');
+    Console.print('---');
+    
+    for (let i = 3; i <= 5; i++) {
+      const count = statistics[i];
+      const prize = prizeMoney[i];
+      Console.print(`${i}개 일치 (${prize.toLocaleString()}원) - ${count}개`);
+    }
+
+    const bonusCount = statistics['5b'];
+    Console.print(`5개 일치, 보너스 볼 일치 (${prizeMoney['5b'].toLocaleString()}원) - ${bonusCount}개`);
+
+    const count6 = statistics[6];
+    Console.print(`6개 일치 (${prizeMoney[6].toLocaleString()}원) - ${count6}개`);
 
     const totalWinnings = Object.entries(statistics).reduce((sum, [key, count]) => {
       return sum + (prizeMoney[key] || 0) * count;
