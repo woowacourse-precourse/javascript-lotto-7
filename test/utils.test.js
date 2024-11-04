@@ -1,4 +1,5 @@
 import {
+  ceilToTwoDecimalPlaces,
   isDivisibleByNumber,
   isIntegerNumericString,
   isNotEmptyString,
@@ -105,6 +106,16 @@ describe('utils', () => {
       const result = sortNumbersAscendingOrder(values);
 
       expect(result).toEqual([2, 3, 5, 10, 55]);
+    });
+  });
+
+  describe('ceilToTwoDecimalPlaces', () => {
+    it('주어진 변수를 소숫점 두번째 자리에서 반올림한 결과를 반환해야한다', () => {
+      const value = 12.541;
+
+      const result = ceilToTwoDecimalPlaces(value);
+
+      expect(result).toBe(12.6);
     });
   });
 });

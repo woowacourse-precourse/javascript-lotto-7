@@ -69,3 +69,12 @@ export function sortNumbersAscendingOrder(values) {
 
   return copiedValues;
 }
+
+/**
+ *
+ * @param {number} values
+ * @returns {number}
+ */
+export function ceilToTwoDecimalPlaces(values) {
+  return Math.ceil(values * 10) / 10;
+}

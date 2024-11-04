@@ -1,5 +1,5 @@
 // @ts-check
-import { generateUniqueNumbersInRange } from '../lib/utils.js';
+import { ceilToTwoDecimalPlaces, generateUniqueNumbersInRange } from '../lib/utils.js';
 
 import PurchaseAmountValidationStrategy from '../validation/purchase-amount-validation.strategy.js';
 import WinningNumbersValidationStrategy from '../validation/winning-numbers-validation.strategy.js';
@@ -291,13 +291,10 @@ class LotteryMachineService {
    * @returns {number}
    */
   calculateTotalReturnRate(winningStatistics, winningAmount) {
-    return (
-      Math.ceil(
-        (this.#calculateTotalWinningAmount(winningStatistics, winningAmount) /
-          this.#lotteryMachineModel.getPurchaseAmount()) *
-          1000,
-      ) / 10
-    );
+    const totalWinningAmount = this.#calculateTotalWinningAmount(winningStatistics, winningAmount);
+    const purchaseAmount = this.#lotteryMachineModel.getPurchaseAmount();
+
+    return ceilToTwoDecimalPlaces((totalWinningAmount / purchaseAmount) * 100);
   }
 }
 
