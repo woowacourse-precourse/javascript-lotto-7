@@ -5,7 +5,9 @@ export const isLottoLengthValid = (numbers) => numbers.length === 6;
 
 export const hasDuplicate = (array) => new Set(array).size !== array.length;
 
-const isNumber = (number) => !Number.isNaN(Number(number));
+export const isDividedWithUnit = (money) => money % LOTTO_RULE.PRICE === 0;
+
+export const isNumber = (number) => !Number.isNaN(Number(number));
 
 const isInteger = (number) => Number.isInteger(Number(number));
 

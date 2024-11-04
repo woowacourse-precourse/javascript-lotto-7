@@ -1,6 +1,7 @@
 import { Random } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGE } from "./constants/messages.js";
 import { LOTTO_RULE, LOTTO_WIN_RANK } from "./constants/rule.js";
+import { isDividedWithUnit, isNumber } from "./utils/validation.js";
 
 class LottoMachine {
   #amount;
@@ -15,10 +16,10 @@ class LottoMachine {
   }
 
   #validate(number) {
-    if (Number.isNaN(number)) {
+    if (!isNumber(number)) {
       throw new Error(ERROR_MESSAGE.NOT_A_NUMBER_MONEY);
     }
-    if (number % LOTTO_RULE.PRICE !== 0) {
+    if (!isDividedWithUnit(number)) {
       throw new Error(ERROR_MESSAGE.NOT_DIVIDED_WITH_UNIT);
     }
   }
