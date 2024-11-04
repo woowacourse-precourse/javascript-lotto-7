@@ -5,7 +5,7 @@ import BonusNumberValidator from "../validators/BonusNumberValidator.js";
 import PurchaseMoneyValidator from "../validators/PurchaseMoneyValidator.js";
 import WinningNumbersValidator from "../validators/WinningNumbersValidator.js";
 import InputView from "../view/InputView.js";
-import OutputView from "../view/OutView.js";
+import OutputView from "../view/OutputView.js";
 
 class LottoController {
   async execute() {
