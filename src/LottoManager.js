@@ -13,15 +13,17 @@ class LottoManager {
   async #start() {
     const money = await this.#getMoney();
     this.#lottoArray = Array.from({ length: money / 1000 }, () => new Lotto());
+    this.#printLottoCount();
     this.#printLottoArray();
 
     const winningNumbers = await this.#getWinningNumbers();
     this.#winningNumbers = winningNumbers;
+    Console.print(this.#winningNumbers);
 
     const bonusNumber = await this.#getBonusNumber();
     this.#bonusNumber = bonusNumber;
 
-    Console.print(this.#lottoArray);
+    this.#printWinningResult();
   }
 
   async #getMoney() {
@@ -82,6 +84,9 @@ class LottoManager {
     }
 
     for (const number of numbers) {
+      if (number === "") {
+        throw new Error("[ERROR] 로또 번호는 공백일 수 없습니다.");
+      }
       if (isNaN(number)) {
         throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
       }
@@ -89,21 +94,64 @@ class LottoManager {
   }
 
   #validateBonusNumber(number) {
+    if (number === "") {
+      throw new Error("[ERROR] 보너스 번호는 공백일 수 없습니다.");
+    }
     if (isNaN(number)) {
-      throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+      throw new Error("[ERROR] 보너스 번호는 숫자여야 합니다.");
     }
     if (!Number.isInteger(Number(number))) {
-      throw new Error("[ERROR] 로또 번호는 정수여야 합니다.");
+      throw new Error("[ERROR] 보너스 번호는 정수여야 합니다.");
     }
     if (number < 1 || number > 45) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
+  }
+
+  #printLottoCount() {
+    Console.print(`${this.#lottoArray.length}개를 구매했습니다.`);
   }
 
   #printLottoArray() {
     this.#lottoArray.forEach((lotto) => {
       lotto.printNumberArray();
     });
+  }
+
+  #calculateWinningCounts() {
+    const winningCounts = Array(6).fill(0);
+    this.#lottoArray.forEach((lotto) => {
+      const level = lotto.getLevel(this.#winningNumbers, this.#bonusNumber);
+      winningCounts[level] += 1;
+    });
+    return winningCounts;
+  }
+
+  #calculateProfitRate(winningCounts) {
+    const totalPrize =
+      winningCounts[5] * 5000 +
+      winningCounts[4] * 50000 +
+      winningCounts[3] * 1500000 +
+      winningCounts[2] * 30000000 +
+      winningCounts[1] * 2000000000;
+    const totalInvestment = this.#lottoArray.length * 1000;
+    return ((totalPrize / totalInvestment) * 100).toFixed(1);
+  }
+
+  #printWinningResult() {
+    const winningCounts = this.#calculateWinningCounts();
+
+    Console.print("당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${winningCounts[5]}개`);
+    Console.print(`4개 일치 (50,000원) - ${winningCounts[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${winningCounts[3]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCounts[2]}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${winningCounts[1]}개`);
+
+    const profitRate = this.#calculateProfitRate(winningCounts);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
