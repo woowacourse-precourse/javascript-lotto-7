@@ -50,6 +50,8 @@ export class LottoController {
       const input = await lottoInputView.readBonusNumber();
       const bonusNumber = Number(input);
 
+      lottoValidator.validateBonusNumber(winningNumberList, bonusNumber);
+
       this.generateWinningLotto(winningNumberList, bonusNumber);
       lottoOutputView.showEmptyLine();
     } catch (error) {

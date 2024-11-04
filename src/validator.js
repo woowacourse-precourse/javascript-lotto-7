@@ -43,6 +43,30 @@ export const lottoValidator = {
       return;
     }
 
-    throw new Error("[ERROR] : 중복된 숫자를 입력할 수 없습니다.\n");
+    throw new Error(
+      "[ERROR] : 당첨 번호는 중복된 숫자를 입력할 수 없습니다.\n"
+    );
+  },
+  validateBonusNumber(winningNumberList, bonusNumber) {
+    this.validateBonusNumberIsInteger(bonusNumber);
+    this.validateDuplicatedBonusNumber(winningNumberList, bonusNumber);
+  },
+  validateBonusNumberIsInteger(bonusNumber) {
+    if (this.isValidWinningNumber(bonusNumber)) {
+      return;
+    }
+
+    throw new Error(
+      "[ERROR] : 보너스 숫자는 1 ~ 45 사이의 정수를 입력해주세요\n"
+    );
+  },
+  validateDuplicatedBonusNumber(winningNumberList, bonusNumber) {
+    const isNotIncludesBonusNumber = !winningNumberList.includes(bonusNumber);
+
+    if (isNotIncludesBonusNumber) {
+      return;
+    }
+
+    throw new Error("[ERROR] : 보너스 숫자는 당첨 숫자와 중복될 수 없어요\n");
   },
 };
