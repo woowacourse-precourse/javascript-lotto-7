@@ -9,6 +9,7 @@ export const MATCHES = Object.freeze({
 });
 
 export const RANKS = Object.freeze({
+  none: 'none',
   fifth: 'fifth',
   fourth: 'fourth',
   third: 'third',

@@ -1,4 +1,4 @@
-import { MATCHES, PRIZE, RANKS } from '../constants/index.js';
+import { CONFIG, MATCHES, PRIZE, RANKS } from '../constants/index.js';
 import { InputStore } from '../services/index.js';
 import { LottoResult } from './index.js';
 
@@ -26,7 +26,7 @@ class LottoChecker {
   }
 
   #matchNumbers(numbers, mainNumbers) {
-    return numbers.reduce((acc, cur) => acc + Number(mainNumbers.includes(cur)), 0);
+    return numbers.reduce((acc, cur) => acc + Number(mainNumbers.includes(cur)), CONFIG.initialMatchCount);
   }
 
   #matchBonus(numbers, bonusNumber) {

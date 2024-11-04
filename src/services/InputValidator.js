@@ -5,10 +5,10 @@ import { CONFIG } from '../constants/index.js';
 const rules = {
   isNotNumber: (input) => !Number.isInteger(Number(input)),
   isNotThousandUnits: (input) => Number(input.slice(-3)) !== 0,
-  isOverMaxLength: (input) => input.length > 15,
+  isOverMaxLength: (input) => input.length > CONFIG.maxIntegerLength,
 
-  isNotSixNumbers: (numbers) => numbers.length !== 6,
-  hasInvalidFormat: (input) => !input.match(/^\d+(,\d+)*$/),
+  isNotSixNumbers: (numbers) => numbers.length !== CONFIG.countOfLottoBalls,
+  hasInvalidFormat: (input) => !input.match(CONFIG.invalidFormat),
   hasDuplicates: (numbers) => new Set(numbers).size !== numbers.length,
   hasNumberOutOfRange: (numbers) => numbers.some((num) => num < CONFIG.minBallNumber || num > CONFIG.maxBallNumber),
 
@@ -25,7 +25,7 @@ export const validateMoneyString = (input) => {
 export const validateMainNumbers = (input) => {
   if (rules.hasInvalidFormat(input)) throwError(INPUT_ERROR_MESSAGES.invalidFormat);
 
-  const numbers = input.split(',').map(Number);
+  const numbers = input.split(CONFIG.numbersInputDelimiter).map(Number);
 
   if (rules.isNotSixNumbers(numbers)) throwError(INPUT_ERROR_MESSAGES.notSixNumbers);
   if (rules.hasDuplicates(numbers)) throwError(INPUT_ERROR_MESSAGES.hasDuplicates);

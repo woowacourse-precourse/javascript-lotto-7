@@ -1,4 +1,4 @@
-import { MESSAGES, PRIZE_MESSAGES, RANKS } from '../constants/index.js';
+import { CONFIG, MESSAGES, PRIZE_MESSAGES, RANKS } from '../constants/index.js';
 import { calculateEarningsRate, calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
 import { InputHandler, Printer } from '../io/index.js';
 import { Lotto, LottoChecker } from '../models/index.js';
@@ -48,7 +48,12 @@ class LottoGame {
   }
 
   #printStatistics(lottoResults) {
-    const rankCount = Object.fromEntries(Object.keys(RANKS).map((ranking) => [ranking, 0]));
+    const rankCount = Object.fromEntries(
+      Object.keys(RANKS)
+        .filter((rank) => rank !== RANKS.none)
+        .map((ranking) => [ranking, CONFIG.initialRankingCount]),
+    );
+
     lottoResults.forEach((result) => (rankCount[result.getRanking()] += 1));
 
     Printer.print(MESSAGES.prizeStatistics);
@@ -59,7 +64,7 @@ class LottoGame {
   }
 
   #calculateLottoEarningsRate(lottoResults) {
-    const totalPrizeMoney = lottoResults.reduce((acc, cur) => acc + cur.getPrizeMoney(), 0);
+    const totalPrizeMoney = lottoResults.reduce((acc, cur) => acc + cur.getPrizeMoney(), CONFIG.initialTotalPrizeMoney);
     const investmentMoney = this.store.getMoney();
     return calculateEarningsRate(totalPrizeMoney, investmentMoney);
   }

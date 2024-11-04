@@ -19,7 +19,7 @@ class Lotto {
   }
 
   #printNumbers() {
-    const message = MESSAGES.wrapNumbers(this.#numbers.join(CONFIG.numbersOutputDelimiter));
+    const message = MESSAGES.wrapNumbers(this.#numbers);
     Printer.print(message);
   }
 }

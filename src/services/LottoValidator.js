@@ -2,7 +2,7 @@ import { CONFIG, LOTTO_ERROR_MESSAGES } from '../constants/index.js';
 import { throwError } from '../utils/validateUtils.js';
 
 const rules = {
-  isNotSixNumbers: (input) => input.length !== 6,
+  isNotSixNumbers: (input) => input.length !== CONFIG.countOfLottoBalls,
   isNotDubplicated: (input) => input.length !== new Set(input).size,
   isNotInteger: (input) => input.some((number) => !Number.isInteger(number)),
   isOutOfRange: (input) => input < CONFIG.minBallNumber || input > CONFIG.maxBallNumber,

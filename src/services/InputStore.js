@@ -1,10 +1,12 @@
+import { CONFIG } from '../constants/index.js';
+
 class InputStore {
   static #instance = null;
 
   #state = {
-    money: 0,
-    mainNumbers: null,
-    bonusNumber: null,
+    money: CONFIG.initialMoneyState,
+    mainNumbers: CONFIG.initialMainNumbersState,
+    bonusNumber: CONFIG.initialBonusNumberState,
   };
 
   constructor() {
