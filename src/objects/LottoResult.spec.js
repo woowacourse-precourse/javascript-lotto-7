@@ -18,6 +18,7 @@ describe('LottoResult', () => {
       expect(lottoResult.getWinningCount(5)).toBe(0);
       expect(lottoResult.getWinningCount(6)).toBe(0);
     });
+
     test('0등(순위권 밖)만 5개 추가할 경우 모두 0을 반환한다.', () => {
       const lottoResult = new LottoResult();
 
@@ -48,6 +49,7 @@ describe('LottoResult', () => {
 
       expect(lottoResult.getTotalPrizeMoney()).toBe(10_000_000_000);
     });
+
     test('0등(순위권 밖)만 5개 추가할 경우 모두 상금 0원을 반환한다.', () => {
       const lottoResult = new LottoResult();
 
