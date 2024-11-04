@@ -10,7 +10,7 @@ class App {
       Console.print(`\n${lottoCount}개를 구매했습니다.`);
       const lottos = this.generateLottos(lottoCount);
       lottos.forEach((lotto) => {
-        Console.print(lotto.numbers);
+        Console.print(`[${lotto.numbers.join(", ")}]`);
       });
 
       const winningNumbers = await this.promptWinningNumbers();

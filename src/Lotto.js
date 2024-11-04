@@ -3,8 +3,7 @@ import { Random } from '@woowacourse/mission-utils';
 class Lotto {
   #numbers;
 
-  constructor() {
-    const numbers = Lotto.generateRandomNumbers();
+  constructor(numbers = Lotto.generateRandomNumbers()) {
     this.#validate(numbers);
     this.#numbers = numbers;
   }
