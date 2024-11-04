@@ -21,6 +21,16 @@ class Lotto {
   getNumbers() {
     return this.#numbers;
   }
+
+  getMatchCount(winningNumbers) {
+    // 당첨 번호와 일치하는 숫자의 개수를 반환
+    return this.#numbers.filter((num) => winningNumbers.includes(num)).length;
+  }
+
+  hasNumber(number) {
+    // 특정 번호가 로또 번호에 포함되어 있는지 확인
+    return this.#numbers.includes(number);
+  }
 }
 
 export default Lotto;

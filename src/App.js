@@ -1,5 +1,6 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import LottoResultCalculator from "./LottoResultCalculator.js";
 
 class App {
   async run() {
@@ -16,8 +17,9 @@ class App {
       const bonusNumber = await this.getBonusNumber(winningNumbers);
       // Console.print(`보너스 번호는 ${bonusNumber}입니다.`);
 
-      // 로또 결과 계산
-      
+      const lottoCalculator = new LottoResultCalculator(lottoTickets, winningNumbers, bonusNumber);
+      const results = lottoCalculator.lottoCalculateResults();
+      // Console.print(results);
 
       // 결과 출력
       
