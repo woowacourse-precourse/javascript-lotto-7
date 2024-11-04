@@ -17,6 +17,15 @@ const ERROR_MESSAGES = Object.freeze({
     '잘못 입력된 당첨 번호가 존재합니다. 반드시 6개의 정수를 입력해 주세요.',
   WINNING_NUMBER_OUT_OF_RANGE:
     '범위를 벗어난 당첨 번호가 존재합니다. 반드시 1 ~ 45 사이의 번호를 입력해 주세요.',
+
+  BONUS_NUMBER_EMPTY:
+    '보너스 번호가 입력되지 않았습니다. 보너스 번호를 반드시 입력해 주세요.',
+  BONUS_NUMBER_COUNT_INVALID:
+    '보너스 번호가 여러 개 입력되었습니다. 반드시 하나의 보너스 번호만 입력해 주세요.',
+  BONUS_NUMBER_FORMAT_INVALID:
+    '보너스 번호는 정수여야 합니다. 반드시 하나의 정수를 입력해 주세요.',
+  BONUS_NUMBER_OUT_OF_RANGE:
+    '보너스 번호가 유효한 범위를 벗어났습니다. 반드시 1 ~ 45 사이의 번호를 입력해 주세요.',
 });
 
 export default ERROR_MESSAGES;
