@@ -11,6 +11,10 @@ class InputParser {
   static calculateLottoCount(purchaseAmount) {
     return purchaseAmount / LOTTO_PRICE;
   }
+
+  static parseWinningNumber(input) {
+    return input.trim().split(',').map(Number);
+  }
 }
 
 export default InputParser;

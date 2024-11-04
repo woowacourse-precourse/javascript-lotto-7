@@ -10,13 +10,10 @@ class App {
   async run() {
     try {
       const purchaseAmountInput = await InputPrompt.getPurchaseAmount();
-
       const purchaseAmount = InputParser.parsePurchaseAmount(purchaseAmountInput);
-
       validatePurchaseAmount(purchaseAmount);
 
       const lottoCount = InputParser.calculateLottoCount(purchaseAmount);
-
       Console.print(`\n`);
       Console.print(`${lottoCount}개를 구매했습니다.`);
 
@@ -25,16 +22,14 @@ class App {
 
       const winningNumberInput = await InputPrompt.getWinningNumber();
       Console.print(`\n`);
-      const winningNumbers = winningNumberInput
-        .trim()
-        .split(',')
-        .map((number) => parseInt(number, 10));
+      const winningNumber = InputParser.parseWinningNumber(winningNumberInput);
 
       const bonusNumberInput = await InputPrompt.getBonusNumber();
       Console.print(`\n`);
       const bonusNumber = parseInt(bonusNumberInput, 10);
 
-      const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+      const winningLotto = new WinningLotto(winningNumber, bonusNumber);
+
       const game = new Game(purchasedLottos, winningLotto);
       game.play();
     } catch (error) {
