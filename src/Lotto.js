@@ -23,18 +23,6 @@ class Lotto {
     const numbers = this.#numbers.map(number =>  Number(number));
     return numbers;
   }
-
-  async getBonusNumbers() {
-    Console.print('\n보너스 번호를 입력해주세요.');
-    const bonusNumber = await Console.readLineAsync('');
-    if(!(1<=bonusNumber && bonusNumber<=45)){
-      throw new Error("[ERROR] 1부터 45 범위 내의 번호 1개를 입력해주세요.");
-    }
-    if(this.#numbers.includes(bonusNumber)){
-      throw new Error("[ERROR] 이미 입력한 번호입니다.");
-    }
-    return Number(bonusNumber);
-  }
 }
 
 export default Lotto;

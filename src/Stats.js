@@ -25,7 +25,7 @@ class Stats {
     });
   }
 
-printStats() {
+  printStats() {
     Console.print(`
 당첨 통계
 ---
@@ -34,6 +34,24 @@ printStats() {
 5개 일치 (1,500,000원) - ${this.five}개
 5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.fiveb}개
 6개 일치 (2,000,000,000원) - ${this.six}개`);
+  }
+
+  calculateProfitRate(money) {
+    const sum =
+    this.three * 5000 +
+    this.four * 50000 +
+    this.five * 15000000 +
+    this.fiveb * 30000000 +
+    this.six * 2000000000;
+
+    return ((sum / money) * 100).toFixed(1);
+  }
+  
+  printProfitRate(money){
+    const profitRate = this.calculateProfitRate(money);
+    Console.print(
+      `총 수익률은 ${profitRate}% 입니다.`
+    );
   }
 }
 
