@@ -91,6 +91,31 @@ class App {
     return result;
   }
 
+  getResult(comparedList) {
+    const result = {
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      "5(bonus)": 0,
+    };
+
+    comparedList.forEach((item) => {
+      if (result[item] !== undefined) {
+        result[item]++;
+      }
+    });
+
+    const resultString =
+      `3개 일치 (5,000원) - ${result[3]}개\n` +
+      `4개 일치 (50,000원) - ${result[4]}개\n` +
+      `5개 일치 (1,500,000원) - ${result[5]}개\n` +
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${result["5(bonus)"]}개\n` +
+      `6개 일치 (2,000,000,000원) - ${result[6]}개`;
+
+    return [resultString, result];
+  }
+
   getRate(result, price) {
     const prizeMoney = {
       3: 5000,
