@@ -72,13 +72,7 @@ describe('LottoService 클래스 테스트', () => {
     const price = 6000;
     const numberString = '1,2,3,4,5,6';
     const bonusNumber = 10;
-    const expected = new Map([
-      [3, 1],
-      [4, 1],
-      [5, 1],
-      ['5+', 1],
-      [6, 1],
-    ]);
+    const expected = new Map(Object.values(RANK_NAME).map((rank) => [rank, 1]));
 
     let lottoService = new LottoService();
 
@@ -90,13 +84,8 @@ describe('LottoService 클래스 테스트', () => {
   });
 
   test('수익률 계산', () => {
-    const rankMap = new Map([
-      [3, 0],
-      [4, 0],
-      [5, 0],
-      ['5+', 0],
-      [6, 5],
-    ]);
+    const rankMap = new Map(Object.values(RANK_NAME).map((rank) => [rank, 0]));
+    rankMap.set(RANK_NAME.SIX, 5);
 
     const rate = lottoService.getRateOfReturn(rankMap);
 
