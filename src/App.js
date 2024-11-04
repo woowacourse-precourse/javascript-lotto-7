@@ -4,6 +4,7 @@ import LOTTO_GAME from "./constants/lottoGame.js";
 import LottoGame from "./domain/LottoGame.js";
 import input from "./views/input.js";
 import Lotto from "./domain/Lotto.js";
+import output from "./views/output.js";
 
 class App {
   #purchasePrice;
@@ -15,14 +16,20 @@ class App {
 
       this.#purchasePrice = purchasePrice;
       this.#purchaseLottos();
+
+      output.lottosCount(this.#lottos.length);
+      output.lottos(this.#lottos);
       const winningLotto = await input.winningLotto();
       const bonusNumber = await input.bonusNumber(winningLotto);
 
       const lottoGame = new LottoGame(this.#lottos, bonusNumber, winningLotto);
 
+      output.finalStatistics();
+      lottoGame.result.reverse().forEach((count, index) => output.prize(count, index));
+
       const totalIncome = lottoGame.totalIncome();
 
-      const result = lottoGame.result();
+      const result = lottoGame.result;
     } catch (error) {
       throw error;
     }

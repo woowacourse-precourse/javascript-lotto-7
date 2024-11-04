@@ -20,16 +20,22 @@ class LottoGame {
 
   #checkUnitLotto(lotto) {
     const matchCount = lotto.checkCount(this.#winningLotto);
+
+    if (matchCount < 3) {
+      return;
+    }
     if (matchCount !== 5) {
       this.#result[LOTTO_GAME.NUMBER_COUNT - matchCount] =
         this.#result[LOTTO_GAME.NUMBER_COUNT - matchCount] + 1 || 1;
       return;
     }
     if (lotto.checkCount(this.#bonusNumber) === 1) {
-      this.#result[LOTTO_GAME.NUMBER_COUNT + 1 - matchCount] =
-        this.#result[LOTTO_GAME.NUMBER_COUNT + 1 - matchCount] + 1 || 1;
+      this.#result[LOTTO_GAME.NUMBER_COUNT - matchCount] =
+        this.#result[LOTTO_GAME.NUMBER_COUNT - matchCount] + 1 || 1;
       return;
     }
+    this.#result[LOTTO_GAME.NUMBER_COUNT + 1 - matchCount] =
+      this.#result[LOTTO_GAME.NUMBER_COUNT + 1 - matchCount] + 1 || 1;
   }
 
   #checkLottos() {
