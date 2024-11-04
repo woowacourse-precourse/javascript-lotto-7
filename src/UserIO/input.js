@@ -15,6 +15,9 @@ export async function getWinningNumbers() {
   const input = await Console.readLineAsync(
     "당첨 번호를 입력해 주세요 (쉼표로 구분):\n"
   );
+  if (input.includes(" ") || input.includes(";") || input.includes("/")) {
+    throw new Error("ERROR] 로또 번호는 콤마로 구분됩니다.");
+  }
   const numbers = input.split(",").map(Number);
 
   numbers.forEach(checkNumberValidity);
