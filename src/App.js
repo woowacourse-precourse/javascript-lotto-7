@@ -112,21 +112,42 @@ class App {
    * @returns {Object} 당첨 결과
    */
   calculateResults(tickets, winningNumbers, bonusNumber) {
-    // 보너스 볼은 5.5
     const results = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
 
     tickets.forEach(ticket => {
-      const matchCount = ticket.filter(num => winningNumbers.includes(num)).length;
+      const matchCount = this.getMatchCount(ticket, winningNumbers);
       const isBonusMatch = ticket.includes(bonusNumber);
+      const resultKey = this.getResultKey(matchCount, isBonusMatch);
 
-      if (matchCount === 6) results[6] += 1;
-      else if (matchCount === 5 && isBonusMatch) results[5.5] += 1;
-      else if (matchCount === 5) results[5] += 1;
-      else if (matchCount === 4) results[4] += 1;
-      else if (matchCount === 3) results[3] += 1;
+      if (resultKey) results[resultKey] += 1;
     });
 
     return results;
+  }
+
+  /**
+   * @description 로또 티켓의 번호와 당첨 번호를 비교하여 일치하는 개수를 계산하는 함수
+   * @param {number[]} ticket - 단일 로또 티켓 번호 배열
+   * @param {number[]} winningNumbers - 당첨 번호 배열
+   * @returns {number} 일치하는 번호의 개수
+   */
+  getMatchCount(ticket, winningNumbers) {
+    return ticket.filter(num => winningNumbers.includes(num)).length;
+  }
+
+  /**
+   * @description 일치하는 번호의 개수와 보너스 번호 여부에 따라 당첨 등수를 판별하는 함수
+   * @param {number} matchCount - 당첨 번호와 일치하는 번호의 개수
+   * @param {boolean} isBonusMatch - 보너스 번호와의 일치 여부
+   * @returns {number|null} 등수에 해당하는 결과 키 (3, 4, 5, 5.5, 6) 또는 null
+   */
+  getResultKey(matchCount, isBonusMatch) {
+    if (matchCount === 6) return 6;
+    if (matchCount === 5 && isBonusMatch) return 5.5;
+    if (matchCount === 5) return 5;
+    if (matchCount === 4) return 4;
+    if (matchCount === 3) return 3;
+    return null;
   }
 
   /**
@@ -135,11 +156,22 @@ class App {
    */
   displayResults(results) {
     Console.print("당첨 통계\n---");
-    Console.print(`3개 일치 (5,000원) - ${results[3]}개`);
-    Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results[5.5]}개`);
-    Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
+    Object.keys(results).forEach(match => {
+      this.printResult(match, results[match]);
+    });
+  }
+
+  /**
+   * @description 당첨 결과를 바탕으로 총 당첨 금액을 계산하는 함수
+   * @param {Object} results - 당첨 결과 객체
+   * @returns {number} 총 당첨 금액
+   */
+  calculateTotalPrize(results) {
+    const prizeTable = { 3: 5000, 4: 50000, 5: 1500000, 5.5: 30000000, 6: 2000000000 };
+    return Object.entries(results).reduce(
+        (acc, [key, count]) => acc + (prizeTable[key] || 0) * count,
+        0
+    );
   }
 
   /**
@@ -149,22 +181,20 @@ class App {
    * @returns {number} 수익률 (소수점 둘째 자리까지 반올림)
    */
   calculateProfitRate(results, userPay) {
-    const prizeTable = {
-      3: 5000,
-      4: 50000,
-      5: 1500000,
-      5.5: 30000000, // 5개 + 보너스 번호 일치 시
-      6: 2000000000
-    };
-
-    let totalPrize = 0;
-    for (const [key, count] of Object.entries(results)) {
-      totalPrize += (prizeTable[key] || 0) * count;
-    }
-
+    const totalPrize = this.calculateTotalPrize(results);
     const profitRate = (totalPrize / userPay) * 100;
-    return Math.round(profitRate * 10) / 10; // 소수점 둘째 자리에서 반올림
+    return this.roundToSecondDecimal(profitRate);
   }
+
+  /**
+   * @description 입력값을 소수점 둘째 자리에서 반올림하여 반환하는 함수
+   * @param {number} value - 반올림할 값
+   * @returns {number} 소수점 둘째 자리에서 반올림된 값
+   */
+  roundToSecondDecimal(value) {
+    return Math.round(value * 10) / 10;
+  }
+
 
   /**
    * @description 수익률을 출력하는 함수
@@ -172,6 +202,22 @@ class App {
    */
   displayProfitRate(profitRate) {
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
+
+  /**
+   * @description 각 등수에 따른 당첨 결과를 출력하는 함수
+   * @param {number|string} match - 당첨 일치 개수 또는 보너스 포함 여부 (3, 4, 5, 5.5, 6)
+   * @param {number} count - 해당 등수의 당첨 티켓 수
+   */
+  printResult(match, count) {
+    const messages = {
+      3: "3개 일치 (5,000원)",
+      4: "4개 일치 (50,000원)",
+      5: "5개 일치 (1,500,000원)",
+      5.5: "5개 일치, 보너스 볼 일치 (30,000,000원)",
+      6: "6개 일치 (2,000,000,000원)",
+    };
+    Console.print(`${messages[match]} - ${count}개`);
   }
 }
 
