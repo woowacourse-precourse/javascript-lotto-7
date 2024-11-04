@@ -1,8 +1,9 @@
 import WinningLotto from "../models/WinningLotto.js";
+import Lotto from "../models/Lotto.js";
 import { CONFIG, ERROR_MESSAGE, INFO_MESSAGE, PRIZE_TABLE, WINNER_LOTTO_NUMBER_DELIMITER } from "./constants.js";
 import LottoValidator from "./validator.js";
 import { LottoError } from "./errors.js";
-import { getInput, printResult } from "./utils.js";
+import { getInput, pickUniqueNumbersInRange, printResult } from "./utils.js";
 
 export async function getLottoPurchaseCountByAmountInput() {
   try {
@@ -60,6 +61,15 @@ export async function createWinningLotto() {
   const bonusNumber = await getValidatedBonusNumber(winningNumbers);
 
   return new WinningLotto(winningNumbers, bonusNumber);
+}
+
+export function createLottoNumbers(lottoAmount) {
+  return Array.from({ length: lottoAmount }, (_) => {
+    const lotto = pickUniqueNumbersInRange(CONFIG.MIN_LOTTO_NUMBER, CONFIG.MAX_LOTTO_NUMBER, CONFIG.LOTTO_COUNT).sort(
+      (a, b) => a - b
+    );
+    return new Lotto(lotto);
+  });
 }
 
 export function calculateProfitRate(results, amount) {
