@@ -1,16 +1,59 @@
 import { Console } from '@woowacourse/mission-utils';
 import { LOTTO, ERROR_MESSAGE } from './constants.js';
 import LottoMachine from './LottoMachine.js';
+import WinningNumber from './WinningNumber.js';
 
 class App {
   #lottos = [];
+  #winningNumber;
 
   async run() {
     try {
       await this.#purchaseLottos();
+      await this.#inputWinningNumbers();
     } catch (error) {
       Console.print(error.message);
+      throw error;
     }
+  }
+
+  async #inputWinningNumbers() {
+    const numbers = await this.#getWinningNumbers();
+    const bonusNumber = await this.#getBonusNumber();
+
+    this.#winningNumber = new WinningNumber(numbers, bonusNumber);
+  }
+
+  async #getWinningNumbers() {
+    const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+    return this.#parseNumbers(input);
+  }
+
+  async #getBonusNumber() {
+    const input = await Console.readLineAsync(
+      '\n보너스 번호를 입력해 주세요.\n'
+    );
+    return Number(input);
+  }
+
+  #parseNumbers(input) {
+    return input
+      .split(',')
+      .map((num) => num.trim())
+      .map((num) => {
+        const number = Number(num);
+        if (Number.isNaN(number)) {
+          throw new Error(ERROR_MESSAGE.INVALID_NUMBER_FORMAT);
+        }
+        return number;
+      });
+  }
+
+  #printPurchaseResult() {
+    Console.print(`${this.#lottos.length}개를 구매했습니다.`);
+    this.#lottos.forEach((lotto) => {
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
   }
 
   async #purchaseLottos() {
@@ -19,13 +62,6 @@ class App {
 
     this.#lottos = LottoMachine.createLottos(lottoCount);
     this.#printPurchaseResult();
-  }
-
-  #printPurchaseResult() {
-    Console.print(`${this.#lottos.length}개를 구매했습니다.`);
-    this.#lottos.forEach((lotto) => {
-      Console.print(`[${lotto.getNumbers().join(', ')}]`);
-    });
   }
 
   async #getPurchaseAmount() {
