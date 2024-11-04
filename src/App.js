@@ -1,3 +1,6 @@
+import { Console, Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
+
 class App {
   constructor() {
     this.lottos = [];
@@ -16,7 +19,6 @@ class App {
       const count = Math.floor(amount / 1000);
       this.generateLottos(count);
       this.printLottos();
-      this.printRemainingAmount(amount);
       await this.inputWinningNumbers();
     } catch (error) {
       Console.print(error.message);
@@ -44,11 +46,6 @@ class App {
     );
   }
 
-  printRemainingAmount(amount) {
-    const remaining = amount % 1000;
-    Console.print(`남은 금액은 ${remaining}원입니다.`);
-  }
-
   async inputWinningNumbers() {
     const numbers = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요. (쉼표로 구분된 숫자 6개)\n"
@@ -56,7 +53,7 @@ class App {
     try {
       const numArray = numbers.split(",").map((num) => Number(num.trim()));
       if (numArray.length > 6) {
-        throw new Error("[ERROR] 당첨 번호는 6개만 입력해야 합니다.");
+        throw new Error("[ERROR] 당첨 번호는 6개만 입력해야 합니다."); // 추가된 검사
       }
       this.winningNumbers = this.validateNumbers(numArray);
       await this.inputBonusNumber();

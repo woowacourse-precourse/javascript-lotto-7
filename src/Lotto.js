@@ -3,14 +3,11 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers.sort((a, b) => a - b);
+    this.#numbers = numbers.sort((a, b) => a - b); // 정렬
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
-    if (new Set(numbers).size !== 6) {
+    if (numbers.length !== 6 || new Set(numbers).size !== 6) {
       throw new Error(
         "[ERROR] 로또 번호는 중복되지 않는 6개의 숫자여야 합니다."
       );
@@ -21,11 +18,8 @@ class Lotto {
   }
 
   getNumbers() {
-    return this.#numbers;
+    return this.#numbers; // private field의 값 반환
   }
 }
 
 export default Lotto;
-
-import { Console, Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
