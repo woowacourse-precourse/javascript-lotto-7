@@ -31,10 +31,27 @@ describe('로또 클래스 테스트', () => {
     expect(() => {
       const logSpy = getLogSpy();
       const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
-
+      
       lotto.printNumbers();
 
       expect(logSpy).toHaveBeenCalledWith('[1, 2, 3, 4, 5, 6]');
     });
+  });
+
+  test('로또 당첨 결과를 반환한다.', () => {
+    const correctNumbers = [13, 14, 15, 16, 17, 18];
+    const bonusNumber = 12;
+
+    const fifth = new Lotto([13, 14, 15, 1, 2, 3]);
+    const fourth = new Lotto([13, 14, 15, 16, 1, 2]);
+    const third = new Lotto([13, 14, 15, 16, 17, 1]);
+    const second = new Lotto([12, 13, 14, 15, 16, 17]);
+    const first = new Lotto([13, 14, 15, 16, 17, 18]);
+    
+    expect(fifth.lottoResult(correctNumbers, bonusNumber)).toBe(5);
+    expect(fourth.lottoResult(correctNumbers, bonusNumber)).toBe(4);
+    expect(third.lottoResult(correctNumbers, bonusNumber)).toBe(3);
+    expect(second.lottoResult(correctNumbers, bonusNumber)).toBe(2);
+    expect(first.lottoResult(correctNumbers, bonusNumber)).toBe(1);
   });
 });
