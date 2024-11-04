@@ -51,8 +51,8 @@ describe("로또 기계 클래스 테스트", () => {
   });
 
   test("당첨 내역과 수익률 구한다.", () => {
+    // given
     const input = "8000";
-
     mockRandoms([
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
@@ -67,13 +67,16 @@ describe("로또 기계 클래스 테스트", () => {
     const winningLotto = new Lotto([1, 2, 3, 4, 5, 6]);
     const bonusNumber = new BonusNumber(7, winningLotto);
 
-    expect(lottoMachine.getWinningLottoString({ winningLotto, bonusNumber }))
+    // when
+    lottoMachine.countWinningLotto({ winningLotto, bonusNumber });
+
+    // then
+    expect(lottoMachine.getLottoResultString({ winningLotto, bonusNumber }))
       .toBe(`3개 일치 (5,000원) - 1개
 4개 일치 (50,000원) - 0개
 5개 일치 (1,500,000원) - 0개
 5개 일치, 보너스 볼 일치 (30,000,000원) - 0개
-6개 일치 (2,000,000,000원) - 0개`);
-
-    expect(lottoMachine.getProfitRateString()).toBe("총 수익률은 62.5%입니다.");
+6개 일치 (2,000,000,000원) - 0개
+총 수익률은 62.5%입니다.`);
   });
 });

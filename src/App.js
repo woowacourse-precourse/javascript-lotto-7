@@ -36,13 +36,11 @@ class App {
       },
     });
 
-    const resultString = this.#lottoMachine.getWinningLottoString({
+    this.#lottoMachine.countWinningLotto({
       winningLotto: this.#winningLotto,
       bonusNumber: this.#bonusNumber,
     });
-    printMessage(MESSAGE.OUTPUT_RESULT + resultString);
-
-    printMessage(this.#lottoMachine.getProfitRateString());
+    printMessage(MESSAGE.OUTPUT_RESULT + this.#lottoMachine.getLottoResultString());
   }
 }
 

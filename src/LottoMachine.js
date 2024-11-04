@@ -28,7 +28,7 @@ class LottoMachine {
     return `\n${this.#amount}개를 구매했습니다.\n${this.#tickets.map((ticket) => ticket.getTicketString()).join("\n")}`;
   }
 
-  getWinningLottoString({ winningLotto, bonusNumber }) {
+  countWinningLotto({ winningLotto, bonusNumber }) {
     this.#winningCount = new WinningCount();
 
     this.#tickets.forEach((ticket) => {
@@ -39,15 +39,16 @@ class LottoMachine {
       const rank = WinningCount.getRankType(matchCount, isBonusMatch);
       if (rank) this.#winningCount.increaseRankCount(rank);
     });
-
-    return this.#winningCount.getWinningRankCountString();
   }
 
-  getProfitRateString() {
+  getLottoResultString() {
+    const winningCountString = this.#winningCount.getWinningRankCountString();
+
     const investAmount = this.#amount * LOTTO_RULE.PRICE;
     const profitAmount = this.#winningCount.calculateProfit();
+    const profitRateString = `\n총 수익률은 ${((profitAmount / investAmount) * 100).toFixed(1)}%입니다.`;
 
-    return `총 수익률은 ${((profitAmount / investAmount) * 100).toFixed(1)}%입니다.`;
+    return winningCountString + profitRateString;
   }
 }
 
