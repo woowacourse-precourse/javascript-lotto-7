@@ -10,10 +10,11 @@ class WinningNumber {
     this.numbers = numbers;
     this.bonus = bonus;
   }
-  get numbers() {
+  getnumbers() {
     return this.numbers;
   }
-  get bonus() {
+  getbonus() {
     return this.bonus;
   }
 }
+export default WinningNumber;
