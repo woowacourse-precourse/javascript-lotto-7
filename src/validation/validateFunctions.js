@@ -1,21 +1,21 @@
 import { Console } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGES, NUMBERS } from './constants.js';
 
-const toThrowNewError = (condition, errorMessage) => {
+export const toThrowNewError = (condition, errorMessage) => {
   if (condition) {
     throw new Error(`[ERROR] ${errorMessage}\n`);
   }
 };
 
-const StringHasSpace = (string) => {
+export const StringHasSpace = (string) => {
   toThrowNewError(string.includes(' '), ERROR_MESSAGES.SPACE_ERROR);
 };
 
-const EmptyString = (string) => {
+export const EmptyString = (string) => {
   toThrowNewError(string === '', ERROR_MESSAGES.EMPTY_STRING);
 };
 
-const Integer = (string) => {
+export const Integer = (string) => {
   const convertedString = Number(string);
   toThrowNewError(
     !Number.isInteger(convertedString),
@@ -23,7 +23,7 @@ const Integer = (string) => {
   );
 };
 
-const Positive = (string) => {
+export const Positive = (string) => {
   const convertedString = Number(string);
   toThrowNewError(
     !(convertedString >= NUMBERS.ONE_LOTTO_PRICE),
@@ -31,7 +31,7 @@ const Positive = (string) => {
   );
 };
 
-const canDivide = (string) => {
+export const canDivide = (string) => {
   const convertedString = Number(string);
   toThrowNewError(
     !(convertedString % NUMBERS.ONE_LOTTO_PRICE === 0),
@@ -39,7 +39,7 @@ const canDivide = (string) => {
   );
 };
 
-const checkNumbersCount = (string) => {
+export const checkNumbersCount = (string) => {
   const separatorCount = string
     .split('')
     .filter((char) => char === NUMBERS.SEPARATOR).length;
@@ -52,7 +52,7 @@ const checkNumbersCount = (string) => {
   );
 };
 
-const AllInteger = (string) => {
+export const AllInteger = (string) => {
   const numbers = string.split(NUMBERS.SEPARATOR).map(Number);
   toThrowNewError(
     !numbers.every((number) => Number.isInteger(number)),
@@ -60,7 +60,7 @@ const AllInteger = (string) => {
   );
 };
 
-const checkRange = (string) => {
+export const checkRange = (string) => {
   const numbers = string.split(NUMBERS.SEPARATOR).map(Number);
   toThrowNewError(
     !numbers.every(
@@ -70,7 +70,7 @@ const checkRange = (string) => {
   );
 };
 
-const checkDuplicateNumbers = (string) => {
+export const checkDuplicateNumbers = (string) => {
   const numbers = new Set(string.split(NUMBERS.SEPARATOR).map(Number));
   toThrowNewError(
     numbers.size !== NUMBERS.NUMBERS_COUNT,
