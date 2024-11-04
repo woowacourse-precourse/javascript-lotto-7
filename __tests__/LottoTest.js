@@ -95,6 +95,12 @@ describe('Get Number 테스트', ()=>{
     await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR]중복되는 번호 혹은 공백 없는 6개의 번호만 유효합니다.');
   })
 
+  test('숫자가 6개 이상인 경우', async ()=>{
+    const mockValues = ['1,2,3,4,5,6', '7']; 
+    Console.readLineAsync.mockResolvedValue('1,2,3,4,5,17,20');
+    await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR]당첨 번호는 최대 6개입니다.');
+  })
+
   test('보너스 번호에 중복된 번호 있을 때', async()=>{
     Console.readLineAsync.mockResolvedValue('1,2,3,4,5,6')
     await getNumber.getWinNumber();
