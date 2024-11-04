@@ -32,7 +32,7 @@ class Lotto {
 
     calculateYield(purchaseAmount) {
         return (calculateAmount(toObjectValueArr(MATCH_COUNTER)) / purchaseAmount * 100)
-            .toFixed(2)
+            .toFixed(1)
     }
 
 
