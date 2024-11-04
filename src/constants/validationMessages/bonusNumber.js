@@ -2,7 +2,7 @@ import {
   BONUS_NUMBER_COUNT,
   WINNING_NUMBER_MAX,
   WINNING_NUMBER_MIN,
-} from "../lottoConstants";
+} from "../lottoConstants.js";
 
 export const BONUS_NUMBER = Object.freeze({
   NOT_A_NUMBER: "[ERROR] 보너스 번호는 숫자로 입력해야 합니다.",
