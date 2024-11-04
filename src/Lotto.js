@@ -1,8 +1,12 @@
+import { DOMAIN_ERRORS } from "./constant/Error.js";
+import { LOTTO_CONFIG } from "./constant/LottoConfig.js";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
+    this.#validateDuplicate(numbers);
     this.#numbers = numbers;
   }
 
@@ -12,7 +16,15 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  #validateDuplicate(numbers) {
+    if (new Set(numbers).size !== LOTTO_CONFIG.COUNT) {
+      throw new Error(DOMAIN_ERRORS.DUPLICATE_NUMBER);
+    }
+  }
+
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
