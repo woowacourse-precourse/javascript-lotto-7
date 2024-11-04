@@ -1,6 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { BUY_ERROR, BUY_STRING, ENTER, LOTTO_STRING } from "./Constant.js";
-import { makeLottos } from "./Function.js";
+import {
+  BUY_ERROR,
+  BUY_STRING,
+  ENTER,
+  LOTTO_STRING,
+  WINNING_LOTTO_STRING,
+} from "./Constant.js";
+import { makeLottos, makeWinningLotto } from "./Function.js";
 
 class App {
   async run() {
@@ -14,6 +20,11 @@ class App {
     const lottoCount = buyCount / 1000;
     MissionUtils.Console.print(ENTER + lottoCount + LOTTO_STRING);
     const lottos = makeLottos(lottoCount);
+
+    const winningLottoString = await MissionUtils.Console.readLineAsync(
+      ENTER + WINNING_LOTTO_STRING + ENTER
+    );
+    const winningLotto = makeWinningLotto(winningLottoString);
   }
 }
 

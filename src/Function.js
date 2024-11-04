@@ -15,3 +15,8 @@ const makeLotto = () => {
   MissionUtils.Console.print(numbers);
   return numbers;
 };
+
+export const makeWinningLotto = (winningLottoString) => {
+  const winningLotto = new Lotto(winningLottoString.split(","));
+  return winningLotto;
+};
