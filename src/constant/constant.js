@@ -13,6 +13,7 @@ export const ERROR_MESSAGES = Object.freeze({
   NOT_A_NUMBER: '입력이 숫자가 아닙니다. 숫자를 입력해주세요.',
   UNDER_LOTTO_PRICE: '최소 구입 금액은 1,000원 입니다.',
   NOT_DIVISIBLE: '구입 금액은 1,000원 단위로 입력해야 합니다.',
+  INVALID_LENGTH: '번호는 6개여야 합니다.',
 });
 
 export const LOTTO = Object.freeze({

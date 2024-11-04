@@ -15,3 +15,9 @@ export const checkIsNumber = (input) => {
     throwValidationError(ERROR_MESSAGES.NOT_A_NUMBER);
   }
 };
+
+export const checkLength = (numbers) => {
+  if (numbers.length !== LOTTO.LENGTH) {
+    throwValidationError(ERROR_MESSAGES.INVALID_LENGTH);
+  }
+};
