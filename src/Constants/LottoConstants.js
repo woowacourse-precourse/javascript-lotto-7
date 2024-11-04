@@ -1,0 +1,33 @@
+export const MatchCount = {
+  FIRST: 6,
+  SECOND: 5,
+  THIRD: 5,
+  FOURTH: 4,
+  FIFTH: 3,
+};
+export const UNIT = 1000;
+export const INIT_NUMBER = 0;
+
+export const WINNER_PRIZE = {
+  FIRST: 2000000000,
+  SECOND: 30000000,
+  THIRD: 1500000,
+  FOURTH: 50000,
+  FIFTH: 5000,
+};
+
+export const RANK_STRING = {
+  FIRST: 'FIRST',
+  SECOND: 'SECOND',
+  THIRD: 'THIRD',
+  FOURTH: 'FOUTH',
+  FIFTH: 'FIFTH',
+};
+
+export const INIT_RANK_COUNT = {
+  FIRST: INIT_NUMBER,
+  SECOND: INIT_NUMBER,
+  THIRD: INIT_NUMBER,
+  FOURTH: INIT_NUMBER,
+  FIFTH: INIT_NUMBER,
+};
