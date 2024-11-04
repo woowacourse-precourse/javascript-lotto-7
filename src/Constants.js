@@ -7,6 +7,8 @@ class Constants {
   static MINIMUM_RANK = 5;
   static DECIMAL_PLACES = 1;
 
+  static EMPTY_LINE = "";
+
   static ERROR_MESSAGES = {
     PURCHASE_AMOUNT_ERROR: "[ERROR] 구매 금액이 올바르지 않습니다.",
     LOTTO_NUMBER_COUNT_ERROR: "[ERROR] 로또 번호는 6개여야 합니다.",
@@ -22,24 +24,27 @@ class Constants {
     BONUS_NUMBER: "보너스 번호를 입력해 주세요.\n",
   };
 
-  static get PURCHASE_COUNT_MESSAGES() {
-    return "개를 구매했습니다.";
-  }
+  static PURCHASE_COUNT_MESSAGES = "개를 구매했습니다.";
+  static WINNING_STATISTICS_HEADER = "당첨 통계\n---";
+  static MATCH_TEXT = "개 일치";
+  static BONUS_TEXT = ", 보너스 볼 일치";
+  static PROFIT_RATE_TEXT = "총 수익률은";
+  static PERCENTAGE_SYMBOL = "%입니다.";
 
   static INITIAL_RANK_RESULTS = {
-    1 : 0,
-    2 : 0,
-    3 : 0,
-    4 : 0,
-    5 : 0,
-  }
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+  };
 
   static RANKINGS = {
-    1 : { matches: 6},
-    2 : { matches: 5, BonusMatch: true },
-    3 : { matches: 5, BonusMatch: false },
-    4 : { matches: 4},
-    5 : { matches: 3},
+    1: { matches: 6 },
+    2: { matches: 5, BonusMatch: true },
+    3: { matches: 5, BonusMatch: false },
+    4: { matches: 4 },
+    5: { matches: 3 },
   };
 
   static RANKING_PRIZES = {
@@ -47,7 +52,7 @@ class Constants {
     2: 30000000,
     3: 1500000,
     4: 50000,
-    5: 5000
+    5: 5000,
   };
 }
 
