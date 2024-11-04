@@ -23,6 +23,9 @@ export default class Win {
         this.#TOTAL_PRISE = this.#totalPrize()
         this.#TOTAL_WIN = this.#totalWins()
         this.#returnRate = (this.#TOTAL_PRISE / this.#TOTAL_WIN).toFixed(2)
+        if (isNaN(this.#returnRate)) {
+            this.#returnRate = 0
+        }
     }
 
     #filtering(lottoArr) {
@@ -42,7 +45,7 @@ export default class Win {
             if (matchCount === 5 && lotto.includes(this.#BONUS_NUMBER)) {
                 matchCounts['5+'] += 1
             } else if (matchCount > 2) {
-                matchCounts[`${matchCount}`] += 1;
+                matchCounts[`${matchCount}`] += 1
             }
         }
         )
