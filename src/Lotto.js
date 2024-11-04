@@ -3,7 +3,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.duplicates(numbers);
     this.lottonumrange(numbers);
     this.#numbers = numbers.sort((a, b) => a - b);
   }
@@ -15,6 +15,12 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  duplicates(numbers) {
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
+    }
+  }
   lottonumrange(numbers) {
     const numrange = numbers.some((num) => num < 1 || num > 45);
     if (numrange) {
@@ -23,6 +29,14 @@ class Lotto {
   }
   getNumbers() {
     return [...this.#numbers];
+  }
+
+  match(winNumbers) {
+    return this.#numbers.filter((number) => winNumbers.includes(number)).length;
+  }
+
+  hasBonus(bonusNum) {
+    return this.#numbers.includes(bonusNum);
   }
 }
 
