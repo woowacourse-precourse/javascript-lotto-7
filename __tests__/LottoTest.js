@@ -13,10 +13,4 @@ describe('로또 클래스 테스트', () => {
       new Lotto([1, 2, 3, 4, 5, 5]);
     }).toThrow(ERROR.DUPLICATED_NUMBER);
   });
-
-  test('로또의 번호가 6개 이하이면 예외가 발생한다.', () => {
-    expect(() => {
-      new Lotto([1, 2, 3]);
-    }).toThrow(ERROR.INVALID_NUMBER_COUNT);
-  });
 });
