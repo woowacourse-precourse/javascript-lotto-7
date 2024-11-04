@@ -29,7 +29,7 @@ class App {
   }
 
   validatePurchaseAmount(amount) {
-    return amount >= 1000 && amount % 1000 === 0;
+    return !isNaN(amount) && amount >= 1000 && amount % 1000 === 0;
   }
 
   purchaseLottos(count) {
@@ -51,7 +51,7 @@ class App {
         this.getBonusNumber();
       } else {
         Console.print(
-          "[ERROR] 당첨 번호는 1부터 45 사이의 숫자 6개여야 합니다."
+          "[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 숫자 6개여야 합니다."
         );
         this.getWinningNumbers(); // 잘못된 입력이므로 다시 입력 받기
       }
@@ -63,7 +63,7 @@ class App {
     return (
       numbers.length === 6 &&
       uniqueNumbers.size === 6 &&
-      numbers.every((num) => num >= 1 && num <= 45)
+      numbers.every((num) => num >= 1 && num <= 45 && !isNaN(num))
     );
   }
 
@@ -84,7 +84,12 @@ class App {
   }
 
   validateBonusNumber(bonus) {
-    return bonus >= 1 && bonus <= 45 && !this.winningNumbers.includes(bonus);
+    return (
+      !isNaN(bonus) &&
+      bonus >= 1 &&
+      bonus <= 45 &&
+      !this.winningNumbers.includes(bonus)
+    );
   }
 
   calculateResults() {
