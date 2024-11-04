@@ -1,5 +1,6 @@
 import App from '../src/App.js';
 import { Random, Console } from '@woowacourse/mission-utils';
+import errorMessages from '../src/constants/errorMessage.js';
 
 const mockQuestions = (inputs) => {
   Console.readLineAsync = jest.fn();
@@ -23,9 +24,6 @@ const getLogSpy = () => {
 };
 
 const runException = async (input) => {
-  // given
-  const logSpy = getLogSpy();
-
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
   const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
@@ -34,10 +32,9 @@ const runException = async (input) => {
 
   // when
   const app = new App();
-  await app.run();
 
   // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
+  await expect(app.run()).rejects.toThrow(errorMessages.MONEY_ERROR);
 };
 
 describe('로또 테스트', () => {
@@ -64,7 +61,6 @@ describe('로또 테스트', () => {
     // when
     const app = new App();
     await app.run();
-
     // then
     const logs = [
       '8개를 구매했습니다.',

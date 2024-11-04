@@ -1,6 +1,8 @@
 import Validate from './Validate.js';
 import Lotto from './Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
+import outputMessages from './constants/outputMessages.js';
+import lottoConstants from './constants/lottoConstants.js';
 
 const LottoShop = {
   buyLottos(money) {
@@ -8,12 +10,16 @@ const LottoShop = {
     const lottoCount = parseInt(money / 1000, 10);
 
     return Array.from({ length: lottoCount }, () => {
-      const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      const randomNumbers = Random.pickUniqueNumbersInRange(
+        lottoConstants.MIN_NUM,
+        lottoConstants.MAX_NUM,
+        lottoConstants.LENGHT
+      );
       return new Lotto(randomNumbers);
     });
   },
   getBuyLottosInfo(lottos) {
-    let result = `${lottos.length}개를 구매했습니다.\n`;
+    let result = outputMessages.INFO_PREFIX(lottos.length);
     result += lottos
       .map((boughtLotto) => boughtLotto.getNumbersWithSquareBrackets())
       .join('\n');

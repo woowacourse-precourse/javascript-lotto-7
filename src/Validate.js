@@ -1,24 +1,27 @@
+import errorMessages from './constants/errorMessage.js';
 class Validate {
   static validateMoney(money) {
     const numberMoney = Number(money);
     if (!this.#isPositiveInteger(numberMoney) || numberMoney % 1000 !== 0) {
-      throw new Error('[Error] 구입금액은 양의 정수이며 1000으로 나눠떨어져야 합니다.');
+      throw new Error(errorMessages.MONEY_ERROR);
     }
   }
 
   static validateLottoNumbers(lottoNumbers) {
-    if (lottoNumbers.length !== 6) throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+    if (lottoNumbers.length !== 6) throw new Error(errorMessages.LOTTOS_LENGHT_ERROR);
     for (const number of lottoNumbers) {
-      if (!this.#isPositiveInteger(number)) throw new Error('[Error] 로또 번호는 양의 정수만 가능합니다.');
-      if (!this.#isInRange(number)) throw new Error('[Error] 로또 번호는 1과 45 사이의 양의 정수만 가능합니다.');
+      if (!this.#isPositiveInteger(number)) throw new Error(errorMessages.LOTTO_NUM_ERROR);
+      if (!this.#isInRange(number)) throw new Error(errorMessages.LOTTO_RANGE_ERROR);
     }
-    if (this.#hasDuplicates(lottoNumbers)) throw new Error('[Error] 로또 번호에 중복된 수가 존재합니다.');
+    if (this.#hasDuplicates(lottoNumbers)) throw new Error(errorMessages.LOTTOS_DUPLICATE_ERROR);
   }
 
   static validateBonusNum(bonusNum, winningLottoNumbers) {
-    if (!this.#isPositiveInteger(bonusNum)) throw new Error('[Error] 보너스 번호는 양의 정수만 가능합니다.');
-    if (!this.#isInRange(bonusNum)) throw new Error('[Error] 보너스 번호는 1과 45 사이의 양의 정수만 가능합니다.');
-    if (this.#hasDuplicates([bonusNum, ...winningLottoNumbers])) throw new Error('[Error] 보너스 번호는 당첨 번호가 중복됩니다.');
+    if (!this.#isPositiveInteger(bonusNum)) throw new Error(errorMessages.LOTTO_NUM_ERROR);
+    if (!this.#isInRange(bonusNum)) throw new Error(errorMessages.LOTTO_RANGE_ERROR);
+    if (this.#hasDuplicates([bonusNum, ...winningLottoNumbers])) {
+      throw new Error(errorMessages.BONUS_DUPLICATE_ERROR);
+    }
   }
 
   static #isPositiveInteger(value) {

@@ -1,4 +1,5 @@
 import Validate from './Validate.js';
+import { Delimiters } from './constants/strings.js';
 class Lotto {
   #numbers;
   constructor(numbers) {
@@ -7,7 +8,7 @@ class Lotto {
   }
 
   getNumbersWithSquareBrackets() {
-    return `[${this.#numbers.join(', ')}]`;
+    return `[${this.#numbers.join(Delimiters.COMMA_SPACE)}]`;
   }
   getNumbers() {
     return this.#numbers;
