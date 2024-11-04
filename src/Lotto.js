@@ -21,7 +21,6 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호는 중복되지 않는 6개의 숫자입니다.");
     }
   }
-
 }
 
 export default Lotto;
