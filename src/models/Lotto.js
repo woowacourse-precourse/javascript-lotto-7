@@ -1,3 +1,4 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
 import { LOTTO_CONFIG, ERROR } from '../constants/index.js';
 
 class Lotto {
@@ -9,11 +10,11 @@ class Lotto {
     }
 
     #validate(numbers) {
-        if (numbers.length !== LOTTO_CONFIG.LENGTH) {
-            this.#handleError(ERROR.LOTTO.INVALID_LENGTH);
-        }
         if (!Array.isArray(numbers)) {
             this.#handleError(ERROR.LOTTO.NOT_A_ARRAY);
+        }
+        if (numbers.length !== LOTTO_CONFIG.LENGTH) {
+            this.#handleError(ERROR.LOTTO.INVALID_LENGTH);
         }
         if (new Set(numbers).size !== LOTTO_CONFIG.LENGTH) {
             this.#handleError(ERROR.LOTTO.DUPLICATE_NUMBER);
@@ -27,7 +28,10 @@ class Lotto {
     }
 
     #isValidRange(numbers) {
-        return numbers.every((number) => number >= 1 && number <= 45);
+        return numbers.every(
+            (number) =>
+                number >= LOTTO_CONFIG.MIN_NUM && number <= LOTTO_CONFIG.MAX_NUM
+        );
     }
 
     getNumbers() {
@@ -35,41 +39,36 @@ class Lotto {
     }
 
     match(winningNumbers, bonusNumber) {
-        const matchCount = winningNumbers.filter((number) =>
-            this.#numbers.includes(number)
-        ).length;
-
-        if (matchCount === 5 && this.#numbers.includes(bonusNumber)) {
-            return 5.5;
-        }
-        return matchCount;
+        const matchCount = this.#getMatchCount(winningNumbers);
+        return this.#determinePrizeRank(matchCount, bonusNumber);
     }
 
-    toString() {
-        return `[${this.#numbers.join(', ')}]`;
+    #getMatchCount(winningNumbers) {
+        return winningNumbers.filter((number) => this.#numbers.includes(number))
+            .length;
+    }
+
+    #determinePrizeRank(matchCount, bonusNumber) {
+        if (matchCount === 5 && this.#numbers.includes(bonusNumber)) {
+            return LOTTO_CONFIG.MATCH_FIVE_BONUS;
+        }
+        return matchCount;
     }
 
     static createLottos(money) {
         const count = Math.floor(money / LOTTO_CONFIG.PRICE_UNIT);
         return Array.from({ length: count }, () => {
-            const numbers = this.#generateRandomNumbers();
+            const numbers = this.#generateRandomNumbers().map((n) => Number(n));
             return new Lotto(numbers);
         });
     }
 
     static #generateRandomNumbers() {
-        const numbers = Array.from({ length: 45 }, (_, i) => i + 1);
-        const selectedNumbers = [];
-
-        for (let i = 0; i < 6; i++) {
-            const randomIndex = Math.floor(
-                Math.random() * (numbers.length - i)
-            );
-            selectedNumbers.push(numbers[randomIndex]);
-            numbers[randomIndex] = numbers[numbers.length - 1 - i];
-        }
-
-        return selectedNumbers;
+        return MissionUtils.Random.pickUniqueNumbersInRange(
+            LOTTO_CONFIG.MIN_NUM,
+            LOTTO_CONFIG.MAX_NUM,
+            LOTTO_CONFIG.LENGTH
+        );
     }
 
     static calculateResults(lottos, winningNumbers, bonusNumber) {
@@ -85,23 +84,17 @@ class Lotto {
         return results;
     }
 
-    static calculateProfitRate(results, money) {
-        const prizeMoney = {
-            3: 5000,
-            4: 50000,
-            5: 1500000,
-            5.5: 30000000,
-            6: 2000000000,
-        };
-
+    static calculateEarningRate(results, money) {
         const totalPrize = Object.entries(results).reduce(
             (sum, [match, count]) => {
-                return sum + prizeMoney[match] * count;
+                return sum + LOTTO_CONFIG.PRIZE_MONEY[match] * count;
             },
             0
         );
 
-        return Math.round((totalPrize / money) * LOTTO_CONFIG.PRICE_UNIT) / 10;
+        const rate = (totalPrize / money) * 100;
+
+        return Math.round(rate * 10) / 10;
     }
 }
 

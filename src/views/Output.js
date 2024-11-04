@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { LOTTO_CONFIG } from '../constants/index.js';
 
 class Output {
     static print(message) {
@@ -15,16 +16,8 @@ class Output {
         });
     }
     static printWinningStatus(results) {
-        const MESSAGES = {
-            3: '3개 일치 (5,000원)',
-            4: '4개 일치 (50,000원)',
-            5: '5개 일치 (1,500,000원)',
-            5.5: '5개 일치, 보너스 볼 일치 (30,000,000원)',
-            6: '6개 일치 (2,000,000,000원)',
-        };
-
         Object.entries(results).forEach(([key, value]) => {
-            this.print(`${MESSAGES[key]} - ${value}개`);
+            this.print(`${LOTTO_CONFIG.WINNING_MESSAGES[key]} - ${value}개`);
         });
     }
     static printEarningsRate(rate) {
