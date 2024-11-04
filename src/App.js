@@ -7,6 +7,7 @@ import {
 import {
   getIsBonusNumber,
   getLottoPrizeCount,
+  printLottoPrizeResult,
   setLottoPrizeRank,
   splitByComma,
 } from './functions/LottoPrize.js';
@@ -20,30 +21,35 @@ class App {
           name: '3개 일치',
           count: 0,
           value: 5000,
+          printValue: '5,000원',
         },
         {
           id: 4,
           name: '4개 일치',
           count: 0,
           value: 50000,
+          printValue: '50,000원',
         },
         {
           id: 5,
           name: '5개 일치',
           count: 0,
           value: 1500000,
+          printValue: '1,500,000원',
         },
         {
           id: 5,
           name: '5개 일치, 보너스 볼 일치',
           count: 0,
           value: 30000000,
+          printValue: '30,000,000원',
         },
         {
           id: 6,
           name: '6개 일치',
           count: 0,
           value: 2000000000,
+          printValue: '2,000,000,000원',
         },
       ];
 
@@ -77,13 +83,14 @@ class App {
           lottoBounsNumber,
           lottoPrizeCount,
         );
-        console.log(lottoPrizeCount, isBonusNumber);
         LottoPrizeList = setLottoPrizeRank(
           lottoPrizeCount,
           LottoPrizeList,
           isBonusNumber,
         );
       });
+
+      printLottoPrizeResult(LottoPrizeList);
 
       // * ==== //
     } catch (error) {}

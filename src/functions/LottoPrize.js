@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import Lotto from '../Lotto.js';
 
 export const splitByComma = (stringInput) => {
@@ -44,4 +45,13 @@ export const setLottoPrizeRank = (
   });
 
   return result;
+};
+
+export const printLottoPrizeResult = (LottoPrizeList) => {
+  Console.print(`\n당첨 통계\n---`);
+  LottoPrizeList.forEach((lottoPrizeItem) => {
+    Console.print(
+      `${lottoPrizeItem.name} (${lottoPrizeItem.printValue}) - ${lottoPrizeItem.count}개`,
+    );
+  });
 };
