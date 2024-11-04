@@ -3,20 +3,24 @@ import Lotto from "./Lotto.js";
 
 class App {
   async run() {
-
+    const money =  await this.moneyInput();
+    const lottos = this.generateLottos(money / 1000);
+    this.printLottos(lottos);
   }
 
   async moneyInput() {
     let isValid = false;
+    let money;
     while (!isValid) {
       try {
-        const money = await Console.readLineAsync('구입금액을 입력해 주세요.');
-        this.validateMoney(money);
+        money = await Console.readLineAsync('구입금액을 입력해 주세요.');
+        money = this.validateMoney(money);
         isValid = true;
       } catch (error) {
         Console.print(error.message);
       }
     }
+    return money;
   }
   validateMoney(money) {
     const amount = Number(money);
