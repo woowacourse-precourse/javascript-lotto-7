@@ -1,6 +1,9 @@
 import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGES } from '../src/constants/errorMessage.js';
+import {
+  ERROR_MESSAGE_PREFIX,
+  ERROR_MESSAGES,
+} from '../src/constants/errorMessage.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -51,7 +54,9 @@ const CustomeRunException = async (TEST_CASE_INPUT, errorMessage) => {
   const app = new App();
   await app.run();
 
-  expect(logSpy).toHaveBeenCalledWith(`[ERROR] ${errorMessage}`);
+  expect(logSpy).toHaveBeenCalledWith(
+    `${ERROR_MESSAGE_PREFIX} ${errorMessage}`,
+  );
 };
 
 describe('과제에서 제공된 로또 테스트', () => {
@@ -109,8 +114,7 @@ describe('직접 만든 예외 테스트', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
-
-  test.each([
+  const purchaseCostCases = [
     {
       case: 1,
       description: '[숫자+특수문자] 조합인 경우',
@@ -159,7 +163,8 @@ describe('직접 만든 예외 테스트', () => {
       input: '',
       errorMessage: ERROR_MESSAGES.EMPTY_INPUT_FIELD,
     },
-  ])(
+  ];
+  test.each(purchaseCostCases)(
     '구입 가격 예외 테스트 - [$case] $description',
     async ({ input, errorMessage }) => {
       const TEST_CASE_INPUT = [input, '1,2,3,4,5,6', '7'];
@@ -167,7 +172,7 @@ describe('직접 만든 예외 테스트', () => {
     },
   );
 
-  test.each([
+  const lottoNumbersCases = [
     {
       case: 1,
       description: '범위 내에 있지 않은 숫자 포함',
@@ -219,7 +224,7 @@ describe('직접 만든 예외 테스트', () => {
     {
       case: 9,
       description: '빈칸 포함',
-      input: '1,,-3,4,5,6',
+      input: '1,,3,4,5,6',
       errorMessage: ERROR_MESSAGES.INVALID_WINNING_NUMBERS_FORMAT,
     },
     {
@@ -246,7 +251,14 @@ describe('직접 만든 예외 테스트', () => {
       input: '1,2,2;4,5,6',
       errorMessage: ERROR_MESSAGES.INVALID_WINNING_NUMBERS_FORMAT,
     },
-  ])(
+    {
+      case: 14,
+      description: '숫자+문자열이 포함된 숫자',
+      input: '1,2,3,4,5a,6',
+      errorMessage: ERROR_MESSAGES.INVALID_WINNING_NUMBERS_FORMAT,
+    },
+  ];
+  test.each(lottoNumbersCases)(
     '입력한 로또 번호 예외 테스트 - [$case] $description',
     async ({ input, errorMessage }) => {
       const TEST_CASE_INPUT = ['1000', input, '7'];
@@ -254,7 +266,7 @@ describe('직접 만든 예외 테스트', () => {
     },
   );
 
-  test.each([
+  const bonusNumberCases = [
     {
       case: 1,
       description: '범위 내 있지 않는 경우',
@@ -309,7 +321,8 @@ describe('직접 만든 예외 테스트', () => {
       input: '1,2',
       errorMessage: ERROR_MESSAGES.INVALID_POSITIVE_INTEGER,
     },
-  ])(
+  ];
+  test.each(bonusNumberCases)(
     '보너스 번호 예외 테스트 - [$case] $description',
     async ({ input, errorMessage }) => {
       const TEST_CASE_INPUT = ['1000', '1,2,3,4,5,6', input];
