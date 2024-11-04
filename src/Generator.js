@@ -16,6 +16,14 @@ class Generator {
     this.#lottoTickets = this.#calculateLottoTicket();
   }
 
+  #generateLottoNumber() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO.NUMBER_MINIMUM_RANGE,
+      LOTTO.NUMBER_MAXIMUM_RANGE,
+      LOTTO.NUMBER_COUNT
+    );
+  }
+
   #calculateLottoTicket() {
     return this.#purchaseAmount / LOTTO.TICKET_PRICE;
   }
