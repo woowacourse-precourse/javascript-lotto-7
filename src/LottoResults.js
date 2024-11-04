@@ -46,3 +46,17 @@ function calculateProfit(results) {
     }
     return totalProfit;
   }  
+
+  export function printResults(results, amount) {
+    Console.print('당첨 통계\n---');
+    Console.print(`3개 일치 (${PRIZES[3].toLocaleString()}원) - ${results[3]}개`);
+    Console.print(`4개 일치 (${PRIZES[4].toLocaleString()}원) - ${results[4]}개`);
+    Console.print(`5개 일치 (${PRIZES[5].toLocaleString()}원) - ${results[5]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (${PRIZES['5+bonus'].toLocaleString()}원) - ${results['5+bonus']}개`);
+    Console.print(`6개 일치 (${PRIZES[6].toLocaleString()}원) - ${results[6]}개`);
+  
+    const totalProfit = calculateProfit(results);
+    const profitRate = ((totalProfit / amount) * 100).toFixed(1);
+  
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }  
