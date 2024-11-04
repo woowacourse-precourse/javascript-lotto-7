@@ -6,6 +6,7 @@ import {
 } from "../View/View.js";
 import { generateLottoTickets } from "../Services/GenerateLottery.js";
 import { calculateWinningResult } from "../Services/calculateWinningResult.js";
+import { calculateLottoYield } from "../Services/calculateLottoYield.js";
 import {
   validatePrice,
   validateWinningNumbers,
@@ -45,8 +46,8 @@ class Controller {
     );
     ioService.printWinningResult(winningResult);
 
-    // const lottoYield = calculateLottoYield(winningResult);
-    // printLottoYield(lottoYield);
+    const lottoYield = calculateLottoYield(winningResult, validatedPrice);
+    ioService.printLottoYield(lottoYield);
   }
 }
 

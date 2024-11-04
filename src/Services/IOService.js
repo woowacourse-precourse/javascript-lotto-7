@@ -42,6 +42,10 @@ class IOService {
       }개`
     );
   }
+
+  printLottoYield(yieldPercentage) {
+    Console.print(`총 수익률은 ${yieldPercentage}%입니다.`);
+  }
 }
 
 export default IOService;
