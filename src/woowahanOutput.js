@@ -2,8 +2,8 @@ import { Console } from "@woowacourse/mission-utils";
 import { CONSTANT, ERROR, SUBJECT } from "./utils/constants.js";
 
 class WoowahanOutput {
-    async errorPrint(subject, prompt) {
-        Console.print(`[ERROR] ${subject}${prompt}`)
+    async errorPrint(prompt) {
+        Console.print(`[ERROR] ${prompt}`)
     }
 
     static print(prompt) {
@@ -40,15 +40,6 @@ class GameOutput extends WoowahanOutput {
 
 class BuyMoneyOutput extends WoowahanOutput {
 
-    constructor() {
-        super();
-        this.subject = SUBJECT.BUY_MONEY;
-    }
-
-    async errorPrint(prompt) {
-        super.errorPrint(this.subject, prompt);
-    }
-
     async printEmptyValue() {
         this.errorPrint(ERROR.IS_NULL);
     }
@@ -68,15 +59,6 @@ class BuyMoneyOutput extends WoowahanOutput {
 
 class WinInputOutput extends WoowahanOutput {
 
-    constructor() {
-        super();
-        this.subject = SUBJECT.WIN_NUMBER;
-    }
-
-    async errorPrint(prompt) {
-        super.errorPrint(this.subject, prompt);
-    }
-
     async printCountNotSix() {
         super.errorPrint(ERROR.IS_NOT_SIX);
     }
@@ -88,15 +70,6 @@ class WinInputOutput extends WoowahanOutput {
 }
 
 class WinNumberOutput extends WoowahanOutput {
-
-    constructor() {
-        super();
-        this.subject = SUBJECT.WIN_NUMBER;
-    }
-
-    async errorPrint(prompt) {
-        super.errorPrint(this.subject, prompt);
-    }
 
     async printEmptyValue() {
         super.errorPrint(ERROR.IS_NULL);
@@ -116,15 +89,6 @@ class WinNumberOutput extends WoowahanOutput {
 }
 
 class BonusNumberOutput extends WoowahanOutput {
-
-    constructor() {
-        super();
-        this.subject = SUBJECT.BONUS_NUMBER;
-    }
-
-    async errorPrint(prompt) {
-        super.errorPrint(this.subject, prompt);
-    }
 
     async printEmptyValue() {
         super.errorPrint(ERROR.IS_NULL);
