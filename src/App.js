@@ -1,98 +1,51 @@
 import InputHandler from "./InputHandler.js";
-import Lotto from "./Lotto.js";
+import LottoProcessor from "./lotto/LottoProcessor.js";
+import WinningLotto from "./lotto/WinningLotto.js";
 import OutputHandler from "./OutputHandler.js";
 
 class App {
   constructor() {
     this.inputHandler = new InputHandler();
     this.outputHandler = new OutputHandler();
-    this.PurchaseLottoNumbersArray = [];
-    this.WinningLottoNumbersArray = Array(46).fill(0);
-    this.winningRanks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    this.winningLotto = new WinningLotto();
+    this.lottoProcessor = new LottoProcessor(
+      this.outputHandler,
+      this.winningLotto
+    );
   }
 
   async run() {
     const lottoCount = await this.inputHandler.getPurchaseAmount();
-    this.printLottoNumbers(lottoCount);
+    this.lottoProcessor.setLottoNumbers(lottoCount);
 
     const winningNumber = await this.inputHandler.getWinningNumber();
-    this.processWinningNumber(winningNumber);
+    this.winningLotto.setWinningNumbers(winningNumber);
 
     const bonusNumber = await this.inputHandler.getBonusNumber(
-      this.WinningLottoNumbersArray
+      this.winningLotto.getWinningNumbersArray()
     );
-    this.processBonusgNumber(bonusNumber);
+    this.winningLotto.setBonusNumber(bonusNumber);
 
-    this.compareLottoNumbers();
-    this.outputHandler.printResult(this.winningRanks);
-    this.outputHandler.printRateOfReturn(this.calculateRateOfReturn());
-  }
+    this.lottoProcessor.compareLottoNumbers();
 
-  //로또 번호 출력
-  printLottoNumbers(lottoCount) {
-    this.outputHandler.printLottoCount(lottoCount);
-    for (let i = 0; i < lottoCount; i++) {
-      let lottoNumbers = Lotto.generateLottoNumbers();
-      this.outputHandler.printLottoNumbers(lottoNumbers.getNumbers());
-      this.PurchaseLottoNumbersArray.push(lottoNumbers);
-    }
-  }
+    this.outputHandler.printResult(this.lottoProcessor.getWinningRanks());
 
-  // 당첨 번호 가공
-  processWinningNumber(winningNumber) {
-    winningNumber.forEach((number) => {
-      this.WinningLottoNumbersArray[number] = 1; // 해당 인덱스 === 당첨 번호를 1로 변경
-    });
-  }
-
-  // 보너스 번호 가공
-  processBonusgNumber(bonusNumber) {
-    this.WinningLottoNumbersArray[bonusNumber] = 2; // 보너스 번호는 2로 표시
-  }
-
-  // 내가 산 로또 번호와 당첨 번호 비교
-  compareLottoNumbers() {
-    this.PurchaseLottoNumbersArray.forEach((lotto) => {
-      const matchCount = lotto.countMatchingNumbers(
-        this.WinningLottoNumbersArray
-      );
-      const isBonusMatched = lotto.hasBonusNumber(
-        this.WinningLottoNumbersArray
-      );
-      this.updateWinningRanks(matchCount, isBonusMatched);
-    });
-  }
-
-  //winningRanks 업데이트
-  updateWinningRanks(matchCount, isBonusMatched) {
-    switch (matchCount) {
-      case 6:
-        this.winningRanks[1]++;
-        break;
-      case 5:
-        if (isBonusMatched) this.winningRanks[2]++;
-        else this.winningRanks[3]++;
-        break;
-      case 4:
-        this.winningRanks[4]++;
-        break;
-      case 3:
-        this.winningRanks[5]++;
-        break;
-      default:
-        break;
-    }
+    this.outputHandler.printRateOfReturn(
+      this.calculateRateOfReturn(lottoCount)
+    );
   }
 
   // 수익률 계산
-  calculateRateOfReturn() {
+  calculateRateOfReturn(lottoCount) {
     const prize = [0, 2000000000, 30000000, 1500000, 50000, 5000];
-    const totalPrize = Object.keys(this.winningRanks).reduce(
-      (acc, rank) => acc + this.winningRanks[rank] * prize[rank],
+    const totalPrize = Object.keys(
+      this.lottoProcessor.getWinningRanks()
+    ).reduce(
+      (acc, rank) =>
+        acc + this.lottoProcessor.getWinningRanks()[rank] * prize[rank],
       0
     );
-    const rate =
-      (totalPrize / (this.PurchaseLottoNumbersArray.length * 1000)) * 100;
+    const rate = (totalPrize / (lottoCount * 1000)) * 100;
 
     if (rate % 1 === 0) {
       return rate;
