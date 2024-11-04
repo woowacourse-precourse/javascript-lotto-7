@@ -27,6 +27,11 @@ class OutputModules {
 
     OutputModules.printMessage(`${correctNumber}개 일치 (${formatedPrice}원) - ${result}개`);
   }
+
+  static printEarningRate(totalPrice, cash) {
+    const earningRate = ((totalPrice / cash) * 100).toFixed(1);
+    Console.print(`총 수익률은 ${earningRate}%입니다.`);
+  }
 }
 
 export default OutputModules;
