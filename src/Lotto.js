@@ -10,7 +10,7 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    if(numbers.every(num => isNaN(num))){
+    if (!numbers.every(num => typeof num === 'number' && Number.isFinite(num))) {
       throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
     }
     if(!numbers.every(num => Number.isInteger(num) && num >= 1 && num <= 45)){

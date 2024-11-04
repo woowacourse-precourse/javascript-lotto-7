@@ -78,25 +78,31 @@ class App {
       5: 0,
       6: 0
     };
-
-    for (let i = 0; i < lottoQuantity; i++) {
-      const rank = lotto.checkRank(lottoArray[i], bonusNumber);
-      lottoResults[rank] += 1;
-    }
     const lottoPrize = {
       1: 2000000000,
       2: 30000000,
       3: 1500000,
       4: 50000,
       5: 5000,
+      6: 0
     };
+    let profit = 0;
+    for (let i = 0; i < lottoQuantity; i++) {
+      const rank = lotto.checkRank(lottoArray[i], bonusNumber);
+      lottoResults[rank] += 1;
+      profit += lottoPrize[rank];
+    }
+    let profitRate = (profit / purchasePrice) * 100;
+    profitRate = Math.round(profitRate * 100) / 100;
 
-    MissionUtils.Console.print(`3개 일치 (5,000원) - ${lottoResults[5]}`);
-    MissionUtils.Console.print(`4개 일치 (50,000원) - ${lottoResults[4]}`);
-    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${lottoResults[3]}`);
-    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${lottoResults[2]}`);
-    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${lottoResults[1]}`);
 
+    MissionUtils.Console.print("\n당첨 통계\n---");
+    MissionUtils.Console.print(`3개 일치 (5,000원) - ${lottoResults[5]}개`);
+    MissionUtils.Console.print(`4개 일치 (50,000원) - ${lottoResults[4]}개`);
+    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${lottoResults[3]}개`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${lottoResults[2]}개`);
+    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${lottoResults[1]}개`);
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
 
   }
 
