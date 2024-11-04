@@ -1,4 +1,5 @@
 export const BUY_STRING = "구입금액을 입력해 주세요. ";
+export const LOTTO_STRING = "개를 구매했습니다. ";
 
 export const ENTER = "\n";
 
