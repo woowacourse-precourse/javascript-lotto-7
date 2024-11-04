@@ -6,6 +6,7 @@ import {
   PrizeMoney,
 } from '../resources/Constants.js';
 import isEmpty from '../utils/isEmpty.js';
+import Output from '../utils/io/Output.js';
 
 class LottoIOHandler {
   PrintLottoWinningResult(winningResult) {
@@ -19,7 +20,7 @@ class LottoIOHandler {
       `6개 일치 (${Prize.MATCH_6}원) - ${winningResult[6]}개`,
     ];
 
-    winningResultMessage.forEach((message) => Console.print(message));
+    winningResultMessage.forEach((message) => Output.print(message));
   }
 
   printRateOfReturn(winningResult, purchaseAmount) {
@@ -31,17 +32,17 @@ class LottoIOHandler {
 
     const rateOfReturn = ((totalPrizeMoney / purchaseAmount) * 100).toFixed(1);
 
-    Console.print(OutputMessages.TOTAL_ROR(rateOfReturn));
+    Output.print(OutputMessages.TOTAL_ROR(rateOfReturn));
   }
 
   displayLottoTickets(lottoTickets, purchaseAmount) {
     if (!isEmpty(lottoTickets)) {
       const ticketCount = purchaseAmount / 1000;
 
-      Console.print(OutputMessages.PURCHASE_MESSAGE(ticketCount));
+      Output.print(OutputMessages.PURCHASE_MESSAGE(ticketCount));
 
       lottoTickets.forEach((lottoTicket) => {
-        Console.print(`[${lottoTicket.join(`${DELIMETER} `)}]`);
+        Output.print(`[${lottoTicket.join(`${DELIMETER} `)}]`);
       });
     }
   }
