@@ -8,27 +8,27 @@ class LottoController {
   #lottoStore;
 
   async run() {
-    const amount = await this.tryAndCatchRead(this.readAmount);
-    this.purchaseAndPrintResult(amount);
-    const winningNumber = await this.tryAndCatchRead(this.readWinningNumber);
-    const bonusNumber = await this.tryAndCatchRead(() => this.readBonusNumber(winningNumber));
-    this.handleDraw(winningNumber, bonusNumber);
+    const amount = await this.#tryAndCatchRead(this.#readAmount);
+    this.#purchaseAndPrintResult(amount);
+    const winningNumber = await this.#tryAndCatchRead(this.#readWinningNumber);
+    const bonusNumber = await this.#tryAndCatchRead(() => this.#readBonusNumber(winningNumber));
+    this.#handleDraw(winningNumber, bonusNumber);
   }
 
-  async readAmount() {
+  async #readAmount() {
     const amount = await inputView.readAmount();
     validator.validateAmount(amount);
     outputView.printBlank();
     return amount;
   }
 
-  purchaseAndPrintResult(amount) {
+  #purchaseAndPrintResult(amount) {
     this.#lottoStore = new LottoStore(amount);
     const lottoNumbers = this.#lottoStore.getLottoNumbers();
     outputView.printPurchaseResult(lottoNumbers);
   }
 
-  async readWinningNumber() {
+  async #readWinningNumber() {
     const winningNumbers = await inputView.readWinningNumber();
     validator.validateLottoNumbersString(winningNumbers);
     const winningNumbersArray = winningNumbers.split(CHARS.inputNumbersDelimiter).map(Number);
@@ -37,7 +37,7 @@ class LottoController {
     return winningNumbersArray;
   }
 
-  async readBonusNumber(winningNumber) {
+  async #readBonusNumber(winningNumber) {
     const bonusNumber = await inputView.readBonusNumber();
     validator.validateBonusNumberString(bonusNumber);
     const bonusNumberArray = bonusNumber.split(CHARS.inputNumbersDelimiter).map(Number);
@@ -46,18 +46,18 @@ class LottoController {
     return bonusNumberArray;
   }
 
-  async tryAndCatchRead(readFunction) {
+  async #tryAndCatchRead(readFunction) {
     try {
       const answer = await readFunction();
       return answer;
     } catch (e) {
       outputView.printMessage(e.message);
-      const answer = await this.tryAndCatchRead(readFunction);
+      const answer = await this.#tryAndCatchRead(readFunction);
       return answer;
     }
   }
 
-  handleDraw(winningNumber, bonusNumber) {
+  #handleDraw(winningNumber, bonusNumber) {
     const result = Object.entries(this.#lottoStore.getLottoResult(winningNumber, bonusNumber));
     outputView.printDrawResult(result);
     const earningRate = this.#lottoStore.getEarningRate();
