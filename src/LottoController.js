@@ -73,6 +73,8 @@ class LottoController {
    */
   setWinningBonusNumber(winningBonusNumber) {
     this.#winningBonusNumber = Number(winningBonusNumber);
+
+    Validator.validateWinningBonusNumber(this.#winningNumbers, this.#winningBonusNumber);
   }
 
   /**

@@ -24,6 +24,13 @@ class Validator {
   /**
    *
    */
+  static validateWinningBonusNumber(winningNumbers, winningBonusNumber) {
+    this.#isWinningBonusNumberInteger(winningNumbers, winningBonusNumber);
+  }
+
+  /**
+   *
+   */
   static #isAmountNumber(amount) {
     if (isNaN(amount)) {
       throw new Error(ERROR_MESSAGE.AMOUNT_NOT_NUMBER);
@@ -69,6 +76,15 @@ class Validator {
   static #isWinningNumberDuplicate(winningNumbers) {
     if (new Set(winningNumbers).size !== winningNumbers.length) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE);
+    }
+  }
+
+  /**
+   *
+   */
+  static #isWinningBonusNumberInteger(winningNumbers, winningBonusNumber) {
+    if (!Number.isInteger(winningBonusNumber)) {
+      throw new Error(ERROR_MESSAGE.WINNING_BONUS_NUMBER_NOT_INTEGER);
     }
   }
 }
