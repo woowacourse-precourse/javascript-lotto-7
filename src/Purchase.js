@@ -6,7 +6,7 @@ class Purchase {
 
   #setAmount(pay) {
     if (pay % this.PRICE !== 0) {
-      throw new Error("[ERROR] 1,000원 단위로 입력해주세요.\n");
+      throw new Error("[ERROR] 1,000원 단위로 입력해주세요.");
     }
     this.#amounts = pay / this.PRICE;
     return this.#amounts;
@@ -20,7 +20,7 @@ class Purchase {
         pay = parseInt(pay.trim(), 10);
 
         if (isNaN(pay) || pay <= 0) {
-          throw new Error("[ERROR] 유효한 숫자를 입력해 주세요.\n");
+          throw new Error("[ERROR] 유효한 숫자를 입력해 주세요.");
         }
 
         return this.#setAmount(pay);
