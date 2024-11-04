@@ -18,6 +18,7 @@
     - 입출력 객체
     - inputMoney()
     - inputLotto()
+    - inputBonus()
     - printLotteries()
     - printResult()
 - **Lotto 객체**
@@ -39,27 +40,24 @@
             - 투입한 돈
         - lotteryArray : Array<Array<Number>>
             - 구매한 로또 배열
-        - BonusNumber : Number
+        - bonusNumber : Number
     - 메소드
+        - getPurchaseNum() : 구매할 로또 매수 계산
         - purchaseLottery() : 구매한 만큼 Lottery 객체 생성
         - validateInputMoney(Number) : 투입한 돈 유효성 검사
         - validateInteger(Number) : 숫자 체크
         - validateThousand(Number) : 1000원 단위 체크
-        - calculateDuplicated(numbers) → Array<Number>
-            - 당첨 번호와 뽑은 숫자 중복된 배열 리턴
-        - calculateResult(Array) → Number
-            - 등수 계산
-        - checkBonus(Number, Array) → Boolean
-            - 보너스 계산 메소드
+
 - **각 뽑은 복권 객체 Lottery**
     - 변수
         - numbers : Array<Number>
     - 메소드
-        - createNumbers() → undefined
-        - createRandom() → Number
-            - 난수 생성 메소드
-        - validateDuplicated(Number, Array) → Boolean
-            - 숫자 중복 체크
+        - matchWinNumbers(Array) → Array<Number>
+            - 당첨 번호와 뽑은 숫자 중복된 배열 리턴
+        - calculateResult(Array) → Number
+            - 등수 계산
+        - matchBonus(Number, Array) → Boolean
+            - 보너스 계산 메소드
 - **결과 정리 객체 → Report**
     - 변수
         - prize : Number
