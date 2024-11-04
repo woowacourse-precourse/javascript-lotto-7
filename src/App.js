@@ -6,8 +6,8 @@ class App {
     const lottoInput = new LottoInput();
     let lottoCnt = await lottoInput.lottoPriceInput();
     let [lottoWinArr, lottoBonusNum] = await lottoInput.lottoWinInput();
-
-    LottoController.calcWinStat(lottoWinArr, lottoBonusNum, lottoCnt);
+    const lottoController = new LottoController();
+    lottoController.calcWinStat(lottoWinArr, lottoBonusNum, lottoCnt);
   }
 }
 

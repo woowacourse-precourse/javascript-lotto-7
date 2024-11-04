@@ -3,18 +3,27 @@ import { LOTTO_OUTPUT } from "../constants/Constants.js";
 import LottoController from "../controllers/LottoController.js";
 
 class LottoOutput {
-  static lottoController = new LottoController();
-
-  static printLottoCnt(lottoCnt) {
+  printLottoCnt(lottoCnt) {
     Console.print(LOTTO_OUTPUT.LOTTO_CNT_OUTPUT(lottoCnt));
     this.printLottoNum(lottoCnt);
   }
 
-  static printLottoNum(lottoCnt) {
+  printLottoNum(lottoCnt) {
+    const lottoController = new LottoController(); // 여기서 인스턴스화
     for (let i = 0; i < lottoCnt; i++) {
-      let lottoNum = this.lottoController.makeLottoNum();
+      let lottoNum = lottoController.makeLottoNum();
       Console.print(lottoNum);
     }
+  }
+
+  printWinStat(matchCntArr) {
+    Console.print(`3개 일치 (5,000원) - ${matchCntArr[5]}개`);
+    Console.print(`4개 일치 (50,000원) - ${matchCntArr[4]}개`);
+    Console.print(`5개 일치 (50,000원) - ${matchCntArr[3]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCntArr[2]}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${matchCntArr[1]}개`);
   }
 }
 
