@@ -10,8 +10,11 @@ class LottoManager {
     #generatedLottos = []
     #winLotto
     #winBonusNumber
+    #lottoResult
 
-    constructor(){}
+    constructor(){
+        this.#lottoResult = new LottoResult();
+    }
 
     generateLottos(lottoCount){
         for(let i = 0; i < lottoCount; i++){
@@ -24,12 +27,12 @@ class LottoManager {
         this.#winLotto = new Lotto(lottoNumbers);
     }
 
-    countAndEvaluateResult(lottoResult){
+    countAndEvaluateResult(){
         for(let i = 0; i < this.#lottoCount; i++){
             let matchingCount = countMatchingNumbers(this.#generatedLottos[i].getNumbers(), this.#winLotto.getNumbers());
             let isMatchBonus = isMatchBonusNumber(this.#generatedLottos[i].getNumbers(), this.#winBonusNumber);
             let eachLottoResult = rankResult(matchingCount, isMatchBonus)
-            lottoResult.updateLottoResult(eachLottoResult);
+            this.#lottoResult.updateLottoResult(eachLottoResult);
         }
     }
 
@@ -43,8 +46,7 @@ class LottoManager {
     }
 
     async calculateResult(){
-        const lottoResult = new LottoResult();
-        this.countAndEvaluateResult(lottoResult);
+        this.countAndEvaluateResult();
     }
 
     async displayResult(){
