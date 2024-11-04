@@ -9,7 +9,7 @@ class LottoView {
 
   async receiveBudget() {
     const userBudget = await this.#console.readLineAsync("구입금액을 입력해 주세요.\n");
-    return userBudget;
+    return Number(userBudget);
   }
 
   async receiveWinningNumber() {
