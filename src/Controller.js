@@ -1,42 +1,21 @@
-// 시도
+import WinningNumber from "./model/WinningNumber.js";
+import InputView from "./view/InputView.js";
+import OutputView from "./view/OutputView.js";
+import Consumer from "./model/Consumer.js";
+import { Console } from "@woowacourse/mission-utils";
 
-async function priceValidator(price) {
-  try {
-    isNumber(price);
-    isUnitOfPrice(price);
-    minprice(price);
-    maxprice(price);
-
-    getLottoCount(price);
-  } catch (error) {
-    Console.print(error.message);
-    return getPriceInput();
+class Controller {
+  constructor() {
+    // const inputView = new InputView();
+  }
+  run() {
+    const consumer = new Consumer(InputView.getPriceInput());
+    OutputView.printLottoTicket(consumer);
+    const mainNumber = InputView.getWinningNumber();
+    const bonusNumber = InputView.getBonusNumber(mainNumber);
+    const winningnumber = new WinningNumber(mainNumber, bonusNumber);
+    consumer.setLottoResult(winningnumber);
+    OutputView.printResult(consumer);
   }
 }
-
-async function WinningNumberValidator(winningNumber) {
-  try {
-    winningNumber = winningNumber.split(",");
-
-    CheckWinningNumberInput(winningNumber);
-    isWinningNumberLength(winningNumber);
-    checkNumberRange(winningNumber);
-    isDuplicateNumber(winningNumber);
-  } catch (erro) {
-    Console.print(error.message);
-    return getWinningNumber();
-  }
-}
-
-async function bonusNumberValidator(bonusNumber) {
-  try {
-    bonusNumber = bonusNumber.trim();
-
-    isNumber(bonusNumber);
-    checkNUmberRange(bonusNumber);
-    isDuplicateBonusNumber(bonusNumber);
-  } catch (erro) {
-    Console.print(erro.message);
-    return getBonusNumber();
-  }
-}
+export default Controller;
