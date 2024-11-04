@@ -41,10 +41,10 @@ class App {
     });
   }
 
-  startLotto(lotteries, users, bonus) {
+  calculateMatches(lotteries, users, bonus) {
     const [BONUS_CONDITION, BONUS_RETURN] = BONUS.BONUS_ARRAY;
 
-    const matches = lotteries.map((lotto) => {
+    return lotteries.map((lotto) => {
       const userMatches = lotto.getLotteryMatches(users).length;
       const isBonus = lotto.getLotteryMatches([Number(bonus)]).length;
 
@@ -53,8 +53,20 @@ class App {
       }
       return userMatches;
     });
-    const statisticsResult = this.checkWins(matches);
-    this.finishLotto(statisticsResult, matches.length);
+  }
+
+  processWinStatistics(matches) {
+    return this.checkWins(matches);
+  }
+
+  displayResults(statisticsResult, ticketCount) {
+    this.finishLotto(statisticsResult, ticketCount);
+  }
+
+  startLotto(lotteries, users, bonus) {
+    const matches = this.calculateMatches(lotteries, users, bonus);
+    const statisticsResult = this.processWinStatistics(matches);
+    this.displayResults(statisticsResult, lotteries.length);
   }
 
   checkWins(matches) {
