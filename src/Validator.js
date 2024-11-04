@@ -26,6 +26,12 @@ class Validator {
     }
   }
 
+  #validateExactCount(arr, count) {
+    if (arr.length !== count) {
+      throw new Error(ERROR_MESSAGE.NOT_EXACT_COUNT(count));
+    }
+  }
+
   purchaseAmount(amount) {
     this.#validateNaturalNumber(amount);
     this.#validateThousandUnit(amount);
@@ -37,6 +43,7 @@ class Validator {
       this.#validateRange(num, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
     });
     this.#validateNoDuplicates(numbers);
+    this.#validateExactCount(numbers, LOTTO.COUNT);
   }
 }
 
