@@ -40,7 +40,6 @@ class Input {
   }
 
   #validateLottoNumber(number) {
-    number.replace(" ", "");
     Validator.validateBlank(number);
     Validator.validateNumber(number);
   }

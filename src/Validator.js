@@ -11,6 +11,7 @@ import {
 class Validator {
   static validateBlank(input) {
     if (input === "") throwError(ERROR_BLANK);
+    if (String(input).includes(" ")) throwError(ERROR_BLANK);
   }
 
   static validateNumber(input) {
