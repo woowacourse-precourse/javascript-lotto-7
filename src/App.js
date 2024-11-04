@@ -1,4 +1,4 @@
-import {Console, Random} from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 class App {
@@ -8,6 +8,8 @@ class App {
         this.printLottos(lottos);
         const winnerLotto = await this.winnerLottoInput();
         const bonusNumber = await this.bonusNumberInput(winnerLotto);
+        const statistics = this.calculateStatistics(lottos, winnerLotto, bonusNumber);
+        this.printStatistics(statistics, money);
     }
 
     async moneyInput() {
