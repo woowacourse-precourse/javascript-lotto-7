@@ -4,4 +4,3 @@ export const INPUT_PRINT_MESSAGES = Object.freeze({
   bonus_number: '보너스 번호를 입력해 주세요.\n',
 });
 
-export default INPUT_PRINT_MESSAGES;
