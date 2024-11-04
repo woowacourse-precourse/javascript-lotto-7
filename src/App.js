@@ -6,8 +6,16 @@ class App {
 
   }
 
-  async moneyInput(){
-    const money = await Console.readLineAsync('구입금액을 입력해 주세요.')
+  async moneyInput() {
+    const money = await Console.readLineAsync('구입금액을 입력해 주세요.');
+    this.validateMoney(money);
+  }
+  validateMoney(money) {
+    const amount = Number(money);
+    if (isNaN(amount) || amount % 1000 !== 0) {
+      throw new Error("[ERROR] 입력 금액이 1000으로 나누어지지 않습니다.");
+    }
+    return amount;
   }
 
   async winnerLottoInput(){
