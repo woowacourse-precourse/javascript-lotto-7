@@ -1,6 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
 import { CONSOLE_MESSAGE } from "../constants/Messages.js";
-import Lotto from "../models/Lotto.js";
 
 class OutputView {
     async outputLottoCount(lottoCount) {
