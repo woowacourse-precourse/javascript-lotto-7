@@ -26,6 +26,7 @@ class App {
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
     this.lottoTickets = Array.from({ length: lottoCount });
     this.generateLottoTickets();
+    this.inputWinningNumbers();
   }
 
   generateLottoTickets() {
@@ -37,6 +38,26 @@ class App {
 
   displayLottoTickets() {
     this.lottoTickets.forEach((ticket) => Console.print(`[${ticket.join(", ")}]`));
+  }
+
+  async inputWinningNumbers() {
+    const winningNumbersInput = await Console.readLineAsync(
+      "\n당첨 번호를 입력해 주세요. (예: 1,2,3,4,5,6)\n",
+    );
+    const winningNumbers = winningNumbersInput.split(",").map(Number);
+    this.validateWinningNumbers(winningNumbers);
+  }
+
+  validateWinningNumbers(numbers) {
+    if (numbers.length !== 6 || new Set(numbers).size !== 6) {
+      this.handleError("[ERROR] 당첨 번호는 중복되지 않는 6개의 숫자여야 합니다.");
+      return;
+    }
+    if (numbers.some((number) => number < 1 || number > 45)) {
+      this.handleError("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      return;
+    }
+    this.winningNumbers = numbers;
   }
 
   handleError(message) {
