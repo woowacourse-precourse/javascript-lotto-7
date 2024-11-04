@@ -1,4 +1,10 @@
-import { LOTTO_CONSTANTS, LOTTO_MESSAGES } from './util/constant.js';
+import { LOTTO_CONSTANTS } from './util/constant.js';
+
+const LOTTO_MESSAGES = Object.freeze({
+  notDuplcate: '[ERROR] 로또 번호에 중복된 값이 있으면 안됩니다.',
+  notInRange: '[ERROR] 로또 번호에 범위는 1~45이어야 합니다.',
+  notLength6: '[ERROR] 로또 번호는 6개여야 합니다.',
+});
 
 class Lotto {
   #numbers;

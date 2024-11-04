@@ -1,5 +1,17 @@
-import { OUTPUT_MESSAGE } from './util/constant.js';
 import { printResult } from './util/missionUtil.js';
+
+const OUTPUT_MESSAGE = Object.freeze({
+  buyLotto: (money) => `\n${money}개를 구매했습니다.`,
+  lottoNumbers: (number) => `[${number.join(', ')}]`,
+  winningStatistics: '\n당첨 통계\n---',
+  collect3: (count) => `3개 일치 (5,000원) - ${count}개`,
+  collect4: (count) => `4개 일치 (50,000원) - ${count}개`,
+  collect5: (count) => `5개 일치 (1,500,000원) - ${count}개`,
+  collect5WithBonus: (count) =>
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개`,
+  collect6: (count) => `6개 일치 (2,000,000,000원) - ${count}개`,
+  income: (percentage) => `총 수익률은 ${percentage}%입니다.`,
+});
 
 const RANK_MESSAGE_MAP = Object.freeze({
   5: OUTPUT_MESSAGE.collect3,
