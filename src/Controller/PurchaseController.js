@@ -37,9 +37,9 @@ class PurchaseController {
 
   async processPurchase() {
     const purchaseAmount = await this.getPurchaseAmount();
-    const count = this.calculateLottoCount(purchaseAmount);
-    const lottos = this.generateLottos(count);
-    this.displayPurchaseResult(count, lottos);
+    const count = this.lottoService.calculateLottoCount(purchaseAmount);
+    const lottos = this.lottoService.createLottos(count);
+    this.resultView.printPurchaseResult(count, lottos);
 
     return { lottos, purchaseAmount };
   }
@@ -48,24 +48,6 @@ class PurchaseController {
     const purchaseAmount = await this.user.readUserInput(GAME_MESSAGE.PURCHASE);
     validateLottoPurchase(purchaseAmount);
     return purchaseAmount;
-  }
-
-  /**@param {string} purchaseAmount  */
-  calculateLottoCount(purchaseAmount) {
-    return Number(purchaseAmount) / LOTTO_CONFIG.PRICE_PER;
-  }
-
-  /**@param {number} count  */
-  generateLottos(count) {
-    return this.lottoService.createLottos(count);
-  }
-
-  /**
-   * @param {number} count
-   * @param {Lotto[]} lottos
-   * */
-  displayPurchaseResult(count, lottos) {
-    this.resultView.printPurchaseResult(count, lottos);
   }
 }
 
