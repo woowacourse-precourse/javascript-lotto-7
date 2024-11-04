@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import LottoManagerIO from "./LottoManagerIO.js";
 import { isMatchBonusNumber, countMatchingNumbers, generateRandomNumbers, rankResult } from "./lottoUtils.js";
 import Lotto from "./Lotto.js";
+import LottoResult from "./LottoResult.js";
 
 class LottoManager {
     #purchasePrice
@@ -23,11 +24,12 @@ class LottoManager {
         this.#winLotto = new Lotto(lottoNumbers);
     }
 
-    countAndEvaluateResult(){
+    countAndEvaluateResult(lottoResult){
         for(let i = 0; i < this.#lottoCount; i++){
             let matchingCount = countMatchingNumbers(this.#generatedLottos[i].getNumbers(), this.#winLotto.getNumbers());
             let isMatchBonus = isMatchBonusNumber(this.#generatedLottos[i].getNumbers(), this.#winBonusNumber);
-            rankResult(matchingCount, isMatchBonus);
+            let eachLottoResult = rankResult(matchingCount, isMatchBonus)
+            lottoResult.updateLottoResult(eachLottoResult);
         }
     }
 
@@ -41,7 +43,8 @@ class LottoManager {
     }
 
     async calculateResult(){
-        this.countAndEvaluateResult();
+        const lottoResult = new LottoResult();
+        this.countAndEvaluateResult(lottoResult);
     }
 
     async displayResult(){

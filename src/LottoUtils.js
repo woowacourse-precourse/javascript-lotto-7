@@ -20,8 +20,6 @@ export function isMatchBonusNumber(lottoNumbers, winBonusNumber){
 }
 
 export function rankResult(matchCount, isMatchBonus){
-    Console.print(matchCount);
-    Console.print(isMatchBonus);
     if (matchCount == 5){
         if(isMatchBonus){
             return MATCHCOUNT_BONUS_CONDITION.withBonus
