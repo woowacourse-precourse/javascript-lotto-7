@@ -1,7 +1,6 @@
 import {Console} from "@woowacourse/mission-utils";
 class Lotto {
   #numbers;
-
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
@@ -18,18 +17,8 @@ class Lotto {
     Console.print(`[${this.#numbers.join(', ')}]`);
   }
 
-  wincheck(winnums,bonus){
-    let cnt = 0;
-    let isbonus = false;
-    this.#numbers.forEach((num)=>{
-      if(winnums.includes(num)) cnt++;
-    })
-    if(this.#numbers.includes(bonus)) isbonus=true;
-    return [cnt, isbonus];
-  }
-
-  printwiiner(){
-
+  getnumbers(){
+    return this.#numbers;
   }
 
 }

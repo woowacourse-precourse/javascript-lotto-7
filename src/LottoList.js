@@ -11,7 +11,6 @@ class LottoList{
     constructor(budget) {
         this.numitem = this.buy(budget);
         this.lottolist = [];
-        this.getlotto();
     }
 
     buy(budget){
@@ -19,12 +18,18 @@ class LottoList{
         return budget/1000;
     }
     budgetcheck(budget){
+        if(isNaN(budget))
+            this.makeError("잘못된 입력입니다");
+            
         if(budget%1000!==0)
             this.makeError("금액은 1000원 단위입니다");
     }
-    getlotto(){
+    async getlotto(){
         for(let i=0;i<this.numitem;i++)
-            this.lottolist.push(new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
+        {
+            let num = await Random.pickUniqueNumbersInRange(1, 45, 6);
+            this.lottolist.push(new Lotto(num));
+        }
     }
 
     async setwinnumbers(){
@@ -65,24 +70,10 @@ class LottoList{
     }
 
     makeError(message){
+        Console.print("[ERROR] : "+ message);
         throw new Error("[ERROR] : "+ message);
     }
 
-    allwincheck(){
-        this.lottolist.forEach((lotto)=>{
-            let res = lotto.wincheck(this.winnubmers,this.bonusnubmer);
-            this.grading(res[0],res[1]);
-        })
-    }
-    grading(cnt, isbonus){
-        if(cnt==3) this.winlist[4]++;
-        else if(cnt==4) this.winlist[3]++;
-        else if(cnt==5){
-            if(isbonus) this.winlist[1]++;
-            else this.winlist[2]++;
-        }
-        else if(cnt==6) this.winlist[0]++;
-    }
     printwinner(){
         Console.print("당첨 통계\n" +  "---");
         Console.print("3개 일치 (5,000원) - " + this.winlist[4] + "개");
@@ -101,8 +92,36 @@ class LottoList{
         sum += 30000000 * this.winlist[1];
         sum += 2000000000 * this.winlist[0];
         sum = sum/(this.numitem*1000);
+        sum = sum*100;
         this.earningrate = Math.round(sum * 100) / 100;
         this.earningrate = this.earningrate.toFixed(1);
+    }
+
+    allwincheck(){
+        this.lottolist.forEach((lotto)=>{
+            let mynum = lotto.getnumbers();
+            let res = this.wincheck(mynum);
+            this.grading(res[0],res[1]);
+        })
+    }
+    wincheck(mynum){
+        let cnt=0;
+        let isbonus = false;
+        this.winnubmers.forEach((winnum)=>{
+            if(mynum.includes(Number(winnum))) cnt++;
+        })
+        if(mynum.includes(this.bonusnubmer)) isbonus = true;
+        return [cnt, isbonus];
+    }
+
+    grading(cnt, isbonus){
+        if(cnt===3) this.winlist[4]++;
+        else if(cnt===4) this.winlist[3]++;
+        else if(cnt===5){
+            if(isbonus) this.winlist[1]++;
+            else this.winlist[2]++;
+        }
+        else if(cnt===6) this.winlist[0]++;
     }
 }
 export default LottoList;

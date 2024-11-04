@@ -17,7 +17,7 @@ describe("LottoList 테스트", () => {
   test("예산 입력 테스트 3: 문자열(NaN)", () => {
     expect(() => {
       new LottoList("string");
-    }).toThrow("[ERROR] : 금액은 1000원 단위입니다");
+    }).toThrow("[ERROR] : 잘못된 입력입니다");
   });
 
   test("당첨 번호 테스트1: 문자열 입력", () => {
@@ -98,7 +98,7 @@ describe("LottoList 테스트", () => {
     ll.lottolist[0] = new Lotto([8, 21, 23, 14, 40, 41]);
     ll.allwincheck();
     ll.calearningrate();
-    expect(ll.earningrate).toBe("2000000.0");
+    expect(ll.earningrate).toBe("200000000.0");
   });
 
 });
