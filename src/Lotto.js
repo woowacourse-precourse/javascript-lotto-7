@@ -9,26 +9,48 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    this.#validateLength(numbers.length);
+
+    for (const num of numbers) {
+      const checkNum = Number(num);
+      this.#validateNum(checkNum);
+    }
+
+    this.#validateDuplicateNum(numbers);
+  }
+
+  #validateLength(length) {
+    if (length !== 6) {
       // 로또 길이가 6이 아닌 경우
       throw new Error(WINNING_NUMBERS_ERROR.IS_NOT_SIX_LENGTH);
     }
+  }
 
-    numbers.forEach((num) => {
-      const checkNum = Number(num);
-      if (Number.isNaN(checkNum)) {
-        throw new Error(WINNING_NUMBERS_ERROR.IS_NOT_NUMBER);
-      }
+  #validateNum(checkNum) {
+    this.#checkIsNumber(checkNum);
+    this.#checkisInteger(checkNum);
+    this.#checkIsRange(checkNum);
+  }
 
-      if (!Number.isInteger(checkNum)) {
-        throw new Error(WINNING_NUMBERS_ERROR.IS_NOT_INTEGER);
-      }
+  #checkIsNumber(num) {
+    if (Number.isNaN(num)) {
+      throw new Error(WINNING_NUMBERS_ERROR.IS_NOT_NUMBER);
+    }
+  }
 
-      if (checkNum < 1 || checkNum > 45) {
-        throw new Error(WINNING_NUMBERS_ERROR.IS_NOT_RANGE);
-      }
-    });
+  #checkisInteger(num) {
+    if (!Number.isInteger(num)) {
+      throw new Error(WINNING_NUMBERS_ERROR.IS_NOT_INTEGER);
+    }
+  }
 
+  #checkIsRange(num) {
+    if (num < 1 || num > 45) {
+      throw new Error(WINNING_NUMBERS_ERROR.IS_NOT_RANGE);
+    }
+  }
+
+  #validateDuplicateNum(numbers) {
     const numSet = new Set(numbers);
     if (numSet.size !== numbers.length) {
       throw new Error(WINNING_NUMBERS_ERROR.IS_DUPLICATE_NUMBER);
