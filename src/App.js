@@ -2,6 +2,18 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from './Lotto.js';
 
 
+// 투입 금액 유효성 검증
+function check_cost(COST) {
+  try {
+    if (isNaN(COST) || COST % 1000 !== 0) {
+      throw new Error("[ERROR] 유효한 금액이 아닙니다.")
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 // 사용자가 문자열로 입력하는 값을 , 를 바탕으로 쪼개어 리스트에 담아 리턴
 function parse_numbers(INPUT_NUM) {
   INPUT_NUM.split(',').map((input) => {
@@ -37,14 +49,19 @@ function check_bonus(BONUS_NUM, NUMBERS) {
 
 class App {
   async run() {
-    const LOTTO = new Lotto();
-    const INPUT_NUM = MissionUtils.Console.readLineAsync();
+    const COST = MissionUtils.Console.readLineAsync('');
+    check_cost(COST); // 입력받은 금액 유효성 검증
+    const INPUT_NUM = MissionUtils.Console.readLineAsync('');
     const NUMBERS = parse_numbers(INPUT_NUM); // 입력값 유효성 1차 검증
+    const LOTTO = new Lotto();
     await LOTTO.constructor(NUMBERS);
     const BONUS_NUM = MissionUtils.Console.readLineAsync();
     
     // 보너스번호 입력값 유효성 검사
     check_bonus(BONUS_NUM, NUMBERS);
+
+    console.log(NUMBERS)
+    console.log(BONUS_NUM)
   }
 }
 
