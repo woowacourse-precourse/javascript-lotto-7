@@ -22,10 +22,22 @@ class GenerateNumbers {
     const count = matchingNumbers.length;
 
     console.log("당첨 번호:", numbers);
+    console.log("보너스 번호:", bonusNum);
 
     console.log("비교할 랜덤 번호:", randomNum);
 
-    if (count > 0) {
+    const bonusNumAsNumber = Number(bonusNum);
+
+    if (count === 1) {
+      if (randomNum.includes(bonusNumAsNumber)) {
+        console.log(count + "개 번호와 보너스 번호 일치");
+      } else {
+        console.log(count + "개 번호 일치");
+      }
+      return;
+    }
+
+    if (count === 2) {
       console.log(count + "개 번호 일치");
       return;
     }
