@@ -16,8 +16,7 @@ export const generateLottoNumbers = () => {
     count: CONFIG.countOfLottoBalls,
   };
 
-  const sortAscending = (a, b) => a - b;
-  return generateNumberInRange(randomConfig).sort(sortAscending);
+  return generateNumberInRange(randomConfig);
 };
 
 export const calculateEarningsRate = (totalPrizeMoney, investmentMoney) => {

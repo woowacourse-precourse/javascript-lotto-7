@@ -7,7 +7,10 @@ class Lotto {
 
   constructor(numbers) {
     LottoValidator.validate(numbers);
-    this.#numbers = numbers;
+
+    const sortAscending = (a, b) => a - b;
+    this.#numbers = numbers.sort(sortAscending);
+
     this.#printNumbers();
   }
 
