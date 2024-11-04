@@ -12,6 +12,16 @@ class LottoGame {
   constructor() {
   }
 
+  async startGame() {
+    await this.#getTotalCost();
+    this.#generateLottoNumbers();
+    await this.#getResultNumbers();
+    await this.#getBonusNumber();
+    this.#calculateResults();
+    this.#calculateProfitRate();
+    this.#printResults();
+  }
+
   async #getTotalCost() {
     while (true) {
       try {
