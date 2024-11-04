@@ -3,8 +3,7 @@ class Lotto {
   #numbers; // 당첨 번호
 
   constructor(numbers) {
-    this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = this.#validate(numbers);
   }
 
   // 당첨번호 검증
