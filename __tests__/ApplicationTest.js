@@ -3,19 +3,15 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
-
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
-
     return Promise.resolve(input);
   });
 };
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickUniqueNumbersInRange);
+  numbers.reduce((acc, number) => acc.mockReturnValueOnce(number), MissionUtils.Random.pickUniqueNumbersInRange);
 };
 
 const getLogSpy = () => {
@@ -24,33 +20,15 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
-  // given
-  const logSpy = getLogSpy();
-
-  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
-
-  mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
-
-  // when
-  const app = new App();
-  await app.run();
-
-  // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
-};
-
-describe("로또 테스트", () => {
+describe("로또 기능 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
 
-  test("기능 테스트", async () => {
-    // given
+  test("정상적으로 로또를 구매하고 당첨 결과를 출력한다", async () => {
     const logSpy = getLogSpy();
 
+    mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
     mockRandoms([
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
@@ -61,14 +39,11 @@ describe("로또 테스트", () => {
       [2, 13, 22, 32, 38, 45],
       [1, 3, 5, 14, 22, 45],
     ]);
-    mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
-    // when
     const app = new App();
     await app.run();
 
-    // then
-    const logs = [
+    const expectedLogs = [
       "8개를 구매했습니다.",
       "[8, 21, 23, 41, 42, 43]",
       "[3, 5, 11, 16, 32, 38]",
@@ -86,58 +61,46 @@ describe("로또 테스트", () => {
       "총 수익률은 62.5%입니다.",
     ];
 
-    logs.forEach((log) => {
+    expectedLogs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
-  });
-
-  test("로또 구매 시 올바른 개수의 로또가 발행된다.", async () => {
-    // given
+  test("로또 구매 시 입력한 금액에 맞는 개수의 로또가 발행된다", async () => {
     const logSpy = getLogSpy();
-    const purchaseAmount = "3000"; // 3000원 입력, 1000원당 한 장이므로 3개 발행 예상
-    const expectedLottoCount = 3;
-    mockQuestions([purchaseAmount]);
+    mockQuestions(["3000"]);
     mockRandoms([
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
       [7, 11, 16, 35, 36, 44],
     ]);
 
-    // when
     const app = new App();
     await app.run();
 
-    // then
-    expect(logSpy).toHaveBeenCalledWith(`${expectedLottoCount}개를 구매했습니다.`);
+    expect(logSpy).toHaveBeenCalledWith("3개를 구매했습니다.");
     expect(logSpy).toHaveBeenCalledWith("[8, 21, 23, 41, 42, 43]");
     expect(logSpy).toHaveBeenCalledWith("[3, 5, 11, 16, 32, 38]");
     expect(logSpy).toHaveBeenCalledWith("[7, 11, 16, 35, 36, 44]");
   });
 
-  test("당첨 번호와 보너스 번호 입력 시 올바르게 저장된다.", async () => {
+  test("당첨 번호와 보너스 번호 입력이 올바르게 저장된다", async () => {
     const logSpy = getLogSpy();
-    mockQuestions(["3000", "1,2,3,4,5,6", "7"]); // 구입 금액, 당첨 번호, 보너스 번호 입력
+    mockQuestions(["3000", "1,2,3,4,5,6", "7"]);
 
     const app = new App();
     await app.run();
 
-    // 당첨 번호와 보너스 번호 입력을 확인하는 메시지가 출력되는지 확인
     expect(logSpy).toHaveBeenCalledWith("당첨 번호를 입력해 주세요.");
     expect(logSpy).toHaveBeenCalledWith("보너스 번호를 입력해 주세요.");
-
-    // 추가로 당첨 번호와 보너스 번호가 올바르게 저장되는지 확인할 수 있습니다.
     expect(app.winningNumbers).toEqual([1, 2, 3, 4, 5, 6]);
     expect(app.bonusNumber).toBe(7);
   });
 
-  test("당첨 결과 계산 및 출력", async () => {
+  test("당첨 결과가 올바르게 계산되고 출력된다", async () => {
     const logSpy = getLogSpy();
 
-    mockQuestions(["5000", "1,2,3,4,5,6", "7"]); // 구입 금액, 당첨 번호, 보너스 번호 입력
+    mockQuestions(["5000", "1,2,3,4,5,6", "7"]);
     mockRandoms([
       [1, 2, 3, 4, 5, 6], // 1등
       [1, 2, 3, 4, 5, 7], // 2등
@@ -164,5 +127,40 @@ describe("로또 테스트", () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
+});
 
+describe("로또 예외 처리 테스트", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test("구매 금액이 1000원 단위가 아닐 때 에러 메시지 출력", async () => {
+    const logSpy = getLogSpy();
+    mockQuestions(["1500"]);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다."));
+  });
+
+  test("당첨 번호에 유효 범위를 벗어난 숫자가 있을 때 에러 메시지 출력", async () => {
+    const logSpy = getLogSpy();
+    mockQuestions(["3000", "1,2,3,4,5,46"]);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 6개의 숫자여야 합니다."));
+  });
+
+  test("보너스 번호가 유효 범위를 벗어나거나 당첨 번호와 중복될 때 에러 메시지 출력", async () => {
+    const logSpy = getLogSpy();
+    mockQuestions(["3000", "1,2,3,4,5,6", "46"]);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다."));
+  });
 });
