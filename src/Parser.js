@@ -1,6 +1,15 @@
+import ErrorCollection from "./ErrorCollection.js";
+
 class Parser {
   parsePurchaseAmount(input) {
-    return Number(input);
+    const amount = Number(input);
+    const errorCollection = new ErrorCollection();
+
+    errorCollection.checkPurchaseAmountInteger(amount);
+    errorCollection.checkPurchaseAmountPositive(amount);
+    errorCollection.checkPurchaseAmountDivisibility(amount);
+
+    return amount;
   }
 
   parseNumbers(input) {

@@ -1,3 +1,5 @@
+import ErrorCollection from "./ErrorCollection.js";
+
 class Lotto {
   #numbers;
 
@@ -7,22 +9,11 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
-
-    const checkInt = numbers.every((num) => Number.isInteger(num));
-    if (!checkInt) {
-      throw new Error("[ERROR] 로또 번호는 정수여야 합니다.");
-    }
-    const checkRange = numbers.every((num) => num >= 1 && num <= 45);
-    if (!checkRange) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 자연수여야 합니다.");
-    }
-    const checkDuplicate = new Set(numbers).size !== numbers.length;
-    if (checkDuplicate) {
-      throw new Error("[ERROR] 로또 번호에 중복이 있습니다.");
-    }
+    const errorCollection = new ErrorCollection();
+    errorCollection.checkLottoNumberCount(numbers);
+    errorCollection.checkLottoNumberIntegers(numbers);
+    errorCollection.checkLottoNumberRange(numbers);
+    errorCollection.checkLottoNumberDuplicates(numbers);
   }
 
   // TODO: 추가 기능 구현

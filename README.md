@@ -183,15 +183,15 @@
 5. LottoResult 클래스 구현
 
 - 로또 티켓, 당첨 번호, 보너스 번호를 비교하여 등수 계산
-  - [ ] `calculateRank(userLotto, lottoNumbers, lottoBonusNumber)` - 로또 티켓을 당첨 번호와 비교하여 등수를 계산
-  - [ ] `calculateWinningAmount(totalRank)` - 등수별로 당첨 개수를 기반으로 당첨 금액 계산
-  - [ ] `calculateProfitRate(winningAmount, purchaseAmount)` - 총 당첨 금액과 구입 금액을 바탕으로 수익률 계산
+  - [O] `calculateRank(userLotto, lottoNumbers, lottoBonusNumber)` - 로또 티켓을 당첨 번호와 비교하여 등수를 계산
+  - [O] `calculateWinningAmount(totalRank)` - 등수별로 당첨 개수를 기반으로 당첨 금액 계산
+  - [O] `calculateProfitRate(winningAmount, purchaseAmount)` - 총 당첨 금액과 구입 금액을 바탕으로 수익률 계산
 
 6. Display (LottoOutputRenderer) 클래스 구현
 
 - 로또 티켓과 결과를 출력
-  - [ ] `displayTickets(tickets)` - 로또 티켓 번호를 오름차순으로 정렬하여 출력
-  - [ ] `displayRankNumber(totalRank)` - 등수별 당첨 개수를 출력
-  - [ ] `displayReturn(profitRate)` - 수익률 출력
+  - [O] `displayTickets(tickets)` - 로또 티켓 번호를 오름차순으로 정렬하여 출력
+  - [O] `displayRankNumber(totalRank)` - 등수별 당첨 개수를 출력
+  - [O] `displayReturn(profitRate)` - 수익률 출력
 
 7. ErrorCollection 클래스 구현
