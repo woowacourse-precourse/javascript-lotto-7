@@ -6,12 +6,59 @@ class App {
     MONEY_INPUT_MINIMUM_ERROR: '0이상의 숫자를 입력해주세요!',
     MONEY_INPUT_DIVISIBILITY_ERROR:
       '1000으로 나누어 떨어지는 숫자를 입력해주세요!',
+    LOTTO_NUMBER_INPUT_ERROR: '쉼표(,)로 구분되는 올바른 숫자를 입력해주세요!',
+    LOTTO_NUMBER_COUNT_ERROR: '쉼표(,)로 구분되는 6개의 숫자를 입력해주세요!',
+    LOTTO_NUMBER_RANGE_ERROR:
+      '쉼표(,)로 구분되는 1~45사이의 숫자를 입력해주세요!',
+    LOTTO_NUMBER_DUPLICATION_ERROR: '로또 번호는 중복될 수 없습니다!',
+    LOTTO_NUMBER_NOT_INTEGER_ERROR: '로또 번호는 정수만 올 수 있습니다!',
   };
 
   async run() {
     const lottoCount = await this.inputMoney();
     const lottos = this.getLotto(lottoCount);
     this.printLottos(lottos);
+    const lottoNumber = await this.inputLottoNumber();
+  }
+
+  async inputLottoNumber() {
+    const lottoNumberInput = await this.input('당첨 번호를 입력해 주세요.');
+    return this.parseLottos(lottoNumberInput);
+  }
+
+  parseLottos(lottoNumberInput) {
+    const lottoNumber = lottoNumberInput
+      .split(',')
+      .map(number => Number(number));
+    this.validateLotto(lottoNumber);
+    return lottoNumber;
+  }
+
+  validateLotto(lottoNumber) {
+    if (lottoNumber.some(number => Number.isNaN(number))) {
+      throw Error(`[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_INPUT_ERROR}`);
+    }
+    if (lottoNumber.length !== 6) {
+      throw Error(`[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_COUNT_ERROR}`);
+    }
+    if (lottoNumber.some(number => number < 1 || number > 45)) {
+      throw Error(`[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_RANGE_ERROR}`);
+    }
+    if (this.hasDuplicateNumber(lottoNumber)) {
+      throw Error(
+        `[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_DUPLICATION_ERROR}`,
+      );
+    }
+    if (lottoNumber.some(number => !Number.isInteger(number))) {
+      throw Error(
+        `[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_NOT_INTEGER_ERROR}`,
+      );
+    }
+  }
+
+  hasDuplicateNumber(numbers) {
+    const uniqueNumbers = new Set(numbers);
+    return uniqueNumbers.size !== numbers.length;
   }
 
   getLotto(lottoCount) {
