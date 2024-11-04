@@ -11,7 +11,7 @@ import {
   bonusNumberAlreadyExist,
 } from '../src/validation/validateFunctions.js';
 
-import { ERROR_MESSAGES, NUMBERS } from '../src/validation/constants.js';
+import { ERROR_MESSAGES } from '../src/validation/constants.js';
 
 describe('validateFunctions 세부 테스트', () => {
   describe('StringHasSpace 테스트', () => {
