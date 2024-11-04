@@ -38,3 +38,11 @@ export function calculateResults(lottos, winningNumbers, bonusNumber) {
 function countMatches(lottoNumbers, winningNumbers) {
   return lottoNumbers.filter(num => winningNumbers.includes(num)).length;
 }
+
+function calculateProfit(results) {
+    let totalProfit = 0;
+    for (const [key, count] of Object.entries(results)) {
+      totalProfit += count * PRIZES[key];
+    }
+    return totalProfit;
+  }  
