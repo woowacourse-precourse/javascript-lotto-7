@@ -1,9 +1,11 @@
+import { MAX_NUMBER } from "../utils/constants.js";
+
 // 당첨 번호 및 보너스 번호 관리
 class WinningLotto {
   #winningNumbersArray;
 
   constructor() {
-    this.#winningNumbersArray = Array(46).fill(0);
+    this.#winningNumbersArray = Array(MAX_NUMBER + 1).fill(0);
   }
 
   // 당첨 번호 가공
