@@ -17,10 +17,14 @@ export default (winningNumbers) => {
   if (uniqueNumbers.size !== winningNumbersList.length) {
     throw new Error(WINNINGNUMBERS.DUPLICATED_NUMBER);
   }
-
-  winningNumbersList.map(Number).forEach((element) => {
-    if (element < RULES.PICK_RANGE_START || element > RULES.PICK_RANGE_END) {
-      throw new Error(WINNINGNUMBERSERROR.OVER_NUMBER_RANGE);
-    }
-  });
+  if (
+    !winningNumbersList
+      .map(Number)
+      .every(
+        (number) =>
+          number >= RULES.PICK_RANGE_START && number <= RULES.PICK_RANGE_END,
+      )
+  ) {
+    throw new Error(WINNINGNUMBERS.OVER_NUMBER_RANGE);
+  }
 };
