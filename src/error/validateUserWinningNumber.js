@@ -1,9 +1,13 @@
 export function validateUserWinningNumber(input) {
-	if (!/^\d+(,\d+)*$/.test(input)) {
+
+	// 입력 문자열의 공백을 제거
+	const cleanedInput = input.replace(/\s+/g, "");
+
+	if (!/^\d+(,\d+)*$/.test(cleanedInput)) {
 		throw new Error("[ERROR] 숫자는 쉼표로만 구분 가능합니다.");
 	}
 
-	const numbers = input.split(",").map(Number);
+	const numbers = cleanedInput.split(",").map(Number);
 
 	if (numbers.length !== 6) {
 		throw new Error("[ERROR] 당첨번호는 6개를 입력하셔야 합니다.");
