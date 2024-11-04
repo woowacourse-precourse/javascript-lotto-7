@@ -1,21 +1,17 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { printOutput } from './utils/utils.js';
 
 class OutputView {
-  async printOutput(string) {
-    MissionUtils.Console.print(string);
-  }
-
   printLottoNumbers(lottoQuantity, lottos) {
-    this.printOutput(`${lottoQuantity}개를 구매했습니다.`);
+    printOutput(`${lottoQuantity}개를 구매했습니다.`);
 
     lottos.map(lotto => {
-      this.printOutput(`[${lotto.getNumbers().join(', ')}]`);
+      printOutput(`[${lotto.getNumbers().join(', ')}]`);
     });
   }
 
   printWinningStatistics(totalWinningRank) {
-    this.printOutput('당첨 통계');
-    this.printOutput('---');
+    printOutput('당첨 통계');
+    printOutput('---');
 
     const prize = [
       { rank: '6개 일치', amount: '2,000,000,000' },
@@ -28,12 +24,12 @@ class OutputView {
     for (let i = totalWinningRank.length - 1; i >= 0; i--) {
       const count = totalWinningRank[i];
 
-      this.printOutput(`${prize[i].rank} (${prize[i].amount}원) - ${count}개`);
+      printOutput(`${prize[i].rank} (${prize[i].amount}원) - ${count}개`);
     }
   }
 
   printTotalReturnRate(totalReturnRate) {
-    this.printOutput(`총 수익률은 ${totalReturnRate}%입니다.`);
+    printOutput(`총 수익률은 ${totalReturnRate}%입니다.`);
   }
 }
 
