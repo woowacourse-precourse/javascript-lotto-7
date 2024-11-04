@@ -16,7 +16,9 @@ class BonusNumber {
       const bonusNumber =
         await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
       Console.print('');
-      return new BonusNumber(bonusNumber, winningNumber);
+
+      const bonusNumberInstance = new BonusNumber(bonusNumber, winningNumber);
+      return bonusNumberInstance.#bonusNumber;
     } catch (error) {
       Console.print(error.message);
       return this.createBonusNumber(winningNumber);
