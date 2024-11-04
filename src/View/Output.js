@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { CONSOLE_MESSAGE } from '../constant/message.js';
-import { WINNING_HISTORY } from '../constant/prizes.js';
+import { LOTTO_PRIZE_TABLE } from '../constant/prize.js';
 
 class Output {
   static printPurchaseCount(purchaseCount) {
@@ -19,7 +19,7 @@ class Output {
   }
 
   static printWinningHistory(game) {
-    WINNING_HISTORY.forEach((prize) => {
+    LOTTO_PRIZE_TABLE.forEach((prize) => {
       Console.print(
         `${prize.description} (${prize.amount}) - ${game.getWinningResult(prize.rank)}개`,
       );

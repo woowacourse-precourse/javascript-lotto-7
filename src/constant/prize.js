@@ -1,4 +1,4 @@
-export const WINNING_HISTORY = Object.freeze([
+export const LOTTO_PRIZE_TABLE = Object.freeze([
   { rank: 5, description: '3개 일치', amount: '5,000원' },
   { rank: 4, description: '4개 일치', amount: '50,000원' },
   { rank: 3, description: '5개 일치', amount: '1,500,000원' },

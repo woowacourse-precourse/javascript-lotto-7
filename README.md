@@ -15,7 +15,7 @@
  ┣ 📂constant
  ┃ ┣ 📜error.js # 에러 메시지 상수
  ┃ ┣ 📜message.js # 콘솔 메시지 상수
- ┃ ┣ 📜prizes.js
+ ┃ ┣ 📜prize.js # 로또 당첨 정보를 테이블 형식으로 저장한 상수
  ┃ ┗ 📜rule.js # 로또와 관련된 규칙 상수
  ┣ 📂util
  ┃ ┣ 📜error.js # 에러 처리 관련 유틸리티 함수
