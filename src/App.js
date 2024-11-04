@@ -1,5 +1,9 @@
+import LottoActions from "./LottoActions.js";
+
 class App {
-  async run() {}
+  async run() {
+    await new LottoActions().play();
+  }
 }
 
 export default App;
