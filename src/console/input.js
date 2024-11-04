@@ -2,11 +2,9 @@ import { Console } from '@woowacourse/mission-utils';
 import {
   getInputBuyCashValue,
   inputBonusNumValue,
-  inputBuyNumValue,
   inputWiinningNumsValue,
   setInputBonusNumValue,
   setInputBuyCashValue,
-  setInputBuyNumValue,
   setInputWiinningNumsValue,
 } from '../constants/constants.js';
 import { ERROR_MESSAGE, IO_MESSAGE } from '../constants/message.js';
@@ -22,18 +20,6 @@ export const inputBuyCash = async () => {
     setInputBuyCashValue(input);
   }
   return getInputBuyCashValue();
-};
-
-export const inputBuyNum = async () => {
-  if (inputBuyNumValue === null) {
-    let input = await Console.readLineAsync(IO_MESSAGE.INPUT_BUY_NUM);
-    input = Number(input);
-    if (isNaN(input)) {
-      throw new Error(ERROR_MESSAGE.ERROR_NUM);
-    }
-    setInputBuyNumValue(input);
-  }
-  return inputBuyNumValue;
 };
 
 export const inputWinningNums = async () => {
