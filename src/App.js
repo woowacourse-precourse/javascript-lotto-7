@@ -1,11 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import InputView from "./views/InputView.js";
 
 class App {
   async run() {
-    const moneyPaid = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
-    const numberOfLotto = moneyPaid / 1000;
-    //[ERROR] 1천원 단위인지 검증 요구됨
+    const moneyPaid = await InputView.readMoneyPaid();
     MissionUtils.Console.print(`${numberOfLotto}개를 구매했습니다.\n`);
 
     const lottoes = [];
