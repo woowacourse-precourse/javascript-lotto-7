@@ -23,7 +23,7 @@ class App {
 
   printPurchasedLotto() {
     const lottoCount = this.purchaseAmount / 1000;
-    Console.print(`${lottoCount}개를 구매했습니다.`);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
     this.lottoTickets = Array.from({ length: lottoCount });
     this.generateLottoTickets();
   }
