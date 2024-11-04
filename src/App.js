@@ -69,4 +69,18 @@ async function main() {
 
       // 유효한 보너스 번호 입력 받기
       const bonus = await getValidBonusNumber(); 
+      
+        // 결과 통계 계산
+        const results = ResultModule.tallyResults(tickets, winningNumbersArray, bonus);
+        console.log();
+        console.log("당첨 통계");
+        console.log("---");
+        ResultModule.printResult(results);
+
+        // 수익률 계산
+        const profitRate = ResultModule.calculateProfitRate(ticketCount, results, TICKET_PRICE);
+        console.log(`총 수익률은 ${profitRate}%입니다.`);
+
+    } catch (error) {
+        console.log(error.message);
 
