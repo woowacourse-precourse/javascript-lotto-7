@@ -20,11 +20,9 @@ class App {
     if (isNaN(money)) {
       throw new Error('[Error] 숫자가 아닌 값을 입력할 수 없습니다!');
     }
-
     if (money < 0) {
       throw new Error('[Error] 음수는 입력할 수 없습니다!');
     }
-
     if (money % 1000 !== 0) {
       throw new Error('[Error] 1000 보다 적은 단위는 입력할 수 없습니다!');
     }
@@ -69,6 +67,7 @@ class App {
         const BONUS_NUMBER = parseInt(INPUT, 10);
 
         this.checkBonusNumber(BONUS_NUMBER, winningNumbers);
+
         return BONUS_NUMBER;
       } catch (error) {
         MissionUtils.Console.print(error.message);
@@ -95,6 +94,7 @@ class App {
     for (let i = 0; i < NUMBER_OF_LOTTO; i++) {
       const NUMBERS = this.generateLottoNumbers()
       const LOTTO = new Lotto(NUMBERS);
+      
       LOTTOS.push(LOTTO);
     }
 
@@ -109,6 +109,7 @@ class App {
     try {
       const MONEY = await this.validateMoney();
       const LOTTOS = this.generateLottos(MONEY);
+      
       LOTTOS.forEach(lotto => {
         lotto.printNumbers();
       });

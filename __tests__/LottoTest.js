@@ -1,7 +1,7 @@
 import Lotto from '../src/Lotto';
 
 const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, "print");
+  const logSpy = jest.spyOn(MissionUtils.Console, 'print');
   logSpy.mockClear();
   return logSpy;
 };
@@ -11,7 +11,7 @@ describe('로또 클래스 테스트', () => {
     jest.restoreAllMocks();
   });
 
-  test('로또 번호의 개수가 6개가 아니면 예외 발생.', () => {
+  test('로또 번호의 개수가 6개가 아니면 예외 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 6, 7]);
     }).toThrow('[ERROR] 로또 번호가 6자리보다 많이 생성됨!');
@@ -27,15 +27,14 @@ describe('로또 클래스 테스트', () => {
     }).toThrow('[ERROR] 로또 번호에 중복된 값이 있음!');
   });
 
-  test('로또 번호를 출력', () => {
+  test('로또 번호를 출력한다.', () => {
     expect(() => {
-    const logSpy = getLogSpy();
+      const logSpy = getLogSpy();
+      const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
 
-    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
-    lotto.printNumbers();
+      lotto.printNumbers();
 
-    expect(logSpy).toHaveBeenCalledWith("[1, 2, 3, 4, 5, 6]")
-    })
-  })
-
+      expect(logSpy).toHaveBeenCalledWith('[1, 2, 3, 4, 5, 6]');
+    });
+  });
 });
