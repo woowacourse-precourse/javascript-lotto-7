@@ -3,6 +3,7 @@ import {
   ERROR_MESSAGES,
   LOTTO_NUM_MAX,
   LOTTO_NUM_MIN,
+  LOTTO_NUM_LENGTH,
   UNIT,
 } from '../constant/constant.js';
 
@@ -35,9 +36,10 @@ class Purchase {
       let numbers = Random.pickUniqueNumbersInRange(
         LOTTO_NUM_MIN,
         LOTTO_NUM_MAX,
-        6
+        LOTTO_NUM_LENGTH
       );
-      this.#lotteryNumbers[i] = numbers.sort((a, b) => a - b).join(', ');
+      let sortNumbers = numbers.sort((a, b) => a - b);
+      this.#lotteryNumbers[i] = sortNumbers.join(', ');
     }
     return this.#lotteryNumbers;
   }
