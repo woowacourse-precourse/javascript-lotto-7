@@ -4,6 +4,10 @@ import { AMOUNT } from '../constants/constants.js';
 class LottoController {
   #lottos = [];
 
+  /**
+   * 구입 금액에 맞게 로또 번호를 생성한다.
+   * @param {number} amount - 구입 금액
+   */
   generateLottos(amount) {
     const count = amount / AMOUNT.unit;
 
@@ -15,6 +19,10 @@ class LottoController {
     }
   }
 
+  /**
+   * 생성된 로또 번호 목록을 반환한다.
+   * @returns {number[][]} 로또 번호 배열
+   */
   getLottos() {
     return this.#lottos;
   }

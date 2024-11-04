@@ -23,6 +23,10 @@ class ResultCalculator {
     fifth: PRIZE.fifth,
   };
 
+  /**
+   * @constructor
+   * @param {number[][]} lottos - 구매한 로또 번호 배열.
+   */
   constructor(lottos, winningNumbers, bonusNumber) {
     this.#lottos = lottos;
     this.#winningNumbers = winningNumbers;
