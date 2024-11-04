@@ -1,6 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import { Lotto } from '../resources/Constants.js';
 import isEmpty from '../utils/isEmpty.js';
+import { sort2DArrayAscending } from '../utils/ArrayUtils.js';
 
 class LottoTicketsGenerator {
   #createLottoTicket() {
@@ -11,10 +12,6 @@ class LottoTicketsGenerator {
     );
   }
 
-  #sortAscending(lottoTickets) {
-    return lottoTickets.map((ticket) => ticket.slice().sort((a, b) => a - b));
-  }
-
   execute(purchaseAmount) {
     if (!isEmpty(purchaseAmount)) {
       const ticketCount = purchaseAmount / 1000;
@@ -23,7 +20,7 @@ class LottoTicketsGenerator {
         this.#createLottoTicket(),
       );
 
-      return this.#sortAscending(lottoTickets);
+      return sort2DArrayAscending(lottoTickets);
     }
 
     return null;

@@ -1,6 +1,7 @@
 import { DELIMETER, InputMessages } from '../resources/Constants.js';
 import winningNumberValidator from '../utils/validation/winningNumberValidator.js';
 import Input from '../utils/io/Input.js';
+import { sortArrayAscending } from '../utils/ArrayUtils.js';
 
 class Lotto {
   #numbers;
@@ -15,10 +16,10 @@ class Lotto {
     if (Array.isArray(input)) {
       joinedString = input.join(DELIMETER);
       winningNumberValidator(joinedString);
-      this.#numbers = Lotto.ascendingNumbers(input);
+      this.#numbers = sortArrayAscending(input);
     } else if (typeof input === 'string') {
       const numbers = input.split(DELIMETER).map((number) => Number(number));
-      this.#numbers = Lotto.ascendingNumbers(numbers);
+      this.#numbers = sortArrayAscending(numbers);
     }
   }
 
