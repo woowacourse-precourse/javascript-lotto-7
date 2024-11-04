@@ -1,12 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE } from './constant';
+import { LOTTO_PRICE, LOTTO_PRIZES } from './constant';
 
 const LOTTO_RESULTS = {
-  3: { matchText: '3개 일치', prize: 5000, count: 0 },
-  4: { matchText: '4개 일치', prize: 50000, count: 0 },
-  5: { matchText: '5개 일치', prize: 1500000, count: 0 },
-  '5+bonus': { matchText: '5개 일치, 보너스 볼 일치', prize: 30000000, count: 0 },
-  6: { matchText: '6개 일치', prize: 2000000000, count: 0 },
+  3: { matchText: LOTTO_MATCH_TEXT.THREE_MATCH, prize: LOTTO_PRIZES.THREE_MATCH, count: 0 },
+  4: { matchText: LOTTO_MATCH_TEXT.FOUR_MATCH, prize: LOTTO_PRIZES.FOUR_MATCH, count: 0 },
+  5: { matchText: LOTTO_MATCH_TEXT.FIVE_MATCH, prize: LOTTO_PRIZES.FIVE_MATCH, count: 0 },
+  '5+bonus': { matchText: LOTTO_MATCH_TEXT.FIVE_MATCH_WITH_BONUS, prize: LOTTO_PRIZES.FIVE_MATCH_WITH_BONUS, count: 0 },
+  6: { matchText: LOTTO_MATCH_TEXT.SIX_MATCH, prize: LOTTO_PRIZES.SIX_MATCH, count: 0 },
 };
 
 class Game {
