@@ -19,20 +19,19 @@ export function printLottoTickets(lottoTickets) {
 
 export function printWinningResult(winningResult) {
   Console.print("\n당첨 통계\n---");
-
   Object.values(RANKS).forEach((rank) => {
-    let description;
-    if (rank.key === "fiveMatchWithBonus") {
-      description = `5개 일치, 보너스 볼 일치`;
-    } else {
-      description = `${getMatchCount(rank.key)}개 일치`;
-    }
+    const description = getRankDescription(rank.key);
+    const count = winningResult[rank.key] || 0;
     Console.print(
-      `${description} (${rank.prize.toLocaleString()}원) - ${
-        winningResult[rank.key] || 0
-      }개`
+      `${description} (${rank.prize.toLocaleString()}원) - ${count}개`
     );
   });
+}
+
+function getRankDescription(rankKey) {
+  return rankKey === "fiveMatchWithBonus"
+    ? `5개 일치, 보너스 볼 일치`
+    : `${getMatchCount(rankKey)}개 일치`;
 }
 
 function getMatchCount(key) {

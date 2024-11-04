@@ -1,23 +1,28 @@
 import RANKS from "../Model/Rank.js";
 
 function calculateWinningResult(lottoTickets, winningNumbers, bonusNumber) {
-  const result = {
+  const result = initResultObject();
+  lottoTickets.forEach((ticket) =>
+    updateResult(ticket, winningNumbers, bonusNumber, result)
+  );
+  return result;
+}
+
+function initResultObject() {
+  return {
     [RANKS.SIX_MATCH.key]: 0,
     [RANKS.FIVE_MATCH_WITH_BONUS.key]: 0,
     [RANKS.FIVE_MATCH.key]: 0,
     [RANKS.FOUR_MATCH.key]: 0,
     [RANKS.THREE_MATCH.key]: 0,
   };
+}
 
-  lottoTickets.forEach((ticket) => {
-    const matchCount = countMatches(ticket.getNumbers(), winningNumbers);
-    const isBonusMatched = ticket.getNumbers().includes(bonusNumber);
-    const rankKey = determineRank(matchCount, isBonusMatched);
-
-    if (rankKey) result[rankKey] += 1;
-  });
-
-  return result;
+function updateResult(ticket, winningNumbers, bonusNumber, result) {
+  const matchCount = countMatches(ticket.getNumbers(), winningNumbers);
+  const isBonusMatched = ticket.getNumbers().includes(bonusNumber);
+  const rankKey = determineRank(matchCount, isBonusMatched);
+  if (rankKey) result[rankKey] += 1;
 }
 
 // 티켓과 당첨 번호의 일치 개수 계산

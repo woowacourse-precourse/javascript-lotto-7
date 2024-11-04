@@ -9,39 +9,67 @@ import {
 import IOService from "../Services/IOService.js";
 import defaultSettings from "../Config/DefaultSettings.js";
 
-// Controller에서 전체 로직을 처리
-
 class Controller {
+  constructor() {
+    this.ioService = new IOService();
+    this.systemMessages = defaultSettings.systemMessages;
+  }
+
   async run() {
-    const { askUserAmount, askUserLottoNumber, askUserBonusNumber } =
-      defaultSettings.systemMessages;
-    const ioService = new IOService();
-
-    const price = await ioService.getUserInput(askUserAmount);
-    const validatedPrice = validatePrice(price);
-
-    const { ticketCount, tickets } = generateLottoTickets(validatedPrice);
-    ioService.displayTicketCount(ticketCount);
-    ioService.displayLottoTickets(tickets);
-
-    const winningNumber = await ioService.getUserInput(askUserLottoNumber);
-    const validatedWinningNumber = validateWinningNumbers(winningNumber);
-
-    const bonusNumber = await ioService.getUserInput(askUserBonusNumber);
-    const validatedBonusNumber = validateBonusNumber(
-      bonusNumber,
+    const validatedPrice = await this.getValidatedPrice();
+    const tickets = this.getTickets(validatedPrice);
+    const validatedWinningNumber = await this.getValidatedWinningNumber();
+    const validatedBonusNumber = await this.getValidatedBonusNumber(
       validatedWinningNumber
     );
-
-    const winningResult = calculateWinningResult(
+    const winningResult = this.getWinningResult(
       tickets,
       validatedWinningNumber,
       validatedBonusNumber
     );
-    ioService.displayWinningResult(winningResult);
+    this.displayResults(winningResult, validatedPrice);
+  }
 
+  async getValidatedPrice() {
+    const price = await this.ioService.getUserInput(
+      this.systemMessages.askUserAmount
+    );
+    return validatePrice(price);
+  }
+
+  getTickets(validatedPrice) {
+    const { ticketCount, tickets } = generateLottoTickets(validatedPrice);
+    this.ioService.displayTicketCount(ticketCount);
+    this.ioService.displayLottoTickets(tickets);
+    return tickets;
+  }
+
+  async getValidatedWinningNumber() {
+    const winningNumber = await this.ioService.getUserInput(
+      this.systemMessages.askUserLottoNumber
+    );
+    return validateWinningNumbers(winningNumber);
+  }
+
+  async getValidatedBonusNumber(validatedWinningNumber) {
+    const bonusNumber = await this.ioService.getUserInput(
+      this.systemMessages.askUserBonusNumber
+    );
+    return validateBonusNumber(bonusNumber, validatedWinningNumber);
+  }
+
+  getWinningResult(tickets, validatedWinningNumber, validatedBonusNumber) {
+    return calculateWinningResult(
+      tickets,
+      validatedWinningNumber,
+      validatedBonusNumber
+    );
+  }
+
+  displayResults(winningResult, validatedPrice) {
+    this.ioService.displayWinningResult(winningResult);
     const lottoYield = calculateLottoYield(winningResult, validatedPrice);
-    ioService.displayLottoYield(lottoYield);
+    this.ioService.displayLottoYield(lottoYield);
   }
 }
 
