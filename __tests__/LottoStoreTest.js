@@ -13,9 +13,7 @@ describe("구입 금액으로 몇 개의 로또를 살 수 있는지 테스트",
 
 const mockRandoms = (numbers) => {
   Random.pickUniqueNumbersInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, Random.pickUniqueNumbersInRange);
+  numbers.reduce((acc, number) => acc.mockReturnValueOnce(number), Random.pickUniqueNumbersInRange);
 };
 
 describe("로또 발급받기 테스트", () => {
