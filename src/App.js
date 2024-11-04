@@ -3,11 +3,19 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
-    const lottoPurchaseAmount = await MissionUtils.Console.readLineAsync(
-      "구입금액을 입력해 주세요.\n"
-    );
-    if (lottoPurchaseAmount % 1000 !== 0) {
-      throw new Error("[ERROR] 구입금액이 1000원 단위로 나누어지지 않음.");
+    let lottoPurchaseAmount;
+    while (true) {
+      try {
+        lottoPurchaseAmount = await MissionUtils.Console.readLineAsync(
+          "구입금액을 입력해 주세요.\n"
+        );
+        if (lottoPurchaseAmount % 1000 !== 0) {
+          throw new Error("[ERROR] 구입금액이 1000원 단위로 나누어지지 않음.");
+        }
+        break;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
     }
 
     const lottoQuantity = lottoPurchaseAmount / 1000;
@@ -18,17 +26,33 @@ class App {
       MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
 
-    const winningNumbersInput = await MissionUtils.Console.readLineAsync(
-      "당첨 번호를 입력해 주세요.\n"
-    );
-    const winningNumbers = winningNumbersInput.split(",").map(Number);
-    Lotto.validateWinningNumbers(winningNumbers);
+    let winningNumbers;
+    while (true) {
+      try {
+        const winningNumbersInput = await MissionUtils.Console.readLineAsync(
+          "당첨 번호를 입력해 주세요.\n"
+        );
+        winningNumbers = winningNumbersInput.split(",").map(Number);
+        Lotto.validateWinningNumbers(winningNumbers);
+        break;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
 
-    const bonusNumberInput = await MissionUtils.Console.readLineAsync(
-      "보너스 번호를 입력해 주세요.\n"
-    );
-    const bonusNumber = Number(bonusNumberInput);
-    Lotto.validateBonusNumber(bonusNumber, new Set(winningNumbers));
+    let bonusNumber;
+    while (true) {
+      try {
+        const bonusNumberInput = await MissionUtils.Console.readLineAsync(
+          "보너스 번호를 입력해 주세요.\n"
+        );
+        bonusNumber = Number(bonusNumberInput);
+        Lotto.validateBonusNumber(bonusNumber, new Set(winningNumbers));
+        break;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
 
     const counts = {
       3: 0,
