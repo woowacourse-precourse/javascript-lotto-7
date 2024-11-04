@@ -105,7 +105,7 @@ class Validator {
    */
   static #isWinningBonusNumberInRange(winningBonusNumber) {
     if (winningBonusNumber < NUMBER_RANGE.MIN || winningBonusNumber > NUMBER_RANGE.MAX) {
-      throw new Error(ERROR_MESSAGE.WINNING_NUMBER_INVALID_RANGE);
+      throw new Error(ERROR_MESSAGE.WINNING_BONUS_NUMBER_INVALID_RANGE);
     }
   }
 
