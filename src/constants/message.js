@@ -16,7 +16,7 @@ export const ERROR_MESSAGE = Object.freeze({
   ERROR_BONUS_SET: '[ERROR] 로또 번호는 중복될 수 없습니다.',
   ERROR_BONUS_NUM: '[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.',
   ERROR_CASH: '[ERROR] 로또 구입은 1,000 단위로 구입가능합니다.',
-  ERROR_NUM: '[ERROR] 숫자를 입력해주세요',
+  ERROR_NUM: '[ERROR] 형식 맞춰 다시 입력해주세요',
 });
 
 export const TEXT_LOTTO_RESULT = () => {
