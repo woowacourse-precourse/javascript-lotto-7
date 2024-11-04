@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import PurchaseAmountGenerator from '../src/getInput/PurchaseAmountGenerator.js';
+import PurchaseAmountGenerator from '../src/models/PurchaseAmountGenerator.js';
 import { ERROR_MESSAGES, PURCHASE_ERRORS } from '../src/constants/constants.js';
 
 describe('PurchaseAmountValidator 클래스 테스트', () => {
