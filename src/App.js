@@ -58,6 +58,28 @@ class App {
     const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     return lottoNumbers.sort((a, b) => a - b);
   }
+  async getWinningLottoNumbers() {
+    while (true) {
+      const inputtedWinningNumber = await MissionUtils.Console.readLineAsync(
+        `당첨 번호를 입력해주세요`
+      );
+      if (await this.isValidWinningNumbersInput(inputtedWinningNumber))
+        return inputtedWinningNumber.split(",").map(Number);
+    }
+  }
+  async isValidWinningNumbersInput(inputtedWinningNumber) {
+    try {
+      this.validateWinningNumbers(inputtedWinningNumber);
+      return true;
+    } catch (e) {
+      MissionUtils.Console.print(e.messsage);
+      return false;
+    }
+  }
+  validateWinningNumbers(inputtedWinningNumber) {
+    const numberArray = inputtedWinningNumber.split(",").map(Number);
+    const uniqueNumersSet = new Set(numberArray);
+  }
 }
 
 export default App;
