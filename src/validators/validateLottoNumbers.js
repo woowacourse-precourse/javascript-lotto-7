@@ -28,6 +28,12 @@ function validateRange(number) {
   }
 }
 
+function validateBonusNumberInWinningNumbers(bonusNumber, winningNumbers) {
+  if (winningNumbers.includes(bonusNumber)) {
+    throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복되면 안됩니다.');
+  }
+}
+
 export function validateLottoNumbers(numbers) {
   numbers.forEach(number => {
     validateIsNumber(number);
@@ -36,4 +42,11 @@ export function validateLottoNumbers(numbers) {
   });
   validateLength(numbers);
   validateNoDuplicates(numbers);
+}
+
+export function validateBonusNumber(bonusNumber, winningNumbers) {
+  validateIsNumber(bonusNumber);
+  validateIsInteger(bonusNumber);
+  validateRange(bonusNumber);
+  validateBonusNumberInWinningNumbers(bonusNumber, winningNumbers);
 }
