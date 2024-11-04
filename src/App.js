@@ -1,7 +1,6 @@
 import GetInput from './input/GetInput.js';
 import MakeLotto from './util/MakeLotto.js';
 import CheckHowmuch from './util/CheckHowmuch.js';
-import PrintResult from './output/PrintResult.js';
 
 class App {
   async run() {

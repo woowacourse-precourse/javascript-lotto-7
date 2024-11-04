@@ -21,27 +21,22 @@ class CheckHowmuch {
       if (count === 3) {
         matchCounts[3]++;
         totalPrize += 5000;
-        return;
       }
       if (count === 4) {
         matchCounts[4]++;
         totalPrize += 50000;
-        return;
       }
       if (count === 5 && bonusCount === 0) {
         matchCounts[5]++;
         totalPrize += 1500000;
-        return;
       }
       if (count === 5 && bonusCount === 1) {
         matchCounts[5.5]++;
         totalPrize += 30000000;
-        return;
       }
       if (count === 6) {
         matchCounts[6]++;
         totalPrize += 2000000000;
-        return;
       }
     });
 
