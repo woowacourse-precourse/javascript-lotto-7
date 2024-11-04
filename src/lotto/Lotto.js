@@ -28,8 +28,7 @@ class Lotto {
   }
 
   #validateWithInRange(numbers) {
-    const isInRange = !(numbers.some((number) => number < LOTTO_MIN_NUMBER || number > LOTTO_MAX_NUMBER));
-    if (!isInRange) {
+    if (!numbers.every((number) => number >= LOTTO_MIN_NUMBER && number <= LOTTO_MAX_NUMBER)) {
       throw new Error(inValidMessages.range);
     }
   }
