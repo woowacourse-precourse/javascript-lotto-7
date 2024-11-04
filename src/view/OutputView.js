@@ -12,6 +12,10 @@ const OutputView = {
       Console.print(`${rank} - ${count}개`)
     });
     Console.print(`총 수익률은 ${earningRate}% 입니다.`);
+  },
+
+  printError(message) {
+    Console.print(message);
   }
 }
 
