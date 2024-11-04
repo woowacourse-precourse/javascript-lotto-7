@@ -24,4 +24,19 @@ describe('validation 테스트', () => {
     expect(() => validation.numericString('123')).not.toThrow();
     expect(() => validation.numericString('456789')).not.toThrow();
   });
+
+  test('safeInteger가 안전 범위를 벗어나는 경우 오류를 발생시키는지 테스트', () => {
+    expect(() => validation.safeInteger(Number.MAX_SAFE_INTEGER + 1)).toThrow(
+      ERROR_MESSAGES.SAFE_INTEGER
+    );
+    expect(() => validation.safeInteger(Number.MIN_SAFE_INTEGER - 1)).toThrow(
+      ERROR_MESSAGES.SAFE_INTEGER
+    );
+  });
+
+  test('safeInteger가 안전 범위 내의 정수에 대해 오류를 발생시키지 않는지 테스트', () => {
+    expect(() => validation.safeInteger(123)).not.toThrow();
+    expect(() => validation.safeInteger(Number.MAX_SAFE_INTEGER)).not.toThrow();
+    expect(() => validation.safeInteger(Number.MIN_SAFE_INTEGER)).not.toThrow();
+  });
 });
