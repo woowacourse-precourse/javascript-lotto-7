@@ -11,6 +11,14 @@ class Lotto {
     this.#numbers = this.#validate(input);
   }
 
+  countMatchingNumbers(generatedNumbers) {
+    const matchedCount = generatedNumbers.filter((number) =>
+      this.#numbers.includes(number)
+    ).length;
+
+    return matchedCount;
+  }
+
   isDuplicateBonusNumber(bonusNumber) {
     if (this.#numbers.includes(bonusNumber)) return true;
     return false;
