@@ -8,7 +8,20 @@ class App {
       '1000으로 나누어 떨어지는 숫자를 입력해주세요!',
   };
 
-  async run() {}
+  async run() {
+    const lottoCount = await this.inputMoney();
+    const lottos = this.getLotto(lottoCount);
+  }
+
+  getLotto(lottoCount) {
+    const lottos = [];
+    Console.print(`${lottoCount}개를 구매했습니다.`);
+    for (let i = 0; i < lottoCount; i += 1) {
+      lottos.push(this.getRandomLottoNumber());
+    }
+    lottos.forEach(lotto => Console.print(lotto));
+    return lottos;
+  }
 
   getRandomLottoNumber() {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
