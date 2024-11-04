@@ -1,6 +1,6 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import { LOTTO_RULES } from './constant/index.js';
+import { LOTTO_RULES } from '../constant/index.js';
 
 class PurchasedLottos {
   #lottos = [];
