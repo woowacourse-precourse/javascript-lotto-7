@@ -1,8 +1,28 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 import Lotto from "../models/Lotto";
+import { Input } from "../views/Input";
+import { Output } from "../views/Output";
 
 export class LottoController {
-	// 실행 함수
-	run() {}
+	constructor() {
+		this.input = new Input();
+		this.output = new Output();
+	}
+
+	async run() {
+		const price = await this.input.getLottoPrice();
+		const lottoList = this.issueLotto(price);
+		await this.output.printLottoCount(lottoList);
+
+		const winningNumbers = await this.input.getLottoNumbers();
+		const bonusNumber = await this.input.getLottoBonusNumber();
+
+		const lottoResult = this.getLottoResult(lottoList, winningNumbers, bonusNumber);
+		await this.output.printLottoResult(lottoResult);
+		const profitRate = this.calculateProfitRate(lottoResult, price);
+		await this.output.printProfitRate(profitRate);
+	}
 
 	issueLotto(price) {
 		const lottoList = [];
@@ -24,7 +44,7 @@ export class LottoController {
 		const lottoResult = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0 };
 		userLottoList.forEach((lotto) => {
 			const matchCount = lotto.getNumbers().filter((number) => winningNumbers.includes(number)).length;
-			const hasBonus = lotto.getNumbers.includes(bonusNumber);
+			const hasBonus = lotto.getNumbers().includes(bonusNumber);
 			this.checkLottoResult(lottoResult, matchCount, hasBonus);
 		});
 
