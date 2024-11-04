@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT, RESULT_KEYS } from './constant/index.js';
+import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT, RESULT_KEYS } from '../constant/index.js';
 import WinningResult from './WinningResult.js';
 
 class Game {
