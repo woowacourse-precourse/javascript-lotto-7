@@ -1,4 +1,4 @@
-import App from "../src/App.js";
+import App from "../src/controllers/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -91,7 +91,36 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  test("구입 금액이 1000원 단위가 아닌 경우 예외 처리", async () => {
+    await runException("1500");
+  });
+
+  test("당첨 번호가 범위를 벗어날 때 예외 처리", async () => {
+    await runException("1,2,3,4,5,46");
+  });
+
+  test("당첨 번호가 6개가 아닐 때 예외 처리", async () => {
+    await runException("1,2,3,4,5");
+  });
+
+  test("당첨 번호에 중복된 숫자가 있을 때 예외 처리", async () => {
+    await runException("1,2,3,4,5,5");
+  });
+
+  test("보너스 번호가 1개가 아닐 때 예외 처리", async () => {
+    await runException("7,8");
+  });
+
+  test("보너스 번호가 당첨 번호와 중복될 때 예외 처리", async () => {
+    const winningNumbers = "1,2,3,4,5,6";
+    mockQuestions(["1000", winningNumbers, "5"]); // 보너스 번호로 당첨 번호에 포함된 5를 입력
+    const logSpy = getLogSpy();
+    const app = new App();
+    await app.run();
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR] 당첨 번호와 중복된 숫자를 입력했습니다."));
+  });
+
+  test("보너스 번호가 범위를 벗어날 때 예외 처리", async () => {
+    await runException("50");
   });
 });
