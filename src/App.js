@@ -110,6 +110,35 @@ class App {
       Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
   }
+  calculateStatistics(lottos, winnerLotto, bonusNumber) {
+    const statistics = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+
+    lottos.forEach(lotto => {
+      const numbers = lotto.getNumbers();
+      const matchCount = numbers.filter(number => winnerLotto.includes(number)).length;
+      const hasBonus = numbers.includes(bonusNumber);
+
+      if (matchCount === 6) {
+        statistics.first += 1;
+      } else if (matchCount === 5 && hasBonus) {
+        statistics.second += 1;
+      } else if (matchCount === 5) {
+        statistics.third += 1;
+      } else if (matchCount === 4) {
+        statistics.fourth += 1;
+      } else if (matchCount === 3) {
+        statistics.fifth += 1;
+      }
+    });
+
+    return statistics;
+  }
 }
 
 export default App;
