@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { LOTTO_PRICE } from "./constants/gameRules.js";
+import { LOTTO_PRICE, WINNING_AMOUNT } from "./constants/gameRules.js";
 import { getMatchingCount, isBonusMatched } from "./utils/arrayUtils.js";
 
 class LottoGame {
@@ -42,6 +42,7 @@ class LottoGame {
   }
 
   updateResults(results, rank) {
+    if (!results[rank] && results[rank] !== 0) return;
     results[rank] += 1;
   }
 
@@ -64,9 +65,36 @@ class LottoGame {
     return results;
   }
 
+  getRateOfReturn(results) {
+    const keys = Object.keys(results);
+    let winningAmount = 0;
+    keys.forEach((key) => {
+      winningAmount += results[key] * WINNING_AMOUNT[key];
+    });
+
+    return (winningAmount / (this.#lottoCount * 1000)) * 100;
+  }
+
+  printResults() {
+    const results = this.checkResults();
+    const winningAmount = this.getRateOfReturn(results).toFixed(1);
+    const resultsMessage = `
+당첨 통계
+---
+3개 일치 (5,000원) - ${results.fifth}개
+4개 일치 (50,000원) - ${results.fourth}개
+5개 일치 (1,500,000원) - ${results.third}개
+5개 일치, 보너스 볼 일치 (30,000,000원) - ${results.second}개
+6개 일치 (2,000,000,000원) - ${results.first}개
+총 수익률은 ${winningAmount}%입니다.
+`;
+    Console.print(resultsMessage);
+  }
+
   start() {
     this.setLottos();
     this.printLottos();
+    this.printResults();
   }
 }
 
