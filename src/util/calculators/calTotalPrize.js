@@ -1,4 +1,4 @@
-import { MagicNumber } from '../constants/MagicNumber.js';
+import { MagicNumber } from '../../constants/MagicNumber.js';
 
 export function calTotalPrize(matchCounts) {
   const prizeMapping = {
