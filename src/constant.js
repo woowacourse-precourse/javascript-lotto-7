@@ -48,4 +48,5 @@ export const ERROR_MESSAGE = Object.freeze({
   AMOUNT_NOT_THOUSAND: ERROR_TAG.concat('금액은 1,000원 단위로 입력해야 합니다.'),
 
   WINNING_NUMBER_INVALID_RANGE: ERROR_TAG.concat('당첨 번호는 1부터 45 사이의 숫자여야 합니다.'),
+  WINNING_NUMBER_DUPLICATE: ERROR_TAG.concat('당첨 번호에 중복된 숫자가 있습니다.'),
 });

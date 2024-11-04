@@ -12,6 +12,7 @@ class Validator {
 
   static validateWinningNumbers(winningNumbers) {
     this.#isWinningNumberRange(winningNumbers);
+    this.#isWinningNumberDuplicate(winningNumbers);
   }
 
   static #isAmountNumber(amount) {
@@ -41,6 +42,12 @@ class Validator {
       )
     ) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER_INVALID_RANGE);
+    }
+  }
+
+  static #isWinningNumberDuplicate(winningNumbers) {
+    if (new Set(winningNumbers).size !== winningNumbers.length) {
+      throw new Error(ERROR_MESSAGE.WINNING_NUMBER_DUPLICATE);
     }
   }
 }
