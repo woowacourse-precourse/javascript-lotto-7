@@ -46,11 +46,11 @@ class LottoMachine {
     return parseWinningLottoString(this.#winningRankCount);
   }
 
-  getProfitRate() {
+  getProfitRateString() {
     const investAmount = this.#amount * LOTTO_RULE.PRICE;
     const profitAmount = calculateProfit(this.#winningRankCount);
 
-    return ((profitAmount / investAmount) * 100).toFixed(1);
+    return `총 수익률은 ${((profitAmount / investAmount) * 100).toFixed(1)}%입니다.`;
   }
 }
 

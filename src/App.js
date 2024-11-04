@@ -39,8 +39,7 @@ class App {
     });
     printMessage(MESSAGE.OUTPUT_RESULT + resultString);
 
-    const profitRate = this.#lottoMachine.getProfitRate();
-    printMessage(MESSAGE.OUTPUT_PROFIT_RATE(profitRate));
+    printMessage(this.#lottoMachine.getProfitRateString());
   }
 }
 

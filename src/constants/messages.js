@@ -5,7 +5,6 @@ export const MESSAGE = {
   INPUT_WINNING_LOTTO: "\n당첨 번호를 입력해 주세요.\n",
   INPUT_BONUS_NUMBER: "\n보너스 번호를 입력해 주세요.\n",
   OUTPUT_RESULT: "\n당첨 통계\n---\n",
-  OUTPUT_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
 export const ERROR_MESSAGE = {

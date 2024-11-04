@@ -74,6 +74,6 @@ describe("로또 기계 클래스 테스트", () => {
 5개 일치, 보너스 볼 일치 (30,000,000원) - 0개
 6개 일치 (2,000,000,000원) - 0개`);
 
-    expect(lottoMachine.getProfitRate()).toBe("62.5");
+    expect(lottoMachine.getProfitRateString()).toBe("총 수익률은 62.5%입니다.");
   });
 });
