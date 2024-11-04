@@ -66,14 +66,21 @@ class LottoController {
                 this.#outputView.printError(error);
             }
         }
-
     }
 
     async #getValidBonus(numbers) {
-        let input = await this.#inputView.readBonus();
+        while (true) {
+            let input = await this.#inputView.readBonus();
 
-        return Number(input);
+            try {
+                input = Validator.bonusValidate(input, numbers);
 
+                return input;
+
+            } catch (error) {
+                this.#outputView.printError(error);
+            }
+        }
     }
 
     #win(numbers, bonus, tickets, ranks) {
