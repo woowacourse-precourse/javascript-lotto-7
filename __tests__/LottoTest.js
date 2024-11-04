@@ -23,3 +23,52 @@ describe('Lotto 클래스의 purchaseLotto 메서드 테스트', () => {
     });
   });
 });
+
+describe('Lotto 클래스의 matchNumbers 메서드 테스트', () => {
+  beforeEach(() => {
+    Lotto.matchedCount = { 3: 0, 4: 0, 5: 0, '5+bonus': 0, 6: 0 };
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+  });
+
+  test('하나도 일치하지 않을 때', () => {
+    const lotto = Lotto.purchaseLotto(1)[0];
+    lotto.matchNumbers([10, 11, 12, 13, 14, 15], 16);
+    expect(Lotto.matchedCount).toEqual({
+      3: 0,
+      4: 0,
+      5: 0,
+      '5+bonus': 0,
+      6: 0,
+    });
+  });
+
+  test('3개 일치할 때 3 카운트 증가', () => {
+    const lotto = Lotto.purchaseLotto(1)[0];
+    lotto.matchNumbers([1, 2, 3, 10, 11, 12], 13);
+    expect(Lotto.matchedCount[3]).toBe(1);
+  });
+
+  test('4개 일치할 때 4 카운트 증가', () => {
+    const lotto = Lotto.purchaseLotto(1)[0];
+    lotto.matchNumbers([1, 2, 3, 4, 10, 11], 12);
+    expect(Lotto.matchedCount[4]).toBe(1);
+  });
+
+  test('5개 일치하나 보너스 번호가 아닐 때 5 카운트 증가', () => {
+    const lotto = Lotto.purchaseLotto(1)[0];
+    lotto.matchNumbers([1, 2, 3, 4, 5, 10], 11);
+    expect(Lotto.matchedCount[5]).toBe(1);
+  });
+
+  test('당첨 번호 5개 일치 + 보너스 번호일 때 "5+bonus" 카운트 증가', () => {
+    const lotto = Lotto.purchaseLotto(1)[0];
+    lotto.matchNumbers([1, 2, 3, 4, 5, 10], 6);
+    expect(Lotto.matchedCount['5+bonus']).toBe(1);
+  });
+
+  test('6개 일치할 때 6 카운트 증가', () => {
+    const lotto = Lotto.purchaseLotto(1)[0];
+    lotto.matchNumbers([1, 2, 3, 4, 5, 6], 10);
+    expect(Lotto.matchedCount[6]).toBe(1);
+  });
+});
