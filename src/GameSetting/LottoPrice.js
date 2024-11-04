@@ -4,8 +4,7 @@ class LottoPrice {
   #price;
 
   constructor(input) {
-    let validatedPrice = this.#validate(input);
-    this.#price = validatedPrice;
+    this.#price = this.#validate(input);
   }
 
   #validate(input) {
