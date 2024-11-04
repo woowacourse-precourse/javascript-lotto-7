@@ -20,9 +20,8 @@ class App {
     await this.user.readBonusNumber();
 
     const { winningNumbers, bonusNumber } = this.user.winningBonusNumbers;
-    lottoList.forEach((lotto) =>
-      lotto.matchNumbers(winningNumbers, bonusNumber),
-    );
+    Lotto.matchLotto(lottoList, winningNumbers, bonusNumber);
+
     print.winningStatistics();
     print.profitRate(this.user.purchaseAmount, Lotto.getTotalProfit());
   }

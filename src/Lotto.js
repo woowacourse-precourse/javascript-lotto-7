@@ -16,6 +16,12 @@ class Lotto {
     return Array.from({ length: count }, () => new Lotto());
   }
 
+  static matchLotto(lottoList, winningNumbers, bonusNumber) {
+    lottoList.forEach((lotto) =>
+      lotto.matchNumbers(winningNumbers, bonusNumber),
+    );
+  }
+
   static getTotalProfit() {
     return Object.entries(Lotto.matchedCount).reduce((total, [key, count]) => {
       return total + LOTTO.WINNING_AMOUNT[key] * count;
