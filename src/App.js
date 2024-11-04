@@ -6,6 +6,7 @@ import {
   validateWinningNumbers,
   validateBonusNumber,
 } from './Validation.js';
+import { calculateStatistics } from './Statistics.js';
 
 class App {
   async run() {
@@ -29,6 +30,8 @@ class App {
 
       Console.print(CONSTANTS.MESSAGE_BONUS_NUMBER);
       const bonusNumber = await this.getBonusNumber(winningNumbers);
+
+      calculateStatistics(lottos, winningNumbers, bonusNumber, totalAmount);
     } catch (error) {
       Console.print(error.message);
       throw error;

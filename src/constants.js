@@ -5,23 +5,20 @@ export const CONSTANTS = {
   MESSAGE_PURCHASED_TICKETS: '개를 구매했습니다.',
   MESSAGE_WINNING_NUMBERS: '\n당첨 번호를 입력해 주세요.',
   MESSAGE_BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.',
-  MESSAGE_WINNING_STATISTICS: '당첨 통계',
+  MESSAGE_WINNING_STATISTICS: '\n당첨 통계\n---',
   MESSAGE_PROFIT_RATE: '총 수익률은',
 
   WINNING_RANKS: {
-    THREE_MATCH: { match: 3, prize: 5000, message: '3개 일치 (5,000원)' },
-    FOUR_MATCH: { match: 4, prize: 50000, message: '4개 일치 (50,000원)' },
-    FIVE_MATCH: { match: 5, prize: 1500000, message: '5개 일치 (1,500,000원)' },
+    THREE_MATCH: { prize: 5000, message: '3개 일치 (5,000원) - ' },
+    FOUR_MATCH: { prize: 50000, message: '4개 일치 (50,000원) - ' },
+    FIVE_MATCH: { prize: 1500000, message: '5개 일치 (1,500,000원) - ' },
     FIVE_MATCH_BONUS: {
-      match: 5,
-      bonus: true,
       prize: 30000000,
-      message: '5개 일치, 보너스 볼 일치 (30,000,000원)',
+      message: '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
     },
     SIX_MATCH: {
-      match: 6,
       prize: 2000000000,
-      message: '6개 일치 (2,000,000,000원)',
+      message: '6개 일치 (2,000,000,000원) - ',
     },
   },
 
