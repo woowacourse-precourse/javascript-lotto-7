@@ -46,7 +46,7 @@ export default class WinningLotto {
     const uniqueNumbers = new Set(mainNumbers);
 
     if (uniqueNumbers.size !== LOTTO_CONFIG.NUMBERS_COUNT) {
-      throw new Error(ERROR_MESSAGE.LOTTO.MAIN_NUMBER_DUPLICATION);
+      throw new Error(ERROR_MESSAGE.LOTTO.NUMBER_DUPLICATION);
     }
   }
 
