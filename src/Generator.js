@@ -2,15 +2,22 @@ import { isNaturalNumber } from './utils/isNaturalNumber.js';
 import { ERROR_MESSAGE } from './constants/ERROR_MESSAGES.js';
 import { stringToNumber } from './utils/stringToNumber.js';
 import { LOTTO } from './constants/LOTTO_CONSTANTS.js';
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 class Generator {
   #purchaseAmount;
+  #lottoTickets;
 
   constructor(input) {
     this.#validateNaturalNumber(input);
     const numberInput = stringToNumber(input);
     this.#validateDivisibleByTicketPrice(numberInput);
     this.#purchaseAmount = numberInput;
+    this.#lottoTickets = this.#calculateLottoTicket();
+  }
+
+  #calculateLottoTicket() {
+    return this.#purchaseAmount / LOTTO.TICKET_PRICE;
   }
 
   #validateNaturalNumber(input) {
