@@ -22,11 +22,7 @@ class App {
     const { matchResult, matchFiveNumbersWithBonusNumber } = matcher.getResults();
 
     OutputView.writeMatchStatistics(matchResult, matchFiveNumbersWithBonusNumber);
-
-    //수익률
-    let total = 5000 * matchResult[3] + 50000 * matchResult[4] + 1500000 * (matchResult[5] - matchFiveNumbersWithBonusNumber) + 30000000 * matchFiveNumbersWithBonusNumber + matchResult[6] * 2000000000
-    let rateOfReturn = Math.round(total / moneyPaid * 100) / 100
-    MissionUtils.Console.print(`총 수익률은 ${rateOfReturn.toLocaleString('ko-KR')}%입니다.`);
+    OutputView.writeRateOfReturn(matchResult, matchFiveNumbersWithBonusNumber, moneyPaid);
   }
 
   getCount(moneyPaid) {

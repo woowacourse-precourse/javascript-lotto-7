@@ -41,6 +41,34 @@ const OutputView = {
 
     formatPrize(prize) {
         return prize.toLocaleString();
+    },
+
+    writeRateOfReturn(matchResult, matchFiveNumbersWithBonusNumber, moneyPaid) {
+        const rateOfReturn = this.calculateRateOfReturn(
+            this.calculateTotalPrize(matchResult, matchFiveNumbersWithBonusNumber),
+            moneyPaid
+        );
+        this.printRateOfReturn(rateOfReturn);
+    },
+
+    calculateTotalPrize(matchResult, matchFiveNumbersWithBonusNumber) {
+        return (
+            LOTTO_PRIZES.THREE.prize * matchResult[3] +
+            LOTTO_PRIZES.FOUR.prize * matchResult[4] +
+            LOTTO_PRIZES.FIVE.prize * (matchResult[5] - matchFiveNumbersWithBonusNumber) +
+            LOTTO_PRIZES.FIVE_BONUS.prize * matchFiveNumbersWithBonusNumber +
+            LOTTO_PRIZES.SIX.prize * matchResult[6]
+        );
+    },
+
+    calculateRateOfReturn(totalPrize, moneyPaid) {
+        return Math.round((totalPrize / moneyPaid) * 100) / 100;
+    },
+
+    printRateOfReturn(rateOfReturn) {
+        Console.print(
+            `총 수익률은 ${rateOfReturn.toLocaleString('ko-KR')}%입니다.`
+        );
     }
 }
 
