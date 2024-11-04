@@ -1,4 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   run() {
@@ -25,20 +26,22 @@ class App {
   printPurchasedLotto() {
     const lottoCount = this.purchaseAmount / 1000;
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    this.lottoTickets = Array.from({ length: lottoCount });
-    this.generateLottoTickets();
+    this.lottoTickets = this.generateLottoTickets(lottoCount);
+    this.displayLottoTickets();
     this.inputWinningNumbers();
   }
 
-  generateLottoTickets() {
-    this.lottoTickets = this.lottoTickets.map(() =>
-      Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b),
-    );
-    this.displayLottoTickets();
+  generateLottoTickets(count) {
+    return Array.from({ length: count }, () => {
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+      return new Lotto(numbers);
+    });
   }
 
   displayLottoTickets() {
-    this.lottoTickets.forEach((ticket) => Console.print(`[${ticket.join(", ")}]`));
+    this.lottoTickets.forEach((ticket) => {
+      Console.print(`[${ticket.getNumbers().join(", ")}]`);
+    });
   }
 
   async inputWinningNumbers() {
