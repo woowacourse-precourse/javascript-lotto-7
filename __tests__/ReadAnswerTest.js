@@ -36,7 +36,7 @@ describe('', () => {
     expect(logSpy).toHaveBeenCalledWith(errorMessage);
   });
 
-  test.only.each([
+  test.each([
     ['1.2', ERROR_MESSAGES.invalidRangeNumber],
     ['6', ERROR_MESSAGES.duplicatedBonusNumber],
     ['7,8', ERROR_MESSAGES.invalidBonusNumberLength],
