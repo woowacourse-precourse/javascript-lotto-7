@@ -40,37 +40,49 @@ class LottoController {
 
   async #repeatUntilCorrectPurchaseMoney() {
     try {
-      const purchaseMoney = await InputView.enterPurchaseMoney();
-      PurchaseMoneyValidator.checkValid(purchaseMoney);
-      return purchaseMoney;
+      return await this.#getPurChaseMoney();
     } catch (error) {
       OutputView.printError(error.message);
       return this.#repeatUntilCorrectPurchaseMoney();
     }
   }
 
+  async #getPurChaseMoney() {
+    const purchaseMoney = await InputView.enterPurchaseMoney();
+    PurchaseMoneyValidator.checkValid(purchaseMoney);
+    return purchaseMoney;
+  }
+
   async #repeatUntilCorrectWinningNumbers() {
     try {
-      const winningNumbers = await InputView.enterWinningNumbers();
-      const convertedWinningNumbers = Utils.convertWinningNumberToArray(winningNumbers);
-      WinningNumbersValidator.checkValid(convertedWinningNumbers);
-      return convertedWinningNumbers;
+      return await this.#getWinningNumbers();
     } catch (error) {
       OutputView.printError(error.message);
       return this.#repeatUntilCorrectWinningNumbers();
     }
   }
 
+  async #getWinningNumbers() {
+    const winningNumbers = await InputView.enterWinningNumbers();
+    const convertedWinningNumbers = Utils.convertWinningNumberToArray(winningNumbers);
+    WinningNumbersValidator.checkValid(convertedWinningNumbers);
+    return convertedWinningNumbers;
+  }
+
   async #repeatUntilCorrectBonusNumber(winningNumbers) {
     try {
-      const bonusNumber = await InputView.enterBonusNumber();
-      const convertedBonusNumber = Utils.convertBonusNumberToNumber(bonusNumber);
-      BonusNumberValidator.checkValid(convertedBonusNumber, winningNumbers);
-      return winningNumbers;
+      return await this.#getBonusNumber(winningNumbers);
     } catch (error) {
       OutputView.printError(error.message);
       return this.#repeatUntilCorrectBonusNumber(winningNumbers);
     }
+  }
+
+  async #getBonusNumber(winningNumbers) {
+    const bonusNumber = await InputView.enterBonusNumber();
+    const convertedBonusNumber = Utils.convertBonusNumberToNumber(bonusNumber);
+    BonusNumberValidator.checkValid(convertedBonusNumber, winningNumbers);
+    return convertedBonusNumber;
   }
 }
 
