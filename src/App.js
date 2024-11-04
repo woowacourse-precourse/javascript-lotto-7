@@ -1,6 +1,15 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto";
 
+// 등수별 상금
+export const PRIZES = {
+  [1]: 200000000,
+  [2]: 30000000,
+  [3]: 1500000,
+  [4]: 50000,
+  [5]: 5000,
+};
+
 export async function inputAmount() {
   const amount = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
   return amount;
@@ -89,6 +98,30 @@ export function checkLottoResult(userNumbers, prizeNumbers, bonusNumber) {
   if (matchingCount === 4) return 4; // 4등
   if (matchingCount === 3) return 5; // 5등
   return 6;
+}
+
+export function printLottoResults(results) {
+  const resultMessages = {
+    5: `3개 일치 (${PRIZES[5].toLocaleString()}원) - ${results[5] || 0}개`,
+    4: `4개 일치 (${PRIZES[4].toLocaleString()}원) - ${results[4] || 0}개`,
+    3: `5개 일치 (${PRIZES[3].toLocaleString()}원) - ${results[3] || 0}개`,
+    2: `5개 일치, 보너스 볼 일치 (${PRIZES[2].toLocaleString()}원) - ${results[2] || 0}개`,
+    1: `6개 일치 (${PRIZES[1].toLocaleString()}원) - ${results[1] || 0}개`,
+  };
+
+  Object.values(resultMessages).forEach((message) => Console.print(message));
+}
+
+export function calculateProfitRate(results, totalSpent) {
+  // 당첨된 각 등수별 상금 합산
+  // Object.entries(results): ["등수", 당첨 개수]
+  const totalPrize = Object.entries(results).reduce((acc, [rank, count]) => {
+    const prizeRank = Number(rank);
+    return acc + (PRIZES[prizeRank] * (count || 0));
+  }, 0);
+
+  const profitRate = ((totalPrize - totalSpent) / totalSpent) * 100;
+  return parseFloat(profitRate.toFixed(1));
 }
 
 class App {

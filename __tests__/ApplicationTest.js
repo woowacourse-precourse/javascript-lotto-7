@@ -8,6 +8,8 @@ import App, {
   inputBonusNumber,
   validateBonusNumbers,
   checkLottoResult,
+  calculateProfitRate,
+  PRIZES,
 } from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../src/Lotto.js";
@@ -208,6 +210,38 @@ describe("checkLottoResult 함수 테스트", () => {
   test("낙첨: 2개 이하의 번호만 일치할 때", () => {
     const userNumbers = [1, 2, 10, 11, 12, 13];
     expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(6);
+  });
+});
+
+describe("calculateProfitRate 함수 테스트", () => {
+  test("당첨이 없는 경우 수익률이 음수로 표시된다", () => {
+    const results = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    const totalSpent = 10000; // 예: 10장 구매
+    const profitRate = calculateProfitRate(results, totalSpent);
+    expect(profitRate).toBeLessThan(0); // 수익률이 음수인지 확인
+  });
+
+  test("1등 당첨 1회일 때 수익률을 계산한다", () => {
+    const results = { 1: 1, 2: 0, 3: 0, 4: 0, 5: 0 };
+    const totalSpent = 1000; // 예: 1장 구매
+    const profitRate = calculateProfitRate(results, totalSpent);
+    expect(profitRate).toBeCloseTo(((PRIZES[1] - totalSpent) / totalSpent) * 100, 1); // 소수점 첫째 자리까지 확인
+  });
+
+  test("3등 당첨 2회, 5등 당첨 1회일 때 수익률을 계산한다", () => {
+    const results = { 1: 0, 2: 0, 3: 2, 4: 0, 5: 1 };
+    const totalSpent = 3000; // 예: 3장 구매
+    const expectedProfit = (PRIZES[3] * 2) + (PRIZES[5] * 1); // 예상 당첨 금액
+    const profitRate = calculateProfitRate(results, totalSpent);
+    expect(profitRate).toBeCloseTo(((expectedProfit - totalSpent) / totalSpent) * 100, 1);
+  });
+
+  test("모든 등수에서 1회씩 당첨될 때 수익률을 계산한다", () => {
+    const results = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 };
+    const totalSpent = 1000 * 5; // 예: 5장 구매
+    const expectedProfit = PRIZES[1] + PRIZES[2] + PRIZES[3] + PRIZES[4] + PRIZES[5];
+    const profitRate = calculateProfitRate(results, totalSpent);
+    expect(profitRate).toBeCloseTo(((expectedProfit - totalSpent) / totalSpent) * 100, 1);
   });
 });
 
