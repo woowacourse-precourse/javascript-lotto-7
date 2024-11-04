@@ -57,7 +57,7 @@ class App {
       Console.print(this.#makeResult(idx));
     }
 
-    Console.print(`총 수익률은 ${this.#lottoAnalyzer.getRoi()}%입니다.`);
+    Console.print(`총 수익률은 ${this.#lottoAnalyzer.getRoi().toLocaleString()}%입니다.`);
   }
 
   #makeResult(idx) {
@@ -72,7 +72,7 @@ class App {
 
     return `${matchCount}개 일치`
       + `${bonusCaseMessage}`
-      + ` (${this.#prizeMoney[idx]})원 -`
+      + ` (${this.#prizeMoney[idx].toLocaleString()})원 -`
       + ` ${this.#lottoAnalyzer.getwinningCount()[idx]}개`;
   }
 }
