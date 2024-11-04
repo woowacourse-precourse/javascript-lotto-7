@@ -24,7 +24,7 @@ class App {
       lotto.matchNumbers(winningNumbers, bonusNumber),
     );
     print.winningStatistics();
-    print.profitRate(this.user.purchaseAmount, Lotto.getTotalProfit);
+    print.profitRate(this.user.purchaseAmount, Lotto.getTotalProfit());
   }
 }
 

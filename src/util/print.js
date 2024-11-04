@@ -11,17 +11,19 @@ function lottoList(lottoList) {
 
 function winningStatistics() {
   Console.print(OUTPUT_MESSAGE.RESULT_STATISTICS);
-  Object.entries(Lotto.matchedCount).forEach(([key, count]) => {
+  LOTTO.STATISTICS_ORDER.forEach((key) => {
     const label =
       key === '5+bonus' ? '5개 일치, 보너스 볼 일치' : `${key}개 일치`;
     Console.print(
-      `${label} (${formatCurrency(LOTTO.WINNING_AMOUNT[key])}) - ${count}개`,
+      `${label} (${formatCurrency(LOTTO.WINNING_AMOUNT[key])}) - ${
+        Lotto.matchedCount[key]
+      }개`,
     );
   });
 }
 
 function profitRate(purchaseAmount, totalProfit) {
-  const fixedRate = ((totalProfit / purchaseAmount) * 100).toFixed(2);
+  const fixedRate = ((totalProfit / purchaseAmount) * 100).toFixed(1);
   Console.print(OUTPUT_MESSAGE.TOTAL_PROFIT_RATE(Number(fixedRate)));
 }
 

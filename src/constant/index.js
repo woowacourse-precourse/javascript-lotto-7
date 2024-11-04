@@ -23,4 +23,6 @@ export const LOTTO = Object.freeze({
     '5+bonus': 30000000,
     6: 2000000000,
   }),
+
+  STATISTICS_ORDER: Object.freeze(['3', '4', '5', '5+bonus', '6']),
 });
