@@ -14,14 +14,14 @@ const MONEY_BY_RANK = Object.freeze({
 
 class App {
   #lottos;
-  #money;
+  money;
   winNumbers;
   bonusNumber;
   #rankResult;
 
   async run() {
-    this.#money = await InputView.processMoney();
-    OutputView.printLottoCount(this.#money);
+    this.money = await InputView.processMoney();
+    OutputView.printLottoCount(this.money);
     this.#lottos = await this.createLottos();
     OutputView.printLottoNumbers(this.#lottos);
     this.winNumbers = await InputView.processWinningNumber();
@@ -32,7 +32,7 @@ class App {
   }
 
   async createLottos() {
-    const lottoCount = this.#money / LOTTO_CONSTANTS.price;
+    const lottoCount = this.money / LOTTO_CONSTANTS.price;
 
     const lottoNumberPromises = Array.from({ length: lottoCount }, async () => {
       const randomNumber = await this.getSortedRandomNumber();
@@ -71,7 +71,7 @@ class App {
       (rankIdx) =>
         (income += MONEY_BY_RANK[rankIdx] * this.#rankResult[rankIdx])
     );
-    const INCOME_PERCENTAGE = (income / this.#money) * 100;
+    const INCOME_PERCENTAGE = (income / this.money) * 100;
 
     return INCOME_PERCENTAGE.toFixed(1);
   }
