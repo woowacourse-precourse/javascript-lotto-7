@@ -15,31 +15,30 @@ export function printWinningResult(winningResult) {
   Console.print("\n당첨 통계");
   Console.print("---");
 
-  Console.print(
-    `3개 일치 (${RANKS.THREE_MATCH.prize.toLocaleString()}원) - ${
-      winningResult[RANKS.THREE_MATCH.key] || 0
-    }개`
-  );
-  Console.print(
-    `4개 일치 (${RANKS.FOUR_MATCH.prize.toLocaleString()}원) - ${
-      winningResult[RANKS.FOUR_MATCH.key] || 0
-    }개`
-  );
-  Console.print(
-    `5개 일치 (${RANKS.FIVE_MATCH.prize.toLocaleString()}원) - ${
-      winningResult[RANKS.FIVE_MATCH.key] || 0
-    }개`
-  );
-  Console.print(
-    `5개 일치, 보너스 볼 일치 (${RANKS.FIVE_MATCH_WITH_BONUS.prize.toLocaleString()}원) - ${
-      winningResult[RANKS.FIVE_MATCH_WITH_BONUS.key] || 0
-    }개`
-  );
-  Console.print(
-    `6개 일치 (${RANKS.SIX_MATCH.prize.toLocaleString()}원) - ${
-      winningResult[RANKS.SIX_MATCH.key] || 0
-    }개`
-  );
+  Object.values(RANKS).forEach((rank) => {
+    if (rank.key === "noMatch") return; // 0개 일치 제외
+    let description;
+    if (rank.key === "fiveMatchWithBonus") {
+      description = `5개 일치, 보너스 볼 일치`;
+    } else {
+      description = `${getMatchCount(rank.key)}개 일치`;
+    }
+    Console.print(
+      `${description} (${rank.prize.toLocaleString()}원) - ${
+        winningResult[rank.key] || 0
+      }개`
+    );
+  });
+}
+
+function getMatchCount(key) {
+  const matchCounts = {
+    threeMatch: 3,
+    fourMatch: 4,
+    fiveMatch: 5,
+    sixMatch: 6,
+  };
+  return matchCounts[key] || 0;
 }
 
 export function printLottoYield(yieldPercentage) {
