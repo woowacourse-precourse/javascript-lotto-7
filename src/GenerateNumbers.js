@@ -14,10 +14,8 @@ class GenerateNumbers {
     const allGeneratedNumbers = [];
 
     for (let i = 0; i < bills; i++) {
-      const randomNum = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-      randomNum.sort((a, b) => a - b);
+      const randomNum = this.generateSingleSet();
       allGeneratedNumbers.push(randomNum);
-
       this.findMatchingNumber(randomNum, numbers, bonusNum, bills);
     }
     console.log("");
@@ -43,6 +41,12 @@ class GenerateNumbers {
     const profit = this.calculateReturn(bills);
 
     return { generatedList: allGeneratedNumbers, profit };
+  }
+
+  generateSingleSet() {
+    const randomNum = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    randomNum.sort((a, b) => a - b);
+    return randomNum;
   }
 
   findMatchingNumber(randomNum, numbers, bonusNum, bills) {
