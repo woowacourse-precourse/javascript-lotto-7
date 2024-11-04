@@ -54,11 +54,17 @@ class WinningResult {
   }
 
   getTotalPrize() {
-    return Number(this.#prize.replaceAll(',', '')) * this.#count;
+    let totalPrize = this.#convertPrizeValueToNumber(this.#prize) * this.#count;
+
+    if (this.#hasBonusNumberMatched) {
+      totalPrize += this.#convertPrizeValueToNumber(this.#bonusNumberMatchedPrize) * this.#bonusNumberMatchedCount;
+    }
+
+    return totalPrize;
   }
 
-  getTotalBonusNumberMatchedPrize() {
-    return Number(this.#bonusNumberMatchedPrize.replaceAll(',', '')) * this.#bonusNumberMatchedCount;
+  #convertPrizeValueToNumber(prize) {
+    return Number(prize.replaceAll(',', ''));
   }
 }
 

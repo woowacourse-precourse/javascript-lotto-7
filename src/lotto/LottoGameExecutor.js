@@ -45,15 +45,7 @@ class LottoGameExecutor {
   }
 
   #calculateTotalWinningPrize(winningResults) {
-    const totalWinningPrize = winningResults.reduce((prize, result) => {
-      let totalPrize = prize + result.getTotalPrize();
-
-      if (result.hasBonusNumberMatched) {
-        totalPrize += result.getTotalBonusNumberMatchedPrize();
-      }
-
-      return totalPrize;
-    }, 0);
+    const totalWinningPrize = winningResults.reduce((prize, result) => prize + result.getTotalPrize(), 0);
 
     return totalWinningPrize;
   }
