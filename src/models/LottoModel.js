@@ -11,10 +11,6 @@ class LottoModel {
   #validate(winningNumbers) {
     validateWinningNumbersPipe(winningNumbers);
   }
-
-  getWinningNumbers() {
-    return this.#winningNumbers;
-  }
 }
 
 export default LottoModel;
