@@ -4,6 +4,20 @@ import Lotto from "./Lotto.js";
 // 상수 정의
 const LOTTO_PRICE = 1000;
 const ERROR_MESSAGE = "[ERROR]";
+const PRIZE_MONEY = {
+  first: 2000000000,
+  second: 30000000,
+  third: 1500000,
+  fourth: 50000,
+  fifth: 5000,
+};
+const MATCH_COUNT = {
+  first: 6,
+  second: 5,
+  third: 5,
+  fourth: 4,
+  fifth: 3,
+};
 
 class App {
   async run() {
@@ -84,11 +98,11 @@ class App {
       const matchCount = lotto.getMatchCount(winningNumbers);
       const hasBonus = lotto.hasBonusNumber(bonusNumber);
 
-      if (matchCount === 6) results.first++;
-      else if (matchCount === 5 && hasBonus) results.second++;
-      else if (matchCount === 5) results.third++;
-      else if (matchCount === 4) results.fourth++;
-      else if (matchCount === 3) results.fifth++;
+      if (matchCount === MATCH_COUNT.first) results.first++;
+      else if (matchCount === MATCH_COUNT.second && hasBonus) results.second++;
+      else if (matchCount === MATCH_COUNT.third) results.third++;
+      else if (matchCount === MATCH_COUNT.fourth) results.fourth++;
+      else if (matchCount === MATCH_COUNT.fifth) results.fifth++;
     });
 
     return results;
@@ -103,11 +117,11 @@ class App {
     Console.print(`6개 일치 (2,000,000,000원) - ${results.first}개`);
 
     const totalPrize =
-      results.first * 2000000000 +
-      results.second * 30000000 +
-      results.third * 1500000 +
-      results.fourth * 50000 +
-      results.fifth * 5000;
+      results.first * PRIZE_MONEY.first +
+      results.second * PRIZE_MONEY.second +
+      results.third * PRIZE_MONEY.third +
+      results.fourth * PRIZE_MONEY.fourth +
+      results.fifth * PRIZE_MONEY.fifth;
     const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
 
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
