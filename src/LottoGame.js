@@ -108,7 +108,7 @@ class LottoGame {
     let result = this.checkWinning(userLotto);
     const totalEarnings = (5000 * result[3]) + (50000 * result[4]) + (1500000 * result[5]) + (30000000 * result['5+bonus']) + (2000000000 * result[6]);
     const investment = this.calculateLottoCount() * LOTTO_PRICE;
-    const profitRate = ((totalEarnings - investment) / investment * 100).toFixed(1);
+    const profitRate = ((totalEarnings / investment)*100).toFixed(1);
 
     return profitRate;
   }
