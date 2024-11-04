@@ -4,6 +4,7 @@ import { LOTTO, OUTPUT_MESSAGE } from '../constant';
 import formatCurrency from './formatCurrency';
 
 function lottoList(lottoList) {
+  Console.print(`\n${lottoList.length}${OUTPUT_MESSAGE.PURCHASE_COUNT}`);
   lottoList.forEach((lotto) => {
     Console.print(`[${lotto.numbers.join(', ')}]`);
   });

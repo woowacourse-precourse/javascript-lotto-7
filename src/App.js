@@ -11,9 +11,6 @@ class App {
 
   async run() {
     this.user.readPurchaseAmount();
-    Console.print(
-      `\n${this.user.purchaseCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
-    );
     const lottoList = Lotto.purchaseLotto(this.user.purchaseCount);
     print.lottoList(lottoList);
     this.user.readWinningNumbers();
