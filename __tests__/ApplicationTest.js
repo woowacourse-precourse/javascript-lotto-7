@@ -67,6 +67,9 @@ describe("로또 테스트", () => {
     const app = new App();
     await app.run();
 
+    // Debugging output for log calls
+    console.log(logSpy.mock.calls);
+
     // then
     const logs = [
       "8개를 구매했습니다.",
@@ -91,7 +94,62 @@ describe("로또 테스트", () => {
     });
   });
 
+  test("기능 테스트", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms([
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 7],
+      [5, 4, 3, 1, 20, 7],
+      [2, 6, 3, 45, 20, 7],
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 33],
+      [5, 4, 3, 1, 20, 7],
+      [2, 6, 3, 45, 20, 7],
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 7],
+      [5, 4, 3, 1, 20, 7],
+      [2, 6, 3, 45, 20, 7],
+    ]);
+    mockQuestions(["12000", "1,2,3,4,5,6", "7"]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // Debugging output for log calls
+    console.log(logSpy.mock.calls);
+
+    // then
+    const logs = [
+      "12개를 구매했습니다.",
+      "[1, 2, 3, 4, 5, 6]",
+      "[1, 2, 3, 4, 5, 7]",
+      "[5, 4, 3, 1, 20, 7]",
+      "[2, 6, 3, 45, 20, 7]",
+      "[1, 2, 3, 4, 5, 6]",
+      "[1, 2, 3, 4, 5, 33]",
+      "[5, 4, 3, 1, 20, 7]",
+      "[2, 6, 3, 45, 20, 7]",
+      "[1, 2, 3, 4, 5, 6]",
+      "[1, 2, 3, 4, 5, 7]",
+      "[5, 4, 3, 1, 20, 7]",
+      "[2, 6, 3, 45, 20, 7]",
+      "3개 일치 (5,000원) - 3개",
+      "4개 일치 (50,000원) - 3개",
+      "5개 일치 (1,500,000원) - 1개",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - 2개",
+      "6개 일치 (2,000,000,000원) - 3개",
+      "총 수익률은 50513875.0%입니다.",
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
   test("예외 테스트", async () => {
-    await runException("1000j");
+    await runException("1000j", "1,000", "900", "1001", "-1000");
   });
 });
