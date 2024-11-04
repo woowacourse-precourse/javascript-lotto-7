@@ -1,6 +1,6 @@
 import LottoGenerator from './components/Lotto/LottoGenerator.js';
 import ResultCalculator from './components/ResultCalculator.js';
-import printGeneratedList from './utils/OutputView.js';
+import StatisticCalculation from './components/StatisticCalculation.js';
 
 class App {
   async run() {
@@ -11,9 +11,8 @@ class App {
     const bonusNumber = [7]; // 가정
     const resultCalculator = new ResultCalculator(winningNumbers, bonusNumber);
     const prizes = resultCalculator.calculatePrizes(lottoList);
-      bonusNumber,
-    );
-    resultCalculator.calculatePrizes(lottoList);
+    const statistics = StatisticCalculation(prizes, inputMoney);
+    printfinalResults(statistics);
   }
 }
 
