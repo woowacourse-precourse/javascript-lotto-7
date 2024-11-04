@@ -27,7 +27,9 @@ class UserInput {
     const winNums = await MissionUtils.Console.readLineAsync(
       "당첨된 숫자 6자를 쉼표로 구분하여 입력해주세요. \n"
     );
-    return winNums;
+
+    const numbers = winNums.split(",").map((num) => parseInt(num.trim(), 10));
+    return numbers;
   }
 }
 
