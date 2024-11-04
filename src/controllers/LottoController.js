@@ -1,3 +1,5 @@
+import LottoResultDTO from '../dtos/LottoResultDTO.js';
+
 export default class LottoController {
   #lottoPurchaser;
   #winningLotto;
@@ -82,8 +84,9 @@ export default class LottoController {
 
   #printResult(){
     const lottoResult = this.#lottoPurchaser.getLottoResult();
+    const lottoResultDTO = LottoResultDTO.ofResultAndEarningRate(lottoResult.getResult(),lottoResult.getEarningRate());
 
-    this.#outputLottoView.printLottoResult(lottoResult);
-    this.#outputLottoView.printEarningRate(lottoResult);
+    this.#outputLottoView.printLottoResult(lottoResultDTO);
+    this.#outputLottoView.printEarningRate(lottoResultDTO);
   }
 }

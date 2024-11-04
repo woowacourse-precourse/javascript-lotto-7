@@ -26,8 +26,8 @@ export default class OutputLottoView {
     });
   }
 
-  printLottoResult(lottoResult) {
-    const result = lottoResult.getResult();
+  printLottoResult(lottoResultDTO) {
+    const result = lottoResultDTO.getResult();
 
     Console.print(this.#OUTPUT_MESSAGE.LOTTO_RESULT_START);
 
@@ -38,8 +38,8 @@ export default class OutputLottoView {
     });
   }
 
-  printEarningRate(lottoResult) {
-    const earningRate = lottoResult.getEarningRate();
+  printEarningRate(lottoResultDTO) {
+    const earningRate = lottoResultDTO.getEarningRate();
 
     Console.print(
       `${this.#OUTPUT_MESSAGE.EARNING_RATE_START}${earningRate}${
