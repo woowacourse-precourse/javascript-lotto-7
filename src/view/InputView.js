@@ -18,6 +18,10 @@ const InputView = {
     const input = await Console.readLineAsync();
     const numbers = input.split(",").map(Number);
 
+    if (numbers.length !== 6 || numbers.some((num) => isNaN(num) || num < 1 || num >45)) {
+      throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자 6개여야 합니다.")
+    }
+    
     return numbers;
   }
 }
