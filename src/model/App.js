@@ -1,6 +1,7 @@
+import Controller from "../Controller.js";
 class App {
   async run() {
-    controller = new Controller();
+    const controller = new Controller();
     controller.run();
   }
 }
