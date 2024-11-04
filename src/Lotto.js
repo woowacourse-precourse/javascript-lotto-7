@@ -13,6 +13,10 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  // 로또 번호를 반환하는 메서드
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
