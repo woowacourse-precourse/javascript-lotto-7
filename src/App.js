@@ -3,7 +3,8 @@ import UserInput from "./UserInput.js";
 class App {
   async run() {
     const userInput = new UserInput();
-    const input = await userInput.inputPrice();
+    const price = await userInput.inputPrice();
+    const winNum = await userInput.inputWinningNumbers();
   }
 }
 
