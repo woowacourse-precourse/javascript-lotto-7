@@ -87,7 +87,8 @@ class LottoController {
     return winningResult;
   }
 
-  displayResults(winningNumbers) {
+  displayResults() {
+    const winningNumbers = this.lotto.getNumbers();
     const winningResult = this.#compareLottoTickets(winningNumbers);
 
     this.displayHandler.printLottoWinningResult(winningResult);

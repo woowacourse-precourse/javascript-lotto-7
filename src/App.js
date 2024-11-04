@@ -11,7 +11,7 @@ class App {
     await lottoController.createLotto();
     await lottoController.setBonusNumber();
 
-    lottoController.displayResults(lottoController.lotto.getNumbers());
+    lottoController.displayResults();
   }
 }
 
