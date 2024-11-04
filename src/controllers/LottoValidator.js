@@ -18,11 +18,19 @@ class LottoValidator {
       throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
     }
 
+    if (this.#hasDuplicateNumbers(parsedNumbers)) {
+      throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER);
+    }
+
     return parsedNumbers;
   }
 
   #isCorrectCount(arr) {
     return arr.length === LOTTO.WINNING_NUMBERS_COUNT;
+  }
+
+  #hasDuplicateNumbers(arr) {
+    return new Set(arr).size !== arr.length;
   }
 
   #parseUserInput(userInput) {
