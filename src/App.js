@@ -1,9 +1,18 @@
-import { Console } from "@woowacourse/mission-utils";
-import purchaseAmount from "./util/purchaseAmount.js";
+import LottoGame from "./domain/LottoGame.js";
+
 class App {
+  #lottoGame;
+
+  constructor() {
+    this.#lottoGame = new LottoGame();
+  }
+
   async run() {
-    const amount = await purchaseAmount();
-    Console.print(`구입량: ${amount}`);
+    try {
+      await this.#lottoGame.play();
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 
