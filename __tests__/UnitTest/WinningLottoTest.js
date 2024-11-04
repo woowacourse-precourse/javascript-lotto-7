@@ -47,12 +47,13 @@ describe("WinningLotto 클래스 테스트", () => {
     ];
     const winningNumbers = [1, 2, 3, 4, 5, 6];
     const bonusNumber = 7;
+    const purchase = 8000;
 
     mockRandoms(totalLotto);
     const lottos = new TotalLotto(totalLotto.length).getLottos();
     const winningLotto = new WinningLotto(lottos, winningNumbers, bonusNumber);
     winningLotto.resultLotto();
-    const winningPercent = winningLotto.caculatePercent();
+    const winningPercent = winningLotto.calculatePercent(purchase);
 
     expect(winningPercent).toStrictEqual(expectedResult);
 
