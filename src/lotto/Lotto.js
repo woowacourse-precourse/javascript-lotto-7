@@ -19,10 +19,14 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO_SIZE) {
       ErrorHandler.throwError(ERROR_MESSAGES.WINNING_SIZE);
     } else if (new Set(numbers).size !== LOTTO_SIZE) {
       ErrorHandler.throwError(ERROR_MESSAGES.DUPLICATE_NUMBER);
+    } else if (
+      numbers.some((number) => number < MIN_NUMBER || number > MAX_NUMBER)
+    ) {
+      ErrorHandler.throwError(ERROR_MESSAGES.RANGE);
     }
   }
 
