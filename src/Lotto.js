@@ -1,3 +1,5 @@
+const errorMessages = require("./errors/errorMessages");
+
 class Lotto {
   #numbers;
 
@@ -8,11 +10,22 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(errorMessages.AMOUNT_OVER_ERROR);
+    }
+    if (new Set(numbers).size !== 6) {
+      throw new Error(errorMessages.SAME_NUMBER_ERROR);
+    }
+    if (numbers.some((num) => isNaN(num))) {
+      throw new Error(errorMessages.NOT_NUMBER_ERROR);
+    }
+    if (numbers.some((num) => num < 1 || num > 45)) {
+      throw new Error(errorMessages.RANGE_OVER_ERROR);
     }
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return [...this.#numbers].sort((a, b) => a - b);
+  }
 }
 
-export default Lotto;
+module.exports = Lotto;
