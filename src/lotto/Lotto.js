@@ -1,7 +1,9 @@
 import { Random } from "@woowacourse/mission-utils";
 import {
   ERROR_MESSAGES,
+  LOTTO_BONUS_FLAG,
   LOTTO_SIZE,
+  LOTTO_WINNING_FLAG,
   MAX_NUMBER,
   MIN_NUMBER,
 } from "../utils/constants.js";
@@ -38,12 +40,16 @@ class Lotto {
 
   // 당첨 번호와 비교 후 맞는 갯수 리턴
   countMatchingNumbers(winningNumbersArray) {
-    return this.#numbers.filter((num) => winningNumbersArray[num] === 1).length;
+    return this.#numbers.filter(
+      (num) => winningNumbersArray[num] === LOTTO_WINNING_FLAG
+    ).length;
   }
 
   // 보너스 번호가 있는지 확인
   hasBonusNumber(winningNumbersArray) {
-    return this.#numbers.some((num) => winningNumbersArray[num] === 2);
+    return this.#numbers.some(
+      (num) => winningNumbersArray[num] === LOTTO_BONUS_FLAG
+    );
   }
 }
 

@@ -1,4 +1,8 @@
-import { MAX_NUMBER } from "../utils/constants.js";
+import {
+  LOTTO_BONUS_FLAG,
+  LOTTO_WINNING_FLAG,
+  MAX_NUMBER,
+} from "../utils/constants.js";
 
 // 당첨 번호 및 보너스 번호 관리
 class WinningLotto {
@@ -11,13 +15,13 @@ class WinningLotto {
   // 당첨 번호 가공
   setWinningNumbers(winningNumbers) {
     winningNumbers.forEach((number) => {
-      this.#winningNumbersArray[number] = 1; // 해당 인덱스 === 당첨 번호를 1로 변경
+      this.#winningNumbersArray[number] = LOTTO_WINNING_FLAG; // 해당 인덱스 === 당첨 번호를 1로 변경
     });
   }
 
   // 보너스 번호 가공
   setBonusNumber(bonusNumber) {
-    this.#winningNumbersArray[bonusNumber] = 2; // 보너스 번호는 2로 표시
+    this.#winningNumbersArray[bonusNumber] = LOTTO_BONUS_FLAG; // 보너스 번호는 2로 표시
   }
 
   getWinningNumbersArray() {
