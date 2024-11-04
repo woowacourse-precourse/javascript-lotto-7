@@ -1,10 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_PREFIX, INPUT_MESSAGE } from '../constant/constants.js';
+import { INPUT_MESSAGE } from '../constant/constants.js';
 import { PRIZE_BY_MATCH_COUNT } from '../constant/prizeByMatchCount.js';
 
 export default class OutputView {
   printError(message) {
-    Console.print(`${ERROR_PREFIX} ${message}`);
+    Console.print(message);
   }
 
   printWinningStatistics(lottoResult) {
