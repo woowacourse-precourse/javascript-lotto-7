@@ -1,14 +1,6 @@
 import { calTotalPrize } from '../src/util/calculators/calTotalPrize.js';
 import { MagicNumber } from '../src/constants/MagicNumber.js';
 
-jest.mock('../src/constants/MagicNumber.js', () => ({
-  MATCH_3_PRIZE: 5000,
-  MATCH_4_PRIZE: 50000,
-  MATCH_5_PRIZE: 1500000,
-  MATCH_5_BONUS_PRIZE: 30000000,
-  MATCH_6_PRIZE: 2000000000,
-}));
-
 function calExpectedPrize(matchCounts) {
   return (
     matchCounts.MATCH_3 * MagicNumber.MATCH_3_PRIZE +
