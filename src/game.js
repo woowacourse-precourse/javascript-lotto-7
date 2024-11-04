@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT } from './constant/index.js';
+import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT, RESULT_KEYS } from './constant/index.js';
 import WinningResult from './WinningResult.js';
 
 class Game {
@@ -7,11 +7,11 @@ class Game {
   #winningNumbers;
   #bonusNumber;
   #gameResult = {
-    THREE_MATCH: new WinningResult(LOTTO_MATCH_TEXT.THREE_MATCH, LOTTO_PRIZES.THREE_MATCH),
-    FOUR_MATCH: new WinningResult(LOTTO_MATCH_TEXT.FOUR_MATCH, LOTTO_PRIZES.FOUR_MATCH),
-    FIVE_MATCH: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH, LOTTO_PRIZES.FIVE_MATCH),
-    FIVE_MATCH_WITH_BONUS: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH_WITH_BONUS, LOTTO_PRIZES.FIVE_MATCH_WITH_BONUS),
-    SIX_MATCH: new WinningResult(LOTTO_MATCH_TEXT.SIX_MATCH, LOTTO_PRIZES.SIX_MATCH),
+    [RESULT_KEYS.THREE_MATCH]: new WinningResult(LOTTO_MATCH_TEXT.THREE_MATCH, LOTTO_PRIZES.THREE_MATCH),
+    [RESULT_KEYS.FOUR_MATCH]: new WinningResult(LOTTO_MATCH_TEXT.FOUR_MATCH, LOTTO_PRIZES.FOUR_MATCH),
+    [RESULT_KEYS.FIVE_MATCH]: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH, LOTTO_PRIZES.FIVE_MATCH),
+    [RESULT_KEYS.FIVE_MATCH_WITH_BONUS]: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH_WITH_BONUS, LOTTO_PRIZES.FIVE_MATCH_WITH_BONUS),
+    [RESULT_KEYS.SIX_MATCH]: new WinningResult(LOTTO_MATCH_TEXT.SIX_MATCH, LOTTO_PRIZES.SIX_MATCH),
   };
 
   constructor(purchasedLottos, winningLotto) {
@@ -26,13 +26,13 @@ class Game {
 
   #getResultKey(matchCount, purchasedLottoNumbers) {
     if (matchCount < 3) return null;
-    if (matchCount === 3) return 'THREE_MATCH';
-    if (matchCount === 4) return 'FOUR_MATCH';
+    if (matchCount === 3) return RESULT_KEYS.THREE_MATCH;
+    if (matchCount === 4) return RESULT_KEYS.FOUR_MATCH;
     if (matchCount === 5 && purchasedLottoNumbers.includes(this.#bonusNumber)) {
-      return 'FIVE_MATCH_WITH_BONUS';
+      return RESULT_KEYS.FIVE_MATCH_WITH_BONUS;
     }
-    if (matchCount === 5) return 'FIVE_MATCH';
-    if (matchCount === 6) return 'SIX_MATCH';
+    if (matchCount === 5) return RESULT_KEYS.FIVE_MATCH;
+    if (matchCount === 6) return RESULT_KEYS.SIX_MATCH;
 
     return null;
   }
