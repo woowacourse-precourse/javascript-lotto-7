@@ -27,7 +27,7 @@ const validate = {
     }
   },
 
-  validateNotDuplicate(bonusNumber, winningNumbers) {
+  validateDuplicate(bonusNumber, winningNumbers) {
     if (winningNumbers.includes(bonusNumber)) {
       throwError(BONUS_NUMBER_ERROR_MESSAGE.DUPLICATE_NUMBER(winningNumbers));
     }
@@ -40,7 +40,7 @@ function validateBonusNumber(bonusNumber, winningNumbers) {
   validate.validateIsNumber(number);
   validate.validatePositiveInteger(number);
   validate.validateRange(number);
-  validate.validateNotDuplicate(number, winningNumbers);
+  validate.validateDuplicate(number, winningNumbers);
 }
 
 export default validateBonusNumber;
