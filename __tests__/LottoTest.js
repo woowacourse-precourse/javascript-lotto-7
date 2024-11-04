@@ -56,4 +56,19 @@ describe("로또 클래스 테스트", () => {
       new Lotto([1, 2, 3, 3.4, 23.8, 16.98673], 45);
     }).toThrow("[ERROR]");
   });
+
+  test("보너스 번호가 여러개인 경우", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 6], [7, 8]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("보너스 번호가 string이거나 범위에서 벗어난 경우", () => {
+    const isNotNumber = ["a", "b", 0, 46, -12];
+    isNotNumber.forEach((string) => {
+      expect(() => {
+        new Lotto([1, 2, 3, 4, 5, 6], string);
+      }).toThrow("[ERROR]");
+    });
+  });
 });
