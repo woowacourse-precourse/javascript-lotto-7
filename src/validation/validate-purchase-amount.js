@@ -20,7 +20,7 @@ const checkValidNumber = (purchaseAmountInput) => {
 };
 
 const checkUnderLottoPrice = (purchaseAmountInput) => {
-  if (purchaseAmountInput <= LOTTO_PRICE) throwError(ERROR_MESSAGES.UNDER_LOTTO_PRICE);
+  if (purchaseAmountInput < LOTTO_PRICE) throwError(ERROR_MESSAGES.UNDER_LOTTO_PRICE);
   return purchaseAmountInput;
 };
 
