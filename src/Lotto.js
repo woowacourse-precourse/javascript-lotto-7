@@ -15,6 +15,10 @@ class Lotto {
       if (isNaN(number)) {
         throw new Error("[ERROR] 로또 번호는 숫자로 입력해주세요.");
       }
+
+      if (number < 1 || number > 45) {
+        throw new Error("[ERROR] 로또 번호는 1~45 사이의 숫자여야 합니다.");
+      }
     }
   }
 
