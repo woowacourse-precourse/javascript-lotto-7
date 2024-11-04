@@ -5,7 +5,7 @@ import {
   validateBonusNumber,
 } from "../validation.js";
 import LottoGenerator from "../model/LottoGenerator.js";
-import Statistics from "../model/statistics.js";
+import Statistics from "../model/LottoStatistic.js";
 
 class LottoController {
   constructor() {
