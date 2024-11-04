@@ -11,11 +11,9 @@ export function generateRandomNumbers(){
 }
 
 export function countMatchingNumbers(lottoNumbers, winNumbers){
-    let count = 0;
-    for(let i = 0; i < 6; i++){
-        if(winNumbers.includes(lottoNumbers[i])){
-            count += 1;
-        }
-    }
-    return count;
+    return lottoNumbers.filter(number => lottoNumbers.includes(number).length);
+}
+
+export function isMatchBonusNumber(lottoNumbers, winBonusNumber){
+    return lottoNumbers.includes(parseInt(winBonusNumber));
 }
