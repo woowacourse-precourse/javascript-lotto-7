@@ -1,4 +1,4 @@
-import { INPUT_MESSAGE } from './constant';
+import { INPUT_MESSAGE, OUTPUT_MESSAGE } from './constant';
 import { Console } from '@woowacourse/mission-utils';
 import { validateAmount, validateBonus, validateNumbers } from './validate';
 
@@ -23,6 +23,15 @@ class LottoController {
     );
     validateBonus(bonus, numbers);
     return bonus;
+  }
+  printLottoCount(cnt) {
+    Console.print(OUTPUT_MESSAGE.LOTTO_CNT(cnt));
+  }
+
+  printLottos(lottos) {
+    lottos.forEach((lotto) => {
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
   }
 }
 
