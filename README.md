@@ -1,5 +1,28 @@
 # javascript-lotto-precourse
 
+```
+javascript-lotto-7
+├─ .gitignore
+├─ .npmrc
+├─ README.md
+├─ __tests__
+│  ├─ ApplicationTest.js - 종합 테스트
+│  ├─ DetailValidateTest.js - 검증 함수 테스트
+│  ├─ LottoTest.js - 로또 클래스 테스트
+│  └─ ValidateTest.js - 입력 검증 테스트
+├─ package-lock.json
+├─ package.json
+└─ src
+   ├─ App.js - 로또 기능 함수
+   ├─ Lotto.js - 로또 클래스
+   ├─ constants.js - App.js에서 쓰이는 상수
+   ├─ index.js - 진입점
+   ├─ input.js - 사용자 입력 받는 함수
+   └─ validation - 검증
+      ├─ constants.js - validateFunction.js에서 쓰이는 상수
+      └─ validateFunctions.js - 입력값 검증하는 함수
+```
+
 # **기능 요구 사항**
 
 ---
