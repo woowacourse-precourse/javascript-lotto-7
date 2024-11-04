@@ -1,4 +1,4 @@
-import { INPUT_MESSAGE } from './constants/message.js';
+import { INPUT_MESSAGE } from '../constants/message.js';
 
 class View {
   #io;
@@ -7,15 +7,17 @@ class View {
     this.#io = io;
   }
 
-  get_purchase () {
+  getPurchase () {
     return this.#io.in(INPUT_MESSAGE.PURCAHSE_AMOUNT);
   }
 
-  get_winning_numbers () {
+  getWinningNumbers () {
     return this.#io.in(INPUT_MESSAGE.WINNING_NUMBERS);
   }
 
-  get_bonus_number () {
+  getBonusNumber () {
     return this.#io.in(INPUT_MESSAGE.BONUS_NUMBER);
   }
 }
+
+export default View;
