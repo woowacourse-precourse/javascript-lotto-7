@@ -30,6 +30,7 @@ class App {
             let selectedNum = chkSelectedNum(numbers);
             if (!selectedNum) this.throwError('당첨 번호 입력 오류');
             const selectedNumInstance = new Lotto(selectedNum);
+            selectedNumInstance.validateRange();
             selectedNum = selectedNumInstance.getNumbers();
 
             // 보너스 번호 입력
