@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import MESSAGES from "../constants/messages.js";
+import STATISTICS_MESSAGE from "../constants/statistics.js";
 
 class LottoView {
   async inputLottoAmount() {
@@ -33,6 +34,18 @@ class LottoView {
       MESSAGES.INPUT_BONUS_NUMBER
     );
     return Number(bonusNumbers);
+  }
+
+  printStatistics(statistics) {
+    Console.print(STATISTICS_MESSAGE.STATISTICS_DEFAULT_MESSAGE);
+    Console.print(`${STATISTICS_MESSAGE.FIFTH}${statistics.fifth}개`);
+    Console.print(`${STATISTICS_MESSAGE.FOURTH}${statistics.fourth}개`);
+    Console.print(`${STATISTICS_MESSAGE.THIRD}${statistics.third}개`);
+    Console.print(`${STATISTICS_MESSAGE.SECOND}${statistics.second}개`);
+    Console.print(`${STATISTICS_MESSAGE.FIRST}${statistics.first}개`);
+    Console.print(
+      `${STATISTICS_MESSAGE.RATE_OF_RETURN}${statistics.rate}${STATISTICS_MESSAGE.PERCENT}`
+    );
   }
 }
 
