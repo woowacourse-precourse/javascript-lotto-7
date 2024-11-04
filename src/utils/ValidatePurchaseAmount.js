@@ -8,6 +8,10 @@ export default class ValidatePurchaseAmount {
   static validate(amount) {
     const parsedAmount = parseInt(amount, 10);
 
+    if (amount.includes("-")) {
+      throw new Error(ERROR_MESSAGES.purchaseAmountInvalid);
+    }
+
     if (!/^\d+$/.test(amount)) {
       throw new Error(ERROR_MESSAGES.purchaseAmountNotANumber);
     }
