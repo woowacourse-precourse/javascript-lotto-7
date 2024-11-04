@@ -19,7 +19,9 @@ class App {
     const bonusLotteryNumber = await handleBonusLotteryNum(userLotteryNumbers);
 
     const usersLottery = userLotteryNumbers.map((num) => Number(num));
+
     lotteriesToCompare.forEach(lottery => lottery.printNumOfLotto());
+
     this.startLotto(lotteriesToCompare, usersLottery, bonusLotteryNumber);
   }
 
@@ -48,6 +50,7 @@ class App {
       return userMatches;
     });
     const statisticsResult = this.checkWins(matches);
+    this.finishLotto(statisticsResult, matches.length);
   }
 
   checkWins(matches) {
@@ -66,6 +69,19 @@ class App {
 
     return lotteryStatistics;
   }
+
+  finishLotto(results, tickets) {
+    printParam(PROMPTS.SHOW_STATISTICS);
+    const [_, IS_BONUS] = BONUS.BONUS_ARRAY;
+
+    results.forEach(result => {
+      if (result.matches === IS_BONUS) {
+        return printResult(result, BONUS.BONUS_MENT);
+      }
+      printResult(result);
+    })
+  };
+
 }
 
 export default App;
