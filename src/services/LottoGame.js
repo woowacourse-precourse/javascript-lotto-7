@@ -59,9 +59,9 @@ class LottoGame {
 
     Printer.print(MESSAGES.prizeStatistics);
 
-    for (const [ranking, count] of Object.entries(rankCount)) {
+    Object.entries(rankCount).forEach(([ranking, count]) => {
       Printer.print(PRIZE_MESSAGES.howManyMatchAndCount(ranking, count));
-    }
+    });
   }
 
   #calculateLottoEarningsRate(lottoResults) {
