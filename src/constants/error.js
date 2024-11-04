@@ -1,3 +1,5 @@
+import { FORMAT } from "../constants/message.js";
+
 const PRICE_ERROR_MESSAGE = Object.freeze({
   EMPTY_INPUT: "입력값이 비어 있습니다. 값을 입력해 주세요!",
   INVALID_POSITIVE_INTEGER: "금액은 0 이상의 양의 정수여야 합니다. 1000원 단위로 작성해 주세요.",
@@ -31,7 +33,7 @@ const BONUS_NUMBER_ERROR_MESSAGE = Object.freeze({
   OUT_OF_RANGE: "보너스 번호는 1부터 45 사이의 양의 정수여야 합니다. 조건에 맞는 숫자 하나를 입력해 주세요.",
   DUPLICATE_NUMBER: (winningNumbers) => 
   `보너스 번호와 당첨번호는 중복되어서는 안됩니다. 1 ~ 45사이의 숫자 하나를 입력해 주세요.
-  현재 당첨 번호: [${winningNumbers.join(", ")}]`,
+  현재 당첨 번호: [${winningNumbers.join(FORMAT.COMMA_SPACE)}]`,
 });
 
 const RETRY_ERROR_MESSAGE = Object.freeze({
