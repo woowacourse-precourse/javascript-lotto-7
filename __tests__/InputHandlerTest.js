@@ -85,5 +85,18 @@ describe("InputHandler 클래스 테스트", () => {
       const bonusNumber = await inputHandler.getBonusNumber(winningNumbers);
       expect(bonusNumber).toBe(7);
     });
+    it("범위를 벗어난 보너스 번호가 입력된 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync.mockResolvedValueOnce("50").mockResolvedValueOnce("7");
+      await inputHandler.getBonusNumber([1, 2, 3, 4, 5, 6]);
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_RANGE);
+    });
+
+    it("보너스 번호가 당첨 번호에 포함된 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync.mockResolvedValueOnce("6").mockResolvedValueOnce("7");
+      await inputHandler.getBonusNumber([1, 2, 3, 4, 5, 6]);
+      expect(Console.print).toHaveBeenCalledWith(
+        ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER_WITH_WINNING
+      );
+    });
   });
 });
