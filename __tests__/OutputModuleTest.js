@@ -15,4 +15,15 @@ describe('OutputModule Test', () => {
 
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(messages));
   });
+
+  test.each([
+    [[1, 2, 3, 4, 5, 6], '[1, 2, 3, 4, 5, 6]'],
+    [[19, 21, 26, 35, 40, 42], '[19, 21, 26, 35, 40, 42]'],
+  ])('printBankStatus : 전달받은 숫자 배열을 텍스트로 변환하여 출력한다.', (value, result) => {
+    const mockLottos = [{ getNumbers: () => value }];
+
+    OutputModules.printLottos(mockLottos);
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(result));
+  });
 });
