@@ -1,3 +1,7 @@
+import {
+  PERCENTAGE_MULTIPLIER,
+  DECIMAL_PLACE,
+} from '../constants/calculationConfig.js';
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 import { LOTTO_PRIZE } from '../constants/lottoResults.js';
 
@@ -21,7 +25,9 @@ const calculationLotto = {
       0
     );
 
-    return ((winningAmount / purchasePrice) * 100).toFixed(1);
+    return ((winningAmount / purchasePrice) * PERCENTAGE_MULTIPLIER).toFixed(
+      DECIMAL_PLACE
+    );
   },
 };
 
