@@ -11,8 +11,8 @@ class OutputController {
 
     this.print(purchasedLottosCountOutput);
 
-    lottos.forEach(({ numbers }) => {
-      const purchasedLottoOutput = `[${numbers.join(', ')}]`;
+    lottos.forEach((lotto) => {
+      const purchasedLottoOutput = `[${lotto.numbers.join(', ')}]`;
 
       this.print(purchasedLottoOutput);
     });
