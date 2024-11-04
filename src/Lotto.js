@@ -36,7 +36,7 @@ class Lotto {
       }
     });
   }
-  bonusErrorCheck(bonusNumber) {
+  bonusDuplicateCheck(bonusNumber) {
     if (this.#numbers.includes(bonusNumber)) {
       throw new Error(BONUS_DUPLICATE);
     }

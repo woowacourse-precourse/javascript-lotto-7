@@ -39,9 +39,14 @@ export const PRIZE_FIVE_BONUS = 30000000;
 export const PRIZE_SIX = 2000000000;
 
 export const BUY_ERROR = "[ERROR] 구입할 금액은 1,000원 단위의 숫자여야 합니다. ";
+
 export const LOTTO_ERROR_COUNT = "[ERROR] 로또 번호는 6개여야 합니다.";
 export const LOTTO_ERROR_DUPLICATE = "[ERROR] 로또 번호는 중복이 없어야 합니다.";
 export const LOTTO_ERROR_NUMBER = "[ERROR] 로또 번호는 숫자여야 합니다.";
 export const LOTTO_ERROR_RANGE = "[ERROR] 로또 번호는 1~45의 숫자여야 합니다.";
 export const LOTTO_ERROR_INTEGER = "[ERROR] 로또 번호는 1~45의 정수여야 합니다.";
+
 export const BONUS_DUPLICATE = "[ERROR] 보너스 번호는 로또 번호와 달라야 합니다.";
+export const BONUS_RANGE_ERROR = "[ERROR] 보너스 번호는 1~45의 숫자여야 합니다. ";
+export const BONUS_ERROR_NUMBER = "[ERROR] 보너스 번호는 숫자여야 합니다.";
+export const BONUS_ERROR_INTEGER = "[ERROR] 보너스 번호는 1~45의 정수여야 합니다.";

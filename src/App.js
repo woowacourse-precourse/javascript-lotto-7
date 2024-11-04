@@ -10,14 +10,13 @@ import {
   TRUE,
   ZERO,
 } from "./Constant.js";
-import {
-  makeLottos,
-  makeWinningLotto,
-  buyCountErrorCheck,
-  calculateLottos,
-  printResult,
-  printEarn,
-} from "./Function.js";
+import { buyCountErrorCheck } from "./Function/buyCountErrorCheck.js";
+import { makeWinningLotto } from "./Function/makeWinningLotto.js";
+import { calculateLottos } from "./Function/calculateLottos.js";
+import { makeLottos } from "./Function/makeLottos.js";
+import { printEarn } from "./Function/printEarn.js";
+import { printResult } from "./Function/printResult.js";
+import { bonusErrorCheck } from "./Function/bonusErrorCheck.js";
 
 class App {
   async run() {
@@ -53,7 +52,8 @@ class App {
     while (!valid) {
       try {
         bonusNumber = await MissionUtils.Console.readLineAsync(ENTER + BONUS_NUMBER_STRING + ENTER);
-        winningLotto.bonusErrorCheck(bonusNumber);
+        bonusErrorCheck(bonusNumber);
+        winningLotto.bonusDuplicateCheck(bonusNumber);
         valid = TRUE;
       } catch (error) {
         MissionUtils.Console.print(error.message);
