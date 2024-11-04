@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { BONUS_ARRAY, PRINT_PERCENT, ZERO_AMOUNT_TO_COMPARE } from "../constants.js";
+import { BONUS, ZERO_AMOUNT_TO_COMPARE } from "../constants.js";
 
 const printError = (msg) => {
   Console.print("[ERROR]" + msg);
@@ -11,7 +11,7 @@ const printParam = (msg) => {
 };
 
 const printResult = ({ matches, price, amount }, bonus = "") => {
-  const [BONUS_MATCHES, BONUS_NUM] = BONUS_ARRAY;
+  const [BONUS_MATCHES, BONUS_NUM] = BONUS.BONUS_ARRAY;
 
   let displayMatches = matches;
 

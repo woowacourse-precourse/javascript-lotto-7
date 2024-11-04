@@ -31,6 +31,10 @@ const PROMPTS = {
   PURCAHSE_INFO_PROMPT: "개를 구매했습니다.",
   LOTTERY_NUM_PROMPT: "당첨 번호를 입력해 주세요. : ",
   LOTTERY_BONUS_PROMPT: "보너스 번호를 입력해 주세요. : ",
+  PRINT_PERCENT: ["총 수익률은", "%입니다."],
+  SHOW_STATISTICS: `
+  당첨 통계
+  ------------------`,
 };
 
 const LOTTERY_NUM_RANGE = {
@@ -47,11 +51,10 @@ const ERROR_MESSAGES = {
   PURCHASE_STRING: "로또 구입 금액은 1,000원 단위로 입력해주세요.",
 };
 
-const PRINT_PERCENT = ["총 수익률은", "%입니다."];
-
-const BONUS_ARRAY = [5, 7];
-
-const BONUS_MENT = ", 보너스 볼 일치";
+const BONUS = {
+  BONUS_ARRAY: [5, 7],
+  BONUS_MENT: ", 보너스 볼 일치",
+}
 
 const ZERO_AMOUNT_TO_COMPARE = "000";
 
@@ -60,8 +63,6 @@ export {
   ERROR_MESSAGES,
   LOTTERY_NUM_RANGE,
   lotteryStatistics,
-  PRINT_PERCENT,
-  BONUS_ARRAY,
-  BONUS_MENT,
-  ZERO_AMOUNT_TO_COMPARE
+  BONUS,
+  ZERO_AMOUNT_TO_COMPARE,
 };

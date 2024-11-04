@@ -1,4 +1,4 @@
-import { BONUS_ARRAY, BONUS_MENT, PROMPTS, lotteryStatistics } from "./constants.js";
+import { PROMPTS, BONUS, lotteryStatistics } from "./constants.js";
 import { printParam, printResult } from "./handler/printHandlers.js";
 import {
   handlePurchaseInput,
@@ -35,7 +35,7 @@ class App {
   }
 
   startLotto(lotteries, users, bonus) {
-    const [BONUS_CONDITION, BONUS_RETURN] = BONUS_ARRAY;
+    const [BONUS_CONDITION, BONUS_RETURN] = BONUS.BONUS_ARRAY;
 
     const matches = lotteries.map((lotto) => {
       const userMatches = lotto.getLotteryMatches(users).length;
