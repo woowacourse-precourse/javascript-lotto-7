@@ -70,6 +70,13 @@ const checkDuplicateNumbers = (string) => {
   toThrowNewError(numbers.size !== NUMBERS_COUNT, '중복되는 수는 안됩니다.');
 };
 
+export const bonusNumberAlreadyExist = (bonusNumber, answerNumbers) => {
+  toThrowNewError(
+    answerNumbers.includes(bonusNumber),
+    '중복되는 보너스 수는 안됩니다.',
+  );
+};
+
 export const validateLottoBuyPrice = (lottoBuyPrice) => {
   try {
     StringHasSpace(lottoBuyPrice);
@@ -92,6 +99,20 @@ export const validateLottoAnswerNumbers = (lottoAnswerNumbers) => {
     AllInteger(lottoAnswerNumbers);
     checkRange(lottoAnswerNumbers);
     checkDuplicateNumbers(lottoAnswerNumbers);
+    return true;
+  } catch (error) {
+    Console.print(error.message);
+    return false;
+  }
+};
+
+export const validateLottoBonusNumber = (lottoBonusNumber, rest) => {
+  try {
+    StringHasSpace(lottoBonusNumber);
+    EmptyString(lottoBonusNumber);
+    Integer(lottoBonusNumber);
+    checkRange(lottoBonusNumber);
+    bonusNumberAlreadyExist(lottoBonusNumber, rest);
     return true;
   } catch (error) {
     Console.print(error.message);
