@@ -1,6 +1,7 @@
-import { validatePurchaseAmount } from './errorHandling.js';
+import { validatePurchaseAmount, validateUserWinningNumber } from './errorHandling.js';
 import { Console, Random } from '@woowacourse/mission-utils';
 import { inputMoney } from './inputMoney.js';
+import { inputWinningNumber } from './inputWinningNumber.js';
 
 // 필드, 생성자, 메소드 순서대로 정의해야함
 
@@ -8,47 +9,65 @@ class Lotto {
   constructor() {
     this.purchaseAmount = 0;
     this.ticketCount = 0;
-    this.lottoNumbers = []; // 구매한 로또 번호들을 저장할 배열
+    this.lottoNumbers = [];
+    this.winningNumbers = [];
   }
 
-  // 구입 금액을 입력받아 초기화하는 함수
+  // 구입 금액을 입력받아 초기화
   async initialize() {
-    const amount = await inputMoney();
-    this.purchaseAmount = this.#validatePurchaseAmount(amount);
+    await this.inputAndValidatePurchaseAmount();
     this.ticketCount = this.#calculateTicketCount();
     this.printTicketCount();
     this.generateLottos();
     this.printLottos();
+
+    await this.inputAndValidateWinningNumbers();
   }
 
-  // 구입 금액 검증 및 초기화
-  #validatePurchaseAmount(amount) {
-    validatePurchaseAmount(amount);
-    return Number(amount);
+  // 1. 구입 금액을 입력받고 검증
+  async inputAndValidatePurchaseAmount() {
+    const amount = await inputMoney();
+    try {
+      validatePurchaseAmount(amount);
+      this.purchaseAmount = Number(amount);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 
-  // 구입 금액으로 로또 개수 계산
+  // 2. 구입 금액으로 로또 개수 계산
   #calculateTicketCount() {
     return Math.floor(this.purchaseAmount / 1000);
   }
 
-  // (1) 랜덤 함수를 활용하여 중복 없이 6자리씩 로또를 생성
+  // 3. 구매한 로또 개수를 출력
+  printTicketCount() {
+    Console.print(`\n${this.ticketCount}개를 구매했습니다.`);
+  }
+
+  // 4-1. 랜덤 함수를 활용하여 중복 없이 6자리씩 로또를 생성
   generateLottos() {
     this.lottoNumbers = Array.from({ length: this.ticketCount }, () =>
       Random.pickUniqueNumbersInRange(1, 45, 6)
     );
   }
 
-  // 구매한 로또 개수를 출력
-  printTicketCount() {
-    Console.print(`\n${this.ticketCount}개를 구매했습니다.`);
-  }
-
-  // (2) 구매 개수만큼 로또들을 출력
+  // 4-2. 구매 개수만큼 로또들을 출력
   printLottos() {
     this.lottoNumbers.forEach((lotto) => {
       Console.print(`[${lotto.join(', ')}]`);
     });
+  }
+
+  // 5. 당첨 번호를 입력받고 검증
+  async inputAndValidateWinningNumbers() {
+    const winningNumberInput = await inputWinningNumber();
+    try {
+      validateUserWinningNumber(winningNumberInput);
+      this.winningNumbers = winningNumberInput.split(',').map(Number);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 
