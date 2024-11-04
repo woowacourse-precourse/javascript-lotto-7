@@ -89,12 +89,10 @@ class App {
 
   showProfitRate(result, tickets) {
     const totalProfit = result
-      .map((resultObj) => {
-        resultObj.price * Number(resultObj.amount);
-      })
+      .map((resultObj) => resultObj.price * Number(resultObj.amount))
       .reduce((prev, curr) => prev + curr, 0);
 
-    const profitRate = Math.round((totalProfit / tickets) * 100 * 100) / 100;
+    const profitRate = Math.round(((totalProfit / tickets) * 100) * 100) / 100;
     printPercent(profitRate);
   }
 }
