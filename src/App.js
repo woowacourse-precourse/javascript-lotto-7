@@ -56,10 +56,24 @@ class App {
   }
 
   printLottos(){
-
+    MissionUtils.Console.print(`${this.lottos.length}개를 구매했습니다.`);
+    this.lottos.forEach((lotto) => {
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
+    });
   }
 
   async getAnswerNumbers() {
+    while (true) {
+       MissionUtils.Console.print("당첨 번호를 입력해 주세요.\n");
+       const input = await MissionUtils.Console.readLineAsync();
+       const numbers = input.split(",").map(Number);
+
+       if (this.validateWinningNumbers(numbers)) {
+        this.answerNumbers = numbers;
+        return;
+       }
+       MissionUtils.Console.print("[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 6개의 숫자여야 합니다.");
+    }
   }
 
   async getBonusNumber() {
