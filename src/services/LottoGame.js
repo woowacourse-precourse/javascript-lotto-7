@@ -1,5 +1,5 @@
 import { CONFIG, MESSAGES, PRIZE_MESSAGES, RANKS } from '../constants/index.js';
-import { calculateEarningsRate, calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
+import { calculateEarningsRate, calculateTicketCount, generateLottoNumbers } from '../utils/lottoUtils.js';
 import { InputHandler, Printer } from '../io/index.js';
 import { Lotto, LottoChecker } from '../models/index.js';
 import { InputStore } from './index.js';
@@ -48,13 +48,14 @@ class LottoGame {
   }
 
   #printStatistics(lottoResults) {
-    const rankCount = Object.fromEntries(
-      Object.keys(RANKS)
-        .filter((rank) => rank !== RANKS.none)
-        .map((ranking) => [ranking, CONFIG.initialRankingCount]),
-    );
+    const rankCount = Object.fromEntries(Object.entries(RANKS).map(([key, _]) => [key, CONFIG.initialRankingCount]));
 
-    lottoResults.forEach((result) => (rankCount[result.getRanking()] += 1));
+    lottoResults.forEach((result) => {
+      const ranking = result.getRanking();
+      if (rankCount.hasOwnProperty(ranking)) {
+        rankCount[ranking] += 1;
+      }
+    });
 
     Printer.print(MESSAGES.prizeStatistics);
 
