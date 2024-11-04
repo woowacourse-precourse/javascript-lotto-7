@@ -16,7 +16,9 @@ export class UserLotto {
   // 구입금액 유효성 검사
   validateAmount(money) {
     if (isNaN(money) || money === null || money === undefined) {
-      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_TYPE);
+      // throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_TYPE);
+      Console.print(ERROR_MESSAGES.INVALID_AMOUNT_TYPE);
+      return;
     }
     if (money <= 0) {
       throw new Error(ERROR_MESSAGES.NEGATIVE_OR_ZERO_AMOUNT);
