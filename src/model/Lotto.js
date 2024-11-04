@@ -1,3 +1,10 @@
+import { ERROR_MESSAGES } from "../constant/errors";
+import {
+  LOTTO_NUMBER_MAX,
+  LOTTO_NUMBER_MIN,
+  LOTTO_NUMBER_COUNT,
+} from "../constant/number";
+
 class Lotto {
   #numbers;
 
@@ -14,29 +21,31 @@ class Lotto {
   }
   #validateNumbersType(numbers) {
     if (numbers.some((number) => isNaN(number))) {
-      throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
+      throw new Error(ERROR_MESSAGES.invalid_lotto_number_type);
     }
   }
   #validateNumbersCount(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 쉼표로 구분해서 6개여야 합니다.");
+    if (numbers.length !== LOTTO_NUMBER_COUNT) {
+      throw new Error(ERROR_MESSAGES.invalid_lotto_number_count);
     }
   }
   #validateNumberUniqueness(numbers) {
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
+      throw new Error(ERROR_MESSAGES.invalid_lotto_number_uniqueness);
     }
   }
   #validateNumberRange(numbers) {
-    if (numbers.some((number) => number < 1 || number > 45)) {
-      throw new Error("[ERROR] 로또 번호는 1 ~ 45 사이의 양수여야 합니다.");
+    if (
+      numbers.some(
+        (number) => number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX
+      )
+    ) {
+      throw new Error(ERROR_MESSAGES.invalid_lotto_number_range);
     }
   }
   getLottoNumbers() {
     return this.#numbers;
   }
-
-  // TODO: 추가 기능 구현
 }
 
 export default Lotto;

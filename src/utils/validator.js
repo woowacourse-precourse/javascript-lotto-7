@@ -1,4 +1,9 @@
 import { ERROR_MESSAGES } from "../constant/errors.js";
+import {
+  LOTTO_NUMBER_MAX,
+  LOTTO_NUMBER_MIN,
+  LOTTO_TICKET_PRICE_UNIT,
+} from "../constant/number.js";
 import Lotto from "../model/Lotto.js";
 export const validator = {
   // 로또 구입 금액 유효성 검사
@@ -7,7 +12,7 @@ export const validator = {
       throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_TYPE);
     }
 
-    if (amount < 0 || amount % 1000 !== 0) {
+    if (amount < 0 || amount % LOTTO_TICKET_PRICE_UNIT !== 0) {
       throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_DIVIDE_BY_1000);
     }
   },
@@ -34,7 +39,7 @@ export const validator = {
   },
 
   validateBonusNumberRange(bonusNumber) {
-    if (bonusNumber < 1 || bonusNumber > 45) {
+    if (bonusNumber < LOTTO_NUMBER_MIN || bonusNumber > LOTTO_NUMBER_MAX) {
       throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
     }
   },
