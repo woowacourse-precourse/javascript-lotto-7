@@ -13,7 +13,6 @@ export class LottoResult {
     this.total = 0;
   }
 
-  // 몇개나 당첨됐는지
   calculateNumbers(userLottos, winningNumbers, bonusNumber) {
     userLottos.forEach((userLotto) => {
       const count = this.getSameCount(userLotto, winningNumbers);
@@ -29,17 +28,14 @@ export class LottoResult {
     });
   }
 
-  // 일치하는 개수
   getSameCount(userLotto, winningNumbers) {
     return userLotto.filter((num) => winningNumbers.includes(num)).length;
   }
 
-  // 수익률 계산
   calculateProfitRate(purchaseMoney) {
     return ((this.total / purchaseMoney) * 100).toFixed(1);
   }
 
-  // 결과 출력
   printResults(purchaseMoney) {
     Console.print("당첨 통계\n---");
     Console.print(`3개 일치 (5,000원) - ${this.results["3"]}개`);
