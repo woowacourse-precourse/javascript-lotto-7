@@ -1,22 +1,24 @@
 import Lotto from '../src/Lotto.js';
 
+import { LOTTO_LENGTH_ERROR_MESSAGE, DUPLICATE_NUMBER_ERROR_MESSAGE, NUMBER_OUT_OF_RANGE_ERROR_MESSAGE } from '../src/constants/message.js';
+
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow('[ERROR]');
+    }).toThrow(LOTTO_LENGTH_ERROR_MESSAGE);
   });
 
   test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow('[ERROR]');
+    }).toThrow(DUPLICATE_NUMBER_ERROR_MESSAGE);
   });
 
   test('로또 번호에 1이상 45이하가 아닌 숫자가 있으면 예외가 발생한다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 46]);
-    }).toThrow('[ERROR] 로또 번호는 1이상 45이하 숫자여야 합니다.');
+    }).toThrow(NUMBER_OUT_OF_RANGE_ERROR_MESSAGE);
   });
 
   describe('당첨 로또와 사용자 로또 비교하기', () => {

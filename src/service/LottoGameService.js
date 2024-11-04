@@ -2,28 +2,39 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 import Lotto from '../Lotto.js';
 
-import { LOTTO_PRICE } from '../constants/config.js';
+import {
+  LOTTO_PRICE, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX, LOTTO_LENGTH,
+} from '../constants/config.js';
+
+const PRIZES = {
+  1: {
+    matchCount: 6, bonus: false, money: 2000000000, count: 0,
+  },
+  2: {
+    matchCount: 5, bonus: true, money: 30000000, count: 0,
+  },
+  3: {
+    matchCount: 5, bonus: false, money: 1500000, count: 0,
+  },
+  4: {
+    matchCount: 4, bonus: false, money: 50000, count: 0,
+  },
+  5: {
+    matchCount: 3, bonus: false, money: 5000, count: 0,
+  },
+};
+
+const RANK_CONDITIONS = {
+  6: 1,
+  5: 3,
+  4: 4,
+  3: 5,
+};
 
 class LottoGameService {
   constructor() {
     this.lottos = [];
-    this.prizes = {
-      1: {
-        matchCount: 6, bonus: false, money: 2000000000, count: 0,
-      },
-      2: {
-        matchCount: 5, bonus: true, money: 30000000, count: 0,
-      },
-      3: {
-        matchCount: 5, bonus: false, money: 1500000, count: 0,
-      },
-      4: {
-        matchCount: 4, bonus: false, money: 50000, count: 0,
-      },
-      5: {
-        matchCount: 3, bonus: false, money: 5000, count: 0,
-      },
-    };
+    this.prizes = JSON.parse(JSON.stringify(PRIZES));
   }
 
   getLottos() {
@@ -44,7 +55,11 @@ class LottoGameService {
   }
 
   generateLotto() {
-    const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBER_MIN,
+      LOTTO_NUMBER_MAX,
+      LOTTO_LENGTH,
+    );
     randomNumber.sort((a, b) => a - b);
     return new Lotto(randomNumber);
   }
@@ -66,14 +81,7 @@ class LottoGameService {
   calculateRank(matchedCount, isBonusMatched) {
     if (matchedCount === 5 && isBonusMatched === true) { return 2; }
 
-    const rankConditions = {
-      6: 1,
-      5: 3,
-      4: 4,
-      3: 5,
-    };
-
-    return rankConditions[matchedCount] || -1;
+    return RANK_CONDITIONS[matchedCount] || -1;
   }
 
   increaseRankCount(rank) {

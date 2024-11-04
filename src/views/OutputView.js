@@ -1,7 +1,14 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
+import {
+  PURCHASE_PROMPT,
+  LOTTO_PAYOUT_HEADER_PROMPT,
+  BONUS_MESSAGE_SUFFIX_PROMPT,
+  PAYOUT_PROMPT, PERCENTAGE_SUFFIX_PROMPT,
+} from '../constants/prompts.js';
+
 export function printLottoQuantity(lottos) {
-  MissionUtils.Console.print(`${lottos.length}개를 구매했습니다.\n`);
+  MissionUtils.Console.print(`${lottos.length}${PURCHASE_PROMPT}`);
 }
 
 export function printLottos(lottos) {
@@ -12,10 +19,10 @@ export function printLottos(lottos) {
 }
 
 export function printPrizes(prizes) {
-  MissionUtils.Console.print('당첨 통계\n---\n');
+  MissionUtils.Console.print(LOTTO_PAYOUT_HEADER_PROMPT);
 
   for (const [_, prize] of Object.entries(prizes)) {
-    let BONUS_MESSAGE = ', 보너스 볼 일치';
+    let BONUS_MESSAGE = BONUS_MESSAGE_SUFFIX_PROMPT;
 
     if (prize.bonus === false) {
       BONUS_MESSAGE = '';
@@ -26,5 +33,5 @@ export function printPrizes(prizes) {
 }
 
 export function printPayoutPercentage(payoutPercentage) {
-  MissionUtils.Console.print(`총 수익률은 ${payoutPercentage}%입니다.`);
+  MissionUtils.Console.print(`${PAYOUT_PROMPT} ${payoutPercentage}${PERCENTAGE_SUFFIX_PROMPT}`);
 }

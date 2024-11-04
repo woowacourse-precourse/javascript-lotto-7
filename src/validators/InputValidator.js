@@ -5,7 +5,9 @@ import {
   BONUS_NUMBER_DUPLICATE_ERROR_MESSAGE,
 } from '../constants/message.js';
 
-import { LOTTO_PRICE } from '../constants/config.js';
+import {
+  LOTTO_PRICE, RADIX_TEN, LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX,
+} from '../constants/config.js';
 
 export function validateUserMoney(userMoney) {
   if (userMoney % LOTTO_PRICE === 0) {
@@ -16,13 +18,13 @@ export function validateUserMoney(userMoney) {
 }
 
 export function validateNumber(number) {
-  if (isNaN(parseInt(number, 10))) {
+  if (isNaN(parseInt(number, RADIX_TEN))) {
     throw new Error(INVALID_NUMBER_ERROR_MESSAGE);
   }
 }
 
 export function validateBonusNumber(bonusNumber, winningNumbers) {
-  if (bonusNumber < 1 || bonusNumber > 45) {
+  if (bonusNumber < LOTTO_NUMBER_MIN || bonusNumber > LOTTO_NUMBER_MAX) {
     throw new Error(NUMBER_OUT_OF_RANGE_ERROR_MESSAGE);
   }
 
