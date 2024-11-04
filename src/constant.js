@@ -42,4 +42,8 @@ export const ERROR_MESSAGE = Object.freeze({
   AMOUNT_NOT_THOUSAND: ERROR_TAG.concat(
     '금액은 1,000원 단위로 입력해야 합니다.'
   ),
+
+  WINNING_NUMBER_NOT_NUMBER: ERROR_TAG.concat(
+    '당첨 번호는 숫자와 구분자(,)만 입력해야 합니다.'
+  ),
 });

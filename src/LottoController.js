@@ -3,7 +3,7 @@ import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
 import LottoCalculator from './LottoCalculator.js';
-import { validateAmount } from './validation.js';
+import { validateAmount, validateWinningNumbers } from './validation.js';
 import {
   LOTTO_PRICE,
   LOTTO_RESULT_MESSAGE,
@@ -71,6 +71,8 @@ class LottoController {
   setWinningNumbers(winningNumbers) {
     const stringParser = new StringParser();
     this.#winningNumbers = stringParser.parseString(winningNumbers).map(Number);
+
+    validateWinningNumbers(this.#winningNumbers);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from './constant.js';
+import { DELIMITER, ERROR_MESSAGE } from './constant.js';
 
 /**
  *
@@ -14,5 +14,14 @@ export const validateAmount = (amount) => {
 
   if (amount % 1000 !== 0) {
     throw new Error(ERROR_MESSAGE.AMOUNT_NOT_THOUSAND);
+  }
+};
+
+/**
+ *
+ */
+export const validateWinningNumbers = (winningNumbers) => {
+  if (winningNumbers.some((number) => isNaN(number))) {
+    throw new Error(ERROR_MESSAGE.WINNING_NUMBER_NOT_NUMBER);
   }
 };
