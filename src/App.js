@@ -108,6 +108,39 @@ class App {
     return bonusNumber;
   }
 
+  // 5. 당첨 결과 계산
+  calculateResults() {
+    this.result = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+
+    this.lottos.forEach((lotto) => {
+      const matchCount = this.getMatchCount(lotto.getNumbers(), this.winningNumbers);
+      const isBonusMatched = lotto.getNumbers().includes(this.bonusNumber);
+
+      if (matchCount === 6) {
+        this.result.first++;
+      } else if (matchCount === 5 && isBonusMatched) {
+        this.result.second++;
+      } else if (matchCount === 5) {
+        this.result.third++;
+      } else if (matchCount === 4) {
+        this.result.fourth++;
+      } else if (matchCount === 3) {
+        this.result.fifth++;
+      }
+    });
+
+    this.printResults();
+  }
+
+  getMatchCount(lottoNumbers, winningNumbers) {
+    return lottoNumbers.filter((num) => winningNumbers.includes(num)).length;
+  }
 
 }
 
