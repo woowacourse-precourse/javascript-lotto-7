@@ -11,6 +11,7 @@ class App {
     Console.readLine("구입금액을 입력해 주세요.\n", (input) => {
       this.#validatePurchaseAmount(input);
       const amount = parseInt(input, 10);
+      this.purchaseAmount = amount;
       const lottoCount = Math.floor(amount / 1000);
       Console.print(`\n${lottoCount}개를 구매했습니다.\n`);
       this.lottos = this.#generateLottos(lottoCount);
@@ -122,6 +123,7 @@ class App {
     });
 
     this.#printResults(results);
+    this.#calculateYield(results);
   }
 
   #printResults(results) {
@@ -132,6 +134,26 @@ class App {
     Console.print(`5개 일치 (1,500,000원) - ${results[3]}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results[2]}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${results[1]}개`);
+  }
+
+  #calculateYield(results) {
+    const prizeMoney = {
+      1: 2000000000,
+      2: 30000000,
+      3: 1500000,
+      4: 50000,
+      5: 5000,
+    };
+
+    let totalPrize = 0;
+    for (const rank in results) {
+      totalPrize += results[rank] * prizeMoney[rank];
+    }
+
+    const yieldPercentage = ((totalPrize / this.purchaseAmount) * 100).toFixed(
+      1
+    );
+    Console.print(`총 수익률은 ${yieldPercentage}%입니다.`);
   }
 }
 
