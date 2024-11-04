@@ -74,7 +74,7 @@ export default class InputLottoView {
   }
 
   #checkBlank(input) {
-    if (input.trim() === '') {
+    if (input === null || input.trim() === '') {
       throw new Error(this.#ERROR_MESSAGE.INVALID_BLANK);
     }
   }

@@ -30,6 +30,7 @@ export default class WinningLotto {
   }
 
   #validateBonusNumber(bonusNumber) {
+    this.#checkPositiveInteger(bonusNumber);
     this.#checkNumberInRange(bonusNumber);
     this.#checkBonusNumberDuplication(bonusNumber);
   }
@@ -47,6 +48,12 @@ export default class WinningLotto {
 
     if (uniqueNumbers.size !== LOTTO_CONFIG.NUMBERS_COUNT) {
       throw new Error(ERROR_MESSAGE.LOTTO.NUMBER_DUPLICATION);
+    }
+  }
+
+  #checkPositiveInteger(number) {
+    if (!Number.isInteger(number)) {
+      throw new Error(ERROR_MESSAGE.LOTTO.INVALID_POSITIVE_NUMBER);
     }
   }
 
