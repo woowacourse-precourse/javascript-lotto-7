@@ -17,6 +17,10 @@ class App {
       const winningNumbers = winningInput.split(',').map(Number);
       validateWinningNumbers(winningNumbers);
 
+      const bonusInput = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+      const bonusNumber = Number(bonusInput);
+      validateBonusNumber(bonusNumber, winningNumbers);
+
     } catch (error) {
       Console.print(error.message);
     }

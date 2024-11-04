@@ -9,3 +9,9 @@ export function validateAmount(amount) {
       throw new Error('[ERROR] 당첨 번호는 중복 없이 1부터 45 사이의 숫자여야 합니다.');
     }
   }
+
+  export function validateBonusNumber(bonusNumber, winningNumbers) {
+    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45 || winningNumbers.includes(bonusNumber)) {
+      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자이며, 당첨 번호와 중복되면 안 됩니다.');
+    }
+  }
