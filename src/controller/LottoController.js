@@ -30,6 +30,7 @@ class LottoController {
 			await this.#handlePurchase();
 			await this.#handleWinningNumber();
 			await this.#handleBonusNumber();
+			await this.#showResults();
 		} catch (error) {
 			Console.print(error.message);
 			// throw error;
@@ -58,6 +59,10 @@ class LottoController {
 		);
 	}
 
+	async #showResults() {
+		const matchResult = this.#getMatchResults();
+	}
+
 	#generateLottos(amount) {
 		const quantity = Math.floor(amount / 1000);
 		return Array.from({ length: quantity }, () => this.#createLotto());
@@ -70,6 +75,13 @@ class LottoController {
 
 	#parseWinningNumbers(input) {
 		return input.split(',').map((num) => parseInt(num.trim(), 10));
+	}
+
+	#getMatchResults() {
+		return this.#lottos.map((lotto) => ({
+			matchCount: lotto.countMatchNumbers(this.#winningLotto.getNumbers()),
+			hasBonus: lotto.containBonusNumber(this.#bonusNumber),
+		}));
 	}
 }
 
