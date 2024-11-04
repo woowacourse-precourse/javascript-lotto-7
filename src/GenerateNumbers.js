@@ -16,6 +16,7 @@ class GenerateNumbers {
     for (let i = 0; i < bills; i++) {
       const randomNum = this.generateSingleSet();
       allGeneratedNumbers.push(randomNum);
+
       this.findMatchingNumber(randomNum, numbers, bonusNum, bills);
     }
     console.log("");
@@ -61,7 +62,7 @@ class GenerateNumbers {
 
     let prizeMoney = 0;
 
-    const bonusNumAsNumber = Number(bonusNum);
+    const isBonusMatched = this.isBonusMatched(randomNum, bonusNum);
 
     if (count === 0 || count === 1 || count === 2) {
       // console.log("일치하는 번호 없음");
@@ -80,7 +81,7 @@ class GenerateNumbers {
     }
 
     if (count === 5) {
-      if (randomNum.includes(bonusNumAsNumber)) {
+      if (isBonusMatched) {
         prizeMoney = 1500000;
         this.secondPlaceCount++;
         // console.log(count + "개 번호와 보너스 번호 일치");
@@ -99,6 +100,10 @@ class GenerateNumbers {
 
     this.totalPrizeMoney += prizeMoney;
     // console.log("상금 : " + prizeMoney);
+  }
+
+  isBonusMatched(randomNum, bonusNum) {
+    return randomNum.includes(Number(bonusNum));
   }
 
   calculateReturn(bills) {
