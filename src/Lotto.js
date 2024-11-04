@@ -77,3 +77,15 @@ class Lotto {
 
     return numbers;
   }
+  async getBonusNumber(winningNumbers) {
+    const input = await Console.readLineAsync("보너스 번호를 입력해주세요.\n");
+    const bonusNumber = parseInt(input, 10);
+    
+    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45 || winningNumbers.includes(bonusNumber)) {
+      Console.print("[ERROR] 보너스 번호는 1부터 45 사이의 숫자 중 당첨 번호와 중복되지 않는 숫자여야 합니다.");
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자 중 당첨 번호와 중복되지 않는 숫자여야 합니다.");
+    }
+
+    return bonusNumber;
+  }
+
