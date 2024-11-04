@@ -15,11 +15,12 @@ class App {
     try {
       this.VALID_LOTTO_PURCHASE(purchaseAmount);
     } catch (error) {
-      throw new Error(`[ERROR] ${error.message}`);
+      Console.print(error.message);
+      return; 
     }
 
     // 로또 발행 개수 
-    const LOTTO_QUANTITY = inputlottospurchase / 1000;
+    const LOTTO_QUANTITY = Math.floor(purchaseAmount / 1000); 
     Console.print(`\n${LOTTO_QUANTITY}개를 구매했습니다.`);
 
     // 로또 번호 발행
@@ -37,12 +38,14 @@ class App {
         '\n당첨 번호를 입력해 주세요.\n'
       );
 
-      winningNumbers = inputWinningNumbers.split(',').map(num => parseInt(num, 10));
+      winningNumbers = inputWinningNumbers.split(',')
+      .map(num => parseInt(num, 10)).filter(num => !isNaN(num));
 
       // 당첨 번호 유효 검사
-      Lotto.VALID_WINNING_NUMBERS(winningNumbers);
+      Lotto.validWinningNumbers(winningNumbers); 
     } catch (error) {
-      throw new Error(`[ERROR] ${error.message}`);
+      Console.print(`[ERROR] ${error.message}`);
+      return;
     }
     
     // 당첨 보너스 번호 입력 받기
@@ -52,10 +55,11 @@ class App {
         '\n보너스 번호를 입력해 주세요.\n'
       );
 
-      // 당첨 보너스 번호 유효 검사
-      Lotto.VALID_BONUS_NUMBER(inputBonusNumbers, winningNumbers);
+      // 당첨 보너스 번호 유효 검사 및 보너스 번호 할당
+      bonusNumber = Lotto.validBonusNumber(inputBonusNumbers, winningNumbers);  // 수정된 부분
     } catch (error) {
-      throw new Error(`[ERROR] ${error.message}`);
+      Console.print(`[ERROR] ${error.message}`);
+      return;
     }
 
     // 당첨 결과 및 출력
@@ -66,7 +70,7 @@ class App {
   VALID_LOTTO_PURCHASE(purchaseAmount) {
     if (!purchaseAmount) 
       throw new Error('로또 구입 금액을 입력해주세요.');
-    if (isNaN(purchaseAmount))
+    if (isNaN(purchaseAmount) === true)
       throw new Error('로또 구입 금액은 숫자만 입력해주세요.');
     if (purchaseAmount <= 0)
       throw new Error('로또 구입 금액은 양수만 입력해주세요.');
