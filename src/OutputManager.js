@@ -18,7 +18,7 @@ export class OutputManager {
       Console.print(`${desc} (${this.formatCurrency(reward)}원) - ${count}개`);
     });
 
-    Console.print(`총 수익률은 ${lottoManager.calculateROI(inputMoney)}%입니다.`);
+    Console.print(`총 수익률은 ${lottoManager.calculateROI(inputMoney)}입니다.`);
   }
 
   static formatCurrency(money) {
