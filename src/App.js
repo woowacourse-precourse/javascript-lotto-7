@@ -13,7 +13,7 @@ class App {
     let money;
     while (!isValid) {
       try {
-        money = await Console.readLineAsync('구입금액을 입력해 주세요.');
+        money = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
         money = this.validateMoney(money);
         isValid = true;
       } catch (error) {
@@ -31,20 +31,18 @@ class App {
   }
 
   async winnerLottoInput(){
-    const winnerLotto = await Console.readLineAsync('당첨 번호를 입력해 주세요.')
+    const winnerLotto = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.')
     return winnerLotto
   }
 
   async bonusNumberInput(){
-    const bonusNumber = await Console.readLineAsync('보너스 번호를 입력해 주세요.')
+    const bonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.')
     return bonusNumber
   }
 
   generateLotto() {
-    const numbers = new Set();
-      const number = Random.pickUniqueNumbersInRange(1, 45, 6);
-      numbers.add(number);
-    return new Lotto([...numbers]);
+    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    return new Lotto(numbers);
   }
 
   generateLottos(count) {
@@ -56,7 +54,7 @@ class App {
   }
 
   printLottos(lottos) {
-    Console.print(`${lottos.length}개를 구매했습니다.`);
+    Console.print(`\n${lottos.length}개를 구매했습니다.`);
     lottos.forEach(lotto => {
       Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
