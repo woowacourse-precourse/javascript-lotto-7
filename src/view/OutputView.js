@@ -23,7 +23,7 @@ const OutputView = {
   },
 
   printTotalRevenue(revenue) {
-    Console.print(OUTPUT_MESSAGES.TOTAL_REVENUE(revenue.toLocaleString()));
+    Console.print(OUTPUT_MESSAGES.TOTAL_REVENUE(revenue));
   },
 
   print(message) {
