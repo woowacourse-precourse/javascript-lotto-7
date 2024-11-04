@@ -32,7 +32,7 @@ class Lotto {
   }
 
   #validateNumberRange(number) {
-    if (number <= 0 || number >= 46) {
+    if (number < LOTTO_SETTINGS.minNumber || number > LOTTO_SETTINGS.maxNumber) {
       throw new Error(LOTTO_MESSAGES.error.numberRangeOver);
     }
   }

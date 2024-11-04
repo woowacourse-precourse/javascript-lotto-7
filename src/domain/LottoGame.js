@@ -37,15 +37,18 @@ class LottoGame {
   async #createWinnerNumber() {
     const winnerNumbers = await InputView.readLineNumber();
     const bonusNumber = await InputView.readLineBonusNumber();
+
+    const lottoWinner = new LottoWinner(winnerNumbers, bonusNumber);
+    lottoWinner.matchRate(this.#lottoList);
   }
 
   #showResult() {
-    const lottoWinner = new LottoWinner(lottoNumbers, parseLottoNumber, parseBonusNumber);
-    lottoWinner.matchWinner();
-    const result = lottoWinner.checkLottoNumber();
-
-    const lottoResult = new LottoResult(result, this.#price);
-    lottoResult.calculateResult();
+    // const lottoWinner = new LottoWinner(lottoNumbers, parseLottoNumber, parseBonusNumber);
+    // lottoWinner.matchWinner();
+    // const result = lottoWinner.checkLottoNumber();
+    //
+    // const lottoResult = new LottoResult(result, this.#price);
+    // lottoResult.calculateResult();
   }
 
   getLottoList() {
@@ -71,8 +74,6 @@ class LottoGame {
   #getLottoCount(number) {
     return number / LOTTO_SETTINGS.minimumPrice;
   }
-
-
 }
 
 export default LottoGame;

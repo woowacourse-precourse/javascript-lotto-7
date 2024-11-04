@@ -2,29 +2,19 @@ import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
 import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class LottoWinner {
-  #lotto;
   #numbers;
   #bonusNumber;
-  #matchBonus = false;
 
-  constructor(lotto, numbers, bonusNumber) {
-    this.#validateNumbers(numbers);
-    this.#lotto = lotto;
+  constructor(numbers, bonusNumber) {
+    this.#validateNumbers(numbers, bonusNumber);
     this.#numbers = numbers;
     this.#bonusNumber = bonusNumber;
   }
 
-  matchWinner() {
-    const count = this.#matchCount(this.#lotto);
-    this.#checkMatchBonus(this.#lotto);
-    return this.#calculateRank(count, this.#matchBonus);
-  }
-
-  checkLottoNumber() {
-    const matchCount = this.#lotto.filter((lottoNumber) => this.#numbers.includes(lottoNumber)).length;
-    const rank = this.#calculateRank(matchCount, this.#matchBonus);
-    this.#result[rank] += 1;
-    return this.#result;
+  matchRate(lotto) {
+    const count = this.#matchCount(lotto.getNumbers());
+    const isBonus = this.#isMatchBonus(lotto.getNumbers());
+    return this.#calculateRank(count, isBonus);
   }
 
   #matchCount(numbers) {
@@ -32,14 +22,8 @@ class LottoWinner {
       this.#numbers.includes(number)).length;
   }
 
-  #checkMatchBonus(numbers) {
-    numbers.forEach((number) => this.#checkBonusNumber(number));
-  }
-
-  #checkBonusNumber(number) {
-    if (number.includes(this.#bonusNumber)) {
-      this.#matchBonus = true;
-    }
+  #isMatchBonus(numbers) {
+    return numbers.includes(this.#bonusNumber);
   }
 
   #calculateRank(matchCount, matchBonus) {
@@ -61,20 +45,16 @@ class LottoWinner {
     return 0;
   }
 
-  getMatchBonus() {
-    return this.#matchBonus;
-  }
-
   #validateNumbers(numbers, bonusNumber) {
     this.#validateHasSameNumber(numbers, bonusNumber);
   }
 
-  #validateHasSameNumber(number, bonus) {
-    number.forEach((input) => this.#validateBonus(input, bonus));
+  #validateHasSameNumber(numbers, bonusNumber) {
+    numbers.forEach((input) => this.#validateBonus(input, bonusNumber));
   }
 
-  #validateBonus(input, bonus) {
-    if (input === bonus) {
+  #validateBonus(input, bonusNumber) {
+    if (input === bonusNumber) {
       throw new Error(LOTTO_MESSAGES.error.BonusNumberIsInLotto);
     }
   }
