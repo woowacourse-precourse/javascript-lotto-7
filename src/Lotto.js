@@ -1,18 +1,23 @@
+import LottoGenerator from './Lotto_modules/LottoGenerator.js';
+import { LOTTO_NUMBER_COUNT, LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, ERROR_MESSAGES } from './constant/constant.js';
+
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
+  constructor(numbers = LottoGenerator.generate()) {
     this.#validate(numbers);
     this.#numbers = numbers;
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== LOTTO_NUMBER_COUNT || new Set(numbers).size !== LOTTO_NUMBER_COUNT || numbers.some(num => num < LOTTO_MIN_NUMBER || num > LOTTO_MAX_NUMBER)) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBERS);
     }
   }
 
-  // TODO: 추가 기능 구현
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
