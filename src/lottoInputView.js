@@ -14,4 +14,9 @@ export const lottoInputView = {
 
     return input.trim();
   },
+  async readBonusNumber() {
+    const input = await Console.readLineAsync(LOTTO_INPUT_QUERY.BONUS_NUMBER);
+
+    return input.trim();
+  },
 };

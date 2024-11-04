@@ -2,6 +2,7 @@ import { lottoInputView } from "./lottoInputView.js";
 import { lottoValidator } from "./validator.js";
 import { lottoOutputView } from "./lottoOutputView.js";
 import { LottoList } from "./LottoList.js";
+import { WinningLotto } from "./WinningLotto.js";
 export class LottoController {
   #lottoList;
   #winningLotto;
@@ -25,7 +26,7 @@ export class LottoController {
       lottoOutputView.showEmptyLine();
     } catch (error) {
       lottoOutputView.showMessage(error.message);
-      this.inputPurchasePrice(error);
+      this.inputPurchasePrice();
     }
   }
 
@@ -35,11 +36,25 @@ export class LottoController {
       const winningNumberList = input.split(",").map(Number);
 
       lottoValidator.validateWinningNumberList(winningNumberList);
+      lottoOutputView.showEmptyLine();
 
+      this.inputBonusNumberList(winningNumberList);
+    } catch (error) {
+      lottoOutputView.showMessage(error.message);
+      this.inputWinningNumberList();
+    }
+  }
+
+  async inputBonusNumberList(winningNumberList) {
+    try {
+      const input = await lottoInputView.readBonusNumber();
+      const bonusNumber = Number(input);
+
+      this.generateWinningLotto(winningNumberList, bonusNumber);
       lottoOutputView.showEmptyLine();
     } catch (error) {
       lottoOutputView.showMessage(error.message);
-      this.inputWinningNumberList(error);
+      this.inputBonusNumberList(winningNumberList);
     }
   }
 
@@ -51,6 +66,10 @@ export class LottoController {
 
   generateLottoList(quantity) {
     this.#lottoList = new LottoList(quantity);
+  }
+
+  generateWinningLotto(winningNumberList, bonusNumber) {
+    this.#winningLotto = new WinningLotto(winningNumberList, bonusNumber);
   }
 
   printPurchasedLottoList() {
