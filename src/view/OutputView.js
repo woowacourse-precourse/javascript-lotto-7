@@ -12,6 +12,19 @@ class OutputView {
     OutputView.#printMessage(`[${lottos}]`);
   }
 
+  static printLottoResult(result) {
+    OutputView.#printMessage(OUTPUT_MESSAGE.LOTTO_RESULT_MESSAGE);
+    OutputView.#printMessage(OUTPUT_MESSAGE.MATCH_3(result.fifth));
+    OutputView.#printMessage(OUTPUT_MESSAGE.MATCH_4(result.fourth));
+    OutputView.#printMessage(OUTPUT_MESSAGE.MATCH_5(result.third));
+    OutputView.#printMessage(OUTPUT_MESSAGE.MATCH_5_WITH_BONUS(result.second));
+    OutputView.#printMessage(OUTPUT_MESSAGE.MATCH_6(result.first));
+  }
+
+  static printProfitRate(profitRate) {
+    OutputView.#printMessage(OUTPUT_MESSAGE.TOTAL_PROFIT_RATE(profitRate));
+  }
+
   static #printMessage(message) {
     Console.print(message);
   }

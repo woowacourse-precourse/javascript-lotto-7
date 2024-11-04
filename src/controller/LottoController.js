@@ -2,8 +2,8 @@ import Validator from './Validator.js';
 import WinningNumbers from '../model/WinningNumbers.js';
 import InputView from '../view/InputView.js';
 import { generateRandomNumbers } from '../utils/RandomNumberGenerator.js';
-import Lotto from '../model/Lotto.js';
 import OutputView from '../view/OutputView.js';
+import LottoGame from '../model/LottoGame.js';
 
 class LottoController {
   static #DIVISION_UNIT = 1000;
@@ -11,8 +11,8 @@ class LottoController {
   constructor() {}
 
   async init() {
-    const purchaseAmount = await LottoController.getPurchaseAmount();
-    this.lottoCount = purchaseAmount / LottoController.#DIVISION_UNIT;
+    this.purchaseAmount = await LottoController.getPurchaseAmount();
+    this.lottoCount = this.purchaseAmount / LottoController.#DIVISION_UNIT;
     this.lottoTickets = LottoController.generateLottoTickets(this.lottoCount);
 
     const winningNumbersInput = await InputView.readWinningNumbers();
@@ -23,14 +23,23 @@ class LottoController {
     );
     this.winningNumbers = lottoWinningNumbers.getWinningNumbers();
     this.bonusNumber = lottoWinningNumbers.getBonusNumber();
-    LottoController.printLottoTickets(purchaseAmount, this.lottoTickets);
+    LottoController.printLottoTickets(this.purchaseAmount, this.lottoTickets);
+
+    const lottoGame = new LottoGame(
+      this.lottoTickets,
+      this.winningNumbers,
+      this.bonusNumber,
+      this.purchaseAmount
+    );
+    OutputView.printLottoResult(lottoGame.result);
+    OutputView.printProfitRate(lottoGame.calculateProfitRate());
   }
 
   static async getPurchaseAmount() {
-    const purchaseAmount = await InputView.readPurchaseAmount();
-    Validator.checkPurchaseAmount(purchaseAmount);
+    const money = await InputView.readPurchaseAmount();
+    Validator.checkPurchaseAmount(money);
 
-    return purchaseAmount;
+    return money;
   }
 
   static generateLottoTickets(lottoCounts) {

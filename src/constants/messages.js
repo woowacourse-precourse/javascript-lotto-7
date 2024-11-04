@@ -2,10 +2,19 @@ const INPUT_MESSAGE = {
   LOTTO_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
   LOTTO_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
   LOTTO_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
+  TOTAL_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
 const OUTPUT_MESSAGE = {
   LOTTO_PURCHASE_MESSAGE: '개를 구매했습니다.',
+  LOTTO_RESULT_MESSAGE: '당첨 통계\n---',
+  MATCH_3: (count) => `3개 일치 (5,000원) - ${count}개`,
+  MATCH_4: (count) => `4개 일치 (50,000원) - ${count}개`,
+  MATCH_5: (count) => `5개 일치 (1,500,000원) - ${count}개`,
+  MATCH_5_WITH_BONUS: (count) =>
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개`,
+  MATCH_6: (count) => `6개 일치 (2,000,000,000원) - ${count}개`,
+  TOTAL_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
 const ERROR_MESSAGE = {

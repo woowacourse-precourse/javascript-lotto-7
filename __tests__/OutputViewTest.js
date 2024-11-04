@@ -28,4 +28,44 @@ describe('OutputView 클래스 테스트', () => {
 
     expect(Console.print).toHaveBeenCalledWith(expectedMessage);
   });
+
+  test('당첨 통계가 올바르게 출력된다.', () => {
+    const result = {
+      first: 1,
+      second: 0,
+      third: 0,
+      fourth: 1,
+      fifth: 1,
+    };
+
+    OutputView.printLottoResult(result);
+
+    expect(Console.print).toHaveBeenCalledWith(
+      OUTPUT_MESSAGE.LOTTO_RESULT_MESSAGE
+    );
+    expect(Console.print).toHaveBeenCalledWith(
+      OUTPUT_MESSAGE.MATCH_3(result.fifth)
+    );
+    expect(Console.print).toHaveBeenCalledWith(
+      OUTPUT_MESSAGE.MATCH_4(result.fourth)
+    );
+    expect(Console.print).toHaveBeenCalledWith(
+      OUTPUT_MESSAGE.MATCH_5(result.third)
+    );
+    expect(Console.print).toHaveBeenCalledWith(
+      OUTPUT_MESSAGE.MATCH_5_WITH_BONUS(result.second)
+    );
+    expect(Console.print).toHaveBeenCalledWith(
+      OUTPUT_MESSAGE.MATCH_6(result.first)
+    );
+  });
+
+  test('수익률이 올바르게 출력된다.', () => {
+    const profitRate = '62.5';
+    const expectedMessage = OUTPUT_MESSAGE.TOTAL_PROFIT_RATE(profitRate);
+
+    OutputView.printProfitRate(profitRate);
+
+    expect(Console.print).toHaveBeenCalledWith(expectedMessage);
+  });
 });
