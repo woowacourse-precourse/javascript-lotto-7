@@ -91,7 +91,23 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
-  });
+  describe("예외 테스트", () => {
+    beforeEach(() => {
+      jest.restoreAllMocks();
+    });
+  
+    test.each([
+      { input: "1000j", description: "구입 금액에 숫자가 아닌 문자가 포함된 경우" },
+      { input: "-1000", description: "구입 금액이 음수인 경우" },
+      { input: "1500", description: "구입 금액이 1000 단위가 아닌 경우" },
+      { input: "1000", description: "당첨 번호가 6개가 아닌 경우", winningNumbers: "1,2,3,4,5" },
+      { input: "1000", description: "당첨 번호가 45를 초과하는 경우", winningNumbers: "1,2,3,4,5,46" },
+      { input: "1000", description: "당첨 번호에 중복된 숫자가 있는 경우", winningNumbers: "1,2,3,4,5,5" },
+      { input: "1000", description: "보너스 번호가 당첨 번호와 중복되는 경우", winningNumbers: "1,2,3,4,5,6", bonusNumber: "6" },
+      { input: "1000", description: "보너스 번호가 45를 초과하는 경우", winningNumbers: "1,2,3,4,5,6", bonusNumber: "46" },
+    ])("예외 테스트 - $description", async ({ input, winningNumbers = "1,2,3,4,5,6", bonusNumber = "7" }) => {
+      mockQuestions([input, winningNumbers, bonusNumber]);
+      await runException(input);
+    });
+  })
 });
