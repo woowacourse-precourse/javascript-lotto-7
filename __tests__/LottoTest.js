@@ -15,5 +15,22 @@ describe('로또 클래스 테스트', () => {
     }).toThrow(errorMessages.LOTTOS_DUPLICATE_ERROR);
   });
 
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test.each([
+    {
+      case: 'getNumbersWithSquareBrackets() 기본',
+      numbers: [1, 2, 3, 4, 5, 6],
+      expects: '[1, 2, 3, 4, 5, 6]',
+    },
+    {
+      case: 'getNumbersWithSquareBrackets() 정렬 테스트',
+      numbers: [1, 3, 2, 4, 5, 6],
+      expects: '[1, 2, 3, 4, 5, 6]',
+    },
+  ])(
+    'Lotto 단위 테스트\ncase : $case\nnumbers : $numbers\nexpects : $expects',
+    ({ numbers, expects }) => {
+      const lotto = new Lotto(numbers);
+      expect(lotto.getNumbersWithSquareBrackets()).toStrictEqual(expects);
+    }
+  );
 });

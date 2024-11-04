@@ -40,4 +40,4 @@
 
 - [x] LottoAnalyzerTest 단위 테스트 구현
 - [x] LottoShopTest 단위 테스트 구현
-- [ ] LottoTest 단위 테스트 구현
+- [x] LottoTest 단위 테스트 구현
