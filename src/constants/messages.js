@@ -1,3 +1,4 @@
+import numberFormatter from "../utils/numberFormatter.js";
 import LOTTO from "./lotto.js";
 import LOTTO_GAME from "./lottoGame.js";
 
@@ -24,11 +25,11 @@ export const MESSAGES = {
 
   PRIZE: (count) => {
     return [
-      `3개 일치, (${LOTTO_GAME.WINNING_MONEY[4]}원) - ${count}개`,
-      `4개 일치, (${LOTTO_GAME.WINNING_MONEY[3]}원) - ${count}개`,
-      `5개 일치, (${LOTTO_GAME.WINNING_MONEY[2]}원) - ${count}개`,
-      `5개 일치, 보너스 볼 일치 (${LOTTO_GAME.WINNING_MONEY[1]}원) - ${count}개`,
-      `6개 일치, (${LOTTO_GAME.WINNING_MONEY[0]}원) - ${count}개`,
+      `3개 일치, (${numberFormatter(LOTTO_GAME.WINNING_MONEY[4])}원) - ${count}개`,
+      `4개 일치, (${numberFormatter(LOTTO_GAME.WINNING_MONEY[3])}원) - ${count}개`,
+      `5개 일치, (${numberFormatter(LOTTO_GAME.WINNING_MONEY[2])}원) - ${count}개`,
+      `5개 일치, 보너스 볼 일치 (${numberFormatter(LOTTO_GAME.WINNING_MONEY[1])}원) - ${count}개`,
+      `6개 일치, (${numberFormatter(LOTTO_GAME.WINNING_MONEY[0])}원) - ${count}개`,
     ];
   },
 

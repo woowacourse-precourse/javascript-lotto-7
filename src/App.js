@@ -1,10 +1,11 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import LOTTO from "./constants/lotto.js";
 import LOTTO_GAME from "./constants/lottoGame.js";
 import LottoGame from "./domain/LottoGame.js";
 import input from "./views/input.js";
 import Lotto from "./domain/Lotto.js";
 import output from "./views/output.js";
+import calculateRateOfReturn from "./utils/calculateRateOfReturn.js";
 
 class App {
   #purchasePrice;
@@ -13,7 +14,6 @@ class App {
   async run() {
     try {
       const purchasePrice = await input.purchasePrice();
-
       this.#purchasePrice = purchasePrice;
       this.#purchaseLottos();
 
@@ -25,12 +25,16 @@ class App {
       const lottoGame = new LottoGame(this.#lottos, bonusNumber, winningLotto);
 
       output.finalStatistics();
-      lottoGame.result.reverse().forEach((count, index) => output.prize(count, index));
+
+      const reversedResults = lottoGame.result.slice().reverse();
+      reversedResults.forEach((count, index) => output.prize(count, index));
 
       const totalIncome = lottoGame.totalIncome();
+      const totalRateOfReturn = calculateRateOfReturn(purchasePrice, totalIncome);
 
-      const result = lottoGame.result;
+      output.totalRateOfReturn(totalRateOfReturn);
     } catch (error) {
+      Console.print(error.message);
       throw error;
     }
   }
