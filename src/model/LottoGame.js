@@ -1,18 +1,30 @@
 import Lotto from './Lotto.js';
-import generateRandomList from '../utils/generateRandomList.js';
 import { CONFIG, RANK } from '../constants/constants.js';
+import { Random } from '@woowacourse/mission-utils';
 
 class LottoGame {
+  #generator;
   #lottoNumbers = [];
   #matchCount;
 
-  constructor(purchaseAmount) {
-    const tickets = purchaseAmount / CONFIG.PURCHASE_AMOUNT_UNIT;
+  constructor(
+    purchaseAmount,
+    generator = () =>
+      Random.pickUniqueNumbersInRange(
+        CONFIG.LOTTO_MIN_NUMBER,
+        CONFIG.LOTTO_MAX_NUMBER,
+        CONFIG.LOTTO_COUNT
+      )
+  ) {
+    this.#generator = generator;
 
-    this.#lottoNumbers = Array.from({ length: tickets }, () => {
-      const numbers = generateRandomList();
-      return new Lotto([...numbers].sort((a, b) => a - b));
-    });
+    this.#lottoNumbers = Array.from(
+      { length: purchaseAmount / CONFIG.PURCHASE_AMOUNT_UNIT },
+      () => {
+        const numbers = this.#generator();
+        return new Lotto(numbers);
+      }
+    );
 
     this.#matchCount = {
       [RANK.FIRST.matchCount]: 0,
