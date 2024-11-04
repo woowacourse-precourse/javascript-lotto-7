@@ -5,13 +5,11 @@ class LottoTicketGenerator {
     const ticketCount = purchaseAmount / 1000;
     const tickets = [];
 
-    for (let i = 0; i < ticketCount; i++) {
+    Array.from({ length: ticketCount }).forEach(() => {
       const ticket = this.generateRandomNumbers();
       tickets.push(ticket);
-    }
-    Console.print(`${tickets.length}개를 구매했습니다.`);
-    tickets.forEach((ticket) => Console.print(`[${ticket.join(', ')}]`));
-    Console.print('');
+    });
+
     return tickets;
   }
 
