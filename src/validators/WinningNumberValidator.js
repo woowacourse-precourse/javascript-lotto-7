@@ -1,4 +1,4 @@
-import { WINNING_NUMBERS_ERROR_MESSAGE } from '../constants/message.js';
+import { WINNING_NUMBERS_ERROR_MESSAGE } from '../constants/error.js';
 import { GAME_RULES } from '../constants/gameRule.js';
 import { throwError } from '../utils/console.js';
 import { splitByDelimiter } from '../utils/game.js';

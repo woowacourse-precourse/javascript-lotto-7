@@ -1,4 +1,4 @@
-import { PRICE_ERROR_MESSAGE } from '../constants/message.js';
+import { PRICE_ERROR_MESSAGE } from '../constants/error.js';
 import { GAME_RULES } from '../constants/gameRule.js';
 import { throwError } from '../utils/console.js';
 

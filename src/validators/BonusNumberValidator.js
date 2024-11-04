@@ -1,4 +1,4 @@
-import { BONUS_NUMBER_ERROR_MESSAGE } from '../constants/message.js';
+import { BONUS_NUMBER_ERROR_MESSAGE } from '../constants/error.js';
 import { GAME_RULES } from '../constants/gameRule.js';
 import { throwError } from '../utils/console.js';
 
