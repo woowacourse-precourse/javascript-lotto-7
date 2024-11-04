@@ -6,6 +6,10 @@ class RevenueRate {
   
   constructor() {}
 
+  getRate() {
+    return this.#rate;
+  }
+
   calculate(purchaseAmount, winningHistory) {
     let sum = 0;
 
