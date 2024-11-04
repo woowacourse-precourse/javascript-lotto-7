@@ -2,7 +2,6 @@ import Input from '../view/Input.js';
 import LottoTicketValidator from '../utils/LottoTicketValidator.js';
 import LotteryService from '../model/LotteryService.js';
 import Output from '../view/Output.js';
-import { Console } from '@woowacourse/mission-utils';
 
 export default class LottoController {
   #LotteryService;
@@ -20,9 +19,15 @@ export default class LottoController {
   }
 
   async #validateAndGetAmount() {
-    const amount = await Input.getAmount();
     const validator = new LottoTicketValidator();
-    validator.validateAmount(amount);
-    return Number(amount);
+    let amount;
+
+    while (true) {
+      amount = await Input.getAmount();
+
+      if (validator.validateAmount(amount)) {
+        return Number(amount);
+      }
+    }
   }
 }
