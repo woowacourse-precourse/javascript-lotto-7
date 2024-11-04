@@ -27,7 +27,7 @@ class Lotto {
   }
 
   printNumOfLotto() {
-    return printParam(this.#numbers);
+    return printParam(`${this.#numbers}`);
   }
 }
 
