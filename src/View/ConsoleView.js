@@ -12,7 +12,7 @@ class ConsoleView {
 
   static printLottoNumbers(lottoList) {
     lottoList.forEach((lotto) => {
-      Console.print(lotto.getLotto());
+      Console.print(`[${lotto.getLotto().join(", ")}]`);
     });
   }
 
