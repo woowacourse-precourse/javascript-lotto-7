@@ -21,3 +21,10 @@ export function generateResultStatistics(lottos, winningNumbers, bonusNumber) {
 
   return results;
 }
+
+// 총 당첨 금액을 계산하는 함수
+export function calculateTotalPrize(results) {
+  return Object.values(results).reduce((total, { count, prize }) => {
+    return total + count * prize;
+  }, 0);
+}

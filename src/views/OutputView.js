@@ -37,6 +37,10 @@ class OutputView {
       }개`
     );
   }
+
+  static printProfitRate(profitRate) {
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
 }
 
 export default OutputView;
