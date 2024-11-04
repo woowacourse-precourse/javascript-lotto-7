@@ -1,5 +1,6 @@
 import {MATCH_COUNTER} from "../constants/objects.js";
 import {calculateAmount, findKeyToIncrease, toObjectValueArr} from "../utils/objectUtils.js";
+import {lottoValid} from "./utils/validation.js";
 
 class Lotto {
     #numbers;
@@ -9,9 +10,10 @@ class Lotto {
         this.#numbers = numbers;
     }
 
-    #validate(numbers) {
-        if (numbers.length !== 6) {
-            throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    #validate(numbers) { //함수로 나중에 분리
+        const {hasError, message} = lottoValid(numbers)
+        if (hasError) {
+            throw new Error(message)
         }
     }
 
