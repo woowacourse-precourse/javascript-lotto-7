@@ -1,4 +1,4 @@
-import LOTTO_CONSTANTS from '../constants/lottoConstatns';
+import LOTTO_CONSTANTS from '../constants/lottoConstatns.js';
 
 class WinningStatics {
   static PRIZE_MONEY = {
