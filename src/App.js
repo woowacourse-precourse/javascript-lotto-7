@@ -73,6 +73,24 @@ class App {
     return lottoNumbers;
   }
 
+  compareNumbers(lottoNumbers, winningNumbers, bonusNumber) {
+    let result = [];
+    for (let i = 0; i < lottoNumbers.length; i++) {
+      let count = 0;
+      let hasBonus = false;
+      for (let j = 0; j < lottoNumbers[i].length; j++) {
+        if (winningNumbers.includes(lottoNumbers[i][j])) {
+          count++;
+        }
+        if (lottoNumbers[i][j] === bonusNumber) {
+          hasBonus = true;
+        }
+      }
+      result.push(count === 5 && hasBonus ? "5(bonus)" : count);
+    }
+    return result;
+  }
+
   getRate(result, price) {
     const prizeMoney = {
       3: 5000,
