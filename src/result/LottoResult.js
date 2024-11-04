@@ -13,6 +13,7 @@ export class LottoResult {
     this.#results = { threeMatch, fourMatch, fiveMatch, fiveMatchWithBonus, sixMatch }
   }
 
+
   calculateResult(myLottoArr, winningLotto) {
     const winningNumbers = winningLotto.getNumbers();
     const bonusNumber = winningLotto.getBonusNumber();
