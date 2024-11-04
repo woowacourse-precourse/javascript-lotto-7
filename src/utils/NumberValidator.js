@@ -9,7 +9,7 @@ class NumberValidator {
 
   static validateIsOnlyDigits(value) {
     if (!/^\d+$/.test(value)) {
-      throw new Error(ERROR_MESSAGES.NOT_NUMBER);
+      throw new Error(ERROR_MESSAGES.INVALID_INPUT);
     }
   }
 }
