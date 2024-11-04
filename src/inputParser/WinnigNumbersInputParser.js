@@ -40,6 +40,11 @@ class WinningNumbersInputParser extends InputParser {
       throwError(MESSAGES.ERROR.LOTTO_NUMBER.SHOULD_BE_IN_RANGE);
     }
   }
+
+  // Method for test
+  splitWithCommaTest(winningNumbersString) {
+    return this.#splitWithComma(winningNumbersString);
+  }
 }
 
 export default WinningNumbersInputParser;
