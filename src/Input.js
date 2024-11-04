@@ -1,44 +1,48 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class Input {
-  async getMoney() {
-    try {
-      const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+  static async getMoney() {
+    const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
 
-      const money = this.validateNumber(input);
-      this.isMoneyDividedBy1000(money);
+    const money = Input.#validateNumber(input);
+    Input.#isMoneyDividedBy1000(money);
 
-      return money;
-    } catch (error) {
-      throw error;
-    }
+    return money;
   }
 
-  async getWinningNumbers() {
+  static async getWinningNumbers() {
     const numbers = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
     );
 
-    return numbers.split(",").map(this.validateNumber);
+    return numbers.split(",").map(Input.#validateNumber);
   }
 
-  async getBonusNumber() {
+  static async getBonusNumber() {
     const number = await Console.readLineAsync(
       "\n보너스 번호를 입력해 주세요.\n"
     );
-    return this.validateNumber(number);
+
+    return Input.#validateNumber(number);
   }
 
-  validateNumber(input) {
-    const userInput = Number(input);
+  static #validateNumber(input) {
+    const trimmed = input?.trim();
 
-    if (Number.isNaN(userInput))
-      throw new Error("[ERROR] 숫자를 입력해주세요.");
+    if (!trimmed) {
+      throw new Error("[ERROR] 빈 값이나 공백은 입력할 수 없습니다.");
+    }
 
-    return userInput;
+    const number = Number(trimmed);
+
+    if (!Number.isInteger(number)) {
+      throw new Error("[ERROR] 정수만 입력할 수 있습니다.");
+    }
+
+    return number;
   }
 
-  isMoneyDividedBy1000(input) {
+  static #isMoneyDividedBy1000(input) {
     if (input % 1000)
       throw new Error("[ERROR] 로또 구입 금액은 1,000원 단위로 입력받습니다.");
   }

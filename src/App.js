@@ -7,16 +7,17 @@ import Lotto from "./Lotto.js";
 import { lottoInfo } from "./Static/const.js";
 
 class App {
+  #game;
+
   #money;
   #lottos;
   #winningNumber;
   #bonusNumber;
-  #output;
 
   #lottoResult = new Map();
 
   constructor() {
-    this.input = new Input();
+    this.#game = new Game();
     this.#lottos = [];
 
     this.#lottoResult = new Map(
@@ -28,35 +29,28 @@ class App {
 
   async run() {
     try {
-      this.#money = await this.input.getMoney();
+      this.#money = await Input.getMoney();
 
-      this.buyLottos();
+      // 로또 구매
+      for (let i = 0; i < this.#money / 1000; i++) {
+        const lotto = Game.buyLotto();
+        this.#lottos.push(lotto);
+      }
 
-      this.#output = new Output(this.#money, this.#lottos);
-      this.#output.lottos();
+      this.#printLottos();
 
-      const numbers = await this.input.getWinningNumbers();
+      const numbers = await Input.getWinningNumbers();
       this.#winningNumber = new Lotto(numbers);
 
-      const bonusNumber = await this.input.getBonusNumber();
+      const bonusNumber = await Input.getBonusNumber();
       this.isDuplicateBonus(bonusNumber);
 
       this.#winning();
-      this.#printResult();
+      this.#printGameResult();
       this.#printProfitRate();
     } catch (error) {
       Console.print(error.message);
       throw error;
-    }
-  }
-
-  // 구입한 로또를 배열로 관리
-  buyLottos() {
-    for (let i = 0; i < this.#money / 1000; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
-      const lotto = new Lotto(numbers);
-
-      this.#lottos.push(lotto);
     }
   }
 
@@ -95,7 +89,20 @@ class App {
     }
   }
 
-  #printResult() {
+  #printLottos() {
+    Console.print(`\n${this.#lottos.length}개를 구매했습니다.\n`);
+
+    for (let lotto of this.#lottos) {
+      Console.print(
+        `[${lotto
+          .getNumbers()
+          .sort((a, b) => a - b)
+          .join(", ")}]`
+      );
+    }
+  }
+
+  #printGameResult() {
     for (const [rank, count] of this.#lottoResult) {
       const { match, needBonusBall, prize } = lottoInfo[rank];
       if (!needBonusBall) {
