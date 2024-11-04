@@ -34,6 +34,7 @@ const ERROR_MESSAGES = Object.freeze({
   INVALID_LOTTO_NUMBER: '[ERROR] 로또 번호는 1~45 사이의 숫자여야 합니다.',
   INVALID_BONUS_NUMBER:
     '[ERROR] 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.',
+  INVALID_NUMBER_INPUT: '[ERROR] 숫자만 입력해 주세요',
 });
 
 const PRIZE_AMOUNTS = Object.freeze({
