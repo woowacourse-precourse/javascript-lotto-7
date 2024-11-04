@@ -91,7 +91,19 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  test("예외 테스트 - 잘못된 문자열", async () => {
     await runException("1000j");
+  });
+
+  test("예외 테스트 - 음수 입력", async () => {
+    await runException("-1000");
+  });
+
+  test("예외 테스트 - 과도한 금액 입력", async () => {
+    await runException("1000000000");
+  });
+
+  test("예외 테스트 - 잘못된 로또 번호 입력", async () => {
+    await runException("1000");
   });
 });
