@@ -339,7 +339,7 @@ validateWinningNumber(userInput) {
 
 ---
 
-#### 수익률(ProfitCalculator)
+### 수익률(ProfitCalculator)
 
 - 로또 게임의 *수익률*을 계산합니다. 당첨 티켓 수와 총 구매 금액을 이용해 `전체 수익과 수익률`을 집계합니다.
 
