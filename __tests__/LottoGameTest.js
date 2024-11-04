@@ -1,6 +1,6 @@
 import Lotto from '../src/Model/Lotto.js';
 import LottoGame from '../src/Model/LottoGame.js';
-import { getLogSpy, mockRandoms } from './ApplicationTest.js';
+import { mockRandoms } from './ApplicationTest.js';
 
 describe('LottoGame 클래스 테스트', () => {
   beforeEach(() => {
