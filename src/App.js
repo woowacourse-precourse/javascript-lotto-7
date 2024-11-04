@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class App {
   static PRIZE_INFO = {
     fifth: { matchCount: 3, prize: 5000, message: "3개 일치 (5,000원) - " },
@@ -11,6 +13,10 @@ class App {
     },
     first: { matchCount: 6, prize: 2000000000, message: "6개 일치 (2,000,000,000원) - " },
   };
+
+  inputPurchase() {
+    return MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
+  }
 
   async run() {}
 }
