@@ -10,14 +10,14 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error(ERROR_MESSAGES.INVALID_NAME);
+      throw new Error(ERROR_MESSAGES.INVALID_COUNT);
     }
     if (new Set(numbers).size !== 6) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER);
     }
     numbers.forEach((number) => {
       if (!Number.isInteger(number) || number < 1 || number > 45) {
-        throw new Error(ERROR_MESSAGES.NUMBER_OUT_OF_RANGE);
+        throw new Error(ERROR_MESSAGES.INVALID_NUMBER_RANGE);
       }
     });
   }

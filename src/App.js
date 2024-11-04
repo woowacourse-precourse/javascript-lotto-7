@@ -54,14 +54,14 @@ class App {
         }
         winningNumbers = winningNumbers.split(',').map(Number);
         if (winningNumbers.length !== 6) {
-          throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_LENGTH);
+          throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS_LENGTH);
         }
         if (new Set(winningNumbers).size !== 6) {
           throw new Error(ERROR_MESSAGES.DUPLICATE_WINNING_NUMBER);
         }
         winningNumbers.forEach((x) => {
           if (!Number.isInteger(x) || x < 1 || x > 45) {
-            throw new Error(ERROR_MESSAGES.WINNING_NUMBER_OUT_OF_RANGE);
+            throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBER_RANGE);
           }
         });
         break;
@@ -77,13 +77,13 @@ class App {
           await Console.readLineAsync(IO_MESSAGES.BONUS_NUMBER),
         );
         if (isNaN(bonusNumber)) {
-          throw new Error(ERROR_MESSAGES.BONUS_NUMBER_NAN);
+          throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER);
         }
         if (!(bonusNumber >= 1 && bonusNumber <= 45)) {
-          throw new Error(ERROR_MESSAGES.BONUS_NUMBER_OUT_OF_RANGE);
+          throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
         }
         if (winningNumbers.includes(bonusNumber)) {
-          throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
+          throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
         }
         break;
       } catch (error) {
