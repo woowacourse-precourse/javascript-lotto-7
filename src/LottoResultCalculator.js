@@ -37,36 +37,48 @@ class LottoResultCalculator {
 
   #getBonusText(matches, BonusMatch) {
     if (matches === 5 && BonusMatch) {
-      return ", 보너스 볼 일치";
+      return Constants.BONUS_TEXT;
     }
     return "";
+  }
+
+  #printStatisticsHeader() {
+    MissionUtils.Console.print(Constants.WINNING_STATISTICS_HEADER);
+  }
+
+  #printRankStatistics(rankCounts) {
+    let rank = Constants.MINIMUM_RANK;
+
+    while (rank) {
+      const { matches, BonusMatch = false } = Constants.RANKINGS[rank];
+      const prize = Constants.RANKING_PRIZES[rank].toLocaleString();
+      const bonusText = this.#getBonusText(matches, BonusMatch);
+
+      MissionUtils.Console.print(
+        `${matches}${Constants.MATCH_TEXT}${bonusText} (${prize}원) - ${rankCounts[rank]}개`
+      );
+      
+      rank -= 1;
+    }
+  }
+
+  #printProfitRate(totalPrizeMoney, purchaseAmount) {
+    const profitRate = ((totalPrizeMoney / purchaseAmount) * 100).toFixed(
+      Constants.DECIMAL_PLACES
+    );
+    MissionUtils.Console.print(
+      `${Constants.PROFIT_RATE_TEXT} ${profitRate}${Constants.PERCENTAGE_SYMBOL}`
+    );
   }
 
   printResultCalculate(purchaseAmount) {
     const rankCounts = this.#calculateRankCount();
     const totalPrizeMoney = this.#calculateTotalPrize(rankCounts);
 
-    MissionUtils.Console.print("당첨 통계\n---");
-
-    let rank = 5;
-    
-    while (rank) {
-      const { matches, BonusMatch = false } = Constants.RANKINGS[rank];
-      const prize = Constants.RANKING_PRIZES[rank].toLocaleString();
-
-      const bonusText = this.#getBonusText(matches, BonusMatch);
-
-      MissionUtils.Console.print(
-        `${matches}개 일치${bonusText} (${prize}원) - ${rankCounts[rank]}개`
-      );
-
-      rank -= 1;
-    }
-
-    const profitRate = ((totalPrizeMoney / purchaseAmount) * 100).toFixed(
-      Constants.DECIMAL_PLACES
-    );
-    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
+    MissionUtils.Console.print(Constants.EMPTY_LINE);
+    this.#printStatisticsHeader();
+    this.#printRankStatistics(rankCounts);
+    this.#printProfitRate(totalPrizeMoney, purchaseAmount);
   }
 }
 
