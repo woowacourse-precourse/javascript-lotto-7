@@ -15,8 +15,8 @@ export class Output {
   }
 
   printWinnerRank(rankCounts) {
-    const winningStatistics = '\n당첨 통계\n---\n';
-    const matchingLottoNumbers = [
+    const winningStatisticsMessage = [
+      '\n당첨 통계\n---',
       `3개 일치 (5,000원) - ${rankCounts[3].count}개`,
       `4개 일치 (50,000원) - ${rankCounts[4].count}개`,
       `5개 일치 (1,500,000원) - ${rankCounts[5].count}개`,
@@ -24,7 +24,7 @@ export class Output {
       `6개 일치 (2,000,000,000원) - ${rankCounts[6].count}개`,
     ].join('\n');
 
-    Console.print(winningStatistics + matchingLottoNumbers);
+    Console.print(winningStatisticsMessage);
   }
 
   printRateOfReturn(rateOfReturn) {
