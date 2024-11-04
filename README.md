@@ -132,5 +132,12 @@
   - [x] 로또 번호 반환
   - [x] 당첨번호 비교 후 갯수 리턴
   - [x] 보너스 번호 유무 확인
-- [ ] lottoProcessor 클래스 제작
-- [ ] WinningLotto 클래스 제작
+- [x] lottoProcessor 클래스 제작 (랜덤로또번호와 당첨 번호를 비교하고 결과를 처리하는 로직)
+  - [ ] lotto번호 생성 및 출력 메소드
+  - [ ] 당첨 번호 비교 (순회)
+  - [ ] winningRanks 업데이트
+  - [ ] winningRanks 출력
+- [ ] WinningLotto 클래스 제작 (당첨 번호 및 보너스 번호 관리 클래스)
+  - [ ] 당첨번호 가공
+  - [ ] 보너스 번호 가공
+  - [ ] winningNumbersArray 출력
