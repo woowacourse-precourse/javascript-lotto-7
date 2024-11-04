@@ -1,5 +1,5 @@
-import { AMOUNT_ERROR_MESSAGE } from "../src/utils/Message";
-import ValidInput from "../src/utils/ValidInput";
+import { AMOUNT_ERROR_MESSAGE } from "../src/utils/Message.js";
+import ValidInput from "../src/utils/ValidInput.js";
 
 describe("Amount 입력 유효성 테스트", () => {
   let valid;
