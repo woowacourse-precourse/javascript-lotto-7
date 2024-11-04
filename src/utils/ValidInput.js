@@ -1,4 +1,4 @@
-import { AMOUNT_ERROR_MESSAGE,WINNER_ERROR_MESSAGE,BONUS_ERROR_MESSAGE } from "./Message";
+import { AMOUNT_ERROR_MESSAGE, WINNER_ERROR_MESSAGE, BONUS_ERROR_MESSAGE } from "./Message.js";
 class ValidInput {
   AmountCheck(amount) {
     if (amount === "") {
@@ -21,7 +21,7 @@ class ValidInput {
       throw new Error(WINNER_ERROR_MESSAGE.DUPLICATION);
     }
     arr.forEach((num) => {
-      if (num === "") {
+      if (num === "" || num === null || num === undefined) {
         throw new Error(WINNER_ERROR_MESSAGE.EMPTY);
       }
       const Numbernum = Number(num);
@@ -34,7 +34,7 @@ class ValidInput {
     });
   }
   BonusCheck(winnerArr, bonus) {
-    if (bonus === "") {
+    if (bonus === "" || bonus === null) {
       throw new Error(BONUS_ERROR_MESSAGE.EMPTY);
     }
     const Numberbonus = Number(bonus);
