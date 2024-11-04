@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import LottoManagerIO from "./LottoManagerIO.js";
 import { isMatchBonusNumber, countMatchingNumbers, generateRandomNumbers, rankResult } from "./lottoUtils.js";
 import Lotto from "./Lotto.js";

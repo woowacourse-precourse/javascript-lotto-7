@@ -41,7 +41,7 @@ class LottoResult {
                 return this.#matchCounts.matchCount_5_withoutBonus;
             }
         }
-        else if(countNumber == 3 | countNumber == 4 | countNumber == 6){
+        else if(countNumber === 3 || countNumber === 4 || countNumber === 6){
             return this.#matchCounts[`matchCount_${countNumber}`];
         }
     }
