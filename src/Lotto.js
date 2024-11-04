@@ -1,6 +1,6 @@
 import LottoListValidator from './util/validators/LottoListValidator.js';
 import LottoNumValidator from './util/validators/LottoNumValidator.js';
-import NumberTrimmer from './util/NumberTrimmer.js';
+import trimNums from './util/formatters/trimNums.js';
 
 class Lotto {
   #numbers;
@@ -11,7 +11,7 @@ class Lotto {
   }
 
   #validate(numbers) {
-    const trimmedNumbers = NumberTrimmer.trim(numbers);
+    const trimmedNumbers = trimNums(numbers);
     LottoListValidator.validate(trimmedNumbers);
     LottoNumValidator.validate(trimmedNumbers);
   }
