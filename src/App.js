@@ -28,6 +28,10 @@ class App {
       return false;
     }
   }
+  validateMoneyInput(inputtedMoney) {
+    if (isNan(inputtedMoney))
+      throw new Error("[ERROR] 숫자를 입력해야 합니다.");
+  }
 }
 
 export default App;
