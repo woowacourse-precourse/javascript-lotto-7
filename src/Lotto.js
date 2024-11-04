@@ -13,7 +13,7 @@ class Lotto {
     }
 
     get winningNumbers() {
-        return this.#numbers;
+        return this.#numbers.split(',');
     }
 }
 
