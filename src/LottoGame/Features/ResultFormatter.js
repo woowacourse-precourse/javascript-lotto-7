@@ -1,4 +1,4 @@
-import LOTTO_STANDARD from "./LottoInformation.js";
+import LOTTO_STANDARD from "../Utils/LottoStandard.js";
 
 class ResultFormatter {
   #results;
@@ -17,10 +17,10 @@ class ResultFormatter {
   #generateCountFormat(rank) {
     let rankInfo = this.#getRankInfo(rank);
     if (rankInfo.rank === 2) {
-      return `${rankInfo.count}개 일치, 보너스 볼 일치`;
+      return `${rankInfo.targetCount}개 일치, 보너스 볼 일치`;
     }
 
-    return `${rankInfo.count}개 일치`;
+    return `${rankInfo.targetCount}개 일치`;
   }
 
   #generatePrizeFormat(rank) {
