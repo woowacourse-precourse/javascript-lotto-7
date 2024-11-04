@@ -17,7 +17,7 @@ class Lottos {
   }
 
   #purchaseLottos(purchaseCount) {
-    this.#printPurchaseCount(purchaseCount);
+    this.#printPurchaseCount();
     const lottoList = Array.from({ length: purchaseCount }, () => {
       const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       const lotto = new Lotto(randomNumbers);
@@ -27,8 +27,8 @@ class Lottos {
     return lottoList;
   }
 
-  #printPurchaseCount(purchaseCount) {
-    Console.print(`\n${purchaseCount}개를 구매했습니다.`);
+  #printPurchaseCount() {
+    Console.print(`\n${this.#purchaseCount}개를 구매했습니다.`);
   }
 
   #printLottoNumbers(numbers) {
