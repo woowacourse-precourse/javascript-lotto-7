@@ -1,5 +1,6 @@
 import GetInput from './input/GetInput.js';
 import MakeLotto from './util/MakeLotto.js';
+import ForPurchase from './output/ForPurchase.js';
 
 class App {
   async run() {
@@ -7,7 +8,7 @@ class App {
     //money, winningNumbers, bonus
     const input = await GetInput.print();
     const lotto = MakeLotto.make(input.money / 1000);
-    console.log(lotto);
+    ForPurchase.print(lotto);
     console.log(input);
   }
 }
