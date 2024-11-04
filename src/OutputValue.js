@@ -33,9 +33,15 @@ const OutputValue = {
 
     Console.print(OUTPUT_MESSAGE.WINNING_STATISTICS);
 
-    winningMessages.forEach((message, index) => {
-      Console.print(`${message}${winningStatisticsList[index]}개`);
-    });
+    for (
+      let reverseIndex = winningMessages.length - 1;
+      reverseIndex >= 0;
+      reverseIndex--
+    ) {
+      Console.print(
+        `${winningMessages[reverseIndex]}${winningStatisticsList[reverseIndex]}개`
+      );
+    }
   },
 
   printProfitability(profitability) {
