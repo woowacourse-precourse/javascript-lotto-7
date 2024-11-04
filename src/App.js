@@ -13,8 +13,21 @@ class App {
   }
 
   async getMoney() {
-    let inputMoney = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
-    return this.checkMoney(Number(inputMoney));
+    let inputMoney;
+    let money;
+    let flag = 0
+    while (flag === 0) {
+      try {
+        inputMoney = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+        money = this.checkMoney(Number(inputMoney));
+        flag = 1
+      }
+      catch (e) {
+        Console.print(e.message);
+        flag = 0
+      }
+    }
+    return money;
   }
 
   checkMoney(money) {
@@ -63,7 +76,7 @@ class App {
     if (isNaN(bonus)) {
       throw new Error("[ERROR] 숫자 하나를 입력해야 합니다.");
     }
-    if (numbers.include(bonus)) {
+    if (numbers.includes(bonus)) {
       throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.");
     }
   }
