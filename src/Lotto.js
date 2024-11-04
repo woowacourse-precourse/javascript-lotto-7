@@ -1,5 +1,5 @@
-import { LOTTO_NUMBERS, LOTTO_PRIZE_MONEY } from "./constants/lotto.js";
-import { ERROR_MESSAGE } from "./constants/message.js";
+import { LOTTO_NUMBERS, LOTTO_PRIZE_MONEY } from './constants/lotto.js';
+import { ERROR_MESSAGE } from './constants/message.js';
 
 class Lotto {
   #numbers;
@@ -16,15 +16,14 @@ class Lotto {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_SIX_NUMBERS);
     }
 
-    const hasNaN = [...lottoSet].some((lottoNumber) => !Number.isInteger(lottoNumber));
+    const hasNaN = [...lottoSet].some(lottoNumber => !Number.isInteger(lottoNumber));
 
     if (hasNaN) {
       throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_INPUT.NOT_A_NUMBER);
     }
 
-    const hasOutOfRange = [...lottoSet].some((lottoNumber) => {
-      const isOutOfRange =
-        lottoNumber < LOTTO_NUMBERS.MIN_RANGE_1 || lottoNumber > LOTTO_NUMBERS.MAX_RANGE_45;
+    const hasOutOfRange = [...lottoSet].some(lottoNumber => {
+      const isOutOfRange = lottoNumber < LOTTO_NUMBERS.MIN_RANGE_1 || lottoNumber > LOTTO_NUMBERS.MAX_RANGE_45;
 
       return isOutOfRange;
     });
@@ -62,7 +61,7 @@ class Lotto {
       },
     };
 
-    purchasedLotto.forEach((lotto) => {
+    purchasedLotto.forEach(lotto => {
       const { matchingNumberCount } = this.#getMatchingNumberCount(lotto, this.#numbers);
 
       const isFirst = matchingNumberCount === 6;
@@ -97,7 +96,7 @@ class Lotto {
   #getMatchingNumberCount(lotto, winningNumbers) {
     let matchingNumberCount = 0;
 
-    lotto.forEach((number) => {
+    lotto.forEach(number => {
       const isWinningNumber = winningNumbers.has(number);
 
       if (isWinningNumber) {
@@ -108,22 +107,20 @@ class Lotto {
     return { matchingNumberCount };
   }
 
-  getProfitRate(lottoResult, purchasedLottoCount) {
-    const { profitSum } = this.#getProfitSum(lottoResult);
-
-    const profitRate = (profitSum / (purchasedLottoCount * 1000)) * 100;
-
-    return Math.round(profitRate * 100) / 100;
-  }
-
-  #getProfitSum(lottoResult) {
-    let profitSum = 0;
+  static getProfitSum(lottoResult) {
+    let lottoProfitSum = 0;
 
     Object.values(lottoResult).forEach(({ prize, count }) => {
-      profitSum += prize * count;
+      lottoProfitSum += prize * count;
     });
 
-    return { profitSum };
+    return { lottoProfitSum };
+  }
+
+  static getProfitRate(lottoProfitSum, purchasedLottoCount) {
+    const profitRate = (lottoProfitSum / (purchasedLottoCount * 1000)) * 100;
+
+    return Math.round(profitRate * 100) / 100;
   }
 }
 

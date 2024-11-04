@@ -1,5 +1,6 @@
-import Input from "./Input.js";
-import Output from "./Output.js";
+import Input from './Input.js';
+import Lotto from './Lotto.js';
+import Output from './Output.js';
 
 class App {
   async run() {
@@ -17,7 +18,9 @@ class App {
 
     const { lottoResult } = lottoClass.checkLottoNumbers(purchasedLotto, bonusNumber);
 
-    const profitRate = lottoClass.getProfitRate(lottoResult, purchasedLottoCount);
+    const { lottoProfitSum } = Lotto.getProfitSum(lottoResult);
+
+    const profitRate = Lotto.getProfitRate(lottoProfitSum, purchasedLottoCount);
 
     Output.printLottoResult(lottoResult);
     Output.printProfitRate(profitRate);
