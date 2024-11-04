@@ -51,9 +51,7 @@ const validate = {
 function validateWinningNumber(input) {
   validate.validateEmpty(input);
   validate.validateDelimiter(input);
-
   const numbers = splitByDelimiter(input);
-
   validate.validateDuplicateNumber(numbers);
   validate.validateNumberCount(numbers);
   validate.validateRange(numbers);
