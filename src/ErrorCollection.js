@@ -87,6 +87,17 @@ class ErrorCollection {
   }
 
   /**
+   * @description 구입 금액이 숫자인지 확인
+   * @param {number} amount - 구입 금액
+   * @throws {Error} 구입 금액이 숫자가 아닐 경우 에러
+   */
+  checkPurchaseAmountNumber(amount) {
+    if (typeof amount !== "number" || Number.isNaN(amount)) {
+      throw new Error("[ERROR] 구입 금액은 유효한 숫자여야 합니다.");
+    }
+  }
+
+  /**
    * @description 구입 금액이 정수인지 확인
    * @param {number} amount - 구입 금액
    * @throws {Error} 구입 금액이 정수가 아닐 경우 에러

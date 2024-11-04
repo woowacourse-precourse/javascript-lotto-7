@@ -15,6 +15,7 @@ class Parser {
     const amount = Number(input);
     const errorCollection = new ErrorCollection();
 
+    errorCollection.checkPurchaseAmountNumber(amount);
     errorCollection.checkPurchaseAmountInteger(amount);
     errorCollection.checkPurchaseAmountPositive(amount);
     errorCollection.checkPurchaseAmountDivisibility(amount);
