@@ -1,4 +1,4 @@
-import LottoResult from "../../src/LottoGame/Utils/LottoResult.js";
+import LottoResult from "../../src/LottoGame/LottoResult.js";
 
 describe("LottoResult", () => {
   test("주어진 랭크에 따라 결과를 올바르게 생성한다", () => {

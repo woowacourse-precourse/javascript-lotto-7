@@ -1,4 +1,4 @@
-import LOTTO_STANDARD from "../Utils/LottoStandard.js";
+import { findInformation } from "../Utils/LottoInformation";
 
 class ResultFormatter {
   #results;
@@ -10,12 +10,8 @@ class ResultFormatter {
     this.#generateOutput();
   }
 
-  #getRankInfo(rank) {
-    return LOTTO_STANDARD.find((standard) => standard.rank === rank);
-  }
-
   #generateCountFormat(rank) {
-    let rankInfo = this.#getRankInfo(rank);
+    let rankInfo = findInformation(rank);
     if (rankInfo.rank === 2) {
       return `${rankInfo.targetCount}개 일치, 보너스 볼 일치`;
     }
@@ -24,7 +20,7 @@ class ResultFormatter {
   }
 
   #generatePrizeFormat(rank) {
-    let rankInfo = this.#getRankInfo(rank);
+    let rankInfo = findInformation(rank);
     return rankInfo.prize.toLocaleString();
   }
 
