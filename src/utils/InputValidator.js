@@ -40,7 +40,7 @@ class InputValidator {
       throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER);
     }
     if (
-      !bonusNumber.isInteger(bonusNumber) ||
+      !Number.isInteger(bonusNumber) ||
       bonusNumber < LOTTO_VALUES.MIN_RANDOM_VALUE ||
       bonusNumber > LOTTO_VALUES.MAX_RANDOM_VALUE
     ) {
