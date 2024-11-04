@@ -1,22 +1,28 @@
 import LOTTO_RULE from './constant/lotto.js';
 
 class LottoCenter {
-  getWinningRanks(lottos, winningNumbers, bonusNumber) {
-    return lottos.map((lotto) =>
-      this.#calculateWinningRank(lotto, winningNumbers, bonusNumber),
-    );
+  #winningNumbers;
+  #bonusNumber;
+
+  setWinningNumbers(winningNumbers, bonusNumber) {
+    this.#winningNumbers = winningNumbers.split(',').map(Number);
+    this.#bonusNumber = Number(bonusNumber);
   }
 
-  #calculateWinningRank(lotto, winningNumbers, bonusNumber) {
+  getWinningRanks(lottos) {
+    return lottos.map((lotto) => this.#getEachLottoWinningRank(lotto));
+  }
+
+  #getEachLottoWinningRank(lotto) {
     const matchCount = lotto.filter((number) =>
-      winningNumbers.includes(number),
+      this.#winningNumbers.includes(number),
     ).length;
-    const isBonusMatch = lotto.includes(bonusNumber);
+    const isBonusMatch = lotto.includes(this.#bonusNumber);
 
-    return this.#checkWinningRank(matchCount, isBonusMatch);
+    return this.#calculateWinningRank(matchCount, isBonusMatch);
   }
 
-  #checkWinningRank(matchCount, isBonusMatch) {
+  #calculateWinningRank(matchCount, isBonusMatch) {
     switch (matchCount) {
       case LOTTO_RULE.MATCH_COUNT.FIRST:
         return LOTTO_RULE.RANK.FIRST;

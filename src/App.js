@@ -29,12 +29,9 @@ class App {
 
     Output.printLottos(lottos.map((lotto) => lotto.getLottoNumbers()));
 
-    const { winningNumbers, bonusNumber } = await this.#drawWinningNumbers();
-    const rankCounts = await this.#checkWinningResult(
-      lottos,
-      winningNumbers,
-      bonusNumber,
-    );
+    await this.#drawWinningNumbers();
+    const rankCounts = await this.#checkWinningResult(lottos);
+
     const totalWinningPrize = this.#getTotalWinningPrize(rankCounts);
     const profitRate = this.#calculateProfitRate(
       totalWinningPrize,
@@ -89,7 +86,7 @@ class App {
       this.#tryBonusNumber(winningNumbers),
     );
 
-    return { winningNumbers, bonusNumber };
+    this.#lottoCenter.setWinningNumbers(winningNumbers, bonusNumber);
   }
 
   #getRankCounts(ranks) {
