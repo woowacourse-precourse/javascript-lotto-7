@@ -2,31 +2,31 @@ import { PURCHASE_ERROR_MESSAGE} from "./constants.js";
 import { Random } from "@woowacourse/mission-utils";
 
 class Purchase{
-    #amount;
+    #cost;
     #randomNumbersList = [];
 
-    constructor(amount){
-        this.#validate(amount);
-        this.#amount=Number(amount);
+    constructor(cost){
+        this.#validate(cost);
+        this.#cost=Number(cost);
     }
 
-    #validate(amount){
-        if(isNaN(Number(amount))){
+    #validate(cost){
+        if(isNaN(Number(cost))){
             throw new Error (PURCHASE_ERROR_MESSAGE.IS_NOT_NUMBER);
         }
-        else if(amount.trim()===""){
+        else if(cost.trim()===""){
             throw new Error(PURCHASE_ERROR_MESSAGE.INVALID_BLANK);
         }
-        else if(Number(amount)<0){
+        else if(Number(cost)<0){
             throw new Error(PURCHASE_ERROR_MESSAGE.IS_NOT_POSITIVE_NUMBER);
         }
-        else if(Number(amount)%1000!==0){
+        else if(Number(cost)%1000!==0){
             throw new Error(PURCHASE_ERROR_MESSAGE.IS_NOT_MULTIPLE_OF_THOUSAND);
         }
     }
 
     getPurchaseCount() {
-        return Math.floor(this.#amount / 1000);
+        return Math.floor(this.#cost / 1000);
       }
     
       generateRandomNumbers() {

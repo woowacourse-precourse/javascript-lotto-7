@@ -1,6 +1,6 @@
 // App.js
 import { Console } from "@woowacourse/mission-utils";
-import { INPUT_MESSAGE } from "./constants.js";
+import { PURCHASE_MESSAGE } from "./constants.js";
 import Purchase from "./Purchase.js";
 
 class App {
@@ -13,8 +13,8 @@ class App {
   async getValidPurchase() {
     while (true) {
       try {
-        const amount = await Console.readLineAsync(INPUT_MESSAGE.PURCHASE_AMOUNT_MESSAGE);
-        return new Purchase(amount);
+        const cost = await Console.readLineAsync(PURCHASE_MESSAGE.PURCHASE_COST_MESSAGE);
+        return new Purchase(cost);
       } catch (error) {
         Console.print(`\n${error.message}\n`);
       }
@@ -23,7 +23,7 @@ class App {
 
   displayPurchaseResults(purchase) {
     const purchaseCount = purchase.getPurchaseCount();
-    Console.print(`\n${purchaseCount}개를 구매했습니다.`);
+    Console.print(`\n${purchaseCount}${PURCHASE_MESSAGE.PURCHASE_AMOUNT_MESSAGE}`);
 
     purchase.getRandomNumbersList().forEach((numbers) => {
       Console.print(numbers);
