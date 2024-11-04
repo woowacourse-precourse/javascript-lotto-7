@@ -13,14 +13,17 @@ class LottoController {
     this.view = new LottoView();
     this.generator = new LottoGenerator();
     this.winningNumbers = [];
-    this.bonusNumbers = [];
+    this.bonusNumbers = null;
     this.statistics = new Statistics();
+    this.totalSpent = 0;
   }
 
   async init() {
     await this.setLottoAmounts();
     await this.getWinningNumbers();
     await this.getBonusNumbers();
+    this.calculateStatistics();
+    this.printStatistics();
   }
 
   async setLottoAmounts() {
@@ -91,6 +94,16 @@ class LottoController {
 
   checkBonusNumberDup(bonusNumbers) {
     validateBonusNumberDup(bonusNumbers, this.winningNumbers);
+  }
+
+  calculateStatistics() {
+    const lottos = this.generator.getLottos();
+    lottos.forEach((lotto) => {
+      const matchCount = this.getMatchCount(lotto, this.winningNumbers);
+      const bonusMatch = lotto.includes(this.bonusNumbers);
+      this.statistics.update(matchCount, bonusMatch);
+    });
+    this.statistics.calculateRate(this.totalSpent);
   }
 }
 
