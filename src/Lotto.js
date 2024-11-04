@@ -1,3 +1,5 @@
+import { VALID_LOTTERY_NUM } from "./constants/validate.js";
+
 class Lotto {
   #numbers;
 
@@ -17,7 +19,7 @@ class Lotto {
   }
 
   toString() {
-    return `[${this.#numbers.join(',')}]`;
+    return `[${this.#numbers.join(', ')}]`;
   }
 
   getNumbers() {
