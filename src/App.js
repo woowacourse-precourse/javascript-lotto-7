@@ -1,5 +1,13 @@
+import AppController from "./controllers/AppController.js";
+
 class App {
-  async run() {}
+  constructor() {
+    this.appController = new AppController();
+  }
+
+  async run() {
+    await this.appController.run();
+  }
 }
 
 export default App;
