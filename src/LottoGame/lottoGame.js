@@ -6,6 +6,8 @@ import { BONUS_NUMBER_VALIDATION } from '../Validator/bonusNumberValidation.js';
 import { OUTPUT_MESSAGES } from '../Constant/outPutMessages.js';
 import { SYMBOLS } from '../Constant/symbols.js';
 import { WINNING_NUMBER_VALIDATION } from '../Validator/winningNumberValidation.js';
+import LottoIncome from '../LottoIncome/lottoIncome.js';
+import { prizeCriteria } from '../Constant/winningStandard.js';
 
 class LottoGame {
   async start() {
@@ -24,6 +26,9 @@ class LottoGame {
       BONUS_NUMBER,
     );
     this.printStatistics(statistics);
+    const lottoIncome = new LottoIncome(LOTTO_PRICE, statistics);
+    const returnRate = lottoIncome.calculateReturnRate();
+    print(OUTPUT_MESSAGES.totalReturnMessages(returnRate));
   }
 
   async getLottoPrice() {
@@ -64,32 +69,30 @@ class LottoGame {
   }
 
   initializeStatistics() {
-    return {
-      thirdPrize: 0,
-      fourthPrize: 0,
-      fifthPrize: 0,
-      bonusPrize: 0,
-      sixthPrize: 0,
-    };
+    const statistics = {};
+    prizeCriteria.forEach((prize) => {
+      statistics[`${prize.prize}Prize`] = 0;
+    });
+    return statistics;
   }
 
   updateStatistics(statistics, winningAccord, lottoNumber, bonusNumber) {
     switch (winningAccord) {
       case 3:
-        statistics.thirdPrize++;
+        statistics.fifthPrize++;
         break;
       case 4:
         statistics.fourthPrize++;
         break;
       case 5:
         if (this.compareBonusNumber(lottoNumber, bonusNumber)) {
-          statistics.bonusPrize++;
+          statistics.secondPrize++;
         } else {
-          statistics.fifthPrize++;
+          statistics.thirdPrize++;
         }
         break;
       case 6:
-        statistics.sixthPrize++;
+        statistics.firstPrize++;
         break;
     }
   }
@@ -109,11 +112,11 @@ class LottoGame {
 
   printStatistics(statistics) {
     print(OUTPUT_MESSAGES.winningStatistics);
-    print(OUTPUT_MESSAGES.THIRD_PRIZE(statistics.thirdPrize));
+    print(OUTPUT_MESSAGES.THIRD_PRIZE(statistics.fifthPrize));
     print(OUTPUT_MESSAGES.FOURTH_PRIZE(statistics.fourthPrize));
-    print(OUTPUT_MESSAGES.FIFTH_PRIZE(statistics.fifthPrize));
-    print(OUTPUT_MESSAGES.BONUS_PRIZE(statistics.bonusPrize));
-    print(OUTPUT_MESSAGES.SIXTH_PRIZE(statistics.sixthPrize));
+    print(OUTPUT_MESSAGES.FIFTH_PRIZE(statistics.thirdPrize));
+    print(OUTPUT_MESSAGES.BONUS_PRIZE(statistics.secondPrize));
+    print(OUTPUT_MESSAGES.SIXTH_PRIZE(statistics.firstPrize));
   }
 }
 
