@@ -42,10 +42,8 @@ class App {
 
   generateLotto() {
     const numbers = new Set();
-    while (numbers.size < 6) {
       const number = Random.pickUniqueNumbersInRange(1, 45, 6);
       numbers.add(number);
-    }
     return new Lotto([...numbers]);
   }
 
