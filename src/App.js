@@ -8,24 +8,15 @@ import Game from "./Game.js";
 import { lottoInfo } from "./Static/const.js";
 
 class App {
-  #game;
-
   #money;
   #lottos;
-  #winningNumber;
+  #winningLotto;
   #bonusNumber;
-
-  #lottoResult = new Map();
+  #result;
 
   constructor() {
-    this.#game = new Game();
     this.#lottos = [];
-
-    this.#lottoResult = new Map(
-      Object.keys(lottoInfo)
-        .reverse()
-        .map((rank) => [rank, 0])
-    );
+    this.#result = new Map();
   }
 
   async #buyLottos() {
@@ -33,13 +24,11 @@ class App {
     this.#lottos = Array.from({ length: this.#money / 1000 }, () =>
       Game.buyLotto()
     );
-
-    Print.lottos(this.#lottos);
   }
 
   async #inputWinningNumbers() {
     const numbers = await Input.getWinningNumbers();
-    this.#winningNumber = new Lotto(numbers);
+    this.#winningLotto = new Lotto(numbers);
   }
 
   async #inputBonusNumber() {
@@ -60,49 +49,31 @@ class App {
 
   async run() {
     await this.#retry(() => this.#buyLottos());
+
+    Print.lottos(this.#lottos);
+
     await this.#retry(() => this.#inputWinningNumbers());
     await this.#retry(() => this.#inputBonusNumber());
 
-    this.#winning();
+    this.#result = Game.getResult(
+      this.#lottos,
+      this.#winningLotto,
+      this.#bonusNumber
+    );
     this.#printGameResult();
     this.#printProfitRate();
   }
 
   // 입력받은 보너스 숫자가 당첨 번호와 중복되는지?
   #isDuplicateBonus(bonusNumber) {
-    if (this.#winningNumber.getNumbers().includes(bonusNumber))
+    if (this.#winningLotto.getNumbers().includes(bonusNumber))
       throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.");
 
     this.#bonusNumber = bonusNumber;
   }
 
-  #getRank(matchCount, hasBonus) {
-    return Object.entries(lottoInfo).find(
-      ([_, info]) =>
-        info.match === matchCount && info.needBonusBall === hasBonus
-    )?.[0];
-  }
-
-  #winning() {
-    for (const lotto of this.#lottos) {
-      const matchNumbers = lotto
-        .getNumbers()
-        .filter((number) => this.#winningNumber.getNumbers().includes(number));
-
-      const hasBonus =
-        matchNumbers.length === 5 &&
-        lotto.getNumbers().includes(this.#bonusNumber);
-
-      const rank = this.#getRank(matchNumbers.length, hasBonus);
-
-      if (rank) {
-        this.#lottoResult.set(rank, this.#lottoResult.get(rank) + 1);
-      }
-    }
-  }
-
   #printGameResult() {
-    for (const [rank, count] of this.#lottoResult) {
+    for (const [rank, count] of this.#result) {
       const { match, needBonusBall, prize } = lottoInfo[rank];
       if (!needBonusBall) {
         Console.print(
@@ -119,7 +90,7 @@ class App {
   #printProfitRate() {
     let totalPrize = 0;
 
-    for (const [rank, count] of this.#lottoResult) {
+    for (const [rank, count] of this.#result) {
       if (!count) continue;
 
       const { prize } = lottoInfo[rank];
