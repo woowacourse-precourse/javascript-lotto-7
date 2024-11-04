@@ -10,7 +10,6 @@ import Lotto from "./Lotto.js";
 // 3등: 5개 번호 일치 / 1,500,000원
 // 4등: 4개 번호 일치 / 50,000원
 // 5등: 3개 번호 일치 / 5,000원
-// 보너스 번호를 입력받는다.
 // 사용자가 구매한 로또 번호와 당첨 번호를 비교하여 당첨 내역 및 수익률을 출력하고 로또 게임을 종료한다.
 // 사용자가 잘못된 값을 입력할 경우 "[ERROR]"로 시작하는 메시지와 함께 Error를 발생시키고 해당 메시지를 출력한 다음 해당 지점부터 다시 입력을 받는다.
 
@@ -31,7 +30,9 @@ class App {
     Console.print("");
     const WINNING_NUMBER = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n")
     const WINNING_LOTTO = new Lotto(WINNING_NUMBER.split(","));
-
+    
+    Console.print("");
+    const BONUS_NUMBER = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
 
 
   }
