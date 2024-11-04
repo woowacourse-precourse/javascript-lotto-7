@@ -49,7 +49,7 @@ class App {
       await this.getUserPickedNumbers()
     ).map(Number);
 
-    let userPickedBonusNum = await this.getUserPickedBonusNumber();
+    let userPickedBonusNum = Number(await this.getUserPickedBonusNumber());
 
     let score = Lotto.getScore(
       userPickedNumbers,
