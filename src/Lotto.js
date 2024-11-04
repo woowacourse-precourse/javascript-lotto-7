@@ -20,7 +20,10 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  // 당첨 번호 일치 개수를 반환
+  getMatchCount(winningNumbers) {
+    return this.#numbers.filter((num) => winningNumbers.includes(num)).length;
+  }
 }
 
 export default Lotto;
