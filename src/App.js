@@ -55,7 +55,7 @@ class App {
 
   async getWinningNumbers() {
     const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-    const numbers = input.split(",").map(Number); //TODO : ,가 아닌 경우에 대한 예외처리
+    const numbers = input.split(",").map(Number); //TODO : ,가 아닌 경우에 대한 예외 처리
     
     // 입력된 당첨 번호의 유효성 확인 (총 6개, 1~45 범위의 숫자)
     if (numbers.length !== 6 || numbers.some((num) => isNaN(num) || num < 1 || num > 45) || new Set(numbers).size !== numbers.length) {
