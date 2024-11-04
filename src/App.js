@@ -10,4 +10,11 @@ const rl = createInterface({
     output: process.stdout
 });
 
+async function askQuestion(query) {
+  return new Promise((resolve) => {
+      rl.question(query, (answer) => {
+          resolve(answer);
+      });
+  });
+}
 
