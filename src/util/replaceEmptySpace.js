@@ -1,5 +1,5 @@
 const replaceEmptySpace = (string) => {
-  const emptySpaceRegex = / /g;
+  const emptySpaceRegex = /\s+/g;
 
   return string.replace(emptySpaceRegex, '');
 };
