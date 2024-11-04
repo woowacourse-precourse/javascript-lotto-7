@@ -14,6 +14,7 @@ export const ERROR_MESSAGE = {
   WINNING_NUMBER_TYPE: '로또 번호는 1부터 45 사이의 숫자여야 합니다.',
   WINNING_NUMBER_COMMA:
     '당첨 번호 입력란에 , 사이에 숫자를 입력했는지 확인해주세요.',
-  WINNING_NUMBER_DUPLICATION: '6개의 숫자는 중복되어서는 안됩니다.',
+  WINNING_NUMBER_LENGTH: '로또 번호는 6개여야 합니다.',
+  WINNING_NUMBER_DUPLICATION: '로또 번호는 각각 다른 숫자여야합니다.',
   BONUS_NUMBER_DUPLICATION: ' 보너스 숫자는 당첨 숫자와 달라야 합니다.',
 };
