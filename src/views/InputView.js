@@ -9,13 +9,13 @@ class InputView {
 
   static async inputWinningNumber() {
     return await MissionUtils.Console.readLineAsync(
-      '당첨 번호를 입력해 주세요.\n'
+      '\n당첨 번호를 입력해 주세요.\n'
     );
   }
 
   static async inputBonusNumber() {
     return await MissionUtils.Console.readLineAsync(
-      '보너스 번호를 입력해 주세요.\n'
+      '\n보너스 번호를 입력해 주세요.\n'
     );
   }
 }
