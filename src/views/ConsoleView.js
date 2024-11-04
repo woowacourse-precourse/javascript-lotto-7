@@ -69,6 +69,10 @@ class ConsoleView {
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000)원 - ${resultPrize.second}개`);
     Console.print(`6개 일치 (2,000,000,000)원 - ${resultPrize.first}개`);
   }
+
+  printRateOfReturn(rateOfReturn) {
+    Console.print(`총 수익률은 ${rateOfReturn.toFixed(1)}%입니다.`);
+  }
 }
 
 export default ConsoleView;

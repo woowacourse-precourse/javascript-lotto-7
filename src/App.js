@@ -14,6 +14,7 @@ class App {
     const resultPrize = lottoController.calculateWinningLotto(lottos, winningNumbers, bonusNumber);
     consoleView.printResultPrize(resultPrize);
     const rateOfReturn = lottoController.calculateRateOfReturn(purchaseAmount, resultPrize);
+    consoleView.printRateOfReturn(rateOfReturn);
   }
 }
 
