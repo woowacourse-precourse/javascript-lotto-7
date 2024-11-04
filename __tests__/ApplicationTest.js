@@ -1,5 +1,7 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Validator from "../src/Validator.js";
+import { ERROR_MESSAGE } from "../src/Constant.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -93,5 +95,34 @@ describe("로또 테스트", () => {
 
   test("예외 테스트", async () => {
     await runException("1000j");
+  });
+
+  const validator = new Validator();
+
+  test("구입 금액이 숫자가 아닌 경우", () => {
+    expect(() => validator.purchaseAmount("1000j")).toThrow(ERROR_MESSAGE.NOT_A_NUMBER);
+  });
+
+  test("구입 금액이 1000원보다 적은 경우", () => {
+    expect(() => validator.purchaseAmount("500")).toThrow(ERROR_MESSAGE.MINIMUM_PURCHASE_AMOUNT);
+  });
+
+  test("구입 금액이 1000원 단위가 아닌 경우", () => {
+    expect(() => validator.purchaseAmount("1500")).toThrow(ERROR_MESSAGE.PURCHASE_UNIT_1000);
+  });
+
+  test("로또 번호가 1-45 사이의 숫자가 아닌 경우", () => {
+    expect(() => validator.lottoNumbers([0, 2, 3, 4, 5, 6])).toThrow(ERROR_MESSAGE.INVALID_NUMBER);
+    expect(() => validator.lottoNumbers([1, 2, 3, 4, 5, 46])).toThrow(ERROR_MESSAGE.INVALID_NUMBER);
+  });
+
+  test("로또 번호 개수가 6개가 아닌 경우", () => {
+    expect(() => validator.lottoNumbers([1, 2, 3, 4, 5])).toThrow(ERROR_MESSAGE.SIX_NUMBERS_NEEDED);
+    expect(() => validator.lottoNumbers([1, 2, 3, 4, 5, 6, 7])).toThrow(ERROR_MESSAGE.SIX_NUMBERS_NEEDED);
+  });
+
+  test("보너스 번호가 1-45 사이의 숫자가 아닌 경우", () => {
+    expect(() => validator.bonusNumber("0")).toThrow(ERROR_MESSAGE.INVALID_NUMBER);
+    expect(() => validator.bonusNumber("46")).toThrow(ERROR_MESSAGE.INVALID_NUMBER);
   });
 });
