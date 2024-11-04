@@ -37,6 +37,11 @@ class UserInput {
     const bonusNum = await MissionUtils.Console.readLineAsync(
       "보너스 숫자를 입력해주세요. \n"
     );
+
+    if (isNaN(bonusNum)) {
+      throw new Error("[ERROR] 보너스 숫자는 숫자이어야 합니다.");
+    }
+
     return bonusNum;
   }
 }
