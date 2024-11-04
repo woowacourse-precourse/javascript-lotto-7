@@ -98,8 +98,16 @@ class LottoManager {
     return this.#getMatchedCountInLottos();
   }
 
-  setLottos(lottos) {
+  setLottosTest(lottos) {
     this.#lottos = lottos;
+  }
+
+  getMatchedCountPerMatchOptionTest() {
+    return this.#getMatchedCountPerMatchOption();
+  }
+
+  setMatchedCountInLottosTest(matchedCountInLottos) {
+    this.#matchedCountInLottos = matchedCountInLottos;
   }
 }
 

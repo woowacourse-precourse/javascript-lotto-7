@@ -33,7 +33,7 @@ describe('LottoManager 클래스 테스트', () => {
       new Lotto([29, 38, 9, 10, 11, 12]),
     ];
 
-    lottoManager.setLottos(lottos);
+    lottoManager.setLottosTest(lottos);
 
     const result = lottoManager.getMatchedCountInLottosTest();
 
@@ -45,6 +45,33 @@ describe('LottoManager 클래스 테스트', () => {
       { matchedCountWithWinningNumbers: 2, isMatchedWithBonusNumber: false },
       { matchedCountWithWinningNumbers: 1, isMatchedWithBonusNumber: false },
       { matchedCountWithWinningNumbers: 0, isMatchedWithBonusNumber: false },
+    ];
+
+    expect(result).toEqual(expected);
+  });
+
+  test('#getMatchedCountPerMatchOption', () => {
+    const matchedCountInLottos = [
+      { matchedCountWithWinningNumbers: 6, isMatchedWithBonusNumber: false },
+      { matchedCountWithWinningNumbers: 5, isMatchedWithBonusNumber: true },
+      { matchedCountWithWinningNumbers: 4, isMatchedWithBonusNumber: false },
+      { matchedCountWithWinningNumbers: 3, isMatchedWithBonusNumber: false },
+      { matchedCountWithWinningNumbers: 3, isMatchedWithBonusNumber: false },
+      { matchedCountWithWinningNumbers: 2, isMatchedWithBonusNumber: false },
+      { matchedCountWithWinningNumbers: 1, isMatchedWithBonusNumber: false },
+      { matchedCountWithWinningNumbers: 0, isMatchedWithBonusNumber: false },
+    ];
+
+    lottoManager.setMatchedCountInLottosTest(matchedCountInLottos);
+
+    const result = lottoManager.getMatchedCountPerMatchOptionTest();
+
+    const expected = [
+      { count: 3, matchedCount: 2, isBonus: false, prize: 5000 },
+      { count: 4, matchedCount: 1, isBonus: false, prize: 50000 },
+      { count: 5, matchedCount: 0, isBonus: false, prize: 1500000 },
+      { count: 5, matchedCount: 1, isBonus: true, prize: 30000000 },
+      { count: 6, matchedCount: 1, isBonus: false, prize: 2000000000 },
     ];
 
     expect(result).toEqual(expected);
