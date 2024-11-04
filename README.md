@@ -27,14 +27,14 @@
 
 ### 그 외 요구 사항
 
-- [ ] AngularJS Git Commit Message Conventions에 맞춰 커밋 메시지 작성
-- [ ] JavaScript Style Guide 컨벤션을 지키며 코드 작성
-- [ ] indent(인덴트, 들여쓰기) depth를 3이 넘지 않도록 구현하기
-- [ ] 3항 연산자를 쓰지 않기
-- [ ] 코드를 깔끔하게 리팩토링
-- [ ] 함수(또는 메서드)의 길이가 15라인을 넘어가지 않도록 구현하기
-- [ ] else를 지양
-- [ ] 함수(또는 메서드)가 한 가지 일만 하도록 최대한 작게 만들기
+- [x] AngularJS Git Commit Message Conventions에 맞춰 커밋 메시지 작성
+- [x] JavaScript Style Guide 컨벤션을 지키며 코드 작성
+- [x] indent(인덴트, 들여쓰기) depth를 3이 넘지 않도록 구현하기
+- [x] 3항 연산자를 쓰지 않기
+- [x] 코드를 깔끔하게 리팩토링
+- [x] 함수(또는 메서드)의 길이가 15라인을 넘어가지 않도록 구현하기
+- [x] else를 지양
+- [x] 함수(또는 메서드)가 한 가지 일만 하도록 최대한 작게 만들기
 
 ## 테스트 케이스 구현
 
