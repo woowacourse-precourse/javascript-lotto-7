@@ -10,6 +10,32 @@ class LottoGame {
   #profitRate;
 
   constructor() {}
+
+  async #getTotalCost() {
+    while (true) {
+      try {
+        const totalCost = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+        this.#isValidTotalCost(totalCost);
+        this.#lottoCount = this.#getLottoCount(totalCost);
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
+  #getLottoCount(totalCost) {
+    return totalCost / 1000;
+  }
+
+  #isValidTotalCost(totalCost) {
+    if (isNaN(totalCost)) {
+      throw new Error('[ERROR] 잘못된 입력입니다.');
+    }
+    if (totalCost % 1000 !== 0) {
+      throw new Error('[ERROR] 잘못된 입력입니다.');
+    }
+  }
 }
 
 export default LottoGame;
