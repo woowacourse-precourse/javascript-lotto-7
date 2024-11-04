@@ -1,4 +1,5 @@
 import ERROR_MESSAGES from '../../constants/Constant.js';
+import { LOTTO } from '../../constants/MagicNumber.js';
 
 const isNumeric = input => {
   if (Number.isNaN(Number(input))) {
@@ -11,7 +12,7 @@ const isEmpty = input => {
   }
 };
 const rangeOver = input => {
-  if (input < 1 || input > 45) {
+  if (input < LOTTO.LOTTO_MIN || input > LOTTO.LOTTO_MAX) {
     throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
   }
 };

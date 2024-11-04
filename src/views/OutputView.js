@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import DrawLottery from '../utils/RandomLottery.js';
-import MagicNumber from '../constants/MagicNumber.js';
+import { LOTTO } from '../constants/MagicNumber.js';
 
 class OutputView {
   static printError(error) {
@@ -8,7 +8,7 @@ class OutputView {
   }
 
   static printLotto(input) {
-    const lottery = input / MagicNumber.PURCHASE_UNIT;
+    const lottery = input / LOTTO.PURCHASE_UNIT;
     Console.print(`\n${lottery}개를 구매했습니다.`);
     for (let i = 0; i < lottery; i += 1) {
       const numbers = DrawLottery.drawLottery().getNumbers();

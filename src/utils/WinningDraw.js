@@ -1,4 +1,5 @@
 import DrawLottery from './RandomLottery.js';
+import { PRIZE } from '../constants/MagicNumber.js';
 
 const lotto = DrawLottery.myLotto;
 
@@ -19,7 +20,7 @@ const getPrizeIndex = (winCount, bonusMatch) => {
   return -1; // 2개 이하일 때
 };
 
-const prizeMoney = [5000, 50000, 1500000, 30000000, 2000000000]; // 5등부터 1등까지
+const prizeMoney = [PRIZE.FIFTH, PRIZE.FOURTH, PRIZE.THIRD, PRIZE.SECOND, PRIZE.FIRST]; // 5등부터 1등까지 당첨금액
 
 const calculate = (winning, bonus) => {
   const result = winningDraw(winning, bonus);

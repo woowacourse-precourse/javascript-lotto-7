@@ -1,5 +1,5 @@
 import ERROR_MESSAGES from '../../constants/Constant.js';
-import MagicNumber from '../../constants/MagicNumber.js';
+import { LOTTO } from '../../constants/MagicNumber.js';
 
 const isNumeric = input => {
   input.forEach(i => {
@@ -14,13 +14,13 @@ const isEmpty = input => {
   }
 };
 const countOver = input => {
-  if (input.length !== MagicNumber.LOTTO_COUNT) {
+  if (input.length !== LOTTO.LOTTO_COUNT) {
     throw new Error(ERROR_MESSAGES.LOTTO_COUNT);
   }
 };
 const rangeOver = input => {
   input.forEach(i => {
-    if (i < 1 || i > 45) {
+    if (i < LOTTO.LOTTO_MIN || i > LOTTO.LOTTO_MAX) {
       throw new Error(ERROR_MESSAGES.LOTTO_RANGE);
     }
   });

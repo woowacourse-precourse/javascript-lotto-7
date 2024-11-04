@@ -1,6 +1,14 @@
-const MagicNumber = {
+export const LOTTO = {
   PURCHASE_UNIT: 1000,
   LOTTO_COUNT: 6,
+  LOTTO_MIN: 1,
+  LOTTO_MAX: 45,
 };
 
-export default MagicNumber;
+export const PRIZE = {
+  FIRST: 2000000000,
+  SECOND: 30000000,
+  THIRD: 1500000,
+  FOURTH: 50000,
+  FIFTH: 5000,
+};
