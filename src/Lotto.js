@@ -1,5 +1,5 @@
 class Lotto {
-  #numbers;
+  #numbers; // 프라이빗 필드, 클래스 외부에서 접근이 불가
 
   constructor(numbers) {
     this.#validate(numbers);
