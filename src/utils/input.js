@@ -5,58 +5,48 @@ import {
   validateNumbers,
   validatePurchaseAmount,
 } from "./validator.js";
-import { NUMBER_SEPARATOR } from "../constants/gameRules.js";
+import { parseInputToNumbers, parseMoneyInput } from "./parseString.js";
 
-export const getPurchaseAmount = async () => {
-  while (true) {
+export const getUserInput = async (promptMessage, validateFunction) => {
+  let isValidInput = false;
+  while (!isValidInput) {
     try {
-      const purchaseAmountInput = await Console.readLineAsync(
-        "구입금액을 입력해 주세요."
-      );
-      const purchaseAmount = Number(
-        purchaseAmountInput.trim().replace(/[,\s]/g, "")
-      );
+      const userInput = await Console.readLineAsync(promptMessage);
+      const processedInput = validateFunction(userInput);
 
-      validatePurchaseAmount(purchaseAmount);
-      return purchaseAmount;
+      return processedInput;
     } catch (error) {
       printErrorMessage(error.message);
     }
   }
+};
+
+export const getPurchaseAmount = async () => {
+  return await getUserInput("구입 금액을 입력해 주세요.", (input) => {
+    const purchaseAmount = parseMoneyInput(input);
+
+    validatePurchaseAmount(purchaseAmount);
+
+    return purchaseAmount;
+  });
 };
 
 export const getNumbers = async (message) => {
-  while (true) {
-    try {
-      const numbersInput = await Console.readLineAsync(message);
-      const numbers = numbersInput
-        .trim()
-        .replace(/[\s]/g, "")
-        .split(NUMBER_SEPARATOR)
-        .map((string) => Number(string));
+  return await getUserInput(message, (input) => {
+    const numbers = parseInputToNumbers(input);
 
-      validateNumbers(numbers);
+    validateNumbers(numbers);
 
-      return numbers;
-    } catch (error) {
-      printErrorMessage(error.message);
-    }
-  }
+    return numbers;
+  });
 };
 
 export const getBonusNumber = async (winningNumbers) => {
-  while (true) {
-    try {
-      const bonusNumberInput = await Console.readLineAsync(
-        "보너스 번호를 입력해 주세요."
-      );
-      const bonusNumber = Number(bonusNumberInput);
+  return await getUserInput("보너스 번호를 입력해 주세요.", (input) => {
+    const bonusNumber = Number(input);
 
-      validateBonusNumber(winningNumbers, bonusNumber);
+    validateBonusNumber(winningNumbers, bonusNumber);
 
-      return bonusNumber;
-    } catch (error) {
-      printErrorMessage(error.message);
-    }
-  }
+    return bonusNumber;
+  });
 };
