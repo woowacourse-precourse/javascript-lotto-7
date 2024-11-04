@@ -5,12 +5,13 @@ import ConsoleView from "../views/ConsoleView.js";
 
 class App {
   async run() {
-    ConsoleView.askPurchaseAmount((input) => this.handlePurchaseAmout(input));
+    ConsoleView.askPurchaseAmount((input) => this.handlePurchaseAmount(input));
   }
 
   handlePurchaseAmount(input) {
     try {
-      const purchaseAmount = InputValidator.validatePurchaseAmount(input);
+      const purchaseAmount = InputValidator.PurchaseAmount(input);
+      console.log("구입 금액 유효성 통과:", purchaseAmount); // 디버깅 로그
       this.lottoManager = new LottoManager(purchaseAmount);
       ConsoleView.showLottos(this.lottoManager.getLottos());
       ConsoleView.askWinningNumbers((input) => this.handleWinningNumbers(input));
@@ -22,7 +23,8 @@ class App {
 
   handleWinningNumbers(input) {
     try {
-      const winningNumbers = InputValidator.validateWinningNumbers(input);
+      const winningNumbers = InputValidator.WinningNumbers(input);
+      console.log("당첨 번호 유효성 통과:", winningNumbers); // 디버깅 로그
       ConsoleView.askBonusNumber((input) => this.handleBonusNumber(input, winningNumbers));
     } catch (error) {
       ConsoleView.showError(error);
@@ -32,7 +34,8 @@ class App {
 
   handleBonusNumber(input, winningNumbers) {
     try {
-      const bonusNumber = InputValidator.validateBonusNumber(input);
+      const bonusNumber = InputValidator.BonusNumber(input);
+      console.log("보너스 번호 유효성 통과:", bonusNumber); // 디버깅 로그
       const results = this.lottoManager.calculateResults(winningNumbers, bonusNumber);
       ConsoleView.showResults(results);
     } catch (error) {
