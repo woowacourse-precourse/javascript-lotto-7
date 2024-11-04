@@ -35,3 +35,11 @@ export const LOTTO_RELATED_CONSTANTS = {
   lottoRangeEnd : 45,
   lottoLength : 6,
 };
+
+export const MATCH_REWARD = {
+  fifth : 5000,
+  fourth : 50000,
+  third : 1500000,
+  second : 30000000, 
+  first : 2000000000,
+}
