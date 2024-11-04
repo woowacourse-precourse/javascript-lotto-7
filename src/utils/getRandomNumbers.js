@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import { LOTTO_NUMBERS } from '../constants/config.js';
+import LOTTO_NUMBERS from '../constants/config.js';
 
 const getRandomLottoNumbers = () =>
   Random.pickUniqueNumbersInRange(
