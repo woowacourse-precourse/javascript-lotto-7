@@ -48,6 +48,7 @@ class Validator {
 
   bonusNumber(number) {
     this.#validateNaturalNumber(number);
+    this.#validateRange(number, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
   }
 }
 
