@@ -25,7 +25,7 @@ class LottoController {
         this.#lottos = Lotto.createLottos(this.#money);
 
         Output.printPurchaseAmount(this.#lottos.length);
-        Output.printLottos(this.#lottos);
+        Output.printLottos(this.#lottos.map((lotto) => lotto.getNumbers()));
     }
 
     async #getWinningInfo() {
