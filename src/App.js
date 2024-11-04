@@ -1,6 +1,7 @@
 import ConsoleUtil from "./utils/ConsoleUtil.js";
 import LottoManager from "./LottoManager.js";
 import errorMessages from "./errors/errorMessages.js";
+import ResultPrinter from "./ResultPrinter.js";
 
 class App {
   constructor() {
@@ -17,7 +18,7 @@ class App {
       ConsoleUtil.print(`${lottoCount}개를 구매했습니다.`);
       lottos.forEach((lotto) => ConsoleUtil.print(`[${lotto.getNumbers().join(", ")}]`));
 
-      await this.#getWinningNumbers();
+      await this.#getWinningNumbers(lottoCount);
     } catch (error) {
       ConsoleUtil.print(error.message);
       await this.run();
@@ -32,7 +33,7 @@ class App {
     return num;
   }
 
-  async #getWinningNumbers() {
+  async #getWinningNumbers(lottoCount) {
     try {
       const winningNumbersInput = await ConsoleUtil.readLine("당첨 번호를 입력해 주세요.\n");
       const winningNumbers = this.#parseNumbers(winningNumbersInput);
@@ -41,10 +42,10 @@ class App {
       const bonusNumber = this.#parseBonusNumber(bonusNumberInput, winningNumbers);
 
       const results = this.lottoManager.calculateResults(winningNumbers, bonusNumber);
-      this.#printResults(results);
+      ResultPrinter.printResults(results, lottoCount);
     } catch (error) {
       ConsoleUtil.print(error.message);
-      await this.#getWinningNumbers();
+      await this.#getWinningNumbers(lottoCount);
     }
   }
 
@@ -71,34 +72,6 @@ class App {
       throw new Error(errorMessages.RANGE_OVER_ERROR);
     }
     return bonusNumber;
-  }
-
-  #printResults(results) {
-    const prizeMap = {
-      3: 5000,
-      4: 50000,
-      5: 1500000,
-      "5_bonus": 30000000,
-      6: 2000000000,
-    };
-
-    ConsoleUtil.print("당첨 통계\n---");
-    ConsoleUtil.print(`3개 일치 (5,000원) - ${results[3]}개`);
-    ConsoleUtil.print(`4개 일치 (50,000원) - ${results[4]}개`);
-    ConsoleUtil.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
-    ConsoleUtil.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results["5_bonus"]}개`);
-    ConsoleUtil.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
-
-    const totalEarnings = 
-      results[3] * prizeMap[3] +
-      results[4] * prizeMap[4] +
-      results[5] * prizeMap[5] +
-      results["5_bonus"] * prizeMap["5_bonus"] +
-      results[6] * prizeMap[6];
-
-    const investment = this.lottoManager.lottos.length * 1000;
-    const profitRate = ((totalEarnings / investment) * 100).toFixed(1);
-    ConsoleUtil.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
