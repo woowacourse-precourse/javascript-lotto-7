@@ -7,7 +7,7 @@ export const ERROR_MESSAGES = {
   INVALID_INPUT: `로또 번호는 숫자와 ${LOTTO_FORMAT.DELIMITER}로 구분되어야 합니다.`,
   INVALID_LENGTH: `로또 번호는 ${LOTTO_RULES.NUMBER_COUNT}개여야 합니다.`,
   DUPLICATE_NUMBER: '로또 번호에 중복된 번호가 있습니다.',
-  INVALID_RANGE: `로또 번호는 ${LOTTO_RULES.MIN_NUMBER}부터 ${LOTTO_RULES.MAX_NUMBER} 사이의 숫자여야 합니다.`,
+  INVALID_RANGE: `로또 번호는 ${LOTTO_RULES.MIN_NUMBER}부터 ${LOTTO_RULES.MAX_NUMBER}사이의 숫자여야 합니다.`,
 };
 
 const checkEmptyInput = (numbers) => {
@@ -16,7 +16,7 @@ const checkEmptyInput = (numbers) => {
 };
 
 const checkValidInput = (numbers) => {
-  if (numbers.some((num) => Number.isNaN(num))) throwError(ERROR_MESSAGES.INVALID_INPUT);
+  if (numbers.some((num) => isNaN(num))) throwError(ERROR_MESSAGES.INVALID_INPUT);
   return numbers;
 };
 
