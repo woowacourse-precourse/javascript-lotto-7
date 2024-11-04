@@ -14,13 +14,16 @@ import ProfitCalculator from './controllers/ProfitCalculator.js';
 class App {
   async run() {
     const purchaseAmount = await this.#getValidPurchaseAmount();
-    Console.print(GAME_SETTINGS.NEW_LINE);
+    this.#printNewLine();
 
     const lottoTickets = LottoIssuer.createLottoTickets(purchaseAmount);
+    this.#printNewLine();
 
     const winningNumbers = await this.#getValidWinningNumbers();
+    this.#printNewLine();
 
     const bonusNumber = await this.#getValidBonusNumber(winningNumbers);
+    this.#printNewLine();
 
     const rankCounts = new LottoMatcher(
       lottoTickets,
@@ -70,8 +73,12 @@ class App {
     }
   }
 
+  #printNewLine() {
+    Console.print('');
+  }
+
   #displayResultHeader() {
-    Console.print(`${GAME_SETTINGS.NEW_LINE}당첨 통계`);
+    Console.print('당첨 통계');
     Console.print('---');
   }
 

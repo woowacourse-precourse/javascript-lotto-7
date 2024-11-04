@@ -47,7 +47,6 @@ function assignLottoRank(lottoTickets, winningNumbers, bonusNumber) {
 }
 
 function displayResults(rankCounts) {
-  Console.print(GAME_SETTINGS.NEW_LINE);
   for (const [key, value] of Object.entries(LOTTO_REWARD)) {
     Console.print(
       `${value.label} - ${rankCounts[key] || GAME_SETTINGS.ZERO}개`

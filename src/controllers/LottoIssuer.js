@@ -19,7 +19,6 @@ class LottoIssuer {
 
     Console.print(`${ticketCount}${MESSAGES.TICKET_PURCHASED}`);
     lottoTickets.forEach((ticket) => Console.print(ticket.toString()));
-    Console.print(GAME_SETTINGS.NEW_LINE);
 
     return lottoTickets;
   }
