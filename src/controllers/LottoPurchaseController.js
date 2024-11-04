@@ -1,5 +1,6 @@
 import PurchaseDTO from "../dto/PurchaseDTO.js";
 import LottoMachine from "../models/LottoMachine.js";
+import InputHandler from "../utils/InputHandler.js";
 import PurchaseMoneyValidator from "../validators/PurchaseMoneyValidator.js";
 
 class LottoPurchaseController {
@@ -12,7 +13,10 @@ class LottoPurchaseController {
   }
 
   async purchaseLotto() {
-    const purchaseMoney = await this.#repeatUntilValidInput(() => this.#getPurChaseMoney());
+    const purchaseMoney = await InputHandler.repeatUntilValidInput(
+      () => this.#getPurChaseMoney(),
+      this.#outputView
+    );
     const purchaseHistory = this.#purchaseLotto(purchaseMoney);
 
     const purchaseDTO = PurchaseDTO.from(purchaseHistory);
@@ -30,15 +34,6 @@ class LottoPurchaseController {
     const lottoMachine = new LottoMachine(purchaseMoney);
     const lottoHistory = lottoMachine.generateLotto();
     return lottoHistory.getPurchaseHistory();
-  }
-
-  async #repeatUntilValidInput(callback) {
-    try {
-      return await callback();
-    } catch (error) {
-      this.#outputView.printError(error.message);
-      return this.#repeatUntilValidInput(callback);
-    }
   }
 }
 
