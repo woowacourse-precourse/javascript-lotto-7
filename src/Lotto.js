@@ -23,6 +23,11 @@ class Lotto {
         throw new Error("[ERROR] 로또 번호는 1~45 사이의 정수여야 합니다.");
       }
     }
+
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error("[ERROR] 당첨 번호는 중복될 수 없습니다.");
+    }
   }
 }
 
