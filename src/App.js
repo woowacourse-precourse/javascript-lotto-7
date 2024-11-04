@@ -3,6 +3,13 @@ import Lotto from "./Lotto.js";
 
 class App {
   static PRICE_PER_TICKET = 1000;
+  static RANKING = {
+    3: { prize: 5000, matchNumber: "3개 일치" },
+    4: { prize: 50000, matchNumber: "4개 일치" },
+    5: { prize: 1500000, matchNumber: "5개 일치" },
+    15: { prize: 30000000, matchNumber: "5개 일치, 보너스 볼 일치" },
+    6: { prize: 2000000000, matchNumber: "6개 일치" },
+  };
 
   async run() {
     try {
@@ -55,6 +62,21 @@ class App {
     }
     return bonusNumber;
   }
+
+  countResults(lottos, winNumbers, bonusNumber) {
+    const winningLotto = new Lotto(winNumbers);
+    const results = { 3: 0, 4: 0, 5: 0, 15: 0, 6: 0 };
+  
+    lottos.forEach((lotto) => {
+      const matchCount = lotto.matchCount(winningLotto.getNumbers());
+      
+      if (matchCount === 6) return results[6]++;
+      if (matchCount === 5 && lotto.includes(bonusNumber)) return results[15]++;
+      if (results[matchCount] !== undefined) results[matchCount]++;c
+    });
+
+    return results;
+  }  
 }
 
 
