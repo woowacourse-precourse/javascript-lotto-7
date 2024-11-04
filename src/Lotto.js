@@ -1,3 +1,5 @@
+import { Random } from "@woowacourse/mission-utils";
+
 class Lotto {
   #numbers;
 
