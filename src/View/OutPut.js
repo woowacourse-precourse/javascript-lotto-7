@@ -1,6 +1,18 @@
 import { Console } from '@woowacourse/mission-utils';
+import {
+  MatchCount,
+  WINNER_PRIZE,
+  RANK_STRING,
+} from '../Constants/LottoConstants.js';
 
 class Output {
+  static printAllOfResult(user) {
+    this.printLottoTickets(user.purchasedLottoCount, user.tickets);
+    this.printAllOfWinningStatics(user.winnerRankCount);
+
+    const profitRate = user.getProfitRate();
+    this.printProfitRate(profitRate);
+  }
   static printLottoTickets(ticketCount, ticekts) {
     Console.print(`${ticketCount}개를 구매했습니다.`);
 
@@ -9,33 +21,35 @@ class Output {
     });
   }
 
-  static printWinningStatistics() {
+  static printAllOfWinningStatics(winnerRankCountResult) {
     Console.print('당첨 통계');
     Console.print('---');
 
-    //TODO: 반복
-    // printWinningStatistic
+    for (let key of Object.keys(winnerRankCountResult).reverse()) {
+      if (key === RANK_STRING.SECOND) {
+        this.printWinningStatisticWithBonusBall(key, winnerRankCountResult);
+      } else {
+        this.printWinningStatistic(key, winnerRankCountResult);
+      }
+    }
   }
 
-  static printWinningStatistic(matchNumber, lottoWinningAmountString, count) {
-    // 당첨 내역을 출력하는 코드
+  static printWinningStatistic(key, winnerRank) {
     Console.print(
-      `${matchNumber}개 일치 (${lottoWinningAmountString}원) - ${count}개`
+      `${MatchCount[key]}개 일치 (${WINNER_PRIZE[key].toLocaleString()}원) - ${
+        winnerRank[key]
+      }개`
     );
   }
 
-  static printWinningStatisticWithBonusBall(
-    matchNumber,
-    lottoWinningAmountString,
-    count
-  ) {
-    // 당첨 내역을 출력하는 코드
+  static printWinningStatisticWithBonusBall(key, winnerRank) {
     Console.print(
-      `${matchNumber}개 일치, 보너스 볼 일치 (${lottoWinningAmountString}원) - ${count}개`
+      `${MatchCount[key]}개 일치, 보너스 볼 일치 (${WINNER_PRIZE[
+        key
+      ].toLocaleString()}원) - ${winnerRank[key]}개`
     );
   }
   static printProfitRate(profitRate) {
-    // 총 수익률은 62.5%입니다.
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
