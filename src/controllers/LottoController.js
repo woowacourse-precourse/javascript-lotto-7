@@ -37,31 +37,17 @@ export default class LottoController {
   }
 
   async #decideWinningLottoMainNumbers() {
-    while (true) {
-      try {
-        const winningLottoMainNumbers =
-          await this.#inputLottoView.getInputWinningLottoMainNumbers();
-        this.#winningLotto.setMainLotto(winningLottoMainNumbers);
-
-        return;
-      } catch (error) {
-        this.#outputLottoView.printMessage(error.message);
-      }
-    }
+    await this.#retryInputUntilSuccess(
+      () => this.#inputLottoView.getInputWinningLottoMainNumbers(),
+      (winningLottoMainNumbers) => this.#winningLotto.setMainLotto(winningLottoMainNumbers)
+    );
   }
 
   async #decideWinningLottoBonusNumber() {
-    while (true) {
-      try {
-        const winningLottoBonusNumber =
-          await this.#inputLottoView.getInputWinningLottoBonusNumber();
-        this.#winningLotto.setBonusNumber(winningLottoBonusNumber);
-
-        return;
-      } catch (error) {
-        this.#outputLottoView.printMessage(error.message);
-      }
-    }
+    await this.#retryInputUntilSuccess(
+      () => this.#inputLottoView.getInputWinningLottoBonusNumber(),
+      (winningLottoBonusNumber) => this.#winningLotto.setBonusNumber(winningLottoBonusNumber)
+    );
   }
 
   async #retryInputUntilSuccess(inputFunction, taskFunction) {
