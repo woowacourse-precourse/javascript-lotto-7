@@ -1,3 +1,5 @@
+export const LOTTO_PRICE = 1000;
+
 export const PRIZE = Object.freeze({
   first: 2000000000,
   second: 30000000,
