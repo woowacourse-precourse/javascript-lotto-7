@@ -1,4 +1,5 @@
 import InputHandler from '../../src/handlers/InputHandler';
+import Lotto from '../../src/models/Lotto';
 
 describe('InputHandler 클래스 테스트', () => {
   let inputHandler;
@@ -28,5 +29,16 @@ describe('InputHandler 클래스 테스트', () => {
 
     expect(result).toBe(5000);
     expect(mockValidationLotto.purchasePrice).toHaveBeenCalledWith('5000');
+  });
+
+  test('올바른 형식의 당첨 번호 입력 시 Lotto 객체를 반환하는지 테스트', async () => {
+    mockInputView.promptUserInput.mockResolvedValueOnce('1,2,3,4,5,6');
+    const result = await inputHandler.getWinningLotto();
+
+    expect(result).toBeInstanceOf(Lotto);
+    expect(result.numbers).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(mockValidationLotto.winningNumbers).toHaveBeenCalledWith(
+      '1,2,3,4,5,6'
+    );
   });
 });
