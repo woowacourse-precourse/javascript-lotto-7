@@ -8,8 +8,12 @@ class OutputView {
     this.#print = Console.print;
   }
 
-  printMyLotto(purchaseNumber) {
+  printMyLotto(purchaseNumber, myLottos) {
     this.#print(OUTPUT_MESSAGE.printPurchaseNumber(purchaseNumber));
+
+    for (let element of myLottos) {
+      this.#print(element.getNumbers());
+    }
   }
 
   printResult() {
