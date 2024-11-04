@@ -8,7 +8,7 @@ class BonusNumber {
 
   constructor(number, winningNumber) {
     this.#validate(number, winningNumber);
-    this.#bonusNumber = number;
+    this.#bonusNumber = parseInt(number, 10);
   }
 
   static async createBonusNumber(winningNumber) {
