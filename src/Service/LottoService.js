@@ -1,6 +1,5 @@
 //@ts-check
 
-import { MissionUtils } from '@woowacourse/mission-utils';
 import { LOTTO_CONFIG } from '../constants/lotto.js';
 import Lotto from '../Lotto.js';
 import { generateRandomLottoNumbers } from '../util/randomGenerator.js';
