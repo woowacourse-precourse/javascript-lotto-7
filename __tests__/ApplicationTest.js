@@ -1,5 +1,5 @@
 import App from "../src/App.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils,Console } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -42,6 +42,34 @@ const runException = async (input) => {
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
 
+const runBonusTest = async () => {
+  // given
+  const logSpy = getLogSpy();
+
+  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 7];
+  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,16", "7"];
+
+  mockRandoms([RANDOM_NUMBERS_TO_END]);
+  mockQuestions(INPUT_NUMBERS_TO_END);
+
+  // when
+  const app = new App();
+  await app.run();
+  // then
+  const logs = [
+    "1개를 구매했습니다.",
+    "[1, 2, 3, 4, 5, 7]",
+    "3개 일치 (5,000원) - 0개",
+    "4개 일치 (50,000원) - 0개",
+    "5개 일치 (1,500,000원) - 0개",
+    "5개 일치, 보너스 볼 일치 (30,000,000원) - 1개",
+    "6개 일치 (2,000,000,000원) - 0개",
+    "총 수익률은 2,999,900.0%입니다.",
+  ];
+  logs.forEach((log) => {
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+  });
+};
 describe("로또 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -94,4 +122,8 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("보너스 볼 테스트",async () => {
+    await runBonusTest();
+  })
 });
