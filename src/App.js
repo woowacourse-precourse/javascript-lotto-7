@@ -1,10 +1,11 @@
-import { Console } from "@woowacourse/mission-utils";
 import InputHandler from "./InputHandler.js";
 import Lotto from "./Lotto.js";
+import OutputHandler from "./OutputHandler.js";
 
 class App {
   constructor() {
     this.inputHandler = new InputHandler();
+    this.outputHandler = new OutputHandler();
     this.PurchaseLottoNumbersArray = [];
     this.WinningLottoNumbersArray = Array(46).fill(0);
     this.winningRanks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -23,15 +24,16 @@ class App {
     this.processBonusgNumber(bonusNumber);
 
     this.compareLottoNumbers();
-    this.printResult();
+    this.outputHandler.printResult(this.winningRanks);
+    this.outputHandler.printRateOfReturn(this.calculateRateOfReturn());
   }
 
   //로또 번호 출력
   printLottoNumbers(lottoCount) {
-    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    this.outputHandler.printLottoCount(lottoCount);
     for (let i = 0; i < lottoCount; i++) {
       let lottoNumbers = Lotto.generateLottoNumbers();
-      Console.print(lottoNumbers.getNumbers());
+      this.outputHandler.printLottoNumbers(lottoNumbers.getNumbers());
       this.PurchaseLottoNumbersArray.push(lottoNumbers);
     }
   }
@@ -98,19 +100,6 @@ class App {
       return rate.toFixed(1);
     }
     return rate.toFixed(2);
-  }
-
-  printResult() {
-    Console.print("\n당첨 통계");
-    Console.print("---");
-    Console.print(`3개 일치 (5,000원) - ${this.winningRanks[5]}개`);
-    Console.print(`4개 일치 (50,000원) - ${this.winningRanks[4]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${this.winningRanks[3]}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.winningRanks[2]}개`
-    );
-    Console.print(`6개 일치 (2,000,000,000원) - ${this.winningRanks[1]}개`);
-    Console.print(`총 수익률은 ${this.calculateRateOfReturn()}%입니다.`);
   }
 }
 
