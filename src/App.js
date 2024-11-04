@@ -113,6 +113,15 @@ class App {
     MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${this.result.third}개`);
     MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result.second}개`);
     MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${this.result.first}개`);
+
+    const totalPrize = this.result.first * 2000000000 +
+                       this.result.second * 30000000 +
+                       this.result.third * 1500000 +
+                       this.result.fourth * 50000 +
+                       this.result.fifth * 5000;
+
+    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
   
 }
