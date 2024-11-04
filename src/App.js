@@ -3,44 +3,87 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async run() {
     MissionUtils.Console.print("구입금액을 입력해 주세요.");
-    this.inputMoney = await MissionUtils.Console.readLineAsync("");
-    this.로또번호출력횟수 = parseInt(this.inputMoney) / 1000;
-    MissionUtils.Console.print(`${this.로또번호출력횟수}개를 구매했습니다.`);
-    this.전체로또번호리스트 = [];
-    this.전체로또번호만들기();
-
+    const 구매금액 = await this.구매금액가져오기();
+    const 티켓수 = 구매금액 / 1000;
+    const 티켓들 = this.전체티켓들만들기(티켓수);
+    this.보너스번호생성기(티켓들);
+    this.티켓들출력(티켓들);
     MissionUtils.Console.print("당첨번호를 입력해주세요");
-    this.당첨번호 = await MissionUtils.Console.readLineAsync("");
+    const 당첨번호 = await this.당첨번호가져오기();
     MissionUtils.Console.print("보너스 번호를 입력해주세요");
-    this.보너스번호 = await MissionUtils.Console.readLineAsync("");
+    const 보너스번호 = await MissionUtils.Console.readLineAsync("");
+    this.로또번호와당첨번호비교(티켓들, 당첨번호);
   }
-  lottoNumber() {
-    const randomNumberList = MissionUtils.Random.pickUniqueNumbersInRange(
+
+  async 구매금액가져오기() {
+    const input = await MissionUtils.Console.readLineAsync("");
+    const amount = parseInt(input, 10);
+    return amount;
+  }
+
+  로또번호생성기() {
+    const 로또번호리스트 = MissionUtils.Random.pickUniqueNumbersInRange(
       1,
       45,
-      7
+      6
     );
-    // 특정함수 bonusNumber를 클래스의 속성으로 써도 되나?
-    this.bonusNumber = randomNumberList[-1];
-    randomNumberList.pop();
-    randomNumberList.sort((a, b) => a - b);
-    return randomNumberList;
+    return 로또번호리스트.sort((a, b) => a - b);
   }
 
-  전체로또번호만들기() {
-    for (let i = 0; i < this.로또번호출력횟수; i++) {
-      this.전체로또번호리스트.push(this.lottoNumber());
-    }
+  보너스번호생성기(로또번호리스트) {
+    const 가능한번호 = Array.from({ length: 45 }, (_, i) => i + 1).filter(
+      (num) => !로또번호리스트.includes(num)
+    );
+    const 보너스번호 = MissionUtils.Random.pickNumberInList(가능한번호);
+    MissionUtils.Console.print(`${보너스번호}38번째줄`);
+    return 보너스번호;
   }
-  랜덤로또번호와당첨번호비교(로또번호) {
+
+  전체티켓들만들기(갯수) {
+    const tickets = [];
+    for (let i = 0; i < 갯수; i++) {
+      tickets.push(this.로또번호생성기());
+    }
+    return tickets;
+  }
+
+  보너스점수빼기(전체티켓) {
+    const tickets = 전체티켓.forEach((티켓) => {
+      티켓.numbers.join(", ");
+    });
+    MissionUtils.Console.print(`${tickets} 52번째줄`);
+    return tickets;
+  }
+
+  티켓들출력(티켓들) {
+    MissionUtils.Console.print(`${티켓들.length}개를 구매했습니다.`);
+    티켓들.forEach((티켓) =>
+      MissionUtils.Console.print(`[${티켓.join(", ")}]`)
+    );
+  }
+
+  async 당첨번호가져오기() {
+    const 입력값 = await MissionUtils.Console.readLineAsync("");
+    const 당첨번호 = 입력값.split(",").map((num) => parseInt(num.trim(), 10));
+    return 당첨번호;
+  }
+
+  로또번호와당첨번호비교(티켓들, 당첨번호) {
     let 일치갯수 = 0;
-    로또번호.forEach((num) => {
-      if (this.당첨번호.includes(num)) {
+    MissionUtils.Console.print(
+      `${티켓들.forEach((티켓) => {
+        티켓.numbers;
+      })} 64번째줄`
+    );
+    티켓들.forEach((티켓) => {
+      if (당첨번호.includes(티켓.numbers)) {
+        MissionUtils.Console.print(`${티켓.numbers} 64번째줄`);
         일치갯수++;
       }
     });
     return 일치갯수;
   }
+
   등수선정() {
     let 등수;
     switch (일치개수) {
