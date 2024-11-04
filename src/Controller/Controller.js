@@ -5,7 +5,11 @@ import {
   printLottoYield,
 } from "../View/View.js";
 import { generateLottoTickets } from "../Services/GenerateLottery.js";
-import { validatePrice, validateWinningNumbers } from "../Validation/index.js";
+import {
+  validatePrice,
+  validateWinningNumbers,
+  validateBonusNumber,
+} from "../Validation/index.js";
 import IOService from "../Services/IOService.js";
 import defaultSettings from "../Config/DefaultSettings.js";
 
@@ -27,8 +31,11 @@ class Controller {
     const winningNumber = await getInput(askUserLottoNumber);
     const validatedWinningNumber = validateWinningNumbers(winningNumber);
 
-    // const bonusNumber = await getInput(askUserBonusNumber);
-    // const validatedBonusNumber = validateBonusNumber(bonusNumber);
+    const bonusNumber = await getInput(askUserBonusNumber);
+    const validatedBonusNumber = validateBonusNumber(
+      bonusNumber,
+      validatedWinningNumber
+    );
 
     // const winningResult = calculateWinningResult(
     //   lottoTickets,
