@@ -6,9 +6,20 @@ class App {
     const USER_MONEY = await this.getMoney();
     const USER_LOTTO = this.makeUserLotto(USER_MONEY);
     this.printUserLotto(USER_MONEY, USER_LOTTO);
-    const WIN_NUM = await this.getWinNum();
-    const lotto = new Lotto(WIN_NUM);
-    const BONUS_NUM = await this.getBonusNum(WIN_NUM);
+    let winNum;
+    let lotto;
+    let winNumSuccess = false;
+    while (!winNumSuccess) {
+      try {
+        winNum = await this.getWinNum();
+        lotto = new Lotto(winNum);
+        winNumSuccess = true;
+      }
+      catch (e) {
+        Console.print(e.message);
+      }
+    }
+    const BONUS_NUM = await this.getBonusNum(winNum);
     lotto.getResult(USER_MONEY, USER_LOTTO, BONUS_NUM);
   }
 
@@ -56,7 +67,7 @@ class App {
   printUserLotto(money, lottos) {
     Console.print(`\n${Math.floor(money / 1000)}개를 구매했습니다.`);
     for (let lotto of lottos) {
-      Console.print(lotto)
+      Console.print(`[${lotto.join(', ')}]`);
     }
   }
 
@@ -67,9 +78,17 @@ class App {
   }
 
   async getBonusNum(winArray) {
-    let bonusNum = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
-    this.checkBonus(bonusNum, winArray);
-    return Number(bonusNum);
+    let success = false;
+    while (!success) {
+      try {
+        let bonusNum = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+        this.checkBonus(bonusNum, winArray);
+        return Number(bonusNum);
+      }
+      catch (e) {
+        Console.print(e.message)
+      }
+    }
   }
 
   checkBonus(bonus, numbers) {
