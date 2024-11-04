@@ -1,7 +1,7 @@
 import Lotto from './Lotto.js';
 import { PRIZE_MONEY } from './constant.js';
 import { Console } from '@woowacourse/mission-utils';
-import validateNumber from './handleError.js';
+import { validateNumber } from './handleError.js';
 
 class LottoCalculator {
     #winningNumber;
@@ -30,7 +30,7 @@ class LottoCalculator {
     }
 
     #validateBonus(winningNumber, bonusNumber) {
-        validateNumber(bonusNumber);
+        validateNumber(bonusNumber, '보너스 번호는');
         /*if (1 <= bonusNumber <= 45) {
             throw new Error('[ERROR] 보너스 번호는 1~45 숫자여야 합니다.');
         }*/

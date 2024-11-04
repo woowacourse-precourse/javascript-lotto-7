@@ -1,6 +1,6 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { LOTTO_PRICE } from './constant.js';
-import validateNumber from './handleError.js';
+import { validateNumber } from './handleError.js';
 
 class LottoHelper {
     #money;
@@ -13,7 +13,7 @@ class LottoHelper {
     }
 
     #validate(money) {
-        validateNumber(money);
+        validateNumber(money, '구입 금액은');
         if (money % 1000 !== 0) {
             throw new Error(
                 '[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.'
