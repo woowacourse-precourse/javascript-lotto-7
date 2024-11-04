@@ -14,7 +14,6 @@ class App {
       this.#validatePurchaseAmount(purchaseAmount);
       return purchaseAmount;
     } catch (error) {
-      MissionUtils.Console.print(error.message);
       return await this.#getPurchaseAmountInput();
     }
   }
@@ -43,7 +42,6 @@ class App {
       this.#validateWinningNumbers(winningNumbers);
       return winningNumbers;
     } catch (error) {
-      MissionUtils.Console.print(error.message);
       return await this.#getWinningNumbers();
     }
   }
@@ -87,7 +85,6 @@ class App {
       this.#validateBonusNumber(bonusNumber, winningNumbers);
       return bonusNumber;
     } catch (error) {
-      MissionUtils.Console.print(error.message);
       return await this.#getBonusNumber(winningNumbers);
     }
   }
@@ -111,14 +108,22 @@ class App {
     }
   }
 
+  async #getWinningAndBonusNumbers() {
+    MissionUtils.Console.print(Constants.EMPTY_LINE);
+    const winningNumbers = await this.#getWinningNumbers();
+    MissionUtils.Console.print(Constants.EMPTY_LINE);
+    const bonusNumber = await this.#getBonusNumber(winningNumbers);
+  
+    return { winningNumbers, bonusNumber };
+  }
+
   async run() {
     const purchaseAmount = await this.#getPurchaseAmountInput();
     const lottoPurchase = new LottoPurchase(purchaseAmount);
     const purchaselottoList = lottoPurchase.getPurchaseLottoList();
     lottoPurchase.printPurchaseLottoList(purchaselottoList);
 
-    const winningNumbers = await this.#getWinningNumbers();
-    const bonusNumber = await this.#getBonusNumber(winningNumbers);
+    const { winningNumbers, bonusNumber } = await this.#getWinningAndBonusNumbers();
 
     const lottoResultCalculator = new LottoResultCalculator(
       purchaselottoList,
