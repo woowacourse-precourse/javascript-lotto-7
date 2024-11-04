@@ -17,7 +17,7 @@ class CostManager {
 
     validateCost(cost) {
         if (Number(cost) % 1000 !== 0) {
-            throw new Error('[Error] 천원단위로만 입력할 수 있습니다.');
+            throw new Error('[ERROR] 천원단위로만 입력할 수 있습니다.');
         }
         return cost / 1000;
     }

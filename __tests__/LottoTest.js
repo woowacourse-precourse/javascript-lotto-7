@@ -41,7 +41,7 @@ describe("코스트 메니저 클래스 테스트", () => {
 
   test("입력값이 1000의 배수가 아닐 때", async () => {
     Console.readLineAsync.mockResolvedValue('1500')
-    await expect(costManager.getLottoCountFromCost()).rejects.toThrow('[Error] 천원단위로만 입력할 수 있습니다.');
+    await expect(costManager.getLottoCountFromCost()).rejects.toThrow('[ERROR] 천원단위로만 입력할 수 있습니다.');
   });
 
   test('generateLottos는 lottoCount만큼의 정렬된 로또 번호를 출력한다.', () => {
@@ -102,13 +102,14 @@ describe('Get Number 테스트', ()=>{
     await getNumber.getWinNumber();
 
     Console.readLineAsync.mockResolvedValue('6')
-    await expect(getNumber.getBonusNumber()).rejects.toThrow('[Error] 당첨 번호와 보너스 번호가 중복되면 안 됩니다.')
+    await expect(getNumber.getBonusNumber()).rejects.toThrow('[ERROR] 당첨 번호와 보너스 번호가 중복되면 안 됩니다.')
   })
   
-  test('1~45에 해당하지 않는 번호가 있을 때', async ()=>{
-    Console.readLineAsync.mockResolvedValue('1,2,3,4,55,6');
-    await expect(getNumber.getWinNumber()).rejects.toThrow('[Error] 1~45까지만 허용 됩니다.');
-  })
+  test('1~45에 해당하지 않는 번호가 있을 때', async () => {
+    Console.readLineAsync = jest.fn().mockResolvedValue('1,2,3,4,55,6');
+    await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR] 1~45까지만 허용 됩니다.');
+});
+
 
   
 
