@@ -1,4 +1,6 @@
 export default {
+  INPUT_MONEY_AMOUNT_PROMPT: '구입금액을 입력해 주세요.\n',
+
   LIST_COUNT_MESSAGE: '{lottoCount}개를 구매했습니다.',
   STATISTICS_TITLE: '당첨 통계\n---',
 
