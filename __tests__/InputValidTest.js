@@ -1,4 +1,4 @@
-import purchaseLotto from "../src/purchaseLotto.js";
+import purchaseLotto from "../src/utils/purchaseLotto.js";
 import { Errors } from "../src/constants.js";
 
 describe("입력값 유효성 테스트", () => {

@@ -1,4 +1,4 @@
-import Lottos from "./Lottos.js";
+import Lottos from "../Lottos.js";
 
 const purchaseLotto = (cost) => {
   return new Lottos(cost);

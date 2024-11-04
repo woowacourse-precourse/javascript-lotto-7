@@ -1,11 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import purchaseLotto from "./purchaseLotto.js";
-import matchLotto from "./matchLotto.js";
-import printMatchResult from "./printMatchResult.js";
-import calculateWinningSum from "./calculateWinningSum.js";
-import printRateOfReturn from "./printRateOfReturn.js";
-import { isValidBonusNumber } from "./validate.js";
+import purchaseLotto from "./utils/purchaseLotto.js";
+import matchLotto from "./utils/matchLotto.js";
+import calculateWinningSum from "./utils/calculateWinningSum.js";
+import { isValidBonusNumber } from "./utils/validate.js";
+import printMatchResult from "./IO/printMatchResult.js";
+import printRateOfReturn from "./IO/printRateOfReturn.js";
 
 class App {
   async run() {

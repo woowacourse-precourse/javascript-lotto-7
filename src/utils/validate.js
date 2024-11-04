@@ -1,4 +1,4 @@
-import { Errors } from "./constants.js";
+import { Errors } from "../constants.js";
 
 export const isValidBonusNumber = (bonusNumber, winningNumbers) => {
   if (!Number.isInteger(bonusNumber))
