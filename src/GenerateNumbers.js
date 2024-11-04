@@ -1,6 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class GenerateNumbers {
+  constructor() {
+    this.totalPrizeMoney = 0;
+  }
+
   async generateNums(bills, numbers, bonusNum) {
     const allGeneratedNumbers = [];
 
@@ -12,6 +16,7 @@ class GenerateNumbers {
       this.findMatchingNumber(randomNum, numbers, bonusNum);
     }
     console.log("");
+    console.log("총상금 : " + this.totalPrizeMoney);
     return allGeneratedNumbers;
   }
 
@@ -30,7 +35,6 @@ class GenerateNumbers {
     const bonusNumAsNumber = Number(bonusNum);
 
     if (count === 0) {
-      console.log("미당첨");
       console.log("일치하는 번호 없음");
     }
 
@@ -52,6 +56,9 @@ class GenerateNumbers {
       console.log("1등");
       console.log(count + "개 번호 일치");
     }
+
+    this.totalPrizeMoney += prizeMoney;
+    console.log("상금 : " + prizeMoney);
   }
 }
 
