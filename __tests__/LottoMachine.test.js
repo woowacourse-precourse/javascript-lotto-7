@@ -48,4 +48,20 @@ describe('LottoMachine', () => {
     expect(logSpy).toHaveBeenCalledWith('[7, 8, 9, 10, 11, 12]');
     expect(logSpy).toHaveBeenCalledWith('[13, 14, 15, 16, 17, 18]');
   });
+
+  test('구입 금액이 1000원 미만일 때 에러를 발생시킨다.', async () => {
+    const lottoMachine = new LottoMachine();
+
+    mockQuestions(['500']);
+
+    await expect(lottoMachine.readPurchaseAmount()).rejects.toThrow('[ERROR]');
+  });
+
+  test('구입 금액이 숫자가 아닐 때 에러를 발생시킨다.', async () => {
+    const lottoMachine = new LottoMachine();
+
+    mockQuestions(['abc']);
+
+    await expect(lottoMachine.readPurchaseAmount()).rejects.toThrow('[ERROR]');
+  });
 });
