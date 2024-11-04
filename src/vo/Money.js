@@ -1,5 +1,9 @@
 import { LOTTO, ERROR_MESSAGES } from '../constant/constant.js';
-import { throwValidationError } from '../utils/validation.js';
+import {
+  throwValidationError,
+  checkIsEmpty,
+  checkIsNumber,
+} from '../utils/validation.js';
 
 class Money {
   #amount;
@@ -13,7 +17,14 @@ class Money {
     return this.#amount;
   }
 
-  #validate(amount) {}
+  #validate(amount) {
+    checkIsEmpty(amount);
+    checkIsNumber(amount);
+
+    const parsedAmount = Number(amount);
+    this.#checkDivisibility(amount);
+    this.#checkMinAmount(parsedAmount);
+  }
 
   #checkMinAmount(amount) {
     if (amount < LOTTO.PRICE) {
