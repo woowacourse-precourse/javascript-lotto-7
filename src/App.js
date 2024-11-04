@@ -15,10 +15,10 @@ class App {
 
     if (isNaN(purchaseAmount) || purchaseAmount % 1000 !== 0) {
       this.handleError("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
-    } else {
-      this.purchaseAmount = purchaseAmount;
-      this.printPurchasedLotto();
+      return;
     }
+    this.purchaseAmount = purchaseAmount;
+    this.printPurchasedLotto();
   }
 
   printPurchasedLotto() {
@@ -79,7 +79,7 @@ class App {
     this.bonusNumber = number;
   }
 
-  handleError(message) {
+  handleError(message, retryFunction) {
     Console.print(message);
     retryFunction(); // 잘못된 입력일 경우 해당 지점부터 다시 입력 요청
   }
