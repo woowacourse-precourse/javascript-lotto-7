@@ -23,6 +23,31 @@ class App {
     this.printLottos(lottos);
     const lottoNumber = await this.inputLottoNumber();
     const bonusNumber = await this.inputBonusNumber(lottoNumber);
+    const winningNumber = { lottoNumber, bonusNumber };
+    const winning = this.compareLotto(winningNumber, lottos);
+  }
+
+  compareLotto(winningNumber, lottos) {
+    const matchCount = lottos.map(lotto => {
+      const match = lotto.filter(number =>
+        winningNumber.lottoNumber.includes(number),
+      ).length;
+      if (match === 5 && lotto.includes(winningNumber.bonusNumber)) {
+        return 7;
+      }
+      return match;
+    });
+    return this.calculateWinning(matchCount);
+  }
+
+  calculateWinning(matchCount) {
+    const winning = { 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+    matchCount.forEach(count => {
+      if (count in winning) {
+        winning[count] += 1;
+      }
+    });
+    return winning;
   }
 
   async inputBonusNumber(lottoNumber) {
