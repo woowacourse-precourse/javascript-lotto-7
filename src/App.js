@@ -1,7 +1,8 @@
 import {Random, Console} from '@woowacourse/mission-utils'
 import Lotto from "./Lotto.js";
 
-const winPrice = ["2,000,000,000", "30,000,000", "1,500,000", "50,000", "5,000"];
+const winPriceString = ["2,000,000,000", "30,000,000", "1,500,000", "50,000", "5,000"];
+const winPriceNumber = [2000000000, 30000000, 1500000, 50000, 5000];
 const firRankMatch = 6;
 const maxRank = 5, secRankMatch = 5;
 
@@ -9,38 +10,48 @@ const moneyUnit = 1000;
 
 class App {
   async run() {
-    const totalMoney = await Console.readLineAsync("구매할 금액을 입력해주세요 : ");
+    // Console.print("구매할 금액을 입력해주세요.");
+    // const totalMoney = await Console.readLineAsync("");
+    let correctInput = false;
+
+    let totalMoney = 0;
+    while(!correctInput){
+      totalMoney = await Console.readLineAsync("구매할 금액을 입력해주세요.");
+      if(totalMoney % moneyUnit !== 0){
+        // throw new Error("[ERROR] 구입 금액은 1000원 단위여야 합니다.")
+        Console.print("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+      }
+      correctInput = true;
+    }
 
     const lottoCount = totalMoney / moneyUnit;
-    if(totalMoney % moneyUnit !== 0){
-      Console.print(lottoCount % moneyUnit);
-      throw new Error("[ERROR] 구입 금액은 1000원 단위여야 합니다.")
-    }
-    /*
+    Console.print(`${lottoCount}개를 구매했습니다.`);
+
     const lottoNumber = [];
     for(let i = 0; i < lottoCount; i++){
       lottoNumber.push(new Lotto(Random.pickUniqueNumbersInRange(1,45,6)));
     }
-    */
-
-    const lottoNumber = [new Lotto([1,2,3,4,5,6]),
-    new Lotto([45, 43, 42, 41, 40, 39]),
-      new Lotto([5,6,4,2,7,8]), new Lotto([2,3,4,5,6,7]),
-      new Lotto([4,5,6,7,8,9])];
+    // const lottoNumber = [new Lotto([1,2,3,4,5,6]),
+    // new Lotto([45, 43, 42, 41, 40, 39]),
+    //   new Lotto([5,6,4,2,7,8]), new Lotto([2,3,4,5,6,7]),
+    //   new Lotto([4,5,6,7,8,9])];
 
     lottoNumber.map((lotto)=>{
       Console.print(lotto.getNumber());
     })
     Console.print("");
 
-    const winString = await Console.readLineAsync("당첨 번호를 입력해주세요 : ");
-    const winNumber = winString.split(',');
+    correctInput = false;
+    let winString = "";
+    //while(!correctInput){
+      winString = await Console.readLineAsync("당첨 번호를 입력해주세요 : ");
+      const winNumber = winString.split(',');
 
-    winNumber.map((num)=>{
-      num = Number.parseInt(num);
-    })
-
-    const winLotto = new Lotto(winNumber);
+      winNumber.map((num)=>{
+        num = Number.parseInt(num);
+      })
+      const winLotto = new Lotto(winNumber);
+    //}
 
     const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요 : ");
 
@@ -81,10 +92,10 @@ class App {
         matchBonus = ", 보너스 볼 일치";
         matchCount = secRankMatch;
       }
-      earnMoney += Number.parseInt(winPrice[index])*winEntry;
+      earnMoney += winPriceNumber[index]*winEntry;
 
-      const resultEntry = `${matchCount}개 일치${matchBonus}(${winPrice[index]}원) - ${winEntry}개\n`;
-      result = result + resultEntry;
+      const resultEntry = `${matchCount}개 일치${matchBonus}(${winPriceString[index]}원) - ${winEntry}개`;
+      result = resultEntry + "\n" + result;
     })
     Console.print(result);
 
@@ -95,7 +106,6 @@ class App {
 function calRevenueRate(costMoney, earnMoney){
   const profit = earnMoney - costMoney;
   const RevenueRate = (profit / costMoney) * 100;
-
   return RevenueRate.toFixed(1);
 }
 
