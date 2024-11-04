@@ -1,21 +1,18 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT } from './constant';
-import WinningResult from './WinningResult';
-
-const LOTTO_RESULTS = {
-  3: new WinningResult(LOTTO_MATCH_TEXT.THREE_MATCH, LOTTO_PRIZES.THREE_MATCH),
-  4: new WinningResult(LOTTO_MATCH_TEXT.FOUR_MATCH, LOTTO_PRIZES.FOUR_MATCH),
-  5: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH, LOTTO_PRIZES.FIVE_MATCH),
-  '5+bonus': new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH_WITH_BONUS, LOTTO_PRIZES.FIVE_MATCH_WITH_BONUS),
-  6: new WinningResult(LOTTO_MATCH_TEXT.SIX_MATCH, LOTTO_PRIZES.SIX_MATCH),
-};
-
-const YIELD_MULTIPLIER = 100;
+import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT } from './constant/index.js';
+import WinningResult from './WinningResult.js';
 
 class Game {
   #purchasedLottoNumbersList;
   #winningNumbers;
   #bonusNumber;
+  #gameResult = {
+    THREE_MATCH: new WinningResult(LOTTO_MATCH_TEXT.THREE_MATCH, LOTTO_PRIZES.THREE_MATCH),
+    FOUR_MATCH: new WinningResult(LOTTO_MATCH_TEXT.FOUR_MATCH, LOTTO_PRIZES.FOUR_MATCH),
+    FIVE_MATCH: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH, LOTTO_PRIZES.FIVE_MATCH),
+    FIVE_MATCH_WITH_BONUS: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH_WITH_BONUS, LOTTO_PRIZES.FIVE_MATCH_WITH_BONUS),
+    SIX_MATCH: new WinningResult(LOTTO_MATCH_TEXT.SIX_MATCH, LOTTO_PRIZES.SIX_MATCH),
+  };
 
   constructor(purchasedLottos, winningLotto) {
     this.#purchasedLottoNumbersList = purchasedLottos.getLottos().map((lotto) => lotto.getNumbers());
@@ -29,15 +26,20 @@ class Game {
 
   #getResultKey(matchCount, purchasedLottoNumbers) {
     if (matchCount < 3) return null;
+    if (matchCount === 3) return 'THREE_MATCH';
+    if (matchCount === 4) return 'FOUR_MATCH';
     if (matchCount === 5 && purchasedLottoNumbers.includes(this.#bonusNumber)) {
-      return '5+bonus';
+      return 'FIVE_MATCH_WITH_BONUS';
     }
-    return matchCount.toString();
+    if (matchCount === 5) return 'FIVE_MATCH';
+    if (matchCount === 6) return 'SIX_MATCH';
+
+    return null;
   }
 
   #updateWinningResultCount(key) {
     if (key) {
-      LOTTO_RESULTS[key].incrementCount();
+      this.#gameResult[key].incrementCount();
     }
   }
 
@@ -49,23 +51,23 @@ class Game {
     });
   }
 
-  #calculateYield() {
+  #calculateReturnRate() {
     const ticketCount = this.#purchasedLottoNumbersList.length;
-    const totalPrize = Object.values(LOTTO_RESULTS).reduce((total, result) => total + result.totalPrize, 0);
-    const yieldRatio = totalPrize / (ticketCount * LOTTO_PRICE);
-    return (yieldRatio * YIELD_MULTIPLIER).toFixed(1);
+    const totalPrize = Object.values(this.#gameResult).reduce((total, result) => total + result.totalPrize, 0);
+    const returnRateRatio = totalPrize / (ticketCount * LOTTO_PRICE);
+    return (returnRateRatio * 100).toFixed(1);
   }
 
   #printResult() {
     Console.print('당첨 통계');
     Console.print('---');
 
-    Object.values(LOTTO_RESULTS).forEach(({ matchText, prize, count }) => {
+    Object.values(this.#gameResult).forEach(({ matchText, prize, count }) => {
       Console.print(`${matchText} (${prize.toLocaleString()}원) - ${count}개`);
     });
 
-    const profitability = this.#calculateYield();
-    Console.print(`총 수익률은 ${profitability}%입니다.`);
+    const returnRate = this.#calculateReturnRate();
+    Console.print(`총 수익률은 ${returnRate}%입니다.`);
   }
 
   play() {
