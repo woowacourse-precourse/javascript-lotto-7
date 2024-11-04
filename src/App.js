@@ -2,6 +2,12 @@ import { Console } from "@woowacourse/mission-utils";
 import LottoMachine from "./LottoMachine.js";
 
 class App {
+  constructor() {
+    this.winningNumbers = [];
+    this.bonusNumber = null;
+    this.lottos = [];
+  }
+
   run() {
     this.start();
   }
@@ -27,8 +33,10 @@ class App {
   purchaseLottos(count) {
     Console.print(`${count}개를 구매했습니다.`);
     const lottoMachine = new LottoMachine();
-    const lottos = lottoMachine.generateLottos(count);
-    lottos.forEach((lotto) => Console.print(`[${lotto.numbers.join(", ")}]`));
+    this.lottos = lottoMachine.generateLottos(count);
+    this.lottos.forEach((lotto) =>
+      Console.print(`[${lotto.numbers.join(", ")}]`)
+    );
     this.getWinningNumbers(); // 다음 단계로 이동
   }
 
@@ -37,7 +45,8 @@ class App {
     Console.readLine("당첨 번호: ", (input) => {
       const winningNumbers = input.split(",").map(Number);
       if (this.validateWinningNumbers(winningNumbers)) {
-        this.getBonusNumber(winningNumbers);
+        this.winningNumbers = winningNumbers;
+        this.getBonusNumber();
       } else {
         Console.print(
           "[ERROR] 당첨 번호는 1부터 45 사이의 숫자 6개여야 합니다."
@@ -56,24 +65,73 @@ class App {
     );
   }
 
-  getBonusNumber(winningNumbers) {
+  getBonusNumber() {
     Console.print("보너스 번호를 입력해 주세요.");
     Console.readLine("보너스 번호: ", (input) => {
       const bonusNumber = Number(input);
-      if (this.validateBonusNumber(bonusNumber, winningNumbers)) {
-        Console.print(`당첨 번호: ${winningNumbers.join(", ")}`);
-        Console.print(`보너스 번호: ${bonusNumber}`);
+      if (this.validateBonusNumber(bonusNumber)) {
+        this.bonusNumber = bonusNumber;
+        this.calculateResults(); // 당첨 결과 계산으로 이동
       } else {
         Console.print(
           "[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1~45 사이의 숫자여야 합니다."
         );
-        this.getBonusNumber(winningNumbers);
+        this.getBonusNumber(); // 잘못된 입력이므로 다시 입력 받기
       }
     });
   }
 
-  validateBonusNumber(bonus, winningNumbers) {
-    return bonus >= 1 && bonus <= 45 && !winningNumbers.includes(bonus);
+  validateBonusNumber(bonus) {
+    return bonus >= 1 && bonus <= 45 && !this.winningNumbers.includes(bonus);
+  }
+
+  calculateResults() {
+    const results = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+      none: 0,
+    };
+
+    this.lottos.forEach((lotto) => {
+      const rank = lotto.getRank(this.winningNumbers, this.bonusNumber);
+      switch (rank) {
+        case 1:
+          results.first += 1;
+          break;
+        case 2:
+          results.second += 1;
+          break;
+        case 3:
+          results.third += 1;
+          break;
+        case 4:
+          results.fourth += 1;
+          break;
+        case 5:
+          results.fifth += 1;
+          break;
+        default:
+          results.none += 1;
+      }
+    });
+
+    this.printResults(results);
+  }
+
+  printResults(results) {
+    Console.print("당첨 통계");
+    Console.print("---");
+    Console.print(`3개 일치 (5,000원) - ${results.fifth}개`);
+    Console.print(`4개 일치 (50,000원) - ${results.fourth}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results.third}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${results.second}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${results.first}개`);
+    Console.close();
   }
 }
 
