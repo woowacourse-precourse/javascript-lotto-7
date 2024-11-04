@@ -12,9 +12,11 @@ import {
 
 class App {
   #lottoMachine;
+  #lottoCenter;
 
   constructor() {
     this.#lottoMachine = new LottoMachine();
+    this.#lottoCenter = new LottoCenter();
   }
 
   async run() {
@@ -25,7 +27,12 @@ class App {
 
     Output.printLottos(lottos.map((lotto) => lotto.getLottoNumbers()));
 
-    const rankCounts = await this.#checkWinningResult(lottos);
+    const { winningNumbers, bonusNumber } = await this.#drawWinningNumbers();
+    const rankCounts = await this.#checkWinningResult(
+      lottos,
+      winningNumbers,
+      bonusNumber,
+    );
     const totalWinningPrize = this.#checkTotalWinningPrize(rankCounts);
     const profitRate = this.#calculateProfitRate(
       totalWinningPrize,
@@ -72,6 +79,17 @@ class App {
     return lottos;
   }
 
+  async #drawWinningNumbers() {
+    const winningNumbers = await this.#tryInput(() =>
+      this.#tryWinningNumbers(),
+    );
+    const bonusNumber = await this.#tryInput(() =>
+      this.#tryBonusNumber(winningNumbers),
+    );
+
+    return { winningNumbers, bonusNumber };
+  }
+
   #getRankCounts(ranks) {
     const rankCounts = Array(6).fill(0);
 
@@ -82,17 +100,11 @@ class App {
     return rankCounts;
   }
 
-  async #checkWinningResult(lottos) {
-    const winningNumbers = await this.#tryInput(
-      this.#tryWinningNumbers.bind(this),
-    );
-    const bonusNumber = await this.#tryInput(() =>
-      this.#tryBonusNumber(winningNumbers),
-    );
-
-    const lottoCenter = new LottoCenter(winningNumbers, bonusNumber);
-    const winningRanks = lottoCenter.getWinningRanks(
+  async #checkWinningResult(lottos, winningNumbers, bonusNumber) {
+    const winningRanks = this.#lottoCenter.getWinningRanks(
       lottos.map((lotto) => lotto.getLottoNumbers()),
+      winningNumbers,
+      bonusNumber,
     );
     const rankCounts = this.#getRankCounts(winningRanks);
 
