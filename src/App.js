@@ -1,15 +1,31 @@
 import { Console } from '@woowacourse/mission-utils';
 import { LOTTO, ERROR_MESSAGE } from './constants.js';
+import LottoMachine from './LottoMachine.js';
 
 class App {
+  #lottos = [];
+
   async run() {
     try {
-      const amount = await this.#getPurchaseAmount();
-      const lottoCount = this.#calculateLottoCount(amount);
-      Console.print(`${lottoCount}개를 구매했습니다.`);
+      await this.#purchaseLottos();
     } catch (error) {
       Console.print(error.message);
     }
+  }
+
+  async #purchaseLottos() {
+    const amount = await this.#getPurchaseAmount();
+    const lottoCount = this.#calculateLottoCount(amount);
+
+    this.#lottos = LottoMachine.createLottos(lottoCount);
+    this.#printPurchaseResult();
+  }
+
+  #printPurchaseResult() {
+    Console.print(`${this.#lottos.length}개를 구매했습니다.`);
+    this.#lottos.forEach((lotto) => {
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
   }
 
   async #getPurchaseAmount() {
