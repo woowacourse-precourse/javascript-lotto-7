@@ -1,4 +1,9 @@
-import { ERROR_MESSAGE, REGEX } from './constant.js';
+import {
+  ERROR_MESSAGE,
+  LOTTO_NUMBER_MAX,
+  LOTTO_NUMBER_MIN,
+  REGEX,
+} from './constant.js';
 
 export function validateAmount(amount) {
   if (isNaN(amount)) throw new Error(ERROR_MESSAGE.NOT_NUM_ERROR);
@@ -19,7 +24,8 @@ export function validateNumbers(userInput) {
     throw new Error(ERROR_MESSAGE.LOTTO_CNT_ERROR);
   }
   numbers.forEach((num) => {
-    if (num < 1 || num > 45) throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
+    if (num < LOTTO_NUMBER_MIN || num > LOTTO_NUMBER_MAX)
+      throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
   });
 
   const uniqueNumbers = new Set(numbers);
@@ -30,7 +36,7 @@ export function validateNumbers(userInput) {
 
 export function validateBonus(bonus, numbers) {
   if (isNaN(bonus)) throw new Error(ERROR_MESSAGE.NOT_NUM_ERROR);
-  if (bonus < 1 || bonus > 45)
+  if (bonus < LOTTO_NUMBER_MIN || bonus > LOTTO_NUMBER_MAX)
     throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
   if (numbers.includes(parseInt(bonus, 10)))
     throw new Error(ERROR_MESSAGE.BONUS_NUM_NOT_UNIQUE_ERROR);

@@ -1,9 +1,14 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import { LOTTO_NUMBER_MAX, LOTTO_NUMBER_MIN } from './constant.js';
 
 class LottoMachine {
   drawLottoNumbers() {
-    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO_NUMBER_MIN,
+      LOTTO_NUMBER_MAX,
+      6
+    );
     return new Lotto(numbers);
   }
   generateLottos(cnt) {

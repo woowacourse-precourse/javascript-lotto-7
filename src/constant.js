@@ -37,3 +37,5 @@ export const PRIZE = {
 export const REGEX = {
   LOTTO_NUM_FORMAT: /^(\d{1,2},){5}\d{1,2}$/,
 };
+export const LOTTO_NUMBER_MIN = 1;
+export const LOTTO_NUMBER_MAX = 45;
