@@ -107,6 +107,10 @@ class App {
     });
   }
 
+  inputBonusNumber() {
+    return MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요..\n");
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
