@@ -1,15 +1,18 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import { MESSAGES } from "./constants/messages.js";
+import { MAGIC_NUMBER } from "./constants/magicNumber.js";
 
 class LottoVendingMachine {
-  #lottos;
+  #lottoAmount;
+  #lottos = [];
 
   async run() {
-    const money = await this.purchaseLottoAmount();
-    this.issueLottos(money);
+    await this.purchaseLottoAmount();
 
     // 로또 번호 발행()
     //   로또 번호 검사()
+    this.issueLottos();
+
     // 발행한 로또 수량 및 번호 오름차순 출력()
     // 당첨번호 입력()
     //   당첨 번호 검사()
@@ -25,14 +28,15 @@ class LottoVendingMachine {
         let money = await Console.readLineAsync(
           MESSAGES.INPUT.PURCHASE_LOTTO_MONEY
         );
-        return this.#validateLottoAmount(money);
+        money = this.#validateLottoAmount(money);
+        this.#lottoAmount = money / 1000;
+
+        return this.#lottoAmount;
       } catch (e) {
         Console.print(e.message);
       }
     }
   }
-
-  issueLottos(money) {}
 
   #validateLottoAmount(number) {
     if (!Number.isInteger(Number(number))) {
@@ -46,6 +50,26 @@ class LottoVendingMachine {
     }
 
     return Number(number);
+  }
+
+  issueLottos() {
+    while (this.#lottos.length < this.#lottoAmount) {
+      this.#lottos.push(this.#pickRandomLotto());
+    }
+  }
+
+  #pickRandomLotto() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      MAGIC_NUMBER.LOTTO_MIN_NUM,
+      MAGIC_NUMBER.LOTTO_MAX_NUM,
+      MAGIC_NUMBER.LOTTO_PICK_NUM
+    );
+  }
+
+  printIssueLottosInfo() {
+    Console.print("");
+    Console.print(MESSAGES.OUTPUT.PURCHASE_LOTTO_NUMBER(this.#lottoAmount));
+    this.#lottos.forEach((lotto) => Console.print(lotto));
   }
 }
 
