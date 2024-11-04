@@ -35,8 +35,8 @@ class Output {
 
   static #printRankStats(rankCounts) {
     OUTPUT_MESSAGES.PRINT_ORDER.forEach((rankKey) => {
-      const rank = LOTTO_RULE.RANK[rankKey];
-      const count = rankCounts[rank];
+      const rankIndex = LOTTO_RULE.RANK_COUNT_INDEX[rankKey];
+      const count = rankCounts[rankIndex];
       Console.print(
         `${OUTPUT_MESSAGES.WINNING_STATS[rankKey]}${count}${OUTPUT_MESSAGES.WINNING_STATS.COUNT}`,
       );

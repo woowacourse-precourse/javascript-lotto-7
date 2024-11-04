@@ -13,15 +13,15 @@ class Bank {
 
   #calculateWinningPrize(rankCount, index) {
     switch (index) {
-      case LOTTO_RULE.RANK.FIRST:
+      case LOTTO_RULE.RANK_COUNT_INDEX.FIRST:
         return LOTTO_RULE.REWARD.FIRST * rankCount;
-      case LOTTO_RULE.RANK.SECOND:
+      case LOTTO_RULE.RANK_COUNT_INDEX.SECOND:
         return LOTTO_RULE.REWARD.SECOND * rankCount;
-      case LOTTO_RULE.RANK.THIRD:
+      case LOTTO_RULE.RANK_COUNT_INDEX.THIRD:
         return LOTTO_RULE.REWARD.THIRD * rankCount;
-      case LOTTO_RULE.RANK.FOURTH:
+      case LOTTO_RULE.RANK_COUNT_INDEX.FOURTH:
         return LOTTO_RULE.REWARD.FOURTH * rankCount;
-      case LOTTO_RULE.RANK.FIFTH:
+      case LOTTO_RULE.RANK_COUNT_INDEX.FIFTH:
         return LOTTO_RULE.REWARD.FIFTH * rankCount;
       default:
         return LOTTO_RULE.REWARD.NONE;

@@ -4,6 +4,7 @@ import LottoMachine from './LottoMachine.js';
 import Lotto from './Lotto.js';
 import LottoCenter from './LottoCenter.js';
 import Bank from './Bank.js';
+import LOTTO_RULE from './constant/lotto.js';
 import {
   validatePurchaseAmount,
   validateWinningNumbers,
@@ -30,7 +31,8 @@ class App {
     Output.printLottos(lottos.map((lotto) => lotto.getLottoNumbers()));
 
     await this.#drawWinningNumbers();
-    const rankCounts = await this.#checkWinningResult(lottos);
+    const winningRanks = await this.#getWinningRanks(lottos);
+    const rankCounts = this.#getRankCounts(winningRanks);
 
     this.#calculateTotalWinningPrize(rankCounts);
     const profitRate = this.#getProfitRate(purchaseAmount);
@@ -87,22 +89,22 @@ class App {
   }
 
   #getRankCounts(ranks) {
-    const rankCounts = Array(6).fill(0);
+    const rankCounts = Array(LOTTO_RULE.RANK_COUNT_LENGTH).fill(0);
 
     ranks.forEach((rank) => {
-      rankCounts[rank] += 1;
+      if (rank === LOTTO_RULE.RANK.NONE) return;
+      rankCounts[rank - 1] += 1;
     });
 
     return rankCounts;
   }
 
-  async #checkWinningResult(lottos) {
+  #getWinningRanks(lottos) {
     const winningRanks = this.#lottoCenter.getWinningRanks(
       lottos.map((lotto) => lotto.getLottoNumbers()),
     );
-    const rankCounts = this.#getRankCounts(winningRanks);
 
-    return rankCounts;
+    return winningRanks;
   }
 
   #calculateTotalWinningPrize(rankCounts) {
