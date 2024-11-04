@@ -1,4 +1,4 @@
-import App from "../src/App.js";
+import App, { validateAmount } from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -41,6 +41,27 @@ const runException = async (input) => {
   // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
+
+describe("validateAmount 테스트", () => {
+  test("유효한 금액 입력", () => {
+    expect(() => validateAmount(5000).not.toThrow()); // 1000원 단위 금액 정상 입력
+  });
+
+  test("0 이하의 금액 입력 시 오류 발생", () => {
+    expect(() => validateAmount(0)).toThrow("[ERROR] 로또 금액은 0보다 큰 숫자 형태여야 합니다.");
+    expect(() => validateAmount(-1000)).toThrow("[ERROR] 로또 금액은 0보다 큰 숫자 형태여야 합니다.");
+  });
+
+  test("숫자가 아닌 입력 시 오류 발생", () => {
+    expect(() => validateAmount("1000won")).toThrow("[ERROR] 로또 금액은 0보다 큰 숫자 형태여야 합니다.");
+    expect(() => validateAmount("이천")).toThrow("[ERROR] 로또 금액은 0보다 큰 숫자 형태여야 합니다.");
+  });
+
+  test("1000원 단위가 아닌 금액 입력 시 오류 발생", () => {
+    expect(() => validateAmount("1500")).toThrow("[ERROR] 로또 금액은 1,000원 단위이어야 합니다.");
+    expect(() => validateAmount("9876")).toThrow("[ERROR] 로또 금액은 1,000원 단위이어야 합니다.");
+  });
+});
 
 describe("로또 테스트", () => {
   beforeEach(() => {
