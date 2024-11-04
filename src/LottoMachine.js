@@ -1,6 +1,6 @@
-import { LOTTO } from './constants/constants.js';
-import getRandomUniqueNumbers from './utils/getRandomUniqueNumbers.js';
 import Lotto from './Lotto.js';
+import getRandomUniqueNumbers from './utils/getRandomUniqueNumbers.js';
+import { LOTTO } from './constants/constants.js';
 
 class LottoMachine {
   #count;

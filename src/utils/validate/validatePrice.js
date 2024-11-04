@@ -8,6 +8,7 @@ const validatePrice = async () => {
     try {
       const inputPrice = await getUserInput(INPUT_MESSAGE.PURCHASE_PRICE);
       const price = PriceValidator.validatePrice(inputPrice);
+
       return price;
     } catch (error) {
       printOutput(error.message);
