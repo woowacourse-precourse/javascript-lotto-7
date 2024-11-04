@@ -9,7 +9,114 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(type, data) {}
+  #validate(type, data) {
+    if (
+      !data ||
+      (Array.isArray(data) && (!data.length || data.includes(undefined)))
+    )
+      return;
+
+    const typeCasted = this.castingToNumber(data);
+
+    switch (type) {
+      case "COUNT_OF_LOTTO_NUMBERS":
+        this.validateWinNumbers(typeCasted);
+        break;
+      case "PURCHASE_AMOUNT_UNIT":
+        this.validatePurchaseAmount(typeCasted);
+        break;
+      case "ONLY_NUMBER":
+        this.validateOnlyNumber(typeCasted);
+        break;
+      case "LOTTO_NUMBERS":
+        this.validateAvailableNumber(typeCasted);
+        break;
+      case "IS_EXSITS":
+        const winningNumbers = this.castingToNumber(data[0]);
+        const bonusNumber = this.castingToNumber(data[1]);
+        this.validateExists([winningNumbers, bonusNumber]);
+        break;
+      default:
+        break;
+    }
+  }
+
+  castingToNumber(data) {
+    if (
+      data === undefined ||
+      data === null ||
+      (typeof data === "object" && !Array.isArray(data))
+    ) {
+      return;
+    }
+
+    if (Array.isArray(data)) {
+      return data.map((num) => Number(num));
+    }
+
+    if (Array.isArray(data.split(","))) {
+      return data.split(",").map((num) => Number(num));
+    }
+
+    return Number(data);
+  }
+
+  validatePurchaseAmount(purchaseAmount) {
+    if (purchaseAmount % 1000 !== 0) {
+      throw new Error(`[ERROR] 구입 금액은 1000원 단위로 입력해 주세요.\n`);
+    }
+  }
+
+  validateWinNumbers(lottoNumbers) {
+    if (lottoNumbers.includes(0)) {
+      throw new Error(`[ERROR] 0은 입력할 수 없습니다.\n`);
+    }
+
+    if (lottoNumbers.length !== 6) {
+      throw new Error(`[ERROR] 당첨 번호 6개를 입력해주세요.\n`);
+    }
+    if (/[^0-9,]/.test(lottoNumbers)) {
+      throw new Error(`[ERROR] 숫자와 쉼표(,)만 입력해 주세요.\n`);
+    }
+  }
+
+  validateOnlyNumber(numbers) {
+    if (isNaN(numbers)) {
+      throw new Error(`[ERROR] 숫자만 입력 가능합니다.\n`);
+    }
+  }
+
+  validateAvailableNumber(numbers) {
+    const uniqueNumbers = [];
+
+    for (const number of numbers) {
+      if (uniqueNumbers.includes(number)) {
+        throw new Error(`[ERROR] 로또 담청 번호에 중복된 숫자가 있습니다.\n`);
+      }
+
+      if (number < 1 || number > 45) {
+        throw new Error(
+          `[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.\n`
+        );
+      }
+
+      uniqueNumbers.push(number);
+    }
+  }
+
+  validateExists(data) {
+    const [winningNumbers, bonusNumber] = data;
+
+    if (winningNumbers.some((number) => bonusNumber === number)) {
+      throw new Error(
+        `[ERROR] 당첨 번호와 보너스 번호는 중복될 수 없습니다.\n`
+      );
+    }
+  }
+
+  issueLotto() {
+    return Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
 
   async getPurchaseAmount() {
     const purchaseAmount = await readInput("구입금액을 입력해 주세요.\n");
