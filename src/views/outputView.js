@@ -38,3 +38,18 @@ const createProfitString = (profitRate) => {
   const profitRateString = `\n총 수익률은 ${profitRate}%입니다.`;
   return profitRateString;
 };
+
+const printLottoTotalResult = (lottoResult, profitRate) => {
+  const lottoResultString = createLottoResultString(lottoResult);
+  const profitRateString = createProfitString(profitRate);
+
+  Console.print(lottoResultString + profitRateString);
+};
+
+export {
+  printLottoTickets,
+  analyzeProfitRate,
+  createLottoResultString,
+  createProfitString,
+  printLottoTotalResult,
+};
