@@ -18,25 +18,26 @@ const printWinningResults = (lottoGame, userLotto, winningResults) => {
 
 class App {
   async run() {
-    const lottoGame = new LottoGame();
+    try {
+      const lottoGame = new LottoGame();
 
       const purchasePrice = await InputHandler.getPurchasePrice();
       lottoGame.buyLotto(purchasePrice);
 
-    Console.print(`\n${lottoGame.calculateLottoCount()}개를 구매했습니다.`);
+      const userLotto = lottoGame.generateLotto();
+      userLotto.forEach((lotto) => Console.print(lotto.toString()));
 
-    const userLotto = lottoGame.generateLotto();
-    userLotto.forEach((lotto) => Console.print(lotto.toString()));
-    Console.print('');
+      const winNumbers = await InputHandler.getWinNumbers();
+      lottoGame.setWinNumbers(winNumbers);
 
-    const winNumbers = await InputHandler.getWinNumbers();
-    lottoGame.setWinNumbers(winNumbers);
+      const bonusNumber = await InputHandler.getBonusNumber();
+      lottoGame.setBonusNumber(bonusNumber);
 
-    const bonusNumber = await InputHandler.getBonusNumber();
-    lottoGame.setBonusNumber(bonusNumber);
-
-    const wonRecord = lottoGame.checkWinning(userLotto);
-    printWinningResults(lottoGame, userLotto, wonRecord);
+      const wonRecord = lottoGame.checkWinning(userLotto);
+      printWinningResults(lottoGame, userLotto, wonRecord);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 
