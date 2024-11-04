@@ -7,10 +7,7 @@ class App {
 
     await lottoController.setPurchaseAmount();
     lottoController.generateLottoTickets();
-    lottoController.ioHandler.displayLottoTickets(
-      lottoController.getLottoTickets(),
-      lottoController.getPurchaseAmount(),
-    );
+    lottoController.displayLottoTickets();
 
     const lotto = await Lotto.createLotto();
     await lottoController.setBonusNumber();

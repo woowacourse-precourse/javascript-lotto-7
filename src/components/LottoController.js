@@ -10,7 +10,7 @@ class LottoController {
   #purchaseAmount;
   #lottoTickets;
   #bonusNumber;
-  ioHandler;
+  #ioHandler;
 
   constructor() {
     this.ioHandler = new LottoIOHandler();
@@ -94,6 +94,13 @@ class LottoController {
 
     this.ioHandler.PrintLottoWinningResult(winningResult);
     this.ioHandler.printRateOfReturn(winningResult, this.#purchaseAmount);
+  }
+
+  displayLottoTickets() {
+    this.ioHandler.displayLottoTickets(
+      this.#lottoTickets,
+      this.#purchaseAmount,
+    );
   }
 }
 
