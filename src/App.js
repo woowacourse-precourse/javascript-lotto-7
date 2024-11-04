@@ -6,6 +6,7 @@ class App {
     const lottoManager = new LottoManager();
     await lottoManager.runGame();
     await lottoManager.calculateResult();
+    lottoManager.displayResult();
   }
 }
 

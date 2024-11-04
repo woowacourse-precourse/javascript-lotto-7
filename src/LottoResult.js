@@ -19,6 +19,20 @@ class LottoResult {
             Console.print("Invalid result field.");
         }
     }
+
+    getMatchCount(countNumber, isWithBonus = false) {
+        if(countNumber == 5){
+            if(isWithBonus){
+                return this.#matchCounts.matchCount_5_withBonus;
+            }
+            else{
+                return this.#matchCounts.matchCount_5_withoutBonus;
+            }
+        }
+        else if(countNumber == 3 | countNumber == 4 | countNumber == 6){
+            return this.#matchCounts[`matchCount_${countNumber}`];
+        }
+    }
 }
 
 export default LottoResult;

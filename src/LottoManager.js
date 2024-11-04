@@ -50,7 +50,7 @@ class LottoManager {
     }
 
     async displayResult(){
-
+        LottoManagerIO.printResultStatistic(this.#lottoResult);
     }
 }
 
