@@ -4,9 +4,10 @@ class App {
   async run() {
     try {
       const purchaseAmount = await this.getPurchaseAmount();
-      const lottoCount = purchaseAmount / 1000; // 구매 가능한 로또 개수
+      const lottoCount = purchaseAmount / 1000;
 
       MissionUtils.Console.print(`\n${lottoCount}개를 구매했습니다.`);
+      this.getLottoNumbers(lottoCount);
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.run(); // 금액 입력 재시도
@@ -24,6 +25,19 @@ class App {
     }
 
     return amount;
+  }
+
+  getLottoNumbers(lottoCount) {
+    const lottoNumbers = [];
+
+    for (let i = 0; i < lottoCount; i++) {
+      const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      numbers.sort((a, b) => a - b); // 오름차순 정렬
+      lottoNumbers.push(numbers);
+      MissionUtils.Console.print(`[${numbers.join(", ")}]`);
+    }
+
+    return lottoNumbers;
   }
 }
 
