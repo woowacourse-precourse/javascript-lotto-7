@@ -9,6 +9,18 @@ export const OUTPUT_MESSAGES = Object.freeze({
   LOTTO_SET: (lottoNumbers) => `[${lottoNumbers.join(', ')}]`,
 });
 
+export const LOTTO = Object.freeze({
+  PRICE: 1000,
+  LENGTH: 6,
+  MIN_NUM: 1,
+  MAX_NUM: 45,
+});
+
+export const REGEX = Object.freeze({
+  IS_VALID_WINNING_NUMBERS:
+    /^(0?[1-9]|[1-3][0-9]|4[0-5])(,(0?[1-9]|[1-3][0-9]|4[0-5])){5}$/,
+});
+
 export const ERROR_PREFIX = '[ERROR]';
 
 export const ERROR_MESSAGES = Object.freeze({
@@ -19,11 +31,6 @@ export const ERROR_MESSAGES = Object.freeze({
   INVALID_LENGTH: '번호는 6개여야 합니다.',
   DUPLICATE_NUMBER: '번호는 중복되지 않아야 합니다.',
   OUT_OF_RANGE: '번호는 1 ~ 45까지의 숫자입니다.',
-});
-
-export const LOTTO = Object.freeze({
-  PRICE: 1000,
-  LENGTH: 6,
-  MIN_NUM: 1,
-  MAX_NUM: 45,
+  INVALID_WINNING_NUMBER_FORMAT:
+    '당첨 번호는 쉼표(,)를 기준으로 구분된 숫자입니다.',
 });
