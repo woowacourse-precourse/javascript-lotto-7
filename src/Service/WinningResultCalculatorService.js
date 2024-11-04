@@ -1,3 +1,5 @@
+import { TOTAL_PRIZE_RANKS } from '../constants';
+
 class WinningResultCalculatorService {
   calculateWinningResult(winningNumbers, bonusNumber, lottoNumbers) {
     let winningCount = 0;
