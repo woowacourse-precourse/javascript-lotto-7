@@ -5,7 +5,7 @@ class App {
   async run() {
     const lottoManager = new LottoManager();
     lottoManager.runGame();
-    lottoManager.printResult();
+    lottoManager.calculateResult();
   }
 }
 

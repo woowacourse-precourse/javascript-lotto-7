@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import LottoManagerIO from "./LottoManagerIO.js";
-import { countMatchingNumbers, generateRandomNumbers } from "./LottoUtils.js";
+import { countMatchingNumbers, generateRandomNumbers } from "./lottoUtils.js";
 import Lotto from "./Lotto.js";
 
 class LottoManager {
@@ -24,18 +24,22 @@ class LottoManager {
     }
 
     async runGame(){
-        this.#purchasePrice = await LottoManagerIO.getPurchasePrice();
+        this.#purchasePrice = await LottoManagerIO.inputPurchasePrice();
         this.#lottoCount = LottoManagerIO.printLottoCount(this.#purchasePrice);
         this.generateLottos(this.#lottoCount);
         LottoManagerIO.printGeneratedLottos(this.#generatedLottos);
-        this.generateWinLotto(await LottoManagerIO.getWinNumber());
-        this.#bonusNumber = await LottoManagerIO.getBonusNumber();
+        this.generateWinLotto(await LottoManagerIO.inputWinNumber());
+        this.#bonusNumber = await LottoManagerIO.inputBonusNumber();
     }
 
-    async printResult(){
+    async calculateResult(){
         for(let i = 0; i < this.#lottoCount; i ++){
             countMatchingNumbers(this.#generatedLottos[i].getNumbers(), this.#winLotto.getNumbers());
         }
+    }
+
+    async displayResult(){
+
     }
 }
 
