@@ -9,7 +9,8 @@ class LottoGame {
   #matchResults = [0, 0, 0, 0, 0, 0];
   #profitRate;
 
-  constructor() {}
+  constructor() {
+  }
 
   async #getTotalCost() {
     while (true) {
@@ -96,5 +97,6 @@ class LottoGame {
       throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.');
     }
   }
+}
 
 export default LottoGame;
