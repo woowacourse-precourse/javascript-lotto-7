@@ -3,8 +3,9 @@ import { isPositiveNumber } from "./function/validIsPositiveNum.js";
 import { limitMaxDigitNum } from "./function/validLimitMaxDigitNum.js";
 import { limitRangeNum } from "./function/validLimitRangeNum.js";
 import { ERR_MESSAGE_NUMBERS } from "../constants/errorMessages.js";
+import { validPrizeArrayPass } from "./function/validPrizeArrayPass.js";
 
-export const validInputBonusNum = (inputBonusNumber) => {
+export const validInputBonusNum = (prizeNumbers, inputBonusNumber) => {
   try {
     emptyOrIsNum(inputBonusNumber);
     isPositiveNumber(inputBonusNumber);
