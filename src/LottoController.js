@@ -1,4 +1,5 @@
 import RandomNum from "./RandomNum.js";
+import Parser from "./Parser.js";
 import Lotto from "./Lotto.js";
 
 export default class LottoController {
@@ -8,7 +9,8 @@ export default class LottoController {
     }
 
     static createrWinningLottoNumbers(winningNumbers) {
-        return new Lotto(winningNumbers);
+        const winningNumbersList = Parser.separaterLottoNumber(winningNumbers);
+        return new Lotto(winningNumbersList);
     }
-    
+
 }
