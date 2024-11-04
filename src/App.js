@@ -11,6 +11,7 @@ class App {
       await this.#purchaseLottos();
       await this.#getWinNumber();
       await this.#getBonusNumber();
+      this.#printResults();
     } catch (error) {
       Console.print(error.message);
     }
@@ -20,8 +21,10 @@ class App {
     const amount = await this.#getPrice();
     const count = amount / 1000;
 
+    Console.print(`\n${count}개를 구매했습니다.`);
+
     await this.#generateLottos(count);
-    return count;
+    this.#printLottos();
   }
 
   async #getPrice() {
@@ -37,13 +40,9 @@ class App {
 
   async #getWinNumber() {
     const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-    const numbers = input.split(',').map(Number);
+    const numbers = this.#parseNumbers(input);
 
-    if (numbers.some(isNaN)) {
-      throw new Error('[ERROR] 당첨 번호는 숫자만 입력 가능합니다.');
-    }
-
-    return numbers;
+    this.#winNumber = new Lotto(numbers).getNumbers();
   }
 
   async #getBonusNumber() {
@@ -56,7 +55,15 @@ class App {
       throw new Error('[ERROR] 유효하지 않은 보너스 번호입니다.');
     }
 
-    return number;
+    this.#bonusNumber = number;
+  }
+
+  #parseNumbers(input) {
+    const numbers = input.split(',').map(Number);
+    if (numbers.some(isNaN)) {
+      throw new Error('[ERROR] 숫자만 입력 가능합니다.');
+    }
+    return numbers;
   }
 
   async #generateLottos(count) {
@@ -80,6 +87,52 @@ class App {
     });
 
     return results;
+  }
+
+  #printLottos() {
+    this.#lottos.forEach((lotto) => {
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
+  }
+
+  #printResults() {
+    const results = this.#calculateResults();
+
+    Console.print('\n당첨 통계\n---');
+    this.#printPrizeResults(results);
+    this.#printReturnRate(results);
+  }
+
+  #printPrizeResults(results) {
+    const prizes = [
+      [3, '5,000'],
+      [4, '50,000'],
+      [5, '1,500,000'],
+      [5, '30,000,000'],
+      [6, '2,000,000,000'],
+    ];
+
+    const messages = [
+      '3개 일치',
+      '4개 일치',
+      '5개 일치',
+      '5개 일치, 보너스 볼 일치',
+      '6개 일치',
+    ];
+
+    results.forEach((count, index) => {
+      Console.print(`${messages[index]} (${prizes[index][1]}원) - ${count}개`);
+    });
+  }
+
+  #printReturnRate(results) {
+    const prizeAmounts = [5000, 50000, 1500000, 30000000, 2000000000];
+    const totalPrize = results.reduce((sum, count, index) => {
+      return sum + count * prizeAmounts[index];
+    }, 0);
+
+    const rate = (totalPrize / (this.#lottos.length * 1000)) * 100;
+    Console.print(`총 수익률은 ${rate.toFixed(1)}%입니다.`);
   }
 }
 
