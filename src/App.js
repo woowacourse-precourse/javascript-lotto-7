@@ -1,6 +1,6 @@
 // App.js
 import ServiceFactory from './factories/ServiceFactory.js';
-import magicNumber from './constants/magic-number.js';
+import magicNumber from './constants/magicNumbers.js';
 
 class App {
   constructor() {
