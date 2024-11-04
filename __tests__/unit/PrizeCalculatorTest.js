@@ -17,14 +17,18 @@ describe("getTotalPrize() 테스트", () => {
   });
 
   test("1등부터 5등까지의 매칭 결과에 따라 올바른 상금을 계산해야 한다", () => {
+    const expectedPrize = 2000000000 + 30000000 + 1500000 + 50000 + 5000;
+
     const totalPrize = prizeCalculator.getTotalPrize();
-    const expectedPrize = 2000000000 + 30000000 + 1500000 + 50000 + 5000; 
+
     expect(totalPrize).toBe(expectedPrize);
   });
 
   test("미당첨 결과는 상금 계산에 포함되지 않아야 한다", () => {
+    const expectedPrize = 2000000000 + 30000000 + 1500000 + 50000 + 5000;
+
     const totalPrize = prizeCalculator.getTotalPrize();
-    const expectedPrize = 2000000000 + 30000000 + 1500000 + 50000 + 5000; 
+
     expect(totalPrize).toBe(expectedPrize);
   });
 
@@ -34,9 +38,10 @@ describe("getTotalPrize() 테스트", () => {
       { matchCount: 1, isBonusMatched: false },
       { matchCount: 0, isBonusMatched: false },
     ];
-
     prizeCalculator = new PrizeCalculator(noPrizeResults);
+
     const totalPrize = prizeCalculator.getTotalPrize();
+
     expect(totalPrize).toBe(0);
   });
 });
@@ -58,7 +63,6 @@ describe("getStatistics() 테스트", () => {
   });
 
   test("각 등수에 대한 통계가 올바르게 계산되어야 한다", () => {
-    const statistics = prizeCalculator.getStatistics();
     const expectedStatistics = {
       1: { count: 1, prize: 2000000000 },
       2: { count: 1, prize: 30000000 },
@@ -66,7 +70,9 @@ describe("getStatistics() 테스트", () => {
       4: { count: 1, prize: 50000 },
       5: { count: 1, prize: 5000 },
     };
-    
+
+    const statistics = prizeCalculator.getStatistics();
+
     expect(statistics).toEqual(expectedStatistics);
   });
 
@@ -76,9 +82,7 @@ describe("getStatistics() 테스트", () => {
       { matchCount: 1, isBonusMatched: false },
       { matchCount: 0, isBonusMatched: false },
     ];
-
     prizeCalculator = new PrizeCalculator(noPrizeResults);
-    const statistics = prizeCalculator.getStatistics();
     const expectedStatistics = {
       1: { count: 0, prize: 0 },
       2: { count: 0, prize: 0 },
@@ -86,6 +90,8 @@ describe("getStatistics() 테스트", () => {
       4: { count: 0, prize: 0 },
       5: { count: 0, prize: 0 },
     };
+
+    const statistics = prizeCalculator.getStatistics();
 
     expect(statistics).toEqual(expectedStatistics);
   });
