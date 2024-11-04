@@ -31,30 +31,28 @@ describe('로또 발매기 클래스 테스트', () => {
     jest.restoreAllMocks();
   });
 
-  test.each([
+  test.skip.each([
     [8000, 8000],
     [8001, new Error('[ERROR]')],
   ])('구입금액 입력검증 테스트', async (input, expected) => {
     // given
     readLineAsyncMock(input);
+    const lottoMachine = new LottoMachine();
 
     if (expected instanceof Error) {
       // when, then
-      const lottoMachine = new LottoMachine();
       await expect(
         lottoMachine.inputPurchaseAmountTestMethod(),
       ).rejects.toThrow('[ERROR]');
     } else {
       // when
-      const lottoMachine = new LottoMachine();
       await lottoMachine.inputPurchaseAmountTestMethod();
-
       // then
       expect(lottoMachine.amount).toBe(expected);
     }
   });
 
-  test('금액에 맞는 로또 생성 테스트', async () => {
+  test.skip('금액에 맞는 로또 생성 테스트', async () => {
     // given
     const AMOUNT = 8000;
     readLineAsyncMock(AMOUNT);

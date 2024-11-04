@@ -68,21 +68,24 @@ class LottoMachine {
     if (!/^[0-9]+$/.test(amount)) {
       throw new Error('[ERROR] 로또 구입금액은 숫자만 입력할 수 있습니다.');
     }
-    if (amount % 1000 !== 0) {
+    if (Number(amount) % 1000 !== 0) {
       throw new Error(
         '[ERROR] 로또 구입금액은 1000 원 단위로 입력해야 합니다.',
       );
     }
-    this.#amount = amount;
+    this.#amount = Number(amount);
     this.#generateLottos();
   }
 
   #generateLottos() {
     const lottoCnt = this.#amount / 1000;
     for (let i = 0; i < lottoCnt; i += 1) {
-      this.#lottos.push(
-        new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)),
+      const randomValue = MissionUtils.Random.pickUniqueNumbersInRange(
+        1,
+        45,
+        6,
       );
+      this.#lottos.push(new Lotto(randomValue));
     }
     this.#printLottos();
   }
