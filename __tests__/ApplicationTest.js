@@ -47,7 +47,7 @@ describe("로또 테스트", () => {
     jest.restoreAllMocks();
   });
 
-  test("기능 테스트", async () => {
+  test("기능 테스트 (3개 일치)", async () => {
     // given
     const logSpy = getLogSpy();
 
@@ -84,6 +84,34 @@ describe("로또 테스트", () => {
       "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
       "6개 일치 (2,000,000,000원) - 0개",
       "총 수익률은 62.5%입니다.",
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
+  test("기능 테스트 (6개 일치)", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms([[1, 11, 23, 31, 22, 12]]);
+    mockQuestions(["1000", "1,11,23,31,22,12", "7"]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    const logs = [
+      "1개를 구매했습니다.",
+      "[1, 11, 12, 22, 23, 31]",
+      "3개 일치 (5,000원) - 0개",
+      "4개 일치 (50,000원) - 0개",
+      "5개 일치 (1,500,000원) - 0개",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
+      "6개 일치 (2,000,000,000원) - 1개",
+      "총 수익률은 200000000%입니다.",
     ];
 
     logs.forEach((log) => {
