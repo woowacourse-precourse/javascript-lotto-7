@@ -65,9 +65,14 @@ const OutputView = {
         return Math.round((totalPrize / moneyPaid) * 100) / 100;
     },
 
+    replaceNumber(rateOfReturn) {
+        return rateOfReturn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+
     printRateOfReturn(rateOfReturn) {
+        const rate = this.replaceNumber(rateOfReturn);
         Console.print(
-            `총 수익률은 ${rateOfReturn.toLocaleString('ko-KR')}%입니다.`
+            `총 수익률은 ${rate}%입니다.`
         );
     }
 }
