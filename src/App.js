@@ -30,7 +30,18 @@ class App {
   }
 
   async getMoneyAmount() {
-  };
+    while (true) {
+      MissionUtils.Console.print("구입금액을 입력해 주세요.\n");
+      const input = await MissionUtils.Console.readLineAsync();
+      const amount = parseInt(input, 10);
+
+      if (isNaN(amount) == false && amount % 1000 === 0) {
+        return amount;
+      }
+    }
+
+    MissionUtils.Console.print("[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.");
+  }
 
   calculateLottoCount(moneyAmount) {
   }
