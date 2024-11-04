@@ -85,8 +85,9 @@ class App {
   }
 
   async inputBonusNumber(lottoNumber) {
-    const bonusNumberInput = await this.input('보너스 번호를 입력해 주세요.');
-    return this.parseBonusNumber(bonusNumberInput, lottoNumber);
+    return this.input('보너스 번호를 입력해 주세요.', input =>
+      this.parseBonusNumber(input, lottoNumber),
+    );
   }
 
   parseBonusNumber(bonusNumberInput, lottoNumber) {
@@ -114,8 +115,9 @@ class App {
   }
 
   async inputLottoNumber() {
-    const lottoNumberInput = await this.input('당첨 번호를 입력해 주세요.');
-    return this.parseLottos(lottoNumberInput);
+    return this.input('당첨 번호를 입력해 주세요.', input =>
+      this.parseLottos(input),
+    );
   }
 
   parseLottos(lottoNumberInput) {
@@ -175,9 +177,10 @@ class App {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
-  async inputMoney() {
-    const moneyInput = await this.input('구입금액을 입력해 주세요.');
-    return this.parseMoney(moneyInput);
+  inputMoney() {
+    return this.input('구입금액을 입력해 주세요.', input =>
+      this.parseMoney(input),
+    );
   }
 
   parseMoney(moneyInput) {
@@ -204,9 +207,15 @@ class App {
     return money / 1000;
   }
 
-  async input(msg) {
-    const input = await Console.readLineAsync(`${msg}\n`);
-    return input;
+  async input(msg, parseFunction) {
+    while (true) {
+      try {
+        const input = await Console.readLineAsync(`${msg}\n`);
+        return parseFunction(input);
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
 }
 
