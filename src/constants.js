@@ -37,6 +37,7 @@ const BONUS_ERROR_MESSAGE={
     IS_NOT_NUMBER: `${ERROR_PREFIX} 보너스 번호는 숫자만 입력 가능합니다.`,
     IS_EMPTY: `${ERROR_PREFIX} 보너스 번호는 빈 값일 수 없습니다.`,
     IS_NOT_INTEGER: `${ERROR_PREFIX} 보너스 번호는 ${MIN_LOTTO_NUMBER}과 ${MAX_LOTTO_NUMBER} 사이의 정수여야 합니다.`,
+    DUPLICATE_ERROR: `${ERROR_PREFIX} 보너스 번호는 당첨 번호와 중복될 수 없습니다.`,
 }
 
 const LOTTO_PRIZES = {
