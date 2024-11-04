@@ -1,3 +1,6 @@
+import { LOTTO_CONFIG } from "./constant/LottoConfig.js";
+import { DOMAIN_ERRORS } from "./constant/Error.js";
+
 class LottoNumber {
   #number;
 
@@ -7,8 +10,8 @@ class LottoNumber {
   }
 
   #validate(number) {
-    if (number < 1 || number > 45) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45까지의 숫자여야 합니다.");
+    if (number < LOTTO_CONFIG.NUMBER.MIN || number > LOTTO_CONFIG.NUMBER.MAX) {
+      throw new Error(DOMAIN_ERRORS.OUT_OF_RANGE);
     }
   }
 

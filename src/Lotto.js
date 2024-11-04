@@ -1,3 +1,6 @@
+import { DOMAIN_ERRORS } from "./constant/Error.js";
+import { LOTTO_CONFIG } from "./constant/LottoConfig.js";
+
 class Lotto {
   #numbers;
 
@@ -14,8 +17,8 @@ class Lotto {
   }
 
   #validateDuplicate(numbers) {
-    if (new Set(numbers).size !== 6) {
-      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
+    if (new Set(numbers).size !== LOTTO_CONFIG.COUNT) {
+      throw new Error(DOMAIN_ERRORS.DUPLICATE_NUMBER);
     }
   }
 
