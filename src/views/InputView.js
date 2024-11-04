@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import LottoGenerator from '../classes/LottoGenerator.js';
 import Lotto from '../classes/Lotto.js';
 import OutputView from './OutputView.js';
+import LottoBonus from '../classes/LottoBonus.js';
 
 class InputView {
   async inputPurchasePrice() {
@@ -32,12 +33,16 @@ class InputView {
     }
   }
 
-  async inputBonusNumber() {
+  async inputBonusNumber(winningNumbers) {
     try {
-      return await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+      const bonusNumber = await Console.readLineAsync(
+        '\n보너스 번호를 입력해 주세요.\n'
+      );
+
+      return new LottoBonus(Number(bonusNumber), winningNumbers);
     } catch (error) {
       OutputView.printErrorMessage(error.message);
-      return this.inputBonusNumber();
+      return this.inputBonusNumber(winningNumbers);
     }
   }
 }

@@ -1,14 +1,13 @@
 class LottoMatcher {
-  constructor(myLottos, winningLotto, bonusNumber, lottoCalculator) {
+  constructor(myLottos, winningNumber, bonusNumber, lottoCalculator) {
     this.myLottos = myLottos;
-    this.winningLotto = winningLotto;
+    this.winningNumber = winningNumber;
     this.bonusNumber = bonusNumber;
     this.lottoCalculator = lottoCalculator;
   }
   #matchLottoNumber() {
-    const winningNumber = this.winningLotto.lottoNumber;
     return this.myLottos.map((myLotto) =>
-      myLotto.filter((lottoNumber) => winningNumber.includes(lottoNumber))
+      myLotto.filter((lottoNumber) => this.winningNumber.includes(lottoNumber))
     );
   }
 

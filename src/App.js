@@ -26,14 +26,15 @@ class App {
     // 로또 당첨 번호 입력
     const winningLotto = await inputView.inputWinningNumbers();
 
+    const winningNumber = winningLotto.lottoNumber;
     // 보너스 번호 입력
-    const bonusNumber = await inputView.inputBonusNumber();
+    const lottoBonus = await inputView.inputBonusNumber(winningNumber);
 
     // 로또 추첨 시작(내가 구매한 로또, 로또 당첨 번호, 보너스 번호, 구입 금액)
     const lottoGame = new LottoGame(
       myLottos,
-      winningLotto,
-      bonusNumber,
+      winningNumber,
+      lottoBonus.bonusNumber,
       lottoManager.purchasePrice
     );
 

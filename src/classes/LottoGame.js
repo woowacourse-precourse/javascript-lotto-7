@@ -2,11 +2,11 @@ import LottoMatcher from './LottoMatcher.js';
 import LottoCalculator from './LottoCalculator.js';
 
 class LottoGame {
-  constructor(myLottos, winningLotto, bonusNumber, purchasePrice) {
+  constructor(myLottos, winningNumber, bonusNumber, purchasePrice) {
     this.lottoCalculator = new LottoCalculator(purchasePrice);
     this.lottoMatcher = new LottoMatcher(
       myLottos,
-      winningLotto,
+      winningNumber,
       bonusNumber,
       this.lottoCalculator
     );
