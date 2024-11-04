@@ -41,14 +41,13 @@ class LottoController {
     const winningNumbersInput = await InputView.readWinningNumbers();
     const winningNumbers = winningNumbersInput.split(",").map(Number);
 
-    if (!LottoValidator.validateWinningNumbers(winningNumbers)) {
-      return;
-    }
-
     const bonusNumberInput = await InputView.readBonusNumber();
     const bonusNumber = Number(bonusNumberInput);
 
-    if (!LottoValidator.validateBonusNumber(bonusNumber, winningNumbers)) {
+    if (
+      !LottoValidator.validateWinningNumbers(winningNumbers) ||
+      !LottoValidator.validateBonusNumber(bonusNumber, winningNumbers)
+    ) {
       return;
     }
 

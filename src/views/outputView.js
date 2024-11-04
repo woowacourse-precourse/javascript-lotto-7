@@ -4,7 +4,10 @@ import { ERROR_MESSAGE, OUTPUT_MESSAGES } from "../utils/constants.js";
 const outputView = {
   printErrorMessage(message) {
     Console.print(`${ERROR_MESSAGE.ERROR_MESSAGE_PREFIX} ${message}`);
-    // throw new Error(`${ERROR_MESSAGE.ERROR_MESSAGE_PREFIX} ${message}`);
+  },
+
+  throwErrorMessage(message) {
+    throw new Error(`${ERROR_MESSAGE.ERROR_MESSAGE_PREFIX} ${message}`);
   },
 
   printLottoCount(count) {
