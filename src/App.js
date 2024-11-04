@@ -8,7 +8,7 @@ import printRateOfReturn from "./printRateOfReturn.js";
 class App {
   async run() {
     const cost = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
-    const lottoList = purchaseLotto(cost);
+    const lottos = purchaseLotto(cost);
 
     const inputWinningNumbers = await Console.readLineAsync(
       "당첨 번호를 입력해 주세요.\n"
@@ -24,14 +24,12 @@ class App {
     const bonusNumber = Number(inputBonusNumber);
 
     const matchCountList = matchLotto(
-      lottoList,
+      lottos.getLottos(),
       winningNumbers.getNumbers(),
       bonusNumber
     );
 
     printMatchResult(matchCountList);
-
-    printRateOfReturn(cost, 1000);
   }
 }
 

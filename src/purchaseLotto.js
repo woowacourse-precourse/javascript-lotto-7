@@ -1,5 +1,5 @@
-import { Console, Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+import { Console } from "@woowacourse/mission-utils";
+import Lottos from "./Lottos.js";
 
 const isValidCost = (cost) => {
   if (cost % 1000 !== 0)
@@ -10,17 +10,12 @@ const purchaseLotto = (cost) => {
   isValidCost(cost);
 
   const purchaseCount = cost / 1000;
-  const lottoList = [];
 
   Console.print(`\n${purchaseCount}개를 구매했습니다.`);
-  for (let i = 0; i < purchaseCount; i++) {
-    const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6);
-    const lotto = new Lotto(randomNumbers);
-    lottoList.push(lotto);
-    Console.print(lotto.getNumbers());
-  }
 
-  return lottoList;
+  const lottos = new Lottos(purchaseCount);
+
+  return lottos;
 };
 
 export default purchaseLotto;
