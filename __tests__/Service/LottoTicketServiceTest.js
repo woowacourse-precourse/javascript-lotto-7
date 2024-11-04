@@ -1,3 +1,4 @@
+import LottoNumberGenerateService from '../../src/Service/LottoNumberGenerateService';
 import LottoTicketService from '../../src/Service/LottoTicketService';
 import { mockRandoms } from '../ApplicationTest';
 
@@ -18,7 +19,10 @@ describe('LottoTicketService 테스트', () => {
 
     mockRandoms(mockValues);
 
-    const lottoTicketService = new LottoTicketService();
+    const lottoNumberGenerateService = new LottoNumberGenerateService();
+    const lottoTicketService = new LottoTicketService(
+      lottoNumberGenerateService
+    );
     lottoTicketService.generateLottoTickets(purchaseAmount);
     const { lottoCount, lottos } = lottoTicketService.getLottos();
 

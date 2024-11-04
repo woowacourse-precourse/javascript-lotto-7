@@ -1,16 +1,13 @@
-import LottoMachineService from '../Service/LottoMachineService.js';
-import InputView from '../View/InputView.js';
-import OutputView from '../View/OutputView.js';
-
 class LottoMachineController {
-  constructor() {
-    this.inputView = new InputView();
-    this.outputView = new OutputView();
-    this.lottoMachineService = new LottoMachineService();
+  constructor(inputView, outputView, lottoMachineService) {
+    this.inputView = inputView;
+    this.outputView = outputView;
+    this.lottoMachineService = lottoMachineService;
   }
 
   async run() {
     const purchaseAmount = await this.inputView.readPurchaseAmount();
+
     const { lottoCount, lottos } =
       this.lottoMachineService.generateLottoTickets(purchaseAmount);
 

@@ -1,4 +1,11 @@
 import LottoMachineController from '../../src/Controller/LottoMachineController';
+import LottoMachineService from '../../src/Service/LottoMachineService';
+import LottoNumberGenerateService from '../../src/Service/LottoNumberGenerateService';
+import LottoTicketService from '../../src/Service/LottoTicketService';
+import ReturnRateCalculatorService from '../../src/Service/ReturnRateCalculatorService';
+import WinningResultCalculatorService from '../../src/Service/WinningResultCalculatorService';
+import InputView from '../../src/View/InputView';
+import OutputView from '../../src/View/OutputView';
 import { getLogSpy, mockQuestions, mockRandoms } from '../ApplicationTest';
 
 describe('LottoMachineController 테스트', () => {
@@ -17,7 +24,24 @@ describe('LottoMachineController 테스트', () => {
     ]);
     mockQuestions(['8000', '1,2,3,4,5,6', '7']);
 
-    const lottoMachineController = new LottoMachineController();
+    const inputView = new InputView();
+    const outputView = new OutputView();
+    const lottoNumberGenerateService = new LottoNumberGenerateService();
+    const lottoTicketService = new LottoTicketService(
+      lottoNumberGenerateService
+    );
+    const winningResultCalculatorService = new WinningResultCalculatorService();
+    const returnRateCalculatorService = new ReturnRateCalculatorService();
+    const lottoMachineService = new LottoMachineService(
+      lottoTicketService,
+      winningResultCalculatorService,
+      returnRateCalculatorService
+    );
+    const lottoMachineController = new LottoMachineController(
+      inputView,
+      outputView,
+      lottoMachineService
+    );
     await lottoMachineController.run();
 
     const logs = [

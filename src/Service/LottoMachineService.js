@@ -1,12 +1,12 @@
-import LottoTicketService from './LottoTicketService.js';
-import ReturnRateCalculatorService from './ReturnRateCalculatorService.js';
-import WinningResultCalculatorService from './WinningResultCalculatorService.js';
-
 class LottoMachineService {
-  constructor() {
-    this.lottoTicketService = new LottoTicketService();
-    this.winningResultCalculator = new WinningResultCalculatorService();
-    this.returnRateCalculatorService = new ReturnRateCalculatorService();
+  constructor(
+    lottoTicketService,
+    winningResultCalculatorService,
+    returnRateCalculatorService
+  ) {
+    this.lottoTicketService = lottoTicketService;
+    this.winningResultCalculatorService = winningResultCalculatorService;
+    this.returnRateCalculatorService = returnRateCalculatorService;
   }
 
   generateLottoTickets(purchaseAmount) {
@@ -16,7 +16,7 @@ class LottoMachineService {
 
   calculateResults(purchaseAmount, winningNumbers, bonusNumber, lottos) {
     const totalWinningRank =
-      this.winningResultCalculator.calculateWinningResults(
+      this.winningResultCalculatorService.calculateWinningResults(
         winningNumbers,
         bonusNumber,
         lottos

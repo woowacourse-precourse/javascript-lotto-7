@@ -1,12 +1,11 @@
 import Lotto from '../Domain/Lotto.js';
-import LottoNumberGenerateService from './LottoNumberGenerateService.js';
 
 class LottoTicketService {
   #lottos;
   #lottoCount;
 
-  constructor() {
-    this.lottoNumberGenerateService = new LottoNumberGenerateService();
+  constructor(lottoNumberGenerateService) {
+    this.lottoNumberGenerateService = lottoNumberGenerateService;
     this.#lottos = [];
     this.#lottoCount = null;
   }
