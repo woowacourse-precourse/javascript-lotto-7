@@ -4,7 +4,7 @@ import { GameOutput } from "./woowahanOutput.js";
 
 class App {
   async run() {
-    const lottoStore = LottoStore.getInstance();
+    const lottoStore = new LottoStore();
     const buyMoney = await WoowahanInput.getBuyMoney();
     const lottoTicketCount = lottoStore.getLottoTicketCount(buyMoney);
 

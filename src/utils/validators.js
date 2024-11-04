@@ -29,6 +29,8 @@ const buyMoneyValidator = (input) => {
 
 const winInputValidator = (input) => {
     const output = new WinInputOutput();
+    const lottoStore = LottoStore.getInstance();
+    lottoStore.setWinNumber(input);
 
     const conditions = [
         { check: () => input.length !== 6, action: () => output.printCountNotSix() },
@@ -53,8 +55,7 @@ const winNumberValidator = (input) => {
 
 const bonusNumberValidator = (input) => {
     const output = new BonusNumberOutput();
-    const lottoStore = LottoStore.getInstance();
-    const winNumber = lottoStore.getWinNumber();
+    const winNumber = LottoStore.getInstance().getWinNumber();
 
     const conditions = [
         { check: () => isWinEmpty(input), action: () => output.printEmptyValue() },

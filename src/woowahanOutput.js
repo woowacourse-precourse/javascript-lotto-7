@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import { CONSTANT, ERROR, SUBJECT } from "./utils/constants.js";
 
 class WoowahanOutput {
+    
     async errorPrint(prompt) {
         Console.print(`[ERROR] ${prompt}`)
     }
@@ -12,6 +13,7 @@ class WoowahanOutput {
 }
 
 class GameOutput extends WoowahanOutput {
+
     static printLottoTicketCount(countLotto) {
         super.print(`${countLotto}개를 구매했습니다.`);
     }

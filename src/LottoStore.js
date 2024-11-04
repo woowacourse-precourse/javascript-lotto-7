@@ -92,4 +92,8 @@ export default class LottoStore {
   getWinNumber(){
     return this.#winNumber;
   }
+
+  setWinNumber(winNumber){
+    this.#winNumber = winNumber;
+  }
 }
