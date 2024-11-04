@@ -2,7 +2,21 @@ import Lotto from './Lotto.js';
 import MissionUtils from '@woowacourse/mission-utils';
 
 class App {
-  async run() {}
+  async run() {
+    // 1. 로또 구입 금액 입력 처리
+    const purchaseAmount = await this.readLottoPurchaseAmount();
+    
+    // 2. 로또 번호 발행
+    const lottos = this.generateLottoNumbers(purchaseAmount);
+    this.displayLottoNumbers(lottos);
+
+    // 3. 당첨 번호 및 보너스 번호 입력 처리
+    const { winningNumbers, bonusNumber } = await this.readWinningNumbers();
+    
+    // 4. 당첨 통계 계산
+    const statistics = this.calculateWinnings(lottos, winningNumbers, bonusNumber);
+    this.printStatistics(statistics, purchaseAmount);
+  }
 }
 
 // 1. 로또 구입 금액 입력 처리
@@ -121,11 +135,11 @@ printStatistics(statistics, totalAmount) {
   const totalWinnings = Object.entries(statistics).reduce((sum, [key, count]) => {
     return sum + (prizeMoney[key] || 0) * count;
   }, 0);
-  
+
   // 수익률 계산
   const profitRate = ((totalWinnings / totalAmount) * 100).toFixed(1);
   MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
 }
-}
+
 
 export default App;
