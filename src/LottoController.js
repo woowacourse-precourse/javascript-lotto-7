@@ -4,25 +4,43 @@ import { validateAmount, validateBonus, validateNumbers } from './validate.js';
 
 class LottoController {
   async getLottoAmount() {
-    const amount = await Console.readLineAsync(
-      INPUT_MESSAGE.INPUT_LOTTO_AMOUNT
-    );
-    validateAmount(amount);
-    return parseInt(amount, 10);
+    while (true) {
+      try {
+        const amount = await Console.readLineAsync(
+          INPUT_MESSAGE.INPUT_LOTTO_AMOUNT
+        );
+        validateAmount(amount);
+        return parseInt(amount, 10);
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
   async getLottoNumber() {
-    const numbers = await Console.readLineAsync(
-      INPUT_MESSAGE.INPUT_LOTTO_NUMBERS
-    );
-    validateNumbers(numbers);
-    return numbers.split(',').map((num) => parseInt(num, 10));
+    while (true) {
+      try {
+        const numbers = await Console.readLineAsync(
+          INPUT_MESSAGE.INPUT_LOTTO_NUMBERS
+        );
+        validateNumbers(numbers);
+        return numbers.split(',').map((num) => parseInt(num, 10));
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
   async getLottoBonusNumber(numbers) {
-    const bonus = await Console.readLineAsync(
-      INPUT_MESSAGE.INPUT_BONUS_NUMBERS
-    );
-    validateBonus(bonus, numbers);
-    return bonus;
+    while (true) {
+      try {
+        const bonus = await Console.readLineAsync(
+          INPUT_MESSAGE.INPUT_BONUS_NUMBERS
+        );
+        validateBonus(bonus, numbers);
+        return parseInt(bonus, 10);
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
   printLottoCount(cnt) {
     Console.print(OUTPUT_MESSAGE.LOTTO_CNT(cnt));
