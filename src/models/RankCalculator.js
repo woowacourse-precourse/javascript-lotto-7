@@ -11,27 +11,34 @@ class RankCalculator {
     this.#bonusNumber = bonusNumber;
   }
 
-  // 등수 계산
   calculate() {
     const rankResult = new RankResult();
-
     const { lottoCount, lottos } = this.#purchaseHistory;
 
     lottos.forEach((lotto) => {
-      let matchCount = 0;
-      const lottoNumber = lotto.getNumbers();
-      let hasBonus = lottoNumber.includes(this.#bonusNumber);
-
-      this.#winningNumbers.forEach((number) => {
-        if (lottoNumber.includes(number)) matchCount++;
-      });
-
-      rankResult.registerRank(matchCount, hasBonus);
+      this.#calculateMatch(lotto, rankResult);
     });
 
     rankResult.calculateProfit(lottoCount);
 
     return rankResult;
+  }
+
+  #calculateMatch(lotto, rankResult) {
+    const lottoNumber = lotto.getNumbers();
+    const { matchCount, hasBonus } = this.#checkMatch(lottoNumber);
+    rankResult.registerRank(matchCount, hasBonus);
+  }
+
+  #checkMatch(lottoNumber) {
+    let matchCount = 0;
+    let hasBonus = lottoNumber.includes(this.#bonusNumber);
+
+    this.#winningNumbers.forEach((number) => {
+      if (lottoNumber.includes(number)) matchCount += 1;
+    });
+
+    return { matchCount, hasBonus };
   }
 }
 
