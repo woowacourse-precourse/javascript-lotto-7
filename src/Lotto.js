@@ -27,10 +27,10 @@ class Lotto {
   }
 
   getCompareResults(winningNumbers, bonusNumber) {
-    const matchedNumbers = this.matchNumbers(winningNumbers);
+    const matchingCount = this.matchNumbers(winningNumbers);
     const hasBonusNumber = this.hasBonusNumber(bonusNumber);
 
-    return { matchedNumbers, hasBonusNumber };
+    return { matchingCount, hasBonusNumber };
   }
 }
 
