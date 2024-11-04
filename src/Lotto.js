@@ -13,6 +13,7 @@ class Lotto {
     this.lottoNumbers = [];
     this.winningNumbers = [];
     this.bonusNumber = 0;
+    this.winningStatistics = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
   }
 
   // 구입 금액을 입력받아 초기화
@@ -25,6 +26,8 @@ class Lotto {
 
     await this.inputAndValidateWinningNumbers();
     await this.inputAndValidateBonusNumber();
+    this.calculateWinningStatistics();
+    this.printWinningStatistics();
   }
 
   // 1. 구입 금액을 입력받고 검증
@@ -82,6 +85,36 @@ class Lotto {
     } catch (error) {
       Console.print(error.message);
     }
+  }
+
+  // 7-1. 당첨 통계 계산
+  calculateWinningStatistics() {
+    this.lottoNumbers.forEach((lotto) => {
+      const matchCount = lotto.filter((num) => this.winningNumbers.includes(num)).length;
+      const hasBonus = lotto.includes(this.bonusNumber);
+
+      if (matchCount === 6) {
+        this.winningStatistics[6]++;
+      } else if (matchCount === 5 && hasBonus) {
+        this.winningStatistics[5.5]++; // 보너스 일치하는 경우
+      } else if (matchCount === 5) {
+        this.winningStatistics[5]++;
+      } else if (matchCount === 4) {
+        this.winningStatistics[4]++;
+      } else if (matchCount === 3) {
+        this.winningStatistics[3]++;
+      }
+    });
+  }
+
+  // 7-2. 당첨 통계 출력
+  printWinningStatistics() {
+    Console.print("\n당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${this.winningStatistics[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.winningStatistics[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.winningStatistics[5]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.winningStatistics[5.5]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.winningStatistics[6]}개`);
   }
 }
 
