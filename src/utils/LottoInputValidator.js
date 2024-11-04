@@ -1,3 +1,5 @@
+import Lotto from '../Lotto.js';
+
 export class LottoInputValidator {
 	getLottoPrice(inputAmount) {
 		if (!this.isValidInput(inputAmount)) {
@@ -27,21 +29,11 @@ export class LottoInputValidator {
 
 	getLottoWinner(winNumbers) {
 		const numsStr = winNumbers.split(',');
+		const numList = numsStr.map((numStr) => this.changeToNumber(numStr));
 
-		const numList = new Set();
-		for (const numStr of numsStr) {
-			const num = this.changeToNumber(numStr);
-			if (num < 1 || num > 45) {
-				// 추가된 유효성 검사
-				throw new Error('[ERROR] 로또 번호는 1 ~ 45 사이의 숫자여야 합니다.');
-			}
-			numList.add(num);
-		}
+		const lotto = new Lotto(numList);
 
-		if (numList.size !== 6) {
-			throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
-		}
-		return numList;
+		return lotto.getNumbers();
 	}
 
 	getLottoBonus(bonusNumber, winNumber) {
