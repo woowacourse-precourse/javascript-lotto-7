@@ -18,14 +18,12 @@ class App {
       this.#printResults();
     } catch (error) {
       Console.print(error.message);
-      throw error;
     }
   }
 
   async #purchaseLottos() {
     this.#purchaseAmount = await this.#getPurchaseAmount();
     const lottoCount = this.#calculateLottoCount(this.#purchaseAmount);
-
     this.#lottos = LottoMachine.createLottos(lottoCount);
     this.#printPurchaseResult();
   }
@@ -39,11 +37,11 @@ class App {
     const amount = Number(input);
 
     if (Number.isNaN(amount)) {
-      throw new Error(ERROR_MESSAGE.INVALID_PURCHASE_AMOUNT);
+      throw new Error('[ERROR] 로또 구입 금액은 1000원 단위여야 합니다.');
     }
 
-    if (amount % LOTTO.PRICE !== 0) {
-      throw new Error(ERROR_MESSAGE.INVALID_PURCHASE_AMOUNT);
+    if (!Number.isInteger(amount) || amount % LOTTO.PRICE !== 0) {
+      throw new Error('[ERROR] 로또 구입 금액은 1000원 단위여야 합니다.');
     }
 
     return amount;
@@ -54,7 +52,6 @@ class App {
   }
 
   #printPurchaseResult() {
-    Console.print('');
     Console.print(`${this.#lottos.length}개를 구매했습니다.`);
     this.#lottos.forEach((lotto) => {
       Console.print(`[${lotto.getNumbers().join(', ')}]`);
@@ -69,42 +66,37 @@ class App {
 
   async #getWinningNumbers() {
     const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
-    return this.#parseNumbers(input);
+    return this.#parseWinningNumbers(input);
   }
 
   async #getBonusNumber() {
     const input = await Console.readLineAsync(
       '\n보너스 번호를 입력해 주세요.\n'
     );
-    const number = Number(input);
-
-    if (Number.isNaN(number)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_FORMAT);
-    }
-
-    return number;
+    return this.#parseNumber(input);
   }
 
-  #parseNumbers(input) {
+  #parseWinningNumbers(input) {
     if (!input.includes(',')) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_FORMAT);
+      throw new Error('[ERROR] 쉼표를 구분자로 사용해 주세요.');
     }
 
     return input
       .split(',')
       .map((num) => num.trim())
-      .map((num) => {
-        const number = Number(num);
-        if (Number.isNaN(number)) {
-          throw new Error(ERROR_MESSAGE.INVALID_NUMBER_FORMAT);
-        }
-        return number;
-      });
+      .map(this.#parseNumber);
+  }
+
+  #parseNumber(num) {
+    const number = Number(num);
+    if (Number.isNaN(number)) {
+      throw new Error('[ERROR] 숫자만 입력 가능합니다.');
+    }
+    return number;
   }
 
   #calculateResults() {
     this.#lottoResult = new LottoResult(this.#purchaseAmount);
-
     this.#lottos.forEach((lotto) => {
       const matchCount = this.#countMatchingNumbers(lotto);
       const hasBonusMatch = this.#hasBonusMatch(lotto);
@@ -128,9 +120,10 @@ class App {
     Console.print('\n당첨 통계');
     Console.print('---');
 
-    for (const [message, count] of this.#lottoResult.getResults()) {
+    const results = this.#lottoResult.getResults();
+    results.forEach(([message, count]) => {
       Console.print(`${message} - ${count}개`);
-    }
+    });
 
     const profitRate = this.#lottoResult.calculateProfitRate();
     Console.print(`총 수익률은 ${profitRate}%입니다.`);

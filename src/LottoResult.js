@@ -6,26 +6,30 @@ class LottoResult {
 
   constructor(purchaseAmount) {
     this.#purchaseAmount = purchaseAmount;
+    this.#initializeResults();
+  }
+
+  #initializeResults() {
     this.#results = new Map([
-      [PRIZE.FIFTH.MESSAGE, 0],
-      [PRIZE.FOURTH.MESSAGE, 0],
-      [PRIZE.THIRD.MESSAGE, 0],
-      [PRIZE.SECOND.MESSAGE, 0],
-      [PRIZE.FIRST.MESSAGE, 0],
+      ['3개 일치 (5,000원)', 0],
+      ['4개 일치 (50,000원)', 0],
+      ['5개 일치 (1,500,000원)', 0],
+      ['5개 일치, 보너스 볼 일치 (30,000,000원)', 0],
+      ['6개 일치 (2,000,000,000원)', 0],
     ]);
   }
 
   addResult(matchCount, hasBonusMatch) {
     if (matchCount === 6) {
-      this.#updateCount(PRIZE.FIRST.MESSAGE);
+      this.#updateCount('6개 일치 (2,000,000,000원)');
     } else if (matchCount === 5 && hasBonusMatch) {
-      this.#updateCount(PRIZE.SECOND.MESSAGE);
+      this.#updateCount('5개 일치, 보너스 볼 일치 (30,000,000원)');
     } else if (matchCount === 5) {
-      this.#updateCount(PRIZE.THIRD.MESSAGE);
+      this.#updateCount('5개 일치 (1,500,000원)');
     } else if (matchCount === 4) {
-      this.#updateCount(PRIZE.FOURTH.MESSAGE);
+      this.#updateCount('4개 일치 (50,000원)');
     } else if (matchCount === 3) {
-      this.#updateCount(PRIZE.FIFTH.MESSAGE);
+      this.#updateCount('3개 일치 (5,000원)');
     }
   }
 
@@ -34,34 +38,29 @@ class LottoResult {
   }
 
   getResults() {
-    return new Map(this.#results);
-  }
-
-  calculateTotalPrize() {
-    let total = 0;
-
-    if (this.#results.get(PRIZE.FIRST.MESSAGE) > 0) {
-      total += this.#results.get(PRIZE.FIRST.MESSAGE) * PRIZE.FIRST.AMOUNT;
-    }
-    if (this.#results.get(PRIZE.SECOND.MESSAGE) > 0) {
-      total += this.#results.get(PRIZE.SECOND.MESSAGE) * PRIZE.SECOND.AMOUNT;
-    }
-    if (this.#results.get(PRIZE.THIRD.MESSAGE) > 0) {
-      total += this.#results.get(PRIZE.THIRD.MESSAGE) * PRIZE.THIRD.AMOUNT;
-    }
-    if (this.#results.get(PRIZE.FOURTH.MESSAGE) > 0) {
-      total += this.#results.get(PRIZE.FOURTH.MESSAGE) * PRIZE.FOURTH.AMOUNT;
-    }
-    if (this.#results.get(PRIZE.FIFTH.MESSAGE) > 0) {
-      total += this.#results.get(PRIZE.FIFTH.MESSAGE) * PRIZE.FIFTH.AMOUNT;
-    }
-
-    return total;
+    return Array.from(this.#results.entries());
   }
 
   calculateProfitRate() {
-    const totalPrize = this.calculateTotalPrize();
+    const totalPrize = this.#calculateTotalPrize();
     return ((totalPrize / this.#purchaseAmount) * 100).toFixed(1);
+  }
+
+  #calculateTotalPrize() {
+    const prizes = {
+      '3개 일치 (5,000원)': 5000,
+      '4개 일치 (50,000원)': 50000,
+      '5개 일치 (1,500,000원)': 1500000,
+      '5개 일치, 보너스 볼 일치 (30,000,000원)': 30000000,
+      '6개 일치 (2,000,000,000원)': 2000000000,
+    };
+
+    return Array.from(this.#results.entries()).reduce(
+      (total, [message, count]) => {
+        return total + prizes[message] * count;
+      },
+      0
+    );
   }
 }
 

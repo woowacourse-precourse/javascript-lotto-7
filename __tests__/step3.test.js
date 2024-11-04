@@ -24,7 +24,11 @@ describe('3단계 - 당첨 번호 입력', () => {
     mockRandomsAndInputs(inputs);
 
     const app = new App();
-    await expect(app.run()).rejects.toThrow('[ERROR]');
+
+    // 에러 메시지가 출력되는지 확인
+    const logSpy = getLogSpy();
+    await app.run();
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
   });
 });
 

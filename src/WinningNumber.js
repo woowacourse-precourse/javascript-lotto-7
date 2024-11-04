@@ -1,40 +1,36 @@
 import { LOTTO, ERROR_MESSAGE } from './constants.js';
 import Lotto from './Lotto.js';
 
-export default class WinningNumber {
+class WinningNumber {
   #numbers;
   #bonusNumber;
 
   constructor(numbers, bonusNumber) {
-    this.#validateNumbers(numbers);
     this.#validateBonusNumber(bonusNumber, numbers);
-
     this.#numbers = new Lotto(numbers).getNumbers();
     this.#bonusNumber = bonusNumber;
   }
 
-  #validateNumbers(numbers) {
-    if (!Array.isArray(numbers)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_FORMAT);
-    }
+  #validateBonusNumber(bonus, numbers) {
+    this.#validateBonusNumberFormat(bonus);
+    this.#validateBonusNumberRange(bonus);
+    this.#validateBonusNumberDuplicate(bonus, numbers);
+  }
 
-    if (numbers.some((num) => Number.isNaN(Number(num)))) {
+  #validateBonusNumberFormat(bonus) {
+    if (!Number.isInteger(bonus)) {
       throw new Error(ERROR_MESSAGE.INVALID_NUMBER_FORMAT);
     }
   }
 
-  #validateBonusNumber(bonus, numbers) {
-    const bonusNum = Number(bonus);
-
-    if (Number.isNaN(bonusNum)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_FORMAT);
-    }
-
-    if (bonusNum < LOTTO.MIN_NUMBER || bonusNum > LOTTO.MAX_NUMBER) {
+  #validateBonusNumberRange(bonus) {
+    if (bonus < LOTTO.MIN_NUMBER || bonus > LOTTO.MAX_NUMBER) {
       throw new Error(ERROR_MESSAGE.INVALID_NUMBER_RANGE);
     }
+  }
 
-    if (numbers.includes(bonusNum)) {
+  #validateBonusNumberDuplicate(bonus, numbers) {
+    if (numbers.includes(bonus)) {
       throw new Error(ERROR_MESSAGE.DUPLICATE_BONUS);
     }
   }
@@ -47,3 +43,5 @@ export default class WinningNumber {
     return this.#bonusNumber;
   }
 }
+
+export default WinningNumber;
