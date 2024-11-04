@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import {
   LOTTO_ERROR_MESSAGE,
   NUMBER_OF_LOTTO_NUMBERS,
@@ -14,9 +15,6 @@ class Lotto {
   }
 
   #validate(numbers) {
-    // if (numbers.length !== NUMBER_OF_LOTTO_NUMBERS) {
-    //   throw new Error(LOTTO_MESSAGE.LOTTO_NUMBER_ERROR_MESSAGE);
-    // }
     if (new Set(numbers).size !== NUMBER_OF_LOTTO_NUMBERS) {
       throw new Error(LOTTO_ERROR_MESSAGE.DUPLICATE_NUMBER_ERROR_MESSAGE);
     }
@@ -26,6 +24,9 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  printNumbers() {
+    Console.print(`[${this.#numbers.join(', ')}]`);
+  }
   sortLottoNumbers() {
     this.#numbers.sort(function (a, b) {
       return a - b;
