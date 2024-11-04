@@ -82,7 +82,9 @@ class App {
       const input = await MissionUtils.Console.readLineAsync();
       const number = parseInt(input, 10);
 
-      if (isNaN(number) == false && !this.answerNumbers.includes(number) && number >= 1 && number <= 45) {
+      if (isNaN(number) == false 
+          && !this.answerNumbers.includes(number) 
+          && number >= 1 && number <= 45) {
         this.bonusNumber = number;
         return;
       }
@@ -91,9 +93,36 @@ class App {
   }
 
   calculateLottoResults() {
+    this.lottos.forEach((lotto) => {
+      const isBonus = lotto.getNumbers().includes(this.bonusNumber);
+      const matchCount = lotto.getNumbers().filter((num) => 
+        this.answerNumbers.includes(num)).length;   
+
+      if (matchCount === 6) this.result.first += 1;
+      else if (matchCount === 5 && isBonus) this.result.second += 1;
+      else if (matchCount === 5) this.result.third += 1;
+      else if (matchCount === 4) this.result.fourth += 1;
+      else if (matchCount === 3) this.result.fifth += 1; 
+    });
   }
 
   printResults(moneyAmount) {
+    MissionUtils.Console.print("당첨 통계");
+    MissionUtils.Console.print("---");
+    MissionUtils.Console.print(`3개 일치 (5,000원) - ${this.result.fifth}개`);
+    MissionUtils.Console.print(`4개 일치 (50,000원) - ${this.result.fourth}개`);
+    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${this.result.third}개`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result.second}개`);
+    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${this.result.first}개`);
+
+    const totalPrize = this.result.first * 2000000000 +
+                       this.result.second * 30000000 +
+                       this.result.third * 1500000 +
+                       this.result.fourth * 50000 +
+                       this.result.fifth * 5000;
+
+    const totalProfit = ((totalPrize / moneyAmount) * 100).toFixed(1);
+    MissionUtils.Console.print(`총 수익률은 ${totalProfit}%입니다.`);
   }
 }
 
