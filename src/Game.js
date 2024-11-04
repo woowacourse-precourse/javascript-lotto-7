@@ -70,7 +70,6 @@ class Game {
         bonusPoint = 1;
       }
 
-
       resultList.push([point, bonusPoint]);
     });
 

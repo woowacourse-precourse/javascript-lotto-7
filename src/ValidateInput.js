@@ -73,7 +73,7 @@ class Validate {
       };
     });
 
-    return bonus;
+    return number;
   };
 };
 
