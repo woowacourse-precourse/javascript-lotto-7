@@ -1,11 +1,17 @@
-import { INPUT, OUTPUT, RATE, SECTION } from "./constants/message.js";
+import {
+  DELIMITER,
+  INPUT,
+  OUTPUT,
+  RATE,
+  SECTION,
+} from "./constants/message.js";
 import { getInput } from "./io/Input.js";
 import { getLottoNumber, getOutput, getResult } from "./io/Output.js";
 import Price from "./domain/Price.js";
 import Ticket from "./domain/Ticket.js";
 import Bonus from "./domain/Bonus.js";
 import Lotto from "./domain/Lotto.js";
-import Rate from "./domain/Rate.js";
+import Rate from "./domain/Calculate.js";
 
 class App {
   async run() {
@@ -18,12 +24,10 @@ class App {
 
       const userLottos = ticketArr.generateTickets();
       const generateLottoNumbers = userLottos.map((lotto) => lotto.value);
-
       await getLottoNumber(generateLottoNumbers);
 
       const lottoInput = await getInput(INPUT.LOTTO_NUMBER);
-      const winningNumbers = lottoInput.split(",").map(Number);
-
+      const winningNumbers = lottoInput.split(DELIMITER).map(Number);
       const lottoNumber = new Lotto(winningNumbers);
 
       const bonusInput = await getInput(INPUT.BONUS);
