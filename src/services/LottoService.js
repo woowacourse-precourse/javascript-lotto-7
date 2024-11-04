@@ -1,9 +1,9 @@
 import LottoChecker from "../models/LottoChecker.js";
 import LottoMachine from "../models/LottoMachine.js";
-import { Parser } from "../parser/Parser.js";
-import { BonusNumberValidator } from "../validator/BonusNumberValidator.js";
-import { LottoNumberValidator } from "../validator/LottoNumberValidator.js";
-import { PurchaseValidator } from "../validator/PurchaseValidator.js";
+import { Parser } from "../utils/parser/Parser.js";
+import { BonusNumberValidator } from "../utils/validator/BonusNumberValidator.js";
+import { LottoNumberValidator } from "../utils/validator/LottoNumberValidator.js";
+import { PurchaseValidator } from "../utils/validator/PurchaseValidator.js";
 
 class LottoService {
   #lottoMachine;

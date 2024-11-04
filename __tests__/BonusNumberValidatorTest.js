@@ -1,5 +1,5 @@
-import { BonusNumberValidator } from "../src/validator/BonusNumberValidator.js";
-import { ERROR_MESSAGES } from "../src/utils/ErrorMessageConstants.js";
+import { BonusNumberValidator } from "../src/utils/validator/BonusNumberValidator.js";
+import { ERROR_MESSAGES } from "../src/utils/constants/ErrorMessageConstants.js";
 
 describe("보너스 번호 검증 테스트", () => {
   const winningNumbers = [1, 2, 3, 4, 5, 6];

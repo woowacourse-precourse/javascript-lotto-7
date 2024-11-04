@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import { OUTPUT_CONSTANTS } from "../utils/ViewConstants.js";
-import { LOTTO_RANK } from "../utils/GameConstants.js";
+import { OUTPUT_CONSTANTS } from "../utils/constants/ViewConstants.js";
+import { LOTTO_RANK } from "../utils/constants/GameConstants.js";
 
 class OutputView {
   static showPurchaseCount(count) {

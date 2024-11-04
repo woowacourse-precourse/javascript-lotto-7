@@ -1,5 +1,5 @@
-import { GAME_CONSTANTS } from "../utils/GameConstants.js";
-import { ERROR_MESSAGES } from "../utils/ErrorMessageConstants.js";
+import { GAME_CONSTANTS } from "../constants/GameConstants.js";
+import { ERROR_MESSAGES } from "../constants/ErrorMessageConstants.js";
 
 export class LottoNumberValidator {
   // 로또 번호 검증

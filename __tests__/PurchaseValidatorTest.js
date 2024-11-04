@@ -1,5 +1,5 @@
-import { PurchaseValidator } from "../src/validator/PurchaseValidator.js";
-import { ERROR_MESSAGES } from "../src/utils/ErrorMessageConstants.js";
+import { PurchaseValidator } from "../src/utils/validator/PurchaseValidator.js";
+import { ERROR_MESSAGES } from "../src/utils/constants/ErrorMessageConstants.js";
 
 describe("구매 금액 검증 테스트", () => {
   test("구매 금액이 숫자가 아닐 경우 에러 반환", () => {

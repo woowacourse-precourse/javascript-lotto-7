@@ -1,4 +1,4 @@
-import { LottoNumberValidator } from "../validator/LottoNumberValidator.js";
+import { LottoNumberValidator } from "../utils/validator/LottoNumberValidator.js";
 
 class Lotto {
   #numbers;

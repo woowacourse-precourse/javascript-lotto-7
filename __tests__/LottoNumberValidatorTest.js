@@ -1,5 +1,5 @@
-import { ERROR_MESSAGES } from "../src/utils/ErrorMessageConstants.js";
-import { LottoNumberValidator } from "../src/validator/LottoNumberValidator.js";
+import { ERROR_MESSAGES } from "../src/utils/constants/ErrorMessageConstants.js";
+import { LottoNumberValidator } from "../src/utils/validator/LottoNumberValidator.js";
 
 describe("로또 번호 유효성 테스트", () => {
   test("로또 번호가 6개가 아닐 경우 에러 반환", () => {
