@@ -24,6 +24,18 @@ class Validator {
         this.isNotDuplicateNumbers(numbers);
     }
 
+    static validateBonusNumber(number) {
+        const validators = [
+            this.invalidNumber,
+            this.isvalidRange,
+            this.isNotDuplicateNumbers
+        ]
+    }
+
+    static validateWinningNumbersWithBonusNumber(winningNumbers, bonusNumber) {
+        if (winningNumbers.includes(bonusNumber)) throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.")
+    }
+
     static invalidNumber(number) {
         if (!Number(number)) throw new Error("[ERROR] 숫자를 입력해주세요.")
     }

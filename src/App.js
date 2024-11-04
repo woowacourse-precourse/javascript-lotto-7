@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Lottos from "./Lottos.js";
 import InputView from "./views/InputView.js";
 import OutputView from "./views/OutputView.js";
+import Validator from "./Validator.js";
 
 class App {
   async run() {
@@ -12,8 +13,9 @@ class App {
     OutputView.writeLottos(lottos)
 
     const winningNumbers = await InputView.readWinningNumbers();
-    const inputBonusNumber = await MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
-    const bonusNumber = Number(inputBonusNumber);
+    const bonusNumber = await InputView.readBonusNumber();
+    Validator.validateWinningNumbersWithBonusNumber(winningNumbers, bonusNumber);
+
     //[ERROR] 보너스 번호 유효성 평가 요구됨
     let matches = [0, 0, 0, 0, 0, 0, 0];
     let fiveMatchWithBonus = 0;
