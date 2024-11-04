@@ -23,7 +23,7 @@ class App {
     buyCountErrorCheck(buyCount);
 
     const lottoCount = buyCount / 1000;
-    MissionUtils.Console.print(ENTER + lottoCount + LOTTO_STRING);
+    MissionUtils.Console.print(lottoCount + LOTTO_STRING);
     const lottos = makeLottos(lottoCount);
 
     const winningLottoString = await MissionUtils.Console.readLineAsync(

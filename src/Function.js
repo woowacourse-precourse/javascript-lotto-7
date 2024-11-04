@@ -13,8 +13,18 @@ export const makeLottos = (count) => {
 const makeLotto = () => {
   const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   numbers.sort((a, b) => a - b);
-  MissionUtils.Console.print(numbers);
+
+  printLotto(numbers);
   return numbers;
+};
+
+const printLotto = (numbers) => {
+  let printLotto = "";
+  for (let i = 0; i < numbers.length - 1; i++) {
+    printLotto += numbers[i] + ", ";
+  }
+  printLotto += numbers[numbers.length - 1];
+  MissionUtils.Console.print(`[${printLotto}]`);
 };
 
 export const makeWinningLotto = (winningLottoString) => {
@@ -68,7 +78,9 @@ export const printEarn = (buyCount, equalCounts) => {
     equalCounts[7] * 30000000 +
     equalCounts[6] * 2000000000;
   const earnRate = (earn / buyCount) * 100;
-  MissionUtils.Console.print(Math.round(earnRate * 10) / 10 + "%");
+  MissionUtils.Console.print(
+    "총 수익률은 " + Math.round(earnRate * 10) / 10 + "%입니다. "
+  );
 };
 
 export const buyCountErrorCheck = (buyCount) => {
