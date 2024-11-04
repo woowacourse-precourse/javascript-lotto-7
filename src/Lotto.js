@@ -25,7 +25,11 @@ class Lotto {
   }
 
   #drawBonusNumber(bonusNumber) {
-    this.#state.matchBonus = this.#numbers.includes(bonusNumber);
+    this.#state.matchBonus = bonusNumber
+      .map((number) => {
+        return this.#numbers.includes(number);
+      })
+      .every(Boolean);
   }
 
   draw(winningNumbers, bonusNumber) {
