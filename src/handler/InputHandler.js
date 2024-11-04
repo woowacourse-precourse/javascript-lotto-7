@@ -14,7 +14,7 @@ export class InputHandler {
   async readNumber(message) {
     const input = await MissionUtils.Console.readLineAsync(message);
     const number = Number(input);
-    this.#validate(number);
+    this.#validateNumber(number);
     return number;
   }
 
@@ -23,20 +23,12 @@ export class InputHandler {
   }
 
   #validateNumbers(numbers) {
-    numbers.forEach((number) => this.#validate(number));
+    numbers.forEach((number) => this.#validateNumber(number));
   }
 
-  #validate(number) {
-    this.#isNumber(number);
-    this.#isInteger(number);
-  }
-
-  #isNumber(input) {
+  #validateNumber(input) {
     if (isNaN(input) || input === 0) throw new Error(inValidMessages.NaN);
-  }
-
-  #isInteger(number) {
-    if (!Number.isInteger(Number(number))) {
+    if (!Number.isInteger(Number(input))) {
       throw new Error(inValidMessages.integer);
     }
   }
