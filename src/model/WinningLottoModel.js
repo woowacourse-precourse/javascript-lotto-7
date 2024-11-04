@@ -26,15 +26,12 @@ export default class WinningLottoModel extends Lotto {
   }
 
   #determineRank(matchCount, lottoNumbers) {
-    if (matchCount === RANK_NAME.SIX) return RANK_NAME.SIX;
     if (
       matchCount === RANK_NAME.FIVE &&
       lottoNumbers.includes(this.#bonusNumber)
     )
       return RANK_NAME.FIVE_BONUS;
-    if (matchCount === RANK_NAME.FIVE) return RANK_NAME.FIVE;
-    if (matchCount === RANK_NAME.FOUR) return RANK_NAME.FOUR;
-    if (matchCount === RANK_NAME.THREE) return RANK_NAME.THREE;
-    return null;
+    if (matchCount < RANK_NAME.THREE) return null;
+    return matchCount;
   }
 }
