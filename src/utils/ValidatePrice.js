@@ -4,7 +4,6 @@ class ValidatePrice {
   }
   isNum() {
     if (isNaN(this.price)) {
-      console.log("!!!", this.price);
       throw new Error("[ERROR] 구매금액은 숫자로 입력해주세요");
     }
   }
