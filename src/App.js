@@ -17,7 +17,9 @@ class App {
     const winningNumber = await this.inputHandler.getWinningNumber();
     this.processWinningNumber(winningNumber);
 
-    const bonusNumber = await this.inputHandler.getBonusNumber();
+    const bonusNumber = await this.inputHandler.getBonusNumber(
+      this.WinningLottoNumbersArray
+    );
     this.processBonusgNumber(bonusNumber);
 
     this.compareLottoNumbers();
