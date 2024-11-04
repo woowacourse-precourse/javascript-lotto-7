@@ -1,7 +1,7 @@
 class BonusNumber { 
   #value;
-  constructor(number){ 
-    this.#validate(number);
+  constructor(number, lotto){ 
+    this.#validate(number, lotto);
     this.#value = number;
   }
 
@@ -15,7 +15,9 @@ class BonusNumber {
   }
 
   get value (){
-    return this.value;
+    return this.#value;
   }
 
 }
+
+export default BonusNumber;

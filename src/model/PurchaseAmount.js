@@ -10,8 +10,7 @@ class PurcahseAmount{
   }
 
   #validate(amount){
-    const numericStringRegex = /^[\d]+$/;
-    if (!numericStringRegex.test(amount)){
+    if (typeof amount !== 'number'){
       throw new Error('[ERROR] 당첨금액은 숫자로만 입력가능합니다.');
     }
     if (!isUnitFormmat(amount, LOTTO.PRICE)) {

@@ -1,28 +1,33 @@
-import Lotto from "../Lotto";
-import { intersect } from "../utils/intersect";
+import Lotto from '../Lotto.js';
+import { intersect } from '../utils/intersect.js';
 
 class WinningNumbers {
   #winningLotto;
   #bonus;
   
   constructor(numbers){
-    this.#validate(numbers, bonus);
+    this.#validate(numbers);
     this.#winningLotto = new Lotto(numbers);
   }
   
   test(lotto) {
-    const matched = intersect(lotto.numbers, [this.#winningLotto.numbers]);
+    const { length } = intersect(lotto.numbers, [...this.#winningLotto.numbers]);
     const bonusMatch = lotto.has(this.#bonus.value);
-    return { matched, bonusMatch };
+    return { matched: length, bonusMatch };
   }
   
-  set bonus (bonus) {
+  setBonus (bonus) {
     this.#bonus = bonus;
   }
 
   #validate (numbers) {
     new Lotto(numbers);
   }
+
+  has(number){
+    return this.#winningLotto.has(number);
+  }
+
 }
 
 export default WinningNumbers;
