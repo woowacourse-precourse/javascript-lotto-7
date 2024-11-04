@@ -17,10 +17,10 @@ class LottoController {
     return lottoNum;
   }
 
-  calcWinStat(lottoWinArr, lottoBonusNum, lottoPrice) {
+  calcWinStat(winLottoArr, lottoBonusNum, lottoPrice) {
     for (let i = 0; i < LottoController.userLottoArr.length; i++) {
       let winCnt = LottoController.userLottoArr[i].filter((num) =>
-        lottoWinArr.includes(num)
+        winLottoArr.getNumbers().includes(num)
       ).length;
       let isBonus = false;
       if (LottoController.userLottoArr[i].includes(lottoBonusNum))
