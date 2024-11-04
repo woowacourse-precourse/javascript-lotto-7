@@ -1,4 +1,5 @@
 import LottoResultDTO from '../dtos/LottoResultDTO.js';
+import LottoListDTO from '../dtos/LottoListDTO.js';
 
 export default class LottoController {
   #lottoPurchaser;
@@ -15,12 +16,11 @@ export default class LottoController {
 
   async run() {
     await this.#purchaseLottos();
-    this.#outputLottoView.printPurchasedLottosInfo(this.#lottoPurchaser);
+    this.#printPurchasedLottosInfo();
 
     await this.#decideWinningLotto();
 
     this.#generateLottoResult();
-
     this.#printResult();
   }
 
@@ -63,14 +63,23 @@ export default class LottoController {
     }
   }
 
+  #printPurchasedLottosInfo() {
+    const lottoCount = this.#lottoPurchaser.getLottoCount();
+    const lottos = this.#lottoPurchaser.getLottos();
+
+    const lottoListDTO = LottoListDTO.ofLottoCountAndLottos(lottoCount, lottos);
+
+    this.#outputLottoView.printPurchasedLottosInfo(lottoListDTO);
+  }
+
   #generateLottoResult() {
     this.#lottoPurchaser.compareLottosWithWinningLotto(this.#winningLotto);
     this.#lottoPurchaser.calculateEarningRate();
   }
 
-  #printResult(){
+  #printResult() {
     const lottoResult = this.#lottoPurchaser.getLottoResult();
-    const lottoResultDTO = LottoResultDTO.ofResultAndEarningRate(lottoResult.getResult(),lottoResult.getEarningRate());
+    const lottoResultDTO = LottoResultDTO.ofResultAndEarningRate(lottoResult.getResult(), lottoResult.getEarningRate());
 
     this.#outputLottoView.printLottoResult(lottoResultDTO);
     this.#outputLottoView.printEarningRate(lottoResultDTO);
