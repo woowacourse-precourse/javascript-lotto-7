@@ -4,6 +4,6 @@ export function calculateTotalPrize(score) {
 }
 
 export function calculateYield(totalPrize, purchaseAmount) {
-  if (purchaseAmount === 0) return "0.0"; // 금액이 0일 경우 0% 반환
-  return ((totalPrize / purchaseAmount) * 100).toFixed(1); // 수익률 계산
+  if (purchaseAmount === 0) return "0.0";
+  return ((totalPrize / purchaseAmount) * 100).toFixed(1);
 }
