@@ -23,7 +23,7 @@ class LottoInput {
       '\n보너스 번호를 입력해 주세요.\n',
     );
     const NUMBER = this.processInput(BONUS_NUMBER, false);
-    return NUMBER[0];
+    return NUMBER;
   }
 
   processInput(input, isWinningNumbers = true) {
