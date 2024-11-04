@@ -9,6 +9,7 @@ class LottoController {
 
   async run() {
     await this.#buyLotto();
+    this.#issueLotto();
   }
 
   async #buyLotto() {
@@ -17,6 +18,11 @@ class LottoController {
 
     const lottoAmount = this.#lottoModel.getLottoAmount();
     this.#lottoView.printLottoAmount(lottoAmount);
+  }
+
+  #issueLotto() {
+    this.#lottoModel.createLottoSet();
+    const lottoSet = this.#lottoModel.getLottoSet();
   }
 }
 
