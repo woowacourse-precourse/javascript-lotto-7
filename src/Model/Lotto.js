@@ -9,15 +9,25 @@ class Lotto {
   }
 
   #validate(numbers) {
+    this.#isValidLottoCount(numbers);
+    this.#hasUniqueNumbers(numbers);
+    this.#isWithinRange(numbers);
+  }
+
+  #isValidLottoCount(numbers) {
     if (numbers.length !== number.LIMIT_LOTTO_COUNT) {
       throw new Error(errorMessage.IS_OUT_OF_RANGE_LOTTO_COUNT);
     }
+  }
 
+  #hasUniqueNumbers(numbers) {
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== numbers.length) {
       throw new Error(errorMessage.IS_DUPLICATE_LOTTO_NUMBER);
     }
+  }
 
+  #isWithinRange(numbers) {
     const isOutOfRange = numbers.some(num => num < number.FIRST_LOTTO_NUM || num > number.LAST_LOTTO_NUM);
     if (isOutOfRange) {
       throw new Error(errorMessage.IS_OUT_OF_RANGE_LOTTO_COUNT);
