@@ -1,5 +1,4 @@
 import { checkLotto } from "../src/features/checkLotto.js";
-import LottoRank from "../src/LottoRank.js";
 
 describe("checkLotto 테스트", () => {
   beforeEach(() => {
@@ -10,7 +9,7 @@ describe("checkLotto 테스트", () => {
     const LOTTO_NUMBERS = [1, 2, 3, 4, 5, 6];
     const WINNING_NUMBERS = [1, 2, 3, 7, 8, 9];
     const BONUS_NUMBER = 10;
-    const EXPECTED = new LottoRank(3, false);
+    const EXPECTED = 3;
 
     expect(checkLotto(LOTTO_NUMBERS, WINNING_NUMBERS, BONUS_NUMBER)).toEqual(
       EXPECTED
