@@ -96,11 +96,9 @@ class App {
     return rankCounts;
   }
 
-  async #checkWinningResult(lottos, winningNumbers, bonusNumber) {
+  async #checkWinningResult(lottos) {
     const winningRanks = this.#lottoCenter.getWinningRanks(
       lottos.map((lotto) => lotto.getLottoNumbers()),
-      winningNumbers,
-      bonusNumber,
     );
     const rankCounts = this.#getRankCounts(winningRanks);
 
