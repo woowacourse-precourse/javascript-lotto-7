@@ -39,6 +39,7 @@ const runException = async (input) => {
   await app.run();
 
   // then
+  console.log(logSpy)
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
 
