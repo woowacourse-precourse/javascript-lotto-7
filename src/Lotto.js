@@ -1,4 +1,5 @@
 import { VALID_LOTTERY_NUM } from "./constants/utils.js";
+import { ERROR_MSG } from "./constants/message.js";
 
 class Lotto {
   #numbers;
@@ -10,11 +11,11 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== VALID_LOTTERY_NUM) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(ERROR_MSG.invalidLottoNumber);
     }
 
     if (new Set(numbers).size !== VALID_LOTTERY_NUM) {
-      throw new Error('[ERROR] 중복되지 않는 수 6개를 입력해주세요.');
+      throw new Error(ERROR_MSG.isDuplicatedNum);
     }
   }
 

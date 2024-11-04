@@ -1,6 +1,7 @@
 import LottoGame from '../src/LottoGame.js';
 import { Console } from '@woowacourse/mission-utils';
 import { jest } from '@jest/globals';
+import { ERROR_MSG } from "../src/constants/message.js";
 
 describe('로또 게임 클래스 테스트', () => {
   let lottoGame;
@@ -16,9 +17,9 @@ describe('로또 게임 클래스 테스트', () => {
       expect(() => lottoGame.buyLotto(1000)).not.toThrow();
     });
     test('예외', () => {
-      expect(() => lottoGame.buyLotto(500)).toThrow('[ERROR] 1000원 단위의 양수 금액을 입력해주세요.');
-      expect(() => lottoGame.buyLotto(-1000)).toThrow('[ERROR] 1000원 단위의 양수 금액을 입력해주세요.');
-      expect(() => lottoGame.buyLotto("*")).toThrow('[ERROR] 1000원 단위의 양수 금액을 입력해주세요.');
+      expect(() => lottoGame.buyLotto(500)).toThrow(ERROR_MSG.invalidPriceNum);
+      expect(() => lottoGame.buyLotto(-1000)).toThrow(ERROR_MSG.invalidPriceNum);
+      expect(() => lottoGame.buyLotto("*")).toThrow(ERROR_MSG.invalidPriceNum);
 
     })
   })
@@ -36,14 +37,14 @@ describe('로또 게임 클래스 테스트', () => {
   test('당첨 번호 입력시', () => {
     const winNumbers = [1, 2, 3, 4, 5, 6];
     expect(() => lottoGame.setWinNumbers(winNumbers)).not.toThrow();
-    expect(() => lottoGame.setWinNumbers([1, 2, 3, 4, 5, 5])).toThrow('[ERROR] 중복되지 않는 수 6개를 입력해주세요.');
-    expect(() => lottoGame.setWinNumbers([1, 2, 3, 4, 5])).toThrow('[ERROR] 중복되지 않는 수 6개를 입력해주세요.');
+    expect(() => lottoGame.setWinNumbers([1, 2, 3, 4, 5, 5])).toThrow(ERROR_MSG.isDuplicatedNum);
+    expect(() => lottoGame.setWinNumbers([1, 2, 3, 4, 5])).toThrow(ERROR_MSG.isDuplicatedNum);
   });
 
   test('보너스 번호', () => {
     lottoGame.setWinNumbers([1, 2, 3, 4, 5, 6]);
     expect(() => lottoGame.setBonusNumber(7)).not.toThrow();
-    expect(() => lottoGame.setBonusNumber(3)).toThrow('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+    expect(() => lottoGame.setBonusNumber(3)).toThrow(ERROR_MSG.sameWinBonus);
   });
 
   test('수익률 출력 확인', () => {
