@@ -1,9 +1,8 @@
+import Lotto from "../model/Lotto";
 
 export default class LottoValidator {
   static LOTTO_REGEX = /^[0-9]{1,2}(,\s*[0-9]{1,2}){5}$/;
   static BONUS_LOTTO_REGEX = /^[0-9]{1,2}\s*$/;
-  static MIN_LOTTO_NUMBER = 1;
-  static MAX_LOTTO_NUMBER = 45;
 
   static validatorPurchaseAmount(purchaseAmount) {
     if (purchaseAmount % 1000 !== 0)
@@ -23,7 +22,7 @@ export default class LottoValidator {
   }
 
   static validatorSingleNumber(number) {
-    if (number < LottoValidator.MIN_LOTTO_NUMBER || number > LottoValidator.MAX_LOTTO_NUMBER) {
+    if (number < Lotto.MIN_LOTTO_NUMBER || number > Lotto.MAX_LOTTO_NUMBER) {
       throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
   }  
