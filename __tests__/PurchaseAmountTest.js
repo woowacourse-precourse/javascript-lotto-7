@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import PurchaseAmountGenerator from '../src/getInput/PurchaseAmountGenerator.js';
+import { ERROR_MESSAGES, PURCHASE_ERRORS } from '../src/constants/constants.js';
 
 describe('PurchaseAmountValidator 클래스 테스트', () => {
   beforeEach(() => {
@@ -18,11 +19,11 @@ describe('PurchaseAmountValidator 클래스 테스트', () => {
   });
 
   test.each([
-    ['', '[ERROR] 빈 문자열입니다.'],
-    ['abc', '[ERROR] 숫자로 변환되지 않습니다.'],
-    ['3000.5', '[ERROR] 숫자로 변환되지 않습니다.'],
-    ['-3000', '[ERROR] 숫자로 변환되지 않습니다.'],
-    ['1500', '[ERROR] 1000으로 나누어지지 않습니다.'],
+    ['', ERROR_MESSAGES.IS_EMPTY],
+    ['abc', ERROR_MESSAGES.INVALID_INPUT],
+    ['3000.5', ERROR_MESSAGES.INVALID_INPUT],
+    ['-3000', ERROR_MESSAGES.INVALID_INPUT],
+    ['1500', PURCHASE_ERRORS.NOT_DIVIDED_1000],
   ])(
     '입력값 "%s"에 대해 예외 "%s"가 발생하고 다시 입력을 받는다.',
     async (input, expectedError) => {
