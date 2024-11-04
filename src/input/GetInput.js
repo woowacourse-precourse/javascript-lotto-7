@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import Lotto from './Lotto'; // Lotto 클래스를 import 합니다.
+import Lotto from './../Lotto'
 
 class GetInput {
   static async print() {

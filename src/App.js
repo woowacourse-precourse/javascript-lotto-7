@@ -1,6 +1,6 @@
 import GetInput from './input/GetInput.js';
 import MakeLotto from './util/MakeLotto.js';
-import ForPurchase from './output/ForPurchase.js';
+
 
 class App {
   async run() {
