@@ -6,6 +6,9 @@ class App {
     const money =  await this.moneyInput();
     const lottos = this.generateLottos(money / 1000);
     this.printLottos(lottos);
+    const winnerLotto = await this.winnerLottoInput();
+    const bonusNumber = await this.bonusNumberInput();
+
   }
 
   async moneyInput() {
@@ -30,9 +33,26 @@ class App {
     return amount;
   }
 
-  async winnerLottoInput(){
-    const winnerLotto = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.')
-    return winnerLotto
+  async winnerLottoInput() {
+    let isValid = false;
+    let winnerLotto;
+    while (!isValid) {
+      try {
+        winnerLotto = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.');
+        winnerLotto = winnerLotto.split(',').map(Number);
+        this.validateWinnerLotto(winnerLotto);
+        isValid = true;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+    return winnerLotto;
+  }
+
+  validateWinnerLotto(numbers) {
+    if (numbers.length !== 6) {
+      throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
+    }
   }
 
   async bonusNumberInput(){
