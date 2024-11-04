@@ -3,9 +3,8 @@ import BonusNumberInput from './BonusNumberInput.js';
 import BuyPriceInput from './BuyPriceInput.js';
 import OutputPrint from './OutputPrint.js';
 
-// func[], number[] => string
 const LoopWhileValid = {
-  async getValidatedInput(inputModule, validateArgs = []) {
+  getValidatedInput: async function (inputModule, validateArgs = []) {
     try {
       const userInput = await inputModule.get();
       if (inputModule.validate(userInput, ...validateArgs)) {
