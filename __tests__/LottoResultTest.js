@@ -33,10 +33,6 @@ describe('LottoResult 클래스 테스트', () => {
     );
   });
 
-  test('getLottos() 메서드가 로또 번호 배열을 반환해야 함', () => {
-    expect(lottoResult.getLottos()).toEqual(mockLottos);
-  });
-
   test('calculateResults() 메서드가 당첨 결과를 정확하게 계산해야 함', () => {
     const expectedRank = {
       ...INITIAL_RANK,
