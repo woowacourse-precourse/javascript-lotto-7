@@ -1,6 +1,7 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+// 입력값을 미리 설정하기 위해 MissionUtils.Console.readLineAsync 를 모킹 ( 제공된 입력값들을 순차적으로 반환하도록 설정)
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
@@ -11,19 +12,21 @@ const mockQuestions = (inputs) => {
   });
 };
 
+// 로또 번호를 미리 설정하기 위해 MissionUtils.Random.pickUniqueNumbersInRange 메서드를 모킹
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
   numbers.reduce((acc, number) => {
     return acc.mockReturnValueOnce(number);
   }, MissionUtils.Random.pickUniqueNumbersInRange);
 };
-
+// MissionUtils.Console.print메서드를 감시하는 logSpy 객체를 만든다. 실제 출력된 로그를 확인하고 검증할 수 있다.
 const getLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, "print");
   logSpy.mockClear();
   return logSpy;
 };
 
+// 특정 입력값을 주고 실행한 후 오류 메시지를 검증하는 함수
 const runException = async (input) => {
   // given
   const logSpy = getLogSpy();
