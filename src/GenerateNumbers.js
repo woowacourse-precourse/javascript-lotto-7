@@ -67,16 +67,20 @@ class GenerateNumbers {
   }
 
   calculateReturn(bills) {
+    const totalPrizeMoney = this.calculateTotalPrizeMoney();
     const totalPrice = bills * 1000;
-    const total =
+    const profit = (totalPrizeMoney / totalPrice) * 100;
+    return profit;
+  }
+
+  calculateTotalPrizeMoney() {
+    return (
       this.fifthPlaceCount * 5000 +
       this.fourthPlaceCount * 50000 +
       this.thirdPlaceCount * 1500000 +
       this.secondPlaceCount * 30000000 +
-      this.firstPlaceCount * 2000000000;
-
-    const profit = (total / totalPrice) * 100;
-    return profit;
+      this.firstPlaceCount * 2000000000
+    );
   }
 
   printPrizeResult() {
