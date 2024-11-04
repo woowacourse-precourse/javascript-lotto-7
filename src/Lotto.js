@@ -13,7 +13,6 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  // 현재 로또 번호를 반환하는 메서드
   getNumbers() {
     return this.#numbers;
   }

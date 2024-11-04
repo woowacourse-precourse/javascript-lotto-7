@@ -9,23 +9,23 @@ import {
 
 class IOService {
   async getUserInput(promptMessage) {
-    return await getInput(promptMessage); // 사용자 입력을 받음
+    return await getInput(promptMessage);
   }
 
   displayTicketCount(ticketCount) {
-    printTicketCount(ticketCount); // 구입한 로또 티켓 수 출력
+    printTicketCount(ticketCount);
   }
 
   displayLottoTickets(tickets) {
-    printLottoTickets(tickets); // 생성된 로또 티켓들 출력
+    printLottoTickets(tickets);
   }
 
   displayWinningResult(winningResult) {
-    printWinningResult(winningResult); // 당첨 결과 출력
+    printWinningResult(winningResult);
   }
 
   displayLottoYield(yieldPercentage) {
-    printLottoYield(yieldPercentage); // 수익률 출력
+    printLottoYield(yieldPercentage);
   }
 }
 
