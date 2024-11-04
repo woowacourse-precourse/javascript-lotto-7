@@ -3,10 +3,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
-
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
-
     return Promise.resolve(input);
   });
 };
@@ -48,9 +46,7 @@ describe("로또 테스트", () => {
   });
 
   test("기능 테스트", async () => {
-    // given
     const logSpy = getLogSpy();
-
     mockRandoms([
       [8, 21, 23, 41, 42, 43],
       [3, 5, 11, 16, 32, 38],
@@ -63,11 +59,9 @@ describe("로또 테스트", () => {
     ]);
     mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
-    // when
     const app = new App();
     await app.run();
 
-    // then
     const logs = [
       "8개를 구매했습니다.",
       "[8, 21, 23, 41, 42, 43]",
@@ -94,4 +88,9 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+  
+  test("구입금액이 10만원을 넘을 경우", async () => {
+    await runException("1000000");
+  });
+  
 });
