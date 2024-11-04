@@ -25,6 +25,8 @@ const validator = {
       throw new Error(ERROR_MESSAGES.invalidBonusNumberLength);
     if (!this.uniqueBonusNumber(winningNumbers, bonusNumbersArray))
       throw new Error(ERROR_MESSAGES.duplicatedBonusNumber);
+    if (!this.validRangeInteger(bonusNumbersArray))
+      throw new Error(ERROR_MESSAGES.invalidRangeNumber);
   },
 
   validateBonusNumberString(bonusNumberString) {
