@@ -1,5 +1,13 @@
 import Lotto from '../../src/models/Lotto';
 import { ERROR_MESSAGES } from '../../src/constants/errorMessage';
+import { LOTTO_CONFIG } from '../../src/constants/lottoConfig';
+import { Random } from '@woowacourse/mission-utils';
+
+jest.mock('@woowacourse/mission-utils', () => ({
+  Random: {
+    pickUniqueNumbersInRange: jest.fn(),
+  },
+}));
 
 describe('Lotto 클래스 테스트', () => {
   describe('생성자 및 유효성 검사', () => {
@@ -18,6 +26,20 @@ describe('Lotto 클래스 테스트', () => {
     test('로또 번호가 유효한 경우 객체가 정상적으로 생성되는지 테스트', () => {
       const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
       expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+  });
+
+  describe('generate 메서드', () => {
+    test('로또 번호가 올바른 범위와 갯수로 생성되는지 테스트', () => {
+      Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 4, 5, 6]);
+      const lotto = Lotto.generate();
+
+      expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
+      expect(Random.pickUniqueNumbersInRange).toHaveBeenCalledWith(
+        LOTTO_CONFIG.NUMBER_MIN,
+        LOTTO_CONFIG.NUMBER_MAX,
+        LOTTO_CONFIG.NUMBER_COUNT
+      );
     });
   });
 });
