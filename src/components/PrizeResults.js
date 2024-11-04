@@ -14,15 +14,16 @@ export default class {
 
   // 당첨 번호 5개와 보너스 번호를 추가로 맞춘 경우
   saveWithBonus(matchedCount, hasBonusNumber) {
-    const result = this.#prizeResults.get(matchedCount) || {
+    const bonusResult = this.#prizeResults.get(matchedCount) || {
       withBonus: 0,
       withoutBonus: 0,
     };
     if (hasBonusNumber) {
-      result.withBonus += 1;
-      return;
+      bonusResult.withBonus += 1;
+    } else {
+      bonusResult.withoutBonus += 1;
     }
-    result.withoutBonus += 1;
+    this.#prizeResults.set(matchedCount, bonusResult);
   }
 
   get() {
