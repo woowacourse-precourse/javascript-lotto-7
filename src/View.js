@@ -35,7 +35,7 @@ class View {
   }
 
   static displayPurchaseInfomation(count) {
-    View.printResult(`${count}개를 구매했습니다.`);
+    View.printResult(`\n${count}개를 구매했습니다.`);
   }
 
   static #sortAscending = (numbers) => numbers.sort((a, b) => a - b);
