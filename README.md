@@ -138,6 +138,10 @@
   - [x] winningRanks 업데이트
   - [x] winningRanks 출력
 - [x] WinningLotto 클래스 제작 (당첨 번호 및 보너스 번호 관리 클래스)
+
   - [x] 당첨번호 가공
   - [x] 보너스 번호 가공
   - [x] winningNumbersArray 출력
+
+- [x] ErrorHandler 클래스 별도 구현
+- [x] 하드코딩 -> 상수화
