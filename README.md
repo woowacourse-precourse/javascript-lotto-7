@@ -40,7 +40,7 @@
  ┃ ┣ 📜inputService.js
  ┃ ┣ 📜outputService.js
  ┃ ┣ 📜printResult.js
- ┃ ┗ 📜Validator.js
+ ┃ ┗ 📜validation.js
  ┣ 📜App.js
  ┣ 📜index.js
  ┗ 📜Lotto.js
