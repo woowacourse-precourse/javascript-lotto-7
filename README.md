@@ -2,13 +2,87 @@
 
 ---
 
+
+
+---
+
+## 프로젝트 구조
+
+프로젝트 디렉터리
+
+```termainal
+├── App.js
+├── Class
+│   ├── BonusNumber.js
+│   ├── LottoList.js
+│   ├── LottoResult.js
+│   └── Purchase.js
+├── Lotto.js
+├── feature
+│   ├── UI
+│   │   ├── getUserInput.js
+│   │   ├── purchaseOutput.js
+│   │   └── resultOutPut.js
+│   ├── calculate
+│   │   └── getMargin.js
+│   ├── match
+│   │   └── getMatchCount.js
+│   ├── parse
+│   │   ├── parseArray.js
+│   │   └── parseMap.js
+│   └── validate
+│       ├── checkDecimal.js
+│       ├── checkEmptyInput.js
+│       ├── checkPurchase.js
+│       └── checkWinNumber.js
+├── index.js
+└── process
+    ├── parse
+    │   └── processParseToArray.js
+    ├── processBonusNumber.js
+    ├── processLottoList.js
+    ├── processLottoResult.js
+    ├── processPurchase.js
+    └── processWinNumber.js
+```
+
+test 디렉터리
+
+```terminal
+├── ApplicationTest.js
+├── Class
+│   ├── BonusNumberClassTest.js
+│   ├── LottoListClassTest.js
+│   ├── LottoResultClassTest.js
+│   └── PurchaseClassTest.js
+├── LottoTest.js
+├── feature
+│   ├── UI
+│   │   └── getUserInputTest.js
+│   ├── calculate
+│   │   └── getMarginTest.js
+│   ├── match
+│   │   └── getMatchCountTest.js
+│   ├── parse
+│   │   ├── parseArrayTest.js
+│   │   └── parseMapTest.js
+│   └── validate
+│       ├── checkDecimalTest.js
+│       ├── checkPurchaseTest.js
+│       └── checkWinNumberTest.js
+└── process
+    ├── processLottoListTest.js
+    ├── processPurchaseTest.js
+    └── processWinNumberTest.js
+```
+
 ## 구현 목록
 
-### 입력
+---
 
-#### 구입 금액 입력
+### 구입 금액 입력
 
-##### 구현 기획
+#### 구현 기획
 
 ```terminal
 1. 1000원 단위로 입력을 받는다
@@ -17,7 +91,8 @@
 
 구현 목록
 
-통합 기능
+통합 기능  
+[processPurchase](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/process/processPurchase.js)
 
 ```termainal
 1. 유저의 입력을 비동기로 받는다
@@ -30,14 +105,16 @@ error
 함수를 재귀한다
 ```
 
-UI
+UI  
+[getPurchase](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/UI/getUserInput.js)
 
 ```terminal
 Console.readLineAsync를 활용해서 안내 문구를 출력
 입력값을 반환
 ```
 
-Class
+Class  
+[Purchase](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/Class/Purchase.js)
 
 ```javascript
 필드 : 유저의 입력값[private, public]
@@ -51,7 +128,8 @@ Class
         변환된 입력값을 반환
 ```
 
-Feature
+Feature  
+[checkPurchase](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkPurchase.js)
 
 ```javascript
 validate
@@ -76,7 +154,8 @@ NaN, 1000 미만, 1000으로 나누어 떨어지지 않을 경우
 
 구현 목록
 
-통합 기능
+통합 기능  
+[processLottoList](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/process/processLottoList.js)
 
 ```javascript
 구매액으로 LottoList 클래스를 인스턴스화
@@ -88,7 +167,8 @@ Error
 함수를 재귀
 ```
 
-Class
+Class  
+[LottoList](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/Class/LottoList.js)
 
 ```javascript
 필드 : 구매액, 로또 구매 리스트
@@ -107,7 +187,8 @@ Class
         구매 횟수와 동일한 길이를 가진 배열을 반환한다
 ```
 
-UI
+UI  
+[purchaseOutPut](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/UI/purchaseOutput.js)
 
 ```javascript
 1. 구매 횟수를 활용해서 초기 문자열을 생성
@@ -116,19 +197,24 @@ UI
 4. 최종 문자열을 유저에게 출력
 ```
 
+---
+
 ### 당첨 번호 입력
 
 #### 구현 기획
 
+```terminal
 6개의 숫자를 입력 받는다
 쉼표(,)로 구분한다
 중복 숫자가 있는지 확인한다
 1 ~ 45 사이인지 확인한다
 숫자가 양의 정수 인지 확인한다(음수, decimal, NaN)
+```
 
 구현 목록
 
-Process
+Process  
+[processWinNumber](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/process/processWinNumber.js)
 
 ```javascript
 유저의 입력값을 비동기로 받는다
@@ -137,7 +223,8 @@ Lotto 클래스로 당첨 번호를 인스턴스화 하고, 접근자를 활용�
 당첨 번호를 반환
 ```
 
-UI
+UI  
+[getWinNumber](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/UI/getUserInput.js)
 
 ```javascript
 1. 유저에게 입력값에 대한 조건을 안내할 문구를 출력
@@ -146,7 +233,15 @@ UI
 
 Feature
 
-process
+Process  
+[processParseToArray](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/process/parse/processParseToArray.js)  
+
+Validate  
+[checkDicimal](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkDecimal.js)  
+[checkEmptyInput](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkEmptyInput.js)
+
+Parse  
+[parseToNumberArray](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/parse/parseArray.js)
 
 ```javascript
 validate
@@ -161,7 +256,9 @@ parse
 변환된 최종 배열을 반환
 ```
 
-Class
+Class  
+[Lotto](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/Lotto.js)  
+[checkWinNumbers, checkDuplicate](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkWinNumber.js)  
 
 ```javascript
 필드 : 당첨 번호 배열
@@ -179,10 +276,14 @@ Feature
 
 - Validate
 
+[checkWinNumbers, checkDuplicate](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkWinNumber.js)  
+
 ```javascript
 NaN, 1 ~ 45 사이의 값, decimal을 확인
-유효하지 않은 값에 대한 
+유효하지 않은 값에 대한 에러 던짐
 ```
+
+---
 
 ### 보너스 번호 입력
 
@@ -195,6 +296,8 @@ NaN, 1 ~ 45 사이의 값, decimal을 확인
 
 Process
 
+[processBonusNumber](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/process/processBonusNumber.js)
+
 ```javascript
 사용자로 부터 보너스 번호를 입력 받는다
 입력값을 활용해서 BonusNumber 클래스를 인스턴스 화 하고, 접근자를 활용해 필드값을 변수에 저장
@@ -205,14 +308,20 @@ Error
 함수를 재귀
 ```
 
-UI
+UI  
+[getBonusNumber](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/UI/getUserInput.js)
 
 ```javascript
 보너스 번호 입력에 대한 안내 문구를 사용자에게 출력
 입력값을 반환
 ```
 
-Class
+Class  
+[BonusNumber](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/Class/BonusNumber.js)  
+
+[checkEmpty](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkEmptyInput.js)  
+[checkDecimal](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkDecimal.js)  
+[checkNumber, checkDulicate](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/validate/checkWinNumber.js)
 
 ```javascript
 필드 : 보너스 번호, 당첨 번호
@@ -229,6 +338,8 @@ Class
     당첨 번호를 반환
 ```
 
+---
+
 ### 로또 당첨 결과 출력
 
 #### 구현 기획
@@ -239,7 +350,10 @@ Class
 
 구현 목록
 
-Class
+Class  
+[LottoResult](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/Class/LottoResult.js)  
+
+[getFilteredMatchList](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/match/getMatchCount.js)
 
 ```javascript
 필드 : 구매 내역, 당첨 내역
@@ -265,6 +379,11 @@ Feature
 
 당첨 갯수 3개 이상인 내역 반환
 
+[getWinNumberMatchCount,  
+getBonusNumberMatch,  
+winNumberMatcher,  
+getFilteredMatchList](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/match/getMatchCount.js)
+
 ```javascript
 1. 당첨 갯수 반환
 2. 보너스 번호 일치 여부 반환
@@ -274,7 +393,9 @@ Feature
 4. 3개 이상 당첨된 내역을 추려서 반환
 ```
 
-Parse
+Parse  
+
+[addComma, getWinningResultText](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/parse/parseMap.js)
 
 ```javascript
 당첨액을 ,로 구분하는 기능
@@ -291,6 +412,8 @@ Parse
 
 당첨 총액, 수익률 계산
 
+[getMarginSum, getMarginRate](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/calculate/getMargin.js)
+
 ```javascript
 1. 당첨 총액 계산
     당첨 내역을 활용
@@ -304,6 +427,8 @@ Parse
 ```
 
 UI
+
+[resultOutPut](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/UI/resultOutPut.js)
 
 ```javascript
 생성된 유저 출력 문자열, 수익률을
