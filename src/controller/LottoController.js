@@ -2,7 +2,8 @@ import Lotto from "../model/Lotto.js";
 import InputView from "../view/InputView.js";
 import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES } from "../constant/messages.js";
-import { ERROR_MESSAGES } from "../constant/errors.js";
+import { validator } from "../utils/validator.js";
+
 class LottoController {
   #inputView;
   #totalProfitRatio;
@@ -10,15 +11,7 @@ class LottoController {
     this.#inputView = new InputView();
     this.#totalProfitRatio = 0;
   }
-  validateLottoAmount(amount) {
-    if (isNaN(amount)) {
-      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_TYPE);
-    }
 
-    if (amount < 0 || amount % 1000 !== 0) {
-      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_DIVIDE_BY_1000);
-    }
-  }
   makeLottoTickets(numberOfLotto) {
     const tickets = [];
     for (let i = 0; i < numberOfLotto; i++) {
@@ -27,45 +20,13 @@ class LottoController {
     }
     return tickets;
   }
-  validateWinningLottoNumbers(numbers) {
-    try {
-      return new Lotto(numbers.split(",").map((e) => +e));
-    } catch (error) {
-      throw error;
-    }
-  }
 
-  validateBonusNumberType(bonusNumber) {
-    if (isNaN(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_TYPE);
-    }
-  }
-  validateBonusNumberUniqueness(winningNumbers, bonusNumber) {
-    if (winningNumbers.some((number) => bonusNumber === number)) {
-      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_UNIQUENESS);
-    }
-  }
-  validateBonusNumberRange(bonusNumber) {
-    if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
-    }
-  }
-
-  validateBonusNumber(winningNumbers, bonusNumber) {
-    try {
-      this.validateBonusNumberType(bonusNumber);
-      this.validateBonusNumberUniqueness(winningNumbers, bonusNumber);
-      this.validateBonusNumberRange(bonusNumber);
-    } catch (error) {
-      throw error;
-    }
-  }
   async getWinningLottoNumbers() {
     try {
       const winningLottoNumbers =
         await this.#inputView.readWinningLottoNumbers();
 
-      return this.validateWinningLottoNumbers(winningLottoNumbers.trim());
+      return validator.validateWinningLottoNumbers(winningLottoNumbers.trim());
     } catch (error) {
       console.log(error);
       this.getWinningLottoNumbers();
@@ -76,7 +37,7 @@ class LottoController {
     try {
       const bonusNumber = await this.#inputView.readBonusNumbers();
 
-      this.validateBonusNumber(winningNumbers, Number(bonusNumber.trim()));
+      validator.validateBonusNumber(winningNumbers, Number(bonusNumber.trim()));
 
       return Number(bonusNumber.trim());
     } catch (error) {
@@ -161,7 +122,7 @@ class LottoController {
       const lottoAmountInput = await this.#inputView.readLottoAmount();
       const lottoAmount = Number(lottoAmountInput);
 
-      this.validateLottoAmount(lottoAmount);
+      validator.validateLottoAmount(lottoAmount);
 
       const numberOfLotto = lottoAmount / 1000;
       const lottoTickets = this.makeLottoTickets(numberOfLotto);

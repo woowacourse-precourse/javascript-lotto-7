@@ -1,0 +1,50 @@
+import { ERROR_MESSAGES } from "../constant/errors.js";
+
+export const validator = {
+  // 로또 구입 금액 유효성 검사
+  validateLottoAmount(amount) {
+    if (isNaN(amount)) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_TYPE);
+    }
+
+    if (amount < 0 || amount % 1000 !== 0) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_AMOUNT_DIVIDE_BY_1000);
+    }
+  },
+  // 로또 당첨 번호 유효성 검사
+  validateWinningLottoNumbers(numbers) {
+    try {
+      return new Lotto(numbers.split(",").map((e) => +e));
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  validateBonusNumberType(bonusNumber) {
+    if (isNaN(bonusNumber)) {
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_TYPE);
+    }
+  },
+  // 보너스 번호가 로또 번호가 겹치지 않는지 확인
+  validateBonusNumberUniqueness(winningNumbers, bonusNumber) {
+    if (winningNumbers.some((number) => bonusNumber === number)) {
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_UNIQUENESS);
+    }
+  },
+
+  validateBonusNumberRange(bonusNumber) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
+    }
+  },
+  // 전체적인 보너스 번호 유효성 검사.
+  validateBonusNumber(winningNumbers, bonusNumber) {
+    try {
+      validateBonusNumberType(bonusNumber);
+      validateBonusNumberUniqueness(winningNumbers, bonusNumber);
+      validateBonusNumberRange(bonusNumber);
+    } catch (error) {
+      throw error;
+    }
+  },
+};
