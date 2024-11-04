@@ -12,4 +12,16 @@ describe('로또 클래스 테스트', () => {
       new Lotto([1, 2, 3, 4, 5, 5]);
     }).toThrow('[ERROR]');
   });
+
+  test('로또 번호가 1~45 범위를 벗어날 경우 예외가 발생한다.', () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 46]);
+    }).toThrow('[ERROR]');
+  });
+
+  test('로또 번호가 숫자가 아닐 경우 예외가 발생한다.', () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 'abc']);
+    }).toThrow('[ERROR]');
+  });
 });
