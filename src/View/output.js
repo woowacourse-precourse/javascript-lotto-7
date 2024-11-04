@@ -12,11 +12,9 @@ export function printLottoTickets(lottoTickets) {
 }
 
 export function printWinningResult(winningResult) {
-  Console.print("\n당첨 통계");
-  Console.print("---");
+  Console.print("\n당첨 통계\n---");
 
   Object.values(RANKS).forEach((rank) => {
-    if (rank.key === "noMatch") return; // 0개 일치 제외
     let description;
     if (rank.key === "fiveMatchWithBonus") {
       description = `5개 일치, 보너스 볼 일치`;

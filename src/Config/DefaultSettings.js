@@ -11,9 +11,9 @@ const defaultSettings = {
     pickingNumber: 6,
   },
   systemMessages: {
-    askUserAmount: "구입금액을 입력해 주세요.",
-    askUserLottoNumber: "당첨 번호를 입력해 주세요.",
-    askUserBonusNumber: "보너스 번호를 입력해 주세요.",
+    askUserAmount: "구입금액을 입력해 주세요.\n",
+    askUserLottoNumber: "\n당첨 번호를 입력해 주세요.\n",
+    askUserBonusNumber: "\n보너스 번호를 입력해 주세요.\n",
   },
 };
 export default defaultSettings;

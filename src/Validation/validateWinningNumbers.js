@@ -35,20 +35,17 @@ function checkForDuplicates(numbers) {
 
 // 유효성 검사 함수
 function validateWinningNumbers(input) {
-  // 입력값을 쉼표로 구분하여 배열로 변환
   const numbers = input.split(",").map((num) => num.trim());
 
-  // 개별 유효성 검사 함수 호출
-  checkNumberCount(numbers); // 숫자 개수 확인
-  checkAllNumbers(numbers); // 모든 값이 숫자인지 확인
+  checkNumberCount(numbers);
+  checkAllNumbers(numbers);
 
-  // 숫자 배열로 변환
   const winnigNumbers = numbers.map((num) => parseInt(num, 10));
 
-  checkNumberRange(winnigNumbers); // 숫자 범위 확인
-  checkForDuplicates(winnigNumbers); // 중복 확인
+  checkNumberRange(winnigNumbers);
+  checkForDuplicates(winnigNumbers);
 
-  return winnigNumbers; // 유효한 경우 숫자 배열 반환
+  return winnigNumbers;
 }
 
 export { validateWinningNumbers };

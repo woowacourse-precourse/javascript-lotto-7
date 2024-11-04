@@ -1,5 +1,4 @@
 const RANKS = Object.freeze({
-  NO_MATCH: { key: "noMatch", prize: 0 },
   THREE_MATCH: { key: "threeMatch", prize: 5_000 },
   FOUR_MATCH: { key: "fourMatch", prize: 50_000 },
   FIVE_MATCH: { key: "fiveMatch", prize: 1_500_000 },
