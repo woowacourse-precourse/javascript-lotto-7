@@ -5,8 +5,6 @@ import Lotto from "../Lotto.js";
 import checkDecimal from "../feature/validate/checkDecimal.js";
 import { checkEmptyArguments } from "../feature/validate/checkEmptyInput.js";
 
-// TODO : 함수 줄 길이를 줄여야 함
-
 async function processWinNumber() {
   try {
     const USER_INPUT = await getWinNumber();
