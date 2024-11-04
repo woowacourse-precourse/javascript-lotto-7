@@ -1,6 +1,5 @@
 import Lotto from "../Lotto.js";
 import { errorMessage } from "../constant/errorMessage.js";
-import { inputWinningNumbers, inputBonusNumbers } from "../utils/inputView.js";
 
 class Comparison {
     #winningNumber;

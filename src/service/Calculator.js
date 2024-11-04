@@ -11,7 +11,7 @@ export class Calculator {
     }
     static #lottoPrize = 1000;
 
-    #initialLottos(){
+    static #initialLottos(){
         return Array(6).fill(0);
     }
 
@@ -23,7 +23,7 @@ export class Calculator {
         return results.reduce((counts, result) => {
             counts[result.rank]++;
             return counts;
-        }, Calculator.#initialLottos());
+        }, this.constructor.#initialLottos());
     }
 
     #calculateWinningStatics(lottos, comparison){
@@ -63,7 +63,7 @@ export class Calculator {
         return this.#roundToDecimal((totalPrize / totalCoast * 100), 2);
     }
 
-    #calculateGameResults(lottos, comparison) {
+    calculateGameResults(lottos, comparison) {
         const results = this.#calculateLottoResults(lottos, comparison);
         const rankCounts = this.#countRankResult(results);
         const winningStatistics = this.#calculateWinningStatics(lottos, comparison);
