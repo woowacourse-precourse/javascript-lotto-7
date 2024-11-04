@@ -1,3 +1,4 @@
+import Lotto from "./Lotto.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
@@ -13,8 +14,8 @@ class App {
     MissionUtils.Console.print(`\n${lottoQuantity}개를 구매했습니다.`);
 
     const allLottos = this.generateLottoNumbers(lottoQuantity);
-    allLottos.forEach((lottoNumbers) => {
-      MissionUtils.Console.print(`[${lottoNumbers.join(", ")}]`);
+    allLottos.forEach((lotto) => {
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
 
     const winningNumbersInput = await MissionUtils.Console.readLineAsync(
@@ -37,11 +38,11 @@ class App {
       6: 0,
     };
 
-    allLottos.forEach((lottoNumbers) => {
-      const matchedCount = lottoNumbers.filter((num) =>
-        winningNumbers.includes(num)
-      ).length;
-      const hasBouns = lottoNumbers.includes(bonusNumber);
+    allLottos.forEach((lotto) => {
+      const { matchedCount, hasBouns } = lotto.getMatchResult(
+        winningNumbers,
+        bonusNumber
+      );
 
       if (matchedCount === 5 && hasBouns) {
         counts["5_bonus"]++;
@@ -77,8 +78,8 @@ class App {
         45,
         6
       );
-      lottoNumbers.sort((a, b) => a - b);
-      allLottos.push(lottoNumbers);
+      const lotto = new Lotto(lottoNumbers);
+      allLottos.push(lotto);
     }
     return allLottos;
   }

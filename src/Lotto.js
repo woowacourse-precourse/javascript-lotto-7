@@ -3,16 +3,32 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = numbers.sort((a, b) => a - b);
   }
 
   #validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+    if (new Set(numbers).size !== numbers.length) {
+      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
+    }
+    if (!numbers.every((num) => num >= 1 && num <= 45)) {
+      throw new Error("[ERROR] : 당첨 번호는 1~45 사이여야 합니다.");
+    }
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
+
+  getMatchResult(winningNumbers, bonusNumber) {
+    const matchedCount = this.#numbers.filter((num) =>
+      winningNumbers.includes(num)
+    ).length;
+    const hasBouns = this.#numbers.includes(bonusNumber);
+    return { matchedCount, hasBouns };
+  }
 }
 
 export default Lotto;
