@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class Lotto {
   #numbers;
 
@@ -26,6 +28,24 @@ class Lotto {
       throw new Error("[Error] 입력이 1000의 배수가 아닙니다.")
     }
     return NUM
+  }
+
+  static buyTickets(num) {
+    const NUM = num / 1000;
+    MissionUtils.Console.print(NUM + "개를 구매했습니다.")
+    const TICKETS = [];
+
+    for (let i = 0; i < NUM; i++) {
+      const LOTTO = new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b));
+      MissionUtils.Console.print(LOTTO.#numbers);
+      TICKETS.push(LOTTO);
+    }
+    return TICKETS
+  }
+
+
+  getters() {
+    return this.#numbers;
   }
 }
 
