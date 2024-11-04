@@ -1,11 +1,10 @@
-import Formatter from '../Utills/Formatter';
-import { ERROR_MESSAGE, makeError } from '../View/Error';
-import { emptyString } from './Valid';
-import { isValidPurchaseMoney } from './Valid';
+import Formatter from '../Utills/Formatter.js';
+import { ERROR_MESSAGE, makeError } from '../View/Error.js';
+import { emptyString } from './Valid.js';
 
 // 천단위로 떨어진다.
 function isValidPurchaseMoney(money) {
-  return money !== 0 && money % 1000;
+  return money !== 0 && money % 1000 === 0;
 }
 
 function removeBlank(input) {
