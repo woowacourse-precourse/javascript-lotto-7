@@ -138,6 +138,11 @@ class App {
     return statistic;
   }
 
+  checkLotto(lotto, winning) {
+    const matchCount = lotto.matchLotto(winning);
+    return matchCount;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
