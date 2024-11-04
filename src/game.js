@@ -1,63 +1,76 @@
 import { Console } from '@woowacourse/mission-utils';
+import { LOTTO_PRICE } from './constant';
 
-export const PRIZE_MONEY = {
-  3: 5000,
-  4: 50000,
-  5: 1500000,
-  '5_BONUS': 30000000,
-  6: 2000000000,
+const LOTTO_RESULTS = {
+  3: { matchText: '3개 일치', prize: 5000, count: 0 },
+  4: { matchText: '4개 일치', prize: 50000, count: 0 },
+  5: { matchText: '5개 일치', prize: 1500000, count: 0 },
+  '5+bonus': { matchText: '5개 일치, 보너스 볼 일치', prize: 30000000, count: 0 },
+  6: { matchText: '6개 일치', prize: 2000000000, count: 0 },
 };
 
 class Game {
-  #matchingNumberCount = { 3: 0, 4: 0, 5: 0, '5_BONUS': 0, 6: 0 };
+  #purchasedLottoNumbersList;
+  #winningNumbers;
+  #bonusNumber;
 
   constructor(purchasedLottos, winningLotto) {
-    this.purchasedLottos = purchasedLottos;
-    this.winningLotto = winningLotto;
+    this.#purchasedLottoNumbersList = purchasedLottos.getLottos().map((lotto) => lotto.getNumbers());
+    this.#winningNumbers = winningLotto.getWinningNumbers();
+    this.#bonusNumber = winningLotto.getBonusNumber();
   }
 
-  printResult() {
+  #getMatchCount(purchasedLottoNumbers) {
+    return purchasedLottoNumbers.filter((num) => this.#winningNumbers.includes(num)).length;
+  }
+
+  #getResultKey(matchCount, purchasedLottoNumbers) {
+    if (matchCount < 3) return null;
+
+    if (matchCount === 5 && purchasedLottoNumbers.includes(this.#bonusNumber)) {
+      return '5+bonus';
+    }
+
+    return matchCount.toString();
+  }
+
+  #updateLottoResultCount(key) {
+    if (key) {
+      LOTTO_RESULTS[key].count += 1;
+    }
+  }
+
+  #calculateResult() {
+    this.#purchasedLottoNumbersList.forEach((purchasedLottoNumbers) => {
+      const matchCount = this.#getMatchCount(purchasedLottoNumbers);
+      const key = this.#getResultKey(matchCount, purchasedLottoNumbers);
+      this.#updateLottoResultCount(key);
+    });
+  }
+
+  #calculateYield() {
+    const ticketCount = this.#purchasedLottoNumbersList.length;
+    const totalPrize = Object.values(LOTTO_RESULTS).reduce((total, { prize, count }) => total + prize * count, 0);
+    const yieldRatio = totalPrize / (ticketCount * LOTTO_PRICE);
+    const profitability = (yieldRatio * 100).toFixed(1);
+    return profitability;
+  }
+
+  #printResult() {
     Console.print('당첨 통계');
     Console.print('---');
 
-    ['3', '4', '5', '5_BONUS', '6'].forEach((key) => {
-      const count = this.#matchingNumberCount[key];
-
-      const prize = PRIZE_MONEY[key];
-      // console.log(key);
-      const matchText = key === '5_BONUS' ? '5개 일치, 보너스 볼 일치' : `${key}개 일치`;
+    Object.values(LOTTO_RESULTS).forEach(({ matchText, prize, count }) => {
       Console.print(`${matchText} (${prize.toLocaleString()}원) - ${count}개`);
     });
 
-    const yieldRate = this.calculateYield(); // 수익률 계산 함수로 변경
-    Console.print(`총 수익률은 ${yieldRate}%입니다.`);
-  }
-
-  calculateYield() {
-    const totalPrize = Object.entries(this.#matchingNumberCount).reduce((total, [key, count]) => total + PRIZE_MONEY[key] * count, 0);
-    return ((totalPrize / (this.purchasedLottos.getLottos().length * 1000)) * 100).toFixed(1);
-  }
-
-  calculateResult() {
-    const purchasedLottoNumberList = this.purchasedLottos.getLottos().map((lotto) => lotto.getNumbers());
-
-    const winningLottoNumber = this.winningLotto.getWinningNumbers();
-
-    purchasedLottoNumberList.forEach((lottoNumber) => {
-      const matchCount = lottoNumber.filter((number) => winningLottoNumber.includes(number)).length;
-
-      if (matchCount < 3) return;
-      if (matchCount === 5 && lottoNumber.includes(this.winningLotto.getBonusNumber())) {
-        this.#matchingNumberCount['5_BONUS'] += 1;
-        return;
-      }
-      this.#matchingNumberCount[matchCount] += 1;
-    });
+    const profitability = this.#calculateYield();
+    Console.print(`총 수익률은 ${profitability}%입니다.`);
   }
 
   play() {
-    this.calculateResult();
-    this.printResult();
+    this.#calculateResult();
+    this.#printResult();
   }
 }
 

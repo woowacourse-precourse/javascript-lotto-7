@@ -26,8 +26,8 @@ class App {
       const winningNumber = InputParser.parseWinningNumber(winningNumberInput);
 
       const bonusNumberInput = await InputPrompt.getBonusNumber();
+      Console.print(`\n`);
       const bonusNumber = InputParser.parseBonusNumber(bonusNumberInput);
-
       validateBonusNumber(bonusNumber, winningNumber);
 
       const winningLotto = new WinningLotto(winningNumber, bonusNumber);
