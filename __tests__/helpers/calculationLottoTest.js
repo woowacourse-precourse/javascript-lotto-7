@@ -38,4 +38,20 @@ describe('calculationLotto 테스트', () => {
     expect(lottoResult.second.count).toBe(expectedResult.second.count);
     expect(lottoResult.first.count).toBe(expectedResult.first.count);
   });
+
+  test('rateOfReturn 함수가 올바른 수익률을 반환하는지 테스트', () => {
+    const lottoResult = {
+      fifth: { amount: 5000, count: 1 },
+      fourth: { amount: 50000, count: 0 },
+      third: { amount: 1500000, count: 0 },
+      second: { amount: 30000000, count: 0 },
+      first: { amount: 2000000000, count: 0 },
+    };
+    const purchasePrice = 8000;
+    const expectedRateOfReturn = ((5000 / 8000) * 100).toFixed(1);
+
+    expect(calculationLotto.rateOfReturn(lottoResult, purchasePrice)).toBe(
+      expectedRateOfReturn
+    );
+  });
 });
