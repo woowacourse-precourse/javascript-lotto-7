@@ -31,23 +31,11 @@ class LottoProcessor {
 
   //winningRanks 업데이트
   setWinningRanks(matchCount, isBonusMatched) {
-    switch (matchCount) {
-      case 6:
-        this.winningRanks[1]++;
-        break;
-      case 5:
-        if (isBonusMatched) this.winningRanks[2]++;
-        else this.winningRanks[3]++;
-        break;
-      case 4:
-        this.winningRanks[4]++;
-        break;
-      case 3:
-        this.winningRanks[5]++;
-        break;
-      default:
-        break;
-    }
+    if (matchCount === 6) this.winningRanks[1]++;
+    else if (matchCount === 5 && isBonusMatched) this.winningRanks[2]++;
+    else if (matchCount === 5) this.winningRanks[3]++;
+    else if (matchCount === 4) this.winningRanks[4]++;
+    else if (matchCount === 3) this.winningRanks[5]++;
   }
 
   //winningRanks 출력
