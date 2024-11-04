@@ -1,6 +1,6 @@
 import { promptUserInput, printMessage } from './console.js';
 import { USER_PROMPT_MESSAGES } from '../constants/constants.js';
-import validateWinningNumbers from '../validations/winning-number.js';
+import validateWinningNumbers from '../validations/winning-numbers.js';
 import sortNumbersAscending from './sort-numbers.js';
 
 const { GET_WINNING_NUMBER } = USER_PROMPT_MESSAGES;
