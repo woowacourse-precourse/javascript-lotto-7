@@ -60,7 +60,8 @@ class App {
       this.#winningLotto,
       this.#bonusNumber
     );
-    this.#printGameResult();
+
+    Print.lottoResult(this.#result);
     this.#printProfitRate();
   }
 
@@ -70,21 +71,6 @@ class App {
       throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.");
 
     this.#bonusNumber = bonusNumber;
-  }
-
-  #printGameResult() {
-    for (const [rank, count] of this.#result) {
-      const { match, needBonusBall, prize } = lottoInfo[rank];
-      if (!needBonusBall) {
-        Console.print(
-          `${match}개 일치 (${prize.toLocaleString()}원) - ${count}개`
-        );
-      } else {
-        Console.print(
-          `${match}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${count}개`
-        );
-      }
-    }
   }
 
   #printProfitRate() {
