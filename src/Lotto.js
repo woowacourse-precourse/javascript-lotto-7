@@ -1,30 +1,18 @@
-import { Random } from '@woowacourse/mission-utils';
+import LottoGenerator from './Lotto_modules/LottoGenerator.js';
+import { LOTTO_NUMBER_COUNT, LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, ERROR_MESSAGES } from './constant/constant.js';
 
 class Lotto {
   #numbers;
 
-  constructor(numbers = Lotto.generateRandomNumbers()) {
+  constructor(numbers = LottoGenerator.generate()) {
     this.#validate(numbers);
     this.#numbers = numbers;
   }
 
-  static generateRandomNumbers() {
-    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
-    return numbers.sort((a, b) => a - b);
-  }
-
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== LOTTO_NUMBER_COUNT || new Set(numbers).size !== LOTTO_NUMBER_COUNT || numbers.some(num => num < LOTTO_MIN_NUMBER || num > LOTTO_MAX_NUMBER)) {
+      throw new Error(ERROR_MESSAGES.INVALID_LOTTO_NUMBERS);
     }
-    if (new Set(numbers).size !== 6) {
-      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
-    }
-    numbers.forEach((num) => {
-      if (num < 1 || num > 45) {
-        throw new Error("[ERROR] 로또 번호는 1부터 45 사이여야 합니다.");
-      }
-    });
   }
 
   get numbers() {
@@ -32,4 +20,4 @@ class Lotto {
   }
 }
 
-export { Lotto };
+export default Lotto;
