@@ -1,4 +1,4 @@
-import * as Console from 'node:console';
+import { Console } from '@woowacourse/mission-utils';
 
 export class Calculate {
   #lottoList;
@@ -11,23 +11,22 @@ export class Calculate {
     this.#bonusNumber = bonusNumber;
   }
 
-  #initializeResults() {
-    return {
-      first: { count: 0, prize: 2000000000, match: 6, message: '6개 일치' },
-      second: {
-        count: 0,
-        prize: 30000000,
-        match: 5,
-        message: '5개 일치, 보너스 볼 일치',
-      },
-      third: { count: 0, prize: 1500000, match: 5, message: '5개 일치' },
-      fourth: { count: 0, prize: 50000, match: 4, message: '4개 일치' },
-      fifth: { count: 0, prize: 5000, match: 3, message: '3개 일치' },
-    };
+  #getMatchCount(lotto) {
+    return this.#winningLotto.filter((number) => lotto.includes(number)).length;
   }
 
-  printResults() {
-    const results = this.#initializeResults();
-    Console.print(results);
+  #hasBonus(lotto) {
+    return lotto.includes(this.#bonusNumber);
   }
+
+  #getPrizeRank(matchCount, hasBonus) {
+    if (matchCount === 6) return 1;
+    if (matchCount === 5 && hasBonus) return 2;
+    if (matchCount === 5) return 3;
+    if (matchCount === 4) return 4;
+    if (matchCount === 3) return 5;
+    return 0;
+  }
+
+  printResults() {}
 }

@@ -33,7 +33,6 @@ export class LottoGame {
   async winningLotto() {
     try {
       const winningLotto = await this.#inputInstance.inputWinningNumber();
-      Console.print(winningLotto);
       new Lotto(winningLotto);
       return winningLotto.map((number) => Number(number));
     } catch (error) {
