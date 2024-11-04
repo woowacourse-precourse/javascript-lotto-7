@@ -74,7 +74,6 @@ class LottoController {
       this.#result.getTotalRate()
     );
   }
-  s;
 }
 
 export default LottoController;
