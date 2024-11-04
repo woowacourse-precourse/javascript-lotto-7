@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { INPUT_MESSAGE, PRINT_MESSAGE } from "../constant/Message.js";
+import { INPUT_MESSAGE } from "../constant/Message.js";
 
 export function inputCash(){
     return Console.readLineAsync(INPUT_MESSAGE.CASH + '\n');

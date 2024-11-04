@@ -6,7 +6,6 @@ export const INPUT_MESSAGE = {
 export const PRINT_MESSAGE = {
     BUY_LOTTO : "개를 구매했습니다.",
     WINNING_STATICS : "당첨 통계",
-    DASH : "-",
     SWITCH_LINE_DASH : "---"
 }
 
