@@ -58,6 +58,16 @@ class App {
     );
 
     let counts = Lotto.getCounts(score);
+
+    // 당첨 내역 반환된거 출력
+    let resultMessage = Lotto.getResultMessage(...counts);
+    MissionUtils.Console.print(`${resultMessage}`);
+
+    let totalPrizeMoney = Lotto.calculateTotalPrizeMoney(counts);
+
+    const profitRatio = Lotto.getProfitRatio(lottoCost, totalPrizeMoney);
+    // 수익률 반환된거 출력
+    MissionUtils.Console.print(`총 수익률은 ${profitRatio}%입니다.`);
   }
 
   getLottoCost() {

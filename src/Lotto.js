@@ -61,21 +61,64 @@ class Lotto {
       // 점수 객체를 scores 배열에 추가
       scores.push({ score, isBonusMatched });
     });
-    return [score, bonus];
 
     return scores; // {점수, 보너스여부(1)} 객체가 한 칸씩 들어가있는 배열 반환
   }
+
+  static getCounts(scoreObj) {
+    let count3 = 0,
+      count4 = 0,
+      count5 = 0,
+      countBonus = 0,
+      count6 = 0;
+
+    scoreObj.forEach(({ score, isBonusMatched }) => {
+      if (score === 6) count6++;
+      else if (score === 5 && isBonusMatched) countBonus++;
+      else if (score === 5) count5++;
+      else if (score === 4) count4++;
+      else if (score === 3) count3++;
+    });
+
+    return [count3, count4, count5, countBonus, count6];
   }
 
-  static getResult(scoreObj) {
-    const score = scoreObj[0];
-    const bonus = scoreObj[1];
-    if (score === 6) return FIRST_PRIZE;
-    else if (score === 5 && bonus) return SECOND_PRIZE;
-    else if (score === 5) return THIRD_PRIZE;
-    else if (score === 4) return FOURTH_PRIZE;
-    else if (score === 3) return FIFTH_PRIZE;
-    else return NO_PRIZE;
+  static getResultMessage(count3, count4, count5, countB, count6) {
+    const RESULT_MESSAGE = `당첨 통계\n---\n
+    3개 일치 (5,000원) - ${count3}개\n
+    4개 일치 (50,000원) - ${count4}개\n
+    5개 일치 (1,500,000원) - ${count5}개\n
+    5개 일치, 보너스 볼 일치 (30,000,000원) - ${countB}개\n
+    6개 일치 (2,000,000,000원) - ${count6}개\n`;
+    return RESULT_MESSAGE;
+  }
+
+  static calculateTotalPrizeMoney(countArr) {
+    let totalPrizeMoney = 0;
+    for (let i = 0; i < countArr.length; i++) {
+      if (i === 0) {
+        totalPrizeMoney += FIFTH_PRIZE[1] * countArr[i];
+      } else if (i === 1) {
+        totalPrizeMoney += FOURTH_PRIZE[1] * countArr[i];
+      } else if (i === 2) {
+        totalPrizeMoney += THIRD_PRIZE[1] * countArr[i];
+      } else if (i === 3) {
+        totalPrizeMoney += SECOND_PRIZE[1] * countArr[i];
+      } else if (i === 4) {
+        totalPrizeMoney += FIRST_PRIZE[1] * countArr[i];
+      } else totalPrizeMoney = 0;
+    }
+
+    return totalPrizeMoney;
+  }
+
+  static getProfitRatio(lottoCost, prize) {
+    let ratio = prize / lottoCost;
+    ratio = Math.trunc(ratio * 10000);
+    ratio = Math.round(ratio);
+    ratio = ratio / 100;
+
+    return ratio;
   }
 }
 
