@@ -1,4 +1,4 @@
-import ValidateNumber from './ValidateNumber.js';
+import InputValidatorUtils from './InputValidatorUtils.js';
 import { NUMBER_ERROR_MESSAGES } from '../contents/InputErrorMessages.js';
 
 class BonusNumber {
@@ -9,11 +9,11 @@ class BonusNumber {
   }
 
   #validateBonus(bonusNum, winningNum) {
-    ValidateNumber.checkMissing(
+    InputValidatorUtils.checkMissing(
       bonusNum,
       NUMBER_ERROR_MESSAGES.BonusNumberGuid,
     );
-    ValidateNumber.validateNumber(
+    InputValidatorUtils.validateNumber(
       bonusNum,
       NUMBER_ERROR_MESSAGES.BonusNumberGuid,
     );

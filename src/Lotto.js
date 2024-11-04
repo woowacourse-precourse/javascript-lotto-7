@@ -1,6 +1,6 @@
-import ValidateNumber from './controller/ValidateNumber.js';
+import InputValidatorUtils from './controller/InputValidatorUtils.js';
 import { NUMBER_ERROR_MESSAGES } from './contents/InputErrorMessages.js';
-import { LOTTO } from './contents/PrizeContents.js';
+import { LOTTO } from './contents/LottoConstants.js';
 
 class Lotto {
   #numbers;
@@ -11,17 +11,17 @@ class Lotto {
   }
 
   #validate(numbers) {
-    ValidateNumber.checkArrayLength(
+    InputValidatorUtils.checkArrayLength(
       numbers,
       LOTTO.NUMBER_COUNT,
       NUMBER_ERROR_MESSAGES.winningNumberGuid,
     );
-    ValidateNumber.checkForDuplicates(
+    InputValidatorUtils.checkForDuplicates(
       numbers,
       NUMBER_ERROR_MESSAGES.dupicateNumber,
     );
     numbers.forEach((num) => {
-      ValidateNumber.validateNumber(
+      InputValidatorUtils.validateNumber(
         num,
         NUMBER_ERROR_MESSAGES.winningNumberGuid,
       );

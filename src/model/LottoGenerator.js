@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { LOTTO } from '../contents/PrizeContents.js';
+import { LOTTO } from '../contents/LottoConstants.js';
 
 class LottoGenerator {
   static generateSingleLotto() {

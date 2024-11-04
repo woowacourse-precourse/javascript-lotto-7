@@ -1,6 +1,6 @@
-import { LOTTO } from '../contents/PrizeContents.js';
+import { LOTTO } from '../contents/LottoConstants.js';
 
-class ValidateNumber {
+class InputValidatorUtils {
   static checkMissing(input, errorMessage) {
     if (input.length == 0) {
       throw new Error(errorMessage);
@@ -38,4 +38,4 @@ class ValidateNumber {
   }
 }
 
-export default ValidateNumber;
+export default InputValidatorUtils;

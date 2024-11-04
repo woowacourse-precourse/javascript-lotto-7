@@ -1,6 +1,5 @@
 import LottoResult from '../src/model/LottoResult.js';
-import LottoComparer from '../src/model/LottoComparer.js';
-import { PRIZE, INITIAL_RANK } from '../src/contents/PrizeContents.js';
+import { PRIZE, INITIAL_RANK } from '../src/contents/LottoConstants.js';
 
 describe('LottoResult 클래스 테스트', () => {
   let lottoResult;

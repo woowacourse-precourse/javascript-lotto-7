@@ -1,4 +1,4 @@
-import { LOTTO } from './PrizeContents.js';
+import { LOTTO } from './LottoConstants.js';
 
 export const MONEY_ERROR_MESSAGES = Object.freeze({
   missingAmount: `ERROR] : 금액이 입력되지 않았습니다. ${LOTTO.PRICE} 단위의 정수로 입력해주세요.\n`,

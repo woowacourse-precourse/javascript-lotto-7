@@ -4,7 +4,7 @@ import MoneyManager from './MoneyManager.js';
 import Lotto from '../Lotto.js';
 import BonusNumber from './BonusNumber.js';
 
-class InputValidator {
+class InputProcessor {
   static async promptWithValidation(inputHandler, validationConfig) {
     const {
       promptMessage,
@@ -54,4 +54,4 @@ class InputValidator {
   }
 }
 
-export default InputValidator;
+export default InputProcessor;

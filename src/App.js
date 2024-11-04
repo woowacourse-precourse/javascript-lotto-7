@@ -1,6 +1,6 @@
 import InputHandler from './view/InputHandler.js';
 import OutputHandler from './view/OuputHandler.js';
-import InputValidator from './controller/InputValidator.js';
+import InputValidator from './controller/InputProcessor.js';
 import LottoGenerator from './model/LottoGenerator.js';
 import LottoResult from './model/LottoResult.js';
 

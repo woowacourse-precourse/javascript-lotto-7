@@ -1,6 +1,6 @@
 import { MONEY_ERROR_MESSAGES } from '../contents/InputErrorMessages.js';
-import { LOTTO } from '../contents/PrizeContents.js';
-import ValidateNumber from './ValidateNumber.js';
+import { LOTTO } from '../contents/LottoConstants.js';
+import InputValidatorUtils from './InputValidatorUtils.js';
 
 class MoneyManager {
   #money;
@@ -14,9 +14,15 @@ class MoneyManager {
   }
 
   #validateMoney(money) {
-    ValidateNumber.checkMissing(money, MONEY_ERROR_MESSAGES.missingAmount);
-    ValidateNumber.checkNumeric(money, MONEY_ERROR_MESSAGES.nonNumericInput);
-    ValidateNumber.checkPurchaseUnit(money, MONEY_ERROR_MESSAGES.invalidUnit);
+    InputValidatorUtils.checkMissing(money, MONEY_ERROR_MESSAGES.missingAmount);
+    InputValidatorUtils.checkNumeric(
+      money,
+      MONEY_ERROR_MESSAGES.nonNumericInput,
+    );
+    InputValidatorUtils.checkPurchaseUnit(
+      money,
+      MONEY_ERROR_MESSAGES.invalidUnit,
+    );
     return parseInt(money, 10);
   }
 }

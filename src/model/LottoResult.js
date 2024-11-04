@@ -1,6 +1,6 @@
 import LottoComparer from './LottoComparer.js';
-import { PRIZE, INITIAL_RANK, PRIZE_KEYS } from '../contents/PrizeContents.js';
-import { LOTTO } from '../contents/PrizeContents.js';
+import { PRIZE, INITIAL_RANK, PRIZE_KEYS } from '../contents/LottoConstants.js';
+import { LOTTO } from '../contents/LottoConstants.js';
 
 class LottoResult {
   static PRIZE_KEYS = PRIZE_KEYS;
