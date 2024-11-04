@@ -1,24 +1,13 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import {
-  LOTTO_PRICE,
-  ERROR_MESSAGES,
-  MESSAGES,
-  LOTTO_NUMBERS,
-  WINNING_PRIZES,
-} from "./constants.js";
+import { LOTTO_PRICE, LOTTO_NUMBERS } from "./constants.js";
 import Lotto from "./Lotto.js";
 import LottoIO from "./LottoIO.js";
 import LottoValidator from "./LottoValidator.js";
+import LottoStatistics from "./LottoStatistics.js";
 
 class LottoApp {
   constructor() {
-    this.statistics = {
-      first: 0,
-      second: 0,
-      third: 0,
-      fourth: 0,
-      fifth: 0,
-    };
+    this.statistics = new LottoStatistics();
     this.io = new LottoIO();
   }
 
@@ -94,58 +83,15 @@ class LottoApp {
   }
 
   calculateStatistics(lottos, winningLotto, bonusNumber) {
-    lottos.forEach((lotto) => {
-      const { matchCount, hasBonus } = this.getMatchResult(
-        lotto,
-        winningLotto,
-        bonusNumber
-      );
-      this.updateStatistics(matchCount, hasBonus);
-    });
-  }
-
-  getMatchResult(lotto, winningLotto, bonusNumber) {
-    const matchCount = this.countMatches(lotto, winningLotto);
-    const hasBonus = lotto.getNumbers().includes(bonusNumber);
-    return { matchCount, hasBonus };
-  }
-
-  countMatches(lotto, winningLotto) {
-    return lotto
-      .getNumbers()
-      .filter((num) => winningLotto.getNumbers().includes(num)).length;
-  }
-
-  updateStatistics(matchCount, hasBonus) {
-    if (matchCount === 6) this.statistics.first++;
-    if (matchCount === 5 && hasBonus) this.statistics.second++;
-    if (matchCount === 5 && !hasBonus) this.statistics.third++;
-    if (matchCount === 4) this.statistics.fourth++;
-    if (matchCount === 3) this.statistics.fifth++;
-  }
-
-  getStatistics() {
-    return this.statistics;
+    this.statistics.calculateStatistics(lottos, winningLotto, bonusNumber);
   }
 
   calculateProfitRate(amount) {
-    const totalPrize = this.calculateTotalPrize();
-    const profitRate = (totalPrize / amount) * 100;
-    return Math.round(profitRate * 100) / 100;
-  }
-
-  calculateTotalPrize() {
-    return (
-      this.statistics.first * WINNING_PRIZES.first +
-      this.statistics.second * WINNING_PRIZES.second +
-      this.statistics.third * WINNING_PRIZES.third +
-      this.statistics.fourth * WINNING_PRIZES.fourth +
-      this.statistics.fifth * WINNING_PRIZES.fifth
-    );
+    return this.statistics.calculateProfitRate(amount);
   }
 
   printStatistics(profitRate) {
-    this.io.printStatistics(this.statistics, profitRate);
+    this.io.printStatistics(this.statistics.getStatistics(), profitRate);
   }
 }
 
