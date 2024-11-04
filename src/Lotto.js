@@ -1,5 +1,4 @@
-import { ERROR } from './constants/Constants.js';
-import Validators from './utils/Validation.js';
+import ValidateLotto from './validator/ValidateLotto.js';
 
 class Lotto {
   #numbers;
@@ -10,25 +9,8 @@ class Lotto {
   }
 
   #validate(numbers) {
-    numbers.forEach((num) => {
-      if (isNaN(num)) {
-        throw new Error(ERROR.LOTTO_TYPE);
-      }
-    });
-
-    if (numbers.length !== 6) {
-      throw new Error(ERROR.LOTTO_ARRAY_COUNT);
-    }
-
-    Validators.checkLotto(numbers);
-
-    if (numbers.some((num) => (num < 1) | (num > 45))) {
-      throw new Error(ERROR.LOTTO_RANGE);
-    }
-  }
-
-  getNumbers() {
-    return this.#numbers;
+    const validator = new ValidateLotto();
+    validator.checkAll(numbers);
   }
 }
 
