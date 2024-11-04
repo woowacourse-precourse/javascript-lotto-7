@@ -44,7 +44,7 @@ class LottoManagerIO {
 
     static async inputWinNumber(){
         let winNumber = await Console.readLineAsync(`${this.#INPUT_WIN_NUMBER}`);
-        return winNumber.split(',').map((num) => parseInt(num));
+        return winNumber.split(',').map((num) => Number(num.trim()));
     }
 
     static async inputBonusNumber(){
