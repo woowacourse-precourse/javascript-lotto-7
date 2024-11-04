@@ -1,5 +1,3 @@
-import { MAX } from "uuid";
-
 const LOTTO = {
   UNIT_PRICE: 1000,
   NUMBERS_COUNT: 6,

@@ -16,7 +16,7 @@ class App {
       this.#purchasePrice = purchasePrice;
       this.#purchaseLottos();
       const winningLotto = await input.winningLotto();
-      const bonusNumber = await input.bonusNumber();
+      const bonusNumber = await input.bonusNumber(winningLotto);
 
       const lottoGame = new LottoGame(this.#lottos, bonusNumber, winningLotto);
 

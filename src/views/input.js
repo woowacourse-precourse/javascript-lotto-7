@@ -23,8 +23,15 @@ const input = {
     return winningLotto;
   },
 
-  async bonusNumber() {
-    return await Console.readLineAsync(MESSAGES.BONUS_NUMBER);
+  async bonusNumber(winningNumberArray) {
+    const bonusNumberString = await Console.readLineAsync(MESSAGES.BONUS_NUMBER);
+    const bonusNumber = parseInt(bonusNumberString);
+
+    numberValidator.nan(bonusNumber);
+    numberValidator.negative(bonusNumber);
+    numberValidator.integer(bonusNumber);
+    numberValidator.max(bonusNumber);
+    arrayValidator.containNum(winningNumberArray, bonusNumber);
   },
 };
 
