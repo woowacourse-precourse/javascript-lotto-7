@@ -7,7 +7,7 @@ const OutputView = {
     Console.print('');
   },
   printErrorMessage(errorMessage) {
-    Console.print(`${ERROR_MESSAGE.prefix} ${errorMessage}\n`);
+    Console.print(`${errorMessage}\n`);
   },
   printMessage(message) {
     Console.print(message);
