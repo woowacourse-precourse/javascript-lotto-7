@@ -83,10 +83,19 @@ class App {
     }
   }
 
+  async playLotto(amount) {
+    this.printLottoAmount(amount);
+    const lottos = await this.inputLottos(amount);
+    return lottos;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
       const lotto = this.calculateLotto(money);
+      const lottos = await this.playLotto(lotto);
+
+      this.printLottos(lottos);
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
