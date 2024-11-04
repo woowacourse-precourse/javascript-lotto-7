@@ -24,9 +24,8 @@ class Lotto {
   }
 
   showNumber() {
-    // const formattedNumbers = JSON.stringify(this.numbers);
-    // Console.print(formattedNumbers);
-    Console.print(`[${this.#numbers.join(",")}]`);
+    Console.print(`[${this.#numbers.join(", ")}]`);
+    // Console.print(`[${this.#numbers.join(",")}]`);
   }
 
   checkWinStatus(winningNumbers, bonusNumber) {
