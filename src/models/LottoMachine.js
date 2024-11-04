@@ -2,6 +2,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 class LottoMachine {
+  #sortLottoNumber(lottos) {
+    return lottos.map((lotto) => lotto.sort((a, b) => a - b));
+  }
+
   generateLottos(count) {
     const lottos = [];
     for (let i = 0; i < count; i++) {
@@ -11,9 +15,9 @@ class LottoMachine {
         6
       );
       const lotto = new Lotto(lottoNumbers);
-      lottos.push(lotto);
+      lottos.push(lotto.getNumbers());
     }
-    return lottos;
+    return this.#sortLottoNumber(lottos);
   }
 }
 

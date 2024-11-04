@@ -29,6 +29,9 @@ class Lotto {
 
   #validateNumberOnly(numbers) {
     const isNumbers = numbers.every((num) => Number.isInteger(num));
+    if (!isNumbers) {
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER_ONLY);
+    }
   }
 
   getNumbers() {

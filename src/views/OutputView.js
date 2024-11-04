@@ -7,7 +7,7 @@ export default class OutputView {
 
   static printLottos(lottos) {
     lottos.forEach((lotto) => {
-      Console.print(`[${lotto.getNumbers().join(", ")}]`);
+      Console.print(`[${lotto.join(", ")}]`);
     });
   }
 }
