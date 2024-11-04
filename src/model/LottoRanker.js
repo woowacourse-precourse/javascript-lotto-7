@@ -1,4 +1,4 @@
-import { PRIZE } from "../constants";
+import { PRIZE } from "../constants.js";
 
 class LottoRanker {
   #nums;
@@ -6,8 +6,14 @@ class LottoRanker {
 
   constructor(nums, bonusNum) {
     this.winning = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
+    this.#validate(nums, bonusNum);
     this.#nums = nums;
     this.#bonusNumber = bonusNum;
+  }
+
+  #validate(nums, bonusNum) {
+    if (nums.includes(bonusNum))
+      throw new Error("[ERROR] 보너스 번호는 로또 번호와 중복될 수 없습니다.");
   }
 
   #findMatches(lotto) {
