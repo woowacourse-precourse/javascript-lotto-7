@@ -18,6 +18,7 @@ class Controller {
     const numberOfPurchase = this.#lottoService.purchaseLottos(payment);
 
     this.#lottoService.generateLottos(numberOfPurchase);
+    const myLottos = this.#lottoService.getLottos();
     this.#outputView.printMyLotto(numberOfPurchase);
 
     const winningNumber = await this.#inputView.readWinningLotto();    // 당첨 번호 유효성 검사 필요

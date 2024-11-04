@@ -31,6 +31,10 @@ class LottoService {
     return numberOfPurchase;
   }
 
+  getLottos() {
+    return this.#lottoRepository.getLottos();
+  }
+
 }
 
 export default LottoService;
