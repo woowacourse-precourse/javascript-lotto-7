@@ -69,12 +69,17 @@ class App {
     this.displayResults(statisticsResult, lotteries.length);
   }
 
-  checkWins(matches) {
-    const matchCounts = matches.filter((num) => num > 2)
+  makeMatchCountsObj(matches) {
+    return matches
+      .filter((num) => num > 2)
       .reduce((match, count) => {
         match[count] = (match[count] || 0) + 1;
         return match;
       }, {});
+  }
+
+  checkWins(matches) {
+    const matchCounts = this.makeMatchCountsObj(matches)
 
     lotteryStatistics.forEach((statistic) => {
       const counts = matchCounts[statistic.matches];
