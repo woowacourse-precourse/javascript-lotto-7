@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { getBonusNums, getPurchaseAmount, getWinningNums } from "./inputs.js";
-import { generateLotto } from "./lottoutils.js";
+import { generateLotto, printTickets } from "./lottoutils.js";
 
 class App {
   async run() {
@@ -8,6 +8,7 @@ class App {
       const purchaseAmount = await getPurchaseAmount();
 
       const tickets = generateLotto(purchaseAmount);
+      printTickets(tickets);
 
       const winningNums = await getWinningNums();
       const bonusNums = await getBonusNums();
