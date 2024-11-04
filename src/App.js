@@ -1,7 +1,9 @@
+import { Random } from "@woowacourse/mission-utils";
+import LOTTO from "./constants/lotto.js";
 import LOTTO_GAME from "./constants/lottoGame.js";
 import LottoGame from "./domain/LottoGame.js";
-import numberValidator from "./validators/numberValidator.js";
 import input from "./views/input.js";
+import Lotto from "./domain/Lotto.js";
 
 class App {
   #purchasePrice;
