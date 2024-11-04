@@ -25,3 +25,9 @@ export const RESULT = {
     prize: 2000000000,
   },
 };
+
+export const ZERO = 0;
+
+export const PERCENTAGE = 100;
+
+export const TENTHS_PLACE = 1;

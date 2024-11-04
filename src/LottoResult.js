@@ -1,5 +1,6 @@
-import { RESULT } from "./constants/result.js";
-
+import { RESULT, ZERO, PERCENTAGE, TENTHS_PLACE } from "./constants/result.js";
+import { LOTTO_PRICE } from "./constants/lotto.js";
+import {RATE_OF_RETURN} from "./constants/output.js";
 class LottoResult {
   #results;
   #purchaseAmount;
@@ -11,11 +12,11 @@ class LottoResult {
 
   #initializeResults() {
     this.#results = new Map([
-      [RESULT.THREE.matches, 0],
-      [RESULT.FOUR.matches, 0],
-      [RESULT.FIVE.matches, 0],
-      [RESULT.FIVE_BONUS.matches, 0],
-      [RESULT.SIX.matches, 0],
+      [RESULT.THREE.matches, ZERO],
+      [RESULT.FOUR.matches, ZERO],
+      [RESULT.FIVE.matches, ZERO],
+      [RESULT.FIVE_BONUS.matches, ZERO],
+      [RESULT.SIX.matches, ZERO],
     ]);
   }
 
@@ -79,8 +80,8 @@ class LottoResult {
 
   #calculateProfitRate() {
     const totalPrize = this.#calculateTotalPrize();
-    const profitRate = ((totalPrize / (this.#purchaseAmount*1000)) * 100);
-    return this.#formatNumber(profitRate.toFixed(1));
+    const profitRate = ((totalPrize / (this.#purchaseAmount*LOTTO_PRICE)) * PERCENTAGE);
+    return this.#formatNumber(profitRate.toFixed(TENTHS_PLACE));
   }
 
   generateStatistics() {
@@ -97,7 +98,7 @@ class LottoResult {
   }
 
   #generateProfitRateMessage() {
-    return `총 수익률은 ${this.#calculateProfitRate()}%입니다.`;
+    return RATE_OF_RETURN(this.#calculateProfitRate());
   }
 }
 

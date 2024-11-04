@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import PurchaseAmount from "./PurchaseAmount.js";
 import LottoMachine from "./LottoMachine.js";
-import { PURCHASE_AMOUNT_MESSAGE } from "./constants/output.js";
+import { PURCHASE_AMOUNT_MESSAGE, LOTTO_STATISTICS_MESSAGE } from "./constants/output.js";
 import { INPUT_MESSAGE } from "./constants/input.js";
 import Lotto from "./Lotto.js";
 import LottoBonus from "./LottoBonus.js";
@@ -24,8 +24,7 @@ class App {
     // 당첨 결과 출력
     const lottoResult = new LottoResult(amount);
     lottoResult.calculateResults(lottos, winningLottoNumbers, bonusLottoNumber);
-    Console.print("\n당첨 통계");
-    Console.print("---");
+    Console.print(LOTTO_STATISTICS_MESSAGE);
     lottoResult.generateStatistics().forEach((statistic) => Console.print(statistic));
   }
 
