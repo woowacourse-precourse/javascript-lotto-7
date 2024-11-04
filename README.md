@@ -79,6 +79,37 @@ npm run start
 
 ---
 
+### 프로젝트 폴더 구조
+```markdown
+│── App.js
+│── index.js
+├── constants
+│   ├── errorMessage.js
+│   └── lottoConfig.js
+│
+├── controllers
+│   └── LottoController.js
+│
+├── dtos
+│   ├── LottoListDTO.js
+│   └── LottoResultDTO.js
+│
+├── models
+│   ├── Lotto.js
+│   ├── LottoGenerator.js
+│   ├── LottoPurchaser.js
+│   ├── LottoResult.js
+│   └── WinningLotto.js
+│
+└── views
+    ├── InputLottoView.js
+    └── OutputLottoView.js
+```
+
+<br>
+
+---
+
 ### 기능 설명
 
 - [x] 구입 금액 입력 받기
