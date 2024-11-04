@@ -18,13 +18,23 @@ const ONE_LOTTO_PRICE = 1000;
 const makeLottoCount = (lottoBuyPrice) =>
   Number(lottoBuyPrice) / ONE_LOTTO_PRICE;
 
-const makeLottos = (lottoCount) =>
-  Array.from({ length: lottoCount }, () => {
-    const lotto = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-      (a, b) => a - b,
-    );
-    return new Lotto(lotto);
-  });
+// 로또 당첨 조건 -> 각 로또마다 lottoAnswerNumbers에 있는 값 중에 몇 개를 들고 있는지
+// 각 로또마다 확인했으면 결과 개수 return 해야함
+// 결과 개수를 바탕으로 값 내야함
+const LottoWinningPrice = Object.freeze({
+  3: 5_000,
+  4: 50_000,
+  5: 1_500_000,
+  5.5: 30_000_000,
+  6: 2_000_000_000,
+});
+const LottoWinningPriceChar = Object.freeze({
+  3: '5,000',
+  4: '50,000',
+  5: '1,500,000',
+  5.5: '30,000,000',
+  6: '2,000,000,000',
+});
 
 class App {
   constructor() {
@@ -33,14 +43,29 @@ class App {
     this.myLottos = null;
     this.lottoAnswerNumbers = null;
     this.lottoBonusNumber = null;
+    this.lottoWinningResult = {
+      3: 0,
+      4: 0,
+      5: 0,
+      5.5: 0,
+      6: 0,
+    };
+    this.winningMoney = 0;
   }
 
   async run() {
     await this.getLottoBuyPrice();
     this.getLottoCount();
+    this.makeLottos();
+
     this.printMyLottos();
     await this.getLottoAnswerNumbers();
     await this.getLottoBonusNumber();
+
+    this.getLottoWinningResult();
+    this.getLottoWinningTotalMoney();
+
+    this.printLottoResult();
   }
 
   async getLottoBuyPrice() {
@@ -48,19 +73,27 @@ class App {
       '구입금액을 입력해 주세요.\n',
       validateLottoBuyPrice,
     );
-    this.lottoBuyPrice = lottoBuyPrice;
+    this.lottoBuyPrice = Number(lottoBuyPrice);
   }
 
   getLottoCount() {
     const lottoCount = makeLottoCount(this.lottoBuyPrice);
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    this.lottoCount = lottoCount;
+    this.lottoCount = Number(lottoCount);
+  }
+
+  makeLottos() {
+    this.myLottos = Array.from({ length: this.lottoCount }, () => {
+      const lotto = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+        (a, b) => a - b,
+      );
+      return new Lotto(lotto);
+    });
   }
 
   printMyLottos() {
-    const myLottos = makeLottos(this.lottoCount);
     for (let i = 0; i < this.lottoCount; i++) {
-      Console.print(`[${myLottos[i].getLottoNumbers().join(', ')}]`);
+      Console.print(`[${this.myLottos[i].getLottoNumbers().join(', ')}]`);
     }
     Console.print('');
   }
@@ -70,7 +103,9 @@ class App {
       '당첨 번호를 입력해 주세요.\n',
       validateLottoAnswerNumbers,
     );
-    this.lottoAnswerNumbers = lottoAnswerNumbers;
+    Console.print('');
+
+    this.lottoAnswerNumbers = lottoAnswerNumbers.split(',').map(Number);
   }
 
   async getLottoBonusNumber() {
@@ -79,8 +114,59 @@ class App {
       validateLottoBonusNumber,
       this.lottoAnswerNumbers,
     );
+    Console.print('');
 
-    this.lottoBonusNumber = lottoBonusNumber;
+    this.lottoBonusNumber = Number(lottoBonusNumber);
+  }
+
+  getLottoWinningResult() {
+    const results = this.myLottos.map((myLotto) =>
+      myLotto.getLottoResult(this.lottoAnswerNumbers, this.lottoBonusNumber),
+    );
+    results.forEach(({ matchCount, isBonusMatch }) => {
+      if (matchCount < 3) {
+        return;
+      }
+      if (isBonusMatch && matchCount === 5) {
+        this.lottoWinningResult['5.5'] += 1;
+        return;
+      }
+      this.lottoWinningResult[matchCount] += 1;
+    });
+  }
+
+  getLottoWinningTotalMoney() {
+    Object.entries(this.lottoWinningResult).forEach(([key, value]) => {
+      this.winningMoney += LottoWinningPrice[key] * value;
+    });
+  }
+
+  printLottoResult() {
+    Console.print('당첨 통계');
+    Console.print('---');
+    this.printLottoWinningCount();
+    this.printRateOfReturn();
+  }
+
+  printLottoWinningCount() {
+    const keys = ['3', '4', '5', '5.5', '6'];
+    keys.forEach((key) => {
+      if (key === '5.5') {
+        Console.print(
+          `5개 일치, 보너스 볼 일치 (${LottoWinningPriceChar[key]}원) - ${this.lottoWinningResult[key]}개`,
+        );
+        return;
+      }
+      Console.print(
+        `${key}개 일치 (${LottoWinningPriceChar[key]}원) - ${this.lottoWinningResult[key]}개`,
+      );
+    });
+  }
+
+  printRateOfReturn() {
+    Console.print(
+      `총 수익률은 ${((this.winningMoney / this.lottoBuyPrice) * 100).toFixed(1)}%입니다.`,
+    );
   }
 }
 
