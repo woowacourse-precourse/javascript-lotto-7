@@ -13,6 +13,13 @@ class LottoValidate extends Validate {
     this.#checkArrayForRange(lotto);
     this.#checkArrayForDuplicates(lotto);
     this.#checkArrayForExcess(lotto);
+    this.#checkArrayLength(lotto);
+  }
+
+  #checkArrayLength(lotto) {
+    if (lotto.length > LOTTO_VALUES.COUNT) {
+      throw new Error(ERROR_MESSAGE + LOTTO_ERROR.LENGTH);
+    }
   }
 
   #checkArrayForNotNumber(lotto) {
@@ -22,7 +29,7 @@ class LottoValidate extends Validate {
   }
 
   #checkArrayForRange(lotto) {
-    if (lotto.some((num) => Number(num) >= LOTTO_VALUES.MAX)) {
+    if (lotto.some((num) => Number(num) > LOTTO_VALUES.MAX)) {
       throw new Error(ERROR_MESSAGE + LOTTO_ERROR.RANGE);
     }
   }
