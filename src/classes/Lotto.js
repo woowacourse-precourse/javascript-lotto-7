@@ -39,7 +39,7 @@ class Lotto {
   }
 
   #validateNumber(numbers) {
-    const isInvalid = numbers.some((number) => isNaN(number));
+    const isInvalid = numbers.some((number) => !Number.isInteger(number));
     if (isInvalid) {
       throw new Error('[ERROR] 로또 번호는 양수여야 합니다.');
     }
