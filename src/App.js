@@ -20,7 +20,7 @@ class App {
 
       // 로또 번호 생성 및 출력
       const userLottos = lottoMarket.userLottoNumbers(count);
-      Console.print(`${count}개의 로또를 구입했습니다.`)
+      Console.print(`${count}개를 구매했습니다.`)
       userLottos.forEach(lotto => {
         Console.print(lotto);
       })
