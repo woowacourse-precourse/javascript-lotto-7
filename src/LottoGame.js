@@ -62,4 +62,13 @@ export default class LottoGame {
 
     return results;
   }
+
+  calculateProfitRate(results) {
+    const totalPrize = Object.entries(results).reduce((sum, [rank, count]) => {
+      return sum + LOTTO.PRIZE_MONEY[rank] * count;
+    }, 0);
+
+    const purchaseAmount = this.#purchasedLottos.length * LOTTO.PRICE;
+    return Math.round((totalPrize / purchaseAmount) * 100 * 10) / 10;
+  }
 }
