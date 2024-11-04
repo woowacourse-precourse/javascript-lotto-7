@@ -108,10 +108,11 @@ export default class LottoResult {
     this.#prizes.forEach(
       ({ matchCount, hasBonus, prizeAmount, winningLottos }) => {
         Console.print(
-          `${this.#formatStatisticsTitle(
-            matchCount,
-            hasBonus
-          )} (${prizeAmount.toLocaleString()}원) - ${winningLottos.length}개`
+          OUTPUT_MESSAGE.STATISTICS_PRIZE(
+            `${this.#formatStatisticsTitle(matchCount, hasBonus)}`,
+            prizeAmount,
+            winningLottos.length
+          )
         );
       }
     );

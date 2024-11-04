@@ -18,6 +18,8 @@ export const OUTPUT_MESSAGE = {
   STATISTICS_TITLE_BONUS: '보너스 볼 일치',
   STATISTICS: '당첨 통계',
   STATISTICS_LINE: '---',
+  STATISTICS_PRIZE: (title, prize, value) =>
+    `${title} (${prize}원) - ${value}개`,
   PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
