@@ -1,8 +1,8 @@
 import Lotto from "../src/Lotto";
 
-describe("로또 클래스 테스트", () => {
+describe("Lotto 클래스 테스트", () => {
   const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
-  it.each([
+  test.each([
     [[1, 2, 3, 4, 5, 6], 6],
     [[1, 2, 3, 4, 5, 7], 5],
     [[1, 2, 3, 4, 7, 8], 4],
