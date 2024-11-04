@@ -16,20 +16,20 @@ class App {
   }
 
   async getBudget() {
-    const budget = await getInput('구입금액을 입력해 주세요.');
+    const budget = await getInput('\n구입금액을 입력해 주세요.\n');
     validateBudget(budget);
     return budget;
   }
 
   async getWinnum() {
-    const winnumInput = await getInput('당첨 번호를 입력해 주세요.');
+    const winnumInput = await getInput('\n당첨 번호를 입력해 주세요.\n');
     const winnum = winnumInput.split(',').map(num => parseInt(num.trim(), 10));
     validateWinnum(winnum);
     return winnum;
   }
 
   async getBonusnum(winnum) {
-    const bonusnumInput = await getInput('보너스 번호를 입력해 주세요.');
+    const bonusnumInput = await getInput('\n보너스 번호를 입력해 주세요.\n');
     const bonusnum = parseInt(bonusnumInput.trim(), 10);
     validateBonusnum(bonusnum, winnum);
     return bonusnum;

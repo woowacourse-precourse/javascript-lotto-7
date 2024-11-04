@@ -19,7 +19,7 @@ export const purchase = (trynum) => {
 }
 
 const printpurchase = (trynum) => {
-    Console.print(`${trynum}개를 구매했습니다.`);
+    Console.print(`\n${trynum}개를 구매했습니다.\n`);
 }
 
 const printnum = (lottotickets) => {
