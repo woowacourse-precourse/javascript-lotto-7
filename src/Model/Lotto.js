@@ -12,11 +12,11 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== RULE.LOTTO.LOTTO_SIZE) {
+    if (numbers.length !== RULE.lotto.lottoSize) {
       throwWoowaError(ERROR_MESSAGE.invalidNumberSize);
     }
 
-    if (new Set(numbers).size !== RULE.LOTTO.LOTTO_SIZE) {
+    if (new Set(numbers).size !== RULE.lotto.lottoSize) {
       throwWoowaError(ERROR_MESSAGE.invalidDuplicateNumber);
     }
 

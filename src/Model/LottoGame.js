@@ -41,9 +41,9 @@ class LottoGame {
   #generateLottos() {
     for (let i = 0; i < this.#lottoAmount; i++) {
       const randomNumbers = Random.pickUniqueNumbersInRange(
-        RULE.LOTTO.NUMBER_MIN,
-        RULE.LOTTO.NUMBER_MAX,
-        RULE.LOTTO.LOTTO_SIZE,
+        RULE.lotto.minNumber,
+        RULE.lotto.maxNumber,
+        RULE.lotto.lottoSize,
       );
 
       this.#lottos.push(randomNumbers.sort((a, b) => a - b));
@@ -86,8 +86,7 @@ class LottoGame {
       0,
     );
     return (
-      (totalWinningAmount / (this.#lottoAmount * RULE.PURCHASE_AMOUNT_UNIT)) *
-      100
+      (totalWinningAmount / (this.#lottoAmount * RULE.purchaseAmountUnit)) * 100
     );
   }
 }

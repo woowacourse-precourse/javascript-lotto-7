@@ -17,7 +17,7 @@ export const validateLottoNumber = (number) => {
     throwWoowaError(ERROR_MESSAGE.invalidIntegerType);
   }
 
-  if (!isInRange(number, RULE.LOTTO.NUMBER_MIN, RULE.LOTTO.NUMBER_MAX)) {
+  if (!isInRange(number, RULE.lotto.minNumber, RULE.lotto.maxNumber)) {
     throwWoowaError(ERROR_MESSAGE.invalidNumberInRange);
   }
 };

@@ -29,7 +29,7 @@ class GameController {
       this.#validatePurchaseAmount,
     );
 
-    return amount / RULE.PURCHASE_AMOUNT_UNIT;
+    return amount / RULE.purchaseAmountUnit;
   }
 
   #validatePurchaseAmount(input) {
@@ -38,7 +38,7 @@ class GameController {
       throwWoowaError(ERROR_MESSAGE.invalidNumberType);
     }
 
-    if (amount % RULE.PURCHASE_AMOUNT_UNIT !== 0) {
+    if (amount % RULE.purchaseAmountUnit !== 0) {
       throwWoowaError(ERROR_MESSAGE.invalidPurchaseAmountUnit);
     }
 
