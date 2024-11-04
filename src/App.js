@@ -3,6 +3,8 @@ import Lotto from './Lotto.js';
 
 class App {
   #lottos = [];
+  #winNumber = [];
+  #bonusNumber = 0;
 
   async run() {
     try {
@@ -62,6 +64,22 @@ class App {
       const numbers = await Random.pickUniqueNumbersInRange(1, 45, 6);
       this.#lottos.push(new Lotto(numbers));
     }
+  }
+
+  #calculateResults() {
+    const results = new Array(5).fill(0);
+
+    this.#lottos.forEach((lotto) => {
+      const matchCount = lotto.countMatchingNumbers(this.#winNumber);
+      if (matchCount === 6) results[4]++;
+      else if (matchCount === 5 && lotto.includes(this.#bonusNumber))
+        results[3]++;
+      else if (matchCount === 5) results[2]++;
+      else if (matchCount === 4) results[1]++;
+      else if (matchCount === 3) results[0]++;
+    });
+
+    return results;
   }
 }
 
