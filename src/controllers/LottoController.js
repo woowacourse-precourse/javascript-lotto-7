@@ -21,16 +21,10 @@ export default class LottoController {
   }
 
   async #purchaseLottos() {
-    while (true) {
-      try {
-        const purchasePrice = await this.#inputLottoView.getInputPrice();
-        this.#lottoPurchaser.purchase(purchasePrice);
-
-        return;
-      } catch (error) {
-        this.#outputLottoView.printMessage(error.message);
-      }
-    }
+    await this.#retryInputUntilSuccess(
+      () => this.#inputLottoView.getInputPrice(),
+      (result) => this.#lottoPurchaser.purchase(result)
+    );
   }
 
   async #decideWinningLotto() {
@@ -58,6 +52,19 @@ export default class LottoController {
         const winningLottoBonusNumber =
           await this.#inputLottoView.getInputWinningLottoBonusNumber();
         this.#winningLotto.setBonusNumber(winningLottoBonusNumber);
+
+        return;
+      } catch (error) {
+        this.#outputLottoView.printMessage(error.message);
+      }
+    }
+  }
+
+  async #retryInputUntilSuccess(inputFunction, taskFunction) {
+    while (true) {
+      try {
+        const result = await inputFunction();
+        taskFunction(result);
 
         return;
       } catch (error) {
