@@ -3,7 +3,11 @@ import Lotto from "./Lotto.js";
 
 // 상수 정의
 const LOTTO_PRICE = 1000;
-const ERROR_MESSAGE = "[ERROR]";
+const ERROR_MESSAGES = {
+  invalidAmount: "구입 금액은 1,000원 단위로 입력해야 합니다.",
+  invalidLottoNumbers: "로또 번호는 1부터 45 사이의 숫자여야 합니다.",
+  invalidBonusNumber: "보너스 번호는 1부터 45 사이의 숫자여야 합니다.",
+};
 const PRIZE_MONEY = {
   first: 2000000000,
   second: 30000000,
@@ -40,7 +44,7 @@ class App {
       const results = this.calculateResults(lottos, parsedWinningNumbers, parsedBonusNumber);
       this.printResults(results, purchaseAmount);
     } catch (error) {
-      Console.print(`${ERROR_MESSAGE} ${error.message}`);
+      Console.print(`[ERROR] ${error.message}`);
     }
   }
 
@@ -55,7 +59,7 @@ class App {
   validatePurchaseAmount(amount) {
     const parsedAmount = parseInt(amount, 10);
     if (isNaN(parsedAmount) || parsedAmount % LOTTO_PRICE !== 0) {
-      throw new Error("구입 금액은 1,000원 단위로 입력해야 합니다.");
+      throw new Error(ERROR_MESSAGES.invalidAmount);
     }
   }
 
@@ -74,14 +78,14 @@ class App {
       parsedNumbers.length !== 6 ||
       parsedNumbers.some((num) => isNaN(num) || num < 1 || num > 45)
     ) {
-      throw new Error("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      throw new Error(ERROR_MESSAGES.invalidLottoNumbers);
     }
     return parsedNumbers;
   }
 
   validateBonusNumber(number) {
     if (isNaN(number) || number < 1 || number > 45) {
-      throw new Error("보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+      throw new Error(ERROR_MESSAGES.invalidBonusNumber);
     }
   }
 
