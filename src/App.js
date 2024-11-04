@@ -15,6 +15,7 @@ class App {
 
     return input / 1000;
   }
+
   async run() {
     try {
       const moneyInput =
@@ -22,6 +23,9 @@ class App {
       this.checkNumber(moneyInput);
       const lottoCount = this.CalculateLottoCount(moneyInput);
       MissionUtils.Console.print(`${lottoCount}개를 구매했습니다.`);
+
+      const lotto = new Lotto();
+      lotto.display();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       // 에러 발생시 재입력받게 해줌
