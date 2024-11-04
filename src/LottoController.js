@@ -9,10 +9,6 @@ export class LottoController {
 
   async play() {
     await this.inputPurchasePrice();
-
-    this.printPurchasedLottoList();
-
-    await this.inputWinningNumberList();
   }
 
   async inputPurchasePrice() {
@@ -23,7 +19,7 @@ export class LottoController {
 
       const lottoQuantity = this.calculateLottoQuantity(price);
       this.generateLottoList(lottoQuantity);
-      lottoOutputView.showEmptyLine();
+      await this.printPurchasedLottoList();
     } catch (error) {
       lottoOutputView.showMessage(error.message);
       this.inputPurchasePrice();
@@ -36,9 +32,8 @@ export class LottoController {
       const winningNumberList = input.split(",").map(Number);
 
       lottoValidator.validateWinningNumberList(winningNumberList);
-      lottoOutputView.showEmptyLine();
 
-      this.inputBonusNumberList(winningNumberList);
+      await this.inputBonusNumberList(winningNumberList);
     } catch (error) {
       lottoOutputView.showMessage(error.message);
       this.inputWinningNumberList();
@@ -53,7 +48,6 @@ export class LottoController {
       lottoValidator.validateBonusNumber(winningNumberList, bonusNumber);
 
       this.generateWinningLotto(winningNumberList, bonusNumber);
-      lottoOutputView.showEmptyLine();
 
       this.printResult();
     } catch (error) {
@@ -76,10 +70,11 @@ export class LottoController {
     this.#winningLotto = new WinningLotto(winningNumberList, bonusNumber);
   }
 
-  printPurchasedLottoList() {
+  async printPurchasedLottoList() {
     lottoOutputView.showLottoQuantity(this.#lottoList.lottoList.length);
     lottoOutputView.showLottoListNumber(this.#lottoList.lottoList);
-    lottoOutputView.showEmptyLine();
+
+    await this.inputWinningNumberList();
   }
 
   printResult() {
@@ -87,5 +82,7 @@ export class LottoController {
       this.#winningLotto.winningLotto,
       this.#winningLotto.bonusNumber
     );
+    lottoOutputView.showRankList(this.#lottoList.rank);
+    lottoOutputView.showProfit(this.#lottoList.profitRate);
   }
 }

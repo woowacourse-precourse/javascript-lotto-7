@@ -8,7 +8,7 @@ class App {
   }
 
   async run() {
-    this.#lottoController.play();
+    await this.#lottoController.play();
   }
 }
 
