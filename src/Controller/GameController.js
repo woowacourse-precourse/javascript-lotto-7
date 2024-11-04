@@ -2,7 +2,7 @@ import { ERROR_MESSAGE } from '../constant/error.js';
 import { RULE } from '../constant/rule.js';
 import Lotto from '../Model/Lotto.js';
 import LottoGame from '../Model/LottoGame.js';
-import { createErrorMessage } from '../util/error.js';
+import { throwWoowaError } from '../util/error.js';
 import { isNumber, validateLottoNumber } from '../util/validation.js';
 import Input from '../View/Input.js';
 import Output from '../View/Output.js';
@@ -35,13 +35,11 @@ class GameController {
   #validatePurchaseAmount(input) {
     const amount = Number(input);
     if (!isNumber(amount)) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberType));
+      throwWoowaError(ERROR_MESSAGE.invalidNumberType);
     }
 
     if (amount % RULE.PURCHASE_AMOUNT_UNIT !== 0) {
-      throw new Error(
-        createErrorMessage(ERROR_MESSAGE.invalidPurchaseAmountUnit),
-      );
+      throwWoowaError(ERROR_MESSAGE.invalidPurchaseAmountUnit);
     }
 
     return amount;
@@ -62,9 +60,7 @@ class GameController {
       const number = Number(input);
       validateLottoNumber(number);
       if (winningLotto.hasInNumbers(number)) {
-        throw new Error(
-          createErrorMessage(ERROR_MESSAGE.invalidDuplicateNumber),
-        );
+        throwWoowaError(ERROR_MESSAGE.invalidDuplicateNumber);
       }
 
       return number;

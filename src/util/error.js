@@ -1,1 +1,3 @@
-export const createErrorMessage = (message) => `[ERROR] ${message}`;
+export const throwWoowaError = (message) => {
+  throw new Error(`[ERROR] ${message}`);
+};

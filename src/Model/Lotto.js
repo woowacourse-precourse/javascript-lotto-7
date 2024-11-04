@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../constant/error.js';
 import { RULE } from '../constant/rule.js';
-import { createErrorMessage } from '../util/error.js';
+import { throwWoowaError } from '../util/error.js';
 import { validateLottoNumber } from '../util/validation.js';
 
 class Lotto {
@@ -13,11 +13,11 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== RULE.LOTTO.LOTTO_SIZE) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidNumberSize));
+      throwWoowaError(ERROR_MESSAGE.invalidNumberSize);
     }
 
     if (new Set(numbers).size !== RULE.LOTTO.LOTTO_SIZE) {
-      throw new Error(createErrorMessage(ERROR_MESSAGE.invalidDuplicateNumber));
+      throwWoowaError(ERROR_MESSAGE.invalidDuplicateNumber);
     }
 
     numbers.forEach((number) => {
