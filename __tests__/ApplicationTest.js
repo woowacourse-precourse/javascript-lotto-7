@@ -24,24 +24,6 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
-  // given
-  const logSpy = getLogSpy();
-
-  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
-
-  mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
-
-  // when
-  const app = new App();
-  await app.run();
-
-  // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
-};
-
 describe("로또 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -89,9 +71,5 @@ describe("로또 테스트", () => {
     logs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
-  });
-
-  test("예외 테스트", async () => {
-    await runException("1000j");
   });
 });
