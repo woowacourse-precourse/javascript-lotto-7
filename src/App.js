@@ -1,8 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
 import { LottoInputValidator } from "./validators.js";
+import { createLottoInstances } from "./CreateLotto.js";
 class App {
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
+
+    Console.print("");
+    Console.print(`${purchaseAmount / 1000}개를 구매했습니다.`);
+    const lottoInstances = createLottoInstances(purchaseAmount / 1000);
   }
 
   async getPurchaseAmount() {
