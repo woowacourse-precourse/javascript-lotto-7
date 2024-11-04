@@ -14,6 +14,8 @@ class LottoVendingMachine {
     this.issueLottos();
 
     // 발행한 로또 수량 및 번호 오름차순 출력()
+    this.printIssueLottosInfo();
+
     // 당첨번호 입력()
     //   당첨 번호 검사()
     // 보너스번호 입력()
