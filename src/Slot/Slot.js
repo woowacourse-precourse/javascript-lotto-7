@@ -5,7 +5,6 @@ class Slot{
 
     #money = 0;
     #lotterArray = [];
-    #bonusNumber = 0;
     #purchaseNum = 0;
 
     constructor(money){
@@ -21,12 +20,10 @@ class Slot{
         return this.#lotterArray;
     }
     
-    getBonusNumber(){
-        return this.#bonusNumber;
-    }
     getPurchaseNum(){
         return this.#purchaseNum;
     }
+
 
     #setPurchseNum(money){
         this.#purchaseNum =  money/1000;
@@ -52,6 +49,7 @@ class Slot{
             throw Error(ERROR_INPUT_MONEY_THOUSAND);
         }
     }
+
 }
 
 export default Slot;
