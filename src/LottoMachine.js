@@ -9,10 +9,9 @@ class LottoMachine {
   #tickets;
   #winningRankCount;
 
-  constructor(input) {
-    const inputNumber = Number(input);
-    this.#validate(inputNumber);
-    this.#amount = inputNumber / LOTTO_RULE.PRICE;
+  constructor(number) {
+    this.#validate(number);
+    this.#amount = number / LOTTO_RULE.PRICE;
     this.#tickets = Array.from({ length: this.#amount }, () => new Ticket());
   }
 

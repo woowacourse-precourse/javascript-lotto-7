@@ -13,7 +13,8 @@ class App {
     await getInputWithErrorHandling({
       inputMessage: MESSAGE.INPUT_MONEY,
       handleInputFn: (input) => {
-        this.#lottoMachine = new LottoMachine(input);
+        const inputNumber = Number(input);
+        this.#lottoMachine = new LottoMachine(inputNumber);
       },
     });
 
@@ -22,14 +23,16 @@ class App {
     await getInputWithErrorHandling({
       inputMessage: MESSAGE.INPUT_WINNING_LOTTO,
       handleInputFn: (input) => {
-        this.#winningLotto = new Lotto(input);
+        const numbers = input.split(",").map(Number);
+        this.#winningLotto = new Lotto(numbers);
       },
     });
 
     await getInputWithErrorHandling({
       inputMessage: MESSAGE.INPUT_BONUS_NUMBER,
       handleInputFn: (input) => {
-        this.#bonusNumber = new BonusNumber(input, this.#winningLotto);
+        const inputNumber = Number(input);
+        this.#bonusNumber = new BonusNumber(inputNumber, this.#winningLotto);
       },
     });
 

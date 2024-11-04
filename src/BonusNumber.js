@@ -4,8 +4,7 @@ import { validateLottoNumber } from "./utils/validation.js";
 class BonusNumber {
   #bonusNumber;
 
-  constructor(input, winningLotto) {
-    const number = Number(input);
+  constructor(number, winningLotto) {
     this.#validate(number, winningLotto);
     validateLottoNumber(number);
     this.#bonusNumber = number;
