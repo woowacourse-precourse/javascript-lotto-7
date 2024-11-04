@@ -2,6 +2,7 @@ const MissionUtils = require('@woowacourse/mission-utils');
 
 class Game {
   #lottos = [];
+  #winningNumbers;
 
   async purchaseLottos(amount) {
     const count = amount / 1000;
@@ -25,6 +26,25 @@ class Game {
     this.#lottos.forEach((lotto) => {
       MissionUtils.Console.print(lotto.toString());
     });
+  }
+  async setWinningNumbers() {
+    const numbers = await this.#getWinningNumbers();
+    const bonusNumber = await this.#getBonusNumber(numbers);
+    this.#winningNumbers = new WinningNumbers(numbers, bonusNumber);
+  }
+
+  async #getWinningNumbers() {
+    const input = await MissionUtils.Console.readLineAsync(
+      '\n당첨 번호를 입력해 주세요.\n'
+    );
+    return InputValidator.validateWinningNumbers(input);
+  }
+
+  async #getBonusNumber(winningNumbers) {
+    const input = await MissionUtils.Console.readLineAsync(
+      '\n보너스 번호를 입력해 주세요.\n'
+    );
+    return InputValidator.validateBonusNumber(input, winningNumbers);
   }
 }
 
