@@ -30,6 +30,10 @@ const InputView = {
     const input = await Console.readLineAsync();
     const bonus = parseInt(input);
 
+    if (isNaN(bonus) || bonus < 1 || bonus > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.")
+    }
+
     return bonus;
   }
 }
