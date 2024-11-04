@@ -23,6 +23,7 @@ class Output {
   singleWinningResult(prize, results) {
     if (prize === PRIZE[2]) {
       Console.print(OUTPUT.bonusPrize(prize.match, prize.reward, results[prize.rank]));
+      return;
     }
 
     if (prize !== PRIZE[0]) {
