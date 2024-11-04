@@ -1,4 +1,4 @@
-import { Errors } from "./constants.js";
+import { Errors, LottoRange } from "./constants.js";
 
 class Lotto {
   #numbers;
@@ -17,7 +17,11 @@ class Lotto {
       throw new Error(Errors.lotto.NOT_UNIQUE_NUMBER);
     }
 
-    if (numbers.some((number) => number < 1 || number > 45)) {
+    if (
+      numbers.some(
+        (number) => number < LottoRange.MIN || number > LottoRange.MAX
+      )
+    ) {
       throw new Error(Errors.lotto.NOT_VALID_RANGE);
     }
 

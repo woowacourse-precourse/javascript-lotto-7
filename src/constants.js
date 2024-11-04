@@ -19,3 +19,8 @@ export const WinningInfo = {
   second: { count: 5, isBonusMatch: true, WINNING: 30000000 },
   first: { count: 6, WINNING: 2000000000 },
 };
+
+export const LottoRange = {
+  MIN: 1,
+  MAX: 45,
+};
