@@ -10,12 +10,24 @@ class Lotto {
   }
 
   #validate(numbers) {
+    this.#validateLength(numbers);
+    this.#validateDuplicate(numbers);
+    this.#validateNumberRange(numbers);
+  }
+
+  #validateLength(numbers) {
     if (numbers.length !== LOTTO_VALUES.LOTTO_COUNT) {
       throw new Error(ERROR_MESSAGES.INVALID_COUNT);
     }
+  }
+
+  #validateDuplicate(numbers) {
     if (new Set(numbers).size !== LOTTO_VALUES.LOTTO_COUNT) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER);
     }
+  }
+
+  #validateNumberRange(numbers) {
     numbers.forEach((number) => {
       if (
         !Number.isInteger(number) ||

@@ -7,23 +7,40 @@ import ResultCalculator from './utils/ResultCalculator.js';
 class App {
   async run() {
     const purchaseAmount = await InputHandler.getPurchaseAmount();
-    const lottoCount = purchaseAmount / 1000;
-    const lottoList = LottoGenerator.generateLottos(lottoCount);
+    const lottoList = this.generateLottos(purchaseAmount);
 
-    Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    lottoList.forEach((lotto) =>
-      Console.print(`[${lotto.getNumbers().join(', ')}]`),
-    );
+    const { winningNumbers, bonusNumber } = await this.getWinningNumbers();
 
-    const winningNumbers = await InputHandler.getWinningNumbers();
-    const bonusNumber = await InputHandler.getBonusNumber(winningNumbers);
-
-    const { money, matchTable } = ResultCalculator.calculateResults(
+    const { money, matchTable } = this.calculateResults(
       lottoList,
       winningNumbers,
       bonusNumber,
     );
     ResultPrinter.printResults(matchTable, money, purchaseAmount);
+  }
+
+  generateLottos(purchaseAmount) {
+    const lottoCount = purchaseAmount / 1000;
+    const lottoList = LottoGenerator.generateLottos(lottoCount);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    lottoList.forEach((lotto) =>
+      Console.print(`[${lotto.getNumbers().join(', ')}]`),
+    );
+    return lottoList;
+  }
+
+  async getWinningNumbers() {
+    const winningNumbers = await InputHandler.getWinningNumbers();
+    const bonusNumber = await InputHandler.getBonusNumber(winningNumbers);
+    return { winningNumbers, bonusNumber };
+  }
+
+  calculateResults(lottoList, winningNumbers, bonusNumber) {
+    return ResultCalculator.calculateResults(
+      lottoList,
+      winningNumbers,
+      bonusNumber,
+    );
   }
 }
 
