@@ -151,6 +151,15 @@ class App {
     return updatedStatistic;
   }
 
+  checkLottos(lottos, winningNumber) {
+    let statistic = this.initialStatistic();
+    for (let lotto of lottos) {
+      const matchCount = this.checkLotto(lotto, winningNumber);
+      statistic = this.pushLotto(statistic, matchCount, lotto);
+    }
+    return statistic;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
@@ -161,6 +170,8 @@ class App {
 
       const winningLotto = await this.inputWinningLotto();
       const bonusNumber = await this.inputBonus(winningLotto);
+
+      const statistic = this.checkLottos(lottos, winningLotto.getNumbers());
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
