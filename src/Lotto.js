@@ -13,14 +13,15 @@ class Lotto {
   }
 
   matchNumbers(winningNumbers, bonusNumber) {
-    const winningCount = this.#numbers.filter((number) =>
+    const winningMatches = this.#numbers.filter((number) =>
       winningNumbers.includes(number),
-    ).length;
+    );
+    const winningCount = String(winningMatches.length);
     const bonusFlag = this.#numbers.includes(bonusNumber);
 
-    if (Lotto.matchedCount.hasOwnProperty(winningCount)) return;
+    if (!Lotto.matchedCount.hasOwnProperty(winningCount)) return;
 
-    if (winningCount === 5 && bonusFlag) {
+    if (winningCount === '5' && bonusFlag) {
       Lotto.matchedCount['5+bonus'] += 1;
       return;
     }
