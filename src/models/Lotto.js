@@ -2,14 +2,13 @@ import { generateError } from "../utils/generateError.js";
 import Validator from "../validators/Validator.js";
 
 class Lotto {
-  // 로또 하나를 저장하는 6개의 숫자 배열
-  #numbers; // [1, 2, 3, 4, 5, 6]
+  #numbers;
 
   constructor(numbers) {
     this.#validateNumberCount(numbers);
     this.#validateUniqueNumber(numbers);
     this.#validateContainNotNumber(numbers);
-    this.#numbers = numbers.sort((a, b) => a - b); // 이상 없으면 저장
+    this.#numbers = numbers.sort((a, b) => a - b);
   }
 
   #validateNumberCount(numbers) {

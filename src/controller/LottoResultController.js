@@ -3,7 +3,7 @@ import RankCalculator from "../models/RankCalculator.js";
 class LottoResultController {
   #outputView;
 
-  constructor({ inputView, outputView }) {
+  constructor({ _, outputView }) {
     this.#outputView = outputView;
   }
 

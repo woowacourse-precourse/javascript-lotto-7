@@ -13,7 +13,6 @@ class LottoPurchaseController {
   async purchaseLotto() {
     const purchaseMoney = await this.#repeatUntilValidInput(() => this.#getPurChaseMoney());
     const purchaseHistory = this.#purchaseLotto(purchaseMoney);
-
     this.#outputView.printPurchaseInfo(purchaseHistory.lottoCount, purchaseHistory.lottos);
     return purchaseHistory;
   }
