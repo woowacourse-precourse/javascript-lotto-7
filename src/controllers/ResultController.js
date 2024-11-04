@@ -5,9 +5,9 @@ class ResultController {
     this.resultView = new ResultView();
   }
 
-  run(winningNumbers, lottoNumbers) {
+  run(winningNumbers, lottoNumbers, purchaseAmount) {
     this.resultView.displayResultMessage();
-    this.resultView.displayResult(winningNumbers, lottoNumbers);
+    this.resultView.displayResult(winningNumbers, lottoNumbers, purchaseAmount);
   }
 }
 

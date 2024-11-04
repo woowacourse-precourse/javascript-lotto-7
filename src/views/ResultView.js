@@ -11,11 +11,12 @@ class ResultView {
     Console.print(RUN_MESSAGE.BORDERLINE);
   }
 
-  displayResult(winningNumbers, lottoNumbers) {
+  displayResult(winningNumbers, lottoNumbers, purchaseAmount) {
     const lottoResults = calculateLottoResults(winningNumbers, lottoNumbers);
     const winningDetails = calculateWinningDetails(lottoResults);
     lottoResultPrint(winningDetails);
-    calculateEarningRate(winningDetails);
+    const earningRate = calculateEarningRate(purchaseAmount, winningDetails);
+    Console.print(earningRate);
   }
 }
 
