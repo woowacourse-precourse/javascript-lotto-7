@@ -1,5 +1,6 @@
-import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import App from "../src/App.js";
+import { ERROR_HEADER, ERROR_TITLE } from "../src/constants/errorMessage.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -13,9 +14,10 @@ const mockQuestions = (inputs) => {
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickUniqueNumbersInRange);
+  numbers.reduce(
+    (acc, number) => acc.mockReturnValueOnce(number),
+    MissionUtils.Random.pickUniqueNumbersInRange,
+  );
 };
 
 const getLogSpy = () => {
@@ -24,22 +26,37 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
+const runException = async (errorTitle) => {
   // given
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
-
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
   // when
   const app = new App();
   await app.run();
 
   // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(`${ERROR_HEADER} ${errorTitle}`));
+};
+
+const runMoneyException = async (input) => {
+  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  runException(ERROR_TITLE.money);
+};
+
+const runWinningNumbersException = async (input) => {
+  const INPUT_NUMBERS_TO_END = ["1,2,3,4,5,6", "7"];
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+  runException(ERROR_TITLE.lottoNumbers);
+};
+
+const runBonusNumbersException = async (input) => {
+  const INPUT_NUMBERS_TO_END = ["7"];
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+  runException(ERROR_TITLE.bonusNumber);
 };
 
 describe("로또 테스트", () => {
@@ -91,7 +108,42 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  describe("예외 테스트", () => {
+    describe("구매 금액이", () => {
+      test("숫자가 아닌 경우 에러 반환", async () => {
+        await runMoneyException("1000j");
+      });
+      test("1000원으로 나누어 떨어지지 않는 경우 에러 반환", async () => {
+        await runMoneyException("1500");
+      });
+      test.each([
+        "0", "500",
+      ])("1000원 미만인 경우 에러 반환", async (num) => {
+        await runMoneyException(num);
+      });
+    });
+    describe("당첨 번호가", () => {
+      test("숫자가 아닌 경우 에러 반환", async () => {
+        await runWinningNumbersException(["1000", "1,2,3,4,5,6j"]);
+      });
+      test.each([
+        "1,2,3,4,5,46", "0,1,2,3,4,5",
+      ])("1부터 45 사이의 숫자가 아닌 경우 에러 반환", async (numbers) => {
+        await runWinningNumbersException(["1000", numbers]);
+      });
+    });
+    describe("보너스 번호가", () => {
+      test("숫자가 아닌 경우 에러 반환", async () => {
+        await runBonusNumbersException(["1000", "1,2,3,4,5,6", "7j"]);
+      });
+      test.each([
+        "46", "0",
+      ])("1부터 45 사이의 숫자가 아닌 경우 에러 반환", async (number) => {
+        await runBonusNumbersException(["1000", "1,2,3,4,5,6", number]);
+      });
+      test("당첨 번호와 중복되는 경우 에러 반환", async () => {
+        await runBonusNumbersException(["1000", "1,2,3,4,5,6", "6"]);
+      });
+    });
   });
 });
