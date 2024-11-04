@@ -7,6 +7,7 @@ class Lotto {
   constructor(numbers) {
     this.#validate(numbers);
     this.sortNumber(numbers);
+    this.isUnique(numbers);
     this.#numbers = numbers;
   }
 
@@ -14,6 +15,29 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+  }
+
+  isUnique(numbers){
+    numbers.map((num, index)=>{
+      this.checkDupNumber(num, index, numbers);
+    })
+  }
+  checkDupNumber(target, targetIndex, numbers){
+    numbers.map((num, index)=>{
+      if(num === target && targetIndex !== index){
+        throw new Error("[ERROR] : 로또 번호는 중복될 수 없습니다.")
+      }
+    })
+  }
+
+  checkNumberRange(numbers){
+    const minNum = 1;
+    const maxNum = 45;
+    numbers.map((num)=>{
+      if(num > maxNum || num < minNum){
+        throw new Error("[ERROR] : 로또 번호는 1부터 45 사이의 숫자여야 합니다.")
+      }
+    })
   }
 
   sortNumber(numbers){

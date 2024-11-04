@@ -12,7 +12,10 @@ class App {
     const totalMoney = await Console.readLineAsync("구매할 금액을 입력해주세요 : ");
 
     const lottoCount = totalMoney / moneyUnit;
-
+    if(totalMoney % moneyUnit !== 0){
+      Console.print(lottoCount % moneyUnit);
+      throw new Error("[ERROR] 구입 금액은 1000원 단위여야 합니다.")
+    }
     /*
     const lottoNumber = [];
     for(let i = 0; i < lottoCount; i++){
@@ -41,6 +44,12 @@ class App {
 
     const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요 : ");
 
+    winNumber.map((winNum)=>{
+      if(winNum === bonusNumber){
+        throw new Error("[ERROR] : 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+      }
+    })
+
     Console.print("당첨 통계\n---");
 
     const winList = new Array(maxRank).fill(0);
@@ -63,8 +72,7 @@ class App {
         matchBonus = ", 보너스 볼 일치";
         matchCount = secRankMatch;
       }
-      earnMoney += Number.parseInt(winPrice[index]);
-
+      earnMoney += Number.parseInt(winPrice[index])*winEntry;
 
       const resultEntry = `${matchCount}개 일치${matchBonus}(${winPrice[index]}원) - ${winEntry}개\n`;
       result = result + resultEntry;
