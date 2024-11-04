@@ -26,13 +26,40 @@ const ERROR_MESSAGE = Object.freeze({
     '보너스 번호는 숫자는 1부터 45 사이의 숫자여야 합니다.',
 });
 
+const RESULT_COMMENTS = Object.freeze({
+  FIRST: '6개 일치',
+  SECOND: '5개 일치, 보너스 볼 일치',
+  THIRD: '5개 일치',
+  FOURTH: '4개 일치',
+  FIFTH: '3개 일치',
+});
+
+const RESULT_MONEY = Object.freeze({
+  FIRST: 2000000000,
+  SECOND: 30000000,
+  THIRD: 1500000,
+  FOURTH: 50000,
+  FIFTH: 5000,
+});
+
+const RANK_TABLE = Object.freeze({
+  6: 1,
+  5: [2, 3],
+  4: 4,
+  3: 5,
+});
+
 const FIND_NOT_NUMBER = /[^\d+]/g;
 const LOTTO_PRICE = 1000;
 const PERCENT_FACTOR = 100;
+
 export {
   USER_MESSAGE,
   ERROR_MESSAGE,
   FIND_NOT_NUMBER,
   LOTTO_PRICE,
   PERCENT_FACTOR,
+  RESULT_COMMENTS,
+  RESULT_MONEY,
+  RANK_TABLE,
 };

@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { lottoNumbersValidation } from "./validation.js";
+import { RANK_TABLE } from "./constants.js";
 
 class Lotto {
   #numbers;
@@ -18,7 +19,7 @@ class Lotto {
     return this.#numbers;
   }
 
-  matchRank(RANK_TABLE, winNumbers, isWinningBouns) {
+  matchRank(winNumbers, isWinningBouns) {
     const matchCount = 12 - new Set([...this.#numbers, ...winNumbers]).size;
     const winningbouns = this.#numbers.some((number) => number === isWinningBouns);
     const rank = RANK_TABLE[matchCount];

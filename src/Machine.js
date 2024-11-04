@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { moneyValidation, winNumbersValidation, bonusNumberValidation } from "./validation.js";
-import { USER_MESSAGE, LOTTO_PRICE, PERCENT_FACTOR } from "./constants.js";
+import { USER_MESSAGE, LOTTO_PRICE, PERCENT_FACTOR, RESULT_COMMENTS, RESULT_MONEY } from "./constants.js";
 import Lotto from "./Lotto.js";
 
 class Machine {
@@ -17,11 +17,11 @@ class Machine {
     this.#winNumbers = [];
     this.#bonusNumber = 0;
     this.#lottoResults = [
-      ['6개 일치', 2000000000, 0],
-      ['5개 일치, 보너스 볼 일치', 30000000, 0],
-      ['5개 일치', 1500000, 0],
-      ['4개 일치', 50000, 0],
-      ['3개 일치', 5000, 0],
+      [RESULT_COMMENTS.FIRST, RESULT_MONEY.FIRST, 0],
+      [RESULT_COMMENTS.SECOND, RESULT_MONEY.SECOND, 0],
+      [RESULT_COMMENTS.THIRD, RESULT_MONEY.THIRD, 0],
+      [RESULT_COMMENTS.FOURTH, RESULT_MONEY.FOURTH, 0],
+      [RESULT_COMMENTS.FIFTH, RESULT_MONEY.FIFTH, 0],
     ];
     this.#totalMoney = 0;
   }
@@ -72,15 +72,10 @@ class Machine {
   }
 
   lottoWinningCheck() {
-    const RANK_TABLE = {
-      6: 1,
-      5: [2, 3],
-      4: 4,
-      3: 5,
-    };
+    
 
     this.#lottoList.forEach((lotto) => {
-      const rank = lotto.matchRank(RANK_TABLE, this.#winNumbers, this.#bonusNumber);
+      const rank = lotto.matchRank(this.#winNumbers, this.#bonusNumber);
       if (rank) this.#lottoResults[rank - 1][2] += 1;
     });
   }
