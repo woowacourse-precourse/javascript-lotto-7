@@ -58,7 +58,7 @@ class App {
     const numbers = input.split(",").map(Number); //TODO : ,가 아닌 경우에 대한 예외처리
     
     // 입력된 당첨 번호의 유효성 확인 (총 6개, 1~45 범위의 숫자)
-    if (numbers.length !== 6 || numbers.some((num) => isNaN(num) || num < 1 || num > 45)) {
+    if (numbers.length !== 6 || numbers.some((num) => isNaN(num) || num < 1 || num > 45) || new Set(numbers).size !== numbers.length) {
       throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 중복되지 않는 숫자여야 합니다.");
     }
     return numbers;
