@@ -89,6 +89,16 @@ class LottoGame {
     this.#profitRate = ((totalPrize / totalCost) * 100).toFixed(1);
   }
 
+  #printResults() {
+    Console.print(`3개 일치 (5,000원) - ${this.#matchResults[5]}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.#matchResults[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.#matchResults[3]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.#matchResults[2]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.#matchResults[1]}개`);
+
+    Console.print(`총 수익률은 ${this.#profitRate}%입니다.`);
+  }
+
   #getLottoCount(totalCost) {
     return totalCost / 1000;
   }
