@@ -1,4 +1,4 @@
-import BonusNumberValidator from '../src/BonusNumberValidator';
+import BonusNumberValidator from '../src/validator/BonusNumberValidator';
 
 describe('보너스 번호 유효성 검사 성공 테스트', () => {
   const lottoNumbers = [1, 2, 3, 4, 5, 6];

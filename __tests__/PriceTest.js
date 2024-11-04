@@ -1,4 +1,4 @@
-import PriceValidator from '../src/PriceValidator';
+import PriceValidator from '../src/validator/PriceValidator';
 
 describe('구입금액 유효성 검사 성공 테스트', () => {
   test('구입금액이 올바르면 입력한 구입금액를 그대로 반환한다.', () => {

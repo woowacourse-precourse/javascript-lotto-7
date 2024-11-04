@@ -1,4 +1,4 @@
-import PriceValidator from '../../PriceValidator.js';
+import PriceValidator from '../../validator/PriceValidator.js';
 import getUserInput from '../getUserInput.js';
 import printOutput from '../printOutput.js';
 import { INPUT_MESSAGE } from '../../constants/inputOutputMessages.js';

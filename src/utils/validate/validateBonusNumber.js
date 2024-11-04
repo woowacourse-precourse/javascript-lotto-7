@@ -1,4 +1,4 @@
-import BonusNumberValidator from '../../BonusNumberValidator.js';
+import BonusNumberValidator from '../../validator/BonusNumberValidator.js';
 import printOutput from '../printOutput.js';
 import getUserInput from '../getUserInput.js';
 import { INPUT_MESSAGE } from '../../constants/inputOutputMessages.js';
