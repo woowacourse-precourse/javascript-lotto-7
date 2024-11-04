@@ -69,7 +69,7 @@ async function main() {
 
       // 유효한 보너스 번호 입력 받기
       const bonus = await getValidBonusNumber(); 
-      
+
         // 결과 통계 계산
         const results = ResultModule.tallyResults(tickets, winningNumbersArray, bonus);
         console.log();
@@ -83,4 +83,11 @@ async function main() {
 
     } catch (error) {
         console.log(error.message);
+      } finally {
+        rl.close();
+    }
+}
+
+main();
+        
 
