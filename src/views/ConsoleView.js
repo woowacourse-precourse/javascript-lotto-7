@@ -23,19 +23,29 @@ class ConsoleView {
     const validator = new Validator();
     const lottoController = new LottoController();
     let winningNumbersInput;
-    let winningNumbers;
     for (; ;) {
       try {
         winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
         validator.validateWinningNumbersInput(winningNumbersInput);
-        winningNumbers = lottoController(winningNumbersInput);
+        const winningNumbers = lottoController.extractWinningNumbers(winningNumbersInput);
         validator.validateDuplicateWinningNumbers(winningNumbers);
-        break;
+        return winningNumbers;
       } catch (error) {
         Console.print(error.message);
       }
     }
-    return winningNumbers;
+  }
+
+  async getBonusNumber(winningNumbers) {
+    let bonusNumber;
+    for (; ;) {
+      try {
+        bonusNumber = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n")
+        return bonusNumber;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
 
   printLottoCount(purchaseAmount) {
