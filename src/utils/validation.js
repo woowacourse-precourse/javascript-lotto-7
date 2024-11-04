@@ -1,4 +1,5 @@
-import { ERROR_PREFIX, ERROR_MESSAGES } from '../constant/constant.js';
+import { LOTTO, ERROR_PREFIX, ERROR_MESSAGES } from '../constant/constant.js';
+import { isWithinRange } from './rangeUtils.js';
 
 export const throwValidationError = (message) => {
   throw new Error(`${ERROR_PREFIX} ${message}`);
