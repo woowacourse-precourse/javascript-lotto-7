@@ -9,6 +9,9 @@ const OutputView = {
   printErrorMessage(errorMessage) {
     Console.print(`${ERROR_MESSAGE.prefix} ${errorMessage}\n`);
   },
+  printMessage(message) {
+    Console.print(message);
+  },
 };
 
 export default OutputView;
