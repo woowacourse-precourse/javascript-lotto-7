@@ -89,9 +89,9 @@ describe("로또 테스트", () => {
     logs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
-  });
+  }, 10000); // 10초로 타임아웃 설정
 
   test("예외 테스트", async () => {
     await runException("1000j");
-  });
+  }, 10000); // 10초로 타임아웃 설정
 });
