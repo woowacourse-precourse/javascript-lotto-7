@@ -3,10 +3,13 @@ const { InputValidator, Game } = require('./src/Game');
 
 class App {
   async run() {
-    const game = new Game();
+    const game = new LottoGame();
     const amount = await this.#getPurchaseAmount();
     const count = await game.purchaseLottos(amount);
     game.printPurchaseResult(count);
+    await game.setWinningNumbers();
+    game.calculateResults();
+    game.printResults();
   }
 
   async #getPurchaseAmount() {
