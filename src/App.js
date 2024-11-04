@@ -16,7 +16,7 @@ class App {
     while (!isValidPayment) {
       try {
         Console.print("구입금액을 입력해 주세요.");
-        let payment = await Console.readLineAsync("");
+        let payment = await Console.readLineAsync("구입금액을 입력해 주세요.");
         myLottoArray = new Lotto_purchase(payment);
         isValidPayment = true;
       } catch (err) {
@@ -38,7 +38,8 @@ class App {
       try {
         Console.print("\n보너스 번호를 입력해 주세요.");
         let inputbonusNumber = await Console.readLineAsync("");
-        bonusNumber = new Lotto_bonus(inputbonusNumber).bonusNumber;
+        let bonusNumberArray = inputbonusNumber.split(",");
+        bonusNumber = new Lotto_bonus(bonusNumberArray).bonusNumber;
         isValidLottoBonusNumber = true;
       } catch (err) {
         Console.print(err.message);
