@@ -1,5 +1,5 @@
 import WinningLotto from "../models/WinningLotto.js";
-import { CONFIG, ERROR_MESSAGE, INFO_MESSAGE, WINNER_LOTTO_NUMBER_DELIMITER } from "./constants.js";
+import { CONFIG, ERROR_MESSAGE, INFO_MESSAGE, PRIZE_TABLE, WINNER_LOTTO_NUMBER_DELIMITER } from "./constants.js";
 import LottoValidator from "./validator.js";
 import { LottoError } from "./errors.js";
 import { getInput, printResult } from "./utils.js";
@@ -60,4 +60,14 @@ export async function createWinningLotto() {
   const bonusNumber = await getValidatedBonusNumber(winningNumbers);
 
   return new WinningLotto(winningNumbers, bonusNumber);
+}
+
+export function calculateProfitRate(results, amount) {
+  const totalPrize = PRIZE_TABLE.reduce((acc, { matchCount, bonusMatch, prize }) => {
+    const count = results.filter(
+      (result) => result.matchCount === matchCount && (!bonusMatch || result.bonusMatch)
+    ).length;
+    return acc + prize * count;
+  }, 0);
+  return (totalPrize / (amount * CONFIG.DEFAULT_AMOUNT_UNIT)) * 100;
 }
