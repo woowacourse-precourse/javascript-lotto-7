@@ -14,8 +14,6 @@ export default function LottoPurchase(amount) {
 
     Console.print(`[${printFormat}]`);
   }
-  Console.print("\n");
-  Console.print(LottoBundle);
 
   return LottoBundle;
 }
