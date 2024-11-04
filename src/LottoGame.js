@@ -48,7 +48,7 @@ export class LottoGame {
       return bonusNumber;
     } catch (error) {
       Console.print(ERROR.message);
-      return this.addBonusNumber();
+      return this.addBonusNumber(winningLotto);
     }
   }
 
