@@ -11,6 +11,9 @@ class App {
         const WINNING_INPUT = await Console.readLineAsync(
             '\n당첨 번호를 입력 주세요.\n'
         );
+        const BONUS_NUMBER = await Console.readLineAsync(
+            '\n보너스 번호를 입력해 주세요.\n'
+        );
     }
 }
 
