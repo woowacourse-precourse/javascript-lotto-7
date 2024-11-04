@@ -15,7 +15,7 @@ class LottoManagerIO {
             `5개 일치, 보너스 볼 일치 (30,000,000원) - ${lottoResult.getMatchCount(5, true)}개\n` +
             `6개 일치 (2,000,000,000원) - ${lottoResult.getMatchCount(6)}개`
         }};
-    static #OUTPUT_
+    static #OUTPUT_PROFIT_RATE_MESSAGE = "총 수익률은 {rate}%입니다.";
 
     
     static async inputPurchasePrice(){
@@ -50,9 +50,11 @@ class LottoManagerIO {
         Console.print(this.#OUTPUT_STATISTIC_RESULT.countIntoStatisticMessage(lottoResult));
     } 
 
-    static printProfitRate(principal, profit){
-        Console.print(calculateProfitRate(principal, profit));
-    }   
+    static printProfitRate(principal, profit) {
+        const rate = calculateProfitRate(principal, profit); 
+        const message = this.#OUTPUT_PROFIT_RATE_MESSAGE.replace("{rate}", rate);
+        Console.print(message);
+    }
 }
 
 export default LottoManagerIO;

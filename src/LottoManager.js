@@ -47,10 +47,12 @@ class LottoManager {
 
     async calculateResult(){
         this.countAndEvaluateResult();
+        this.#lottoResult.calculateProfit();
     }
 
     async displayResult(){
         LottoManagerIO.printResultStatistic(this.#lottoResult);
+        LottoManagerIO.printProfitRate(this.#purchasePrice, this.#lottoResult.getTotalProfit());
     }
 }
 
