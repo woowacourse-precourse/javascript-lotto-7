@@ -75,7 +75,7 @@ class LottoController {
         this.#prize = prize.getPrize();
         OutputView.outputPrint(PRIZE_MESSAGES.output_winning_statistics);
         Object.values(this.#prize).reverse().forEach(({ count, price, condition }) => {
-            OutputView.outputPrint(PRIZE_MESSAGES.output_prize_result(count, price, prize.getConditionText(condition)));
+            OutputView.outputPrint(PRIZE_MESSAGES.output_prize_result(count, price, prize.getPrizeConditionText(condition)));
         });
         this.#rateReturn = prize.getRateReturn(this.#prize);
         OutputView.outputPrint(PRIZE_MESSAGES.output_rate_return(this.#rateReturn));

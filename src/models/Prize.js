@@ -3,13 +3,9 @@ import { PRIZE_MESSAGES } from "../constants/prizeMessages.js";
 
 class Prize {
 
-    static LOTTO_STATISTICS = {
-        firstRank: { count: 0, price: 2000000000, condition: 6 },
-        secondRank: { count: 0, price: 30000000, condition: '5+1' },
-        thirdRank: { count: 0, price: 1500000, condition: 5 },
-        fourthRank: { count: 0, price: 50000, condition: 4 },
-        fifthRank: { count: 0, price: 5000, condition: 3 },
-    };
+    static LOTTO_STATISTICS = Prize.initializeLottoStatistics();
+
+    static PRIZE_RATIO_MULTIPLIER = 100;
 
     #lottos;
 
@@ -23,52 +19,63 @@ class Prize {
         this.#bonusNumber = bonusNumber;
     }
 
+    static initializeLottoStatistics() {
+        return {
+            firstRank: { count: 0, price: 2000000000, condition: 6 },
+            secondRank: { count: 0, price: 30000000, condition: '5+1' },
+            thirdRank: { count: 0, price: 1500000, condition: 5 },
+            fourthRank: { count: 0, price: 50000, condition: 4 },
+            fifthRank: { count: 0, price: 5000, condition: 3 },
+        };
+    }
+
     getPrize() {
         return this.#lottos.reduce((statistics, lotto) => {
-            const { count, bonusCount } = this.getPrizeRankCounts(lotto);
-            this.incrementRankCount({ count, bonusCount }, statistics);
+            const { matchCount, hasBonus } = this.calculateMatchCounts(lotto);
+            this.incrementPrizeCount({ matchCount, hasBonus }, statistics);
             return statistics;
         }, Prize.LOTTO_STATISTICS);
     }
 
-    getRateReturn(prize) {
-        const totalPrice = Object.values(prize).reduce((accumulator, currentPrize) => {
-            return accumulator + Number(currentPrize.price) * Number(currentPrize.count)
+    getRateReturn(prizeStatistics) {
+        const totalPrize = Object.values(prizeStatistics).reduce((sum, prize) => {
+            return sum + (prize.price * prize.count);
         }, 0);
-        const totalExpenditure = this.#lottos.length * PurchaseAmount.AMOUNT_UNIT;
-        return ((totalPrice / totalExpenditure) * 100).toFixed(1);
+        const totalSpent = this.#lottos.length * PurchaseAmount.AMOUNT_UNIT;
+        return ((totalPrize / totalSpent) * Prize.PRIZE_RATIO_MULTIPLIER).toFixed(1);
     }
 
-    getConditionText(condition) {
+    getPrizeConditionText(condition) {
         if (typeof condition === 'string') {
             return PRIZE_MESSAGES.output_prize_bonus_text;
         }
         return PRIZE_MESSAGES.output_prize_condition_text(condition);
     }
 
-    getPrizeRankCounts(lotto) {
+    calculateMatchCounts(lotto) {
         return lotto.reduce((acc, number) => {
             if (this.#winningNumbers.includes(number)) {
-                acc.count++;
+                acc.matchCount++;
             }
             if (this.#bonusNumber === number) {
-                acc.bonusCount++;
+                acc.hasBonus = true;
             }
             return acc;
-        }, { count: 0, bonusCount: 0 });
+        }, { matchCount: 0, hasBonus: false });
     }
 
-    incrementRankCount({ count, bonusCount }, statistics) {
+    incrementPrizeCount({ matchCount, hasBonus }, statistics) {
         for (const rank in statistics) {
-            if (this.isRankConditionMet(statistics[rank].condition, count, bonusCount)) {
+            if (this.isMatchingRank(statistics[rank].condition, matchCount, hasBonus)) {
                 statistics[rank].count++;
                 break;
             }
         }
     }
 
-    isRankConditionMet(condition, count, bonusCount) {
-        return condition === `${count}+${bonusCount}` || condition === count;
+    isMatchingRank(condition, matchCount, hasBonus) {
+        const bonusMatch = hasBonus ? 1 : 0;
+        return condition === `${matchCount}+${bonusMatch}` || condition === matchCount;
     }
 }
 
