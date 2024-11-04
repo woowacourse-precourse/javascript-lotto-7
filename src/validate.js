@@ -26,11 +26,20 @@ const isUniqueNumber = (numbers, newNumber) => {
   return !numbers.includes(+newNumber);
 };
 
-export const validateWinningNumbers = (numbers) => {
-  if (!isAllNumberType(numbers)) throwError(ERROR_MESSAGE.inputFormatError);
+const commonValidateLottoNumbers = (numbers) => {
   if (numbers.length !== 6) throwError(ERROR_MESSAGE.lottoNumbersCountError);
   if (!isUniqueCombination(numbers)) throwError(ERROR_MESSAGE.duplicatedNumbersError);
   if (!isValidRange(numbers)) throwError(ERROR_MESSAGE.lottoNumberRangeError);
+};
+
+export const validateLottoNumbers = (numbers) => {
+  if (!isAllNumberType(numbers)) throwError(ERROR_MESSAGE.lottoNumberTypeError);
+  commonValidateLottoNumbers(numbers);
+};
+
+export const validateWinningNumbers = (numbers) => {
+  if (!isAllNumberType(numbers)) throwError(ERROR_MESSAGE.inputFormatError);
+  commonValidateLottoNumbers(numbers);
 };
 
 export const validateBonusNumber = (bonusNumber, winningNumbers) => {
