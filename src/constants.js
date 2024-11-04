@@ -8,10 +8,17 @@ export const WINNING_NUMBER_DELIMITER = ',';
 
 export const INPUT_MESSAGE = {
   READ_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
+  READ_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
+  READ_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
 };
 
 export const OUTPUT_MESSAGE = {
   PURCHASE_SUMMARY: (lottoCount) => `${lottoCount}개를 구매했습니다.`,
+  STATISTICS_TITLE: (count) => `${count}개 일치`,
+  STATISTICS_TITLE_BONUS: '보너스 볼 일치',
+  STATISTICS: '당첨 통계',
+  STATISTICS_LINE: '---',
+  PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
 export const ERROR_MESSAGE = {
