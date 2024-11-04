@@ -1,10 +1,8 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import { readUserInput } from './utils/readUserInput.js';
-import { isNumber } from './utils/validators.js';
-import { throwError } from './utils/throwError.js';
+import { isNumber, isOverNumber } from './utils/validators.js';
 import {
-  ERROR_MESSAGE,
   INPUT_MESSAGE,
   LOTTO_DELIMITER,
   LOTTO_LENGTH,
@@ -32,9 +30,12 @@ export default class LottoMachine {
   async readPurchaseAmount() {
     const purchaseAmount = await readUserInput(
       INPUT_MESSAGE.READ_PURCHASE_AMOUNT,
-      [isNumber]
+      [
+        isNumber,
+        (input, throwOnError) =>
+          isOverNumber(input, LottoMachine.#LOTTO_PRICE, throwOnError),
+      ]
     );
-    this.#validatePurchaseAmount(purchaseAmount);
     return Number(purchaseAmount);
   }
 
@@ -47,14 +48,6 @@ export default class LottoMachine {
     );
     Console.print('');
     return purchasedLottos;
-  }
-
-  #validatePurchaseAmount(purchaseAmount) {
-    if (purchaseAmount < LottoMachine.#LOTTO_PRICE) {
-      throwError(
-        ERROR_MESSAGE.LOTTO_CHECK_PURCHASE_AMOUNT(LottoMachine.#LOTTO_PRICE)
-      );
-    }
   }
 
   #calculateLottoCount(purchaseAmount) {
