@@ -1,40 +1,30 @@
-import { Console } from '@woowacourse/mission-utils';
+import InputHandler from './handlers/InputHandler.js';
 import PurchaseLotto from './PurchaseLotto.js';
-import { validatePurchaseMoney } from './validators/validatePurchaseMoney.js';
-import {
-  validateLottoNumbers,
-  validateBonusNumber,
-} from './validators/validateLottoNumbers.js';
-import { parseToNumber, parseWinningNumbers } from './utils/Parser.js';
-import { promptUserInput } from './utils/Prompt.js';
 import LottoList from './LottoList.js';
+import LottoResultCalculator from './LottoResultCalculator.js';
 
 class App {
   async run() {
-    const purchaseMoney = await promptUserInput(
-      '구입금액을 입력해 주세요.\n',
-      parseToNumber,
-      validatePurchaseMoney,
-    );
+    const purchaseMoney = await InputHandler.getPurchaseMoney();
 
     const purchaseLotto = new PurchaseLotto(purchaseMoney);
-    purchaseLotto.printQuantity();
+    const lottoQuantity = purchaseLotto.getQuantity();
+
     const lottoList = new LottoList(purchaseLotto.getQuantity());
-    lottoList.printTickets();
+    const lottoNumbers = lottoList.getTickets();
 
-    const winningNumbers = await promptUserInput(
-      '\n당첨 번호를 입력해 주세요.\n',
-      parseWinningNumbers,
-      validateLottoNumbers,
-    );
-    Console.print(winningNumbers);
+    const winningNumbers = await InputHandler.getWinningNumbers();
 
-    const bonusNumber = await promptUserInput(
-      '\n보너스 번호를 입력해 주세요.\n',
-      parseToNumber,
-      number => validateBonusNumber(number, winningNumbers),
+    const bonusNumber = await InputHandler.getBonusNumber(winningNumbers);
+
+    const lottoCalculator = new LottoResultCalculator(
+      winningNumbers,
+      bonusNumber,
     );
-    Console.print(bonusNumber);
+    const { lottoResult, profitRate } = lottoCalculator.getLottoResult(
+      lottoNumbers,
+      purchaseMoney,
+    );
   }
 }
 
