@@ -36,7 +36,7 @@ describe('LottoMatcher 클래스 테스트', () => {
     const winningNumbers = [1, 2, 3, 4, 5, 6];
     const bonusNumber = 6;
     const lottoMatcher = new LottoMatcher(
-      [lottoTickets],
+      lottoTickets,
       winningNumbers,
       bonusNumber
     );

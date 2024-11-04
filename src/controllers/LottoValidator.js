@@ -8,10 +8,7 @@ class LottoValidator {
       throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
     }
 
-    return {
-      winningNumbers: winningNumbers,
-      bonusNumber: validateBonusNumber,
-    };
+    return validateBonusNumber;
   }
 
   validateWinningNumber(userInput) {

@@ -88,9 +88,6 @@ describe('LottoValidator 클래스 테스트', () => {
     );
 
     // then
-    expect(result).toEqual({
-      winningNumbers: winningNumbers,
-      bonusNumber: 7,
-    });
+    expect(result).toBe(7);
   });
 });
