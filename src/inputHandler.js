@@ -69,6 +69,7 @@ class InputHandler {
   static async validateWinningNumbers(winningNumbers) {
     try {
       this.checkCommaOnly(winningNumbers);
+      this.checkWinningNumbersBetween1And45(winningNumbers);
       return winningNumbers;
     } catch (error) {
       if (
@@ -81,6 +82,12 @@ class InputHandler {
       Console.print(error.message);
       return await this.getWinningNumbers();
     }
+  }
+
+  static checkWinningNumbersBetween1And45(winningNumbers) {
+    winningNumbers.forEach((number) => {
+      this.checkBetween1And45(number);
+    });
   }
 
   static checkCommaOnly(winningNumbers) {
@@ -113,9 +120,9 @@ class InputHandler {
     }
   }
 
-  static checkBetween1And45(bonusNumber) {
-    if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error(BONUS_NUMBER.BETWEEN_1_AND_45);
+  static checkBetween1And45(number) {
+    if (number < 1 || number > 45) {
+      throw new Error(LOTTO_NUMBER.BETWEEN_1_AND_45);
     }
   }
 
