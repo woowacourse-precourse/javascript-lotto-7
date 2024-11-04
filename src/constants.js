@@ -45,6 +45,7 @@ const LOTTERY_NUM_RANGE = {
 const ERROR_MESSAGES = {
   LOTTERY_NUM_INPUT_COMMA: ",로 입력값들을 구분해주세요.",
   LOTTERY_NUM_INPUT_LENGTH: "로또 번호 6개를 입력해주세요.",
+  LOTTERY_NUM_DUPLICATE: "로또 번호에 중복된 숫자가 있으면 안됩니다.",
   LOTTERY_NUM_INPUT_RANGE: "로또 번호의 숫자 범위는 1~45까지입니다.",
   LOTTERY_NUM_INPUT_NaN: "입력값을 확인해주세요.",
   LOTTERY_BONUS_NUM: "보너스 번호는 기존 입력 번호들과 겹치면 안됩니다.",
