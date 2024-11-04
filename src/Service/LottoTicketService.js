@@ -1,3 +1,4 @@
+import { PURCHASE_AMOUNT_DIVISOR } from '../constants.js';
 import Lotto from '../Domain/Lotto.js';
 
 class LottoTicketService {
@@ -22,7 +23,7 @@ class LottoTicketService {
   }
 
   calculateLottoCount(purchaseAmount) {
-    this.#lottoCount = purchaseAmount / 1000;
+    this.#lottoCount = purchaseAmount / PURCHASE_AMOUNT_DIVISOR;
   }
 
   getLottos() {

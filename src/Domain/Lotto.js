@@ -1,3 +1,9 @@
+import {
+  LOTTO_NUMBER_COUNT,
+  RANDOM_NUMBER_END,
+  RANDOM_NUMBER_START,
+} from '../constants';
+
 class Lotto {
   #numbers;
 
@@ -14,7 +20,7 @@ class Lotto {
   }
 
   #validateLength(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO_NUMBER_COUNT) {
       throw new Error('[ERROR] 로또 번호는 반드시 6개여야 합니다.');
     }
   }
@@ -30,7 +36,7 @@ class Lotto {
 
   #validateRange(numbers) {
     numbers.forEach(number => {
-      if (number < 1 || number > 45) {
+      if (number < RANDOM_NUMBER_START || number > RANDOM_NUMBER_END) {
         throw new Error('[ERROR] 로또 번호는 1~45 사이여야 합니다.');
       }
     });

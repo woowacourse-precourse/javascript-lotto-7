@@ -1,8 +1,17 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import {
+  LOTTO_NUMBER_COUNT,
+  RANDOM_NUMBER_END,
+  RANDOM_NUMBER_START,
+} from '../constants';
 
 class LottoNumberGenerateService {
   generateUniqueLottoNumbers() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      RANDOM_NUMBER_START,
+      RANDOM_NUMBER_END,
+      LOTTO_NUMBER_COUNT
+    );
   }
 }
 

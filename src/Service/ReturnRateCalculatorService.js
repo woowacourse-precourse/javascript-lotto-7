@@ -1,6 +1,14 @@
+import { PRIZE_AMOUNTS } from '../constants';
+
 class ReturnRateCalculatorService {
   calculateTotalReturnRate(purchaseAmount, totalWinningRank) {
-    const prizeAmounts = [2000000000, 30000000, 1500000, 50000, 5000];
+    const prizeAmounts = [
+      PRIZE_AMOUNTS.PRIZE_AMOUNT_FIRST,
+      PRIZE_AMOUNTS.PRIZE_AMOUNT_SECOND,
+      PRIZE_AMOUNTS.PRIZE_AMOUNT_THIRD,
+      PRIZE_AMOUNTS.PRIZE_AMOUNT_FOURTH,
+      PRIZE_AMOUNTS.PRIZE_AMOUNT_FIFTH,
+    ];
     let totalPrize = 0;
 
     totalWinningRank.map((rankCount, index) => {

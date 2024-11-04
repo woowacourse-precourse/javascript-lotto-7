@@ -1,3 +1,11 @@
+import {
+  ERROR_MESSAGES,
+  LOTTO_NUMBER_COUNT,
+  PURCHASE_AMOUNT_DIVISOR,
+  RANDOM_NUMBER_END,
+  RANDOM_NUMBER_START,
+} from '../../constants';
+
 class InputValidator {
   validatePurchaseAmount(amount) {
     this.checkEmpty(amount);
@@ -30,54 +38,50 @@ class InputValidator {
 
   checkEmpty(value) {
     if (value === '') {
-      throw new Error(
-        '[ERROR] 입력값이 비어있습니다. 유효한 값을 입력해야 합니다.'
-      );
+      throw new Error(ERROR_MESSAGES.EMPTY_INPUT);
     }
   }
 
   checkNaN(value) {
     if (Number.isNaN(value)) {
-      throw new Error('[ERROR] 숫자를 입력해야 합니다.');
+      throw new Error(ERROR_MESSAGES.NOT_A_NUMBER);
     }
   }
 
   checkDivisibility(value) {
-    if (value % 1000 !== 0) {
-      throw new Error(
-        '[ERROR] 구입 금액은 1,000원으로 나누어 떨어져야 합니다.'
-      );
+    if (value % PURCHASE_AMOUNT_DIVISOR !== 0) {
+      throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISIBILITY);
     }
   }
 
   checkWinningNumbersLength(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 당첨 번호는 반드시 6개여야 합니다.');
+    if (numbers.length !== LOTTO_NUMBER_COUNT) {
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_LENGTH_ERROR);
     }
   }
 
   checkRange(value) {
-    if (value < 1 || value > 45) {
-      throw new Error('[ERROR] 로또 번호는 1~45 사이여야 합니다.');
+    if (value < RANDOM_NUMBER_START || value > RANDOM_NUMBER_END) {
+      throw new Error(ERROR_MESSAGES.LOTTO_NUMBER_OUT_OF_RANGE);
     }
   }
 
   checkUniqueNumbers(numbers) {
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== numbers.length) {
-      throw new Error('[ERROR] 중복된 당첨 번호가 있습니다.');
+      throw new Error(ERROR_MESSAGES.DUPLICATE_WINNING_NUMBERS);
     }
   }
 
   checkSingleInput(value) {
     if (value.split(',').length !== 1) {
-      throw new Error('[ERROR] 보너스 번호는 반드시 1개여야 합니다.');
+      throw new Error(ERROR_MESSAGES.BONUS_LENGTH_ERROR);
     }
   }
 
   checkBonusUnique(winningNumbers, bonusNumber) {
     if (winningNumbers.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+      throw new Error(ERROR_MESSAGES.BONUS_UNIQUE_ERROR);
     }
   }
 }

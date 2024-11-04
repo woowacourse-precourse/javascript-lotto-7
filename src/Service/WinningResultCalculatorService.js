@@ -44,7 +44,7 @@ class WinningResultCalculatorService {
         lotto.getNumbers()
       );
 
-      if (winningRank >= 1 && winningRank <= 5) {
+      if (winningRank >= 1 && winningRank <= TOTAL_PRIZE_RANKS) {
         totalWinningRank[winningRank - 1] += 1;
       }
     });

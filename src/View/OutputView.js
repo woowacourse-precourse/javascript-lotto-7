@@ -1,3 +1,4 @@
+import { PRIZE_RANKS } from '../constants.js';
 import { printOutput } from './utils/utils.js';
 
 class OutputView {
@@ -14,11 +15,11 @@ class OutputView {
     printOutput('---');
 
     const prize = [
-      { rank: '6개 일치', amount: '2,000,000,000' },
-      { rank: '5개 일치, 보너스 볼 일치', amount: '30,000,000' },
-      { rank: '5개 일치', amount: '1,500,000' },
-      { rank: '4개 일치', amount: '50,000' },
-      { rank: '3개 일치', amount: '5,000' },
+      PRIZE_RANKS.FIRST,
+      PRIZE_RANKS.SECOND,
+      PRIZE_RANKS.THIRD,
+      PRIZE_RANKS.FOURTH,
+      PRIZE_RANKS.FIFTH,
     ];
 
     for (let i = totalWinningRank.length - 1; i >= 0; i--) {
