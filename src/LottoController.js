@@ -54,6 +54,8 @@ export class LottoController {
 
       this.generateWinningLotto(winningNumberList, bonusNumber);
       lottoOutputView.showEmptyLine();
+
+      this.printResult();
     } catch (error) {
       lottoOutputView.showMessage(error.message);
       this.inputBonusNumberList(winningNumberList);
@@ -78,5 +80,12 @@ export class LottoController {
     lottoOutputView.showLottoQuantity(this.#lottoList.lottoList.length);
     lottoOutputView.showLottoListNumber(this.#lottoList.lottoList);
     lottoOutputView.showEmptyLine();
+  }
+
+  printResult() {
+    this.#lottoList.calculateRank(
+      this.#winningLotto.winningLotto,
+      this.#winningLotto.bonusNumber
+    );
   }
 }

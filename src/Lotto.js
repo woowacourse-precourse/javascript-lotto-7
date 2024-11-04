@@ -1,5 +1,5 @@
 class Lotto {
-  #numbers;
+  #numbers = [];
 
   constructor(numbers) {
     this.#validate(numbers);
@@ -12,9 +12,35 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
   get numbers() {
     return this.#numbers;
+  }
+
+  calculateRank(winningNumberList, bonusNumber) {
+    const winningMatchCount = this.#numbers.filter((number) =>
+      winningNumberList.includes(number)
+    ).length;
+
+    switch (winningMatchCount) {
+      case 3:
+        return 5;
+      case 4:
+        return 4;
+      case 5:
+        return this.calculateBonusNumber(bonusNumber);
+      case 6:
+        return 1;
+      default:
+        return 0;
+    }
+  }
+
+  calculateBonusNumber(bonusNumber) {
+    if (this.#numbers.includes(bonusNumber)) {
+      return 2;
+    }
+
+    return 3;
   }
 }
 
