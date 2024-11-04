@@ -1,5 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
 
+// 로또 번호 생성 및 관리
 class Lotto {
   #numbers;
 
