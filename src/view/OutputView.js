@@ -8,6 +8,10 @@ class OutputView {
     );
   }
 
+  static printLottoTicket(lottos) {
+    OutputView.#printMessage(`[${lottos}]`);
+  }
+
   static #printMessage(message) {
     Console.print(message);
   }

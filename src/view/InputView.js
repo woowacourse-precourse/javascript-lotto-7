@@ -3,15 +3,15 @@ import { INPUT_MESSAGE } from '../constants/messages.js';
 
 class InputView {
   static async readWinningNumbers() {
-    return await InputView.#readInput(INPUT_MESSAGE.LOTTO_WINNING_NUMBERS);
+    return InputView.#readInput(INPUT_MESSAGE.LOTTO_WINNING_NUMBERS);
   }
 
   static async readBonusNumber() {
-    return await InputView.#readInput(INPUT_MESSAGE.LOTTO_BONUS_NUMBER);
+    return InputView.#readInput(INPUT_MESSAGE.LOTTO_BONUS_NUMBER);
   }
 
   static async readPurchaseAmount() {
-    return await InputView.#readInput(INPUT_MESSAGE.LOTTO_PURCHASE_AMOUNT);
+    return InputView.#readInput(INPUT_MESSAGE.LOTTO_PURCHASE_AMOUNT);
   }
 
   static #readInput(input) {

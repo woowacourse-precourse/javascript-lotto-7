@@ -3,6 +3,7 @@ import WinningNumbers from '../model/WinningNumbers.js';
 import InputView from '../view/InputView.js';
 import { generateRandomNumbers } from '../utils/RandomNumberGenerator.js';
 import Lotto from '../model/Lotto.js';
+import OutputView from '../view/OutputView.js';
 
 class LottoController {
   static #DIVISION_UNIT = 1000;
@@ -10,9 +11,8 @@ class LottoController {
   constructor() {}
 
   async init() {
-    this.lottoCount =
-      (await LottoController.getPurchaseAmount()) /
-      LottoController.#DIVISION_UNIT;
+    const purchaseAmount = await LottoController.getPurchaseAmount();
+    this.lottoCount = purchaseAmount / LottoController.#DIVISION_UNIT;
     this.lottoTickets = LottoController.generateLottoTickets(this.lottoCount);
 
     const winningNumbersInput = await InputView.readWinningNumbers();
@@ -23,6 +23,7 @@ class LottoController {
     );
     this.winningNumbers = lottoWinningNumbers.getWinningNumbers();
     this.bonusNumber = lottoWinningNumbers.getBonusNumber();
+    LottoController.printLottoTickets(purchaseAmount, this.lottoTickets);
   }
 
   static async getPurchaseAmount() {
@@ -46,6 +47,13 @@ class LottoController {
       throw new Error('[ERROR]');
     }
     return lottoTickets;
+  }
+
+  static printLottoTickets(money, lottos) {
+    OutputView.printPurchaseAmount(money);
+    lottos.forEach((lotto) => {
+      OutputView.printLottoTicket(lotto);
+    });
   }
 }
 
