@@ -1,12 +1,10 @@
 import { trimInputAndCheckEmpty } from './common.js';
-import { ERROR_MESSAGES } from '../constants/messages.js';
+import { ERROR_MESSAGES, LOTTO_TICKET_PRICE } from '../constants/constants.js';
 
 const {
   INVALID_PURCHASE_AMOUNT_NOT_NUMBER,
   INVALID_PURCHASE_AMOUNT_NOT_TICKET_UNIT,
 } = ERROR_MESSAGES;
-
-const LOTTO_TICKET_PRICE = 1000;
 
 const isPromptAmountNumber = (amount) => {
   if (Number.isNaN(Number(amount))) {

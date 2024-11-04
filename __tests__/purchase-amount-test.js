@@ -1,5 +1,5 @@
 import validateAmount from '../src/validations/purchase-amount.js';
-import { ERROR_MESSAGES } from '../src/constants/messages.js';
+import { ERROR_MESSAGES } from '../src/constants/constants.js';
 
 const {
   INVALID_EMPTY_INPUT,

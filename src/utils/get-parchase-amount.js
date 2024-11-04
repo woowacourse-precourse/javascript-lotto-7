@@ -1,4 +1,4 @@
-import { USER_PROMPT_MESSAGES } from '../constants/messages.js';
+import { USER_PROMPT_MESSAGES } from '../constants/constants.js';
 import { promptUserInput, printMessage } from './console.js';
 import validateAmount from '../validations/purchase-amount.js';
 

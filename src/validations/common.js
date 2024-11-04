@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../constants/messages';
+import { ERROR_MESSAGES } from '../constants/constants';
 
 const { INVALID_EMPTY_INPUT } = ERROR_MESSAGES;
 

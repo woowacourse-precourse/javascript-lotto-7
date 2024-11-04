@@ -1,3 +1,5 @@
+const LOTTO_TICKET_PRICE = 1000;
+
 const USER_PROMPT_MESSAGES = Object.freeze({
   GET_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.\n',
   GET_WINNING_NUMBER: '당첨 번호를 입력해 주세요.\n',
@@ -32,6 +34,7 @@ const PRIZE_AMOUNTS = Object.freeze({
 });
 
 export {
+  LOTTO_TICKET_PRICE,
   USER_PROMPT_MESSAGES,
   CONFIRMATION_MESSAGES,
   ERROR_MESSAGES,
