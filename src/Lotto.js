@@ -1,4 +1,3 @@
-// Lotto.js
 class Lotto {
   #numbers;
 
@@ -8,11 +7,9 @@ class Lotto {
   }
 
   #validate(numbers) {
+    // 번호 개수가 6개인지 확인
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
-    if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
     }
   }
 
