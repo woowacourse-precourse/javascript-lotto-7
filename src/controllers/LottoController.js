@@ -4,7 +4,6 @@ export class LottoController {
 	// 실행 함수
 	run() {}
 
-	// 로또 발행 함수
 	issueLotto(price) {
 		const lottoList = [];
 		const lottoCount = price / 1000;
@@ -17,12 +16,10 @@ export class LottoController {
 		return lottoList;
 	}
 
-	// 로또 번호 생성 함수
 	createLottoNumbers() {
 		return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
 	}
 
-	// 당첨 결과 반환하는 함수
 	getLottoResult(userLottoList, winningNumbers, bonusNumber) {
 		const lottoResult = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0 };
 		userLottoList.forEach((lotto) => {
@@ -34,7 +31,6 @@ export class LottoController {
 		return lottoResult;
 	}
 
-	// 당첨 결과를 확인하는 함수
 	checkLottoResult(lottoResult, matchCount, hasBonus) {
 		switch (matchCount) {
 			case 6:
@@ -58,6 +54,21 @@ export class LottoController {
 		}
 	}
 
-	// 수익율 계산하는 함수
-	calculateProfitRate() {}
+	calculateProfitRate(lottoResult, price) {
+		const prizeMoney = {
+			first: 2000000000,
+			second: 30000000,
+			third: 1500000,
+			fourth: 50000,
+			fifth: 5000,
+		};
+
+		let totalPrize = 0;
+		for (const [key, count] of Object.entries(lottoResult)) {
+			totalPrize += count * prizeMoney[key];
+		}
+
+		const profitRate = ((totalPrize / price) * 100).toFixed(1);
+		return profitRate;
+	}
 }
