@@ -35,9 +35,6 @@ class LottoGame {
 
   #validateBonusNumber(bonusNumber) {
     this.#validateNumber(bonusNumber);
-    if (bonusNumber.length > 1) {
-      throw new Error('[ERROR] 보너스 번호는 1개만 입력해주세요.')
-    }
 
     if (this.#winNumbers.includes(bonusNumber)) {
       throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
@@ -87,32 +84,25 @@ class LottoGame {
       6: 0
     }
     userLotto.forEach((lotto) => {
-      const userLottoNumbers = lotto.getNumbers();
-
-      const matchCount = winNumbersArray.filter((number) => userLottoNumbers.includes(number)).length;
-      const hasBonus = userLottoNumbers.includes(Number(this.#bonusNumber));
-      console.log(hasBonus);
-      switch (matchCount) {
-        case 6:
-          result[6] += 1;
-          break;
-        case 5:
-          if (hasBonus) {
-            result['5+bonus'] += 1;
-          } else {
-            result[5] += 1;
-          }
-          break;
-        case 4:
-          result[4] += 1;
-          break;
-        case 3:
-          result[3] += 1;
-          break;
-      }
+      const matchCount = this.#countMatches(lotto.getNumbers(), winNumbersArray);
+      this.#updateResult(result, matchCount, this.#hasBonusNumber(lotto.getNumbers()));
     });
     return result;
   };
+
+  #countMatches(userNumbers, winNumbers) {
+    return winNumbers.filter((num) => userNumbers.includes(num)).length;
+  }
+
+  #hasBonusNumber(userNumbers) {
+    return userNumbers.includes(Number(this.#bonusNumber));
+  }
+
+  #updateResult(result, matchCount, hasBonus) {
+    if (matchCount ===6) result[6] += 1;
+    else if (matchCount === 5 && hasBonus) result['5+bonus'] += 1;
+    else if (matchCount > 2) result[matchCount] += 1;
+  }
 
   calculateProfit(userLotto) {
     let result = this.checkWinning(userLotto);
