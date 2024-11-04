@@ -10,7 +10,7 @@ const calculationLotto = {
     return purchasePrice / LOTTO_CONFIG.PRICE;
   },
   result(lottos, winningLotto, bonusNumber) {
-    const lottoResult = { ...LOTTO_PRIZE };
+    const lottoResult = JSON.parse(JSON.stringify(LOTTO_PRIZE));
 
     lottos.forEach((lotto) => {
       const rank = lotto.calculateRank(winningLotto, bonusNumber);
