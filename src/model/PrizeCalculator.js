@@ -22,6 +22,7 @@ class PrizeCalculator {
     /**
    * 각 등수에 대한 통계를 반환하는 메서드
    * @returns {object} 당첨 통계 객체
+   * @example
    * // 예시 반환 형태
    * {
    *   1: { count: 2, prize: 4000000000 }, // 1등에 당첨된 개수와 총 상금
