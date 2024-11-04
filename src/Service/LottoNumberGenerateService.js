@@ -3,7 +3,7 @@ import {
   LOTTO_NUMBER_COUNT,
   RANDOM_NUMBER_END,
   RANDOM_NUMBER_START,
-} from '../constants';
+} from '../constants.js';
 
 class LottoNumberGenerateService {
   generateUniqueLottoNumbers() {

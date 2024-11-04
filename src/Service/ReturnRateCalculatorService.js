@@ -1,4 +1,4 @@
-import { PRIZE_AMOUNTS } from '../constants';
+import { PRIZE_AMOUNTS } from '../constants.js';
 
 class ReturnRateCalculatorService {
   calculateTotalReturnRate(purchaseAmount, totalWinningRank) {

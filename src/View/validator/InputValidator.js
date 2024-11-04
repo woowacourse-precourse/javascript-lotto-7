@@ -4,7 +4,7 @@ import {
   PURCHASE_AMOUNT_DIVISOR,
   RANDOM_NUMBER_END,
   RANDOM_NUMBER_START,
-} from '../../constants';
+} from '../../constants.js';
 
 class InputValidator {
   validatePurchaseAmount(amount) {
