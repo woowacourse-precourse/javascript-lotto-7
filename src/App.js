@@ -1,8 +1,8 @@
-import { picknumber } from "./Random.js";
+import { purchase } from "./Purchase.js";
 
 class App {
   async run() {
-    picknumber();
+    purchase(1000, 10000);
   }
 }
 
