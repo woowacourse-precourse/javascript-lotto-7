@@ -1,4 +1,4 @@
-import Validation from "./Utils/Validation";
+import Validation from "./Utils/Validation.js";
 
 class BonusNumber {
   #number;

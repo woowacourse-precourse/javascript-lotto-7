@@ -13,7 +13,7 @@ class LottoResult {
   #generateResults(ranks) {
     for (let rank of ranks) {
       if (rank !== 0) {
-        this.#results[rank - 1].count += 1;
+        this.#results[5 - rank].count += 1;
       }
     }
   }

@@ -1,4 +1,4 @@
-import GameUtils from "../Utils/GameUtils";
+import GameUtils from "../Utils/GameUtils.js";
 
 class ProfitCalculator {
   #profit;
@@ -11,8 +11,11 @@ class ProfitCalculator {
   #calculatePrize(results) {
     let prizeSum = 0;
     for (let result of results) {
-      let rankInfo = GameUtils.findInformation(result.rank).prize;
-      let prize = rankInfo * result.count;
+      if (result.count === 0) {
+        continue;
+      }
+      let rankInfo = GameUtils.findInformation(result.rank);
+      let prize = rankInfo.prize * result.count;
       prizeSum += prize;
     }
 

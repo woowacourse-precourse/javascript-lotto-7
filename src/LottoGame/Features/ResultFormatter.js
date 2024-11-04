@@ -1,4 +1,4 @@
-import GameUtils from "../Utils/GameUtils";
+import GameUtils from "../Utils/GameUtils.js";
 
 class ResultFormatter {
   #results;
