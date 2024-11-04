@@ -91,6 +91,34 @@ describe("로또 테스트", () => {
     });
   });
 
+  test("기능 테스트2", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms([
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 7],
+      [1, 2, 3, 4, 7, 10],
+    ]);
+    mockQuestions(["3000", "1,2,3,4,5,6", "7"]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    const logs = [
+      "3개를 구매했습니다.",
+      "[1, 2, 3, 4, 5, 6]",
+      "[1, 2, 3, 4, 5, 7]",
+      "[1, 2, 3, 4, 7, 10]",
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+
   test("예외 테스트", async () => {
     await runException("1000j");
   });
