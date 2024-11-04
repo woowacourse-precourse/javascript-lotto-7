@@ -21,5 +21,4 @@ describe("로또 클래스 테스트", () => {
       new Lotto([1, 2, 3, 4, 5, -6]);
     }).toThrow(ERROR_MESSAGE.NUMBER_IS_NOT_IN_RANGE);
   });
-
 });
