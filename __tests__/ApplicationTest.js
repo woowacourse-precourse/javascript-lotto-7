@@ -94,4 +94,8 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("구입 금액의 최소 단위가 1000원 단위인지 확인.", async () => {
+    await runException("1500");
+  });
 });
