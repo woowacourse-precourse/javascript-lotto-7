@@ -10,6 +10,8 @@ const outputView = {
     const lottoNumbers = lottos.map((lotto) => lotto.getNumbers());
 
     lottoNumbers.forEach((numbers) => {
+      numbers.sort((prev, next) => prev - next);
+
       Console.print(
         OUTPUT_VIEW.ticket(numbers.join(OUTPUT_VIEW.numberSeparator)),
       );
