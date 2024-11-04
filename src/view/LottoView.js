@@ -1,10 +1,20 @@
 import { Console } from "@woowacourse/mission-utils";
 import { UTILS } from "../common/constants.js";
 import Lotto from "../model/Lotto.js";
+import PurchaseAmount from "../model/PurchaseAmount.js";
 
 export class LottoView {
   static async getPurchaseAmount() {
-    return Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    while (true) {
+      try {
+        const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+        const amount = Number(input);
+        new PurchaseAmount(amount);
+        return amount;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
 
   static async printLottos(lottos) {
@@ -18,22 +28,10 @@ export class LottoView {
   static async getWinningNumbers() {
     while (true) {
       try {
+        Console.print("");
         const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
-        if (!input) {
-          throw new Error("[ERROR] 당첨번호를 입력해야 합니다.");
-        }
-
-        if (!UTILS.number_comma.test(input)) {
-          throw new Error("[ERROR] 당첨 번호는 쉼표로 구분해야 합니다.");
-        }
-
-        const numbers = input.split(UTILS.comma).map(Number);
-        if (numbers.some(num => !UTILS.positive_integer.test(num.toString()))) {
-          throw new Error("[ERROR] 당첨 번호는 양의 정수로 입력해야 합니다.");
-        }
-
-        new Lotto(numbers);
-        return numbers;
+        const lotto = new Lotto(input);
+        return lotto.getNumbers();
       } catch (error) {
         Console.print(error.message);
       }
