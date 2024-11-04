@@ -32,14 +32,13 @@ class App {
     const pickUpInstance = new PickUp();
     // 1. 입력
     // while 문을 분리하여 시도하였더니 동기 논블록킹 때문에 무한루프가 발생하여 반복되는 코드 패턴을 해결하기 어려웠음
-    while (true) {
-      try {
-        this.#moneyInput = inputParser.parseMoney(await Console.readLineAsync(MESSAGE.money));
-        if (this.#moneyInput % this.#price !== 0) throw new Error(ERROR_MESSAGE_MONEY_INPUT.residue);
-        break;
-      } catch (e) {
-        this.#output = `${this.#output}\n${e.message}`;
-      }
+    try {
+      this.#moneyInput = inputParser.parseMoney(await Console.readLineAsync(MESSAGE.money));
+      if (this.#moneyInput % this.#price !== 0) throw new Error(ERROR_MESSAGE_MONEY_INPUT.residue);
+    } catch (e) {
+      this.#output = `${this.#output}\n${e.message}`;
+      Console.print(this.#output);
+      return;
     }
     for (let money = this.#moneyInput; money >= this.#price; money -= this.#price) {
       // 이런 순차 루프는 별로 좋지 않지만, foreach나 reduce로 바꿔보니 코드가 만만찮게 복잡하여 현행으로 유지함
@@ -47,21 +46,19 @@ class App {
     }
     this.#output = `${this.#output}\n${pickUpInstance.getLottoArrays().length}개를 구매했습니다.`;
     this.#output = `${this.#output}\n${printLottoArray(pickUpInstance.getLottoArrays())}`;
-    while (true) {
-      try {
-        this.#jackpotInput = inputParser.parseJackpot(await Console.readLineAsync(MESSAGE.jackpot));
-        break;
-      } catch (e) {
-        this.#output = `${this.#output}\n${e.message}`;
-      }
+    try {
+      this.#jackpotInput = inputParser.parseJackpot(await Console.readLineAsync(MESSAGE.jackpot));
+    } catch (e) {
+      this.#output = `${this.#output}\n${e.message}`;
+      Console.print(this.#output);
+      return;
     }
-    while (true) {
-      try {
-        this.#bonusInput = inputParser.parseBonus(await Console.readLineAsync(MESSAGE.bonus));
-        break;
-      } catch (e) {
-        this.#output = `${this.#output}\n${e.message}`;
-      }
+    try {
+      this.#bonusInput = inputParser.parseBonus(await Console.readLineAsync(MESSAGE.bonus));
+    } catch (e) {
+      this.#output = `${this.#output}\n${e.message}`;
+      Console.print(this.#output);
+      return;
     }
     // 2. 추첨 결과 산출
     pickUpInstance.setJackpot(this.#jackpotInput).setBonus(this.#bonusInput); // setter chaining
