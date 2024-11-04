@@ -1,9 +1,6 @@
 import { ERROR_MESSAGE } from '../constants/messages.js';
-import {
-	BONUS_WINNING_PLACE,
-	MIN_WINNING_PLACE,
-} from '../constants/numbers.js';
 import { formattedError } from '../utils/error.js';
+import { LottoStatistics } from './LottoStatistic.js';
 
 // 당첨 번호 매칭 담당
 class NumberMatcher {
@@ -43,46 +40,29 @@ class BonusMatcher {
 	}
 }
 
-// 당첨 통계 관리 담당
-class WinningStatistics {
-	constructor() {
-		this.winningCount = new Array(4).fill(0);
-		this.bonusCount = 0;
-	}
-
-	updateStatistics(matchCount, hasBonus) {
-		if (this.isWinningTicket(matchCount)) {
-			this.winningCount[matchCount - MIN_WINNING_PLACE] += 1;
-		}
-
-		if (matchCount === BONUS_WINNING_PLACE && hasBonus) {
-			this.bonusCount += 1;
-		}
-	}
-
-	isWinningTicket(matchCount) {
-		return matchCount >= MIN_WINNING_PLACE;
-	}
-}
-
 // 메인 클래스
 export class LottoMatcher {
+	#lottos;
+	#numberMatcher;
+	#bonusMatcher;
+	#statistics;
+
 	constructor(lottos, winningNumbers, bonusNumber) {
-		this.lottos = lottos;
-		this.numberMatcher = new NumberMatcher(winningNumbers);
-		this.bonusMatcher = new BonusMatcher(bonusNumber);
-		this.statistics = new WinningStatistics();
+		this.#lottos = lottos;
+		this.#numberMatcher = new NumberMatcher(winningNumbers);
+		this.#bonusMatcher = new BonusMatcher(bonusNumber);
+		this.#statistics = new LottoStatistics();
 	}
 
 	matchLottos() {
-		this.bonusMatcher.isDuplicatedWithWinningNumbers(
-			this.numberMatcher.winningNumbers
+		this.#bonusMatcher.isDuplicatedWithWinningNumbers(
+			this.#numberMatcher.winningNumbers
 		);
 
-		this.lottos.forEach((lotto) => {
-			const matchCount = this.numberMatcher.countMatchingNumbers(lotto);
-			const hasBonus = this.bonusMatcher.checkBonusNumber(lotto);
-			this.statistics.updateStatistics(matchCount, hasBonus);
+		this.#lottos.forEach((lotto) => {
+			const matchCount = this.#numberMatcher.countMatchingNumbers(lotto);
+			const hasBonus = this.#bonusMatcher.checkBonusNumber(lotto);
+			this.#statistics.updateStatistics(matchCount, hasBonus);
 		});
 	}
 }
