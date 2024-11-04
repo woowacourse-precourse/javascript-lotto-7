@@ -1,4 +1,4 @@
-export default function calculateUserPrize(matchedNumbers) {
+export default function userLottoPrize(matchedNumbers) {
   let matchedHash = new Map();
   matchedNumbers = matchedNumbers.filter((matchedCount) => matchedCount >= 3);
   matchedNumbers.map((matchedCount) => {

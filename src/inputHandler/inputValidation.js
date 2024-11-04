@@ -6,7 +6,7 @@ export function purchaseAmountValidation(purchaseAmount) {
   if (Number(purchaseAmount) % 1000)
     throw '구매금액을 1000 단위로 입력해주세요';
   let myLottos = [];
-
+  Console.print(`${Number(purchaseAmount) % 1000}개를 구매했습니다.`);
   for (let i = 0; i < Number(purchaseAmount) / 1000; i++) {
     const myLotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     myLotto.sort((a, b) => a - b);
@@ -14,7 +14,7 @@ export function purchaseAmountValidation(purchaseAmount) {
     Console.print(myLotto);
   }
 
-  return myLottos;
+  return [purchaseAmount, myLottos];
 }
 
 export function winningLottoValidation(winningLottoInput) {

@@ -4,15 +4,15 @@ import {
   purchaseAmountValidation,
   winningLottoValidation,
 } from './inputHandler/inputValidation.js';
-import lottoMachine from './lottoHandler/lottoMachine.js';
-import calculateUserPrize from './lottoHandler/calculateUserPrize.js';
+import Lotto from './Lotto.js';
+import userLottoPrize from './lottoHandler/userLottoPrize.js';
+import calculateUserPrize from './calculateHandler/calculateUserPrize.js';
 
 class App {
   async readPurchaseAmount() {
     const purchaseAmount = await Console.readLineAsync(
       '구입금액을 입력해 주세요.\n',
     );
-
     return purchaseAmountValidation(purchaseAmount);
   }
 
@@ -20,7 +20,6 @@ class App {
     const winningLottoInput = await Console.readLineAsync(
       '당첨 번호 6자리 숫자를 쉽표로 구분하여 입력해 주세요.\n',
     );
-
     return winningLottoValidation(winningLottoInput);
   }
 
@@ -28,27 +27,43 @@ class App {
     const bonusLotto = await Console.readLineAsync(
       '보너스 번호를 입력해 주세요.\n',
     );
-
     return bonusLottoValidation(bonusLotto, winningLotto);
+  }
+
+  generateLottos(count) {
+    const lottos = [];
+    for (let i = 0; i < count; i++) {
+      const numbers = Array.from(
+        { length: 6 },
+        () => Math.floor(Math.random() * 45) + 1,
+      );
+      lottos.push(new Lotto(numbers));
+    }
+    return lottos;
   }
 
   async run() {
     try {
-      const myLottos = await this.readPurchaseAmount();
+      const purchaseAmount = await this.readPurchaseAmount();
+      const lottoCount = Math.floor(purchaseAmount / 1000);
+      Console.print(`${lottoCount}개를 구매했습니다.`);
+
+      const userLottos = this.generateLottos(lottoCount);
+      userLottos.forEach((lotto) => Console.print(lotto));
+
       const winningLotto = await this.readWinningLotto();
       const bonusLotto = await this.readBonusLotto(winningLotto);
-      const matchedNumbers = lottoMachine(winningLotto, myLottos, bonusLotto);
-      const calculateLotto = calculateUserPrize(matchedNumbers);
 
-      Console.print(`
-당첨 통계
----
-3개 일치 (5,000원) - ${calculateLotto['3'] || 0}개
-4개 일치 (50,000원) - ${calculateLotto['4'] || 0}개
-5개 일치 (1,500,000원) - ${calculateLotto['5'] || 0}개
-5개 일치, 보너스 볼 일치 (30,000,000원) - ${calculateLotto['7'] || 0}개
-6개 일치 (2,000,000,000원) - ${calculateLotto['6'] || 0}개
-`);
+      const prizeResults = userLottoPrize(userLottos, winningLotto, bonusLotto);
+      const yieldRate = calculateUserPrize(prizeResults, purchaseAmount);
+
+      Console.print('\n당첨 통계\n---');
+      prizeResults.forEach((result, index) => {
+        Console.print(
+          `${result.matchCount}개 일치 (${result.prize}원) - ${result.count}개`,
+        );
+      });
+      Console.print(`총 수익률은 ${yieldRate.toFixed(1)}%입니다.`);
     } catch (error) {
       throw new Error('[ERROR] ' + error);
     }
