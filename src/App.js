@@ -3,9 +3,9 @@ import Lotto from "./Lotto.js";
 
 class App {
   constructor() {
-    this.lottos = []; // 초기화
-    this.winNum = []; // 초기화
-    this.bonusNum = null; // 초기화
+    this.lottos = [];
+    this.winningNumbers = [];
+    this.bonusNumber = null;
   }
 
   async UserInput() {
@@ -52,7 +52,7 @@ class App {
   async inputWinNum() {
     const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
     const numbers = this.parseNumbers(input);
-    this.winNum = new Lotto(numbers).getNumbers();
+    this.winningNumbers = new Lotto(numbers).getNumbers();
   }
 
   async inputBonusNum() {
@@ -65,11 +65,61 @@ class App {
       throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
 
-    if (this.winNum.includes(number)) {
+    if (this.winningNumbers.includes(number)) {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
 
-    this.bonusNum = number;
+    this.bonusNumber = number;
+  }
+
+  printResult() {
+    const results = this.calculateResults();
+    const profit = this.calculateProfit(results);
+
+    Console.print("\n당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${results[3]}개`);
+    Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${results.second}개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
+    Console.print(`총 수익률은 ${profit}%입니다.`);
+  }
+
+  calculateResults() {
+    const results = { 3: 0, 4: 0, 5: 0, second: 0, 6: 0 };
+
+    this.lottos.forEach((lotto) => {
+      const matchCount = lotto.match(this.winningNumbers);
+      if (matchCount === 5 && lotto.hasBonus(this.bonusNumber)) {
+        results.second += 1;
+        return;
+      }
+      if (matchCount >= 3) {
+        results[matchCount] += 1;
+      }
+    });
+
+    return results;
+  }
+
+  calculateProfit(results) {
+    const prizeMoney = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      second: 30000000,
+      6: 2000000000,
+    };
+
+    const totalPrize = Object.entries(results).reduce(
+      (sum, [rank, count]) => sum + prizeMoney[rank] * count,
+      0
+    );
+
+    const totalCost = this.lottos.length * 1000;
+    return ((totalPrize / totalCost) * 100).toFixed(1);
   }
 
   async run() {
@@ -77,6 +127,7 @@ class App {
       await this.makeUserLottos();
       await this.inputWinNum();
       await this.inputBonusNum();
+      this.printResult();
     } catch (error) {
       Console.print(error.message);
     }
