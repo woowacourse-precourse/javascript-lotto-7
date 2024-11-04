@@ -1,6 +1,6 @@
 import { OUTPUT_MESSAGES } from '../Constant/outPutMessages.js';
 import { print, pickUniqueNumbersInRange } from '../Util/console.js';
-
+import { ERROR_MESSAGES } from '../Constant/error.js';
 class LottoIssuance {
   constructor(lottoPrice) {
     this.lottoPrice = lottoPrice;
@@ -11,7 +11,11 @@ class LottoIssuance {
   }
   printLottoBuyMessage() {
     const count = this.lottoCount();
-    print(OUTPUT_MESSAGES.lottoBuy(count));
+    if (isNaN(count)) {
+      print(ERROR_MESSAGES.IS_DIVIDE_BY_ZER);
+    } else {
+      print(OUTPUT_MESSAGES.lottoBuy(count));
+    }
   }
   printLottoNumber() {
     const count = this.lottoCount();
@@ -21,7 +25,7 @@ class LottoIssuance {
       this.lottoNumberArray.push(lottoNumber);
     }
     this.lottoNumberArray.forEach((numbers) => {
-      print(numbers);
+      print(`[${numbers.join(', ')}]`);
     });
   }
   getLottoNumbers() {

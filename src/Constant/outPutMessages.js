@@ -1,6 +1,6 @@
 export const OUTPUT_MESSAGES = Object({
   winningStatistics: '\n당첨 통계\n---',
-  lottoBuy: (count) => `${count}개를 구매했습니다`,
+  lottoBuy: (count) => `${count}개를 구매했습니다.`,
 
   THIRD_PRIZE: (accord) => `3개 일치 (5,000원) - ${accord}개`,
   FOURTH_PRIZE: (accord) => `4개 일치 (50,000원) - ${accord}개`,
