@@ -1,4 +1,4 @@
-import PrizeResults from './PrizeResults.js';
+import PrizesResult from './PrizesResult.js';
 
 export default class {
   #winningNumbers;
@@ -11,13 +11,13 @@ export default class {
   }
 
   calculatePrizes(lottoList) {
-    const prizeResults = new PrizeResults();
+    const prizesResults = new PrizesResult();
     lottoList.forEach((lotto) => {
       const matchedCount = this.countWinningNumbers(lotto);
       const hasBonusNumber = this.hasMatchedBonusNumbers(lotto);
-      prizeResults.save(matchedCount, hasBonusNumber);
+      prizesResults.save(matchedCount, hasBonusNumber);
     });
-    return prizeResults.get();
+    return prizesResults.get();
   }
 
   countWinningNumbers(lotto) {

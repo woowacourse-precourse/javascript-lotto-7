@@ -74,7 +74,7 @@
  ┃ ┣ 📂Lotto
  ┃ ┃ ┣ 📜Lotto.js                  // 로또 객체 관리 컴포넌트
  ┃ ┃ ┗ 📜LottoGenerator.js         // 로또 객체 생성 컴포넌트
- ┃ ┣ 📜PrizeResults.js             // 각 로또 성과 합 관리 컴포넌트
+ ┃ ┣ 📜PrizesResult.js             // 각 로또 성과 합 관리 컴포넌트
  ┃ ┣ 📜ResultCalculator.js         // 개별 로또 성과 산정 컴포넌트
  ┃ ┗ 📜StatisticCalculation.js     // 로또 성과 합을 통한 당첨 통계 산정 컴포넌트
  ┣ 📂resources   
