@@ -1,7 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
+import LottoManager from './LottoManager.js'
 class App {
   constructor() {
     this.ITEM_PRICE = 1000;
+
+    this.lottoManager = new LottoManager();
   }
 
   async run() {
@@ -13,13 +16,14 @@ class App {
         const amount = this.getAmount(input);
         Console.print(`\n${amount}개를 구매했습니다.`);
 
+        this.lottoManager.generateLottos(amount);
+        this.lottoManager.printLottos();
+
         break;
       } catch (error) {
         Console.print(error.message);
       }
     }
-
-
   }
 
   async answer() {
