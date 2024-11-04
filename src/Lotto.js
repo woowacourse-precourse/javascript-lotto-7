@@ -31,9 +31,9 @@ class Lotto {
 
   #validNumber(number) {
     const validBonus = Number(number);
-    if (isNaN(validBonus)) {
+    if (isNaN(validBonus) || !Number.isInteger(validBonus)) {
       throw new Error(
-        "[ERROR] 로또 번호는 쉼표(,)를 기준으로, 숫자를 입력해야 합니다."
+        "[ERROR] 로또 번호는 쉼표(,)를 기준으로, 정수를 입력해야 합니다."
       );
     }
   }
