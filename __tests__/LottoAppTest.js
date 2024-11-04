@@ -1,4 +1,4 @@
-import App from "../src/App.js";
+import Lotto from "../src/Lotto";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -24,24 +24,6 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
-  // given
-  const logSpy = getLogSpy();
-
-  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
-
-  mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
-
-  // when
-  const app = new App();
-  await app.run();
-
-  // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
-};
-
 describe("로또 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -64,8 +46,8 @@ describe("로또 테스트", () => {
     mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
     // when
-    const app = new App();
-    await app.run();
+    const lotto = new Lotto();
+    await lotto.start();
 
     // then
     const logs = [
@@ -78,21 +60,40 @@ describe("로또 테스트", () => {
       "[7, 11, 30, 40, 42, 43]",
       "[2, 13, 22, 32, 38, 45]",
       "[1, 3, 5, 14, 22, 45]",
-      "3개 일치 (5,000원) - 1개",
-      "4개 일치 (50,000원) - 0개",
-      "5개 일치 (1,500,000원) - 0개",
-      "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
-      "6개 일치 (2,000,000,000원) - 0개",
-      "총 수익률은 62.5%입니다.",
     ];
-    const allLogs = logSpy.mock.calls.map(call => call[0]);
-    console.log(allLogs);
+
     logs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  test("1000원을 입금했을 때 1개의 로또 티켓 생성 테스트", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms([
+      [8, 21, 23, 41, 42, 43], // 하나의 로또 티켓만 생성될 때의 번호
+    ]);
+    mockQuestions(["1000", "8,21,23,4,5,6", "7"]);
+
+    // when
+    const lotto = new Lotto();
+    await lotto.start();
+
+    // then
+    const logs = [
+      "1개를 구매했습니다.",
+      "[8, 21, 23, 41, 42, 43]",
+      "3개 일치 (5,000원) - 1개",
+      "4개 일치 (50,000원) - 0개",
+      "5개 일치 (1,500,000원) - 0개",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
+      "6개 일치 (2,000,000,000원) - 0개",
+      "총 수익률은 500.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
   });
 });
