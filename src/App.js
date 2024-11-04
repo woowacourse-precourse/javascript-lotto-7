@@ -28,7 +28,7 @@ class App {
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
     while (lottoCount > 0) {
       let lottoNumbers = this.generateLottoNumbers();
-      Console.print(lottoNumbers);
+      Console.print(`[${lottoNumbers.join(", ")}]`);
       this.PurchaseLottoNumbersArray.push(lottoNumbers);
       lottoCount--;
     }
