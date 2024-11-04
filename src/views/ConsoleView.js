@@ -5,8 +5,16 @@ import LottoController from "../controllers/LottoController.js";
 class ConsoleView {
   async getPurchaseAmount() {
     const validator = new Validator();
-    const purchaseAmount = await Console.readLineAsync("구매금액을 입력해 주세요.\n");
-    validator.validatePurchaseAmount(purchaseAmount);
+    let purchaseAmount;
+    for (; ;) {
+      try {
+        purchaseAmount = await Console.readLineAsync("구매금액을 입력해 주세요.\n");
+        validator.validatePurchaseAmount(purchaseAmount);
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
 
     return purchaseAmount;
   }
@@ -14,11 +22,19 @@ class ConsoleView {
   async getWinningNumbers() {
     const validator = new Validator();
     const lottoController = new LottoController();
-    const winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
-    validator.validateWinningNumbersInput(winningNumbersInput);
-    const winningNumbers = lottoController(winningNumbersInput);
-    validator.validateDuplicateWinningNumbers(winningNumbers);
-
+    let winningNumbersInput;
+    let winningNumbers;
+    for (; ;) {
+      try {
+        winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+        validator.validateWinningNumbersInput(winningNumbersInput);
+        winningNumbers = lottoController(winningNumbersInput);
+        validator.validateDuplicateWinningNumbers(winningNumbers);
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
     return winningNumbers;
   }
 
