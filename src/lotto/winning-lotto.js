@@ -1,4 +1,4 @@
-import Lotto from './Lotto.js';
+import Lotto from '../Lotto.js';
 
 class WinningLotto {
   constructor(winningNumbers, bonusNumber) {

@@ -1,5 +1,5 @@
-import { LOTTO_FORMAT, LOTTO_RULES } from '../constant/index.js';
-import throwError from '../util/throw-error.js';
+import { LOTTO_FORMAT, LOTTO_RULES } from './constant/index.js';
+import throwError from './util/throw-error.js';
 
 export const ERROR_MESSAGES = {
   EMPTY_INPUT: '입력 값이 비어 있거나 입력 값에 빈 값이 포함되어 있습니다.',
