@@ -35,9 +35,10 @@ class App {
 
 
     this.ll = await this.getinput();
+    await this.ll.getlotto();
     await this.winnnumbersinput();
     await this.bonusnumbersinput();
-    this.ll.printbuylotto();
+    await this.ll.printbuylotto();
     this.ll.allwincheck();
     this.ll.printwinner();
   }
