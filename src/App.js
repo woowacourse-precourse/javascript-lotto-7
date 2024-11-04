@@ -13,6 +13,7 @@ class App {
     lotto.PrintResult(this.USER_COST, MATCH_CNT);
   }
 
+  // 인풋 로직 (1) : 구입 금액
   async InputCost() {
     this.USER_COST = await Console.readLineAsync("구입 금액을 입력해주세요: ");
     if (this.USER_COST % 1000 !== 0) {
@@ -23,6 +24,7 @@ class App {
     return LOTTO_CNT;
   }
 
+  // 인풋 로직 (2) : 당첨 번호
   async InputWinLotto() {
     const INPUT_WIN_NUM = await Console.readLineAsync(
       "당첨 번호를 입력해 주세요."
@@ -34,6 +36,7 @@ class App {
     return INPUT_WIN_NUM_LIST;
   }
 
+  // 인풋 로직 (3) : 보너스 번호
   async InputBonus() {
     const BONUS_NUM = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요: "
@@ -44,6 +47,7 @@ class App {
     return Number(BONUS_NUM);
   }
 
+  // 사용자가 구매한 로또 번호 리스트
   async GenerateLottoResult() {
     const LOTTO_CNT = await this.InputCost();
     this.USER_LOTTOS = []; // 사용자 로또 리스트를 여기에 저장

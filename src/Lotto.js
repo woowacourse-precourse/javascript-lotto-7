@@ -14,28 +14,37 @@ class Lotto {
     }
   }
 
+  // 매칭 결과로 개수 업데이트
+  updateMatchCounts(matchCounts, matchCount, isBonusMatch) {
+    if (matchCount === 6) {
+      matchCounts[4]++; // 6개 일치
+    } else if (matchCount === 5 && isBonusMatch) {
+      matchCounts[3]++; // 5개 + 보너스 번호 일치
+    } else if (matchCount === 5) {
+      matchCounts[2]++; // 5개 일치
+    } else if (matchCount === 4) {
+      matchCounts[1]++; // 4개 일치
+    } else if (matchCount === 3) {
+      matchCounts[0]++; // 3개 일치
+    }
+  }
+
+  // 매칭 개수 계산
   CalculateCount(userLottos, bonusNum) {
     const MATCH_COUNTS_LIST = [0, 0, 0, 0, 0];
     userLottos.forEach((lotto) => {
-      const TOTAL_MATCH_CNT = lotto.filter((num) =>
-        this.#numbers.includes(num)
-      ).length;
-      const BONUS_MATCH_BOOLEAN = lotto.includes(bonusNum);
-      if (TOTAL_MATCH_CNT === 6) {
-        MATCH_COUNTS_LIST[4]++; // 6개 일치
-      } else if (TOTAL_MATCH_CNT === 5 && BONUS_MATCH_BOOLEAN) {
-        MATCH_COUNTS_LIST[3]++; // 5개 + 보너스 번호 일치
-      } else if (TOTAL_MATCH_CNT === 5) {
-        MATCH_COUNTS_LIST[2]++; // 5개 일치
-      } else if (TOTAL_MATCH_CNT === 4) {
-        MATCH_COUNTS_LIST[1]++; // 4개 일치
-      } else if (TOTAL_MATCH_CNT === 3) {
-        MATCH_COUNTS_LIST[0]++; // 3개 일치
-      }
+      const TOTAL_MATCH_CNT = this.countMatches(lotto);
+      const BONUS_MATCH_BOOLEAN = this.isBonusMatch(lotto, bonusNum);
+      this.updateMatchCounts(
+        MATCH_COUNTS_LIST,
+        TOTAL_MATCH_CNT,
+        BONUS_MATCH_BOOLEAN
+      );
     });
     return MATCH_COUNTS_LIST;
   }
 
+  // 수익률 계산
   CalculatePrize(userCost, matchCounts) {
     const PRIZES = [5000, 50000, 1500000, 30000000, 2000000000];
     const TOTAL_PRIZE = matchCounts.reduce(
@@ -46,6 +55,7 @@ class Lotto {
     return PROFIT_RATE;
   }
 
+  // 통계 출력
   PrintResult(userCost, matchCounts) {
     const PROFIT_RATE = this.CalculatePrize(userCost, matchCounts);
     Console.print("당첨 통계\n---");
