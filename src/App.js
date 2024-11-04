@@ -4,8 +4,6 @@ import {
   INPUT_MESSAGE,
   LOTTO_PRICE,
   LOTTO_MESSAGE,
-  howManyCorrectResult,
-  BonusCorrectResult,
   MAX_NUMBER,
   MIN_NUMBER,
   NUMBER_OF_LOTTO_NUMBERS,
@@ -70,6 +68,26 @@ function howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber) {
   return totalWinningPrice;
 }
 
+function howManyCorrectResult(howMany, price, count) {
+  function addCommas(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  const winningPrice = count * price;
+  Console.print(`${howMany}개 일치 (${addCommas(price)}원) - ${count}개`);
+  return winningPrice;
+}
+
+function BonusCorrectResult(howMany, price, count) {
+  function addCommas(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  const winningPrice = count * price;
+  Console.print(
+    `${howMany}개 일치, 보너스 볼 일치 (${addCommas(price)}원) - ${count}개`,
+  );
+  return winningPrice;
+}
+
 function generateLottoNumbers(amountOfLotto) {
   const lottoNumbers = [];
   for (let i = 0; i < amountOfLotto; i += 1) {
@@ -126,7 +144,7 @@ class App {
 
       Console.print(`총 수익률은 ${percentage}%입니다.`);
     } catch (error) {
-      Console.print(`오류가 발생했습니다: ${error.message}`);
+      Console.print(error.message);
     }
   }
 }
