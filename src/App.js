@@ -1,18 +1,22 @@
 import InputView from './InputView.js';
 import LottoMachine from './LottoMachine.js';
 import OutputView from './OutputView.js';
+import RankSystem from './RankSystem.js';
 import WinningNumbers from './WinningNumbers.js';
-import { INPUT_PROMPT, NUMBER_SEPARATOR, OUTPUT_MESSAGE } from './constants.js';
+import { INITIAL_COUNT, INPUT_PROMPT, NUMBER_SEPARATOR, OUTPUT_MESSAGE } from './constants.js';
 
 class App {
   #lottoMachine;
   #winningNumbers;
+  #result;
 
   async run() {
     await this.readPurchaseAmount();
     this.printGeneratedLottos();
     await this.readWinningNumbers();
     await this.readBonusNumber();
+    this.#result = this.getLottosResult();
+    this.printWinningInfo();
   }
 
   async readPurchaseAmount() {
@@ -30,7 +34,11 @@ class App {
   printGeneratedLottos() {
     OutputView.printMessage(`${this.#lottoMachine.lottoCount}${OUTPUT_MESSAGE.lottoCount}`);
     this.#lottoMachine.lottos.forEach((lotto) => {
-      OutputView.printMessage(lotto.numbers);
+      OutputView.printMessage(
+        `${OUTPUT_MESSAGE.arraySymbol.opening}${lotto.numbers.join(NUMBER_SEPARATOR + ' ')}${
+          OUTPUT_MESSAGE.arraySymbol.closing
+        }`
+      );
     });
     OutputView.printEmptyLine();
   }
@@ -56,6 +64,31 @@ class App {
       } catch (error) {
         OutputView.printErrorMessage(error.message);
       }
+    }
+  }
+
+  getLottosResult() {
+    const rankSystem = new RankSystem(
+      this.#lottoMachine.lottos,
+      this.#winningNumbers.numbers,
+      this.#winningNumbers.bonusNumber
+    );
+    return rankSystem.result;
+  }
+
+  printWinningInfo() {
+    OutputView.printMessage(OUTPUT_MESSAGE.winningInfo.total);
+    OutputView.printMessage(OUTPUT_MESSAGE.winningInfo.horizontal);
+
+    for (let i = this.#result.length - 1; i >= INITIAL_COUNT; i -= 1) {
+      const rank = this.#result[i];
+      OutputView.printMessage(
+        `${rank.matchedNumberCount}${OUTPUT_MESSAGE.winningInfo.matched} ${
+          OUTPUT_MESSAGE.winningInfo.opening
+        }${rank.winnings.toLocaleString()}${OUTPUT_MESSAGE.winningInfo.moneyUnit}${
+          OUTPUT_MESSAGE.winningInfo.closing
+        } ${OUTPUT_MESSAGE.winningInfo.connecting} ${rank.winningCount}${OUTPUT_MESSAGE.winningInfo.countUnit}`
+      );
     }
   }
 }
