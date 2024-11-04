@@ -1,7 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import validator from "./validator.js";
-import { INPUT } from "./constants.js";
+import { INPUT, LOTTO_RANGE, PRIZE_MONEY, OUTPUT } from "./constants.js";
 
 class LottoManager {
   #lottoArray;
@@ -10,15 +10,7 @@ class LottoManager {
 
   async play() {
     const money = await this.#getMoney();
-    this.#lottoArray = Array.from(
-      { length: money / 1000 },
-      () =>
-        new Lotto(
-          Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)
-        )
-    );
-    this.#printLottoCount();
-    this.#printLottoArray();
+    this.#initializeLottos(money);
 
     const winningNumbers = await this.#getWinningNumbers();
     this.#winningNumbers = winningNumbers;
@@ -39,6 +31,32 @@ class LottoManager {
         Console.print(error.message);
       }
     }
+  }
+
+  async #initializeLottos(money) {
+    this.#lottoArray = Array.from(
+      { length: money / LOTTO_RANGE.PRICE },
+      () =>
+        new Lotto(
+          Random.pickUniqueNumbersInRange(
+            LOTTO_RANGE.START,
+            LOTTO_RANGE.END,
+            LOTTO_RANGE.COUNT
+          ).sort((a, b) => a - b)
+        )
+    );
+    this.#printLottoCount();
+    this.#printLottoArray();
+  }
+
+  #printLottoCount() {
+    Console.print(OUTPUT.PURCHASE(this.#lottoArray.length));
+  }
+
+  #printLottoArray() {
+    this.#lottoArray.forEach((lotto) => {
+      lotto.printNumberArray();
+    });
   }
 
   async #getWinningNumbers() {
@@ -69,16 +87,6 @@ class LottoManager {
     }
   }
 
-  #printLottoCount() {
-    Console.print(`${this.#lottoArray.length}개를 구매했습니다.`);
-  }
-
-  #printLottoArray() {
-    this.#lottoArray.forEach((lotto) => {
-      lotto.printNumberArray();
-    });
-  }
-
   #calculateWinningCounts() {
     const winningCounts = Array(6).fill(0);
     this.#lottoArray.forEach((lotto) => {
@@ -90,28 +98,26 @@ class LottoManager {
 
   #calculateProfitRate(winningCounts) {
     const totalPrize =
-      winningCounts[5] * 5000 +
-      winningCounts[4] * 50000 +
-      winningCounts[3] * 1500000 +
-      winningCounts[2] * 30000000 +
-      winningCounts[1] * 2000000000;
-    const totalInvestment = this.#lottoArray.length * 1000;
+      winningCounts[5] * PRIZE_MONEY.FIFTH +
+      winningCounts[4] * PRIZE_MONEY.FOURTH +
+      winningCounts[3] * PRIZE_MONEY.THIRD +
+      winningCounts[2] * PRIZE_MONEY.SECOND +
+      winningCounts[1] * PRIZE_MONEY.FIRST;
+    const totalInvestment = this.#lottoArray.length * LOTTO_RANGE.PRICE;
     return ((totalPrize / totalInvestment) * 100).toFixed(1);
   }
 
   #printWinningResult() {
     const winningCounts = this.#calculateWinningCounts();
 
-    Console.print(`3개 일치 (5,000원) - ${winningCounts[5]}개`);
-    Console.print(`4개 일치 (50,000원) - ${winningCounts[4]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${winningCounts[3]}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningCounts[2]}개`
-    );
-    Console.print(`6개 일치 (2,000,000,000원) - ${winningCounts[1]}개`);
+    Console.print(OUTPUT.MATCH_RESULT.THREE(winningCounts[5]));
+    Console.print(OUTPUT.MATCH_RESULT.FOUR(winningCounts[4]));
+    Console.print(OUTPUT.MATCH_RESULT.FIVE(winningCounts[3]));
+    Console.print(OUTPUT.MATCH_RESULT.FIVE_WITH_BONUS(winningCounts[2]));
+    Console.print(OUTPUT.MATCH_RESULT.SIX(winningCounts[1]));
 
     const profitRate = this.#calculateProfitRate(winningCounts);
-    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+    Console.print(OUTPUT.PROFIT_RATE(profitRate));
   }
 }
 

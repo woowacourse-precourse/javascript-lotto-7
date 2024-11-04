@@ -13,6 +13,7 @@ class Lotto {
   }
 
   printNumberArray() {
+    // 배열을 직접 출력하면 테스트 통과 X -> 배열 형식의 문자열로 만들어주어야 함.
     Console.print(`[${this.#numbers.join(", ")}]`);
   }
 
