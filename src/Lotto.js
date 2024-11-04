@@ -29,6 +29,11 @@ class Lotto {
   hasBonusNumber(bonusNumber) {
     return this.#numbers.includes(bonusNumber);
   }
+
+  // private으로 선언된 numbers를 외부에서 확인하기 위한 Getter
+  get Numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
