@@ -1,5 +1,5 @@
-import ValidateNumber from './ValidateNumber';
-import { NUMBER_ERROR_MESSAGES } from '../contents/InputErrorMessages';
+import ValidateNumber from './ValidateNumber.js';
+import { NUMBER_ERROR_MESSAGES } from '../contents/InputErrorMessages.js';
 
 class BonusNumber {
   #bonusNum;

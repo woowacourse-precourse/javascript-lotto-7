@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { MESSAGES } from '../contents/OutputPrintMessage';
+import { MESSAGES } from '../contents/OutputPrintMessage.js';
 
 class OutputHandler {
   printLottos(ticketCount, lotto) {
