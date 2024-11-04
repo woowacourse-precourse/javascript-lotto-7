@@ -8,7 +8,8 @@ export const LOTTO_MESSAGE = {
   LOTTO_NUMBER_ERROR_MESSAGE: '[ERROR] 로또 번호는 6개여야 합니다.',
   LOTTO_WINNING_NUMBER_MESSAGE: '당첨 번호를 입력해 주세요.\n',
   LOTTO_BONUS_WINNING_NUMBER_MESSAGE: '보너스 번호를 입력해 주세요.\n',
-  LOTTO_RESULT_MESSAGE: '당첨통계\n---',
+  LOTTO_RESULT_MESSAGE: '당첨통계',
+  LOTTO_RESULT_SEPERATOR: '---',
 };
 
 export const LOTTO_ERROR_MESSAGE = {
@@ -31,14 +32,18 @@ export function howManyCorrectResult(howMany, price, count) {
   function addCommas(amount) {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
+  const winningPrice = count * price;
   Console.print(`${howMany}개 일치 (${addCommas(price)}원) - ${count}개`);
+  return winningPrice;
 }
 
 export function BonusCorrectResult(howMany, price, count) {
   function addCommas(amount) {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
+  const winningPrice = count * price;
   Console.print(
-    `${howMany}개 일치, 보너스 볼 일치(${addCommas(price)}원) - ${count}개`,
+    `${howMany}개 일치, 보너스 볼 일치 (${addCommas(price)}원) - ${count}개`,
   );
+  return winningPrice;
 }
