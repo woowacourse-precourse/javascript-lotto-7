@@ -23,7 +23,7 @@ class LottoCalculate {
 
   formatRate(rate) {
     const roundedRate = Math.round(rate * 100) / 100;
-    return `${roundedRate.toLocaleString(undefined, { minimumFractionDigits: 1 })}%`;
+    return `${roundedRate.toLocaleString(undefined, { minimumFractionDigits: 1 })}`;
   }
 
   calculateRate(statistics, totalSpent) {
