@@ -51,6 +51,7 @@ class User {
         this.#bonusNumber = Number(
           await Console.readLineAsync(PROMPT_MESSAGE.BONUS_NUMBER),
         );
+        this.#validator.bonusNumber(this.#bonusNumber);
         return;
       } catch (error) {
         Console.print(error.message);

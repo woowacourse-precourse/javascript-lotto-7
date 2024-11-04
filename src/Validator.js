@@ -45,6 +45,10 @@ class Validator {
     this.#validateExactCount(numbers, LOTTO.COUNT);
     this.#validateNoDuplicates(numbers);
   }
+
+  bonusNumber(number) {
+    this.#validateNaturalNumber(number);
+  }
 }
 
 export default Validator;
