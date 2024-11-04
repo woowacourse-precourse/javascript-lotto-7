@@ -1,7 +1,7 @@
 import View from './view/view.js';
 import io from './utils/io.js';
-import LottoController from './lotto.controller.js';
-import LottoService from './lotto.service.js';
+import LottoController from './LottoController.js';
+import LottoService from './LottoService.js';
 class App {
 
   async run () {
