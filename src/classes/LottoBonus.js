@@ -7,7 +7,7 @@ class LottoBonus {
   }
 
   #validateNumber(bonusNumber) {
-    if (bonusNumber <= 0 || isNaN(bonusNumber)) {
+    if (bonusNumber <= 0 || !Number.isInteger(bonusNumber)) {
       throw new Error('[ERROR] 보너스 번호는 양수여야 합니다.');
     }
   }
