@@ -1,4 +1,4 @@
-import { printParam } from "../handler/printHandlers.js";
+import { printParam } from "./handler/printHandlers.js";
 
 class Lotto {
   #numbers;

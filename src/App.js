@@ -10,7 +10,7 @@ import {
   handleBonusLotteryNum,
 } from "./handler/inputHandlers.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Lotto from "./class/Lotto.js";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
