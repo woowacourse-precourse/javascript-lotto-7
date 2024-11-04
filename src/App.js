@@ -6,6 +6,7 @@ import OutputValue from "./OutputValue.js";
 import Lotto from "./Lotto.js";
 import BonusLotto from "./BonusLotto.js";
 import calculateWinningStatistics from "./CalculateWinningStatistic.js";
+import calculateProfitability from "./CalculateProfitability.js";
 
 class App {
   purchaseMoney;
@@ -70,6 +71,11 @@ class App {
       this.ticketList,
       this.winningNumbers,
       this.bonusNumber
+    );
+
+    const profitability = calculateProfitability(
+      this.purchaseMoney,
+      winningStatisticsList
     );
   }
 }
