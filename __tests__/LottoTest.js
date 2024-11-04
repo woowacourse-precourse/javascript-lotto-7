@@ -1,7 +1,8 @@
-import Lotto from "../src/Lotto";
+import Lotto from "../src/Models/Lotto.js";
 import {MissionUtils, Console} from "@woowacourse/mission-utils";
 import {lottoUtils} from "../src/utils/lotto.utils.js";
 import {ERROR_CODE, LOTTO} from "../src/constants/constants.js";
+import LottoGame from "../src/Models/LottoGame.js";
 
 const getLogSpy = () => {
     const logSpy = jest.spyOn(MissionUtils.Console, "print");
@@ -62,10 +63,11 @@ describe("당첨 케이스 테스트", () => {
         const winningNumbers = [1, 3, 5, 8, 11, 38]
         const bonusNumber = 39
 
+        const lottoGame = new LottoGame(winningNumbers, bonusNumber, lottos);
         const lottoResult = [0, 0, 0, 0, 0, 0, 0, 1] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
 
         expect(
-            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+            lottoGame.getLottoMatchResultArray()
         ).toStrictEqual(lottoResult);
     });
 
@@ -76,10 +78,12 @@ describe("당첨 케이스 테스트", () => {
         const winningNumbers = [1, 3, 5, 8, 11, 38]
         const bonusNumber = 39
 
+        const lottoGame = new LottoGame(winningNumbers, bonusNumber, lottos);
+
         const lottoResult = [0, 0, 0, 0, 0, 0, 1, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
 
         expect(
-            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+            lottoGame.getLottoMatchResultArray()
         ).toStrictEqual(lottoResult);
     });
 
@@ -90,10 +94,12 @@ describe("당첨 케이스 테스트", () => {
         const winningNumbers = [1, 3, 5, 8, 11, 38]
         const bonusNumber = 40
 
+        const lottoGame = new LottoGame(winningNumbers, bonusNumber, lottos);
+
         const lottoResult = [0, 0, 0, 0, 0, 1, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
 
         expect(
-            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+            lottoGame.getLottoMatchResultArray()
         ).toStrictEqual(lottoResult);
     });
 
@@ -104,10 +110,12 @@ describe("당첨 케이스 테스트", () => {
         const winningNumbers = [1, 3, 5, 8, 14, 38]
         const bonusNumber = 40
 
+        const lottoGame = new LottoGame(winningNumbers, bonusNumber, lottos);
+
         const lottoResult = [0, 0, 0, 0, 1, 0, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
 
         expect(
-            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+            lottoGame.getLottoMatchResultArray()
         ).toStrictEqual(lottoResult);
     });
 
@@ -118,10 +126,12 @@ describe("당첨 케이스 테스트", () => {
         const winningNumbers = [1, 3, 5, 10, 14, 38]
         const bonusNumber = 40
 
+        const lottoGame = new LottoGame(winningNumbers, bonusNumber, lottos);
+
         const lottoResult = [0, 0, 0, 1, 0, 0, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
 
         expect(
-            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+            lottoGame.getLottoMatchResultArray()
         ).toStrictEqual(lottoResult);
     });
 
@@ -132,10 +142,12 @@ describe("당첨 케이스 테스트", () => {
         const winningNumbers = [2, 4, 6, 10, 14, 38]
         const bonusNumber = 40
 
+        const lottoGame = new LottoGame(winningNumbers, bonusNumber, lottos);
+
         const lottoResult = [1, 0, 0, 0, 0, 0, 0, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
 
         expect(
-            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+            lottoGame.getLottoMatchResultArray()
         ).toStrictEqual(lottoResult);
     });
 
@@ -147,10 +159,12 @@ describe("당첨 케이스 테스트", () => {
         const winningNumbers = [1, 3, 5, 8, 11, 39]
         const bonusNumber = 40
 
+        const lottoGame = new LottoGame(winningNumbers, bonusNumber, lottos);
+
         const lottoResult = [0, 0, 0, 0, 1, 0, 1, 0] //배열의 index는 일치하는 갯수를 위미( but, 6은 2등(5개 + 보너스)/ 7은 1등)
 
         expect(
-            lottoUtils.getLottoMatchResultArray(lottos, winningNumbers, bonusNumber)
+            lottoGame.getLottoMatchResultArray()
         ).toStrictEqual(lottoResult);
     });
 
