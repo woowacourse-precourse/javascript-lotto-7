@@ -1,14 +1,38 @@
-import { Console } from '@woowacourse/mission-utils';
 import { DELIMETER, InputMessages } from '../resources/Constants.js';
 import winningNumberValidator from '../validation/winningNumberValidator.js';
+import Input from '../utils/Input.js';
 
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
-    const joinedString = numbers.join(DELIMETER);
-    winningNumberValidator(joinedString);
-    this.#numbers = numbers;
+  constructor(input) {
+    this.init(input);
+  }
+
+  init(input) {
+    let joinedString = input;
+
+    if (Array.isArray(input)) {
+      joinedString = input.join(DELIMETER);
+      winningNumberValidator(joinedString);
+      this.#numbers = Lotto.ascendingNumbers(input);
+    } else if (typeof input === 'string') {
+      const numbers = input.split(DELIMETER).map((number) => Number(number));
+      this.#numbers = Lotto.ascendingNumbers(numbers);
+    }
+  }
+
+  async #validate(joinedString) {
+    try {
+      winningNumberValidator(joinedString);
+      return joinedString;
+    } catch (error) {
+      return Input.promptRetry(
+        InputMessages.WINNING_NUMBERS,
+        winningNumberValidator,
+        error.message,
+      );
+    }
   }
 
   getNumbers() {
@@ -20,19 +44,13 @@ class Lotto {
   }
 
   static async createLotto() {
-    try {
-      const input = await Console.readLineAsync(InputMessages.WINNING_NUMBERS);
+    const input = await Input.promptRetry(
+      InputMessages.WINNING_NUMBERS,
+      winningNumberValidator,
+    );
+    const lotto = new Lotto(input);
 
-      winningNumberValidator(input);
-
-      const numbers = input.split(DELIMETER).map((number) => Number(number));
-      const sortedNumbers = Lotto.ascendingNumbers(numbers);
-
-      return new Lotto(sortedNumbers);
-    } catch (error) {
-      Console.print(`${error.message}\n`);
-      return this.createLotto();
-    }
+    return lotto;
   }
 }
 
