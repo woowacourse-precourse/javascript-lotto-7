@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import NumberValidator from '../utils/NumberValidator.js';
+import PurchaseAmountValidator from '../utils/PurchaseAmountValidator.js';
 
 class PurchaseAmountGenerator {
   #purchaseAmount;
@@ -30,7 +31,7 @@ class PurchaseAmountGenerator {
     const parsedAmount = parseFloat(purchaseAmount);
     NumberValidator.validateIsInteger(parsedAmount);
     NumberValidator.validateIsPositive(parsedAmount);
-    NumberValidator.validateDivisibleBy1000(parsedAmount);
+    PurchaseAmountValidator.validateDivisibleBy1000(parsedAmount);
   }
 }
 
