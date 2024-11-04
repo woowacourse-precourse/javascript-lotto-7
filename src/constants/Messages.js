@@ -1,13 +1,13 @@
-export const CONSOLE_MESSAGE = {
+export const CONSOLE_MESSAGE = Object.freeze({
     INPUT_AMOUNT: "구입금액을 입력해 주세요.\n",
     INPUT_WINNING_NUMBERS: "\n당첨 번호를 입력해 주세요.\n",
     INPUT_BONUS_NUMBER: "\n보너스 번호를 입력해 주세요.\n",
     STATISTICS: "\n당첨 통계\n---",
     OUTPUT_LOTTO_COUNT: "개를 구매했습니다."
-};
+});
 
 export const formatErrorMessage = (error) => `[ERROR] ${error}`;
-export const ERROR_MESSAGE =  {
+export const ERROR_MESSAGE =  Object.freeze({
     NOT_INTEGER: "숫자로 입력해주세요.",
     IS_BLANK: "공백은 입력할 수 없습니다.",
     NEGATIVE_AMOUNT: "양수를 입력해주세요.",
@@ -18,4 +18,4 @@ export const ERROR_MESSAGE =  {
     LOTTO_NUMBER_COUNT: "6개의 로또 번호를 입력해야 합니다.",
     DUPLICATE_NUMBERS: "중복된 로또 번호가 존재합니다.",
     DUPLICATE_WINNING_LOTTO_NUMBERS: "당첨 번호와 중복된 보너스 번호입니다.",
-};
+});
