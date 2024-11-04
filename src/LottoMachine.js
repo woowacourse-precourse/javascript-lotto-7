@@ -29,12 +29,8 @@ class LottoMachine {
     }
   }
 
-  getTicketAmountString() {
-    return `${this.#amount}개를 구매했습니다.`;
-  }
-
-  getTicketsNumberString() {
-    return `${this.#tickets.map((ticket) => `[${ticket.join(", ")}]`).join("\n")}`;
+  getTicketsString() {
+    return `\n${this.#amount}개를 구매했습니다.\n${this.#tickets.map((ticket) => `[${ticket.join(", ")}]`).join("\n")}`;
   }
 
   getWinningLottoString({ winningLotto, bonusNumber }) {

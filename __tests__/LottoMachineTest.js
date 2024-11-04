@@ -38,8 +38,9 @@ describe("로또 기계 클래스 테스트", () => {
     ]);
     const lottoMachine = new LottoMachine(input);
 
-    expect(lottoMachine.getTicketAmountString()).toBe("8개를 구매했습니다.");
-    expect(lottoMachine.getTicketsNumberString()).toBe(`[8, 21, 23, 41, 42, 43]
+    expect(lottoMachine.getTicketsString()).toBe(`
+8개를 구매했습니다.
+[8, 21, 23, 41, 42, 43]
 [3, 5, 11, 16, 32, 38]
 [7, 11, 16, 35, 36, 44]
 [1, 8, 11, 31, 41, 42]

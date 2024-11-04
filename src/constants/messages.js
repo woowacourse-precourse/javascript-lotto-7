@@ -2,9 +2,9 @@ import { LOTTO_RULE } from "./rule.js";
 
 export const MESSAGE = {
   INPUT_MONEY: "구입금액을 입력해 주세요.\n",
-  INPUT_WINNING_LOTTO: "당첨 번호를 입력해 주세요.\n",
-  INPUT_BONUS_NUMBER: "보너스 번호를 입력해 주세요.\n",
-  OUTPUT_RESULT: "당첨 통계\n---\n",
+  INPUT_WINNING_LOTTO: "\n당첨 번호를 입력해 주세요.\n",
+  INPUT_BONUS_NUMBER: "\n보너스 번호를 입력해 주세요.\n",
+  OUTPUT_RESULT: "\n당첨 통계\n---\n",
   OUTPUT_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 };
 
