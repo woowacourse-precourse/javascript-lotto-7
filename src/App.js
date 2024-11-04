@@ -8,6 +8,10 @@ class App {
     Console.print("");
     Console.print(`${purchaseAmount / 1000}개를 구매했습니다.`);
     const lottoInstances = createLottoInstances(purchaseAmount / 1000);
+
+    for (let i = 0; i < lottoInstances.length; i++) {
+      lottoInstances[i].showNumber();
+    }
   }
 
   async getPurchaseAmount() {
