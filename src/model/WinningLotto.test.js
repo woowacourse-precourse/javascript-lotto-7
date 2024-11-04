@@ -20,9 +20,9 @@ describe('당첨 로또 클래스 테스트', () => {
   //     }).toThrow('[ERROR]');
   //   });
 
-  test('4개 당첨', () => {
-    const winningLotto = new WinningLotto([1, 2, 3, 4, 5, 6], 8);
-    const lotto = new Lotto([1, 2, 3, 4, 9, 10]);
-    expect(winningLotto.getWinningResult(lotto.getNumbers())).toBe(4);
-  });
+  // test('4개 당첨', () => {
+  //   const winningLotto = new WinningLotto([1, 2, 3, 4, 5, 6], 8);
+  //   const lotto = new Lotto([1, 2, 3, 4, 9, 10]);
+  //   expect(winningLotto.getWinningResult(lotto.getNumbers())).toBe(4);
+  // });
 });

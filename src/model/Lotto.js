@@ -1,6 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { INPUT_ERROR_MESSAGE } from '../constant/errorMessage';
-import { isCorrectLength, isCorrectRange, isNoOverlap } from '../util/validate';
+import { INPUT_ERROR_MESSAGE } from '../constant/errorMessage.js';
+import {
+  isCorrectLength,
+  isCorrectRange,
+  isNoOverlap,
+} from '../util/validate.js';
 
 class Lotto {
   #numbers;
@@ -29,11 +33,7 @@ class Lotto {
   }
 
   static makeLotto() {
-    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(
-      1,
-      45,
-      6,
-    ).sort();
+    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
 
     return new Lotto(numbers);
   }
