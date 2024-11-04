@@ -1,7 +1,11 @@
 import { lottoInputView } from "./lottoInputView.js";
 import { lottoValidator } from "./validator.js";
 import { lottoOutputView } from "./lottoOutputView.js";
+import { LottoList } from "./LottoList.js";
 export class LottoController {
+  #lottoList;
+  #winningLotto;
+
   async play() {
     await this.inputPurchasePrice();
   }
@@ -26,5 +30,7 @@ export class LottoController {
     return price / PRICE_UNIT;
   }
 
-  generateLottoList() {}
+  generateLottoList(quantity) {
+    this.#lottoList = new LottoList(quantity);
+  }
 }
