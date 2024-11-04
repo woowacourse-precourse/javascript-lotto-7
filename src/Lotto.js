@@ -15,6 +15,10 @@ class Lotto {
     if (new Set(numbers).size !== numbers.length) {
       throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
     }
+    // 번호가 1~45 범위를 벗어나지 않는지 확인
+    if (numbers.some((num) => num < 1 || num > 45)) {
+      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    }
   }
 
   getNumbers() {
