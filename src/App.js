@@ -11,6 +11,8 @@ class App {
   }
 
   async run() {
+    try {
+
     const purchasePrice = Number(await Console.readLineAsync("구입금액을 입력해 주세요.\n"));
     this.#validatePurchaseAmount(purchasePrice);
 
@@ -75,6 +77,20 @@ class App {
         totalPrizeMoney += prizeStatistics.fifth.prize;
       }
     });
+    const purchaseAmount = purchasePrice;
+    const yieldRate = ((totalPrizeMoney / purchaseAmount) * 100).toFixed(1);
+
+      Console.print("당첨 통계\n---");
+      Console.print(`${prizeStatistics.fifth.id}개 일치 (${prizeStatistics.fifth.prize.toLocaleString()}원) - ${prizeStatistics.fifth.count}개`);
+      Console.print(`${prizeStatistics.fourth.id}개 일치 (${prizeStatistics.fourth.prize.toLocaleString()}원) - ${prizeStatistics.fourth.count}개`);
+      Console.print(`${prizeStatistics.third.id}개 일치 (${prizeStatistics.third.prize.toLocaleString()}원) - ${prizeStatistics.third.count}개`);
+      Console.print(`${prizeStatistics.second.id}개 일치, 보너스 볼 일치 (${prizeStatistics.second.prize.toLocaleString()}원) - ${prizeStatistics.second.count}개`);
+      Console.print(`${prizeStatistics.first.id}개 일치 (${prizeStatistics.first.prize.toLocaleString()}원) - ${prizeStatistics.first.count}개`);
+      Console.print(`총 수익률은 ${yieldRate}%입니다.`);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
+
 export default App;
