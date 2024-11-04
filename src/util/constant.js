@@ -1,13 +1,11 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-
 const INPUT = Object.freeze({
   PURCHASE_AMOUNT: '구입금액을 입력해 주세요.\n',
-  WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
-  BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
+  WINNING_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
+  BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.\n',
 });
 
 const OUTPUT = Object.freeze({
-  PURCHASED_TICKETS: (input) => `\n${input}개를 구매했습니다.\n`,
+  PURCHASED_TICKETS: (input) => `\n${input}개를 구매했습니다.`,
 });
 
 const LOTTO = Object.freeze({
@@ -36,10 +34,15 @@ const ERROR = Object.freeze({
   INVALID_LOTTO_NUMBERS_INPUT: '[ERROR] 입력한 로또 번호들이 문자열이 아닙니다.',
 });
 
+const RESULT = {
+
+};
+
 export {
   INPUT,
   OUTPUT,
   LOTTO,
   PRIZE,
   ERROR,
+  RESULT,
 };

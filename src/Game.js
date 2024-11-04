@@ -53,9 +53,32 @@ class Game {
   };
 
   static #matchNumbers(ticketNumbers, winningNumbers, bonusNumber) {
-    console.log('ticket numbers', ticketNumbers);
-    console.log('winning numbers', winningNumbers);
-    console.log('bonus number', bonusNumber);
+    const resultList = [];
+
+    ticketNumbers.forEach((eachNumbers) => {
+      let point = 0;
+      let bonusPoint = 0;
+
+      winningNumbers.forEach((numbers) => {
+        const number = Number(numbers);
+        if (eachNumbers.includes(number)) {
+          point++;
+        }
+      })
+
+      if (eachNumbers.includes(bonusNumber)) {
+        bonusPoint = 1;
+      }
+
+
+      resultList.push([point, bonusPoint]);
+    });
+
+    this.#rank(resultList);
+  };
+
+  static #rank(resultList) {
+    console.log(resultList);
   }
 };
 
