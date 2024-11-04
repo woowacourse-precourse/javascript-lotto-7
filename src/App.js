@@ -1,5 +1,5 @@
-import LottoValidator from './controllers/LottoValidator.js';
-import PurchaseValidator from './controllers/PurchaseValidator.js';
+import LottoValidator from './services/LottoValidator.js';
+import PurchaseValidator from './services/PurchaseValidator.js';
 import { Console } from '@woowacourse/mission-utils';
 import {
   MESSAGES,
@@ -7,9 +7,9 @@ import {
   GAME_SETTINGS,
   RANK_KEYS,
 } from './utils/constants.js';
-import LottoMatcher from './controllers/LottoMatcher.js';
-import LottoIssuer from './controllers/LottoIssuer.js';
-import ProfitCalculator from './controllers/ProfitCalculator.js';
+import LottoMatcher from './services/LottoMatcher.js';
+import LottoIssuer from './services/LottoIssuer.js';
+import ProfitCalculator from './services/ProfitCalculator.js';
 
 class App {
   async run() {
