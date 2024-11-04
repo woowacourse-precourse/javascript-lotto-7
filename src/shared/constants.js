@@ -16,7 +16,6 @@ export const ERROR_MESSAGES = Object.freeze({
 });
 
 export const INFO_MESSAGES = Object.freeze({
-  PRINT_LOTTOS: '개를 구매했습니다.',
   PRINT_RESULT: '\n당첨 통계\n---',
 });
 

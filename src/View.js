@@ -16,7 +16,8 @@ class View {
 
   static displayLottos(lottos) {
     lottos.forEach((lotto) => {
-      this.printResult(this.#sortAscending(lotto));
+      const sortedLottoString = this.#sortAscending(lotto).join(', ');
+      this.printResult(`[${sortedLottoString}]`);
     });
   }
 
@@ -30,7 +31,11 @@ class View {
   }
 
   static displayProfitRate(rate) {
-    return this.printResult(`총 수익률은 ${rate}% 입니다.`);
+    return this.printResult(`총 수익률은 ${rate}%입니다.`);
+  }
+
+  static displayPurchaseInfomation(count) {
+    View.printResult(`${count}개를 구매했습니다.`);
   }
 
   static #sortAscending = (numbers) => numbers.sort((a, b) => a - b);
