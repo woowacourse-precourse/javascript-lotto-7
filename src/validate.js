@@ -17,7 +17,7 @@ export const validateNotThousandUnits = (inputValue) => {
   }
 }
 export const validateAnswerNumberForm = (inputValue) => {
-  const matchWinningNumberFormat = new RegExp('/[^\d],{1,1}|[a-zA-Z]|[\s]/g');
+  const matchWinningNumberFormat = new RegExp('(\\d,,\\d|,,|,$|[^\\d,])');
   if(matchWinningNumberFormat.test(inputValue)){
     throw new Error('[ERROR]당첨 번호 에러, 입력한 당첨번호의 형식이 맞지 않습니다.');
   }
