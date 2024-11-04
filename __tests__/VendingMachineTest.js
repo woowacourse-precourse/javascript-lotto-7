@@ -31,13 +31,13 @@ describe('자판기 클래스 테스트', () => {
   });
   test('자판기에 돈을 투입하면 투입한 금액에 맞는 갯수 만큼 로또 번호 난수를 생성한다.', () => {
     const mockLottoConstructor = jest.fn();
-    const calledTimes = 3;
-    const testCash = LOTTO_PRICE * calledTimes;
     const mockedRandomNumbers = [
       [1, 2, 3, 4, 5, 6],
       [1, 2, 3, 4, 5, 7],
       [1, 2, 3, 4, 5, 8],
     ];
+    const calledTimes = mockedRandomNumbers.length;
+    const testCash = LOTTO_PRICE * calledTimes;
 
     mockRandoms(mockedRandomNumbers);
 
