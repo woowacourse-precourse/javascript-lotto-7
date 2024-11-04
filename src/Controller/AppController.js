@@ -58,6 +58,7 @@ export default class AppController {
         Validator.isValidUserMoney(inputMoney);
         const lottoCount = Calculator.divide(inputMoney,number.LOTTO_UNITS);
         ViweOutput.printText(`\n${lottoCount}${lottoMesaage.PRINT_BUYCOUNT}`);
+        
         this.#userLottoList = LottoController.getUserLotto(lottoCount);
         ViweOutput.printLottoList(this.#userLottoList);
     }
