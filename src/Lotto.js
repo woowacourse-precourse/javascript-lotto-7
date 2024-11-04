@@ -29,16 +29,19 @@ class Lotto {
   getResult(money, lottos, bonus) {
     let result = Array(5).fill(0);
     for (let lotto of lottos) {
-      let rank = this.checkWinNum(lotto, bonus)
-      result[rank] += 1;
+      let rank = this.checkWinNum(lotto, bonus);
+      if (rank !== -1) {
+        result[rank] += 1;
+      }
     }
+    return result;
   }
 
   checkWinNum(lotto, bonus) {
     let result = 0;
     let bonusResult = 0;
     for (let num of lotto) {
-      if (this.#numbers.include(num)) {
+      if (this.#numbers.includes(num)) {
         result += 1;
       } else if (bonus === num) {
         bonusResult += 1
@@ -58,6 +61,8 @@ class Lotto {
       return 1;
     } else if (result === 3) {
       return 0;
+    } else if (result === 0 || result === 1 || result === 2) {
+      return -1;
     }
   }
 }
