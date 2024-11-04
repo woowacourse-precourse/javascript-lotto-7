@@ -1,4 +1,4 @@
-import { LOTTERY_NUMBER_COUNT } from "./constants.js";
+import { LOTTERY_NUMBER_COUNT, PRICE_PER_LOTTO } from "./constants.js";
 
 export class Validator {
   static #validateNotEmpty(input) {
@@ -20,8 +20,8 @@ export class Validator {
   }
 
   static #validateThousandUnit(amount) {
-    if (amount % 1000 !== 0) {
-      throw new Error("[ERROR] 1000원 단위로 입력해주세요.");
+    if (amount % PRICE_PER_LOTTO !== 0) {
+      throw new Error(`[ERROR] ${PRICE_PER_LOTTO}원 단위로 입력해주세요.`);
     }
   }
 
