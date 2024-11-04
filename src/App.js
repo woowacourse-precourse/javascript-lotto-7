@@ -12,6 +12,11 @@ class App {
     for (let i = 0; i < lottoInstances.length; i++) {
       lottoInstances[i].showNumber();
     }
+
+    Console.print("");
+    Console.print("당첨 번호를 입력해 주세요.");
+    let winningNumbers = await Console.readLineAsync("");
+    winningNumbers = winningNumbers.split(",");
   }
 
   async getPurchaseAmount() {
