@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import {
   LOTTO_NUMBER_COUNT,
   LOTTO_UNIT_PRICE,
@@ -6,7 +5,6 @@ import {
 } from "../../constants/lotto.js";
 import Lotto from "./Lotto.js";
 import { generateRandomNum } from "../../utils/generateRandomNum.js";
-import { printOneLine } from "../../utils/console.js";
 
 export class UserLottoInfo {
   #price;
@@ -71,7 +69,6 @@ export class UserLottoInfo {
       },
       0
     );
-    // this.#rateOfReturn = totalWinningPrice / this.#price;
 
     return (totalWinningPrice / this.#price) * 100;
   }

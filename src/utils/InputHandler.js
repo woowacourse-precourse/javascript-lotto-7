@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import { HELPER_MESSAGE } from "../constants/helperMessages.js";
 import { parserWinningNumber } from "../features/parserWinningNumber.js";
 import { Validator } from "../features/validator/Validator.js";

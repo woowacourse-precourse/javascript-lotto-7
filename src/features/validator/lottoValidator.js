@@ -1,6 +1,9 @@
-import { Console } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGE } from "../../constants/errorMessages.js";
-import { LOTTO_NUMBER_COUNT } from "../../constants/lotto.js";
+import {
+  LOTTO_NUMBER_COUNT,
+  LOTTO_RANGE,
+  MAX_INPUT_TRY,
+} from "../../constants/lotto.js";
 import { errorHandler } from "../../utils/errorHandler.js";
 
 //문자열 관련 validation
@@ -50,12 +53,13 @@ const isValidLength = (numbers) => {
 };
 
 const isValidRange = (number) => {
-  if (number < 1 || number > 45) errorHandler(ERROR_MESSAGE.lotto.invalidRange);
+  if (number < LOTTO_RANGE.min || number > LOTTO_RANGE.max)
+    errorHandler(ERROR_MESSAGE.lotto.invalidRange);
   return true;
 };
 
 const nestedInput = (counter) => {
-  if (counter >= 10) errorHandler(ERROR_MESSAGE.lotto.tooManyNested);
+  if (counter >= MAX_INPUT_TRY) errorHandler(ERROR_MESSAGE.lotto.tooManyNested);
 };
 
 const isUniqueBonusBall = (bonusBall, numbers) => {

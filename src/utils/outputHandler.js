@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import { PRINT_MESSAGE } from "../constants/helperMessages.js";
 import { printOneLine } from "./console.js";
 import { LOTTO_RESULT_INFO, WINNER_PRICE } from "../constants/lotto.js";
@@ -46,6 +45,7 @@ export {
   printLottoCount,
   printLottoList,
   printMatchInfo,
-  formatRateOfReturn,
   printRateOfReturn,
+  formatRateOfReturn,
+  formatWithCommas,
 };

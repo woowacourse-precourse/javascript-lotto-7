@@ -1,17 +1,12 @@
-import { Console } from "@woowacourse/mission-utils";
 import { InputHandler } from "./utils/InputHandler.js";
-import { Validator } from "./features/validator/Validator.js";
-import { HELPER_MESSAGE, PRINT_MESSAGE } from "./constants/helperMessages.js";
 import Lotto from "./features/lotto/Lotto.js";
 import { UserLottoInfo } from "./features/lotto/UserLottoInfo.js";
-import { printOneLine } from "./utils/console.js";
 import {
   printLottoCount,
   printLottoList,
   printMatchInfo,
   printRateOfReturn,
 } from "./utils/outputHandler.js";
-import { parserWinningNumber } from "./features/parserWinningNumber.js";
 
 class App {
   async run() {
@@ -25,8 +20,8 @@ class App {
     const bonusBall = await InputHandler.getBonusBall(winningLotto.numbers);
     userLotto.checkLottoMatch(winningLotto, bonusBall);
     printMatchInfo(userLotto);
-    const ans = userLotto.rateOfReturn();
-    printRateOfReturn(ans);
+    const rateResult = userLotto.rateOfReturn();
+    printRateOfReturn(rateResult);
   }
 }
 

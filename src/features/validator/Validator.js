@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import { LOTTO_UNIT_PRICE } from "../../constants/lotto.js";
 import {
   isInteger,
