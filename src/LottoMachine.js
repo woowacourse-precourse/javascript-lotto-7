@@ -1,13 +1,13 @@
 import { ERROR_MESSAGE } from "./constants/messages.js";
 import { LOTTO_RULE } from "./constants/rule.js";
 import { isDividedWithUnit, isNumber } from "./utils/validation.js";
-import Ticket from "./Ticket.js";
-import WinningRankCount from "./WinningRankCount.js";
+import Ticket from "./LottoMachineEntities/Ticket.js";
+import WinningCount from "./LottoMachineEntities/WinningCount.js";
 
 class LottoMachine {
   #amount;
   #tickets;
-  #winningRankCount;
+  #winningCount;
 
   constructor(number) {
     this.#validate(number);
@@ -29,23 +29,23 @@ class LottoMachine {
   }
 
   getWinningLottoString({ winningLotto, bonusNumber }) {
-    this.#winningRankCount = new WinningRankCount();
+    this.#winningCount = new WinningCount();
 
     this.#tickets.forEach((ticket) => {
       const ticketNumbers = ticket.getTicketNumbers();
       const matchCount = winningLotto.getMatchCountWith(ticketNumbers);
       const isBonusMatch = bonusNumber.hasBonusNumberIn(ticketNumbers);
 
-      const rank = WinningRankCount.getRankType(matchCount, isBonusMatch);
-      if (rank) this.#winningRankCount.increaseRankCount(rank);
+      const rank = WinningCount.getRankType(matchCount, isBonusMatch);
+      if (rank) this.#winningCount.increaseRankCount(rank);
     });
 
-    return this.#winningRankCount.getWinningRankCountString();
+    return this.#winningCount.getWinningRankCountString();
   }
 
   getProfitRateString() {
     const investAmount = this.#amount * LOTTO_RULE.PRICE;
-    const profitAmount = this.#winningRankCount.calculateProfit();
+    const profitAmount = this.#winningCount.calculateProfit();
 
     return `총 수익률은 ${((profitAmount / investAmount) * 100).toFixed(1)}%입니다.`;
   }

@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import { LOTTO_RULE } from "./constants/rule.js";
+import { LOTTO_RULE } from "../constants/rule.js";
 
 class Ticket {
   #ticket;
