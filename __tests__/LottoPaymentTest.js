@@ -11,7 +11,17 @@ const mockQuestions = (input) => {
 
 const { MAX_PURCHASE_AMOUNT, LOTTO_AMOUNT } = config.lottoConfig;
 
-describe('로또 결제 테스트', () => {
+describe('로또 결제 기능 테스트', () => {
+  test('구매 금액에 따른 발행 로또 개수를 반환할 수 있다.', () => {
+    const purhcaseAmount = 3000;
+    const lottoPayment = new LottoPayment(LOTTO_AMOUNT);
+    const purchaseCount = lottoPayment.calculateLottoCountByAmount(purhcaseAmount);
+
+    expect(purchaseCount).toBe(purhcaseAmount / LOTTO_AMOUNT);
+  })
+})
+
+describe('로또 결제 예외 테스트', () => {
   test.each([
     {
       name: '입력 받은 구매 금액에 특수문자가 있을 경우 에러가 발생한다.',
