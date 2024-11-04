@@ -26,4 +26,19 @@ describe("App 클래스 테스트", () => {
 
     expect(result).toEqual([5, 7]);
   });
+
+  test("checkWins에게 특정 matches를 주었을 때 lotteryStatistics의 특정 객체의 속성을 잘 바꾸는가", () => {
+    const matches = [3, 3, 3, 3];
+
+    app.checkWins(matches);
+
+    const threeMatches = lotteryStatistics.find(stat => stat.matches === 3);
+    expect(threeMatches).toBeDefined();
+    expect(threeMatches.amount).toBe(4);
+
+    const fiveMatches = lotteryStatistics.find(stat => stat.matches === 5);
+    expect(fiveMatches).toBeDefined();
+    expect(fiveMatches.amount).toBe(0);
+  })
+
 });
