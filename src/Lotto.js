@@ -1,18 +1,44 @@
+import {Console} from '@woowacourse/mission-utils'
+import {ERROR_CODE, LOTTO, WINNING_NUMBER} from "./constants/constants.js";
+import {validator} from "./validation/validator.js";
+
 class Lotto {
-  #numbers;
+    #numbers;
 
-  constructor(numbers) {
-    this.#validate(numbers);
-    this.#numbers = numbers;
-  }
-
-  #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    constructor(numbers) {
+        this.#validate(numbers);
+        this.#numbers = numbers;
     }
-  }
 
-  // TODO: 추가 기능 구현
+    #validate(numbers) {
+        if (!validator.isCorrectSize(numbers, LOTTO.SIZE)) {
+            throw new Error(ERROR_CODE.SIZE_OUT_OF_RANGE(LOTTO.SIZE));
+        }
+        if (validator.hasDuplicates(numbers)) {
+            throw new Error(ERROR_CODE.NUMBER_DUPLICATE)
+        }
+    }
+
+    toString() {
+        return `[${this.#numbers.join(", ")}]`;
+    }
+
+    #countLottoMatches(winningNumbers) {
+        return this.#numbers.filter(num => winningNumbers.includes(num)).length
+    }
+
+    #isBonusNumberMatch(bonusNumber) {
+        return this.#numbers.includes(bonusNumber);
+    }
+
+    getLottoResult(winningNumbers, bonusNumber) {
+        const matchNumber = this.#countLottoMatches(winningNumbers);
+        if (matchNumber === 5 && this.#isBonusNumberMatch(bonusNumber) || matchNumber === 6) {
+            return matchNumber + 1;
+        }
+        return matchNumber;
+    }
+
 }
 
 export default Lotto;
