@@ -57,7 +57,7 @@ describe('금액 입력 테스트', () => {
 
     await app.validateMoney();
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 숫자가 아닌 값을 입력할 수 없습니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 숫자가 아닌 값을 입력할 수 없습니다!');
   });
 
   test('1000의 배수가 아닌 값을 입력했을 때 에러 메시지 출력', async () => {
@@ -66,7 +66,7 @@ describe('금액 입력 테스트', () => {
 
     await app.validateMoney();
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 1000 보다 적은 단위는 입력할 수 없습니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 1000 보다 적은 단위는 입력할 수 없습니다!');
   });
 
   test('음수를 입력했을 때 에러 메시지 출력', async () => {
@@ -75,7 +75,7 @@ describe('금액 입력 테스트', () => {
 
     await app.validateMoney();
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 음수는 입력할 수 없습니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 음수는 입력할 수 없습니다!');
   });
 
   test('유효한 금액을 입력했을 때 해당 값이 반환', async () => {
@@ -100,7 +100,7 @@ describe('당첨번호 입력 테스트', () => {
 
     const result = await app.validateWinningNumbers();
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 당첨번호는 숫자여야 합니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 당첨번호는 숫자여야 합니다!');
     expect(result).toEqual([1, 2, 3, 4, 5, 6]);
   });
 
@@ -110,7 +110,7 @@ describe('당첨번호 입력 테스트', () => {
 
     const result = await app.validateWinningNumbers();
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 당첨번호는 중복될 수 없습니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 당첨번호는 중복될 수 없습니다!');
     expect(result).toEqual([7, 8, 9, 10, 11, 12]);
   });
 
@@ -120,7 +120,7 @@ describe('당첨번호 입력 테스트', () => {
 
     const result = await app.validateWinningNumbers();
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 당첨번호는 6개의 숫자여야 합니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 당첨번호는 6개의 숫자여야 합니다!');
     expect(result).toEqual([1,2,3,4,5,6]);
   });
 
@@ -147,7 +147,7 @@ describe('보너스 번호 입력 테스트', () => {
 
     const result = await app.validateBonusNumber([1, 2, 3, 4, 5, 6]);
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 보너스 번호는 숫자여야 합니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 보너스 번호는 숫자여야 합니다!');
     expect(result).toBe(7);
   });
 
@@ -157,7 +157,7 @@ describe('보너스 번호 입력 테스트', () => {
 
     const result = await app.validateBonusNumber([1, 2, 3, 4, 5, 6]);
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 보너스 번호는 1과 45 사이의 숫자여야 합니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 보너스 번호는 1과 45 사이의 숫자여야 합니다!');
     expect(result).toBe(8);
   });
 
@@ -167,7 +167,7 @@ describe('보너스 번호 입력 테스트', () => {
 
     const result = await app.validateBonusNumber([1, 2, 3, 4, 5, 6]);
 
-    expect(logSpy).toHaveBeenCalledWith('[Error] 보너스 번호는 당첨 번호와 중복될 수 없습니다!');
+    expect(logSpy).toHaveBeenCalledWith('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다!');
     expect(result).toBe(9);
   });
 
