@@ -9,6 +9,7 @@ class ConsoleView {
     for (; ;) {
       try {
         purchaseAmount = await Console.readLineAsync("구매금액을 입력해 주세요.\n");
+        Console.print(purchaseAmount);
         validator.validatePurchaseAmount(purchaseAmount);
         break;
       } catch (error) {
@@ -57,17 +58,17 @@ class ConsoleView {
   printLottoNumbers(lottos) {
     for (let index = 0; index < lottos.length; index++) {
       const numbers = lottos[index].LottoNumbers;
-      Console.print(numbers);
+      Console.print(`[${numbers[0]}, ${numbers[1]}, ${numbers[2]}, ${numbers[3]}, ${numbers[4]}, ${numbers[5]}]`);
     }
   }
 
   printResultPrize(resultPrize) {
     Console.print("\n당첨 통계\n---");
-    Console.print(`3개 일치 (5,000)원 - ${resultPrize.fifth}개`);
-    Console.print(`4개 일치 (50,000)원 - ${resultPrize.fourth}개`);
-    Console.print(`5개 일치 (1,500,000)원 - ${resultPrize.third}개`);
-    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000)원 - ${resultPrize.second}개`);
-    Console.print(`6개 일치 (2,000,000,000)원 - ${resultPrize.first}개`);
+    Console.print(`3개 일치 (5,000원) - ${resultPrize.fifth}개`);
+    Console.print(`4개 일치 (50,000원) - ${resultPrize.fourth}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${resultPrize.third}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${resultPrize.second}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${resultPrize.first}개`);
   }
 
   printRateOfReturn(rateOfReturn) {
