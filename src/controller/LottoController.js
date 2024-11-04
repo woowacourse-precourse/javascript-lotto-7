@@ -5,6 +5,7 @@ import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
 import ValidateBonusNumber from '../models/ValidateBonusNumber.js';
 import { calcLottoDetails } from '../util/calcLottoDetails.js';
 import { calcProceeds } from '../util/calcProceeds.js';
+import { calcReturnOfInvestment } from '../util/calcReturnOfInvestment.js';
 import Lotto from '../Lotto.js';
 
 class LottoController {
@@ -67,6 +68,7 @@ class LottoController {
 		this.#outputView.printMatchResults(details);
 
 		const proceeds = calcProceeds(details);
+		const ROI = calcReturnOfInvestment(proceeds, this.#purchaseAmount);
 	}
 
 	#generateLottos(amount) {
