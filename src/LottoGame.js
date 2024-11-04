@@ -34,6 +34,7 @@ class LottoGame {
     }
   }
 
+
   #getLottoCount(totalCost) {
     return totalCost / 1000;
   }
@@ -46,6 +47,5 @@ class LottoGame {
       throw new Error('[ERROR] 잘못된 입력입니다.');
     }
   }
-}
 
 export default LottoGame;
