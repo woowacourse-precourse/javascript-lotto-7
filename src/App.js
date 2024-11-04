@@ -52,6 +52,10 @@ class App {
     }
     return lottoList;
   }
+
+  async generateLottoNumbers() {
+    const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
 }
 
 export default App;
