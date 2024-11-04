@@ -69,4 +69,11 @@ describe('outputView 테스트', () => {
       `총 수익률은 ${lottoRateOfReturn}%입니다.`
     );
   });
+
+  test('displayErrorMessage가 에러 메시지를 출력하는지 테스트', () => {
+    const errorMessage = '[ERROR]';
+    outputView.displayErrorMessage(errorMessage);
+
+    expect(Console.print).toHaveBeenCalledWith(errorMessage);
+  });
 });
