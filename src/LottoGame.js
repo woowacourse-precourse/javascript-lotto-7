@@ -1,7 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import { LOTTO_PRICE, WINNING_AMOUNT } from "./constants/gameRules.js";
-import { getMatchingCount, isBonusMatched } from "./utils/arrayUtils.js";
+import { arrayToString, getMatchingCount, isBonusMatched } from "./utils/arrayUtils.js";
 
 class LottoGame {
   #lottoCount;
@@ -28,7 +28,7 @@ class LottoGame {
 
   printLottos() {
     Console.print(`\n${this.#lottoCount}개를 구매했습니다.`);
-    this.#lottos.forEach((lotto) => Console.print(lotto.getNumbersByOrder()));
+    this.#lottos.forEach((lotto) => Console.print(arrayToString(lotto.getNumbersByOrder())));
   }
 
   determineRank(matchCount, bonusMatch) {

@@ -13,3 +13,7 @@ export const getMatchingCount = (winningNumbers, lottoNumbers) => {
 
   return matchCount;
 };
+
+export const arrayToString = (array) => {
+  return `[${array.join(", ")}]`;
+};
