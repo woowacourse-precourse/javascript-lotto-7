@@ -22,11 +22,11 @@ describe("RankCalculator 클래스 테스트", () => {
 
       // then
       const rankResult = result.getLottoRankResult();
-      expect(rankResult.rank.first[0]).toBe(1);
-      expect(rankResult.rank.second[0]).toBe(1);
-      expect(rankResult.rank.third[0]).toBe(0);
-      expect(rankResult.rank.fourth[0]).toBe(1);
-      expect(rankResult.rank.fifth[0]).toBe(0);
+      expect(rankResult.rank.first.getCount()).toBe(1);
+      expect(rankResult.rank.second.getCount()).toBe(1);
+      expect(rankResult.rank.third.getCount()).toBe(0);
+      expect(rankResult.rank.fourth.getCount()).toBe(1);
+      expect(rankResult.rank.fifth.getCount()).toBe(0);
     });
   });
 
