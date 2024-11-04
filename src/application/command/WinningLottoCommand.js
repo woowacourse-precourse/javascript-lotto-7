@@ -13,6 +13,7 @@ class WinningLottoCommand {
 
   async execute() {
     const winningLotto = await this.handleWinningLotto();
+    await this.handleBonusNumber(winningLotto);
 
     return winningLotto;
   }
@@ -28,6 +29,17 @@ class WinningLottoCommand {
     return retry(handleWinnigLottoFlow);
   }
 
+  async handleBonusNumber(winningLotto) {
+    const handleBonusNumberFlow = async() => {
+      const bonusNumber = Number(await this.#inputPort.readBonusNumber());
+      this.#validator.validate(bonusNumber);
+      winningLotto.addBonusNumber(bonusNumber);
+
+      return winningLotto;
+    };
+
+    return retry(handleBonusNumberFlow);
+  }
 }
 
 export default WinningLottoCommand;
