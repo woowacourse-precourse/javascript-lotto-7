@@ -21,7 +21,7 @@ class Input {
   async inputLotto() {
     try {
       const input = await Console.readLineAsync(PRINT_LOTTO_NUMBER);
-      const lottoNumbers = this.#parseNumbers(input);
+      const lottoNumbers = this.parseNumbers(input);
       return new Lotto(lottoNumbers);
     } catch (error) {
       Console.print(error.message);
@@ -29,7 +29,7 @@ class Input {
     }
   }
 
-  #parseNumbers(input) {
+  parseNumbers(input) {
     return input
       .trim()
       .split(",")
