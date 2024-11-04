@@ -8,6 +8,7 @@ import {
   isPositive,
   isTooLarge,
   isValidLength,
+  isValidRange,
   isValidUnit,
   nestedInput,
 } from "./lottoValidator.js";
@@ -33,6 +34,7 @@ export class Validator {
       isNumber(number);
       isPositive(number);
       isInteger(number);
+      isValidRange(number);
     });
   }
 
@@ -42,6 +44,7 @@ export class Validator {
     bonusBall = Number(bonusBall);
     isPositive(bonusBall);
     isInteger(bonusBall);
+    isValidRange(bonusBall);
   }
 
   static isNested(counter) {

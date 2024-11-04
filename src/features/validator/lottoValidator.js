@@ -49,6 +49,10 @@ const isValidLength = (numbers) => {
   return true;
 };
 
+const isValidRange = (number) => {
+  if (number < 1 || number > 45) errorHandler(ERROR_MESSAGE.lotto.invalidRange);
+  return true;
+};
 const nestedInput = (counter) => {
   if (counter >= 10) errorHandler(ERROR_MESSAGE.lotto.tooManyNested);
 };
@@ -63,4 +67,5 @@ export {
   isPositive,
   isInteger,
   isTooLarge,
+  isValidRange,
 };

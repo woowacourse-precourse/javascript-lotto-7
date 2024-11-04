@@ -18,5 +18,6 @@ export const ERROR_MESSAGE = {
     isDuplicated: "로또 번호는 중복되지 않아야 합니다.",
     tooManyNested:
       "10번 이상 입력을 잘못하셨습니다. 다시 로또를 구매해주세요\n",
+    invalidRange: "로또 번호는 1부터 45까지의 숫자여야 합니다.\n",
   },
 };
