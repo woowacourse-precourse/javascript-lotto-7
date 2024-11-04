@@ -18,9 +18,9 @@ class App {
       } catch (error) {
         if (error.message.startsWith("[ERROR]")) {
           Console.print(error.message);
-        } else {
-          throw error;
+          continue;
         }
+        throw error;
       }
     }
 
@@ -33,9 +33,9 @@ class App {
       } catch (error) {
         if (error.message.startsWith("[ERROR]")) {
           Console.print(error.message);
-        } else {
-          throw error;
+          continue;
         }
+        throw error;
       }
     }
 
@@ -48,9 +48,9 @@ class App {
       } catch (error) {
         if (error.message.startsWith("[ERROR]")) {
           Console.print(error.message);
-        } else {
-          throw error;
+          continue;
         }
+        throw error;
       }
     }
 

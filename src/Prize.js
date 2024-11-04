@@ -9,7 +9,7 @@ export const prize = (lotto, winnum, bonusnum) => {
     printResults(checkTable, profitRate);
 };
 
-const initializePrizeTable = () => {
+export const initializePrizeTable = () => {
     return {
         [LOTTO.MATCH_COUNT.THREE]: { count: 0, prize: LOTTO.PRIZES.THREE_MATCH },
         [LOTTO.MATCH_COUNT.FOUR]: { count: 0, prize: LOTTO.PRIZES.FOUR_MATCH },
@@ -19,7 +19,7 @@ const initializePrizeTable = () => {
     };
 };
 
-const updatePrizeCount = (matchCount, hasBonus, prizeTable) => {
+export const updatePrizeCount = (matchCount, hasBonus, prizeTable) => {
     if (matchCount === LOTTO.MATCH_COUNT.SIX) {
         prizeTable[LOTTO.MATCH_COUNT.SIX].count += 1;
     } else if (matchCount === LOTTO.MATCH_COUNT.FIVE && hasBonus) {
@@ -33,7 +33,7 @@ const updatePrizeCount = (matchCount, hasBonus, prizeTable) => {
     }
 };
 
-const checkLottoTickets = (lotto, winnum, bonusnum, prizeTable) => {
+export const checkLottoTickets = (lotto, winnum, bonusnum, prizeTable) => {
     lotto.forEach(ticketInstance => {
         const ticket = ticketInstance.getNumbers();
         const matchCount = ticket.filter(num => winnum.includes(num)).length;
@@ -45,7 +45,7 @@ const checkLottoTickets = (lotto, winnum, bonusnum, prizeTable) => {
     return prizeTable;
 };
 
-const calculateTotalPrize = (prizeTable) => {
+export const calculateTotalPrize = (prizeTable) => {
     let totalPrize = 0;
     for (const key in prizeTable) {
         totalPrize += prizeTable[key].count * prizeTable[key].prize;
@@ -53,13 +53,13 @@ const calculateTotalPrize = (prizeTable) => {
     return totalPrize;
 };
 
-const calculateProfitRate = (totalPrize, totalLottos) => {
+export const calculateProfitRate = (totalPrize, totalLottos) => {
     const totalSpent = totalLottos * LOTTO.PRICE;
     const profitRate = ((totalPrize / totalSpent) * 100).toFixed(1);
     return profitRate;
   };
 
-const printResults = (prizeTable, profitRate) => {
+export const printResults = (prizeTable, profitRate) => {
     Console.print('\n당첨 통계');
     Console.print('---');
     Console.print(`3개 일치 (5,000원) - ${prizeTable[LOTTO.MATCH_COUNT.THREE].count}개`);
