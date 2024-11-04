@@ -7,6 +7,7 @@ import { Console } from "@woowacourse/mission-utils";
 import { LOTTO_PRICE } from "./constants.js";
 import LottoView from "./LottoView.js";
 import LottoController from "./LottoController.js";
+import LottoValidator from "./LottoValidator.js";
 
 class App {
   async run() {
@@ -16,8 +17,8 @@ class App {
     const winningStatsManager = new WinningStatsManager();
     const lottoView = new LottoView(Console);
     const lottoService = new LottoService(purchaseManager, lottoMatchChecker, lottoIssuer, winningStatsManager);
-
-    const lottoController = new LottoController(lottoService, lottoView);
+    const lottoValidator = new LottoValidator();
+    const lottoController = new LottoController(lottoService, lottoView, lottoValidator);
     await lottoController.init();
   }
 }
