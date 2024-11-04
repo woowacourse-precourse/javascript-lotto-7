@@ -5,8 +5,9 @@ import {
   winningLottoValidation,
 } from './inputHandler/inputValidation.js';
 import Lotto from './Lotto.js';
-import userLottoPrize from './lottoHandler/userLottoPrize.js';
-import calculateUserPrize from './calculateHandler/calculateUserPrize.js';
+import calculateUserPrize, {
+  prizeTable,
+} from './calculateHandler/calculateUserPrize.js';
 
 class App {
   async readPurchaseAmount() {
@@ -30,42 +31,47 @@ class App {
     return bonusLottoValidation(bonusLotto, winningLotto);
   }
 
-  generateLottos(count) {
-    const lottos = [];
-    for (let i = 0; i < count; i++) {
-      const numbers = Array.from(
-        { length: 6 },
-        () => Math.floor(Math.random() * 45) + 1,
-      );
-      lottos.push(new Lotto(numbers));
-    }
-    return lottos;
+  generateUserLottos(count) {
+    return Array.from({ length: count }, () => Lotto.generateRandomLotto());
   }
 
   async run() {
     try {
       const purchaseAmount = await this.readPurchaseAmount();
-      const lottoCount = Math.floor(purchaseAmount / 1000);
+      const lottoCount = Math.floor(Number(purchaseAmount) / 1000);
       Console.print(`${lottoCount}개를 구매했습니다.`);
 
-      const userLottos = this.generateLottos(lottoCount);
-      userLottos.forEach((lotto) => Console.print(lotto));
+      const userLottos = this.generateUserLottos(lottoCount);
+      userLottos.forEach((lotto) =>
+        Console.print(`[${lotto.getNumbers().join(', ')}]`),
+      );
 
       const winningLotto = await this.readWinningLotto();
       const bonusLotto = await this.readBonusLotto(winningLotto);
 
-      const prizeResults = userLottoPrize(userLottos, winningLotto, bonusLotto);
-      const yieldRate = calculateUserPrize(prizeResults, purchaseAmount);
+      const { results, yieldRate } = calculateUserPrize(
+        userLottos,
+        winningLotto,
+        bonusLotto,
+        purchaseAmount,
+      );
+
+      const formatter = new Intl.NumberFormat();
 
       Console.print('\n당첨 통계\n---');
-      prizeResults.forEach((result, index) => {
+      // 모든 당첨 등급을 출력하여 테스트가 예상하는 출력과 일치하도록 보장
+      [3, 4, 5, '5_bonus', 6].forEach((key) => {
+        const count = results[key] || 0; // 당첨 내역이 없는 등급도 0으로 출력
+        const matchDesc =
+          key === '5_bonus' ? '5개 일치, 보너스 볼 일치' : `${key}개 일치`;
         Console.print(
-          `${result.matchCount}개 일치 (${result.prize}원) - ${result.count}개`,
+          `${matchDesc} (${formatter.format(prizeTable[key])}원) - ${count}개`,
         );
       });
-      Console.print(`총 수익률은 ${yieldRate.toFixed(1)}%입니다.`);
+
+      Console.print(`총 수익률은 ${yieldRate}%입니다.`);
     } catch (error) {
-      throw new Error('[ERROR] ' + error);
+      Console.print(error.message);
     }
   }
 }
