@@ -71,9 +71,8 @@ class LottoVendingMachine {
   }
 
   printIssueLottosInfo() {
-    Console.print("");
     Console.print(MESSAGES.OUTPUT.PURCHASE_LOTTO_NUMBER(this.#lottoAmount));
-    this.#lottos.forEach((lotto) => Console.print(lotto));
+    this.#lottos.forEach((lotto) => Console.print(`[${lotto.join(", ")}]`));
   }
 
   async winNumbersInput() {
