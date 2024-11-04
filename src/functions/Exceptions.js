@@ -31,4 +31,8 @@ export const checkLootoBounsNumber = (lottoBounsNumber) => {
   if (isNaN(lottoBounsNumber)) {
     throw new Error('[ERROR] 숫자로 입력해주세요.');
   }
+
+  if (lottoBounsNumber < 1 || lottoBounsNumber > 45) {
+    throw new Error('[ERROR] 1~45 사이의 값을 입력해주세요.');
+  }
 };
