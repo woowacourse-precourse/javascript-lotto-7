@@ -8,6 +8,12 @@ export const LOTTO_PRICE = 1000;
 
 export const DELIMITER = ',';
 
+export const NUMBER_RANGE = Object.freeze({
+  MIN: 1,
+  MAX: 45,
+  COUNT: 6,
+});
+
 export const LOTTO_MATCH_TABLE = Object.freeze({
   6: 1,
   5: 3,
@@ -43,7 +49,7 @@ export const ERROR_MESSAGE = Object.freeze({
     '금액은 1,000원 단위로 입력해야 합니다.'
   ),
 
-  WINNING_NUMBER_NOT_NUMBER: ERROR_TAG.concat(
-    '당첨 번호는 숫자와 구분자(,)만 입력해야 합니다.'
+  WINNING_NUMBER_INVALID_RANGE: ERROR_TAG.concat(
+    '당첨 번호는 1부터 45 사이의 숫자여야 합니다.'
   ),
 });
