@@ -73,6 +73,16 @@ class App {
     return lottos;
   }
 
+  printLotto(lotto) {
+    MissionUtils.Console.print(`[${lotto.join(", ")}]`);
+  }
+
+  printLottos(lottos) {
+    for (let lotto of lottos) {
+      this.printLotto(lotto.getNumbers());
+    }
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
