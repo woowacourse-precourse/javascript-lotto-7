@@ -54,16 +54,20 @@ class LottoController {
     return lottoTickets.map((ticket) => ticket.slice().sort((a, b) => a - b));
   }
 
+  #createLottoTicket() {
+    Random.pickUniqueNumbersInRange(
+      Lotto.MIN_NUMBER,
+      Lotto.MAX_NUMBER,
+      Lotto.COUNT,
+    );
+  }
+
   generateLottoTickets() {
     if (!isEmpty(this.#purchaseAmount)) {
       const ticketCount = this.#purchaseAmount / 1000;
 
       const lottoTickets = Array.from({ length: ticketCount }, () =>
-        Random.pickUniqueNumbersInRange(
-          Lotto.MIN_NUMBER,
-          Lotto.MAX_NUMBER,
-          Lotto.COUNT,
-        ),
+        this.#createLottoTicket(),
       );
       this.#lottoTickets = this.#sortAscending(lottoTickets);
     }
