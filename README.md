@@ -5,7 +5,7 @@
   
 
 # 클래스 다이어그램
-<img src="https://drive.google.com/uc?export=download&id=1wII7Nv19-RabPPcXU6_HAj4SGgMmCOhn"/>
+![](https://i.imgur.com/rhcYhFT.png)
   
   
 # 폴더구조
