@@ -7,7 +7,7 @@ class GetNumber {
 
 
     async getWinNumber() {
-        const winNumber = await Console.readLineAsync('당첨 번호를 입력해주세요.(,로 구분)');
+        const winNumber = await Console.readLineAsync('\n당첨 번호를 입력해주세요.\n');
         const WinNumberArray = winNumber.split(',').map(number => Number(number.trim()));
         WinNumberArray.forEach(element => {
           this.validateNumberRange(element)
@@ -16,15 +16,18 @@ class GetNumber {
     }
 
     async getBonusNumber() {
-        const BonusNumber = await Console.readLineAsync('보너스 번호를 입력해주세요.');
+        const BonusNumber = await Console.readLineAsync('\n보너스 번호를 입력해주세요.\n');
         const BonusNumberArray = [Number(BonusNumber.trim())];
         this.validateNumberRange(BonusNumberArray [0])
         this.validateBonusNumber(BonusNumberArray);
     }
 
     validateWinNumber(WinNumberArray) {
-        if (new Set(WinNumberArray).size !== 6) {
+        if (new Set(WinNumberArray).size < 6) {
             throw new Error('[ERROR]중복되는 번호 혹은 공백이 있습니다.');
+        }
+        if(new Set(WinNumberArray).size > 6){
+            throw new Error('[ERROR]당첨 번호는 최대 6개입니다.')
         }
         this.winNumber = WinNumberArray;
     }

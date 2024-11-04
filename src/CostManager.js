@@ -10,7 +10,7 @@ class CostManager {
     }
 
     async readCost() {
-        const input = await Console.readLineAsync('구매금액을 입력해주세요.');
+        const input = await Console.readLineAsync('구매금액을 입력해주세요.\n');
         this.cost = Number(input) 
         return this.cost;
     }
