@@ -13,7 +13,25 @@ export const LOTTO_PRICE = 1000;
 
 export const DELERIMETER = ',';
 
-export const LOTTO_RESULT = Object.freeze({
+export const LOTTO_MATCH_TABLE = Object.freeze({
+  6: 1,
+  5: 3,
+  4: 4,
+  3: 5,
+  2: 0,
+  1: 0,
+  0: 0,
+});
+
+export const LOTTO_WINNIG_PRICE = Object.freeze({
+  1: 2000000000,
+  2: 30000000,
+  3: 1500000,
+  4: 50000,
+  5: 5000,
+});
+
+export const LOTTO_RESULT_MESSAGE = Object.freeze({
   1: '6개 일치 (2,000,000,000원)',
   2: '5개 일치, 보너스 볼 일치 (30,000,000원)',
   3: '5개 일치 (1,500,000원)',

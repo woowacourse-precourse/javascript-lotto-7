@@ -3,7 +3,7 @@ import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
 import LottoCalculator from './LottoCalculator.js';
-import { OUPUT_MESSGE, LOTTO_PRICE, LOTTO_RESULT } from './constant.js';
+import { OUPUT_MESSGE, LOTTO_PRICE, LOTTO_RESULT_MESSAGE } from './constant.js';
 
 /**
  *
@@ -100,7 +100,9 @@ class LottoController {
       .reverse();
 
     resultTableArray.forEach(([rank, count]) => {
-      this.#ioProcessor.processOuput(`${LOTTO_RESULT[rank]} - ${count}개`);
+      this.#ioProcessor.processOuput(
+        `${LOTTO_RESULT_MESSAGE[rank]} - ${count}개`
+      );
     });
   }
 }

@@ -1,3 +1,5 @@
+import { LOTTO_MATCH_TABLE } from './constant.js';
+
 /**
  *
  */
@@ -29,22 +31,12 @@ class LottoCalculator {
    *
    */
   #calcuateRank(matchCount, winningBonusNumber) {
-    if (matchCount === 6) {
-      return 1;
-    } else if (
-      matchCount === 5 &&
-      lotto.getNumbers().includes(winningBonusNumber)
-    ) {
-      return 2;
-    } else if (matchCount === 5) {
-      return 3;
-    } else if (matchCount === 4) {
-      return 4;
-    } else if (matchCount === 3) {
-      return 5;
+    let rank = LOTTO_MATCH_TABLE[matchCount];
+    if (matchCount === 5 && lotto.getNumbers().includes(winningBonusNumber)) {
+      rank = 2;
     }
 
-    return 0;
+    return rank;
   }
 }
 
