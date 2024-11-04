@@ -17,7 +17,7 @@ const PURCHASE_ERROR_MESSAGE={
 }
 
 const LOTTO_MESSAGE={
-    INPUT_LOTTO_NUMBERS:'당첨 번호를 입력해 주세요.\n',
+    INPUT_LOTTO_NUMBERS:'\n당첨 번호를 입력해 주세요.\n',
 }
 
 const LOTTO_ERROR_MESSAGE={
@@ -27,6 +27,10 @@ const LOTTO_ERROR_MESSAGE={
     IS_NOT_NUMBER: `${ERROR_PREFIX} 숫자만 입력 가능합니다.`,
 }
 
+const BONUS_MESSAGE={
+    INPUT_BONUS_NUMBER:'\n보너스 번호를 입력해 주세요.\n',
+}
+
 export {PURCHASE_MESSAGE, 
     PURCHASE_ERROR_MESSAGE, 
     LOTTO_MESSAGE, 
@@ -34,5 +38,6 @@ export {PURCHASE_MESSAGE,
     LOTTO_COST,
     MIN_LOTTO_NUMBER,
     MAX_LOTTO_NUMBER,
-    LOTTO_COUNT
+    LOTTO_COUNT,
+    BONUS_MESSAGE
 }

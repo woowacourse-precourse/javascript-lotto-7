@@ -1,8 +1,8 @@
-// App.js
 import { Console } from "@woowacourse/mission-utils";
-import { PURCHASE_MESSAGE, LOTTO_MESSAGE } from "./constants.js";
+import { PURCHASE_MESSAGE, LOTTO_MESSAGE, BONUS_MESSAGE } from "./constants.js";
 import Purchase from "./Purchase.js";
 import Lotto from "./Lotto.js";
+import Bonus from "./Bonus.js";
 
 class App {
   async run() {
@@ -11,6 +11,7 @@ class App {
     this.displayPurchaseResults(purchase);
 
     const winningLotto = await this.getWinningLottoNumbers();
+    const bonusNumber = await this.getBonusNumber();
   }
 
   /**구입 금액 */
@@ -41,6 +42,18 @@ class App {
         const input = await Console.readLineAsync(LOTTO_MESSAGE.INPUT_LOTTO_NUMBERS);
         const numbers = input.split(",").map(Number);
         return new Lotto(numbers);
+      } catch (error) {
+        Console.print(`\n${error.message}\n`);
+      }
+    }
+  }
+
+  /**보너스 번호 */
+  async getBonusNumber() {
+    while (true) {
+      try {
+        const input = await Console.readLineAsync(BONUS_MESSAGE.INPUT_BONUS_NUMBER);
+        return new Bonus(input);
       } catch (error) {
         Console.print(`\n${error.message}\n`);
       }
