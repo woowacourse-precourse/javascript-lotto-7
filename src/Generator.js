@@ -1,9 +1,8 @@
-import { isNaturalNumber } from './utils/isNaturalNumber.js';
 import { ERROR_MESSAGE } from './constants/ERROR_MESSAGES.js';
 import { stringToNumber } from './utils/stringToNumber.js';
 import { LOTTO } from './constants/LOTTO_CONSTANTS.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { hasWhiteSpace } from './utils/hasWhiteSpace.js';
+import Validator from './Validator.js';
 
 class Generator {
   #purchaseAmount;
@@ -45,24 +44,12 @@ class Generator {
   }
 
   #validate(input) {
-    this.#validateWhiteSpace(input);
-    this.#validateNaturalNumber(input);
+    Validator.validateWhitespace(input);
+    Validator.validateNaturalNumber(input);
     const numberInput = stringToNumber(input);
     this.#validateDivisibleByTicketPrice(numberInput);
 
     return numberInput;
-  }
-
-  #validateWhiteSpace(input) {
-    if (!hasWhiteSpace(input)) {
-      throw new Error(ERROR_MESSAGE.WHITESPACE_NOT_ALLOWED);
-    }
-  }
-
-  #validateNaturalNumber(input) {
-    if (!isNaturalNumber(input)) {
-      throw new Error(ERROR_MESSAGE.NOT_A_NATURAL_NUMBER);
-    }
   }
 
   #validateDivisibleByTicketPrice(numberInput) {
