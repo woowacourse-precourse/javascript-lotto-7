@@ -33,7 +33,7 @@ const validateNumberRange = (numbers) => {
 const validateWinningNumbers = (input) => {
   isValidFormat(input);
 
-  const numberArray = input.split(',');
+  const numberArray = input.split(',').map(Number);
 
   validateUniqueNumbers(numberArray);
   validateNumberRange(numberArray);
