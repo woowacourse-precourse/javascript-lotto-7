@@ -33,14 +33,16 @@ class Rank_check {
     let match_six = numberMatchArray.filter(numberMatch => 6 === numberMatch).length;
 
     for (let index = 0; index < bonusNumberMatchArray.length; index++) {
-      if(bonusNumberMatchArray[index] === 1) {
+      if(bonusNumberMatchArray[index] === 1 && numberMatchArray[index] !== 5) {
         numberMatchArray[index] ++;
       }
+      else if(bonusNumberMatchArray[index] === 1 && numberMatchArray[index] === 5)
+        numberMatchArray[index] += 2;
     }
     let match_three = numberMatchArray.filter(numberMatch => 3 === numberMatch).length;
     let match_four = numberMatchArray.filter(numberMatch => 4 === numberMatch).length;
     let match_five = numberMatchArray.filter(numberMatch => 5 === numberMatch).length;
-    let match_five_bonus = numberMatchArray.filter(numberMatch => 6 === numberMatch).length;
+    let match_five_bonus = numberMatchArray.filter(numberMatch => 7 === numberMatch).length;
     this.printRank(match_three, match_four, match_five, match_five_bonus, match_six);
     this.revenue_percent(myLottoArray, match_three, match_four, match_five, match_five_bonus, match_six);
   }
