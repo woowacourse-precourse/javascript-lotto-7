@@ -50,6 +50,7 @@ export class LottoManager {
       return total + prize.count * prize.reward;
     }, 0);
 
-    return Math.round((outputMoney / inputMoney) * 100 * 10) / 10;
+    const ratio = (outputMoney / inputMoney) * 100;
+    return ratio.toFixed(1); // 항상 소수점 첫째자리까지 표시
   }
 }
