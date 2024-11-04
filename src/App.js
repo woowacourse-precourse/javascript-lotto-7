@@ -4,7 +4,8 @@ import LottoManager from "./LottoManager.js";
 class App {
   async run() {
     const lottoManager = new LottoManager();
-    lottoManager.run();
+    lottoManager.runGame();
+    lottoManager.printResult();
   }
 }
 

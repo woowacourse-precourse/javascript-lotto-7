@@ -9,3 +9,13 @@ export function generateRandomNumbers(){
     randomNumberList.sort((a, b)=> a - b);
     return randomNumberList;
 }
+
+export function countMatchingNumbers(lottoNumbers, winNumbers){
+    let count = 0;
+    for(let i = 0; i < 6; i++){
+        if(winNumbers.includes(lottoNumbers[i])){
+            count += 1;
+        }
+    }
+    return count;
+}
