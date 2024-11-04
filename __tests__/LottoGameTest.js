@@ -67,12 +67,11 @@ describe('로또게임 클래스 테스트', () => {
 
   describe('당첨 결과 계산 테스트', () => {
     test('당첨 결과가 정확히 기록된다', () => {
-      const lottoGame = new LottoGame(QUANTITY);
-      // 테스트용 당첨 번호 설정
+      const lottoGame = new LottoGame();
+
       lottoGame.winningNumbers = [1, 2, 3, 4, 5, 6];
       lottoGame.bonusNumber = 7;
 
-      // 테스트용 로또 번호 설정
       lottoGame.lottos = [
         new Lotto([1, 2, 3, 7, 8, 9]),
         new Lotto([1, 2, 3, 4, 5, 7]),
@@ -81,9 +80,9 @@ describe('로또게임 클래스 테스트', () => {
 
       lottoGame.calculateWinningResults();
 
-      expect(lottoGame.result['FIFTH']).toBe(1);
-      expect(lottoGame.result['SECOND']).toBe(1);
-      expect(lottoGame.result['FIRST']).toBe(1);
+      expect(lottoGame.result.FIFTH).toBe(1);
+      expect(lottoGame.result.SECOND).toBe(1);
+      expect(lottoGame.result.FIRST).toBe(1);
     });
   });
 
