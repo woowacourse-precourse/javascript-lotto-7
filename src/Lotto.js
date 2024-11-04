@@ -11,6 +11,11 @@ class Lotto {
     this.#numbers = this.#validate(input);
   }
 
+  isDuplicateBonusNumber(bonusNumber) {
+    if (this.#numbers.includes(bonusNumber)) return true;
+    return false;
+  }
+
   #validate(input) {
     Validator.validateEmpty(input);
     const splitNumbers = splitString(input);
