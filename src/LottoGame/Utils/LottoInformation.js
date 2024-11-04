@@ -7,5 +7,5 @@ const LOTTO_INFORMATION = [
 ];
 
 export const findInformation = (rank) => {
-  return LOTTO_STANDARD.find((standard) => standard.rank === rank);
+  return LOTTO_INFORMATION.find((info) => info.rank === rank);
 };
