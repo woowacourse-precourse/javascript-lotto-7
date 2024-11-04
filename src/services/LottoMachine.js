@@ -1,12 +1,13 @@
 import {MissionUtils} from "@woowacourse/mission-utils";
 import {sortAsc} from "../utils/methods.js";
+import {purchaseValid} from "./utils/validation.js";
 
 class LottoMachine {
     #number
 
     constructor(number) {
         this.#validate(number);
-        this.#number = number
+        this.#number = number / 1000
     }
 
     lottoRelease() {
@@ -23,8 +24,9 @@ class LottoMachine {
     }
 
     #validate(purchase) { //함수로 나중에 분리
-        if (isNaN(purchase)) {
-            throw new Error("[Error]")
+        const {hasError, message} = purchaseValid(purchase)
+        if (hasError) {
+            throw new Error(message)
         }
     }
 
