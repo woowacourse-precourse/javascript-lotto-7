@@ -61,7 +61,9 @@ class LottoPrize extends ObservableModel {
   }
 
   #formatReturnRate() {
-    return this.#returnRate.toFixed(1);
+    const rate = this.#returnRate.toFixed(1);
+    const [integer, decimal] = rate.split(".");
+    return `${Number(integer).toLocaleString()}.${decimal}%`;
   }
 
   /**
