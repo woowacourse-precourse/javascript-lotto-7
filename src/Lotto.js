@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from './constants/message.js';
+
 class Lotto {
   #numbers;
 
@@ -8,11 +10,21 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(ERROR_MESSAGE.ERROR_LOTTO_NUM_COUNT);
+    }
+
+    if (!numbers.every((num) => num >= 1 && num <= 45)) {
+      throw new Error(ERROR_MESSAGE.ERROR_BONUS_NUM);
+    }
+
+    if (new Set(numbers).size !== 6) {
+      throw new Error(ERROR_MESSAGE.ERROR_BONUS_SET);
     }
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return [...this.#numbers];
+  }
 }
 
 export default Lotto;
