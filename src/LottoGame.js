@@ -117,7 +117,7 @@ class LottoGame {
     if (matchCount === '5.5') {
       return '5개 일치, 보너스 볼 일치';
     }
-    return `${matchCount}개 일치`;
+    return matchCount + '개 일치';
   }
 
   #printTotalPrize(result, purchasePrice) {

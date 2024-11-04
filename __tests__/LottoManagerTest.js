@@ -52,18 +52,11 @@ describe('LottoManager 테스트', () => {
 
   describe('당첨 결과 계산', () => {
     test('당첨 통계가 정확히 계산된다.', () => {
-      const lottos = [
-        { numbers: [1, 2, 3, 4, 5, 6] },
-        { numbers: [1, 2, 3, 4, 5, 7] },
-      ];
+      const lottos = [{ numbers: [1, 2, 3, 4, 5, 6] }, { numbers: [1, 2, 3, 4, 5, 7] }];
       const winningNumbers = ['1', '2', '3', '4', '5', '6'];
       const bonusNumber = '7';
 
-      const result = lottoManager.getResult(
-        lottos,
-        winningNumbers,
-        bonusNumber,
-      );
+      const result = lottoManager.getResult(lottos, winningNumbers, bonusNumber);
       expect(result).toEqual({
         3: 0,
         4: 0,
@@ -85,9 +78,7 @@ describe('LottoManager 테스트', () => {
       const purchasePrice = 2000; // 2장 구매
       const expectedRate = ((5000 / 2000) * 100).toFixed(1);
 
-      expect(lottoManager.calculatePrize(result, purchasePrice)).toBe(
-        expectedRate,
-      );
+      expect(lottoManager.calculatePrize(result, purchasePrice)).toBe(expectedRate);
     });
   });
 });
