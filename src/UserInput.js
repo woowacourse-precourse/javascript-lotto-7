@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import ValidatePrice from "./utils/ValidatePrice.js";
+import ValidateBonusNumber from "./utils/ValidateBonusNumber.js";
 
 class UserInput {
   //구매 금액 입력받기 메서드
