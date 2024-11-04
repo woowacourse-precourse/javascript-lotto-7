@@ -1,5 +1,5 @@
 import CONSTANT from '../constants/costant.js';
-import { Random } from '@woowacourse/mission-utils';
+import { MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from '../Lotto.js';
 
 class TotalLotto {
@@ -14,7 +14,7 @@ class TotalLotto {
   }
 
   #randomLotto() {
-    const randomNumbers = Random.pickUniqueNumbersInRange(
+    const randomNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
       CONSTANT.LOTTO_CANSTANT.MIN_LOTTO_NUMBER,
       CONSTANT.LOTTO_CANSTANT.MAX_LOTTO_NUMBER,
       CONSTANT.LOTTO_CANSTANT.LOTTO_LENGTH
