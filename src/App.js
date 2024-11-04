@@ -1,6 +1,8 @@
 import User from './User.js';
 import Lotto from './Lotto.js';
 import print from './util/print.js';
+import { Console } from '@woowacourse/mission-utils';
+import { OUTPUT_MESSAGE } from './constant/index.js';
 
 class App {
   constructor() {
@@ -8,11 +10,14 @@ class App {
   }
 
   async run() {
-    this.user.readPurchaseAmount();
+    await this.user.readPurchaseAmount();
+    Console.print(
+      `\n${this.user.purchaseCount}${OUTPUT_MESSAGE.PURCHASE_COUNT}`,
+    );
     const lottoList = Lotto.purchaseLotto(this.user.purchaseCount);
     print.lottoList(lottoList);
-    this.user.readWinningNumbers();
-    this.user.readBonusNumber();
+    await this.user.readWinningNumbers();
+    await this.user.readBonusNumber();
 
     const { winningNumbers, bonusNumber } = this.user.winningBonusNumbers;
     lottoList.forEach((lotto) =>
