@@ -8,9 +8,7 @@ class App {
       // Console.print(`구입금액은 ${purchaseAmount}원입니다.`);
 
       const lottoTickets = this.generateLottoTickets(purchaseAmount);
-
-      // 생성된 로또 티켓 출력
-      
+      this.printLottoTickets(lottoTickets);
 
       // 사용자로부터 당첨 번호 입력 받기
       
@@ -48,6 +46,11 @@ class App {
       tickets.push(new Lotto(numbers));
     }
     return tickets;
+  }
+
+  printLottoTickets(tickets) {
+    Console.print(`\n${tickets.length}개를 구매했습니다.`);
+    tickets.forEach((ticket) => Console.print(`[${ticket.getNumbers().join(", ")}]`));
   }
 }
 
