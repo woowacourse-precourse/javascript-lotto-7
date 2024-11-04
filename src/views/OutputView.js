@@ -6,6 +6,19 @@ const OutputView = {
     OutputView.printLottos(lottoList);
   },
 
+  updatePrize({ prize, returnRate }) {
+    OutputView.printResultHeader();
+    ["fifth", "forth", "third", "second", "first"].forEach((rank) => {
+      const { condition, money, count } = prize[rank];
+      if (rank === "second") {
+        OutputView.printBonusResult(condition, money.toLocaleString(), count);
+      } else {
+        OutputView.printResult(condition, money.toLocaleString(), count);
+      }
+    });
+    OutputView.printReturnRate(returnRate);
+  },
+
   printLottoCount(count) {
     MissionUtils.Console.print(`\n${count}개를 구매했습니다.`);
   },

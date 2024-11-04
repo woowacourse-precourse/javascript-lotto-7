@@ -8,6 +8,7 @@ class Controller {
     this.models = models;
 
     this.models.lottoStore.subscribe(this.views.output.updateLotto);
+    this.models.lottoPrize.subscribe(this.views.output.updatePrize);
   }
 
   async buyLotto() {
@@ -42,18 +43,9 @@ class Controller {
   }
 
   checkLotto() {
-    this.views.output.printResultHeader();
-    const prize = this.models.lottoPrize.getPrize(this.models.lottoStore.getLottos());
-    ["fifth", "forth", "third", "second", "first"].forEach((rank) => {
-      const { condition, money, count } = prize[rank];
-      if (rank === "second") {
-        this.views.output.printBonusResult(condition, money.toLocaleString(), count);
-      } else {
-        this.views.output.printResult(condition, money.toLocaleString(), count);
-      }
-    });
-    this.views.output.printReturnRate(
-      this.models.lottoPrize.getReturnRate(this.models.lottoStore.getMoney()).toFixed(1),
+    this.models.lottoPrize.getResult(
+      this.models.lottoStore.getLottos(),
+      this.models.lottoStore.getMoney(),
     );
   }
 }

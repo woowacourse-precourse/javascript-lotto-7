@@ -1,9 +1,12 @@
-class LottoPrize {
+import ObservableModel from "./ObservableModel.js";
+
+class LottoPrize extends ObservableModel {
   #lottoChecker;
 
   #prize;
 
   constructor(lottoChecker) {
+    super();
     this.#lottoChecker = lottoChecker;
     this.#prize = {
       first: { condition: 6, money: 2000000000, count: 0 },
@@ -46,13 +49,22 @@ class LottoPrize {
     lottos.forEach((lotto) => {
       this.getRank(lotto);
     });
+
     return this.#prize;
   }
 
   getReturnRate(money) {
     const totalPrize = Object.values(this.#prize)
       .reduce((acc, cur) => acc + cur.count * cur.money, 0);
+
     return (totalPrize / money) * 100;
+  }
+
+  getResult(lottos, money) {
+    this.notify({
+      prize: this.getPrize(lottos),
+      returnRate: this.getReturnRate(money).toFixed(1),
+    });
   }
 }
 
