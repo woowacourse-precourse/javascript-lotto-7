@@ -29,9 +29,10 @@ const runException = async input => {
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+  const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions(input);
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
 
   // when
   const app = new App();
@@ -91,23 +92,23 @@ describe('로또 테스트', () => {
   });
 
   test('예외 테스트', async () => {
-    await runException(['1000j', '1,2,3,4,5,6', '7']);
+    await runException('1000j');
   });
 
   test('예외 테스트 구매 금액이 숫자가 아닐 경우', async () => {
-    await runException(['abc', '1,2,3,4,5,6', '7']);
+    await runException('abc');
   });
 
   test('예외 테스트 구매 금액이 음수일 경우', async () => {
-    await runException(['-1000', '1,2,3,4,5,6', '7']);
+    await runException('-1000');
   });
 
   test('예외 테스트 구매 금액이 1000으로 나누어 떨어지지 않는 경우 1', async () => {
-    await runException(['12345', '1,2,3,4,5,6', '7']);
+    await runException('12345');
   });
 
   test('예외 테스트 구매 금액이 1000으로 나누어 떨어지지 않는 경우 2', async () => {
-    await runException(['800', '1,2,3,4,5,6', '7']);
+    await runException('800');
   });
 
   test('보너스번호가 숫자가 아닌 경우 1', async () => {
