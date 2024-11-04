@@ -51,6 +51,30 @@ class LottoCalculator {
             );
         });
     }
+
+    summarizeResult(result) {
+        const COUNT = { 3: 0, 4: 0, 5: 0, 6: 0, plus: 0 };
+        result.forEach(({ MATCH_COUNT, BONUS_MATCH }) => {
+            if (MATCH_COUNT === 5 && BONUS_MATCH) {
+                COUNT.plus++;
+                return;
+            }
+            if (COUNT[MATCH_COUNT] !== undefined) {
+                COUNT[MATCH_COUNT]++;
+            }
+        });
+        return COUNT;
+    }
+
+    printResult(summarizeResult) {
+        Console.print(
+            `3개 일치 (5,000원) - ${summarizeResult[3]}개\n` +
+                `4개 일치 (50,000원) - ${summarizeResult[4]}개\n` +
+                `5개 일치 (1,500,000원) - ${summarizeResult[5]}개\n` +
+                `5개 일치, 보너스 볼 일치 (30,000,000원) - ${summarizeResult.plus}개\n` +
+                `6개 일치 (2,000,000,000원) - ${summarizeResult[6]}개`
+        );
+    }
 }
 
 export default LottoCalculator;
