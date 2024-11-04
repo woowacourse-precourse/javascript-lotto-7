@@ -133,4 +133,33 @@ describe("로또 테스트", () => {
     expect(app.winningNumbers).toEqual([1, 2, 3, 4, 5, 6]);
     expect(app.bonusNumber).toBe(7);
   });
+
+  test("당첨 결과 계산 및 출력", async () => {
+    const logSpy = getLogSpy();
+
+    mockQuestions(["5000", "1,2,3,4,5,6", "7"]); // 구입 금액, 당첨 번호, 보너스 번호 입력
+    mockRandoms([
+      [1, 2, 3, 4, 5, 6], // 1등
+      [1, 2, 3, 4, 5, 7], // 2등
+      [1, 2, 3, 4, 5, 8], // 3등
+      [1, 2, 3, 4, 9, 10], // 4등
+      [1, 2, 3, 11, 12, 13], // 5등
+    ]);
+
+    const app = new App();
+    await app.run();
+
+    const expectedLogs = [
+      "1등 - 2,000,000,000원",
+      "2등 - 30,000,000원",
+      "3등 - 1,500,000원",
+      "4등 - 50,000원",
+      "5등 - 5,000원",
+    ];
+
+    expectedLogs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
+  
 });
