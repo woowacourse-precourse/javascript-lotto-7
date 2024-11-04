@@ -21,6 +21,11 @@ export function validateNumbers(userInput) {
   numbers.forEach((num) => {
     if (num < 1 || num > 45) throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
   });
+
+  const uniqueNumbers = new Set(numbers);
+  if (uniqueNumbers.size !== numbers.length) {
+    throw new Error(ERROR_MESSAGE.LOTTO_NUM_NOT_UNIQUE_ERROR);
+  }
 }
 
 export function validateBonus(bonus, numbers) {
