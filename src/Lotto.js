@@ -1,4 +1,3 @@
-// Lotto.js
 import { Console } from '@woowacourse/mission-utils';
 import NumberValidator from './utils/NumberValidator.js';
 import { LOTTO_ERRORS } from './constants/constants.js';
