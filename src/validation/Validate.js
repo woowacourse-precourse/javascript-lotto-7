@@ -22,12 +22,12 @@ class Validate {
     }
   }
   isZero(input) {
-    if (input === ZERO) {
+    if (Number(input) === ZERO) {
       throw new Error(ERROR_MESSAGE + MINIMUM_VALUE);
     }
   }
   isNumber(input) {
-    if (isNaN(input)) {
+    if (isNaN(Number(input))) {
       throw new Error(ERROR_MESSAGE + REQUEST_NUMBER_INPUT);
     }
   }
