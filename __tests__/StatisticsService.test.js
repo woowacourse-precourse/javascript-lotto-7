@@ -46,14 +46,14 @@ describe('StatisticsService', () => {
 
   describe('calculateRevenueRate', () => {
     it('총 수익과 지불 금액을 기준으로 수익률을 계산하고 소수점 둘째 자리까지 절삭해야 합니다.', () => {
-      const totalRevenue = 8000;
+      const totalRevenue = 15000;
       const paidAmount = 10000;
 
       const revenueRate = statisticsService.calculateRevenueRate(
         totalRevenue,
         paidAmount,
       );
-      expect(revenueRate).toBe(80);
+      expect(revenueRate).toBe(150);
     });
   });
 });

@@ -101,7 +101,7 @@ describe('RankCalculationService', () => {
 
   test('calculateLotteries - 보너스 번호만 일치하는 경우 NO_MATCH로 처리된다', () => {
     const purchasedLotteries = [
-      { getNumbers: () => [8, 9, 10, 11, 12, 7] }, // 보너스 번호만 일치
+      { getNumbers: () => [7, 8, 9, 10, 11, 12] }, // 보너스 번호만 일치
     ];
     const winningNumbers = [1, 2, 3, 4, 5, 6];
     const bonusNumber = 7;

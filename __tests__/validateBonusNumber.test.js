@@ -46,5 +46,66 @@ const validateBonusNumberTestCases = [
     errorLog: ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER,
   },
 ];
+const additionalTestCases = [
+  {
+    description: `NaN을 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.NaN.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+  {
+    description: `Infinity를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.POSITIVE_INFINITY.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+  {
+    description: `-Infinity를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.NEGATIVE_INFINITY.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+  {
+    description: `표현할 수 있는 최대 정수 (MAX_SAFE_INTEGER)를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.MAX_SAFE_INTEGER.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED,
+  },
+  {
+    description: `표현할 수 있는 최대 값 (MAX_VALUE)를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.MAX_VALUE.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+  {
+    description: `표현할 수 있는 최소 정수 (MIN_SAFE_INTEGER)를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.MIN_SAFE_INTEGER.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+  {
+    description: `표현할 수 있는 최소 값 (MIN_VALUE)를 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.MIN_VALUE.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+  {
+    description: `1에 아주 근접한 값 (EPSILON)을 입력하면 "${ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED}" 에러 메시지가 출력되어야 합니다.`,
+    input: Number.EPSILON.toString(),
+    lottoNumbers: [1, 2, 3, 4, 5, 6],
+    expected: false,
+    errorLog: ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_ALLOWED,
+  },
+];
+
+// 추가 테스트 케이스 실행
+additionalTestCases.forEach(runErrorLogTest(validateBonusNumber));
 
 validateBonusNumberTestCases.forEach(runErrorLogTest(validateBonusNumber));
