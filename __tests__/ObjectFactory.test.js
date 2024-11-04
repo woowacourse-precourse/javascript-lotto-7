@@ -7,7 +7,7 @@ import PurchaseAmount from '../src/lotto/PurchaseAmount.js';
 import Lotto from '../src/Lotto.js';
 import BonusNumber from '../src/lotto/BonusNumber.js';
 import { InputView } from '../src/views/InputView.js';
-import errorConstants from '../src/constants/error-constants.js';
+import errorConstants from '../src/constants/errorConstants.js';
 
 // InputView를 모킹
 jest.mock('../src/views/InputView.js', () => ({
