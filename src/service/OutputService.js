@@ -1,9 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
 import { IOMessage } from '../constants/IOMessage.js';
 import { matchLottoNums } from '../util/matchLottoNums.js';
-import calProfitRate from '../util/calProfitRate.js';
-import { calTotalPrize } from '../util/calTotalPrize.js';
-import formatNum from '../util/formatNum.js';
+import calProfitRate from '../util/calculators/calProfitRate.js';
+import { calTotalPrize } from '../util/calculators/calTotalPrize.js';
+import formatNum from '../util/formatters/formatNum.js';
 
 export class OutputService {
   static printResults(purchasedLottoInfo, winningLotto, bonusNum) {

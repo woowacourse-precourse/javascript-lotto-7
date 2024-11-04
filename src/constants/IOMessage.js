@@ -1,5 +1,5 @@
 import { MagicNumber } from './MagicNumber.js';
-import formatNum from '../util/formatNum.js';
+import formatNum from '../util/formatters/formatNum.js';
 
 export const IOMessage = Object.freeze({
   PRICE_INPUT: '구입금액을 입력해 주세요. \n',

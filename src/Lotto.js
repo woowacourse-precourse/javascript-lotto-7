@@ -1,5 +1,5 @@
-import LottoListValidator from './util/LottoListValidator.js';
-import LottoNumValidator from './util/LottoNumValidator.js';
+import LottoListValidator from './util/validators/LottoListValidator.js';
+import LottoNumValidator from './util/validators/LottoNumValidator.js';
 import NumberTrimmer from './util/NumberTrimmer.js';
 
 class Lotto {

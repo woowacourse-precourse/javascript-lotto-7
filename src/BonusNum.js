@@ -1,4 +1,4 @@
-import InputValidator from './util/InputValidator.js';
+import InputValidator from './util/validators/InputValidator.js';
 import { ErrorMessage } from './constants/ErrorMessage.js';
 import { MagicNumber } from './constants/MagicNumber.js';
 
