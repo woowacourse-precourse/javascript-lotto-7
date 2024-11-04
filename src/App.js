@@ -6,19 +6,33 @@ import { validateBonusnum, validateBudget, validateWinnum } from "./Validation.j
 
 class App {
   async run() {
+    const budget = await this.getBudget();
+    const lotto = purchase(budget / LOTTO.PRICE);
+
+    const winnum = await this.getWinnum();
+    const bonusnum = await this.getBonusnum(winnum);
+
+    prize(lotto, winnum, bonusnum);
+  }
+
+  async getBudget() {
     const budget = await getInput('구입금액을 입력해 주세요.');
     validateBudget(budget);
-    const lotto = purchase(budget/LOTTO.PRICE);
+    return budget;
+  }
 
+  async getWinnum() {
     const winnumInput = await getInput('당첨 번호를 입력해 주세요.');
     const winnum = winnumInput.split(',').map(num => parseInt(num.trim(), 10));
     validateWinnum(winnum);
-    
+    return winnum;
+  }
+
+  async getBonusnum(winnum) {
     const bonusnumInput = await getInput('보너스 번호를 입력해 주세요.');
     const bonusnum = parseInt(bonusnumInput.trim(), 10);
     validateBonusnum(bonusnum, winnum);
-
-    prize(lotto, winnum, bonusnum);
+    return bonusnum;
   }
 }
 
