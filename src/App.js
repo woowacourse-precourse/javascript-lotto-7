@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import Bonus from "./Bonus.js";
 import purchaseLotto from "./utils/purchaseLotto.js";
 import matchLotto from "./utils/matchLotto.js";
 import calculateWinningSum from "./utils/calculateWinningSum.js";
-import { isValidBonusNumber } from "./utils/validate.js";
 import printMatchResult from "./IO/printMatchResult.js";
 import printRateOfReturn from "./IO/printRateOfReturn.js";
 
@@ -23,14 +23,15 @@ class App {
     const inputBonusNumber = await Console.readLineAsync(
       "\n보너스 번호를 입력해 주세요.\n"
     );
-    const bonusNumber = Number(inputBonusNumber);
-
-    isValidBonusNumber(bonusNumber, winningNumbers.getNumbers());
+    const bonusNumber = new Bonus(
+      Number(inputBonusNumber),
+      winningNumbers.getNumbers()
+    );
 
     const matchCountList = matchLotto(
       lottos.getLottos(),
       winningNumbers.getNumbers(),
-      bonusNumber
+      bonusNumber.getBonusNumber()
     );
 
     printMatchResult(matchCountList);

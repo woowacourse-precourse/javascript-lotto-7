@@ -21,7 +21,7 @@ const matchLotto = (lottoList, winningNumbers, bonusNumber) => {
     const matchedCount = lotto.getMatchedCount(winningNumbers);
     const bonusMatch = lotto.getIsBonusMatch(bonusNumber);
 
-    if (3 <= matchedCount || matchedCount <= 5) {
+    if (3 <= matchedCount && matchedCount <= 5) {
       if (matchedCount == 5 && bonusMatch)
         matchCountList[matchedCount].isBonusMatchCount += 1;
       else matchCountList[matchedCount].count += 1;
