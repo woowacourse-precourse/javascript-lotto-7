@@ -15,7 +15,7 @@ class Purchase {
   async getPayment() {
     const pay = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
     Console.print('');
-    return this.#setAmount(pay);
+    return parseInt(this.#setAmount(pay),10);
   }
 }
 

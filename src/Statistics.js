@@ -3,10 +3,16 @@ import Lotto from "./Lotto.js";
 
 class Statistics {
   updateAmountArray(amountArray, matchCount, isBonusMatch) {
-    if (matchCount === 5 && isBonusMatch) {
+    if (matchCount === 6) {
+      amountArray[4]++;
+    } else if (matchCount === 5 && isBonusMatch) {
       amountArray[3]++;
-    } else if (matchCount >= 3 && matchCount <= 6) {
-      amountArray[matchCount - 3]++;
+    } else if (matchCount === 5) {
+      amountArray[2]++;
+    } else if (matchCount === 4) {
+      amountArray[1]++;
+    } else if (matchCount === 3) {
+      amountArray[0]++;
     }
   }
 
