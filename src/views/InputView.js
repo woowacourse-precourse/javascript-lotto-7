@@ -9,10 +9,12 @@ class InputView {
 
   async getWinningNumbers() {
     const input = await Console.readLineAsync(INPUT.WINNING_NUMBERS_PROMPT);
-    return input.split(',').map((number) => {
+    const winningNumbers = input.split(',').map((number) => {
       const trimmedNumber = number.trim();
       return this.convertToNumberOrNull(trimmedNumber);
     });
+
+    return { winningNumbers, winningNumbersOrigin: input.split(',') };
   }
 
   async getBonusNumber() {

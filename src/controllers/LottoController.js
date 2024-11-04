@@ -39,8 +39,9 @@ class LottoController {
     return generatedLottos;
   }
   async getValidatedWinningNumbers() {
-    const winningNumbers = await this.inputView.getWinningNumbers();
-    InputValidator.validateNumbers(winningNumbers);
+    const { winningNumbers, winningNumbersOrigin } =
+      await this.inputView.getWinningNumbers();
+    InputValidator.validateNumbers(winningNumbers, winningNumbersOrigin);
     return winningNumbers;
   }
 

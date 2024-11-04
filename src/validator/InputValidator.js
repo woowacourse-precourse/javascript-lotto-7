@@ -9,6 +9,7 @@ import throwError from '../Error/handleError.js';
 import { ERROR_MESSAGES } from '../constants/errorMessage.js';
 import { LOTTO_NUMBERS_LENGTH } from '../constants/constraints.js';
 import { isUnderMaxPurchaseAmount } from '../utils/lottoFormatUtils.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class InputValidator {
   static validatePurchaseCost(purchaseCost) {
@@ -21,8 +22,8 @@ class InputValidator {
     }
   }
 
-  static validateNumbers(numbers) {
-    this.checkLottoArray(numbers);
+  static validateNumbers(numbers, numbersOrigin) {
+    this.checkLottoArray(numbers, numbersOrigin);
     this.checkDuplicates(numbers);
   }
 
@@ -51,23 +52,24 @@ class InputValidator {
     }
   }
 
-  static checkLottoArray(array) {
+  static checkLottoArray(array, arrayOrigin) {
+    if (arrayOrigin.some((num) => !isWinningNumbersFormat(num))) {
+      throwError(ERROR_MESSAGES.INVALID_WINNING_NUMBERS_FORMAT);
+    }
     if (
-      array.length !== LOTTO_NUMBERS_LENGTH ||
+      arrayOrigin.length !== LOTTO_NUMBERS_LENGTH ||
       array.some((num) => num === null)
     ) {
       throwError(ERROR_MESSAGES.INVALID_LOTTO_NUMBERS_COUNT);
     }
-    this.checkArrayElements(array);
+    this.checkArrayElements(array, arrayOrigin);
   }
 
   static checkArrayElements(array) {
     if (array.some((num) => !isValidatePositiveInteger(num))) {
       throwError(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);
     }
-    if (array.some((num) => !isWinningNumbersFormat(num))) {
-      throwError(ERROR_MESSAGES.INVALID_WINNING_NUMBERS_DELIMITER);
-    }
+
     if (array.some((num) => !isNumbersInRange(num))) {
       throwError(ERROR_MESSAGES.OUT_OF_BOUNDS_NUMBER_RANGE);
     }

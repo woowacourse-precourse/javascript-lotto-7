@@ -8,7 +8,8 @@ export const ERROR_MESSAGES = Object.freeze({
   INVALID_POSITIVE_INTEGER: '입력 값은 모두 양의 정수여야 합니다.',
   INVALID_LOTTO_NUMBERS_COUNT: '로또 번호는 6개이어야 합니다.',
   INVALID_LOTTO_NUMBER: '로또 번호는 양수여야 합니다.',
-  INVALID_WINNING_NUMBERS_DELIMITER: '당첨 번호는 쉼표를 기준으로 구분됩니다.',
+  INVALID_WINNING_NUMBERS_FORMAT:
+    '당첨 번호는 숫자로 이루어졌있고, 쉼표를 기준으로 구분됩니다.',
   EXCEEDS_MAX_PURCHASE_AMOUNT:
     '한 회차에 구매 가능 금액은 최대 100만원까지입니다.',
 });
