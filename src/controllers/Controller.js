@@ -25,7 +25,9 @@ class Controller {
       this.generator.getLottoTickets(),
       this.generator.generateLotto()
     );
+    OutputView.printEmptyLine();
     await this.#getWinningNumberControl();
+    OutputView.printEmptyLine();
     await this.#getBonusNumberControl();
     this.generator.numbers.forEach((array) => {
       this.calculateRank(this.lotto.countMatchingNumbers(array), array);

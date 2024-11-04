@@ -6,6 +6,10 @@ class OutputView {
     MissionUtils.Console.print(message);
   }
 
+  static printEmptyLine() {
+    MissionUtils.Console.print('');
+  }
+
   static printLottoNumbers(count, lottoNumbers) {
     MissionUtils.Console.print(`\n${count}개를 구매했습니다.`);
 
