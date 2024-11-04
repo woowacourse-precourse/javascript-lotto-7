@@ -1,3 +1,5 @@
+import Lotto from "../Lotto.js";
+
 class Validator {
   static inputValidate(input) {
     this.#isEmpty(input);
@@ -11,6 +13,14 @@ class Validator {
     this.#isZero(input);
     this.#isNegative(input);
     this.#properUnit(input);
+
+    return input;
+  }
+
+  static winningValidate(input) {
+    input = this.#splitNumbers(input);
+    input = this.#eachValidate(input);
+    this.#numbersValidate(input);
 
     return input;
   }
@@ -53,6 +63,23 @@ class Validator {
   static #isMultipleOfThousand(amount) {
     const THOUSAND = 1000;
     return amount % THOUSAND === 0;
+  }
+
+  static #splitNumbers(numbers) {
+    const DELIMITER = ","
+    return numbers.split(DELIMITER);
+  }
+
+  static #eachValidate(array) {
+    array.forEach((element, idx) => {
+      array[idx] = this.inputValidate(element);
+    });
+  
+    return array;
+  }
+  
+  static #numbersValidate(array) {
+    const WINNING_LOTTO = new Lotto(array);
   }
   
 }

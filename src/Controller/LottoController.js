@@ -54,14 +54,18 @@ class LottoController {
     }
 
     async #getValidNumbers() {
-        let input = await this.#inputView.readWinnig();
+        while (true) {
+            let input = await this.#inputView.readWinnig();
 
-        input = input.split(",");
-        input.forEach((element, idx) => {
-            input[idx] = Number(input);
-        })
+            try {
+                input = Validator.winningValidate(input);
 
-        return input;
+                return input;
+
+            } catch (error) {
+                this.#outputView.printError(error);
+            }
+        }
 
     }
 
