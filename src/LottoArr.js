@@ -19,7 +19,7 @@ class LottoArr {
     #getLottoArr() {
         for (let i = 0; i < this.#TIMES; i++) {
             const LOTTO_NUMBERS = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)
-            this.#lottoArr[i] = new Lotto(LOTTO_NUMBERS)
+            this.#lottoArr[i] = new Lotto(LOTTO_NUMBERS).toArr()
         }
     }
 
@@ -32,9 +32,14 @@ class LottoArr {
         return result
     }
 
+    toString() {
+        return `[${this.#lottoArr.join(', ')}]`
+    }
+
+    toArr() {
+        return this.#lottoArr
+    }
+
 }
 
-// 테스트 코드
-const lottoArr = new LottoArr(5000);
-const result = lottoArr.print();
-
+export default LottoArr

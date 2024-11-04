@@ -19,6 +19,10 @@ class Lotto {
     return `[${this.#numbers.join(', ')}]`
   }
 
+  toArr() {
+    return this.#numbers
+  }
+
 }
 
 export default Lotto;
