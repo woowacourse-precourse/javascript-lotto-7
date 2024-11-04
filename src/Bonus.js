@@ -22,6 +22,10 @@ class Bonus {
         throw new Error(BONUS_ERROR_MESSAGE.OUT_OF_RANGE);
     }
   }
+
+  getNumber() {
+    return this.#number;
+  }
 }
 
 export default Bonus;

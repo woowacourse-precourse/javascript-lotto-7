@@ -3,6 +3,7 @@ import { PURCHASE_MESSAGE, LOTTO_MESSAGE, BONUS_MESSAGE } from "./constants.js";
 import Purchase from "./Purchase.js";
 import Lotto from "./Lotto.js";
 import Bonus from "./Bonus.js";
+import LottoResult from "./LottoResult.js";
 
 class App {
   async run() {
@@ -12,6 +13,9 @@ class App {
 
     const winningLotto = await this.getWinningLottoNumbers();
     const bonusNumber = await this.getBonusNumber();
+
+    const lottoResult = new LottoResult(winningLotto.getNumbers(), bonusNumber.getNumber(), purchase);
+    lottoResult.printResults();
   }
 
   /**구입 금액 */

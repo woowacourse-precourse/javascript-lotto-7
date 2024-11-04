@@ -45,6 +45,10 @@ class Purchase{
       getRandomNumbersList() {
         return this.#randomNumbersList;
       }
+
+      getTotalCost() {
+        return this.#cost;
+      }
     
 }
 
