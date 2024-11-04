@@ -34,6 +34,10 @@ class ConsoleView {
   static printReturnRate(rate) {
     Console.print(`총 수익률은 ${rate}%입니다.`);
   }
+
+  static printError(message) {
+    Console.print(message);
+  }
 }
 
 export default ConsoleView;

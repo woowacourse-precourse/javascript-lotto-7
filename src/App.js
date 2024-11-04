@@ -7,8 +7,7 @@ import ConsoleView from "./View/ConsoleView.js";
 class App {
   async run() {
     // 1~2. 로또 구입 금액 입력 및 유효성 검사
-    const priceInput = await ConsoleView.readPriceInput();
-    const priceInst = new Price(priceInput);
+    const priceInst = await this.#getValidPrice();
 
     // 3. 발행한 금액 수량 출력
     const lottoNum = priceInst.getPrice() / 1000;
@@ -21,17 +20,11 @@ class App {
 
     const winningNumInst = new WinningNumbers();
 
-    // 5. 당첨 번호 입력
-    const winningLottoInput = await ConsoleView.readWinningNumbers();
+    // 5~6. 당첨 번호 입력 및 유효성 검사
+    await this.#getValidWinningNumbers(winningNumInst);
 
-    // 6. 당첨 번호 유효성 검사
-    winningNumInst.setWinningLotto(winningLottoInput);
-
-    // 7. 보너스 번호 입력
-    const bonusNumberInput = await ConsoleView.readBonusNumber();
-
-    // 8. 보너스 번호 유효성 검사
-    winningNumInst.setBonusNumber(bonusNumberInput);
+    // 7~8. 보너스 번호 입력 및 유효성 검사
+    await this.#getValidBonusNumber(winningNumInst);
 
     // 9. 당첨 내역 출력
     const lottoResultInst = new LottoResult(
@@ -45,6 +38,41 @@ class App {
 
     // 10. 수익률 출력
     ConsoleView.printReturnRate(lottoResultInst.getReturnRate());
+  }
+
+  async #getValidPrice() {
+    while (true) {
+      try {
+        const priceInput = await ConsoleView.readPriceInput();
+        return new Price(priceInput);
+      } catch (error) {
+        ConsoleView.printError(error.message);
+      }
+    }
+  }
+
+  async #getValidWinningNumbers(winningNumInst) {
+    while (true) {
+      try {
+        const winningLottoInput = await ConsoleView.readWinningNumbers();
+        winningNumInst.setWinningLotto(winningLottoInput);
+        break;
+      } catch (error) {
+        ConsoleView.printError(error.message);
+      }
+    }
+  }
+
+  async #getValidBonusNumber(winningNumInst) {
+    while (true) {
+      try {
+        const bonusNumberInput = await ConsoleView.readBonusNumber();
+        winningNumInst.setBonusNumber(bonusNumberInput);
+        break;
+      } catch (error) {
+        ConsoleView.printError(error.message);
+      }
+    }
   }
 }
 
