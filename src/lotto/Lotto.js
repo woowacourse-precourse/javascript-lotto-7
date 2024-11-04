@@ -42,6 +42,11 @@ class Lotto {
   #getSortedNumbers() {
     return [...this.#numbers].sort((a, b) => a - b);
   }
+
+  // Method for test
+  getSortedNumbersTest() {
+    return this.#getSortedNumbers();
+  }
 }
 
 export default Lotto;

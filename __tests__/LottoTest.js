@@ -51,4 +51,10 @@ describe('로또 클래스 테스트', () => {
 
     expect(lotto.toString()).toBe('[1, 2, 3, 4, 5, 6]');
   });
+
+  test('#getSortedNumbers', () => {
+    const lotto = new Lotto([6, 5, 4, 3, 2, 1]);
+
+    expect(lotto.getSortedNumbersTest()).toEqual([1, 2, 3, 4, 5, 6]);
+  });
 });
