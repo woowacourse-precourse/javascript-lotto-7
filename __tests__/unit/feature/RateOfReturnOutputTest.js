@@ -18,7 +18,7 @@ describe('수익률 출력 테스트', () => {
     const lottoController = new LottoController();
 
     lottoController.setPurchaseAmount(mockPurchaseAmount);
-    lottoController.ioHandler.printRateOfReturn(
+    lottoController.displayHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
     );
@@ -37,7 +37,7 @@ describe('수익률 출력 테스트', () => {
     const lottoController = new LottoController();
 
     lottoController.setPurchaseAmount();
-    lottoController.ioHandler.printRateOfReturn(
+    lottoController.displayHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
     );
@@ -56,7 +56,7 @@ describe('수익률 출력 테스트', () => {
     const lottoController = new LottoController();
 
     lottoController.setPurchaseAmount();
-    lottoController.ioHandler.printRateOfReturn(
+    lottoController.displayHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
     );
@@ -74,7 +74,7 @@ describe('수익률 출력 테스트', () => {
 
     const lottoController = new LottoController();
     lottoController.setPurchaseAmount();
-    lottoController.ioHandler.printRateOfReturn(
+    lottoController.displayHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
     );
@@ -93,7 +93,7 @@ describe('수익률 출력 테스트', () => {
     const lottoController = new LottoController();
 
     lottoController.setPurchaseAmount();
-    lottoController.ioHandler.printRateOfReturn(
+    lottoController.displayHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
     );

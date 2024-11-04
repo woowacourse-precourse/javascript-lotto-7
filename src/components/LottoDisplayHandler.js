@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import {
   DELIMETER,
   OutputMessages,
@@ -8,7 +7,7 @@ import {
 import isEmpty from '../utils/isEmpty.js';
 import Output from '../utils/io/Output.js';
 
-class LottoIOHandler {
+class LottoDisplayHandler {
   PrintLottoWinningResult(winningResult) {
     const winningResultMessage = [
       '당첨 통계',
@@ -48,4 +47,4 @@ class LottoIOHandler {
   }
 }
 
-export default LottoIOHandler;
+export default LottoDisplayHandler;

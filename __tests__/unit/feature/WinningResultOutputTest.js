@@ -22,7 +22,7 @@ describe('당첨 결과 출력 기능 테스트', () => {
     ];
 
     const lottoController = new LottoController();
-    lottoController.ioHandler.PrintLottoWinningResult(mockWinningResult);
+    lottoController.displayHandler.PrintLottoWinningResult(mockWinningResult);
 
     logs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));

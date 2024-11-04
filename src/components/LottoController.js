@@ -2,18 +2,18 @@ import { Random } from '@woowacourse/mission-utils';
 import { InputMessages, Lotto } from '../resources/Constants.js';
 import purchaseAmountValidator from '../utils/validation/purchaseAmountValidator.js';
 import { bonusNumberValidator } from '../utils/validation/bonusNumberValidator.js';
-import LottoIOHandler from './LottoIOHandler.js';
 import isEmpty from '../utils/isEmpty.js';
 import Input from '../utils/io/Input.js';
+import LottoDisplayHandler from './LottoDisplayHandler.js';
 
 class LottoController {
   #purchaseAmount;
   #lottoTickets;
   #bonusNumber;
-  #ioHandler;
+  displayHandler;
 
   constructor() {
-    this.ioHandler = new LottoIOHandler();
+    this.displayHandler = new LottoDisplayHandler();
   }
 
   getPurchaseAmount() {
@@ -92,12 +92,12 @@ class LottoController {
   displayResults(winningNumbers) {
     const winningResult = this.#compareLottoTickets(winningNumbers);
 
-    this.ioHandler.PrintLottoWinningResult(winningResult);
-    this.ioHandler.printRateOfReturn(winningResult, this.#purchaseAmount);
+    this.displayHandler.PrintLottoWinningResult(winningResult);
+    this.displayHandler.printRateOfReturn(winningResult, this.#purchaseAmount);
   }
 
   displayLottoTickets() {
-    this.ioHandler.displayLottoTickets(
+    this.displayHandler.displayLottoTickets(
       this.#lottoTickets,
       this.#purchaseAmount,
     );
