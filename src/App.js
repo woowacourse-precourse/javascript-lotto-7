@@ -1,16 +1,17 @@
 import { Console } from '@woowacourse/mission-utils';
 import { getResultMessages } from './resultMessages.js';
+import { CONSOLE_MESSAGES, PRINT_PROFIT } from "./constants/message.js";
 import LottoGame from "./LottoGame.js";
 import InputHandler from "./InputHandler.js";
 
 const printWinningResults = (lottoGame, userLotto, winningResults) => {
   const resultMessages = getResultMessages(winningResults);
-  Console.print('');
-  Console.print('당첨 통계');
-  Console.print('---');
+  Console.print(CONSOLE_MESSAGES.empty_line);
+  Console.print(CONSOLE_MESSAGES.winningTotal);
+  Console.print(CONSOLE_MESSAGES.separator);
 
   const profitRate = lottoGame.calculateProfit(userLotto);
-  resultMessages.push(`총 수익률은 ${profitRate}%입니다.`)
+  resultMessages.push(PRINT_PROFIT(profitRate));
 
   resultMessages.forEach((message) => Console.print(message));
 };
