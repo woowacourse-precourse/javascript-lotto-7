@@ -1,7 +1,7 @@
-import InputHandler from "./InputHandler.js";
+import InputHandler from "./io/InputHandler.js";
 import LottoProcessor from "./lotto/LottoProcessor.js";
 import WinningLotto from "./lotto/WinningLotto.js";
-import OutputHandler from "./OutputHandler.js";
+import OutputHandler from "./io/OutputHandler.js";
 
 class App {
   constructor() {
