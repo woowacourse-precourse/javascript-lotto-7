@@ -1,7 +1,5 @@
-import { createObject, outputMethod, inputMethod } from './utils/index.js';
+import { createObject, outputMethod } from './utils/index.js';
 import { NUM, IOMESSAGE } from './constants/index.js';
-import Lotto from './Lotto.js';
-import BonusNumber from './BonusNumber.js';
 
 class App {
   #purchaseAmount;
