@@ -2,6 +2,7 @@ import { Random } from '@woowacourse/mission-utils';
 import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
+import LottoCalculator from './LottoCalculator.js';
 import { OUPUT_MESSGE, LOTTO_PRICE } from './constant.js';
 
 /**
@@ -13,6 +14,7 @@ class LottoController {
   #winningBonusNumber;
   #resultTable;
   #ioProcessor;
+  #calulator;
 
   /**
    *
@@ -28,6 +30,7 @@ class LottoController {
       5: 0,
     };
     this.#ioProcessor = new IOProcessor();
+    this.#calulator = new LottoCalculator();
   }
 
   /**
@@ -74,7 +77,8 @@ class LottoController {
    */
   calculateLottoResult() {
     this.#lottos.forEach((lotto) => {
-      const rank = lotto.getLottoResult(
+      const rank = this.#calulator.calculateLotto(
+        lotto,
         this.#winningNumbers,
         this.#winningBonusNumber
       );
