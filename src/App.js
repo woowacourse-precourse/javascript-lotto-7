@@ -23,7 +23,7 @@ import {
   validateRangeOfLottoPrice,
   validateNumberTypeLottoPrice,
   validateAmountOfLotto,
-} from './validate/validatorNumberType.js';
+} from './validate/validator.js';
 
 function purchaseLotto(price) {
   const amountOfLotto = price / LOTTO_PRICE;
