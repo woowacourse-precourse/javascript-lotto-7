@@ -21,23 +21,8 @@ class GenerateNumbers {
     }
     console.log("");
 
-    MissionUtils.Console.print(
-      "3개 일치 (5,000원) - " + this.fifthPlaceCount + "개"
-    );
-    MissionUtils.Console.print(
-      "4개 일치 (50,000원) - " + this.fourthPlaceCount + "개"
-    );
-    MissionUtils.Console.print(
-      "5개 일치 (1,500,000원) - " + this.thirdPlaceCount + "개"
-    );
-    MissionUtils.Console.print(
-      "5개 일치, 보너스 볼 일치 (30,000,000원) - " +
-        this.secondPlaceCount +
-        "개"
-    );
-    MissionUtils.Console.print(
-      "6개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개"
-    );
+    this.printPrizeResult();
+
     console.log("");
     const profit = this.calculateReturn(bills);
     return { generatedList: allGeneratedNumbers, profit };
@@ -97,6 +82,26 @@ class GenerateNumbers {
     const totalPrice = bills * 1000;
     const profit = (this.totalPrizeMoney / totalPrice) * 100;
     return profit;
+  }
+
+  printPrizeResult() {
+    MissionUtils.Console.print(
+      "3개 일치 (5,000원) - " + this.fifthPlaceCount + "개"
+    );
+    MissionUtils.Console.print(
+      "4개 일치 (50,000원) - " + this.fourthPlaceCount + "개"
+    );
+    MissionUtils.Console.print(
+      "5개 일치 (1,500,000원) - " + this.thirdPlaceCount + "개"
+    );
+    MissionUtils.Console.print(
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - " +
+        this.secondPlaceCount +
+        "개"
+    );
+    MissionUtils.Console.print(
+      "6개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개"
+    );
   }
 }
 
