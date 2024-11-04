@@ -1,4 +1,4 @@
-import { ErrorMessage } from '../constants/ErrorMessage.js';
+import { ErrorMessage } from '../../constants/ErrorMessage.js';
 
 class InputValidator {
   static validateNotEmpty(value) {

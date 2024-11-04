@@ -1,5 +1,5 @@
-import { ErrorMessage } from '../constants/ErrorMessage.js';
-import { MagicNumber } from '../constants/MagicNumber.js';
+import { ErrorMessage } from '../../constants/ErrorMessage.js';
+import { MagicNumber } from '../../constants/MagicNumber.js';
 
 class LottoListValidator {
   #numbers;
