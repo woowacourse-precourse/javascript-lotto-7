@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE_VALIDATE_LOTTO } from "./ErrorMessage";
+import { ERROR_MESSAGE_VALIDATE_LOTTO } from "./ErrorMessage.js";
 
 class Lotto {
   #numbers;
@@ -31,7 +31,7 @@ class Lotto {
   }
 
   getNumbers() {
-    return this.#numbers;
+    return this.#numbers.sort((a, b) => a - b);
   }
 
   equals(target, bonus) {

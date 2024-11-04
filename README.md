@@ -121,8 +121,8 @@ const Random = MissionUtils.Random;
 * [x] 처리 로직
   - [x] PickUp.pick
   - [x] PickUp.checkJackpot
-* [ ] 출력 포매팅
-* [ ] 테스트 수행
+* [x] 출력 포매팅
+* [x] App 구현 및 테스트 수행
 
 - 2단계: 비동기 처리
 
@@ -138,3 +138,15 @@ const Random = MissionUtils.Random;
 * [ ] 1~2주차 PR 피드백 적용 여부 검증
 
 ## 부딪힌 문제와 해결 과정, 남은 이슈
+
+- 먼저 구매한 복권을 보여준 다음에 당첨 번호를 입력해야 하는데 구매 내역 출력 전에 당첨 번호를 입력해야 하는 것으로 명세를 잘못 이해함 (예제조차 잘못 봄)
+  - PickUp 클래스는 복권 구매 결과를 보여준 다음에 초기화되므로 생성자를 변경하고, setter를 추가하며, 테스트 코드까지 다시 작성함
+- 주어진 인스턴스가 배열인지 확인하려면 Array.isArray()를 사용한다.
+- 금액과 수익률에 쉼표를 찍어 문자열로 바꾸는 것이 문제였는데, 두 가지 방법 중 하나를 사용할 수 있다. 나는 Intl.NumberFormat을 사용했다.
+  - [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
+  - 정규표현식으로 찍는 방법도 있다고 한다. [관련 예제가 포함된 블로그 포스트](https://velog.io/@sarang_daddy/JS-%EC%A0%95%EA%B7%9C%EC%8B%9DRegular-Expression)
+- 소수점 정리는 Number.prototype.toFixed를 사용했다.[NDN Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)
+- parseInt와 parseFloat는 '숫자가 앞에 오면서 문자가 섞인 경우' NaN을 반환하지 않는다
+  - 숫자와 문자열이 섞인 경우 바로 isNaN에 대입한다.
+- 명세의 입력 ERROR 상황은 Error 객체를 던진 뒤 e.message를 Console.print로 출력해야 한다.
+  - while 루프 내의 try-catch로 감싸 해결

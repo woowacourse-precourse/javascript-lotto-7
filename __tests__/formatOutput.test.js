@@ -1,41 +1,40 @@
-import { REWARD, FormatOutput } from "../src/formatOutput";
-import { LOTTORESULTTABLE } from "../src/Pickup";
-
-/*
-import {
-  ERROR_MESSAGE_OUTPUT
-} from "../src/ErrorMessage.js";
-*/
+import { FormatOutput } from "../src/FormatOutput";
+import { REWARD, LOTTO_RESULT_TABLE } from "../src/Constant";
+import { formatNumber } from "../src/Utils";
 
 const TEST_OBJECT = {
-  "당첨 없음": 0,
+  "당첨 없음": 8,
   "3개 일치": 0,
-  "4개 일치": 1,
+  "4개 일치": 0,
   "5개 일치": 0,
-  "5개 일치 + 보너스": 1,
+  "5개 일치, 보너스 볼 일치": 1,
   "6개 일치": 0,
 };
+const MONEY = 9000;
+const TEST_PROFIT_RATIO = "333,333.3";
 
-describe("출력 테스트", () => {
+describe("FormatOutput 테스트", () => {
   test("FormatOutput.format() 테스트", () => {
-    const money = 9000;
-    const f1 = new FormatOutput(money, TEST_OBJECT);
-    const intermediate = Object.entries(LOTTORESULTTABLE)
-      .filter((pair) => pair[1] !== "당첨 없음")
+    const f1 = new FormatOutput(MONEY, TEST_OBJECT);
+    const intermediate = Object.entries(LOTTO_RESULT_TABLE)
+      .filter((pair) => pair[1] !== LOTTO_RESULT_TABLE[0])
       .map((pair) => {
-        return `${pair[1]} (${f1.formatNumber(REWARD[pair[1]])}원) - ${
+        return `${pair[1]} (${formatNumber(REWARD[pair[1]])}원) - ${
           TEST_OBJECT[pair[1]]
         }개`;
       })
       .reduce((prev, curr) => {
         return `${prev}\n${curr}`;
       }, "---");
-    const totalReward = Object.values(LOTTORESULTTABLE).reduce((prev, curr) => {
-      return prev + REWARD[curr] * TEST_OBJECT[curr];
-    }, 0);
-    const profitRatio = (totalReward / money).toFixed(1);
-    expect(f1.format()).toBe(
-      `${intermediate}\n총 수익률은 ${f1.formatNumber(profitRatio)}\%입니다.`
+    const totalReward = Object.values(LOTTO_RESULT_TABLE).reduce(
+      (prev, curr) => {
+        return prev + REWARD[curr] * TEST_OBJECT[curr];
+      },
+      0
+    );
+    const profitRatio = (totalReward / MONEY).toFixed(1);
+    expect(f1.print()).toBe(
+      `${intermediate}\n총 수익률은 ${TEST_PROFIT_RATIO}\%입니다.`
     );
 
     // TODO: add exception cases

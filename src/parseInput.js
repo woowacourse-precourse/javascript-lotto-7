@@ -1,4 +1,4 @@
-import ErrorMessage, {
+import {
   ERROR_MESSAGE_MONEY_INPUT,
   ERROR_MESSAGE_JACKPOT_INPUT,
   ERROR_MESSAGE_BONUS_INPUT,
@@ -15,7 +15,7 @@ export class ParseInput {
   parseMoney(inputString) {
     const value = parseInt(inputString);
     const floatvalue = parseFloat(inputString);
-    if (isNaN(value)) throw new Error(ERROR_MESSAGE_MONEY_INPUT.nan);
+    if (isNaN(inputString)) throw new Error(ERROR_MESSAGE_MONEY_INPUT.nan);
     else if (value <= 0) throw new Error(ERROR_MESSAGE_MONEY_INPUT.nonPositive);
     if (!Number.isInteger(floatvalue))
       throw new Error(ERROR_MESSAGE_MONEY_INPUT.nonInteger);
@@ -24,28 +24,34 @@ export class ParseInput {
   }
   parseJackpot(inputString) {
     if (inputString === "") throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.empty);
-    const returnArray = inputString.split(",").map((value) => parseInt(value));
+    const returnArray = inputString.split(",");
     if (returnArray.length !== 6)
       throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.invalidLength);
     else if (returnArray.some((value) => isNaN(value)))
       throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.nan);
-    else if (returnArray.some((value) => value > 45 || value < 1))
+    else if (
+      returnArray
+        .map((value) => parseInt(value))
+        .some((value) => value > 45 || value < 1)
+    )
       throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.outOfBound);
     const floatArray = inputString.split(",").map((value) => parseFloat(value));
     if (floatArray.some((value) => !Number.isInteger(value)))
       throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.nonInteger);
-    this.#jackpot = returnArray.reduce((prev, curr) => {
-      if (prev.includes(curr))
-        throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.duplicated);
-      prev.push(curr);
-      return prev;
-    }, []);
+    this.#jackpot = returnArray
+      .map((value) => parseInt(value))
+      .reduce((prev, curr) => {
+        if (prev.includes(curr))
+          throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.duplicated);
+        prev.push(curr);
+        return prev;
+      }, []);
     return this.#jackpot;
   }
   parseBonus(inputString) {
     const value = parseInt(inputString);
     const floatvalue = parseFloat(inputString);
-    if (isNaN(value)) throw new Error(ERROR_MESSAGE_BONUS_INPUT.nan);
+    if (isNaN(inputString)) throw new Error(ERROR_MESSAGE_BONUS_INPUT.nan);
     else if (value <= 0) throw new Error(ERROR_MESSAGE_BONUS_INPUT.nonPositive);
     if (!Number.isInteger(floatvalue))
       throw new Error(ERROR_MESSAGE_BONUS_INPUT.nonInteger);

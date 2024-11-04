@@ -5,7 +5,7 @@ import {
   ERROR_MESSAGE_BONUS_INPUT,
 } from "../src/ErrorMessage.js";
 
-describe("input test", () => {
+describe("ParseInput test", () => {
   const p1 = new ParseInput();
   test("parseMoney() test", () => {
     expect(p1.parseMoney("1000")).toBe(1000);
@@ -16,6 +16,7 @@ describe("input test", () => {
       ERROR_MESSAGE_MONEY_INPUT.nonPositive
     );
     expect(() => p1.parseMoney("가")).toThrow(ERROR_MESSAGE_MONEY_INPUT.nan);
+    expect(() => p1.parseMoney("1000j")).toThrow(ERROR_MESSAGE_MONEY_INPUT.nan);
     expect(() => p1.parseMoney("11.4")).toThrow(
       ERROR_MESSAGE_MONEY_INPUT.nonInteger
     );

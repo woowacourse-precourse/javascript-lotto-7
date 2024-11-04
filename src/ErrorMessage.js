@@ -27,3 +27,7 @@ export const ERROR_MESSAGE_VALIDATE_LOTTO = {
   nonInteger: "[ERROR]: 로또 번호에 정수가 아닌 것이 있습니다.",
   outOfBound: "[ERROR]: 로또 번호가 유효 범위(1~45)를 벗어납니다.",
 };
+
+export const ERROR_MESSAGE_FORMAT_OUTPUT = {
+  nonArray: "[ERROR]: 인수로 배열이 아닌 것이 주어졌습니다.",
+};
