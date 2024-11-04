@@ -51,6 +51,11 @@ export class LottoManager {
     }, 0);
 
     const ratio = (outputMoney / inputMoney) * 100;
-    return ratio.toFixed(1); // 항상 소수점 첫째자리까지 표시
+    const formattedRatio = new Intl.NumberFormat("ko-KR", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }).format(ratio);
+
+    return `${formattedRatio}%`;
   }
 }
