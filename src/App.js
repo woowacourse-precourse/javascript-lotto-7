@@ -5,8 +5,8 @@ import Purchase from "./Purchase.js";
 
 class App {
   async run() {
-    try {
-       //1. 로또 구매
+   
+    //1. 로또 구매
     const purchase = await this.purchaseLotto();
     purchase.printTickets();
     //2. 로또 리스트 생성
@@ -29,9 +29,6 @@ class App {
     const profitRate = this.calculateProfitRate(results, purchase.getMoney());
     this.printProfitRate(profitRate);
 
-    } catch (error) {
-      MissionUtils.Console.print(error.message);
-    }
     
    
 
@@ -124,6 +121,28 @@ class App {
     const winningNumbers = winningLotto.getNumbers();
     return lottoNumbers.filter((number) => winningNumbers.includes(number)).length;
   }
+  //로또 당첨 등수 계산(기존 calculateResults 메서드 분리)
+  getRank(lotto, winningLotto, bonusNumber) {
+    const matchedNumbers = this.matchLottos(lotto, winningLotto);
+    const hasBonusNumber = lotto.getNumbers().includes(bonusNumber);
+  
+    if (matchedNumbers === 6) {
+      return 'FIRST';
+    }
+    if (matchedNumbers === 5 && hasBonusNumber) {
+      return 'SECOND';
+    }
+    if (matchedNumbers === 5) {
+      return 'THIRD';
+    }
+    if (matchedNumbers === 4) {
+      return 'FOURTH';
+    }
+    if (matchedNumbers === 3) {
+      return 'FIFTH';
+    }
+    return null;
+  }
 
   //당첨 통계 계산
   //@param {Lotto[]} lottoList
@@ -138,20 +157,9 @@ class App {
     };
 
     lottoList.forEach((lotto) => {
-      const matchedNumbers = this.matchLottos(lotto, winningLotto);
-      const hasBonusNumber = lotto.getNumbers().includes(bonusNumber);
-
-      //일치하는 번호 개수에 따라 결과 계산
-      if (matchedNumbers === 6) {
-        results.FIRST += 1;
-      } else if (matchedNumbers === 5 && hasBonusNumber) {
-        results.SECOND += 1;
-      } else if (matchedNumbers === 5) {
-        results.THIRD += 1;
-      } else if (matchedNumbers === 4) {
-        results.FOURTH += 1;
-      } else if (matchedNumbers === 3) {
-        results.FIFTH += 1;
+      const rank = this.getRank(lotto, winningLotto, bonusNumber);
+      if (rank) {
+        results[rank] += 1;
       }
     });
     return results;
