@@ -1,11 +1,13 @@
-export const GAME_CONSTANTS = {
+import { createConstants } from "./createConstants.js";
+
+export const GAME_CONSTANTS = createConstants({
   PRICE: 1000,
   NUMBER_COUNT: 6,
   MIN_NUMBER: 1,
   MAX_NUMBER: 45,
-};
+});
 
-export const LOTTO_RANK = {
+export const LOTTO_RANK = createConstants({
   FIRST: {
     matchCount: 6,
     prize: 2_000_000_000,
@@ -36,4 +38,4 @@ export const LOTTO_RANK = {
     message: "3개 일치 (5,000원)",
     hasBonus: false,
   },
-};
+});
