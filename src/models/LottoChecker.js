@@ -1,4 +1,4 @@
-import { MATCHES, PRIZE, RANK } from '../constants/index.js';
+import { MATCHES, PRIZE, RANKS } from '../constants/index.js';
 import { InputStore } from '../services/index.js';
 import { LottoResult } from './index.js';
 

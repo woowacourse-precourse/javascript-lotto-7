@@ -1,4 +1,4 @@
-import { MESSAGES, PRIZE_MESSAGES } from '../constants/index.js';
+import { MESSAGES, PRIZE_MESSAGES, RANKS } from '../constants/index.js';
 import { calculateEarningsRate, calculateTicketCount, generateLottoNumbers } from '../utils/LottoUtils.js';
 import { InputHandler, Printer } from '../io/index.js';
 import { Lotto, LottoChecker } from '../models/index.js';
@@ -26,8 +26,9 @@ class LottoGame {
 
   async enterNumber() {
     const mainNumbers = await this.console.processMainInput(MESSAGES.mainNumbers);
-    const bonusNumber = await this.console.processBonusInput(MESSAGES.bonusNumber);
     this.store.setMainNumbers(mainNumbers);
+
+    const bonusNumber = await this.console.processBonusInput(MESSAGES.bonusNumber);
     this.store.setBonusNumber(bonusNumber);
   }
 
@@ -47,13 +48,13 @@ class LottoGame {
   }
 
   #printStatistics(lottoResults) {
-    const rankCount = Object.fromEntries(Object.keys(RANKS).map((rank) => [rank, 0]));
+    const rankCount = Object.fromEntries(Object.keys(RANKS).map((ranking) => [ranking, 0]));
     lottoResults.forEach((result) => (rankCount[result.getRanking()] += 1));
 
     Printer.print(MESSAGES.prizeStatistics);
 
-    for (const [rankingName, count] of Object.entries(rankCount)) {
-      Printer.print(PRIZE_MESSAGES.howManyMatchAndCount(rankingName, count));
+    for (const [ranking, count] of Object.entries(rankCount)) {
+      Printer.print(PRIZE_MESSAGES.howManyMatchAndCount(ranking, count));
     }
   }
 
