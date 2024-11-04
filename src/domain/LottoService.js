@@ -44,7 +44,7 @@ class LottoService {
       let match = lotto.getNumbers().filter(element => winningNumbers.includes(element)).length;
       let isHave = lotto.getNumbers().includes(bonusNumber);
 
-      switch(match.length){
+      switch(match){
         case 3 : matching[0]++; break;
         case 4 : matching[1]++; break;
         case 6 : matching[4]++; break;
@@ -67,7 +67,7 @@ class LottoService {
       return sum + (value * matchReward[index]);
     }, 0);
 
-    let rate = (reward / payment).toFixed(1);
+    let rate = (reward / payment * 100).toFixed(1);
 
     return rate;
   }
