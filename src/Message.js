@@ -15,10 +15,10 @@ export const MESSAGES = {
 };
 
 export const ERROR_MESSAGES = {
-  DUPLICATE_WINNING_NUMBERS:
-    '[ERROR] 당첨 번호는 6개의 서로 다른 숫자여야 합니다.',
+  DUPLICATE_WINNING_NUMBERS: '[ERROR] 당첨 번호는 6개의 서로 다른 숫자여야 합니다.',
   INVALID_WINNING_NUMBERS: '[ERROR] 당첨 번호 입력이 잘못되었습니다.',
   INVALID_BONUS_NUMBER: '[ERROR] 보너스 번호 입력이 잘못되었습니다.',
-  DUPLICATE_BONUS_NUMBER:
-    '[ERROR] 당첨 번호와 보너스 번호는 중복될 수 없습니다.',
+  DUPLICATE_BONUS_NUMBER: '[ERROR] 당첨 번호와 보너스 번호는 중복될 수 없습니다.',
+  INVALID_LOTTO_LENGTH: '[ERROR] 로또 번호는 6개여야 합니다.',
+  DUPLICATE_LOTTO_NUMBERS: '[ERROR] 당첨 번호는 6개의 서로 다른 숫자여야 합니다.',
 };
