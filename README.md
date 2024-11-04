@@ -12,6 +12,75 @@
 
 <br/>
 
+## 📂 프로젝트 폴더 구조 및 파일 설명
+
+```plaintext
+📦src
+ ┣ 📂Constant
+ ┃ ┣ 📜constants.js
+ ┃ ┗ 📜errorMessages.js
+ ┣ 📂Controller
+ ┃ ┣ 📜bonusNumberValidator.js
+ ┃ ┣ 📜purchaseAmountValidator.js
+ ┃ ┗ 📜winningNumbersValidator.js
+ ┣ 📂Model
+ ┃ ┣ 📜lottoListGenerator.js
+ ┃ ┣ 📜purchaseCountCalculator.js
+ ┃ ┣ 📜rateOfReturnCalculator.js
+ ┃ ┗ 📜winningStatisticsCalculator.js
+ ┣ 📂View
+ ┃ ┣ 📜inputViews.js
+ ┃ ┗ 📜outputViews.js
+ ┣ 📜App.js
+ ┣ 📜Lotto.js
+ ┗ 📜index.js
+```
+
+### 📂 Constant 폴더
+- **`constants.js`**: 로또 발매기에 사용되는 상수들을 정의하는 파일입니다. 
+
+- **`errorMessages.js`**: 에러 상황에서 사용자에게 출력할 메시지를 정의하는 파일입니다. 
+
+### 📂 Controller 폴더
+사용자의 입력을 검증하는 기능을 담당하는 폴더입니다. 사용자의 입력값이 올바른지 확인하고, 유효하지 않은 입력일 경우 에러를 발생시킵니다.
+
+- **`bonusNumberValidator.js`**: 보너스 번호 입력의 유효성을 검증하는 파일입니다. 
+
+- **`purchaseAmountValidator.js`**: 구입 금액 입력의 유효성을 검증하는 파일입니다. 
+
+- **`winningNumbersValidator.js`**: 당첨 번호 입력의 유효성을 검증하는 파일입니다. 
+
+### 📂 Model 폴더
+로또 발매에 필요한 데이터 생성과 계산 로직을 담고 있는 폴더입니다.
+
+- **`lottoListGenerator.js`**: 구입 금액에 따라 발행할 로또 번호 리스트를 생성하는 파일입니다. 
+
+- **`purchaseCountCalculator.js`**: 사용자가 입력한 구입 금액을 바탕으로 구입한 로또 장수를 계산하는 파일입니다.
+
+- **`rateOfReturnCalculator.js`**: 발행된 로또 번호 리스트와 사용자가 입력한 당첨 번호를 바탕으로 최종 수익률을 계산하는 파일입니다.
+
+- **`winningStatisticsCalculator.js`**: 로또 결과를 바탕으로 당첨 통계를 계산하는 파일입니다. 3개 일치, 4개 일치, 5개 일치, 5개 일치 + 보너스 번호, 6개 일치로 구성되어있습니다. 
+
+### 📂 View 폴더
+입력과 출력을 관리하는 폴더로, 사용자와의 상호작용을 담당합니다.
+
+- **`inputViews.js`**: 사용자의 입력을 받는 기능을 담당합니다. 사용자가 구입 금액, 당첨 번호, 보너스 번호를 입력하면 해당 데이터를 적절한 형식으로 반환합니다.
+
+- **`outputViews.js`**: 사용자에게 필요한 데이터를 출력하는 기능을 담당합니다. 로또 구매 개수, 발행된 로또 리스트, 당첨 통계, 최종 수익률을 사용자에게 보여줍니다.
+
+### 📜 App.js
+프로그램의 진입점이자, 전체 프로그램의 전체 흐름을 한 눈에 볼 수 있는 메인 파일입니다.
+
+### 📜 Lotto.js
+로또 번호의 유효성을 검사하는 기능을 포함하며, 예외 상황을 처리하여 올바른 로또 번호만 생성하도록 합니다.
+
+### 📜 index.js
+프로그램을 실행하기 위한 초기 설정을 포함한 파일입니다. `App.js`의 `run()` 함수를 호출하여 프로그램을 시작합니다.
+
+
+
+<br/>
+
 ## 🔧 주요 기능
 
 1. **로또 발매 기능**  
