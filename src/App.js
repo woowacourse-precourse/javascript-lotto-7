@@ -1,9 +1,9 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import { INPUT_MESSAGES } from './Constants/input.js';
-import { OUTPUT_MESSAGES } from './Constants/output.js';
-import { PRIZE_MONEY, RANK_DESCRIPTIONS } from './Constants/prize.js';
-import { validatePurchaseAmount, validateWinningNumbers, validateBonusNumber } from './Utils/validateInput.js';
+import { INPUT_MESSAGES } from './constants/input.js';
+import { OUTPUT_MESSAGES } from './constants/output.js';
+import { PRIZE_MONEY, RANK_DESCRIPTIONS } from './constants/prize.js';
+import { validatePurchaseAmount, validateWinningNumbers, validateBonusNumber } from './utils/validateInput.js';
 
 class App {
   async run() {

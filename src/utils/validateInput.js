@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from "../Constants/error.js";
+import { ERROR_MESSAGES } from "../constants/error.js";
 import Lotto from "../Lotto.js"; 
 
 export function validatePurchaseAmount(buyCost) {
