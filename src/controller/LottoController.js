@@ -3,10 +3,11 @@ import InputView from "../view/InputView.js";
 import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES } from "../constant/messages.js";
 import { validator } from "../utils/validator.js";
+import { PROFIT_PER_MATCHING } from "../constant/profit.js";
 
 class LottoController {
-  #lottoAmount;
   #inputView;
+  #lottoAmount;
   #totalProfitRatio;
   #numberOfLotto;
   #lottoTickets;
@@ -58,7 +59,8 @@ class LottoController {
       this.getBonusNumber();
     }
   }
-  matchLotto(ticket) {
+
+  returnMatchLotto(ticket) {
     let cnt = 0;
     let bonusCnt = 0;
 
@@ -93,7 +95,7 @@ class LottoController {
   }
   getWinningResult() {
     for (const ticket of this.#lottoTickets) {
-      const [matchingCount, bonusMatchingCount] = this.matchLotto(ticket);
+      const [matchingCount, bonusMatchingCount] = this.returnMatchLotto(ticket);
       if (matchingCount === 5 && bonusMatchingCount > 0) {
         this.#totalStatistic["bonus"] += 1;
         continue;
@@ -105,17 +107,11 @@ class LottoController {
   }
 
   calculateTotalProfit() {
-    const MONEY_PER_MATCHING = {
-      3: 5000,
-      4: 50000,
-      5: 1500000,
-      bonus: 30000000,
-      6: 2000000000,
-    };
     let profit = 0;
     for (const matchingCount of Object.keys(this.#totalStatistic)) {
       profit +=
-        this.#totalStatistic[matchingCount] * MONEY_PER_MATCHING[matchingCount];
+        this.#totalStatistic[matchingCount] *
+        PROFIT_PER_MATCHING[matchingCount];
     }
 
     return profit;
