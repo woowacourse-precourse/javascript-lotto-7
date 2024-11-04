@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import Lotto from './model/Lotto.js';
+import Lotto from '../data/Lotto.js';
 
 class LottoGenerator {
   #numberRange;

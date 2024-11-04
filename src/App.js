@@ -1,10 +1,10 @@
 import lottoConfig from './config.js';
 import LottoGameExecutor from './lotto/LottoGameExecutor.js';
-import LottoGenerator from './lotto/LottoGenerator.js';
-import LottoResultManager from './lotto/LottoResultManager.js';
+import LottoGenerator from './lotto/model/LottoGenerator.js';
+import LottoResultManager from './lotto/model/LottoResultManager.js';
 import InputReader from './lotto/view/InputReader.js';
 import OutputPrinter from './lotto/view/OutputPrinter.js';
-import RateCalculator from './lotto/RateCalculator.js';
+import RateCalculator from './lotto/model/RateCalculator.js';
 
 class App {
   async run() {

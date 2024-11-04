@@ -2,8 +2,8 @@ import { input } from '../../util/IOUtil.js';
 import { INPUT_MESSAGE } from '../constants/Message.js';
 import CommonValidator from '../validate/CommonValidator.js';
 import { retryIfOccurredError } from '../helper/RetryHelper.js';
-import LottoWinningNumbers from '../model/LottoWinningNumbers.js';
-import LottoPayment from '../model/LottoPayment.js';
+import LottoWinningNumbers from '../data/LottoWinningNumbers.js';
+import LottoPayment from '../data/LottoPayment.js';
 
 const commonValidator = new CommonValidator();
 

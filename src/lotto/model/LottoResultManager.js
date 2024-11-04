@@ -1,4 +1,4 @@
-import WinningResult from './model/WinningResult.js';
+import WinningResult from '../data/WinningResult.js';
 
 class LottoResultManager {
 
