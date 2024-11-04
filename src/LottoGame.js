@@ -3,12 +3,32 @@ import Lotto from './Lotto.js';
 
 class LottoGame {
   static PRICE_PER_LOTTO = 1000;
-  static PRIZES = {
-    FIRST: 2000000000,
-    SECOND: 30000000,
-    THIRD: 1500000,
-    FOURTH: 50000,
-    FIFTH: 5000,
+  static RANK_INFO = {
+    FIRST: {
+      prize: 2000000000,
+      matchCount: 6,
+      needsBonus: false,
+    },
+    SECOND: {
+      prize: 30000000,
+      matchCount: 5,
+      needsBonus: true,
+    },
+    THIRD: {
+      prize: 1500000,
+      matchCount: 5,
+      needsBonus: false,
+    },
+    FOURTH: {
+      prize: 50000,
+      matchCount: 4,
+      needsBonus: false,
+    },
+    FIFTH: {
+      prize: 5000,
+      matchCount: 3,
+      needsBonus: false,
+    },
   };
 
   constructor(quantity) {
@@ -103,23 +123,24 @@ class LottoGame {
   }
 
   recordResult({ matchCount, hasBonus }) {
-    if (matchCount === 3) this.result['FIFTH']++;
-    if (matchCount === 4) this.result['FOURTH']++;
-    if (matchCount === 5 && !hasBonus) this.result['THIRD']++;
-    if (matchCount === 5 && hasBonus) this.result['SECOND']++;
-    if (matchCount === 6) this.result['FIRST']++;
+    Object.entries(LottoGame.RANK_INFO)
+      .filter(
+        ([_, info]) =>
+          info.matchCount === matchCount && info.needsBonus === hasBonus
+      )
+      .forEach(([rank]) => this.result[rank]++);
   }
 
   displayResult() {
     Console.print('\n당첨 통계');
     Console.print('---');
-    Console.print(`3개 일치 (5,000원) - ${this.result['FIFTH']}개`);
-    Console.print(`4개 일치 (50,000원) - ${this.result['FOURTH']}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${this.result['THIRD']}개`);
+    Console.print(`3개 일치 (5,000원) - ${this.result.FIFTH}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.result.FOURTH}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.result.THIRD}개`);
     Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result['SECOND']}개`
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result.SECOND}개`
     );
-    Console.print(`6개 일치 (2,000,000,000원) - ${this.result['FIRST']}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.result.FIRST}개`);
     Console.print(`총 수익률은 ${this.calculateProfitRate()}%입니다.`);
   }
 
@@ -132,11 +153,11 @@ class LottoGame {
 
   calculateWinningAmount() {
     return (
-      this.result['FIFTH'] * LottoGame.PRIZES['FIFTH'] +
-      this.result['FOURTH'] * LottoGame.PRIZES['FOURTH'] +
-      this.result['THIRD'] * LottoGame.PRIZES['THIRD'] +
-      this.result['SECOND'] * LottoGame.PRIZES['SECOND'] +
-      this.result['FIRST'] * LottoGame.PRIZES['FIRST']
+      this.result.FIFTH * LottoGame.RANK_INFO.FIFTH.prize +
+      this.result.FOURTH * LottoGame.RANK_INFO.FOURTH.prize +
+      this.result.THIRD * LottoGame.RANK_INFO.THIRD.prize +
+      this.result.SECOND * LottoGame.RANK_INFO.SECOND.prize +
+      this.result.FIRST * LottoGame.RANK_INFO.FIRST.prize
     );
   }
 }
