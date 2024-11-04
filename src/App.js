@@ -18,22 +18,25 @@ class App {
 
       const bills = price / 1000;
       console.log("");
-      MissionUtils.Console.print(`${bills}개를 구매했습니다.`);
 
       //사용자의 로또 번호 생성하기
       const generateNumbers = new GenerateNumbers();
 
-      const generatedList = await generateNumbers.generateNums(
+      const { generatedList, profit } = await generateNumbers.generateNums(
         bills,
         numbers,
         bonusNum
       );
-
-      // generatedList.forEach((numbers) => {
-      //   console.log(`[${numbers.join(", ")}]`);
-      // });
+      MissionUtils.Console.print(`${bills}개를 구매했습니다.`);
+      generatedList.forEach((numbers) => {
+        MissionUtils.Console.print(`[${numbers.join(", ")}]`);
+      });
 
       console.log("");
+
+      MissionUtils.Console.print(
+        "총 수익률은 " + profit.toFixed(1) + "%입니다."
+      );
     } catch (error) {
       console.error(error.message);
     }

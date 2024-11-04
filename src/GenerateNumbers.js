@@ -22,24 +22,32 @@ class GenerateNumbers {
     }
     console.log("");
 
-    console.log("3개 일치 (5,000원) - " + this.fifthPlaceCount + "개");
-    console.log("4개 일치 (50,000원) - " + this.fourthPlaceCount + "개");
-    console.log("5개 일치 (1,500,000원) - " + this.thirdPlaceCount + "개");
-    console.log(
+    MissionUtils.Console.print(
+      "3개 일치 (5,000원) - " + this.fifthPlaceCount + "개"
+    );
+    MissionUtils.Console.print(
+      "4개 일치 (50,000원) - " + this.fourthPlaceCount + "개"
+    );
+    MissionUtils.Console.print(
+      "5개 일치 (1,500,000원) - " + this.thirdPlaceCount + "개"
+    );
+    MissionUtils.Console.print(
       "5개 일치, 보너스 볼 일치 (30,000,000원) - " +
         this.secondPlaceCount +
         "개"
     );
-    console.log("6개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개");
+    MissionUtils.Console.print(
+      "6개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개"
+    );
 
     // console.log("1등 횟수 : " + this.firstPlaceCount);
     // console.log("2등 횟수 : " + this.secondPlaceCount);
     // console.log("3등 횟수 : " + this.thirdPlaceCount);
 
     console.log("");
-    this.calculateReturn(bills);
+    const profit = this.calculateReturn(bills);
 
-    return allGeneratedNumbers;
+    return { generatedList: allGeneratedNumbers, profit };
   }
 
   findMatchingNumber(randomNum, numbers, bonusNum, bills) {
@@ -100,7 +108,7 @@ class GenerateNumbers {
     const profit = this.totalPrizeMoney / totalPrice;
     console.log(this.totalPrizeMoney);
     // console.log(totalPrice);
-    console.log("총 수익률은 " + profit.toFixed(1) + "%입니다.");
+    return profit;
   }
 }
 
