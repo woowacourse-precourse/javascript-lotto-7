@@ -7,7 +7,7 @@ import WinningNumberValidator from './WinningNumberValidator.js';
 const setLottoRule = () => {
   const { lottoConfig } = config;
 
-  const lottoRule = {
+  const lottoRule = Object.freeze({
     lottoAmount: lottoConfig.LOTTO_AMOUNT,
     maxlottoPurchaseAmount: lottoConfig.MAX_PURCHASE_AMOUNT,
     lottoNumberCount: lottoConfig.NUMBER_COUNT,
@@ -15,7 +15,7 @@ const setLottoRule = () => {
       startNumber: lottoConfig.NUMBER_RANGE.START_NUMBER,
       endNumber: lottoConfig.NUMBER_RANGE.END_NUMBER,
     }
-  }
+  });
 
   const lottoRuleValidator = new LottoRuleValidator();
   lottoRuleValidator.validate(lottoRule);
