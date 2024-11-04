@@ -1,14 +1,16 @@
 import LottoResult from "../Class/LottoResult";
-import { getMarginRate, getMarginSum } from "../feature/calculate/getMargin";
+import Margin from "../Class/Margin";
 import { getWinningResultText } from "../feature/parse/parseMap";
 import resultOutPut from "../feature/UI/resultOutPut";
 
 function processLottoResult(lottoList, winNumbers, bonusNumber, purchase) {
   const LOTTO_RESULT = new LottoResult(lottoList, winNumbers, bonusNumber).getResult;
+  const MARGIN = new Margin(LOTTO_RESULT, purchase).rate;
+  
   const RESULT_TEXT = getWinningResultText(LOTTO_RESULT);
-  const MARGIN_SUM = getMarginSum(LOTTO_RESULT);
-  const MARGIN_RATE = getMarginRate(MARGIN_SUM, purchase);
-  resultOutPut(RESULT_TEXT, MARGIN_RATE);
+  
+
+  resultOutPut(RESULT_TEXT, MARGIN)
 };
 
 export default processLottoResult;
