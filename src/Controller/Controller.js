@@ -5,6 +5,7 @@ import {
   printLottoYield,
 } from "../View/View.js";
 import { generateLottoTickets } from "../Services/GenerateLottery.js";
+import { calculateWinningResult } from "../Services/calculateWinningResult.js";
 import {
   validatePrice,
   validateWinningNumbers,
@@ -19,12 +20,12 @@ class Controller {
   async run() {
     const { askUserAmount, askUserLottoNumber, askUserBonusNumber } =
       defaultSettings.systemMessages;
+    const ioService = new IOService();
 
     const price = await getInput(askUserAmount);
     const validatedPrice = validatePrice(price);
 
     const { ticketCount, tickets } = generateLottoTickets(validatedPrice);
-    const ioService = new IOService();
     ioService.printTicketCount(ticketCount);
     ioService.printTickets(tickets);
 
@@ -37,12 +38,12 @@ class Controller {
       validatedWinningNumber
     );
 
-    // const winningResult = calculateWinningResult(
-    //   lottoTickets,
-    //   validatedWinningNumber,
-    //   validatedBonusNumber
-    // );
-    // printWinningResult(winningResult);
+    const winningResult = calculateWinningResult(
+      tickets,
+      validatedWinningNumber,
+      validatedBonusNumber
+    );
+    ioService.printWinningResult(winningResult);
 
     // const lottoYield = calculateLottoYield(winningResult);
     // printLottoYield(lottoYield);
