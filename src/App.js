@@ -8,7 +8,6 @@ class App {
 
       Console.print(`${lottoCount}개를 구매했습니다.`);
       const lottoTickets = this.generateLottoTickets(lottoCount);
-
       lottoTickets.forEach(ticket => Console.print(`[${ticket.join(", ")}]`));
 
       const winningNumbers = await this.getWinningNumbers();
@@ -16,6 +15,9 @@ class App {
 
       const results = this.calculateResults(lottoTickets, winningNumbers, bonusNumber);
       this.displayResults(results);
+
+      const profitRate = this.calculateProfitRate(results, userPay);
+      this.displayProfitRate(profitRate);
     } catch (error) {
       Console.print(error.message);
     }
@@ -138,6 +140,38 @@ class App {
     Console.print(`5개 일치 (1,500,000원) - ${results[5]}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results[5.5]}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${results[6]}개`);
+  }
+
+  /**
+   * @description 당첨 결과를 바탕으로 수익률을 계산하는 함수
+   * @param {Object} results - 당첨 결과
+   * @param {number} userPay - 사용자가 입력한 구입 금액
+   * @returns {number} 수익률 (소수점 둘째 자리까지 반올림)
+   */
+  calculateProfitRate(results, userPay) {
+    const prizeTable = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      5.5: 30000000, // 5개 + 보너스 번호 일치 시
+      6: 2000000000
+    };
+
+    let totalPrize = 0;
+    for (const [key, count] of Object.entries(results)) {
+      totalPrize += (prizeTable[key] || 0) * count;
+    }
+
+    const profitRate = (totalPrize / userPay) * 100;
+    return Math.round(profitRate * 10) / 10; // 소수점 둘째 자리에서 반올림
+  }
+
+  /**
+   * @description 수익률을 출력하는 함수
+   * @param {number} profitRate - 수익률
+   */
+  displayProfitRate(profitRate) {
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
