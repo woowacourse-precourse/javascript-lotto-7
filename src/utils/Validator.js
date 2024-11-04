@@ -2,46 +2,49 @@ import { ERROR_MESSAGES } from "../constants/constants.js";
 
 class Validator {
   static isNumber(value, errorMessage = ERROR_MESSAGES.INVALID_AMOUNT) {
-    if (isNaN(value)) {
-      throw new Error(errorMessage);
-    }
-    return true;
+    this.checkCondition(!isNaN(value), errorMessage);
   }
 
   static isAboveMinimum(value, minimum = 1000) {
-    if (Number(value) < minimum) {
-      throw new Error(ERROR_MESSAGES.MINIMUM_AMOUNT);
-    }
-    return true;
+    this.checkCondition(
+      Number(value) >= minimum,
+      ERROR_MESSAGES.MINIMUM_AMOUNT
+    );
   }
 
   static isThousandUnit(value) {
-    if (Number(value) % 1000 !== 0) {
-      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
-    }
-    return true;
+    this.checkCondition(
+      Number(value) % 1000 === 0,
+      ERROR_MESSAGES.INVALID_AMOUNT_UNIT
+    );
   }
 
   static isWithinRange(value, min = 1, max = 45) {
-    if (value < min || value > max) {
-      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
-    }
-    return true;
+    this.checkCondition(
+      value >= min && value <= max,
+      ERROR_MESSAGES.BONUS_NUMBER_RANGE
+    );
   }
 
   static isUniqueBonusNumber(bonusNumber, winningNumbers) {
     const bonus = Number(bonusNumber);
-    if (winningNumbers.map(Number).includes(bonus)) {
-      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
-    }
-    return true;
+    this.checkCondition(
+      !winningNumbers.map(Number).includes(bonus),
+      ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE
+    );
   }
 
   static isSingleNumber(value) {
-    if (value.split(",").length !== 1) {
-      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_COUNT);
+    this.checkCondition(
+      value.split(",").length === 1,
+      ERROR_MESSAGES.BONUS_NUMBER_COUNT
+    );
+  }
+
+  static checkCondition(condition, errorMessage) {
+    if (!condition) {
+      throw new Error(errorMessage);
     }
-    return true;
   }
 }
 
