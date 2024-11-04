@@ -58,11 +58,7 @@ class App {
     for (let i = 0; i < numberOfLottoes; i++) {
       lottoes.push(
         Lotto.createRandomLotto(() =>
-          Random.pickUniqueNumbersInRange(
-            CONDITIONS.START_NUM,
-            CONDITIONS.END_NUM,
-            CONDITIONS.LOTTO_NUMBER_DRAWN
-          )
+          Random.pickUniqueNumbersInRange(CONDITIONS.START_NUM, CONDITIONS.END_NUM, CONDITIONS.LOTTO_NUMBER_DRAWN)
         )
       );
     }
@@ -121,7 +117,6 @@ class App {
       if (matchCount === 5 && hasBonusNumber) howManyMatch[3]++;
       if (matchCount === 6) howManyMatch[4]++;
     });
-
     return howManyMatch;
   }
 
