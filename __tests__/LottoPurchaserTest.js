@@ -61,115 +61,91 @@ describe('로또 구매자 테스트', () => {
       lottoPurchaser.setPurchasePrice(purchasePrice);
     });
 
-    test('6개 일치 결과를 올바르게 저장해야 한다', () => {
-      const customLotto = new Lotto([1, 2, 3, 4, 5, 6]);
-      lottoPurchaser.setLottos([customLotto]);
+    test.each([
+      {
+        description: '6개 일치 결과를 올바르게 저장해야 한다',
+        customLottoNumbers: [1, 2, 3, 4, 5, 6],
+        winningNumbers: [1, 2, 3, 4, 5, 6],
+        bonusNumber: 7,
+        expectedResult: {
+          [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_6]: 1,
+        },
+      },
+      {
+        description: '5개 일치 결과를 올바르게 저장해야 한다',
+        customLottoNumbers: [1, 2, 3, 4, 5, 8],
+        winningNumbers: [1, 2, 3, 4, 5, 6],
+        bonusNumber: 7,
+        expectedResult: {
+          [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5]: 1,
+          [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
+        },
+      },
+      {
+        description: '5개 일치 + 보너스 번호 결과를 올바르게 저장해야 한다',
+        customLottoNumbers: [1, 2, 3, 4, 5, 7],
+        winningNumbers: [1, 2, 3, 4, 5, 6],
+        bonusNumber: 7,
+        expectedResult: {
+          [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 1,
+          [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
+        },
+      },
+      {
+        description: '4개 일치 결과를 올바르게 저장해야 한다',
+        customLottoNumbers: [1, 2, 3, 4, 8, 9],
+        winningNumbers: [1, 2, 3, 4, 5, 6],
+        bonusNumber: 7,
+        expectedResult: {
+          [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_4]: 1,
+          [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
+        },
+      },
+      {
+        description: '3개 일치 결과를 올바르게 저장해야 한다',
+        customLottoNumbers: [1, 2, 3, 8, 9, 10],
+        winningNumbers: [1, 2, 3, 4, 5, 6],
+        bonusNumber: 7,
+        expectedResult: {
+          [WINNING_CONDITIONS_DESC.MATCH_3]: 1,
+          [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
+          [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
+        },
+      },
+    ])(
+      '$description',
+      ({ customLottoNumbers, winningNumbers, bonusNumber, expectedResult }) => {
+        // given
+        const customLotto = new Lotto(customLottoNumbers);
+        lottoPurchaser.setLottos([customLotto]);
 
-      const winningLotto = new WinningLotto();
-      winningLotto.setMainLotto([1, 2, 3, 4, 5, 6]);
-      winningLotto.setBonusNumber(7);
+        const winningLotto = new WinningLotto();
+        winningLotto.setMainLotto(winningNumbers);
+        winningLotto.setBonusNumber(bonusNumber);
 
-      lottoPurchaser.compareLottosWithWinningLotto(winningLotto);
+        // when
+        lottoPurchaser.compareLottosWithWinningLotto(winningLotto);
 
-      const result = lottoPurchaser.getLottoResult().getResult();
-      const expectedResult = {
-        [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_6]: 1,
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    test('5개 일치 결과를 올바르게 저장해야 한다', () => {
-      const customLotto = new Lotto([1, 2, 3, 4, 5, 8]);
-      lottoPurchaser.setLottos([customLotto]);
-
-      const winningLotto = new WinningLotto();
-      winningLotto.setMainLotto([1, 2, 3, 4, 5, 6]);
-      winningLotto.setBonusNumber(7);
-
-      lottoPurchaser.compareLottosWithWinningLotto(winningLotto);
-
-      const result = lottoPurchaser.getLottoResult().getResult();
-      const expectedResult = {
-        [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5]: 1,
-        [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    test('5개 일치 + 보너스 번호 결과를 올바르게 저장해야 한다', () => {
-      const customLotto = new Lotto([1, 2, 3, 4, 5, 7]);
-      lottoPurchaser.setLottos([customLotto]);
-
-      const winningLotto = new WinningLotto();
-      winningLotto.setMainLotto([1, 2, 3, 4, 5, 6]);
-      winningLotto.setBonusNumber(7);
-
-      lottoPurchaser.compareLottosWithWinningLotto(winningLotto);
-
-      const result = lottoPurchaser.getLottoResult().getResult();
-      const expectedResult = {
-        [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 1,
-        [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    test('4개 일치 결과를 올바르게 저장해야 한다', () => {
-      const customLotto = new Lotto([1, 2, 3, 4, 8, 9]);
-      lottoPurchaser.setLottos([customLotto]);
-
-      const winningLotto = new WinningLotto();
-      winningLotto.setMainLotto([1, 2, 3, 4, 5, 6]);
-      winningLotto.setBonusNumber(7);
-
-      lottoPurchaser.compareLottosWithWinningLotto(winningLotto);
-
-      const result = lottoPurchaser.getLottoResult().getResult();
-      const expectedResult = {
-        [WINNING_CONDITIONS_DESC.MATCH_3]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_4]: 1,
-        [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    test('3개 일치 결과를 올바르게 저장해야 한다', () => {
-      const customLotto = new Lotto([1, 2, 3, 8, 9, 10]);
-      lottoPurchaser.setLottos([customLotto]);
-
-      const winningLotto = new WinningLotto();
-      winningLotto.setMainLotto([1, 2, 3, 4, 5, 6]);
-      winningLotto.setBonusNumber(7);
-
-      lottoPurchaser.compareLottosWithWinningLotto(winningLotto);
-
-      const result = lottoPurchaser.getLottoResult().getResult();
-      const expectedResult = {
-        [WINNING_CONDITIONS_DESC.MATCH_3]: 1,
-        [WINNING_CONDITIONS_DESC.MATCH_4]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_5_AND_BONUS]: 0,
-        [WINNING_CONDITIONS_DESC.MATCH_6]: 0,
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
+        // then
+        const result = lottoPurchaser.getLottoResult().getResult();
+        expect(result).toEqual(expectedResult);
+      }
+    );
   });
 
   test('로또 수익률 계산 검증', () => {
