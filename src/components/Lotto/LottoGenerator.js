@@ -1,6 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
 import RULES from '../../resources/RULES.js';
+
 export default function (inputMoney) {
   const quantity = parseInt(inputMoney / RULES.LOTTO_PRICE);
   const lottoList = [];
