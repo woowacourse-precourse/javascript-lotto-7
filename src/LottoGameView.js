@@ -14,12 +14,12 @@ class LottoGameView{
 
     async getBonusNumber(){
         const input = await Console.readLineAsync('보너스 번호를 입력해 주세요.');
-        return LottoGameController.onGetBonusNumber(input);
+        return input;
     }
     showPurchaseResult(purchaseQuantity, issuedLottos){
         Console.print(`${purchaseQuantity}개를 구매했습니다.`);
         issuedLottos.forEach((lotto) => {
-            Console.print(lotto.getNumbers());
+            Console.print(`[${lotto.getNumbers().join(', ')}]`);
         });
     }
     showLottoGameResult(result){

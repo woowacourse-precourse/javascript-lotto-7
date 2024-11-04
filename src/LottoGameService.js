@@ -15,6 +15,7 @@ class LottoGameService{
     #answerLotto;
     #winningGradeQuantity;
     #purchaseAmount;
+    #purchaseQuantity;
     #totalIncome;
     #incomeRate;
 
@@ -30,14 +31,17 @@ class LottoGameService{
         this.#purchaseAmount = 0;
         
     }
-
-    start(purchaseAmount, issuedLottos, answerLotto){
+    inSetting(purchaseAmount, purchaseQuantity, onMakeIssuedLotto){
         this.#purchaseAmount = purchaseAmount;
-        this.#issuedLottos = issuedLottos;
-        this.#answerLotto = answerLotto;
-        this.#issuedLottos.forEach((lotto) => {
-            lotto.checkWinningIssuedLotto(this.#answerLotto);
-            this.#countWinningLotto(lotto);
+        this.#purchaseQuantity= purchaseQuantity;
+        this.#issuedLottos = IssuedLotto.create(purchaseQuantity);
+        onMakeIssuedLotto(this.#purchaseQuantity, this.#issuedLottos);
+    }
+    start(answerNumbers, bonusNumber){
+        this.#answerLotto = AnswerLotto.create(answerNumbers, bonusNumber);
+        this.#issuedLottos.forEach((issuedLotto) => {
+            issuedLotto.checkWinningIssuedLotto(this.#answerLotto);
+            this.#countWinningLotto(issuedLotto);
         });
         this.#getTotalIncome();
         this.#calculateIncomeRate();

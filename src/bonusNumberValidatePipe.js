@@ -1,5 +1,6 @@
 import {validateBonusNumberOutOfBounds, 
-    validateBonusNumberDecimal} from './validate.js'
+    validateBonusNumberDecimal,
+    validateLottoOverlap} from './validate.js'
 
 export const bonusNumberValidatePipe = (bonusNumber) => {
     validateBonusNumberOutOfBounds(bonusNumber);
