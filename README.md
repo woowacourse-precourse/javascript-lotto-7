@@ -38,6 +38,6 @@
 
 ## 테스트 케이스 구현
 
-- [ ] LottoAnalyzerTest 단위 테스트 구현
-- [ ] LottoShopTest 단위 테스트 구현
+- [x] LottoAnalyzerTest 단위 테스트 구현
+- [x] LottoShopTest 단위 테스트 구현
 - [ ] LottoTest 단위 테스트 구현
