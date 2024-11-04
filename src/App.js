@@ -114,9 +114,12 @@ class App {
     }
   }
 
+  calculateROI() {
+    return (this.#rankSystem.calculateTotalWinnings() / this.#lottoMachine.purchaseAmount) * 100;
+  }
+
   printROI() {
-    const ROI = (this.#rankSystem.calculateTotalWinnings() / this.#lottoMachine.purchaseAmount) * 100;
-    OutputView.printEmptyLine();
+    const ROI = this.calculateROI();
     OutputView.printMessage(
       `${OUTPUT_MESSAGE.roi.openingMessage}${ROI.toFixed(1)}${OUTPUT_MESSAGE.roi.closingMessage}`
     );

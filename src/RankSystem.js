@@ -35,18 +35,18 @@ class RankSystem {
 
   setResult(lottos) {
     lottos.forEach((lotto) => {
-      const key = this.getRank(lotto.numbers, this.#winningNumbers, this.#bonusNumber);
+      const key = this.getRank(lotto.numbers);
       if (!key) return;
       this.#result[key - 1].increaseCount();
     });
   }
 
   getRank(lottoNumbers) {
-    switch (this.getMatchedNumbersCount(lottoNumbers, this.#winningNumbers, this.#bonusNumber)) {
+    switch (this.getMatchedNumbersCount(lottoNumbers)) {
       case RANK_INFO[0].matchedCount:
         return RANK_INFO[0].rank;
       case RANK_INFO[1].matchedCount:
-        if (!this.hasBonusNumber(lottoNumbers, this.#bonusNumber)) return;
+        if (!this.hasBonusNumber(lottoNumbers)) return;
         return RANK_INFO[1].rank;
       case RANK_INFO[2].matchedCount:
         return RANK_INFO[2].rank;
