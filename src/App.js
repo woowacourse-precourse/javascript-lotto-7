@@ -17,11 +17,13 @@ class App {
   #moneyInput;
   #jackpotInput;
   #bonusInput;
+  #output;
   constructor() {
     this.#price = 1000;
     this.#moneyInput = 0;
     this.#jackpotInput = [];
     this.#bonusInput = 0;
+    this.#output = "";
   }
 
   async run() {
@@ -34,21 +36,21 @@ class App {
         this.#moneyInput = inputParser.parseMoney(await Console.readLineAsync(MESSAGE.money));
         break;
       } catch (e) {
-        Console.print(e.message);
+        this.#output = `${this.#output}\n${e.message}`;
       }
     }
     for (let money = this.#moneyInput; money >= this.#price; money -= this.#price) {
       // 이런 순차 루프는 별로 좋지 않지만, foreach나 reduce로 바꿔보니 코드가 만만찮게 복잡하여 현행으로 유지함
       pickUpInstance.pick();
     }
-    Console.print(`${pickUpInstance.getLottoArrays().length}개를 구매했습니다.`);
-    printLottoArray(pickUpInstance.getLottoArrays());
+    this.#output = `${this.#output}\n${pickUpInstance.getLottoArrays().length}개를 구매했습니다.`;
+    this.#output = `${this.#output}\n${printLottoArray(pickUpInstance.getLottoArrays())}`;
     while (true) {
       try {
         this.#jackpotInput = inputParser.parseJackpot(await Console.readLineAsync(MESSAGE.jackpot));
         break;
       } catch (e) {
-        Console.print(e.message);
+        this.#output = `${this.#output}\n${e.message}`;
       }
     }
     while (true) {
@@ -56,16 +58,16 @@ class App {
         this.#bonusInput = inputParser.parseBonus(await Console.readLineAsync(MESSAGE.bonus));
         break;
       } catch (e) {
-        Console.print(e.message);
+        this.#output = `${this.#output}\n${e.message}`;
       }
     }
     // 2. 추첨 결과 산출
     pickUpInstance.setJackpot(this.#jackpotInput).setBonus(this.#bonusInput); // setter chaining
     const outputInstance = new FormatOutput(this.#moneyInput, pickUpInstance.checkJackpot());
     // 3. 출력
-    Console.print(MESSAGE.result);
-    Console.print(MESSAGE.line);
-    outputInstance.print();
+    this.#output = `${this.#output}\n${MESSAGE.result}\n${MESSAGE.line}`;
+    this.#output = `${this.#output}\n${outputInstance.print()}`;
+    Console.print(this.#output);
   }
 }
 

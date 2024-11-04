@@ -1,5 +1,4 @@
 import { formatNumber } from "./Utils.js";
-import { Console } from "@woowacourse/mission-utils";
 import { REWARD, LOTTO_RESULT_TABLE } from "./Constant.js";
 
 export class FormatOutput {
@@ -14,10 +13,7 @@ export class FormatOutput {
     const intermediate = Object.entries(LOTTO_RESULT_TABLE)
       .filter((pair) => pair[1] !== "당첨 없음")
       .map((pair) => {
-        const message = `${pair[1]} (${formatNumber(REWARD[pair[1]])}원) - ${
-          this.#result[pair[1]]
-        }개`;
-        Console.print(message);
+        const message = `${pair[1]} (${formatNumber(REWARD[pair[1]])}원) - ${this.#result[pair[1]]}개`;
         return message;
       })
       .reduce((previous, current) => {
@@ -33,7 +29,6 @@ export class FormatOutput {
       this.#money
     ).toFixed(1);
     const result = `총 수익률은 ${formatNumber(profit)}\%입니다.`;
-    Console.print(result);
     return `${intermediate}\n${result}`;
   }
 }
