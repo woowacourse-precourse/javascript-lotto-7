@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import {MINIMUM_NUMBER, MAXIMUM_NUMBER, PICK_AMOUNT} from "../constants/Constants.js";
+import InputValidator from "../validators/InputValidator.js";
 
 class Lotto {
   #numbers;
@@ -10,14 +11,7 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
-
-    const numbersSet = new Set(numbers);
-    if (numbersSet.size !== 6) {
-      throw new Error("[ERROR] 중복된 로또 번호가 존재합니다.");
-    }
+    InputValidator.isValidWinningNumbers(numbers.join(", "));
   }
 
   static generateRandomNumbers() {
@@ -51,7 +45,7 @@ class Lotto {
     };
 
     if (winningNumberCount === 5 && this.matchBonusNumber(bonusNumber))
-        return 2;
+      return 2;
 
     return rankMapping[winningNumberCount] || 0;
   }
