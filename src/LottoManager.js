@@ -109,7 +109,6 @@ class LottoManager {
 
   #printWinningResult() {
     const winningCounts = this.#calculateWinningCounts();
-
     Console.print(OUTPUT.MATCH_RESULT.THREE(winningCounts[5]));
     Console.print(OUTPUT.MATCH_RESULT.FOUR(winningCounts[4]));
     Console.print(OUTPUT.MATCH_RESULT.FIVE(winningCounts[3]));
