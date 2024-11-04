@@ -2,6 +2,7 @@ import { LOTTO } from './constant';
 import getRandomSortedNumbers from './util/getRandomSortedNumbers';
 class Lotto {
   #numbers;
+  static matchedCount = { 3: 0, 4: 0, 5: 0, '5+bonus': 0, 6: 0 };
 
   constructor() {
     this.#numbers = getRandomSortedNumbers(
@@ -16,6 +17,15 @@ class Lotto {
       winningNumbers.includes(number),
     ).length;
     const bonusFlag = this.#numbers.includes(bonusNumber);
+
+    if (Lotto.matchedCount.hasOwnProperty(winningCount)) return;
+
+    if (winningCount === 5 && bonusFlag) {
+      Lotto.matchedCount['5+bonus'] += 1;
+      return;
+    }
+
+    Lotto.matchedCount[winningCount] += 1;
   }
 
   static purchaseLotto(count) {
