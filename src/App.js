@@ -33,6 +33,7 @@ class App {
       try {
         lotteryNumber = await Input.lotteryNumber();
         ErrorHandler.validateLottoNumber(lotteryNumber);
+        ErrorHandler.validateNumericArray(lotteryNumber);
         lottoArray = InputHandler.lottoArray(lotteryNumber);
         lotto = new Lotto(lottoArray);
 

@@ -26,6 +26,15 @@ class ErrorHandler {
     }
   }
 
+  static validateNumericArray(lottoNumbers) {
+    const numbersArray = lottoNumbers.split(',').map(Number);
+    numbersArray.forEach((number) => {
+      if (Number.isNaN(number)) {
+        throw new Error('[ERROR] 입력받은 값이 숫자가 아닙니다.');
+      }
+    });
+  }
+
   static validateLottoNumber(lottoNumbers) {
     const numbersArray = lottoNumbers.split(',').map(Number);
     numbersArray.forEach((number) => {
