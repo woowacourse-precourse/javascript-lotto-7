@@ -18,6 +18,10 @@ class WinningNumbers {
     this.#bonusNumber = +bonusNumber;
   }
 
+  get numbers() {
+    return this.#numbers;
+  }
+
   get bonusNumber() {
     return JSON.parse(JSON.stringify(this.#bonusNumber));
   }
