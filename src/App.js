@@ -5,7 +5,7 @@ class App {
 
   async run() {
     this.#lottoSystem = new LottoSystem();
-    this.#lottoSystem.run();
+    await this.#lottoSystem.run();
   }
 }
 
