@@ -1,16 +1,21 @@
+import Lotto from "../Lotto";
 class LottoValidator {
   static validateLottoNumbers(numbers) {
-    this.checkDuplicateNumber(numbers);
-    this.checkSixNumbers(numbers);
+    LottoValidator.checkDuplicateNumber(numbers);
+    LottoValidator.checkSixNumbers(numbers);
     numbers.forEach(number => {
-      this.checkEachNumber(number);
+      LottoValidator.checkEachNumber(number);
     })
   };
+  static validateBonusNumber(winning, bonus) {
+    LottoValidator.checkEachNumber(bonus);
+    LottoValidator.checkDuplicateNumber([...winning, bonus]);
+  }
 
   static checkEachNumber(number) {
-    this.checkIsNumber(number);
-    this.checkNumberRange(number);
-    this.checkIsInteger(number);
+    LottoValidator.checkIsNumber(number);
+    LottoValidator.checkNumberRange(number);
+    LottoValidator.checkIsInteger(number);
   }
 
   static checkSixNumbers(numbers) {

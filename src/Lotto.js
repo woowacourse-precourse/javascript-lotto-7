@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import { requestValidInput } from "./utils/inputUtils";
 import PaymentValidator from "./validators/PaymentValidator";
 import LottoValidator from "./validators/LottoValidator";
 import LottoTicketsGenerator from "./LottoTicketsGenerator";
@@ -22,29 +23,24 @@ class Lotto {
     this.calculateTotalResult(tickets);
   }
 
+  get numberSet() {
+    return this.#numbers;
+  }
+
   async purchasedTicketAmount() {
     const paymentAmount = await this.getPaymentAmount();
     return this.calculateTicketAmount(paymentAmount);
   }
   async getPaymentAmount() {
-    while(true) {
-      try {
-        const paymentAmount = await Console.readLineAsync("구입 금액을 입력해주세요(로또 1장 당 1000원)");
-        PaymentValidator.checkThousandUnit(paymentAmount);
-        return paymentAmount;
-      } catch(error) {
-        Console.print(error.message);
-      }
-    }
+    return requestValidInput(
+      "구입 금액을 입력해주세요(로또 1장 당 1000원)",
+      PaymentValidator.checkThousandUnit
+    )
   }
   calculateTicketAmount(paymentAmount) {
     return paymentAmount / 1000;
   }
 
-  generateTickets(ticketAmount) {
-    const ticketGenerator = new LottoTicketsGenerator(ticketAmount);
-    return ticketGenerator.tickets;
-  }
   printTickets(ticketAmount) {
     const generatedLottoTickets = this.generateTickets(ticketAmount);
     Console.print(`${ticketAmount}개를 구매했습니다.`);
@@ -53,34 +49,39 @@ class Lotto {
     })
     return generatedLottoTickets;
   }
+  generateTickets(ticketAmount) {
+    const ticketGenerator = new LottoTicketsGenerator(ticketAmount);
+    return ticketGenerator.tickets;
+  }
 
   async getWinningSet() {
-    this.#numbers.winningNumbers = await this.getLottoNumbers();
-    this.#numbers.bonusNumber = await this.getBonusNumber();
+    const winningNumbers = await this.getLottoNumbers();
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
+    this.#numbers.winningNumbers = winningNumbers;
+    this.#numbers.bonusNumber = bonusNumber;
   }
   async getLottoNumbers() {
-    while(true) {
-      try {
-        const rawLottoNumbers = await Console.readLineAsync("당첨 번호를 입력해주세요(쉼표로 구분하여 입력)");
-        const parsedLottoNumbers = rawLottoNumbers.split(",").map(num => Number(num.trim()));
-        LottoValidator.validateLottoNumbers(parsedLottoNumbers);
-        return parsedLottoNumbers;
-      } catch(error) {
-        Console.print(error.message);
-      }
-    }
+    return requestValidInput(
+      "당첨 번호를 입력해주세요(쉼표로 구분하여 입력)",
+      LottoValidator.validateLottoNumbers,
+      this.transformLottoNumbers
+    )
   }
-  async getBonusNumber() {
-    while(true) {
-      try {
-        const rawbonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요");
-        const bonusNumber = Number(rawbonusNumber);
-        LottoValidator.checkEachNumber(bonusNumber);
-        return bonusNumber;
-      } catch(error) {
-        Console.print(error.message);
-      }
-    }
+  async getBonusNumber(winning) {
+    return requestValidInput(
+      "보너스 번호를 입력해주세요",
+      (input) => LottoValidator.validateBonusNumber(winning, input),
+      this.transformBonusNumber,
+    )
+  }
+  transformLottoNumbers(rawNumbers) {
+    return rawNumbers
+      .split(",")
+      .map(num => Number(num.trim()))
+      .sort((a, b) => a - b);
+  }
+  transformBonusNumber(rawNumber) {
+    return Number(rawNumber);
   }
 
   calculateTotalResult(tickets) {
@@ -108,5 +109,6 @@ class Lotto {
     Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
   }
 }
+
 
 export default Lotto;

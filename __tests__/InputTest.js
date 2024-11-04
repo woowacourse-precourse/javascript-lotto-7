@@ -42,8 +42,9 @@ describe("입력 테스트" , () => {
   });
 
   test("로또 보너스 번호 입력 테스트", async () => {
-    mockQuestions(["31"]);
-    const bonus = await lotto.getBonusNumber();
+    mockQuestions(["1, 2, 3, 4, 5, 6", "31"]);
+    const winning = await lotto.getLottoNumbers();
+    const bonus = await lotto.getBonusNumber(winning);
     expect(bonus).toEqual(31);
   });
 
@@ -65,9 +66,19 @@ describe("입력 테스트" , () => {
 
   test("잘못된 보너스 번호 입력 테스트", async () => {
     const logspy = getLogSpy();
-    mockQuestions(["2.5", "7"]);
-    const number = await lotto.getBonusNumber();
+    mockQuestions(["1, 2, 3, 4, 5,6 ", "2.5", "7"]);
+    const winning = await lotto.getLottoNumbers();
+    const number = await lotto.getBonusNumber(winning);
     expect(logspy).toHaveBeenCalledWith("[ERROR] : 로또 번호는 정수이어야 합니다.");
+    expect(number).toEqual(7);
+  })
+
+  test("중복된 보너스 번호 입력 테스트", async () => {
+    const logspy = getLogSpy();
+    mockQuestions(["1, 2, 3, 4, 5,6 ", "6", "7"]);
+    const winning = await lotto.getLottoNumbers();
+    const number = await lotto.getBonusNumber(winning);
+    expect(logspy).toHaveBeenCalledWith("[ERROR] : 번호들은 중복될 수 없습니다.");
     expect(number).toEqual(7);
   })
 
