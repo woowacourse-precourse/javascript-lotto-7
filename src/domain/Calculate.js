@@ -18,6 +18,31 @@ class Calculate {
 
     return -1;
   }
+
+  updateWinningStatus(rank) {
+    if (rank !== -1) {
+      const rankIndex = WINNING_RANK.length - rank;
+      this.winningStatus[rankIndex] += 1;
+      this.totalReward += WINNING_RANK[rankIndex].reward;
+    }
+  }
+
+  hasBonusNumber(bonusNumber) {
+    return this.lottoNumbers.includes(bonusNumber);
+  }
+
+  calculateResult(lottoTickets) {
+    lottoTickets.forEach((ticket) => {
+      const rank = this.determineRank(ticket);
+      this.updateWinningStatus(rank);
+    });
+
+    return this.winningStatus;
+  }
+
+  calculateRate(totalTickets) {
+    return (this.totalReward / (totalTickets.length * 100)) * 10;
+  }
 }
 
 export default Calculate;
