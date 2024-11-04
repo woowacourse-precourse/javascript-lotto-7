@@ -32,10 +32,10 @@ class App {
 
   displayPurchaseResults(purchase) {
     const purchaseCount = purchase.getPurchaseCount();
-    Console.print(`\n${purchaseCount}${PURCHASE_MESSAGE.PURCHASE_AMOUNT}`);
-
+    Console.print(`\n${purchaseCount}개를 구매했습니다.`);
+  
     purchase.getRandomNumbersList().forEach((numbers) => {
-      Console.print(numbers);
+      Console.print(`[${numbers.join(", ")}]`); 
     });
   }
 
