@@ -99,7 +99,7 @@ export default class LotteryService {
     }
   }
 
-  #checkLottoResults() {
+  getLottoResults() {
     const COUNT_INCREMENT = 1;
 
     this.lottos.forEach((lotto) => {
@@ -107,6 +107,8 @@ export default class LotteryService {
       const matchingBonusCount = lotto.numbers.filter((lottoNumber) => this.bonusNumber.includes(lottoNumber)).length;
       this.#LotteryResult[this.#getRank(matchingWinningCount, matchingBonusCount)] += COUNT_INCREMENT;
     });
+
+    return this.#LotteryResult;
   }
 
   #getRank(winningCount, bonusCount) {
@@ -118,7 +120,7 @@ export default class LotteryService {
     return LOTTO_RANKS.NONE;
   }
 
-  #getProfitPercentage() {
+  getProfitPercentage() {
     const totalTicketPrice = this.lottos.length * LOTTO.PRICE;
     const PERCENTAGE = 100;
     let total = 0;
@@ -138,7 +140,5 @@ export default class LotteryService {
     this.#printLottoInfo();
     await this.#setWinningNumber();
     await this.#setBonusNumber();
-    this.#checkLottoResults();
-    Output.printResults(this.#LotteryResult, this.#getProfitPercentage());
   }
 }
