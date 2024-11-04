@@ -14,8 +14,9 @@ export async function getUserMoney() {
   try {
     const userMoney = await MissionUtils.Console.readLineAsync(USER_MONEY_PROMPT);
     validateNumber(userMoney);
-    validateUserMoney(userMoney);
-    return parseInt(userMoney, RADIX_TEN);
+    const numberUserMoney = parseInt(userMoney, RADIX_TEN);
+    validateUserMoney(numberUserMoney);
+    return numberUserMoney;
   } catch (error) {
     MissionUtils.Console.print(error.message);
     throw error;

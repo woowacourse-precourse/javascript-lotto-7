@@ -10,7 +10,7 @@ import {
 } from '../constants/config.js';
 
 export function validateUserMoney(userMoney) {
-  if (userMoney % LOTTO_PRICE === 0) {
+  if (userMoney % LOTTO_PRICE === 0 && userMoney !== 0) {
     return;
   }
 
