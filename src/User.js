@@ -45,6 +45,19 @@ class User {
     }
   }
 
+  async readBonusNumbers() {
+    while (true) {
+      try {
+        this.#bonusNumber = Number(
+          await Console.readLineAsync(PROMPT_MESSAGE.BONUS_NUMBER),
+        );
+        return;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
   get winningNumbers() {
     return this.#winningNumbers;
   }
