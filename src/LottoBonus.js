@@ -9,6 +9,10 @@ class LottoBonus {
     this.#number = number;
   }
 
+  getNumber() {
+    return this.#number;
+  }
+
   #validate(number, winningLottoNumbers) {
     this.#validateNumber(number);
     this.#validateRange(number);

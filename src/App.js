@@ -47,7 +47,8 @@ class App {
   async getLottoBonusNumber(winningLottoNumbers) {
     try {
       const input = await Console.readLineAsync(INPUT_MESSAGE.LOTTO_BONUS_NUMBER);
-      return new LottoBonus(Number(input), winningLottoNumbers);
+      const bonusNumber = new LottoBonus(Number(input), winningLottoNumbers);
+      return bonusNumber.getNumber();
     } catch (error) {
       Console.print(error.message);
       return this.getLottoBonusNumber(winningLottoNumbers);
