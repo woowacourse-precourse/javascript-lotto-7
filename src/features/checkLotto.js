@@ -1,5 +1,5 @@
 import { checkDuplicates } from "./checkDuplicates.js";
-import LottoRank from "../LottoRank.js";
+import { BONUS } from "../config/config.js";
 
 export const checkLotto = (lottoNumbers, winningNumbers, bonusNumber) => {
   checkDuplicates(winningNumbers, bonusNumber);
@@ -10,9 +10,10 @@ export const checkLotto = (lottoNumbers, winningNumbers, bonusNumber) => {
   ).length;
 
   let isBonus = false;
-  if (lottoSet.has(bonusNumber)) {
+  if (lottoSet.has(bonusNumber) && matchCount === 5) {
     isBonus = true;
+    matchCount = BONUS;
   }
 
-  return new LottoRank(matchCount, isBonus);
+  return matchCount;
 };
