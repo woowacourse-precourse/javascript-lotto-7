@@ -39,3 +39,7 @@ export function rankResult(matchCount, isMatchBonus){
             return UNRANK;
     }
 }
+
+export function calculateProfitRate(principal, profit){
+    return (profit / principal) * 100
+} 

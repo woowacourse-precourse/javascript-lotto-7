@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils"
-import { calculateLottoCount } from "./lottoUtils.js";
+import { calculateLottoCount, calculateProfitRate } from "./lottoUtils.js";
 
 class LottoManagerIO {
     static #INPUT_PURCHASE_PRICE_MESSAGE = "구입금액을 입력해 주세요.";
@@ -15,6 +15,7 @@ class LottoManagerIO {
             `5개 일치, 보너스 볼 일치 (30,000,000원) - ${lottoResult.getMatchCount(5, true)}개\n` +
             `6개 일치 (2,000,000,000원) - ${lottoResult.getMatchCount(6)}개`
         }};
+    static #OUTPUT_
 
     
     static async inputPurchasePrice(){
@@ -48,6 +49,10 @@ class LottoManagerIO {
         Console.print(`${this.#OUTPUT_STATISTIC_TITLE}`);
         Console.print(this.#OUTPUT_STATISTIC_RESULT.countIntoStatisticMessage(lottoResult));
     } 
+
+    static printProfitRate(principal, profit){
+        Console.print(calculateProfitRate(principal, profit));
+    }   
 }
 
 export default LottoManagerIO;
