@@ -93,8 +93,9 @@ class App {
     const LOTTOS = [];
 
     for (let i = 0; i < NUMBER_OF_LOTTO; i++) {
-      const lotto = this.generateLottoNumbers();
-      LOTTOS.push(lotto);
+      const NUMBERS = this.generateLottoNumbers()
+      const LOTTO = new Lotto(NUMBERS);
+      LOTTOS.push(LOTTO);
     }
 
     return LOTTOS;
@@ -106,10 +107,11 @@ class App {
 
   async run() {
     try {
-      const LOTTO = new Lotto([1,2,3,4,5,6]);
-
-      LOTTO.printNumbers();
-      this.validateMoney();
+      const MONEY = await this.validateMoney();
+      const LOTTOS = this.generateLottos(MONEY);
+      LOTTOS.forEach(lotto => {
+        lotto.printNumbers();
+      });
     }
     catch (error) {
       throw error;
