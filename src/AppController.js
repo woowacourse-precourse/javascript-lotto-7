@@ -18,10 +18,7 @@ export default class AppController {
         const winningNumbers = await this.userInput(lottoMesaage.INPUT_LOTTONUMBERS);
         this.handleCheckUserInput(lottoMesaage.INPUT_LOTTONUMBERS, winningNumbers);
 
-        
-        
-
-        
+        this.#bonus = await this.userInput(lottoMesaage.INPUT_BONUSNUMBER);
     }
 
     async userInput(message) {
