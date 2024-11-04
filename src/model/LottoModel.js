@@ -3,7 +3,7 @@ import { getNumbersInRange } from '../utils/rangeUtils.js';
 import Money from '../vo/Money.js';
 import Lotto from '../vo/Lotto.js';
 import WinningNumbers from '../vo/WinningNumbers.js';
-import BonusNumber from '../vo/BounusNumber.js';
+import BonusNumber from '../vo/BonusNumber.js';
 import Result from '../vo/Result.js';
 
 class LottoModel {
