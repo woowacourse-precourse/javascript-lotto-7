@@ -2,8 +2,7 @@ import { Console } from "@woowacourse/mission-utils"
 
 const InputView = {
   async getPurchaseAmount() {
-    Console.print("구입 금액을 입력해주세요.");
-    const input = await Console.readLineAsync();
+    const input = await Console.readLineAsync("구입 금액을 입력해주세요.\n");
     const amount = parseInt(input);
     
     if (isNaN(amount) || amount % 1000 !== 0) {
@@ -14,8 +13,7 @@ const InputView = {
   },
 
   async getWinningNumbers() {
-    Console.print("당첨 번호를 입력해 주세요.");
-    const input = await Console.readLineAsync();
+    const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
     const numbers = input.split(",").map(Number);
 
     if (numbers.length !== 6 || numbers.some((num) => isNaN(num) || num < 1 || num >45)) {
@@ -26,8 +24,7 @@ const InputView = {
   },
 
   async getBonusNumber() {
-    Console.print("보너스 번호를 입력해 주세요.");
-    const input = await Console.readLineAsync();
+    const input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
     const bonus = parseInt(input);
 
     if (isNaN(bonus) || bonus < 1 || bonus > 45) {
