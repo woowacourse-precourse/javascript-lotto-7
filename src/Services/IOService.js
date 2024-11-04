@@ -1,50 +1,31 @@
-import { Console } from "@woowacourse/mission-utils";
-import RANKS from "../Model/Rank.js";
+// Services/IOService.js
+import { getInput } from "../View/input.js";
+import {
+  printTicketCount,
+  printLottoTickets,
+  printWinningResult,
+  printLottoYield,
+} from "../View/output.js";
 
 class IOService {
-  printTicketCount(ticketCount) {
-    Console.print(`\n${ticketCount}개를 구매했습니다.`);
+  async getUserInput(promptMessage) {
+    return await getInput(promptMessage); // 사용자 입력을 받음
   }
 
-  printTickets(tickets) {
-    tickets.forEach((ticket) => {
-      Console.print(`${ticket.getNumbers().join(", ")}`);
-    });
+  displayTicketCount(ticketCount) {
+    printTicketCount(ticketCount); // 구입한 로또 티켓 수 출력
   }
 
-  printWinningResult(winningResult) {
-    Console.print("\n당첨 통계");
-    Console.print("---");
-
-    Console.print(
-      `3개 일치 (${RANKS.THREE_MATCH.prize.toLocaleString()}원) - ${
-        winningResult[RANKS.THREE_MATCH.key]
-      }개`
-    );
-    Console.print(
-      `4개 일치 (${RANKS.FOUR_MATCH.prize.toLocaleString()}원) - ${
-        winningResult[RANKS.FOUR_MATCH.key]
-      }개`
-    );
-    Console.print(
-      `5개 일치 (${RANKS.FIVE_MATCH.prize.toLocaleString()}원) - ${
-        winningResult[RANKS.FIVE_MATCH.key]
-      }개`
-    );
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (${RANKS.FIVE_MATCH_WITH_BONUS.prize.toLocaleString()}원) - ${
-        winningResult[RANKS.FIVE_MATCH_WITH_BONUS.key]
-      }개`
-    );
-    Console.print(
-      `6개 일치 (${RANKS.SIX_MATCH.prize.toLocaleString()}원) - ${
-        winningResult[RANKS.SIX_MATCH.key]
-      }개`
-    );
+  displayLottoTickets(tickets) {
+    printLottoTickets(tickets); // 생성된 로또 티켓들 출력
   }
 
-  printLottoYield(yieldPercentage) {
-    Console.print(`총 수익률은 ${yieldPercentage}%입니다.`);
+  displayWinningResult(winningResult) {
+    printWinningResult(winningResult); // 당첨 결과 출력
+  }
+
+  displayLottoYield(yieldPercentage) {
+    printLottoYield(yieldPercentage); // 수익률 출력
   }
 }
 

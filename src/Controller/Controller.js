@@ -1,9 +1,3 @@
-import {
-  getInput,
-  printLottoTickets,
-  printWinningResult,
-  printLottoYield,
-} from "../View/View.js";
 import { generateLottoTickets } from "../Services/GenerateLottery.js";
 import { calculateWinningResult } from "../Services/calculateWinningResult.js";
 import { calculateLottoYield } from "../Services/calculateLottoYield.js";
@@ -23,17 +17,17 @@ class Controller {
       defaultSettings.systemMessages;
     const ioService = new IOService();
 
-    const price = await getInput(askUserAmount);
+    const price = await ioService.getUserInput(askUserAmount);
     const validatedPrice = validatePrice(price);
 
     const { ticketCount, tickets } = generateLottoTickets(validatedPrice);
-    ioService.printTicketCount(ticketCount);
-    ioService.printTickets(tickets);
+    ioService.displayTicketCount(ticketCount);
+    ioService.displayLottoTickets(tickets);
 
-    const winningNumber = await getInput(askUserLottoNumber);
+    const winningNumber = await ioService.getUserInput(askUserLottoNumber);
     const validatedWinningNumber = validateWinningNumbers(winningNumber);
 
-    const bonusNumber = await getInput(askUserBonusNumber);
+    const bonusNumber = await ioService.getUserInput(askUserBonusNumber);
     const validatedBonusNumber = validateBonusNumber(
       bonusNumber,
       validatedWinningNumber
@@ -44,10 +38,10 @@ class Controller {
       validatedWinningNumber,
       validatedBonusNumber
     );
-    ioService.printWinningResult(winningResult);
+    ioService.displayWinningResult(winningResult);
 
     const lottoYield = calculateLottoYield(winningResult, validatedPrice);
-    ioService.printLottoYield(lottoYield);
+    ioService.displayLottoYield(lottoYield);
   }
 }
 
