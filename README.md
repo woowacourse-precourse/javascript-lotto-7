@@ -367,6 +367,151 @@ validateWinningNumber(userInput) {
 
 ### 주요 테스트 기능
 
+1. _PurchaseValidator(구매 금액 유효성)_ 테스트
+
+- `유효한 구입 금액`이 입력될 때 값을 반환하는지 검증합니다.
+- **화폐 표기 형식**  
+  `,`가 화폐 표기 형식에 맞춰 입력된 경우도 `유효한 값`으로 처리합니다.
+
+```javascript
+test('값을 입력할 때 화폐를 표기할 때 사용하는 ,는 허용한다.', () => {
+  // given
+  const amountWithComma = '12,000';
+
+  // when
+  const result = PurchaseValidator.validate(amountWithComma);
+
+  // then
+  expect(result).toBe(12000);
+});
+```
+
+2.  _Lotto(로또 티켓)_ 테스트
+
+- 유효한 값
+
+  - 로또 번호가 **6개를 초과하면** 예외가 발생하는지 확인합니다.
+  - 로또 번호에 **중복된 숫자가 포함되면** 예외가 발생하는지 확인합니다.
+
+```javascript
+expect(() => {
+  new Lotto([1, 2, 3, 4, 5, 6, 7]);
+}).toThrow('[ERROR]');
+```
+
+```javascript
+expect(() => {
+  new Lotto([1, 2, 3, 4, 5, 5]);
+}).toThrow('[ERROR]');
+```
+
+- 메서드 테스트
+  - getNumbers: 로또 번호 배열을 반환하 검증
+  - toString: 로또 번호를 `[1, 2, 3, 4, 5, 6]` 형식의 문자열로 반환하는지 검증
+  - getMatchedCount: 주어진 당첨 번호와 일치하는 번호의 개수를 정확히 반환하는지 확인
+  - isBonusMatched: 보너스 번호가 로또 번호에 포함되어 있는 경우 `true`를, 포함되어 있지 않은 경우 `false`를 반환하는지 확인
+
+```javascript
+// getNumbers()
+const numbers = [1, 2, 3, 4, 5, 6];
+const lotto = new Lotto(numbers);
+
+expect(lotto.getNumbers()).toEqual(numbers);
+
+// toString()
+expect(lotto.toString()).toBe('[1, 2, 3, 4, 5, 6]');
+
+// getMatchedCount()
+const winningNumbers = [1, 2, 3, 7, 8, 9];
+expect(lotto.getMatchedCount(winningNumbers)).toBe(3);
+
+// isBonusMatched()
+const bonusNumberIncluded = 6;
+expect(lotto.isBonusMatched(bonusNumberIncluded)).toBe(true);
+const bonusNumberNotIncluded = 7;
+expect(lotto.isBonusMatched(bonusNumberNotIncluded)).toBe(false);
+```
+
+3. _LottoIssuer(로또 티켓 발매기)_ 테스트
+
+   - *구입 금액에 따라 올바른 개수의 로또 티켓*이 발행되는지 확인합니다.
+   - 각 로또 티켓이 **Lotto 클래스의 인스턴스**인지 확인합니다.
+
+   ```javascript
+   // given
+   const purchaseAmount = 3000;
+   const mockNumbers = [
+     [1, 2, 3, 4, 5, 6],
+     [7, 8, 9, 10, 11, 12],
+     [13, 14, 15, 16, 17, 18],
+   ];
+
+   // when
+   const lottoTickets = LottoIssuer.createLottoTickets(purchaseAmount);
+
+   // 올바른 개수의 로또 티켓
+   expect(lottoTickets).toHaveLength(purchaseAmount / LOTTO.TICKET_PRICE);
+
+   // Lotto 클래스의 인스턴스인지 확인
+   expect(lottoTickets.every((ticket) => ticket instanceof Lotto)).toBe(true);
+   ```
+
+4. _LottoMatcher(당첨 내역)_ 테스트
+
+   - 각 로또 티켓에 대해 **일치하는 로또 번호의 개수**를 올바르게 반환하는지 검증합니다.
+   - _예를 들어,_ 한 티켓이 6개 일치할 때 `SIX_MATCH`, 3개 일치할 때 `THREE_MATCH`, 일치하지 않을 때 `NONE`으로 반환됩니다.
+
+   ```javascript
+   // given
+   const lottoTickets = [
+     new Lotto([1, 2, 3, 4, 5, 6]),
+     new Lotto([7, 8, 9, 10, 11, 12]),
+     new Lotto([1, 3, 5, 7, 9, 11]),
+   ];
+   const winningNumbers = [1, 2, 3, 4, 5, 6];
+   const bonusNumber = 7;
+   // ... 생략
+
+   // when
+   const rankCounts = lottoMatcher.run();
+
+   // then
+   expect(rankCounts[RANK_KEYS.SIX_MATCH]).toBe(1);
+   expect(rankCounts[RANK_KEYS.THREE_MATCH]).toBe(1);
+   expect(rankCounts[RANK_KEYS.NONE]).toBe(1);
+   ```
+
+5. _ProfitCalculator(수익률)_ 테스트
+
+   - **수익률이 올바르게 계산되는지** 확인합니다.
+   - 당첨된 티켓의 개수와 등수에 맞춰 수익률이 정확하게 계산되어 예상값과 일치하는지 검증합니다.
+
+   ```javascript
+   // given
+   const rankCounts = {
+     [RANK_KEYS.THREE_MATCH]: 3,
+     [RANK_KEYS.FOUR_MATCH]: 1,
+     [RANK_KEYS.FIVE_MATCH]: 0,
+     [RANK_KEYS.FIVE_WITH_BONUS_MATCH]: 1,
+     [RANK_KEYS.SIX_MATCH]: 0,
+   };
+   const purchaseAmount = 100000;
+
+   const expectedProfit =
+     ((LOTTO_REWARD[RANK_KEYS.THREE_MATCH].prize * 3 +
+       LOTTO_REWARD[RANK_KEYS.FOUR_MATCH].prize * 1 +
+       LOTTO_REWARD[RANK_KEYS.FIVE_WITH_BONUS_MATCH].prize * 1) /
+       purchaseAmount) *
+     GAME_SETTINGS.PERCENTAGE_MULTIPLIER;
+
+   // when
+   const profitCalculator = new ProfitCalculator(rankCounts, purchaseAmount);
+   const profitRate = Number(profitCalculator.profitRate);
+
+   // then
+   expect(profitRate).toBeCloseTo(expectedProfit, 1);
+   ```
+
 ### 실행 방법
 
 다음 명령어로 실행할 수 있습니다.
