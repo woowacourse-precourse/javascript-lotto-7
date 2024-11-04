@@ -155,7 +155,6 @@ export default class LottoGame {
                 rankList[rank - 1] += 1;
             }
         }
-        console.log(rankList);
         return rankList;
     }
 
