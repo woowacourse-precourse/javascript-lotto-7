@@ -42,8 +42,8 @@ class Validator {
       this.#validateNaturalNumber(num);
       this.#validateRange(num, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
     });
-    this.#validateNoDuplicates(numbers);
     this.#validateExactCount(numbers, LOTTO.COUNT);
+    this.#validateNoDuplicates(numbers);
   }
 }
 
