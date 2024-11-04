@@ -1,34 +1,40 @@
-import { Random, Console } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class App {
-  static PURCHASE_UNIT = 1000; // 구입 금액 단위 (1000원)
-  static ERROR_MESSAGE_INVALID_AMOUNT = "[ERROR] 구입 금액은 1,000원 단위로 입력해 주세요.";
-  static ERROR_MESSAGE_NOT_A_NUMBER = "[ERROR] 금액은 숫자로 입력해 주세요.";
+  static PURCHASE_UNIT = 1000;
 
   run() {
     Console.readLine("구입금액을 입력해 주세요.\n", (input) => {
       try {
-        const purchaseAmount = this.inputPurchaseAmount(input);
-        this.validatePurchaseAmount(purchaseAmount);
-        // 이후 로직 실행 (로또 발행 등)
+        const purchaseAmount = this.#getValidatedAmount(input);
+        const lottoCount = purchaseAmount / App.PURCHASE_UNIT;
+        this.#issueLottos(lottoCount);
       } catch (error) {
         Console.print(error.message);
-        this.run();
+        this.run(); // 잘못된 입력 시 재시도
       }
     });
   }
 
-  inputPurchaseAmount(input) {
+  #getValidatedAmount(input) {
     const amount = Number(input);
     if (isNaN(amount)) {
-      throw new Error(App.ERROR_MESSAGE_NOT_A_NUMBER);
+      throw new Error("[ERROR] 금액은 숫자로 입력해 주세요.");
+    }
+    if (amount % App.PURCHASE_UNIT !== 0) {
+      throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해 주세요.");
     }
     return amount;
   }
 
-  validatePurchaseAmount(amount) {
-    if (amount % App.PURCHASE_UNIT !== 0) {
-      throw new Error(App.ERROR_MESSAGE_INVALID_AMOUNT);
+  #issueLottos(count) {
+    Console.print(`${count}개를 구매했습니다.`);
+    for (let i = 0; i < count; i++) {
+      // 로또 번호 생성 후 오름차순 정렬
+      const randomNumbers = Lotto.generateRandomNumbers().sort((a, b) => a - b);
+      const lotto = new Lotto(randomNumbers);
+      Console.print(lotto.getNumbers());
     }
   }
 }
