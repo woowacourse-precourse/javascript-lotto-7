@@ -36,7 +36,9 @@ export default class LottoController {
 
     static compareUserLottoWithWinningLotto({userLottos, winningLotto, bonus, statisticsCountMap}) {
         userLottos.forEach(userLotto => {
-            const {matchCount, bonusMatched} = this.getLottoSameCount(userLotto, winningLotto, bonus);
+            const matchCount = this.getLottoSameCount(userLotto, winningLotto);
+            const bonusMatched = this.isMatchBonus(userLotto, bonus);
+
             if(bonusMatched || matchCount === number.FIVE) {
                 statisticsCountMap.set(number.FIVE_BONUS, statisticsCountMap.get(number.FIVE_BONUS)+1);
             }
@@ -47,11 +49,10 @@ export default class LottoController {
         return statisticsCountMap;
     }
 
-    static getLottoSameCount(userLotto, winningLotto, bonus) {
+    static getLottoSameCount(userLotto, winningLotto) {
         let userLottoIndex = 0;
         let winningLottoIndex = 0;
         let matchCount = 0;
-        let bonusMatched = false;
 
         while(userLottoIndex < userLotto.length && winningLottoIndex < winningLotto.length) {
             if(userLotto[userLottoIndex] === winningLotto[winningLottoIndex]) {
@@ -64,9 +65,7 @@ export default class LottoController {
             else userLottoIndex += 1;
         }
 
-        bonusMatched = this.isMatchBonus(userLotto, bonus);
-
-        return {matchCount, bonusMatched};
+        return matchCount;
     }
 
     static isMatchBonus(userLotto, bonus) {
