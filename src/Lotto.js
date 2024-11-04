@@ -20,6 +20,9 @@ class Lotto {
       if (isNaN(number)) {
         throw new Error(LOTTO_ERROR_MESSAGE.IS_NOT_NUMBER);
       }
+      else if (!Number.isInteger(number)) {
+        throw new Error(LOTTO_ERROR_MESSAGE.IS_NOT_INTEGER);
+      }
       else if (number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER) {
         throw new Error(LOTTO_ERROR_MESSAGE.OUT_OF_RANGE);
       }
