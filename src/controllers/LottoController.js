@@ -15,7 +15,6 @@ class LottoController {
   constructor() {
     this.#inputLotto = new InputLotto();
     this.#outputLotto = new OutputLotto();
-    this.#lotto = new Lotto();
   }
 
   async start() {

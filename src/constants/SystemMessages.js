@@ -13,7 +13,7 @@ export const SYSTEM_MESSAGES = Object.freeze({
   },
 
   print_match_with_bonus(number, price, count) {
-    return `${number}개 일치, 보너스 볼 일치 (${price}) - ${count}개\n`;
+    return `${number}개 일치, 보너스 볼 일치 (${price}원) - ${count}개\n`;
   },
 
   print_rate_of_return(number) {

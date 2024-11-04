@@ -5,6 +5,8 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
+    validators.checkDuplicateNumber(numbers);
+    validators.checkLottoLength(numbers);
     this.#numbers = numbers;
   }
 
