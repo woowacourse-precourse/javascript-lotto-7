@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import { lotto } from "../constants/lottoConstants.js";
 
 export function generateLottos(count) {
@@ -17,4 +17,10 @@ export function generateLottos(count) {
   }
 
   return lottos;
+}
+
+export function printLottos(lottos) {
+  lottos.forEach((lotto) => {
+    Console.print(lotto.getNumbers());
+  });
 }
