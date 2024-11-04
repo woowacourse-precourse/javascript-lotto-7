@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.54% </span>
+                <span class="strong">93.93% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/31</span>
+                <span class='fraction'>31/33</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/30</span>
+                <span class='fraction'>30/32</span>
             </div>
         
             
@@ -133,7 +133,11 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,6 +156,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -199,6 +206,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +222,7 @@ const MESSAGE = {
   jackpot: "\n당첨 번호를 입력해 주세요.\n",
   bonus: "\n보너스 번호를 입력해주세요.\n",
   result: "\n당첨 통계",
+  line: "---",
 };
 &nbsp;
 class App {
@@ -221,11 +230,13 @@ class App {
   #moneyInput;
   #jackpotInput;
   #bonusInput;
+  #output;
   constructor() {
     this.#price = 1000;
     this.#moneyInput = 0;
     this.#jackpotInput = [];
     this.#bonusInput = 0;
+    this.#output = "";
   }
 &nbsp;
   async run() {
@@ -238,21 +249,21 @@ class App {
         this.#moneyInput = inputParser.parseMoney(await Console.readLineAsync(MESSAGE.money));
         break;
       } catch (e) {
-        Console.print(e.message);
+        this.#output = `${this.#output}\n${e.message}`;
       }
     }
     for (let money = this.#moneyInput; money &gt;= this.#price; money -= this.#price) {
       // 이런 순차 루프는 별로 좋지 않지만, foreach나 reduce로 바꿔보니 코드가 만만찮게 복잡하여 현행으로 유지함
       pickUpInstance.pick();
     }
-    Console.print(`${pickUpInstance.getLottoArrays().length}개를 구매했습니다.`);
-    printLottoArray(pickUpInstance.getLottoArrays());
+    this.#output = `${this.#output}\n${pickUpInstance.getLottoArrays().length}개를 구매했습니다.`;
+    this.#output = `${this.#output}\n${printLottoArray(pickUpInstance.getLottoArrays())}`;
     while (true) {
       try {
         this.#jackpotInput = inputParser.parseJackpot(await Console.readLineAsync(MESSAGE.jackpot));
         break;
       } catch (e) {
-<span class="cstat-no" title="statement not covered" >        Console.print(e.message);</span>
+<span class="cstat-no" title="statement not covered" >        this.#output = `${this.#output}\n${e.message}`;</span>
       }
     }
     while (true) {
@@ -260,15 +271,16 @@ class App {
         this.#bonusInput = inputParser.parseBonus(await Console.readLineAsync(MESSAGE.bonus));
         break;
       } catch (e) {
-<span class="cstat-no" title="statement not covered" >        Console.print(e.message);</span>
+<span class="cstat-no" title="statement not covered" >        this.#output = `${this.#output}\n${e.message}`;</span>
       }
     }
     // 2. 추첨 결과 산출
     pickUpInstance.setJackpot(this.#jackpotInput).setBonus(this.#bonusInput); // setter chaining
     const outputInstance = new FormatOutput(this.#moneyInput, pickUpInstance.checkJackpot());
     // 3. 출력
-    Console.print(MESSAGE.result);
-    outputInstance.print();
+    this.#output = `${this.#output}\n${MESSAGE.result}\n${MESSAGE.line}`;
+    this.#output = `${this.#output}\n${outputInstance.print()}`;
+    Console.print(this.#output);
   }
 }
 &nbsp;
@@ -280,7 +292,7 @@ export default App;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-04T09:31:53.702Z
+                at 2024-11-04T12:05:11.735Z
             </div>
         <script src="prettify.js"></script>
         <script>
