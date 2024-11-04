@@ -10,8 +10,9 @@ export default class AppController {
 
     async control() {
         this.userInputInit();
-        const money = await this.userInput(lottoMesaage.INPUT_MONEY);
-        this.handleCheckUserInput(lottoMesaage.INPUT_MONEY, money)
+        const userMoney = await this.userInput(lottoMesaage.INPUT_MONEY);
+        this.handleCheckUserInput(lottoMesaage.INPUT_MONEY, userMoney);
+        
     }
 
     async userInput(message) {
