@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js"; // Lotto 클래스를 불러옴
 
 class App {
   async run() {
@@ -7,16 +8,14 @@ class App {
       const lottoCount = purchaseAmount / 1000;
 
       MissionUtils.Console.print(`\n${lottoCount}개를 구매했습니다.`);
-      const lottoNumbers = this.getLottoNumbers(lottoCount);
+      const lottoTickets = this.generateLottoTickets(lottoCount); // Lotto 인스턴스 생성
 
       const winningNumbers = await this.promptWinningNumbers();
-      MissionUtils.Console.print(`\n당첨 번호: ${winningNumbers.join(", ")}`);
 
       const bonusNumber = await this.promptBonusNumber(winningNumbers);
-      MissionUtils.Console.print(`보너스 번호: ${bonusNumber}`);
 
       const totalPrize = this.calculateStatistics(
-        lottoNumbers,
+        lottoTickets,
         winningNumbers,
         bonusNumber
       );
@@ -47,17 +46,14 @@ class App {
     }
   }
 
-  getLottoNumbers(lottoCount) {
-    const lottoNumbers = [];
-
+  generateLottoTickets(lottoCount) {
+    const tickets = [];
     for (let i = 0; i < lottoCount; i++) {
-      const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-      numbers.sort((a, b) => a - b);
-      lottoNumbers.push(numbers);
-      MissionUtils.Console.print(`[${numbers.join(", ")}]`);
+      const ticket = new Lotto(); // 랜덤 번호로 Lotto 인스턴스 생성
+      tickets.push(ticket);
+      MissionUtils.Console.print(`[${ticket.getNumbers().join(", ")}]`); // 번호 출력
     }
-
-    return lottoNumbers;
+    return tickets;
   }
 
   async promptWinningNumbers() {
@@ -109,7 +105,7 @@ class App {
     }
   }
 
-  calculateStatistics(lottoNumbers, winningNumbers, bonusNumber) {
+  calculateStatistics(lottoTickets, winningNumbers, bonusNumber) {
     const prizeArray = [
       { match: 3, text: "3개 일치 (5,000원)", key: "3", prize: 5000 },
       { match: 4, text: "4개 일치 (50,000원)", key: "4", prize: 50000 },
@@ -131,11 +127,9 @@ class App {
     const winCounts = { 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
     let totalPrize = 0;
 
-    lottoNumbers.forEach((lotto) => {
-      const matchCount = lotto.filter((num) =>
-        winningNumbers.includes(num)
-      ).length;
-      const bonusMatch = lotto.includes(bonusNumber);
+    lottoTickets.forEach((ticket) => {
+      const matchCount = ticket.getMatchCount(winningNumbers);
+      const bonusMatch = ticket.hasBonusNumber(bonusNumber);
 
       if (matchCount === 5 && bonusMatch) {
         winCounts["5_bonus"]++;
