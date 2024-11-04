@@ -1,4 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
+import ErrorHandler from "../utils/ErrorHandler.js";
+import {
+  ERROR_MESSAGES,
+  LOTTO_SIZE,
+  LOTTO_UNIT,
+  MAX_NUMBER,
+  MIN_NUMBER,
+  PROMPTS,
+} from "../utils/constants.js";
 
 // input들을 관리하는 클래스
 class InputHandler {
@@ -15,20 +24,17 @@ class InputHandler {
 
   async getPurchaseAmount() {
     return this.handleInput(
-      "구입금액을 입력해 주세요.\n",
+      PROMPTS.PURCHASE_AMOUNT,
       this.validatePurchaseAmount
     );
   }
 
   async getWinningNumber() {
-    return this.handleInput(
-      "\n당첨 번호를 입력해 주세요.\n",
-      this.validateWinningNumber
-    );
+    return this.handleInput(PROMPTS.WINNING_NUMBER, this.validateWinningNumber);
   }
 
   async getBonusNumber(WinningLottoNumbersArray) {
-    return this.handleInput("\n보너스 번호를 입력해 주세요.\n", (input) =>
+    return this.handleInput(PROMPTS.BONUS_NUMBER, (input) =>
       this.validateBonusNumber(input, WinningLottoNumbersArray)
     );
   }
@@ -38,34 +44,33 @@ class InputHandler {
     if (
       isNaN(purchaseAmount) ||
       purchaseAmount <= 0 ||
-      purchaseAmount % 1000 !== 0
+      purchaseAmount % LOTTO_UNIT !== 0
     )
-      throw new Error("[ERROR] 1000원 단위로 입력해 주세요.");
-
-    return purchaseAmount / 1000;
+      ErrorHandler.throwError(ERROR_MESSAGES.PURCHASE_AMOUNT);
+    return purchaseAmount / LOTTO_UNIT;
   }
 
   validateWinningNumber(input) {
     const numbers = input.split(",").map(Number);
-    if (numbers.length !== 6)
-      throw new Error("[ERROR] 당첨 번호를 6개 입력해주세요.");
+    if (numbers.length !== LOTTO_SIZE)
+      ErrorHandler.throwError(ERROR_MESSAGES.WINNING_SIZE);
     if (numbers.some((number) => isNaN(number)))
-      throw new Error("[ERROR] 숫자만 입력해주세요.");
-    if (numbers.some((number) => number < 1 || number > 45))
-      throw new Error("[ERROR] 1~45 사이의 숫자만 입력해주세요.");
+      ErrorHandler.throwError(ERROR_MESSAGES.NUMBER_ONLY);
+    if (numbers.some((number) => number < MIN_NUMBER || number > MAX_NUMBER))
+      ErrorHandler.throwError(ERROR_MESSAGES.RANGE);
     if (new Set(numbers).size !== numbers.length)
-      throw new Error("[ERROR] 중복된 숫자가 있습니다.");
+      ErrorHandler.throwError(ERROR_MESSAGES.DUPLICATE_NUMBER);
 
     return numbers;
   }
 
   validateBonusNumber(input, WinningLottoNumbersArray) {
     const bonusNumber = Number(input);
-    if (isNaN(bonusNumber)) throw new Error("[ERROR] 숫자만 입력해주세요.");
-    if (bonusNumber < 1 || bonusNumber > 45)
-      throw new Error("[ERROR] 1~45 사이의 숫자만 입력해주세요.");
+    if (isNaN(bonusNumber)) ErrorHandler.throwError(ERROR_MESSAGES.NUMBER_ONLY);
+    if (bonusNumber < MIN_NUMBER || bonusNumber > MAX_NUMBER)
+      ErrorHandler.throwError(ERROR_MESSAGES.RANGE);
     if (WinningLottoNumbersArray[bonusNumber] === 1)
-      throw new Error("[ERROR] 당첨 번호와 중복됩니다.");
+      ErrorHandler.throwError(ERROR_MESSAGES.DUPLICATE_WINNING_BONUS);
     return bonusNumber;
   }
 }
