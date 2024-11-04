@@ -1,14 +1,25 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class App {
+  #lottos = [];
+
   async run() {
     try {
-      await this.#getPrice();
+      await this.#purchaseLottos();
       await this.#getWinNumber();
       await this.#getBonusNumber();
     } catch (error) {
       Console.print(error.message);
     }
+  }
+
+  async #purchaseLottos() {
+    const amount = await this.#getPrice();
+    const count = amount / 1000;
+
+    await this.#generateLottos(count);
+    return count;
   }
 
   async #getPrice() {
@@ -44,6 +55,13 @@ class App {
     }
 
     return number;
+  }
+
+  async #generateLottos(count) {
+    for (let i = 0; i < count; i++) {
+      const numbers = await Random.pickUniqueNumbersInRange(1, 45, 6);
+      this.#lottos.push(new Lotto(numbers));
+    }
   }
 }
 
