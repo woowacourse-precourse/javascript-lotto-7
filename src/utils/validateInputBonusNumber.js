@@ -11,7 +11,7 @@ const validateInputBonusNumber = async () => {
 
       return bonusNumber;
     } catch (error) {
-      printOutput(error);
+      printOutput(error.message);
     }
   }
 };

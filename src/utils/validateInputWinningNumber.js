@@ -11,7 +11,7 @@ const validateInputWinningNumber = async () => {
 
       return lotto.getNumber();
     } catch (error) {
-      printOutput(error);
+      printOutput(error.message);
     }
   }
 };

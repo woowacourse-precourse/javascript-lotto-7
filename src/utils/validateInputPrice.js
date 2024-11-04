@@ -10,7 +10,7 @@ const validateInputPrice = async () => {
       const price = PriceValidator.validatePrice(inputPrice);
       return price;
     } catch (error) {
-      printOutput(error);
+      printOutput(error.message);
     }
   }
 };
