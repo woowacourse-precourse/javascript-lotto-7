@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-
 import {
   validateWinningNumbers,
   validateBonusNumber,
@@ -11,19 +10,29 @@ class LottoInput {
   }
 
   async getWinningNumbers() {
-    const LOTTO_NUMBERS = await Console.readLineAsync(
-      '\n당첨 번호를 입력해 주세요.\n',
-    );
-    this.winningNumbers = this.processInput(LOTTO_NUMBERS, true);
-    return this.winningNumbers;
+    try {
+      const LOTTO_NUMBERS = await Console.readLineAsync(
+        '\n당첨 번호를 입력해 주세요.\n',
+      );
+      this.winningNumbers = this.processInput(LOTTO_NUMBERS, true);
+      return this.winningNumbers;
+    } catch (error) {
+      Console.print(error.message);
+      return this.getWinningNumbers();
+    }
   }
 
   async getBonusNumber() {
-    const BONUS_NUMBER = await Console.readLineAsync(
-      '\n보너스 번호를 입력해 주세요.\n',
-    );
-    const NUMBER = this.processInput(BONUS_NUMBER, false);
-    return NUMBER;
+    try {
+      const BONUS_NUMBER = await Console.readLineAsync(
+        '\n보너스 번호를 입력해 주세요.\n',
+      );
+      const NUMBER = this.processInput(BONUS_NUMBER, false);
+      return NUMBER;
+    } catch (error) {
+      Console.print(error.message);
+      return this.getBonusNumber();
+    }
   }
 
   processInput(input, isWinningNumbers = true) {
