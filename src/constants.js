@@ -1,4 +1,3 @@
-// constants.js
 export const LOTTERY_PRIZE = [
   { match: 3, reward: 5000, desc: "3개 일치", count: 0 },
   { match: 4, reward: 50000, desc: "4개 일치", count: 0 },

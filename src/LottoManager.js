@@ -28,12 +28,12 @@ export class LottoManager {
 
       if (matchCount === 5) {
         if (hasBonus) {
-          this.#lotteryResult.find((el) => el.match === 5 && el.hasBonus).count++;
+          this.#lotteryResult.find((res) => res.match === 5 && res.hasBonus).count++;
         } else {
-          this.#lotteryResult.find((el) => el.match === 5 && !el.hasBonus).count++;
+          this.#lotteryResult.find((res) => res.match === 5 && !res.hasBonus).count++;
         }
       } else {
-        const prize = this.#lotteryResult.find((el) => el.match === matchCount);
+        const prize = this.#lotteryResult.find((res) => res.match === matchCount);
         if (prize) prize.count++;
       }
     });
