@@ -2,6 +2,36 @@
 
 # 프로젝트 설명
 간단한 로또 발매기를 구현하는 프로젝트입니다. 사용자로부터 구매 금액을 입력받아 로또를 발행하고, 당첨 번호와 비교하여 당첨 내역과 수익률을 계산합니다.
+  
+
+# 클래스 다이어그램
+<img src="https://drive.google.com/uc?export=download&id=1wII7Nv19-RabPPcXU6_HAj4SGgMmCOhn"/>
+  
+  
+# 폴더구조
+```
+📦 src
+├── 📂 constants
+│   └── 📄 constants.js        # 상수 정의
+│
+├── 📂 controllers
+│   └── 📄 LottoController.js  # 로또 게임 컨트롤러
+│
+├── 📂 models
+│   ├── 📄 Lotto.js           # 로또 단일 티켓 모델
+│   └── 📄 LottoGame.js       # 로또 게임 전체 모델
+│
+├── 📂 utils
+│   ├── 📄 Validator.js       # 유효성 검사 유틸리티
+│   └── 📄 deepFreeze.js      # 객체 불변성 유틸리티
+│
+├── 📂 views
+│   └── 📄 LottoView.js       # 로또 게임 뷰
+│
+├── 📄 App.js                  # 애플리케이션 진입점
+└── 📄 index.js               # 프로그램 시작점
+```
+
 
 # 💡 구현할 기능 목록 (주요기능)
 ### 1. 로또 구입 금액을 입력받는다 
