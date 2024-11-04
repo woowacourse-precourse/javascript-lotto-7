@@ -31,6 +31,26 @@ class App {
       }
       if (this.purchaseAmount !== undefined) break;
     }
+    this.makeLottoNumbers(Number(this.purchaseAmount) / 1000);
+    this.printBuyLottos();
+  }
+
+  makeLottoNumbers(number) {
+    for (let i = 0; i < number; i++) {
+      this.buyLottoNumbers.push(new Lotto(this.makeLottoNumber()));
+    }
+  }
+
+  makeLottoNumber() {
+    //1~45까지 겹치지 않는 숫자 6개 반환
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
+
+  printBuyLottos() {
+    Console.print(`${this.buyLottoNumbers.length}개를 구매했습니다.`);
+    this.buyLottoNumbers.forEach((lotto) => {
+      lotto.printLotto();
+    });
   }
 
   async purchaseAmountInput() {
