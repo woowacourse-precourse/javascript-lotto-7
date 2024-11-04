@@ -17,9 +17,7 @@ const OUTPUT_MESSAGES = {
   matchStatistics: '\n당첨 통계',
 };
 
-const AMOUNT = {
-  lottoAmount: 1000,
-};
+const AMOUNT = 1000;
 
 const MATCH_COUNT = {
   three: 3,

@@ -48,9 +48,8 @@ class App {
     const number = await Console.readLineAsync(INPUT_MESSAGES.bonusNumberInput);
     try {
       const bonus = new BonusLotto(number);
-      const bonusNumber = bonus.createBonusLotto();
 
-      return bonusNumber;
+      return bonus.createBonusLotto();
     } catch (error) {
       Console.print(error.message);
 
@@ -72,7 +71,7 @@ class App {
   }
 
   async run() {
-    const [lottos, amount] = await this.#getPurchaseLotto();
+    const [lottos, buyAmount] = await this.#getPurchaseLotto();
 
     const winningNumbers = await this.#getLottoWinningNumbers();
     const bonusNumber = await this.#getBonusNumbers();
@@ -80,7 +79,7 @@ class App {
     const lottoResult = new LottoResult(winningNumbers, bonusNumber, lottos);
     const matchResult = await lottoResult.lottoResult();
 
-    const lottoReturn = new LottoReturn(amount, matchResult);
+    const lottoReturn = new LottoReturn(buyAmount, matchResult);
 
     this.#printLottoResult(matchResult, lottoReturn);
   }

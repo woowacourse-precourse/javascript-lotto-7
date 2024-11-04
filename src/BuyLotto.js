@@ -23,7 +23,7 @@ class BuyLotto {
   }
 
   #countQuantitiyOfLotto() {
-    this.#quantityOfLotto = this.amount / AMOUNT.lottoAmount;
+    this.#quantityOfLotto = this.amount / AMOUNT;
   }
 
   #createRandomLottos() {

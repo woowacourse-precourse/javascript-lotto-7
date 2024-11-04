@@ -19,37 +19,20 @@ class LottoResult {
   }
 
   #isIncludeMatchNumer(purchasedLotto, winningNumber) {
-    const isIncludeWinningNumber = purchasedLotto.includes(
-      Number(winningNumber)
-    );
-
-    if (isIncludeWinningNumber) {
+    const isInclude = purchasedLotto.includes(Number(winningNumber));
+    if (isInclude) {
       return true;
     }
 
     return false;
   }
 
-  #addMatchCount(isIncludeMatchNumer, count) {
-    if (isIncludeMatchNumer) {
-      return (count += 1);
-    }
-    return count;
-  }
-
   #compareLottoNumbers(purchasedLotto) {
-    let count = 0;
+    const matchCount = this.#winningNumbers.filter((winningNumber) =>
+      this.#isIncludeMatchNumer(purchasedLotto, winningNumber)
+    ).length;
 
-    this.#winningNumbers.forEach((winningNumber) => {
-      const isIncludeMatchNumer = this.#isIncludeMatchNumer(
-        purchasedLotto,
-        winningNumber
-      );
-
-      count = this.#addMatchCount(isIncludeMatchNumer, count);
-    });
-
-    return count;
+    return matchCount;
   }
 
   #bonusOrNot(purchasedLotto) {
@@ -76,20 +59,20 @@ class LottoResult {
     }
   }
 
-  #addRankCount(count) {
-    this.winningRank[count] += 1;
+  #addRankCount(rank) {
+    this.winningRank[rank] += 1;
   }
 
-  #getWinningResult() {
-    this.#purchasedLottos.map((purchasedLotto) => {
-      const matchCount = this.#compareLottoNumbers(purchasedLotto);
-      const rank = this.#toRank(matchCount, purchasedLotto);
-      this.#addRankCount(rank);
-    });
+  #getWinningResult(purchasedLotto) {
+    const matchCount = this.#compareLottoNumbers(purchasedLotto);
+    const rank = this.#toRank(matchCount, purchasedLotto);
+    this.#addRankCount(rank);
   }
 
   async lottoResult() {
-    this.#getWinningResult();
+    this.#purchasedLottos.map((purchasedLotto) => {
+      this.#getWinningResult(purchasedLotto);
+    });
 
     return this.winningRank;
   }
