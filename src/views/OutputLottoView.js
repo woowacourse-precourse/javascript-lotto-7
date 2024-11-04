@@ -2,12 +2,12 @@ import { Console } from '@woowacourse/mission-utils';
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class OutputLottoView {
-  #OUTPUT_MESSAGE = {
+  #OUTPUT_MESSAGE = Object.freeze({
     NOTIFY_PURCHASED_LOTTO_COUNT: '개를 구매했습니다.',
     LOTTO_RESULT_START: '\n당첨 통계\n---',
     EARNING_RATE_START: '총 수익률은 ',
     EARNING_RATE_END: '%입니다.',
-  };
+  });
 
   printMessage(message) {
     Console.print(message);

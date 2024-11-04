@@ -1,17 +1,17 @@
 import { Console } from '@woowacourse/mission-utils';
 
 export default class InputLottoView {
-  #INPUT_MESSAGE = {
+  #INPUT_MESSAGE = Object.freeze({
     PURCHASE_PRICE: '구입금액을 입력해 주세요.\n',
     WINNING_LOTTO_MAIN_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
     WINNING_LOTTO_BOUNS_NUMBER: '\n보너스 번호를 입력해 주세요.\n',
-  };
-  #ERROR_MESSAGE = {
+  });
+  #ERROR_MESSAGE = Object.freeze({
     INVALID_NUMBER: '[ERROR] 숫자를 입력해주세요.\n',
     INVALID_BLANK: '[ERROR] 값을 입력해주세요.\n',
     INVALID_COMMA_FORMAT:
       '[ERROR] 당첨 번호는 쉼표(,)를 기준으로 6개를 입력해주세요.\n',
-  };
+  });
   #SPLIT_COMMA_REGEX = /^(\d+)(,\d+){5}$/;
   #SPLITTER = ',';
 
