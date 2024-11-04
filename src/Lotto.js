@@ -65,3 +65,27 @@ class Lotto {
     }
     return lottos;
   }
+
+  async getWinningNumbers() {
+    const input = await Console.readLineAsync("당첨 번호를 입력해주세요.\n");
+    const numbers = input.split(",").map(Number).filter((num) => !isNaN(num));
+    
+    if (numbers.length !== 6 || !numbers.every((num) => num >= 1 && num <= 45) || new Set(numbers).size !== numbers.length) {
+      Console.print("[ERROR] 당첨 번호는 중복되지 않는 1부터 45 사이의 숫자 6개여야 합니다.");
+      throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자 6개여야 합니다.");
+    }
+
+    return numbers;
+  }
+
+  async getBonusNumber(winningNumbers) {
+    const input = await Console.readLineAsync("보너스 번호를 입력해주세요.\n");
+    const bonusNumber = parseInt(input, 10);
+    
+    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45 || winningNumbers.includes(bonusNumber)) {
+      Console.print("[ERROR] 보너스 번호는 1부터 45 사이의 숫자 중 당첨 번호와 중복되지 않는 숫자여야 합니다.");
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자 중 당첨 번호와 중복되지 않는 숫자여야 합니다.");
+    }
+
+    return bonusNumber;
+  }
