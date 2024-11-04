@@ -3,8 +3,14 @@ import {
   validateLottoBuyPrice,
   validateLottoAnswerNumbers,
   validateLottoBonusNumber,
-} from './validateFunctions.js';
+} from './validation/validateFunctions.js';
 import Lotto from './Lotto.js';
+import {
+  ONE_LOTTO_PRICE,
+  LottoWinningPrice,
+  LottoWinningPriceChar,
+  PROMPT_MESSAGES,
+} from './constants.js';
 
 const prompt = async (message, validation, rest) => {
   const input = await Console.readLineAsync(message);
@@ -14,24 +20,8 @@ const prompt = async (message, validation, rest) => {
   return prompt(message, validation, rest);
 };
 
-const ONE_LOTTO_PRICE = 1000;
 const makeLottoCount = (lottoBuyPrice) =>
   Number(lottoBuyPrice) / ONE_LOTTO_PRICE;
-
-const LottoWinningPrice = Object.freeze({
-  3: 5_000,
-  4: 50_000,
-  5: 1_500_000,
-  5.5: 30_000_000,
-  6: 2_000_000_000,
-});
-const LottoWinningPriceChar = Object.freeze({
-  3: '5,000',
-  4: '50,000',
-  5: '1,500,000',
-  5.5: '30,000,000',
-  6: '2,000,000,000',
-});
 
 class App {
   constructor() {
@@ -67,7 +57,7 @@ class App {
 
   async getLottoBuyPrice() {
     const lottoBuyPrice = await prompt(
-      '구입금액을 입력해 주세요.\n',
+      PROMPT_MESSAGES.buyPrice,
       validateLottoBuyPrice,
     );
     this.lottoBuyPrice = Number(lottoBuyPrice);
@@ -97,7 +87,7 @@ class App {
 
   async getLottoAnswerNumbers() {
     const lottoAnswerNumbers = await prompt(
-      '당첨 번호를 입력해 주세요.\n',
+      PROMPT_MESSAGES.winningNumbers,
       validateLottoAnswerNumbers,
     );
     Console.print('');
@@ -107,7 +97,7 @@ class App {
 
   async getLottoBonusNumber() {
     const lottoBonusNumber = await prompt(
-      '보너스 번호를 입력해 주세요.\n',
+      PROMPT_MESSAGES.bonusNumber,
       validateLottoBonusNumber,
       this.lottoAnswerNumbers,
     );
@@ -139,8 +129,8 @@ class App {
   }
 
   printLottoResult() {
-    Console.print('당첨 통계');
-    Console.print('---');
+    Console.print(PROMPT_MESSAGES.lottoResultTitle);
+    Console.print(PROMPT_MESSAGES.lottoResultDivider);
     this.printLottoWinningCount();
     this.printRateOfReturn();
   }
@@ -162,7 +152,7 @@ class App {
 
   printRateOfReturn() {
     Console.print(
-      `총 수익률은 ${((this.winningMoney / this.lottoBuyPrice) * 100).toFixed(1)}%입니다.`,
+      `${PROMPT_MESSAGES.rateOfReturnPrefix}${((this.winningMoney / this.lottoBuyPrice) * 100).toFixed(1)}${PROMPT_MESSAGES.rateOfReturnSuffix}`,
     );
   }
 }
