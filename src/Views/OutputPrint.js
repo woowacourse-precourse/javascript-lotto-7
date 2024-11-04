@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PrizeDescription } from '../Constants/prizeConfig.js';
 import { OutputComment } from '../Constants/display.js';
+import getNumberWithComma from '../Utils/getNumberWithComma.js';
 
 const OutputPrint = {
   message: (message) => {
@@ -34,7 +35,7 @@ const OutputPrint = {
     Console.print(`${PrizeDescription.THIRD} - ${winningResult.third}개`);
     Console.print(`${PrizeDescription.SECOND} - ${winningResult.second}개`);
     Console.print(`${PrizeDescription.FIRST} - ${winningResult.first}개`);
-    Console.print(`총 수익률은 ${earningRate}%입니다.`);
+    Console.print(`총 수익률은 ${getNumberWithComma(earningRate)}%입니다.`);
   },
 
   basicNumbers: (basicNumbers) => {
