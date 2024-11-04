@@ -1,10 +1,16 @@
 import { Utils } from "../utils/Utils.js";
 import BonusNumberValidator from "../validators/BonusNumberValidator.js";
 import WinningNumbersValidator from "../validators/WinningNumbersValidator.js";
-import InputView from "../view/InputView.js";
-import OutputView from "../view/OutputView.js";
 
 class WinningNumberController {
+  #inputView;
+  #outputView;
+
+  constructor({ inputView, outputView }) {
+    this.#inputView = inputView;
+    this.#outputView = outputView;
+  }
+
   async getWinningInfo() {
     const winningNumbers = await this.#repeatUntilValidInput(() => this.#getWinningNumbers());
     const bonusNumber = await this.#repeatUntilValidInput(() =>
@@ -14,14 +20,14 @@ class WinningNumberController {
   }
 
   async #getWinningNumbers() {
-    const winningNumbers = await InputView.enterWinningNumbers();
+    const winningNumbers = await this.#inputView.enterWinningNumbers();
     const convertedWinningNumbers = Utils.convertWinningNumberToArray(winningNumbers);
     WinningNumbersValidator.checkValid(convertedWinningNumbers);
     return convertedWinningNumbers;
   }
 
   async #getBonusNumber(winningNumbers) {
-    const bonusNumber = await InputView.enterBonusNumber();
+    const bonusNumber = await this.#inputView.enterBonusNumber();
     const convertedBonusNumber = Utils.convertBonusNumberToNumber(bonusNumber);
     BonusNumberValidator.checkValid(convertedBonusNumber, winningNumbers);
     return convertedBonusNumber;
@@ -31,7 +37,7 @@ class WinningNumberController {
     try {
       return await callback();
     } catch (error) {
-      OutputView.printError(error.message);
+      this.#outputView.printError(error.message);
       return this.#repeatUntilValidInput(callback);
     }
   }

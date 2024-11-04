@@ -1,10 +1,15 @@
 import RankCalculator from "../models/RankCalculator.js";
-import OutputView from "../view/OutputView.js";
 
 class LottoResultController {
+  #outputView;
+
+  constructor({ inputView, outputView }) {
+    this.#outputView = outputView;
+  }
+
   async showLottoResult(purchaseHistory, winningNumbers, bonusNumber) {
     const rankResult = this.#calculateRank(purchaseHistory, winningNumbers, bonusNumber);
-    OutputView.printRankResult(rankResult.getLottoRankResult());
+    this.#outputView.printRankResult(rankResult.getLottoRankResult());
   }
 
   #calculateRank(purchaseHistory, winningNumbers, bonusNumber) {
