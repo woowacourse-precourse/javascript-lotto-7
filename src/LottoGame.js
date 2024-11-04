@@ -119,7 +119,7 @@ class LottoGame {
     if (isNaN(totalCost)) {
       throw new Error('[ERROR] 잘못된 입력입니다.');
     }
-    if (totalCost % 1000 !== 0) {
+    if (Number(totalCost) <= 0 || totalCost % 1000 !== 0) {
       throw new Error('[ERROR] 잘못된 입력입니다.');
     }
   }
