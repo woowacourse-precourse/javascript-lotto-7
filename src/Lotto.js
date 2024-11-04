@@ -12,7 +12,19 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
+
+  getRank(winningNumbers, bonusNumber) {
+    const matchedCount = this.#numbers.filter((num) =>
+      winningNumbers.includes(num)
+    ).length;
+    if (matchedCount === 5 && this.#numbers.includes(bonusNumber)) {
+      return 5.5;
+    }
+    return matchedCount;
+  }
 }
 
 export default Lotto;
