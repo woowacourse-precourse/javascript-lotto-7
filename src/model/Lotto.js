@@ -18,20 +18,22 @@ class Lotto {
       .length;
   }
 
+  getMatchCount({ winningNumbers, bonusNumber }) {
+    const matchCount = this.#getMatchCount(winningNumbers);
+    return this.#determineMatchCount(matchCount, bonusNumber);
+  }
+
   #hasBonusMatch(bonusNumber) {
     return this.#numbers.includes(bonusNumber);
   }
 
-  getMatchCount({ winningNumbers, bonusNumber }) {
-    const matchCount = this.#getMatchCount(winningNumbers);
-
+  #determineMatchCount(matchCount, bonusNumber) {
     if (
       matchCount === RANK.THIRD.matchCount &&
       this.#hasBonusMatch(bonusNumber)
     ) {
       return RANK.SECOND.matchCount;
     }
-
     return matchCount;
   }
 }
