@@ -1,42 +1,40 @@
 import { ERROR_MESSAGE, formatErrorMessage } from "../constants/Messages.js";
+import { isBlank, isInteger, isInRange, hasNoDuplicates, validateWithRegex } from "../utils/ValidationUtils.js";
+import { REGEX_ONLY_DIGITS_AND_COMMAS, REGEX_LOTTO_NUMBERS } from "../constants/Constants.js";
 
 class InputValidator {
     static isValidLottoAmount(lottoAmount) {
-        if (lottoAmount.trim() === "") {
-            throw Error(formatErrorMessage(ERROR_MESSAGE.IS_BLANK));
-        }
+        isBlank(lottoAmount, ERROR_MESSAGE.IS_BLANK);
 
         lottoAmount = Number(lottoAmount);
 
-        if (!Number.isInteger(lottoAmount)) {
-            throw Error(formatErrorMessage(ERROR_MESSAGE.NOT_INTEGER));
-        }
+        isInteger(lottoAmount, ERROR_MESSAGE.NOT_INTEGER);
+
         if (lottoAmount < 0) {
             throw Error(formatErrorMessage(ERROR_MESSAGE.NEGATIVE_AMOUNT));
         }
+
         if (lottoAmount % 1000 > 0) {
             throw Error(formatErrorMessage(ERROR_MESSAGE.NOT_THOUSAND_UNIT));
         }
+
         if (lottoAmount / 1000 == 0) {
             throw Error(formatErrorMessage(ERROR_MESSAGE.MINIMUM_AMOUNT));
         }
     }
 
     static isValidWinningNumbers(winningNumbers) {
-        if (winningNumbers.trim() === "") {
-            throw Error(formatErrorMessage(ERROR_MESSAGE.IS_BLANK));
-        }
+        isBlank(winningNumbers, ERROR_MESSAGE.IS_BLANK);
 
-        const regexOnlyDigitsAndCommas = /^[0-9,\s]+$/; // 콤마 외 다른 구분자 사용
-        if (!regexOnlyDigitsAndCommas.test(winningNumbers)) {
+        // 콤마 외 다른 구분자 사용
+        if (!REGEX_ONLY_DIGITS_AND_COMMAS.test(winningNumbers)) {
             throw Error(
                 formatErrorMessage(ERROR_MESSAGE.INVALID_FORMAT)
             );
         }
 
-        const regexLottoNumbers =
-             /^\s*(?:[1-9]|[1-3][0-9]|4[0-5])\s*(,\s*(?:[1-9]|[1-3][0-9]|4[0-5])\s*)*$/; // 1~45 사이의 정수만 가능
-        if (!regexLottoNumbers.test(winningNumbers)) {
+        // 1~45 사이의 정수만 가능
+        if (!REGEX_LOTTO_NUMBERS.test(winningNumbers)) {
             throw Error(
                 formatErrorMessage(ERROR_MESSAGE.OUT_OF_RANGE)
             );
@@ -49,28 +47,18 @@ class InputValidator {
             );
         }
 
-        const winningNumbersSet = new Set(winningNumbers); // 중복된 로또 번호 존재
-        if (winningNumbers.length == 6 && winningNumbersSet.size !== 6) {
-            throw Error(formatErrorMessage(ERROR_MESSAGE.DUPLICATE_NUMBERS));
-        }
+        hasNoDuplicates(winningNumbers, ERROR_MESSAGE.DUPLICATE_NUMBERS);   // 중복된 로또 번호 존재
 
         return winningNumbers;
     }
 
     static isValidBonusNumber(bonusNumber, inputWinningNumbers) {
-        if (bonusNumber.trim() === "") {
-            throw Error(formatErrorMessage(ERROR_MESSAGE.IS_BLANK));
-        }
+        isBlank(bonusNumber, ERROR_MESSAGE.IS_BLANK);
 
         bonusNumber = Number(bonusNumber);
 
-        if (!Number.isInteger(bonusNumber)) {
-            throw Error(formatErrorMessage(ERROR_MESSAGE.NOT_INTEGER));
-        }
-
-        if (bonusNumber < 1 || bonusNumber > 45) {
-            throw Error(formatErrorMessage(ERROR_MESSAGE.OUT_OF_RANGE));
-        }
+        isInteger(bonusNumber, ERROR_MESSAGE.NOT_INTEGER);
+        isInRange(bonusNumber, 1, 45, ERROR_MESSAGE.OUT_OF_RANGE);
 
         if(inputWinningNumbers.includes(bonusNumber)) {
             throw Error(formatErrorMessage(ERROR_MESSAGE.DUPLICATE_WINNING_LOTTO_NUMBERS));
