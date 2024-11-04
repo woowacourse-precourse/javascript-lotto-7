@@ -1,3 +1,7 @@
+import { Console } from '@woowacourse/mission-utils';
+
+import { ERROR_MESSAGE, LOTTO } from './constants/index.js';
+
 class Lotto {
   #numbers;
 
@@ -6,13 +10,36 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+  show() {
+    Console.print(`[${this.#numbers.join(', ')}]`);
   }
 
-  // TODO: 추가 기능 구현
+  match(winningNumbers, bonus) {
+    return {
+      matchingCount: this.#numbers.filter((number) =>
+        winningNumbers.includes(number)
+      ).length,
+      hasBonus: this.#numbers.includes(bonus),
+    };
+  }
+
+  #validate(numbers) {
+    const invalidLength = numbers.length !== LOTTO.numberCount;
+    if (invalidLength) {
+      throw new Error(ERROR_MESSAGE.lotto.number);
+    }
+
+    const isInvalidRange = numbers.some(LOTTO.isInvalidRange);
+    if (isInvalidRange) {
+      throw new Error(ERROR_MESSAGE.lotto.range);
+    }
+
+    const set = new Set(numbers);
+    const hasDuplicateNumber = set.size < LOTTO.numberCount;
+    if (hasDuplicateNumber) {
+      throw new Error(ERROR_MESSAGE.lotto.duplicate);
+    }
+  }
 }
 
 export default Lotto;
