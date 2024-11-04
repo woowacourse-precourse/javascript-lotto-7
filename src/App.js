@@ -18,6 +18,7 @@ class App {
     await this.readBonusNumber();
     this.#result = this.getLottosResult();
     this.printWinningInfo();
+    this.printROI();
   }
 
   async readPurchaseAmount() {
@@ -98,6 +99,14 @@ class App {
       const rank = this.#result[i];
       OutputView.printMessage(this.#setResultMessage(rank, this.#setBonusText(i)));
     }
+  }
+
+  printROI() {
+    const ROI = (this.#rankSystem.calculateTotalWinnings() / this.#lottoMachine.purchaseAmount) * 100;
+    OutputView.printEmptyLine();
+    OutputView.printMessage(
+      `${OUTPUT_MESSAGE.roi.openingMessage}${ROI.toFixed(1)}${OUTPUT_MESSAGE.roi.closingMessage}`
+    );
   }
 }
 
