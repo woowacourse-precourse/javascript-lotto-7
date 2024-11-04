@@ -17,17 +17,30 @@ class App {
   }
 
   async run() {
+    const purchaseAmount = await this.getPurchaseAmount();
+    const userLottos = this.generateLottos(purchaseAmount);
+    const { winningNumbers, bonusNumber } = await this.getWinningNumbers();
+
+    this.calculateResults(userLottos, winningNumbers, bonusNumber);
+    this.displayResults(purchaseAmount);
+  }
+
+  async getPurchaseAmount() {
     const purchaseAmountInput = await Console.readLineAsync(
       "구입금액을 입력해 주세요.\n"
     );
-    const purchaseAmount = this.parser.parsePurchaseAmount(purchaseAmountInput);
+    return this.parser.parsePurchaseAmount(purchaseAmountInput);
+  }
 
-    // 로또 티켓 생성
+  generateLottos(purchaseAmount) {
     Console.print(``);
     this.userLotto.generateUserLottos(purchaseAmount);
     const userLottos = this.userLotto.getUserLottos();
     this.display.displayTickets(userLottos);
+    return userLottos;
+  }
 
+  async getWinningNumbers() {
     const winningNumbersInput = await Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
     );
@@ -43,21 +56,22 @@ class App {
       this.lotto.getLottoNumber()
     );
 
-    // 등수 계산
-    this.lottoResult.calculateRank(
-      userLottos,
-      this.lotto.getLottoNumber(),
-      this.bonusNumber.getBonusNumber()
-    );
+    return {
+      winningNumbers: this.lotto.getLottoNumber(),
+      bonusNumber: this.bonusNumber.getBonusNumber(),
+    };
+  }
 
-    // 당첨 금액과 수익률 계산
+  calculateResults(userLottos, winningNumbers, bonusNumber) {
+    this.lottoResult.calculateRank(userLottos, winningNumbers, bonusNumber);
+  }
+
+  displayResults(purchaseAmount) {
     const winningAmount = this.lottoResult.calculateWinningAmount();
     const profitRate = this.lottoResult.calculateProfitRate(
       winningAmount,
       purchaseAmount
     );
-
-    // 결과 출력
     this.display.displayRankNumber(this.lottoResult.ranks);
     this.display.displayReturn(profitRate);
   }
