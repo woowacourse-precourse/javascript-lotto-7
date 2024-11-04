@@ -1,3 +1,17 @@
+import { Console } from "@woowacourse/mission-utils";
+const MESSAGES = Object.freeze({
+  INPUT: {
+    LOTTO_AMOUT: "구입금액을 입력해 주세요.\n",
+    
+  },
+  OUTPUT: {
+
+  },
+  ERROR: {
+
+  }
+});
+
 class App {
   async run() {
 
