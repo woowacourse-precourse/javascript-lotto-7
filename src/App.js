@@ -82,6 +82,13 @@ class App {
 
     if (numberArray.length !== 6 || numberArray.length !== uniqueNumersSet.size)
       throw new Error("[ERROR] 6개의 숫자를, 중복 없이 입력해야 합니다.");
+
+    numberArray.forEacn((num) => {
+      if (isNaN(num) || num % 1 !== 0 || num < 1 || num > 45)
+        throw new Error(
+          "[ERROR] 숫자는 반드시 정수이며, 범위는 1-45이어야 합니다."
+        );
+    });
   }
 }
 
