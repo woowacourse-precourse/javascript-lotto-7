@@ -11,31 +11,19 @@ import {
   mockQuestions,
 } from "../src/utils/testUtils.js";
 
-describe("입력값 유효성 test", () => {
-  test.each([["123a", ERROR_MESSAGE.number.notNumber]])(
-    "로또 구입 금액에 대한 입력 유효성 검사",
-    (price, errorMessage) => {
-      expect(() => Validator.isValidPrice(price)).toThrow(
-        `[ERROR] ${errorMessage}`
-      );
-    }
-  );
-});
+describe("입력값 유효성 test", () => {});
 
 describe("구매 금액 입력값 유효성 test", () => {
-  test.each([[["123a", "aaaa"]], [["123a"]], [["123a", "aaaa", "bbbb"]]])(
-    "문자열이 입력으로 들어온 경우 정상적인 값이 들어올 때까지 반복",
-    async (prices) => {
-      const logSpy = getLogSpy();
-
-      const INPUT_NUMBERS_TO_END = ["1000"];
-      mockQuestions([...prices, ...INPUT_NUMBERS_TO_END]);
-      const result = await InputHandler.getPrice();
-
-      expect(result).toBe(1000);
-      expect(logSpy).toHaveBeenCalledTimes(prices.length);
-    }
-  );
+  test.each([
+    ["123a", ERROR_MESSAGE.number.notNumber],
+    ["-10000", ERROR_MESSAGE.number.notPositive],
+    ["20000.20", ERROR_MESSAGE.number.notInteger],
+    ["10000000", ERROR_MESSAGE.number.tooLarge],
+  ])("로또 구입 금액에 대한 입력 유효성 검사", (price, errorMessage) => {
+    expect(() => Validator.isValidPrice(price)).toThrow(
+      `[ERROR] ${errorMessage}`
+    );
+  });
 
   test.each([
     ["1200", false],
@@ -51,6 +39,20 @@ describe("구매 금액 입력값 유효성 test", () => {
           `[ERROR] ${ERROR_MESSAGE.lotto.invalidUnit}`
         );
       }
+    }
+  );
+
+  test.each([[["123a", "aaaa"]], [["123a"]], [["123a", "aaaa", "bbbb"]]])(
+    "문자열이 입력으로 들어온 경우 정상적인 값이 들어올 때까지 반복",
+    async (prices) => {
+      const logSpy = getLogSpy();
+
+      const INPUT_NUMBERS_TO_END = ["1000"];
+      mockQuestions([...prices, ...INPUT_NUMBERS_TO_END]);
+      const result = await InputHandler.getPrice();
+
+      expect(result).toBe(1000);
+      expect(logSpy).toHaveBeenCalledTimes(prices.length);
     }
   );
 });
@@ -73,23 +75,30 @@ describe("당첨번호 입력값 유효성 test", () => {
       expect(logSpy).toHaveBeenCalledTimes(winnerNumbers.length);
     }
   );
+
+  test.each([
+    [[1, 2, 3, 4, 5], ERROR_MESSAGE.lotto.invalidCount],
+    [[1, 2, 3, 3, 4, 5], ERROR_MESSAGE.lotto.isDuplicated],
+    [[1, 2, 3, 4, 5, "aa"], ERROR_MESSAGE.number.notNumber],
+    [[1, 2, 3, 4, 5, -10], ERROR_MESSAGE.number.notPositive],
+    [[1, 2, 3, 4, 5, 6.6], ERROR_MESSAGE.number.notInteger],
+  ])("당첨번호 입력값에 대한 입력 유효성 검사", (price, errorMessage) => {
+    expect(() => Validator.isValidWinningLotto(price)).toThrow(
+      `[ERROR] ${errorMessage}`
+    );
+  });
 });
 
 describe("보너스 번호 입력값 유효성 test", () => {
   test.each([
-    ["", false, ERROR_MESSAGE.string.notNull],
-    ["abs", false, ERROR_MESSAGE.number.notNumber],
-    ["7", true, ""],
-  ])(
-    "보너스 번호 입력값 유효성을 검사한다",
-    async (bonusBall, result, errorMessage) => {
-      if (result) {
-        expect(() => Validator.isValidBonusBall(bonusBall)).not.toThrow();
-      } else {
-        expect(() => Validator.isValidBonusBall(bonusBall)).toThrow(
-          `[ERROR] ${errorMessage}`
-        );
-      }
-    }
-  );
+    ["", ERROR_MESSAGE.string.notNull],
+    ["abs", ERROR_MESSAGE.number.notNumber],
+    ["-7", ERROR_MESSAGE.number.notPositive],
+    ["0", ERROR_MESSAGE.number.notZero],
+    ["6.6", ERROR_MESSAGE.number.notInteger],
+  ])("보너스 번호 입력값 유효성을 검사한다", (price, errorMessage) => {
+    expect(() => Validator.isValidBonusBall(price)).toThrow(
+      `[ERROR] ${errorMessage}`
+    );
+  });
 });
