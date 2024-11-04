@@ -26,6 +26,14 @@ class Generator {
     return lottos;
   }
 
+  getPurchaseAmount() {
+    return this.#purchaseAmount;
+  }
+
+  getLottoTickets() {
+    return this.#lottoTickets;
+  }
+
   #generateLottoNumber() {
     return MissionUtils.Random.pickUniqueNumbersInRange(
       LOTTO.NUMBER_MINIMUM_RANGE,
