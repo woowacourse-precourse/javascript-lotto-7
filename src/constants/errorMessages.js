@@ -26,6 +26,8 @@ const ERROR_MESSAGES = Object.freeze({
     '보너스 번호는 정수여야 합니다. 반드시 하나의 정수를 입력해 주세요.',
   BONUS_NUMBER_OUT_OF_RANGE:
     '보너스 번호가 유효한 범위를 벗어났습니다. 반드시 1 ~ 45 사이의 번호를 입력해 주세요.',
+  BONUS_NUMBER_DUPLICATE:
+    '보너스 번호가 당첨 번호와 중복됐습니다. 반드시 입력하신 당첨 번호와 다른 번호를 입력해 주세요',
 });
 
 export default ERROR_MESSAGES;

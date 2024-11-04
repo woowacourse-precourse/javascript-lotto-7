@@ -26,13 +26,20 @@ class BonusNumberValidator {
     }
   }
 
-  static validateBonusNumber(inputBonusNumber) {
+  static isNumberDuplicate(bonusNumber, lottoNumbers) {
+    if (lottoNumbers.includes(bonusNumber)) {
+      handleError(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
+    }
+  }
+
+  static validateBonusNumber(inputBonusNumber, lottoNumbers) {
     this.isEmptyNumber(inputBonusNumber);
     this.isCountInvalid(inputBonusNumber);
 
     const bonusNumber = Number(inputBonusNumber);
     this.isFormatInvalid(bonusNumber);
     this.isOutOfRange(bonusNumber);
+    this.isNumberDuplicate(bonusNumber, lottoNumbers);
 
     return bonusNumber;
   }
