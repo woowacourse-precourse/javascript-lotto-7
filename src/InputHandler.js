@@ -9,7 +9,7 @@ class InputHandler {
       return buyPrice;
     } catch (error) {
       Console.print(error.message);
-      return null;
+      return this.getBuyPrice();
     }
   }
 
@@ -22,7 +22,7 @@ class InputHandler {
       return winningNumbers;
     } catch (error) {
       Console.print(error.message);
-      return null;
+      return this.getWinningNumbers();
     }
   }
 
@@ -35,7 +35,7 @@ class InputHandler {
       return bonusNumber;
     } catch (error) {
       Console.print(error.message);
-      return null;
+      return this.getBonusNumber(winningNumbers);
     }
   }
 
