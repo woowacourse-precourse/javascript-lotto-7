@@ -1,5 +1,3 @@
-import { inputHandler } from "./handlers/inputHandler.js";
-import { MESSAGES } from "./config/config.js";
 import { outputHandler } from "./handlers/outputHandler.js";
 import { getLottoCount } from "./features/getLottoCount.js";
 import { createBuyMsg } from "./features/createBuyMsg.js";
@@ -8,7 +6,9 @@ import { calculateProfit } from "./features/calculateProfit.js";
 import { getLottoRanks } from "./features/getLottoRanks.js";
 import { getTotalAmount } from "./features/getTotalAmount.js";
 import { createResultMsg } from "./features/createResultMsg.js";
-import { parseNumbers } from "./features/parseNumbers.js";
+import { inputLotto } from "./features/input/inputLotto.js";
+import { inputLottoNum } from "./features/input/inputLottoNum.js";
+import { inputBonusNum } from "./features/input/inputBonusNum.js";
 
 class App {
   async run() {
@@ -21,18 +21,15 @@ class App {
    * 로또 발행 프로세스
    * 구입 금액을 입력받아 로또횟수만큼 로또를 발행하고 그 결과를 출력한다.
    *
-   * @async
    * @returns {[number, Array]} 구입한 로또 금액과 생성된 로또 리스트를 포함하는 배열
    * - 'amount' {number}: 로또 금액
    * - 'lottoList' {Array}: 로또 리스트, Lotto 객체 리스트
    */
   async processLotto() {
-    const amount = await inputHandler(MESSAGES.INPUT_BUY_COST);
+    const amount = await inputLotto();
     const lottoCount = getLottoCount(amount);
     const [lottoList, lottoStrings] = getLottos(lottoCount);
-
     outputHandler(createBuyMsg(lottoCount, lottoStrings));
-
     return [amount, lottoList];
   }
 
@@ -49,14 +46,12 @@ class App {
    * - 'profit' {string}: 수익률
    */
   async processCalc(amount, lottoList) {
-    const strWinningNum = await inputHandler(MESSAGES.INPUT_WIN_NUM);
-    const bonusNumber = await inputHandler(MESSAGES.INPUT_BONUS_NUM);
+    const winningNumbers = await inputLottoNum();
+    const bonusNumber = await inputBonusNum(winningNumbers);
 
-    const winningNumbers = parseNumbers(strWinningNum);
     const lottoRankMap = getLottoRanks(lottoList, winningNumbers, bonusNumber);
     const totalAmount = getTotalAmount(lottoRankMap);
     const profit = calculateProfit(amount, totalAmount);
-
     return [lottoRankMap, profit];
   }
 
@@ -68,9 +63,12 @@ class App {
    * @param {string} profit - 수익률
    */
   processOutput(lottoRankMap, profit) {
-    const resultMessage = createResultMsg(lottoRankMap, profit);
-
-    outputHandler(resultMessage);
+    try {
+      const resultMessage = createResultMsg(lottoRankMap, profit);
+      outputHandler(resultMessage);
+    } catch (e) {
+      throw new Error(e.message);
+    }
   }
 }
 
