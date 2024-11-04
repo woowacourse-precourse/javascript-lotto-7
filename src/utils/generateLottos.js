@@ -1,4 +1,4 @@
-import Lotto from '../Lotto.js';
+import Lotto from '../model/Lotto.js';
 import { LOTTO } from '../constant/constants.js';
 import { getUniqueNumbers } from './getUniqueNumbers.js';
 
