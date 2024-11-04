@@ -88,6 +88,11 @@ class LottoManager {
       return lotto;
     });
   }
+
+  // Method for test
+  getLottoCountTest(price) {
+    return this.#getLottoCount(price);
+  }
 }
 
 export default LottoManager;
