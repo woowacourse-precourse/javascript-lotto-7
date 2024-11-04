@@ -12,7 +12,7 @@ const isPromptAmountNumber = (amount) => {
   if (Number.isNaN(Number(amount))) {
     throw new Error(INVALID_PURCHASE_AMOUNT_NOT_NUMBER);
   }
-  return amount;
+  return Number(amount);
 };
 
 const isValidTicketUnit = (amount) => {
@@ -23,7 +23,8 @@ const isValidTicketUnit = (amount) => {
 };
 
 const validateAmount = (amount) => {
-  const trimmedAmount = trimInputAndCheckEmpty(amount);
+  const amountAsString = String(amount);
+  const trimmedAmount = trimInputAndCheckEmpty(amountAsString);
   const numericAmount = isPromptAmountNumber(trimmedAmount);
   return isValidTicketUnit(numericAmount);
 };
