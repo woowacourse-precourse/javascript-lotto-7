@@ -20,10 +20,12 @@ class Lotto {
     }
   }
 
+
   #isValidRange(numbers) {
     return numbers.every((number) => number >= 1 && number <= 45);
   }
 
+  // 중복 확인
   #hasDuplicates(numbers) {
     const uniqueNumbers = new Set(numbers);
     return uniqueNumbers.size !== numbers.length;
