@@ -28,6 +28,7 @@ class Lotto {
     this.#matchedNumberCnt = 0;
     this.#matchedTotalCnt = 0;
     this.#isMatchedBonusNum = false;
+    this.#rank = EarningTable.NONE;
   }
 
   #validate(numbers) {
