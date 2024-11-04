@@ -32,7 +32,9 @@ class Lotto {
 
   static validateWinningNumbers(winningNumbers) {
     if (winningNumbers.length !== 6) {
-      throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
+      throw new Error(
+        "[ERROR] 당첨 번호는 6개여야 하며 쉼표(,)로 구분해야합니다."
+      );
     }
     if (new Set(winningNumbers).size !== winningNumbers.length) {
       throw new Error("[ERROR] 당첨 번호는 중복될 수 없습니다.");
