@@ -17,6 +17,7 @@ class Input {
     if(isNaN(checkMoney)) throw new Error("[ERROR] 로또 구입 금액은 숫자여야 합니다.");
     if(checkMoney <= 0) throw new Error("[ERROR] 로또 구입 금액은 양수여야 합니다.");
     if(checkMoney % 1000 !== 0) throw new Error("[ERROR] 금액은 1,000원 단위로 입력해야 합니다.");
+    if(checkMoney > 100000) throw new Error("[ERROR] 금액은 최대 100,000원까지 가능합니다.");
   }
 
   static async getJackpotNumber() {

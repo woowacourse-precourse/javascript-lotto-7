@@ -19,6 +19,12 @@ describe("로또 구입 금액에 대한 입력 테스트", () => {
     }).toThrow("[ERROR] ");
   });
 
+  test("로또 구입 금액이 100,000원이 넘는 경우 예외가 발생한다.", () => {
+    expect(() => {
+      Input.validateMoney("10000000000");
+    }).toThrow("[ERROR] ");
+  });
+
   test("올바른 로또 구입 금액이 입력되면 예외가 발생하지 않는다.", () => {
     expect(() => {
       Input.validateMoney("5000");
@@ -53,9 +59,9 @@ describe("당첨번호에 대한 입력 테스트", () => {
 });
 
 describe("보너스 번호에 대한 입력 테스트", () => {
-  test("보너스 번호에 문자가 포함되면 예외가 발생한다.", () => {
+  test("보너스 번호가 숫자가 아닐 경우 예외가 발생한다.", () => {
     expect(() => {
-      Input.validateJackpotNumber("1,3,5,7,9", "a");
+      Input.validateJackpotNumber("a");
     }).toThrow("[ERROR] ");
   });
 
