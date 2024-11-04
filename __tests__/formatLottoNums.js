@@ -1,6 +1,6 @@
-import formatLottoNumbers from '../src/util/formatLottoNums.js';
+import formatLottoNumbers from '../src/util//formatters/formatLottoNums.js';
 
-jest.mock('../src/util/formatLottoNums.js');
+jest.mock('../src/util//formatters/formatLottoNums.js');
 
 formatLottoNumbers.mockReturnValue([1, 2, 3, 4, 5, 6]);
 

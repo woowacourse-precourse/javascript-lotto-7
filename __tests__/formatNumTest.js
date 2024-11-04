@@ -1,6 +1,6 @@
-import formatNum from '../src/util/formatNum.js';
+import formatNum from '../src/util/formatters/formatNum.js';
 
-jest.mock('../src/util/formatNum.js');
+jest.mock('../src/util/formatters/formatNum.js');
 
 formatNum.mockReturnValue('1,000');
 
