@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES, throwError } from "../Model/Error.js";
+import { ERROR_MESSAGES, throwError } from "../Error/Error.js";
 
 function validatePrice(price) {
   if (price === undefined || price === null || price === "") {
