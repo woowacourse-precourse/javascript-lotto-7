@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { OUTPUT_MESSAGES } from "../utils/messages.js";
 

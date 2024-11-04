@@ -1,8 +1,10 @@
 import { validateLottoNumbers } from "../utils/validation.js";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
+    validateLottoNumbers(numbers); // 유효성 검사 추가
     this.#numbers = numbers || this.generateRandomNumbers();
   }
 
@@ -15,6 +17,7 @@ class Lotto {
     }
     return Array.from(numbers).sort((a, b) => a - b); // 오름차순 정렬
   }
+
   getNumbers() {
     return this.#numbers;
   }

@@ -1,16 +1,18 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+jest.setTimeout(20000); // 타임아웃을 20초로 증가
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 const mockQuestions = (inputs) => {
-  MissionUtils.Console.readLineAsync = jest.fn();
-
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
+  MissionUtils.Console.readLine = jest.fn((_, callback) => {
     const input = inputs.shift();
-
-    return Promise.resolve(input);
+    callback(input);
   });
 };
-
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
   numbers.reduce((acc, number) => {

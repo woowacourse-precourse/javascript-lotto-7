@@ -1,5 +1,67 @@
 import { ERROR_MESSAGES } from "./messages.js";
 
+// 금액이 유효한지 검사
+export function validatePurchaseAmount(input) {
+  if (input === "" || input === null || input === undefined) {
+    throw new Error(
+      `${ERROR_MESSAGES.ERROR_MESSAGE_PREFIX} ${ERROR_MESSAGES.EMPTY_VALUE}`
+    );
+  }
+
+  const amount = Number(input);
+
+  if (isNaN(amount)) {
+    throw new Error(
+      `${ERROR_MESSAGES.ERROR_MESSAGE_PREFIX} ${ERROR_MESSAGES.NOT_A_NUMBER}`
+    );
+  }
+  if (amount <= 0) {
+    throw new Error(
+      `${ERROR_MESSAGES.ERROR_MESSAGE_PREFIX} ${ERROR_MESSAGES.MONEY_DEGREE}`
+    );
+  }
+  if (amount % 1000 !== 0) {
+    throw new Error(
+      `${ERROR_MESSAGES.ERROR_MESSAGE_PREFIX} ${ERROR_MESSAGES.MONEY_DEGREE}`
+    );
+  }
+
+  return amount / 1000; // 유효한 경우 구매 가능한 로또 개수를 반환
+}
+
+// 로또 번호가 6개인지 확인
+function validateLottoNumbersCount(numbers) {
+  if (numbers.length !== 6) {
+    throw new Error(
+      `${ERROR_MESSAGES.ERROR_MESSAGE_PREFIX} ${ERROR_MESSAGES.INVALID_NUMBER_COUNT}`
+    );
+  }
+}
+
+// 로또 번호 중복 여부 확인
+function validateLottoNumbersUnique(numbers) {
+  if (new Set(numbers).size !== 6) {
+    throw new Error(
+      `${ERROR_MESSAGES.ERROR_MESSAGE_PREFIX} ${ERROR_MESSAGES.DUPLICATE_NUMBERS}`
+    );
+  }
+}
+
+// 로또 번호가 1~45 범위인지 확인
+function validateLottoNumbersRange(numbers) {
+  if (!numbers.every((num) => num >= 1 && num <= 45)) {
+    throw new Error(
+      `${ERROR_MESSAGES.ERROR_MESSAGE_PREFIX} ${ERROR_MESSAGES.OUT_OF_RANGE}`
+    );
+  }
+}
+
+// 로또 번호 전체 검증 함수
+export function validateLottoNumbers(numbers) {
+  validateLottoNumbersCount(numbers);
+  validateLottoNumbersUnique(numbers);
+  validateLottoNumbersRange(numbers);
+}
 // 당첨 번호가 6개인지 확인
 function validateWinningNumbersCount(numbers) {
   if (numbers.length !== 6) {
