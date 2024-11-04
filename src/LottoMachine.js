@@ -17,3 +17,4 @@ class LottoMachine {
     return numbers.includes(bonus);
   }
 }
+export default LottoMachine;
