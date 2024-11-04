@@ -11,6 +11,11 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
   }
+  bonusErrorCheck(bonusNumber) {
+    if (bonusNumber in this.#numbers) {
+      throw new Error("[ERROR] 보너스 번호는 로또 번호와 달라야 합니다.");
+    }
+  }
 
   // TODO: 추가 기능 구현
 }

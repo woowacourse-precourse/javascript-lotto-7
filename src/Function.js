@@ -27,3 +27,6 @@ export const buyCountErrorCheck = (buyCount) => {
     throw new Error(BUY_ERROR + ENTER);
   }
 };
+export const bonusNumberErrorCheck = (bonusNumber) => {
+  winningLotto.bonusCheck(bonusNumber);
+};

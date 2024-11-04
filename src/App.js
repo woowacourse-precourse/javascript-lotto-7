@@ -27,6 +27,11 @@ class App {
       ENTER + WINNING_LOTTO_STRING + ENTER
     );
     const winningLotto = makeWinningLotto(winningLottoString);
+
+    const bonusNumber = await MissionUtils.Console.readLineAsync(
+      ENTER + BONUS_NUMBER_STRING + ENTER
+    );
+    winningLotto.bonusErrorCheck(bonusNumber);
   }
 }
 
