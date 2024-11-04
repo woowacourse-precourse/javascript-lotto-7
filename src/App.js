@@ -8,6 +8,7 @@ class App {
         const MONEY = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
         
         this.checkIsValidateMoney(MONEY);
+        MissionUtils.Console.print(`${MONEY/1000}개를 구매했습니다.`)
 
         return MONEY;
       } catch (error) {
@@ -126,6 +127,15 @@ class App {
     return RESULT_COUNTER;
   }
 
+  printResult(resultCounter) {
+    MissionUtils.Console.print(`3개 일치 (5,000원) - ${resultCounter[5]}개`);
+    MissionUtils.Console.print(`4개 일치 (50,000원) - ${resultCounter[4]}개`);
+    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${resultCounter[3]}개`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${resultCounter[2]}개`);
+    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${resultCounter[1]}개`);
+  }
+
+
   async run() {
     try {
       const MONEY = await this.validateMoney();
@@ -135,7 +145,8 @@ class App {
         lotto.printNumbers();
       });
 
-      lottoResultCounter(LOTTOS);
+      const RESULT_COUNT = await this.lottoResultCounter(LOTTOS);
+      this.printResult(RESULT_COUNT);
     }
     catch (error) {
       throw error;
