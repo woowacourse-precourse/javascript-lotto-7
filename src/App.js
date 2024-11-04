@@ -56,6 +56,11 @@ class App {
     return lotto;
   }
 
+  sortLotto(lotto) {
+    const sortedLotto = lotto.sort((firstNumber, secondNumber) => firstNumber - secondNumber);
+    return sortedLotto;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
