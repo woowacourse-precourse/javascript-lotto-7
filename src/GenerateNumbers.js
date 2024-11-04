@@ -3,6 +3,11 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class GenerateNumbers {
   constructor() {
     this.totalPrizeMoney = 0;
+    this.firstPlaceCount = 0;
+    this.secondPlaceCount = 0;
+    this.thirdPlaceCount = 0;
+    this.fourthPlaceCount = 0;
+    this.fifthPlaceCount = 0;
   }
 
   async generateNums(bills, numbers, bonusNum) {
@@ -15,6 +20,19 @@ class GenerateNumbers {
 
       this.findMatchingNumber(randomNum, numbers, bonusNum);
     }
+    console.log("");
+
+    console.log("2개 일치 (100원) - " + this.firstPlaceCount + "개");
+    console.log(
+      "1개 일치, 보너스 볼 일치 (10원) - " + this.secondPlaceCount + "개"
+    );
+    console.log("1개 일치 (1원) - " + this.thirdPlaceCount + "개");
+
+    // console.log("1등 횟수 : " + this.firstPlaceCount);
+    // console.log("2등 횟수 : " + this.secondPlaceCount);
+    // console.log("3등 횟수 : " + this.thirdPlaceCount);
+    // console.log("4등 횟수 : " + this.fourthPlaceCount);
+    // console.log("5등 횟수 : " + this.fifthPlaceCount);
     console.log("");
     console.log("총상금 : " + this.totalPrizeMoney);
     return allGeneratedNumbers;
@@ -42,10 +60,12 @@ class GenerateNumbers {
     if (count === 1) {
       if (randomNum.includes(bonusNumAsNumber)) {
         prizeMoney = 1;
+        this.secondPlaceCount++;
         console.log("2등");
         console.log(count + "개 번호와 보너스 번호 일치");
       } else {
         prizeMoney = 10;
+        this.thirdPlaceCount++;
         console.log("3등");
         console.log(count + "개 번호 일치");
       }
@@ -53,6 +73,7 @@ class GenerateNumbers {
 
     if (count === 2) {
       prizeMoney = 100;
+      this.firstPlaceCount++;
       console.log("1등");
       console.log(count + "개 번호 일치");
     }
