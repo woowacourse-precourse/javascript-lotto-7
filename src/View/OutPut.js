@@ -1,17 +1,17 @@
-import { Console } from "@woowacourse/mission-utils";
-
-const LottoWinningAmountString = {
-  three: "5,000",
-  four: "50,000",
-  five: "1,500,000",
-  fiveWithBounsBall: "30,000,000",
-  six: "2,000,000,000",
-};
+import { Console } from '@woowacourse/mission-utils';
 
 class Output {
+  static printLottoTickets(ticketCount, ticekts) {
+    Console.print(`${ticketCount}개를 구매했습니다.`);
+
+    ticekts.forEach((ticket) => {
+      Console.print(`[${ticket.join(', ')}]`);
+    });
+  }
+
   static printWinningStatistics() {
-    Console.log("당첨 통계");
-    Console.log("---");
+    Console.print('당첨 통계');
+    Console.print('---');
 
     //TODO: 반복
     // printWinningStatistic
@@ -19,14 +19,24 @@ class Output {
 
   static printWinningStatistic(matchNumber, lottoWinningAmountString, count) {
     // 당첨 내역을 출력하는 코드
-    Console.log(
-      `${matchNumber}개 일치 (${lottoWinningAmountString}) - ${count}개`
+    Console.print(
+      `${matchNumber}개 일치 (${lottoWinningAmountString}원) - ${count}개`
     );
   }
 
+  static printWinningStatisticWithBonusBall(
+    matchNumber,
+    lottoWinningAmountString,
+    count
+  ) {
+    // 당첨 내역을 출력하는 코드
+    Console.print(
+      `${matchNumber}개 일치, 보너스 볼 일치 (${lottoWinningAmountString}원) - ${count}개`
+    );
+  }
   static printProfitRate(profitRate) {
     // 총 수익률은 62.5%입니다.
-    Console.log(`총 수익률은 ${profitRate}입니다.`);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
