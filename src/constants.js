@@ -21,6 +21,10 @@ export const OUTPUT_MESSAGE = {
     connecting: '-',
     countUnit: '개',
   },
+  roi: {
+    openingMessage: '총 수익률은 ',
+    closingMessage: '%입니다.',
+  },
 };
 
 export const ERROR_MESSAGE = {
