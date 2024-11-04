@@ -1,5 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { getTicketCount } from "./utils/InputHandler.js";
+import { getTicketCount, getWinningNumbers, getBonusNumber } from "./utils/InputHandler.js";
 
 class App {
   async run() {
@@ -13,6 +13,10 @@ class App {
     tickets.forEach(ticket => {
       Console.print(`[${ticket.join(", ")}]`);
     });
+
+    // 당첨번호, 보너스 번호 입력받음
+    const winningNumbers = await getWinningNumbers();
+    const bonusNumber = await getBonusNumber(winningNumbers);
   }
 }
 
