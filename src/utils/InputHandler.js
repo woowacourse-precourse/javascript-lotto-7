@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import { validateBudget, validateWinningNumbers, validateBounsNumber } from "./Validator.js";
+import { validateBudget, validateBounsNumber } from "./Validator.js";
+import Lotto from "../Lotto.js";
 
 export async function getTicketCount() {
   const budget = await Console.readLineAsync(
@@ -18,7 +19,8 @@ export async function getWinningNumbers() {
   );
   const winningNumbers = winningNumbersInput.split(",").map(Number);
 
-  validateWinningNumbers(winningNumbers);
+  // validateWinningNumbers(winningNumbers);
+  new Lotto(winningNumbers);
 
   return winningNumbers;
 }

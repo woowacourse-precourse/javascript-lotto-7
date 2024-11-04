@@ -1,31 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { getTicketCount, getWinningNumbers, getBonusNumber } from "./utils/InputHandler.js";
-
-class App {
-  async run() {
-    // 구입금액 입력받음
-    const ticketCount = await getTicketCount();
-
-    // 티켓 생성
-    Console.print(`\n${ticketCount}개를 구매했습니다.`);
-
-    const tickets = generateTickets(ticketCount);
-    tickets.forEach(ticket => {
-      Console.print(`[${ticket.join(", ")}]`);
-    });
-
-    // 당첨번호, 보너스 번호 입력받음
-    const winningNumbers = await getWinningNumbers();
-    const bonusNumber = await getBonusNumber(winningNumbers);
-
-    // 당첨 통계 계산, 출력
-    const prizeResults = countPrizeResults(tickets, winningNumbers, bonusNumber);
-    showStatistics(prizeResults, ticketCount)
-  }
-}
-
-export default App;
-
+import Lotto from "./Lotto.js";
 
 function generateTickets(ticketCount) {
   const tickets = [];
@@ -33,7 +8,8 @@ function generateTickets(ticketCount) {
   for (let i = 0; i < ticketCount; i++) {
     let ticket = Random.pickUniqueNumbersInRange(1, 45, 6);
     ticket = ticket.sort((a, b) => a - b);
-    tickets.push(ticket);
+    const lotto = new Lotto(ticket);
+    tickets.push(lotto.getNumbers());
   }
 
   return tickets;
@@ -95,3 +71,35 @@ function showStatistics(prizeResults, ticketCount) {
   Console.print(`6개 일치 (2,000,000,000원) - ${prizeResults['6']}개`);
   Console.print(`총 수익률은 ${profitRate}%입니다.`);
 }
+
+class App {
+  async run() {
+    try {
+      // 구입금액 입력받음
+      const ticketCount = await getTicketCount();
+
+      // 티켓 생성
+      Console.print(`\n${ticketCount}개를 구매했습니다.`);
+
+      const tickets = generateTickets(ticketCount);
+      tickets.forEach(ticket => {
+        Console.print(`[${ticket.join(", ")}]`);
+      });
+
+      // 당첨번호, 보너스 번호 입력받음
+      const winningNumbers = await getWinningNumbers();
+      const bonusNumber = await getBonusNumber(winningNumbers);
+
+      // 당첨 통계 계산, 출력
+      const prizeResults = countPrizeResults(tickets, winningNumbers, bonusNumber);
+      showStatistics(prizeResults, ticketCount)
+    } catch (error) {
+      // throw error;
+      Console.print(`${error.message}`); 
+      return;
+    }
+  }
+}
+
+export default App;
+
