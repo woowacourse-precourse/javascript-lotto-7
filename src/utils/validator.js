@@ -1,14 +1,5 @@
-import {
-  TYPE_ERROR,
-  LOTTO_NUMBER_ERROR,
-  PURCHASE_AMOUNT_ERROR,
-} from "../constants/errorMessage.js";
-import {
-  LOTTO_MAX_NUMBER,
-  LOTTO_MIN_NUMBER,
-  LOTTO_PRICE,
-  NUMBERS_COUNT,
-} from "../constants/gameRules.js";
+import { TYPE_ERROR, LOTTO_NUMBER_ERROR, PURCHASE_AMOUNT_ERROR } from "../constants/errorMessage.js";
+import { LOTTO_MAX_NUMBER, LOTTO_MIN_NUMBER, LOTTO_PRICE, NUMBERS_COUNT } from "../constants/gameRules.js";
 import { hasDuplicates, isBonusMatched } from "./arrayUtils.js";
 
 const validateNumberRange = (number) => {
@@ -69,7 +60,7 @@ export const validateBonusNumber = (array, number) => {
   validateNumberType(number);
 
   if (isBonusMatched(array, number)) {
-    throw new Error(BONUS_NUMBER_ERROR.DUPLICATE_NUMBERS);
+    throw new Error(LOTTO_NUMBER_ERROR.DUPLICATE_NUMBERS);
   }
 
   validateNumberRange(number);

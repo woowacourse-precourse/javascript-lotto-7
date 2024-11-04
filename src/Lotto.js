@@ -9,7 +9,11 @@ class Lotto {
   }
 
   #validate(numbers) {
-    validateNumbers(numbers);
+    try {
+      validateNumbers(numbers);
+    } catch (error) {
+      throw new Error("[ERROR]", error.message);
+    }
   }
 
   getNumbers() {
