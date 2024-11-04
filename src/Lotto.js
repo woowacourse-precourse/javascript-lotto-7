@@ -33,6 +33,12 @@ class Lotto {
     return Array.from({ length: count }, () => new Lotto());
   }
 
+  static getTotalProfit() {
+    return Object.entries(Lotto.matchedCount).reduce((total, [key, count]) => {
+      return total + LOTTO.WINNING_AMOUNT[key] * count;
+    }, 0);
+  }
+
   get numbers() {
     return this.#numbers;
   }
