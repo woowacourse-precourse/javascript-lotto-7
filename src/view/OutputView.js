@@ -2,9 +2,12 @@ import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT_MESSAGE } from '../constants/messages.js';
 
 class OutputView {
+  static #BLANK_LINE = '\n';
+
   static printPurchaseAmount(count) {
+    OutputView.#printMessage(OutputView.#BLANK_LINE);
     OutputView.#printMessage(
-      `${count} ${OUTPUT_MESSAGE.LOTTO_PURCHASE_MESSAGE}`
+      `${count}` + `${OUTPUT_MESSAGE.LOTTO_PURCHASE_MESSAGE}`
     );
   }
 

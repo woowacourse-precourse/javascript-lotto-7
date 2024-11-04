@@ -14,7 +14,7 @@ class LottoController {
     const lottoCount = purchaseAmount / LottoController.#DIVISION_UNIT;
 
     const lottoTickets = new LottoTickets(lottoCount).getTickets();
-    OutputView.printPurchaseAmount(purchaseAmount);
+    OutputView.printPurchaseAmount(lottoCount);
     OutputView.printLottoTicket(lottoTickets);
 
     const winningNumbers = await this.#getWinningNumbers();

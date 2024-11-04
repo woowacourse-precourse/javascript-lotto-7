@@ -1,5 +1,4 @@
 import Validator from '../controller/Validator.js';
-import { parseNumbers } from '../utils/Parser.js';
 
 class Lotto {
   #numbers;
@@ -10,7 +9,7 @@ class Lotto {
   }
 
   #validate(numbers) {
-    // Validator.checkLottoNumbers(numbers);
+    Validator.checkLottoNumbers(numbers);
   }
 
   getNumbers() {

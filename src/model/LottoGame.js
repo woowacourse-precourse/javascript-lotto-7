@@ -19,6 +19,7 @@ class LottoGame {
       const hasBonus = this.hasBonusNumber(ticket);
       this.updateResult(matchCount, hasBonus);
     });
+    return this.result;
   }
 
   getMatchCount(ticket) {

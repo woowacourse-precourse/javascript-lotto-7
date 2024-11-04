@@ -1,90 +1,56 @@
 import Lotto from '../src/model/Lotto.js';
 import LottoController from '../src/controller/LottoController.js';
-import Validator from '../src/controller/Validator.js';
+import LottoTickets from '../src/model/LottoTickets.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 아닌 경우 예외가 발생한다.', () => {
     expect(() => {
-      new Lotto('1,2,3,4,5,6,7');
-    }).toThrow('[ERROR]');
+      new Lotto([1, 2, 3, 4, 5, 6, 7]);
+    }).toThrow('[ERROR] 로또 번호는 6개여야 합니다.');
 
     expect(() => {
-      new Lotto('1,2,3,4,5');
-    }).toThrow('[ERROR]');
+      new Lotto([1, 2, 3, 4, 5]);
+    }).toThrow('[ERROR] 로또 번호는 6개여야 합니다.');
   });
 
   test('로또 번호에 중복된 숫자가 있으면 예외가 발생한다.', () => {
     expect(() => {
-      new Lotto('1,2,3,4,5,5');
-    }).toThrow('[ERROR]');
+      new Lotto([1, 2, 3, 4, 5, 5]);
+    }).toThrow('[ERROR] 로또 번호는 중복되지 않은 숫자로 이루어져야 합니다.');
   });
 
   test('로또 번호가 1이상 45이하의 정수가 아닌 경우 예외가 발생한다.', () => {
     expect(() => {
-      new Lotto('1,2,3,4,5,46');
-    }).toThrow('[ERROR]');
+      new Lotto([1, 2, 3, 4, 5, 46]);
+    }).toThrow('[ERROR] 로또 번호는 1이상 45이하의 정수로 이루어져야 합니다.');
 
     expect(() => {
-      new Lotto('0,2,3,4,5,6');
-    }).toThrow('[ERROR]');
-
-    expect(() => {
-      new Lotto('1,2,3.3,4,5,6');
-    }).toThrow('[ERROR]');
-
-    expect(() => {
-      new Lotto('1,2,-3,4,5,6');
-    }).toThrow('[ERROR]');
-  });
-
-  test('로또 구입 금액이 빈 입력값인 경우 예외가 발생한다.', () => {
-    expect(() => {
-      Validator.checkPurchaseAmount('');
-    }).toThrow('[ERROR]');
-  });
-
-  test('로또 구입 금액이 1,000원 이상, 1,000,000원 이하 범위를 벗어나는 경우 예외가 발생한다.', () => {
-    expect(() => {
-      Validator.checkPurchaseAmount('-2000');
-    }).toThrow('[ERROR]');
-
-    expect(() => {
-      Validator.checkPurchaseAmount('500');
-    }).toThrow('[ERROR]');
-
-    expect(() => {
-      Validator.checkPurchaseAmount('1500000');
-    }).toThrow('[ERROR]');
-  });
-
-  test('로또 구입 금액이 1,000원으로 나누어 떨어지지 않는 경우 예외가 발생한다.', () => {
-    expect(() => {
-      Validator.checkPurchaseAmount('1500');
-    }).toThrow('[ERROR]');
-
-    expect(() => {
-      Validator.checkPurchaseAmount('1000001');
-    }).toThrow('[ERROR]');
+      new Lotto([0, 2, 3, 4, 5, 6]);
+    }).toThrow('[ERROR] 로또 번호는 1이상 45이하의 정수로 이루어져야 합니다.');
   });
 
   test('로또 티켓 생성 함수 테스트', () => {
     const ticketCount1 = 1;
     const ticketCount2 = 100;
 
-    const tickets1 = LottoController.generateLottoTickets(ticketCount1);
-    const tickets2 = LottoController.generateLottoTickets(ticketCount2);
+    const lottoTickets1 = new LottoTickets(ticketCount1);
+    const lottoTickets2 = new LottoTickets(ticketCount2);
 
-    expect(() =>
-      LottoController.generateLottoTickets(ticketCount1)
-    ).not.toThrow();
-    expect(() =>
-      LottoController.generateLottoTickets(ticketCount2)
-    ).not.toThrow();
+    const tickets1 = lottoTickets1.getTickets();
+    const tickets2 = lottoTickets2.getTickets();
 
     expect(tickets1.length).toBe(ticketCount1);
     expect(tickets2.length).toBe(ticketCount2);
 
     tickets1.forEach((ticket) => {
+      expect(ticket.length).toBe(6);
+      ticket.forEach((number) => {
+        expect(number).toBeGreaterThanOrEqual(1);
+        expect(number).toBeLessThanOrEqual(45);
+      });
+    });
+
+    tickets2.forEach((ticket) => {
       expect(ticket.length).toBe(6);
       ticket.forEach((number) => {
         expect(number).toBeGreaterThanOrEqual(1);

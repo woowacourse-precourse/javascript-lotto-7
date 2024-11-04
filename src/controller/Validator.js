@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from '../constants/messages.js';
+
 class Validator {
   static #WINNING_NUMBER_COUNT = 6;
   static #NUMBER_MIN = 1;
