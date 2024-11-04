@@ -2,7 +2,6 @@ import { errorMessage } from "../constant/errorMessage.js";
 
 class Consumer{
     #price;
-    #lottoNumbers;
 
     constructor(price) {
         this.#validate(price);
