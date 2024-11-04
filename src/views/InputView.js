@@ -28,7 +28,7 @@ export default class InputView{
               winningNums = await Console.readLineAsync(
                 "\n당첨 번호를 입력해주세요.\n"
               ); //1,2,3,4,5
-              winningNums=parsingWinningNums(winningNums)
+              winningNums = parsingWinningNums(winningNums)
               InputValid.isNumsInRange(winningNums)
               InputValid.isExtraNums(winningNums)
               InputValid.isDupNums(winningNums)
@@ -44,6 +44,7 @@ export default class InputView{
                 );
                 bonusNum=Number(bonusNum)
                 InputValid.isBonusNumValid(winningNums,bonusNum)
+                InputValid.isBonusNumInRange(bonusNum)
                 break;
             }catch(error){
                 Console.print("[ERROR] 중복된 당첨 번호가 존재합니다.");

@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+
 export default class InputValid {
   static isDupNums(winningNums) {
     const winningNumsToSet = new Set(winningNums);
@@ -21,8 +21,11 @@ export default class InputValid {
     if (winningNums.includes(bonusNum)) {
       throw new Error("[ERROR] 보너스 번호가 중복된 숫자입니다.");
     }
-    else if(winningNums<1 || winningNums>45){
-        throw new Error("[ERROR] 로또 번호는 1부터 45사이의 숫자여야 합니다.")
+  }
+
+  static isBonusNumInRange(bonusNum){
+    if (bonusNum < 1 || bonusNum > 45) {
+      throw new Error("[ERROR] 로또 번호는 1부터 45사이의 숫자여야 합니다.");
     }
   }
 
