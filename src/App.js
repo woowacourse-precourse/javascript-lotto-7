@@ -1,46 +1,26 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import InputHandler from "./InputHandler.js";
 
 class App {
-  PurchaseLottoNumbersArray = [];
-  // 1~45까지의 숫자를 인덱스로 사용하기 위해 46개의 배열 생성 (효율성)
-  WinningLottoNumbersArray = Array(46).fill(0);
-
-  // 당첨 순위
-  winningRanks = {
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-  };
+  constructor() {
+    this.inputHandler = new InputHandler();
+    this.PurchaseLottoNumbersArray = [];
+    this.WinningLottoNumbersArray = Array(46).fill(0);
+    this.winningRanks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  }
 
   async run() {
-    const purchaseAmount = await Console.readLineAsync(
-      "구입금액을 입력해 주세요.\n"
-    );
-    this.printLottoNumbers(this.processLottoCount(purchaseAmount));
+    const lottoCount = await this.inputHandler.getPurchaseAmount();
+    this.printLottoNumbers(lottoCount);
 
-    const winningNumber = await Console.readLineAsync(
-      "\n당첨 번호를 입력해 주세요.\n"
-    );
+    const winningNumber = await this.inputHandler.getWinningNumber();
     this.processWinningNumber(winningNumber);
 
-    const bonusNumber = await Console.readLineAsync(
-      "\n보너스 번호를 입력해 주세요.\n"
-    );
+    const bonusNumber = await this.inputHandler.getBonusNumber();
     this.processBonusgNumber(bonusNumber);
 
     this.compareLottoNumbers();
-
     this.printResult();
-  }
-
-  //로또 갯수 가공
-  processLottoCount(purchaseAmount) {
-    if (purchaseAmount > 0 && purchaseAmount % 1000 !== 0)
-      throw new Error("[ERROR] 1000원 단위로 입력해 주세요.");
-
-    return purchaseAmount / 1000;
   }
 
   //로또 번호 출력
@@ -61,30 +41,13 @@ class App {
 
   // 당첨 번호 가공
   processWinningNumber(winningNumber) {
-    const winningNumbers = winningNumber.split(",").map(Number);
-    if (winningNumbers.length !== 6)
-      throw new Error("[ERROR] 당첨 번호를 6개 입력해주세요.");
-    if (winningNumbers.some((number) => isNaN(number)))
-      throw new Error("[ERROR] 숫자만 입력해주세요.");
-    if (winningNumbers.some((number) => number < 1 || number > 45))
-      throw new Error("[ERROR] 1~45 사이의 숫자만 입력해주세요.");
-    if (winningNumbers.length !== new Set(winningNumbers).size)
-      throw new Error("[ERROR] 중복된 숫자가 있습니다.");
-
-    winningNumbers.forEach((number) => {
+    winningNumber.forEach((number) => {
       this.WinningLottoNumbersArray[number] = 1; // 해당 인덱스 === 당첨 번호를 1로 변경
     });
   }
 
   // 보너스 번호 가공
   processBonusgNumber(bonusNumber) {
-    bonusNumber = Number(bonusNumber);
-    if (isNaN(bonusNumber)) throw new Error("[ERROR] 숫자만 입력해주세요.");
-    if (bonusNumber < 1 || bonusNumber > 45)
-      throw new Error("[ERROR] 1~45 사이의 숫자만 입력해주세요.");
-    if (this.WinningLottoNumbersArray[bonusNumber] === 1)
-      throw new Error("[ERROR] 당첨 번호와 중복됩니다.");
-
     this.WinningLottoNumbersArray[bonusNumber] = 2; // 보너스 번호는 2로 표시
   }
 
