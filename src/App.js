@@ -1,21 +1,23 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import {
-  BUY_ERROR,
   BUY_STRING,
   ENTER,
   LOTTO_STRING,
   WINNING_LOTTO_STRING,
+  BONUS_NUMBER_STRING,
 } from "./Constant.js";
-import { makeLottos, makeWinningLotto } from "./Function.js";
+import {
+  makeLottos,
+  makeWinningLotto,
+  buyCountErrorCheck,
+} from "./Function.js";
 
 class App {
   async run() {
     const buyCount = await MissionUtils.Console.readLineAsync(
       BUY_STRING + ENTER
     );
-    if (isNaN(buyCount) || buyCount <= 0 || buyCount % 1000 != 0) {
-      throw new Error(BUY_ERROR + ENTER);
-    }
+    buyCountErrorCheck(buyCount);
 
     const lottoCount = buyCount / 1000;
     MissionUtils.Console.print(ENTER + lottoCount + LOTTO_STRING);
