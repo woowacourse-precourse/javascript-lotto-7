@@ -27,7 +27,7 @@ class LottoOutput {
   }
 
   printReturnRate(returnRate) {
-    Console.print(`총 수익률은 ${returnRate}%입니다.`);
+    Console.print(LOTTO_OUTPUT.RETURN_RATE_OUTPUT(returnRate));
   }
 }
 

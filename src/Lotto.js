@@ -1,3 +1,5 @@
+import { CONSTANT, LOTTO_ERROR } from "./constants/Constants.js";
+
 class Lotto {
   #numbers;
 
@@ -9,7 +11,7 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(LOTTO_ERROR.LOTTO_NUMBER_CNT);
     }
     this.#validSameValue(numbers);
     for (let i = 0; i < numbers.length; i++) {
@@ -18,13 +20,16 @@ class Lotto {
   }
 
   #validateBonus(numbers, bonus) {
-    if (!(bonus >= 1 && bonus <= 45)) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    if (
+      !(
+        bonus >= CONSTANT.LOTTO_RANGE_LOWER &&
+        bonus <= CONSTANT.LOTTO_RANGE_UPPER
+      )
+    ) {
+      throw new Error(LOTTO_ERROR.LOTTO_NUMBER_RANGE);
     }
     if (numbers.includes(bonus)) {
-      throw new Error(
-        "[ERROR] 당첨 번호 추첨 시 6개의 숫자와 보너스번호 1개가 중복되지 않아야 합니다."
-      );
+      throw new Error(LOTTO_ERROR.LOTTO_NUMBER_DUPLICATION);
     }
     this.#validNumber(bonus);
   }
@@ -32,20 +37,21 @@ class Lotto {
   #validNumber(number) {
     const validBonus = Number(number);
     if (isNaN(validBonus) || !Number.isInteger(validBonus)) {
-      throw new Error(
-        "[ERROR] 로또 번호는 쉼표(,)를 기준으로, 정수를 입력해야 합니다."
-      );
+      throw new Error(LOTTO_ERROR.LOTTO_NUMBER_INPUT);
     }
   }
 
   #validSameValue(numbers) {
     if (numbers.length !== new Set(numbers).size) {
-      throw new Error(
-        "[ERROR] 당첨 번호 추첨 시 6개의 숫자와 보너스번호 1개가 중복되지 않아야 합니다."
-      );
+      throw new Error(LOTTO_ERROR.LOTTO_NUMBER_DUPLICATION);
     }
-    if (!numbers.every((num) => num >= 1 && num <= 45)) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    if (
+      !numbers.every(
+        (num) =>
+          num >= CONSTANT.LOTTO_RANGE_LOWER && num <= CONSTANT.LOTTO_RANGE_UPPER
+      )
+    ) {
+      throw new Error(LOTTO_ERROR.LOTTO_NUMBER_RANGE);
     }
   }
 

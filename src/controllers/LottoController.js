@@ -1,5 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
 import LottoOutput from "../views/LottoOutput.js";
+import { CONSTANT } from "../constants/Constants.js";
 
 class LottoController {
   static userLottoArr = [];
@@ -10,7 +11,11 @@ class LottoController {
   }
 
   makeLottoNum() {
-    let lottoNum = Random.pickUniqueNumbersInRange(1, 45, 6);
+    let lottoNum = Random.pickUniqueNumbersInRange(
+      CONSTANT.LOTTO_RANGE_LOWER,
+      CONSTANT.LOTTO_RANGE_UPPER,
+      6
+    );
     lottoNum.sort((a, b) => a - b);
     LottoController.userLottoArr.push(lottoNum);
 
@@ -47,11 +52,11 @@ class LottoController {
 
   calcReturnRate(lottoPrice) {
     let returnSum =
-      LottoController.matchCntArr[5] * 5000 +
-      LottoController.matchCntArr[4] * 50000 +
-      LottoController.matchCntArr[3] * 1500000 +
-      LottoController.matchCntArr[2] * 30000000 +
-      LottoController.matchCntArr[1] * 2000000000;
+      LottoController.matchCntArr[5] * CONSTANT.LOTTO_WIN_5 +
+      LottoController.matchCntArr[4] * CONSTANT.LOTTO_WIN_4 +
+      LottoController.matchCntArr[3] * CONSTANT.LOTTO_WIN_3 +
+      LottoController.matchCntArr[2] * CONSTANT.LOTTO_WIN_2 +
+      LottoController.matchCntArr[1] * CONSTANT.LOTTO_WIN_1;
     let returnRate = (returnSum / lottoPrice) * 100;
     this.lottoOutput.printReturnRate(returnRate.toFixed(1));
   }

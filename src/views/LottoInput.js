@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { LOTTO_INPUT } from "../constants/Constants.js";
+import { CONSTANT, LOTTO_INPUT } from "../constants/Constants.js";
 import LottoOutput from "./LottoOutput.js";
 import ValidLotto from "../controllers/ValidLotto.js";
 
@@ -15,7 +15,7 @@ class LottoInput {
         LOTTO_INPUT.LOTTO_PRICE_INPUT
       );
       this.validLotto.validLottoPrice(lottoPrice);
-      const lottoCnt = lottoPrice / 1000;
+      const lottoCnt = lottoPrice / CONSTANT.LOTTO_PRICE;
       this.lottoOutput.printLottoCnt(lottoCnt);
       return lottoPrice;
     } catch (error) {
