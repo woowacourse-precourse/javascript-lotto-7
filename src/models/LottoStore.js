@@ -3,8 +3,9 @@ import Lotto from "./Lotto.js";
 import { LOTTO_COUNT } from "../constants/lottoValue.js";
 import Validates from "../validates/Validates.js";
 import MoneyError from "../errors/MoneyError.js";
+import ObservableModel from "./ObservableModel.js";
 
-class LottoStore {
+class LottoStore extends ObservableModel {
   #money;
 
   #lottoCount;
@@ -17,6 +18,12 @@ class LottoStore {
     this.#money = this.#validate(money);
     this.#lottoCount = Math.floor(money / this.LOTTO_PRICE);
     this.#lottoList = new Array(this.#lottoCount).fill(0).map(LottoStore.#createLotto);
+
+    this.notify({
+      lottoCount: this.#lottoCount,
+      lottoList: this.#lottoList,
+    });
+
     return this.#lottoList;
   }
 

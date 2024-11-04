@@ -1,6 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const OutputView = {
+  updateLotto({ lottoCount, lottoList }) {
+    OutputView.printLottoCount(lottoCount);
+    OutputView.printLottos(lottoList);
+  },
+
   printLottoCount(count) {
     MissionUtils.Console.print(`\n${count}개를 구매했습니다.`);
   },

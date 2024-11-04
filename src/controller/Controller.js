@@ -11,10 +11,9 @@ class Controller {
   async buyLotto() {
     try {
       const money = await this.views.input.getLottoMoney();
-      this.models.lottoStore.buyLotto(money);
 
-      this.views.output.printLottoCount(this.models.lottoStore.getLottoCount());
-      this.views.output.printLottos(this.models.lottoStore.getLottos());
+      this.models.lottoStore.subscribe(this.views.output.updateLotto);
+      this.models.lottoStore.buyLotto(money);
     } catch (error) {
       this.views.output.printError(error.message);
       await this.buyLotto();
