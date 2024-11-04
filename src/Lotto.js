@@ -1,4 +1,5 @@
 import {Random} from '@woowacourse/mission-utils'
+import * as Console from "node:console";
 
 class Lotto {
   #numbers;
