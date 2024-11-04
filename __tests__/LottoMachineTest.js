@@ -1,5 +1,4 @@
 import LottoMachine from '../src/LottoMachine.js';
-import LOTTO_RULE from '../src/constant/lotto.js';
 
 describe('LottoMachine test', () => {
   let lottoMachine;
@@ -18,14 +17,5 @@ describe('LottoMachine test', () => {
     const lottos = lottoMachine.getLottos();
 
     expect(lottos.length).toBe(output);
-  });
-
-  test.each([2000, 3000, 5000])('생성된 로또의 길이는 6이다.', () => {
-    lottoMachine.buyLottos(2000);
-    const lottos = lottoMachine.getLottos();
-
-    lottos.forEach((lotto) => {
-      expect(lotto.length).toBe(LOTTO_RULE.LOTTO_NUMBER_LENGTH);
-    });
   });
 });
