@@ -111,6 +111,16 @@ class App {
     return MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요..\n");
   }
 
+  validateBonusNumber(winning, bonusNumber) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    }
+
+    if (winning.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호와 당첨 번호는 달라야 합니다.");
+    }
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
