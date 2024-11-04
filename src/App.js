@@ -8,6 +8,7 @@ class App {
     const lottoModel = new LottoModel();
 
     const lottoController = new LottoController(lottoView, lottoModel);
+    lottoController.run();
   }
 }
 
