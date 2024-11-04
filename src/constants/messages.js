@@ -16,7 +16,7 @@ export const OUTPUT_MESSAGES = {
     return `${matched}개 일치 (${prize.toLocaleString()}원) - ${count}개`;
   },
   totalProfit(profit) {
-    return `총 수익은 ${profit}원입니다.`;
+    return `총 수익은 ${profit.toLocaleString()}원입니다.`;
   },
   totalRate(rateOfReturn) {
     return `총 수익률은 ${rateOfReturn}%입니다.`;
