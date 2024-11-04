@@ -34,6 +34,7 @@ describe('PurchaseController 테스트', () => {
         [21, 22, 23, 24, 25, 26],
       ];
       mockUser.readUserInput.mockResolvedValue(purchaseAmount);
+      mockLottoService.calculateLottoCount.mockReturnValue(3); // 추가
       mockLottoService.createLottos.mockReturnValue(mockLottos);
 
       const result = await purchaseController.processPurchase();
@@ -41,6 +42,9 @@ describe('PurchaseController 테스트', () => {
       expect(mockUser.readUserInput).toHaveBeenCalledWith(
         GAME_MESSAGE.PURCHASE
       );
+      expect(mockLottoService.calculateLottoCount).toHaveBeenCalledWith(
+        purchaseAmount
+      ); // 추가
       expect(mockLottoService.createLottos).toHaveBeenCalledWith(3);
       expect(mockResultView.printPurchaseResult).toHaveBeenCalledWith(
         3,
@@ -54,7 +58,8 @@ describe('PurchaseController 테스트', () => {
 
     test('로또 갯수가 정확히 카운트 된다', () => {
       const purchaseAmount = '3000';
-      const count = purchaseController.calculateLottoCount(purchaseAmount);
+      mockLottoService.calculateLottoCount.mockReturnValue(3); // 추가
+      const count = mockLottoService.calculateLottoCount(purchaseAmount);
       expect(count).toBe(3);
     });
   });
