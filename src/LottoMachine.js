@@ -53,18 +53,18 @@ class LottoMachine {
       [6, 0],
       ['bonus', 0],
     ]);
-
     this.#setMatchResults(results, totalCounts);
 
     return totalCounts;
   }
 
-  static #setMatchResults(results, totalCounts) {
+  static #setMatchResults(results, map) {
+    const TARGET_Number = 5;
     results.forEach(({ matchCount, hasBonus }) => {
-      if (hasBonus && matchCount === 5) {
-        totalCounts.set('bonus', (totalCounts.get(matchCount) ?? 0) + 1);
-      } else
-        totalCounts.set(matchCount, (totalCounts.get(matchCount) ?? 0) + 1);
+      const isBonusNumber = hasBonus && matchCount === TARGET_Number;
+
+      if (isBonusNumber) map.set('bonus', (map.get(matchCount) ?? 0) + 1);
+      else map.set(matchCount, (map.get(matchCount) ?? 0) + 1);
     });
   }
 

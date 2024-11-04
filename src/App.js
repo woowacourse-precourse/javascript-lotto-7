@@ -30,19 +30,20 @@ class App {
 
   async getTotalCounts(lottos, winningLotto) {
     try {
-      const number = await View.readInput(PROMPT_MESSAGES.INPUT_BONUS_NUMBER);
-      const bonusNumber = new BonusNumber(number, winningLotto);
-      const totalCounts = LottoMachine.getMatchCounts(
-        lottos,
-        winningLotto,
-        bonusNumber.number
-      );
+      const bonusNumber = await this.getBonusNumber(winningLotto);
 
-      return totalCounts;
+      return LottoMachine.getMatchCounts(lottos, winningLotto, bonusNumber);
     } catch (error) {
       View.printResult(error.message);
       return this.getTotalCounts(lottos, winningLotto);
     }
+  }
+
+  async getBonusNumber(winningLotto) {
+    const number = await View.readInput(PROMPT_MESSAGES.INPUT_BONUS_NUMBER);
+    const bonusNumber = new BonusNumber(number, winningLotto);
+
+    return bonusNumber.number;
   }
 
   async getWinningLotto() {
