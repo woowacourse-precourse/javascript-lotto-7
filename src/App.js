@@ -5,9 +5,11 @@ import LottoGenerator from "./LottoGenerator.js";
 import OutputValue from "./OutputValue.js";
 import Lotto from "./Lotto.js";
 import BonusLotto from "./BonusLotto.js";
+import calculateWinningStatistics from "./CalculateWinningStatistic.js";
 
 class App {
   purchaseMoney;
+  ticketList;
   winningNumbers;
   bonusNumber;
 
@@ -34,6 +36,7 @@ class App {
   outputLottoTickets() {
     const lottoData = new LottoGenerator(this.purchaseMoney);
     const { lottoQuantity, ticketList } = lottoData.getLottoData();
+    this.ticketList = ticketList;
 
     OutputValue.printLottoSummary(lottoQuantity, ticketList);
   }
@@ -60,6 +63,14 @@ class App {
         Console.print(e.message);
       }
     }
+  }
+
+  outputCheckWinning() {
+    const winningStatisticsList = calculateWinningStatistics(
+      this.ticketList,
+      this.winningNumbers,
+      this.bonusNumber
+    );
   }
 }
 
