@@ -1,11 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
-import Game from './game.js';
 import InputPrompt from './input/input-prompt.js';
 import PurchasedLottos from './lotto/purchased-lottos.js';
 import WinningLotto from './lotto/winning-lotto.js';
 import InputParser from './input/input-parser.js';
 import validatePurchaseAmount from './validation/validate-purchase-amount.js';
 import validateBonusNumber from './validation/validate-bonus-number.js';
+import Game from './game/game.js';
 
 class App {
   async run() {
