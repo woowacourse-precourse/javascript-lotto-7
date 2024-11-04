@@ -18,7 +18,6 @@ export class LottoMachine {
 
   async start() {
     await this.promptPurchaseAmount();
-    // this.issueLottos();
     await this.promptWinningNumbers();
     await this.promptBonusNumber();
     await this.checkResults();

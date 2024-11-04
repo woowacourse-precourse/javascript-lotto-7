@@ -107,11 +107,18 @@ describe("로또 테스트", () => {
     .mockResolvedValueOnce("1, 2, 3, 4, 5, 10")
     .mockResolvedValueOnce("6");
 
+    const app = new App();
+    await app.run();
+    
     const logs = [
       "3개를 구매했습니다.",
       "[1, 2, 3, 4, 5, 6]",
       "[7, 8, 9, 10, 11, 12]",
       "[13, 14, 15, 16, 17, 18]"
     ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
   });
 });
