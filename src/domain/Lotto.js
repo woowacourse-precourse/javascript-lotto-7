@@ -16,6 +16,9 @@ class Lotto {
     if (numbers.some((number, index) => numbers.indexOf(number) !== index)) {
       throw new Error(ERORR_MESSAGE.DUPLICATE);
     }
+    if (!numbers.every((number) => number >= 1 && number <= 45)) {
+      throw new Error(ERORR_MESSAGE.OUT_OF_RANGE);
+    }
   }
 
   get numbers() {

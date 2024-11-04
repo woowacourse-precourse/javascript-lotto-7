@@ -20,5 +20,11 @@ describe("로또 클래스 테스트", () => {
     expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
   });
 
+  test("로또 번호가 1부터 45까지의 숫자가 아니면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 46]);
+    }).toThrow(ERORR_MESSAGE.OUT_OF_RANGE);
+  });
+
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 });
