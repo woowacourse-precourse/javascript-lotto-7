@@ -35,7 +35,8 @@ class Lotto {
     if (matchCount === 5) return 3;
     if (matchCount === 4) return 4;
     if (matchCount === 3) return 5;
-    return 0;
+    return 6;
+
   }  
 }
 

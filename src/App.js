@@ -22,6 +22,9 @@ class App {
     let isValid = false;
     let purchasePrice;
     let lottoQuantity;
+    let winNumber;
+    let lotto;
+    let bonusNumber;
 
     while (!isValid) {
       try {
@@ -45,8 +48,8 @@ class App {
     while (isValid) {
       try {
         const lottoNumber = await MissionUtils.Console.readLineAsync("\n당첨번호를 입력해 주세요.\n");
-        const winNumber = lottoNumber.split(",").map(Number);
-        const lotto = new Lotto(winNumber);
+        winNumber = lottoNumber.split(",").map(Number);
+        lotto = new Lotto(winNumber);
         isValid = false;
 
       } catch (error) {
@@ -55,7 +58,7 @@ class App {
     }
     while (!isValid) {
       try {
-        const bonusNumber = Number(await MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n"));
+        bonusNumber = Number(await MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n"));
         if (!(Number.isInteger(bonusNumber) && bonusNumber >= 1 && bonusNumber <= 45)) {
           throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 정수여야 합니다.");
         }
@@ -67,11 +70,19 @@ class App {
         MissionUtils.Console.print(error.message);
       }
     }
+    const lottoResults = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0
+    };
 
-    const lottoNumber = await MissionUtils.Console.readLineAsync("\n당첨번호를 입력해 주세요.\n");
-
-
-
+    for (let i = 0; i < lottoQuantity; i++) {
+      const rank = lotto.checkRank(lottoArray[i], bonusNumber);
+      lottoResults[rank] += 1;
+    }
     const lottoPrize = {
       1: 2000000000,
       2: 30000000,
@@ -80,6 +91,11 @@ class App {
       5: 5000,
     };
 
+    MissionUtils.Console.print(`3개 일치 (5,000원) - ${lottoResults[5]}`);
+    MissionUtils.Console.print(`4개 일치 (50,000원) - ${lottoResults[4]}`);
+    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${lottoResults[3]}`);
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${lottoResults[2]}`);
+    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${lottoResults[1]}`);
 
 
   }
