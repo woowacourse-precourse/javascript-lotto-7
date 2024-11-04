@@ -75,7 +75,7 @@ class Validator {
   }
 
   static validateBonusRange(input) {
-    if (!(input < Validator.RANGE.MAX && input > Validator.RANGE.MIN)) {
+    if (!(input <= Validator.RANGE.MAX && input >= Validator.RANGE.MIN)) {
       throw new Error(Validator.ERROR_MESSAGES.NUMBERS_RANGE);
     }
   }

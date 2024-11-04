@@ -12,11 +12,12 @@ class LottoMachine {
   });
 
   #createRandomLottoNum() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(
+    const randoms = MissionUtils.Random.pickUniqueNumbersInRange(
       this.#RANGE.MIN,
       this.#RANGE.MAX,
       this.#RANGE.TARGET
     );
+    return LottoUtils.sortingRandomNumbers(randoms);
   }
 
   enterMoney(purchaseMoney) {

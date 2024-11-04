@@ -9,8 +9,9 @@ class IOHandler {
 
   #outputMessage = Object.freeze({
     outputTitle: "당첨 통계 \n---",
+    outputLotto: (numbers) => "[" + numbers.join(", ") + "]",
     outputPurchaseLottoNum: (purchaseNum) => `${purchaseNum}개를 구매했습니다.`,
-    outputRateOfReturn: (rate) => `총 수익률은 ${rate}입니다.`,
+    outputRateOfReturn: (rate) => `총 수익률은 ${rate}%입니다.`,
   });
 
   async inputPurchaseMoney() {
@@ -20,7 +21,7 @@ class IOHandler {
 
   async inputWinningNumber() {
     const numbers = await IOUtils.input(this.#inputMessage.inputWinningNumber);
-    return numbers.split(",");
+    return numbers;
   }
 
   async inputBonusNumber() {
@@ -43,7 +44,7 @@ class IOHandler {
   }
 
   #outputLottoNumbers(numbers) {
-    IOUtils.output(numbers);
+    IOUtils.output(this.#outputMessage.outputLotto(numbers));
   }
 
   #outputPurchaseLottoNum(number) {
