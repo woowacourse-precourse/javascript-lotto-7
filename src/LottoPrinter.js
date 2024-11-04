@@ -4,7 +4,9 @@ import { OUTPUT_MESSAGE } from './constants/inputOutputMessages.js';
 class LottoPrinter {
   static lottoNumbers(lottoNumbers) {
     printOutput(`\n${lottoNumbers.length}${OUTPUT_MESSAGE.PURCHASE_COUNT}`);
-    lottoNumbers.forEach((lotto) => printOutput(lotto));
+    lottoNumbers.forEach((lotto) =>
+      printOutput(`[${lotto.getNumber().join(', ')}]`)
+    );
     printOutput('');
   }
 
