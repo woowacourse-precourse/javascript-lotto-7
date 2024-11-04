@@ -1,5 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import NumberValidator from '../utils/NumberValidator.js';
+import LottoNumberValidator from '../utils/LottoNumberValidator.js';
+import { LOTTO_ERRORS } from '../constants/constants.js';
 
 class BonusNumber {
   #bonusNumber;
@@ -32,13 +34,14 @@ class BonusNumber {
 
     const parsedNumber = parseFloat(number);
     NumberValidator.validateIsInteger(parsedNumber);
-    NumberValidator.validateLottoNumberRange(parsedNumber);
+
+    LottoNumberValidator.validateLottoNumberRange(parsedNumber);
     this.#validateBonusInWinningNumber(parsedNumber, winningNumber);
   }
 
   #validateBonusInWinningNumber(bonusNumber, winningNumber) {
     if (winningNumber.includes(bonusNumber)) {
-      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+      throw new Error(LOTTO_ERRORS.BONUS_NUMBER_DUPLICATE);
     }
   }
 }
