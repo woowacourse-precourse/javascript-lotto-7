@@ -1,7 +1,7 @@
 // 사용자에게 로또 구매 금액을 입력받고 금액만큼 로또 번호를 발행해준다.
 
 import { Console } from '@woowacourse/mission-utils';
-import { INPUT, OUTPUT } from '../constants/Constants.js';
+import { INPUT, OUTPUT, FORMAT } from '../constants/Constants.js';
 import { ticketCount } from '../utils/Calculation.js';
 import { ticketArray } from '../utils/TicketNumber.js';
 import Validators from '../utils/Validation.js';
@@ -38,7 +38,7 @@ class Ticket {
   }
 
   displayTicketCount() {
-    Console.print(`\n${this.#tickets}${OUTPUT.TICKET}`);
+    Console.print(`${FORMAT.NEWLINE}${this.#tickets}${OUTPUT.TICKET}`);
   }
 
   getTicket() {

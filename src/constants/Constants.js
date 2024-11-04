@@ -1,12 +1,13 @@
-export const INPUT = {
-  COST: '구입금액을 입력해 주세요.\n',
-  JACKPOT: '\n당첨 번호를 입력해 주세요.\n',
-  BONUS: '\n보너스 번호를 입력해 주세요.\n',
-};
-
 export const FORMAT = {
   HYPHEN: '-',
   NUMBER: /^[0-9]+$/,
+  NEWLINE: `\n`,
+};
+
+export const INPUT = {
+  COST: `구입금액을 입력해 주세요.${FORMAT.NEWLINE}`,
+  JACKPOT: `${FORMAT.NEWLINE}당첨 번호를 입력해 주세요.${FORMAT.NEWLINE}`,
+  BONUS: `${FORMAT.NEWLINE}보너스 번호를 입력해 주세요.${FORMAT.NEWLINE}`,
 };
 
 export const UNIT = {
@@ -31,7 +32,7 @@ export const OUTPUT = {
 };
 
 export const RESULT = {
-  HEADER: '\n당첨 통계\n---',
+  HEADER: `${FORMAT.NEWLINE}당첨 통계${FORMAT.NEWLINE}---`,
   5: `3개 일치 (${WINNINGS.RANK5}원) ${FORMAT.HYPHEN}`,
   4: `4개 일치 (${WINNINGS.RANK4}원) ${FORMAT.HYPHEN}`,
   3: `5개 일치 (${WINNINGS.RANK3}원) ${FORMAT.HYPHEN}`,
