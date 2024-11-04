@@ -32,7 +32,8 @@ class MainController {
   }
 
   printResults(lottoManager) {
-    const winningLottoCounts = lottoManager.getWinningLottoCounts();
+    // calculateWinningLottoCounts 호출하여 당첨 횟수 계산 후 가져오기
+    const winningLottoCounts = lottoManager.calculateWinningLottoCounts();
     OutputView.printWinningStatistics(winningLottoCounts);
 
     const rateOfReturn = lottoManager.calculateRateOfReturn();
