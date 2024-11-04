@@ -1,3 +1,6 @@
+import { LOTTO, ERROR_MESSAGES } from '../constant/constant.js';
+import { throwValidationError } from '../utils/validation.js';
+
 class Money {
   #amount;
 
@@ -11,6 +14,12 @@ class Money {
   }
 
   #validate(amount) {}
+
+  #checkMinAmount(amount) {
+    if (amount < LOTTO.PRICE) {
+      throwValidationError(ERROR_MESSAGES.UNDER_LOTTO_PRICE);
+    }
+  }
 }
 
 export default Money;
