@@ -1,5 +1,5 @@
 import { NUMBER_ERROR_MESSAGES } from '../src/contents/InputErrorMessages.js';
-import BonusNumber from '../src/controller/BonusNumberManager.js';
+import BonusNumber from '../src/controller/BonusNumber.js';
 
 describe('BonusNumber 클래스 예외 테스트', () => {
   test.each([

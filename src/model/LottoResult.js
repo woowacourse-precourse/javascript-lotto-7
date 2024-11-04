@@ -1,7 +1,7 @@
 import LottoComparer from './LottoComparer.js';
 import { PRIZE, INITIAL_RANK, PRIZE_KEYS } from '../contents/PrizeContents.js';
+import { LOTTO_PRICE } from '../contents/PrizeContents.js';
 
-const TICKET_PRICE = 1000; // 티켓 가격 상수
 class LottoResult {
   static PRIZE_KEYS = PRIZE_KEYS;
   static RANK = { ...INITIAL_RANK };
@@ -15,7 +15,7 @@ class LottoResult {
     this.#winningNumbers = winningNumbers;
     this.#bonusNumber = bonusNumber;
     this.#lottos = lotto;
-    this.#totalCost = ticketCount * TICKET_PRICE;
+    this.#totalCost = ticketCount * LOTTO_PRICE;
     this.calculateResults();
   }
 

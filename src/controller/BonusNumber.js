@@ -4,11 +4,11 @@ import { NUMBER_ERROR_MESSAGES } from '../contents/InputErrorMessages.js';
 class BonusNumber {
   #bonusNum;
   constructor(bonusNum, winningNum) {
-    this.#validate(bonusNum, winningNum);
+    this.#validateBonus(bonusNum, winningNum);
     this.#bonusNum = bonusNum;
   }
 
-  #validate(bonusNum, winningNum) {
+  #validateBonus(bonusNum, winningNum) {
     ValidateNumber.checkMissing(
       bonusNum,
       NUMBER_ERROR_MESSAGES.BonusNumberGuid,

@@ -5,27 +5,30 @@ import Lotto from '../Lotto.js';
 import BonusNumber from './BonusNumber.js';
 
 class InputValidator {
-  static async promptWithValidation(input, validationConfig) {
+  static async promptWithValidation(inputHandler, validationConfig) {
     const {
-      message,
-      winningNum,
+      promptMessage,
+      isWinningNumber,
       ValidatorClass,
       validatorArgs = [],
     } = validationConfig;
     while (true) {
       try {
-        const value = await input.getInput(message, winningNum); // getInput만 사용
-        new ValidatorClass(value, ...validatorArgs); // 검증 수행
-        return value; // 유효한 값 반환
+        const userInput = await inputHandler.getInput(
+          promptMessage,
+          isWinningNumber,
+        );
+        new ValidatorClass(userInput, ...validatorArgs);
+        return userInput;
       } catch (error) {
-        MissionUtils.Console.print(error.message); // 에러 메시지 출력
+        MissionUtils.Console.print(error.message);
       }
     }
   }
 
   static async promptForMoney(input) {
     const validationConfig = {
-      message: INPUT_PRINT_MESSAGES.money,
+      promptMessage: INPUT_PRINT_MESSAGES.money,
       ValidatorClass: MoneyManager,
     };
     const money = await this.promptWithValidation(input, validationConfig);
@@ -34,8 +37,8 @@ class InputValidator {
 
   static async promptForWinningNumbers(input) {
     const validationConfig = {
-      message: INPUT_PRINT_MESSAGES.winning_number,
-      winningNum: true,
+      promptMessage: INPUT_PRINT_MESSAGES.winning_number,
+      isWinningNumber: true,
       ValidatorClass: Lotto,
     };
     return this.promptWithValidation(input, validationConfig);
@@ -43,7 +46,7 @@ class InputValidator {
 
   static async promptForBonusNumber(input, winningNumber) {
     const validationConfig = {
-      message: INPUT_PRINT_MESSAGES.bonus_number,
+      promptMessage: INPUT_PRINT_MESSAGES.bonus_number,
       ValidatorClass: BonusNumber,
       validatorArgs: [winningNumber],
     };
