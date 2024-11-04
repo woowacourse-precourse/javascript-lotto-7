@@ -17,7 +17,7 @@ export class LottoController {
     const price = await this.getPriceResult();
     const randomNumbers = this.getLottoNumberResult(price);
     const prizeNumbers = await this.getPrizeNumbersResult();
-    const bonusNumber = await this.getBonusNumberResult();
+    const bonusNumber = await this.getBonusNumberResult(prizeNumbers);
     this.getLottoStatistics(price, randomNumbers, prizeNumbers, bonusNumber);
   }
 
@@ -33,8 +33,8 @@ export class LottoController {
     return await this.inputPrizeNumModel.getPrizeNumbers();
   }
 
-  async getBonusNumberResult() {
-    return await this.inputBonusNumModel.getBonusNumber();
+  async getBonusNumberResult(prizeNumbers) {
+    return await this.inputBonusNumModel.getBonusNumber(prizeNumbers);
   }
 
   getLottoStatistics(price, randomNumbers, prizeNumbers, bonusNumber) {

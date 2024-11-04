@@ -17,6 +17,8 @@ const ERR_MESSAGE_NUMBERS = {
     "[ERROR] 과도한 숫자를 입력하셨습니다. 다시 입력해주세요.",
   INPUT_KILO_UNIT:
     "[ERROR] 천원단위로만 입력이 가능합니다. ex) 1000, 3000, 20000, 50000",
+  IS_DUPLICATE_NUMBER:
+    "[ERROR] 당첨번호와 중복된 번호를 입력하셨습니다. 다시 입력해주세요.",
 };
 
 export { ERR_MESSAGE_NUMBERS };

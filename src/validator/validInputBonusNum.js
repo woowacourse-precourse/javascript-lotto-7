@@ -10,6 +10,7 @@ export const validInputBonusNum = (inputBonusNumber) => {
     isPositiveNumber(inputBonusNumber);
     limitMaxDigitNum(inputBonusNumber, 2, ERR_MESSAGE_NUMBERS.LIMIT_LENGTH_BONUS_NUMBER);
     limitRangeNum(inputBonusNumber, 1, 45, ERR_MESSAGE_NUMBERS.LIMIT_RANGE_BONUS_NUMBER);
+    validPrizeArrayPass(prizeNumbers,inputBonusNumber)
     return true;
   } catch (error) {
     console.error(`${error.message}`);

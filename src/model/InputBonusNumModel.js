@@ -6,11 +6,11 @@ export class InputBonusNumModel {
     this.inputView = new InputView();
   }
 
-  async getBonusNumber() {
+  async getBonusNumber(prizeNumbers) {
     let inputBonusNumberResult;
     for (let i = 1; i < 10; i++) {
       const inputBonusNumber = await this.inputView.inputBonusNumber();
-      const isNoProblem = validInputBonusNum(inputBonusNumber);
+      const isNoProblem = validInputBonusNum(prizeNumbers, inputBonusNumber);
       if (isNoProblem) return (inputBonusNumberResult = inputBonusNumber);
       if (i === 5)
         throw new Error(
