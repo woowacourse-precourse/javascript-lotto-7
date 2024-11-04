@@ -21,6 +21,23 @@ export const REGEX = Object.freeze({
     /^(0?[1-9]|[1-3][0-9]|4[0-5])(,(0?[1-9]|[1-3][0-9]|4[0-5])){5}$/,
 });
 
+export const RANKS = Object.freeze({
+  FIRST: 'FIRST',
+  SECOND: 'SECOND',
+  THIRD: 'THIRD',
+  FOURTH: 'FOURTH',
+  FIFTH: 'FIFTH',
+  NONE: 'NONE',
+});
+
+export const INITIAL_STATISTICS = Object.freeze({
+  [RANKS.FIFTH]: 0,
+  [RANKS.FOURTH]: 0,
+  [RANKS.THIRD]: 0,
+  [RANKS.SECOND]: 0,
+  [RANKS.FIRST]: 0,
+});
+
 export const ERROR_PREFIX = '[ERROR]';
 
 export const ERROR_MESSAGES = Object.freeze({
