@@ -12,11 +12,23 @@ class App {
   #result;
 
   async run() {
+    await this.start();
+    await this.progress();
+    this.end();
+  }
+
+  async start() {
     await this.readPurchaseAmount();
     this.#lottoMachine.run();
     this.printGeneratedLottos();
+  }
+
+  async progress() {
     await this.readWinningNumbers();
     await this.readBonusNumber();
+  }
+
+  async end() {
     this.#result = this.getLottosResult();
     this.printWinningInfo();
     this.printROI();
