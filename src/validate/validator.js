@@ -45,3 +45,11 @@ export function validateNumberOfLottoNumbers(lottoNumbers) {
     throw new Error(LOTTO_ERROR_MESSAGE.NUMBER_OF_LOTTO_NUMBERS_ERROR_MESSAGE);
   }
 }
+
+export function validateDuplicateBonusNumber(winningNumbers, bonusNumber) {
+  winningNumbers.forEach((winningNumber) => {
+    if (winningNumber === bonusNumber) {
+      throw new Error(LOTTO_ERROR_MESSAGE.DUPLICATE_NUMBER_ERROR_MESSAGE);
+    }
+  });
+}

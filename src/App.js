@@ -24,6 +24,7 @@ import {
   validateDuplicateLottoNumber,
   validateLottoNumberRange,
   validateNumberOfLottoNumbers,
+  validateDuplicateBonusNumber,
 } from './validate/validator.js';
 
 function purchaseLotto(price) {
@@ -146,6 +147,7 @@ class App {
       validateNumberOfLottoNumbers(winningNumbers);
 
       const bonusWinningNumber = await getBonusWinningNumber();
+      validateDuplicateBonusNumber(winningNumbers, bonusWinningNumber);
 
       Console.print(LOTTO_MESSAGE.LOTTO_RESULT_MESSAGE);
       Console.print(LOTTO_MESSAGE.LOTTO_RESULT_SEPERATOR);
