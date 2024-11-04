@@ -1,56 +1,74 @@
-import InputHandler from "../handler/InputHandler.js";
-import OutputHandler from "../handler/OutputHandler.js";
-import LottoMachine from "../models/LottoMachine.js";
-import LottoChecker from "../models/LottoChecker.js";
+import LottoService from "../services/LottoService.js";
+import InputView from "../views/InputView.js";
+import OutputView from "../views/OutputView.js";
 
 class LottoController {
+  #lottoService;
+  #inputView;
+  #outputView;
+
+  constructor() {
+    this.#lottoService = new LottoService();
+    this.#inputView = InputView;
+    this.#outputView = OutputView;
+  }
+
   async play() {
     try {
-      const { lottos, purchaseAmount } =
-        await this.#purchaseAndGenerateLottos();
-      const { winningNumbers, bonusNumber } = await this.#getWinningInfo();
-      await this.#checkAndShowResults(
+      const purchaseAmount = await this.#handlePurchaseAmount();
+      const lottos = await this.#handleLottoPurchase(purchaseAmount);
+      const { winningNumbers, bonusNumber } =
+        await this.#handleWinningNumbers();
+      await this.#handleResults(
         lottos,
         winningNumbers,
         bonusNumber,
         purchaseAmount
       );
     } catch (error) {
-      throw error;
+      this.#outputView.showError(error.message);
     }
   }
 
-  // 로또 구매 개수에 따른 로또 생성
-  async #purchaseAndGenerateLottos() {
-    const purchaseAmount = await InputHandler.getPurchaseAmount();
-    const lottos = LottoMachine.generateLottos(purchaseAmount);
-    OutputHandler.showLottoResult(lottos);
-
-    return { lottos, purchaseAmount };
+  async #handlePurchaseAmount() {
+    const input = await this.#inputView.inputPurchaseAmount();
+    return this.#lottoService.validatePurchaseAmount(input);
   }
 
-  // 당첨 번호와 보너스 번호 입력
-  async #getWinningInfo() {
-    const winningNumbers = await InputHandler.getWinningNumbers();
-    const bonusNumber = await InputHandler.getBonusNumber(winningNumbers);
+  async #handleLottoPurchase(purchaseAmount) {
+    const lottos = this.#lottoService.generateLottos(purchaseAmount);
+    this.#outputView.showPurchaseCount(lottos.length);
+    lottos.forEach((lotto) =>
+      this.#outputView.showLottoNumbers(lotto.getNumbers())
+    );
+    return lottos;
+  }
+
+  async #handleWinningNumbers() {
+    const winningInput = await this.#inputView.inputWinningNumbers();
+    const winningNumbers =
+      this.#lottoService.validateWinningNumbers(winningInput);
+
+    const bonusInput = await this.#inputView.inputBonusNumber();
+    const bonusNumber = this.#lottoService.validateBonusNumber(
+      bonusInput,
+      winningNumbers
+    );
 
     return { winningNumbers, bonusNumber };
   }
 
-  // 당첨 확인 및 결과 출력
-  async #checkAndShowResults(
-    lottos,
-    winningNumbers,
-    bonusNumber,
-    purchaseAmount
-  ) {
-    const checker = new LottoChecker(lottos, winningNumbers, bonusNumber);
-    const { results, totalPrize } = checker.checkLottos();
-    OutputHandler.showWinningStatisticsResult(
-      results,
-      totalPrize,
+  async #handleResults(lottos, winningNumbers, bonusNumber, purchaseAmount) {
+    const { results, profitRate } = this.#lottoService.checkLottoResults(
+      lottos,
+      winningNumbers,
+      bonusNumber,
       purchaseAmount
     );
+
+    this.#outputView.showWinningStatisticsResult();
+    this.#outputView.showWinningMessage(results);
+    this.#outputView.showProfitRate(profitRate);
   }
 }
 
