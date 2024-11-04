@@ -48,3 +48,27 @@ export function winningNumbersValidate(numbers) {
     }
   });
 }
+
+export function bonusNumberValidate(number, pickedNumbers) {
+  const numericValue = Number(number);
+
+  if (!number.trim()) {
+    throwError("번호를 입력해 주세요.");
+  }
+
+  if (isNaN(number)) {
+    throwError("번호는 숫자로 입력해 주세요.");
+  }
+
+  if (!Number.isInteger(numericValue)) {
+    throwError("번호는 정수로 입력해주세요.");
+  }
+
+  if (numericValue < 1 || numericValue > 45) {
+    throwError("숫자는 1 과 45 사이로 입력해주세요.");
+  }
+
+  if (pickedNumbers.some((number) => number === numericValue)) {
+    throwError("이전에 선택한 숫자와 중복된 숫자입니다.");
+  }
+}
