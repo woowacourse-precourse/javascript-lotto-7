@@ -1,5 +1,6 @@
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import { MESSAGES, ERROR_MESSAGES } from './Message.js';
 
 class LottoGame {
   static PRICE_PER_LOTTO = 1000;
@@ -57,9 +58,9 @@ class LottoGame {
   }
 
   displayLottos() {
-    Console.print(`\n${this.quantity}개를 구매했습니다.`);
+    Console.print(MESSAGES.PURCHASE_COUNT(this.quantity));
     this.lottos.forEach((lotto) =>
-      Console.print(`[${lotto.numbers.join(', ')}]`)
+      Console.print(MESSAGES.LOTTO_NUMBERS(lotto.numbers))
     );
   }
 
@@ -70,7 +71,7 @@ class LottoGame {
 
   async inputWinningNumbers() {
     const winningInput = await Console.readLineAsync(
-      '\n당첨 번호를 입력해 주세요.\n'
+      MESSAGES.INPUT_WINNING_NUMBERS
     );
     this.winningNumbers = winningInput
       .split(',')
@@ -80,9 +81,7 @@ class LottoGame {
   }
 
   async inputBonusNumber() {
-    const bonusInput = await Console.readLineAsync(
-      '\n보너스 번호를 입력해 주세요.\n'
-    );
+    const bonusInput = await Console.readLineAsync(MESSAGES.INPUT_BONUS_NUMBER);
     this.bonusNumber = Number(bonusInput);
 
     this.validateBonusNumber(this.bonusNumber);
@@ -90,23 +89,23 @@ class LottoGame {
 
   validateWinningNumbers(winningNumbers) {
     if (new Set(winningNumbers).size !== 6) {
-      throw new Error('[ERROR] 당첨 번호는 6개의 서로 다른 숫자여야 합니다.');
+      throw new Error(ERROR_MESSAGES.DUPLICATE_WINNING_NUMBERS);
     }
 
     winningNumbers.forEach((number) => {
       if (isNaN(number))
-        throw new Error('[ERROR] 당첨 번호 입력이 잘못되었습니다.');
+        throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
       if (number <= 0 || number >= 46)
-        throw new Error('[ERROR] 당첨 번호 입력이 잘못되었습니다.');
+        throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
     });
   }
 
   validateBonusNumber(bonusNumber) {
     if (isNaN(bonusNumber))
-      throw new Error('[ERROR] 보너스 번호 입력이 잘못되었습니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER);
 
     if (this.winningNumbers.includes(bonusNumber))
-      throw new Error('[ERROR] 당첨 번호와 보너스 번호는 중복될 수 없습니다.');
+      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
   }
 
   calculateWinningResults() {
@@ -132,16 +131,14 @@ class LottoGame {
   }
 
   displayResult() {
-    Console.print('\n당첨 통계');
-    Console.print('---');
-    Console.print(`3개 일치 (5,000원) - ${this.result.FIFTH}개`);
-    Console.print(`4개 일치 (50,000원) - ${this.result.FOURTH}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${this.result.THIRD}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result.SECOND}개`
-    );
-    Console.print(`6개 일치 (2,000,000,000원) - ${this.result.FIRST}개`);
-    Console.print(`총 수익률은 ${this.calculateProfitRate()}%입니다.`);
+    Console.print(MESSAGES.WINNING_STATISTICS);
+    Console.print(MESSAGES.DIVIDER);
+    Console.print(MESSAGES.FIFTH_PRIZE(this.result.FIFTH));
+    Console.print(MESSAGES.FOURTH_PRIZE(this.result.FOURTH));
+    Console.print(MESSAGES.THIRD_PRIZE(this.result.THIRD));
+    Console.print(MESSAGES.SECOND_PRIZE(this.result.SECOND));
+    Console.print(MESSAGES.FIRST_PRIZE(this.result.FIRST));
+    Console.print(MESSAGES.PROFIT_RATE(this.calculateProfitRate()));
   }
 
   calculateProfitRate() {
