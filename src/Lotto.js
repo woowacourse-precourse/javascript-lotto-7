@@ -13,6 +13,14 @@ class Lotto {
     return numbers.sort((a, b) => a - b);
   }
 
+  static generateBonusNumber(winningNumbers) {
+    let bonusNumber;
+    do {
+      bonusNumber = Random.pickUniqueNumbersInRange(1, 45, 1)[0];
+    } while (winningNumbers.includes(bonusNumber));
+    return bonusNumber;
+  }
+
   #validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
@@ -28,4 +36,4 @@ class Lotto {
   }
 }
 
-export default Lotto;
+export { Lotto };
