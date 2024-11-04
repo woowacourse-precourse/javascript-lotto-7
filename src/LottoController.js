@@ -11,6 +11,7 @@ class LottoController {
   #lottos;
   #winningNumbers;
   #winningBonusNumber;
+  #resultTable;
 
   /**
    *
@@ -51,6 +52,27 @@ class LottoController {
    */
   setWinningBonusNumber(winningBonusNumber) {
     this.#winningBonusNumber = Number(winningBonusNumber);
+  }
+
+  /**
+   *
+   */
+  calculateLottoResult() {
+    this.#resultTable = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
+
+    this.#lottos.forEach((lotto) => {
+      const rank = lotto.getLottoResult(
+        this.#winningNumbers,
+        this.#winningBonusNumber
+      );
+      this.#resultTable[rank] += 1;
+    });
   }
 }
 
