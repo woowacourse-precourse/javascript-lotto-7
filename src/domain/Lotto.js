@@ -12,7 +12,7 @@ class Lotto {
     }
   }
 
-  getLotto() {
+  getNumbers() {
     return this.#numbers;
   }
 }

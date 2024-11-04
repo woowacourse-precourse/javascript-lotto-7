@@ -9,7 +9,7 @@ class LottoService {
 
   constructor(){
     this.#lottoRepository = new LottoRepository();
-    this.#random = MissionUtils.Random.pickNumberInRange;
+    this.#random = MissionUtils.Random.pickUniqueNumbersInRange;
   }
 
   #generateRandomLotto() {
