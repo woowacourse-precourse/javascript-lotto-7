@@ -65,9 +65,9 @@
 
   * [x] 내 로또들이 각각 몇 등인지 통게를 내는 기능
 
-- [ ] **Output Domain**
+- [x] **Outcome Domain**
 
-  * [ ] 총 수익금을 계산하는 기능
+  * [x] 총 수익금을 계산하는 기능
 
 - [ ] **Opportunity Domain**
 
