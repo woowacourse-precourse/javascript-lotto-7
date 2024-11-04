@@ -1,4 +1,4 @@
-import { checkLottoPurchaseAmount } from '../../src/input/validatorInput.js';
+import { checkLottoPurchasePrice } from '../../src/input/validatorInput.js';
 import ERROR_MESSAGE from '../../src/constants/errorMessage.js';
 
 const INVALID_CASES = [
@@ -21,13 +21,13 @@ const VALID_CASES = [
 describe("로또 구입 금액 유효성 테스트", () => {
   test.each(INVALID_CASES)("로또 구입 금액이 %s", (_, input, expectedError) => {
     expect(() => {
-      checkLottoPurchaseAmount(input);
+      checkLottoPurchasePrice(input);
     }).toThrow(expectedError);
   });
 
   test.each(VALID_CASES)("로또 구입 금액이 유효한 경우 (%s)", (_, input) => {
     expect(() => {
-      checkLottoPurchaseAmount(input);
+      checkLottoPurchasePrice(input);
     }).not.toThrow();
   });
 });
