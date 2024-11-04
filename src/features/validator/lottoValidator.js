@@ -1,7 +1,15 @@
+import { Console } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGE } from "../../constants/errorMessages.js";
 import { LOTTO_NUMBER_COUNT } from "../../constants/lotto.js";
 import { errorHandler } from "../../utils/errorHandler.js";
 
+//문자열 관련 validation
+const isNotNull = (value) => {
+  if (!value) errorHandler(ERROR_MESSAGE.string.notNull);
+  return true;
+};
+
+//숫자 관련 validation
 const isNumber = (value) => {
   if (isNaN(value)) errorHandler(ERROR_MESSAGE.number.notNumber);
   return true;
@@ -12,11 +20,23 @@ const isValidUnit = (unit, value) => {
   return true;
 };
 
-const isNotNull = (value) => {
-  if (!value) errorHandler(ERROR_MESSAGE.string.notNull);
+const isPositive = (value) => {
+  if (value < 0) errorHandler(ERROR_MESSAGE.number.notPositive);
+  if (value === 0) errorHandler(ERROR_MESSAGE.number.notZero);
   return true;
 };
 
+const isInteger = (number) => {
+  if (!Number.isInteger(number)) errorHandler(ERROR_MESSAGE.number.notInteger);
+  return true;
+};
+
+const isTooLarge = (value) => {
+  if (value > 1000000) errorHandler(ERROR_MESSAGE.number.tooLarge);
+  return true;
+};
+
+//lotto 기능 관련 validation
 const isNotDuplicated = (numbers) => {
   if (new Set(numbers).size !== LOTTO_NUMBER_COUNT)
     errorHandler(ERROR_MESSAGE.lotto.isDuplicated);
@@ -30,7 +50,7 @@ const isValidLength = (numbers) => {
 };
 
 const nestedInput = (counter) => {
-  if (counter >= 10) errorHandler(ERROR_MESSAGE.number.tooManyNested);
+  if (counter >= 10) errorHandler(ERROR_MESSAGE.lotto.tooManyNested);
 };
 
 export {
@@ -40,4 +60,7 @@ export {
   isNotDuplicated,
   isValidLength,
   nestedInput,
+  isPositive,
+  isInteger,
+  isTooLarge,
 };
