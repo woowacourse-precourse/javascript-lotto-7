@@ -12,7 +12,7 @@ const mockUniqueRandoms = (mockNumbers) => {
   return spy;
 };
 
-describe.skip('LottoIssuer 클래스 테스트', () => {
+describe('LottoIssuer 클래스 테스트', () => {
   let logSpy;
   let spy;
 

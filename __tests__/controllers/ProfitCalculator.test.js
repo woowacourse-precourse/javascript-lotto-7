@@ -5,7 +5,7 @@ import {
   RANK_KEYS,
 } from '../../src/utils/constants.js';
 
-describe.skip('ProfitCalculator 클래스 테스트', () => {
+describe('ProfitCalculator 클래스 테스트', () => {
   test('수익률이 올바르게 계산된다.', () => {
     // given
     const rankCounts = {

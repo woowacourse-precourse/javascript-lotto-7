@@ -2,7 +2,7 @@ import LottoMatcher from '../../src/controllers/LottoMatcher.js';
 import Lotto from '../../src/controllers/Lotto.js';
 import { RANK_KEYS } from '../../src/utils/constants.js';
 
-describe.skip('LottoMatcher 클래스 테스트', () => {
+describe('LottoMatcher 클래스 테스트', () => {
   test('로또 티켓의 일치하는 로또 번호 개수를 반환한다.', () => {
     // given
     const lottoTickets = [

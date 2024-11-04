@@ -13,8 +13,9 @@ import ProfitCalculator from './controllers/ProfitCalculator.js';
 
 class App {
   async run() {
-    // TODO: 보너스 번호 매치가 안되는 버그
     const purchaseAmount = await this.#getValidPurchaseAmount();
+    Console.print(GAME_SETTINGS.NEW_LINE);
+
     const lottoTickets = LottoIssuer.createLottoTickets(purchaseAmount);
 
     const winningNumbers = await this.#getValidWinningNumbers();
@@ -27,6 +28,7 @@ class App {
       bonusNumber
     ).run();
 
+    this.#displayResultHeader();
     this.#displayResults(rankCounts);
 
     const profitRate = new ProfitCalculator(rankCounts, purchaseAmount)
@@ -66,6 +68,11 @@ class App {
       Console.print(error.message);
       return this.#getValidBonusNumber(winningNumbers);
     }
+  }
+
+  #displayResultHeader() {
+    Console.print(`${GAME_SETTINGS.NEW_LINE}당첨 통계`);
+    Console.print('---');
   }
 
   #displayResults(rankCounts) {

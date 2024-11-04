@@ -1,7 +1,7 @@
 import LottoValidator from '../../src/controllers/LottoValidator.js';
 import { ERROR_MESSAGES } from '../../src/utils/constants.js';
 
-describe.skip('LottoValidator 클래스 테스트', () => {
+describe('LottoValidator 클래스 테스트', () => {
   test('당첨 번호가 6개 미만이면 예외가 발생한다.', () => {
     // given
     const invalidNumbers = '1, 2, 3, 4, 5';
