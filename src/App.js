@@ -15,9 +15,9 @@ class App {
       lottoPurchaser,
       winningLotto,
       inputLottoView,
-      outPutLottoView
+      outPutLottoView,
     );
-    
+
     await lottoController.run();
   }
 }

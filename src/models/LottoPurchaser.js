@@ -1,6 +1,6 @@
 import LottoGenerator from './LottoGenerator.js';
 import LottoResult from './LottoResult.js';
-import {LOTTO_CONFIG} from "../constants/lottoConfig.js";
+import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class LottoPurchaser {
   #purchasePrice;
@@ -24,7 +24,7 @@ export default class LottoPurchaser {
     return this.#lottos;
   }
 
-  setLottos(lottos){
+  setLottos(lottos) {
     this.#lottos = lottos;
   }
 
@@ -40,7 +40,8 @@ export default class LottoPurchaser {
   }
 
   compareLottosWithWinningLotto(winningLotto) {
-    const winningLottoMainNumbers = winningLotto.getMainLotto().getNumbers();
+    const winningLottoMainNumbers = winningLotto.getMainLotto()
+      .getNumbers();
     const winningLottoBonusNumber = winningLotto.getBonusNumber();
 
     this.#lottos.forEach((lotto) => {

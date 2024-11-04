@@ -4,7 +4,9 @@ describe('로또 클래스 테스트', () => {
   test('로또 번호가 올바른 범위(1~45) 내에 있는 6개의 고유 숫자로 구성된 경우, 예외가 발생하지 않는다.', () => {
     expect(() => {
       new Lotto([1, 2, 3, 4, 5, 6]);
-    }).not.toThrow();
+    })
+      .not
+      .toThrow();
   });
 
   const ERROR = '[ERROR]';
@@ -56,7 +58,8 @@ describe('로또 클래스 테스트', () => {
         input: [1, 2, 3, null, 5, 6],
       },
       {
-        description: '로또 번호 배열에 undefined가 포함된 경우 예외가 발생한다.',
+        description:
+          '로또 번호 배열에 undefined가 포함된 경우 예외가 발생한다.',
         input: [1, 2, 3, undefined, 5, 6],
       },
       {
@@ -86,7 +89,8 @@ describe('로또 클래스 테스트', () => {
     ])('$description', ({ input }) => {
       expect(() => {
         new Lotto(input);
-      }).toThrow(ERROR);
+      })
+        .toThrow(ERROR);
     });
   });
 });

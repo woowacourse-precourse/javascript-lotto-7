@@ -85,23 +85,23 @@ describe('로또 결과 기능 테스트', () => {
         [WINNING_CONDITIONS_DESC.MATCH_6]: 1,
       },
     },
-  ])(
-    '$description',
-    ({ matchCount, isBonusMatch, expectedResult }) => {
-      // given
-      const expectedResultPrice = LOTTO_CONFIG.WINNING_PRIZE_MAP[
+  ])('$description', ({ matchCount, isBonusMatch, expectedResult }) => {
+    // given
+    const expectedResultPrice =
+      LOTTO_CONFIG.WINNING_PRIZE_MAP[
         LOTTO_CONFIG.WINNING_CONDITIONS[matchCount][isBonusMatch]
         ];
 
-      // when
-      lottoResult.saveResult(matchCount, isBonusMatch);
+    // when
+    lottoResult.saveResult(matchCount, isBonusMatch);
 
-      // then
-      const result = lottoResult.getResult();
-      const resultPrice = lottoResult.getResultPrice();
+    // then
+    const result = lottoResult.getResult();
+    const resultPrice = lottoResult.getResultPrice();
 
-      expect(result).toEqual(expectedResult);
-      expect(resultPrice).toBe(expectedResultPrice);
-    }
-  );
+    expect(result)
+      .toEqual(expectedResult);
+    expect(resultPrice)
+      .toBe(expectedResultPrice);
+  });
 });

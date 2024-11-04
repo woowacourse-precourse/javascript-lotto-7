@@ -27,7 +27,7 @@ export default class LottoController {
   async #purchaseLottos() {
     await this.#retryInputUntilSuccess(
       () => this.#inputLottoView.getInputPrice(),
-      (result) => this.#lottoPurchaser.purchase(result)
+      (result) => this.#lottoPurchaser.purchase(result),
     );
   }
 
@@ -39,14 +39,14 @@ export default class LottoController {
   async #decideWinningLottoMainNumbers() {
     await this.#retryInputUntilSuccess(
       () => this.#inputLottoView.getInputWinningLottoMainNumbers(),
-      (winningLottoMainNumbers) => this.#winningLotto.setMainLotto(winningLottoMainNumbers)
+      (winningLottoMainNumbers) => this.#winningLotto.setMainLotto(winningLottoMainNumbers),
     );
   }
 
   async #decideWinningLottoBonusNumber() {
     await this.#retryInputUntilSuccess(
       () => this.#inputLottoView.getInputWinningLottoBonusNumber(),
-      (winningLottoBonusNumber) => this.#winningLotto.setBonusNumber(winningLottoBonusNumber)
+      (winningLottoBonusNumber) => this.#winningLotto.setBonusNumber(winningLottoBonusNumber),
     );
   }
 

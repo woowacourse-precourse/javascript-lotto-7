@@ -1,20 +1,21 @@
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class LottoResult {
-  #START_PRICE = 0
-  #INIT_COUNT = 0
+  #START_PRICE = 0;
+  #INIT_COUNT = 0;
   #resultPrice;
   #earningRate;
   #result;
 
   constructor() {
-    this.#result = Object.keys(LOTTO_CONFIG.WINNING_PRIZE_MAP).reduce(
-      (acc, key) => {
-        acc[key] = this.#INIT_COUNT;
-        return acc;
-      },
-      {},
-    );
+    this.#result = Object.keys(LOTTO_CONFIG.WINNING_PRIZE_MAP)
+      .reduce(
+        (acc, key) => {
+          acc[key] = this.#INIT_COUNT;
+          return acc;
+        },
+        {},
+      );
     this.#resultPrice = this.#START_PRICE;
   }
 
@@ -35,9 +36,10 @@ export default class LottoResult {
   }
 
   saveResult(matchCount, isBonusNumberMatch) {
-    const matchStandards = Object.keys(LOTTO_CONFIG.WINNING_CONDITIONS).map(
-      Number,
-    );
+    const matchStandards = Object.keys(LOTTO_CONFIG.WINNING_CONDITIONS)
+      .map(
+        Number,
+      );
     if (matchStandards.includes(matchCount)) {
       const matchKey =
         LOTTO_CONFIG.WINNING_CONDITIONS[matchCount]?.[isBonusNumberMatch];

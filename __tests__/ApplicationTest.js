@@ -1,5 +1,5 @@
 import App from '../src/App.js';
-import {MissionUtils} from '@woowacourse/mission-utils';
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -29,7 +29,7 @@ const runException = async (input, position) => {
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+  const INPUT_NUMBERS_TO_END = ['1000', '1,2,3,4,5,6', '7'];
 
   // 특정 위치에 input 값을 삽입
   const inputs = [...INPUT_NUMBERS_TO_END];
@@ -43,7 +43,8 @@ const runException = async (input, position) => {
   await app.run();
 
   // then
-  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  expect(logSpy)
+    .toHaveBeenCalledWith(expect.stringContaining('[ERROR]'));
 };
 
 describe('로또 테스트', () => {
@@ -91,74 +92,77 @@ describe('로또 테스트', () => {
     ];
 
     logs.forEach((log) => {
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+      expect(logSpy)
+        .toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
 
   describe('잘못된 입력 예외 테스트', () => {
     describe('구매 금액 예외 테스트', () => {
-      const POSITION = 0
+      const POSITION = 0;
 
       test.each([
-        { description: '문자와 숫자가 혼합된 입력', input: "1000j"},
-        { description: '음수 금액 입력', input: "-1000"},
-        { description: '소수 입력', input: "1000.5"},
-        { description: '음수 소수 입력', input: "-1000.5"},
-        { description: '과학적 표기법 입력', input: "1e3"},
-        { description: '알파벳과 숫자 혼합된 입력', input: "1A00"},
-        { description: '0 입력', input: "0"},
-        { description: '빈 문자열 입력', input: ""},
-        { description: '공백 입력', input: " "},
-        { description: '특수 문자 입력', input: "$1000"},
-        { description: '영문 입력', input: "one thousand"},
-        { description: 'null 입력', input: null},
-        { description: 'undefined 입력', input: undefined},
-      ])('$description', async ({ input}) => {
+        { description: '문자와 숫자가 혼합된 입력', input: '1000j' },
+        { description: '음수 금액 입력', input: '-1000' },
+        { description: '소수 입력', input: '1000.5' },
+        { description: '음수 소수 입력', input: '-1000.5' },
+        { description: '과학적 표기법 입력', input: '1e3' },
+        { description: '알파벳과 숫자 혼합된 입력', input: '1A00' },
+        { description: '0 입력', input: '0' },
+        { description: '빈 문자열 입력', input: '' },
+        { description: '공백 입력', input: ' ' },
+        { description: '특수 문자 입력', input: '$1000' },
+        { description: '영문 입력', input: 'one thousand' },
+        { description: 'null 입력', input: null },
+        { description: 'undefined 입력', input: undefined },
+      ])('$description', async ({ input }) => {
         await runException(input, POSITION);
       });
     });
 
     describe('당첨 번호 예외 테스트', () => {
-      const POSITION = 1
+      const POSITION = 1;
 
       test.each([
-        { description: '당첨 번호에 숫자 외 문자 포함', input: "1,2,3,4,5,X"},
-        { description: '당첨 번호에 중복된 숫자 포함', input: "1,2,3,4,5,5"},
-        { description: '당첨 번호에 0 포함', input: "0,2,3,4,5,6"},
-        { description: '당첨 번호에 음수 포함', input: "1,2,-3,4,5,6"},
-        { description: '당첨 번호에 45를 초과하는 숫자 포함', input: "1,2,3,4,5,46"},
-        { description: '당첨 번호에 공백 포함', input: "1,2, ,4,5,6"},
-        { description: '당첨 번호에 소수 포함', input: "1,2,3,4.5,5,6"},
-        { description: '당첨 번호에 다른 구분자 사용', input: "1#2,3,4,5,6"},
-        { description: '당첨 번호에 다중 구분자 사용', input: "1,,2,3,4,5,6"},
-        { description: '공백 포함 숫자 입력', input: "1, 2,3,4,5,6"},
-        { description: '알파벳과 숫자 혼합', input: "1a,2,3,4,5,6"},
-        { description: 'null 입력', input: null},
-        { description: 'undefined 입력', input: undefined},
+        { description: '당첨 번호에 숫자 외 문자 포함', input: '1,2,3,4,5,X' },
+        { description: '당첨 번호에 중복된 숫자 포함', input: '1,2,3,4,5,5' },
+        { description: '당첨 번호에 0 포함', input: '0,2,3,4,5,6' },
+        { description: '당첨 번호에 음수 포함', input: '1,2,-3,4,5,6' },
+        {
+          description: '당첨 번호에 45를 초과하는 숫자 포함',
+          input: '1,2,3,4,5,46',
+        },
+        { description: '당첨 번호에 공백 포함', input: '1,2, ,4,5,6' },
+        { description: '당첨 번호에 소수 포함', input: '1,2,3,4.5,5,6' },
+        { description: '당첨 번호에 다른 구분자 사용', input: '1#2,3,4,5,6' },
+        { description: '당첨 번호에 다중 구분자 사용', input: '1,,2,3,4,5,6' },
+        { description: '공백 포함 숫자 입력', input: '1, 2,3,4,5,6' },
+        { description: '알파벳과 숫자 혼합', input: '1a,2,3,4,5,6' },
+        { description: 'null 입력', input: null },
+        { description: 'undefined 입력', input: undefined },
       ])('$description', async ({ input }) => {
         await runException(input, POSITION);
       });
     });
 
     describe('보너스 번호 예외 테스트', () => {
-      const POSITION = 2
+      const POSITION = 2;
 
       test.each([
-        { description: '보너스 번호에 숫자 외 문자 포함', input: "X" },
-        { description: '보너스 번호에 0 포함', input: "0" },
-        { description: '보너스 번호에 음수 포함', input: "-7" },
-        { description: '보너스 번호에 45를 초과하는 숫자 포함', input: "46" },
-        { description: '보너스 번호에 소수 포함', input: "7.5" },
-        { description: '보너스 번호에 공백 포함', input: " " },
-        { description: '보너스 번호에 중복되는 번호 포함', input: "6" },
-        { description: '과학적 표기법 입력', input: "7e1" },
-        { description: '숫자와 특수 문자 조합', input: "7*" },
+        { description: '보너스 번호에 숫자 외 문자 포함', input: 'X' },
+        { description: '보너스 번호에 0 포함', input: '0' },
+        { description: '보너스 번호에 음수 포함', input: '-7' },
+        { description: '보너스 번호에 45를 초과하는 숫자 포함', input: '46' },
+        { description: '보너스 번호에 소수 포함', input: '7.5' },
+        { description: '보너스 번호에 공백 포함', input: ' ' },
+        { description: '보너스 번호에 중복되는 번호 포함', input: '6' },
+        { description: '과학적 표기법 입력', input: '7e1' },
+        { description: '숫자와 특수 문자 조합', input: '7*' },
         { description: 'null 입력', input: null },
         { description: 'undefined 입력', input: undefined },
-      ])('$description', async ({ input}) => {
+      ])('$description', async ({ input }) => {
         await runException(input, POSITION);
       });
     });
   });
-
 });

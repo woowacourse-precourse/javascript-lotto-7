@@ -1,4 +1,7 @@
-import {LOTTO_CONFIG,WINNING_CONDITIONS_DESC} from '../src/constants/lottoConfig.js';
+import {
+  LOTTO_CONFIG,
+  WINNING_CONDITIONS_DESC,
+} from '../src/constants/lottoConfig.js';
 import LottoPurchaser from '../src/models/LottoPurchaser.js';
 import WinningLotto from '../src/models/WinningLotto.js';
 import Lotto from '../src/models/Lotto.js';
@@ -13,7 +16,9 @@ describe('로또 구매자 테스트', () => {
   test('로또 구매 금액이 잘 들어왔을 경우', () => {
     const purchasePrice = LOTTO_CONFIG.LOTTO_PRICE;
 
-    expect(() => lottoPurchaser.purchase(purchasePrice)).not.toThrow('[ERROR]');
+    expect(() => lottoPurchaser.purchase(purchasePrice))
+      .not
+      .toThrow('[ERROR]');
   });
 
   describe('로또 구매 금액 예외 테스트', () => {
@@ -35,7 +40,8 @@ describe('로또 구매자 테스트', () => {
         purchasePrice: 0,
       },
     ])('$description', ({ purchasePrice }) => {
-      expect(() => lottoPurchaser.purchase(purchasePrice)).toThrow('[ERROR]');
+      expect(() => lottoPurchaser.purchase(purchasePrice))
+        .toThrow('[ERROR]');
     });
   });
 
@@ -51,8 +57,10 @@ describe('로또 구매자 테스트', () => {
     const lottoCount = lottoPurchaser.getLottoCount();
     const lottos = lottoPurchaser.getLottos();
 
-    expect(lottoCount).toBe(LOTTO_COUNT);
-    expect(lottos.length).toBe(LOTTO_COUNT);
+    expect(lottoCount)
+      .toBe(LOTTO_COUNT);
+    expect(lottos.length)
+      .toBe(LOTTO_COUNT);
   });
 
   describe('당첨 번호와 비교하여 결과를 올바르게 저장하는지 테스트', () => {
@@ -145,9 +153,11 @@ describe('로또 구매자 테스트', () => {
         lottoPurchaser.compareLottosWithWinningLotto(winningLotto);
 
         // then
-        const result = lottoPurchaser.getLottoResult().getResult();
-        expect(result).toEqual(expectedResult);
-      }
+        const result = lottoPurchaser.getLottoResult()
+          .getResult();
+        expect(result)
+          .toEqual(expectedResult);
+      },
     );
   });
 
@@ -155,17 +165,25 @@ describe('로또 구매자 테스트', () => {
     // given
     const LOTTO_COUNT = 10;
     const purchasePrice = LOTTO_CONFIG.LOTTO_PRICE * LOTTO_COUNT;
-    const WINNING_PRICE = 50000
+    const WINNING_PRICE = 50000;
 
-    jest.spyOn(lottoPurchaser.getLottoResult(), 'getResultPrice').mockReturnValue(WINNING_PRICE);
+    jest
+      .spyOn(lottoPurchaser.getLottoResult(), 'getResultPrice')
+      .mockReturnValue(WINNING_PRICE);
 
     // when
     lottoPurchaser.purchase(purchasePrice);
     lottoPurchaser.calculateEarningRate();
 
-    const expectedEarningRate = (WINNING_PRICE / purchasePrice) * LOTTO_CONFIG.EARNING_RATE_MULTIPLIER;
+    const expectedEarningRate =
+      (WINNING_PRICE / purchasePrice) * LOTTO_CONFIG.EARNING_RATE_MULTIPLIER;
 
     // then
-    expect(lottoPurchaser.getLottoResult().getEarningRate()).toBeCloseTo(expectedEarningRate, LOTTO_CONFIG.EARNING_RATE_PRECISION);
+    expect(lottoPurchaser.getLottoResult()
+      .getEarningRate())
+      .toBeCloseTo(
+        expectedEarningRate,
+        LOTTO_CONFIG.EARNING_RATE_PRECISION,
+      );
   });
 });

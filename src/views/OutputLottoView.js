@@ -31,11 +31,12 @@ export default class OutputLottoView {
 
     Console.print(this.#OUTPUT_MESSAGE.LOTTO_RESULT_START);
 
-    Object.entries(result).forEach(([condition, count]) => {
-      const transformedString = this.#transformToFormat(condition, count);
+    Object.entries(result)
+      .forEach(([condition, count]) => {
+        const transformedString = this.#transformToFormat(condition, count);
 
-      Console.print(transformedString);
-    });
+        Console.print(transformedString);
+      });
   }
 
   printEarningRate(lottoResultDTO) {
@@ -51,7 +52,7 @@ export default class OutputLottoView {
   #transformToFormat(condition, count) {
     return `${condition} (${LOTTO_CONFIG.WINNING_PRIZE_MAP[
       condition
-    ].toLocaleString()}원) - ${count}개`;
+      ].toLocaleString()}원) - ${count}개`;
   }
 
   #joinArrayWithFormat(array) {

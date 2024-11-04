@@ -4,7 +4,7 @@ export default class InputLottoView {
   #INPUT_MESSAGE = {
     PURCHASE_PRICE: '구입금액을 입력해 주세요.\n',
     WINNING_LOTTO_MAIN_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
-    WINNING_LOTTO_BOUNS_NUMBER: '\n보너스 번호를 입력해 주세요.\n'
+    WINNING_LOTTO_BOUNS_NUMBER: '\n보너스 번호를 입력해 주세요.\n',
   };
   #ERROR_MESSAGE = {
     INVALID_NUMBER: '[ERROR] 숫자를 입력해주세요.\n',
@@ -13,11 +13,11 @@ export default class InputLottoView {
       '[ERROR] 당첨 번호는 쉼표(,)를 기준으로 6개를 입력해주세요.\n',
   };
   #SPLIT_COMMA_REGEX = /^(\d+)(,\d+){5}$/;
-  #SPLITTER = ','
+  #SPLITTER = ',';
 
   async getInputPrice() {
     const purchasePrice = await Console.readLineAsync(
-      this.#INPUT_MESSAGE.PURCHASE_PRICE
+      this.#INPUT_MESSAGE.PURCHASE_PRICE,
     );
 
     this.#validatePurchasePrice(purchasePrice);
@@ -27,7 +27,7 @@ export default class InputLottoView {
 
   async getInputWinningLottoMainNumbers() {
     const mainNumbersString = await Console.readLineAsync(
-      this.#INPUT_MESSAGE.WINNING_LOTTO_MAIN_NUMBERS
+      this.#INPUT_MESSAGE.WINNING_LOTTO_MAIN_NUMBERS,
     );
 
     this.#validateWinningLottoMainNumbers(mainNumbersString);
@@ -37,7 +37,7 @@ export default class InputLottoView {
 
   async getInputWinningLottoBonusNumber() {
     const bonusNumber = await Console.readLineAsync(
-      this.#INPUT_MESSAGE.WINNING_LOTTO_BOUNS_NUMBER
+      this.#INPUT_MESSAGE.WINNING_LOTTO_BOUNS_NUMBER,
     );
 
     this.#validateBonusNumber(bonusNumber);
@@ -62,7 +62,7 @@ export default class InputLottoView {
     this.#checkBlank(mainNumbersString);
   }
 
-  #validateBonusNumber(bonusNumber){
+  #validateBonusNumber(bonusNumber) {
     this.#checkNumber(bonusNumber);
     this.#checkBlank(bonusNumber);
   }

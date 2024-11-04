@@ -5,7 +5,7 @@ import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class LottoGenerator {
   generate(price) {
-    this.#validtePurchasePrice(price);
+    this.#validatePurchasePrice(price);
     const lottoCount = price / LOTTO_CONFIG.LOTTO_PRICE;
 
     const lottos = this.#generateLottos(lottoCount);
@@ -31,7 +31,7 @@ export default class LottoGenerator {
     return numbers.sort((a, b) => a - b);
   }
 
-  #validtePurchasePrice(purchasePrice) {
+  #validatePurchasePrice(purchasePrice) {
     this.#checkMinimumPrice(purchasePrice);
     this.#checkLottoPriceUnit(purchasePrice);
   }
