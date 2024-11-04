@@ -15,22 +15,34 @@ class LottoGame {
 	}
 
 	async initialize() {
+		await this.setupGame();
+		this.generateAndPrintTickets();
+		await this.getWinningNumbers();
+		this.calculateAndPrintResults();
+	}
+
+	async setupGame() {
 		this.purchaseAmount = await InputManager.inputAndValidatePurchaseAmount();
 		this.ticketCount = Math.floor(this.purchaseAmount / 1000);
 		this.printTicketCount();
+	}
 
+	generateAndPrintTickets() {
 		this.lottoTickets = TicketManager.generateLottos(this.ticketCount);
 		TicketManager.printLottos(this.lottoTickets);
+	}
 
+	async getWinningNumbers() {
 		this.winningNumbers = await InputManager.inputAndValidateWinningNumbers();
 		this.bonusNumber = await InputManager.inputAndValidateBonusNumber(this.winningNumbers);
+	}
 
+	calculateAndPrintResults() {
 		this.winningStatistics = StatisticsCalculator.calculateWinningStatistics(
 			this.lottoTickets,
 			this.winningNumbers,
 			this.bonusNumber
 		);
-
 		StatisticsCalculator.printWinningStatistics(this.winningStatistics);
 
 		this.profitRate = StatisticsCalculator.calculateProfitRate(this.winningStatistics, this.purchaseAmount);
