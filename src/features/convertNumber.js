@@ -1,7 +1,9 @@
 import { ERROR } from "../config/config.js";
 
 export const convertNumber = (strings) => {
-  if (isNaN(strings)) {
+  const number = parseFloat(strings);
+
+  if (Number.isNaN(number)) {
     throw new Error(ERROR.NOT_NUMBER);
   }
 
