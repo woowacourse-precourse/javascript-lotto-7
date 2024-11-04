@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT, RESULT_KEYS } from '../constant/index.js';
+import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT, RESULT_KEYS, RETURN_RATE_DECIMAL_PLACES } from '../constant/index.js';
 import WinningResult from './winning-result.js';
 
 class Game {
@@ -55,7 +55,7 @@ class Game {
     const ticketCount = this.#purchasedLottoNumbersList.length;
     const totalPrize = Object.values(this.#gameResult).reduce((total, result) => total + result.totalPrize, 0);
     const returnRateRatio = totalPrize / (ticketCount * LOTTO_PRICE);
-    return (returnRateRatio * 100).toFixed(1);
+    return (returnRateRatio * 100).toFixed(RETURN_RATE_DECIMAL_PLACES);
   }
 
   #printResult() {
