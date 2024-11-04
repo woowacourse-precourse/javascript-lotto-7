@@ -22,8 +22,9 @@ class Money {
 
   #checkValidAmount(amount) {
     const isVlidAmount = amount % Money.BASE_AMOUNT === 0;
+    const isZero = amount === '0';
 
-    handleError(!isVlidAmount, ERROR_MESSAGES.INVALID_AMOUNT);
+    handleError(!isVlidAmount || isZero, ERROR_MESSAGES.INVALID_AMOUNT);
   }
 
   get count() {
