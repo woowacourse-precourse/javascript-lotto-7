@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Constants from "./Constants";
+import Constants from "./Constants.js";
 
 class LottoPurchase {
   #purchaseAmount;
@@ -8,15 +8,22 @@ class LottoPurchase {
     this.#purchaseAmount = purchaseAmount;
   }
 
-  #printPurchasesCount(purchasesCount) {
+  #calculatePurchaseCount() {
+    return this.#purchaseAmount / Constants.LOTTO_PRICE;
+  }
+
+  #printPurchasesCount() {
+    const purchasesCount = this.#calculatePurchaseCount();
+
     MissionUtils.Console.print(
-      purchasesCount + Constants.PURCHASE_COUNT_MESSAGES
+      `${purchasesCount}${Constants.PURCHASE_COUNT_MESSAGES}`
     );
   }
 
-  #printPurchaseLottoList(lottoList) {
-    lottoList.forEach((lottoNumbers) => {
-      MissionUtils.Console.print(lottoNumbers);
+  #printPurchaseLottoList(purchaseLottoList) {
+    purchaseLottoList.forEach((numbers) => {
+      const numbersStr = numbers.join(", ");
+      MissionUtils.Console.print(`[${numbers.join(", ")}]`);
     });
   }
 
@@ -36,13 +43,14 @@ class LottoPurchase {
   }
 
   getPurchaseLottoList() {
-    const purchasesCount = this.#purchaseAmount / Constants.LOTTO_PRICE;
-    this.#printPurchasesCount(purchasesCount);
+    const purchasesCount = this.#calculatePurchaseCount();
+    return this.#generateLottoNumbers(purchasesCount);
+  }
 
-    const purchaselottoList = this.#generateLottoNumbers(purchasesCount);
+  printPurchaseLottoList(purchaselottoList) {
+    const purchaseCount = this.#calculatePurchaseCount();
+    this.#printPurchasesCount(purchaseCount);
     this.#printPurchaseLottoList(purchaselottoList);
-
-    return purchaselottoList;
   }
 }
 
