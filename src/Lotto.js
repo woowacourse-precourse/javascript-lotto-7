@@ -16,6 +16,17 @@ class Lotto {
     return this.#numbers;
   }
 
+  getLottoResult(lottoAnswerNumbers, lottoBonusNumber) {
+    const lotto = this.#numbers;
+    const answerLotto = lottoAnswerNumbers;
+
+    const matchCount = lotto.filter((number) =>
+      answerLotto.includes(number),
+    ).length;
+    const isBonusMatch = answerLotto.includes(lottoBonusNumber);
+    return { matchCount, isBonusMatch };
+  }
+
   // TODO: 추가 기능 구현
 }
 
