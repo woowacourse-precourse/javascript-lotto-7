@@ -38,7 +38,6 @@ const validateMoneyTestCases = [
     input: '123 ',
     errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
-
   {
     description: `5a를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
     input: '5a',
@@ -49,7 +48,6 @@ const validateMoneyTestCases = [
     input: '1e2',
     errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
-
   {
     description: `Infinity를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
     input: 'Infinity',
@@ -65,7 +63,6 @@ const validateMoneyTestCases = [
     input: '1000n',
     errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
-
   {
     description: '2000을 입력하면 올바르게 2000을 반환해야 한다.',
     input: '2000',
@@ -81,6 +78,38 @@ const validateMoneyTestCases = [
       '10000000000000000000을 입력하면 올바르게 10000000000000000000을 반환해야 한다.',
     input: '10000000000000000000',
     expected: 10000000000000000000,
+  },
+
+  // 경계 테스트 케이스
+  {
+    description: `NaN을 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: Number.NaN.toString(),
+    errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
+  },
+  {
+    description: `최대 안전 정수 (${Number.MAX_SAFE_INTEGER})를 입력하면 올바르게 반환해야 한다.`,
+    input: Number.MAX_SAFE_INTEGER.toString(),
+    errorLog: ERROR_MESSAGES.money.ONLY_NOTE_ALLOWED,
+  },
+  {
+    description: `최소 안전 정수 (${Number.MIN_SAFE_INTEGER})를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: Number.MIN_SAFE_INTEGER.toString(),
+    errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
+  },
+  {
+    description: `최대 값 (${Number.MAX_VALUE})를 입력하면 올바르게 반환해야 한다.`,
+    input: Number.MAX_VALUE.toString(),
+    errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
+  },
+  {
+    description: `최소 값 (${Number.MIN_VALUE})를 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: Number.MIN_VALUE.toString(),
+    errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
+  },
+  {
+    description: `1에 근접한 작은 값 (${Number.EPSILON})을 입력하면, ${ERROR_MESSAGES.money.INVALID_INPUT_MONEY} 에러를 출력해야 한다.`,
+    input: Number.EPSILON.toString(),
+    errorLog: ERROR_MESSAGES.money.INVALID_INPUT_MONEY,
   },
 ];
 
