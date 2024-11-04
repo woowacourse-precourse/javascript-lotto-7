@@ -1,18 +1,22 @@
 import { LOTTO_NUMBER_DELIMITER } from "./libs/constants.js";
 import { printResult } from "./libs/utils.js";
+import { validateLottoNumberLength, validateNumberType, validateUniqueNumbers } from "./libs/validate.js";
 
 class Lotto {
   #numbers;
 
+  /**
+   *
+   * @param {number[]} numbers
+   */
   constructor(numbers) {
-    this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = this.#validate(numbers);
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+    validateLottoNumberLength(numbers);
+    validateUniqueNumbers(numbers);
+    return numbers.map(validateNumberType);
   }
 
   join() {

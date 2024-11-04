@@ -1,13 +1,8 @@
+import Lotto from "../Lotto.js";
 import { CONFIG, ERROR_MESSAGE, INFO_MESSAGE, WINNER_LOTTO_NUMBER_DELIMITER } from "./constants.js";
 import { LottoError } from "./errors.js";
 import { getInput, printResult } from "./utils.js";
-import {
-  validateEmptyInput,
-  validateLottoNumber,
-  validateNumberType,
-  validateUniqueNumbers,
-  validateWinnerNumberLength,
-} from "./validate.js";
+import { validateEmptyInput, validateLottoNumber, validateNumberType } from "./validate.js";
 
 export async function getLottoPurchaseCountByAmountInput() {
   try {
@@ -33,9 +28,8 @@ export async function getValidateWinnerNumbers() {
   try {
     const winnerLottoNumbersInput = await getInput(INFO_MESSAGE.WINNER_LOTTO_NUMBERS_INPUT);
     validateEmptyInput(winnerLottoNumbersInput);
-    const winnerLottoNumbers = winnerLottoNumbersInput.split(WINNER_LOTTO_NUMBER_DELIMITER).map(validateNumberType);
-    validateWinnerNumberLength(winnerLottoNumbers);
-    return validateUniqueNumbers(winnerLottoNumbers);
+    const winnerLottoNumbers = winnerLottoNumbersInput.split(WINNER_LOTTO_NUMBER_DELIMITER);
+    return new Lotto(winnerLottoNumbers);
   } catch (error) {
     printResult(error.message);
     await getValidateWinnerNumbers();

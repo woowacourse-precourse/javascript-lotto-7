@@ -24,7 +24,7 @@ export function validateUniqueNumbers(numbers) {
   return numbers;
 }
 
-export function validateWinnerNumberLength(numbers) {
+export function validateLottoNumberLength(numbers) {
   if (numbers.length !== CONFIG.LOTTO_COUNT) {
     throw new LottoError(ERROR_MESSAGE.INVALID_WINNER_NUMBER_COUNT);
   }
