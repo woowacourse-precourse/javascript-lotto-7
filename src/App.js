@@ -6,7 +6,7 @@ class App {
     await LottoMachine.askPayment();
 
     // 로또 발행
-    LottoMachine.getLottoNumber();
+    LottoMachine.getLotto();
 
     // 당첨 번호 입력
     await LottoMachine.askWinningNumbers();

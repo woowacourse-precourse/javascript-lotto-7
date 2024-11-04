@@ -77,7 +77,7 @@ const LottoMachine = Object.seal({
       throw Error(ERROR_MESSAGE.NUMBERS_ARE_REPEATED)
   },
 
-  getLottoNumber() {
+  getLotto() {
     this.lottoList = Array.from({ length: this.quantity }, () =>
       new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT))
     );
