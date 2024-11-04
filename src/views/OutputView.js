@@ -13,8 +13,7 @@ export default class OutputView {
   }
 
   static printLottoStatistics(totalSpent) {
-    Console.print("당첨 통계");
-    Console.print("---");
+    Console.print("당첨 통계\n---");
 
     Object.entries(LOTTO_STATISTICS).forEach(
       ([key, { number, price, count }]) => {

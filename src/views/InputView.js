@@ -11,10 +11,12 @@ export default class InputView {
   }
 
   static async readWinningNumber() {
-    return await Console.readLineAsync("당첨 번호를 입력해주세요" + "\n");
+    return await Console.readLineAsync(
+      VIEWS_MESSAGE.PRINT_INPUT_WINNING_NUMBER
+    );
   }
 
   static async readBounsNumber() {
-    return await Console.readLineAsync("보너스 번호를 입력해 주세요." + "\n");
+    return await Console.readLineAsync(VIEWS_MESSAGE.PRINT_INPUT_BONUS_NUMBER);
   }
 }

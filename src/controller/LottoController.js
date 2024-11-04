@@ -5,7 +5,6 @@ import { validateBonusNumber } from "../validator/BonusNum.js";
 import OutputView from "../views/OutputView.js";
 import LottoMachine from "../models/LottoMachine.js";
 import { Console } from "@woowacourse/mission-utils";
-import { LOTTO_STATISTICS } from "../constants/Statistics.js";
 
 class LottoController {
   async #setMoney() {
