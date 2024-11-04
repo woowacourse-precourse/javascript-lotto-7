@@ -10,9 +10,11 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    for (let i = numbers.length - 1; i > 0; i--) {
-      if (numbers[i] <= numbers[i - 1]) {
-        throw new Error("[ERROR]");
+    for (let i = 0; i < numbers.length; i++) {
+      if (numbers[i] < 1 || numbers[i] > 45) {
+        throw new Error(
+          "[ERROR] 숫자는 반드시 정수이며, 범위는 1-45이어야 합니다."
+        );
       }
     }
   }
