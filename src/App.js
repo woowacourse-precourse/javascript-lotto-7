@@ -2,6 +2,45 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from './Lotto.js';
 
 
+// 숫자 비교 후 같으면 1, 다르면 0 리턴
+function check_num(a, b) {
+  if (a === b) {
+    return 1
+  }
+  return 0
+}
+
+
+// 로또 결과 확인
+function lotto_check(NUMBERS, BONUS_NUM, now_check) {
+  let CNT = 0
+  let BONUS_YN = 0
+  for (let i=0; i<6; i++) {
+    for (let j=0; j<6; j++) {
+      CNT += check_num(NUMBERS[i], now_check[j])
+    }
+    BONUS_YN += check_num(now_check[i], BONUS_NUM)
+  }
+  // 3개, 4개, 5개, 5개 보너스, 6개, 당첨 안된 개수
+  if (CNT === 6) {
+    return 4
+  }
+  if (CNT === 5 && BONUS_YN === 1) {
+    return 3
+  }
+  if (CNT === 5) {
+    return 2
+  }
+  if (CNT === 4) {
+    return 1
+  }
+  if (CNT === 3) {
+    return 0
+  }
+  return 5
+}
+
+
 // 투입 금액 유효성 검증
 function check_cost(COST) {
   try {
@@ -72,6 +111,13 @@ class App {
     const LOTTO = new Lotto(NUMBERS); // 생성자 실행
     let BONUS_NUM = await MissionUtils.Console.readLineAsync('보너스번호를 입력하세요.');
     BONUS_NUM = check_bonus(BONUS_NUM, NUMBERS); // 보너스번호 입력값 유효성 검사
+
+    // 4. 로또 당첨 체크
+    const LOTTO_RESULT = [0, 0, 0, 0, 0, 0] // 3개, 4개, 5개, 5개 보너스, 6개, 당첨 안된 개수
+    for (let i=0; i<LOTTO_PCS; i++) {
+      LOTTO_RESULT[lotto_check(NUMBERS, BONUS_NUM, LOTTO_MADE[i])] += 1
+    }
+    console.log(LOTTO_RESULT)
   }
 }
 
