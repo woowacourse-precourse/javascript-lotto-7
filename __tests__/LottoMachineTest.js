@@ -1,5 +1,5 @@
-import Lotto from "../src/Lotto";
-import LottoMachine from "../src/lottoMachine";
+import Lotto from "../src/Lotto.js";
+import LottoMachine from "../src/lottoMachine.js";
 
 describe('로또 발매기 테스트', () => {
   test('stringToNumbers는 입력 받은 문자열을 숫자 배열로 변환한다.', () => {

@@ -1,7 +1,7 @@
-import Lotto from "../src/Lotto";
-import LottoMachine from "../src/lottoMachine";
-import { isInteger } from "../src/validator";
-import ERROR_MESSAGE from "../src/constants/errorMessages";
+import Lotto from "../src/Lotto.js";
+import LottoMachine from "../src/lottoMachine.js";
+import { isInteger } from "../src/validator.js";
+import ERROR_MESSAGE from "../src/constants/errorMessages.js";
 
 describe('정수 예외 테스트', () => {
   test.each([
