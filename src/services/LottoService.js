@@ -28,7 +28,7 @@ class LottoService {
     const matchCounts = initializeMatchCounts();
     const totalEarnings = lottos.reduce((total, lotto) => {
       const lottoNumbers = lotto.getNumbers();
-      const matchCount = this.getMatchCounts(lottoNumbers, winningNumbers);
+      const matchCount = this.#getMatchCounts(lottoNumbers, winningNumbers);
       const isBonusNumberMatched = isBonusNumberInList(
         lottoNumbers,
         bonusNumber,
@@ -40,7 +40,7 @@ class LottoService {
     return { matchCounts, totalEarnings };
   }
 
-  getMatchCounts(lottoNumbers, winningNumbers) {
+  #getMatchCounts(lottoNumbers, winningNumbers) {
     return lottoNumbers.filter((num) => winningNumbers.includes(num)).length;
   }
 }
