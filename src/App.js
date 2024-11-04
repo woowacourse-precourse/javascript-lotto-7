@@ -42,4 +42,35 @@ displayLottoNumbers(lottos){
   });
 }
 
+// 3. 당첨 번호 및 보너스 번호 입력 처리
+async readWinningNumbers(){
+  const winningNumbersInput = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+  const winningNumbers = winningNumbersInput.split(',').map(Number);
+
+  // 당첨 번호, 보너스 번호 예외 처리
+  this.validateWinningNumbers(winningNumbers);
+
+  const bonusNumberInput = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+  const bonusNumber = Number(bonusNumberInput);
+
+  if(bonusNumber < 1 || bonusNumber > 45){
+    throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+  }
+    
+  return {winningNumbers, bonusNumber};
+}
+
+// 당첨 번호 유효성 검사
+validateWinningNumbers(winningNumbers){
+  if (winningNumbers.length !== 6) {
+    throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
+  }
+  if (!winningNumbers.every(num => num >= 1 && num <= 45)) {
+    throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.");
+  }
+  if (new Set(winningNumbers).size !== winningNumbers.length) {
+    throw new Error("[ERROR] 당첨 번호는 중복될 수 없습니다.");
+  }
+}
+
 export default App;
