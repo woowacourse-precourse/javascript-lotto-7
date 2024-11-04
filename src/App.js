@@ -24,26 +24,38 @@ class App {
       "\n보너스 번호를 입력해 주세요.\n"
     );
 
-    const matchNumbers = lottos.map((lotto) =>
-      lotto.confirmMatches(winningNumber + bonusNumber)
-    );
-    const matchBonus = confirmBonus(bonusNumber);
+    const matchResults = lottos.map((lotto) => ({
+      matches: lotto.confirmMatches(winningNumber),
+      matchBonus: lotto.confirmBonus(bonusNumber),
+    }));
 
-    // 통계 출력
-    Console.print("\n당첨 통계\n---");
-    // winningDetails(matchNumbers, matchBonus);
+    // // 통계 출력
+    // Console.print("\n당첨 통계\n---");
+    // const winningStats = calculateWinningStats(matchResults);
+    // printWinningStats(winningStats);
   }
 
-  // winningDetails(numbers, bonus) {
-  //   const winningStats = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+  // calculateWinningStats(results) {
+  //   const stats = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
 
-  //   numbers.forEach((number) => (winningStats[number] += 1));
-    
-  //   console.log(`3개 일치 (5,000원) - ${winningStats[3]}개`);
-  //   console.log(`4개 일치 (50,000원) - ${winningStats[4]}개`);
-  //   console.log(`5개 일치 (1,500,000원) - ${winningStats[5]}개`);
-  //   console.log(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${winningStats['5_bonus']}개`);
-  //   console.log(`6개 일치 (2,000,000,000원) - ${winningStats[6]}개`);
+  //   results.forEach(({ matches, hasBonus }) => {
+  //     if (matches === 5 && hasBonus) {
+  //       winningStats["5_bonus"] += 1;
+  //     } else {
+  //       winningStats[matches] += 1;
+  //     }
+  //   });
+  //   return stats;
+  // }
+
+  // printWinningStats(stats) {
+  //   console.log(`3개 일치 (5,000원) - ${stats[3]}개`);
+  //   console.log(`4개 일치 (50,000원) - ${stats[4]}개`);
+  //   console.log(`5개 일치 (1,500,000원) - ${stats[5]}개`);
+  //   console.log(
+  //     `5개 일치, 보너스 볼 일치 (30,000,000원) - ${stats["5_bonus"]}개`
+  //   );
+  //   console.log(`6개 일치 (2,000,000,000원) - ${stats[6]}개`);
   // }
 }
 
