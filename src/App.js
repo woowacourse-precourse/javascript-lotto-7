@@ -39,7 +39,7 @@ class App {
         Console.print("\n보너스 번호를 입력해 주세요.");
         let inputbonusNumber = await Console.readLineAsync("");
         let bonusNumberArray = inputbonusNumber.split(",");
-        bonusNumber = new Lotto_bonus(bonusNumberArray).bonusNumber;
+        bonusNumber = new Lotto_bonus(bonusNumberArray, numbers).bonusNumber;
         isValidLottoBonusNumber = true;
       } catch (err) {
         Console.print(err.message);
