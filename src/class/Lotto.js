@@ -1,3 +1,5 @@
+import { printParam } from "../handler/printHandlers.js";
+
 class Lotto {
   #numbers;
 
@@ -15,6 +17,10 @@ class Lotto {
   // TODO: 추가 기능 구현
   getLotteryMatches(lottery) {
     return this.#numbers.filter(num => lottery.includes(num));
+  }
+
+  printNumOfLotto() {
+    return printParam(this.#numbers);
   }
 }
 

@@ -19,6 +19,7 @@ class App {
     const bonusLotteryNumber = await handleBonusLotteryNum(userLotteryNumbers);
 
     const usersLottery = userLotteryNumbers.map((num) => Number(num));
+    lotteriesToCompare.forEach(lottery => lottery.printNumOfLotto());
     this.startLotto(lotteriesToCompare, usersLottery, bonusLotteryNumber);
   }
 
