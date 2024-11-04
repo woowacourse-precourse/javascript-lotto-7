@@ -1,37 +1,40 @@
 import { LOTTO_ERROR } from '../constant/Constants.js';
+import { Console } from '@woowacourse/mission-utils';
 
 export default class LottoTicketValidator {
+  static PRICE_UNIT = 1000;
+
   #checkNumber(amount) {
     const regex = /^[0-9]*$/;
-
-    if (regex.test(Number(amount))) {
-      return;
+    if (!regex.test(amount)) {
+      Console.print(LOTTO_ERROR.INVALID_AMOUNT_TYPE);
+      return false;
     }
-    throw new Error(LOTTO_ERROR.INVALID_AMOUNT_TYPE);
+    return true;
   }
 
   #checkPriceUnit(amount) {
     const money = Number(amount);
-    const PRICE = 1000;
 
-    // 1000단위가 아닐 경우 ERROR 출력
-    if (money % PRICE) {
-      throw new Error(LOTTO_ERROR.INVALID_AMOUNT);
+    if (money % PRICE_UNIT !== 0) {
+      Console.print(LOTTO_ERROR.INVALID_AMOUNT);
+      return false;
     }
+    return true;
   }
 
   #checkMinimumPrice(amount) {
-    const PRICE = 1000;
-
-    if (Math.floor(amount / PRICE)) {
-      return;
+    if (Math.floor(amount / PRICE_UNIT) === 0) {
+      Console.print(LOTTO_ERROR.INVALID_MINIMUM_PRICE);
+      return false;
     }
-    throw new Error(LOTTO_ERROR.INVALID_MINIMUM_PRICE);
+    return true;
   }
 
   validateAmount(amount) {
-    this.#checkNumber(amount);
-    this.#checkMinimumPrice(amount);
-    this.#checkPriceUnit(amount);
+    if (!this.#checkNumber(amount) || !this.#checkPriceUnit(amount) || !this.#checkMinimumPrice(amount)) {
+      return false;
+    }
+    return true;
   }
 }
