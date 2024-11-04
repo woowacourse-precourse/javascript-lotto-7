@@ -1,4 +1,4 @@
-import { PRICE_ERROR } from "./Message/Message.js";
+import { PRICE_ERROR } from "../Message/Message.js";
 
 class Price {
   #price;

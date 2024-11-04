@@ -1,4 +1,4 @@
-import Price from "../src/Price.js";
+import Price from "../src/Model/Price.js";
 import { PRICE_ERROR } from "../src/Message/Message.js";
 
 describe("가격 클래스 테스트", () => {

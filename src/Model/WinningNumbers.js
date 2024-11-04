@@ -1,5 +1,5 @@
 import Lotto from "./Lotto.js";
-import { WINNING_NUMBERS_ERROR } from "./Message/Message.js";
+import { WINNING_NUMBERS_ERROR } from "../Message/Message.js";
 
 class WinningNumbers {
   #winningLotto = null; // 당첨 번호 (Lotto)

@@ -1,4 +1,4 @@
-import WinningNumbers from "../src/WinningNumbers";
+import WinningNumbers from "../src/Model/WinningNumbers";
 import { WINNING_NUMBERS_ERROR } from "../src/Message/Message";
 
 describe("보너스 번호 테스트", () => {

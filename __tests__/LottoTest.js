@@ -1,4 +1,4 @@
-import Lotto from "../src/Lotto";
+import Lotto from "../src/Model/Lotto.js";
 import { WINNING_NUMBERS_ERROR } from "../src/Message/Message";
 
 describe("로또 클래스 테스트", () => {

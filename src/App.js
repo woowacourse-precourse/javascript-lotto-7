@@ -1,8 +1,8 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import Price from "./Price.js";
-import LottoList from "./LottoList.js";
-import WinningNumbers from "./WinningNumbers.js";
-import LottoResult from "./LottoResult.js";
+import { Console } from "@woowacourse/mission-utils";
+import Price from "./Model/Price.js";
+import LottoList from "./Model/LottoList.js";
+import WinningNumbers from "./Model/WinningNumbers.js";
+import LottoResult from "./Model/LottoResult.js";
 import { RESULT_DESCRIPTION } from "./Message/Message.js";
 
 class App {
@@ -56,7 +56,7 @@ class App {
     });
 
     // 10. 수익률 출력
-    Console.print(`총 수익률은 ${lottoResultInst.getReturnRate()}%입니다.`)
+    Console.print(`총 수익률은 ${lottoResultInst.getReturnRate()}%입니다.`);
   }
 }
 
