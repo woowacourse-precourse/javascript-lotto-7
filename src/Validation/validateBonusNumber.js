@@ -1,5 +1,5 @@
 import { printError } from "../View/output.js";
-import { ERROR_MESSAGES } from "../Error/Error.js";
+import { ERROR_MESSAGES, throwError } from "../Error/Error.js";
 
 // 숫자가 1~45 범위 내에 있는지 확인
 function checkBonusNumberRange(bonusNumber) {
@@ -20,6 +20,12 @@ function checkBonusIsNumber(bonusNumber) {
 
 // 보너스 번호가 당첨 번호와 중복되는지 확인
 function checkBonusNotDuplicated(bonusNumber, winningNumbers) {
+  if (!Array.isArray(winningNumbers)) {
+    printError(ERROR_MESSAGES.lotteryNumber.INVALID_ARRAY);
+    return false;
+  }
+  return true;
+
   if (winningNumbers.includes(bonusNumber)) {
     printError(ERROR_MESSAGES.lotteryNumber.DUPLICATED_NUMBER);
     return false;

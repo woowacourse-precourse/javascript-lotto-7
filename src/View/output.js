@@ -3,7 +3,7 @@ import RANKS from "../Model/Rank.js";
 import { ERROR_PREFIX } from "../Error/Error.js";
 
 export function printError(message) {
-  Console.print(ERROR_PREFIX + message);
+  Console.print(`${ERROR_PREFIX}${message}`);
 }
 
 export function printTicketCount(ticketCount) {
