@@ -78,20 +78,22 @@ class App {
       );
     }
   }
+  // 로또 번호를 목록에 추가하는 함수
+  addLottoToUserLottos(lotto) {
+    const FORMATTED_LOTTO = `[${lotto.join(", ")}]`;
+    Console.print(FORMATTED_LOTTO);
+    this.USER_LOTTOS.push(lotto); // 사용자 로또 목록에 추가
+  }
 
   // 사용자가 구매한 로또 번호 리스트
   async GenerateLottoResult() {
     const LOTTO_CNT = await this.InputCost();
     this.USER_LOTTOS = []; // 사용자 로또 리스트를 여기에 저장
-
     for (let i = 0; i < LOTTO_CNT; i++) {
       const RANDOM_LOTTO = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
         (a, b) => a - b
       );
-      const formattedLotto = `[${RANDOM_LOTTO.join(", ")}]`;
-      Console.print(formattedLotto);
-
-      this.USER_LOTTOS.push(RANDOM_LOTTO); // 사용자 로또 목록 저장
+      this.addLottoToUserLottos(RANDOM_LOTTO);
     }
   }
 }
