@@ -1,5 +1,4 @@
 import { LOTTO_PRIZE } from '../constant.js';
-import { Console } from '@woowacourse/mission-utils';
 
 class LottoCalculator {
   constructor(purchasePrice) {
