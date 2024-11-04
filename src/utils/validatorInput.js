@@ -25,12 +25,10 @@ export function checkLottoPurchasePrice(price) {
   }
 }
 
-export function checkLottoBonusNumber(lottoList, bonusNumber){
-  lottoList.forEach(lotto=>{
-      if(lotto.includes(bonusNumber)){
-        throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_DUPLICATE);
-      }
-  })
+export function checkLottoBonusNumber(winningLotto, bonusNumber){
+  if(winningLotto.hasNumber(bonusNumber)){
+    throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_DUPLICATE);
+  }
   if (Number.isNaN(bonusNumber)) {
     throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE);
   }
