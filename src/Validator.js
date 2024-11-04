@@ -20,16 +20,23 @@ class Validator {
     }
   }
 
-  purchaseAmount(value) {
-    this.#validateNaturalNumber(value);
-    this.#validateThousandUnit(value);
+  #validateNoDuplicates(arr) {
+    if (new Set(arr).size !== arr.length) {
+      throw new Error(ERROR_MESSAGE.DUPLICATED);
+    }
   }
 
-  winningNumbers(values) {
-    values.forEach((value) => {
-      this.#validateNaturalNumber(value);
-      this.#validateRange(value, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
+  purchaseAmount(amount) {
+    this.#validateNaturalNumber(amount);
+    this.#validateThousandUnit(amount);
+  }
+
+  winningNumbers(numbers) {
+    numbers.forEach((num) => {
+      this.#validateNaturalNumber(num);
+      this.#validateRange(num, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
     });
+    this.#validateNoDuplicates(numbers);
   }
 }
 
