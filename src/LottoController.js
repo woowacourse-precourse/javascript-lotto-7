@@ -1,6 +1,6 @@
-import { INPUT_MESSAGE, OUTPUT_MESSAGE, PRIZE } from './constant';
+import { INPUT_MESSAGE, OUTPUT_MESSAGE, PRIZE } from './constant.js';
 import { Console } from '@woowacourse/mission-utils';
-import { validateAmount, validateBonus, validateNumbers } from './validate';
+import { validateAmount, validateBonus, validateNumbers } from './validate.js';
 
 class LottoController {
   async getLottoAmount() {

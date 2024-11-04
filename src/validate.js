@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from './constant';
+import { ERROR_MESSAGE } from './constant.js';
 
 export function validateAmount(amount) {
   if (isNaN(amount)) throw new Error(ERROR_MESSAGE.NOT_NUM_ERROR);

@@ -1,5 +1,5 @@
-import LottoController from './LottoController';
-import LottoMachine from './LottoMachine';
+import LottoController from './LottoController.js';
+import LottoMachine from './LottoMachine.js';
 
 class App {
   async run() {
