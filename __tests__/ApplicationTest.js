@@ -1,5 +1,11 @@
-import App, { validateAmount } from "../src/App.js";
+import App, { 
+  validateAmount, 
+  getLottoCount, 
+  generateLottos, 
+  printLottos 
+} from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "../src/Lotto.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -62,6 +68,62 @@ describe("validateAmount 테스트", () => {
     expect(() => validateAmount("9876")).toThrow("[ERROR] 로또 금액은 1,000원 단위이어야 합니다.");
   });
 });
+
+// 로또 개수 계산 테스트
+describe("getLottoCount 테스트", () => {
+  test("입력된 금액에 따라 로또 개수를 정확히 계산한다.", () => {
+    expect(getLottoCount(5000)).toBe(5);
+    expect(getLottoCount(7000)).toBe(7);
+  });
+})
+
+// 로또 번호 생성 테스트
+describe("generateLottos 테스트", () => {
+  beforeEach(() => {
+    // 테스트에 사용할 랜덤 숫자 설정
+    MissionUtils.Random.pickUniqueNumbersInRange = jest.fn().mockReturnValue([1, 2, 3, 4, 5, 6]);
+  });
+
+  test("주어진 로또 개수만큼 로또를 생성한다.", () => {
+    const lottoCount = 5;
+    const lottos = generateLottos(lottoCount);
+    expect(lottos.length).toBe(lottoCount);
+
+    lottos.forEach((lotto) => {
+      expect(lotto).toBeInstanceOf(Lotto);
+      expect(lotto.printNumbers()).toEqual("[1, 2, 3, 4, 5, 6]");
+    });
+  });
+});
+
+// 로또 출력 테스트
+describe("printLottos 테스트", () => {
+  let logSpy;
+
+  beforeEach(() => {
+    logSpy = jest.spyOn(MissionUtils.Console, "print").mockImplementation();
+  });
+
+  afterEach(() => {
+    logSpy.mockRestore();
+  });
+
+  test("로또 수량 및 번호를 콘솔에 올바르게 출력한다.", () => {
+    const lottoCount = 3;
+    const lottos = [
+      new Lotto([1, 2, 3, 4, 5, 6]),
+      new Lotto([7, 8, 9, 10, 11, 12]),
+      new Lotto([13, 14, 15, 16, 17, 18]),
+    ];
+
+    printLottos(lottoCount, lottos);
+
+    expect(logSpy).toHaveBeenCalledWith("3개를 구매했습니다.");
+    expect(logSpy).toHaveBeenCalledWith("[1, 2, 3, 4, 5, 6]");
+    expect(logSpy).toHaveBeenCalledWith("[7, 8, 9, 10, 11, 12]");
+    expect(logSpy).toHaveBeenCalledWith("[13, 14, 15, 16, 17, 18]");
+  })
+})
 
 describe("로또 테스트", () => {
   beforeEach(() => {
