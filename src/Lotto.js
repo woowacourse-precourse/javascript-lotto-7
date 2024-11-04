@@ -40,21 +40,31 @@ class Lotto {
   }
 
   static getScore(userPickedNumbers, lottoNumbers, userPickedBonusNum) {
-    let score = 0;
-    let bonus = false;
+    let scores = [];
+    lottoNumbers.forEach((lottoSet) => {
+      const winNum = lottoSet.getNumbers(); // 로또세트 순서대로 하나 가져오기
+      let score = 0; // 각 로또세트 별 점수 세고 계속 초기화되는 i 이터레이터
+      let isBonusMatched = 0;
 
-    userPickedNumbers.forEach((userNumber) => {
-      for (let i = 0; i < lottoNumbers.length; i++) {
-        lottoNumbers[i].getNumbers().forEach((winNum) => {
-          if (userNumber === winNum) {
-            score++;
-          } else if (userPickedBonusNum === winNum) {
-            bonus = true;
-          }
-        });
+      // 사용자 번호와 로또 번호 비교
+      userPickedNumbers.forEach((userNumber) => {
+        if (winNum.includes(userNumber)) {
+          score++;
+        }
+      });
+
+      // 보너스 번호 확인
+      if (winNum.includes(userPickedBonusNum)) {
+        isBonusMatched = 1;
       }
+
+      // 점수 객체를 scores 배열에 추가
+      scores.push({ score, isBonusMatched });
     });
     return [score, bonus];
+
+    return scores; // {점수, 보너스여부(1)} 객체가 한 칸씩 들어가있는 배열 반환
+  }
   }
 
   static getResult(scoreObj) {
