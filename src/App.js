@@ -132,13 +132,11 @@ class App {
 
   // 수익률 계산
   calculateRateOfReturn() {
-    const totalPrize =
-      this.winningRanks[1] * 2000000000 +
-      this.winningRanks[2] * 30000000 +
-      this.winningRanks[3] * 1500000 +
-      this.winningRanks[4] * 50000 +
-      this.winningRanks[5] * 5000;
-
+    const prize = [0, 2000000000, 30000000, 1500000, 50000, 5000];
+    const totalPrize = Object.keys(this.winningRanks).reduce(
+      (acc, rank) => acc + this.winningRanks[rank] * prize[rank],
+      0
+    );
     const rate =
       (totalPrize / (this.PurchaseLottoNumbersArray.length * 1000)) * 100;
 
