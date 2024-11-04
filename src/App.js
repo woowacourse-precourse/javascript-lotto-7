@@ -126,6 +126,9 @@ class App {
       throw new Error(
         "[ERROR] 보너스 번호는 정수이며, 범위는 1-45 이어야 합니다."
       );
+
+    if (winningNumbers.includes(Number(inputtedBonusNumber)))
+      throw new Error("[Error] 보너스 번호가 당첨 번호와 중복되면 안됩니다.");
   }
 }
 
