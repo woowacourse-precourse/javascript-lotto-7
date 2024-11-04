@@ -5,6 +5,8 @@ const InputView = {
     Console.print("구입 금액을 입력해주세요.");
     const input = await Console.readLineAsync();
     const amount = parseInt(input);
+    
+    return amount;
   }
 }
 
