@@ -30,6 +30,15 @@ describe("로또 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
+  test("로또 번호가 숫자가 아닌 경우 예외가 발생한다.", () => {
+    const isNotNumber = ["a", "b", "c3", "345abc"];
+    isNotNumber.forEach((string) => {
+      expect(() => {
+        new Lotto([1, 2, 3, 4, 5, string]);
+      }).toThrow("[ERROR]");
+    });
+  });
+
   test("로또 번호 개수가 6개 미만이면 예외가 발생한다.", () => {
     expect(() => {
       new Lotto([1, 2, 3, 4]);
