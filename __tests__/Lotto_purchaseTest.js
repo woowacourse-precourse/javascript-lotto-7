@@ -19,6 +19,12 @@ describe("로또 구매 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
+  test("로또 구입 금액이 음수이면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto_purchase([-1000]);
+    }).toThrow("[ERROR]");
+  });
+
   test("로또 구입 금액이 숫자가 아니면 예외가 발생한다.", () => {
     expect(() => {
       new Lotto_purchase(['A']);
