@@ -107,19 +107,53 @@ class InputManagement {
   }
 
   async inputPurchaseAmount() {
-    const purchaseAmount = await Console.readLineAsync(INPUT_TEXTS.PURCHASE_AMOUNT);
-    this.#purchaseAmout = this.#validationPA(purchaseAmount);
-    this.#availablePublicationCount = this.#calculatePublicationCount(purchaseAmount);
+    let isFailed = true;
+    do {
+      try {
+        const purchaseAmount = await Console.readLineAsync(INPUT_TEXTS.PURCHASE_AMOUNT);
+
+        this.#purchaseAmout = this.#validationPA(purchaseAmount);
+        this.#availablePublicationCount = this.#calculatePublicationCount(purchaseAmount);
+
+        isFailed = false;
+      } catch(error) {
+        Console.print(error.message);
+
+        isFailed = true;
+      }
+    } while(isFailed);
   }
 
   async inputWinningNumbers() {
-    const winningNumbers = await Console.readLineAsync(INPUT_TEXTS.WINNING_NUMBER);
-    this.#winningNumbers = this.#validationWN(winningNumbers);
+    let isFailed = true;
+    do {
+      try {
+        const winningNumbers = await Console.readLineAsync(INPUT_TEXTS.WINNING_NUMBER);
+        this.#winningNumbers = this.#validationWN(winningNumbers);
+
+        isFailed = false;
+      } catch(error) {
+        Console.print(error.message);
+
+        isFailed = true;
+      }
+    } while(isFailed);
   }
 
   async inputBonusNumber() {
-    const bonusNumber = await Console.readLineAsync(INPUT_TEXTS.BONUS_NUMBER);
-    this.#bonusNumber = this.#validationBN(bonusNumber);
+    let isFailed = true;
+    do {
+      try {
+        const bonusNumber = await Console.readLineAsync(INPUT_TEXTS.BONUS_NUMBER);
+        this.#bonusNumber = this.#validationBN(bonusNumber);
+
+        isFailed = false;
+      } catch(error) {
+        Console.print(error.message);
+
+        isFailed = true;
+      }
+    } while(isFailed);
   }
 }
 
