@@ -17,6 +17,8 @@ export const ERROR_MESSAGE = {
   duplicatedNumbersError: '로또 번호는 중복 되지 않은 수만 존재해야 합니다.',
   lottoNumbersCountError: '로또 번호는 6개여야 합니다.',
   lottoNumberRangeError: '로또 번호의 범위는 1부터 45까지의 숫자만 가능합니다.',
+  immutableFieldError: '보너스 번호의 지정은 최초 1회만 가능하여 수정은 불가합니다.',
+  notUniqueNumberError: '보너스 번호는 입력한 당첨 번호와 중복되지 않는 수만 가능합니다.',
 };
 
 export const LOTTO_SINGLE_TICKET_PRICE = 1000;
