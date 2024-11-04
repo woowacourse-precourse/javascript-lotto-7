@@ -7,18 +7,19 @@ class App {
   #prizeStatistics = new PrizeStatistics();
 
   async run() {
-    const purchaseAmount = await this.#getPurchaseAmount();
-    const lottoCount = purchaseAmount / LOTTO_PRICE;
+      try {
+          const purchaseAmount = await this.#getPurchaseAmount();
+          const lottoCount = purchaseAmount / LOTTO_PRICE;
+          Console.print(`\n${lottoCount}개를 구매했습니다.`);
 
-    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+          const lottoArr = this.#generateLottos(lottoCount);
+          this.#printLottos(lottoArr);
 
-    const lottoArr = this.#generateLottos(lottoCount);
-    this.#printLottos(lottoArr);
-
-    const { winningNumbers, bonusNumber } = await this.#getWinningNumbers();
-    const totalPrizeMoney = this.#calculateTotalPrize(lottoArr, winningNumbers, bonusNumber);
-
-    this.#printResults(purchaseAmount, totalPrizeMoney);
+          const { winningNumbers, bonusNumber } = await this.#getWinningNumbers();
+          this.#printResults(purchaseAmount, this.#calculateTotalPrize(lottoArr, winningNumbers, bonusNumber));
+      } catch (error) {
+          Console.print(error.message);
+      }
   }
 
   async #getPurchaseAmount() {
