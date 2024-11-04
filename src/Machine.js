@@ -30,8 +30,8 @@ class Machine {
     await this.readUserMoney();
     await this.readUserWinNumbers();
     await this.readUserBonusNumber();
-    Console.print(USER_MESSAGE.BEFORE_RESULT);
     this.lottoWinningCheck();
+    this.printBeforeResult();
     this.calculatorMoney();
     this.printProfit();
   }
@@ -47,6 +47,7 @@ class Machine {
   #printBuyCount() {
     const buyCount = parseInt(this.#money, 10) / LOTTO_PRICE;
     Console.print(`\n${buyCount}개를 구매했습니다.`);
+
     this.#createLotto(buyCount);
   }
 
@@ -55,6 +56,7 @@ class Machine {
       const randomNumbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
         (a, b) => a - b,
       );
+
       return new Lotto(randomNumbers);
     });
   }
@@ -85,14 +87,20 @@ class Machine {
 
   calculatorMoney() {
     this.#totalMoney = this.#lottoResults.reverse().reduce((acc, cur) => {
-      this.printWinningResult(cur);
-      const addMoney = acc + cur[1] * cur[2];
+      const [rankComment,winMoney,winCount] = cur;
+      this.#printWinningResult(rankComment,winMoney,winCount);
+      const addMoney = acc + winMoney * winCount;
+
       return addMoney;
     }, 0);
   }
 
-  printWinningResult(cur) {
-    Console.print(`${cur[0]} (${cur[1].toLocaleString()}원) - ${cur[2]}개`);
+  printBeforeResult() {
+    Console.print(USER_MESSAGE.BEFORE_RESULT);
+  }
+
+  #printWinningResult(rankComment,winMoney,winCount) {
+    Console.print(`${rankComment} (${winMoney.toLocaleString()}원) - ${winCount}개`);
   }
 
   printProfit() {
