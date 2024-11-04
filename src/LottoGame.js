@@ -70,6 +70,25 @@ class LottoGame {
     });
   }
 
+  #calculateProfitRate() {
+    const lottoPrizeAmounts = {
+      1: 2000000000,
+      2: 30000000,
+      3: 1500000,
+      4: 50000,
+      5: 5000,
+    };
+
+    let totalPrize = 0;
+
+    for (let i = 1; i <= 5; i++) {
+      totalPrize += this.#matchResults[i] * lottoPrizeAmounts[i];
+    }
+
+    const totalCost = this.#lottoCount * 1000;
+    this.#profitRate = ((totalPrize / totalCost) * 100).toFixed(1);
+  }
+
   #getLottoCount(totalCost) {
     return totalCost / 1000;
   }
