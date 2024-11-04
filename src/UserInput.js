@@ -15,6 +15,11 @@ class UserInput {
       throw new Error("[ERROR] 1000원 단위로 입력해주세요");
     }
 
+    // 0, -1000 이런 경우에는 위에서 걸러지지 않는다.
+    if (price < 1000) {
+      throw new Error("[ERROR] 1000원 이상의 금액을 입력해주세요");
+    }
+
     return input;
   }
 }
