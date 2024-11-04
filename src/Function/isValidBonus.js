@@ -7,7 +7,7 @@ import {
   ZERO,
 } from "../Constant.js";
 
-export const bonusErrorCheck = (bonusNumber) => {
+export const isValidBonus = (bonusNumber) => {
   if (bonusNumber < START_NUMBER || bonusNumber > END_NUMBER) {
     throw new Error(BONUS_RANGE_ERROR);
   }

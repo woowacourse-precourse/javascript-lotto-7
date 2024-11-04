@@ -11,27 +11,33 @@ import {
   START_SQUARE_BRACKET,
 } from "../Constant.js";
 
-export const makeLottos = (count) => {
-  const lottoList = [];
-  for (let i = 0; i < count; i++) {
-    lottoList.push(new Lotto(makeLotto()));
+const printLotto = (numbers) => {
+  let printLotto = EMPTY;
+
+  for (let i = 0; i < numbers.length - 1; i++) {
+    printLotto += numbers[i] + COMMA + SPACE;
   }
-  return lottoList;
+
+  printLotto += numbers[numbers.length - 1];
+  MissionUtils.Console.print(START_SQUARE_BRACKET + printLotto + END_SQUARE_BRACKET);
 };
 
 const makeLotto = () => {
   const numbers = MissionUtils.Random.pickUniqueNumbersInRange(START_NUMBER, END_NUMBER, NUMBER_COUNT);
+
   numbers.sort((a, b) => a - b);
 
   printLotto(numbers);
+
   return numbers;
 };
 
-const printLotto = (numbers) => {
-  let printLotto = EMPTY;
-  for (let i = 0; i < numbers.length - 1; i++) {
-    printLotto += numbers[i] + COMMA + SPACE;
+export const makeLottos = (count) => {
+  const lottoList = [];
+
+  for (let i = 0; i < count; i++) {
+    lottoList.push(new Lotto(makeLotto()));
   }
-  printLotto += numbers[numbers.length - 1];
-  MissionUtils.Console.print(START_SQUARE_BRACKET + printLotto + END_SQUARE_BRACKET);
+
+  return lottoList;
 };

@@ -6,63 +6,87 @@ import {
   WINNING_LOTTO_STRING,
   BONUS_NUMBER_STRING,
   MONEY_UNIT,
-  FALSE,
-  TRUE,
   ZERO,
 } from "./Constant.js";
-import { buyCountErrorCheck } from "./Function/buyCountErrorCheck.js";
+import { isValidBuyCount } from "./Function/isValidBuyCount.js";
 import { makeWinningLotto } from "./Function/makeWinningLotto.js";
-import { calculateLottos } from "./Function/calculateLottos.js";
+import { calculateEquals } from "./Function/calculateEquals.js";
 import { makeLottos } from "./Function/makeLottos.js";
 import { printEarn } from "./Function/printEarn.js";
 import { printResult } from "./Function/printResult.js";
-import { bonusErrorCheck } from "./Function/bonusErrorCheck.js";
+import { isValidBonus } from "./Function/isValidBonus.js";
 
 class App {
   async run() {
-    let valid = FALSE;
     let buyCount = ZERO;
-    while (!valid) {
-      try {
-        buyCount = await MissionUtils.Console.readLineAsync(BUY_STRING + ENTER);
-        buyCountErrorCheck(buyCount);
-        valid = TRUE;
-      } catch (error) {
-        MissionUtils.Console.print(error.message);
-      }
+    while (buyCount == ZERO) {
+      buyCount = await this.inputBuyCount();
     }
 
     const lottoCount = buyCount / MONEY_UNIT;
-    MissionUtils.Console.print(lottoCount + LOTTO_STRING);
+    MissionUtils.Console.print(ENTER + lottoCount + LOTTO_STRING);
     const lottos = makeLottos(lottoCount);
 
-    valid = FALSE;
-    let winningLotto;
-    while (!valid) {
-      try {
-        const winningLottoString = await MissionUtils.Console.readLineAsync(ENTER + WINNING_LOTTO_STRING + ENTER);
-        winningLotto = makeWinningLotto(winningLottoString);
-        valid = TRUE;
-      } catch (error) {
-        MissionUtils.Console.print(error.message);
-      }
+    await this.calculateLotto(buyCount, lottos);
+  }
+
+  async inputBuyCount() {
+    try {
+      let buyCount = await MissionUtils.Console.readLineAsync(BUY_STRING + ENTER);
+
+      isValidBuyCount(buyCount);
+
+      return buyCount;
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+
+      return ZERO;
     }
-    valid = FALSE;
-    let bonusNumber;
-    while (!valid) {
-      try {
-        bonusNumber = await MissionUtils.Console.readLineAsync(ENTER + BONUS_NUMBER_STRING + ENTER);
-        bonusErrorCheck(bonusNumber);
-        winningLotto.bonusDuplicateCheck(bonusNumber);
-        valid = TRUE;
-      } catch (error) {
-        MissionUtils.Console.print(error.message);
-      }
+  }
+
+  async calculateLotto(buyCount, lottos) {
+    let winningLotto = ZERO;
+    while (winningLotto == ZERO) {
+      winningLotto = await this.inputWinningLotto();
     }
 
-    const equalCounts = calculateLottos(lottos, winningLotto, bonusNumber);
+    let bonusNumber = ZERO;
+    while (bonusNumber == ZERO) {
+      bonusNumber = await this.inputBonusNumber(winningLotto);
+    }
+
+    const equalCounts = calculateEquals(lottos, winningLotto, bonusNumber);
     printResult(equalCounts);
     printEarn(buyCount, equalCounts);
+  }
+
+  async inputWinningLotto() {
+    try {
+      const winningLottoString = await MissionUtils.Console.readLineAsync(ENTER + WINNING_LOTTO_STRING + ENTER);
+
+      const winningLotto = makeWinningLotto(winningLottoString);
+
+      return winningLotto;
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+
+      return ZERO;
+    }
+  }
+
+  async inputBonusNumber(winningLotto) {
+    try {
+      const bonusNumber = await MissionUtils.Console.readLineAsync(ENTER + BONUS_NUMBER_STRING + ENTER);
+
+      isValidBonus(bonusNumber);
+      winningLotto.bonusDuplicateCheck(bonusNumber);
+
+      return bonusNumber;
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+
+      return ZERO;
+    }
   }
 }
 

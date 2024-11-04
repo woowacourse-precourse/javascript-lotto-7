@@ -20,10 +20,15 @@ class Lotto {
     if (numbers.length !== NUMBER_COUNT) {
       throw new Error(LOTTO_ERROR_COUNT);
     }
+
     const setNumbers = new Set(numbers);
     if (setNumbers.size !== NUMBER_COUNT) {
       throw new Error(LOTTO_ERROR_DUPLICATE);
     }
+    this.isValidNumbers(numbers);
+  }
+
+  isValidNumbers(numbers) {
     numbers.forEach((number) => {
       if (isNaN(number)) {
         throw new Error(LOTTO_ERROR_NUMBER);
@@ -36,6 +41,7 @@ class Lotto {
       }
     });
   }
+
   bonusDuplicateCheck(bonusNumber) {
     if (this.#numbers.includes(bonusNumber)) {
       throw new Error(BONUS_DUPLICATE);
@@ -43,18 +49,18 @@ class Lotto {
   }
   equalWinning(lotto) {
     let count = 0;
+
     this.#numbers.forEach((number) => {
       if (lotto.equalCheck(number)) {
         count += 1;
       }
     });
+
     return count;
   }
   equalCheck(inputNumber) {
     return this.#numbers.some((number) => number == inputNumber);
   }
-
-  // TODO: 추가 기능 구현
 }
 
 export default Lotto;

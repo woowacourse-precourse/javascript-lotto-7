@@ -21,6 +21,8 @@ export const printEarn = (buyCount, equalCounts) => {
     equalCounts[EQUAL_FIVE] * PRIZE_FIVE +
     equalCounts[EQUAL_FIVE_BONUS] * PRIZE_FIVE_BONUS +
     equalCounts[EQUAL_SIX] * PRIZE_SIX;
-  const earnRate = (earn / buyCount) * 100;
-  MissionUtils.Console.print(EARN_START + Math.round(earnRate * 10) / 10 + EARN_END);
+
+  const earnRate = Math.round((earn / buyCount) * 1000) / 10;
+
+  MissionUtils.Console.print(EARN_START + earnRate + EARN_END);
 };

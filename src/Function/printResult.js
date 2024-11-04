@@ -17,11 +17,11 @@ import {
 } from "../Constant.js";
 
 export const printResult = (equalCounts) => {
-  MissionUtils.Console.print(ANSWER_STRING + ENTER);
-  MissionUtils.Console.print(ANSWER_START + ENTER);
-  MissionUtils.Console.print(EQUAL_THREE_STRING + equalCounts[EQUAL_THREE] + EQUAL_END + ENTER);
-  MissionUtils.Console.print(EQUAL_FOUR_STRING + equalCounts[EQUAL_FOUR] + EQUAL_END + ENTER);
-  MissionUtils.Console.print(EQUAL_FIVE_STRING + equalCounts[EQUAL_FIVE] + EQUAL_END + ENTER);
-  MissionUtils.Console.print(EQUAL_FIVE_BONUS_STRING + equalCounts[EQUAL_FIVE_BONUS] + EQUAL_END + ENTER);
-  MissionUtils.Console.print(EQUAL_SIX_STRING + equalCounts[EQUAL_SIX] + EQUAL_END + ENTER);
+  MissionUtils.Console.print(ENTER + ANSWER_STRING);
+  MissionUtils.Console.print(ANSWER_START);
+  MissionUtils.Console.print(EQUAL_THREE_STRING + equalCounts[EQUAL_THREE] + EQUAL_END);
+  MissionUtils.Console.print(EQUAL_FOUR_STRING + equalCounts[EQUAL_FOUR] + EQUAL_END);
+  MissionUtils.Console.print(EQUAL_FIVE_STRING + equalCounts[EQUAL_FIVE] + EQUAL_END);
+  MissionUtils.Console.print(EQUAL_FIVE_BONUS_STRING + equalCounts[EQUAL_FIVE_BONUS] + EQUAL_END);
+  MissionUtils.Console.print(EQUAL_SIX_STRING + equalCounts[EQUAL_SIX] + EQUAL_END);
 };
