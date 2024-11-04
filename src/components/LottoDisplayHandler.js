@@ -8,7 +8,7 @@ import isEmpty from '../utils/isEmpty.js';
 import Output from '../utils/io/Output.js';
 
 class LottoDisplayHandler {
-  printLottoWinningResult(winningResult) {
+  getWinningResultMessage(winningResult) {
     const winningResultMessage = [
       '당첨 통계',
       '---',
@@ -19,18 +19,28 @@ class LottoDisplayHandler {
       `6개 일치 (${Prize.MATCH_6}원) - ${winningResult[6]}개`,
     ];
 
-    winningResultMessage.forEach((message) => Output.print(message));
+    return winningResultMessage;
   }
 
-  printRateOfReturn(winningResult, purchaseAmount) {
+  getRateOfReturn(winningResult, purchaseAmount) {
     const totalPrizeMoney = Object.entries(winningResult).reduce(
       (acc, [matchCount, lottoCount]) =>
         acc + lottoCount * PrizeMoney[matchCount],
       0,
     );
-
     const rateOfReturn = ((totalPrizeMoney / purchaseAmount) * 100).toFixed(1);
 
+    return rateOfReturn;
+  }
+
+  printLottoWinningResult(winningResult) {
+    const winningResultMessage = this.getWinningResultMessage(winningResult);
+
+    winningResultMessage.forEach((message) => Output.print(message));
+  }
+
+  printRateOfReturn(winningResult, purchaseAmount) {
+    const rateOfReturn = this.getRateOfReturn(winningResult, purchaseAmount);
     Output.print(OutputMessages.TOTAL_ROR(rateOfReturn));
   }
 
