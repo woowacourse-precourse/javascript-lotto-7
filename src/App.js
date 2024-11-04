@@ -29,8 +29,7 @@ class App {
     const lottoBonusNumber = Number(await getInput('\n보너스 번호를 입력해 주세요.\n'));
     checkLottoBonusNumber(winningLotto, lottoBonusNumber);
 
-    printString('\n당첨 통계');
-    printString('\n---');
+    printString('\n당첨 통계\n---');
     const lottoResults= calculateLottoStatistics(lottoList, winningLotto, lottoBonusNumber);
     printLottoStatistics(lottoResults);
     const profitRate = lottoProfitRate(purchasePrice, lottoResults)

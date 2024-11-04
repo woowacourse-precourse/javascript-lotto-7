@@ -31,7 +31,7 @@ export function printLottoStatistics(lottoResults) {
 export function lottoProfitRate(purchasePrice, lottoResults){
   const lottoProfit = calculateProfit(lottoResults);
   const profitRate = (lottoProfit / purchasePrice) * 100;
-return parseFloat(profitRate.toFixed(2));
+return formatProfitRate(profitRate);
 }
 
 export function calculateProfit(lottoResults) {
@@ -40,4 +40,9 @@ export function calculateProfit(lottoResults) {
     totalProfit += count * Object.values(RANK_CONFIG)[index].PRIZE;
   });
   return totalProfit;
+}
+
+function formatProfitRate(rate) {
+  const roundedRate = Math.round(rate * 10) / 10;
+  return `${roundedRate.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`;
 }
