@@ -7,7 +7,7 @@ class OutputView {
   }
 
   printTickets(amount) {
-    Console.print(OUTPUT_MESSAGES.purchaseAmount(amount));
+    Console.print(OUTPUT_MESSAGES.purchase_amount(amount));
   }
 
   printLottos(lottos) {
@@ -25,6 +25,10 @@ class OutputView {
 
       Console.print(OUTPUT_MESSAGES.total_statics(key, value));
     });
+  }
+
+  printProfitRatio(profitRatio) {
+    Console.print(OUTPUT_MESSAGES.total_profit_ratio(profitRatio));
   }
 }
 

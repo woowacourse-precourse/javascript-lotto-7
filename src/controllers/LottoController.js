@@ -89,6 +89,7 @@ class LottoController {
 
   #showResult(statistics, profitRatio) {
     this.#outputView.printStatistics(statistics);
+    this.#outputView.printProfitRatio(profitRatio);
   }
 }
 
