@@ -19,5 +19,9 @@ export const MESSAGES = Object.freeze({
     NOT_INT: `정수가 아닌 숫자입니다.\n`,
     SMALL_INT: `정수가 1,000 미만입니다.\n`,
     NOT_UNIT_INT: `입력 받은 수가 1,000 단위가 아닙니다.\n`,
+    RANGE_INT: (min, max) =>
+      `${min}에서 ${max} 사이의 정수를 입력해야 합니다.\n`,
+    LOTTO_PICK_NUM: (pickNum) => `로또 번호는 ${pickNum}개여야 합니다.\n`,
+    DUPLICATE_INT: `중복된 숫자가 있습니다.\n`,
   },
 });
