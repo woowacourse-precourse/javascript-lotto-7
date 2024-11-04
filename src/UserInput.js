@@ -35,15 +35,19 @@ class UserInput {
 
   async inputBonusNumber() {
     const bonusNum = await MissionUtils.Console.readLineAsync(
-      "보너스 숫자를 입력해주세요. \n"
+      "보너스 번호를 입력해주세요. \n"
     );
 
     if (isNaN(bonusNum)) {
-      throw new Error("[ERROR] 보너스 숫자는 숫자이어야 합니다.");
+      throw new Error("[ERROR] 보너스 번호는 숫자이어야 합니다.");
     }
 
     if (bonusNum < 1 || bonusNum > 45) {
       throw new Error("[ERROR] 보너스 번호는 1~45 사이의 숫자여야 합니다.");
+    }
+
+    if (!Number.isInteger(bonusNum)) {
+      throw new Error("[ERROR] 보너스 번호는 1~45 사이의 정수여야 합니다.");
     }
 
     return bonusNum;
