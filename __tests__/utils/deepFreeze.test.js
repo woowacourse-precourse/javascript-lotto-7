@@ -24,29 +24,29 @@ describe('deepFreeze', () => {
     },
   });
 
-  test('기존 속성 수정 방지', () => {
+  test('기존 속성을 수정하려고 할 때 예외가 발생해야 한다.', () => {
     expect(() => {
       RANK.FIRST.prize = 1_000_000;
     }).toThrow();
   });
 
-  test('새로운 속성 추가 방지', () => {
+  test('새로운 속성을 추가하려고 할 때 예외가 발생해야 한다.', () => {
     expect(() => {
       RANK.NEW_RANK = { matchCount: 7, prize: 1_000_000 };
     }).toThrow();
   });
 
-  test('속성 삭제 방지', () => {
+  test('기존 속성을 삭제하려고 할 때 예외가 발생해야 한다.', () => {
     expect(() => {
       delete RANK.FIFTH;
     }).toThrow();
   });
 
-  test('기존 속성 읽기', () => {
+  test('기존 속성을 정상적으로 읽을 수 있어야 한다.', () => {
     expect(RANK.FIRST.prize).toBe(2_000_000_000);
   });
 
-  test('중첩 객체 동결 확인', () => {
+  test('중첩 객체의 속성을 수정하려고 할 때 예외가 발생해야 한다.', () => {
     expect(() => {
       RANK.SECOND.prize = 50_000;
     }).toThrow();

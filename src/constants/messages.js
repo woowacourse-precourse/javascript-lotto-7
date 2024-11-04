@@ -36,7 +36,7 @@ const OUTPUT_MESSAGES = Object.freeze({
 const ERROR = '[ERROR]';
 
 const ERROR_MESSAGES = Object.freeze({
-  INVALID_NUMBER: `${ERROR} 0이상의 숫자만 입력 가능합니다.`,
+  INVALID_NUMBER: `${ERROR} 0이상의 자연수만 입력 가능합니다.`,
   INVALID_UNIT: `${ERROR} 구입 금액은 ${CONFIG.PURCHASE_AMOUNT_UNIT}원 단위여야 합니다.`,
 
   INVALID_WINNING_NUMBER: `${ERROR} 당첨 번호는 ${CONFIG.LOTTO_MIN_NUMBER}부터 ${CONFIG.LOTTO_MAX_NUMBER}까지의 숫자여야 합니다.`,
