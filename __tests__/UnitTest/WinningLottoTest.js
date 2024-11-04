@@ -1,6 +1,6 @@
-import { Random } from "@woowacourse/mission-utils";
-import TotalLotto from "../../src/domains/TotalLotto";
-import WinningLotto from "../../src/domains/WinningLotto";
+import { Random } from '@woowacourse/mission-utils';
+import TotalLotto from '../../src/domains/TotalLotto';
+import WinningLotto from '../../src/domains/WinningLotto';
 
 const mockRandoms = (numbers) => {
   Random.pickUniqueNumbersInRange = jest.fn();
@@ -9,8 +9,8 @@ const mockRandoms = (numbers) => {
   );
 };
 
-describe("WinningLotto 클래스 테스트", () => {
-  test("당첨 번호에 따른 당첨 결과", () => {
+describe('WinningLotto 클래스 테스트', () => {
+  test('당첨 번호에 따른 당첨 결과', () => {
     const expectedResult = [1, 1, 1, 1, 1];
     const winningNumbers = [3, 5, 8, 15, 22, 34];
     const bonusNumber = 13;
@@ -33,7 +33,7 @@ describe("WinningLotto 클래스 테스트", () => {
     expect(winningResult).toStrictEqual(expectedResult);
   });
 
-  test("수익률 출력", () => {
+  test('수익률 출력', () => {
     const expectedResult = 62.5;
     const totalLotto = [
       [8, 21, 23, 41, 42, 43],
@@ -56,6 +56,5 @@ describe("WinningLotto 클래스 테스트", () => {
     const winningPercent = winningLotto.calculatePercent(purchase);
 
     expect(winningPercent).toStrictEqual(expectedResult);
-
   });
 });

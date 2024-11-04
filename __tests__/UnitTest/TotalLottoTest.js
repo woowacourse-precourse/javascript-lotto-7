@@ -11,12 +11,15 @@ describe('TotalLotto 클래스 테스트', () => {
     expect(lottoList.length).toBe(count);
 
     lottoList.forEach((lotto) => {
+      //각 instance가 Lotto instance인지 확인
       expect(lotto).toBeInstanceOf(Lotto);
 
+      //각 로또가 6개의 번호가 맞는지 확인
       expect(lotto.getNumbers().length).toBe(
         CONSTANT.LOTTO_CANSTANT.LOTTO_LENGTH
       );
 
+      //최대 최소 범위 안의 숫자인지 확인
       lotto.getNumbers().forEach((number) => {
         expect(number).toBeGreaterThanOrEqual(
           CONSTANT.LOTTO_CANSTANT.MIN_LOTTO_NUMBER

@@ -17,6 +17,7 @@ const RESULT = Object.freeze({
   FIVE_MATCH_WITH_BONUS: (count) => `5개 일치, 보너스 볼 일치 (30,000,000원) - ${count}개`,
   SIX_MATCH: (count) => `6개 일치 (2,000,000,000원) - ${count}개`,
 });
+
 const MESSAGE = Object.freeze({ INPUT_MESSAGE, OUTPUT_MESSAGE, RESULT });
 
 export default MESSAGE;

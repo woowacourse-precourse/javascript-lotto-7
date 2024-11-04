@@ -14,6 +14,7 @@ class Output {
 
   printWinningResult(result, percent) {
     const outMessage = Object.values(MESSAGE.RESULT);
+    
     Console.print(MESSAGE.OUTPUT_MESSAGE.WINNING_RESULT_TITLE);
     result.forEach((num, index) => {
         Console.print(outMessage[index](num));        

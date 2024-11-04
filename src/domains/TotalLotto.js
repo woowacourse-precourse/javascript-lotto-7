@@ -1,18 +1,18 @@
-import CONSTANT from "../constants/costant.js";
-import { Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+import CONSTANT from '../constants/costant.js';
+import { Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class TotalLotto {
   #lottos;
 
-  constructor(count){
+  constructor(count) {
     this.#makeLottoList(count);
   }
 
   #makeLottoList(count) {
     this.#lottos = Array.from({ length: count }).map(() => this.#randomLotto());
   }
- 
+
   #randomLotto() {
     const randomNumbers = Random.pickUniqueNumbersInRange(
       CONSTANT.LOTTO_CANSTANT.MIN_LOTTO_NUMBER,

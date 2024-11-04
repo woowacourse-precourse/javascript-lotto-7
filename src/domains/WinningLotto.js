@@ -1,4 +1,4 @@
-import CONSTANT from "../constants/costant.js";
+import CONSTANT from '../constants/costant.js';
 
 class WinningLotto {
   #result;
@@ -22,7 +22,7 @@ class WinningLotto {
 
       this.#matchNum(matchNum, lottoNumbers, this.#bonus);
     });
-    
+
     return this.#result;
   }
 
@@ -44,7 +44,7 @@ class WinningLotto {
     const prize = Object.values(CONSTANT.PRIZE);
 
     let totalPrize = this.#result.reduce((sum, num, index) => {
-        return sum + num * prize[index];
+      return sum + num * prize[index];
     }, 0);
 
     const percentage = (totalPrize / purchase) * 100.0;

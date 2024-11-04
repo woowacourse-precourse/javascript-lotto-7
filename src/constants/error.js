@@ -1,4 +1,4 @@
-import CONSTANT from "./costant.js";
+import CONSTANT from './costant.js';
 
 const ERROR = Object.freeze({
   IS_NOT_DEVIDED: `[ERROR] ${CONSTANT.PURCHASE_UNIT.UNIT_OF_LOTTO}원 단위로 입력해주세요.`,

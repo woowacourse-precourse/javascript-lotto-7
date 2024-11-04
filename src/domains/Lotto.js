@@ -1,5 +1,5 @@
-import ERROR from "../constants/error.js";
-import CONSTANT from "../constants/costant.js";
+import ERROR from '../constants/error.js';
+import CONSTANT from '../constants/costant.js';
 
 class Lotto {
   #numbers;
@@ -22,7 +22,7 @@ class Lotto {
     if (numbers.length !== removeDuplicate.size) {
       throw new Error(ERROR.DUPLICATED_NUMBER);
     }
-  } 
+  }
 
   getNumbers() {
     return this.#numbers;

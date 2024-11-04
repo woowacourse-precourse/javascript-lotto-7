@@ -11,6 +11,7 @@ class LottoGame {
     const input = new Input();
     const purchase = await input.getPurchaseAmount();
     const count = purchase / CONSTANT.PURCHASE_UNIT.UNIT_OF_LOTTO;
+    
     this.#getLottoList(count);
 
     const winNumber = await input.getLottoNumber();

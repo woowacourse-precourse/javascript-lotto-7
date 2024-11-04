@@ -15,6 +15,7 @@ const PRIZE = Object.freeze({
   FIVE_MATCH_WITH_BONUS: 30000000,
   SIX_MATCH: 2000000000,
 });
+
 const CONSTANT = Object.freeze({ PURCHASE_UNIT, LOTTO_CANSTANT, PRIZE });
 
 export default CONSTANT;
