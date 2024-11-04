@@ -1,4 +1,5 @@
 const LOTTO_TICKET_PRICE = 1000;
+const MAX_PURCHASE_AMOUNT = 100000;
 
 const USER_PROMPT_MESSAGES = Object.freeze({
   GET_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.\n',
@@ -15,6 +16,8 @@ const CONFIRMATION_MESSAGES = Object.freeze({
 const ERROR_MESSAGES = Object.freeze({
   INVALID_EMPTY_INPUT:
     '[ERROR] 아무것도 입력하지 않았습니다. 값을 입력해 주세요.',
+  INVALID_PURCHASE_AMOUNT_LIMIT:
+    '[ERROR] 구입 금액은 최대 100,000원까지 가능합니다.',
   INVALID_PURCHASE_AMOUNT_NOT_NUMBER:
     '[ERROR] 구입 금액은 숫자만 입력해 주세요.',
   INVALID_PURCHASE_AMOUNT_NOT_TICKET_UNIT:
@@ -41,4 +44,5 @@ export {
   CONFIRMATION_MESSAGES,
   ERROR_MESSAGES,
   PRIZE_AMOUNTS,
+  MAX_PURCHASE_AMOUNT,
 };
