@@ -62,14 +62,14 @@ class View {
   }
 
   static #rateOfReturnForm (rate) {
-    return `총 수익률은 ${rate.toFixed(1).toLocaleString('en-US')}%입니다.`;
+    return `총 수익률은 ${parseFloat(rate.toFixed(1)).toLocaleString('ko-KR')}%입니다.`;
   }
 
   static #prizeForm (rank, prize, count = 0) {
     if(rank === WIN_WITH_BONUS_RANK) {
       return `${matchedAmoutMap.get(rank).toLocaleString()}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${count.toLocaleString()}개`;
     }
-    return `${matchedAmoutMap.get(rank).toLocaleString()}개 일치 (${prize.toLocaleString('en-US')}원) - ${count.toLocaleString()}개`;
+    return `${matchedAmoutMap.get(rank).toLocaleString()}개 일치 (${prize.toLocaleString('ko-KR')}원) - ${count.toLocaleString()}개`;
 
   }
 
