@@ -20,8 +20,8 @@ class App {
   async run() {
     const lottoGame = new LottoGame();
 
-    const purchasePrice = await InputHandler.getPurchasePrice();
-    lottoGame.setPurchasePrice(purchasePrice);
+      const purchasePrice = await InputHandler.getPurchasePrice();
+      lottoGame.buyLotto(purchasePrice);
 
     Console.print(`\n${lottoGame.calculateLottoCount()}개를 구매했습니다.`);
 

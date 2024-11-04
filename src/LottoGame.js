@@ -1,5 +1,6 @@
 import Lotto from "./Lotto.js";
 import { Random } from '@woowacourse/mission-utils';
+import { Random, Console } from '@woowacourse/mission-utils';
 import {
   LOTTO_PRICE,
   VALID_HIGHEST_NUM,
@@ -59,9 +60,11 @@ class LottoGame {
     return this.#purchasePrice / LOTTO_PRICE;
   }
 
-  setPurchasePrice(purchasePrice) {
-    this.#validatePurchasePrice(purchasePrice);
+  buyLotto(purchasePrice) {
     this.#purchasePrice = purchasePrice;
+    this.#validatePurchasePrice(purchasePrice);
+    return Console.print(`\n${this.calculateLottoCount()}개를 구매했습니다.`);
+
   }
 
   setWinNumbers(winNumbers) {
