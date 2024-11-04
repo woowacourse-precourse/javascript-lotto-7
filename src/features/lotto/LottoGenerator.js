@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { LOTTO } from '../../shared/constants/constants.js';
+import { LOTTO } from '../../shared/constants/lotto.js';
 import Lotto from '../../entities/Lotto.js';
 
 export const LottoGenerator = (amount) => {
@@ -10,8 +10,5 @@ export const LottoGenerator = (amount) => {
   lottos.forEach((element) => {
     MissionUtils.Console.print(`[${element.join(', ')}]`);
   });
-  const lotto = lottos.map((element) => new Lotto(element));
-
-  //TODO : Lotto 생성자로 넘겨주기
-  return lotto;
+  return lottos.map((element) => new Lotto(element));
 };
