@@ -27,6 +27,15 @@ class Result {
       (this.#purchaseAmount = purchaseAmount);
   }
 
+  winningResult() {
+    for (let i = 0; i < this.#lotteryNumbers.length; i++) {
+      const result = this.#matchingCount(this.#lotteryNumbers[i]);
+      this.#winningRank(result);
+    }
+    this.#calculateTotalPrice();
+    this.#calculateTotalRate();
+  }
+
   #parsedNumbers(numbersString) {
     const splittedNumbers = numbersString.split(',');
     return splittedNumbers.map((item) => parseInt(item.trim()));
@@ -49,19 +58,6 @@ class Result {
     if (result === 3) this.#ranks.fifth++;
   }
 
-  getWinningRank() {
-    return this.#ranks;
-  }
-
-  winningResult() {
-    for (let i = 0; i < this.#lotteryNumbers.length; i++) {
-      const result = this.#matchingCount(this.#lotteryNumbers[i]);
-      this.#winningRank(result);
-    }
-    this.#calculateTotalPrice();
-    this.#calculateTotalRate();
-  }
-
   #calculateTotalPrice() {
     this.#totalPrice =
       this.#ranks.first * LOTTO_FIRST_PRIZE +
@@ -75,6 +71,10 @@ class Result {
     this.#totalRate = ((this.#totalPrice / this.#purchaseAmount) * 100).toFixed(
       1
     );
+  }
+
+  getWinningRank() {
+    return this.#ranks;
   }
 
   getTotalRate() {
