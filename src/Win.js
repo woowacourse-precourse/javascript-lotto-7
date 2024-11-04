@@ -5,13 +5,13 @@ export default class Win {
     #BONUS_NUMBER
     #matchCounts
     #TOTAL_PRISE
-    #TOTAL_WIN
     #returnRate
+    #PAY_INPUT
 
-
-    constructor(WINNING_NUMBERS) {
+    constructor(WINNING_NUMBERS, PAY_INPUT) {
         //error test
         WINNING_NUMBERS.split(",").forEach(number => this.#numbers.push(Number(number.trim())))
+        this.#PAY_INPUT = PAY_INPUT
     }
 
     getBonusNumber(BONUS_NUMBER) {
@@ -21,8 +21,7 @@ export default class Win {
     calculator(lottoArr) {
         this.#matchCounts = this.#filtering(lottoArr)
         this.#TOTAL_PRISE = this.#totalPrize()
-        this.#TOTAL_WIN = this.#totalWins()
-        this.#returnRate = (this.#TOTAL_PRISE / this.#TOTAL_WIN).toFixed(2)
+        this.#returnRate = (this.#TOTAL_PRISE / this.#PAY_INPUT * 100).toFixed(1)
         if (isNaN(this.#returnRate)) {
             this.#returnRate = 0
         }
@@ -67,12 +66,6 @@ export default class Win {
             return total + (count * prize)
         }, 0)
         return TOTAL
-    }
-
-    #totalWins() {
-        return Object.keys(this.#matchCounts).reduce((total, key) => {
-            return total + this.#matchCounts[key]
-        }, 0)
     }
 
     print() {
