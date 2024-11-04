@@ -4,7 +4,7 @@
 
 ## 🎮 실행 결과 예시
 
-![게임 실행 결과 예시]()
+![게임 실행 결과 예시](img/lottery-machine-demo.png)
 
 ## 🚀 기능 요구 사항
 
@@ -192,45 +192,170 @@
 
 ## 🛠️ 구현 상세
 
-#### 게임 초기화
+#### 구매 금액에 따른 로또 발행
 
--
+- 구매자가 입력한 금액에 따라 로또를 발행합니다.
 
-##### 코드 예시
+  구매 금액의 **유효성**을 검사하고, 금액에 맞춰 로또 티켓을 생성합니다.
+
+  1. isNotNumber
+  2. formatAmount
+
+  ```bash
+  14,000 // true
+  14,00 // false
+  ```
+
+  3. isNotPositiveNumber
+  4. isNotDivisibleByThousand
+
+###### 모듈 구조
+
+- _PurchaseValidator_(구매 금액 유효성 검사)  
+  구매 금액이 올바른지 검사하며, 유효할 경우 LottoIssuer로 전달됩니다.
 
 ```javascript
+static validate(purchaseAmount) {
+  if (this.#isNotNumber(purchaseAmount)) {
+    throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+  }
+  const formattedAmount = this.#formatAmount(purchaseAmount);
 
+  if (this.#isNotPositiveNumber(formattedAmount)) {
+    throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_POSITIVE);
+  }
+
+  if (this.#isNotDivisibleByThousand(formattedAmount)) {
+    throw new Error(
+      ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISIBILITY(LOTTO.TICKET_PRICE)
+    );
+  }
+  return formattedAmount;
+}
 ```
 
-#### 게임 진행
-
--
-
-##### 코드 예시
+- _Lotto_(로또 티켓)  
+  로또 티켓을 생성합니다. 번호 매칭 기능이 포함되어있으며, 무결성을 위해 값을 감싸는 `값객체` 역할을 합니다.
 
 ```javascript
+constructor(numbers) {
+  this.#validate(numbers);
+  this.#numbers = numbers;
+}
 
+#validate(numbers) {
+  if (numbers.length !== LOTTO.WINNING_NUMBERS_COUNT) {
+    throw new Error(ERROR_MESSAGES.INVALID_NUMBER_COUNT);
+  }
+  const uniqueNumbers = new Set(numbers);
+  if (uniqueNumbers.size !== numbers.length) {
+    throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER);
+  }
+}
 ```
 
-#### 당첨 조건
-
--
-
-##### 코드 예시
+- _LottoIssuer_(구매 금액에 따라 로또 티켓 생성)  
+  유효한 구매 금액을 입력받아 로또 티켓을 생성합니다. `무작위 번호로 생성된 티켓`을 출력합니다.
 
 ```javascript
+createLottoTickets(purchaseAmount) {
+  const ticketCount = purchaseAmount / LOTTO.TICKET_PRICE;
+  const lottoTickets = [];
 
+  for (let i = GAME_SETTINGS.ZERO; i < ticketCount; i++) {
+    const ticketNumbers = Random.pickUniqueNumbersInRange(
+      LOTTO.NUMBER_RANGE.MIN,
+      LOTTO.NUMBER_RANGE.MAX,
+      LOTTO.WINNING_NUMBERS_COUNT
+    ).sort((a, b) => a - b);
+
+    lottoTickets.push(new Lotto(ticketNumbers));
+  }
+  Console.print(`${ticketCount}${MESSAGES.TICKET_PURCHASED}`);
+  lottoTickets.forEach((ticket) => Console.print(ticket.toString()));
+
+  return lottoTickets;
+}
 ```
 
-#### 당첨 내역과 수익률
+#### 당첨 번호 입력(LottoValidator)
 
--
--
-
-##### 코드 예시
+- 사용자 입력으로 받은 당첨 번호와 보너스 번호의 `유효성을 검사`하는 역할을 합니다. 번호의 유효성과, 중복 등을 검사합니다.
 
 ```javascript
+  validateBonusNumber(winningNumbers, bonusNumber) {
+    const validateBonusNumber = this.#validateBonusNumber(bonusNumber);
 
+    if (winningNumbers.includes(validateBonusNumber)) {
+      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
+    }
+
+    return validateBonusNumber;
+  }
+```
+
+```javascript
+validateWinningNumber(userInput) {
+  const parsedNumbers = this.#parseUserInput(userInput);
+
+  if (!this.#isCorrectCount(parsedNumbers)) {
+    throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
+  }
+
+  if (this.#hasDuplicateNumbers(parsedNumbers)) {
+    throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER);
+  }
+
+  return parsedNumbers;
+}
+```
+
+#### 당첨 내역(LottoMatcher)
+
+- 발행된 로또와 당첨 번호를 비교하여 **당첨 결과를 계산**합니다. 당첨 숫자 개수와 보너스 일치 여부를 확인하고, `등수별 티켓 수`를 집계합니다.
+
+```javascript
+  run() {
+    const rankCounts = {
+      [RANK_KEYS.NONE]: GAME_SETTINGS.ZERO,
+      [RANK_KEYS.THREE_MATCH]: GAME_SETTINGS.ZERO,
+      [RANK_KEYS.FOUR_MATCH]: GAME_SETTINGS.ZERO,
+      [RANK_KEYS.FIVE_MATCH]: GAME_SETTINGS.ZERO,
+      [RANK_KEYS.FIVE_WITH_BONUS_MATCH]: GAME_SETTINGS.ZERO,
+      [RANK_KEYS.SIX_MATCH]: GAME_SETTINGS.ZERO,
+    };
+
+    const matchNumbersArray = this.#checkMatchingNumbers();
+
+    matchNumbersArray.forEach((matchCount, index) => {
+      const rewardKey = this.#REWARDS[matchCount];
+
+      const bonusMatch = this.#checkBonusMatch(this.#tickets[index]);
+
+      if (rewardKey === RANK_KEYS.FIVE_MATCH && bonusMatch) {
+        rankCounts[RANK_KEYS.FIVE_WITH_BONUS_MATCH]++;
+      } else {
+        rankCounts[rewardKey]++;
+      }
+    });
+
+    return rankCounts;
+  }
+```
+
+#### 수익률(ProfitCalculator)
+
+- 로또 게임의 *수익률*을 계산합니다. 당첨 티켓 수와 총 구매 금액을 이용해 `전체 수익과 수익률`을 집계합니다.
+
+```javascript
+  get profitRate() {
+    const profit = Object.entries(this.#rankCounts).reduce(
+      (acc, [key, value]) => {
+        return acc + value * LOTTO_REWARD[key].prize;
+      },
+      GAME_SETTINGS.ZERO
+    );
+  }
 ```
 
 ---
