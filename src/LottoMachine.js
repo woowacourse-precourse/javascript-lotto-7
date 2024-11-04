@@ -1,7 +1,7 @@
-import { Random } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGE } from "./constants/messages.js";
 import { LOTTO_RULE, LOTTO_WIN_RANK } from "./constants/rule.js";
 import { isDividedWithUnit, isNumber } from "./utils/validation.js";
+import Ticket from "./Ticket.js";
 
 class LottoMachine {
   #amount;
@@ -12,7 +12,7 @@ class LottoMachine {
     const inputNumber = Number(input);
     this.#validate(inputNumber);
     this.#amount = inputNumber / LOTTO_RULE.PRICE;
-    this.#tickets = LottoMachine.#buyMultipleTickets(this.#amount);
+    this.#tickets = Array.from({ length: this.#amount }, () => new Ticket());
   }
 
   #validate(number) {
@@ -24,16 +24,8 @@ class LottoMachine {
     }
   }
 
-  static #buyMultipleTickets(amount) {
-    return Array.from({ length: amount }, () =>
-      Random.pickUniqueNumbersInRange(LOTTO_RULE.MIN_NUMBER, LOTTO_RULE.MAX_NUMBER, 6).sort(
-        (a, b) => a - b,
-      ),
-    );
-  }
-
   getTicketsString() {
-    return `\n${this.#amount}개를 구매했습니다.\n${this.#tickets.map((ticket) => `[${ticket.join(", ")}]`).join("\n")}`;
+    return `\n${this.#amount}개를 구매했습니다.\n${this.#tickets.map((ticket) => ticket.getTicketString()).join("\n")}`;
   }
 
   static #createWinningRankCount() {
@@ -66,8 +58,10 @@ ${LOTTO_WIN_RANK.allMatch.string} (${LOTTO_WIN_RANK.allMatch.prize.toLocaleStrin
     this.#winningRankCount = LottoMachine.#createWinningRankCount();
 
     this.#tickets.forEach((ticket) => {
-      const matchCount = winningLotto.getMatchCountWith(ticket);
-      const isBonusMatch = bonusNumber.hasBonusNumberIn(ticket);
+      const ticketNumbers = ticket.getTicketNumbers();
+      const matchCount = winningLotto.getMatchCountWith(ticketNumbers);
+      const isBonusMatch = bonusNumber.hasBonusNumberIn(ticketNumbers);
+
       const rank = LottoMachine.#getRankType(matchCount, isBonusMatch);
       if (rank) this.#winningRankCount[rank] += 1;
     });
