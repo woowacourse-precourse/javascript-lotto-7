@@ -1,6 +1,6 @@
 import { validateWinningNumber } from "../src/validator/WinningNum";
 
-describe("입력 로또 번호 테스트", () => {
+describe("입력 당첨 번호 테스트", () => {
   const notNumber = ["1ㅇ", , 13, 15, 17, 19, 20];
   const notInRangeNumbers = [
     [1, 2, 3, 4, 5, 0],

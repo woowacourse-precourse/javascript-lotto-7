@@ -1,6 +1,7 @@
 import InputView from "../views/InputView.js";
 import { validateInputMoney } from "../validator/InputMoney.js";
 import { validateWinningNumber } from "../validator/WinningNum.js";
+import { validateBonusNumber } from "../validator/BonusNum.js";
 import OutputView from "../views/OutputView.js";
 import LottoMachine from "../models/LottoMachine.js";
 import { Console } from "@woowacourse/mission-utils";
@@ -44,6 +45,23 @@ class LottoController {
     }
   }
 
+  async #setBounsNum() {
+    return await InputView.readBounsNumber();
+  }
+
+  async #getValidBonusNum() {
+    let bounsNum;
+    while (true) {
+      try {
+        bounsNum = Number(await this.#setBounsNum());
+        validateBonusNumber(bounsNum);
+        return bounsNum;
+      } catch (e) {
+        Console.print(e);
+      }
+    }
+  }
+
   #calculateLottoCount(inputMoney) {
     return Math.floor(inputMoney / 1000);
   }
@@ -62,7 +80,8 @@ class LottoController {
 
     OutputView.printLottos(lottos);
     const winningNum = await this.#getValidWinningNum();
-    console.log(winningNum);
+    const bonusNum = await this.#getValidBonusNum();
+    console.log(winningNum, bonusNum);
   }
 }
 

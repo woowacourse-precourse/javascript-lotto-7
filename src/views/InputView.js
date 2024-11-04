@@ -13,4 +13,8 @@ export default class InputView {
   static async readWinningNumber() {
     return await Console.readLineAsync("당첨 번호를 입력해주세요" + "\n");
   }
+
+  static async readBounsNumber() {
+    return await Console.readLineAsync("보너스 번호를 입력해 주세요." + "\n");
+  }
 }
