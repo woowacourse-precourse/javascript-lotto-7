@@ -1,14 +1,20 @@
+import LottoChecker from "./LottoChecker.js";
 import LottoCreator from "./LottoCreator.js";
+import OutputView from "./OutputView.js";
 import UserInput from "./UserInput.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   #userInput;
   #lottoCreator;
+  #lottoChecker;
+  #outputView;
 
   constructor() {
     this.#userInput = new UserInput();
     this.#lottoCreator = new LottoCreator();
+    this.#lottoChecker = new LottoChecker();
+    this.#outputView = new OutputView();
   }
 
   async run() {
@@ -20,8 +26,23 @@ class App {
     const lottos = this.#lottoCreator.createLotto(lottoCount);
     this.#lottoCreator.printLottos(lottos);
 
-    const numbers = await this.#userInput.getUserInput("winningNumber");
-    const bonus = await this.#userInput.getUserInput("bonusNumber");
+    const winningNumbers = (await this.#userInput.getUserInput("winningNumber"))
+      .split(",")
+      .map((number) => Number(number.trim()));
+    const bonusNumber = Number(
+      await this.#userInput.getUserInput("bonusNumber")
+    );
+
+    const checkedLottos = this.#lottoChecker.checkWinning(
+      lottos,
+      winningNumbers,
+      bonusNumber
+    );
+
+    this.#outputView.printWinningStatistics(checkedLottos);
+
+    const totalPrize = this.#lottoChecker.calculateTotalPrize();
+    this.#outputView.printProfitRate(totalPrize, lottoCount);
   }
 }
 
