@@ -4,19 +4,31 @@ import Lotto from "./Lotto.js";
 
 class App {
   async run() {
-    const price = await MissionUtils.Console.readLineAsync(
-      "구입금액을 입력해 주세요."
-    );
+    let price; // 초기화
 
-    if (price % 1000 !== 0) {
-      throw new Error("구입 금액은 1000원 단위로 입력해야 합니다.");
+    while (true) {
+      price = await MissionUtils.Console.readLineAsync(
+        "구입금액을 입력해 주세요."
+      );
+
+      // 입력값을 숫자로 변환
+      const numericPrice = Number(price);
+
+      if (isNaN(numericPrice) || numericPrice % 1000 !== 0) {
+        MissionUtils.Console.print(
+          "[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다."
+        );
+        continue; // 다시 입력 받기
+      }
+
+      break; // 유효한 금액이면 루프 종료
     }
 
-    const resultprice = price / 1000;
-    MissionUtils.Console.print(`${resultprice}개를 구매했습니다.`);
+    const resultPrice = price / 1000;
+    MissionUtils.Console.print(`${resultPrice}개를 구매했습니다.`);
 
     const userLottos = [];
-    for (let i = 0; i < resultprice; i++) {
+    for (let i = 0; i < resultPrice; i++) {
       const lottoNumbers = Lotto.generateRandomNumbers();
       userLottos.push(new Lotto(lottoNumbers));
       MissionUtils.Console.print(`[${lottoNumbers.join(", ")}]`); // 로또 번호 출력
@@ -53,12 +65,12 @@ class App {
     };
 
     return Object.keys(statistics).reduce((total, key) => {
-      return total + PRIZES[key] * statistics[key];
+      return total + statistics[key] * PRIZES[key];
     }, 0);
   }
 
   calculateYieldRate(totalPrize, price) {
-    return ((totalPrize / price) * 100).toFixed(1); // 소수점 둘째 자리에서 반올림
+    return ((totalPrize / price) * 100).toFixed(1);
   }
 }
 
