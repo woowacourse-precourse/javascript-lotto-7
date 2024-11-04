@@ -9,6 +9,15 @@ class Lotto {
     this.#numbers = this.#sortNumbers(numbers);
   }
 
+  static create(){
+    const numbers = this.#makeLottoNumbers();
+    return new Lotto(numbers);
+  }
+
+  static #makeLottoNumbers() {
+    return Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
+
   #sortNumbers(numbers){
     return numbers.sort((a, b) => a - b);
   }
