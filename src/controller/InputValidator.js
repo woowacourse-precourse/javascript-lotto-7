@@ -2,7 +2,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import { INPUT_PRINT_MESSAGES } from '../contents/InputPrintMessages.js';
 import MoneyManager from './MoneyManager.js';
 import Lotto from '../Lotto.js';
-import BonusNumber from './BonusNumberManager.js';
+import BonusNumber from './BonusNumber.js';
 
 class InputValidator {
   static async promptWithValidation(input, validationConfig) {
