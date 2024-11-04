@@ -1,6 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { lotto, prizeMoney } from "../constants/lottoConstants.js";
 import { calculateYield, getMatchedCount } from "../utils/lottoUtils.js";
+import Lotto from "../models/lotto.js";
 
 export function generateLottos(count) {
   const lottos = [];
