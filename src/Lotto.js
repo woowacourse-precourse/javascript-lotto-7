@@ -89,3 +89,57 @@ class Lotto {
     return bonusNumber;
   }
 
+
+  
+  calculateResults(lottos, winningNumbers, bonusNumber) {
+    const prizes = {
+      3: { prize: 5000, count: 0 },
+      4: { prize: 50000, count: 0 },
+      5: { prize: 1500000, count: 0 },
+      "5+bonus": { prize: 30000000, count: 0 },
+      6: { prize: 2000000000, count: 0 },
+    };
+
+    lottos.forEach((lotto) => {
+      const matchCount = lotto.getNumbers().filter((num) => winningNumbers.includes(num)).length;
+      const hasBonus = lotto.getNumbers().includes(bonusNumber);
+
+      if (matchCount === 6) prizes[6].count++;
+      else if (matchCount === 5 && hasBonus) prizes["5+bonus"].count++;
+      else if (matchCount === 5) prizes[5].count++;
+      else if (matchCount === 4) prizes[4].count++;
+      else if (matchCount === 3) prizes[3].count++;
+    });
+
+    return prizes;
+  }
+
+  displayResults(prizes) {
+    Console.print("당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${prizes[3].count}개`);
+    Console.print(`4개 일치 (50,000원) - ${prizes[4].count}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${prizes[5].count}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${prizes["5+bonus"].count}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${prizes[6].count}개`);
+  }
+
+  async start() {
+    const amount = await this.getInputMoney();
+    const lottos = this.purchaseLottos(amount / 1000);
+    const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
+    
+    const prizes = this.calculateResults(lottos, winningNumbers, bonusNumber);
+    this.displayResults(prizes);
+
+    const totalPrize = Object.values(prizes).reduce((acc, { prize, count }) => acc + prize * count, 0);
+    const totalCost = lottos.length * 1000;
+    const profitRate = ((totalPrize / totalCost) * 100).toFixed(1);
+
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+  }
+}
+
+export default Lotto;
+
+
