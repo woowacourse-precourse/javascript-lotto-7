@@ -13,6 +13,7 @@ export default class InputLottoView {
       '[ERROR] 당첨 번호는 쉼표(,)를 기준으로 6개를 입력해주세요.\n',
   };
   #SPLIT_COMMA_REGEX = /^(\d+)(,\d+){5}$/;
+  #SPLITTER = ','
 
   async getInputPrice() {
     const purchasePrice = await Console.readLineAsync(
@@ -31,9 +32,7 @@ export default class InputLottoView {
 
     this.#validateWinningLottoMainNumbers(mainNumbersString);
 
-    const mainNumbers = this.#splitAndSortNumbers(mainNumbersString);
-
-    return mainNumbers;
+    return this.#splitAndSortNumbers(mainNumbersString);
   }
 
   async getInputWinningLottoBonusNumber() {
@@ -48,7 +47,7 @@ export default class InputLottoView {
 
   #splitAndSortNumbers(string) {
     return string
-      .split(',')
+      .split(this.#SPLITTER)
       .map((number) => Number(number))
       .sort((a, b) => a - b);
   }

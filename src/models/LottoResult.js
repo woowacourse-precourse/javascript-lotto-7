@@ -1,6 +1,8 @@
 import { LOTTO_CONFIG } from '../constants/lottoConfig.js';
 
 export default class LottoResult {
+  #START_PRICE = 0
+  #INIT_COUNT = 0
   #resultPrice;
   #earningRate;
   #result;
@@ -8,12 +10,12 @@ export default class LottoResult {
   constructor() {
     this.#result = Object.keys(LOTTO_CONFIG.WINNING_PRIZE_MAP).reduce(
       (acc, key) => {
-        acc[key] = 0;
+        acc[key] = this.#INIT_COUNT;
         return acc;
       },
       {},
     );
-    this.#resultPrice = 0;
+    this.#resultPrice = this.#START_PRICE;
   }
 
   getResult() {
