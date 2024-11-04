@@ -1,5 +1,5 @@
 import { LOTTO_PRICE } from "../constants/lotto.js";
-import { ERROR_MESSAGE as ERROR } from "../constants/errorMessage.js";
+import Validation from "../Validation.js";
 
 const calculateTicketCount = (purchaseAmount) => {
   checkError(purchaseAmount);
@@ -8,13 +8,9 @@ const calculateTicketCount = (purchaseAmount) => {
 };
 
 const checkError = (purchaseAmount) => {
-  if (isNaN(Number(purchaseAmount))) {
-    throw Error(ERROR.NOT_NUMBER);
-  }
-
-  if (purchaseAmount % LOTTO_PRICE !== 0) {
-    throw Error(ERROR.INVALID_PURCHASE_AMOUNT);
-  }
+  Validation.checkIsEmpty(purchaseAmount);
+  Validation.checkIsNumber(purchaseAmount);
+  Validation.checkIsDivisibleByLottoPrice(purchaseAmount);
 }
 
 
