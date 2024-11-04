@@ -41,6 +41,11 @@ class App {
       INFO.userFiveBounusMatch(totalWinningLotto.fivebounus)
     );
     MissionUtils.Console.print(INFO.userSixMatch(totalWinningLotto.six));
+    MissionUtils.Console.print(
+      INFO.printTotalEarningsRate(
+        this.calTotalEarningsRate(totalWinningLotto, userMoney)
+      )
+    );
   }
 
   async getUserMoney() {
@@ -100,6 +105,16 @@ class App {
         break;
     }
     return totalWinningLotto;
+  }
+
+  calTotalEarningsRate(totalWinningLotto, userMoney) {
+    const totalreturn =
+      totalWinningLotto.three * PRIZE.THREE_MATCH +
+      totalWinningLotto.four * PRIZE.FOUR_MATCH +
+      totalWinningLotto.five * PRIZE.FIVE_MATCH +
+      totalWinningLotto.fivebounus * PRIZE.FIVE_BONUS_MATCH +
+      totalWinningLotto.six * PRIZE.SIX_MATCH;
+    return ((totalreturn / userMoney) * 100).toFixed(1);
   }
 }
 
