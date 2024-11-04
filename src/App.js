@@ -36,7 +36,8 @@ class App {
     try {
       const input = await Console.readLineAsync(INPUT_MESSAGE.LOTTO_NUMBERS);
       const inputNumbers = input.split(",").map((number) => Number(number));
-      return new Lotto(inputNumbers);
+      const winningLottoNumbers = new Lotto(inputNumbers);
+      return winningLottoNumbers.getNumbers();
     } catch (error) {
       Console.print(error.message);
       return this.getLottoNumbers();

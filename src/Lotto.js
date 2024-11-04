@@ -9,6 +9,10 @@ class Lotto {
     this.#numbers = numbers;
   }
 
+  getNumbers() {
+    return [...this.#numbers];
+  }
+
   #validate(numbers) {
     numbers.forEach((number) => this.#validateNumber(number));
     this.#validateCount(numbers);
