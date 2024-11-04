@@ -1,4 +1,4 @@
-import { checkLottoPurchasePrice } from '../../src/input/validatorInput.js';
+import { checkLottoPurchasePrice, checkLottoBonusNumber } from '../../src/input/validatorInput.js';
 import ERROR_MESSAGE from '../../src/constants/errorMessage.js';
 
 const INVALID_CASES = [
@@ -28,6 +28,36 @@ describe("로또 구입 금액 유효성 테스트", () => {
   test.each(VALID_CASES)("로또 구입 금액이 유효한 경우 (%s)", (_, input) => {
     expect(() => {
       checkLottoPurchasePrice(input);
+    }).not.toThrow();
+  });
+});
+
+
+
+
+const INVALID_BONUS_CASES = [
+  ["로또 번호와 중복된 경우", [[[1, 2, 15, 4, 13, 6], [10, 20, 30, 4, 5, 6]], 6], ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_DUPLICATE],
+  ["숫자가 아닌 경우", [[], 'abc'], ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE],
+  ["정수가 아닌 경우", [[], 7.5], ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE],
+  ["최소 범위 미만의 숫자인 경우", [[], -1], ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE],
+  ["최대 범위를 초과한 숫자인 경우", [[], 100], ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE],
+];
+
+const VALID_BONUS_CASES = [
+  ["로또 번호와 중복되지 않은 보너스 번호", [[[1, 2, 3, 4, 5, 6], [10, 20, 30, 40, 41, 42]], 7]],
+  ["허용 범위 내의 보너스 번호", [[[10, 20, 30, 40, 41, 42], [1, 2, 3, 4, 5, 6]], 11]],
+];
+
+describe("로또 보너스 번호 유효성 테스트", () => {
+  test.each(INVALID_BONUS_CASES)("보너스 번호가 %s", (_, [lottoList, bonusNumber], expectedError) => {
+    expect(() => {
+      checkLottoBonusNumber(lottoList, bonusNumber);
+    }).toThrow(expectedError);
+  });
+
+  test.each(VALID_BONUS_CASES)("보너스 번호가 유효한 경우 (%s)", (_, [lottoList, bonusNumber]) => {
+    expect(() => {
+      checkLottoBonusNumber(lottoList, bonusNumber);
     }).not.toThrow();
   });
 });
