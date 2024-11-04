@@ -11,6 +11,7 @@ class App {
 		const winNumbers = await Console.readLineAsync(
 			`\n당첨 번호를 입력해 주세요.\n`
 		);
+		inputHandler.getWinningNumbers(winNumbers);
 	}
 }
 
