@@ -16,9 +16,7 @@ class Lotto {
     validateNumbersLength(numbers);
     validateDuplicatelottoNumber(numbers);
 
-    numbers.forEach((number) => {
-      validateNumberRange(number);
-    });
+    numbers.forEach((number) => validateNumberRange(number));
   }
 
   #sortLottoNumbers() {
@@ -27,6 +25,7 @@ class Lotto {
 
   createLotto() {
     const lotto = this.#sortLottoNumbers();
+
     return lotto;
   }
 }

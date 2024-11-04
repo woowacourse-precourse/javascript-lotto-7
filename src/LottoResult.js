@@ -18,8 +18,20 @@ class LottoResult {
     };
   }
 
-  #countWinningNumber(purchasedLotto, winningNumber, count) {
-    if (purchasedLotto.includes(Number(winningNumber))) {
+  #isIncludeMatchNumer(purchasedLotto, winningNumber) {
+    const isIncludeWinningNumber = purchasedLotto.includes(
+      Number(winningNumber)
+    );
+
+    if (isIncludeWinningNumber) {
+      return true;
+    }
+
+    return false;
+  }
+
+  #addMatchCount(isIncludeMatchNumer, count) {
+    if (isIncludeMatchNumer) {
       return (count += 1);
     }
     return count;
@@ -27,37 +39,58 @@ class LottoResult {
 
   #compareLottoNumbers(purchasedLotto) {
     let count = 0;
-    console.log(this.#winningNumbers);
+
     this.#winningNumbers.forEach((winningNumber) => {
-      count = this.#countWinningNumber(purchasedLotto, winningNumber, count);
+      const isIncludeMatchNumer = this.#isIncludeMatchNumer(
+        purchasedLotto,
+        winningNumber
+      );
+
+      count = this.#addMatchCount(isIncludeMatchNumer, count);
     });
+
     return count;
   }
 
-  #bonus(purchasedLotto) {
-    if (purchasedLotto.includes(this.#bonusNumber)) {
-      this.winningRank.bonus += 1;
-    } else this.winningRank[MATCH_COUNT.five] += 1;
+  #bonusOrNot(purchasedLotto) {
+    const isBonus = purchasedLotto.includes(this.#bonusNumber);
+    if (isBonus) {
+      return MATCH_COUNT.bonus;
+    }
+
+    return MATCH_COUNT.five;
   }
 
   #toRank(matchCount, purchasedLotto) {
-    if (matchCount === MATCH_COUNT.three)
-      this.winningRank[MATCH_COUNT.three] += 1;
-    if (matchCount === MATCH_COUNT.four)
-      this.winningRank[MATCH_COUNT.four] += 1;
-    if (matchCount === MATCH_COUNT.five) this.#bonus(purchasedLotto);
-    if (matchCount === MATCH_COUNT.six) this.winningRank[MATCH_COUNT.six] += 1;
+    if (matchCount === MATCH_COUNT.three) {
+      return MATCH_COUNT.three;
+    }
+    if (matchCount === MATCH_COUNT.four) {
+      return MATCH_COUNT.four;
+    }
+    if (matchCount === MATCH_COUNT.six) {
+      return MATCH_COUNT.six;
+    }
+    if (matchCount === MATCH_COUNT.five) {
+      this.#bonusOrNot(purchasedLotto);
+    }
+  }
+
+  #addRankCount(count) {
+    this.winningRank[count] += 1;
   }
 
   #getWinningResult() {
     this.#purchasedLottos.map((purchasedLotto) => {
       const matchCount = this.#compareLottoNumbers(purchasedLotto);
-      this.#toRank(matchCount, purchasedLotto);
+      const rank = this.#toRank(matchCount, purchasedLotto);
+      this.#addRankCount(rank);
     });
   }
 
   async lottoResult() {
     this.#getWinningResult();
+
     return this.winningRank;
   }
 }

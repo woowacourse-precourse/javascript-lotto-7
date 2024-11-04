@@ -1,6 +1,13 @@
 import BuyLotto from '../src/BuyLotto';
 
 describe('로또 구매 클래스 테스트', () => {
+  test('구매 금액을 입력하지 않으면 예외가 발생한다..', () => {
+    expect(() => {
+      const buyLotto = new BuyLotto();
+      buyLotto.buyLotto();
+    }).toThrow('[ERROR]');
+  });
+
   test('구매 금액에 문자가 포함되어 있으면 예외가 발생한다.', () => {
     expect(() => {
       const buyLotto = new BuyLotto('1000j');

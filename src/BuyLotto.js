@@ -1,7 +1,10 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { AMOUNT } from './constants.js';
-import { validateBuyAmount, validatePurchaseAmount } from './validate.js';
-
+import {
+  validateBuyAmountUnit,
+  validateBuyAmountLength,
+  validateBuyAmountType,
+} from './validate.js';
 import Lotto from './Lotto.js';
 
 class BuyLotto {
@@ -14,8 +17,9 @@ class BuyLotto {
   }
 
   #validate(amount) {
-    validatePurchaseAmount(amount);
-    validateBuyAmount(amount);
+    validateBuyAmountUnit(amount);
+    validateBuyAmountLength(amount);
+    validateBuyAmountType(amount);
   }
 
   #countQuantitiyOfLotto() {
@@ -31,9 +35,7 @@ class BuyLotto {
   }
 
   #printLottos() {
-    this.lottos.forEach((lotto) => {
-      Console.print(`[${lotto.join(', ')}]`);
-    });
+    this.lottos.forEach((lotto) => Console.print(`[${lotto.join(', ')}]`));
   }
 
   #printLottoQuantity() {
@@ -45,6 +47,7 @@ class BuyLotto {
     this.#createRandomLottos();
     this.#printLottoQuantity();
     this.#printLottos();
+
     return this.lottos;
   }
 }
