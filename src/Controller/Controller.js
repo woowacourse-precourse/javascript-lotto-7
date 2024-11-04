@@ -1,4 +1,4 @@
-import { generateLottoTickets } from "../Services/GenerateLottery.js";
+import { generateLottoTickets } from "../Services/generateLottoTickets.js";
 import { calculateWinningResult } from "../Services/calculateWinningResult.js";
 import { calculateLottoYield } from "../Services/calculateLottoYield.js";
 import {
