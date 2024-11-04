@@ -1,0 +1,24 @@
+export const LOTTO = {
+  PRICE_UNIT: 1000,
+  MAX_PRICE: 100000,
+  MIN_NUMBER: 1,
+  MAX_NUMBER: 45,
+  LENGTH_WINNING_NUMBER: 6,
+  LENGTH_BONUS_NUMBER: 1
+};
+
+export const WINNING_KEYS = {
+  FIRST: 'first',
+  SECOND: 'second',
+  THIRD: 'third',
+  FOURTH: 'fourth',
+  FIFTH: 'fifth'
+};
+
+export const PRIZES = {
+  [WINNING_KEYS.FIRST]: 200000000,
+  [WINNING_KEYS.SECOND]: 30000000,
+  [WINNING_KEYS.THIRD]: 1500000,
+  [WINNING_KEYS.FOURTH]: 50000,
+  [WINNING_KEYS.FIFTH]: 5000
+};
