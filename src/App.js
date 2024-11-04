@@ -15,8 +15,8 @@ class App {
   static DELIMITER = ',';
 
   async run() {
-    const [amount, count, lottos] = await this.getLottoInfomation();
-    View.displayPurchaseInfomation(count);
+    const [amount, count, lottos] = await this.getLottoInformation();
+    View.displayPurchaseInformation(count);
     View.displayLottos(lottos);
 
     const winningLotto = await this.getWinningLotto();
@@ -59,7 +59,7 @@ class App {
     }
   }
 
-  async getLottoInfomation() {
+  async getLottoInformation() {
     try {
       const amountInput = await View.readInput(PROMPT_MESSAGES.INPUT_MONEY);
       const money = new Money(amountInput);
@@ -70,7 +70,7 @@ class App {
       return [amount, count, lottos];
     } catch (error) {
       View.printResult(error.message);
-      return this.getLottoInfomation();
+      return this.getLottoInformation();
     }
   }
 

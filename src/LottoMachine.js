@@ -12,40 +12,36 @@ class LottoMachine {
 
   static generateLottos(count) {
     return Array.from({ length: count }, () =>
-      LottoMachine.#pickRandomNumbers()
+      LottoMachine.pickRandomNumbers()
     );
   }
 
   static getMatchCounts(lottos, winningLotto, bonusNumber) {
-    const results = this.#generateMatchCounts(
-      lottos,
-      winningLotto,
-      bonusNumber
-    );
-    return this.#aggregateMatchCounts(results);
+    const results = this.generateMatchCounts(lottos, winningLotto, bonusNumber);
+    return this.aggregateMatchCounts(results);
   }
 
   static getProfitRate(totalCounts, purchasePrice) {
-    const totalPrice = this.#getTotalPrice(totalCounts);
+    const totalPrice = this.getTotalPrice(totalCounts);
     const profitRate = (totalPrice / purchasePrice) * 100;
 
     return profitRate.toFixed(1);
   }
 
-  static #getTotalPrice(totalCounts) {
+  static getTotalPrice(totalCounts) {
     return [...totalCounts.values()].reduce(
       (acc, cur, index) => acc + cur * NUMBER.PRICE_LIST[index],
       0
     );
   }
 
-  static #generateMatchCounts(lottos, winningLotto, bonusNumber) {
+  static generateMatchCounts(lottos, winningLotto, bonusNumber) {
     return lottos
-      .map((lotto) => this.#createMatchObject(winningLotto, lotto, bonusNumber))
+      .map((lotto) => this.createMatchObject(winningLotto, lotto, bonusNumber))
       .filter(({ matchCount, _ }) => matchCount >= NUMBER.MATCH_MINIMUM_COUNT);
   }
 
-  static #aggregateMatchCounts(results) {
+  static aggregateMatchCounts(results) {
     const totalCounts = new Map([
       [3, 0],
       [4, 0],
@@ -53,12 +49,12 @@ class LottoMachine {
       [6, 0],
       ['bonus', 0],
     ]);
-    this.#setMatchResults(results, totalCounts);
+    this.setMatchResults(results, totalCounts);
 
     return totalCounts;
   }
 
-  static #setMatchResults(results, map) {
+  static setMatchResults(results, map) {
     const TARGET_Number = 5;
     results.forEach(({ matchCount, hasBonus }) => {
       const isBonusNumber = hasBonus && matchCount === TARGET_Number;
@@ -68,7 +64,7 @@ class LottoMachine {
     });
   }
 
-  static #createMatchObject(winningLotto, lotto, bonusNumber) {
+  static createMatchObject(winningLotto, lotto, bonusNumber) {
     const matchCount = lotto.filter((number) =>
       winningLotto.includes(number)
     ).length;
@@ -77,7 +73,7 @@ class LottoMachine {
     return { matchCount, hasBonus };
   }
 
-  static #pickRandomNumbers() {
+  static pickRandomNumbers() {
     return MissionUtils.Random.pickUniqueNumbersInRange(
       NUMBER.MIN,
       NUMBER.MAX,
