@@ -28,41 +28,50 @@ class App {
     );
   }
 
-  async run() {
-    try {
-      // 로또 구매 후 출력
-      this.#money = await Input.getMoney();
+  async #buyLottos() {
+    this.#money = await Input.getMoney();
+    this.#lottos = Array.from({ length: this.#money / 1000 }, () =>
+      Game.buyLotto()
+    );
 
-      for (let i = 0; i < this.#money / 1000; i++) {
-        const lotto = Game.buyLotto();
-        this.#lottos.push(lotto);
+    Print.lottos(this.#lottos);
+  }
+
+  async #inputWinningNumbers() {
+    const numbers = await Input.getWinningNumbers();
+    this.#winningNumber = new Lotto(numbers);
+  }
+
+  async #inputBonusNumber() {
+    const bonusNumber = await Input.getBonusNumber();
+    this.#isDuplicateBonus(bonusNumber);
+  }
+
+  async #retry(action) {
+    while (true) {
+      try {
+        await action();
+        break;
+      } catch (error) {
+        Console.print(error.message);
       }
-
-      Print.lottos(this.#lottos);
-
-      // 당첨 번호 입력
-      const numbers = await Input.getWinningNumbers();
-      this.#winningNumber = new Lotto(numbers);
-
-      // 보너스 번호 입력
-      const bonusNumber = await Input.getBonusNumber();
-      this.isDuplicateBonus(bonusNumber);
-
-      this.#winning();
-      this.#printGameResult();
-      this.#printProfitRate();
-    } catch (error) {
-      Console.print(error.message);
-      throw error;
     }
   }
 
+  async run() {
+    await this.#retry(() => this.#buyLottos());
+    await this.#retry(() => this.#inputWinningNumbers());
+    await this.#retry(() => this.#inputBonusNumber());
+
+    this.#winning();
+    this.#printGameResult();
+    this.#printProfitRate();
+  }
+
   // 입력받은 보너스 숫자가 당첨 번호와 중복되는지?
-  isDuplicateBonus(bonusNumber) {
-    for (const number of this.#winningNumber.getNumbers()) {
-      if (number === bonusNumber)
-        throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.");
-    }
+  #isDuplicateBonus(bonusNumber) {
+    if (this.#winningNumber.getNumbers().includes(bonusNumber))
+      throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.");
 
     this.#bonusNumber = bonusNumber;
   }
