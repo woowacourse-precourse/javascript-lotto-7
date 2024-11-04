@@ -2,6 +2,14 @@ import { Random } from "@woowacourse/mission-utils";
 import Lotto from "../models/Lotto.js";
 
 class LottoController {
+  #prizeTable = {
+    1: 2000000000,
+    2: 30000000,
+    3: 1500000,
+    4: 50000,
+    5: 5000,
+  };
+
   generateLottos(purchaseAmount) {
     const lottos = [];
     const count = purchaseAmount / 1000;
@@ -17,6 +25,28 @@ class LottoController {
 
   extractWinningNumbers(winningNumbersInput) {
     return winningNumbersInput.split(',').map(Number);
+  }
+
+  calculateWinningLotto(lottos, winningNumbers, bonusNumber) {
+    return lottos.reduce((results, lotto) => {
+      const matchingNumbers = this.#countMatchingNumbers(lotto.LottoNumbers, winningNumbers);
+      const rank = this.#getRank(matchingNumbers);
+      results[rank]++;
+      return results;
+    })
+  }
+
+  #countMatchingNumbers(lottoNumbers, winningNumbers) {
+    return lottoNumbers.filter((num) => winningNumbers.includes(num)).length;
+  }
+
+  #getRank(matchCount, lotto, bonusNumber) {
+    if (matchCount === 6) return 'first';
+    if (matchCount === 5 && lotto.LottoNumbers.includes(bonusNumber)) return 'second';
+    if (matchCount === 5) return 'third';
+    if (matchCount === 4) return 'fourth';
+    if (matchCount === 3) return 'fifth';
+    return 'noPrize';
   }
 }
 
