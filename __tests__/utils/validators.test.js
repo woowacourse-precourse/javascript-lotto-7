@@ -3,6 +3,7 @@ import {
   isNumber,
   isNumberInRange,
   isOverNumber,
+  hasDuplicateInArray,
 } from '../../src/utils/validators.js';
 import { throwError } from '../../src/utils/throwError.js';
 import { WINNING_NUMBER_DELIMITER } from '../../src/constants.js';
@@ -119,6 +120,28 @@ describe('validators', () => {
     test('입력이 숫자가 아니고 throwOnError가 true일 때 에러를 발생시킨다.', () => {
       isOverNumber('abc', 1, true);
       expect(throwError).toHaveBeenCalledWith('1 이상의 숫자여야 합니다.');
+    });
+  });
+
+  describe('hasDuplicateInArray', () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('배열에 중복된 값이 없는 경우 false를 반환한다.', () => {
+      const input = [1, 2, 3, 4, 5];
+      expect(hasDuplicateInArray(input)).toBe(false);
+    });
+
+    test('배열에 중복된 값이 있는 경우 true를 반환한다.', () => {
+      const input = [1, 2, 3, 3, 5];
+      expect(hasDuplicateInArray(input)).toBe(true);
+    });
+
+    test('배열에 중복된 값이 있고 throwOnError가 true일 때 에러를 발생시킨다.', () => {
+      const input = [1, 2, 3, 3, 5];
+      hasDuplicateInArray(input, true);
+      expect(throwError).toHaveBeenCalledWith('요소가 중복되지 않아야 합니다.');
     });
   });
 });

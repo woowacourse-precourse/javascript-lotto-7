@@ -47,3 +47,14 @@ export function isOverNumber(input, min, throwOnError = false) {
 
   return condition;
 }
+
+export function hasDuplicateInArray(input, throwOnError = false) {
+  const uniqueElements = new Set(input);
+  const condition = uniqueElements.size === input.length;
+
+  if (!condition && throwOnError) {
+    throwError('요소가 중복되지 않아야 합니다.');
+  }
+
+  return !condition;
+}
