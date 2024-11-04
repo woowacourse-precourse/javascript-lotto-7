@@ -29,7 +29,7 @@ export class Calculate {
   #getPrizeRank(matchCount, hasBonus) {
     if (matchCount === 6) return 1;
     if (matchCount === 5 && hasBonus) return 2;
-    if (matchCount === 5) return 3;
+    if (matchCount === 5 && !hasBonus) return 3;
     if (matchCount === 4) return 4;
     if (matchCount === 3) return 5;
     return 0;
@@ -48,8 +48,9 @@ export class Calculate {
 
   #calculateResult(lotto) {
     const matchCount = this.#getMatchCount(lotto);
-    const hasBonus = matchCount === 5 && this.#hasBonus(lotto);
+    const hasBonus = this.#hasBonus(lotto);
     const rank = this.#getPrizeRank(matchCount, hasBonus);
+
     return { rank, prize: this.#getPrizeMoney(rank) };
   }
 
@@ -60,7 +61,7 @@ export class Calculate {
     for (const lotto of this.#lottoList) {
       const { rank, prize } = this.#calculateResult(lotto);
       if (rank > 0) {
-        winningStats[5 - rank]++;
+        winningStats[rank - 1]++;
         totalPrize += prize;
       }
     }
