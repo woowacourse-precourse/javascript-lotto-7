@@ -10,16 +10,15 @@ const moneyUnit = 1000;
 
 class App {
   async run() {
-    // Console.print("구매할 금액을 입력해주세요.");
-    // const totalMoney = await Console.readLineAsync("");
+
     let correctInput = false;
 
     let totalMoney = 0;
     while(!correctInput){
-      totalMoney = await Console.readLineAsync("구매할 금액을 입력해주세요.");
+      totalMoney = await Console.readLineAsync("구매할 금액을 입력해주세요.\n");
       if(totalMoney % moneyUnit !== 0){
-        // throw new Error("[ERROR] 구입 금액은 1000원 단위여야 합니다.")
         Console.print("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+        continue;
       }
       correctInput = true;
     }
@@ -31,13 +30,10 @@ class App {
     for(let i = 0; i < lottoCount; i++){
       lottoNumber.push(new Lotto(Random.pickUniqueNumbersInRange(1,45,6)));
     }
-    // const lottoNumber = [new Lotto([1,2,3,4,5,6]),
-    // new Lotto([45, 43, 42, 41, 40, 39]),
-    //   new Lotto([5,6,4,2,7,8]), new Lotto([2,3,4,5,6,7]),
-    //   new Lotto([4,5,6,7,8,9])];
 
     lottoNumber.map((lotto)=>{
-      Console.print(lotto.getNumber());
+      const output = Object.values(lotto.getNumber()).join(', ');
+      Console.print(`[${output}]`);
     })
     Console.print("");
 
@@ -89,7 +85,7 @@ class App {
       const rank = index + 1;
       let matchCount = convertRankToMatchCount(rank);
       if(matchCount === -secRankMatch){
-        matchBonus = ", 보너스 볼 일치";
+        matchBonus = ", 보너스 볼 일치 ";
         matchCount = secRankMatch;
       }
       earnMoney += winPriceNumber[index]*winEntry;
@@ -99,13 +95,12 @@ class App {
     })
     Console.print(result);
 
-    Console.print(`총 수익률은 ${calRevenueRate(totalMoney, earnMoney)}%입니다`);
+    Console.print(`총 수익률은 ${calRevenueRate(totalMoney, earnMoney)}%입니다.`);
   }
 }
 
 function calRevenueRate(costMoney, earnMoney){
-  const profit = earnMoney - costMoney;
-  const RevenueRate = (profit / costMoney) * 100;
+  const RevenueRate = (earnMoney / costMoney) * 100;
   return RevenueRate.toFixed(1);
 }
 
