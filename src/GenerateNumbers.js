@@ -18,11 +18,10 @@ class GenerateNumbers {
 
       this.findMatchingNumber(randomNum, numbers, bonusNum);
     }
-    console.log("");
 
     this.printPrizeResult();
-
     console.log("");
+
     const profit = this.calculateReturn(bills);
     return { generatedList: allGeneratedNumbers, profit };
   }
@@ -34,12 +33,13 @@ class GenerateNumbers {
   }
 
   findMatchingNumber(randomNum, numbers, bonusNum) {
-    console.log("");
-    const matchingNumbers = randomNum.filter((num) => numbers.includes(num));
-    const count = matchingNumbers.length;
-
+    const count = this.countMatchingNumbers(randomNum, numbers);
     const isBonusMatched = this.isBonusMatched(randomNum, bonusNum);
     this.countCalculate(count, isBonusMatched);
+  }
+
+  countMatchingNumbers(randomNum, numbers) {
+    return randomNum.filter((num) => numbers.includes(num)).length;
   }
 
   isBonusMatched(randomNum, bonusNum) {
@@ -49,23 +49,21 @@ class GenerateNumbers {
   countCalculate(count, isBonusMatched) {
     if (count === 3) {
       this.fifthPlaceCount++;
-    }
-
-    if (count === 4) {
+    } else if (count === 4) {
       this.fourthPlaceCount++;
-    }
-
-    if (count === 5) {
-      if (isBonusMatched) {
-        this.secondPlaceCount++;
-      } else {
-        this.thirdPlaceCount++;
-      }
-    }
-
-    if (count === 6) {
+    } else if (count === 5) {
+      this.handleBonusMatches(isBonusMatched);
+    } else if (count === 6) {
       this.firstPlaceCount++;
     }
+  }
+
+  handleBonusMatches(isBonusMatched) {
+    if (isBonusMatched) {
+      this.secondPlaceCount++;
+      return;
+    }
+    this.thirdPlaceCount++;
   }
 
   calculateReturn(bills) {
