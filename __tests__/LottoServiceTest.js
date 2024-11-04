@@ -3,7 +3,7 @@ import LottoService from "../src/LottoService";
 import WinningStatsManager from "../src/WinningStatsManager";
 import LottoIssuer from "../src/LottoIssuer";
 import PurchaseManager from "../src/PurchaseManager";
-import { PRIZE_MONEY_BY_RANK, LOTTO_PRICE } from "../src/constants";
+import { NUMBER_PRIZE_MONEY, LOTTO_PRICE } from "../src/constants";
 
 describe("LottoService 클래스 테스트", () => {
   const purchaseManager = new PurchaseManager(LOTTO_PRICE);
@@ -40,6 +40,6 @@ describe("LottoService 클래스 테스트", () => {
   });
 
   test("수익률을 구할 수 있다.", () => {
-    expect(lottoService.getProfitMargin(LOTTO_PRICE, PRIZE_MONEY_BY_RANK)).toEqual("1015000.0");
+    expect(lottoService.getProfitMargin(LOTTO_PRICE, NUMBER_PRIZE_MONEY)).toEqual("101500000.0");
   });
 });
