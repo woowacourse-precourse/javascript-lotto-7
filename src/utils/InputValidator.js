@@ -46,6 +46,9 @@ class InputValidator {
     ) {
       throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_RANGE);
     }
+    if (winningNumbers.includes(bonusNumber)) {
+      throw new Error(ERROR_MESSAGES.DUPLICATE_BONUS_NUMBER);
+    }
   }
 }
 
