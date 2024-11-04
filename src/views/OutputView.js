@@ -1,5 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import PRINT_MESSAGE from "../static/Message.js";
+import Rank from "../static/Rank.js";
+
 
 const OutputView = {
   printPurchaseCount(count) {
@@ -12,11 +14,24 @@ const OutputView = {
 
   printStatistics(results) {
     Console.print(PRINT_MESSAGE.output.statisticsHeader);
-    Console.print(PRINT_MESSAGE.output.matchResult.three(results[3]));
-    Console.print(PRINT_MESSAGE.output.matchResult.four(results[4]));
-    Console.print(PRINT_MESSAGE.output.matchResult.five(results[5]));
-    Console.print(PRINT_MESSAGE.output.matchResult.fiveBonus(results["5+"]));
-    Console.print(PRINT_MESSAGE.output.matchResult.six(results[6]));
+    this.printMatchResults(results);
+  },
+
+  printMatchResults(results) {
+    const rankTypes = this.getRankTypes();
+    rankTypes.forEach(rank => this.printRankResult(rank, results[rank]));
+  },
+
+  getRankTypes() {
+    return Rank.prizeNumber;
+  },
+  getRankName(rank) {
+    return Rank.resultText[rank];
+  },
+
+  printRankResult(rank, count) {
+    const message = PRINT_MESSAGE.output.matchResult[this.getRankName(rank)](count);
+    Console.print(message);
   },
 
   printProfitRate(rate) {

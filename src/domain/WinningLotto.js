@@ -1,5 +1,6 @@
 import Lotto from "./Lotto.js";
 import LOTTO_CONFIG from "../static/LottoConfig.js";
+import Rank from "../static/Rank.js";
 
 class WinningLotto {
  #lotto;
@@ -20,15 +21,15 @@ class WinningLotto {
  }
 
  #updateWinningRank(results, matchCount, lotto) {
-   if (matchCount === 6) {
+   if (matchCount === Rank.winningCondition.FIRST) {
      results[6]++;
      return;
    }
-   if (matchCount === 5 && lotto.contains(this.#bonusNumber)) {
+   if (matchCount === Rank.winningCondition.SECOND && lotto.contains(this.#bonusNumber)) {
      results["5+"]++;
      return;
    }
-   if (matchCount >= 3) {
+   if (matchCount >= Rank.winningCondition.MIN_WIN) {
      results[matchCount]++;
    }
  }
