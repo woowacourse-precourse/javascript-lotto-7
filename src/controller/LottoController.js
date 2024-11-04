@@ -1,5 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import InputView from '../views/InputView.js';
+import OutputView from '../views/OutputView.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
 import Lotto from '../Lotto.js';
 
@@ -14,6 +15,7 @@ class LottoController {
 
 	constructor() {
 		this.#inputView = new InputView();
+		this.#outputView = new OutputView();
 		this.#lottos = [];
 		this.#winningLotto = null;
 		this.#purchaseAmount = 0;
@@ -23,7 +25,6 @@ class LottoController {
 	async play() {
 		try {
 			await this.#handlePurchase();
-			Console.print(this.#lottos);
 		} catch (error) {
 			Console.print(error.message);
 		}
@@ -34,6 +35,7 @@ class LottoController {
 		this.#validatePurchaseAmount.validate(amount);
 		this.#purchaseAmount = amount;
 		this.#lottos = this.#generateLottos(amount);
+		this.#outputView.printLottos(amount, this.#lottos);
 	}
 
 	#generateLottos(amount) {
