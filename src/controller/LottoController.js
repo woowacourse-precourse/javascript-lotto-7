@@ -111,6 +111,7 @@ class LottoController {
     this.printLottos();
     await this.getJackpot();
     this.resetRanks();
+    this.getBonus();
     this.matchLottos();
     this.displayStatisticsResult();
     this.getCost();
