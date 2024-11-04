@@ -34,7 +34,9 @@ class App {
 
   generateLottos(count) {
     for (let i = 0; i < count; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+        (a, b) => a - b
+      );
       this.lottos.push(new Lotto(numbers));
     }
   }
@@ -51,9 +53,11 @@ class App {
       "\n당첨 번호를 입력해 주세요. (쉼표로 구분된 숫자 6개)\n"
     );
     try {
-      this.winningNumbers = this.validateNumbers(
-        numbers.split(",").map((num) => Number(num.trim()))
-      );
+      const numArray = numbers.split(",").map((num) => Number(num.trim()));
+      if (numArray.length > 6) {
+        throw new Error("[ERROR] 당첨 번호는 6개만 입력해야 합니다."); // 추가된 검사
+      }
+      this.winningNumbers = this.validateNumbers(numArray);
       await this.inputBonusNumber();
     } catch (error) {
       Console.print(error.message);
