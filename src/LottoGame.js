@@ -26,16 +26,16 @@ export class LottoGame {
   async getBonusNumberInput() {
     Console.print(USER_MESSAGES.BONUS_NUMBER);
     const input = await Console.readLineAsync("");
-    const bonusNumber = input.split(",").map(Number);
+    const bonusNumber = Number(input.trim());
     this.validateBonusNumber(bonusNumber);
     this.#bonusNumber = bonusNumber;
   }
 
   // 보너스 번호 유효성 검사
   validateBonusNumber(bonusNumber) {
-    if (bonusNumber.length !== 1) {
-      throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_COUNT);
-    }
+    // if (bonusNumber.length !== 1) {
+    //   throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_COUNT);
+    // }
     if (bonusNumber < 1 || bonusNumber > 45) {
       throw new Error(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
     }
