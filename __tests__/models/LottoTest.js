@@ -42,4 +42,15 @@ describe('Lotto 클래스 테스트', () => {
       );
     });
   });
+
+  describe('generateMultiple 메서드', () => {
+    test('여러 개의 로또 번호가 올바르게 생성되는지 테스트', () => {
+      Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 4, 5, 6]);
+      const lottos = Lotto.generateMultiple(3);
+      expect(lottos).toHaveLength(3);
+      lottos.forEach((lotto) => {
+        expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
+      });
+    });
+  });
 });
