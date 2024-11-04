@@ -9,7 +9,7 @@ class LottoController {
 
   async run() {
     const amount = await this.tryAndCatchRead(this.readAmount);
-    this.printPurchaseResult(amount);
+    this.purchaseAndPrintResult(amount);
     const winningNumber = await this.tryAndCatchRead(this.readWinningNumber);
     const bonusNumber = await this.tryAndCatchRead(() => this.readBonusNumber(winningNumber));
     this.handleDraw(winningNumber, bonusNumber);
@@ -22,7 +22,7 @@ class LottoController {
     return amount;
   }
 
-  printPurchaseResult(amount) {
+  purchaseAndPrintResult(amount) {
     this.#lottoStore = new LottoStore(amount);
     const lottoNumbers = this.#lottoStore.getLottoNumbers();
     outputView.printPurchaseResult(lottoNumbers);
