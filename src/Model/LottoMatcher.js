@@ -9,7 +9,7 @@ class NumberMatcher {
 	}
 
 	countMatchingNumbers(lotto) {
-		return lotto.reduce(
+		return lotto.lottoNumbers.reduce(
 			(count, number) => count + this.isMatchingNumber(number),
 			0
 		);
@@ -46,12 +46,14 @@ export class LottoMatcher {
 	#numberMatcher;
 	#bonusMatcher;
 	#statistics;
+	#money;
 
-	constructor(lottos, winningNumbers, bonusNumber) {
+	constructor(lottos, winningNumbers, bonusNumber, money) {
 		this.#lottos = lottos;
 		this.#numberMatcher = new NumberMatcher(winningNumbers);
 		this.#bonusMatcher = new BonusMatcher(bonusNumber);
 		this.#statistics = new LottoStatistics();
+		this.#money = money;
 	}
 
 	matchLottos() {
@@ -61,8 +63,13 @@ export class LottoMatcher {
 
 		this.#lottos.forEach((lotto) => {
 			const matchCount = this.#numberMatcher.countMatchingNumbers(lotto);
-			const hasBonus = this.#bonusMatcher.checkBonusNumber(lotto);
+			const hasBonus = this.#bonusMatcher.checkBonusNumber(lotto.lottoNumbers);
 			this.#statistics.updateStatistics(matchCount, hasBonus);
+			this.#statistics.updateBenefit(this.#money);
 		});
+	}
+
+	get statistics() {
+		return this.#statistics;
 	}
 }

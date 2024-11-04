@@ -70,4 +70,12 @@ export class LottoStatistics {
 	get benefitRate() {
 		return this.#benefitRate;
 	}
+
+	get winningCount() {
+		return this.#winningCount;
+	}
+
+	get bonusCount() {
+		return this.#bonusCount;
+	}
 }
