@@ -14,7 +14,7 @@ const WINNING_NUMBER_MESSAGE = Object.freeze({
   question: '\n당첨 번호를 입력해 주세요.\n',
   error: {
     notDuplcate: '[ERROR] 중복된 값이 있습니다.',
-    notOver6: '[ERROR] 숫자는 6개여야 합니다.',
+    notLength6: '[ERROR] 숫자는 6개여야 합니다.',
     notNumber: '[ERROR] 숫자를 입력해주세요.',
     notBlank: '[ERROR] 공백이 있으면 안됩니다.',
     notInRange: '[ERROR] 번호의 범위는 1 ~ 45 이어야 합니다.',
@@ -54,7 +54,7 @@ class InputView {
     if (Number.isNaN(MONEY_NUMBER))
       throw new Error(MONEY_MESSAGES.error.notNumber);
     if (money.length === 0) throw new Error(MONEY_MESSAGES.error.notBlank);
-    if (MONEY_NUMBER % 1000 !== 0)
+    if (MONEY_NUMBER % LOTTO_CONSTANTS.price !== 0)
       throw new Error(MONEY_MESSAGES.error.notDevide);
   }
 
@@ -79,8 +79,8 @@ class InputView {
     const winningNumbersSet = new Set(winningNumbers);
     this.validateNumber(winningNumbers);
 
-    if (winningNumbers.length < 6 || winningNumbers.length > 6)
-      throw new Error(WINNING_NUMBER_MESSAGE.error.notOver6);
+    if (winningNumbers.length !== LOTTO_CONSTANTS.length)
+      throw new Error(WINNING_NUMBER_MESSAGE.error.notLength6);
     if (winningNumbersSet.size !== winningNumbers.length)
       throw new Error(WINNING_NUMBER_MESSAGE.error.notDuplcate);
 
