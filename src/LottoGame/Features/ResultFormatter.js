@@ -28,7 +28,15 @@ class ResultFormatter {
     return rankInfo.prize.toLocaleString();
   }
 
-  #generateOutput() {}
+  #generateOutput() {
+    for (let result of this.#results) {
+      let countFormat = this.#generateCountFormat(result.rank);
+      let prizeFormat = this.#generatePrizeFormat(result.rank);
+      let output = `${countFormat} (${prizeFormat}원) - ${result.count}개`;
+
+      this.#outputs.push(output);
+    }
+  }
 
   getOutput() {
     return this.#outputs;
