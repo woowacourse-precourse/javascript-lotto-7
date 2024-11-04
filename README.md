@@ -103,6 +103,7 @@
 
 ``` mermaid
 classDiagram
+    direction LR
     
     %% Presentation Layer
     namespace UI {
