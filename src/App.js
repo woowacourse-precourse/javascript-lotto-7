@@ -5,11 +5,21 @@ class App {
   }
 
   async run() {
-    Console.print('구입금액을 입력해 주세요.');
-    const input = await this.answer();
+    while (true) {
+      Console.print('구입금액을 입력해 주세요.');
+      const input = await this.answer();
 
-    const amount = this.getAmount(input);
-    Console.print(`\n${amount}개를 구매했습니다.`);
+      try {
+        const amount = this.getAmount(input);
+        Console.print(`\n${amount}개를 구매했습니다.`);
+
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+
+
   }
 
   async answer() {
