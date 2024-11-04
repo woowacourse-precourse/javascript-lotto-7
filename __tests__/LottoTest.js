@@ -1,5 +1,5 @@
 import { ERROR_PREFIX } from '../src/constants.js';
-import Lotto from '../src/Lotto.js';
+import Lotto from '../src/models/Lotto.js';
 
 describe('로또 클래스 테스트', () => {
   let lottoNumbers;

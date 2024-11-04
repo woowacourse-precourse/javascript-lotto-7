@@ -2,7 +2,7 @@ import { RANK_INFO, SERVICE_CONSTANTS } from '../constants.js';
 import InputModules from '../views/InputModules.js';
 import OutputModules from '../views/OutputModules.js';
 import { Random } from '@woowacourse/mission-utils';
-import Lotto from '../Lotto.js';
+import Lotto from '../models/Lotto.js';
 
 class LottoController {
   #cash;

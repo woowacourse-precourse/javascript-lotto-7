@@ -1,4 +1,4 @@
-import ValidatorModule from './utils/ValidatorModules.js';
+import ValidatorModule from '../utils/ValidatorModules.js';
 
 class Lotto {
   #numbers;
