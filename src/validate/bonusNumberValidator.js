@@ -11,7 +11,8 @@ const checkEmpty = (input) => {
 
 /**@param {number} input */
 const checkNaN = (input) => {
-  if (isNaN(input)) throwError(BONUS_NUMBER_ERROR_MESSAGE.NOT_NUMBER);
+  if (typeof input !== 'number' || Number.isNaN(input))
+    throwError(BONUS_NUMBER_ERROR_MESSAGE.NOT_NUMBER);
   return input;
 };
 
