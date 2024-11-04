@@ -43,12 +43,9 @@ function lotto_check(NUMBERS, BONUS_NUM, now_check) {
 
 // 투입 금액 유효성 검증
 function check_cost(COST) {
-  try {
-    if (isNaN(COST) || COST % 1000 !== 0) {
-      throw new Error("[ERROR] 유효한 금액이 아닙니다.")
-    }
-  } catch (error) {
-    throw error;
+  const PARSED_COST = Number(COST);
+  if (isNaN(PARSED_COST) || PARSED_COST % 1000 !== 0 || PARSED_COST <= 0 || !Number.isInteger(PARSED_COST)) {
+    throw new Error("[ERROR] 유효한 금액이 아닙니다.")
   }
 }
 
@@ -102,10 +99,9 @@ class App {
       LOTTO_MADE.push(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6));
     }
     MissionUtils.Console.print(`${LOTTO_PCS}개를 구매했습니다.`)
-    // console.log(`${LOTTO_PCS}개를 구매했습니다.`)
     for (let i=0; i<LOTTO_PCS; i++) {
-      MissionUtils.Console.print(LOTTO_MADE[i])
-      // console.log(LOTTO_MADE[i])
+      // MissionUtils.Console.print(LOTTO_MADE[i])
+      MissionUtils.Console.print(`[${LOTTO_MADE[i].join(', ')}]`)
     }
 
     // 3. 로또 당첨값 입력 및 유효성 검사 로직
