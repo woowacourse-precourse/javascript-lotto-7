@@ -1,3 +1,5 @@
+import { ERROR } from './constant.js';
+
 export class Bonus {
   #bonus;
   #lottoList;
@@ -16,19 +18,19 @@ export class Bonus {
 
   #validBonusRange(bonus) {
     if (bonus < 1 || bonus > 45) {
-      throw new Error('보너스 번호는 1부터 45 사이의 숫자여야 합니다.');
+      throw Error(ERROR.message);
     }
   }
 
   #validBonusFormat(bonus) {
     if (Number.isNaN(bonus)) {
-      throw new Error('보너스 번호는 숫자여야 합니다.');
+      throw Error(ERROR.message);
     }
   }
 
   #validBonusDuplication(bonus, lottoList) {
     if (lottoList.includes(bonus)) {
-      throw new Error('보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+      throw Error(ERROR.message);
     }
   }
 }
