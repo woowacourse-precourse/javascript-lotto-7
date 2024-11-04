@@ -7,12 +7,12 @@ class App {
 
     await lottoController.promptPurchaseAmount();
     lottoController.generateLottoTickets();
-    lottoController.displayLottoTickets();
+    lottoController.ioHandler.displayLottoTickets();
 
     const lotto = await Lotto.createLotto();
     await lottoController.promptBonusNumber();
 
-    lottoController.displayWinningResult(lotto.getNumbers());
+    lottoController.ioHandler.displayWinningResult(lotto.getNumbers());
   }
 }
 

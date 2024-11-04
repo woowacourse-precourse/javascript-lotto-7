@@ -1,0 +1,82 @@
+import { Console } from '@woowacourse/mission-utils';
+import {
+  DELIMETER,
+  InputPrompts,
+  OutputMessages,
+  Prize,
+  PrizeMoney,
+} from '../resources/Constants.js';
+import isEmpty from '../utils/isEmpty.js';
+
+class LottoIOHandler {
+  async promptPurchaseAmount() {
+    try {
+      const newPurchaseAmount = await Console.readLineAsync(
+        InputPrompts.purchaseAmount,
+      );
+
+      return newPurchaseAmount;
+    } catch (error) {
+      Console.print(`${error.message}\n`);
+      return this.promptPurchaseAmount();
+    }
+  }
+
+  async promptBonusNumber() {
+    try {
+      const bonusNumber = await Console.readLineAsync(InputPrompts.bonusNumber);
+
+      return bonusNumber;
+    } catch (error) {
+      Console.print(`${error.message}\n`);
+      return this.promptBonusNumber();
+    }
+  }
+
+  PrintLottoWinningResult(winningResult) {
+    const winningResultMessage = [
+      '당첨 통계',
+      '---',
+      `3개 일치 (${Prize.MATCH_3}원) - ${winningResult[3]}개`,
+      `4개 일치 (${Prize.MATCH_4}원) - ${winningResult[4]}개`,
+      `5개 일치 (${Prize.MATCH_5}원) - ${winningResult[5]}개`,
+      `5개 일치, 보너스 볼 일치 (${Prize.MATCH_5_BONUS}원) - ${winningResult['5B']}개`,
+      `6개 일치 (${Prize.MATCH_6}원) - ${winningResult[6]}개`,
+    ];
+
+    winningResultMessage.forEach((message) => Console.print(message));
+  }
+
+  printRateOfReturn(winningResult, purchaseAmount) {
+    const totalPrizeMoney = Object.entries(winningResult).reduce(
+      (acc, [matchCount, lottoCount]) =>
+        acc + lottoCount * PrizeMoney[matchCount],
+      0,
+    );
+
+    const rateOfReturn = ((totalPrizeMoney / purchaseAmount) * 100).toFixed(1);
+
+    Console.print(OutputMessages.TOTAL_ROR(rateOfReturn));
+  }
+
+  displayLottoTickets(lottoTickets, purchaseAmount) {
+    if (isEmpty(lottoTickets)) {
+      const ticketCount = purchaseAmount / 1000;
+
+      Console.print(OutputMessages.PURCHASE_MESSAGE(ticketCount));
+
+      lottoTickets.forEach((lottoTicket) => {
+        Console.print(`[${lottoTicket.join(`${DELIMETER} `)}]`);
+      });
+    }
+  }
+
+  displayWinningResult(winningNumbers) {
+    const winningResult = this.compareLottoTickets(winningNumbers);
+
+    this.PrintLottoWinningResult(winningResult);
+    this.printRateOfReturn(winningResult);
+  }
+}
+
+export default LottoIOHandler;
