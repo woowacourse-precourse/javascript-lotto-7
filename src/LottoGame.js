@@ -1,9 +1,7 @@
 import {Random} from "@woowacourse/mission-utils";
-import {userInput} from "./util/Input.js";
+import {amountInput, bonusInput, winningInput} from "./util/Input.js";
 import {countOutput, lottosOutput, resultOutput} from "./util/OutPut.js";
 import {INPUT_MESSAGE} from "./util/Message.js";
-import {validAmount, validBonus} from "./util/Validator.js";
-import Lotto from "./Lotto.js";
 
 class LottoGame {
     lottos = [];
@@ -24,20 +22,17 @@ class LottoGame {
     revenue = 0;
 
     async start() {
-        const AMOUNT = await userInput(INPUT_MESSAGE.AMOUNT_INPUT);
-        validAmount(AMOUNT);
+        const AMOUNT = await amountInput(INPUT_MESSAGE.AMOUNT_INPUT);
 
         countOutput(AMOUNT);
         this.generateLotto(AMOUNT / 1000);
         lottosOutput(AMOUNT, this.lottos);
 
-        const WINNING_LOTTO_INPUT = await userInput(INPUT_MESSAGE.WINNING_LOTTO_INPUT);
-        const lotto = new Lotto(WINNING_LOTTO_INPUT);
-        const WINNING_LOTTO = lotto.winningNumbers;
-        const BONUS = await userInput(INPUT_MESSAGE.BONUS_INPUT);
-        validBonus(BONUS, WINNING_LOTTO);
+        const WINNING_LOTTO_INPUT = await winningInput(INPUT_MESSAGE.WINNING_LOTTO_INPUT);
 
-        this.matchLotto(BONUS, WINNING_LOTTO);
+        const BONUS = await bonusInput(INPUT_MESSAGE.BONUS_INPUT, WINNING_LOTTO_INPUT);
+
+        this.matchLotto(BONUS, WINNING_LOTTO_INPUT);
         this.getRevenue(AMOUNT);
         resultOutput(this.matchLottos, this.revenue);
     }
