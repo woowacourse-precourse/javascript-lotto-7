@@ -51,7 +51,7 @@ class LottoMachine {
     const winningCountString = this.#winningCount.getWinningRankCountString();
 
     const profitRate = this.#calculateProfitRate();
-    const profitRateString = `\n총 수익률은 ${profitRate}%입니다.`;
+    const profitRateString = `\n총 수익률은 ${Number(profitRate).toLocaleString(undefined, { minimumFractionDigits: 1 })}%입니다.`;
 
     return winningCountString + profitRateString;
   }
