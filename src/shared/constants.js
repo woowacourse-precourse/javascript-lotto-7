@@ -25,4 +25,6 @@ export const NUMBER = Object.freeze({
   MAX: 45,
   VALID_LENGTH: 6,
   MATCH_MINIMUM_COUNT: 3,
+
+  PRICE_LIST: [5000, 50000, 1500000, 2000000000, 30000000],
 });

@@ -24,8 +24,12 @@ class Money {
     handleError(!isVlidAmount, ERROR_MESSAGES.INVALID_AMOUNT);
   }
 
-  getCount() {
+  get count() {
     return this.#amount / Money.BASE_AMOUNT;
+  }
+
+  get amount() {
+    return this.#amount;
   }
 }
 
