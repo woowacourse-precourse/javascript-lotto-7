@@ -22,7 +22,18 @@ class App {
 
       //사용자의 로또 번호 생성하기
       const generateNumbers = new GenerateNumbers();
-      generateNumbers.generateNums(bills);
+
+      const generatedList = await generateNumbers.generateNums(
+        bills,
+        numbers,
+        bonusNum
+      );
+
+      // generatedList.forEach((numbers) => {
+      //   console.log(`[${numbers.join(", ")}]`);
+      // });
+
+      console.log("");
     } catch (error) {
       console.error(error.message);
     }
