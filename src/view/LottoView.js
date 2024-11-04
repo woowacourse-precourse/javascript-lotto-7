@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
-import { UTILS } from "../common/constants.js";
 import Lotto from "../model/Lotto.js";
 import PurchaseAmount from "../model/PurchaseAmount.js";
+import BonusLotto from "../model/BonusLotto.js";
 
 export class LottoView {
   static async getPurchaseAmount() {
@@ -38,9 +38,18 @@ export class LottoView {
     }
   }
 
-  static async getBonusNumber() {
-    Console.print("");
-    return Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+  static async getBonusNumber(winningNumbers) {
+    while (true) {
+      try {
+        Console.print("");
+        const input = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+        const bonusNumber = Number(input);
+        new BonusLotto(bonusNumber, winningNumbers);
+        return bonusNumber;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
 
   static printResults(results) {

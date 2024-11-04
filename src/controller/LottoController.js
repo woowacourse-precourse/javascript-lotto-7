@@ -11,7 +11,7 @@ export class LottoController {
 
     const winningNumbers = await LottoView.getWinningNumbers();
     const lotto = new Lotto(winningNumbers); // Lotto 객체 생성 시 유효성 검사 수행
-    const bonusNumber = await LottoView.getBonusNumber();
+    const bonusNumber = await LottoView.getBonusNumber(lotto.getNumbers());
 
     const results = LottoService.calculateWinnings(lottos, winningNumbers, bonusNumber);
     LottoView.printResults(results);
