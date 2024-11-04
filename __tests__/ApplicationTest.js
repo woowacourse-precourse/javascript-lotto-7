@@ -1,5 +1,5 @@
-import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import App from "../src/App.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -93,5 +93,73 @@ describe("로또 테스트", () => {
 
   test("예외 테스트", async () => {
     await runException("1000j");
+  });
+
+  test("1000원 미만 금액 예외 테스트", async () => {
+    await runException("900");
+  });
+
+  test("1000원 단위가 아닌 금액 예외 테스트", async () => {
+    await runException("1500");
+  });
+
+  test("당첨 번호 중복 예외 테스트", async () => {
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+    mockQuestions(["1000", "1,1,2,3,4,5"]);
+
+    const app = new App();
+    const logSpy = getLogSpy();
+    
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  });
+
+  test("당첨 번호 범위 예외 테스트", async () => {
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+    mockQuestions(["1000", "1,2,3,4,5,46"]);
+
+    const app = new App();
+    const logSpy = getLogSpy();
+    
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  });
+
+  test("보너스 번호 범위 예외 테스트", async () => {
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+    mockQuestions(["1000", "1,2,3,4,5,6", "46"]);
+
+    const app = new App();
+    const logSpy = getLogSpy();
+    
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  });
+
+  test("보너스 번호 중복 예외 테스트", async () => {
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+    mockQuestions(["1000", "1,2,3,4,5,6", "1"]);
+
+    const app = new App();
+    const logSpy = getLogSpy();
+    
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  });
+
+  test("보너스 번호 숫자 아님 예외 테스트", async () => {
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+    mockQuestions(["1000", "1,2,3,4,5,6", "a"]);
+
+    const app = new App();
+    const logSpy = getLogSpy();
+    
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
   });
 });
