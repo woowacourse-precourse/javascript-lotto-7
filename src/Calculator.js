@@ -1,21 +1,32 @@
+const WINNINGS = {
+  3: 5000,
+  4: 50000,
+  5: 1500000,
+  "5+bonus": 30000000,
+  6: 2000000000,
+};
+
 class Calculator {
-  static calculateMatch(
-    lotto,
-    winningNumbers,
-    bonusNumber
+  static calculateTotalWinnings(matchCounts) {
+    return (
+      matchCounts[3] * WINNINGS[3] +
+      matchCounts[4] * WINNINGS[4] +
+      matchCounts[5] * WINNINGS[5] +
+      matchCounts["5+bonus"] *
+        WINNINGS["5+bonus"] +
+      matchCounts[6] * WINNINGS[6]
+    );
+  }
+
+  static calculateReturnRate(
+    totalWinnings,
+    purchaseAmount
   ) {
-    const matches = lotto.filter((num) =>
-      winningNumbers.includes(num)
-    ).length;
-    const hasBonus = lotto.includes(bonusNumber);
-    if (matches === 6) return "6개 일치";
-    if (matches === 5 && hasBonus)
-      return "5개 일치, 보너스 볼 일치";
-    if (matches === 5) return "5개 일치";
-    if (matches === 4) return "4개 일치";
-    if (matches === 3) return "3개 일치";
-    return null;
+    return (
+      (totalWinnings / purchaseAmount) *
+      100
+    ).toFixed(1);
   }
 }
 
-module.exports = Calculator;
+export default Calculator;
