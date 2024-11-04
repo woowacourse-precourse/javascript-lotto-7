@@ -1,11 +1,10 @@
-import { Random } from '@woowacourse/mission-utils';
-import { InputMessages, Lotto } from '../resources/Constants.js';
+import { InputMessages } from '../resources/Constants.js';
 import purchaseAmountValidator from '../utils/validation/purchaseAmountValidator.js';
 import { bonusNumberValidator } from '../utils/validation/bonusNumberValidator.js';
-import isEmpty from '../utils/isEmpty.js';
 import Input from '../utils/io/Input.js';
 import LottoDisplayHandler from './LottoDisplayHandler.js';
 import LottoClass from './Lotto.js';
+import LottoTicketsGenerator from './LottoTicketsGenerator.js';
 
 class LottoController {
   #purchaseAmount;
@@ -13,9 +12,11 @@ class LottoController {
   #bonusNumber;
   displayHandler;
   lotto;
+  lottoTicketGenerator;
 
   constructor() {
     this.displayHandler = new LottoDisplayHandler();
+    this.lottoTicketGenerator = new LottoTicketsGenerator();
   }
 
   getPurchaseAmount() {
@@ -50,27 +51,10 @@ class LottoController {
     this.lotto = await LottoClass.createLotto();
   }
 
-  #sortAscending(lottoTickets) {
-    return lottoTickets.map((ticket) => ticket.slice().sort((a, b) => a - b));
-  }
-
-  #createLottoTicket() {
-    return Random.pickUniqueNumbersInRange(
-      Lotto.MIN_NUMBER,
-      Lotto.MAX_NUMBER,
-      Lotto.COUNT,
-    );
-  }
-
   generateLottoTickets() {
-    if (!isEmpty(this.#purchaseAmount)) {
-      const ticketCount = this.#purchaseAmount / 1000;
-
-      const lottoTickets = Array.from({ length: ticketCount }, () =>
-        this.#createLottoTicket(),
-      );
-      this.#lottoTickets = this.#sortAscending(lottoTickets);
-    }
+    this.#lottoTickets = this.lottoTicketGenerator.execute(
+      this.#purchaseAmount,
+    );
   }
 
   #getMatchCount(lottoTicket, winningNumbers) {
