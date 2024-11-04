@@ -1,4 +1,3 @@
-import { calculateLottoAmount, drawLottoNumbers } from './helpLotto.js';
 import { Console } from '@woowacourse/mission-utils';
 
 class App {
@@ -9,7 +8,9 @@ class App {
         const AMOUNT = calculateLottoAmount(MONEY);
         Console.print(`\n${AMOUNT}개를 구매했습니다.`);
 
-        drawLottoNumbers(AMOUNT);
+        const WINNING_INPUT = await Console.readLineAsync(
+            '\n당첨 번호를 입력 주세요.\n'
+        );
     }
 }
 
