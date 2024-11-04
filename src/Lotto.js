@@ -10,11 +10,15 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error("[ERROR] 로또 번호에 중복이 있습니다.");
+    }
   }
 
   // TODO: 추가 기능 구현
   confirmMatches(winNum) {
-    return this.#numbers.filter(number => winNum.includes(number)).length;
+    return this.#numbers.filter((number) => winNum.includes(number)).length;
   }
   confirmBonus(bonusNum) {
     return this.#numbers.includes(bonusNum);

@@ -6,6 +6,12 @@ class App {
     const purchaseMoney = await Console.readLineAsync(
       "구입금액을 입력해 주세요.\n"
     );
+
+    if (isNaN(purchaseMoney) || purchaseMoney % 1000 !== 0) {
+      Console.print("[ERROR] 구입 금액은 1000의 배수여야 합니다.");
+      return;
+    }
+
     let lottos = Array.from({ length: purchaseMoney / 1000 }, () =>
       MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
     );
