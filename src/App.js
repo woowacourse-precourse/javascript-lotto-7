@@ -12,7 +12,7 @@ class App {
 
     Console.print(`\n${lottos.length}개를 구매했습니다.`);
     lottos = lottos.map((lotto) => {
-      Console.print(lotto);
+      Console.print(`[${lotto.join(", ")}]`);
       return new Lotto(lotto);
     });
 
@@ -69,7 +69,7 @@ class App {
     };
     let totalPrizeMoney = 0;
     results.map(({ matches }) => {
-      if (prizeMoney[matches]) {
+      if (PRIZE_MONEY[matches]) {
         totalPrizeMoney += PRIZE_MONEY[matches];
       }
     });
