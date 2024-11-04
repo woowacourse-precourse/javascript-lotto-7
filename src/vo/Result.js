@@ -1,11 +1,14 @@
 import { INITIAL_STATISTICS, RANKS } from '../constant/constant.js';
+import { LOTTO, PRIZE_MONEY } from '../constant/constant.js';
 
 class Result {
   #statistics;
+  #profitRate;
 
-  constructor(lottoSet, winningNumbers, bonusNumber) {
+  constructor(lottoAmount, lottoSet, winningNumbers, bonusNumber) {
     this.#statistics = { ...INITIAL_STATISTICS };
     this.#calculateStatistics(lottoSet, winningNumbers, bonusNumber);
+    this.#calculateProfitRate(lottoAmount);
   }
 
   #calculateStatistics(lottoSet, winningNumbers, bonusNumber) {
@@ -57,6 +60,26 @@ class Result {
 
   getStatistics() {
     return this.#statistics;
+  }
+
+  #getSumOfPrize() {
+    const entries = Object.entries(this.#statistics);
+
+    return entries.reduce(
+      (total, [rank, count]) => total + count * PRIZE_MONEY[rank],
+      0
+    );
+  }
+
+  #calculateProfitRate(lottoAmount) {
+    const totalSpent = LOTTO.PRICE * lottoAmount;
+    const totalPrize = this.#getSumOfPrize() - totalSpent;
+
+    this.#profitRate = ((totalPrize / totalSpent) * 100).toFixed(1);
+  }
+
+  getProfitRate() {
+    return this.#profitRate;
   }
 }
 

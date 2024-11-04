@@ -7,6 +7,10 @@ export const INPUT_MESSAGES = Object.freeze({
 export const OUTPUT_MESSAGES = Object.freeze({
   LOTTO_AMOUNT: (amount) => `${amount}개를 구매했습니다.`,
   LOTTO_SET: (lottoNumbers) => `[${lottoNumbers.join(', ')}]`,
+  STATISTIC: '당첨 통계\n---',
+  STATISTIC_TABLE: (rank, count, prize) =>
+    `${STATISTIC_MESSAGES[rank](count, prize)}`,
+  PROFIT_RATE: (profitRate) => `총 수익률은 ${profitRate}%입니다.`,
 });
 
 export const LOTTO = Object.freeze({
@@ -36,6 +40,14 @@ export const INITIAL_STATISTICS = Object.freeze({
   [RANKS.THIRD]: 0,
   [RANKS.SECOND]: 0,
   [RANKS.FIRST]: 0,
+});
+
+export const PRIZE_MONEY = Object.freeze({
+  [RANKS.FIRST]: 2_000_000_000,
+  [RANKS.SECOND]: 30_000_000,
+  [RANKS.THIRD]: 1_500_000,
+  [RANKS.FOURTH]: 50_000,
+  [RANKS.FIFTH]: 5_000,
 });
 
 export const ERROR_PREFIX = '[ERROR]';
