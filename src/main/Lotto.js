@@ -1,5 +1,7 @@
 class Lotto {
   #numbers;
+  #bonusNumber;
+  #winningNumbers;
 
   constructor(numbers) {
     this.#validate(numbers);
@@ -15,6 +17,19 @@ class Lotto {
   getLottoNumbers() {
     this.#numbers.sort((a, b) => a - b);
     return this.#numbers;
+  }
+
+  setBonusNumber(bonusNumber) {
+    this.#bonusNumber = bonusNumber;
+    return this.#bonusNumber;
+  }
+
+  setWinningNumbers(winningNumbers) {
+    this.#winningNumbers = winningNumbers;
+  }
+
+  getMatchCount() {
+    return this.#winningNumbers.filter((number) => this.#numbers.includes(number)).length;
   }
 }
 
