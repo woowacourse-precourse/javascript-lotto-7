@@ -26,7 +26,7 @@ export function printLottos(lottos) {
   });
 }
 
-export function calculateWinsCount(lottos, winningNumbers, bonusNumber) {
+function calculateWinsCount(lottos, winningNumbers, bonusNumber) {
   const resultCount = {
     FIRST: 0,
     SECOND: 0,
@@ -68,7 +68,7 @@ export function calculateWinsCount(lottos, winningNumbers, bonusNumber) {
   return resultCount;
 }
 
-export function calculateLottoYield(resultCount, purchaseAmount) {
+function calculateLottoYield(resultCount, purchaseAmount) {
   const totalPrize =
     resultCount.FIRST * prizeMoney.FIRST +
     resultCount.SECOND * prizeMoney.SECOND +
@@ -77,4 +77,36 @@ export function calculateLottoYield(resultCount, purchaseAmount) {
     resultCount.FIFTH * prizeMoney.FIFTH;
 
   return calculateYield(totalPrize, purchaseAmount);
+}
+
+export function printLottoResult(
+  lottos,
+  winningNumbers,
+  bonusNumber,
+  purchaseAmount
+) {
+  const resultCount = calculateWinsCount(lottos, winningNumbers, bonusNumber);
+  const lottoYield = calculateLottoYield(resultCount, purchaseAmount);
+
+  Console.print("\n당첨 통계\n---");
+  Console.print(
+    `3개 일치 (${prizeMoney.FIFTH.toLocaleString()}원) - ${resultCount.FIFTH}개`
+  );
+  Console.print(
+    `4개 일치 (${prizeMoney.FOURTH.toLocaleString()}원) - ${
+      resultCount.FOURTH
+    }개`
+  );
+  Console.print(
+    `5개 일치 (${prizeMoney.THIRD.toLocaleString()}원) - ${resultCount.THIRD}개`
+  );
+  Console.print(
+    `5개 일치, 보너스 볼 일치 (${prizeMoney.SECOND.toLocaleString()}원) - ${
+      resultCount.SECOND
+    }개`
+  );
+  Console.print(
+    `6개 일치 (${prizeMoney.FIRST.toLocaleString()}원) - ${resultCount.FIRST}개`
+  );
+  Console.print(`총 수익률은 ${lottoYield}%입니다.`);
 }
