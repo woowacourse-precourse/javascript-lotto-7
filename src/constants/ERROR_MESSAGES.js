@@ -1,5 +1,6 @@
 export const COMMON_ERROR_MESSAGES = Object.freeze({
-  NOT_A_NATURAL_NUMBER: '[ERROR] 해당 값은 자연수여야 합니다.',
+  NOT_A_NATURAL_NUMBER:
+    '[ERROR] 해당 값은 자연수여야 합니다. 다시 입력해 주세요.',
   WHITESPACE_NOT_ALLOWED:
     '[ERROR] 공백은 입력할 수 없습니다. 공백을 제거하고 다시 입력해 주세요.',
   EMPTY_STRING: '[ERROR] 입력 값이 비어 있습니다. 값을 입력해 주세요.'
