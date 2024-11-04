@@ -7,7 +7,7 @@ import {
   isNumberInRange,
   isDuplicateValueInArray,
   isEqualTo,
-} from '../../util/Validator.js';
+} from '../../util/ValidateUtil.js';
 import { ERROR_MESSAGE } from '../constants/Message.js';
 
 class CommonValidator {

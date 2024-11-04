@@ -1,7 +1,7 @@
 import {
   isGreaterThan,
   isDivisibleByDivisor
-} from '../../util/Validator.js';
+} from '../../util/ValidateUtil.js';
 import CommonValidator from './CommonValidator.js';
 import { ERROR_MESSAGE } from '../constants/Message.js';
 
