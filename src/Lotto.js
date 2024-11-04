@@ -23,7 +23,7 @@ class Lotto {
 
   // TODO: 추가 기능 구현
   static vaildeBounsNumber(number) {
-    if( number >= 1  && number <= 45) {
+    if( number < 1  || number > 45) {
       throw new Error('[ERROR] 보너스 번호는 1에서 45 사이의 숫자여야 합니다.');
     }
   }
