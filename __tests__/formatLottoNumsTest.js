@@ -1,4 +1,4 @@
-import formatLottoNumbers from '../src/util//formatters/formatLottoNums.js';
+import formatLottoNumbers from '../src/util/formatters/formatLottoNums.js';
 
 jest.mock('../src/util//formatters/formatLottoNums.js');
 
