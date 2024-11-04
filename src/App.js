@@ -19,9 +19,15 @@ import {
   getWinningNumbers,
   getBonusWinningNumber,
 } from './lottoHelper/winningNumbers.js';
+import {
+  validateRangeOfLottoPrice,
+  validateNumberTypeLottoPrice,
+  validateAmountOfLotto,
+} from './validate/validatorNumberType.js';
 
 function purchaseLotto(price) {
   const amountOfLotto = price / LOTTO_PRICE;
+  validateAmountOfLotto(amountOfLotto);
   return amountOfLotto;
 }
 
@@ -75,21 +81,31 @@ function generateLottoNumbers() {
 
 class App {
   async run() {
-    const amount = await Console.readLineAsync(
-      INPUT_MESSAGE.INPUT_AMOUNT_MESSAGE,
-    );
-    const amountOfLotto = purchaseLotto(amount);
-    Console.print(`${amountOfLotto}개를 구매했습니다.`);
+    try {
+      const price = await Console.readLineAsync(
+        INPUT_MESSAGE.INPUT_AMOUNT_MESSAGE,
+      );
 
-    const lottoList = generateLottoNumbers().map((lotto) => new Lotto(lotto));
-    lottoList.forEach((lotto) => {
-      lotto.sortLottoNumbers();
-      Console.print(`[${lotto.getNumbers().join(', ')}]`);
-    });
-    const winningNumbers = await getWinningNumbers();
-    const bonusWinningNumber = await getBonusWinningNumber();
-    Console.print(LOTTO_MESSAGE.LOTTO_RESULT_MESSAGE);
-    howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber);
+      validateNumberTypeLottoPrice(price);
+      validateRangeOfLottoPrice(price);
+
+      const amountOfLotto = purchaseLotto(price);
+      Console.print(`${amountOfLotto}개를 구매했습니다.`);
+
+      const lottoList = generateLottoNumbers().map((lotto) => new Lotto(lotto));
+      lottoList.forEach((lotto) => {
+        lotto.sortLottoNumbers();
+        Console.print(`[${lotto.getNumbers().join(', ')}]`);
+      });
+
+      const winningNumbers = await getWinningNumbers();
+      const bonusWinningNumber = await getBonusWinningNumber();
+
+      Console.print(LOTTO_MESSAGE.LOTTO_RESULT_MESSAGE);
+      howManyCorrectNumbers(lottoList, winningNumbers, bonusWinningNumber);
+    } catch (error) {
+      Console.print(`오류가 발생했습니다: ${error.message}`);
+    }
   }
 }
 
