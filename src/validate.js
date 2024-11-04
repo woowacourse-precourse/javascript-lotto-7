@@ -32,6 +32,6 @@ export function validateBonus(bonus, numbers) {
   if (isNaN(bonus)) throw new Error(ERROR_MESSAGE.NOT_NUM_ERROR);
   if (bonus < 1 || bonus > 45)
     throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ERROR);
-  if (numbers.includes(bonus))
+  if (numbers.includes(parseInt(bonus, 10)))
     throw new Error(ERROR_MESSAGE.BONUS_NUM_NOT_UNIQUE_ERROR);
 }
