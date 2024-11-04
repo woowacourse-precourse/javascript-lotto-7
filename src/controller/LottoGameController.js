@@ -10,53 +10,63 @@ import retryOnError from '../utils/retryOnError.js';
 class LottoGameController {
   #lottoMachine;
   #lottoChecker;
+  #prizeCalculator;
   #purchaseAmount;
 
   async startGame() {
     try {
-      await this.#initializeGame();  
-      await this.#runGame();         
+      await this.#initializeGame();
+      await this.#runGame();
     } catch (error) {
       printMessage(error.message);
     }
   }
 
   async #initializeGame() {
-    await retryOnError(async () => {
-      this.#purchaseAmount = await InputView.getPurchaseAmount();
-      this.#lottoMachine = new LottoMachine(this.#purchaseAmount); 
-    });
-
-    const lottoCount = this.#lottoMachine.getLottoCount();
-    OutputView.printPurchaseMessage(lottoCount);
-
+    await this.#purchaseLotto();
+    this.#printPurchaseMessage();
     this.#printAllLottoNumbers();
   }
 
   async #runGame() {
-    await retryOnError(async () => {
-      this.#lottoChecker = new LottoChecker(await InputView.getWinningNumbers());
-    });
+    await this.#setWinningNumbers();
 
-    await retryOnError(async () => {
-      this.#lottoChecker.setBonusNumber(await InputView.getBonusNumber());
-    });
-
-    const results = this.#checkLottoResults();
-    const prizeCalculator = new PrizeCalculator(results);
-    const statistics = prizeCalculator.getStatistics();
-    const totalPrize = prizeCalculator.getTotalPrize();
-
+    const statistics = this.#generateLottoResults();
     this.#printWinningStatistic(statistics);
 
-    const profitAnalyzer = new ProfitAnalyzer(totalPrize, this.#purchaseAmount);
-    const rateOfReturn = profitAnalyzer.getRateOfReturn();
+    const rateOfReturn = this.#generateRateOfReturn();
     this.#printRateOfReturn(rateOfReturn);
   }
 
-  #checkLottoResults() {
+  async #purchaseLotto() {
+    await retryOnError(async () => {
+      this.#purchaseAmount = await InputView.getPurchaseAmount();
+      this.#lottoMachine = new LottoMachine(this.#purchaseAmount);
+    });
+  }
+
+  async #setWinningNumbers() {
+    await retryOnError(async () => this.#lottoChecker = new LottoChecker(await InputView.getWinningNumbers()));
+    await retryOnError(async () => this.#lottoChecker.setBonusNumber(await InputView.getBonusNumber()));
+  }
+  
+
+  #generateLottoResults() {
     const lottoNumbersList = this.#lottoMachine.getLottoNumbers();
-    return this.#lottoChecker.getMatchResults(lottoNumbersList);
+    const results = this.#lottoChecker.getMatchResults(lottoNumbersList);
+    this.#prizeCalculator = new PrizeCalculator(results);
+    return this.#prizeCalculator.getStatistics();
+  }
+
+  #generateRateOfReturn() {
+    const totalPrize = this.#prizeCalculator.getTotalPrize();
+    const profitAnalyzer = new ProfitAnalyzer(totalPrize, this.#purchaseAmount);
+    return profitAnalyzer.getRateOfReturn();
+  }
+
+  #printPurchaseMessage() {
+    const lottoCount = this.#lottoMachine.getLottoCount();
+    OutputView.printPurchaseMessage(lottoCount);
   }
 
   #printWinningStatistic(statistics) {
@@ -74,3 +84,4 @@ class LottoGameController {
 }
 
 export default LottoGameController;
+
