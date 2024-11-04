@@ -20,7 +20,7 @@ import {
 class App {
   async run() {
     const lottoPriceInput = await Console.readLineAsync(
-      "구입금액을 입력해 주세요."
+      "구입금액을 입력해 주세요.\n"
     );
     const lottoPrice = lottoPriceInput.trim();
     isZeroPrice(lottoPrice);
@@ -31,7 +31,7 @@ class App {
 
     const lottoTickets = lottoNumbers.map((numbers) => new Lotto(numbers));
 
-    Console.print(`${lottoCount}개를 구매했습니다.`);
+    Console.print(`\n${lottoCount}개를 구매했습니다.`);
     lottoTickets.forEach((ticket) => {
       const sortedNumbers = ticket
         .getNumbers()
@@ -40,12 +40,14 @@ class App {
       Console.print(`[${sortedNumbers}]`);
     });
 
-    const winNums = await Console.readLineAsync("당첨 번호를 입력해 주세요.");
+    const winNums = await Console.readLineAsync(
+      "\n당첨 번호를 입력해 주세요.\n"
+    );
     const winningNums = getWinningNumbers(winNums);
     const winningTicket = new Lotto(winningNums);
 
     const bonusNumInput = await Console.readLineAsync(
-      `보너스 번호를 입력해 주세요`
+      `\n보너스 번호를 입력해 주세요\n`
     );
     const bonusNum = Number(bonusNumInput);
 

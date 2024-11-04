@@ -66,7 +66,7 @@ const printPrizeCount = () => {
 };
 
 export const printStatistics = (investedAmount) => {
-  Console.print("당첨 통계\n---");
+  Console.print("\n당첨 통계\n---");
   printPrizeCount();
 
   const totalPrize = calculateTotalPrize();
