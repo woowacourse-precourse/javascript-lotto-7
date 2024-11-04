@@ -16,7 +16,7 @@ class PurchaseLotto {
   }
 
   printQuantity() {
-    Console.print(`\n총 ${this.#quantity}개를 구매했습니다.`);
+    Console.print(`\n${this.#quantity}개를 구매했습니다.`);
   }
 }
 

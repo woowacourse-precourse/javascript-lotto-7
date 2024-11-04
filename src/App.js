@@ -18,6 +18,7 @@ class App {
     );
 
     const purchaseLotto = new PurchaseLotto(purchaseMoney);
+    purchaseLotto.printQuantity();
     const lottoList = new LottoList(purchaseLotto.getQuantity());
     lottoList.printTickets();
 
