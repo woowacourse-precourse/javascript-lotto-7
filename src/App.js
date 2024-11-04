@@ -1,5 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import { IO_MESSAGES, ERROR_MESSAGES } from '../constants/messages.js';
 
 class App {
   async run() {
@@ -7,21 +8,19 @@ class App {
     while (true) {
       try {
         purchaseAmount = Number(
-          await Console.readLineAsync('구입금액을 입력해주세요.\n'),
+          await Console.readLineAsync(IO_MESSAGES.PURCHASE_AMOUNT),
         );
         if (isNaN(purchaseAmount)) {
-          throw new Error('[ERROR] 숫자 이외의 문자는 입력할 수 없습니다.');
+          throw new Error(ERROR_MESSAGES.NON_NUMERIC_INPUT);
         }
         if (purchaseAmount < 1000) {
-          throw new Error('[ERROR] 최소 구입금액은 1,000원입니다.');
+          throw new Error(ERROR_MESSAGES.MINIMUM_AMOUNT);
         }
         if (purchaseAmount > Number.MAX_SAFE_INTEGER) {
-          throw new Error(
-            '[ERROR] 구입금액은 9,007,199,254,740,000원을 넘어설 수 없습니다.',
-          );
+          throw new Error(ERROR_MESSAGES.MAXIMUM_AMOUNT);
         }
         if (purchaseAmount % 1000 !== 0) {
-          throw new Error('[ERROR] 구입금액은 1,000원 단위로 입력해야 합니다.');
+          throw new Error(ERROR_MESSAGES.INVALID_AMOUNT_UNIT);
         }
         break;
       } catch (error) {
@@ -36,34 +35,33 @@ class App {
       return lotto;
     });
 
-    Console.print(`\n${lottoCount}개를 구매했습니다.`);
+    Console.print(IO_MESSAGES.PURCHASE_COUNT(lottoCount));
     lottoList.forEach((lotto) => {
-      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+      Console.print(IO_MESSAGES.LOTTO_NUMBERS(lotto.getNumbers()));
     });
 
     let winningNumbers;
     while (true) {
       try {
-        winningNumbers =
-          await Console.readLineAsync('\n당첨 번호를 입력해주세요.\n');
+        winningNumbers = await Console.readLineAsync(
+          IO_MESSAGES.WINNING_NUMBERS,
+        );
         if (!winningNumbers.includes(',')) {
-          throw new Error('[ERROR] 당첨 번호는 쉼표로 구분하여 입력해주세요.');
+          throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBER_FORMAT);
         }
         if (winningNumbers[0] === ',' || winningNumbers.at(-1) === ',') {
-          throw new Error('[ERROR] 쉼표가 올바르지 않은 위치에 있습니다.');
+          throw new Error(ERROR_MESSAGES.INVALID_COMMA_POSITION);
         }
         winningNumbers = winningNumbers.split(',').map(Number);
         if (winningNumbers.length !== 6) {
-          throw new Error('[ERROR] 당첨 번호는 6개의 숫자이어야 합니다.');
+          throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_LENGTH);
         }
         if (new Set(winningNumbers).size !== 6) {
-          throw new Error('[ERROR] 당첨 번호는 중복되지 않아야합니다.');
+          throw new Error(ERROR_MESSAGES.DUPLICATE_WINNING_NUMBER);
         }
         winningNumbers.forEach((x) => {
           if (!Number.isInteger(x) || x < 1 || x > 45) {
-            throw new Error(
-              '[ERROR] 당첨 번호는 1 ~ 45 사이의 숫자여야 합니다.',
-            );
+            throw new Error(ERROR_MESSAGES.WINNING_NUMBER_OUT_OF_RANGE);
           }
         });
         break;
@@ -76,20 +74,16 @@ class App {
     while (true) {
       try {
         bonusNumber = Number(
-          await Console.readLineAsync('\n보너스 번호를 입력해주세요.\n'),
+          await Console.readLineAsync(IO_MESSAGES.BONUS_NUMBER),
         );
         if (isNaN(bonusNumber)) {
-          throw new Error('[ERROR] 보너스 번호는 숫자여야 합니다.');
+          throw new Error(ERROR_MESSAGES.BONUS_NUMBER_NAN);
         }
         if (!(bonusNumber >= 1 && bonusNumber <= 45)) {
-          throw new Error(
-            '[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자여야 합니다.',
-          );
+          throw new Error(ERROR_MESSAGES.BONUS_NUMBER_OUT_OF_RANGE);
         }
         if (winningNumbers.includes(bonusNumber)) {
-          throw new Error(
-            '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
-          );
+          throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
         }
         break;
       } catch (error) {
@@ -132,15 +126,13 @@ class App {
 
     const profitRate = ((money / purchaseAmount) * 100).toFixed(1);
 
-    Console.print('\n당첨 통계\n---');
-    Console.print(`3개 일치 (5,000원) - ${matchTable[4]}개`);
-    Console.print(`4개 일치 (50,000원) - ${matchTable[3]}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${matchTable[2]}개`);
-    Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchTable[1]}개`,
-    );
-    Console.print(`6개 일치 (2,000,000,000원) - ${matchTable[0]}개`);
-    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+    Console.print(IO_MESSAGES.STATISTICS_HEADER);
+    Console.print(IO_MESSAGES.MATCH_3(matchTable[4]));
+    Console.print(IO_MESSAGES.MATCH_4(matchTable[3]));
+    Console.print(IO_MESSAGES.MATCH_5(matchTable[2]));
+    Console.print(IO_MESSAGES.MATCH_5_BONUS(matchTable[1]));
+    Console.print(IO_MESSAGES.MATCH_6(matchTable[0]));
+    Console.print(IO_MESSAGES.PROFIT_RATE(profitRate));
   }
 }
 
