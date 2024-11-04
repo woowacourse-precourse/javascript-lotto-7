@@ -17,6 +17,12 @@ class App {
     const lottoList = Lotto.purchaseLotto(this.user.purchaseCount);
     print.lottoList(lottoList);
     this.user.readWinningNumbers();
+    this.user.readBonusNumber();
+
+    const { winningNumbers, bonusNumber } = this.user.winningBonusNumbers;
+    lottoList.forEach((lotto) =>
+      lotto.matchNumbers(winningNumbers, bonusNumber),
+    );
   }
 }
 

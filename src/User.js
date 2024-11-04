@@ -58,8 +58,11 @@ class User {
     }
   }
 
-  get winningNumbers() {
-    return this.#winningNumbers;
+  get winningBonusNumbers() {
+    return {
+      winningNumbers: this.#winningNumbers,
+      bonusNumber: this.#bonusNumber,
+    };
   }
 }
 

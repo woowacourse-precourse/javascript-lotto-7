@@ -11,6 +11,13 @@ class Lotto {
     );
   }
 
+  matchNumbers(winningNumbers, bonusNumber) {
+    const winningCount = this.#numbers.filter((number) =>
+      winningNumbers.includes(number),
+    ).length;
+    const bonusFlag = this.#numbers.includes(bonusNumber);
+  }
+
   static purchaseLotto(count) {
     return Array.from({ length: count }, () => new Lotto());
   }
