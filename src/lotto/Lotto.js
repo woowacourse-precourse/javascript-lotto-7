@@ -22,9 +22,7 @@ class Lotto {
   }
 
   #validateDuplicate(numbers) {
-    const set = new Set(numbers);
-    const hasDuplicate = set.size !== LOTTO_NUMBERS_COUNT
-    if (hasDuplicate) {
+    if (new Set(numbers).size !== LOTTO_NUMBERS_COUNT) {
       throw new Error(inValidMessages.duplicate);
     }
   }
