@@ -1,6 +1,8 @@
 import ObservableModel from "./ObservableModel.js";
 
 class LottoPrize extends ObservableModel {
+  static PRIZE_KEYS = ["first", "second", "third", "forth", "fifth"];
+
   #lottoChecker;
 
   #prize;
@@ -33,12 +35,13 @@ class LottoPrize extends ObservableModel {
   getRank(lotto) {
     const { winningCount, isMatchBonus } = this.#lottoChecker.checkLotto(lotto);
 
-    if (winningCount === 6) return this.#updateRanks("first");
-    if (winningCount === 5 && isMatchBonus) return this.#updateRanks("second");
-    if (winningCount === 5) return this.#updateRanks("third");
-    if (winningCount === 4) return this.#updateRanks("forth");
-    if (winningCount === 3) return this.#updateRanks("fifth");
-    return false;
+    const rank = LottoPrize.PRIZE_KEYS.find((key) => {
+      const { condition } = this.#prize[key];
+      return winningCount === condition && (key !== "second" || isMatchBonus);
+    });
+
+    if (!rank) return false;
+    return this.#updateRanks(rank);
   }
 
   /**
@@ -62,6 +65,7 @@ class LottoPrize extends ObservableModel {
 
   getResult(lottos, money) {
     this.notify({
+      prizeKeys: LottoPrize.PRIZE_KEYS,
       prize: this.getPrize(lottos),
       returnRate: this.getReturnRate(money).toFixed(1),
     });

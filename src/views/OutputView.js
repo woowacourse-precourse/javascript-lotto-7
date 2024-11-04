@@ -6,9 +6,9 @@ const OutputView = {
     OutputView.printLottos(lottoList);
   },
 
-  updatePrize({ prize, returnRate }) {
+  updatePrize({ prizeKeys, prize, returnRate }) {
     OutputView.printResultHeader();
-    ["fifth", "forth", "third", "second", "first"].forEach((rank) => {
+    prizeKeys.forEach((rank) => {
       const { condition, money, count } = prize[rank];
       if (rank === "second") {
         OutputView.printBonusResult(condition, money.toLocaleString(), count);
