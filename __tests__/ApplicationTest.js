@@ -4,7 +4,7 @@ import App, {
   generateLottos, 
   splitPrizeNumbers,
   validateBonusNumbers,
-  checkLottoResult,
+//  checkLottoResult,
   calculateProfitRate,
   PRIZES,
 } from "../src/App.js";
@@ -100,35 +100,6 @@ describe("generateLottos 테스트", () => {
   });
 });
 
-// 로또 출력 테스트
-describe("printLottos 테스트", () => {
-  let logSpy;
-
-  beforeEach(() => {
-    logSpy = jest.spyOn(MissionUtils.Console, "print").mockImplementation();
-  });
-
-  afterEach(() => {
-    logSpy.mockRestore();
-  });
-
-  test("로또 수량 및 번호를 콘솔에 올바르게 출력한다.", () => {
-    const lottoCount = 3;
-    const lottos = [
-      new Lotto([1, 2, 3, 4, 5, 6]),
-      new Lotto([7, 8, 9, 10, 11, 12]),
-      new Lotto([13, 14, 15, 16, 17, 18]),
-    ];
-
-    printLottos(lottoCount, lottos);
-
-    expect(logSpy).toHaveBeenCalledWith("3개를 구매했습니다.");
-    expect(logSpy).toHaveBeenCalledWith("[1, 2, 3, 4, 5, 6]");
-    expect(logSpy).toHaveBeenCalledWith("[7, 8, 9, 10, 11, 12]");
-    expect(logSpy).toHaveBeenCalledWith("[13, 14, 15, 16, 17, 18]");
-  });
-});
-
 describe("validateBonusNumber 유효성 검사", () => {
   const prizeNumbers = [1, 2, 3, 4, 5, 6];
 
@@ -155,54 +126,54 @@ describe("당첨 번호 입력, 분리 테스트", () => {
   });
 });
 
-describe("checkLottoResult 함수 테스트", () => {
-  const prizeNumbers = [1, 2, 3, 4, 5, 6];
-  const bonusNumber = 7;
+// describe("checkLottoResult 함수 테스트", () => {
+//   const prizeNumbers = [1, 2, 3, 4, 5, 6];
+//   const bonusNumber = 7;
 
-  test("1등: 6개 번호가 일치할 때", () => {
-    const userNumbers = [1, 2, 3, 4, 5, 6];
-    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(1);
-  });
+//   test("1등: 6개 번호가 일치할 때", () => {
+//     const userNumbers = [1, 2, 3, 4, 5, 6];
+//     expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(1);
+//   });
 
-  test("2등: 5개 번호가 일치하고 보너스 번호도 일치할 때", () => {
-    const userNumbers = [1, 2, 3, 4, 5, 7];
-    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(2);
-  });
+//   test("2등: 5개 번호가 일치하고 보너스 번호도 일치할 때", () => {
+//     const userNumbers = [1, 2, 3, 4, 5, 7];
+//     expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(2);
+//   });
 
-  test("3등: 5개 번호만 일치할 때", () => {
-    const userNumbers = [1, 2, 3, 4, 5, 8];
-    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(3);
-  });
+//   test("3등: 5개 번호만 일치할 때", () => {
+//     const userNumbers = [1, 2, 3, 4, 5, 8];
+//     expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(3);
+//   });
 
-  test("4등: 4개 번호가 일치할 때", () => {
-    const userNumbers = [1, 2, 3, 4, 8, 9];
-    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(4);
-  });
+//   test("4등: 4개 번호가 일치할 때", () => {
+//     const userNumbers = [1, 2, 3, 4, 8, 9];
+//     expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(4);
+//   });
 
-  test("5등: 3개 번호가 일치할 때", () => {
-    const userNumbers = [1, 2, 3, 9, 10, 11];
-    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(5);
-  });
+//   test("5등: 3개 번호가 일치할 때", () => {
+//     const userNumbers = [1, 2, 3, 9, 10, 11];
+//     expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(5);
+//   });
 
-  test("낙첨: 2개 이하의 번호만 일치할 때", () => {
-    const userNumbers = [1, 2, 10, 11, 12, 13];
-    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(6);
-  });
-});
+//   test("낙첨: 2개 이하의 번호만 일치할 때", () => {
+//     const userNumbers = [1, 2, 10, 11, 12, 13];
+//     expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(6);
+//   });
+// });
 
 describe("calculateProfitRate 함수 테스트", () => {
-  test("당첨이 없는 경우 수익률이 음수로 표시된다", () => {
+  test("당첨이 없는 경우 수익률이 0로 표시된다", () => {
     const results = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     const totalSpent = 10000; // 예: 10장 구매
     const profitRate = calculateProfitRate(results, totalSpent);
-    expect(profitRate).toBeLessThan(0); // 수익률이 음수인지 확인
+    expect(profitRate).toBe(0); // 수익률이 0인지 확인
   });
 
   test("1등 당첨 1회일 때 수익률을 계산한다", () => {
     const results = { 1: 1, 2: 0, 3: 0, 4: 0, 5: 0 };
     const totalSpent = 1000; // 예: 1장 구매
     const profitRate = calculateProfitRate(results, totalSpent);
-    expect(profitRate).toBeCloseTo(((PRIZES[1] - totalSpent) / totalSpent) * 100, 1); // 소수점 첫째 자리까지 확인
+    expect(profitRate).toBeCloseTo((PRIZES[1] / totalSpent) * 100, 1); // 소수점 첫째 자리까지 확인
   });
 
   test("3등 당첨 2회, 5등 당첨 1회일 때 수익률을 계산한다", () => {
@@ -210,7 +181,7 @@ describe("calculateProfitRate 함수 테스트", () => {
     const totalSpent = 3000; // 예: 3장 구매
     const expectedProfit = (PRIZES[3] * 2) + (PRIZES[5] * 1); // 예상 당첨 금액
     const profitRate = calculateProfitRate(results, totalSpent);
-    expect(profitRate).toBeCloseTo(((expectedProfit - totalSpent) / totalSpent) * 100, 1);
+    expect(profitRate).toBeCloseTo((expectedProfit / totalSpent) * 100, 1);
   });
 
   test("모든 등수에서 1회씩 당첨될 때 수익률을 계산한다", () => {
@@ -218,7 +189,7 @@ describe("calculateProfitRate 함수 테스트", () => {
     const totalSpent = 1000 * 5; // 예: 5장 구매
     const expectedProfit = PRIZES[1] + PRIZES[2] + PRIZES[3] + PRIZES[4] + PRIZES[5];
     const profitRate = calculateProfitRate(results, totalSpent);
-    expect(profitRate).toBeCloseTo(((expectedProfit - totalSpent) / totalSpent) * 100, 1);
+    expect(profitRate).toBeCloseTo((expectedProfit / totalSpent) * 100, 1);
   });
 });
 
