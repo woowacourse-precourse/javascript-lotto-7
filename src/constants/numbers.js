@@ -1,0 +1,13 @@
+export const MIN_LOTTO_NUMBER = 1;
+export const MAX_LOTTO_NUMBER = 45;
+export const LOTTO_COUNT = 6;
+export const LOTTO_PRICE = 1000;
+export const MIN_WINNING_PLACE = 3;
+export const BONUS_WINNING_PLACE = 5;
+export const PRIZE_MONEY = Object.freeze({
+	THREE_MATCHED: 5000,
+	FOUR_MATCHED: 50000,
+	FIVE_MATCHED: 1500000,
+	BONUS_MATCHED: 30000000,
+	SIX_MATCHED: 2000000000,
+});
