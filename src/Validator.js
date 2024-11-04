@@ -15,7 +15,7 @@ class Validator {
             this.isSixNumbers,
             this.isNotDuplicateNumbers,
             this.isvalidNumbers,
-            this.isvalidRange
+            this.isvalidNumbersRange
         ];
         validators.forEach(validator => validator(winningNumbers));
     }
@@ -27,7 +27,7 @@ class Validator {
     static validateBonusNumber(number) {
         const validators = [
             this.invalidNumber,
-            this.isvalidRange,
+            this.isvalidNumberRange,
             this.isNotDuplicateNumbers
         ]
     }
@@ -66,7 +66,11 @@ class Validator {
         })
     }
 
-    static isvalidRange(numbers) {
+    static isvalidNumberRange(number) {
+        if (Number(number) > 45 || Number(number) < 1) throw new Error("[ERROR] 입력 값이 범위 밖에 있습니다.")
+    }
+
+    static isvalidNumbersRange(numbers) {
         numbers.forEach(number => {
             if (Number(number) > 45 || Number(number) < 1) throw new Error("[ERROR] 입력 값이 범위 밖에 있습니다.")
         })
