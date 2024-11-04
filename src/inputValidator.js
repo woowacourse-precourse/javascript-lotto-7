@@ -5,6 +5,11 @@ const inputValidator = {
     this.isThousandUnit(value);
     return Number(value);
   },
+  checkLottoNumbers(numbers) {
+    this.isSix(numbers);
+    this.isUniqueNumbers(numbers);
+    this.isInRange(numbers);
+  },
   checkWinningNumbers(text) {
     this.isEmpty(text);
     this.isOnlyNumber(text);
