@@ -29,12 +29,7 @@ export async function getValidatedWinningNumbers() {
   try {
     const winningNumbersInput = await getInput(INFO_MESSAGE.WINNER_LOTTO_NUMBERS_INPUT);
     const winningNumbers = winningNumbersInput.split(WINNER_LOTTO_NUMBER_DELIMITER).map(Number);
-
-    LottoValidator.validateLottoNumberLength(winningNumbers);
-    LottoValidator.validateUniqueNumbers(winningNumbers);
-    LottoValidator.validateArrayHasNoEmpty(winningNumbers);
-    LottoValidator.validateArrayHasNumberType(winningNumbers);
-
+    LottoValidator.validateWinningNumbers(winningNumbers);
     return winningNumbers;
   } catch (error) {
     printResult(error.message);
@@ -46,9 +41,7 @@ export async function getValidatedBonusNumber(winningNumbers) {
   try {
     const bonusNumberInput = await getInput(INFO_MESSAGE.BONUS_NUMBERS_INPUT);
     const bonusNumber = Number(bonusNumberInput);
-
     LottoValidator.validateBonusNumber(winningNumbers, bonusNumber);
-
     return bonusNumber;
   } catch (error) {
     printResult(error.message);
