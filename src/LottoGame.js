@@ -37,10 +37,12 @@ export class LottoGame {
     //   throw new Error(ERROR_MESSAGES.INVALID_BONUS_NUMBER_COUNT);
     // }
     if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
+      Console.print(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
+      return;
     }
     if (this.#winningNumbers.getNumbers().includes(bonusNumber)) {
-      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
+      Console.print(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
+      return;
     }
   }
 }

@@ -1,4 +1,5 @@
 import { ERROR_MESSAGES } from "../Constants.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class Lotto {
   #numbers;
@@ -19,7 +20,8 @@ class Lotto {
     }
     // 범위 검사
     if (numbers.some((n) => n < 1 || n > 45)) {
-      throw new Error(ERROR_MESSAGES.WINNING_NUMBER_RANGE);
+      Console.print(ERROR_MESSAGES.WINNING_NUMBER_RANGE);
+      return;
     }
   }
 

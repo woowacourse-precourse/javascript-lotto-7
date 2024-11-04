@@ -21,10 +21,12 @@ export class UserLotto {
       return;
     }
     if (money <= 0) {
-      throw new Error(ERROR_MESSAGES.NEGATIVE_OR_ZERO_AMOUNT);
+      Console.print(ERROR_MESSAGES.NEGATIVE_OR_ZERO_AMOUNT);
+      return;
     }
     if (money % LOTTO.PRICE_PER_TICKET !== 0) {
-      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+      Console.print(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+      return;
     }
   }
 
