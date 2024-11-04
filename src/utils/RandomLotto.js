@@ -6,9 +6,9 @@ const RandomLotto = {
     return Random.pickUniqueNumbersInRange(
       LOTTO_CONFIG.numbers.MIN,
       LOTTO_CONFIG.numbers.MAX,
-      LOTTO_CONFIG.numbers.LENGTH
+      LOTTO_CONFIG.numbers.LENGTH,
     );
-  }
+  },
 };
 
 export default RandomLotto;

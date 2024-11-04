@@ -2,7 +2,6 @@ import { Console } from "@woowacourse/mission-utils";
 import PRINT_MESSAGE from "../static/Message.js";
 import Rank from "../static/Rank.js";
 
-
 const OutputView = {
   printPurchaseCount(count) {
     Console.print(PRINT_MESSAGE.output.purchaseCount(count));
@@ -19,7 +18,7 @@ const OutputView = {
 
   printMatchResults(results) {
     const rankTypes = this.getRankTypes();
-    rankTypes.forEach(rank => this.printRankResult(rank, results[rank]));
+    rankTypes.forEach((rank) => this.printRankResult(rank, results[rank]));
   },
 
   getRankTypes() {
@@ -30,7 +29,8 @@ const OutputView = {
   },
 
   printRankResult(rank, count) {
-    const message = PRINT_MESSAGE.output.matchResult[this.getRankName(rank)](count);
+    const message =
+      PRINT_MESSAGE.output.matchResult[this.getRankName(rank)](count);
     Console.print(message);
   },
 
@@ -40,7 +40,7 @@ const OutputView = {
 
   printError(error) {
     Console.print(error.message);
-  }
+  },
 };
 
 export default OutputView;

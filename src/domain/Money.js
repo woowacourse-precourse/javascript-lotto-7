@@ -1,23 +1,23 @@
 import LOTTO_CONFIG from "../static/LottoConfig.js";
 
 class Money {
- #amount;
+  #amount;
 
- constructor(amount) {
-   this.#amount = amount;
- }
+  constructor(amount) {
+    this.#amount = amount;
+  }
 
- calculateLottoCount() {
-   return Math.floor(this.#amount / LOTTO_CONFIG.price.UNIT);
- }
+  calculateLottoCount() {
+    return Math.floor(this.#amount / LOTTO_CONFIG.price.UNIT);
+  }
 
- static calculateTotalAmount(lottoCount) {
-   return lottoCount * LOTTO_CONFIG.price.UNIT;
- }
+  static calculateTotalAmount(lottoCount) {
+    return lottoCount * LOTTO_CONFIG.price.UNIT;
+  }
 
- static calculateRate(prize, amount) {
-   return ((prize / amount) * 100).toFixed(1);
- }
+  static calculateRate(prize, amount) {
+    return ((prize / amount) * 100).toFixed(1);
+  }
 }
 
 export default Money;

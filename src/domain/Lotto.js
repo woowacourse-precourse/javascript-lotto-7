@@ -19,7 +19,10 @@ class Lotto {
 
   #validateRange(numbers) {
     const isInvalid = numbers.some(
-      number => !Number.isInteger(number) || number < LOTTO_CONFIG.numbers.MIN || number > LOTTO_CONFIG.numbers.MAX
+      (number) =>
+        !Number.isInteger(number) ||
+        number < LOTTO_CONFIG.numbers.MIN ||
+        number > LOTTO_CONFIG.numbers.MAX,
     );
     if (isInvalid) {
       throw new Error(ERROR_MESSAGE.lotto.INVALID_RANGE);
@@ -37,7 +40,8 @@ class Lotto {
   }
 
   match(winningNumbers) {
-    return this.#numbers.filter(number => winningNumbers.includes(number)).length;
+    return this.#numbers.filter((number) => winningNumbers.includes(number))
+      .length;
   }
 
   contains(number) {
