@@ -7,6 +7,7 @@ class Slot{
     #lotterArray = [];
     #purchaseNum = 0;
 
+
     constructor(money){
         this.#validateInputMoney(money)
         this.#setPurchseNum(money)
@@ -17,7 +18,7 @@ class Slot{
     }
 
     getLotteryArray(){
-        return this.#lotterArray;
+        return this.#lotterArray
     }
     
     getPurchaseNum(){
@@ -31,7 +32,7 @@ class Slot{
 
     purchaseLottery(num){
         for(let i = 0 ; i < num; i++){
-            this.#lotterArray.push(new Lottery().getNumbers())
+            this.#lotterArray.push(new Lottery())
         }
     }
     #validateInputMoney(money){
@@ -41,12 +42,12 @@ class Slot{
 
     #validateInteger(money){
         if(isNaN(money)){
-            throw Error(ERROR_INPUT_MONEY_NAN)
+            throw new Error(ERROR_INPUT_MONEY_NAN)
         }
     }
     #validateThousand(money){
         if(Number(money) % 1000 !== 0){
-            throw Error(ERROR_INPUT_MONEY_THOUSAND);
+            throw new Error(ERROR_INPUT_MONEY_THOUSAND);
         }
     }
 
