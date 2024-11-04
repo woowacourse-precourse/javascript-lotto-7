@@ -6,11 +6,11 @@ class PurchaseAmount {
   }
 
   validate(amount) {
-    if (!amount) {
+    if (amount === undefined || amount === null) {
       throw new Error("[ERROR] 구입금액을 입력해야 합니다.");
     }
     const amountStr = amount.toString();
-    if (!UTILS.positive_integer.test(amountStr)) {
+    if (!UTILS.positive_integer.test(amountStr) || amount <= 0) {
       throw new Error("[ERROR] 구입 금액은 양의 정수로 입력해야 합니다.");
     }
     if (amount % 1000 !== 0) {

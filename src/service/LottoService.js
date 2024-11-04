@@ -25,7 +25,7 @@ export class LottoService {
       3: { count: 0, prize: 5000 },
       4: { count: 0, prize: 50000 },
       5: { count: 0, prize: 1500000 },
-      "5": { count: 0, prize: 30000000 },
+      "5_bonus": { count: 0, prize: 30000000 },
       6: { count: 0, prize: 2000000000 },
     };
 
@@ -46,7 +46,7 @@ export class LottoService {
     if (matchCount === 6) {
       prizeTable[6].count++;
     } else if (matchCount === 5 && isBonusMatch) {
-      prizeTable['5'].count++;
+      prizeTable['5_bonus'].count++;
     } else if (matchCount >= 3) {
       prizeTable[matchCount].count++;
     }
@@ -61,12 +61,12 @@ export class LottoService {
 
   static generateResults(prizeTable) {
     const results = [];
-    const order = [3, 4, 5, '5', 6];
+    const order = [3, 4, 5, '5_bonus', 6];
 
     order.forEach(key => {
       const { count, prize } = prizeTable[key];
       let description;
-      if (key === '5') {
+      if (key === '5_bonus') {
         description = '5개 일치, 보너스 볼 일치';
       } else {
         description = `${key}개 일치`;
