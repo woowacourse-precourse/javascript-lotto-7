@@ -1,19 +1,27 @@
 import { Console } from "@woowacourse/mission-utils";
 import { LOTTO_INPUT } from "../constants/Constants.js";
 import LottoOutput from "./LottoOutput.js";
+import ValidLotto from "../controllers/ValidLotto.js";
 
 class LottoInput {
   constructor() {
     this.lottoOutput = new LottoOutput();
+    this.validLotto = new ValidLotto();
   }
 
   async lottoPriceInput() {
-    const lottoPrice = await Console.readLineAsync(
-      LOTTO_INPUT.LOTTO_PRICE_INPUT
-    );
-    const lottoCnt = lottoPrice / 1000;
-    this.lottoOutput.printLottoCnt(lottoCnt);
-    return lottoPrice;
+    try {
+      const lottoPrice = await Console.readLineAsync(
+        LOTTO_INPUT.LOTTO_PRICE_INPUT
+      );
+      this.validLotto.validLottoPrice(lottoPrice);
+      const lottoCnt = lottoPrice / 1000;
+      this.lottoOutput.printLottoCnt(lottoCnt);
+      return lottoPrice;
+    } catch (error) {
+      Console.print(error.message);
+      return this.lottoPriceInput();
+    }
   }
 
   async lottoWinInput() {
