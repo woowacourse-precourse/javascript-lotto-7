@@ -15,6 +15,10 @@ class App {
             const numbers = (await Console.readLineAsync('')).split(',');
             const selectedNum = chkSelectedNum(numbers);
             if (!selectedNum) this.throwError('당첨 번호 입력 오류');
+
+            // 보너스 번호 입력
+            Console.print('\n보너스 번호를 입력해 주세요.');
+            const bonusNum = await Console.readLineAsync('');
         } catch (error) {
             Console.print(error.message);
             throw error;
