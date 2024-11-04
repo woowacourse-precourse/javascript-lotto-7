@@ -5,7 +5,7 @@ import {
   printLottoYield,
 } from "../View/View.js";
 import { generateLottoTickets } from "../Services/GenerateLottery.js";
-import { validatePrice } from "../Validation/Validation.js";
+import { validatePrice, validateWinningNumbers } from "../Validation/index.js";
 import IOService from "../Services/IOService.js";
 import defaultSettings from "../Config/DefaultSettings.js";
 
@@ -25,20 +25,20 @@ class Controller {
     ioService.printTickets(tickets);
 
     const winningNumber = await getInput(askUserLottoNumber);
-    const validatedWinningNumber = validateWinnigNumber(winningNumber);
+    const validatedWinningNumber = validateWinningNumbers(winningNumber);
 
-    const bonusNumber = await getInput(askUserBonusNumber);
-    const validatedBonusNumber = validateBonusNumber(bonusNumber);
+    // const bonusNumber = await getInput(askUserBonusNumber);
+    // const validatedBonusNumber = validateBonusNumber(bonusNumber);
 
-    const winningResult = calculateWinningResult(
-      lottoTickets,
-      validatedWinningNumber,
-      validatedBonusNumber
-    );
-    printWinningResult(winningResult);
+    // const winningResult = calculateWinningResult(
+    //   lottoTickets,
+    //   validatedWinningNumber,
+    //   validatedBonusNumber
+    // );
+    // printWinningResult(winningResult);
 
-    const lottoYield = calculateLottoYield(winningResult);
-    printLottoYield(lottoYield);
+    // const lottoYield = calculateLottoYield(winningResult);
+    // printLottoYield(lottoYield);
   }
 }
 
