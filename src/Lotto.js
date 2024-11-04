@@ -9,10 +9,10 @@ class Lotto {
   }
 
   #validate(numbers) {
-    const validateNumbers = new ValidateNumbers();
-    validateNumbers.isNumLengthSix(numbers);
-    validateNumbers.isNumValid(numbers);
-    validateNumbers.isUniqueNumber(numbers);
+    const validateNumbers = new ValidateNumbers(numbers);
+    validateNumbers.isNumLengthSix();
+    validateNumbers.isNumValid();
+    validateNumbers.isUniqueNumber();
   }
 
   validateBonusNumber(bonusNum) {
@@ -32,8 +32,6 @@ class Lotto {
     if (this.#numbers.includes(num.toString())) {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
-
-    // return num;
   }
 }
 

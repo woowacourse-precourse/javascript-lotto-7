@@ -1,12 +1,16 @@
 class ValidateNumbers {
-  isNumLengthSix(numbers) {
-    if (numbers.length !== 6) {
+  constructor(numbers) {
+    this.numbers = numbers;
+  }
+
+  isNumLengthSix() {
+    if (this.numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
   }
 
-  isNumValid(numbers) {
-    for (const number of numbers) {
+  isNumValid() {
+    for (const number of this.numbers) {
       const num = Number(number);
       if (isNaN(num)) {
         throw new Error("[ERROR] 로또 번호는 숫자로 입력해주세요.");
@@ -20,9 +24,9 @@ class ValidateNumbers {
     }
   }
 
-  isUniqueNumber(numbers) {
-    const uniqueNumbers = new Set(numbers);
-    if (uniqueNumbers.size !== numbers.length) {
+  isUniqueNumber() {
+    const uniqueNumbers = new Set(this.numbers);
+    if (uniqueNumbers.size !== this.numbers.length) {
       throw new Error("[ERROR] 당첨 번호는 중복될 수 없습니다.");
     }
   }
