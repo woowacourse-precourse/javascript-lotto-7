@@ -9,7 +9,7 @@ describe('당첨 번호 입력 테스트', () => {
     [
       '올바른 형식의 당첨 번호를 입력할 때 정상적으로 처리되는지 확인',
       '1,2,3,4,5,6',
-      ['1', '2', '3', '4', '5', '6'],
+      [1, 2, 3, 4, 5, 6],
     ],
   ])('%s', (_, input, expected) => {
     const result = validateWinningNumbers(input);
