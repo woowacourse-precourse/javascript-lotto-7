@@ -37,6 +37,10 @@ class Lotto {
     }
   }
 
+  getNumbers() {
+    return this.#numbers;
+  }
+
   getMatchedNumberCnt() {
     return this.#matchedNumberCnt;
   }
