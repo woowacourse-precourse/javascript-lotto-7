@@ -16,10 +16,13 @@ class LottoIssuer {
 
       lottoTickets.push(new Lotto(ticketNumbers));
     }
-    Console.print(`${ticketCount}${MESSAGES.TICKET_PURCHASED}`);
+    this.#printTicketPurchaseMessage(ticketCount);
     lottoTickets.forEach((ticket) => Console.print(ticket.toString()));
 
     return lottoTickets;
+  }
+  #printTicketPurchaseMessage(ticketCount) {
+    Console.print(`${ticketCount}${MESSAGES.TICKET_PURCHASED}`);
   }
 }
 
