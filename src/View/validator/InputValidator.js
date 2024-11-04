@@ -8,78 +8,78 @@ import {
 
 class InputValidator {
   validatePurchaseAmount(amount) {
-    this.checkEmpty(amount);
+    this.validateEmpty(amount);
 
     const amountValue = Number(amount);
-    this.checkNaN(amountValue);
-    this.checkDivisibility(amountValue);
+    this.validateNaN(amountValue);
+    this.validateDivisibility(amountValue);
   }
 
   validateWinningNumbers(numbers) {
-    this.checkWinningNumbersLength(numbers);
+    this.validateWinningNumbersLength(numbers);
 
     numbers.forEach(number => {
-      this.checkNaN(number);
-      this.checkRange(number);
+      this.validateNaN(number);
+      this.validateRange(number);
     });
 
-    this.checkUniqueNumbers(numbers);
+    this.validateUniqueNumbers(numbers);
   }
 
   validateBonusNumber(winningNumbers, bonusNumber) {
-    this.checkEmpty(bonusNumber);
-    this.checkSingleInput(bonusNumber);
+    this.validateEmpty(bonusNumber);
+    this.validateSingleInput(bonusNumber);
 
     const bonusNumberValue = Number(bonusNumber);
-    this.checkNaN(bonusNumberValue);
-    this.checkRange(bonusNumberValue);
-    this.checkBonusUnique(winningNumbers, bonusNumberValue);
+    this.validateNaN(bonusNumberValue);
+    this.validateRange(bonusNumberValue);
+    this.validateBonusUnique(winningNumbers, bonusNumberValue);
   }
 
-  checkEmpty(value) {
+  validateEmpty(value) {
     if (value === '') {
       throw new Error(ERROR_MESSAGES.EMPTY_INPUT);
     }
   }
 
-  checkNaN(value) {
+  validateNaN(value) {
     if (Number.isNaN(value)) {
       throw new Error(ERROR_MESSAGES.NOT_A_NUMBER);
     }
   }
 
-  checkDivisibility(value) {
+  validateDivisibility(value) {
     if (value % PURCHASE_AMOUNT_DIVISOR !== 0) {
       throw new Error(ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISIBILITY);
     }
   }
 
-  checkWinningNumbersLength(numbers) {
+  validateWinningNumbersLength(numbers) {
     if (numbers.length !== LOTTO_NUMBER_COUNT) {
       throw new Error(ERROR_MESSAGES.WINNING_NUMBERS_LENGTH_ERROR);
     }
   }
 
-  checkRange(value) {
+  validateRange(value) {
     if (value < RANDOM_NUMBER_START || value > RANDOM_NUMBER_END) {
       throw new Error(ERROR_MESSAGES.LOTTO_NUMBER_OUT_OF_RANGE);
     }
   }
 
-  checkUniqueNumbers(numbers) {
+  validateUniqueNumbers(numbers) {
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== numbers.length) {
       throw new Error(ERROR_MESSAGES.DUPLICATE_WINNING_NUMBERS);
     }
   }
 
-  checkSingleInput(value) {
+  validateSingleInput(value) {
     if (value.split(',').length !== 1) {
       throw new Error(ERROR_MESSAGES.BONUS_LENGTH_ERROR);
     }
   }
 
-  checkBonusUnique(winningNumbers, bonusNumber) {
+  validateBonusUnique(winningNumbers, bonusNumber) {
     if (winningNumbers.includes(bonusNumber)) {
       throw new Error(ERROR_MESSAGES.BONUS_UNIQUE_ERROR);
     }
