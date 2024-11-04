@@ -1,5 +1,5 @@
 import LottoView from "../view/LottoView.js";
-import Lotto from "../model/Lotto.js";
+import Lotto from "../Lotto.js";
 import {
   validatePurchasingAmount,
   validateBonusNumber,
