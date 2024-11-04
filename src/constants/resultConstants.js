@@ -3,6 +3,9 @@ export const RESULT_MESSAGE_FORMAT = (resultMessage, count) =>
 export const TOTAL_EARNING_RATE = (earningRate) =>
   `총 수익률은 ${earningRate}%입니다.`;
 
+export const PERCENTAGE_FACTOR = 100;
+export const ROUNDED_DECIMAL_PLACES = 100;
+
 export const RESULT_MESSAGE = Object.freeze({
   0: "3개 일치 (5,000원)",
   1: "4개 일치 (50,000원)",

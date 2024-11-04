@@ -1,5 +1,7 @@
 import {
   LOTTO_PRIZE_AMOUNTS,
+  PERCENTAGE_FACTOR,
+  ROUNDED_DECIMAL_PLACES,
   TOTAL_EARNING_RATE,
 } from "../constants/resultConstants.js";
 
@@ -28,7 +30,8 @@ export const calculateEarningRate = function (purchaseAmount, winningDetails) {
     }
   });
 
-  const earningRate = (totalPrizeAmount / purchaseAmount) * 100;
-  const roundedEarningRate = Math.round(earningRate * 100) / 100;
+  const earningRate = (totalPrizeAmount / purchaseAmount) * PERCENTAGE_FACTOR;
+  const roundedEarningRate =
+    Math.round(earningRate * ROUNDED_DECIMAL_PLACES) / ROUNDED_DECIMAL_PLACES;
   return TOTAL_EARNING_RATE(roundedEarningRate);
 };
