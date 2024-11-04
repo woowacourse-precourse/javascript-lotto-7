@@ -19,6 +19,7 @@ class App {
   async run() {
     await this.buyLotto();
     await this.winLottoInput();
+    await this.bonusInput();
   }
 
   async buyLotto() {
@@ -80,6 +81,24 @@ class App {
         );
         let lotto = this.string2numbers(winNumbers);
         this.winLottoNumber = new Lotto(lotto);
+      } catch (e) {
+        Console.print(e.message);
+        continue;
+      }
+      break;
+    }
+  }
+
+  async bonusInput() {
+    while (true) {
+      try {
+        const number = await Console.readLineAsync(
+          "보너스 번호를 입력해 주세요."
+        );
+        this.isNum(number);
+        this.isLottoNumber(Number(number));
+        this.winLottoNumber.haveNumber(Number(number));
+        this.bonusNumber = Number(number);
       } catch (e) {
         Console.print(e.message);
         continue;
