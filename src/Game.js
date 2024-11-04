@@ -50,7 +50,8 @@ class Game {
   static #printPurchasedLotto(tickets, lottoNumbers) {
     Console.print(OUTPUT.PURCHASED_TICKETS(tickets));
     lottoNumbers.forEach((numbers) => {
-      Console.print(numbers);
+      const formattedNumbers = `[${numbers.join(", ")}]`;
+      Console.print(formattedNumbers);
     });
   };
 
@@ -99,7 +100,7 @@ class Game {
   }
 
   static #printResults(result, inputAmount) {
-    console.log(RESULT(result));
+    Console.print(RESULT(result));
     const { first, second, third, fourth, fifth } = result;
     const prizeMoney =
       (first * PRIZE.FIRST_PLACE) +

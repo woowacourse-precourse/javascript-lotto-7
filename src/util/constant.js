@@ -52,7 +52,7 @@ const RESULT = (position) => {
 };
 
 const PRIZE_RATE = (rate) => {
-  return `총 수입률은 ${rate}%입니다.`;
+  return `총 수익률은 ${rate}%입니다.`;
 };
 
 export {
