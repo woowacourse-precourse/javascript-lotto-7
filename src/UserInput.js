@@ -2,8 +2,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 const INPUT_MESSAGE = {
   purchaseAmount: "구입금액을 입력해 주세요.\n",
-  winningNumber: "당첨 번호를 입력해 주세요.\n",
-  bonusNummber: "보너스 번호를 입력해 주세요.\n",
+  winningNumber: "\n당첨 번호를 입력해 주세요.\n",
+  bonusNummber: "\n보너스 번호를 입력해 주세요.\n",
 };
 
 class UserInput {
