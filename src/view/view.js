@@ -69,7 +69,7 @@ class View {
     if(rank === WIN_WITH_BONUS_RANK) {
       return `${matchedAmoutMap.get(rank)}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${count}개`;
     }
-    return `${matchedAmoutMap.get(rank)}개 일치 (${prize.toLocaleString()}원) - ${count}개`;
+    return `${matchedAmoutMap.get(rank)}개 일치 (${prize.toLocaleString('en-US')}원) - ${count}개`;
 
   }
 
