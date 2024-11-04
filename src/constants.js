@@ -3,7 +3,7 @@ export const CONSTANTS = {
 
   MESSAGE_PURCHASE_AMOUNT: '구입금액을 입력해 주세요.',
   MESSAGE_PURCHASED_TICKETS: '개를 구매했습니다.',
-  MESSAGE_WINNING_NUMBERS: '당첨 번호를 입력해 주세요.',
+  MESSAGE_WINNING_NUMBERS: '\n당첨 번호를 입력해 주세요.',
   MESSAGE_BONUS_NUMBER: '보너스 번호를 입력해 주세요.',
   MESSAGE_WINNING_STATISTICS: '당첨 통계',
   MESSAGE_PROFIT_RATE: '총 수익률은',
@@ -28,10 +28,11 @@ export const CONSTANTS = {
   ERROR_INVALID_AMOUNT:
     '[ERROR] 금액은 1000으로 나누어 떨어지는 숫자만 입력 가능합니다.',
   ERROR_INVALID_WINNING_NUMBERS:
-    '[ERROR] 당첨 번호는 1~45 범위 내의 중복되지 않는 6개의 숫자값이어야 합니다.',
-  ERROR_INVALID_RANGE: '[ERROR] 로또 번호는 1-45의 숫자의 범위여야 합니다.',
-  ERROR_INVALID_BONUS_NUMBER:
-    '[ERROR] 보너스 번호는 1~45 범위 중 하나여야 합니다.',
+    '[ERROR] 숫자가 중복됩니다. 당첨 번호는 1~45 범위 내의 중복되지 않는 6개의 숫자값이어야 합니다.',
+  ERROR_INVALID_RANGE:
+    '[ERROR] 입력 가능한 숫자 범위를 넘습니다. 번호는 1~45 범위 중 하나여야 합니다.',
+  ERROR_INSUFFICIENT_NUMBERS:
+    '[ERROR] 입력된 숫자값이 모자릅니다. 6개의 숫자가 입력되어야 합니다.',
   ERROR_DUPLICATE_BONUS_NUMBER:
     '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
 };
