@@ -2,13 +2,14 @@ export const sortAsc = (unsortedValue) => {
     return unsortedValue.sort((a, b) => a - b)
 }
 export const stringToNumberArray = (input) => {
-    return input.split(",").map((elem) => Number(elem))
+    return input.split(",").map((elem) => spaceContainToNumbers(elem))
 }
-
-export const amountToNumber = (input) => {
-    return Number(input) / 1000
+const spaceContainToNumbers = (value) => {
+    if (value.trim() === value) {
+        return parseInt(value)
+    }
+    return null
 }
-
 export const stringToNumber = (input) => {
-    return Number(input)
+    return spaceContainToNumbers(input)
 }
