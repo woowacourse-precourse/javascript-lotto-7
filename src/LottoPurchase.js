@@ -22,8 +22,7 @@ class LottoPurchase {
 
   #printPurchaseLottoList(purchaseLottoList) {
     purchaseLottoList.forEach((numbers) => {
-      const numbersStr = numbers.join(", ");
-      MissionUtils.Console.print(`[${numbers.join(", ")}]`);
+      MissionUtils.Console.print(`[${numbers.join(Constants.DELIMITER + ' ')}]`);
     });
   }
 
@@ -49,6 +48,7 @@ class LottoPurchase {
 
   printPurchaseLottoList(purchaselottoList) {
     const purchaseCount = this.#calculatePurchaseCount();
+    MissionUtils.Console.print(Constants.EMPTY_LINE);
     this.#printPurchasesCount(purchaseCount);
     this.#printPurchaseLottoList(purchaselottoList);
   }
