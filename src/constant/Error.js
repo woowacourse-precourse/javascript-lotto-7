@@ -1,3 +1,10 @@
+const APPLICATION_ERRORS = Object.freeze({
+  EMPTY: "[ERROR] 입력값이 없습니다.",
+  NOT_A_NUMBER: "[ERROR] 숫자가 아닙니다.",
+  NOT_INTEGER: "[ERROR] 정수가 아닙니다.",
+  NOT_POSITIVE: "[ERROR] 0 이상의 숫자를 입력해주세요.",
+});
+
 const DOMAIN_ERRORS = Object.freeze({
   LOTTO_COUNT: "[ERROR] 로또 번호는 6개여야 합니다.",
   DUPLICATE_NUMBER: "[ERROR] 로또 번호는 중복되지 않아야 합니다.",
@@ -8,4 +15,4 @@ const DOMAIN_ERRORS = Object.freeze({
 
 const INPLEMENTED_ERROR = "Method not implemented";
 
-export { DOMAIN_ERRORS, INPLEMENTED_ERROR };
+export { APPLICATION_ERRORS, DOMAIN_ERRORS, INPLEMENTED_ERROR };
