@@ -154,6 +154,23 @@ class App {
     this.printYield();
   }
 
+  // 7. 총 수익률 계산 및 출력
+  printYield() {
+    const totalPrize =
+        this.result.first * 2000000000 +
+        this.result.second * 30000000 +
+        this.result.third * 1500000 +
+        this.result.fourth * 50000 +
+        this.result.fifth * 5000;
+
+    const purchaseAmount = this.lottos.length * App.PURCHASE_UNIT;
+    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+
+    // 프로그램 종료 메시지
+    Console.print("로또 게임을 종료합니다.");
+  }
 }
 
 export default App;
