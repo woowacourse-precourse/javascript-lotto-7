@@ -112,7 +112,10 @@ class LottoController {
    *
    */
   printEarningRate() {
-    const earningRate = (this.#totalEarningPrice / (this.#lottos.length * LOTTO_PRICE)).toFixed(1);
+    const earningRate = (
+      (this.#totalEarningPrice / (this.#lottos.length * LOTTO_PRICE)) *
+      100
+    ).toFixed(1);
 
     this.#ioProcessor.processOuput(`총 수익률은 ${earningRate}% 입니다.`);
   }
