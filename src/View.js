@@ -2,7 +2,6 @@ import { Console } from '@woowacourse/mission-utils';
 import { INFO_MESSAGES, NUMBER } from './shared/index.js';
 
 class View {
-  static PRICE_LIST = [5000, 50000, 1500000, 2000000000, 30000000];
   static DEFAULT_MATCH_COUNTS = [3, 4, 5, 6, 5];
   static MAX_INDEX = 4;
 
@@ -41,7 +40,7 @@ class View {
 
     for (const [match, total] of results.entries()) {
       const index = this.#setIndex(match);
-      const price = this.PRICE_LIST[index];
+      const price = NUMBER.PRICE_LIST[index];
       const matchCount = this.DEFAULT_MATCH_COUNTS[index];
       const message = this.#formatMessage(matchCount, price, total, index);
 
