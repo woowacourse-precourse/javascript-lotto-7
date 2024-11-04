@@ -1,3 +1,6 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+import inputValidator from "./inputValidator.js";
+
 class Lotto {
   #numbers;
 
@@ -7,12 +10,16 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+    inputValidator.checkLottoNumbers(numbers);
   }
 
-  // TODO: 추가 기능 구현
+  print() {
+    MissionUtils.Console.print(`[${this.#numbers.join(", ")}]`);
+  }
+
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
