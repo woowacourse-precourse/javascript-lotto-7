@@ -1,7 +1,11 @@
 import Lotto from './Lotto.js';
 import { PRIZE_MONEY } from './constant.js';
 import { Console } from '@woowacourse/mission-utils';
-import { validateNumber } from './handleError.js';
+import {
+    validateNumber,
+    validateDuplicate,
+    validateSix,
+} from './handleError.js';
 
 class LottoCalculator {
     #winningNumber;
@@ -22,9 +26,7 @@ class LottoCalculator {
             throw new Error('[ERROR] 당첨 번호는 1~45 숫자여야 합니다.');
         }*/
         validateDuplicate(winningNumber, '당첨 번호는');
-        if (winningNumber.length !== 6) {
-            throw new Error('[ERROR] 당첨 번호는 6개여야 합니다.');
-        }
+        validateSix(winningNumber, '당첨 번호는');
     }
 
     #validateBonus(winningNumber, bonusNumber) {
@@ -34,7 +36,7 @@ class LottoCalculator {
         }*/
         if (winningNumber.includes(bonusNumber)) {
             throw new Error(
-                '[ERROR] 보너스 번호는 당첨번호와 중복되면 안됩니다.'
+                '[ERROR] 보너스 번호는 당첨 번호와 중복되면 안됩니다.'
             );
         }
     }
