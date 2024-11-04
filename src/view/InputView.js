@@ -24,6 +24,7 @@ export class InputView {
     const inputBonusString = await MissionUtils.Console.readLineAsync(
       INPUT_MESSAGES.BONUS_NUMBER
     );
+    Console.print('');
     const inputBonusNumber = Number(inputBonusString.trim());
     return inputBonusNumber;
   }
