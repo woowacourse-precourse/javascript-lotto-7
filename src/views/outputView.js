@@ -1,21 +1,10 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 import getRandomNumbers from "../utils/random.js";
 
-const OutputView = {
-  formatCount(amount) {
-    return Number(amount) / 1000;
-  },
-
-  printNumberOfPurchases(amount) {
-    const count = this.formatCount(amount);
-    Console.print(`\n${count}개를 구매했습니다.`);
-  },
-
-  printLottoIssue(count) {
-    for (let i = 0; i < count; i++) {
-      Console.print(getRandomNumbers());
-    }
-  },
+const printLottoTickets = (lottoTickets) => {
+  const NumberOfPurchases = `${lottoTickets.length}개를 구매했습니다.`;
+  const ticketLines = lottoTickets
+    .map((ticket) => `[${ticket.join(", ")}]`)
+    .join("\n");
+  Console.print(`\n${NumberOfPurchases}\n${ticketLines}`);
 };
-
-export default OutputView;
