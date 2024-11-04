@@ -33,7 +33,7 @@ const runException = async (input) => {
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
-
+  
   // when
   const app = new App();
   await app.run();
