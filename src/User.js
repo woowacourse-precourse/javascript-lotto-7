@@ -33,16 +33,20 @@ class User {
   async readWinningNumbers() {
     while (true) {
       try {
-        const input = await Console.readLineAsync(
-          PROMPT_MESSAGE.WINNING_NUMBERS,
-        );
-        this.#winningNumbers = input.split(',');
+        const input =
+          (await Console.readLineAsync(PROMPT_MESSAGE.WINNING_NUMBERS)) || '';
+        const splitInputByComma = input.split(',');
+        this.#winningNumbers = splitInputByComma.map(Number);
         this.#validator.winningNumbers(this.#winningNumbers);
         return;
       } catch (error) {
         Console.print(error.message);
       }
     }
+  }
+
+  get winningNumbers() {
+    return this.#winningNumbers;
   }
 }
 
