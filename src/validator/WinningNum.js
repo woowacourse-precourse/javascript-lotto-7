@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/Message";
+import { ERROR_MESSAGE } from "../constants/Message.js";
 
 const validateNumberOnly = (winningNumber) => {
   const isNumbers = winningNumber.every((num) => Number.isInteger(num));

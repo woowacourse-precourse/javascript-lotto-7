@@ -14,7 +14,7 @@ class LottoMachine {
       const lottoNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
         LOTTO_INFO.lottoMinLength,
         LOTTO_INFO.lottoMaxNum,
-        LOTTO_INFO.lottoMinLength
+        LOTTO_INFO.lottoMaxLength
       );
       const lotto = new Lotto(lottoNumbers);
       lottos.push(lotto.getNumbers());
