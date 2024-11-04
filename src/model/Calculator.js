@@ -45,8 +45,8 @@ class Calculator {
   #init() {
     const rankList = this.#computeRankList();
 
-    this.#winningCountList = LOTTO_PRIZE_LIST.map((_, i) => {
-      return rankList.filter((rank) => rank === i).length;
+    this.#winningCountList = LOTTO_PRIZE_LIST.map((_, rankIndex) => {
+      return rankList.filter((rank) => rank === rankIndex).length;
     });
   }
 
