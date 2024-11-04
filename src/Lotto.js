@@ -1,3 +1,6 @@
+import { Console } from "@woowacourse/mission-utils";
+import { Messages, Settings } from "./constants.js";
+
 class Lotto {
   #numbers;
 
@@ -7,12 +10,29 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== Settings.NUMBER_COUNT) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.LOTTO.COUNT);
+    }
+
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error(Messages.ERROR.PREFIX + Messages.LOTTO.UNIQUE);
     }
   }
 
-  // TODO: 추가 기능 구현
+  printNumbers() {
+    Console.print(Messages.LOTTO.PRINT(this.#numbers.join(", ")));
+  }
+
+  matchNumbers(targetNumbers) {
+    let cnt = 0;
+    this.#numbers.forEach((number) => {
+      if (targetNumbers.includes(number)) {
+        cnt += 1;
+      }
+    });
+    return cnt;
+  }
 }
 
 export default Lotto;
