@@ -19,6 +19,13 @@ const validator = {
     }
   },
 
+  bonusNumber(input, winningNumbers) {
+    const number = Number(input);
+    if (winningNumbers.includes(number)) {
+      throw new Error(ERROR.LOTTO_ARRAY.DUPLICATE_NUMBER);
+    }
+  },
+
   lottoNumberArray(numbers) {
     if (numbers.length !== LOTTO_RANGE.COUNT) {
       throw new Error(ERROR.LOTTO_ARRAY.INVALID_LENGTH);

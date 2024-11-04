@@ -165,5 +165,11 @@ describe("로또 매니저 예외 테스트", () => {
     const manager3 = new LottoManager();
     await manager3.play();
     expect(logSpy).toHaveBeenCalledWith(ERROR.LOTTO.NOT_INTEGER);
+
+    // 당첨 번호와 중복된 보너스 번호 입력
+    mockReadLine(["1000", "1,2,3,4,5,6", "1", "7"]);
+    const manager4 = new LottoManager();
+    await manager4.play();
+    expect(logSpy).toHaveBeenCalledWith(ERROR.LOTTO_ARRAY.DUPLICATE_NUMBER);
   });
 });

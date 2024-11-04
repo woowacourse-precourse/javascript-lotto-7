@@ -80,6 +80,7 @@ class LottoManager {
       try {
         const number = await Console.readLineAsync(INPUT.BONUS_NUMBER);
         validator.lottoNumber(number);
+        validator.bonusNumber(number, this.#winningNumbers);
         return Number(number);
       } catch (error) {
         Console.print(error.message);
