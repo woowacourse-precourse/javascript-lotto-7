@@ -1,12 +1,12 @@
 import { Console } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+// import Lotto from "./Lotto.js";
 
 class App {
   async run() {
     try {
-      // 사용자로부터 로또 구매 금액 입력 받기
+      const purchaseAmount = await this.getPurchaseAmount();
+      // Console.print(`구입금액은 ${purchaseAmount}원입니다.`);
       
-
       // 로또 티켓 생성
       
       
@@ -28,6 +28,16 @@ class App {
       // 예외가 발생하면 오류 메시지를 출력
       Console.print(error.message);
     }
+  }
+
+  async getPurchaseAmount() {
+    const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    const amount = parseInt(input, 10);
+    
+    if (isNaN(amount) || amount % 1000 !== 0) {
+      throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
+    }
+    return amount;
   }
 }
 
