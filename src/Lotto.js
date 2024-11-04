@@ -24,6 +24,11 @@ class Lotto {
   getMatchCount(winningNumbers) {
     return this.#numbers.filter((num) => winningNumbers.includes(num)).length;
   }
+
+  // 보너스 번호 일치 여부 확인
+  hasBonusNumber(bonusNumber) {
+    return this.#numbers.includes(bonusNumber);
+  }
 }
 
 export default Lotto;
