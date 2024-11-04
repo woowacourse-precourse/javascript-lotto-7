@@ -21,27 +21,27 @@ class LottoController {
     this.view.showAnalyzeResult(analyzeResult);
   }
 
-  getPurchase () {
-    return retry(
-      () => this.view.getPurchase(),
+  async getPurchase () {
+    return await retry(
+      async () => await this.view.getPurchase(),
       parseNumber,
       this.service.createPurchase.bind(this.service),
       (message) => this.view.errorLog(message),
     );
   }
 
-  getWinningNumbers () {
-    return retry(
-      () => this.view.getWinningNumbers(),
+  async getWinningNumbers () {
+    return await retry(
+      async () => await this.view.getWinningNumbers(),
       parseWinnnngLotto,
       (value) => new WinningNumbers(value),
       (message) => this.view.errorLog(message),
     );
   }
 
-  getBonusNumber (winningNumbers) {
-    return retry(
-      () => this.view.getBonusNumber(),
+  async getBonusNumber (winningNumbers) {
+    return await retry(
+      async () => await this.view.getBonusNumber(),
       parseNumber,
       (input) => this.service.createBonusNumber(input, winningNumbers),
       (message) => this.view.errorLog(message),
