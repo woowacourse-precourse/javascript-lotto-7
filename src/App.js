@@ -1,10 +1,11 @@
 import { INPUT, OUTPUT, RATE, SECTION } from "./constants/message.js";
 import { getInput } from "./io/Input.js";
-import { getOutput, getTicketNumber } from "./io/Output.js";
+import { getLottoNumber, getOutput, getResult } from "./io/Output.js";
 import Price from "./domain/Price.js";
 import Ticket from "./domain/Ticket.js";
 import Bonus from "./domain/Bonus.js";
 import Lotto from "./domain/Lotto.js";
+import Rate from "./domain/Rate.js";
 
 class App {
   async run() {
@@ -12,20 +13,25 @@ class App {
       const purchasePriceInput = await getInput(INPUT.PURCHASE_PRICE);
       const purchase = new Price(purchasePriceInput);
 
-      getOutput(`\n${purchase.count}` + OUTPUT.PURCHASE);
-
+      await getOutput(`\n${purchase.count}` + OUTPUT.PURCHASE);
       const ticketArr = new Ticket(purchase.count);
-      await getTicketNumber(ticketArr.results);
+
+      const userLottos = ticketArr.generateTickets();
+      const generateLottoNumbers = userLottos.map((lotto) => lotto.value);
+
+      await getLottoNumber(generateLottoNumbers);
 
       const lottoInput = await getInput(INPUT.LOTTO_NUMBER);
-      const lottoNumber = new Lotto(lottoInput);
+      const winningNumbers = lottoInput.split(",").map(Number);
+
+      const lottoNumber = new Lotto(winningNumbers);
 
       const bonusInput = await getInput(INPUT.BONUS);
       const bonus = new Bonus(bonusInput, lottoNumber.value);
 
-      getOutput(`\n` + RATE + `\n` + SECTION);
+      await getOutput(`\n` + RATE + `\n` + SECTION);
     } catch (error) {
-      console.log("err", error);
+      throw new Error(error.message);
     }
   }
 }
