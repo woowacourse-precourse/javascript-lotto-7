@@ -1,4 +1,5 @@
-import {Console} from "@woowacourse/mission-utils";
+import {Console, Random} from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
@@ -17,6 +18,15 @@ class App {
   async bonusNumberInput(){
     const bonusNumber = await Console.readLineAsync('보너스 번호를 입력해 주세요.')
     return bonusNumber
+  }
+
+  generateLotto() {
+    const numbers = new Set();
+    while (numbers.size < 6) {
+      const number = Random.pickUniqueNumbersInRange(1, 45, 6);
+      numbers.add(number);
+    }
+    return new Lotto([...numbers]);
   }
 
 }
