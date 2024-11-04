@@ -72,3 +72,26 @@ describe('Lotto 클래스의 matchNumbers 메서드 테스트', () => {
     expect(Lotto.matchedCount[6]).toBe(1);
   });
 });
+
+describe('다수의 matchNumbers 메서드 테스트', () => {
+  beforeEach(() => {
+    Lotto.matchedCount = { 3: 0, 4: 0, 5: 0, '5+bonus': 0, 6: 0 };
+    mockRandoms([
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 6],
+    ]);
+  });
+
+  test('3개 일치하는 것 하나, 5개 + bonus 일치하는 것 하나 카운트 증가', () => {
+    const lottoList = Lotto.purchaseLotto(2);
+    lottoList[0].matchNumbers([1, 2, 3, 10, 11, 12], 13);
+    lottoList[1].matchNumbers([1, 2, 3, 4, 5, 10], 6);
+    expect(Lotto.matchedCount).toEqual({
+      3: 1,
+      4: 0,
+      5: 0,
+      '5+bonus': 1,
+      6: 0,
+    });
+  });
+});
