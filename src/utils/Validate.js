@@ -1,4 +1,5 @@
-import errorMessages from './constants/errorMessage.js';
+import errorMessages from '../constants/errorMessage.js';
+
 class Validate {
   static validateMoney(money) {
     const numberMoney = Number(money);

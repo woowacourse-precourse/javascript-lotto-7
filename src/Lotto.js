@@ -1,4 +1,4 @@
-import Validate from './Validate.js';
+import Validate from './utils/Validate.js';
 import { Delimiters } from './constants/strings.js';
 class Lotto {
   #numbers;

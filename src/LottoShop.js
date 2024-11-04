@@ -1,4 +1,4 @@
-import Validate from './Validate.js';
+import Validate from './utils/Validate.js';
 import Lotto from './Lotto.js';
 import { Random } from '@woowacourse/mission-utils';
 import outputMessages from './constants/outputMessages.js';

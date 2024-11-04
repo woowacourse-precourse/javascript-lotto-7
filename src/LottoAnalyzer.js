@@ -1,4 +1,4 @@
-import Validate from './Validate.js';
+import Validate from './utils/Validate.js';
 import lottoConstants from './constants/lottoConstants.js';
 import outputMessages from './constants/outputMessages.js';
 import { EMPTY_STRING } from './constants/strings.js';
