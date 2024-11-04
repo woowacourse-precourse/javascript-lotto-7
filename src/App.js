@@ -1,13 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import {
-  getPaidMoney,
-  getLottoNumbers,
-  getBonusNumbers,
-} from '../Utilities/InputHandler.js';
-import Draw from './Draw.js';
-import Lotto from './Lotto.js';
-import Stats from './Stats.js';
-import { calculateWinningResult } from '../Utilities/LottoCalculator.js';
+import { getPaidMoney,getLottoNumbers,getBonusNumbers } from './Utilities/InputHandler.js';
+import Draw from './Components/Draw.js';
+import Lotto from './Components/Lotto.js';
+import Stats from './Components/Stats.js';
+import { calculateWinningResult } from './Utilities/LottoCalculator.js';
 
 class App {
   constructor() {
