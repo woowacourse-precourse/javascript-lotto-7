@@ -92,6 +92,30 @@ class App {
         );
     });
   }
+  async getBonusLottoNumber() {
+    while (true) {
+      const inputtedBonusNumber = await MissionUtils.Console.readLineAsync(
+        `보너스 번호를 입력해주세요.`
+      );
+
+      if (
+        await this.isValidBonusNumberInput(
+          this.winningLottoNumbers,
+          inputtedBonusNumber
+        )
+      )
+        return Number(inputtedBonusNumber);
+    }
+  }
+  async isValidBonusNumberInput(winningNumbers, inputtedBonusNumber) {
+    try {
+      this.validateBonusNumber(winningNumbers, inputtedBonusNumber);
+      return true;
+    } catch (e) {
+      MissionUtils.Console.print(e.message);
+      return false;
+    }
+  }
 }
 
 export default App;
