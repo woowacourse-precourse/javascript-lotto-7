@@ -18,11 +18,11 @@ describe("당첨 내역 및 수익률 계산 테스트", () => {
 
   test("여러 개의 당첨 결과 조합 - 총 당첨금 계산 확인", () => {
     const matchCounts = {
-      3: 2,
-      4: 1,
-      5: 1,
-      "5+bonus": 0,
-      6: 0,
+      3: 2, // 2개 일치
+      4: 1, // 1개 일치
+      5: 1, // 1개 일치
+      "5+bonus": 0, // 보너스 포함된 5개 일치 0개
+      6: 0, // 6개 일치 0개
     };
     const totalWinnings =
       Calculator.calculateTotalWinnings(

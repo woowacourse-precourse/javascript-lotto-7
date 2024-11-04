@@ -1,6 +1,4 @@
-// Constants.js
 export const LOTTO_PRICE = 1000;
-
 export const WINNINGS = {
   "3개 일치": 5000,
   "4개 일치": 50000,

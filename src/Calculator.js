@@ -1,5 +1,4 @@
-// Calculator.js
-import { WINNINGS } from "./Constants.js";
+import { WINNINGS } from "./Constants";
 
 class Calculator {
   static calculateMatch(
@@ -13,6 +12,7 @@ class Calculator {
     const hasBonus =
       lottoNumbers.includes(bonusNumber);
 
+    // 매칭 결과 문자열 반환
     if (matchCount === 6) return "6개 일치";
     if (matchCount === 5 && hasBonus)
       return "5개 일치, 보너스 볼 일치";
@@ -23,6 +23,7 @@ class Calculator {
   }
 
   static calculateTotalWinnings(matchCounts) {
+    // 총 당첨 금액 계산
     return Object.keys(WINNINGS).reduce(
       (total, key) => {
         return (
@@ -40,7 +41,7 @@ class Calculator {
   ) {
     const rate =
       (totalWinnings / purchaseAmount) * 100;
-    return rate.toFixed(1);
+    return parseFloat(rate.toFixed(1)); // 소수점 첫째 자리까지 반환하고 숫자로 변환
   }
 }
 
