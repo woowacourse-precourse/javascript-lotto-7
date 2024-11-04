@@ -20,6 +20,10 @@ class Lotto {
     if (new Set(numbers).size !== 6) {
       throw new Error(ERROR_MESSAGE.ERROR_BONUS_SET);
     }
+
+    if (numbers.some((val) => isNaN(val))) {
+      throw new Error(ERROR_MESSAGE.ERROR_NUM);
+    }
   }
 
   getNumbers() {
