@@ -21,3 +21,11 @@ export const checkLength = (numbers) => {
     throwValidationError(ERROR_MESSAGES.INVALID_LENGTH);
   }
 };
+
+export const checkDuplicate = (numbers) => {
+  const uniqueNumbers = new Set(numbers);
+
+  if (uniqueNumbers.size !== numbers.length) {
+    throwValidationError(ERROR_MESSAGES.DUPLICATE_NUMBER);
+  }
+};
