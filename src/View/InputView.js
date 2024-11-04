@@ -40,7 +40,7 @@ class InputView {
         printOutput(error.message);
         return false;
       }
-    }, '당첨 번호를 입력해 주세요.\n');
+    }, '\n당첨 번호를 입력해 주세요.\n');
 
     return winningNumbersInput.split(',').map(name => Number(name.trim()));
   }
@@ -54,7 +54,7 @@ class InputView {
         printOutput(error.message);
         return false;
       }
-    }, '보너스 번호를 입력해 주세요.\n');
+    }, '\n보너스 번호를 입력해 주세요.\n');
 
     return Number(bonusNumberInput);
   }

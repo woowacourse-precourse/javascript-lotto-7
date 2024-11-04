@@ -3,7 +3,7 @@ import { printOutput } from './utils/utils.js';
 
 class OutputView {
   printLottoNumbers(lottoQuantity, lottos) {
-    printOutput(`${lottoQuantity}개를 구매했습니다.`);
+    printOutput(`\n${lottoQuantity}개를 구매했습니다.`);
 
     lottos.map(lotto => {
       printOutput(`[${lotto.getNumbers().join(', ')}]`);
@@ -11,7 +11,7 @@ class OutputView {
   }
 
   printWinningStatistics(totalWinningRank) {
-    printOutput('당첨 통계');
+    printOutput('\n당첨 통계');
     printOutput('---');
 
     const prize = [
