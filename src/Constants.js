@@ -5,7 +5,7 @@ class Constants {
   static LOTTO_NUMBER_MAX = 45;
   static DELIMITER = ",";
   static MINIMUM_RANK = 5;
-  static DECIMAL_PLACES = 2;
+  static DECIMAL_PLACES = 1;
 
   static ERROR_MESSAGES = {
     PURCHASE_AMOUNT_ERROR: "[ERROR] 구매 금액이 올바르지 않습니다.",
@@ -43,11 +43,11 @@ class Constants {
   };
 
   static RANKING_PRIZES = {
-    1: 2000000000,   // 1등 상금
-    2: 30000000,      // 2등 상금
-    3: 1500000,       // 3등 상금
-    4: 50000,         // 4등 상금
-    5: 5000           // 5등 상금
+    1: 2000000000,
+    2: 30000000,
+    3: 1500000,
+    4: 50000,
+    5: 5000
   };
 }
 
