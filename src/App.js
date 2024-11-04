@@ -29,6 +29,14 @@ class App {
     return new Lotto([...numbers]);
   }
 
+  generateLottos(count) {
+    const lottos = [];
+    for (let i = 0; i < count; i++) {
+      lottos.push(this.generateLotto());
+    }
+    return lottos;
+  }
+
 }
 
 export default App;
