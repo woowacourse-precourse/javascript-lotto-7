@@ -10,6 +10,10 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+
+    if (numbers.length !== VALID_LOTTERY_NUM || new Set(numbers).size !== VALID_LOTTERY_NUM) {
+      throw new Error('[ERROR] 중복되지 않는 수 6개를 입력해주세요.');
+    }
   }
 
   toString() {
