@@ -41,6 +41,14 @@ class LottoGame {
     return parsedAmount / 1000;
   }
 
+  #generateLottos(amount) {
+    const lottoGenerator = new LottoGenerator();
+    this.tickets = Array.from({ length: amount }, () => {
+      const numbers = lottoGenerator.generateLottoNumbers(1)[0];
+      return new Lotto(numbers);
+    });
+  }
+
   async #getWinningNumbers() {
     const numbersInput = await Console.readLineAsync(
       "당첨 번호를 입력해 주세요.\n"
