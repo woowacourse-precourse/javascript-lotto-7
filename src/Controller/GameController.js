@@ -1,33 +1,27 @@
-import { Console } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE } from '../constant/error.js';
-import { CONSOLE_MESSAGE } from '../constant/message.js';
 import { RULE } from '../constant/rule.js';
 import Lotto from '../Model/Lotto.js';
 import LottoGame from '../Model/LottoGame.js';
 import { createErrorMessage } from '../util/error.js';
 import { isNumber, validateLottoNumber } from '../util/validation.js';
 import Input from '../View/Input.js';
-import { WINNING_HISTORY } from '../constant/prizes.js';
+import Output from '../View/Output.js';
 
 class GameController {
   async init() {
     const purchaseCount = await this.#getValidatedPurchaseCount();
 
-    Console.print(`\n${purchaseCount}개를 구매했습니다.`);
-
     const game = new LottoGame(purchaseCount);
+
+    Output.printPurchaseCount(purchaseCount);
     game.printLottos();
 
     const winningLotto = await this.#getWinningLotto();
     const bonusNumber = await this.#getValidatedBonusNumber(winningLotto);
 
-    Console.print(CONSOLE_MESSAGE.resultMessage);
-
     game.calculateWinningRanks(winningLotto, bonusNumber);
 
-    this.#printWinningHistory(game);
-
-    this.#printWinningRate(game);
+    this.#printResult(game);
   }
 
   async #getValidatedPurchaseCount() {
@@ -79,17 +73,12 @@ class GameController {
     return bonusNumber;
   }
 
-  #printWinningHistory(game) {
-    WINNING_HISTORY.forEach((prize) => {
-      Console.print(
-        `${prize.description} (${prize.amount}) - ${game.getWinningResult(prize.rank)}개`,
-      );
-    });
-  }
+  #printResult(game) {
+    Output.printResultMessage();
+    Output.printWinningHistory(game);
 
-  #printWinningRate(game) {
     const winningRate = game.calculateWinningRate();
-    Console.print(`총 수익률은 ${winningRate.toFixed(1)}%입니다.`);
+    Output.printWinningRate(winningRate);
   }
 }
 
