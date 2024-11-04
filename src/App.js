@@ -5,6 +5,7 @@ import Lotto from './Lotto.js';
 import LottoCenter from './LottoCenter.js';
 import Bank from './Bank.js';
 import LOTTO_RULE from './constant/lotto.js';
+import replaceEmptySpace from './util/replaceEmptySpace.js';
 import {
   validatePurchaseAmount,
   validateWinningNumbers,
@@ -43,7 +44,7 @@ class App {
   async #tryInput(inputFunction) {
     try {
       const input = await inputFunction();
-      return input;
+      return replaceEmptySpace(input);
     } catch (error) {
       Output.printErrorMessage(error.message);
       return await this.#tryInput(inputFunction);
