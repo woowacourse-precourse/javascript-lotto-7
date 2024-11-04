@@ -41,4 +41,16 @@ describe('InputHandler 클래스 테스트', () => {
       '1,2,3,4,5,6'
     );
   });
+
+  test('보너스 번호를 입력하고 검증하는지 테스트', async () => {
+    mockInputView.promptUserInput.mockResolvedValueOnce('7');
+    const winningLotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    const result = await inputHandler.getBonusNumber(winningLotto);
+
+    expect(result).toBe(7);
+    expect(mockValidationLotto.bonusNumber).toHaveBeenCalledWith(
+      '7',
+      winningLotto
+    );
+  });
 });
