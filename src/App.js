@@ -1,6 +1,6 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { numOfLotto, chkSelectedNum } from '../src/InputComponent.js';
-import { verifyLotto, showLottoStatistics } from '../src/VerifyLotto.js';
+import { verifyLotto, showLottoStatistics, CalculateRate } from '../src/VerifyLotto.js';
 import Lotto from './Lotto.js';
 
 class App {
@@ -41,6 +41,10 @@ class App {
             Console.print('---');
             const result = verifyLotto(lottoArr, selectedNum, bonusNum);
             showLottoStatistics(result);
+
+            // 수익률 계산 및 출력
+            const gainRate = CalculateRate(parseInt(price), result);
+            Console.print(`총 수익률은 ${gainRate}%입니다.`);
         } catch (error) {
             Console.print(error.message);
             throw error;

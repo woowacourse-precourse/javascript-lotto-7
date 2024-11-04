@@ -37,3 +37,13 @@ export function showLottoStatistics(arr) {
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${arr[2]}`);
     Console.print(`6개 일치 (2,000,000,000원) - ${arr[6]}`);
 }
+
+export function CalculateRate(pay, arr) {
+    let total = 0;
+    if (arr[2] != 0) total += 30000000 * arr[2];
+    if (arr[3] != 0) total += 5000 * arr[3];
+    if (arr[4] != 0) total += 50000 * arr[4];
+    if (arr[5] != 0) total += 1500000 * arr[5];
+    if (arr[6] != 0) total += 2000000000 * arr[6];
+    return total / pay;
+}
