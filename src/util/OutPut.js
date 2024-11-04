@@ -11,12 +11,12 @@ export const lottosOutput = (amount, lottos) => {
     }
 }
 
-export const resultOutput = (matchLottos) => {
+export const resultOutput = (matchLottos, revenue) => {
     Console.print(OUTPUT_MESSAGE.RESULT);
-    Console.print(OUTPUT_MESSAGE[`MATCH_3`]+matchLottos['3']+'개');
-    Console.print(OUTPUT_MESSAGE[`MATCH_4`]+matchLottos['4']+'개');
-    Console.print(OUTPUT_MESSAGE[`MATCH_5`]+matchLottos['5']+'개');
-    Console.print(OUTPUT_MESSAGE[`MATCH_5_BONUS`]+matchLottos['5_BONUS']+'개');
-    Console.print(OUTPUT_MESSAGE[`MATCH_6`]+matchLottos['6']+'개');
-
+    Console.print(OUTPUT_MESSAGE[`MATCH_3`] + matchLottos['3'] + '개');
+    Console.print(OUTPUT_MESSAGE[`MATCH_4`] + matchLottos['4'] + '개');
+    Console.print(OUTPUT_MESSAGE[`MATCH_5`] + matchLottos['5'] + '개');
+    Console.print(OUTPUT_MESSAGE[`MATCH_5_BONUS`] + matchLottos['5_BONUS'] + '개');
+    Console.print(OUTPUT_MESSAGE[`MATCH_6`] + matchLottos['6'] + '개');
+    Console.print(OUTPUT_MESSAGE[`REVENUE_PER`] + revenue + '%입니다.');
 }

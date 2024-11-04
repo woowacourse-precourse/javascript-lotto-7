@@ -14,6 +14,14 @@ class LottoGame {
         '5_BONUS': 0,
         '6': 0,
     };
+    lottoRevenue = {
+        '3': 5000,
+        '4': 50000,
+        '5': 1500000,
+        '5_BONUS': 30000000,
+        '6': 2000000000,
+    };
+    revenue = 0;
 
     async start() {
         const AMOUNT = await userInput(INPUT_MESSAGE.AMOUNT_INPUT);
@@ -30,7 +38,8 @@ class LottoGame {
         validBonus(BONUS, WINNING_LOTTO);
 
         this.matchLotto(BONUS, WINNING_LOTTO);
-        resultOutput(this.matchLottos);
+        this.getRevenue(AMOUNT);
+        resultOutput(this.matchLottos, this.revenue);
     }
 
     generateLotto(count) {
@@ -51,6 +60,13 @@ class LottoGame {
                 this.matchLottos[matchCount] += 1;
             }
         }
+    }
+
+    getRevenue(amount) {
+        for (const matchLotto in this.matchLottos) {
+            this.revenue += this.matchLottos[matchLotto] * this.lottoRevenue[matchLotto];
+        }
+        this.revenue = Math.round((this.revenue / amount) * 10) / 10;
     }
 }
 
