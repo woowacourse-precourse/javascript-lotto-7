@@ -44,10 +44,10 @@ class LottoGame {
 
     const lottoWinner = new LottoWinner(lottoNumbers, parseLottoNumber, parseBonusNumber);
     lottoWinner.matchWinner();
-    const result = new LottoResult(this.#price);
 
-    lottoWinner.checkLottoNumber(lottoNumbers, parseLottoNumber, result);
-    result.calculateResult();
+    const lottoResult = new LottoResult(this.#price);
+    // lottoWinner.checkLottoNumber(result);
+    lottoResult.calculateResult();
   }
 
   #generateLotto(lottoCount) {
