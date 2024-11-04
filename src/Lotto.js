@@ -1,21 +1,15 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR } from "./constants.js";
+import validator from "./validator.js";
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
+    validator.lottoNumberArray(numbers);
+    for (const number of numbers) {
+      validator.lottoNumber(number);
+    }
     this.#numbers = numbers;
-  }
-
-  #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error(ERROR.LOTTO.INVALID_LENGTH);
-    }
-    if (new Set(numbers).size !== numbers.length) {
-      throw new Error(ERROR.LOTTO.DUPLICATE_NUMBER);
-    }
   }
 
   printNumberArray() {
@@ -34,7 +28,6 @@ class Lotto {
     }
     if (matchCount === 4) return 4;
     if (matchCount === 3) return 5;
-
     return 0;
   }
 }

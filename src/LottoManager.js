@@ -1,6 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
-import { ERROR } from "./constants.js";
+import validator from "./validator.js";
+import { INPUT } from "./constants.js";
 
 class LottoManager {
   #lottoArray;
@@ -31,10 +32,8 @@ class LottoManager {
   async #getMoney() {
     while (true) {
       try {
-        const money = await Console.readLineAsync(
-          "구입금액을 입력해 주세요.\n"
-        );
-        this.#validateMoney(money);
+        const money = await Console.readLineAsync(INPUT.MONEY);
+        validator.money(money.trim());
         return Number(money);
       } catch (error) {
         Console.print(error.message);
@@ -45,11 +44,12 @@ class LottoManager {
   async #getWinningNumbers() {
     while (true) {
       try {
-        const numbersInput = await Console.readLineAsync(
-          "당첨 번호를 입력해 주세요.\n"
-        );
+        const numbersInput = await Console.readLineAsync(INPUT.WINNING_NUMBERS);
         const numbersInputArray = numbersInput.split(",");
-        this.#validateWinningNumbers(numbersInputArray);
+        validator.lottoNumberArray(numbersInputArray);
+        for (const number of numbersInputArray) {
+          validator.lottoNumber(number);
+        }
         return numbersInputArray.map(Number);
       } catch (error) {
         Console.print(error.message);
@@ -60,59 +60,12 @@ class LottoManager {
   async #getBonusNumber() {
     while (true) {
       try {
-        const number = await Console.readLineAsync(
-          "보너스 번호를 입력해 주세요.\n"
-        );
-        this.#validateBonusNumber(number);
+        const number = await Console.readLineAsync(INPUT.BONUS_NUMBER);
+        validator.lottoNumber(number);
         return Number(number);
       } catch (error) {
         Console.print(error.message);
       }
-    }
-  }
-
-  #validateMoney(input) {
-    if (isNaN(input)) {
-      throw new Error(ERROR.MONEY.INVALID_NUMBER);
-    }
-    if (input % 1000 !== 0) {
-      throw new Error(ERROR.MONEY.INVALID_UNIT);
-    }
-  }
-
-  #validateWinningNumbers(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error(ERROR.LOTTO.INVALID_LENGTH);
-    }
-
-    for (const number of numbers) {
-      if (number === "") {
-        throw new Error(ERROR.LOTTO.EMPTY_NUMBER);
-      }
-      if (isNaN(number)) {
-        throw new Error(ERROR.LOTTO.INVALID_NUMBER);
-      }
-      if (!Number.isInteger(Number(number))) {
-        throw new Error(ERROR.BONUS.NOT_INTEGER);
-      }
-      if (Number(number) < 1 || Number(number) > 45) {
-        throw new Error(ERROR.LOTTO.INVALID_RANGE);
-      }
-    }
-  }
-
-  #validateBonusNumber(number) {
-    if (number === "") {
-      throw new Error(ERROR.BONUS.EMPTY_NUMBER);
-    }
-    if (isNaN(number)) {
-      throw new Error(ERROR.BONUS.INVALID_NUMBER);
-    }
-    if (!Number.isInteger(Number(number))) {
-      throw new Error(ERROR.BONUS.NOT_INTEGER);
-    }
-    if (Number(number) < 1 || Number(number) > 45) {
-      throw new Error(ERROR.BONUS.INVALID_RANGE);
     }
   }
 
