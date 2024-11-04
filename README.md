@@ -39,7 +39,6 @@
  ┃ ┣ 📜checkNumberRange.js
  ┃ ┣ 📜inputService.js
  ┃ ┣ 📜outputService.js
- ┃ ┣ 📜printResult.js
  ┃ ┗ 📜validation.js
  ┣ 📜App.js
  ┣ 📜index.js
