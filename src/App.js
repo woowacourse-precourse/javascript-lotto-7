@@ -1,4 +1,4 @@
-import LottoSystem from './LottoSystem';
+import LottoSystem from './LottoSystem.js';
 
 class App {
   #lottoSystem;
