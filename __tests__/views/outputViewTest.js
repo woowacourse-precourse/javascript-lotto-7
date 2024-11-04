@@ -14,4 +14,14 @@ describe('outputView 테스트', () => {
     outputView.displayEmptyLine();
     expect(Console.print).toHaveBeenCalledWith('');
   });
+
+  test('displayLottoCount가 로또 개수 메시지를 출력하는지 테스트', () => {
+    const lottoCount = 5;
+    outputView.displayLottoCount(lottoCount);
+
+    expect(Console.print).toHaveBeenCalledWith('');
+    expect(Console.print).toHaveBeenCalledWith(
+      `${lottoCount}개를 구매했습니다.`
+    );
+  });
 });
