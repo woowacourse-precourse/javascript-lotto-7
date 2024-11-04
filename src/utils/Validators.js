@@ -7,6 +7,12 @@ const validators = {
     }
   },
 
+  checkLottoLength(value) {
+    if (value.length != 6) {
+      throw new Error(ERROR_MESSAGES.NUMBER_OF_INPUT);
+    }
+  },
+
   checkDivisible(value) {
     // 1000으로 나누어지지 않으면 Error
     if (value % 1000 !== 0) {

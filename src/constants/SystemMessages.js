@@ -5,15 +5,15 @@ export const SYSTEM_MESSAGES = Object.freeze({
   OUPUT_STATIC: "\n당첨 통계\n---\n",
 
   print_purchase_lotto(number) {
-    return `\n${number}개를 구입했습니다.`;
+    return `\n${number}개를 구매했습니다.`;
   },
 
   print_match_execpt_bonus(number, price, count) {
-    return `${number}개 일치 (${price}) - ${count}개\n`;
+    return `${number}개 일치 (${price}원) - ${count}개\n`;
   },
 
   print_match_with_bonus(number, price, count) {
-    retrun`${number}개 일치, 보너스 볼 일치 (${price}) - ${count}개\n`;
+    return `${number}개 일치, 보너스 볼 일치 (${price}) - ${count}개\n`;
   },
 
   print_rate_of_return(number) {

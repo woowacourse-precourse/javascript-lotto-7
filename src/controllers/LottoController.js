@@ -43,6 +43,13 @@ class LottoController {
       validators.checkNumber(bonusNumber);
       validators.checkRangeOfNumber(bonusNumber);
       validators.checkBonusNumber(bonusNumber, lottoNumbers);
+
+      const matchCounts = lottoModel.calculateMatches(
+        lottoNumbers,
+        bonusNumber
+      );
+
+      this.#outputLotto.showMatchStatistics(matchCounts);
     } catch (error) {
       console.error(error.message);
     }
