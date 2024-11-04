@@ -17,4 +17,20 @@ async function askQuestion(query) {
       });
   });
 }
+async function getValidBonusNumber() {
+  const winningNumberModule = new WinningNumberModule();
+
+  while (true) {
+      const bonusInput = await askQuestion("보너스 번호를 입력해 주세요.\n");
+      const bonusNumber = Number(bonusInput);
+
+      try {
+          winningNumberModule.validateBonusNumber(bonusNumber); // 보너스 번호 유효성 검사
+          console.log();
+          return bonusNumber;
+      } catch (error) {
+          console.log(error.message);
+      }
+  }
+}
 
