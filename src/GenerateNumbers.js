@@ -11,7 +11,7 @@ class GenerateNumbers {
 
   async generateNums(bills, numbers, bonusNum) {
     const allGeneratedNumbers = [];
-
+    MissionUtils.Console.print(`${bills}개를 구매했습니다.`);
     for (let i = 0; i < bills; i++) {
       const randomNum = this.generateSingleSet();
       allGeneratedNumbers.push(randomNum);
@@ -19,11 +19,20 @@ class GenerateNumbers {
       this.findMatchingNumber(randomNum, numbers, bonusNum);
     }
 
+    allGeneratedNumbers.forEach((numbers) => {
+      MissionUtils.Console.print(`[${numbers.join(", ")}]`);
+    });
+    console.log("");
     this.printPrizeResult();
     console.log("");
 
     const profit = this.calculateReturn(bills);
-    return { generatedList: allGeneratedNumbers, profit };
+
+    // allGeneratedNumbers.forEach((numbers) => {
+    //   MissionUtils.Console.print(`[${numbers.join(", ")}]`);
+    // });
+
+    return { profit };
   }
 
   generateSingleSet() {
@@ -70,7 +79,7 @@ class GenerateNumbers {
     const totalPrizeMoney = this.calculateTotalPrizeMoney();
     const totalPrice = bills * 1000;
     const profit = (totalPrizeMoney / totalPrice) * 100;
-    return profit;
+    MissionUtils.Console.print("총 수익률은 " + profit.toFixed(1) + "%입니다.");
   }
 
   calculateTotalPrizeMoney() {
