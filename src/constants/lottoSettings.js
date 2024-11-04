@@ -17,6 +17,12 @@ export const LOTTO_SETTINGS = {
     third: 5,
     fourth: 4,
     fifth: 3
-  }
+  },
+  gameStep: {
+    purchase: 'purchase',
+    winnerNumber: 'winnerNumber',
+    bonusNumber: 'bonusNumber',
+    result: 'result',
+  },
 }
 

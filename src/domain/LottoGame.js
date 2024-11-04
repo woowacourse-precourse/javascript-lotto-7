@@ -10,12 +10,29 @@ import { range } from "../utils/utils.js";
 class LottoGame {
   #lottoList = [];
   #price;
+  #winnerNumbers;
   #lottoWinner;
 
-  async play() {
-    await this.#purchaseLotto();
-    await this.#createWinnerNumber();
-    this.#showResult();
+  async play(step = LOTTO_SETTINGS.gameStep.purchase) {
+    try {
+      if (step === LOTTO_SETTINGS.gameStep.purchase) {
+        await this.#purchaseLotto();
+        return this.play(LOTTO_SETTINGS.gameStep.winnerNumber);
+      }
+
+      if (step === LOTTO_SETTINGS.gameStep.winnerNumber) {
+        await this.#createWinnerNumber();
+        return this.play(LOTTO_SETTINGS.gameStep.bonusNumber);
+      }
+
+      if (step === LOTTO_SETTINGS.gameStep.bonusNumber) {
+        await this.#createBonusNumber();
+      }
+        this.#showResult();
+    } catch (e) {
+      MissionUtils.Console.print(e.message);
+      return this.play(step);
+    }
   }
 
   async #purchaseLotto() {
@@ -34,10 +51,13 @@ class LottoGame {
   }
 
   async #createWinnerNumber() {
-    const winnerNumbers = await InputView.readLineNumber();
+    this.#winnerNumbers = await InputView.readLineNumber();
+  }
+
+  async #createBonusNumber() {
     const bonusNumber = await InputView.readLineBonusNumber();
 
-    this.#lottoWinner = new LottoWinner(winnerNumbers, bonusNumber);
+    this.#lottoWinner = new LottoWinner(this.#winnerNumbers, bonusNumber);
   }
 
   #showResult() {
