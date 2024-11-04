@@ -6,6 +6,7 @@ class App {
     this.winningNumbers = [];
     this.bonusNumber = null;
     this.lottos = [];
+    this.purchaseAmount = 0;
   }
 
   run() {
@@ -17,6 +18,7 @@ class App {
     Console.readLine("구입금액: ", (input) => {
       const purchaseAmount = Number(input);
       if (this.validatePurchaseAmount(purchaseAmount)) {
+        this.purchaseAmount = purchaseAmount;
         const lottoCount = purchaseAmount / 1000;
         this.purchaseLottos(lottoCount);
       } else {
@@ -95,6 +97,14 @@ class App {
       none: 0,
     };
 
+    const prizeTable = {
+      first: 2000000000,
+      second: 30000000,
+      third: 1500000,
+      fourth: 50000,
+      fifth: 5000,
+    };
+
     this.lottos.forEach((lotto) => {
       const rank = lotto.getRank(this.winningNumbers, this.bonusNumber);
       switch (rank) {
@@ -118,10 +128,10 @@ class App {
       }
     });
 
-    this.printResults(results);
+    this.printResults(results, prizeTable);
   }
 
-  printResults(results) {
+  printResults(results, prizeTable) {
     Console.print("당첨 통계");
     Console.print("---");
     Console.print(`3개 일치 (5,000원) - ${results.fifth}개`);
@@ -131,7 +141,26 @@ class App {
       `5개 일치, 보너스 볼 일치 (30,000,000원) - ${results.second}개`
     );
     Console.print(`6개 일치 (2,000,000,000원) - ${results.first}개`);
+
+    const totalPrize = this.calculateTotalPrize(results, prizeTable);
+    const yield = this.calculateYield(totalPrize);
+    Console.print(`총 수익률은 ${yield}%입니다.`);
     Console.close();
+  }
+
+  calculateTotalPrize(results, prizeTable) {
+    return (
+      results.first * prizeTable.first +
+      results.second * prizeTable.second +
+      results.third * prizeTable.third +
+      results.fourth * prizeTable.fourth +
+      results.fifth * prizeTable.fifth
+    );
+  }
+
+  calculateYield(totalPrize) {
+    const yield = (totalPrize / this.purchaseAmount) * 100;
+    return yield.toFixed(1);
   }
 }
 
