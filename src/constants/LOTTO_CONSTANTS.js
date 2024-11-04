@@ -5,7 +5,7 @@ export const LOTTO = Object.freeze({
   NUMBER_COUNT: 6
 });
 
-export const PRIZE_INFO = Object.freeze({
+export const PRIZE = Object.freeze({
   FIFTH: { MATCHED_COUNT: 3, PRIZE_AMOUNT: 5000 },
   FOURTH: { MATCHED_COUNT: 4, PRIZE_AMOUNT: 50000 },
   THIRD: { MATCHED_COUNT: 5, PRIZE_AMOUNT: 1500000 },
