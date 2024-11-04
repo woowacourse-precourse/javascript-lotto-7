@@ -4,6 +4,7 @@ import OutputView from '../views/OutputView.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
 import ValidateBonusNumber from '../models/ValidateBonusNumber.js';
 import { calcLottoDetails } from '../util/calcLottoDetails.js';
+import { calcProceeds } from '../util/calcProceeds.js';
 import Lotto from '../Lotto.js';
 
 class LottoController {
@@ -64,6 +65,8 @@ class LottoController {
 		const matchResult = this.#getMatchResults();
 		const details = calcLottoDetails(matchResult);
 		this.#outputView.printMatchResults(details);
+
+		const proceeds = calcProceeds(details);
 	}
 
 	#generateLottos(amount) {
