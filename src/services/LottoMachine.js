@@ -10,6 +10,10 @@ class LottoMachine {
         this.#number = number / 1000
     }
 
+    #validate(number) {
+        return purchaseValid(number)
+    }
+
     lottoRelease() {
         const lottos = []
         for (let i = 0; i < this.#number; i++) {
@@ -23,12 +27,6 @@ class LottoMachine {
         return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
     }
 
-    #validate(purchase) { //함수로 나중에 분리
-        const {hasError, message} = purchaseValid(purchase)
-        if (hasError) {
-            throw new Error(message)
-        }
-    }
 
 }
 
