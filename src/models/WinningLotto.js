@@ -1,10 +1,12 @@
-import Lotto from "./Lotto.js";
+import LottoValidator from "../libs/validator.js";
 
 class WinningLotto {
   #winningNumbers = null;
   #bonusNumber = null;
 
   constructor(winningNumbers, bonusNumber) {
+    LottoValidator.validateWinningNumbers(winningNumbers);
+    LottoValidator.validateBonusNumber(winningNumbers, bonusNumber);
     this.#winningNumbers = winningNumbers;
     this.#bonusNumber = bonusNumber;
   }
@@ -23,7 +25,7 @@ class WinningLotto {
 
   /**
    *
-   * @param {Lotto} lotto
+   * @param {number[]} lotto
    * @returns
    */
   getMatchCount(lotto) {
