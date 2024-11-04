@@ -28,7 +28,7 @@ const outputView = {
     Console.print(MESSAGES.drawAnalytics);
     Console.print(MESSAGES.horizontalRule);
     result.forEach(([prize, quantity]) => {
-      Console.print(MESSAGES.prize[prize] + quantity + MESSAGES.count);
+      Console.print(MESSAGES.prize[prize] + quantity.toLocaleString() + MESSAGES.count);
     });
   },
 
