@@ -17,23 +17,40 @@ describe("InputHandler 클래스 테스트", () => {
   });
 
   describe("getPurchaseAmount 메서드", () => {
-    it("올바른 금액이 입력되었을 때, 입력 값을 반환해야 한다.", async () => {
+    it("올바른 금액이 입력되었을 경우, 입력 값을 반환해야 한다.", async () => {
       Console.readLineAsync.mockResolvedValue("5000");
       const amount = await inputHandler.getPurchaseAmount();
       expect(amount).toBe("5000");
     });
 
-    it("금액이 0일 때, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+    it("금액이 0일 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
       Console.readLineAsync.mockResolvedValueOnce("0").mockResolvedValueOnce("1000");
 
       await inputHandler.getPurchaseAmount();
 
       expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.PURCHASE_AMOUNT_ZERO);
     });
+    it("음수 금액이 입력되었을 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync.mockResolvedValueOnce("-1000").mockResolvedValueOnce("1000");
+      await inputHandler.getPurchaseAmount();
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.PURCHASE_AMOUNT_NEGATIVE);
+    });
+
+    it("금액이 1000의 배수가 아닐 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync.mockResolvedValueOnce("750").mockResolvedValueOnce("2000");
+      await inputHandler.getPurchaseAmount();
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+    });
+
+    it("숫자가 아닌 값이 입력되었을 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync.mockResolvedValueOnce("abc").mockResolvedValueOnce("1000");
+      await inputHandler.getPurchaseAmount();
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+    });
   });
 
   describe("getWinningNumbers 메서드", () => {
-    it("올바른 로또 번호가 입력되었을 때, 번호 리스트를 반환해야 한다.", async () => {
+    it("올바른 로또 번호가 입력되었을 경우, 번호 리스트를 반환해야 한다.", async () => {
       Console.readLineAsync.mockResolvedValue("1,2,3,4,5,6");
       const numbers = await inputHandler.getWinningNumbers();
       expect(numbers).toEqual([1, 2, 3, 4, 5, 6]);
@@ -41,7 +58,7 @@ describe("InputHandler 클래스 테스트", () => {
   });
 
   describe("getBonusNumber 메서드", () => {
-    it("올바른 보너스 번호가 입력되었을 때, 보너스 번호를 반환해야 한다.", async () => {
+    it("올바른 보너스 번호가 입력되었을 경우, 보너스 번호를 반환해야 한다.", async () => {
       Console.readLineAsync.mockResolvedValue("7");
       const winningNumbers = [1, 2, 3, 4, 5, 6];
       const bonusNumber = await inputHandler.getBonusNumber(winningNumbers);
