@@ -18,7 +18,7 @@ export default class Validator {
     }
     
     static isZero(input) {
-        if(input[0] === '0')
+        if(input[0] === `'${number.ZERO}'`)
             throw new Error(errorMessage.IS_ZEOR);
 
     }
@@ -34,7 +34,7 @@ export default class Validator {
     }
 
     static isDivisibleBy(num) {
-        if(!(num % number.LOTTO_UNITS === 0)) 
+        if(!(num % number.LOTTO_UNITS === number.ZERO)) 
             throw new Error(errorMessage.MONEY_NOT_DIVISIBLE);
     }
 
