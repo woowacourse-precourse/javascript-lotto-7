@@ -13,6 +13,9 @@ class App {
       const winInput = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
       const winNumbers = this.parseWinInput(winInput);
 
+      const bonusInput = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+      const bonusNumber = this.validateBonusNumber(Number(bonusInput), winNumbers);
+
     } catch (error) {
       Console.print(error.message); 
     }
@@ -43,6 +46,15 @@ class App {
     return numbers;
   }
 
+  validateBonusNumber(bonusNumber, winNumbers) {
+    if (winNumbers.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.");
+    }
+    if (!Number.isInteger(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    }
+    return bonusNumber;
+  }
 }
 
 
