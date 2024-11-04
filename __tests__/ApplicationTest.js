@@ -3,10 +3,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
-
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
-
     return Promise.resolve(input);
   });
 };
@@ -25,30 +23,25 @@ const getLogSpy = () => {
 };
 
 const runException = async (input) => {
-  // given
   const logSpy = getLogSpy();
-
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
   const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
-  // when
   const app = new App();
   await app.run();
 
-  // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
 
-describe("로또 테스트", () => {
+describe("로또 애플리케이션 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
 
   test("기능 테스트", async () => {
-    // given
     const logSpy = getLogSpy();
 
     mockRandoms([
@@ -63,11 +56,9 @@ describe("로또 테스트", () => {
     ]);
     mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
-    // when
     const app = new App();
     await app.run();
 
-    // then
     const logs = [
       "8개를 구매했습니다.",
       "[8, 21, 23, 41, 42, 43]",
@@ -91,7 +82,11 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  test("예외 테스트 - 유효하지 않은 금액 입력", async () => {
     await runException("1000j");
+  });
+
+  test("예외 테스트 - 유효하지 않은 당첨 번호 입력", async () => {
+    await runException("1,2,3,4,5,abc");
   });
 });
