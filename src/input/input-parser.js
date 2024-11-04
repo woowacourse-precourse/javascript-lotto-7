@@ -13,7 +13,17 @@ class InputParser {
   }
 
   static parseWinningNumber(input) {
-    return input.trim().split(',').map(Number);
+    return input
+      .trim()
+      .split(',')
+      .map((element) => {
+        const trimedElement = element.trim();
+        if (trimedElement === '') {
+          return null;
+        }
+
+        return Number(trimedElement);
+      });
   }
 }
 
