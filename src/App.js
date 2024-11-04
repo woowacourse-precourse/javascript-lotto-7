@@ -1,4 +1,3 @@
-// App.js
 import { Console } from "@woowacourse/mission-utils";
 import LottoMachine from "./LottoMachine.js";
 
@@ -30,6 +29,51 @@ class App {
     const lottoMachine = new LottoMachine();
     const lottos = lottoMachine.generateLottos(count);
     lottos.forEach((lotto) => Console.print(`[${lotto.numbers.join(", ")}]`));
+    this.getWinningNumbers(); // 다음 단계로 이동
+  }
+
+  getWinningNumbers() {
+    Console.print("당첨 번호를 입력해 주세요.");
+    Console.readLine("당첨 번호: ", (input) => {
+      const winningNumbers = input.split(",").map(Number);
+      if (this.validateWinningNumbers(winningNumbers)) {
+        this.getBonusNumber(winningNumbers);
+      } else {
+        Console.print(
+          "[ERROR] 당첨 번호는 1부터 45 사이의 숫자 6개여야 합니다."
+        );
+        this.getWinningNumbers(); // 잘못된 입력이므로 다시 입력 받기
+      }
+    });
+  }
+
+  validateWinningNumbers(numbers) {
+    const uniqueNumbers = new Set(numbers);
+    return (
+      numbers.length === 6 &&
+      uniqueNumbers.size === 6 &&
+      numbers.every((num) => num >= 1 && num <= 45)
+    );
+  }
+
+  getBonusNumber(winningNumbers) {
+    Console.print("보너스 번호를 입력해 주세요.");
+    Console.readLine("보너스 번호: ", (input) => {
+      const bonusNumber = Number(input);
+      if (this.validateBonusNumber(bonusNumber, winningNumbers)) {
+        Console.print(`당첨 번호: ${winningNumbers.join(", ")}`);
+        Console.print(`보너스 번호: ${bonusNumber}`);
+      } else {
+        Console.print(
+          "[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1~45 사이의 숫자여야 합니다."
+        );
+        this.getBonusNumber(winningNumbers);
+      }
+    });
+  }
+
+  validateBonusNumber(bonus, winningNumbers) {
+    return bonus >= 1 && bonus <= 45 && !winningNumbers.includes(bonus);
   }
 }
 
