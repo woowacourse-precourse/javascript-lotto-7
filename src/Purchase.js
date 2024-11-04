@@ -12,5 +12,5 @@ export const purchase = (price, budget) => {
         lottoTickets.push(lotto);
     }
 
-    console.log(lottoTickets.map(lotto => lotto.getNumbers()));
+    return lottoTickets;
 }
