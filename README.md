@@ -151,14 +151,14 @@
 
 0. App 클래스 구현
 
-- [ ] `run()` - 문자를 입력받고 이를 console.print()를 통해 제대로 작동하는지 확인
+- [O] `run()` - 문자를 입력받고 이를 console.print()를 통해 제대로 작동하는지 확인
 
 1. Parser 클래스 구현
 
 - 구입 금액과 번호 입력을 파싱하는 기능 구현
-  - [ ] `parsePurchaseAmount(input)` - 문자열로 입력된 구입 금액을 숫자로 변환
-  - [ ] `parseNumbers(input)` - 문자열로 입력된 번호를 쉼표로 구분하여 숫자 배열로 변환
-  - [ ] `parseBonusNumber(input)` - 문자열로 입력된 보너스 번호를 숫자로 변환
+  - [O] `parsePurchaseAmount(input)` - 문자열로 입력된 구입 금액을 숫자로 변환
+  - [O] `parseNumbers(input)` - 문자열로 입력된 번호를 쉼표로 구분하여 숫자 배열로 변환
+  - [O] `parseBonusNumber(input)` - 문자열로 입력된 보너스 번호를 숫자로 변환
 
 2. UserLotto 클래스 구현
 
