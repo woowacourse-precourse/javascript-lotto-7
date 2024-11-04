@@ -9,7 +9,7 @@ class LottoCalculator {
     constructor(winningNumber, bonusNumber) {
         this.#validateWinning(winningNumber);
         this.#winningNumber = winningNumber;
-        this.#validateBonus(winningNumber, bonusNumber);
+        this.#validateBonus(winningNumber, Number(bonusNumber));
         this.#bonusNumber = Number(bonusNumber);
     }
 

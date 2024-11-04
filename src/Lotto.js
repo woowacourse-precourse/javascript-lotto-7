@@ -19,7 +19,7 @@ class Lotto {
         const MATCH_COUNT = this.#numbers.filter((num) =>
             winningNumber.includes(num)
         ).length;
-        const BONUS_MATCH = this.#numbers.includes(Number(bonusNumber));
+        const BONUS_MATCH = this.#numbers.includes(bonusNumber);
         return { MATCH_COUNT, BONUS_MATCH };
     }
 }
