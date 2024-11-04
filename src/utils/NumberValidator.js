@@ -25,19 +25,6 @@ class NumberValidator {
 
   static validateIsPositive(value) {
     if (value <= 0) {
-      throw new Error('[ERROR] 양수가 아닙니다.');
-    }
-  }
-
-  static validateLottoNumberRange(number) {
-    if (number < 1 || number > 45) {
-      throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
-    }
-  }
-
-  static validateDivisibleBy1000(value) {
-    if (value % 1000 !== 0) {
-      throw new Error('[ERROR] 1000으로 나누어지지 않습니다.');
     }
   }
 }
