@@ -14,20 +14,11 @@ class LottoGameController {
 
     const winningNumbers = await this.#getWinningNumbers();
     const bonusNumber = await this.#getBonusNumber(winningNumbers);
-    this.#printWinningStats(winningNumbers, bonusNumber);
+    this.#printWinningResults(winningNumbers, bonusNumber);
   }
 
   #createLottoGame(purchaseAmount) {
     this.#lottoGame = new LottoGame(purchaseAmount);
-  }
-
-  #printLottoNumbers() {
-    const LOTTO_NUMBERS = this.#lottoGame.getLottoNumbers();
-    OutputView.printLottoAmount(LOTTO_NUMBERS.length);
-
-    LOTTO_NUMBERS.forEach((numbers) => {
-      OutputView.printLottoNumbers(numbers.getNumbers());
-    });
   }
 
   async #getPurchaseAmount() {
@@ -41,6 +32,15 @@ class LottoGameController {
       OutputView.print(error.message);
       return this.#getPurchaseAmount();
     }
+  }
+
+  #printLottoNumbers() {
+    const LOTTO_NUMBERS = this.#lottoGame.getLottoNumbers();
+    OutputView.printLottoAmount(LOTTO_NUMBERS.length);
+
+    LOTTO_NUMBERS.forEach((numbers) => {
+      OutputView.printLottoNumbers(numbers.getNumbers());
+    });
   }
 
   async #getWinningNumbers() {
@@ -73,7 +73,7 @@ class LottoGameController {
     }
   }
 
-  async #printWinningStats(winningNumbers, bonusNumber) {
+  async #printWinningResults(winningNumbers, bonusNumber) {
     const winningStats = this.#lottoGame.calculatePrize(
       winningNumbers,
       bonusNumber
