@@ -1,6 +1,6 @@
 import LottoMachine from "./LottoMachine.js";
 import Lotto from "./Lotto.js";
-import { inputErrorControl, getUserInputAsync, printMessage } from "./utils/interface.js";
+import { getInputWithErrorHandling, printMessage } from "./utils/interface.js";
 import BonusNumber from "./BonusNumber.js";
 import { MESSAGE } from "./constants/messages.js";
 
@@ -10,21 +10,27 @@ class App {
   #bonusNumber;
 
   async run() {
-    await inputErrorControl(async () => {
-      const userMoneyInput = await getUserInputAsync(MESSAGE.INPUT_MONEY);
-      this.#lottoMachine = new LottoMachine(userMoneyInput);
+    await getInputWithErrorHandling({
+      inputMessage: MESSAGE.INPUT_MONEY,
+      handleInputFn: (input) => {
+        this.#lottoMachine = new LottoMachine(input);
+      },
     });
 
     printMessage(this.#lottoMachine.getTicketsString());
 
-    await inputErrorControl(async () => {
-      const userLottoInput = await getUserInputAsync(MESSAGE.INPUT_WINNING_LOTTO);
-      this.#winningLotto = new Lotto(userLottoInput);
+    await getInputWithErrorHandling({
+      inputMessage: MESSAGE.INPUT_WINNING_LOTTO,
+      handleInputFn: (input) => {
+        this.#winningLotto = new Lotto(input);
+      },
     });
 
-    await inputErrorControl(async () => {
-      const userBonusInput = await getUserInputAsync(MESSAGE.INPUT_BONUS_NUMBER);
-      this.#bonusNumber = new BonusNumber(userBonusInput, this.#winningLotto);
+    await getInputWithErrorHandling({
+      inputMessage: MESSAGE.INPUT_BONUS_NUMBER,
+      handleInputFn: (input) => {
+        this.#bonusNumber = new BonusNumber(input, this.#winningLotto);
+      },
     });
 
     const resultString = this.#lottoMachine.getWinningLottoString({
