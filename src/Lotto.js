@@ -17,8 +17,27 @@ class Lotto {
         throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
       }
     });
+
+    // 당첨번호 중복 검사
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error("[ERROR] 로또 번호는 서로 다뤄야 합니다.");
+    }
+  }
+  // 로또 번호와 당첨 번호 중 일치하는 번호 개수를 계산하는 함수
+  countMatches(lotto) {
+    return lotto.filter((num) => this.#numbers.includes(num)).length;
   }
 
+  // 로또 번호가 보너스 번호와 일치하는지 여부를 확인하는 함수
+  isBonusMatch(lotto, bonusNum) {
+    if (this.#numbers.includes(bonusNum)) {
+      throw new Error(
+        "[ERROR] 보너스 번호는 당첨 로또 번호와 겹치지 않아야 합니다."
+      );
+    }
+    return lotto.includes(bonusNum);
+  }
   // 매칭 결과로 개수 업데이트
   updateMatchCounts(matchCounts, matchCount, isBonusMatch) {
     if (matchCount === 6) {

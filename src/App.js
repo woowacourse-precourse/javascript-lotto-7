@@ -15,11 +15,19 @@ class App {
 
   // 인풋 로직 (1) : 구입 금액
   async InputCost() {
-    this.USER_COST = await Console.readLineAsync("구입 금액을 입력해주세요: ");
-    if (this.USER_COST % 1000 !== 0) {
-      throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
+    let userCost;
+    // test 확인해보니, 유효한 입력이 들어올떄까지 인풋받아야 함
+    while (true) {
+      userCost = await Console.readLineAsync("구입 금액을 입력해 주세요: ");
+      // 금액은 1,000원 단위
+      if (isNaN(userCost) || userCost % 1000 !== 0) {
+        Console.print("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
+      } else {
+        break;
+      }
     }
-    const LOTTO_CNT = Math.floor(Number(this.USER_COST) / 1000);
+    this.USER_COST = Number(userCost); // 구입 금액 숫자변환
+    const LOTTO_CNT = Math.floor(this.USER_COST / 1000); // 구매할 로또 개수
     Console.print(`\n${LOTTO_CNT}개를 구매했습니다.`);
     return LOTTO_CNT;
   }
@@ -38,11 +46,21 @@ class App {
 
   // 인풋 로직 (3) : 보너스 번호
   async InputBonus() {
-    const BONUS_NUM = await Console.readLineAsync(
+    const INPUT_BONUS_NUM = await Console.readLineAsync(
       "보너스 번호를 입력해 주세요: "
     );
-    if (BONUS_NUM < 1 || BONUS_NUM > 45) {
-      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    // 입력값이 숫자로 변환할 수 있는지 확인하고 길이가 1인지 확인
+    const BONUS_NUM = Number(INPUT_BONUS_NUM);
+    if (
+      isNaN(BONUS_NUM) ||
+      INPUT_BONUS_NUM.includes(",") ||
+      INPUT_BONUS_NUM.trim() === "" ||
+      BONUS_NUM < 1 ||
+      BONUS_NUM > 45
+    ) {
+      throw new Error(
+        "[ERROR] 보너스 번호는 1부터 45 사이의 단일 숫자여야 합니다."
+      );
     }
     return Number(BONUS_NUM);
   }
@@ -56,7 +74,9 @@ class App {
       const RANDOM_LOTTO = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
         (a, b) => a - b
       );
-      Console.print(RANDOM_LOTTO);
+      const formattedLotto = `[${RANDOM_LOTTO.join(", ")}]`;
+      Console.print(formattedLotto);
+
       this.USER_LOTTOS.push(RANDOM_LOTTO); // 사용자 로또 목록 저장
     }
   }
