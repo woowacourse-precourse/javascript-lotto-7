@@ -12,7 +12,8 @@ const outputView = {
   },
 
   printPurchaseResult(lottoNumbers) {
-    Console.print(`${lottoNumbers.length}${MESSAGES.purchaseResult}`);
+    const quantity = lottoNumbers.length.toLocaleString();
+    Console.print(`${quantity}${MESSAGES.purchaseResult}`);
     lottoNumbers.forEach((lottoNumber) =>
       Console.print(
         CHARS.lottoNumbersStartWith +
