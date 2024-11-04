@@ -42,27 +42,15 @@ class LottoController {
     }
 
     getGeneratedLottos(lottoCount) {
-        const lottos = [];
-        for (let i = 0; i < lottoCount; i++) {
-            const lotto = new Lotto(
-                MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6)
-            );
-            lotto.sortASC();
-            lottos.push(lotto);
-        }
-
+        const lottos = Array.from({ length: lottoCount }, () => new Lotto());
         return lottos;
     }
 
     async getValidatedInputWinningNumbers() {
-        const inputWinningNumbers =
-            await this.InputView.getInputWinningNumbers();
+        const inputWinningNumbers = await this.InputView.getInputWinningNumbers();
 
         try {
-            InputValidator.isValidWinningNumbers(inputWinningNumbers);
-            return inputWinningNumbers
-                .split(",")
-                .map((num) => Number(num.trim()));
+            return InputValidator.isValidWinningNumbers(inputWinningNumbers);
         } catch (error) {
             this.outputView.outputErrorMessage(error.message);
             return this.getValidatedInputWinningNumbers();
@@ -73,11 +61,7 @@ class LottoController {
         const inputBonusNumber = await this.InputView.getInputBonusNumber();
 
         try {
-            InputValidator.isValidBonusNumber(
-                inputBonusNumber,
-                inputWinningNumbers
-            );
-            return inputBonusNumber;
+            return InputValidator.isValidBonusNumber(inputBonusNumber, inputWinningNumbers);
         } catch (error) {
             this.outputView.outputErrorMessage(error.message);
             return this.getValidatedInputBonusNumber(inputWinningNumbers);

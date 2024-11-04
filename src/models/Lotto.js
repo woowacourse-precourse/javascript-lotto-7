@@ -1,7 +1,10 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+import {MINIMUM_NUMBER, MAXIMUM_NUMBER, PICK_AMOUNT} from "../constants/Constants.js";
+
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
+  constructor(numbers = Lotto.generateRandomNumbers()) {
       this.#validate(numbers);
       this.#numbers = numbers;
   }
@@ -17,12 +20,15 @@ class Lotto {
     }
   }
 
+  static generateRandomNumbers() {
+    const randomNumbers = MissionUtils.Random.pickUniqueNumbersInRange(MINIMUM_NUMBER, MAXIMUM_NUMBER, PICK_AMOUNT);
+    randomNumbers.sort((a, b) => a - b);
+    return randomNumbers;
+}
+
+
   getNumbers() {
       return `[${this.#numbers.join(", ")}]`;
-  }
-
-  sortASC() {
-      this.#numbers.sort((a, b) => a - b);
   }
 
   matchWinningNumbers(winningNumbers) {

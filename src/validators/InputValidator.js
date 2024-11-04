@@ -53,6 +53,8 @@ class InputValidator {
         if (winningNumbers.length == 6 && winningNumbersSet.size !== 6) {
             throw Error(formatErrorMessage(ERROR_MESSAGE.DUPLICATE_NUMBERS));
         }
+
+        return winningNumbers;
     }
 
     static isValidBonusNumber(bonusNumber, inputWinningNumbers) {
@@ -73,6 +75,8 @@ class InputValidator {
         if(inputWinningNumbers.includes(bonusNumber)) {
             throw Error(formatErrorMessage(ERROR_MESSAGE.DUPLICATE_WINNING_LOTTO_NUMBERS));
         }
+
+        return bonusNumber;
     }
 }
 
