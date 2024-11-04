@@ -3,11 +3,11 @@ import { Console } from "@woowacourse/mission-utils";
 class OutputView {
   static printError(message) {
     Console.print(message);
-    this.#printNewLine();
+    this.#printEmptyLine();
   }
 
   static printPurchaseInfo(purchaseDTO) {
-    this.#printNewLine();
+    this.#printEmptyLine();
     Console.print(`${purchaseDTO.lottoCount}개를 구매했습니다.`);
     purchaseDTO.lottos.forEach((lotto) => {
       Console.print(`[${lotto.join(", ")}]`);
@@ -15,9 +15,8 @@ class OutputView {
   }
 
   static printRankResult(rankDTO) {
-    this.#printNewLine();
+    this.#printEmptyLine();
     Console.print("당첨 통계");
-    this.#printNewLine();
     Console.print("---");
 
     const rank = rankDTO.lottoRanks;
@@ -29,8 +28,8 @@ class OutputView {
     Console.print(`총 수익률은 ${rankDTO.profitRate}%입니다.`);
   }
 
-  static #printNewLine() {
-    Console.print("\n");
+  static #printEmptyLine() {
+    Console.print("");
   }
 }
 
