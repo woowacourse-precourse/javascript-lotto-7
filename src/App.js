@@ -2,15 +2,16 @@ import { Console, Random } from '@woowacourse/mission-utils';
 import {
   validateLottoBuyPrice,
   validateLottoAnswerNumbers,
+  validateLottoBonusNumber,
 } from './validateFunctions.js';
 import Lotto from './Lotto.js';
 
-const prompt = async (message, validation) => {
+const prompt = async (message, validation, rest) => {
   const input = await Console.readLineAsync(message);
-  if (validation(input)) {
+  if (validation(input, rest)) {
     return input;
   }
-  return prompt(message, validation);
+  return prompt(message, validation, rest);
 };
 
 const ONE_LOTTO_PRICE = 1000;
@@ -31,6 +32,7 @@ class App {
     this.lottoCount = null;
     this.myLottos = null;
     this.lottoAnswerNumbers = null;
+    this.lottoBonusNumber = null;
   }
 
   async run() {
@@ -38,6 +40,7 @@ class App {
     this.getLottoCount();
     this.printMyLottos();
     await this.getLottoAnswerNumbers();
+    await this.getLottoBonusNumber();
   }
 
   async getLottoBuyPrice() {
@@ -68,6 +71,16 @@ class App {
       validateLottoAnswerNumbers,
     );
     this.lottoAnswerNumbers = lottoAnswerNumbers;
+  }
+
+  async getLottoBonusNumber() {
+    const lottoBonusNumber = await prompt(
+      '보너스 번호를 입력해 주세요.\n',
+      validateLottoBonusNumber,
+      this.lottoAnswerNumbers,
+    );
+
+    this.lottoBonusNumber = lottoBonusNumber;
   }
 }
 
