@@ -11,7 +11,7 @@ class LottoMachine {
   }
 
   printQuantity() {
-    Console.print(`${this.lottoQuantity}${OUTPUT_MESSAGE.QUANTITY}`);
+    Console.print(`\n${this.lottoQuantity}${OUTPUT_MESSAGE.QUANTITY}`);
   }
 
   generateLottos() {
@@ -60,7 +60,7 @@ class LottoMachine {
   }
 
   printWinningStatistics(statistics, totalPrize) {
-    Console.print("당첨 통계");
+    Console.print("\n당첨 통계");
     Console.print("---");
     this.constructor.printResult(statistics);
     this.constructor.printRevenuePercent(totalPrize, this.cost);
