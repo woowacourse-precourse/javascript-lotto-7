@@ -8,7 +8,7 @@ export class LottoManager {
 
   constructor() {
     this.#lotteryGroup = [];
-    this.#lotteryResult = [...LOTTERY_PRIZE];
+    this.#lotteryResult = structuredClone(LOTTERY_PRIZE); // 깊은 복사
   }
 
   setLotteryGroup(groupSize) {
@@ -19,7 +19,12 @@ export class LottoManager {
   }
 
   getLotteryGroup() {
-    return this.#lotteryGroup;
+    // 각 Lotto 객체의 numbers를 새로운 Lotto 객체로 생성하여 반환
+    return this.#lotteryGroup.map((lotto) => new Lotto(lotto.getLottoNumbers()));
+  }
+
+  getLotteryResult() {
+    return structuredClone(this.#lotteryResult); // 깊은 복사
   }
 
   calculatePrize(winningNumbers, bonus) {
@@ -37,7 +42,7 @@ export class LottoManager {
         if (prize) prize.count++;
       }
     });
-    return this.#lotteryResult;
+    return structuredClone(this.#lotteryResult); // 깊은 복사
   }
 
   calculateROI(inputMoney) {
