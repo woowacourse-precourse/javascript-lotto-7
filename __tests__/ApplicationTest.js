@@ -1,10 +1,5 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
-import InputView from '../src/view/inputView.js';
-import OutputView from '../src/view/outputView.js';
-
-const inputView = new InputView();
-const outputView = new OutputView();
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -40,7 +35,7 @@ const runException = async (input) => {
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
   // when
-  const app = new App(inputView, outputView);
+  const app = new App();
   await app.run();
 
   // then
@@ -69,7 +64,7 @@ describe("로또 테스트", () => {
     mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
     // when
-    const app = new App(inputView, outputView);
+    const app = new App();
     await app.run();
 
     // then

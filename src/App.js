@@ -1,62 +1,74 @@
-import Lotto from './Lotto.js';
-import LottoAmount from './model/LottoAmount.js';
-import LottoBonus from './model/LottoBonus.js';
-import LottoResultCalculator from './model/LottoResultCalculator.js';
-import { LOTTO_AMOUNT_UNIT } from './config/numberConfig.js';
-import { splitNumbers, sortAscending, pickUniqueLottoRandomNumbers } from './util/util.js';
+import Lotto from "./Lotto.js";
+import LottoAmount from "./model/LottoAmount.js";
+import LottoBonus from "./model/LottoBonus.js";
+import LottoResultCalculator from "./model/LottoResultCalculator.js";
+import LottoNumbersGenerator from "./model/LottoNumbersGenerator.js";
+import { LOTTO_AMOUNT_UNIT } from "./config/numberConfig.js";
+import { splitNumbers } from "./util/util.js";
+import InputView from "./view/inputView.js";
+import OutputView from "./view/outputView.js";
 
 class App {
-
-  constructor (inputView, outputView) {
-    this.inputView = inputView;
-    this.outputView = outputView;
-  }
-
-  async run(){
+  async run() {
+    const inputView = new InputView();
+    const outputView = new OutputView();
     let lottoAmount;
     let lottoWinningNumbers;
     let lottoBonusNumber;
-    // chat GPT : while, 인터넷 서칭 후 break를 추가
+
     while (true) {
       try {
-        const lottoAmountString = await this.inputView.inputLottoAmount();
+        const lottoAmountString = await inputView.inputLottoAmount();
         lottoAmount = this.validateAmount(lottoAmountString);
-        break
+        break;
       } catch (error) {
-        this.outputView.outputError(error.message);
+        outputView.outputError(error.message);
       }
     }
 
     const lottoQuantity = lottoAmount / LOTTO_AMOUNT_UNIT;
-    const numberGenerator = new LottoNumberGenerator();
+    const numberGenerator = new LottoNumbersGenerator();
     const allRandomNumbers = numberGenerator.printLottoNumbers(lottoQuantity);
-    this.outputView.outputLottoNumbers(lottoQuantity, allRandomNumbers);
-    
+    outputView.outputLottoNumbers(lottoQuantity, allRandomNumbers);
+
     while (true) {
       try {
-        const winningNumberInput = await this.inputView.inputWinningNumbers();
+        const winningNumberInput = await inputView.inputWinningNumbers();
         lottoWinningNumbers = this.validateWinningNumbers(winningNumberInput);
-        break
+        break;
       } catch (error) {
-        this.outputView.outputError(error.message);
+        outputView.outputError(error.message);
       }
     }
-    
+    console.log(lottoWinningNumbers);
+
     while (true) {
       try {
-        const bonusNumberInput = await this.inputView.inputBonusNumber();
-        lottoBonusNumber = this.validateBonusNumber(bonusNumberInput,lottoWinningNumbers);
-        break
+        const bonusNumberInput = await inputView.inputBonusNumber();
+        lottoBonusNumber = this.validateBonusNumber(
+          bonusNumberInput,
+          lottoWinningNumbers
+        );
+        break;
       } catch (error) {
-        this.outputView.outputError(error.message);
+        outputView.outputError(error.message);
       }
     }
-    
+
     const resultCalculator = new LottoResultCalculator();
-    const rankCounts = resultCalculator.calculateWinningRank(allRandomNumbers,lottoWinningNumbers,lottoBonusNumber);
-    const profitRate = resultCalculator.calculateProfitRate(lottoAmount, rankCounts);
-    const lottoResultPrinter = this.outputView.outputLottoResult(rankCounts, profitRate);
-    
+    const rankCounts = resultCalculator.calculateWinningRank(
+      allRandomNumbers,
+      lottoWinningNumbers,
+      lottoBonusNumber
+    );
+    const profitRate = resultCalculator.calculateProfitRate(
+      lottoAmount,
+      rankCounts
+    );
+    const lottoResultPrinter = outputView.outputLottoResult(
+      rankCounts,
+      profitRate
+    );
   }
 
   validateAmount(lottoAmountString) {
@@ -69,20 +81,12 @@ class App {
     return winningNumbers.getWinningNumbers();
   }
 
-  validateBonusNumber(bonusNumberInput,winningNumbers) {
-    const bonusNumber = new LottoBonus(Number(bonusNumberInput),winningNumbers);
+  validateBonusNumber(bonusNumberInput, winningNumbers) {
+    const bonusNumber = new LottoBonus(
+      Number(bonusNumberInput),
+      winningNumbers
+    );
     return bonusNumber.getBonusNumber();
-  }
-}
-
-class LottoNumberGenerator {
-  printLottoNumbers(quantity) {
-    const allLottoNumbers = [];
-    for (let i = 0; i < quantity; i++) {
-      const numbers = pickUniqueLottoRandomNumbers();
-      allLottoNumbers.push(sortAscending(numbers));
-    }
-    return allLottoNumbers;
   }
 }
 
