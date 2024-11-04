@@ -1,20 +1,16 @@
 import LOTTO_RULE from './constant/lotto.js';
 
 class Bank {
-  #winningPrizes;
+  #totalWinningPrize;
 
-  constructor(ranks) {
-    this.#winningPrizes = this.#calculateWinningPrizes(ranks);
-  }
-
-  #calculateWinningPrizes(rankInfos) {
-    return rankInfos
-      .map((rankCount, index) => this.#getWinningPrize(rankCount, index))
+  calculateTotalWinningPrize(rankInfos) {
+    this.#totalWinningPrize = rankInfos
+      .map((rankCount, index) => this.#calculateWinningPrize(rankCount, index))
       .slice(1)
       .reduce((acc, cur) => acc + cur, 0);
   }
 
-  #getWinningPrize(rankCount, index) {
+  #calculateWinningPrize(rankCount, index) {
     switch (index) {
       case LOTTO_RULE.RANK.FIRST:
         return LOTTO_RULE.REWARD.FIRST * rankCount;
@@ -32,7 +28,7 @@ class Bank {
   }
 
   getTotalWinningPrize() {
-    return this.#winningPrizes;
+    return this.#totalWinningPrize;
   }
 }
 

@@ -13,10 +13,12 @@ import {
 class App {
   #lottoMachine;
   #lottoCenter;
+  #bank;
 
   constructor() {
     this.#lottoMachine = new LottoMachine();
     this.#lottoCenter = new LottoCenter();
+    this.#bank = new Bank();
   }
 
   async run() {
@@ -33,7 +35,7 @@ class App {
       winningNumbers,
       bonusNumber,
     );
-    const totalWinningPrize = this.#checkTotalWinningPrize(rankCounts);
+    const totalWinningPrize = this.#getTotalWinningPrize(rankCounts);
     const profitRate = this.#calculateProfitRate(
       totalWinningPrize,
       purchaseAmount,
@@ -111,9 +113,9 @@ class App {
     return rankCounts;
   }
 
-  #checkTotalWinningPrize(rankCounts) {
-    const bank = new Bank(rankCounts);
-    const totalWinningPrize = bank.getTotalWinningPrize();
+  #getTotalWinningPrize(rankCounts) {
+    this.#bank.calculateTotalWinningPrize(rankCounts);
+    const totalWinningPrize = this.#bank.getTotalWinningPrize();
 
     return totalWinningPrize;
   }
