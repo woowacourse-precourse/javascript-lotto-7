@@ -23,17 +23,17 @@ class Lotto {
         return `[${this.#numbers.join(", ")}]`;
     }
 
-    countLottoMatches(winningNumbers) {
+    #countLottoMatches(winningNumbers) {
         return this.#numbers.filter(num => winningNumbers.includes(num)).length
     }
 
-    isBonusNumberMatch(bonusNumber) {
+    #isBonusNumberMatch(bonusNumber) {
         return this.#numbers.includes(bonusNumber);
     }
 
     getLottoResult(winningNumbers, bonusNumber) {
-        const matchNumber = this.countLottoMatches(winningNumbers);
-        if (matchNumber === 5 && this.isBonusNumberMatch(bonusNumber) || matchNumber === 6) {
+        const matchNumber = this.#countLottoMatches(winningNumbers);
+        if (matchNumber === 5 && this.#isBonusNumberMatch(bonusNumber) || matchNumber === 6) {
             return matchNumber + 1;
         }
         return matchNumber;
