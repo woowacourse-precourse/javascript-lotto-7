@@ -113,11 +113,29 @@ class App {
     }
 
     // 3. 로또 당첨값 입력 및 유효성 검사 로직
-    const INPUT_NUM = await MissionUtils.Console.readLineAsync('로또 당첨번호 6자리를 ,로 구분하여 입력하세요.');
-    const NUMBERS = parse_numbers(INPUT_NUM); // 입력값 유효성 1차 검증
-    const LOTTO = new Lotto(NUMBERS); // 생성자 실행
-    let BONUS_NUM = await MissionUtils.Console.readLineAsync('보너스번호를 입력하세요.');
-    BONUS_NUM = check_bonus(BONUS_NUM, NUMBERS); // 보너스번호 입력값 유효성 검사
+    let NUMBERS;
+    while (true) {
+      try {
+        const INPUT_NUM = await MissionUtils.Console.readLineAsync('로또 당첨번호 6자리를 ,로 구분하여 입력하세요.');
+        NUMBERS = parse_numbers(INPUT_NUM); // 입력값 유효성 1차 검증
+        const LOTTO = new Lotto(NUMBERS); // 생성자 실행
+        break;
+      } catch(error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+    // let BONUS_NUM = await MissionUtils.Console.readLineAsync('보너스번호를 입력하세요.');
+    // BONUS_NUM = check_bonus(BONUS_NUM, NUMBERS); // 보너스번호 입력값 유효성 검사
+    let BONUS_NUM;
+    while (true) {
+      try {
+        BONUS_NUM = await MissionUtils.Console.readLineAsync('보너스번호를 입력하세요.');
+        BONUS_NUM = check_bonus(BONUS_NUM, NUMBERS);
+        break;
+      } catch(error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
 
     // 4. 로또 당첨 체크
     const LOTTO_RESULT = [0, 0, 0, 0, 0, 0] // 3개, 4개, 5개, 5개 보너스, 6개, 당첨 안된 개수

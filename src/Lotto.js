@@ -7,6 +7,9 @@ function check_lotto(i, j, numbers) {
     if (numbers[i] !== parseInt(numbers[i])) {
       throw new Error("[ERROR]: 로또 번호가 자연수가 아닙니다.")
     }
+    if (numbers[i] > 45 || numbers[i] < 1) {
+      throw new Error("[ERROR]: 로또 번호는 1에서 45 사이의 값을 입력해야 합니다.")
+    }
   } catch (error) {
     throw error
   }
