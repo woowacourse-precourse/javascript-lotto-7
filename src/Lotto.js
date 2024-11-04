@@ -2,11 +2,11 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
+    this.#validateWinningNumber(numbers);
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
+  #validateWinningNumber(numbers) {
     if(!isNaN(numbers)) {
       throw new Error("[ERROR] 잘못된 값 입니다.")
     }
@@ -22,6 +22,7 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  #validateBonusNumber
 }
 
 export default Lotto;
