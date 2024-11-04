@@ -1,4 +1,4 @@
-import { PRICE_NUMBER } from "../constants/message.js";
+import { PRICE_NUMBER } from "../constants/lotto.js";
 import PriceValidate from "../validation/PriceValidate.js";
 
 class Price {
