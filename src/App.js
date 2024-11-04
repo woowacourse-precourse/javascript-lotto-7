@@ -1,8 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { inputAmount, inputBonusNumber, inputWinningLotto } from './utils/inputService.js';
-import { outputPayment, printLottos } from './utils/outputService.js';
+import { outputPayment, printLottos, printResult } from './utils/outputService.js';
 import { buyLottos } from './utils/buyLottos.js';
-import { printResult } from './utils/printResult.js';
 
 class App {
   async run() {

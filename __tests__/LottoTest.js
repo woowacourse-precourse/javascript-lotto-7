@@ -2,7 +2,7 @@ import {
   lottoInputErrorTestCase,
   lottoInputSuccessTestCase,
 } from '../src/constant/testCases/lottoTestCase.js';
-import { validateNumbers } from '../src/Validator.js';
+import { validateNumbers } from '../src/utils/validation.js';
 
 describe('로또 입력 테스트', () => {
   test.each(lottoInputErrorTestCase)(

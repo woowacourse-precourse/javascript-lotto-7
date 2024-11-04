@@ -2,7 +2,7 @@ import {
   bonusNumberErrorTestCase,
   bonusNumberSuccessTestCase,
 } from '../src/constant/testCases/bonusNumberTestCase.js';
-import { validateBonusNumber } from '../src/Validator.js';
+import { validateBonusNumber } from '../src/utils/validation.js';
 
 describe('보너스 번호 입력 테스트', () => {
   test.each(bonusNumberErrorTestCase)(

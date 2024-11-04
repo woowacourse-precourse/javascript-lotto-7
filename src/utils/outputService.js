@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { prizeRanks } from '../constant/prizeRanks';
+import { prizeRanks } from '../constant/prizeRanks.js';
 
 export function outputPayment(amount) {
   if (amount % 1000 !== 0) return;
