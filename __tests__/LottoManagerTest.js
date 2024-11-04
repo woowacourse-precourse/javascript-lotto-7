@@ -87,25 +87,57 @@ describe("LottoManager 클래스 테스트", () => {
   });
 
   describe("수익률 계산 테스트", () => {
-    test("정확한 수익률이 계산된다", () => {
+    test("1등 당첨시 수익률이 올바른 형식으로 반환된다", () => {
       Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 4, 5, 6]);
       lottoManager.setLotteryGroup(1);
 
       lottoManager.calculatePrize([1, 2, 3, 4, 5, 6], 7); // 1등
       const roi = lottoManager.calculateROI(1000);
 
-      // 1등 상금 2,000,000,000원, 구매금액 1,000원일 때의 수익률
-      expect(roi).toBe(200000000);
+      expect(roi).toBe("200,000,000.0%");
     });
 
-    test("수익률이 소수점 첫째 자리까지 반올림된다", () => {
-      Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 45, 44, 43]);
+    test("수익률이 없을 때도 소수점 첫째자리까지 표시된다", () => {
+      Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 4, 5, 6]);
       lottoManager.setLotteryGroup(1);
 
-      lottoManager.calculatePrize([1, 2, 3, 4, 5, 6], 7); // 3개 일치
+      lottoManager.calculatePrize([7, 8, 9, 10, 11, 12], 13); // 미당첨
       const roi = lottoManager.calculateROI(1000);
 
-      expect(Number.isInteger(roi * 10)).toBeTruthy();
+      expect(roi).toBe("0.0%");
+    });
+
+    test("소수점이 있는 수익률도 올바르게 표시된다", () => {
+      Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 4, 7, 8]); // 두 장 모두 4개 일치
+      lottoManager.setLotteryGroup(2);
+
+      lottoManager.calculatePrize([1, 2, 3, 4, 5, 6], 9); // 4개 일치 x 2장
+      const roi = lottoManager.calculateROI(2000);
+
+      // 10만원(5만원x2장) 당첨 / 2000원 구매 = 5000%
+      expect(roi).toBe("5,000.0%");
+    });
+
+    test("1000 이상의 수익률은 콤마가 포함되어 표시된다", () => {
+      Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 4, 5, 7]);
+      lottoManager.setLotteryGroup(1);
+
+      lottoManager.calculatePrize([1, 2, 3, 4, 5, 6], 7); // 5개 일치 + 보너스볼 일치 (2등)
+      const roi = lottoManager.calculateROI(1000);
+
+      // 3천만원 당첨 / 1000원 구매 = 3,000,000.0%
+      expect(roi).toBe("3,000,000.0%");
+    });
+
+    test("100만% 이상의 큰 수익률도 올바르게 표시된다", () => {
+      Random.pickUniqueNumbersInRange.mockReturnValue([1, 2, 3, 4, 5, 6]);
+      lottoManager.setLotteryGroup(1);
+
+      lottoManager.calculatePrize([1, 2, 3, 4, 5, 6], 7); // 1등
+      const roi = lottoManager.calculateROI(100);
+
+      // 20억 당첨 / 100원 구매 = 2,000,000,000.0%
+      expect(roi).toBe("2,000,000,000.0%");
     });
   });
 });
