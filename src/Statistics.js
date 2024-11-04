@@ -26,7 +26,8 @@ class Statistics {
     Console.print(`6개 일치 (2,000,000,000원) - ${amountArray[4]}개`);
 
     const rateOfReturn = (sumAmount / (count * 1000)) * 100;
-    Console.print(`총 수익률은 ${Number(rateOfReturn.toFixed(1)).toLocaleString()}%입니다.\n`);
+    const formattedString = new Intl.NumberFormat('en-US', { minimumFractionDigits: 1 }).format(rateOfReturn);
+    Console.print(`총 수익률은 ${formattedString}%입니다.\n`);
   }
 }
 
