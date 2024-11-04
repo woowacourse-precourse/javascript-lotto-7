@@ -36,6 +36,7 @@ class Lotto {
       }
     }
     returnRate = this.calculateMoney(result, money);
+    this.printResult(result, returnRate);
   }
 
   checkWinNum(lotto, bonus) {
@@ -74,8 +75,23 @@ class Lotto {
     for (let i = 0; i < 5; i++) {
       winMoney += awardList[i] * result[i];
     }
-    returnRate =  Math.round(winMoney / money * 10000)/100;
+    returnRate = Math.round(winMoney / money * 10000) / 100;
     return returnRate;
+  }
+
+  printResult(result, returnRate) {
+    let awardList = ["5,000", "50,000", "1,500,000", "30,000,000", "2,000,000,000"]
+    Console.print("\n당첨 통계\n---");
+    for (let i = 0; i < 5; i++) {
+      if (i < 3) {
+        Console.print(`${i + 3}개 일치 (${awardList[i]}원) - ${result[i]}개`)
+      } else if (i === 3) {
+        Console.print(`5개 일치, 보너스 볼 일치 (${awardList[i]}원) - ${result[i]}개`)
+      } else if (i === 4) {
+        Console.print(`6개 일치 (${awardList[i]}원) - ${result[i]}개`)
+      }
+    }
+    Console.print(`총 수익률은 ${returnRate}%입니다.`);
   }
 }
 
