@@ -1,6 +1,10 @@
 const ERROR_TAG = '[ERROR]';
 
 const ERROR = Object.freeze({
+  EMPTY_INPUT: {
+    name: 'EmptyInputError',
+    message: `${ERROR_TAG} 빈 값은 입력할 수 없습니다.`,
+  },
   INVALID_PURCHASE_AMOUNT: {
     name: 'InvalidPurchaseAmountError',
     message: `${ERROR_TAG} 구입 금액은 1000원 단위로 입력해야 합니다.`,
@@ -23,7 +27,15 @@ const ERROR = Object.freeze({
   },
   INVALID_NUMBER_TYPE: {
     name: 'InvalidNumberTypeError',
-    message: `${ERROR_TAG} 양의 정수만 입력하셔야 됩니다.`,
+    message: `${ERROR_TAG} 숫자만 입력할 수 있습니다.`,
+  },
+  INVALID_DECIMAL: {
+    name: 'InvalidDecimalError',
+    message: `${ERROR_TAG} 소수는 입력할 수 없습니다.`,
+  },
+  INVALID_NEGATIVE_NUMBER: {
+    name: 'InvalidNegativeNumberError',
+    message: `${ERROR_TAG} 음수는 입력할 수 없습니다.`,
   },
   INVALID_MATCH_COUNT: {
     name: 'InvalidMatchCountError',
