@@ -24,3 +24,23 @@ export function checkLottoPurchasePrice(price) {
     throw new Error(ERROR_MESSAGE.PURCHASE_PRICE_NOT_DIVIDE_1000);
   }
 }
+
+export function checkLottoBonusNumber(lottoList, bonusNumber){
+  lottoList.forEach(lotto=>{
+      if(lotto.includes(bonusNumber)){
+        throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_DUPLICATE);
+      }
+  })
+  if (Number.isNaN(bonusNumber)) {
+    throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE);
+  }
+  if (!Number.isInteger(bonusNumber)) {
+    throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE);
+  }
+  if(bonusNumber < LOTTO_CONFIG.MIN_NUMBER){
+    throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE);
+  }
+  if(bonusNumber > LOTTO_CONFIG.MAX_NUMBER){
+    throw new Error(ERROR_MESSAGE.LOTTERY_BONUS_NUMBER_IMPOSSIBLE);
+  }
+}
