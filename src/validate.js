@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from './constant.js';
+import { ERROR_MESSAGE, REGEX } from './constant.js';
 
 export function validateAmount(amount) {
   if (isNaN(amount)) throw new Error(ERROR_MESSAGE.NOT_NUM_ERROR);
@@ -7,7 +7,7 @@ export function validateAmount(amount) {
 }
 
 export function validateNumbers(userInput) {
-  const formatRegex = /^(\d{1,2},){5}\d{1,2}$/;
+  const formatRegex = REGEX.LOTTO_NUM_FORMAT;
   if (!formatRegex.test(userInput)) {
     throw new Error(ERROR_MESSAGE.LOTTO_NUM_FORMAT_ERROR);
   }

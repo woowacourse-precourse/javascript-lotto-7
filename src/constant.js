@@ -33,3 +33,6 @@ export const PRIZE = {
   bonus: 30000000,
   6: 2000000000,
 };
+export const REGEX = {
+  LOTTO_NUM_FORMAT: /^(\d{1,2},){5}\d{1,2}$/,
+};
