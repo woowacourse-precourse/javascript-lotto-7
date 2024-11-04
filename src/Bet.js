@@ -3,11 +3,13 @@ import Validator from "./Validator.js";
 class Bet {
   #money;
   count;
+  betLists;
 
   constructor(money) {
     this.#validate(money);
     this.#money = money;
     this.count = money / 1000;
+    this.getBetLists();
   }
 
   #validate(money) {
@@ -21,25 +23,38 @@ class Bet {
     return this.#money;
   }
 
-  getBetResults() {
+  getBetLists() {
     Console.print(`${this.count}개를 구매했습니다.`);
-    return this.pickRandomNumberList();
+    return this.#pickRandomNumberLists();
   }
 
-  pickRandomNumberList() {
-    const betResults = [];
+  #pickRandomNumberLists() {
+    const betlists = [];
     for (let index = 0; index < this.count; index += 1) {
-      const betResult = MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6
-      ).sort(function (a, b) {
-        return a - b;
-      });
-      Console.print(`[${betResult.join(", ")}]`);
-      betResults.push(betResult);
+      const betlist = this.#pickSortedRandomNumberList();
+      this.#printBetList(betlist);
+      betlists.push(betlist);
     }
-    return betResults;
+    this.betLists = betlists;
+  }
+
+  #pickSortedRandomNumberList() {
+    return this.#sortASC(this.#picUniqueNumber1To45Each6());
+  }
+
+  #picUniqueNumber1To45Each6() {
+    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return numbers;
+  }
+
+  #sortASC(arr) {
+    return arr.sort(function (a, b) {
+      return a - b;
+    });
+  }
+
+  #printBetList(betlist) {
+    Console.print(`[${betlist.join(", ")}]`);
   }
 }
 
