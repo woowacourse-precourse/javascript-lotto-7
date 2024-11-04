@@ -3,7 +3,7 @@ import { LOTTO_PRIZES } from "../constants/PrizeOfConstant.js";
 
 const OutputView = {
     writeLottoCounts(countGame) {
-        Console.print(`${countGame}개를 구매했습니다.`);
+        Console.print(`\n${countGame}개를 구매했습니다.`);
     },
 
     writeLottos(lottos) {
@@ -22,7 +22,7 @@ const OutputView = {
     },
 
     writeHeader() {
-        Console.print("당첨 통계\n---");
+        Console.print("\n당첨 통계\n---");
     },
 
     writePrizeResults(matchResult, matchFiveNumbersWithBonusNumber) {
