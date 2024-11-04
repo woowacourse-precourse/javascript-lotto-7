@@ -8,6 +8,7 @@ export const MESSAGE = Object.freeze({
 
 export const ERROR_MESSAGE = Object.freeze({
     PURCHASE_AMOUNT_ERROR: '[ERROR] 구매 금액은 1000원 단위로 입력해주세요.',
+    PURCHASE_AMOUNT_NOT_NUMBER_ERROR: '[ERROR] 구매 금액은 숫자만 입력 가능합니다.',
     WINNING_NUMBER_LACK_ERROR: '[ERROR] 당첨 번호가 6개 미만입니다.',
     WINNING_NUMBER_EXEED_ERROR: '[ERROR] 당첨 번호가 6개를 초과했습니다.',
     WINNING_NUMBER_NOT_NUMBER_ERROR: '[ERROR] 당첨 번호는 숫자만 입력 가능합니다.',

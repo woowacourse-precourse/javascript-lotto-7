@@ -8,6 +8,11 @@ export class InputValidator {
     }
 
     static purchaseAmountValidator(purchaseAmount) {
+
+        if (isNaN(purchaseAmount)) {
+            throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_NOT_NUMBER_ERROR);
+        }
+
         if (purchaseAmount % CONSTANTS.LOTTO_PRICE != 0) {
             throw new Error(ERROR_MESSAGE.PURCHASE_AMOUNT_ERROR);
         }
