@@ -64,11 +64,11 @@ const runException = async (input) => {
 describe("로또 테스트", () => {
     beforeEach(() => {
         jest.restoreAllMocks();
-        MATCH_COUNTER.three.cnt = 0;
-        MATCH_COUNTER.four.cnt = 0;
-        MATCH_COUNTER.five.cnt = 0;
-        MATCH_COUNTER.bonus.cnt = 0;
-        MATCH_COUNTER.six.cnt = 0;
+        MATCH_COUNTER.THREE_MATCH.cnt = 0;
+        MATCH_COUNTER.FOUR_MATCH.cnt = 0;
+        MATCH_COUNTER.FIVE_MATCH.cnt = 0;
+        MATCH_COUNTER.BONUS_MATCH.cnt = 0;
+        MATCH_COUNTER.SIX_MATCH.cnt = 0;
     });
 
 
