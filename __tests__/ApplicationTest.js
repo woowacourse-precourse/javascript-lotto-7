@@ -130,6 +130,10 @@ describe('로또 테스트', () => {
     await runException(['1000', '1,2,3,4,5,6', '6']);
   });
 
+  test('보너스번호가 정수가 아닌 경우', async () => {
+    await runException(['1000', '1,2,3,4,5,6', '7.7']);
+  });
+
   test('기능 테스트 정상적으로 작동하는 경우 2', async () => {
     // given
     const logSpy = getLogSpy();
