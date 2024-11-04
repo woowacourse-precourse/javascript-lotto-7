@@ -17,6 +17,10 @@ class App {
     // 당첨번호, 보너스 번호 입력받음
     const winningNumbers = await getWinningNumbers();
     const bonusNumber = await getBonusNumber(winningNumbers);
+
+    // 당첨 통계 계산, 출력
+    const prizeResults = countPrizeResults(tickets, winningNumbers, bonusNumber);
+    showStatistics(prizeResults, ticketCount)
   }
 }
 
@@ -33,4 +37,37 @@ function generateTickets(ticketCount) {
   }
 
   return tickets;
+}
+
+function countPrizeResults(tickets, winningNumbers, bonusNumber) {
+  const prizeResults = {
+    '3': 0,
+    '4': 0,
+    '5': 0,
+    '5+bonus': 0,
+    '6': 0
+  }
+
+  tickets.forEach(ticket => {
+    const matchCount = ticket.filter(num => winningNumbers.includes(num)).length;
+    const hasBonus = ticket.includes(bonusNumber);
+
+    if (matchCount == 6) {
+      prizeResults['6']++;
+    } else if (matchCount == 5 && hasBonus) {
+      prizeResults['5+bonus']++;
+    } else if (matchCount == 5) {
+      prizeResults['5']++;
+    } else if (matchCount == 4) {
+      prizeResults['4']++;
+    } else if (matchCount == 3) {
+      prizeResults['3']++;
+    }
+  })
+
+  return prizeResults;
+}
+
+function showStatistics() {
+
 }
