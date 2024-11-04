@@ -12,6 +12,7 @@ class App {
     await this.readPurchaseAmount();
     this.printGeneratedLottos();
     await this.readWinningNumbers();
+    await this.readBonusNumber();
   }
 
   async readPurchaseAmount() {
@@ -40,6 +41,18 @@ class App {
         const winningNumbers = await InputView.readUserInput(INPUT_PROMPT.winningNumbers);
         OutputView.printEmptyLine();
         this.#winningNumbers = new WinningNumbers(winningNumbers.split(NUMBER_SEPARATOR));
+      } catch (error) {
+        OutputView.printErrorMessage(error.message);
+      }
+    }
+  }
+
+  async readBonusNumber() {
+    while (!this.#winningNumbers.bonusNumber) {
+      try {
+        const bonusNumber = await InputView.readUserInput(INPUT_PROMPT.bonusNumber);
+        OutputView.printEmptyLine();
+        this.#winningNumbers.bonusNumber = bonusNumber;
       } catch (error) {
         OutputView.printErrorMessage(error.message);
       }
