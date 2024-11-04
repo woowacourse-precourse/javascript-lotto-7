@@ -31,7 +31,14 @@ class App {
 
     // 6. 당첨 번호 유효성 검사
     winningNumInst.setWinningLotto(winningLottoInput);
-    
+
+    // 7. 보너스 번호 입력
+    const bonusNumberInput = await Console.readLineAsync(
+      "보너스 번호를 입력해 주세요.\n"
+    );
+
+    // 8. 보너스 번호 유효성 검사
+    winningNumInst.setBonusNumber(bonusNumberInput);
   }
 }
 
