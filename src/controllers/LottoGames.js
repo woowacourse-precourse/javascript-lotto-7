@@ -8,11 +8,20 @@ export default class LottoGame {
     this.winningNumbers = [];
     this.bonusNumber = null;
     this.results = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    this.prizeMoney = {
+      1: 2000000000,
+      2: 30000000,
+      3: 1500000,
+      4: 50000,
+      5: 5000,
+    };
+    this.totalPurchaseAmount = 0;
   }
 
   purchaseLottos(amount) {
     this.#validateAmount(amount);
     const lottoCount = Math.floor(amount / this.LOTTO_PRICE);
+    this.totalPurchaseAmount = amount;
     this.#generateLottos(lottoCount);
     this.printLottoResults();
   }
@@ -44,6 +53,15 @@ export default class LottoGame {
     return null;
   }
 
+  calculateProfitRate() {
+    const totalPrize = Object.entries(this.results).reduce((acc, [rank, count]) => {
+      return acc + this.prizeMoney[rank] * count;
+    }, 0);
+
+    const profitRate = (totalPrize / this.totalPurchaseAmount) * 100;
+    return Math.round(profitRate * 10) / 10;
+  }
+
   printResults() {
     Console.print('당첨 통계');
     Console.print('---');
@@ -52,6 +70,8 @@ export default class LottoGame {
     Console.print(`5개 일치 (1,500,000원) - ${this.results[3]}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.results[2]}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${this.results[1]}개`);
+    const profitRate = this.calculateProfitRate();
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 
   #validateAmount(amount) {
