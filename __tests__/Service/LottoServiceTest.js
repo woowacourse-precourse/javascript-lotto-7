@@ -60,6 +60,12 @@ describe('로또 비지니스 로직 테스트', () => {
     });
 
     test('3개도 못맞출 경우', () => {
+      Lotto.mockImplementation(() => ({
+        match: jest.fn().mockReturnValue(2),
+        includes: jest.fn().mockReturnValue(false),
+      }));
+
+      const lottos = [new Lotto([1, 2, 3, 4, 5, 6])];
       const winningNumbers = [41, 42, 43, 44, 45, 31];
       const bonusNumber = 7;
       const results = { 3: 0, 4: 0, 5: 0, BONUS: 0, 6: 0 };
