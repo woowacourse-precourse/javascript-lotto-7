@@ -3,12 +3,6 @@ import Lotto from "../src/Lotto.js";
 import LottoManager from "../src/LottoManager.js";
 
 jest.mock("@woowacourse/mission-utils", () => ({
-  Random: {
-    pickUniqueNumbersInRange: jest.fn(),
-  },
-}));
-
-jest.mock("@woowacourse/mission-utils", () => ({
   Console: {
     print: jest.fn(),
   },
