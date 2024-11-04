@@ -1,5 +1,3 @@
-// import { MissionUtils } from '@woowacourse/mission-utils';
+class LottoController {}
 
-// export default function getRandom() {
-//     return MissionUtils.Random.pickNumberInRange(0, 9);
-// }
+export default LottoController;

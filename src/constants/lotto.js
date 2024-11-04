@@ -3,6 +3,7 @@ const LOTTO_CONFIG = {
     MAX_NUM: 45,
     LENGTH: 6,
     MAX_MONEY: 1_000_000_000,
+    PRICE_UNIT: 1000,
 };
 
 export default LOTTO_CONFIG;
