@@ -32,15 +32,17 @@ function parse_numbers(INPUT_NUM) {
 
 // 보너스번호 입력값 유효성 검사
 function check_bonus(BONUS_NUM, NUMBERS) {
+  BONUS_NUM = parseInt(BONUS_NUM)
   try {
     if (isNaN(BONUS_NUM) || BONUS_NUM > 45 || BONUS_NUM < 1) {
       throw new Error("[ERROR] 보너스번호를 잘못 입력하였습니다.")
     }
-    NUMBERS.forEach((num) => {
-      if (num === BONUS_NUM) {
-        throw new Error("[ERROR] 로또 번호와 동일한 보너스번호를 입력하였습니다.");
+    for (let i=0; i < 6; i++) {
+      if (NUMBERS[i] === BONUS_NUM) {
+        throw new Error("[ERROR] 로또 번호와 동일한 보너스번호를 입력하였습니다.")
       }
-    })
+    }
+    return BONUS_NUM
   } catch (error) {
     throw error;
   }
@@ -49,18 +51,13 @@ function check_bonus(BONUS_NUM, NUMBERS) {
 
 class App {
   async run() {
-    const COST = await MissionUtils.Console.readLineAsync('');
+    const COST = await MissionUtils.Console.readLineAsync('로또 구입 금액을 입력하세요.');
     check_cost(COST); // 입력받은 금액 유효성 검증
-    const INPUT_NUM = await MissionUtils.Console.readLineAsync('');
-    console.log(INPUT_NUM)
+    const INPUT_NUM = await MissionUtils.Console.readLineAsync('로또 당첨번호 6자리를 ,로 구분하여 입력하세요.');
     const NUMBERS = parse_numbers(INPUT_NUM); // 입력값 유효성 1차 검증
-    console.log(NUMBERS, '입력한 숫자')
-    const LOTTO = new Lotto(NUMBERS);
-    const BONUS_NUM = await MissionUtils.Console.readLineAsync('');
-    check_bonus(BONUS_NUM, NUMBERS); // 보너스번호 입력값 유효성 검사
-
-    console.log(NUMBERS)
-    console.log(BONUS_NUM)
+    const LOTTO = new Lotto(NUMBERS); // 생성자 실행
+    let BONUS_NUM = await MissionUtils.Console.readLineAsync('보너스번호를 입력하세요.');
+    BONUS_NUM = check_bonus(BONUS_NUM, NUMBERS); // 보너스번호 입력값 유효성 검사
   }
 }
 
