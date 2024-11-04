@@ -1,4 +1,5 @@
 import InputView from '../../src/View/InputView';
+import InputValidator from '../../src/View/validator/InputValidator';
 import { getLogSpy, mockQuestions } from '../ApplicationTest';
 
 describe('InputView 테스트', () => {
@@ -8,7 +9,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     const purchaseAmount = await inputView.readPurchaseAmount();
 
     expect(purchaseAmount).toBe(output);
@@ -20,7 +22,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readPurchaseAmount();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -36,7 +39,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readPurchaseAmount();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -52,7 +56,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readPurchaseAmount();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -66,7 +71,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     const winningNumbers = await inputView.readWinningNumbers();
 
     expect(winningNumbers).toEqual(output);
@@ -78,7 +84,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readWinningNumbers();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -92,7 +99,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readWinningNumbers();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -106,7 +114,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readWinningNumbers();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -120,7 +129,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readWinningNumbers();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -134,7 +144,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readWinningNumbers();
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -149,7 +160,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     const bonusNumber = await inputView.readBonusNumber(winningNumbers);
 
     expect(bonusNumber).toEqual(output);
@@ -162,7 +174,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readBonusNumber(winningNumbers);
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -179,7 +192,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readBonusNumber(winningNumbers);
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -194,7 +208,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readBonusNumber(winningNumbers);
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -211,7 +226,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readBonusNumber(winningNumbers);
 
     expect(logSpy).toHaveBeenCalledWith(
@@ -226,7 +242,8 @@ describe('InputView 테스트', () => {
 
     mockQuestions(input);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     await inputView.readBonusNumber(winningNumbers);
 
     expect(logSpy).toHaveBeenCalledWith(

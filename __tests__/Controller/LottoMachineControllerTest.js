@@ -6,6 +6,7 @@ import ReturnRateCalculatorService from '../../src/Service/ReturnRateCalculatorS
 import WinningResultCalculatorService from '../../src/Service/WinningResultCalculatorService';
 import InputView from '../../src/View/InputView';
 import OutputView from '../../src/View/OutputView';
+import InputValidator from '../../src/View/validator/InputValidator';
 import { getLogSpy, mockQuestions, mockRandoms } from '../ApplicationTest';
 
 describe('LottoMachineController 테스트', () => {
@@ -24,7 +25,8 @@ describe('LottoMachineController 테스트', () => {
     ]);
     mockQuestions(['8000', '1,2,3,4,5,6', '7']);
 
-    const inputView = new InputView();
+    const inputValidator = new InputValidator();
+    const inputView = new InputView(inputValidator);
     const outputView = new OutputView();
     const lottoNumberGenerateService = new LottoNumberGenerateService();
     const lottoTicketService = new LottoTicketService(
