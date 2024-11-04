@@ -1,4 +1,3 @@
-/*
 import CostManager from '../src/services/CostManager.js';
 import { Console,Random } from '@woowacourse/mission-utils';
 import LottoGenerator from '../src/services/LottoGenerator.js';
@@ -7,6 +6,7 @@ import CheckNumber from '../src/services/CheckNumber.js';
 import WinningPrizeTable from '../src/models/WinningPrizeTable.js';
 import PrintResult from '../src/services/PrintResult.js';
 import ReturnOfInvestment from '../src/services/ReturnOfInvestment.js';
+import Lotto from '../src/utils/Lotto.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
@@ -57,8 +57,8 @@ describe("코스트 메니저 클래스 테스트", () => {
     lottoGenerator.generateLottos(lottoCount);
 
     expect(Console.print).toHaveBeenCalledTimes(lottoCount);
-    expect(Console.print).toHaveBeenNthCalledWith(1, [3, 5, 8, 12, 20, 45]);
-    expect(Console.print).toHaveBeenNthCalledWith(2, [2, 7, 15, 22, 30, 41]);
+    expect(Console.print).toHaveBeenNthCalledWith(1, "[3, 5, 8, 12, 20, 45]");
+    expect(Console.print).toHaveBeenNthCalledWith(2, "[2, 7, 15, 22, 30, 41]");
   });
   
 });
@@ -90,10 +90,9 @@ describe('Get Number 테스트', ()=>{
 });
 
   test('당첨 번호에 중복된 번호 있을 때', async ()=>{
-    const mockValues = ['1,2,3,4,5,6', '7']; 
    
     Console.readLineAsync.mockResolvedValue('1,2,3,4,5,1');
-    await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR]중복되는 번호 혹은 공백 없는 6개의 번호만 유효합니다.');
+    await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR]중복 및 공백 없는 6개의 번호만 유효합니다.');
   })
 
   test('숫자가 6개 이상인 경우', async ()=>{
@@ -176,7 +175,7 @@ describe('WinningPrizeTable 테스트', () => {
       expect(winningPrizeTable.winningPrizeTable['3개 일치 (5,000원)']).toBe(1);
       expect(winningPrizeTable.winningPrizeTable['4개 일치 (50,000원)']).toBe(1);
       expect(winningPrizeTable.winningPrizeTable['5개 일치 (1,500,000원)']).toBe(1);
-      expect(winningPrizeTable.winningPrizeTable['5개 일치, 보너스 볼 포함 (30,000,000원)']).toBe(1);
+      expect(winningPrizeTable.winningPrizeTable['5개 일치, 보너스 볼 일치 (30,000,000원)']).toBe(1);
       expect(winningPrizeTable.winningPrizeTable['6개 일치 (2,000,000,000원)']).toBe(1);
   });
 });
@@ -274,19 +273,4 @@ describe('ReturnOfInvestment 클래스 테스트', () => {
   });
 })
 
-describe("로또 클래스 테스트", () => {
-  test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow("[ERROR]");
-  });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
-  test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow("[ERROR]");
-  });
-
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
-});*/

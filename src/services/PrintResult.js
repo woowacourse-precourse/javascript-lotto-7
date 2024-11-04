@@ -8,9 +8,11 @@ class PrintResult {
     printingResult() {
         Console.print('\n당첨 통계\n---')
         Object.keys(this.winningPrizeTable.winningPrizeTable).forEach(key => {
-            Console.print(`${key} - ${this.winningPrizeTable.winningPrizeTable[key]}개`);
+            const count = this.winningPrizeTable.winningPrizeTable[key];
+            Console.print(`${key} - ${count}개`);
         });
     }
+    
 }
 
 export default PrintResult;

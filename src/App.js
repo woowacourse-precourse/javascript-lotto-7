@@ -34,7 +34,7 @@ class App {
     try {
       await this.purchaseLottos(costManager, lottoGenerator);
     } catch (error) {
-      console.error(error.message);
+      Console.print(error.message);
       await this.handlePurchaseLottos(costManager, lottoGenerator);
     }
   }
@@ -43,7 +43,7 @@ class App {
     try {
       await getNumber.getWinNumber();
     } catch (error) {
-      console.error(error.message);
+      Console.print(error.message);
       await this.handleGetWinNumber(getNumber);
     }
   }
@@ -52,7 +52,7 @@ class App {
     try {
       await getNumber.getBonusNumber();
     } catch (error) {
-      console.error(error.message);
+      Console.print(error.message);
       await this.handleGetBonusNumber(getNumber);
     }
   }
