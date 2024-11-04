@@ -1,8 +1,9 @@
-import {errorOutput, input} from "../../ui/view.js";
-import {INPUT} from "../../constants/message.js";
-import {stringToNumber, stringToNumberArray} from "../../utils/methods.js";
+import {input} from "../../ui/input.js";
+import {INPUT} from "../../constants/messages.js";
+import {stringToNumber, stringToNumberArray} from "../../utils/conversionUtils.js";
 import LottoMachine from "../LottoMachine.js";
 import Lotto from "../Lotto.js";
+import {errorOutput} from "../../ui/output.js";
 
 
 export async function getPurchaseAmount() {
@@ -21,8 +22,8 @@ export async function getPurchaseAmount() {
 export async function getWinningNumbers() {
     while (true) {
         try {
-            const winningNum = stringToNumberArray(await input(INPUT.WINNING_STATS));
-            return new Lotto(winningNum);
+            const beforeWinningNumber = stringToNumberArray(await input(INPUT.WINNING_STATS));
+            return new Lotto(beforeWinningNumber);
         } catch (e) {
             errorOutput(e.message);
         }
