@@ -7,6 +7,38 @@
 - 값을 하드코딩 하지 않고 의미 있는 이름을 부여하여 해당 값이 어떤 역할을 하는지 명확히 드러낸다.
 - 메서드가 한가지 기능을 하는지 확인하는 기준을 세운다.
 
+## 폴더 구조
+
+```bash
+├── __tests__
+│   ├── ApplicationTest.js
+│   └── LottoTest.js
+└── src/
+    ├── constants/
+    │   ├── error.js
+    │   ├── lotto.js
+    │   └── message.js   
+    ├── domain/
+    │   ├── Bonus.js
+    │   ├── Calculate.js
+    │   ├── Lotto.js
+    │   ├── Price.js
+    │   └── Ticket.js
+    ├── io/
+    │   ├── Input.js
+    │   └── Output.js  
+    ├── utils/
+    │   ├── randomNumber.js
+    │   └── regex.js    
+    ├── validation/
+    │   ├── BonusValidate.js
+    │   ├── LottoValidate.js
+    │   ├── PriceValidate.js
+    │   └── Validate.js     
+    ├── App.js
+    └── index.js
+```
+
 ## 기능 목록
 
 ### **input**
