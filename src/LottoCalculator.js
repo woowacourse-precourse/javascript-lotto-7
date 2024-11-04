@@ -41,6 +41,16 @@ class LottoCalculator {
             );
         }
     }
+
+    calculateResult(lottoNumber) {
+        return lottoNumber.map((numbers) => {
+            const ONE_LOTTO = new Lotto(numbers);
+            return ONE_LOTTO.compareWinning(
+                this.#winningNumber,
+                this.#bonusNumber
+            );
+        });
+    }
 }
 
 export default LottoCalculator;
