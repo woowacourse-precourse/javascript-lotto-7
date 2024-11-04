@@ -1,3 +1,4 @@
+// LottoController.js
 import { Console } from '@woowacourse/mission-utils';
 import { LOTTO_EARNINGS } from '../constants/lottoNumbers.js';
 import LottoPurchase from '../models/LottoPurchase.js';
@@ -42,8 +43,14 @@ class LottoController {
     LOTTO_VIEW.printRate(LOTTO_RATE);
   }
 
-  getPriceInput() {
-    return Console.readLineAsync('구입금액을 입력해 주세요.\n');
+  async getPriceInput() {
+    try {
+      const PRICE = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+      return new LottoPurchase(PRICE.trim()).price;
+    } catch (error) {
+      Console.print(error.message);
+      return this.getPriceInput();
+    }
   }
 }
 
