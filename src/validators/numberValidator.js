@@ -3,7 +3,7 @@ import { ERORR_MESSAGE } from "../constants/messages.js";
 
 const numberValidator = {
   nan: (number) => {
-    if (isNaN(number)) {
+    if (typeof number !== "number" || Number.isNaN(number)) {
       throw new Error(ERORR_MESSAGE.NAN_ERROR);
     }
   },

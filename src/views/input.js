@@ -8,7 +8,7 @@ const input = {
   async purchasePrice() {
     try {
       const purchasePriceString = await Console.readLineAsync(MESSAGES.PURCHASE_PRICE);
-      const purchasePrice = parseInt(purchasePriceString);
+      const purchasePrice = Number(purchasePriceString);
       numberValidator.nan(purchasePrice);
       numberValidator.negative(purchasePrice);
       return purchasePrice;
