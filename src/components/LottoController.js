@@ -55,7 +55,7 @@ class LottoController {
   }
 
   #createLottoTicket() {
-    Random.pickUniqueNumbersInRange(
+    return Random.pickUniqueNumbersInRange(
       Lotto.MIN_NUMBER,
       Lotto.MAX_NUMBER,
       Lotto.COUNT,
