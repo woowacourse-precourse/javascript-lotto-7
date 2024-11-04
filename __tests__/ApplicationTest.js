@@ -94,4 +94,31 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("구매 금액 입력 테스트", async () => {
+    const logSpy = getLogSpy();
+    MissionUtils.Random.pickUniqueNumbersInRange = jest.fn()
+    .mockReturnValueOnce([1, 2, 3, 4, 5, 6])
+    .mockReturnValueOnce([7, 8, 9, 10, 11, 12])
+    .mockReturnValueOnce([13, 14, 15, 16, 17, 18]);
+
+    MissionUtils.Console.readLineAsync = jest.fn()
+    .mockResolvedValueOnce("3000")
+    .mockResolvedValueOnce("1, 2, 3, 4, 5, 10")
+    .mockResolvedValueOnce("6");
+
+    const app = new App();
+    await app.run();
+    
+    const logs = [
+      "3개를 구매했습니다.",
+      "[1, 2, 3, 4, 5, 6]",
+      "[7, 8, 9, 10, 11, 12]",
+      "[13, 14, 15, 16, 17, 18]"
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
 });
