@@ -48,6 +48,16 @@ export function printLottos(lottoCount, lottos) {
   });
 }
 
+export async function inputPrizeNumbers() {
+  const numbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.");
+  return numbers;
+}
+
+export function splitPrizeNumbers(numbers) {
+  // 문자열 -> 숫자 전환 후 배열로 반환
+  return numbers.split(",").map(Number);
+}
+
 class App {
   async run() {}
 }

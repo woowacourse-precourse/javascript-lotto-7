@@ -2,7 +2,9 @@ import App, {
   validateAmount, 
   getLottoCount, 
   generateLottos, 
-  printLottos 
+  printLottos,
+  inputPrizeNumbers,
+  splitPrizeNumbers,
 } from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../src/Lotto.js";
@@ -122,8 +124,26 @@ describe("printLottos 테스트", () => {
     expect(logSpy).toHaveBeenCalledWith("[1, 2, 3, 4, 5, 6]");
     expect(logSpy).toHaveBeenCalledWith("[7, 8, 9, 10, 11, 12]");
     expect(logSpy).toHaveBeenCalledWith("[13, 14, 15, 16, 17, 18]");
-  })
-})
+  });
+});
+
+describe("당첨 번호 입력, 분리 테스트", () => {
+  // 1. inputPrizeNumber 테스트
+  test("당첨 번호를 올바르게 입력 받는다.", async() => {
+    const userInput = "1,2,3,4,5,6";
+    MissionUtils.Console.readLineAsync = jest.fn().mockResolvedValue(userInput);
+
+    const result = await inputPrizeNumbers();
+    expect(result).toBe(userInput);
+  });
+
+  // 2. splitPrizeNumber 테스트
+  test("입력된 당첨 번호를 배열로 분리한다.", () => {
+    const input = "1,2,3,4,5,6";
+    const result = splitPrizeNumbers(input);
+    expect(result).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+});
 
 describe("로또 테스트", () => {
   beforeEach(() => {
