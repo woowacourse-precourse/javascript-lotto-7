@@ -39,7 +39,7 @@ export default class LottoController {
             const matchCount = this.getLottoSameCount(userLotto, winningLotto);
             const bonusMatched = this.isMatchBonus(userLotto, bonus);
 
-            if(bonusMatched || matchCount === number.FIVE) {
+            if(bonusMatched && matchCount === number.FIVE) {
                 statisticsCountMap.set(number.FIVE_BONUS, statisticsCountMap.get(number.FIVE_BONUS)+1);
             }
             else if(statisticsCountMap.has(matchCount))
