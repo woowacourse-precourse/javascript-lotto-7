@@ -15,4 +15,13 @@ describe("로또 클래스 테스트", () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("로또 번호에 1부터 45 사이가 아닌 숫자가 포함되면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4, 5, 46]);
+    }).toThrow("[ERROR] ");
+  });
+  test("로또 번호가 오름차순으로 정렬되어 반환된다.", () => {
+    const lotto = new Lotto([6, 5, 4, 3, 2, 1]);
+    expect(lotto.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
+  });
 });
