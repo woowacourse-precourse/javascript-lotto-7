@@ -5,7 +5,7 @@ import { ERROR_MESSAGE } from "./constants.js";
 
 class LottoController {
   #view;
-  #lottos = [];
+  lottos = [];
 
   constructor() {
     this.#view = new LottoView();
@@ -16,23 +16,23 @@ class LottoController {
     while (true) {
       try {
         purchaseAmount = await this.#view.getPurchaseAmount();
-        this.#validatePurchaseAmount(purchaseAmount);
+        this.validatePurchaseAmount(purchaseAmount);
         break;
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
     }
-    const count = this.#countOfLotto(purchaseAmount);
-    this.#generateLottos(purchaseAmount);
+    const count = this.countOfLotto(purchaseAmount);
+    this.generateLottos(purchaseAmount);
 
     this.#view.showLottoCount(count);
-    this.#view.showLottoList(this.#lottos);
+    this.#view.showLottoList(this.lottos);
 
     let winningNumbers;
     while (true) {
       try {
         winningNumbers = await this.#view.getWinningNumbers();
-        this.#validateWinningNumbers(winningNumbers);
+        this.validateWinningNumbers(winningNumbers);
         break;
       } catch (error) {
         MissionUtils.Console.print(error.message);
@@ -43,41 +43,41 @@ class LottoController {
     while (true) {
       try {
         bonusNumber = await this.#view.getBonusNumber();
-        this.#validateBonusNumber(winningNumbers, bonusNumber);
+        this.validateBonusNumber(winningNumbers, bonusNumber);
         break;
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
     }
 
-    const results = this.#calculateResults(winningNumbers, bonusNumber);
+    const results = this.calculateResults(winningNumbers, bonusNumber);
     this.#view.showResults(results);
 
-    const totalProfit = this.#calculateProfit(results);
-    const profitRate = this.#calculateProfitRate(totalProfit, purchaseAmount);
+    const totalProfit = this.calculateProfit(results);
+    const profitRate = this.calculateProfitRate(totalProfit, purchaseAmount);
     this.#view.showProfit(profitRate);
   }
 
-  #generateRandomNumbers() {
+  generateRandomNumbers() {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
-  #countOfLotto(amount) {
+  countOfLotto(amount) {
     return Math.floor(amount / 1000);
   }
 
-  #generateLottos(amount) {
-    const lottoCount = this.#countOfLotto(amount);
+  generateLottos(amount) {
+    const lottoCount = this.countOfLotto(amount);
     for (let i = 0; i < lottoCount; i++) {
-      const lottoNumbers = this.#generateRandomNumbers();
-      this.#lottos.push(new Lotto(lottoNumbers));
+      const lottoNumbers = this.generateRandomNumbers();
+      this.lottos.push(new Lotto(lottoNumbers));
     }
   }
 
-  #calculateResults(winningNumbers, bonusNumber) {
+  calculateResults(winningNumbers, bonusNumber) {
     const result = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
-    this.#lottos.forEach((lotto) => {
+    this.lottos.forEach((lotto) => {
       const matchCount = lotto
         .getNumbers()
         .filter((num) => winningNumbers.includes(num)).length;
@@ -93,7 +93,7 @@ class LottoController {
     return result;
   }
 
-  #calculateProfit(results) {
+  calculateProfit(results) {
     const prizeMap = {
       1: 2000000000, // 1등 상금 20억
       2: 30000000, // 2등 상금 3천만
@@ -109,18 +109,18 @@ class LottoController {
     return totalProfit;
   }
 
-  #calculateProfitRate(totalProfit, purchaseAmount) {
+  calculateProfitRate(totalProfit, purchaseAmount) {
     return ((totalProfit / purchaseAmount) * 100).toFixed(1);
   }
 
-  #validatePurchaseAmount(amount) {
+  validatePurchaseAmount(amount) {
     const purchaseAmount = Number(amount);
     if (isNaN(amount)) throw new Error(ERROR_MESSAGE.NOT_NUMBER_PRICE);
     if (purchaseAmount < 1000) throw new Error(ERROR_MESSAGE.UNDER_PRICE);
     if (purchaseAmount % 1000 !== 0) throw new Error(ERROR_MESSAGE.NOT_PRICE);
   }
 
-  #validateWinningNumbers(winningNumbers) {
+  validateWinningNumbers(winningNumbers) {
     if (winningNumbers.length !== 6)
       throw new Error(ERROR_MESSAGE.OVER_LENGTH_WINNING_NUMBER);
     if (winningNumbers.some((num) => isNaN(num) || num < 1 || num > 45))
@@ -129,7 +129,7 @@ class LottoController {
       throw new Error(ERROR_MESSAGE.DUPLICATE_WINNING_NUMBER);
   }
 
-  #validateBonusNumber(winningNumbers, bonusNumber) {
+  validateBonusNumber(winningNumbers, bonusNumber) {
     if (isNaN(bonusNumber)) {
       throw new Error(ERROR_MESSAGE.NOT_NUMBER);
     }
