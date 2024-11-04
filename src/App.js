@@ -105,14 +105,37 @@ class App {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
+  async lottoResultCounter(lottos) {
+    const WINNING_NUMBERS = await this.validateWinningNumbers();
+    const BONUS_NUMBER = await this.validateBonusNumber(WINNING_NUMBERS);
+    const RESULT_COUNTER = {
+      1: 0,
+      2: 0, 
+      3: 0, 
+      4: 0, 
+      5: 0, 
+    };
+
+    lottos.forEach(lotto => {
+      const RESULT = lotto.lottoResult(WINNING_NUMBERS, BONUS_NUMBER);
+      if (RESULT >= 1 && RESULT <= 5) { // 1~5 범위이면
+        RESULT_COUNTER[RESULT] += 1;
+      }
+    });
+
+    return RESULT_COUNTER;
+  }
+
   async run() {
     try {
       const MONEY = await this.validateMoney();
       const LOTTOS = this.generateLottos(MONEY);
-      
+
       LOTTOS.forEach(lotto => {
         lotto.printNumbers();
       });
+
+      lottoResultCounter(LOTTOS);
     }
     catch (error) {
       throw error;
