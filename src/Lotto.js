@@ -1,9 +1,9 @@
 class Lotto {
-  #numbers;
+  #lottoNumbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#lottoNumbers = numbers;
   }
 
   #validate(numbers) {
@@ -18,6 +18,13 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  getFormattedLottoNumbers() {
+    let formattedResult = "";
+    for (let i = 0; i < this.#lottoNumbers.length; i++) {
+      formattedResult += this.#lottoNumbers[i] + ", ";
+    }
+    return "[" + formattedResult.slice(0, -2) + "]";
+  }
 }
 
 export default Lotto;
