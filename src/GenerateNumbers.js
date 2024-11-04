@@ -39,11 +39,6 @@ class GenerateNumbers {
     MissionUtils.Console.print(
       "6개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개"
     );
-
-    // console.log("1등 횟수 : " + this.firstPlaceCount);
-    // console.log("2등 횟수 : " + this.secondPlaceCount);
-    // console.log("3등 횟수 : " + this.thirdPlaceCount);
-
     console.log("");
     const profit = this.calculateReturn(bills);
 
