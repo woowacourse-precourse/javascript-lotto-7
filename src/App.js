@@ -1,6 +1,7 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Price from "./Price.js";
 import LottoList from "./LottoList.js";
+import WinningNumbers from "./WinningNumbers.js";
 
 class App {
   async run() {
@@ -20,6 +21,17 @@ class App {
     lottos.getLottoList().forEach((lotto) => {
       Console.print(lotto.getLotto());
     });
+
+    const winningNumInst = new WinningNumbers();
+
+    // 5. 당첨 번호 입력
+    const winningLottoInput = await Console.readLineAsync(
+      "당첨 번호를 입력해 주세요.\n"
+    );
+
+    // 6. 당첨 번호 유효성 검사
+    winningNumInst.setWinningLotto(winningLottoInput);
+    
   }
 }
 
