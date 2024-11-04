@@ -10,6 +10,10 @@ const outputView = {
   printLottoCount(count) {
     Console.print(`\n${count}개를 구매했습니다.`);
   },
+
+  printLottoNumbers(numbers) {
+    Console.print(`[${numbers.join(", ")}]`);
+  },
 };
 
 export default outputView;
