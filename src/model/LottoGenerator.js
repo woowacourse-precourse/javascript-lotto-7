@@ -1,5 +1,6 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import { ERROR } from "../constants.js";
 
 class LottoGenerator {
   #payment;
@@ -13,7 +14,7 @@ class LottoGenerator {
 
   #validatePayment(payment) {
     if (Number(payment) % 1000 !== 0)
-      throw new Error("[ERROR] 1000원 단위로 금액을 입력해야 합니다.");
+      throw new Error(ERROR.GENERATOR.MUST_BE_MULTIPLE_OF_1000);
   }
 
   buyLotto() {

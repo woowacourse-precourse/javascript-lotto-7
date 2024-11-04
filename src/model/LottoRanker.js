@@ -1,4 +1,4 @@
-import { PRIZE } from "../constants.js";
+import { ERROR, PRIZE } from "../constants.js";
 
 class LottoRanker {
   #nums;
@@ -13,7 +13,7 @@ class LottoRanker {
 
   #validate(nums, bonusNum) {
     if (nums.includes(bonusNum))
-      throw new Error("[ERROR] 보너스 번호는 로또 번호와 중복될 수 없습니다.");
+      throw new Error(ERROR.RANKER.CANT_BE_DUPLICATED);
   }
 
   #findMatches(lotto) {

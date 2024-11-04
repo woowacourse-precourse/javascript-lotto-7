@@ -1,15 +1,16 @@
 import { Console } from "@woowacourse/mission-utils";
+import { ERROR } from "../constants.js";
 
 class InputView {
   static validateIsNumber(value) {
     if (isNaN(value)) {
-      throw new Error("[ERROR] 숫자를 입력해야 합니다.");
+      throw new Error(ERROR.INPUT.NOT_A_NUMBER);
     }
   }
 
   static validateInRange(num) {
     if (num > 45 || num < 1) {
-      throw new Error("[ERROR] 로또 번호는 1이상 45이하를 입력해야 합니다.");
+      throw new Error(ERROR.INPUT.NOT_IN_RANGE);
     }
   }
 
@@ -23,7 +24,7 @@ class InputView {
   static validatePayment(payment) {
     this.validateIsNumber(payment);
     if (Number(payment) <= 0)
-      throw new Error("[ERROR] 0이상의 금액을 입력해야 합니다.");
+      throw new Error(ERROR.INPUT.NOT_A_POSITIVE_NUMBER);
   }
 
   static async getWinningNumbers() {
