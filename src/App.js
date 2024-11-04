@@ -24,7 +24,7 @@ class App {
     allLottoNumbers.forEach(LottoValidator.validatorSingleNumber);
 
     lotto.setWinningAndBonusNumbers(winningNumbers, bonusNumber);
-    lotto.print();
+    customer.getLottoResults(lotto);
 
     
 

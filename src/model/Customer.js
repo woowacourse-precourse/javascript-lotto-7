@@ -3,6 +3,7 @@ import Lotto from "./Lotto.js";
 export default class Customer {
   #purchaseAmount;
   #lottoNumbersList = [];
+  #lottoResults = [];
   #lottoCount;
 
   purchaseLotto(purchaseAmount) {
@@ -14,6 +15,13 @@ export default class Customer {
     Array.from({ length: this.#lottoCount }).forEach(() => {
       const lottoNumbers = Lotto.generateLottoNumbers();
       this.#lottoNumbersList.push(lottoNumbers);
+    })
+  }
+
+  getLottoResults(lotto) {
+    this.#lottoNumbersList.forEach(lottoNumbers => {
+      const rank = lotto.getLottoRank(lottoNumbers);
+      this.#lottoResults.push(rank);
     })
   }
 
