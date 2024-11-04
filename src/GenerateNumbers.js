@@ -18,15 +18,17 @@ class GenerateNumbers {
       randomNum.sort((a, b) => a - b);
       allGeneratedNumbers.push(randomNum);
 
-      this.findMatchingNumber(randomNum, numbers, bonusNum);
+      this.findMatchingNumber(randomNum, numbers, bonusNum, bills);
     }
     console.log("");
 
-    console.log("2개 일치 (100원) - " + this.firstPlaceCount + "개");
+    console.log("2개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개");
     console.log(
-      "1개 일치, 보너스 볼 일치 (10원) - " + this.secondPlaceCount + "개"
+      "1개 일치, 보너스 볼 일치 (30,000,000원) - " +
+        this.secondPlaceCount +
+        "개"
     );
-    console.log("1개 일치 (1원) - " + this.thirdPlaceCount + "개");
+    console.log("1개 일치 (1,500,000원) - " + this.thirdPlaceCount + "개");
 
     // console.log("1등 횟수 : " + this.firstPlaceCount);
     // console.log("2등 횟수 : " + this.secondPlaceCount);
@@ -34,11 +36,12 @@ class GenerateNumbers {
     // console.log("4등 횟수 : " + this.fourthPlaceCount);
     // console.log("5등 횟수 : " + this.fifthPlaceCount);
     console.log("");
-    console.log("총상금 : " + this.totalPrizeMoney);
+    this.calculateReturn(bills);
+
     return allGeneratedNumbers;
   }
 
-  findMatchingNumber(randomNum, numbers, bonusNum) {
+  findMatchingNumber(randomNum, numbers, bonusNum, bills) {
     console.log("");
     const matchingNumbers = randomNum.filter((num) => numbers.includes(num));
     const count = matchingNumbers.length;
@@ -59,27 +62,33 @@ class GenerateNumbers {
     // 테스트를 위한 임시 코드, 비교할 count 값은 추후 수정
     if (count === 1) {
       if (randomNum.includes(bonusNumAsNumber)) {
-        prizeMoney = 1;
+        prizeMoney = 1500000;
         this.secondPlaceCount++;
-        console.log("2등");
+
         console.log(count + "개 번호와 보너스 번호 일치");
       } else {
-        prizeMoney = 10;
+        prizeMoney = 30000000;
         this.thirdPlaceCount++;
-        console.log("3등");
         console.log(count + "개 번호 일치");
       }
     }
 
     if (count === 2) {
-      prizeMoney = 100;
+      prizeMoney = 2000000000;
       this.firstPlaceCount++;
-      console.log("1등");
       console.log(count + "개 번호 일치");
     }
 
     this.totalPrizeMoney += prizeMoney;
     console.log("상금 : " + prizeMoney);
+  }
+
+  calculateReturn(bills) {
+    const totalPrice = bills * 1000;
+    const profit = this.totalPrizeMoney / totalPrice;
+    // console.log(this.totalPrizeMoney);
+    // console.log(totalPrice);
+    console.log("총 수익률은 " + profit.toFixed(1) + "%입니다.");
   }
 }
 
