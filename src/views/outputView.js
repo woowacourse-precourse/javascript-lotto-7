@@ -33,3 +33,8 @@ const analyzeProfitRate = (lottoPurchaseAmount, lottoResult) => {
   const profitRate = ((totalPrize / totalInvestment) * 100).toFixed(1);
   return profitRate;
 };
+
+const createProfitString = (profitRate) => {
+  const profitRateString = `\n총 수익률은 ${profitRate}%입니다.`;
+  return profitRateString;
+};
