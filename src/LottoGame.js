@@ -6,6 +6,7 @@ import {
   VALID_HIGHEST_NUM,
   VALID_LOTTERY_NUM,
   VALID_LOWEST_NUM
+  MAX_LIMIT
 } from './constants/validate.js';
 
 class LottoGame {
@@ -45,6 +46,9 @@ class LottoGame {
   #validatePurchasePrice(purchasePrice) {
     if (Number.isNaN(purchasePrice) || purchasePrice <= 0 || purchasePrice % LOTTO_PRICE !== 0) {
       throw new Error('[ERROR] 1000원 단위의 양수 금액을 입력해주세요.');
+    }
+    if (purchasePrice > MAX_LIMIT) {
+      throw new Error(`[ERROR] 최대 구매 금액은 ${MAX_LIMIT}원입니다.`);
     }
   }
 
