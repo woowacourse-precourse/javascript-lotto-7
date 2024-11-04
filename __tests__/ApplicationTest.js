@@ -24,7 +24,7 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const runException = async (input) => {
+const purchaseAmountException = async (input) => {
   // given
   const logSpy = getLogSpy();
 
@@ -41,6 +41,42 @@ const runException = async (input) => {
   // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
+
+const winningNumbersException = async (input) => {
+  // given
+  const logSpy = getLogSpy();
+
+  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+  const INPUT_NUMBERS_TO_END = ["1,2,3,4,5,6", "7"];
+
+  mockRandoms([RANDOM_NUMBERS_TO_END]);
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+
+  // when
+  const app = new App();
+  await app.run();
+
+  // then
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+}
+
+const bonusNumberExcption = async (input) => {
+  // given
+  const logSpy = getLogSpy();
+
+  const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+  const INPUT_NUMBERS_TO_END = ["7"];
+
+  mockRandoms([RANDOM_NUMBERS_TO_END]);
+  mockQuestions([...input, ...INPUT_NUMBERS_TO_END]);
+
+  // when
+  const app = new App();
+  await app.run();
+
+  // then
+  expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+}
 
 describe("로또 테스트", () => {
   beforeEach(() => {
@@ -91,7 +127,46 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  test("로또 구매 입력값을 입력하지 않은 예외 테스트", async () => {
+    await purchaseAmountException("");
+  });
+
+  test("로또 구매 입력값 숫자 외의 문자 입력 예외 테스트", async () => {
+    await purchaseAmountException("1000j");
+  });
+
+  test("로또 구매 입력값 1000으로 떨어지지 않는 숫자 입력 예외 테스트", async () => {
+    await purchaseAmountException("4500");
+  });
+
+  test("로또 구매 입력값 1000으로 떨어지지 않는 숫자 입력 예외 테스트", async () => {
+    await purchaseAmountException("4500");
+  });
+
+  test("당첨 번호 입력값을 입력하지 않은 예외 테스트", async () => {
+    await winningNumbersException(["1000", ""]);
+  });
+  test("당첨 번호 입력값 컴마와 숫자로 이루어지지 않았을 때 예외 테스트", async () => {
+    await winningNumbersException(["1000", "1.2.3.4.5.6"]);
+  });
+
+  test("당첨 번호 입력값 중복 예외 테스트", async () => {
+    await winningNumbersException(["1000", "1,2,3,4,5,5"]);
+  });
+
+  test("당첨 번호 입력값 범위 예외 테스트", async () => {
+    await winningNumbersException(["1000", "1,2,3,4,5,46"]);
+  });
+
+  test("당첨 번호 입력값 갯수 예외 테스트", async () => {
+    await winningNumbersException(["1000", "1,2,3,4,5,6,7"]);
+  });
+
+  test("보너스 번호 입력값 예외 테스트", async () => {
+    await winningNumbersException(["1000", "1,2,3,4,5,6", "abc"]);
+  });
+
+  test("보너스 번호 입력값 범위 예외 테스트", async () => {
+    await winningNumbersException(["1000", "1,2,3,4,5,6", "47"]);
   });
 });
