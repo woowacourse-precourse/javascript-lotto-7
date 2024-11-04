@@ -91,13 +91,14 @@ class App {
   }
 
   parseMoney(moneyInput) {
+    this.validateMoney(moneyInput);
     const money = Number(moneyInput);
-    this.validateMoney(money);
     return this.calculateLottoCount(money);
   }
 
-  validateMoney(money) {
-    if (Number.isNaN(money)) {
+  validateMoney(moneyInput) {
+    const money = Number(moneyInput);
+    if (moneyInput === '' || Number.isNaN(money)) {
       throw Error(`[Error] ${App.ERROR_MESSAGE.MONEY_INPUT_ERROR}`);
     }
     if (money < 0) {
