@@ -1,3 +1,5 @@
+import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS } from './constants.js';
+
 class Lotto {
   #numbers;
 
@@ -9,8 +11,8 @@ class Lotto {
   }
 
   validateLottoNumbers(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== LOTTO_NUMBERS) {
+      throw new Error(`[ERROR] 로또 번호는 ${LOTTO_NUMBERS}개여야 합니다.`);
     }
   }
 
@@ -22,8 +24,8 @@ class Lotto {
   }
 
   validateLottoRange(numbers) {
-    if (numbers.some((num) => num < 1 || num > 45)) {
-      throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    if (numbers.some((num) => num < LOTTO_MIN_NUMBER || num > LOTTO_MAX_NUMBER)) {
+      throw new Error(`[ERROR] 로또 번호는 ${LOTTO_MIN_NUMBER}부터 ${LOTTO_MAX_NUMBER} 사이의 숫자여야 합니다.`);
     }
   }
 

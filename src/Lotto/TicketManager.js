@@ -1,10 +1,12 @@
 import Lotto from './Lotto.js';
 import { Console, Random } from '@woowacourse/mission-utils';
 
+import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS } from './constants.js';
+
 class TicketManager {
 	static generateLottos(ticketCount) {
 		return Array.from({ length: ticketCount }, () =>
-			new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6))
+			new Lotto(Random.pickUniqueNumbersInRange(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS))
 		);
 	}
 

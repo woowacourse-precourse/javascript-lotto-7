@@ -3,6 +3,8 @@ import TicketManager from './TicketManager.js';
 import StatisticsCalculator from './StatisticsCalculator.js';
 import InputManager from './InputManager.js';
 
+import { LOTTO_QUOTIENT } from './constants.js';
+
 class LottoGame {
 	constructor() {
 		this.purchaseAmount = 0;
@@ -23,7 +25,7 @@ class LottoGame {
 
 	async setupGame() {
 		this.purchaseAmount = await InputManager.inputAndValidatePurchaseAmount();
-		this.ticketCount = Math.floor(this.purchaseAmount / 1000);
+		this.ticketCount = Math.floor(this.purchaseAmount / LOTTO_QUOTIENT);
 		this.printTicketCount();
 	}
 
