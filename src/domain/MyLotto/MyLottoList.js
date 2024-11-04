@@ -2,7 +2,6 @@ import MyLotto from "./MyLotto.js";
 
 class MyLottoList {
   #myLottoList;
-  #stats;
 
   static create(count) {
     return new MyLottoList([...Array(count)].map(() => MyLotto.create()));
@@ -12,9 +11,16 @@ class MyLottoList {
     this.#myLottoList = myLottoList;
   }
 
+  matchMyLottoList(winningLotto) {
+    this.#myLottoList.forEach((myLotto) => {
+      myLotto.matchMyLotto(winningLotto);
+    });
+  }
+
   get myLottoList() {
     return this.#myLottoList;
   }
+
 }
 
 export default MyLottoList;
