@@ -6,6 +6,20 @@ export const INPUT_PROMPT = {
 
 export const OUTPUT_MESSAGE = {
   lottoCount: '개를 구매했습니다.',
+  arraySymbol: {
+    opening: '[',
+    closing: ']',
+  },
+  winningInfo: {
+    total: '당첨 통계',
+    horizontal: '---',
+    matched: '개 일치',
+    opening: '(',
+    closing: ')',
+    moneyUnit: '원',
+    connecting: '-',
+    countUnit: '개',
+  },
 };
 
 export const ERROR_MESSAGE = {
