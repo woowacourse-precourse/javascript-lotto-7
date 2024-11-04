@@ -6,12 +6,16 @@ class Price {
 
   constructor(price) {
     this.#validate(price);
-    this.#price = price;
+    this.#price = this.#parseNumber(price);
   }
 
   #validate(price) {
     const validate = new PriceValidate();
     validate.validatePrice(price);
+  }
+
+  #parseNumber(price) {
+    return Number(price);
   }
 
   get count() {
