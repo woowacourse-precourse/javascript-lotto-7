@@ -47,7 +47,7 @@ describe("로또 테스트", () => {
     jest.restoreAllMocks();
   });
 
-  test("기능 테스트", async () => {
+  test("기본 로또 구입 테스트", async () => {
     // given
     const logSpy = getLogSpy();
 
@@ -91,7 +91,67 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  test("예외 구입시 숫자가 아닌 문자입력", async () => {
     await runException("1000j");
+  });
+
+  test("로또 숫자 잘못입력 예외 확인 - 빈값입력", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(["", ...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 숫자를 입력해주세요.")
+    );
+  });
+
+  test("로또 숫자 잘못입력 예외 확인 - 0입력", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(["0", ...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 숫자를 입력해주세요.")
+    );
+  });
+
+  test("로또 숫자 잘못입력 예외 확인 - 1000안나뉘는 숫자입력", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions(["1235", ...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 1000 단위에 맞춰주세요.")
+    );
   });
 });
