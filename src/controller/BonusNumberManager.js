@@ -11,11 +11,11 @@ class BonusNumber {
   #validate(bonusNum, winningNum) {
     ValidateNumber.checkMissing(
       bonusNum,
-      `[ERROR] : ${NUMBER_ERROR_MESSAGES.BonusNumberGuid}`,
+      NUMBER_ERROR_MESSAGES.BonusNumberGuid,
     );
     ValidateNumber.validateNumber(
       bonusNum,
-      NUMBER_ERROR_MESSAGES.numberOutOfRange,
+      NUMBER_ERROR_MESSAGES.BonusNumberGuid,
     );
     if (winningNum.includes(bonusNum)) {
       throw new Error(NUMBER_ERROR_MESSAGES.dupicateWinnig);
