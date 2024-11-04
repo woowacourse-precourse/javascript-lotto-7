@@ -1,9 +1,6 @@
 export const ERROR_MESSAGES = {
   IS_EMPTY: '[ERROR] 빈 문자열입니다.',
-  NOT_NUMBER: '[ERROR] 숫자로 변환되지 않습니다.',
-  INCLUDE_DECIMAL: '[ERROR] 소수점이 포함되어 있습니다.',
-  NOT_INTEGER: '[ERROR] 정수가 아닙니다.',
-  NOT_POSITIVE: '[ERROR] 양수가 아닙니다.',
+  INVALID_INPUT: '[ERROR] 잘못된 입력입니다.',
 };
 
 export const PURCHASE_ERRORS = {
