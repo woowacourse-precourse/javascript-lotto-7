@@ -1,6 +1,7 @@
-import { Random, Console } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 import { LOTTO_MACHINE } from './utils/Constants.js';
 import inputView from './userInterface/InputView.js';
+import outputView from './userInterface/OutputView.js';
 import Utils from './utils/Utils.js';
 import Validation from './Validation.js';
 
@@ -21,7 +22,7 @@ class LottoMachine {
 
       return payment;
     } catch (error) {
-      Console.print(error.message);
+      outputView.print(error.message);
 
       return this.getPayment();
     }

@@ -1,5 +1,5 @@
-import { Console } from '@woowacourse/mission-utils';
 import inputView from './userInterface/InputView.js';
+import outputView from './userInterface/OutputView.js';
 import Utils from './utils/Utils.js';
 import Validation from './Validation.js';
 
@@ -11,7 +11,7 @@ class WinningLottoManager {
 
       return numbers;
     } catch (error) {
-      Console.print(error.message);
+      outputView.print(error.message);
 
       return this.selectWinningNumbers();
     }
@@ -46,7 +46,7 @@ class WinningLottoManager {
 
       return bonusNumber;
     } catch (error) {
-      Console.print(error.message);
+      outputView.print(error.message);
 
       return this.selectBonusNumber(winningNumbers);
     }
