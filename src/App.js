@@ -53,6 +53,8 @@ class App {
     });
 
     let result = "";
+    let earnMoney = 0;
+
     winList.map((winEntry,index)=>{
       let matchBonus = " ";
       const rank = index + 1;
@@ -61,15 +63,23 @@ class App {
         matchBonus = ", 보너스 볼 일치";
         matchCount = secRankMatch;
       }
-      const resultEntry = `${matchCount}개 일치${matchBonus}(${winPrice[index]}원) - ${winEntry}개\n`;
+      earnMoney += Number.parseInt(winPrice[index]);
 
+
+      const resultEntry = `${matchCount}개 일치${matchBonus}(${winPrice[index]}원) - ${winEntry}개\n`;
       result = result + resultEntry;
     })
     Console.print(result);
 
-    Console.print("총 수익률은 입니다.");
-
+    Console.print(`총 수익률은 ${calRevenueRate(totalMoney, earnMoney)}%입니다`);
   }
+}
+
+function calRevenueRate(costMoney, earnMoney){
+  const profit = earnMoney - costMoney;
+  const RevenueRate = (profit / costMoney) * 100;
+
+  return RevenueRate.toFixed(1);
 }
 
 function convertRankToMatchCount(rank){
