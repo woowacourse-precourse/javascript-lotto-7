@@ -11,11 +11,26 @@ describe("구입금액 입력 유효성 테스트", () => {
   });
 
   test("숫자가 아닌 문자 입력 시 예외", () => {
-    expect(() => inputValidator.checkPurchaseAmount("hellowon")).toThrow(
-      "[ERROR] 입력에 숫자가 아닌 문자가 포함되어 있습니다."
+    expect(() => inputValidator.checkPurchaseAmount("hello")).toThrow(
+      "[ERROR] 숫자가 아닌 문자가 있습니다."
     );
     expect(() => inputValidator.checkPurchaseAmount("5000won")).toThrow(
-      "[ERROR] 입력에 숫자가 아닌 문자가 포함되어 있습니다."
+      "[ERROR] 숫자가 아닌 문자가 있습니다."
+    );
+  });
+
+  test("소수 입력 시 예외", () => {
+    expect(() => inputValidator.checkPurchaseAmount("5000.5")).toThrow(
+      "[ERROR] 정수가 아닌 숫자입니다."
+    );
+  });
+
+  test("양수가 아닌 수 입력 시 예외", () => {
+    expect(() => inputValidator.checkPurchaseAmount("-5000")).toThrow(
+      "[ERROR] 0 또는 음수 입력은 불가합니다."
+    );
+    expect(() => inputValidator.checkPurchaseAmount("0")).toThrow(
+      "[ERROR] 0 또는 음수 입력은 불가합니다."
     );
   });
 
@@ -38,9 +53,27 @@ describe("당첨 번호 입력 유효성 테스트", () => {
     );
   });
 
+  test("6개의 번호가 아닐 시 예외", () => {
+    expect(() => inputValidator.checkWinningNumbers("1,2,3,6")).toThrow(
+      "[ERROR] 로또 번호는 6개여야 합니다."
+    );
+  });
+
   test("숫자가 아닌 문자 포함 시 예외", () => {
     expect(() => inputValidator.checkWinningNumbers("1,2,a,3,4,5")).toThrow(
-      "[ERROR] 입력에 숫자가 아닌 문자가 포함되어 있습니다."
+      "[ERROR] 숫자가 아닌 문자가 있습니다."
+    );
+  });
+
+  test("양수가 아닌 숫자 포함 시 예외", () => {
+    expect(() => inputValidator.checkWinningNumbers("1,2,-7,3,4,5")).toThrow(
+      "[ERROR] 0 또는 음수 입력은 불가합니다."
+    );
+  });
+
+  test("정수가 아닌 숫자 포함 시 예외", () => {
+    expect(() => inputValidator.checkWinningNumbers("1,2,7.5,3,4,5")).toThrow(
+      "[ERROR] 정수가 아닌 숫자입니다."
     );
   });
 
@@ -53,12 +86,6 @@ describe("당첨 번호 입력 유효성 테스트", () => {
   test("중복된 숫자 포함 시 예외", () => {
     expect(() => inputValidator.checkWinningNumbers("1,2,3,3,5,6")).toThrow(
       "[ERROR] 중복된 당첨 번호가 있습니다."
-    );
-  });
-
-  test("6개의 번호가 아닐 시 예외", () => {
-    expect(() => inputValidator.checkWinningNumbers("1,2,3,6")).toThrow(
-      "[ERROR] 로또 번호는 6개여야 합니다."
     );
   });
 
@@ -80,7 +107,19 @@ describe("보너스 번호 입력 유효성 테스트", () => {
 
   test("숫자가 아닌 문자 포함 시 예외", () => {
     expect(() => inputValidator.checkBonusNumber("a", winningNumbers)).toThrow(
-      "[ERROR] 입력에 숫자가 아닌 문자가 포함되어 있습니다."
+      "[ERROR] 숫자가 아닌 문자가 있습니다."
+    );
+  });
+
+  test("소수 입력 시 예외", () => {
+    expect(() =>
+      inputValidator.checkBonusNumber("5.5", winningNumbers)
+    ).toThrow("[ERROR] 정수가 아닌 숫자입니다.");
+  });
+
+  test("음수 입력 시 예외", () => {
+    expect(() => inputValidator.checkBonusNumber("-7", winningNumbers)).toThrow(
+      "[ERROR] 0 또는 음수 입력은 불가합니다."
     );
   });
 
