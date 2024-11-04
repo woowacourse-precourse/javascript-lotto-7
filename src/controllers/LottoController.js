@@ -7,6 +7,7 @@ import {
   validateLottoNumbers,
 } from '../utils/validateLottoNumbers.js';
 import getRandomLottoNumbers from '../utils/getRandomNumbers.js';
+import LottoResult from '../models/LottoResult.js';
 
 class LottoController {
   static async handlePurchaseAmount() {
@@ -64,6 +65,28 @@ class LottoController {
 
     lottoTickets.forEach((ticket) => OutputView.printLottoTicket(ticket));
     return lottoTickets;
+  }
+
+  static displayResults(
+    lottoTickets,
+    winningLotto,
+    bonusNumber,
+    purchaseAmount,
+  ) {
+    const lottoResult = new LottoResult(
+      winningLotto.getNumbers(),
+      bonusNumber,
+      lottoTickets,
+    );
+
+    OutputView.printWinningStatistics();
+    lottoResult.result.forEach(({ matchCount, count }) =>
+      OutputView.printMatchResult(String(matchCount), count),
+    );
+
+    OutputView.printRateOfReturn(
+      lottoResult.calculateRateOfReturn(purchaseAmount),
+    );
   }
 }
 
