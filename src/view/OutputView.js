@@ -1,5 +1,5 @@
 import { printMessage } from '../utils/console.js';
-import { LOG_MESSAGE } from '../constants/message.js';
+import { LOG_MESSAGE, STATISTICS } from '../constants/message.js';
 import { PRIZE_CRITERIA } from '../constants/gameRule.js';
 
 const OutputView = {
@@ -12,14 +12,13 @@ const OutputView = {
   },
 
   printWinningStatistics(statistics) {
-    const resultMessage = Object.values(PRIZE_CRITERIA).map(({ rank, prize, description }) => {
-      const count = statistics[rank]?.count || 0;
-      return `${description} (${prize.toLocaleString()}원) - ${count}개`;
-    }).join('\n');
-
-    printMessage(`당첨 통계\n---\n${resultMessage}`);
+    printMessage(
+      `${STATISTICS.HEADER}${Object.values(PRIZE_CRITERIA)
+        .map(({ rank, description }) => STATISTICS.STATISTICSMESSAGE(description, statistics[rank].count))
+        .join(STATISTICS.LINEBREAK)}`
+    );
   },
-
+  
   printRateOfReturn(rateOfReturn) {
     printMessage(`총 수익률은 ${rateOfReturn.toFixed(1)}%입니다.`);
   }

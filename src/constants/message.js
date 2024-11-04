@@ -45,11 +45,18 @@ const TAGS = Object.freeze({
   ERROR: "[ERROR]",
 });
 
+const STATISTICS = Object.freeze({
+  HEADER: "당첨 통계\n---\n",
+  LINEBREAK: "\n",
+  STATISTICSMESSAGE: (description, count) => `${description} - ${count}개`,
+});
+
 export {
   LOG_MESSAGE,
   PRICE_ERROR_MESSAGE,
   LOTTO_ERROR_MESSAGE,
   WINNING_NUMBERS_ERROR_MESSAGE,
   BONUS_NUMBER_ERROR_MESSAGE,
+  STATISTICS,
   TAGS,
 };
