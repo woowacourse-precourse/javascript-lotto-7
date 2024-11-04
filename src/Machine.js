@@ -72,8 +72,6 @@ class Machine {
   }
 
   lottoWinningCheck() {
-    
-
     this.#lottoList.forEach((lotto) => {
       const rank = lotto.matchRank(this.#winNumbers, this.#bonusNumber);
       if (rank) this.#lottoResults[rank - 1][2] += 1;
