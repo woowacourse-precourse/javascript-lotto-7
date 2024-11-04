@@ -6,11 +6,9 @@ class OutputView {
     MissionUtils.Console.print(message);
   }
 
-  static printTicketCount(count) {
+  static printLottoNumbers(count, lottoNumbers) {
     MissionUtils.Console.print(`\n${count}개를 구매했습니다.`);
-  }
 
-  static printLottoNumbers(lottoNumbers) {
     lottoNumbers.forEach((array) => {
       const sortArray = array.sort((a, b) => a - b);
       MissionUtils.Console.print(`[${sortArray.join(', ')}]`);

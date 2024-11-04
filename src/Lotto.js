@@ -7,8 +7,8 @@ import Validator from './Validator.js';
 class Lotto {
   #numbers;
 
-  constructor(input) {
-    this.#numbers = this.#validate(input);
+  constructor(numbers) {
+    this.#numbers = this.#validate(numbers);
   }
 
   countMatchingNumbers(generatedNumbers) {
@@ -24,11 +24,9 @@ class Lotto {
     return false;
   }
 
-  #validate(input) {
-    Validator.validateEmpty(input);
-    const splitNumbers = splitString(input);
-    this.#validateLottoNumberCount(splitNumbers);
-    const lottoNumbers = splitNumbers.map((value) => {
+  #validate(numbers) {
+    this.#validateLottoNumberCount(numbers);
+    const lottoNumbers = numbers.map((value) => {
       Validator.validateWhitespace(value);
       Validator.validateNaturalNumber(value);
       const number = stringToNumber(value);

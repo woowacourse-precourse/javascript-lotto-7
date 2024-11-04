@@ -2,6 +2,7 @@ import { BONUS_NUMBER_ERROR_MESSAGE } from '../constants/ERROR_MESSAGES.js';
 import { PRIZE } from '../constants/LOTTO_CONSTANTS.js';
 import Generator from '../Generator.js';
 import Lotto from '../Lotto.js';
+import { splitString } from '../utils/splitString.js';
 import Validator from '../Validator.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
@@ -20,8 +21,10 @@ class Controller {
 
   async play() {
     await this.#getPurchaseAmountControl();
-    OutputView.printTicketCount(this.generator.getLottoTickets());
-    OutputView.printLottoNumbers(this.generator.generateLotto());
+    OutputView.printLottoNumbers(
+      this.generator.getLottoTickets(),
+      this.generator.generateLotto()
+    );
     await this.#getWinningNumberControl();
     await this.#getBonusNumberControl();
     this.generator.numbers.forEach((array) => {
@@ -81,7 +84,9 @@ class Controller {
     while (!this.lotto) {
       try {
         const input = await InputView.inputWinningNumber();
-        this.lotto = new Lotto(input);
+        Validator.validateEmpty(input);
+        const splitNumbers = splitString(input);
+        this.lotto = new Lotto(splitNumbers);
       } catch (e) {
         OutputView.printErrorMessage(e.message);
       }
