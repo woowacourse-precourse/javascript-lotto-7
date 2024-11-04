@@ -10,7 +10,7 @@ export default (winningNumbers) => {
     throw new Error(WINNINGNUMBERSERROR.INVALID_DELIMITER_SPLIT);
   }
   winningNumbers
-    .split(',')
+    .split(RULES.DELIMITER_WINNING_NUMBERS)
     .map(Number)
     .forEach((element) => {
       if (element < RULES.PICK_RANGE_START || element > RULES.PICK_RANGE_END) {

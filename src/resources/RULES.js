@@ -3,4 +3,6 @@ export default {
   PICK_RANGE_START: 1,
   PICK_RANGE_END: 45,
   TOTAL_PICK_COUNT: 6,
+
+  DELIMITER_WINNING_NUMBERS: ',',
 };

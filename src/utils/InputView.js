@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import VIEWMESSAGES from '../resources/VIEWMESSAGES.js';
 import validateInputMoney from './validator/validateInputMoney.js';
 import validateWinningNumbers from './validator/validateWinningNumbers.js';
+import RULES from '../resources/RULES.js';
 
 export async function inputPurchaseAmount() {
   while (true) {
@@ -24,7 +25,7 @@ export async function inputWinningNumbers() {
         VIEWMESSAGES.INPUT_WINNING_NUMBER_PROMPT,
       );
       validateWinningNumbers(winningNumbers);
-      return winningNumbers.split(',').map(Number);
+      return winningNumbers.split(RULES.DELIMITER_WINNING_NUMBERS).map(Number);
     } catch (error) {
       Console.print(error);
     }
