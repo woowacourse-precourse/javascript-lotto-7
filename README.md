@@ -98,3 +98,40 @@
 - [x] 기능 목록 및 예외 상황도 함께 정리하고 지속적으로 업데이트
 - [x] 값을 하드 코딩 하지 않는 것
 - [x] 클래스 구현 순서 지키기(필드, 생성자, 메서드 순)
+
+## 📂 최종 파일 설명
+
+```bash
+├── __tests__               # 테스트 파일을 모아놓은 디렉토리
+│   ├── ApplicationTest.js  # 애플리케이션 전반에 대한 테스트
+│   ├── BonusTest.js        # 보너스 번호 유효성 검증 테스트
+│   ├── CaculationTest.js   # 계산 로직 테스트
+│   ├── CostTest.js         # 로또 구매 금액 유효성 검증 테스트
+│   └── LottoTest.js        # 로또 당첨 번호 유효성 검증 테스트
+│
+├── src                     # 소스 코드 디렉토리
+│   ├── constants           # 상수를 모아놓은 디렉토리
+│   │   └── Constants.js    # 프로젝트에서 사용하는 상수 정의
+│   │
+│   ├── controller          # 컨트롤러 디렉토리
+│   │   └── LottoController.js # 로또 관련 비즈니스 로직을 관리하는 컨트롤러
+│   │
+│   ├── domains             # 도메인 모델 디렉토리
+│   │   ├── Jackpot.js      # 당첨 번호 관련 로직
+│   │   └── Ticket.js       # 로또 구입 및 랜덤 번호 추출 관련 로직
+│   │
+│   ├── utils               # 유틸리티 함수 모음
+│   │   ├── Calculation.js  # 계산 관련 함수
+│   │   └── TicketNumber.js # 로또 랜덤 번호 관련 함수
+│   │
+│   └── validator           # 검증 로직을 위한 디렉토리
+│       ├── ValidateBonus.js # 보너스 번호 검증 로직
+│       ├── ValidateCost.js  # 비용 검증 로직
+│       └── ValidateLotto.js # 로또 번호 검증 로직
+│
+├── App.js                  # 애플리케이션의 진입점
+├── index.js                # 애플리케이션 초기화 및 실행
+├── Lotto.js                # 로또 당첨 번호 검증 로직 (default / validator 디렉토리의 파일들과 동일한 역할)
+```
+
+---
