@@ -19,7 +19,13 @@ class App {
     for (let i = 0; i < lottoCount; i += 1) {
       lottos.push(this.getRandomLottoNumber());
     }
+    this.sortLotto(lottos);
     lottos.forEach(lotto => Console.print(lotto));
+    return lottos;
+  }
+
+  sortLotto(lottos) {
+    lottos.forEach(lotto => lotto.sort((a, b) => a - b));
     return lottos;
   }
 
