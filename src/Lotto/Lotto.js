@@ -1,5 +1,6 @@
 import LOTTO_CONFIG from '../constants/lottoConfig.js';
 import ERROR_MESSAGE from '../constants/errorMessage.js';
+import printString from '../output/printString.js';
 
 class Lotto {
   #numbers;
@@ -31,11 +32,12 @@ class Lotto {
       if (number > LOTTO_CONFIG.MAX_NUMBER) {
         throw new Error(ERROR_MESSAGE.LOTTO_NUMBER_TOO_LARGE);
       }
-
     });
   }
 
-
+  print(){
+    printString(`[${this.#numbers.join(', ')}]`);
+    }
   // TODO: 추가 기능 구현
 }
 
