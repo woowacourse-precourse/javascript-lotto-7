@@ -1,4 +1,4 @@
-import { ERROR } from "../config/config";
+import { ERROR } from "../config/config.js";
 
 export const convertNumber = (strings) => {
   if (isNaN(strings)) {
