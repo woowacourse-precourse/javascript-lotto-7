@@ -13,7 +13,7 @@ class PrizeCalculator {
 
     /**
    * 총 상금을 반환하는 메서드
-   * @returns {number} 총 상금
+   * @returns {number} 총 상금- 
    */
   getTotalPrize() {
     return this.#totalPrize;
