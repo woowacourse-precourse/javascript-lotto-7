@@ -1,18 +1,31 @@
+import { ERROR_MESSAGE } from "./constants/messages.js";
+import { isLottoLengthValid, hasDuplicate, validateLottoNumber } from "./utils/validation.js";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
+    numbers.forEach((number) => validateLottoNumber(number));
     this.#numbers = numbers;
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (!isLottoLengthValid(numbers)) {
+      throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
+    }
+    if (hasDuplicate(numbers)) {
+      throw new Error(ERROR_MESSAGE.DUPLICATE);
     }
   }
 
-  // TODO: 추가 기능 구현
+  has(number) {
+    return this.#numbers.includes(number);
+  }
+
+  getMatchCountWith(ticket) {
+    return ticket.filter((number) => this.#numbers.includes(number)).length;
+  }
 }
 
 export default Lotto;
