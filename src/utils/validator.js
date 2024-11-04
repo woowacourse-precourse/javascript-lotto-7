@@ -9,7 +9,7 @@ import {
   LOTTO_PRICE,
   NUMBERS_COUNT,
 } from "../constants/gameRules.js";
-import { hasDuplicates, isDuplicateInArray } from "./checkDuplicateValue.js";
+import { hasDuplicates, isBonusMatched } from "./arrayUtils.js";
 
 const validateNumberRange = (number) => {
   if (number < LOTTO_MIN_NUMBER || number > LOTTO_MAX_NUMBER) {
@@ -68,7 +68,7 @@ export const validateBonusNumber = (array, number) => {
   validateValue(number);
   validateNumberType(number);
 
-  if (isDuplicateInArray(array, number)) {
+  if (isBonusMatched(array, number)) {
     throw new Error(BONUS_NUMBER_ERROR.DUPLICATE_NUMBERS);
   }
 
