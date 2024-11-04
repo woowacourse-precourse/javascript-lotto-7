@@ -30,6 +30,10 @@ class LottoGame {
     this.#generateLottos();
   }
 
+  getLottoAmount() {
+    return this.#lottoAmount;
+  }
+
   getWinningResult(rank) {
     return this.#winningResult[rank];
   }
