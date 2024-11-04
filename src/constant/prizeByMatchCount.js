@@ -1,11 +1,11 @@
 import { deepFreeze } from '../utils/deepFreeze.js';
 
-const prizeByMatchCount = deepFreeze({
-  5: { matchCount: 3, money: 5000, moneyString: '5,000' },
-  4: { matchCount: 4, money: 50000, moneyString: '50,000' },
-  3: { matchCount: 5, money: 1_500_000, moneyString: '1,500,000' },
-  2: { matchCount: 5, money: 30_000_000, moneyString: '30,000,000' },
-  1: { matchCount: 6, money: 2_000_000_000, moneyString: '2,000,000,000' },
+const PRIZE_BY_MATCH_COUNT = deepFreeze({
+  5: { MATCH_COUNT: 3, MONEY: 5000, MONEY_STRING: '5,000' },
+  4: { MATCH_COUNT: 4, MONEY: 50000, MONEY_STRING: '50,000' },
+  3: { MATCH_COUNT: 5, MONEY: 1_500_000, MONEY_STRING: '1,500,000' },
+  2: { MATCH_COUNT: 5, MONEY: 30_000_000, MONEY_STRING: '30,000,000' },
+  1: { MATCH_COUNT: 6, MONEY: 2_000_000_000, MONEY_STRING: '2,000,000,000' },
 });
 
-export { prizeByMatchCount };
+export { PRIZE_BY_MATCH_COUNT };

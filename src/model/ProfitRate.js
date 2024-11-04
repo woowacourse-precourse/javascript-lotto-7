@@ -1,4 +1,4 @@
-import { prizeByMatchCount } from '../constant/prizeByMatchCount.js';
+import { PRIZE_BY_MATCH_COUNT } from '../constant/prizeByMatchCount.js';
 import { LOTTO } from '../constant/constants.js';
 
 export default class ProfitRate {
@@ -19,7 +19,7 @@ export default class ProfitRate {
 
     for (const [rank, count] of Object.entries(this.#result)) {
       if (count > 0) {
-        totalPrizeMoney += prizeByMatchCount[rank].money * count;
+        totalPrizeMoney += PRIZE_BY_MATCH_COUNT[rank].MONEY * count;
       }
     }
 
