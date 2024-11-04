@@ -9,15 +9,25 @@ class App {
   controller;
 
   constructor() {
+    const views = App.#initViews();
+    const models = App.#initModels();
+    this.controller = new Controller(views, models);
+  }
+
+  static #initViews() {
+    return {
+      input: InputView,
+      output: OutputView,
+    };
+  }
+
+  static #initModels() {
     const lottoChecker = new LottoChecker();
-    this.controller = new Controller(
-      { input: InputView, output: OutputView },
-      {
-        lottoStore: new LottoStore(),
-        lottoChecker,
-        lottoPrize: new LottoPrize(lottoChecker),
-      },
-    );
+    return {
+      lottoStore: new LottoStore(),
+      lottoChecker,
+      lottoPrize: new LottoPrize(lottoChecker),
+    };
   }
 
   async run() {
