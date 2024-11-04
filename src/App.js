@@ -15,7 +15,23 @@ class App {
 
     return input / 1000;
   }
+  RandomLotto() {
+    const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return numbers.sort((a, b) => a - b);
+  }
+  BonusNumber(Numbers) {
+    let bonusNumber;
+    let isUnique = false;
+    while (!isUnique) {
+      bonusNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 1);
 
+      if (!Numbers.includes(bonusNumber)) {
+        isUnique = true;
+      }
+    }
+
+    return bonusNumber;
+  }
   async run() {
     try {
       const moneyInput =
