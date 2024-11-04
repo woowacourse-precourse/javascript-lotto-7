@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Lotto from './Lotto';
+import Lotto from './Lotto.js';
 
 class App {
   constructor() {
@@ -36,20 +36,20 @@ class App {
       const input = await MissionUtils.Console.readLineAsync();
       const amount = parseInt(input, 10);
 
-      if (isNaN(amount) == false && amount % 1000 === 0) {
+      if (!isNaN(amount) && amount % 1000 === 0) {
         return amount;
       }
-    }
 
-    MissionUtils.Console.print("[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.");
+      MissionUtils.Console.print("[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.");
+    }
   }
 
   calculateLottoCount(moneyAmount) {
-    return Math.floor(amount / 1000);
+    return Math.floor(moneyAmount / 1000);
   }
 
   makeLottos(lottoCount) {
-    this.lottos = Array.from({ length: count}, () => {
+    this.lottos = Array.from({ length: lottoCount}, () => {
       const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
         return new Lotto(numbers);
     });
@@ -68,12 +68,21 @@ class App {
        const input = await MissionUtils.Console.readLineAsync();
        const numbers = input.split(",").map(Number);
 
-       if (this.validateWinningNumbers(numbers)) {
+       if (this.validateAnswerNumbers(numbers)) {
         this.answerNumbers = numbers;
         return;
        }
        MissionUtils.Console.print("[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 6개의 숫자여야 합니다.");
     }
+  }
+
+  validateAnswerNumbers(numbers) {
+    const uniqueNumbers = new Set(numbers);
+    return (
+      numbers.length === 6 &&
+      numbers.every((num) => num >= 1 && num <= 45) &&
+      uniqueNumbers.size === numbers.length
+    );
   }
 
   async getBonusNumber() {
@@ -82,7 +91,7 @@ class App {
       const input = await MissionUtils.Console.readLineAsync();
       const number = parseInt(input, 10);
 
-      if (isNaN(number) == false 
+      if (!isNaN(number)
           && !this.answerNumbers.includes(number) 
           && number >= 1 && number <= 45) {
         this.bonusNumber = number;
