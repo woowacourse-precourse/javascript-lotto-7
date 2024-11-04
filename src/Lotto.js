@@ -1,6 +1,5 @@
 import { LOTTO_NUMBER_ERROR_MESSAGES } from './constants/ERROR_MESSAGES.js';
 import { LOTTO } from './constants/LOTTO_CONSTANTS.js';
-import { splitString } from './utils/splitString.js';
 import { stringToNumber } from './utils/stringToNumber.js';
 import Validator from './Validator.js';
 
