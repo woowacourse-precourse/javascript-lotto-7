@@ -10,3 +10,11 @@ export const RESULT_MESSAGE = Object.freeze({
   3: "5개 일치, 보너스 볼 일치 (30,000,000원)",
   4: "6개 일치 (2,000,000,000원)",
 });
+
+export const LOTTO_PRIZE_AMOUNTS = {
+  FIRST_PRIZE: 2000000000,
+  SECOND_PRIZE: 30000000,
+  THIRD_PRIZE: 1500000,
+  FOURTH_PRIZE: 50000,
+  FIFTH_PRIZE: 5000,
+};

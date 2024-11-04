@@ -1,4 +1,7 @@
-import { TOTAL_EARNING_RATE } from "../constants/resultConstants.js";
+import {
+  LOTTO_PRIZE_AMOUNTS,
+  TOTAL_EARNING_RATE,
+} from "../constants/resultConstants.js";
 
 export const calculateEarningRate = function (purchaseAmount, winningDetails) {
   let totalPrizeAmount = 0;
@@ -6,19 +9,19 @@ export const calculateEarningRate = function (purchaseAmount, winningDetails) {
   winningDetails.forEach((count, index) => {
     switch (index) {
       case 0:
-        totalPrizeAmount += 5000 * count;
+        totalPrizeAmount += LOTTO_PRIZE_AMOUNTS.FIFTH_PRIZE * count;
         break;
       case 1:
-        totalPrizeAmount += 50000 * count;
+        totalPrizeAmount += LOTTO_PRIZE_AMOUNTS.FOURTH_PRIZE * count;
         break;
       case 2:
-        totalPrizeAmount += 1500000 * count;
+        totalPrizeAmount += LOTTO_PRIZE_AMOUNTS.THIRD_PRIZE * count;
         break;
       case 3:
-        totalPrizeAmount += 30000000 * count;
+        totalPrizeAmount += LOTTO_PRIZE_AMOUNTS.SECOND_PRIZE * count;
         break;
       case 4:
-        totalPrizeAmount += 2000000000 * count;
+        totalPrizeAmount += LOTTO_PRIZE_AMOUNTS.FIRST_PRIZE * count;
         break;
       default:
         break;
