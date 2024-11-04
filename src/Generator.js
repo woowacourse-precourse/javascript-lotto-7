@@ -46,6 +46,7 @@ class Generator {
   #validate(input) {
     Validator.validateWhitespace(input);
     Validator.validateNaturalNumber(input);
+    Validator.validateEmpty(input);
     const numberInput = stringToNumber(input);
     this.#validateDivisibleByTicketPrice(numberInput);
 
