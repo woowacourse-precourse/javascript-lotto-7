@@ -31,8 +31,8 @@ class Lotto {
       matchCount: this.#drawWinningNumber(winningNumbers),
       matchBonus: false,
     };
-    if (state.matchCount === VALUES.matchBonusCount)
-      state.matchBonus = this.#drawBonusNumber(bonusNumber);
+    state.matchBonus =
+      state.matchCount === VALUES.matchBonusCount && this.#drawBonusNumber(bonusNumber);
     return state;
   }
 }
