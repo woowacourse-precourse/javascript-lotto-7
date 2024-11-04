@@ -1,3 +1,5 @@
+import CONSTANT from "../constants/costant";
+
 class WinningLotto {
   #result;
   #lottos;
@@ -20,7 +22,7 @@ class WinningLotto {
 
       this.#matchNum(matchNum, lottoNumbers, this.#bonus);
     });
-    console.log(this.#result);
+    
     return this.#result;
   }
 
@@ -36,6 +38,17 @@ class WinningLotto {
     if (num >= 3) {
       return (this.#result[num - 3] += 1);
     }
+  }
+
+  calculatePercent(purchase) {
+    const prize = Object.values(CONSTANT.PRIZE);
+
+    let totalPrize = this.#result.reduce((sum, num, index) => {
+        return sum + num * prize[index];
+    }, 0);
+
+    const percentage = (totalPrize / purchase) * 100.0;
+    return Math.ceil(percentage * 100) / 100;
   }
 }
 
