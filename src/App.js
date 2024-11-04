@@ -17,6 +17,7 @@ class App {
   async run() {
     await this.makeLottos();
     await this.makeWinningLottos();
+    this.printResult();
   }
 
   /**
@@ -45,6 +46,14 @@ class App {
 
     this.LottoController.setWinningNumbers(winningNummber);
     this.LottoController.setWinningBonusNumber(winningBonusNumber);
+  }
+
+  /**
+   *
+   */
+  printResult() {
+    this.LottoController.calculateLottoResult();
+    this.LottoController.printResult();
   }
 }
 

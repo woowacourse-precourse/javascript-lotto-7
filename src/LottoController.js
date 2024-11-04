@@ -23,6 +23,7 @@ class LottoController {
     this.#winningNumbers = [];
     this.#winningBonusNumber = 0;
     this.#resultTable = {
+      0: 0,
       1: 0,
       2: 0,
       3: 0,
@@ -83,6 +84,23 @@ class LottoController {
         this.#winningBonusNumber
       );
       this.#resultTable[rank] += 1;
+    });
+  }
+
+  /**
+   *
+   */
+  printResult() {
+    this.#ioProcessor.processOuput('');
+    this.#ioProcessor.processOuput(OUPUT_MESSGE.OUTPUT_RESULT);
+    this.#ioProcessor.processOuput('---');
+
+    const resultTableArray = [...Object.entries(this.#resultTable)]
+      .filter(([rank, _]) => rank !== '0')
+      .reverse();
+
+    resultTableArray.forEach(([rank, count]) => {
+      this.#ioProcessor.processOuput(`${LOTTO_RESULT[rank]} - ${count}개`);
     });
   }
 }
