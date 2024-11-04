@@ -92,14 +92,34 @@ class App {
     this.results = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
     this.lottoTickets.forEach((ticket) => {
-      const matchedCount = ticket.filter((num) => this.winningNumbers.includes(num)).length;
-      const isBonusMatched = ticket.includes(this.bonusNumber);
+      const matchedCount = ticket
+        .getNumbers()
+        .filter((num) => this.winningNumbers.includes(num)).length;
+      const isBonusMatched = ticket.getNumbers().includes(this.bonusNumber);
 
-      if (matchedCount === 6) this.results[1] += 1; // 1등
-      else if (matchedCount === 5 && isBonusMatched) this.results[2] += 1; // 2등
-      else if (matchedCount === 5) this.results[3] += 1; // 3등
-      else if (matchedCount === 4) this.results[4] += 1; // 4등
-      else if (matchedCount === 3) this.results[5] += 1; // 5등
+      if (matchedCount === 6) {
+        this.results[1] += 1; // 1등
+        return;
+      }
+
+      if (matchedCount === 5 && isBonusMatched) {
+        this.results[2] += 1; // 2등
+        return;
+      }
+
+      if (matchedCount === 5) {
+        this.results[3] += 1; // 3등
+        return;
+      }
+
+      if (matchedCount === 4) {
+        this.results[4] += 1; // 4등
+        return;
+      }
+
+      if (matchedCount === 3) {
+        this.results[5] += 1; // 5등
+      }
     });
 
     this.printResults();
