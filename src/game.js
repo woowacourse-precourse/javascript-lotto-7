@@ -1,28 +1,16 @@
 import { Console } from '@woowacourse/mission-utils';
 import { LOTTO_PRICE, LOTTO_PRIZES, LOTTO_MATCH_TEXT } from './constant';
+import WinningResult from './WinningResult';
 
-class LottoResult {
-  constructor(matchText, prize) {
-    this.matchText = matchText;
-    this.prize = prize;
-    this.count = 0;
-  }
-
-  incrementCount() {
-    this.count += 1;
-  }
-
-  getTotalPrize() {
-    return this.count * this.prize;
-  }
-}
 const LOTTO_RESULTS = {
-  3: new LottoResult(LOTTO_MATCH_TEXT.THREE_MATCH, LOTTO_PRIZES.THREE_MATCH),
-  4: new LottoResult(LOTTO_MATCH_TEXT.FOUR_MATCH, LOTTO_PRIZES.FOUR_MATCH),
-  5: new LottoResult(LOTTO_MATCH_TEXT.FIVE_MATCH, LOTTO_PRIZES.FIVE_MATCH),
-  '5+bonus': new LottoResult(LOTTO_MATCH_TEXT.FIVE_MATCH_WITH_BONUS, LOTTO_PRIZES.FIVE_MATCH_WITH_BONUS),
-  6: new LottoResult(LOTTO_MATCH_TEXT.SIX_MATCH, LOTTO_PRIZES.SIX_MATCH),
+  3: new WinningResult(LOTTO_MATCH_TEXT.THREE_MATCH, LOTTO_PRIZES.THREE_MATCH),
+  4: new WinningResult(LOTTO_MATCH_TEXT.FOUR_MATCH, LOTTO_PRIZES.FOUR_MATCH),
+  5: new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH, LOTTO_PRIZES.FIVE_MATCH),
+  '5+bonus': new WinningResult(LOTTO_MATCH_TEXT.FIVE_MATCH_WITH_BONUS, LOTTO_PRIZES.FIVE_MATCH_WITH_BONUS),
+  6: new WinningResult(LOTTO_MATCH_TEXT.SIX_MATCH, LOTTO_PRIZES.SIX_MATCH),
 };
+
+const YIELD_MULTIPLIER = 100;
 
 class Game {
   #purchasedLottoNumbersList;
@@ -41,15 +29,13 @@ class Game {
 
   #getResultKey(matchCount, purchasedLottoNumbers) {
     if (matchCount < 3) return null;
-
     if (matchCount === 5 && purchasedLottoNumbers.includes(this.#bonusNumber)) {
       return '5+bonus';
     }
-
     return matchCount.toString();
   }
 
-  #updateLottoResultCount(key) {
+  #updateWinningResultCount(key) {
     if (key) {
       LOTTO_RESULTS[key].incrementCount();
     }
@@ -59,16 +45,15 @@ class Game {
     this.#purchasedLottoNumbersList.forEach((purchasedLottoNumbers) => {
       const matchCount = this.#getMatchCount(purchasedLottoNumbers);
       const key = this.#getResultKey(matchCount, purchasedLottoNumbers);
-      this.#updateLottoResultCount(key);
+      this.#updateWinningResultCount(key);
     });
   }
 
   #calculateYield() {
     const ticketCount = this.#purchasedLottoNumbersList.length;
-    const totalPrize = Object.values(LOTTO_RESULTS).reduce((total, result) => total + result.getTotalPrize(), 0);
+    const totalPrize = Object.values(LOTTO_RESULTS).reduce((total, result) => total + result.totalPrize, 0);
     const yieldRatio = totalPrize / (ticketCount * LOTTO_PRICE);
-    const profitability = (yieldRatio * 100).toFixed(1);
-    return profitability;
+    return (yieldRatio * YIELD_MULTIPLIER).toFixed(1);
   }
 
   #printResult() {
