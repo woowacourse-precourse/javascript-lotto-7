@@ -9,8 +9,11 @@ class App {
       MissionUtils.Console.print(`\n${lottoCount}개를 구매했습니다.`);
       this.getLottoNumbers(lottoCount);
 
-      const winningNumbers = await this.getWinningNumbers(); // 당첨 번호 입력 받기
+      const winningNumbers = await this.getWinningNumbers();
       MissionUtils.Console.print(`\n당첨 번호: ${winningNumbers.join(", ")}`);
+
+      const bonusNumber = await this.getBonusNumber(winningNumbers);
+      MissionUtils.Console.print(`보너스 번호: ${bonusNumber}`);
     } catch (error) {
       MissionUtils.Console.print(error.message);
       await this.run(); // 금액 입력 재시도
@@ -47,9 +50,8 @@ class App {
     const input = await MissionUtils.Console.readLineAsync(
       "\n당첨 번호를 입력해 주세요.\n"
     );
-    const winningNumbers = input.split(",").map(Number); // 쉼표로 구분
+    const winningNumbers = input.split(",").map(Number);
 
-    // 유효성 검사: 1~45 범위, 중복 확인, 숫자 개수 확인
     if (
       winningNumbers.length !== 6 ||
       winningNumbers.some((num) => isNaN(num) || num < 1 || num > 45) ||
@@ -61,6 +63,27 @@ class App {
     }
 
     return winningNumbers;
+  }
+
+  async getBonusNumber(winningNumbers) {
+    const input = await MissionUtils.Console.readLineAsync(
+      "\n보너스 번호를 입력해 주세요.\n"
+    );
+    const bonusNumber = Number(input);
+
+    // 유효성 검사: 1~45 범위 내에 있고 당첨 번호와 중복되지 않음
+    if (
+      isNaN(bonusNumber) ||
+      bonusNumber < 1 ||
+      bonusNumber > 45 ||
+      winningNumbers.includes(bonusNumber)
+    ) {
+      throw new Error(
+        "[ERROR] 보너스 번호는 1부터 45 사이의 중복되지 않는 숫자여야 합니다."
+      );
+    }
+
+    return bonusNumber;
   }
 }
 
