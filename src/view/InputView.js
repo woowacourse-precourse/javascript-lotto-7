@@ -3,13 +3,13 @@ import { MESSAGES } from "../constant/messages.js";
 
 class InputView {
   async readLottoAmount() {
-    return Console.readLineAsync(MESSAGES.INPUT.LOTTO_AMOUNT);
+    return Console.readLineAsync(MESSAGES.input.lotto_amount);
   }
   async readWinningLottoNumbers() {
-    return Console.readLineAsync(MESSAGES.INPUT.WINNING_NUMBERS);
+    return Console.readLineAsync(MESSAGES.input.winning_numbers);
   }
   async readBonusNumbers() {
-    return Console.readLineAsync(MESSAGES.INPUT.BONUS_NUMBER);
+    return Console.readLineAsync(MESSAGES.input.bonus_number);
   }
 }
 

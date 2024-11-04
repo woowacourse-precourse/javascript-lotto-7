@@ -4,6 +4,15 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES } from "../constant/messages.js";
 import { validator } from "../utils/validator.js";
 import { PROFIT_PER_MATCHING } from "../constant/profit.js";
+import {
+  LOTTO_NUMBER_COUNT,
+  LOTTO_NUMBER_MAX,
+  LOTTO_NUMBER_MIN,
+  MATCHING_COUNT,
+  PERCENTAGE,
+  ROUNDING_DIGITS,
+  TICKET_PRICE_UNIT,
+} from "../constant/number.js";
 
 class LottoController {
   #inputView;
@@ -19,13 +28,24 @@ class LottoController {
     this.#inputView = new InputView();
     this.#totalProfitRatio = 0;
     this.#isAllInputValidationPass = false;
-    this.#totalStatistic = { 3: 0, 4: 0, 5: 0, bonus: 0, 6: 0 };
+
+    this.#totalStatistic = {
+      [MATCHING_COUNT.three]: 0,
+      [MATCHING_COUNT.four]: 0,
+      [MATCHING_COUNT.five]: 0,
+      bonus: 0,
+      [[MATCHING_COUNT.six]]: 0,
+    };
   }
 
   makeLottoTickets() {
     const tickets = [];
     for (let i = 0; i < this.#numberOfLotto; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      const numbers = Random.pickUniqueNumbersInRange(
+        LOTTO_NUMBER_MIN,
+        LOTTO_NUMBER_MAX,
+        LOTTO_NUMBER_COUNT
+      );
       tickets.push(new Lotto(numbers));
     }
     return tickets;
@@ -77,21 +97,41 @@ class LottoController {
   }
 
   showTotalStatistic() {
-    Console.print(MESSAGES.OUTPUT.WINNING_STATISTICS);
+    Console.print(MESSAGES.output.winning_statistic);
     Console.print(
-      MESSAGES.OUTPUT.matchingCount(3, false, this.#totalStatistic[3])
+      MESSAGES.output.matchingCount(
+        MATCHING_COUNT.three,
+        false,
+        this.#totalStatistic[MATCHING_COUNT.three]
+      )
     );
     Console.print(
-      MESSAGES.OUTPUT.matchingCount(4, false, this.#totalStatistic[4])
+      MESSAGES.output.matchingCount(
+        MATCHING_COUNT.four,
+        false,
+        this.#totalStatistic[MATCHING_COUNT.four]
+      )
     );
     Console.print(
-      MESSAGES.OUTPUT.matchingCount(5, false, this.#totalStatistic[5])
+      MESSAGES.output.matchingCount(
+        MATCHING_COUNT.five,
+        false,
+        this.#totalStatistic[MATCHING_COUNT.five]
+      )
     );
     Console.print(
-      MESSAGES.OUTPUT.matchingCount(5, true, this.#totalStatistic["bonus"])
+      MESSAGES.output.matchingCount(
+        MATCHING_COUNT.five,
+        true,
+        this.#totalStatistic["bonus"]
+      )
     );
     Console.print(
-      MESSAGES.OUTPUT.matchingCount(6, false, this.#totalStatistic[6])
+      MESSAGES.output.matchingCount(
+        MATCHING_COUNT.six,
+        false,
+        this.#totalStatistic[MATCHING_COUNT.six]
+      )
     );
   }
   getWinningResult() {
@@ -99,11 +139,11 @@ class LottoController {
       const [matchingCount, bonusMatchingCount] = this.returnMatchLotto(
         ticket.getLottoNumbers()
       );
-      if (matchingCount === 5 && bonusMatchingCount > 0) {
+      if (matchingCount === MATCHING_COUNT.five && bonusMatchingCount > 0) {
         this.#totalStatistic["bonus"] += 1;
         continue;
       }
-      if (matchingCount >= 3) {
+      if (matchingCount >= MATCHING_COUNT.three) {
         this.#totalStatistic[matchingCount] += 1;
       }
     }
@@ -121,7 +161,7 @@ class LottoController {
   }
 
   showTotalProfitRatio() {
-    Console.print(MESSAGES.OUTPUT.ratioOfProfit(this.#totalProfitRatio));
+    Console.print(MESSAGES.output.ratioOfProfit(this.#totalProfitRatio));
   }
 
   async getLottoAmount() {
@@ -138,9 +178,9 @@ class LottoController {
   }
 
   printLottoTicketCount() {
-    this.#numberOfLotto = this.#lottoAmount / 1000;
+    this.#numberOfLotto = this.#lottoAmount / TICKET_PRICE_UNIT;
     // 로또 티켓 개수 출력
-    Console.print(MESSAGES.OUTPUT.lottoCount(this.#numberOfLotto));
+    Console.print(MESSAGES.output.lottoCount(this.#numberOfLotto));
   }
 
   printLottoTickets() {
@@ -155,8 +195,8 @@ class LottoController {
 
     this.#totalProfitRatio = (
       (this.calculateTotalProfit() / this.#lottoAmount) *
-      100
-    ).toFixed(1);
+      PERCENTAGE
+    ).toFixed(ROUNDING_DIGITS);
 
     this.showTotalProfitRatio();
   }
