@@ -9,7 +9,7 @@ import ReturnOfInvestment from '../src/ReturnOfInvestment.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
-    readLineAsync: jest.fn(), // readLineAsync를 모킹
+    readLineAsync: jest.fn(),
     print: jest.fn(),
   },
   Random: {
@@ -22,20 +22,20 @@ describe("코스트 메니저 클래스 테스트", () => {
   let costManager;
 
   beforeEach(() => {
-    costManager = new CostManager(); // 각 테스트 전에 새로운 인스턴스를 생성 
+    costManager = new CostManager();
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
-    jest.clearAllMocks(); // 모든 모킹을 초기화
+    jest.clearAllMocks();
   });
 
 
   test("입력값이 1000의 배수일 때.", async () => {
     Console.readLineAsync.mockResolvedValue('1000'); 
 
-    const cost = await costManager.getLottoCountFromCost(); // 비동기 호출로 await 사용
-    expect(cost).toBe(1); // 실제로 숫자형으로 비교
+    const cost = await costManager.getLottoCountFromCost();
+    expect(cost).toBe(1);
   });
 
 
@@ -45,8 +45,8 @@ describe("코스트 메니저 클래스 테스트", () => {
   });
 
   test('generateLottos는 lottoCount만큼의 정렬된 로또 번호를 출력한다.', () => {
-    const checkNumber = new CheckNumber(); // CheckNumber 인스턴스 생성
-    let lottoGenerator = new LottoGenerator(checkNumber); // 인스턴스 전달
+    const checkNumber = new CheckNumber();
+    let lottoGenerator = new LottoGenerator(checkNumber);
     const lottoCount = 2;
 
     Random.pickUniqueNumbersInRange
