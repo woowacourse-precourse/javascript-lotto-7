@@ -29,6 +29,8 @@
   - 숫자 X
   - 1 ~ 45 범위 X
   - 정수 X
+- 수익률
+  - zeroException
 
 
 
