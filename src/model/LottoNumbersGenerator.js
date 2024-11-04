@@ -1,4 +1,4 @@
-import { sortAscending, pickUniqueLottoRandomNumbers } from "../util/util.js";
+import { sortAscending, pickUniqueLottoRandomNumbers } from '../util/util.js';
 
 class LottoNumbersGenerator {
   constructor() {

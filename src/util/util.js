@@ -1,9 +1,8 @@
+import { Random } from '@woowacourse/mission-utils';
 import {
-  LOTTO_AMOUNT_UNIT,
   LOTTO_NUM_RANGE,
   NUMBER_OF_BALLS,
-} from "../config/numberConfig.js";
-import { Random } from "@woowacourse/mission-utils";
+} from '../config/numberConfig.js';
 
 /**
  * ','를 기준으로 숫자들은 분리
@@ -12,7 +11,7 @@ import { Random } from "@woowacourse/mission-utils";
  */
 
 export function splitNumbers(numbers) {
-  return numbers.split(",").map((num) => Number(num.trim()));
+  return numbers.split(',').map((num) => Number(num.trim()));
 }
 
 /**
@@ -21,9 +20,7 @@ export function splitNumbers(numbers) {
  * @returns {number}
  */
 export function sortAscending(numbers) {
-  return numbers.sort((a, b) => {
-    return a - b;
-  });
+  return numbers.sort((a, b) => a - b);
 }
 
 /**
@@ -44,7 +41,7 @@ export function pickUniqueLottoRandomNumbers() {
   return Random.pickUniqueNumbersInRange(
     LOTTO_NUM_RANGE.MIN,
     LOTTO_NUM_RANGE.MAX,
-    NUMBER_OF_BALLS
+    NUMBER_OF_BALLS,
   );
 }
 
@@ -55,5 +52,5 @@ export function pickUniqueLottoRandomNumbers() {
  * @returns {array}
  */
 export function replaceNumber(message, number) {
-  return message.replace("{number}", number);
+  return message.replace('{number}', number);
 }

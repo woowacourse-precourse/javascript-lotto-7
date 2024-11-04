@@ -1,6 +1,6 @@
-import { Console } from "@woowacourse/mission-utils";
-import { OUTPUT_MESSAGE } from "../config/messageConfig.js";
-import { replaceNumber } from "../util/util.js";
+import { Console } from '@woowacourse/mission-utils';
+import { OUTPUT_MESSAGE } from '../config/messageConfig.js';
+import { replaceNumber } from '../util/util.js';
 
 class OutputView {
   outputError(message) {
@@ -9,13 +9,11 @@ class OutputView {
 
   outputLottoNumbers(lottoQuantity, allLottoNumbers) {
     Console.print(replaceNumber(OUTPUT_MESSAGE.QUANTITY, lottoQuantity));
-    allLottoNumbers.forEach((numbers) =>
-      Console.print(`[${numbers.join(", ")}]`)
-    );
+    allLottoNumbers.forEach((numbers) => Console.print(`[${numbers.join(', ')}]`));
   }
 
   outputLottoResult(rankCounts, profitRate) {
-    //chat GPT 문자열에 숫자를 대체해서 넣을 수 있는 메서드를 구현하여 해결
+    // chat GPT 문자열에 숫자를 대체해서 넣을 수 있는 메서드를 구현하여 해결
     const winningPlace = OUTPUT_MESSAGE.WINNING_PLACE;
     const proFit = OUTPUT_MESSAGE.PROFIT;
     const resultMessage = [

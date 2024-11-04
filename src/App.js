@@ -1,12 +1,12 @@
-import Lotto from "./Lotto.js";
-import LottoAmount from "./model/LottoAmount.js";
-import LottoBonus from "./model/LottoBonus.js";
-import LottoResultCalculator from "./model/LottoResultCalculator.js";
-import LottoNumbersGenerator from "./model/LottoNumbersGenerator.js";
-import { LOTTO_AMOUNT_UNIT } from "./config/numberConfig.js";
-import { splitNumbers } from "./util/util.js";
-import InputView from "./view/inputView.js";
-import OutputView from "./view/outputView.js";
+import Lotto from './Lotto.js';
+import LottoAmount from './model/LottoAmount.js';
+import LottoBonus from './model/LottoBonus.js';
+import LottoResultCalculator from './model/LottoResultCalculator.js';
+import LottoNumbersGenerator from './model/LottoNumbersGenerator.js';
+import { LOTTO_AMOUNT_UNIT } from './config/numberConfig.js';
+import { splitNumbers } from './util/util.js';
+import InputView from './view/inputView.js';
+import OutputView from './view/outputView.js';
 
 class App {
   async run() {
@@ -47,7 +47,7 @@ class App {
         const bonusNumberInput = await inputView.inputBonusNumber();
         lottoBonusNumber = this.validateBonusNumber(
           bonusNumberInput,
-          lottoWinningNumbers
+          lottoWinningNumbers,
         );
         break;
       } catch (error) {
@@ -59,15 +59,15 @@ class App {
     const rankCounts = resultCalculator.calculateWinningRank(
       allRandomNumbers,
       lottoWinningNumbers,
-      lottoBonusNumber
+      lottoBonusNumber,
     );
     const profitRate = resultCalculator.calculateProfitRate(
       lottoAmount,
-      rankCounts
-    );
-    const lottoResultPrinter = outputView.outputLottoResult(
       rankCounts,
-      profitRate
+    );
+    outputView.outputLottoResult(
+      rankCounts,
+      profitRate,
     );
   }
 
@@ -84,7 +84,7 @@ class App {
   validateBonusNumber(bonusNumberInput, winningNumbers) {
     const bonusNumber = new LottoBonus(
       Number(bonusNumberInput),
-      winningNumbers
+      winningNumbers,
     );
     return bonusNumber.getBonusNumber();
   }
