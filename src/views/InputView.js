@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { INPUT_PROMPT } from "../constants/Message";
+import { INPUT_PROMPT } from "../constants/Message.js";
 
 class InputView {
   static enterPurchaseMoney() {
