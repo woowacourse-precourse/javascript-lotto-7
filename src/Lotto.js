@@ -12,6 +12,33 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+
+    // numbers.forEach(element => {
+    //   if ((element < 1) || (45 < element)) {
+    //     throw new Error("[ERROR] 로또 번호는 1과 45사이여야 합니다.");
+    //   }
+    // });
+    const DUP = new Set([])
+    numbers.forEach(element => {
+      DUP.add(element)
+      if (isNaN(element)) {
+        throw new Error("[Error] 입력이 숫자가 아닙니다.")
+      }
+      if ((element < 1) || (45 < element)) {
+        throw new Error("[ERROR] 로또 번호는 1과 45사이여야 합니다.");
+      }
+    });
+    if (DUP.size !== 6) {
+      throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
+    }
+
+    // const DUP = new Set([])
+    // numbers.forEach(element => {
+    //   DUP.add(element)
+    // })
+    // if (DUP.length !== 6) {
+    //   throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
+    // }
   }
 
   // TODO: 추가 기능 구현
@@ -42,6 +69,14 @@ class Lotto {
     }
     return TICKETS
   }
+
+  static setWinNum(string) {
+    const NUMS = string.trim().split(",").map(Number).sort((a, b) => a - b);
+    const WINNUMS = new Lotto(NUMS);
+    return WINNUMS;
+  }
+  // let asdf = "1,2,3,4,5,6"
+  // let abc = asdf.split(",").trim();
 
 
   getters() {
