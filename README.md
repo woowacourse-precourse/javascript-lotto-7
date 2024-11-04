@@ -124,8 +124,8 @@
 
 ### Views Tests
 
-- [] InputView 테스트 (입력 검증)
-- [] OutputView 테스트 (출력 검증)
+- [x] InputView 테스트 (입력 검증)
+- [x] OutputView 테스트 (출력 검증)
 
 ### 통합 테스트
 
