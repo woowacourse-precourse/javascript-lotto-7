@@ -1,10 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { readUserInput } from './utils/readUserInput.js';
-import {
-  isNumber,
-  isNumberInRange,
-  isNumbersInArray,
-} from './utils/validators.js';
+import { isNumber, isNumberInRange } from './utils/validators.js';
 import {
   INPUT_MESSAGE,
   LOTTO_DELIMITER,
@@ -14,6 +10,7 @@ import {
   WINNING_NUMBER_DELIMITER,
 } from './constants.js';
 import Lotto from './Lotto.js';
+import { retryOnError } from './utils/retryOnError.js';
 
 const DEFAULT_PRIZES = [
   { matchCount: 3, hasBonus: false, prizeAmount: 5000 },
@@ -36,14 +33,15 @@ export default class LottoResult {
   }
 
   async readWinningNumbers() {
-    const winningNumbers = await readUserInput(
-      INPUT_MESSAGE.READ_WINNING_NUMBERS,
-      [isNumbersInArray]
-    );
-    const numbers = winningNumbers
-      .split(WINNING_NUMBER_DELIMITER)
-      .map((value) => Number(value));
-    this.#winningLotto = new Lotto(numbers);
+    retryOnError(async () => {
+      const winningNumbers = await readUserInput(
+        INPUT_MESSAGE.READ_WINNING_NUMBERS
+      );
+      const numbers = winningNumbers
+        .split(WINNING_NUMBER_DELIMITER)
+        .map((value) => Number(value));
+      this.#winningLotto = new Lotto(numbers);
+    });
   }
 
   async readBonusNumber() {
