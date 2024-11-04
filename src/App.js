@@ -40,7 +40,7 @@ class App {
     amount = Number(amount);
     if (isNaN(amount) || amount % 1000 !== 0) {
       MissionUtils.Console.print(ERROR_MESSAGES.INVALID_AMOUNT);
-      return false;
+      return this.#getAmount();
     }
     return amount;
   }
@@ -124,7 +124,6 @@ class App {
 
   async run() {
     const amount = await this.#getAmount();
-    if (!amount) return;
     const count = await this.#getCount(amount);
     const lottos = await this.#getLottos(count);
     const winningNumber = await this.#getWinningNumber();
