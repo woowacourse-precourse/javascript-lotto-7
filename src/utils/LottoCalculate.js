@@ -5,10 +5,19 @@ class LottoCalculate {
 
   calculateTotalEarnings(statistics) {
     return Object.entries(statistics).reduce((total, [key, count]) => {
-      if (key === '5' && typeof count === 'object') {
-        return total + count.bonus * this.earnings[key].bonus;
+      if (key !== '5') {
+        return total + count * this.earnings[key];
       }
-      return total + count * this.earnings[key];
+
+      if (typeof count === 'object') {
+        total += count.count * this.earnings[key].normal;
+
+        if (count.bonus > 0) {
+          total += count.bonus * this.earnings[key].bonus;
+        }
+      }
+
+      return total;
     }, 0);
   }
 
