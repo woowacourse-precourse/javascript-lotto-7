@@ -28,9 +28,9 @@ class UserInput {
       "당첨된 숫자 6자를 쉼표로 구분하여 입력해주세요. \n"
     );
 
-    const numbers = winNums.split(",").map((num) => parseInt(num.trim(), 10));
+    const numbers = winNums.split(",").map((num) => num.trim());
+
     return numbers;
   }
 }
-
 export default UserInput;
