@@ -43,9 +43,9 @@ class LottoGame {
   #showResult() {
     const lottoResult = new LottoResult(this.#lottoList, this.#lottoWinner);
     const rateOfReturn = lottoResult.calculateResult();
+    const result = lottoResult.getResult();
 
-    OutputView.printStatisticsLine();
-    OutputView.printStatisticsResult(lottoResult, rateOfReturn);
+    OutputView.printStatisticsResult(result, rateOfReturn);
   }
 
   #getRandomLottoNumber() {

@@ -13,13 +13,10 @@ class OutputView {
     MissionUtils.Console.print('');
   }
 
-  static printStatisticsLine() {
+  static printStatisticsResult(result, rateOfReturn) {
     this.printNewLine();
     MissionUtils.Console.print('당첨 통계');
     MissionUtils.Console.print('---');
-  }
-
-  static printStatisticsResult(result, rateOfReturn) {
     MissionUtils.Console.print(`3개 일치 (5,000원) - ${result[5]}개`);
     MissionUtils.Console.print(`4개 일치 (50,000원) - ${result[4]}개`);
     MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${result[3]}개`);
