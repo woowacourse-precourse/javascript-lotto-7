@@ -128,4 +128,15 @@ describe("보너스 번호 입력값 유효성 test", () => {
       expect(() => Validator.isValidBonusBall(price)).toThrow(`[ERROR]`);
     }
   });
+
+  test("문자열이 6개의 숫자로 구성되지 않으면 최대 10번까지 사용자로부터 입력을 다시 받는다", async () => {
+    const logSpy = getLogSpy();
+    const BONUS_BALLS = ["1", "2", "3", "4", "5", "6", "7"];
+    const WINNER_LOTTO = [1, 2, 3, 4, 5, 6];
+    mockQuestions([...BONUS_BALLS]);
+    const result = await InputHandler.getBonusBall(WINNER_LOTTO);
+
+    expect(result).toBe(7);
+    expect(logSpy).toHaveBeenCalledTimes(6);
+  });
 });
