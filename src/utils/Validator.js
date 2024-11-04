@@ -18,18 +18,18 @@ const validator = {
 
   validateLottoNumbersString(numbers) {
     if (!this.validNumbersString(numbers)) throw new Error(ERROR_MESSAGES.invalidNumberFormat);
-    const numbersArray = numbers.split(CHARS.inputNumbersDelimiter);
-    this.validateLottoNumbers(numbersArray);
   },
 
-  validateBonusNumber(winningNumbers, bonusNumbersString) {
-    if (!this.validNumbersString(bonusNumbersString))
-      throw new Error(ERROR_MESSAGES.invalidNumberFormat);
-    const bonusNumbersArray = bonusNumbersString.split(CHARS.inputNumbersDelimiter);
+  validateBonusNumber(winningNumbers, bonusNumbersArray) {
     if (!this.validBonusNumbersLength(bonusNumbersArray))
       throw new Error(ERROR_MESSAGES.invalidBonusNumberLength);
-    if (!this.validBonusNumberDuplicated(winningNumbers, bonusNumbersArray))
+    if (!this.uniqueBonusNumber(winningNumbers, bonusNumbersArray))
       throw new Error(ERROR_MESSAGES.duplicatedBonusNumber);
+  },
+
+  validateBonusNumberString(bonusNumberString) {
+    if (!this.validNumbersString(bonusNumberString))
+      throw new Error(ERROR_MESSAGES.invalidNumberFormat);
   },
 
   divideIntoUnit(amount) {
@@ -66,7 +66,7 @@ const validator = {
     return numbers.length === VALUES.bonusNumberLength;
   },
 
-  validBonusNumberDuplicated(winningNumbers, bonusNumber) {
+  uniqueBonusNumber(winningNumbers, bonusNumber) {
     return bonusNumber.every((number) => !winningNumbers.includes(number));
   },
 };

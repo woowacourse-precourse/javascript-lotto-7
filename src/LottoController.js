@@ -30,6 +30,7 @@ class LottoController {
 
   async readWinningNumber() {
     const winningNumbers = await inputView.readWinningNumber();
+    validator.validateLottoNumbersString(winningNumbers);
     const winningNumbersArray = winningNumbers.split(CHARS.inputNumbersDelimiter).map(Number);
     validator.validateLottoNumbers(winningNumbersArray);
     outputView.printBlank();
@@ -38,6 +39,7 @@ class LottoController {
 
   async readBonusNumber(winningNumber) {
     const bonusNumber = await inputView.readBonusNumber();
+    validator.validateBonusNumberString(bonusNumber);
     const bonusNumberArray = bonusNumber.split(CHARS.inputNumbersDelimiter).map(Number);
     validator.validateBonusNumber(winningNumber, bonusNumberArray);
     outputView.printBlank();
