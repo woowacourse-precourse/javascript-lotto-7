@@ -4,11 +4,12 @@ class App {
   async run() {
     const USER_MONEY = await this.getMoney();
     const USER_LOTTO = this.makeUserLotto(USER_MONEY);
+    this.printUserLotto(USER_MONEY, USER_LOTTO);
 
   }
 
   async getMoney() {
-    let inputMoney = await Console.readLineAsync("구입금액을 입력해 주세요.");
+    let inputMoney = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
     return this.checkMoney(Number(inputMoney));
   }
 
@@ -35,6 +36,12 @@ class App {
     return userLotto;
   }
 
+  printUserLotto(money, lottos) {
+    Console.print(`\n${Math.floor(money / 1000)}개를 구매했습니다.`);
+    for (let lotto of lottos) {
+      Console.print(lotto)
+    }
+  }
 
 }
 
