@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   static PRIZE_INFO = {
@@ -59,6 +60,17 @@ class App {
   sortLotto(lotto) {
     const sortedLotto = lotto.sort((firstNumber, secondNumber) => firstNumber - secondNumber);
     return sortedLotto;
+  }
+
+  async inputLottos(amount) {
+    const lottos = [];
+    for (let i = 0; i < amount; i++) {
+      const lotto = await this.createLotto();
+      const sortedLotto = await this.sortLotto(lotto);
+      const lottoClass = new Lotto(sortedLotto);
+      lottos.push(lottoClass);
+    }
+    return lottos;
   }
 
   async run() {
