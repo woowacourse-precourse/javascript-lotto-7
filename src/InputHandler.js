@@ -34,7 +34,7 @@ class InputHandler {
       return bonusNumber;
     } catch (error) {
       Console.print(error.message);
-      return await this.getBonusNumber;
+      return await this.getBonusNumber(winningNumbers);
     }
   }
 

@@ -2,7 +2,6 @@ import { Console } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGES } from "../src/constants/constant.js";
 import InputHandler from "../src/InputHandler.js";
 
-// Console 모듈 전체를 한 번에 모킹
 jest.mock("@woowacourse/mission-utils");
 
 describe("InputHandler 클래스 테스트", () => {
@@ -13,7 +12,7 @@ describe("InputHandler 클래스 테스트", () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks(); // 각 테스트 후 모킹을 초기화
+    jest.clearAllMocks();
   });
 
   describe("getPurchaseAmount 메서드", () => {
