@@ -15,4 +15,8 @@ describe('로또 클래스 테스트', () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test('로또번호를 오름차순으로 정렬한다.', () => {
+    const lotto = new Lotto([3, 2, 1, 6, 5, 4]);
+    expect(lotto.sortLottoNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
+  });
 });
