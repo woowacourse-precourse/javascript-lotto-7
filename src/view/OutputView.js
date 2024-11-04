@@ -1,6 +1,5 @@
-import { printMessage } from '../utils/console.js';
+import { printMessage, formatStatistics } from '../utils/console.js';
 import { LOG_MESSAGE, STATISTICS, FORMAT } from '../constants/message.js';
-import { PRIZE_CRITERIA } from '../constants/gameRule.js';
 
 const OutputView = {
   printPurchaseMessage(lottoCount) {
@@ -12,11 +11,8 @@ const OutputView = {
   },
 
   printWinningStatistics(statistics) {
-    printMessage(
-      `${STATISTICS.HEADER}${Object.values(PRIZE_CRITERIA)
-        .map(({ rank, description }) => STATISTICS.STATISTICSMESSAGE(description, statistics[rank].count))
-        .join(FORMAT.LINEBREAK)}`
-    );
+    const formattedStatistics = formatStatistics(statistics);
+    printMessage(`${STATISTICS.HEADER}${formattedStatistics}`);
   },
   
   printRateOfReturn(rateOfReturn) {
