@@ -2,38 +2,39 @@ import InputView from "../views/inputView.js";
 import OutputView from "../views/outputView.js";
 import LottoValidator from "../utils/LottoValidator.js";
 import LottoService from "../services/LottoService.js";
-import { LOTTO_PRICE } from "../utils/constants.js";
 
 class LottoController {
   constructor() {
     this.lottoService = new LottoService();
+    this.winningNumbers = [];
+    this.bonusNumber = null;
+    this.lottos = [];
   }
 
   async start() {
     try {
-      await this.validateAndProcessPurchaseAmount();
-      await this.getWinningAndBonusNumbers();
+      const purchaseAmount = await InputView.readPurchaseAmount();
+      const validAmount = parseInt(purchaseAmount, 10);
+
+      if (LottoValidator.validatePurchaseAmount(validAmount)) {
+        const lottoCount = validAmount / 1000;
+        OutputView.printLottoCount(lottoCount);
+        this.generateAndPrintLottos(lottoCount);
+        await this.getWinningAndBonusNumbers();
+        this.calculateAndPrintResults();
+      }
     } catch (error) {
       OutputView.printErrorMessage(error.message);
     }
   }
 
-  async validateAndProcessPurchaseAmount() {
-    const purchaseAmount = await InputView.readPurchaseAmount();
-    const validAmount = parseInt(purchaseAmount, 10);
-
-    if (LottoValidator.validatePurchaseAmount(validAmount)) {
-      const lottoCount = validAmount / LOTTO_PRICE;
-      OutputView.printLottoCount(lottoCount);
-      this.generateAndPrintLottos(lottoCount);
-    }
-  }
-
   generateAndPrintLottos(count) {
-    for (let i = 0; i < count; i++) {
-      const lotto = this.lottoService.generateLotto();
-      OutputView.printLottoNumbers(lotto.getNumbers());
-    }
+    this.lottos = Array.from({ length: count }, () =>
+      this.lottoService.generateLotto()
+    );
+    this.lottos.forEach((lotto) =>
+      OutputView.printLottoNumbers(lotto.getNumbers())
+    );
   }
 
   async getWinningAndBonusNumbers() {
@@ -53,6 +54,15 @@ class LottoController {
 
     this.winningNumbers = winningNumbers;
     this.bonusNumber = bonusNumber;
+  }
+
+  calculateAndPrintResults() {
+    const results = this.lottoService.calculateResults(
+      this.lottos,
+      this.winningNumbers,
+      this.bonusNumber
+    );
+    OutputView.printResults(results);
   }
 }
 
