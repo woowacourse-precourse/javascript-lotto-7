@@ -11,6 +11,10 @@ const MESSAGES = {
   payment: `구입금액을 입력해 주세요.${division}`,
   winningNumbers: `${division}당첨 번호를 입력해 주세요.${division}`,
   bonusNumber: `${division}보너스 번호를 입력해 주세요.${division}`,
+  size: '개를 구매했습니다.',
+  winningStats: `${division}당첨 통계${division}---`,
+  rateOfReturn: '총 수익률은',
+  is: '입니다.',
 };
 
 export default MESSAGES;
