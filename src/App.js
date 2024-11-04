@@ -9,7 +9,11 @@ import calculateRateOfReturn from "./utils/calculateRateOfReturn.js";
 
 class App {
   #purchasePrice;
-  #lottos = [];
+  #lottos;
+
+  constructor() {
+    this.#lottos = [];
+  }
 
   async run() {
     try {
