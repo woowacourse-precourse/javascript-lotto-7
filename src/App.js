@@ -7,6 +7,7 @@ class App {
 
     Console.print("");
     Console.print(`${purchaseAmount / 1000}개를 구매했습니다.`);
+
     const lottoInstances = createLottoInstances(purchaseAmount / 1000);
 
     // 로또 번호 출력
@@ -14,7 +15,10 @@ class App {
       lottoInstances[i].showNumber();
     }
 
+    Console.print("");
     const winningNumbers = await this.getWinningNumbers();
+
+    Console.print("");
     const bonusNumber = await this.getBonusNumber(winningNumbers);
 
     const lottoResult = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -44,7 +48,7 @@ class App {
       2000000000 * lottoResult[6];
 
     const profit = prizeAmount - purchaseAmount;
-    const roi = (profit / purchaseAmount) * 100; // ROI(수익률)를 백분율로 계산
+    const roi = ((profit / purchaseAmount) * 100).toFixed(1); // ROI(수익률)를 소수점 한 자리까지 표시
     Console.print(`총 수익률은 ${roi}%입니다.`);
   }
 
