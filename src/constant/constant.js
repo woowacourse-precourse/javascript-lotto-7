@@ -11,6 +11,7 @@ export const ERROR_MESSAGES = {
   INVALID_LOTTO_NUMBER_RANGE: '[ERROR] 로또 번호 숫자 범위는 1~45입니다.',
   INVALID_LOTTO_NUMBER_TYPE: '[ERROR] 로또 번호는 숫자만 입력 가능합니다.',
   INVALID_LOTTO_NUMBER_INTEGER: '[ERROR] 로또 번호는 정수만 입력 가능합니다.',
+  INVALID_PURCHASE_AMOUNT_TYPE: '[ERROR] 구입 금액은 숫자만 입력 가능합니다.',
   INVALID_PURCHASE_AMOUNT_FORM: '[ERROR] 잘못된 구입 금액입니다.',
   INVALID_PURCHASE_AMOUNT_RANGE:
     '[ERROR] 구입 금액은 1000원 이상이어야 합니다.',

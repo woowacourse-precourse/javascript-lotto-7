@@ -32,6 +32,9 @@ class Purchase {
   }
 
   #validate(amount) {
+    if (isNaN(amount)) {
+      throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_TYPE);
+    }
     if (amount % UNIT !== 0) {
       throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_FORM);
     }
