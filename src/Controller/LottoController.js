@@ -1,5 +1,6 @@
 import InputView from "../View/InputView.js";
 import OutputView from "../View/OutputView.js";
+import Validator from "../Model/Validator.js";
 import AutoGenerate from "../Model/AutoGenerate.js";
 import Winning from "../Model/Winning.js";
 import calculateProfit from "../Model/calculateProfit.js";
@@ -31,9 +32,18 @@ class LottoController {
     }
 
     async #getValidBudget() {
-        let input = await this.#inputView.readBudget();
+        while (true) {
+            let input = await this.#inputView.readBudget();
 
-        return Number(input);
+            try {
+                input = Validator.inputValidate(input);
+
+                return input;
+
+            } catch (error) {
+                this.#outputView.printError(error);
+            }
+        }
     }
 
     async #draw() {
