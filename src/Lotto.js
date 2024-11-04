@@ -43,6 +43,9 @@ class Lotto {
   }
 
   static validateBonusNumber(bonusNumber, uniqueNumbers) {
+    if (bonusNumber.length !== 1) {
+      throw new Error("[ERROR] 보너스 번호는 하나여야 합니다.");
+    }
     if (bonusNumber < 1 || bonusNumber > 45) {
       throw new Error("[ERROR] 보너스 번호는 1~45 사이여야 합니다.");
     }
