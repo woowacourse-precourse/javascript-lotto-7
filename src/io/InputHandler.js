@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
-import { InputValidator } from '../services';
-import { tryAgain } from '../utils/validateUtils.js';
 import { CONFIG } from '../constants';
+import { tryAgain } from '../utils/validateUtils.js';
+import { InputValidator } from '../services';
 
 class InputHandler {
   async processMoneyInput(query) {

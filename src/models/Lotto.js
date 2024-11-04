@@ -1,6 +1,6 @@
 import { CONFIG, MESSAGES } from '../constants';
-import { Printer } from '../io';
 import { LottoValidator } from '../services';
+import { Printer } from '../io';
 
 class Lotto {
   #numbers;
