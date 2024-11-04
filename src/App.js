@@ -135,27 +135,16 @@ class App {
     const prize = [0, 2000000000, 30000000, 1500000, 50000, 5000];
     let totalPrize = 0;
     Console.print("\n당첨 통계\n---");
-    stats.forEach((count, index) => {
-      if (index === 2) {
-        Console.print(
-          `5개 일치, 보너스 볼 일치 (${prize[
-            index
-          ].toLocaleString()}원) - ${count}개`
-        );
-      } else if (index > 2) {
-        Console.print(
-          `${index + 1}개 일치 (${prize[
-            index
-          ].toLocaleString()}원) - ${count}개`
-        );
-      } else if (index > 0) {
-        Console.print(
-          `${index + 2}개 일치 (${prize[
-            index
-          ].toLocaleString()}원) - ${count}개`
-        );
-      }
-      totalPrize += count * prize[index];
+    const rankMessages = [
+      "3개 일치 (5,000원) - ",
+      "4개 일치 (50,000원) - ",
+      "5개 일치 (1,500,000원) - ",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - ",
+      "6개 일치 (2,000,000,000원) - ",
+    ];
+    stats.slice(1).forEach((count, index) => {
+      Console.print(`${rankMessages[index]}${count}개`);
+      totalPrize += count * prize[index + 1];
     });
     const investment = this.lottos.length * 1000;
     const yieldRate = ((totalPrize / investment) * 100).toFixed(1);
