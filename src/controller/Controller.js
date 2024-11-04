@@ -36,6 +36,7 @@ class Controller {
     try {
       const bonusNumber = await this.views.input.getBonusNumber();
       this.models.lottoChecker.createBonusNumber(bonusNumber);
+      this.views.output.printNewLine();
     } catch (error) {
       this.views.output.printError(error.message);
       await this.setLottoCheckerBonusNumber();
