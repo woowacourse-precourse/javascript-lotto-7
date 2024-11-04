@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import NumberValidator from './utils/NumberValidator.js';
+import LottoNumberValidator from './utils/LottoNumberValidator.js';
 import { LOTTO_ERRORS } from './constants/constants.js';
 
 class Lotto {
@@ -42,7 +43,8 @@ class Lotto {
 
       const parsedNumber = parseFloat(number);
       NumberValidator.validateIsInteger(parsedNumber);
-      NumberValidator.validateLottoNumberRange(parsedNumber);
+
+      LottoNumberValidator.validateLottoNumberRange(parsedNumber);
     });
   }
 
