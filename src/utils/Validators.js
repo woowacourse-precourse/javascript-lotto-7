@@ -7,6 +7,12 @@ const validators = {
     }
   },
 
+  checkMinMoneyInput(value) {
+    if (value <= 1000) {
+      throw new Error(ERROR_MESSAGES.MIN_MONEY_INPUT);
+    }
+  },
+
   checkLottoLength(numbers) {
     if (numbers.length !== 6) {
       throw new Error(ERROR_MESSAGES.NUMBER_OF_INPUT);

@@ -3,6 +3,8 @@ export const ERROR_MESSAGES = Object.freeze({
 
   INDIVISIBLE_MONEY_INPUT: "[ERROR] 구입 금액은 1000원으로 나누어져야 합니다.",
 
+  MIN_MONEY_INPUT: "[ERROR] 구입 금액은 1000원을 넘어야 합니다.",
+
   LIMIT_MONEY_INPUT: "[ERROR] 최대 구입 금액을 초과하였습니다.",
 
   INVALID_NUMBER_INPUT: "[ERROR] 유효하지 않은 번호입니다.",

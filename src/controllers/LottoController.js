@@ -21,6 +21,7 @@ class LottoController {
     try {
       const purchaseAmount = await this.#inputLotto.getPurchaseAmount();
       validators.checkMoneyInput(purchaseAmount);
+      validators.checkMinMoneyInput(purchaseAmount);
       validators.checkDivisible(purchaseAmount);
       validators.checkLimitMoney(purchaseAmount);
 
@@ -53,7 +54,7 @@ class LottoController {
         lottoModel.calc_rate_of_return(matchCounts, purchaseAmount)
       );
     } catch (error) {
-      console.error(error.message);
+      Console.print(`[ERROR] ${error.message}`);
     }
   }
 }
