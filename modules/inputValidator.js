@@ -1,4 +1,4 @@
-import throwError from "../utils/throwError";
+import throwError from "../utils/throwError.js";
 
 export function purchaseAmountValidate(amount) {
   if (!amount.trim()) {

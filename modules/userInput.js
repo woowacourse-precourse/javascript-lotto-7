@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { purchaseAmountValidate } from "./inputValidator";
+import { purchaseAmountValidate } from "./inputValidator.js";
 
 export async function getValidatedPurchaseAmount() {
   while (true) {
