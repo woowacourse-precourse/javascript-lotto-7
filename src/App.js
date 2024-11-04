@@ -7,8 +7,8 @@ class App {
     const USER_LOTTO = this.makeUserLotto(USER_MONEY);
     this.printUserLotto(USER_MONEY, USER_LOTTO);
     const WIN_NUM = await this.getWinNum();
-    const BONUS_NUM = await this.getBonusNum();
-    new Lotto(WIN_NUM, BONUS_NUM, USER_MONEY, USER_LOTTO);
+    const lotto = new Lotto(WIN_NUM);
+    const BONUS_NUM = await this.getBonusNum(WIN_NUM);
   }
 
   async getMoney() {
@@ -52,9 +52,19 @@ class App {
     return winArray;
   }
 
-  async getBonusNum() {
+  async getBonusNum(winArray) {
     let bonusNum = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+    this.checkBonus(bonusNum, winArray);
     return Number(bonusNum);
+  }
+
+  checkBonus(bonus, numbers) {
+    if (isNaN(bonus)) {
+      throw new Error("[ERROR] 숫자 하나를 입력해야 합니다.");
+    }
+    if (numbers.include(bonus)) {
+      throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.");
+    }
   }
 
 
