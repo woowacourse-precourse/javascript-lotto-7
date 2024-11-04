@@ -15,9 +15,9 @@ class User {
   async readPurchaseAmount() {
     while (true) {
       try {
-        this.#purchaseAmount = Number(
-          await Console.readLineAsync(PROMPT_MESSAGE.PURCHASE_AMOUNT),
-        );
+        this.#purchaseAmount =
+          Number(await Console.readLineAsync(PROMPT_MESSAGE.PURCHASE_AMOUNT)) ||
+          0;
         this.#validator.purchaseAmount(this.#purchaseAmount);
         return;
       } catch (error) {
@@ -45,12 +45,11 @@ class User {
     }
   }
 
-  async readBonusNumbers() {
+  async readBonusNumber() {
     while (true) {
       try {
-        this.#bonusNumber = Number(
-          await Console.readLineAsync(PROMPT_MESSAGE.BONUS_NUMBER),
-        );
+        this.#bonusNumber =
+          Number(await Console.readLineAsync(PROMPT_MESSAGE.BONUS_NUMBER)) || 0;
         this.#validator.bonusNumber(this.#bonusNumber, this.#winningNumbers);
         return;
       } catch (error) {
