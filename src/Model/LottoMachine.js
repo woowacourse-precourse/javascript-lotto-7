@@ -5,7 +5,7 @@ import {
 	MAX_LOTTO_NUMBER,
 	MIN_LOTTO_NUMBER,
 } from '../constants/numbers.js';
-import Lotto from './Lotto';
+import Lotto from './Lotto.js';
 
 export class LottoMachine {
 	#lottos;
