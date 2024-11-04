@@ -1,16 +1,22 @@
 import { Console } from "@woowacourse/mission-utils";
 
 const ConsoleView = {
-  askPurchaseAmount(callback) {
-    Console.readLineAsync("구입금액을 입력해 주세요.\n", callback);
+  askPurchaseAmount() {
+    return new Promise((resolve) => {
+      Console.readLineAsync("구입금액을 입력해 주세요.\n", resolve);
+    });
   },
 
-  askWinningNumbers(callback) {
-    Console.readLineAsync("당첨 번호를 입력해 주세요.\n", callback);
+  askWinningNumbers() {
+    return new Promise((resolve) => {
+      Console.readLineAsync("당첨 번호를 입력해 주세요.\n", resolve);
+    });
   },
 
-  askBonusNumber(callback) {
-    Console.readLineAsync("보너스 번호를 입력해 주세요.\n", callback);
+  askBonusNumber() {
+    return new Promise((resolve) => {
+      Console.readLineAsync("보너스 번호를 입력해 주세요.\n", resolve);
+    });
   },
 
   showLottos(lottos) {
@@ -30,7 +36,7 @@ const ConsoleView = {
   },
 
   showError(error) {
-    Console.print(error.message);
+    Console.print(`[ERROR] ${error.message}`);
   },
 };
 
