@@ -14,11 +14,11 @@ export class LottoMarket {
   }
 
   // 로또 번호 출력
-  PrintLottoInfo(count) {
-    Console.print(`${count}개를 구입했습니다.`);
+  userLottoNumbers(count) {
+    const lottoNumbers = [];
     for (let i = 0; i < count; i++) {
-      const lottoNumbers = this.makeLottoNumbers();
-      Console.print(lottoNumbers);
+      lottoNumbers.push(this.makeLottoNumbers());
     }
+    return lottoNumbers;
   }
 }
