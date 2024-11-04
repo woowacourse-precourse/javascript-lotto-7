@@ -89,6 +89,10 @@ class App {
     return lottos;
   }
 
+  inputWinningNumber() {
+    return MissionUtils.Console.readLineAsync("\n당첨 번호를 입력해 주세요..\n");
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
