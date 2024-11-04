@@ -1,9 +1,14 @@
 const matchLotto = (lottoList, winningNumbers, bonusNumber) => {
   const matchCountList = {
-    3: { count: 0 },
-    4: { count: 0 },
-    5: { count: 0, isBonusMatchCount: 0 },
-    6: { count: 0 },
+    3: { count: 0, winning: 5000 },
+    4: { count: 0, winning: 50000 },
+    5: {
+      count: 0,
+      isBonusMatchCount: 0,
+      winning: 1500000,
+      isBonusMatchWinning: 30000000,
+    },
+    6: { count: 0, winning: 2000000000 },
   };
   lottoList.forEach((lotto) => {
     const matchedCount = lotto.getMatchedCount(winningNumbers);
