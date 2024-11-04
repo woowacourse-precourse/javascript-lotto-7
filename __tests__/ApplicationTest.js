@@ -94,4 +94,37 @@ describe('로또 테스트', () => {
   test('예외 테스트', async () => {
     await runException('1000j');
   });
+
+  test('통합 테스트', async () => {
+    const LOTTO_NUMBER = [
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+    ];
+    const INPUT = ['3', '3000', '3,5,', '3,5,7,11,16,21', '7', '8'];
+
+    const logs = [
+      '3개를 구매했습니다.',
+      '[8, 21, 23, 41, 42, 43]',
+      '[3, 5, 11, 16, 32, 38]',
+      '[7, 11, 16, 35, 36, 44]',
+      '3개 일치 (5,000원) - 1개',
+      '4개 일치 (50,000원) - 1개',
+      '5개 일치 (1,500,000원) - 0개',
+      '5개 일치, 보너스 볼 일치 (30,000,000원) - 0개',
+      '6개 일치 (2,000,000,000원) - 0개',
+      '총 수익률은 1833.3%입니다.',
+    ];
+    const logSpy = getLogSpy();
+
+    mockQuestions(INPUT);
+    mockRandoms(LOTTO_NUMBER);
+
+    const app = new App();
+    await app.run();
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
 });
