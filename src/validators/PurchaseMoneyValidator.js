@@ -1,3 +1,5 @@
+import { INPUT_INVALID } from "../constants/Message.js";
+import { LOTTO } from "../constants/Setting.js";
 import { generateError } from "../utils/generateError.js";
 import Validator from "./Validator.js";
 
@@ -10,19 +12,19 @@ class PurchaseMoneyValidator {
 
   static #isNotNumber(purchaseMoney) {
     if (Validator.isNotNumber(purchaseMoney)) {
-      generateError("숫자로 입력하지 않았습니다. 로또 구입 금액은 숫자로 입력할 수 있습니다.");
+      generateError(INPUT_INVALID.PURCHASE_MONEY.NOT_NUMBER);
     }
   }
 
   static #isNotThousandUnit(purchaseMoney) {
-    if (purchaseMoney % 1000 !== 0) {
-      generateError("1,000원 단위가 아닙니다. 로또 금액은 1,000원 단위로 입력가능합니다.");
+    if (purchaseMoney % LOTTO.PRICE !== 0) {
+      generateError(INPUT_INVALID.PURCHASE_MONEY.INVALID_UNIT);
     }
   }
 
   static #isUnderThousand(purchaseMoney) {
-    if (purchaseMoney < 1000) {
-      generateError("로또 금액은 1,000원부터 입력가능합니다.");
+    if (purchaseMoney < LOTTO.PRICE) {
+      generateError(INPUT_INVALID.PURCHASE_MONEY.UNDER_MIN);
     }
   }
 }

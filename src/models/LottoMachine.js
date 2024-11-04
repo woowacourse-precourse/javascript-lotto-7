@@ -1,4 +1,5 @@
-import Lotto from "./Lotto.js";
+import { LOTTO } from "../constants/Setting.js";
+import Lotto from "../models/Lotto.js";
 import LottoHistory from "./LottoHistory.js";
 import RandomGenerator from "./RandomGenerator.js";
 
@@ -12,7 +13,7 @@ class LottoMachine {
   }
 
   #calculateLottoCount(purchaseMoney) {
-    return purchaseMoney / 1000;
+    return purchaseMoney / LOTTO.PRICE;
   }
 
   generateLotto() {
@@ -26,7 +27,11 @@ class LottoMachine {
   }
 
   #addLottoHistory(lottoHistory) {
-    const generatedNumbers = RandomGenerator.generate(1, 45, 6);
+    const generatedNumbers = RandomGenerator.generate(
+      LOTTO.RANGE.MIN,
+      LOTTO.RANGE.MAX,
+      LOTTO.COUNT
+    );
     const generatedLotto = new Lotto(generatedNumbers);
     lottoHistory.addLotto(generatedLotto);
   }

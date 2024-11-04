@@ -1,4 +1,4 @@
-import { LOTTO } from "../constants/Lotto.js";
+import { LOTTO } from "../constants/Setting.js";
 import LottoRank from "./LottoRank.js";
 
 class RankResult {

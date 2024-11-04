@@ -1,3 +1,4 @@
+import { LOTTO } from "../constants/Setting.js";
 import { generateError } from "../utils/generateError.js";
 import Validator from "../validators/Validator.js";
 
@@ -12,7 +13,7 @@ class Lotto {
   }
 
   #validateNumberCount(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO.COUNT) {
       generateError("현재 발행된 로또는 6개가 아닙니다. 각 로또는 6개의 수로 구성되어야 합니다.");
     }
   }
