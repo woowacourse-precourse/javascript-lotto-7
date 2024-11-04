@@ -42,7 +42,7 @@ class LottoManager {
             LOTTO_RANGE.START,
             LOTTO_RANGE.END,
             LOTTO_RANGE.COUNT
-          ).sort((a, b) => a - b)
+          )
         )
     );
     this.#printLottoCount();

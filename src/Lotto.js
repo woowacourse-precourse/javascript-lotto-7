@@ -9,7 +9,7 @@ class Lotto {
     for (const number of numbers) {
       validator.lottoNumber(number);
     }
-    this.#numbers = numbers;
+    this.#numbers = numbers.sort((a, b) => a - b);
   }
 
   printNumberArray() {
