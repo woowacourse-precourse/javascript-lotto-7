@@ -4,11 +4,6 @@ export const INPUT_MESSAGE = Object.freeze({
   INPUT_WINNING_BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
 });
 
-export const OUPUT_MESSGE = Object.freeze({
-  OUTPUT_BOUGHT_LOTTOS: '개를 구매했습니다.',
-  OUTPUT_RESULT: '당첨 통계',
-});
-
 export const LOTTO_PRICE = 1000;
 
 export const DELERIMETER = ',';
@@ -29,6 +24,7 @@ export const LOTTO_WINNIG_PRICE = Object.freeze({
   3: 1500000,
   4: 50000,
   5: 5000,
+  0: 0,
 });
 
 export const LOTTO_RESULT_MESSAGE = Object.freeze({

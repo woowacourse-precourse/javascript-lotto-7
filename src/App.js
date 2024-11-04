@@ -54,6 +54,8 @@ class App {
   printResult() {
     this.LottoController.calculateLottoResult();
     this.LottoController.printResult();
+    this.LottoController.calculateTotalEarningPrice();
+    this.LottoController.printEarningRate();
   }
 }
 

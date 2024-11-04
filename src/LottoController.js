@@ -3,7 +3,11 @@ import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
 import LottoCalculator from './LottoCalculator.js';
-import { OUPUT_MESSGE, LOTTO_PRICE, LOTTO_RESULT_MESSAGE } from './constant.js';
+import {
+  LOTTO_PRICE,
+  LOTTO_RESULT_MESSAGE,
+  LOTTO_WINNIG_PRICE,
+} from './constant.js';
 
 /**
  *
@@ -13,6 +17,7 @@ class LottoController {
   #winningNumbers;
   #winningBonusNumber;
   #resultTable;
+  #totalEarningPrice;
   #ioProcessor;
   #calculator;
 
@@ -30,6 +35,7 @@ class LottoController {
       4: 0,
       5: 0,
     };
+    this.#totalEarningPrice = 0;
     this.#ioProcessor = new IOProcessor();
     this.#calculator = new LottoCalculator();
   }
@@ -45,9 +51,7 @@ class LottoController {
     );
 
     this.#ioProcessor.processOuput('');
-    this.#ioProcessor.processOuput(
-      lottoSize + OUPUT_MESSGE.OUTPUT_BOUGHT_LOTTOS
-    );
+    this.#ioProcessor.processOuput(`${lottoSize}개를 구매했습니다.`);
     this.#lottos.forEach((lotto) => lotto.printLotto());
   }
 
@@ -92,7 +96,7 @@ class LottoController {
    */
   printResult() {
     this.#ioProcessor.processOuput('');
-    this.#ioProcessor.processOuput(OUPUT_MESSGE.OUTPUT_RESULT);
+    this.#ioProcessor.processOuput('당첨 통계');
     this.#ioProcessor.processOuput('---');
 
     const resultTableArray = [...Object.entries(this.#resultTable)]
@@ -103,6 +107,27 @@ class LottoController {
       this.#ioProcessor.processOuput(
         `${LOTTO_RESULT_MESSAGE[rank]} - ${count}개`
       );
+    });
+  }
+
+  /**
+   *
+   */
+  printEarningRate() {
+    const earningRate = (
+      this.#totalEarningPrice /
+      (this.#lottos.length * LOTTO_PRICE)
+    ).toFixed(1);
+
+    this.#ioProcessor.processOuput(`총 수익률은 ${earningRate}% 입니다.`);
+  }
+
+  /**
+   *
+   */
+  calculateTotalEarningPrice() {
+    Object.entries(this.#resultTable).forEach(([rank, count]) => {
+      this.#totalEarningPrice += count * LOTTO_WINNIG_PRICE[rank];
     });
   }
 }
