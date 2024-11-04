@@ -13,7 +13,7 @@ export const getLottoNumbers = async () => {
 
 export const getBonusNumbers = async(numbers) => {
     Console.print('\n보너스 번호를 입력해주세요.');
-    const bonusNumber = await Console.readLineAsync('');
+    const bonusNumber = Number(await Console.readLineAsync(''));
     if(!(1<=bonusNumber && bonusNumber<=45)){
       throw new Error("[ERROR] 1부터 45 범위 내의 번호 1개를 입력해주세요.");
     }
