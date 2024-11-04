@@ -1,19 +1,28 @@
 import ERROR from '../constants/error.js';
 import CustomError from './CustomError.js';
 
-export const validateAmountType = (purchaseAmount) => {
-  if (typeof purchaseAmount !== 'number' || Number.isNaN(purchaseAmount)) {
+const validateNotEmpty = (purchaseAmountString) => {
+  if (purchaseAmountString === '') {
+    throw new CustomError(ERROR.EMPTY_INPUT);
+  }
+};
+
+const validateAmountType = (purchaseAmountString) => {
+  if (Number.isNaN(purchaseAmountString)) {
     throw new CustomError(ERROR.INVALID_NUMBER_TYPE);
   }
 };
 
-export const validateAmountUnit = (purchaseAmount) => {
-  if (purchaseAmount % 1000 !== 0) {
+const validateAmountUnit = (purchaseAmountString) => {
+  if (purchaseAmountString % 1000 !== 0) {
     throw new CustomError(ERROR.INVALID_PURCHASE_AMOUNT);
   }
 };
 
-export const validatePurchaseAmount = (purchaseAmount) => {
+export const validatePurchaseAmount = (purchaseAmountString) => {
+  validateNotEmpty(purchaseAmountString);
+  const purchaseAmount = parseInt(purchaseAmountString, 10);
   validateAmountType(purchaseAmount);
   validateAmountUnit(purchaseAmount);
+  return purchaseAmount;
 };
