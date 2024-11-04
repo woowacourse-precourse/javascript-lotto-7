@@ -37,10 +37,12 @@ class ConsoleView {
   }
 
   async getBonusNumber(winningNumbers) {
+    const validator = new Validator();
     let bonusNumber;
     for (; ;) {
       try {
         bonusNumber = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n")
+        validator.validateBonusNumber(bonusNumber, winningNumbers);
         return bonusNumber;
       } catch (error) {
         Console.print(error.message);
