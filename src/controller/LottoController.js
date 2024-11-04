@@ -17,13 +17,21 @@ class LottoController {
   }
 
   async init() {
-    await this.setLottoAmounts();
-    await this.getWinningNumbers();
-    await this.getBonusNumbers();
-    this.calculateStatistics();
-    this.printStatistics();
+    try {
+      await this.setLottoAmounts();
+      await this.getWinningNumbers();
+      await this.getBonusNumbers();
+      this.calculateStatistics();
+      this.printStatistics();
+    } catch (error) {
+      this.handleInitError(error);
+      await this.init();
+    }
   }
 
+  handleInitError(error) {
+    this.view.printError(error.message);
+  }
   async setLottoAmounts() {
     try {
       const purchaseAmount = await this.getLottoAmounts();
@@ -34,7 +42,8 @@ class LottoController {
       this.view.printGetLottos(lottoCount);
       this.view.printLottos(lottos);
     } catch (error) {
-      throw error;
+      this.view.printError(error.message);
+      return await this.getLottoAmounts();
     }
   }
 
@@ -61,7 +70,8 @@ class LottoController {
       const winningLottos = new Lotto(getWinningNumber);
       this.winningNumbers = winningLottos.getLottoNumbers();
     } catch (error) {
-      throw error;
+      this.view.printError(error.message);
+      return await this.getWinningNumbers();
     }
   }
 
@@ -73,7 +83,8 @@ class LottoController {
       validateBonusNumber(bonusNumber, this.winningNumbers);
       this.bonusNumbers = bonusNumber;
     } catch (error) {
-      throw error;
+      this.view.printError(error.message);
+      return await this.getBonusNumbers();
     }
   }
 

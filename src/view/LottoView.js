@@ -35,6 +35,9 @@ class LottoView {
     );
     return Number(bonusNumbers);
   }
+  printError(message) {
+    Console.print(message);
+  }
 
   printStatistics(statistics) {
     Console.print(STATISTICS_MESSAGE.STATISTICS_DEFAULT_MESSAGE);
