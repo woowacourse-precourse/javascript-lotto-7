@@ -5,6 +5,7 @@ export function makeError(message) {
 export const ERROR_MESSAGE = {
   NEED_INPUT: '값을 입력해주세요.',
   NEED_COMMA: '당첨 번호 숫자는 , 기준으로 구분되어야 합니다.',
+  PURCHASE_MONEY_ERROR_MINIMUN: '0원보다 큰 금액을 입력해주세요',
   PURCHASE_MONEY_ERROR_TYPE:
     '숫자 혹은 천 단위 구분자를 사용해 금액을 입력해주세요. \n 예시 ) 1000 혹은 1,000',
   PURCHASE_MONEY_ERROR_DEVIDE:
