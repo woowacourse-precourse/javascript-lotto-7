@@ -25,7 +25,7 @@ export const LOTTO_ERROR_MESSAGE = {
   DUPLICATE_NUMBER_ERROR_MESSAGE: '[ERROR] 중복된 숫자가 있습니다.',
   OUT_OF_RANGE_NUMBER_ERROR_MESSAGE:
     '[ERROR] 로또 번호는 1부터 45까지의 숫자입니다.',
-  NOT_NUMBER_ERROR_MESSAGE: '[ERROR] 로또 개수는 숫자여야 합니다.',
+  NOT_NUMBER_ERROR_MESSAGE: '[ERROR] 구매금액은 숫자여야 합니다.',
   UNIT_PRICE_ERROR_MESSAGE: '[ERROR] 로또 가격은 1000원 단위 숫자여야 합니다.',
   UNDER_PRICE_ERROR_MESSAGE: '[ERROR] 로또 가격은 1000원 이상이여야 합니다.',
   NUMBER_OF_LOTTO_NUMBERS_ERROR_MESSAGE: '[ERROR] 로또 번호는 6개여야 합니다.',
