@@ -1,16 +1,20 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Utils from "../Utils.js";
 import OutputView from "./OutputView.js";
+import Utils from "../Utils.js";
 import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
+import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class InputView {
   static async readLinePrice() {
-    const prise = await MissionUtils.Console.readLineAsync(
+    const price = await MissionUtils.Console.readLineAsync(
       LOTTO_MESSAGES.input.money
     );
-    const parsePrice = parseInt(prise, 10);
+    const parsePrice = parseInt(price, 10);
 
-    return { prise, parsePrice };
+    this.#validatePrice(price);
+    this.#validateParsePrice(parsePrice);
+
+    return parsePrice;
   }
 
   static async readLineNumber() {
@@ -32,6 +36,40 @@ class InputView {
     const parseBonusNumber = parseInt(bonusNumber, 10);
 
     return { bonusNumber, parseBonusNumber }
+  }
+
+  static #validatePrice(input) {
+    this.#validateIsInteger(input);
+  }
+
+  static #validateParsePrice(input) {
+    this.#validateIsNumber(input);
+    this.#validateIsOverThousand(input);
+    this.#validateIsMultiplesOfThousand(input);
+  }
+
+  static #validateIsInteger(input) {
+    if (input.includes('.')) {
+      throw new Error(LOTTO_MESSAGES.error.canNotUseDecimal);
+    }
+  }
+
+  static #validateIsNumber(input) {
+    if (typeof input !== 'number') {
+      throw new Error(LOTTO_MESSAGES.error.inputNaN);
+    }
+  }
+
+  static #validateIsOverThousand(input) {
+    if (input < LOTTO_SETTINGS.minimumPrice) {
+      throw new Error(LOTTO_MESSAGES.error.priceUnderThousands);
+    }
+  }
+
+  static #validateIsMultiplesOfThousand(input) {
+    if (input % LOTTO_SETTINGS.minimumPrice !== 0) {
+      throw new Error(LOTTO_MESSAGES.error.priceNotMultipleOfThousands);
+    }
   }
 }
 

@@ -1,13 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class OutputView {
-  static printLottoCount(count) {
+  static printLotto(lottoList, count) {
     this.printNewLine();
     MissionUtils.Console.print(`${count}개를 구매했습니다.`);
-  }
-
-  static printLotto(lotto) {
-    MissionUtils.Console.print(`[${lotto}]`);
+    lottoList.forEach((lotto) => {
+      MissionUtils.Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
   }
 
   static printNewLine() {

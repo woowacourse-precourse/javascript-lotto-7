@@ -9,32 +9,23 @@ import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
 import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class LottoGame {
-  #lotto = [];
+  #lottoList = [];
   #price;
 
   async play() {
     await this.#purchaseLotto();
-    await this.#matchingLottoWinner();
+    await this.#createWinnerNumber();
     this.#showResult();
   }
 
   async #purchaseLotto() {
-    const { prise, parsePrice } = await InputView.readLinePrice();
+    this.#price = await InputView.readLinePrice();
 
-    this.validatePrice(prise);
-    this.validateParsePrice(parsePrice);
-
-    this.#price = parsePrice;
-
-    const getLottoCount = (number) => number / LOTTO_SETTINGS.minimumPrice;
-    const lottoCount = getLottoCount(this.#price);
+    const lottoCount = this.#getLottoCount(this.#price);
 
     this.#generateLotto(lottoCount);
 
-    const lottoNumbers = this.#lotto.map((lotto) => lotto.getNumbers());
-
-    OutputView.printLottoCount(lottoCount)
-    lottoNumbers.forEach((number) => OutputView.printLotto(number));
+    OutputView.printLotto(this.#lottoList, lottoCount);
 
     const { trimLotto, parseLottoNumber } = await InputView.readLineNumber();
     this.#validateNumber(trimLotto);
@@ -44,26 +35,27 @@ class LottoGame {
 
     const lottoWinner = new LottoWinner(lottoNumbers, parseLottoNumber, parseBonusNumber);
     lottoWinner.matchWinner();
+    const result = lottoWinner.checkLottoNumber();
 
-    const lottoResult = new LottoResult(this.#price);
-    // lottoWinner.checkLottoNumber(result);
+    const lottoResult = new LottoResult(result, this.#price);
     lottoResult.calculateResult();
   }
 
   #generateLotto(lottoCount) {
-    this.#lotto = Utils.range(lottoCount).map(() => {
+    this.#lottoList = Utils.range(lottoCount).map(() => {
       return new Lotto(this.#sortNumber(this.#getRandomLottoNumber()));
     });
   }
 
-  #matchingLottoWinner() {
+  #createWinnerNumber() {
+
   }
 
   #showResult() {
   }
 
-  getLotto() {
-    return this.#lotto;
+  getLottoList() {
+    return this.#lottoList;
   }
 
   getPrice() {
@@ -82,32 +74,8 @@ class LottoGame {
     return numbers.sort((a, b) => a - b);
   }
 
-  validatePrice(input) {
-    this.#validateIsInteger(input);
-  }
-
-  validateParsePrice(input) {
-    this.#validateIsNumber(input);
-    this.#validateIsOverThousand(input);
-    this.#validateIsMultiplesOfThousand(input);
-  }
-
-  #validateIsNumber(input) {
-    if (typeof input !== 'number') {
-      throw new Error(LOTTO_MESSAGES.error.inputNaN);
-    }
-  }
-
-  #validateIsOverThousand(input) {
-    if (input < LOTTO_SETTINGS.minimumPrice) {
-      throw new Error(LOTTO_MESSAGES.error.priceUnderThousands);
-    }
-  }
-
-  #validateIsMultiplesOfThousand(input) {
-    if (input % LOTTO_SETTINGS.minimumPrice !== 0) {
-      throw new Error(LOTTO_MESSAGES.error.priceNotMultipleOfThousands);
-    }
+  #getLottoCount(number) {
+    return number / LOTTO_SETTINGS.minimumPrice;
   }
 
   #validateIsInteger(input) {
