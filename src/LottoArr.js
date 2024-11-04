@@ -27,7 +27,7 @@ class LottoArr {
         let result = this.#TIMES + "개를 구매했습니다.\n"
 
         for (let i = 0; i < this.#lottoArr.length; i++) {
-            result += this.#lottoArr[i] + "\n"
+            result += '[' + this.#lottoArr[i] + ']' + "\n"
         }
         return result
     }
