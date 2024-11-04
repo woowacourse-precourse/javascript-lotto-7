@@ -1,6 +1,6 @@
 import {LOTTO_NUMBER_COUNT, LOTTO_PRICE, MAX_NUMBER, MIN_NUMBER} from "../constants/gameConstants.js";
 
-class InputValidator {
+export class InputValidator {
     static validatePurchaseAmount(input) {
         const amount = Number(input);
 
@@ -151,3 +151,5 @@ class InputValidator {
         return number;
     }
 }
+
+export default InputValidator;

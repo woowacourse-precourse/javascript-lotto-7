@@ -1,11 +1,14 @@
 import {LOTTO_NUMBER_COUNT, MAX_NUMBER, MIN_NUMBER} from "../constants/gameConstants.js";
+import {MissionUtils} from "@woowacourse/mission-utils";
 
 class NumberGenerator {
     static generateLottoNumbers() {
-        const numbers = new Set();
-        while (numbers.size < LOTTO_NUMBER_COUNT) {
-            numbers.add(Math.floor(Math.random() * MAX_NUMBER) + MIN_NUMBER);
-        }
-        return Array.from(numbers).sort((a,b) => a - b);
+        return MissionUtils.Random.pickUniqueNumbersInRange(
+            MIN_NUMBER,
+            MAX_NUMBER,
+            LOTTO_NUMBER_COUNT
+        );
     }
 }
+
+export default NumberGenerator;

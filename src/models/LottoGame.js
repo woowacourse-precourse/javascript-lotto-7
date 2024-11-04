@@ -65,3 +65,5 @@ class LottoGame {
         return this.#lottos.map(lotto => lotto.getNumbers());
     }
 }
+
+export default LottoGame;
