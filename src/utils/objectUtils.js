@@ -1,25 +1,25 @@
 export const findKeyToIncrease = (matchCnt) => {
     switch (matchCnt) {
         case 3:
-            return "three"
+            return "THREE_MATCH"
         case 4:
-            return "four"
+            return "FOUR_MATCH"
         case 5:
-            return "five"
+            return "FIVE_MATCH"
         case 6:
-            return "six"
+            return "SIX_MATCH"
         default:
             return null
     }
 }
 
-export const toObjectValueArr = (obj) => {
+export const objToValueArr = (obj) => {
     return Object.values(obj)
 }
 
-export const calculateAmount = (array) => {
+export const objReduce = (array) => {
     return array.reduce((acc, cur) => {
-        return acc + cur.cnt * cur.money
+        return acc + (cur.cnt * cur.MONEY)
     }, 0)
 }
 
