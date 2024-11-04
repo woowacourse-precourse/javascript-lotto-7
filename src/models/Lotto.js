@@ -53,11 +53,11 @@ class Lotto {
     ).length;
     const hasBonus = this.#numbers.includes(bonusNumber);
 
-    if (matchCount === 3) return 'fifth';
-    if (matchCount === 4) return 'fourth';
-    if (matchCount === 5) return 'third';
-    if (matchCount === 5 && hasBonus) return 'second';
     if (matchCount === 6) return 'first';
+    if (matchCount === 5 && hasBonus) return 'second';
+    if (matchCount === 5) return 'third';
+    if (matchCount === 4) return 'fourth';
+    if (matchCount === 3) return 'fifth';
   }
 }
 
