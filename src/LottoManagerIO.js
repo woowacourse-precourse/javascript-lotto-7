@@ -18,15 +18,18 @@ class LottoManagerIO {
     static #OUTPUT_PROFIT_RATE_MESSAGE = "총 수익률은 {rate}%입니다.";
 
     static #validatePrice(price){
-        if(price % 1000 != 0){
-            throw new Error("[Error] 로또 구매 금액은 1000의 배수로 입력 가능합니다.");
+        if (!/^\d+$/.test(price)) {
+            throw new Error("[ERROR] 금액은 숫자만 입력 가능합니다.");
         }
+        else if(price % 1000 != 0){
+            throw new Error("[ERROR] 로또 구매 금액은 1000의 배수로 입력 가능합니다.");
+        }   
     }
 
     static async inputPurchasePrice(){
         let purchasePrice = await Console.readLineAsync(LottoManagerIO.#INPUT_PURCHASE_PRICE_MESSAGE);
-        purchasePrice = parseInt(purchasePrice, 10);
         this.#validatePrice(purchasePrice);
+        purchasePrice = parseInt(purchasePrice, 10);
         return purchasePrice;
     }
 
