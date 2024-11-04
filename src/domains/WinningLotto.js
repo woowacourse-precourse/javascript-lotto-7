@@ -1,4 +1,4 @@
-import CONSTANT from "../constants/costant";
+import CONSTANT from "../constants/costant.js";
 
 class WinningLotto {
   #result;
