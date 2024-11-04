@@ -34,8 +34,17 @@ class LottoResult {
   }
 
   static calculateEarningsRate(result, purchaseAmount) {
-    const totalPrize = Object.keys(result).reduce((sum, key) => sum + (result[key] * PRIZE_AMOUNTS[key]), 0);
-    return Math.round((totalPrize / purchaseAmount) * 1000) / 10;
+    const totalEarnings = (
+      result.first * 2000000000 +
+      result.second * 30000000 +
+      result.third * 1500000 +
+      result.fourth * 50000 +
+      result.fifth * 5000
+    );
+
+    const earningsRate = (totalEarnings / purchaseAmount) * 100;
+
+    return Math.round(earningsRate * 100) / 100;
   }
 }
 

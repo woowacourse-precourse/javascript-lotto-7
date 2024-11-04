@@ -9,9 +9,16 @@ class Validator {
 
   static validateWinningNumbers(numbers) {
     const parsedNumbers = numbers.split(',').map(Number);
-    if (parsedNumbers.length !== LOTTO_NUMBER_COUNT || new Set(parsedNumbers).size !== LOTTO_NUMBER_COUNT || parsedNumbers.some(num => num < LOTTO_MIN_NUMBER || num > LOTTO_MAX_NUMBER)) {
-      throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
+    const hasInvalidNumber = parsedNumbers.some(num => isNaN(num) || num < LOTTO_MIN_NUMBER || num > LOTTO_MAX_NUMBER);
+
+    if (
+        parsedNumbers.length !== LOTTO_NUMBER_COUNT ||
+        new Set(parsedNumbers).size !== LOTTO_NUMBER_COUNT ||
+        hasInvalidNumber
+    ) {
+        throw new Error(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
     }
+
     return parsedNumbers;
   }
 
