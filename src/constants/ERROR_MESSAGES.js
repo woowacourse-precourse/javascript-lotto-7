@@ -19,3 +19,8 @@ export const LOTTO_NUMBER_ERROR_MESSAGES = Object.freeze({
   LOTTO_DUPLICATE_NUMBERS_FOUND:
     '[ERROR] 중복된 숫자가 있습니다. 중복 없이 입력해 주세요.'
 });
+
+export const BONUS_NUMBER_ERROR_MESSAGE = Object.freeze({
+  BONUS_NUMBER_DUPLICATE_WITH_WINNING_NUMBER:
+    '[ERROR] 유효하지 않은 보너스 번호입니다. 당첨 번호와 중복되지 않는 숫자를 입력해 주세요.'
+});
