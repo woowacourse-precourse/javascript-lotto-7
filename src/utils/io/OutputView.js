@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import VIEWMESSAGES from '../resources/VIEWMESSAGES.js';
+import VIEWMESSAGES from '../../resources/VIEWMESSAGES.js';
 
 function printBlankLine() {
   Console.print('');

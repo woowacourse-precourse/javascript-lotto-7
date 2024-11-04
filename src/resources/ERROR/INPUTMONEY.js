@@ -1,4 +1,4 @@
-import RULES from './RULES.js';
+import RULES from '../RULES.js';
 
 export default {
   NOT_TYPED:

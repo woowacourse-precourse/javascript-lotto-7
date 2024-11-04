@@ -1,9 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import VIEWMESSAGES from '../resources/VIEWMESSAGES.js';
-import validateInputMoney from './validator/validateInputMoney.js';
-import validateWinningNumbers from './validator/validateWinningNumbers.js';
-import RULES from '../resources/RULES.js';
-import validateBonusNumber from './validator/validateBonusNumber.js';
+import VIEWMESSAGES from '../../resources/VIEWMESSAGES.js';
+import validateInputMoney from '../validator/validateInputMoney.js';
+import validateWinningNumbers from '../validator/validateWinningNumbers.js';
+import RULES from '../../resources/RULES.js';
+import validateBonusNumber from '../validator/validateBonusNumber.js';
 
 export async function inputPurchaseAmount() {
   while (true) {
@@ -14,7 +14,7 @@ export async function inputPurchaseAmount() {
       validateInputMoney(inputMoney);
       return Number(inputMoney);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
     }
   }
 }
@@ -28,7 +28,7 @@ export async function inputWinningNumbers() {
       validateWinningNumbers(winningNumbers);
       return winningNumbers.split(RULES.DELIMITER_WINNING_NUMBERS).map(Number);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
     }
   }
 }
@@ -42,7 +42,7 @@ export async function inputBonusNumber(winningNumbers) {
       validateBonusNumber(bonusNumber, winningNumbers);
       return [Number(bonusNumber)];
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
     }
   }
 }
