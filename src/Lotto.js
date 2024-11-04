@@ -39,3 +39,29 @@ class Lotto {
   getNumbers() {
     return this.#numbers;
   }
+
+  static generateRandomLotto() {
+    const numbers = MissionUtilsRandom.pickUniqueNumbersInRange(1, 45, 6);
+    return new Lotto(numbers);
+  }
+
+  async getInputMoney() {
+    const inputMoney = await Console.readLineAsync("로또 구입 금액을 입력해주세요.(천원 단위로 입력해주세요)\n");
+    const amount = parseInt(inputMoney, 10);
+    if (isNaN(amount) || amount % 1000 !== 0) {
+      Console.print("[ERROR] 금액은 천 원 단위로 입력해야 합니다.");
+      throw new Error("[ERROR] 금액은 천 원 단위로 입력해야 합니다.");
+    }
+    return amount;
+  }
+
+  purchaseLottos(count) {
+    Console.print(`${count}개를 구매했습니다.`);
+    const lottos = [];
+    for (let i = 0; i < count; i++) {
+      const lotto = Lotto.generateRandomLotto();
+      lottos.push(lotto);
+      Console.print(`[${lotto.getNumbers().join(", ")}]`);
+    }
+    return lottos;
+  }
