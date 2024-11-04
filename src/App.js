@@ -46,7 +46,7 @@ class App {
 
     const matches = lotteries.map((lotto) => {
       const userMatches = lotto.getLotteryMatches(users).length;
-      const isBonus = lotto.getLotteryMatches(Number([bonus])).length;
+      const isBonus = lotto.getLotteryMatches([Number(bonus)]).length;
 
       if (userMatches === BONUS_CONDITION && isBonus) {
         return BONUS_RETURN;
