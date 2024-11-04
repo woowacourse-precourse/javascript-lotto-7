@@ -25,7 +25,7 @@ class InputHandler {
 
     async getWinningNumber() {
         try {
-            const input = await Console.readLineAsync("당첨 번호를 입력해주세요.\n");
+            const input = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
             const winningNumber = this.winningNumberValidator.validateWinningNumber(input);
             Console.print("");
             return winningNumber;
