@@ -20,6 +20,13 @@ class Validator {
       throw new Error("[ERROR] 당첨 번호는 숫자와 쉼표로만 이루어져야 합니다.");
     }
   }
+
+  validateDuplicateWinningNumbers(winningNumbers) {
+    const testNumbers = new Set(winningNumbers);
+    if (testNumbers.size !== winningNumbers.length) {
+      throw new Error("[ERROR] 당첨 번호는 중복되지 않아야 합니다.");
+    }
+  }
 }
 
 export default Validator;

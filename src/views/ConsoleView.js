@@ -17,6 +17,7 @@ class ConsoleView {
     const winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
     validator.validateWinningNumbersInput(winningNumbersInput);
     const winningNumbers = lottoController(winningNumbersInput);
+    validator.validateDuplicateWinningNumbers(winningNumbers);
 
     return winningNumbers;
   }
