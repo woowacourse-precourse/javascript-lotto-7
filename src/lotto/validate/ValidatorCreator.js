@@ -1,12 +1,10 @@
-import { config } from '../../config.js';
+import lottoConfig from '../../config.js';
 import LottoRuleValidator from './LottoRuleValidator.js';
 import LottoNumberValidator from './LottoNumberValidator.js';
 import PurchaseAmountValidator from './PurchaseAmountValidator.js';
 import WinningNumberValidator from './WinningNumberValidator.js';
 
 const setLottoRule = () => {
-  const { lottoConfig } = config;
-
   const lottoRule = Object.freeze({
     lottoAmount: lottoConfig.LOTTO_AMOUNT,
     maxlottoPurchaseAmount: lottoConfig.MAX_PURCHASE_AMOUNT,

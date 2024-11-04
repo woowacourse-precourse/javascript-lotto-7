@@ -1,4 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
+import { output } from '../util/IOUtil.js';
 
 const MAX_RETRY_COUNT = 3;
 
@@ -8,7 +8,7 @@ const tryLogic = async (callback, parameter, tryCount) => {
     return result;
   } catch (e) {
     if (tryCount < MAX_RETRY_COUNT) {
-      Console.print(e.message);
+      output(e.message);
       const result = await tryLogic(callback, parameter, tryCount + 1);
       return result;
     }

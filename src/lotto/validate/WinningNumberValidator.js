@@ -34,7 +34,7 @@ class WinningNumberValidator extends CommonValidator {
     super.validateNumericInput(bonusNumber);
     this.#checkNumberInNumberRange(bonusNumber);
 
-    if (winningNumbers.includes(Number(bonusNumber))) {
+    if (winningNumbers.includes(bonusNumber)) {
       throw new Error(ERROR_MESSAGE.ERROR_DUPLICATE_NUMBER);
     }
   }

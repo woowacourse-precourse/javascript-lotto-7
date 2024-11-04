@@ -1,17 +1,16 @@
 import { Random } from '@woowacourse/mission-utils';
-import { config } from '../src/config.js';
+import lottoConfig from '../src/config.js';
 import LottoGenerator from '../src/lotto/LottoGenerator.js';
-
 
 const mockRandoms = (numbers) => {
   Random.pickUniqueNumbersInRange = jest.fn();
   numbers.reduce((acc, number) => acc.mockReturnValueOnce(number), Random.pickUniqueNumbersInRange);
 };
 
-const lottoNumberCount = config.lottoConfig.NUMBER_COUNT;
+const { NUMBER_COUNT, NUMBER_RANGE } = lottoConfig;
 const lottoNumberRange = {
-  startNumber: config.lottoConfig.NUMBER_RANGE.START_NUMBER,
-  endNumber: config.lottoConfig.NUMBER_RANGE.END_NUMBER,
+  startNumber: NUMBER_RANGE.START_NUMBER,
+  endNumber: NUMBER_RANGE.END_NUMBER,
 }
 
 describe('로또 발행 테스트', () => {
@@ -32,11 +31,11 @@ describe('로또 발행 테스트', () => {
         }
       },
       {
-        name: `발행된 로또의 숫자 개수는 ${lottoNumberCount}개 이다.`,
+        name: `발행된 로또의 숫자 개수는 ${NUMBER_COUNT}개 이다.`,
         randomValue: [[8, 21, 23, 41, 42, 43]],
         expectResult: (lottoGenerator) => {
           const lottos = lottoGenerator.generateLottosBycount(1);
-          expect(lottos[0].numbers.length).toBe(lottoNumberCount);
+          expect(lottos[0].numbers.length).toBe(NUMBER_COUNT);
         }
       },
       {
@@ -50,7 +49,7 @@ describe('로또 발행 테스트', () => {
     ])(`$name`, ({ randomValue, expectResult }) => {
       mockRandoms(randomValue);
 
-      const lottoGenerator = new LottoGenerator(lottoNumberCount, lottoNumberRange);
+      const lottoGenerator = new LottoGenerator(NUMBER_COUNT, lottoNumberRange);
       expectResult(lottoGenerator);
     });
 });

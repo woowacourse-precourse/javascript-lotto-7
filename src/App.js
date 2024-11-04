@@ -1,31 +1,35 @@
-import { config } from './config.js';
+import lottoConfig from './config.js';
 import LottoGameExecutor from './lotto/LottoGameExecutor.js';
-import LottoPayment from './lotto/LottoPayment.js';
 import LottoGenerator from './lotto/LottoGenerator.js';
-import LottoResultEvaluator from './lotto/LottoResultEvaluator.js';
+import LottoResultManager from './lotto/LottoResultManager.js';
+import InputReader from './lotto/view/InputReader.js';
+import OutputPrinter from './lotto/view/OutputPrinter.js';
+import RateCalculator from './lotto/RateCalculator.js';
 
 class App {
   async run() {
-    const { lottoConfig } = config;
+    const lottoGenerator = this.#getLottoGeneratorAfterSetting();
+    const lottoResultManager = this.#getLottoResultManagerAfterSetting();
 
-    const unitAmount = lottoConfig.LOTTO_AMOUNT;
-    const lottoPayment = new LottoPayment(unitAmount);
+    const lottoGameExecutor = new LottoGameExecutor(
+      lottoGenerator, lottoResultManager, RateCalculator, InputReader, OutputPrinter
+    );
 
+    await lottoGameExecutor.startGame();
+  }
+
+  #getLottoGeneratorAfterSetting() {
     const lottoNumberCount = lottoConfig.NUMBER_COUNT;
     const lottoNumberRange = {
       startNumber: lottoConfig.NUMBER_RANGE.START_NUMBER,
       endNumber: lottoConfig.NUMBER_RANGE.END_NUMBER
     }
-    const lottoGenerator = new LottoGenerator(lottoNumberCount, lottoNumberRange);
+    return new LottoGenerator(lottoNumberCount, lottoNumberRange);
+  }
 
+  #getLottoResultManagerAfterSetting() {
     const winningRules = lottoConfig.WINNING_RULES;
-    const lottoResultEvaluator = new LottoResultEvaluator(winningRules);
-
-    const lottoGameExecutor = new LottoGameExecutor(
-      lottoPayment, lottoGenerator, lottoResultEvaluator
-    );
-
-    await lottoGameExecutor.startGame();
+    return new LottoResultManager(winningRules);
   }
 }
 

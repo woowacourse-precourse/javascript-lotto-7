@@ -1,24 +1,27 @@
 import WinningResult from './model/WinningResult.js';
 
-class LottoResultEvaluator {
+class LottoResultManager {
 
-  #winingRules;
+  #winningResults;
 
   constructor(winningRules) {
-    this.#winingRules = winningRules;
+    this.#winningResults = this.#initResult(winningRules);
   }
 
   generateWinningResult(lottos, winningNumbers, bonusNumber) {
-    const result = this.#initResult();
-    const resultKeys = Object.keys(result).map(Number);
+    const keys = Object.keys(this.#winningResults).map(Number);
     lottos.forEach(lotto => {
       const count = this.#getMatchNumberCount(lotto, winningNumbers);
-      if (resultKeys.includes(count)) {
-        this.#incrementCountWithBonusNumberCheck(result[count], lotto, bonusNumber);
+      if (keys.includes(count)) {
+        this.#incrementCountWithBonusNumberCheck(this.#winningResults[count], lotto, bonusNumber);
       }
     });
 
-    return Object.values(result);
+    return Object.values(this.#winningResults);
+  }
+
+  getTotalPrize() {
+    return Object.values(this.#winningResults).reduce((totalPrize, winningResult) => totalPrize + winningResult.getTotalPrize(), 0);
   }
 
   #incrementCountWithBonusNumberCheck(winningResult, lotto, bonusNumber) {
@@ -30,9 +33,10 @@ class LottoResultEvaluator {
     winningResult.incrementCount();
   }
 
-  #initResult() {
+  #initResult(winningRules) {
     const result = {};
-    this.#winingRules.forEach(rule => {
+
+    winningRules.forEach(rule => {
       const winningResult = this.#getWinningResult(rule);
       result[winningResult.matchNumberCount] = winningResult;
     });
@@ -45,8 +49,8 @@ class LottoResultEvaluator {
   }
 
   #getMatchNumberCount(lotto, winningNumbers) {
-    return lotto.numbers.filter((number) => winningNumbers.includes(number)).length;
+    return winningNumbers.filter((number) => lotto.isExistNumberInNumbers(number)).length;
   }
 }
 
-export default LottoResultEvaluator;
+export default LottoResultManager;

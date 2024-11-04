@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
-import LottoPayment from '../src/lotto/LottoPayment.js';
-import { config } from '../src/config.js';
+import lottoConfig from '../src/config.js';
 import { ERROR_MESSAGE } from '../src/lotto/constants/Message.js';
+import InputReader from '../src/lotto/view/InputReader.js';
 
 const mockQuestions = (input) => {
   Console.readLineAsync = jest.fn();
@@ -9,15 +9,15 @@ const mockQuestions = (input) => {
   Console.readLineAsync.mockImplementation(() => Promise.resolve(input));
 };
 
-const { MAX_PURCHASE_AMOUNT, LOTTO_AMOUNT } = config.lottoConfig;
+const { MAX_PURCHASE_AMOUNT, LOTTO_AMOUNT } = lottoConfig;
 
 describe('로또 결제 기능 테스트', () => {
-  test('구매 금액에 따른 발행 로또 개수를 반환할 수 있다.', () => {
+  test('구매 금액에 따른 발행 로또 개수를 반환할 수 있다.', async () => {
     const purhcaseAmount = 3000;
-    const lottoPayment = new LottoPayment(LOTTO_AMOUNT);
-    const purchaseCount = lottoPayment.calculateLottoCountByAmount(purhcaseAmount);
+    mockQuestions(purhcaseAmount);
 
-    expect(purchaseCount).toBe(purhcaseAmount / LOTTO_AMOUNT);
+    const lottoPayment = await InputReader.inputPayment();
+    expect(lottoPayment.purchaseLottoCount).toBe(purhcaseAmount / LOTTO_AMOUNT);
   })
 })
 
@@ -74,8 +74,6 @@ describe('로또 결제 예외 테스트', () => {
     },
   ])(`$name`, async ({ input, error }) => {
     mockQuestions(input);
-
-    const lottoPayment = new LottoPayment(LOTTO_AMOUNT);
-    await expect(lottoPayment.getPurchaseAmount()).rejects.toThrow(error);
+    await expect(InputReader.inputPayment()).rejects.toThrow(error);
   });
 });

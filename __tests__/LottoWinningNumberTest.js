@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
-import { getWinningLottoNumbersAndBonusNumber } from '../src/lotto/LottoWinningNumberReader.js';
 import { ERROR_MESSAGE } from '../src/lotto/constants/Message.js';
-import { config } from '../src/config.js';
+import lottoConfig from '../src/config.js';
+import InputReader from "../src/lotto/view/InputReader.js";
 
 
 const mockQuestions = (inputs) => {
@@ -13,7 +13,7 @@ const mockQuestions = (inputs) => {
   });
 }
 
-const { NUMBER_COUNT, NUMBER_RANGE } = config.lottoConfig;
+const { NUMBER_COUNT, NUMBER_RANGE } = lottoConfig;
 
 describe('로또 당첨 번호 입력 테스트', () => {
   test.each([
@@ -101,7 +101,7 @@ describe('로또 당첨 번호 입력 테스트', () => {
   ])(`$name`, async ({ input, error }) => {
     mockQuestions([input, input, input, input]);
 
-    await expect(getWinningLottoNumbersAndBonusNumber()).rejects.toThrow(error);
+    await expect(InputReader.inputLottoWinningNumbers()).rejects.toThrow(error);
   });
 });
 
@@ -167,6 +167,6 @@ describe('로또 보너스 번호 입력 테스트', () => {
   ])(`$name`, async ({ input, error }) => {
     mockQuestions(['1,2,3,4,5,6', input, input, input, input]);
 
-    await expect(getWinningLottoNumbersAndBonusNumber()).rejects.toThrow(error);
+    await expect(InputReader.inputLottoWinningNumbers()).rejects.toThrow(error);
   })
 });

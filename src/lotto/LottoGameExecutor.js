@@ -1,67 +1,37 @@
-import {
-  printEmptyLine,
-  printPurchaseResult,
-  printStartWinningResult,
-  printWinningResult,
-  printTotalRateOfReturn
-} from './view/OutputPrinter.js';
-import { calculateReturnRate } from './ReturnRateCalculator.js';
-import { getWinningLottoNumbersAndBonusNumber } from './LottoWinningNumberReader.js';
-
 class LottoGameExecutor {
-
-  #lottoPayment;
 
   #lottoGenerator;
 
-  #lottoResultevaluator;
+  #lottoResultManager;
 
-  constructor(lottoPayment, lottoGenerator, lottoResultevaluator) {
-    this.#lottoPayment = lottoPayment;
+  #rateCalculator;
+
+  #inputReader;
+
+  #outputPrinter;
+
+  constructor(lottoGenerator, lottoResultManager, rateCalculator, inputReader, outputPrinter) {
     this.#lottoGenerator = lottoGenerator;
-    this.#lottoResultevaluator = lottoResultevaluator;
+    this.#lottoResultManager = lottoResultManager;
+    this.#rateCalculator = rateCalculator;
+    this.#inputReader = inputReader;
+    this.#outputPrinter = outputPrinter;
   }
 
   async startGame() {
-    const purchaseAmount = await this.#lottoPayment.getPurchaseAmount();
-    const lottoCount = await this.#lottoPayment.calculateLottoCountByAmount(purchaseAmount);
+    const { purchaseAmount, purchaseLottoCount } = await this.#inputReader.inputPayment();
+    this.#outputPrinter.printEmptyLine();
 
-    printEmptyLine();
+    const lottos = this.#lottoGenerator.generateLottosBycount(purchaseLottoCount);
+    this.#outputPrinter.printPurchaseCountAndLottos(purchaseLottoCount, lottos);
 
-    const lottos = this.#lottoGenerator.generateLottosBycount(lottoCount);
-    this.#printPurchaseLottos(lottoCount, lottos);
+    const { winningNumbers, bonusNumber } = await this.#inputReader.inputLottoWinningNumbers();
+    const winningResults = this.#lottoResultManager.generateWinningResult(lottos, winningNumbers, bonusNumber);
+    this.#outputPrinter.printWinningResults(winningResults);
 
-    const { winningNumbers, bonusNumber } = await getWinningLottoNumbersAndBonusNumber();
-    const winningResults = this.#lottoResultevaluator.generateWinningResult(lottos, winningNumbers, bonusNumber);
-    this.#printWinningResults(winningResults);
-
-    const totalPrize = this.#calculateTotalWinningPrize(winningResults);
-    const rateOfReturn = calculateReturnRate(totalPrize, purchaseAmount);
-    this.#printRateOfReturn(rateOfReturn);
-  }
-
-  #printRateOfReturn(rateOfReturn) {
-    printTotalRateOfReturn(rateOfReturn);
-  }
-
-  #calculateTotalWinningPrize(winningResults) {
-    const totalWinningPrize = winningResults.reduce((prize, result) => prize + result.getTotalPrize(), 0);
-
-    return totalWinningPrize;
-  }
-
-  #printWinningResults(winningResults) {
-    printStartWinningResult();
-
-    winningResults.forEach(result => {
-      printWinningResult(result);
-    });
-  }
-
-  #printPurchaseLottos(lottoCount, lottos) {
-    const printLottos = lottos.map((lotto) => lotto.toString());
-    printPurchaseResult(lottoCount, printLottos.join(`\n`));
-    printEmptyLine();
+    const totalPrize = this.#lottoResultManager.getTotalPrize();
+    const rateOfReturn = this.#rateCalculator.calculateRateOfReturn(totalPrize, purchaseAmount);
+    this.#outputPrinter.printTotalRateOfReturn(rateOfReturn);
   }
 }
 
