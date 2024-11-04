@@ -1,4 +1,4 @@
-import VALUES from './Values.js';
+import { VALUES } from './Values.js';
 
 const ERROR_PREFIX = '[ERROR]';
 

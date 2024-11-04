@@ -60,6 +60,14 @@ class LottoStore {
     this.#draw(winningNumber, bonusNumber);
     return this.#statistics;
   }
+
+  getEarningRate() {
+    const amount = this.#lottos.length * VALUES.amountUnit;
+    const earningAmount = Object.entries(this.#statistics).reduce((acc, [prize, quantity]) => {
+      return acc + PRIZE_AMOUNT[prize] * quantity;
+    }, 0);
+    return Math.round((earningAmount / amount) * 1000) / 10;
+  }
 }
 
 export default LottoStore;
