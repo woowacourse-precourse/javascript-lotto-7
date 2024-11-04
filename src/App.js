@@ -57,7 +57,7 @@ class App {
       userPickedBonusNum
     );
 
-    const result = Lotto.getResult(score);
+    let counts = Lotto.getCounts(score);
   }
 
   getLottoCost() {

@@ -2,10 +2,11 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const LOTTO_NUMBER_MIN = 1;
 const LOTTO_NUMBER_MAX = 45;
 const LOTTO_NUMBER_COUNT = 6;
+const FIRST_PRIZE = ["1등", 2000000000];
 const SECOND_PRIZE = ["2등", 30000000];
+const THIRD_PRIZE = ["3등", 1500000];
 const FOURTH_PRIZE = ["4등", 50000];
 const FIFTH_PRIZE = ["5등", 5000];
-const NO_PRIZE = ["꽝", 0];
 
 class Lotto {
   #numbers;
@@ -18,6 +19,11 @@ class Lotto {
   #validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    }
+
+    const numberSet = new Set(numbers);
+    if (numberSet.size !== 6) {
+      throw new Error("[ERROR] 로또 번호에는 중복된 숫자가 없어야 합니다.");
     }
   }
 
