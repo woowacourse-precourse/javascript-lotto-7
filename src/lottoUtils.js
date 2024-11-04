@@ -22,6 +22,14 @@ export const printTickets = (tickets) => {
   });
 };
 
+const calculateMatches = (matchCnt, result, bonusMatch) => {
+  if (matchCnt === 6) result.matchCnts[4]++;
+  else if (matchCnt === 5 && bonusMatch) result.matchCnts[3]++;
+  else if (matchCnt === 5) result.matchCnts[2]++;
+  else if (matchCnt === 4) result.matchCnts[1]++;
+  else if (matchCnt === 3) result.matchCnts[0]++;
+};
+
 /** 당첨 계산 */
 export const calculateLottos = (tickets, winningNums, bonusNum) => {
   const money = [5000, 50000, 1500000, 30000000, 2000000000];
@@ -32,17 +40,18 @@ export const calculateLottos = (tickets, winningNums, bonusNum) => {
     const matchCnt = numbers.filter((num) => winningNums.includes(num)).length;
     const bonusMatch = numbers.includes(bonusNum);
 
-    if (matchCnt === 6) result.matchCnts[4]++;
-    else if (matchCnt === 5 && bonusMatch) result.matchCnts[3]++;
-    else if (matchCnt === 5) result.matchCnts[2]++;
-    else if (matchCnt === 4) result.matchCnts[1]++;
-    else if (matchCnt === 3) result.matchCnts[0]++;
+    calculateMatches(matchCnt, result, bonusMatch);
   });
   result.winnings = result.matchCnts.reduce(
     (total, cnt, idx) => total + cnt * money[idx],
     0
   );
   return result;
+};
+
+const calculateReturnRatio = (result, purchasedAmount) => {
+  const profit = (result.winnings / (purchasedAmount * 1000)) * 100;
+  return profit.toFixed(1);
 };
 
 /** 결과출력 */
@@ -57,6 +66,7 @@ export const printResult = (result, purchasedAmount) => {
   );
   Console.print(`6개 일치 (2,000,000,000원) - ${result.matchCnts[4]}개`);
 
-  const profit = (result.winnings / (purchasedAmount * 1000)) * 100;
-  Console.print(`총 수익률은 ${profit.toFixed(1)}%입니다.`);
+  Console.print(
+    `총 수익률은 ${calculateReturnRatio(result, purchasedAmount)}%입니다.`
+  );
 };
