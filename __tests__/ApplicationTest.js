@@ -117,5 +117,20 @@ describe("로또 테스트", () => {
     expect(logSpy).toHaveBeenCalledWith("[3, 5, 11, 16, 32, 38]");
     expect(logSpy).toHaveBeenCalledWith("[7, 11, 16, 35, 36, 44]");
   });
-  
+
+  test("당첨 번호와 보너스 번호 입력 시 올바르게 저장된다.", async () => {
+    const logSpy = getLogSpy();
+    mockQuestions(["3000", "1,2,3,4,5,6", "7"]); // 구입 금액, 당첨 번호, 보너스 번호 입력
+
+    const app = new App();
+    await app.run();
+
+    // 당첨 번호와 보너스 번호 입력을 확인하는 메시지가 출력되는지 확인
+    expect(logSpy).toHaveBeenCalledWith("당첨 번호를 입력해 주세요.");
+    expect(logSpy).toHaveBeenCalledWith("보너스 번호를 입력해 주세요.");
+
+    // 추가로 당첨 번호와 보너스 번호가 올바르게 저장되는지 확인할 수 있습니다.
+    expect(app.winningNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(app.bonusNumber).toBe(7);
+  });
 });
