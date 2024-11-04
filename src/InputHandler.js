@@ -6,6 +6,7 @@ class InputHandler {
     try {
       const purchaseAmount = await Console.readLineAsync("구입금액을 입력해 주세요\n");
       this.validatePurchaseAmount(purchaseAmount);
+      console.log(purchaseAmount);
       return purchaseAmount;
     } catch (error) {
       Console.print(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
