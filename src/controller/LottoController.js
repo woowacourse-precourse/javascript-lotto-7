@@ -1,7 +1,7 @@
 // model
 import Lotto from "../Lotto.js";
 import CalculateTotalReturn from "../model/CalculateTotalReturn.js";
-import PurchasedLottoModel from "../model/purchasedLottoModel.js";
+import PurchasedLottoModel from "../model/PurchasedLottoModel.js";
 import RankingModel from "../model/RankingModel.js";
 import ValidateBonusNumber from "../utils/ValidateBonusNumber.js";
 

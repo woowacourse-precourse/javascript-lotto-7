@@ -4,7 +4,6 @@ import {
   REWARD_MESSAGES,
   USER_INPUT_MESSAGES,
   PURCHASE_MESSAGES,
-  ERROR_MESSAGES,
 } from "../config/constants.js";
 
 export default class LottoView {
