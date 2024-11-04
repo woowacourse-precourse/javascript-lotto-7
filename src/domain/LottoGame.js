@@ -1,29 +1,40 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
-import Utils from "../Utils.js";
+import Lotto from "./Lotto.js";
 import LottoWinner from "./LottoWinner.js";
+import LottoResult from "./LottoResult.js";
+import Utils from "../Utils.js";
 import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
 import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class LottoGame {
   #lotto = [];
+  #price;
 
   async play() {
-    await this.#createLotto();
+    await this.#purchaseLotto();
+    await this.#matchingLottoWinner();
+    this.#showResult();
   }
 
-  async #createLotto() {
+  async #purchaseLotto() {
     const { prise, parsePrice } = await InputView.readLinePrice();
 
     this.validatePrice(prise);
     this.validateParsePrice(parsePrice);
 
-    const getLottoCount = (number) => number / LOTTO_SETTINGS.minimumPrice;
-    const lottoCount = getLottoCount(parsePrice);
+    this.#price = parsePrice;
 
-    await this.#generateLotto(lottoCount);
-    OutputView.printLotto(this.#lotto, lottoCount);
+    const getLottoCount = (number) => number / LOTTO_SETTINGS.minimumPrice;
+    const lottoCount = getLottoCount(this.#price);
+
+    this.#generateLotto(lottoCount);
+
+    const lottoNumbers = this.#lotto.map((lotto) => lotto.getNumbers());
+
+    OutputView.printLottoCount(lottoCount)
+    lottoNumbers.forEach((number) => OutputView.printLotto(number));
 
     const { trimLotto, parseLottoNumber } = await InputView.readLineNumber();
     const { bonusNumber, parseBonusNumber } = await InputView.readLineBonusNumber();
@@ -32,28 +43,46 @@ class LottoGame {
     this.#validateBonusNumber(bonusNumber);
 
     const lottoWinner = new LottoWinner(parseLottoNumber, parseBonusNumber);
+    lottoWinner.checkBonusNumber(lottoNumbers, parseBonusNumber);
   }
 
-  async #generateLotto(lottoCount) {
-    const lotto = Utils.range(lottoCount, []).map(() => {
-      return this.#getRandomLottoNumber();
+  #generateLotto(lottoCount) {
+    this.#lotto = Utils.range(lottoCount).map(() => {
+      return new Lotto(this.#sortNumber(this.#getRandomLottoNumber()));
     });
-    this.#lotto.push(lotto);
-  }
-
-  getLotto() {
-    return this.#lotto;
   }
 
   #getRandomLottoNumber() {
     return MissionUtils.Random.pickUniqueNumbersInRange(
-      LOTTO_SETTINGS.minNumber, LOTTO_SETTINGS.maxNumber, LOTTO_SETTINGS.numberLength
+      LOTTO_SETTINGS.minNumber,
+      LOTTO_SETTINGS.maxNumber,
+      LOTTO_SETTINGS.numberLength
     );
   }
 
-  #getSortNumber(array) {
-    return array.sort(a - b);
+  #sortNumber(numbers) {
+    return numbers.sort((a, b) => a - b);
   }
+
+  #matchingLottoWinner() {
+    const lottoWinner = new LottoWinner();
+    const result = LottoResult.getResult();
+    lottoWinner.checkLottoNumber(result, this.#lotto);
+  }
+
+  #showResult() {
+    const lottoResult = new LottoResult();
+    lottoResult.calculateResult();
+  }
+
+  static getLotto() {
+    return this.#lotto;
+  }
+
+  static getPrice() {
+    return this.#price;
+  }
+
 
   validatePrice(input) {
     this.#validateIsInteger(input);
