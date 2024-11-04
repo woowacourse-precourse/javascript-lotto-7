@@ -18,7 +18,9 @@ export class LottoController {
 	}
 
 	// 로또 번호 생성 함수
-	createLottoNumbers() {}
+	createLottoNumbers() {
+		return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+	}
 
 	// 당첨 결과 반환하는 함수
 	getLottoResult() {}
