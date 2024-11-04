@@ -1,5 +1,5 @@
 // 당첨 여부를 계산하는 역할
-import { PRIZE_TABLE } from "./Constants";
+import { PRIZE_TABLE } from "./Constants.js";
 
 class LottoResult {
     constructor() {
@@ -15,8 +15,8 @@ class LottoResult {
 
     calculateRank(purchasedLottos, winningNumbers, bonusNumber){
         purchasedLottos.forEach(lotto => {
-            const matchCount = this.countMatchingNumbers(lotto.getNumbers(), winningNumbers); //matchcount
-            const isBonusMatched = lotto.getNumbers().includes(bonusNumber); //isBonusMatched
+            const matchCount = this.countMatchingNumbers(lotto, winningNumbers); //matchcount
+            const isBonusMatched = lotto.includes(bonusNumber); //isBonusMatched
 
             const rank = this.getRank(matchCount, isBonusMatched);
             if(rank) {
@@ -44,7 +44,7 @@ class LottoResult {
     }
 
     calculateProfit(purchaseAmount) {
-        const profitRate = (this.totalProfit / purchadeAmount) * 100;
+        const profitRate = (this.totalProfit / purchaseAmount) * 100;
         return profitRate.toFixed(1); // 소수점 1자리까지 반올림
     }
 

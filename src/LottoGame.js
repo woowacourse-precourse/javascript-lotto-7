@@ -19,6 +19,7 @@ class LottoGame {
 
             // 로또 발행
             const purchasedLottos = this.purchaseLottos(amount);
+            
             this.printPurchasedLottos(purchasedLottos);
 
             // 당첨 번호 및 보너스 번호 입력
@@ -48,12 +49,12 @@ class LottoGame {
 
     purchaseLottos(amount){ //구매한 로또 배열 반환
         const lottoCount = amount / LOTTO_PRICE;
+        
         const lottos = []; // 스택에 저장
-
+        
         for(let i = 0; i < lottoCount; i++){
             const numbers = this.lottoMachine.generateLotto(); // 로또 번호 생성
-            const lotto = new Lotto(numbers); //Lotto 인스턴스 생성(유효성 검사는 Lotto 클래스가 수행)
-            lottos.push(lotto);
+            lottos.push(numbers);
         }
         
         return lottos;
@@ -95,7 +96,8 @@ class LottoGame {
     printPurchasedLottos(lottos) {
         MissionUtils.Console.print(`${lottos.length}개를 구매했습니다.`);
         lottos.forEach(lotto => {
-            MissionUtils.Console.print(`[${lotto.getNumbers().sort((a,b) => a - b).join(", ")}]`); // 오름차순으로 출력된다.
+            
+            MissionUtils.Console.print(`[${lotto.sort((a,b) => a - b).join(", ")}]`); // 오름차순으로 출력된다.
         });
     }
 
