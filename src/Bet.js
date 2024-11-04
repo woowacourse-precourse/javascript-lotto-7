@@ -5,11 +5,15 @@ class Bet {
   count;
 
   constructor(money) {
+    money = this.#replaceSpace(); 
     this.#validate(money);
     this.#money = money;
     this.count = money / 1000;
   }
 
+  #replaceSpace(money){
+    return money.replaceAll(" ","");
+  }
   #validate(money) {
     Validator.validateBlank(money);
     Validator.validateNumber(money);

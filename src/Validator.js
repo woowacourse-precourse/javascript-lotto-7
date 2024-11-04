@@ -19,6 +19,7 @@ class Validator {
 
   static validateUnit(input) {
     if (input % 1000 !== 0) throwError(ERROR_MULTI_OF_1000);
+    if (input / 1000 < 1) throwError(ERROR_MULTI_OF_1000);
   }
 
   static validateRangeFrom1To45(input) {
