@@ -1,13 +1,14 @@
 import { winningLottoCountPrice, number } from "../constants.js";
+
 export default class Calculator {
 
     static divide(num1, num2) {
         return num1/num2;
     }
 
-    static sum(statisticsCountMap) {
+    static sumWinningAmount(statisticsCountMap) {
         const total = Array.from(statisticsCountMap).reduce((total, [key, value]) => {
-            const prizeInfo = winningLottoCountPrice.find(item => item.count === key);
+            const prizeInfo = this.findWinningLottoByCount(key);
             if (prizeInfo) {
                 total += parseInt(prizeInfo.price.replace(/,/g, "")) * value;
             }
@@ -15,6 +16,10 @@ export default class Calculator {
         }, number.DEFAULT_COUNT);
 
         return total;
+    }
+
+    static findWinningLottoByCount(key) {
+        return winningLottoCountPrice.find(item => item.count === key);
     }
 
     static earningsRate(userMoney, earnMoney) {
