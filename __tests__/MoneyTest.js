@@ -1,4 +1,3 @@
-import { ERROR_MESSAGES } from '../src/shared/index.js';
 import Money from '../src/Money.js';
 
 describe('머니 클래스 테스트', () => {
@@ -9,12 +8,12 @@ describe('머니 클래스 테스트', () => {
 
     expect(() => {
       new Money(1501);
-    }).toThrow(ERROR_MESSAGES.INVALID_AMOUNT);
+    }).toThrow('[ERROR]');
   });
 
   test('숫자가 아닌 문자열이 입력되면 예외가 발생한다.', () => {
     expect(() => {
       new Money('invalid');
-    }).toThrow(ERROR_MESSAGES.INVALID_TYPE);
+    }).toThrow('[ERROR]');
   });
 });

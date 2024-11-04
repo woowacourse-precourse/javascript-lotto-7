@@ -19,12 +19,15 @@ describe('View 클래스 테스트', () => {
       [6, 4, 5],
     ];
 
+    const logs = ['[1, 2, 3]', '[4, 5, 6]'];
+
     const logSpy = getLogSpy();
 
     View.displayLottos(lottos);
 
-    expect(logSpy).toHaveBeenCalledWith([1, 2, 3]);
-    expect(logSpy).toHaveBeenCalledWith([4, 5, 6]);
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(log);
+    });
   });
 
   test('결과를 올바른 메시지 형식으로 출력하는지 테스트', () => {
@@ -36,18 +39,22 @@ describe('View 클래스 테스트', () => {
       ['bonus', 1],
     ]);
 
+    const logs = [
+      INFO_MESSAGES.PRINT_RESULT,
+      '3개 일치 (5,000원) - 2개 ',
+      '4개 일치 (50,000원) - 1개 ',
+      '5개 일치 (1,500,000원) - 1개 ',
+      '5개 일치, 보너스 볼 일치 (30,000,000원) - 1개 ',
+      '6개 일치 (2,000,000,000원) - 0개 ',
+    ];
+
     const logSpy = getLogSpy();
 
     View.displayResultMessages(results);
 
-    expect(logSpy).toHaveBeenCalledWith(INFO_MESSAGES.PRINT_RESULT);
-    expect(logSpy).toHaveBeenCalledWith('3개 일치 (5,000원) - 2개 ');
-    expect(logSpy).toHaveBeenCalledWith('4개 일치 (50,000원) - 1개 ');
-    expect(logSpy).toHaveBeenCalledWith('5개 일치 (1,500,000원) - 1개 ');
-    expect(logSpy).toHaveBeenCalledWith(
-      '5개 일치, 보너스 볼 일치 (30,000,000원) - 1개 '
-    );
-    expect(logSpy).toHaveBeenCalledWith('6개 일치 (2,000,000,000원) - 0개 ');
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(log);
+    });
   });
 
   test('보너스 번호가 없을 때 메시지를 올바르게 출력하는지 테스트', () => {
@@ -59,17 +66,21 @@ describe('View 클래스 테스트', () => {
       ['bonus', 0],
     ]);
 
+    const logs = [
+      INFO_MESSAGES.PRINT_RESULT,
+      '3개 일치 (5,000원) - 0개 ',
+      '4개 일치 (50,000원) - 0개 ',
+      '5개 일치 (1,500,000원) - 1개 ',
+      '5개 일치, 보너스 볼 일치 (30,000,000원) - 0개 ',
+      '6개 일치 (2,000,000,000원) - 0개 ',
+    ];
+
     const logSpy = getLogSpy();
 
     View.displayResultMessages(results);
 
-    expect(logSpy).toHaveBeenCalledWith(INFO_MESSAGES.PRINT_RESULT);
-    expect(logSpy).toHaveBeenCalledWith('3개 일치 (5,000원) - 0개 ');
-    expect(logSpy).toHaveBeenCalledWith('4개 일치 (50,000원) - 0개 ');
-    expect(logSpy).toHaveBeenCalledWith('5개 일치 (1,500,000원) - 1개 ');
-    expect(logSpy).toHaveBeenCalledWith(
-      '5개 일치, 보너스 볼 일치 (30,000,000원) - 0개 '
-    );
-    expect(logSpy).toHaveBeenCalledWith('6개 일치 (2,000,000,000원) - 0개 ');
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(log);
+    });
   });
 });
