@@ -9,6 +9,7 @@ const MESSAGE = {
   jackpot: "\n당첨 번호를 입력해 주세요.\n",
   bonus: "\n보너스 번호를 입력해주세요.\n",
   result: "\n당첨 통계",
+  line: "---",
 };
 
 class App {
@@ -63,6 +64,7 @@ class App {
     const outputInstance = new FormatOutput(this.#moneyInput, pickUpInstance.checkJackpot());
     // 3. 출력
     Console.print(MESSAGE.result);
+    Console.print(MESSAGE.line);
     outputInstance.print();
   }
 }
