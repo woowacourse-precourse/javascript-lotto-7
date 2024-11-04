@@ -3,6 +3,7 @@ import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import ValidatePurchaseAmount from '../models/ValidatePurchaseAmount.js';
 import ValidateBonusNumber from '../models/ValidateBonusNumber.js';
+import { calcLottoDetails } from '../util/calcLottoDetails.js';
 import Lotto from '../Lotto.js';
 
 class LottoController {
@@ -61,6 +62,8 @@ class LottoController {
 
 	async #showResults() {
 		const matchResult = this.#getMatchResults();
+		const details = calcLottoDetails(matchResult);
+		this.#outputView.printMatchResults(details);
 	}
 
 	#generateLottos(amount) {
