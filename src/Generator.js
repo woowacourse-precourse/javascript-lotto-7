@@ -9,10 +9,7 @@ class Generator {
   #lottoTickets;
 
   constructor(input) {
-    this.#validateNaturalNumber(input);
-    const numberInput = stringToNumber(input);
-    this.#validateDivisibleByTicketPrice(numberInput);
-    this.#purchaseAmount = numberInput;
+    this.#purchaseAmount = this.#validate(input);
     this.#lottoTickets = this.#calculateLottoTicket();
   }
 
@@ -44,6 +41,14 @@ class Generator {
 
   #calculateLottoTicket() {
     return this.#purchaseAmount / LOTTO.TICKET_PRICE;
+  }
+
+  #validate(input) {
+    this.#validateNaturalNumber(input);
+    const numberInput = stringToNumber(input);
+    this.#validateDivisibleByTicketPrice(numberInput);
+
+    return numberInput;
   }
 
   #validateNaturalNumber(input) {
