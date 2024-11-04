@@ -5,6 +5,8 @@ import App, {
   printLottos,
   inputPrizeNumbers,
   splitPrizeNumbers,
+  inputBonusNumber,
+  validateBonusNumbers,
 } from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../src/Lotto.js";
@@ -124,6 +126,34 @@ describe("printLottos 테스트", () => {
     expect(logSpy).toHaveBeenCalledWith("[1, 2, 3, 4, 5, 6]");
     expect(logSpy).toHaveBeenCalledWith("[7, 8, 9, 10, 11, 12]");
     expect(logSpy).toHaveBeenCalledWith("[13, 14, 15, 16, 17, 18]");
+  });
+});
+
+describe("보너스 번호 입력 및 유효성 검사 테스트", () => {
+  // 1. inputBonusNumber 테스트
+  test("사용자 입력을 통해 보너스 번호를 올바르게 입력 받는다.", async () => {
+    const userInput = "7";
+    MissionUtils.Console.readLineAsync = jest.fn().mockResolvedValue(userInput);
+
+    const bonusNumber = await inputBonusNumber();
+    expect(bonusNumber).toBe(7);
+  });
+});
+
+describe("validateBonusNumber 유효성 검사", () => {
+  const prizeNumbers = [1, 2, 3, 4, 5, 6];
+
+  test("유효한 보너스 번호가 통과된다.", () => {
+    expect(() => validateBonusNumbers(7, prizeNumbers)).not.toThrow();
+  });
+
+  test("1~45 범위를 벗어난 보넛 번호가 예외를 발생시킨다.", () => {
+    expect(() => validateBonusNumbers(0, prizeNumbers)).toThrow("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    expect(() => validateBonusNumbers(46, prizeNumbers)).toThrow("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+  });
+
+  test("보너스 번호가 당첨 번호와 중복되면 예외가 발생한다.", () => {
+    expect(() => validateBonusNumbers(2, prizeNumbers)).toThrow("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
   });
 });
 

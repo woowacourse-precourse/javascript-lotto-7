@@ -58,6 +58,23 @@ export function splitPrizeNumbers(numbers) {
   return numbers.split(",").map(Number);
 }
 
+export async function inputBonusNumber() {
+  const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+  return parseInt(bonusNumber, 10); // 숫자로 변환하여 반환
+}
+
+export function validateBonusNumbers(bonusNumber, prizeNumbers) {
+  // 숫자 범위 확인 (1~45)
+  if (bonusNumber < 1 || bonusNumber > 45) {
+    throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+  }
+
+  // 당첨 번호와 중복되는지 여부 확인
+  if (prizeNumbers.includes(bonusNumber)) {
+    throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+  }
+}
+
 class App {
   async run() {}
 }
