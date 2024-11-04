@@ -1,3 +1,4 @@
+import { LOTTO } from '../src/constant';
 import Lotto from '../src/Lotto';
 import { mockRandoms } from './testUtil';
 
@@ -93,5 +94,31 @@ describe('다수의 matchNumbers 메서드 테스트', () => {
       '5+bonus': 1,
       6: 0,
     });
+  });
+});
+
+describe('Lotto 클래스의 getTotalProfit 메서드 테스트', () => {
+  test('일치한 개수에 따른 총 수익 금액 계산', () => {
+    Lotto.matchedCount = { 3: 1, 4: 2, 5: 0, '5+bonus': 1, 6: 0 };
+    const expectedProfit =
+      LOTTO.WINNING_AMOUNT['3'] * 1 +
+      LOTTO.WINNING_AMOUNT['4'] * 2 +
+      LOTTO.WINNING_AMOUNT['5+bonus'] * 1;
+
+    const totalProfit = Lotto.getTotalProfit();
+    expect(totalProfit).toBe(expectedProfit);
+  });
+
+  test('수익이 0일 때 확인', () => {
+    Lotto.matchedCount = { 3: 0, 4: 0, 5: 0, '5+bonus': 0, 6: 0 };
+    const totalProfit = Lotto.getTotalProfit();
+    expect(totalProfit).toBe(0);
+  });
+
+  test('6개 일치 시 최대 수익 확인', () => {
+    Lotto.matchedCount = { 3: 0, 4: 0, 5: 0, '5+bonus': 0, 6: 1 };
+    const expectedProfit = LOTTO.WINNING_AMOUNT[6] * 1;
+    const totalProfit = Lotto.getTotalProfit();
+    expect(totalProfit).toBe(expectedProfit);
   });
 });
