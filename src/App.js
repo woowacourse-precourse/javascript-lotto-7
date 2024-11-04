@@ -9,15 +9,18 @@ class App {
     //1. 로또 구매
     const purchase = await this.purchaseLotto();
     purchase.printTickets();
+
     //2. 로또 리스트 생성
     const lottoList = await this.generateLotto(purchase.getTickets());
+
     //3. 로또 리스트 출력
     this.printLottoList(lottoList);
+
     //4. 당첨 번호 입력
     const winningLotto = await this.inputWinningLotto();
+
     //5. 보너스 번호 입력 및 검증
-    const bonusNumber = await this.inputBonusNumber();
-    await this.validateBonusNumber(bonusNumber, winningLotto);
+    const bonusNumber = await this.inputBonusNumber(winningLotto);
   
     // 6. 당첨 결과 계산
     const results = this.calculateResults(lottoList, winningLotto, bonusNumber);
@@ -89,11 +92,14 @@ class App {
 
 
   //보너스 숫자 입력
-  async inputBonusNumber() {
+  //@param {Lotto} winningLotto
+  async inputBonusNumber(winningLotto) {
     while (true) {
       try {
         const input = await MissionUtils.Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
-        return Number(input.trim());
+        const bonusNumber =Number(input.trim());
+        this.validateBonusNumber(bonusNumber, winningLotto);
+        return bonusNumber;
       } catch (error) {
         MissionUtils.Console.print(error.message);
       }
@@ -104,14 +110,13 @@ class App {
   //보너스 숫자에 대한 유효성 검증
   //@param {number} bonusNumber
   //@param {Lotto} winningLotto
-  async validateBonusNumber(bonusNumber, winningLotto) {
+  validateBonusNumber(bonusNumber, winningLotto) {
     if (!Number.isInteger(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
       throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
     if (winningLotto.getNumbers().includes(bonusNumber)) {
       throw new Error("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다.");
     }
-    return bonusNumber;
   }
 
   // 두 로또의 일치하는 번호 개수 계산
@@ -205,3 +210,4 @@ class App {
 
 
 export default App;
+
