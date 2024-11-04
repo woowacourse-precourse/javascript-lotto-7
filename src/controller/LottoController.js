@@ -5,16 +5,25 @@ import { MESSAGES } from "../constant/messages.js";
 import { validator } from "../utils/validator.js";
 
 class LottoController {
+  #lottoAmount;
   #inputView;
   #totalProfitRatio;
+  #numberOfLotto;
+  #lottoTickets;
+  #winningLottoNumbers;
+  #bonusNumber;
+  #isAllInputValidationPass;
+  #totalStatistic;
   constructor() {
     this.#inputView = new InputView();
     this.#totalProfitRatio = 0;
+    this.#isAllInputValidationPass = false;
+    this.#totalStatistic = { 3: 0, 4: 0, 5: 0, bonus: 0, 6: 0 };
   }
 
-  makeLottoTickets(numberOfLotto) {
+  makeLottoTickets() {
     const tickets = [];
-    for (let i = 0; i < numberOfLotto; i++) {
+    for (let i = 0; i < this.#numberOfLotto; i++) {
       const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       tickets.push(new Lotto(numbers));
     }
@@ -33,70 +42,69 @@ class LottoController {
     }
   }
 
-  async getBonusNumber(winningNumbers) {
+  async getBonusNumber() {
     try {
       const bonusNumber = await this.#inputView.readBonusNumbers();
 
-      validator.validateBonusNumber(winningNumbers, Number(bonusNumber.trim()));
+      validator.validateBonusNumber(
+        this.#winningLottoNumbers,
+        Number(bonusNumber.trim())
+      );
 
+      this.#isAllInputValidationPass = true;
       return Number(bonusNumber.trim());
     } catch (error) {
       console.log(error);
-      this.getBonusNumber(winningNumbers);
+      this.getBonusNumber();
     }
   }
-  matchLotto(ticket, winningNumbers, bonusNumber) {
+  matchLotto(ticket) {
     let cnt = 0;
     let bonusCnt = 0;
 
-    winningNumbers.forEach((number) => {
+    this.#winningLottoNumbers.forEach((number) => {
       if (ticket.includes(number)) {
         cnt += 1;
       }
     });
-    if (ticket.includes(bonusNumber)) {
+    if (ticket.includes(this.#bonusNumber)) {
       bonusCnt += 1;
     }
     return [cnt, bonusCnt];
   }
 
-  showTotalStatistic(TOTAL_STATISTIC) {
+  showTotalStatistic() {
     Console.print(MESSAGES.OUTPUT.WINNING_STATISTICS);
-    Console.print(MESSAGES.OUTPUT.matchingCount(3, false, TOTAL_STATISTIC[3]));
-    Console.print(MESSAGES.OUTPUT.matchingCount(4, false, TOTAL_STATISTIC[4]));
-    Console.print(MESSAGES.OUTPUT.matchingCount(5, false, TOTAL_STATISTIC[5]));
     Console.print(
-      MESSAGES.OUTPUT.matchingCount(5, true, TOTAL_STATISTIC["bonus"])
+      MESSAGES.OUTPUT.matchingCount(3, false, this.#totalStatistic[3])
     );
-    Console.print(MESSAGES.OUTPUT.matchingCount(6, false, TOTAL_STATISTIC[6]));
+    Console.print(
+      MESSAGES.OUTPUT.matchingCount(4, false, this.#totalStatistic[4])
+    );
+    Console.print(
+      MESSAGES.OUTPUT.matchingCount(5, false, this.#totalStatistic[5])
+    );
+    Console.print(
+      MESSAGES.OUTPUT.matchingCount(5, true, this.#totalStatistic["bonus"])
+    );
+    Console.print(
+      MESSAGES.OUTPUT.matchingCount(6, false, this.#totalStatistic[6])
+    );
   }
-  getWinningResult(lottoTickets, winningNumbers, bonusNumber) {
-    const TOTAL_STATISTIC = {
-      3: 0,
-      4: 0,
-      5: 0,
-      bonus: 0,
-      6: 0,
-    };
-
-    for (const ticket of lottoTickets) {
-      const [matchingCount, bonusMatchingCount] = this.matchLotto(
-        ticket.getLottoNumbers(),
-        winningNumbers,
-        bonusNumber
-      );
+  getWinningResult() {
+    for (const ticket of this.#lottoTickets) {
+      const [matchingCount, bonusMatchingCount] = this.matchLotto(ticket);
       if (matchingCount === 5 && bonusMatchingCount > 0) {
-        TOTAL_STATISTIC["bonus"] += 1;
+        this.#totalStatistic["bonus"] += 1;
         continue;
       }
       if (matchingCount >= 3) {
-        TOTAL_STATISTIC[matchingCount] += 1;
+        this.#totalStatistic[matchingCount] += 1;
       }
     }
-    return TOTAL_STATISTIC;
   }
 
-  calculateTotalProfit(totalStatistic) {
+  calculateTotalProfit() {
     const MONEY_PER_MATCHING = {
       3: 5000,
       4: 50000,
@@ -105,9 +113,9 @@ class LottoController {
       6: 2000000000,
     };
     let profit = 0;
-    for (const matchingCount of Object.keys(totalStatistic)) {
+    for (const matchingCount of Object.keys(this.#totalStatistic)) {
       profit +=
-        totalStatistic[matchingCount] * MONEY_PER_MATCHING[matchingCount];
+        this.#totalStatistic[matchingCount] * MONEY_PER_MATCHING[matchingCount];
     }
 
     return profit;
@@ -117,41 +125,48 @@ class LottoController {
     Console.print(MESSAGES.OUTPUT.ratioOfProfit(this.#totalProfitRatio));
   }
 
+  async getLottoAmount() {
+    const lottoAmountInput = await this.#inputView.readLottoAmount();
+    const lottoAmount = Number(lottoAmountInput);
+
+    validator.validateLottoAmount(lottoAmount);
+    this.#lottoAmount = lottoAmount;
+  }
+
+  printLottoTicketCount() {
+    this.#numberOfLotto = this.#lottoAmount / 1000;
+    // 로또 티켓 개수 출력
+    Console.print(MESSAGES.OUTPUT.lottoCount(this.#numberOfLotto));
+  }
+
+  printLottoTickets() {
+    for (const ticket of this.#lottoTickets) {
+      Console.print(ticket.getLottoNumbers());
+    }
+  }
+
+  showWinningResult() {
+    const totalStatistic = this.getWinningResult();
+    this.showTotalStatistic(totalStatistic);
+
+    this.#totalProfitRatio = (
+      (this.calculateTotalProfit() / lottoAmount) *
+      100
+    ).toFixed(1);
+
+    this.showTotalProfitRatio();
+  }
   async run() {
     try {
-      const lottoAmountInput = await this.#inputView.readLottoAmount();
-      const lottoAmount = Number(lottoAmountInput);
+      await this.getLottoAmount();
+      this.printLottoTicketCount();
+      this.#lottoTickets = this.makeLottoTickets();
+      this.printLottoTickets();
+      this.#winningLottoNumbers = await this.getWinningLottoNumbers();
 
-      validator.validateLottoAmount(lottoAmount);
+      this.#bonusNumber = await this.getBonusNumber();
 
-      const numberOfLotto = lottoAmount / 1000;
-      const lottoTickets = this.makeLottoTickets(numberOfLotto);
-      // 로또 티켓 출력
-      Console.print(MESSAGES.OUTPUT.lottoCount(numberOfLotto));
-
-      for (const ticket of lottoTickets) {
-        Console.print(ticket.getLottoNumbers());
-      }
-
-      const winningLottoNumbers = await this.getWinningLottoNumbers();
-
-      const bonusNumber = await this.getBonusNumber(
-        winningLottoNumbers.getLottoNumbers()
-      );
-
-      const totalStatistic = this.getWinningResult(
-        lottoTickets,
-        winningLottoNumbers.getLottoNumbers(),
-        bonusNumber
-      );
-      this.showTotalStatistic(totalStatistic);
-
-      this.#totalProfitRatio = (
-        (this.calculateTotalProfit(totalStatistic) / lottoAmount) *
-        100
-      ).toFixed(1);
-
-      this.showTotalProfitRatio();
+      if (this.#isAllInputValidationPass) this.showWinningResult();
     } catch (error) {
       console.log(error);
       this.run();

@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES } from "../constant/errors.js";
-
+import Lotto from "../model/Lotto.js";
 export const validator = {
   // 로또 구입 금액 유효성 검사
   validateLottoAmount(amount) {
@@ -14,7 +14,8 @@ export const validator = {
   // 로또 당첨 번호 유효성 검사
   validateWinningLottoNumbers(numbers) {
     try {
-      return new Lotto(numbers.split(",").map((e) => +e));
+      const lotto = new Lotto(numbers.split(",").map((e) => +e));
+      return lotto.getLottoNumbers();
     } catch (error) {
       throw error;
     }
@@ -40,9 +41,9 @@ export const validator = {
   // 전체적인 보너스 번호 유효성 검사.
   validateBonusNumber(winningNumbers, bonusNumber) {
     try {
-      validateBonusNumberType(bonusNumber);
-      validateBonusNumberUniqueness(winningNumbers, bonusNumber);
-      validateBonusNumberRange(bonusNumber);
+      validator.validateBonusNumberType(bonusNumber);
+      validator.validateBonusNumberUniqueness(winningNumbers, bonusNumber);
+      validator.validateBonusNumberRange(bonusNumber);
     } catch (error) {
       throw error;
     }
