@@ -19,6 +19,9 @@ class Lotto {
     if (!numbers.every(num => num >= 1 && num <= 45)) {
       throw new Error("[ERROR] 로또 번호는 1부터 45 사이에 숫자여야 합니다.");
     }
+    if (numbers.some(num => !Number.isInteger(num))) {
+      throw new Error("[ERROR] 로또 번호는 정수여야 합니다.");
+    }
   }
 
   // TODO: 추가 기능 구현
