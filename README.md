@@ -1,4 +1,35 @@
-# javascript-lotto-precourse
+# 미션 - 로또
+간단한 로또 발매기 구현하기
+<br><br>
+
+## 폴더 구조
+```
+📦__tests__
+ ┣ 📜ApplicationTest.js // 기능 및 예외 테스트
+ ┣ 📜AutoGenerateTest.js // 로또 자동 생성 테스트
+ ┣ 📜LottoTest.js // 당첨 번호 유효성 검증 테스트
+ ┣ 📜ValidatorTest.js // 입력값 유효성 검증 메서드 테스트
+ ┣ 📜WinningTest.js // 당첨 확인 테스트
+ ┗ 📜calculateProfitTest.js // 수익률 계산 테스트
+📦src
+ ┣ 📂Controller
+ ┃ ┗ 📜LottoController.js // 로또 구매, 뽑기, 당첨이 모두 이루어지는 클래스
+ ┣ 📂Model
+ ┃ ┣ 📜AutoGenerate.js // 로또 구매 시 자동으로 번호를 발행하는 클래스
+ ┃ ┣ 📜Validator.js // 입력값 유효성 검증하는 클래스
+ ┃ ┣ 📜Winning.js // 일치하는 번호 개수를 확인한 후 당첨 내역을 업데이트하는 클래스
+ ┃ ┗ 📜calculateProfit.js // 수익률을 계산하는 함수
+ ┣ 📂View
+ ┃ ┣ 📜InputView.js // 사용자에게 입력해야 하는 것들을 보여주는 클래스
+ ┃ ┗ 📜OutputView.js // 사용자에게 출력된 값들을 보여주는 클래스
+ ┣ 📜App.js // 컨트롤 실행 클래스
+ ┣ 📜Lotto.js // 당첨 번호 유효성 검증 클래스
+ ┣ 📜Rank.js // 당첨 금액과 당첨 개수가 저장된 클래스
+ ┗ 📜index.js // 애플리케이션 진입점
+ ```
+ <br>
+
+## 📋 기능 목록
 1. 로또 구입 금액 입력받기
 2. 로또 자동 생성 후 수량 및 번호 출력
 3. 당첨 번호 입력받기
