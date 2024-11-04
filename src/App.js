@@ -119,6 +119,14 @@ class App {
 
     const winningNumbers = await this.#getWinningNumbers();
     const bonusNumber = await this.#getBonusNumber(winningNumbers);
+
+    const lottoResultCalculator = new LottoResultCalculator(
+      purchaselottoList,
+      winningNumbers,
+      bonusNumber
+    );
+
+    lottoResultCalculator.printResultCalculate(purchaseAmount);
   }
 }
 
