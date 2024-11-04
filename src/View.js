@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { checkValidation } from "./Validator.js";
 import Lotto from "./Lotto.js";
+import { PRIZE_TABLE } from "./Constant.js";
 
 export const getMoney = async () => {
     const money = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요\n");
@@ -44,31 +45,29 @@ export const getBonusNumber = async(numbers) => {
 
 export const printLottoNumbers = (number, lottoNumbers) => {
     MissionUtils.Console.print(`${number}개를 구매했습니다.`);
-    MissionUtils.Console.print(lottoNumbers);
+    lottoNumbers.forEach((lottoNumber) => {
+        const formattedLottoNumbers = `[${lottoNumber.join(', ')}]`;
+        MissionUtils.Console.print(formattedLottoNumbers);
+    })
 }
 
 export const printResult = async (result) => {
-    const prizeTable = {
-        3: "5,000",
-        4: "50,000",
-        5: "1,500,000",
-        "5+bonus": "30,000,000",
-        6: "2,000,000,000"
-    };
-    
     MissionUtils.Console.print(`
     당첨 통계
     ---
     `);
     Object.entries(result).forEach(([key, count]) => {
-        const prize = prizeTable[key];
+        const prize = PRIZE_TABLE[key];
         let bonus = '';
         if(key === '5+bonus'){
-            key = 5;
-            bonus = '보너스 볼 일치'
+            MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${prize}원) - ${count}개`);
         }
-        MissionUtils.Console.print(`${key}개 일치, ${bonus} (${prize}원) - ${count}개`);
+        else { MissionUtils.Console.print(`${key}개 일치 (${prize}원) - ${count}개`); }
     });
 
 }
 
+export const printProfit = (profit) => {
+    MissionUtils.Console.print(`총 수익률은 ${profit}%입니다.`)
+
+}

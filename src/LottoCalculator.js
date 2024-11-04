@@ -1,3 +1,5 @@
+import { PRIZE_TABLE } from "./Constant.js";
+
 export const calculateWinning = (winningNumber, userNumbers) => {
     const [winningArray, bonus] = winningNumber;
 
@@ -14,4 +16,22 @@ export const calculateWinning = (winningNumber, userNumbers) => {
     });
 
     return prizeCounts;
+}
+
+export const getWinningPrice = (result) => {
+    let totalPrize = 0;
+    for (const [key, count] of Object.entries(result)) {
+        if (count > 0) {
+            const prize = parseInt(PRIZE_TABLE[key].replace(/,/g, ''), 10);
+            totalPrize += prize * count;
+        }
+    }
+    
+    return totalPrize;
+}
+
+export const calculateProfit = (price, winningPrice) => {
+    const profit = winningPrice/price * 100;
+
+    return profit.toFixed(1);
 }

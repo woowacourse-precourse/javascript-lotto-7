@@ -1,9 +1,7 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 export const createLottoNumbers = () => {
-    let numberSet = new Set();
-    while(numberSet.size < 6){
-        let number = Math.floor(Math.random() * 45) + 1
-        numberSet.add(number);
-    }
+    let numberSet = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     return [...numberSet].sort((a, b) => a - b);
 }
 
