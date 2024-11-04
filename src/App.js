@@ -1,8 +1,9 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 import Input from "./Input.js";
-import Output from "./Output.js";
+import Print from "./Print.js";
 import Lotto from "./Lotto.js";
+import Game from "./Game.js";
 
 import { lottoInfo } from "./Static/const.js";
 
@@ -29,19 +30,21 @@ class App {
 
   async run() {
     try {
+      // 로또 구매 후 출력
       this.#money = await Input.getMoney();
 
-      // 로또 구매
       for (let i = 0; i < this.#money / 1000; i++) {
         const lotto = Game.buyLotto();
         this.#lottos.push(lotto);
       }
 
-      this.#printLottos();
+      Print.lottos(this.#lottos);
 
+      // 당첨 번호 입력
       const numbers = await Input.getWinningNumbers();
       this.#winningNumber = new Lotto(numbers);
 
+      // 보너스 번호 입력
       const bonusNumber = await Input.getBonusNumber();
       this.isDuplicateBonus(bonusNumber);
 
@@ -86,19 +89,6 @@ class App {
       if (rank) {
         this.#lottoResult.set(rank, this.#lottoResult.get(rank) + 1);
       }
-    }
-  }
-
-  #printLottos() {
-    Console.print(`\n${this.#lottos.length}개를 구매했습니다.\n`);
-
-    for (let lotto of this.#lottos) {
-      Console.print(
-        `[${lotto
-          .getNumbers()
-          .sort((a, b) => a - b)
-          .join(", ")}]`
-      );
     }
   }
 
