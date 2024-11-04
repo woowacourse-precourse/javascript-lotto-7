@@ -19,7 +19,6 @@ class Lotto {
 
       const lottoNumberArray = lottoNumbers
         .split(',')
-        .map((num) => num.trim())
         .map(Number);
 
       Lotto.validateLottoNumbers(lottoNumberArray);
