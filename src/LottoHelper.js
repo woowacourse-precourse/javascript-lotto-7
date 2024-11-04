@@ -38,6 +38,10 @@ class LottoHelper {
         }
         return ALL_LOTTO;
     }
+
+    makeWinningNumber(winningInput) {
+        return winningInput.split(',').map(Number);
+    }
 }
 
 export default LottoHelper;
