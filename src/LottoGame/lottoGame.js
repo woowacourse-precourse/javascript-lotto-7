@@ -12,13 +12,12 @@ import { prizeCriteria } from '../Constant/winningStandard.js';
 class LottoGame {
   async start() {
     const LOTTO_PRICE = await this.getLottoPrice();
+
     const lottoIssuance = new LottoIssuance(LOTTO_PRICE);
     lottoIssuance.printLottoBuyMessage();
     lottoIssuance.printLottoNumber();
-
     const WINNING_NUMBER = await this.getWinningNumber();
     const BONUS_NUMBER = await this.getBonusNumber();
-
     BONUS_NUMBER_VALIDATION(BONUS_NUMBER, WINNING_NUMBER);
     const statistics = this.comparison(
       lottoIssuance,

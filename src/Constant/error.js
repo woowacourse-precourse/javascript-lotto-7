@@ -11,4 +11,5 @@ export const ERROR_MESSAGES = Object({
     '[ERROR] 보너스 번호와 당첨 번호는 중복될 수 없습니다.',
   IS_BONUS_NUMBER_DUPLICATION:
     '[ERROR] 보너스 번호와 당첨 번호는 중복될 수 없습니다.',
+  IS_INVALID_INPUT: '[ERROR] 유효하지 않은 입력입니다.',
 });

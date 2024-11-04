@@ -22,16 +22,16 @@ const WINNING_NUMBER_RANGE = (winningNumberArray) => {
 export const WINNING_NUMBER_VALIDATION = (winningNumber) => {
   const winningNumberArray = winningNumber.split(SYMBOLS.comma).map(Number);
 
-  if (!SEPARATE_COMMA(winningNumber)) {
-    throw new Error(ERROR_MESSAGES.IS_SEPARATE_COMMA);
-  }
-  if (WINNING_NUMBER_SIX(winningNumberArray)) {
-    throw new Error(ERROR_MESSAGES.IS_WINNING_NUMBER_SIX);
-  }
   if (WINNING_NUMBER_DUPLICATION(winningNumberArray)) {
     throw new Error(ERROR_MESSAGES.IS_WINNING_NUMBER_DUPLICATION);
   }
   if (!WINNING_NUMBER_RANGE(winningNumberArray)) {
     throw new Error(ERROR_MESSAGES.IS_WINNING_NUMBER_RANGE);
+  }
+  if (!SEPARATE_COMMA(winningNumberArray)) {
+    throw new Error(ERROR_MESSAGES.IS_SEPARATE_COMMA);
+  }
+  if (WINNING_NUMBER_SIX(winningNumberArray)) {
+    throw new Error(ERROR_MESSAGES.IS_WINNING_NUMBER_SIX);
   }
 };
