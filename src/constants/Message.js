@@ -25,3 +25,9 @@ export const INPUT_INVALID = Object.freeze({
     HAS_DUPLICATE: "보너스 번호는 당첨 번호와 중복될 수 없습니다.",
   },
 });
+
+export const LOTTO_ERROR = Object.freeze({
+  INVALID_COUNT: "현재 발행된 로또는 6개가 아닙니다. 각 로또는 6개의 수로 구성되어야 합니다.",
+  HAS_DUPLICATE: "발행된 로또에 중복된 수가 포함되어 있습니다.",
+  HAS_NAN: "발행된 로또에 숫자가 아닌 요소가 포함되어 있습니다.",
+});
