@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import OutputView from "./OutputView.js";
-import Utils from "../Utils.js";
+import { getParsingNumber } from "../utils/utils.js";
 import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
 import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
@@ -23,7 +23,7 @@ class InputView {
       LOTTO_MESSAGES.input.lottoNumber
     );
     const trimLotto = input.toString().trim().split(',');
-    const parseLottoNumber = Utils.getParsingNumber(trimLotto);
+    const parseLottoNumber = getParsingNumber(trimLotto);
 
     this.#validateNumber(trimLotto);
     this.#validateParseNumber(parseLottoNumber);

@@ -4,8 +4,8 @@ import OutputView from "../view/OutputView.js";
 import Lotto from "./Lotto.js";
 import LottoWinner from "./LottoWinner.js";
 import LottoResult from "./LottoResult.js";
-import Utils from "../Utils.js";
 import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
+import { range } from "../utils/utils.js";
 
 class LottoGame {
   #lottoList = [];
@@ -29,7 +29,7 @@ class LottoGame {
   }
 
   #generateLotto(lottoCount) {
-    this.#lottoList = Utils.range(lottoCount).map(() =>
+    this.#lottoList = range(lottoCount).map(() =>
       new Lotto(this.#sortNumber(this.#getRandomLottoNumber())));
   }
 
