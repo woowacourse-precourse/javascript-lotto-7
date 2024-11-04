@@ -1,4 +1,6 @@
-const LOTTO_CONFIG = Object.freeze({
+import deepFreeze from "./utils/deepFreeze.js";
+
+const LOTTO_CONFIG = deepFreeze({
   PRICE: 1000,
   NUMBER: {
     MIN: 1,
