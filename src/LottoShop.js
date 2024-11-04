@@ -20,9 +20,7 @@ const LottoShop = {
   },
   getBuyLottosInfo(lottos) {
     let result = outputMessages.INFO_PREFIX(lottos.length);
-    result += lottos
-      .map((boughtLotto) => boughtLotto.getNumbersWithSquareBrackets())
-      .join('\n');
+    result += lottos.map((boughtLotto) => boughtLotto.getNumbersWithSquareBrackets()).join('\n');
     return result;
   },
 };
