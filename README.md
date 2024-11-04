@@ -75,13 +75,13 @@
 
 ### Application Layer
 
-- [ ] 구입한 로또 갯수를 **Preseantion Layer**에 전달하는 기능
+- [x] 구입한 로또 갯수를 **Preseantion Layer**에 전달하는 기능
  
-- [ ] 생성된 무작위 로또 번호를 **Preseantion Layer**에 전달하는 기능
+- [x] 생성된 무작위 로또 번호를 **Preseantion Layer**에 전달하는 기능
 
-- [ ] 당첨 통계를 **Preseantion Layer**에 전달하는 기능
+- [x] 당첨 통계를 **Preseantion Layer**에 전달하는 기능
 
-- [ ] 수익률을 **Preseantion Layer**에 전달하는 기능
+- [x] 수익률을 **Preseantion Layer**에 전달하는 기능
 
 ### Presentation Layer
 
