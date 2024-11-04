@@ -37,7 +37,7 @@ class App {
         try {
           const winningNumbers = await MissionUtils.Console.readLineAsync('당첨 번호를 입력해주세요');
           const numbers = winningNumbers.split(', ').map(Number);
-          new Lotto(numbers);
+          new Lotto(numbers); // 유효성 검사
           return numbers;
         } catch (error) {
           MissionUtils.Console.print(error.message);
