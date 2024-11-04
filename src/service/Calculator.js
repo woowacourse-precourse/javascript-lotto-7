@@ -1,6 +1,6 @@
 import { boardMessage } from "../constant/boardMessage.js";
 
-class Calculator {
+export class Calculator {
     static #prizeMoney = {
         FIRST : boardMessage.FIRST,
         SECOND : boardMessage.SECOND,
@@ -19,16 +19,16 @@ class Calculator {
         return lottos.map(lotto => comparision.compareWithLotto(lotto));
     }
 
-    #countMatchResult(results){
+    #countRankResult(results){
         return results.reduce((counts, result) => {
             counts[result.rank]++;
             return counts;
         }, Calculator.#initialLottos());
     }
 
-    #calculateWinningStatics(lottos, comparision){
-        const lottoResult = this.#calculateLottoResults(lottos, comparision);
-        const rankCounts = this.#countMatchResult(lottoResult);
+    #calculateWinningStatics(lottos, comparison){
+        const lottoResult = this.#calculateLottoResults(lottos, comparison);
+        const rankCounts = this.#countRankResult(lottoResult);
 
         return {
             first : {count : rankCounts[1], prize : Calculator.#prizeMoney.FIRST},
@@ -61,5 +61,17 @@ class Calculator {
         const totalCoast = total * Calculator.#lottoPrize;
 
         return this.#roundToDecimal((totalPrize / totalCoast * 100), 2);
+    }
+
+    #calculateGameResults(lottos, comparison) {
+        const results = this.#calculateLottoResults(lottos, comparison);
+        const rankCounts = this.#countRankResult(results);
+        const winningStatistics = this.#calculateWinningStatics(lottos, comparison);
+        const profitRate = this.#calculateProfitRate(rankCounts);
+
+        return {
+            statistics: winningStatistics,
+            profitRate: profitRate
+        };
     }
 }

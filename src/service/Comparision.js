@@ -1,14 +1,15 @@
 import Lotto from "../Lotto.js";
-import {errorMessage} from "../constant/errorMessage.js";
+import { errorMessage } from "../constant/errorMessage.js";
+import { inputWinningNumbers, inputBonusNumbers } from "../utils/inputView.js";
 
-class Comparision {
+class Comparison {
     #winningNumber;
     #bonusNumber;
 
     constructor(winningNumber, bonusNumber) {
         this.#validate(winningNumber, bonusNumber);
-        this.winningnumber = winningNumber;
-        this.bonusNumer = bonusNumber;
+        this.#winningNumber = winningNumber;
+        this.#bonusNumber = bonusNumber;
     }
 
     #validate(number, bonus){
@@ -29,19 +30,19 @@ class Comparision {
         return {
             matchCount,
             matchBonus: this.#matchBonus(lottoNumbers),
-            rank: this.#calculateRank(matchCount, this.#isMatchBonus(lottoNumbers))
+            rank: this.#returnRank(matchCount, this.#matchBonus(lottoNumbers))
         };
     }
 
     #countMatches(lottoNumbers){
-        return lottoNumbers.filter(number => this.#winningNumber.includes(number).length);
+        return lottoNumbers.filter(number => this.#winningNumber.includes(number)).length;
     }
 
     #matchBonus(lottoNumbers){
         return lottoNumbers.includes(this.#bonusNumber);
     }
 
-    #calculateRank(matchCount, matchBonus){
+    #returnRank(matchCount, matchBonus){
         if (matchCount === 6) return 1;
         if (matchCount === 5 && matchBonus) return 2;
         if (matchCount === 5) return 3;
@@ -51,4 +52,4 @@ class Comparision {
     }
 }
 
-export default Comparision;
+export default Comparison;

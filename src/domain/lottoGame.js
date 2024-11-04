@@ -1,33 +1,62 @@
 import Lotto from "../Lotto.js";
 import { inputCash, inputWinningNumbers, inputBonusNumbers } from "../utils/inputView.js";
 import Consumer from "./Consumer.js";
-import { printAllLotto, printGuideBuyLotto } from "../utils/outputView.js";
-import Comparision from "../service/Comparision.js";
+import { printAllLotto, printGuideBuyLotto, printWinningBoard, printRateOfReturn } from "../utils/outputView.js";
+import Comparison from "../service/Comparision.js";
+import { Calculator } from "../service/Calculator.js";
 
-class LottoGame{
+export class LottoGame {
     #lottos = [];
-    #comparision;
+    #comparison;
+    #calculator;
 
-    async playGame(){
+    constructor() {
+        this.#calculator = new Calculator();
+    }
+
+    async playGame() {
         const cash = await inputCash();
         const consumer = new Consumer(cash);
         const lottoCount = consumer.buyLottoCount();
 
         this.#generateLotto(lottoCount);
+        this.#displayLotto(lottoCount);
     }
 
-    #generateLotto(count){
-        this.#lottos = Array.from({length: count}, () => Lotto.create());
+    async resultGame(){
+        await this.#processWinning();
+        this.#displayResult();
     }
 
-    #displayLotto(count){
+    #generateLotto(count) {
+        this.#lottos = Array.from({ length: count }, () => Lotto.create());
+    }
+
+    #displayLotto(count) {
         printGuideBuyLotto(count);
         printAllLotto(this.#lottos);
     }
 
-    async #processWinning(){
+    async #processWinning() {
         const winNumber = await inputWinningNumbers();
         const bonusNumber = await inputBonusNumbers();
-        this.#comparision = new Comparision(winNumber, bonusNumber);
+
+        this.#comparison = new Comparison(winNumber, bonusNumber);
+    }
+
+    #displayResult() {
+        const results = this.#calculator.calculateLottoResults(this.#lottos, this.#comparison);
+        const statistics = this.#calculator.calculateWinningStatatics(results, this.#lottos.length);
+
+        this.#displayStatistics(statistics);
+        this.#displayProfitRate(statistics.profitRate);
+    }
+
+    #displayStatistics(statistics) {
+        printWinningBoard(statistics.rank);
+    }
+
+    #displayProfitRate(profitRate) {
+        printRateOfReturn(profitRate);
     }
 }
