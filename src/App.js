@@ -79,6 +79,9 @@ class App {
   validateWinningNumbers(inputtedWinningNumber) {
     const numberArray = inputtedWinningNumber.split(",").map(Number);
     const uniqueNumersSet = new Set(numberArray);
+
+    if (numberArray.length !== 6 || numberArray.length !== uniqueNumersSet.size)
+      throw new Error("[ERROR] 6개의 숫자를, 중복 없이 입력해야 합니다.");
   }
 }
 
