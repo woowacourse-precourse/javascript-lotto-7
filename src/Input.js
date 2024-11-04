@@ -6,8 +6,8 @@ import { printOutput, userInput } from "./missionUtils.js";
 class Input {
 	async getLottoMoney() {
 		try {
-			const MONEY = await this.getInputMoney();
-			return MONEY;
+			const money = await this.getInputMoney();
+			return money;
 		} catch (error) {
 			printOutput(error.message);
 			return await this.getLottoMoney();
@@ -15,29 +15,29 @@ class Input {
 	}
 
 	async getInputMoney() {
-		const MONEY = await userInput(PROMPT.LOTTO_BUY);
-		await this.validateLottoMoney(MONEY);
-		return parseInt(MONEY, 10);
+		const money = await userInput(PROMPT.LOTTO_BUY);
+		await this.validateLottoMoney(money);
+		return parseInt(money, 10);
 	}
 
 	async validateLottoMoney(money) {
-		const INPUT_NUMBER = parseInt(money, 10);
+		const inputNumber = parseInt(money, 10);
 
-		if (INPUT_NUMBER % LOTTO_MONEY) {
+		if (inputNumber % LOTTO_MONEY) {
 			throw new Error(ERROR_MESSAGE.WRONG_UNIT);
 		}
-		if (Number.isNaN(INPUT_NUMBER)) {
+		if (Number.isNaN(inputNumber)) {
 			throw new Error(ERROR_MESSAGE.WRONG_CHARACTER);
 		}
-		if (INPUT_NUMBER > LOTTO_MAX_MONEY) {
+		if (inputNumber > LOTTO_MAX_MONEY) {
 			throw new Error(ERROR_MESSAGE.PASSED_BUY_LIMIT);
 		}
 	}
 
 	async getWinningNumber() {
 		try {
-			const WINNING_NUMBER = await this.getInputWinningNumber();
-			return WINNING_NUMBER;
+			const winningNumber = await this.getInputWinningNumber();
+			return winningNumber;
 		} catch (error) {
 			printOutput(error.message);
 			return await this.getWinningNumber();
@@ -45,33 +45,33 @@ class Input {
 	}
 
 	async getInputWinningNumber() {
-		const WINNING_NUMBER = await userInput(PROMPT.LOTTO_WINNING_NUMBER);
-		await this.validateWinningNumber(WINNING_NUMBER);
-		return WINNING_NUMBER;
+		const winningNumber = await userInput(PROMPT.LOTTO_WINNING_NUMBER);
+		await this.validateWinningNumber(winningNumber);
+		return winningNumber;
 	}
 
 	async validateWinningNumber(winningNumber) {
-		const INPUT_WINNING = winningNumber.split(",");
+		const inputWinning = winningNumber.split(",");
 		const validPattern = /^[0-9,]+$/;
 
 		if (!validPattern.test(winningNumber)) {
 			throw new Error(ERROR_MESSAGE.WRONG_CHARACTER);
 		}
-		if (INPUT_WINNING.length !== 6) {
+		if (inputWinning.length !== 6) {
 			throw new Error(ERROR_MESSAGE.WRONG_WINNING_DIGIT);
 		}
-		if (INPUT_WINNING.some((number) => number < 1 || number > 45)) {
+		if (inputWinning.some((number) => number < 1 || number > 45)) {
 			throw new Error(ERROR_MESSAGE.PASSED_WINNING_RANGE);
 		}
-		if (new Set(INPUT_WINNING).size !== INPUT_WINNING.length) {
+		if (new Set(inputWinning).size !== inputWinning.length) {
 			throw new Error(ERROR_MESSAGE.DUPLICATE_WINNING_NUMBER);
 		}
 	}
 
 	async getBonusNumber(winningNumber) {
 		try {
-			const BONUS_NUMBER = await this.getInputBonusNumber(winningNumber);
-			return BONUS_NUMBER;
+			const bonusNumber = await this.getInputBonusNumber(winningNumber);
+			return bonusNumber;
 		} catch (error) {
 			printOutput(error.message);
 			return this.getBonusNumber(winningNumber);
@@ -79,16 +79,16 @@ class Input {
 	}
 
 	async getInputBonusNumber(winningNumber) {
-		const BONUS_NUMBER = await userInput(PROMPT.LOTTO_BONUS_NUMBER);
-		await this.validateBonusNumber(winningNumber, BONUS_NUMBER);
-		return BONUS_NUMBER;
+		const bonusNumber = await userInput(PROMPT.LOTTO_BONUS_NUMBER);
+		await this.validateBonusNumber(winningNumber, bonusNumber);
+		return bonusNumber;
 	}
 
 	async validateBonusNumber(winningNumber, bonusNumber) {
-		const INPUT_WINNING = parseInt(bonusNumber, 10);
+		const inputWinning = parseInt(bonusNumber, 10);
 		const isDuplicate = winningNumber.includes(bonusNumber);
 
-		if (INPUT_WINNING < 1 || INPUT_WINNING > 45) {
+		if (inputWinning < 1 || inputWinning > 45) {
 			throw new Error(ERROR_MESSAGE.PASSED_BONUS_RANGE);
 		}
 		if (isDuplicate) {
