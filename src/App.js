@@ -13,8 +13,9 @@ class App {
   validatePurchaseAmount(amount) {
     const purchaseAmount = Number(amount);
 
-    if (isNaN(purchaseAmount) || purchaseAmount % 1000 !== 0) {
+    if (Number.isNaN(purchaseAmount) || purchaseAmount % 1000 !== 0) {
       this.handleError("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
+      this.inputPurchaseAmount();
       return;
     }
     this.purchaseAmount = purchaseAmount;
@@ -46,19 +47,21 @@ class App {
     );
     const winningNumbers = winningNumbersInput.split(",").map(Number);
     this.validateWinningNumbers(winningNumbers);
-    this.inputBonusNumber();
   }
 
   validateWinningNumbers(numbers) {
     if (numbers.length !== 6 || new Set(numbers).size !== 6) {
       this.handleError("[ERROR] 당첨 번호는 중복되지 않는 6개의 숫자여야 합니다.");
+      this.inputWinningNumbers();
       return;
     }
     if (numbers.some((number) => number < 1 || number > 45)) {
       this.handleError("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+      this.inputWinningNumbers();
       return;
     }
     this.winningNumbers = numbers;
+    this.inputBonusNumber();
   }
 
   async inputBonusNumber() {
@@ -70,18 +73,20 @@ class App {
   validateBonusNumber(number) {
     if (Number.isNaN(number) || number < 1 || number > 45) {
       this.handleError("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+      this.inputBonusNumber();
       return;
     }
     if (this.winningNumbers.includes(number)) {
       this.handleError("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+      this.inputBonusNumber();
       return;
     }
     this.bonusNumber = number;
+    Console.print("당첨 번호와 보너스 번호가 설정되었습니다.");
   }
 
-  handleError(message, retryFunction) {
+  handleError(message) {
     Console.print(message);
-    retryFunction(); // 잘못된 입력일 경우 해당 지점부터 다시 입력 요청
   }
 }
 
