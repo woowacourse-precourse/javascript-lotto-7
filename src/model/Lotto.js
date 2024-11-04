@@ -1,13 +1,9 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { INPUT_ERROR_MESSAGE } from '../constant/errorMessage';
-import { isCorrectLength, isNoOverlap } from '../util/validate';
+import { isCorrectLength, isCorrectRange, isNoOverlap } from '../util/validate';
 
 class Lotto {
   #numbers;
-
-  static MIN = 1;
-  static MAX = 45;
-  static COUNT = 6;
 
   constructor(numbers) {
     this.#validate(numbers);
@@ -15,10 +11,14 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (isCorrectLength(Lotto.COUNT)) {
+    if (isCorrectLength(numbers.length)) {
       throw new Error(`[ERROR] ${INPUT_ERROR_MESSAGE.CORRECT_NUMBERS}`);
     }
-    if (isNoOverlap) {
+    const validate = numbers.every((number) => isCorrectRange(number));
+    if (validate) {
+      throw new Error(`[ERROR] ${INPUT_ERROR_MESSAGE.CORRECT_RANGE}`);
+    }
+    if (isNoOverlap(numbers)) {
       throw new Error(`[ERROR] ${INPUT_ERROR_MESSAGE.NO_OVERLAP}`);
     }
   }
@@ -30,9 +30,9 @@ class Lotto {
 
   static makeLotto() {
     const numbers = MissionUtils.Random.pickUniqueNumbersInRange(
-      Lotto.MIN,
-      Lotto.MAX,
-      Lotto.COUNT,
+      1,
+      45,
+      6,
     ).sort();
 
     return new Lotto(numbers);
