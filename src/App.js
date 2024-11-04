@@ -18,9 +18,6 @@ const ONE_LOTTO_PRICE = 1000;
 const makeLottoCount = (lottoBuyPrice) =>
   Number(lottoBuyPrice) / ONE_LOTTO_PRICE;
 
-// 로또 당첨 조건 -> 각 로또마다 lottoAnswerNumbers에 있는 값 중에 몇 개를 들고 있는지
-// 각 로또마다 확인했으면 결과 개수 return 해야함
-// 결과 개수를 바탕으로 값 내야함
 const LottoWinningPrice = Object.freeze({
   3: 5_000,
   4: 50_000,
