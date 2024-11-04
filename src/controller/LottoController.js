@@ -35,11 +35,12 @@ class LottoController {
     try {
       const winningLottoNumbers =
         await this.#inputView.readWinningLottoNumbers();
-
-      return validator.validateWinningLottoNumbers(winningLottoNumbers.trim());
+      this.#winningLottoNumbers = validator.validateWinningLottoNumbers(
+        winningLottoNumbers.trim()
+      );
     } catch (error) {
       console.log(error);
-      this.getWinningLottoNumbers();
+      return await this.getWinningLottoNumbers();
     }
   }
 
@@ -53,10 +54,10 @@ class LottoController {
       );
 
       this.#isAllInputValidationPass = true;
-      return Number(bonusNumber.trim());
+      this.#bonusNumber = Number(bonusNumber.trim());
     } catch (error) {
       console.log(error);
-      this.getBonusNumber();
+      return await this.getBonusNumber();
     }
   }
 
@@ -95,7 +96,9 @@ class LottoController {
   }
   getWinningResult() {
     for (const ticket of this.#lottoTickets) {
-      const [matchingCount, bonusMatchingCount] = this.returnMatchLotto(ticket);
+      const [matchingCount, bonusMatchingCount] = this.returnMatchLotto(
+        ticket.getLottoNumbers()
+      );
       if (matchingCount === 5 && bonusMatchingCount > 0) {
         this.#totalStatistic["bonus"] += 1;
         continue;
@@ -122,11 +125,16 @@ class LottoController {
   }
 
   async getLottoAmount() {
-    const lottoAmountInput = await this.#inputView.readLottoAmount();
-    const lottoAmount = Number(lottoAmountInput);
+    try {
+      const lottoAmountInput = await this.#inputView.readLottoAmount();
+      const lottoAmount = Number(lottoAmountInput);
 
-    validator.validateLottoAmount(lottoAmount);
-    this.#lottoAmount = lottoAmount;
+      validator.validateLottoAmount(lottoAmount);
+      this.#lottoAmount = lottoAmount;
+    } catch (error) {
+      console.log(error);
+      return this.getLottoAmount();
+    }
   }
 
   printLottoTicketCount() {
@@ -146,27 +154,20 @@ class LottoController {
     this.showTotalStatistic(totalStatistic);
 
     this.#totalProfitRatio = (
-      (this.calculateTotalProfit() / lottoAmount) *
+      (this.calculateTotalProfit() / this.#lottoAmount) *
       100
     ).toFixed(1);
 
     this.showTotalProfitRatio();
   }
   async run() {
-    try {
-      await this.getLottoAmount();
-      this.printLottoTicketCount();
-      this.#lottoTickets = this.makeLottoTickets();
-      this.printLottoTickets();
-      this.#winningLottoNumbers = await this.getWinningLottoNumbers();
-
-      this.#bonusNumber = await this.getBonusNumber();
-
-      if (this.#isAllInputValidationPass) this.showWinningResult();
-    } catch (error) {
-      console.log(error);
-      this.run();
-    }
+    await this.getLottoAmount();
+    this.printLottoTicketCount();
+    this.#lottoTickets = this.makeLottoTickets();
+    this.printLottoTickets();
+    await this.getWinningLottoNumbers();
+    await this.getBonusNumber();
+    if (this.#isAllInputValidationPass) this.showWinningResult();
   }
 }
 export default LottoController;
