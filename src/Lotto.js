@@ -1,18 +1,24 @@
+import LottoListValidator from './util/validators/LottoListValidator.js';
+import LottoNumValidator from './util/validators/LottoNumValidator.js';
+import trimNums from './util/formatters/trimNums.js';
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = numbers.map(Number);
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+    const trimmedNumbers = trimNums(numbers);
+    LottoListValidator.validate(trimmedNumbers);
+    LottoNumValidator.validate(trimmedNumbers);
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
