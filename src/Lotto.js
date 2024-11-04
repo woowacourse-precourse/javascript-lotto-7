@@ -31,21 +31,21 @@ class Lotto {
   getAllofLottoTicketsResult(tickets, winnerRankCount, bonusNumber) {
     let rankCount = winnerRankCount;
     tickets.forEach((ticket) => {
-      const matchInfo = this.calculateMatchInfo(ticket, bonusNumber);
+      const matchInfo = this.getMatchInfo(ticket, bonusNumber);
       rankCount = this.updateWinnerRankCount(matchInfo, rankCount);
     });
 
     return rankCount;
   }
 
-  calculateMatchInfo(ticket, bonusNumber) {
+  getMatchInfo(ticket, bonusNumber) {
     const matchingNumbers = ticket.filter((elem) =>
       this.#numbers.includes(elem)
     );
 
     if (matchingNumbers.length === 5) {
       return {
-        hasBonusNumber: matchingNumbers.includes(bonusNumber),
+        hasBonusNumber: ticket.includes(bonusNumber),
         mathCount: matchingNumbers.length,
       };
     }
@@ -64,19 +64,18 @@ class Lotto {
           break;
         }
         winnerRank.THIRD++;
+        break;
       case 4:
         winnerRank.FOURTH++;
+        break;
       case 3:
         winnerRank.FIFTH++;
+        break;
       default:
         break;
     }
 
     return winnerRank;
-  }
-
-  calculateProfitRate(purchaseMoney, winningMoney) {
-    return ((Number(winningMoney) / Number(purchaseMoney)) * 100).toFixed(1);
   }
 
   checkDuplicate() {
