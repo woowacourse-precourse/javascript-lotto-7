@@ -24,6 +24,11 @@ class Lotto {
     return this.#numbers;
   }
 
+  matchLotto(winningNumbers) {
+    const matchedNumbers = winningNumbers.filter((num) => this.#numbers.includes(num));
+    return matchedNumbers.length;
+  }
+
   includes(number) {
     return this.#numbers.includes(Number(number));
   }
