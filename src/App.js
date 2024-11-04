@@ -1,11 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
-import CostManager from "./CostManager.js";
-import LottoGenerator from "./LottoGenerator.js";
-import GetNumber from "./GetNumber.js";
-import CheckNumber from "./CheckNumber.js";
-import WinningPrizeTable from "./WinningPrizeTable.js";
-import PrintResult from "./PrintResult.js";
-import ReturnOfInvestment from "./ReturnOfInvestment.js";
+import CostManager from "./services/CostManager.js";
+import LottoGenerator from "./services/LottoGenerator.js";
+import GetNumber from "./services/GetNumber.js";
+import CheckNumber from "./services/CheckNumber.js";
+import WinningPrizeTable from "./models/WinningPrizeTable.js";
+import PrintResult from "./services/PrintResult.js";
+import ReturnOfInvestment from "./services/ReturnOfInvestment.js";
 
 class App {
   constructor() {

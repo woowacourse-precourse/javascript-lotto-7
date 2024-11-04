@@ -19,7 +19,7 @@ class Lotto {
     });
 
     if (new Set(WinNumberArray).size < 6) {
-        throw new Error('[ERROR]중복되는 번호 혹은 공백이 있습니다.');
+        throw new Error('[ERROR]중복되는 번호 혹은 공백 없는 6개의 번호만 유효합니다.');
     }
     if(new Set(WinNumberArray).size > 6){
         throw new Error('[ERROR]당첨 번호는 최대 6개입니다.')

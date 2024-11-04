@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
+import Lotto from "../utils/Lotto.js";
 class GetNumber {
     constructor() {
         this.winNumber = [];

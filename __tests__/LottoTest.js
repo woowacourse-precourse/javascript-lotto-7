@@ -1,11 +1,11 @@
-import CostManager from '../src/CostManager.js';
+import CostManager from '../src/services/CostManager.js';
 import { Console,Random } from '@woowacourse/mission-utils';
-import LottoGenerator from '../src/LottoGenerator.js';
-import GetNumber from '../src/GetNumber.js';
-import CheckNumber from '../src/CheckNumber.js';
-import WinningPrizeTable from '../src/WinningPrizeTable.js';
-import PrintResult from '../src/PrintResult.js';
-import ReturnOfInvestment from '../src/ReturnOfInvestment.js';
+import LottoGenerator from '../src/services/LottoGenerator.js';
+import GetNumber from '../src/services/GetNumber.js';
+import CheckNumber from '../src/services/CheckNumber.js';
+import WinningPrizeTable from '../src/models/WinningPrizeTable.js';
+import PrintResult from '../src/services/PrintResult.js';
+import ReturnOfInvestment from '../src/services/ReturnOfInvestment.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
@@ -78,14 +78,12 @@ describe('Get Number 테스트', ()=>{
     const getNumber = new GetNumber();
     const mockValues = ['1,2,3,4,5,6', '7'];
 
-    // 모의 입력 설정
     Console.readLineAsync.mockResolvedValueOnce(mockValues[0]);
     await getNumber.getWinNumber();
 
     Console.readLineAsync.mockResolvedValueOnce(mockValues[1]);
     await getNumber.getBonusNumber();
 
-    // 기대 결과 검증
     expect(getNumber.winNumber).toEqual([1, 2, 3, 4, 5, 6]);
     expect(getNumber.bonusNumber).toEqual([7]);
 });
@@ -94,7 +92,7 @@ describe('Get Number 테스트', ()=>{
     const mockValues = ['1,2,3,4,5,6', '7']; 
    
     Console.readLineAsync.mockResolvedValue('1,2,3,4,5,1');
-    await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR]중복되는 번호 혹은 공백이 있습니다.');
+    await expect(getNumber.getWinNumber()).rejects.toThrow('[ERROR]중복되는 번호 혹은 공백 없는 6개의 번호만 유효합니다.');
   })
 
   test('보너스 번호에 중복된 번호 있을 때', async()=>{
