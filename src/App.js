@@ -22,7 +22,7 @@ class App {
 
     const winningNumbers = await getValidatedWinningNumbers();
 
-    const bonusNumber = await getValidatedBonusNumber();
+    const bonusNumber = await getValidatedBonusNumber(winningNumbers);
 
     printLottoResult(lottos, winningNumbers, bonusNumber, purchaseAmount);
   }

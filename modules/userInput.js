@@ -35,14 +35,14 @@ export async function getValidatedWinningNumbers() {
   }
 }
 
-export async function getValidatedBonusNumber() {
+export async function getValidatedBonusNumber(winningNumbers) {
   while (true) {
     const bonusNumber = await Console.readLineAsync(
       "\n보너스 번호를 입력해 주세요.\n"
     );
 
     try {
-      bonusNumberValidate(bonusNumber);
+      bonusNumberValidate(bonusNumber, winningNumbers);
       return Number(bonusNumber);
     } catch (error) {
       Console.print(error.message);
