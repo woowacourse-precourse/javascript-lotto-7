@@ -137,12 +137,33 @@ class App {
       throw new Error("[Error] 보너스 번호가 당첨 번호와 중복되면 안됩니다.");
   }
   calculateLottoResults(lottoList, winningNumbers, bonusNumber) {
-    return lottoList.reduce((result, lotto) => {
-      const [matchedCount, hasBonusMatch] = lotto.countMatchingLotto(
-        winningNumbers,
-        bonusNumber
-      );
-    });
+    return lottoList.reduce(
+      (result, lotto) => {
+        const [matchedCount, hasBonusMatch] = lotto.countMatchingLotto(
+          winningNumbers,
+          bonusNumber
+        );
+        this.updateLottoResults(result, matchedCount, hasBonusMatch);
+        return result;
+      },
+      [0, 0, 0, 0, 0]
+    );
+  }
+  updateLottoResults(result, matchedCount, hasBonusMatch) {
+    switch (matchedCount) {
+      case 3:
+        result[0]++;
+        break;
+      case 4:
+        result[1]++;
+        break;
+      case 5:
+        hasBonusMatch ? result[3]++ : result[2]++;
+        break;
+      case 6:
+        result[4]++;
+        break;
+    }
   }
 }
 
