@@ -29,12 +29,9 @@ class BonusNumber {
 
   #validate(number, winningNumber) {
     NumberValidator.validateIsEmpty(number);
-    NumberValidator.validateIsNumber(number);
-    NumberValidator.validateNoDecimal(number);
+    NumberValidator.validateIsOnlyDigits(number);
 
-    const parsedNumber = parseFloat(number);
-    NumberValidator.validateIsInteger(parsedNumber);
-
+    const parsedNumber = parseInt(number, 10);
     LottoNumberValidator.validateLottoNumberRange(parsedNumber);
     this.#validateBonusInWinningNumber(parsedNumber, winningNumber);
   }

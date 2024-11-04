@@ -25,12 +25,9 @@ class PurchaseAmountGenerator {
 
   #validatePurchaseAmount(purchaseAmount) {
     NumberValidator.validateIsEmpty(purchaseAmount);
-    NumberValidator.validateIsNumber(purchaseAmount);
-    NumberValidator.validateNoDecimal(purchaseAmount);
+    NumberValidator.validateIsOnlyDigits(purchaseAmount);
 
-    const parsedAmount = parseFloat(purchaseAmount);
-    NumberValidator.validateIsInteger(parsedAmount);
-    NumberValidator.validateIsPositive(parsedAmount);
+    const parsedAmount = parseInt(purchaseAmount, 10);
     PurchaseAmountValidator.validateDivisibleBy1000(parsedAmount);
   }
 }

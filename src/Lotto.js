@@ -17,9 +17,7 @@ class Lotto {
         await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
       Console.print('');
 
-      const lottoNumberArray = lottoNumbers
-        .split(',')
-        .map(Number);
+      const lottoNumberArray = lottoNumbers.split(',').map(Number);
 
       Lotto.validateLottoNumbers(lottoNumberArray);
 
@@ -37,12 +35,9 @@ class Lotto {
 
     numbers.forEach((number) => {
       NumberValidator.validateIsEmpty(number);
-      NumberValidator.validateIsNumber(number);
-      NumberValidator.validateNoDecimal(number);
+      NumberValidator.validateIsOnlyDigits(number);
 
-      const parsedNumber = parseFloat(number);
-      NumberValidator.validateIsInteger(parsedNumber);
-
+      const parsedNumber = parseInt(number, 10);
       LottoNumberValidator.validateLottoNumberRange(parsedNumber);
     });
   }
