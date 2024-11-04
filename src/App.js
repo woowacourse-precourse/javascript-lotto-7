@@ -1,14 +1,17 @@
 import InputView from './InputView.js';
 import LottoMachine from './LottoMachine.js';
 import OutputView from './OutputView.js';
-import { INPUT_PROMPT, OUTPUT_MESSAGE } from './constants.js';
+import WinningNumbers from './WinningNumbers.js';
+import { INPUT_PROMPT, NUMBER_SEPARATOR, OUTPUT_MESSAGE } from './constants.js';
 
 class App {
   #lottoMachine;
+  #winningNumbers;
 
   async run() {
     await this.readPurchaseAmount();
     this.printGeneratedLottos();
+    await this.readWinningNumbers();
   }
 
   async readPurchaseAmount() {
@@ -29,6 +32,18 @@ class App {
       OutputView.printMessage(lotto.numbers);
     });
     OutputView.printEmptyLine();
+  }
+
+  async readWinningNumbers() {
+    while (!this.#winningNumbers) {
+      try {
+        const winningNumbers = await InputView.readUserInput(INPUT_PROMPT.winningNumbers);
+        OutputView.printEmptyLine();
+        this.#winningNumbers = new WinningNumbers(winningNumbers.split(NUMBER_SEPARATOR));
+      } catch (error) {
+        OutputView.printErrorMessage(error.message);
+      }
+    }
   }
 }
 
