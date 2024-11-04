@@ -10,6 +10,7 @@ class Lotto {
   constructor(numbers) {
     this.#validate(numbers);
     this.#numbers = numbers;
+    this.#sort();
   }
 
   print(){
@@ -38,6 +39,10 @@ class Lotto {
       return RANK_CONFIG.FIFTH.RANK;
     }
     return null;
+  }
+
+  #sort() {
+    this.#numbers.sort((a, b) => a - b);
   }
 
   #validate(numbers) {
