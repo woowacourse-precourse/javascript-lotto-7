@@ -12,7 +12,7 @@ class BonusNumber {
   }
 
   #validate(number, winningLotto) {
-    if (winningLotto.hasSameNumber(number)) {
+    if (winningLotto.has(number)) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_DUPLICATE);
     }
   }

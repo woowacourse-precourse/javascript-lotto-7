@@ -52,7 +52,7 @@ class LottoMachine {
     return rankType;
   };
 
-  static #parseWinningLottoString = (
+  static #parseWinningRankCountToString = (
     winningRankCount,
   ) => `${LOTTO_WIN_RANK.threeMatch.string} (${LOTTO_WIN_RANK.threeMatch.prize.toLocaleString()}원) - ${winningRankCount.threeMatch}개
 ${LOTTO_WIN_RANK.fourMatch.string} (${LOTTO_WIN_RANK.fourMatch.prize.toLocaleString()}원) - ${winningRankCount.fourMatch}개
@@ -64,13 +64,13 @@ ${LOTTO_WIN_RANK.allMatch.string} (${LOTTO_WIN_RANK.allMatch.prize.toLocaleStrin
     this.#winningRankCount = LottoMachine.#createWinningRankCount();
 
     this.#tickets.forEach((ticket) => {
-      const matchCount = winningLotto.getMatchCountFrom(ticket);
+      const matchCount = winningLotto.getMatchCountWith(ticket);
       const isBonusMatch = bonusNumber.hasBonusNumberIn(ticket);
       const rank = LottoMachine.#getRankType(matchCount, isBonusMatch);
       if (rank) this.#winningRankCount[rank] += 1;
     });
 
-    return LottoMachine.#parseWinningLottoString(this.#winningRankCount);
+    return LottoMachine.#parseWinningRankCountToString(this.#winningRankCount);
   }
 
   static #calculateProfit = (winningRankCount) =>

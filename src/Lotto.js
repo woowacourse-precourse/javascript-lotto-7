@@ -20,11 +20,11 @@ class Lotto {
     }
   }
 
-  hasSameNumber(number) {
+  has(number) {
     return this.#numbers.includes(number);
   }
 
-  getMatchCountFrom(ticket) {
+  getMatchCountWith(ticket) {
     return ticket.filter((number) => this.#numbers.includes(number)).length;
   }
 }
