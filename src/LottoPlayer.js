@@ -18,20 +18,15 @@ class LottoPlayer {
   }
 
   async play() {
-    try {
-      const purchaseAmount = await this.handlePurchaseAmount();
-      this.setNumberOfLottos(purchaseAmount);
-      this.createLottos();
-      this.printLottos();
-      this.winningNumbers = await this.handleWinningNumbers();
-      this.bonusNumber = await this.handleBonusNumber();
-      this.compareLottoNumbers();
-      this.printResults();
-      this.printRateOfReturn();
-    } catch (error) {
-      MissionUtils.Console.print(error.message);
-      await this.play();
-    }
+    const purchaseAmount = await this.handlePurchaseAmount();
+    this.setNumberOfLottos(purchaseAmount);
+    this.createLottos();
+    this.printLottos();
+    this.winningNumbers = await this.handleWinningNumbers();
+    this.bonusNumber = await this.handleBonusNumber();
+    this.compareLottoNumbers();
+    this.printResults();
+    this.printRateOfReturn();
   }
 
   async handlePurchaseAmount() {
