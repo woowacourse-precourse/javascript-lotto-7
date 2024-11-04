@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES, throwError } from "../Error/Error.js";
+import { ERROR_MESSAGES, throwError } from "./Error/Error.js";
 import defaultSettings from "./Config/DefaultSettings.js";
 
 const { lotto } = defaultSettings;
