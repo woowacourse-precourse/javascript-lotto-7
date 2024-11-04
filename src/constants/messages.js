@@ -13,24 +13,24 @@ const OUTPUT_MESSAGES = Object.freeze({
   THREE_MATCH: (count) =>
     `${
       RANK.FIFTH.matchCount
-    }개 일치 (${RANK.FIFTH.prize.toLocaleString()}원) - (${count}개)`,
+    }개 일치 (${RANK.FIFTH.prize.toLocaleString()}원) - ${count}개`,
   FOUR_MATCH: (count) =>
     `${
       RANK.FOURTH.matchCount
-    }개 일치 (${RANK.FOURTH.prize.toLocaleString()}원) - (${count}개)`,
+    }개 일치 (${RANK.FOURTH.prize.toLocaleString()}원) - ${count}개`,
   FIVE_MATCH: (count) =>
     `${
       RANK.THIRD.matchCount
-    }개 일치 (${RANK.THIRD.prize.toLocaleString()}원) - (${count}개)`,
+    }개 일치 (${RANK.THIRD.prize.toLocaleString()}원) - ${count}개`,
   FIVE_MATCH_WITH_BONUS: (count) =>
     `${
       RANK.SECOND.matchCount
-    }개 일치, 보너스 볼 일치 (${RANK.SECOND.prize.toLocaleString()}원) - (${count}개)`,
+    }개 일치, 보너스 볼 일치 (${RANK.SECOND.prize.toLocaleString()}원) - ${count}개`,
   SIX_MATCH: (count) =>
     `${
       RANK.FIRST.matchCount
-    }개 일치 (${RANK.FIRST.prize.toLocaleString()}원) - (${count}개)`,
-  TOTAL_REVENUE: (rate) => `총 수익률은 ${rate.toLocaleString()}% 입니다.`,
+    }개 일치 (${RANK.FIRST.prize.toLocaleString()}원) - ${count}개`,
+  TOTAL_REVENUE: (revenue) => `총 수익률은 ${revenue}%입니다.`,
 });
 
 const ERROR = '[ERROR]';
