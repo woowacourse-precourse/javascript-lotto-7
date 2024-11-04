@@ -22,6 +22,8 @@ class Lotto {
     }
   }
 
+  
+
   checkRank(purchasedNumbers, bonusNumber) {
 
     const matchCount = purchasedNumbers.filter((num) =>
