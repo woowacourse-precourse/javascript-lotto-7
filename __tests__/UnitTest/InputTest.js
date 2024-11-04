@@ -36,7 +36,7 @@ describe('로또 구입 금액 입력값 테스트', () => {
   test('숫자가 아닌경우 예외가 발생한다.', async () => {
     mockQuestions('a');
     await expect(input.requestPurchaseAmount()).rejects.toThrow(
-      ERROR.IS_NOT_INT
+      ERROR.INVALID_VALUE
     );
   });
 });
