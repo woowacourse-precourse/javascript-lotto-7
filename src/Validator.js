@@ -2,6 +2,26 @@ import { LOTTO } from './constant/index.js';
 import { ERROR_MESSAGE } from './constant/error.js';
 
 class Validator {
+  purchaseAmount(amount) {
+    this.#validateNaturalNumber(amount);
+    this.#validateThousandUnit(amount);
+  }
+
+  winningNumbers(numbers) {
+    numbers.forEach((num) => {
+      this.#validateNaturalNumber(num);
+      this.#validateRange(num, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
+    });
+    this.#validateExactCount(numbers, LOTTO.COUNT);
+    this.#validateNoDuplicates(numbers);
+  }
+
+  bonusNumber(bonusNumber, winningNumbers) {
+    this.#validateNaturalNumber(bonusNumber);
+    this.#validateRange(bonusNumber, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
+    this.#validateNoItemContained(bonusNumber, winningNumbers, '당첨 번호');
+  }
+
   #validateNaturalNumber(value) {
     if (!Number.isInteger(value) || value <= 0) {
       throw new Error(ERROR_MESSAGE.NOT_NATURAL_NUMBER);
@@ -36,26 +56,6 @@ class Validator {
     if (arr.includes(item)) {
       throw new Error(ERROR_MESSAGE.ITEM_CONTAINED(arrName));
     }
-  }
-
-  purchaseAmount(amount) {
-    this.#validateNaturalNumber(amount);
-    this.#validateThousandUnit(amount);
-  }
-
-  winningNumbers(numbers) {
-    numbers.forEach((num) => {
-      this.#validateNaturalNumber(num);
-      this.#validateRange(num, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
-    });
-    this.#validateExactCount(numbers, LOTTO.COUNT);
-    this.#validateNoDuplicates(numbers);
-  }
-
-  bonusNumber(bonusNumber, winningNumbers) {
-    this.#validateNaturalNumber(bonusNumber);
-    this.#validateRange(bonusNumber, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
-    this.#validateNoItemContained(bonusNumber, winningNumbers, '당첨 번호');
   }
 }
 

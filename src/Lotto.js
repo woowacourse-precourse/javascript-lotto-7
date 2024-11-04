@@ -1,8 +1,8 @@
 import { LOTTO } from './constant/index.js';
 import getRandomSortedNumbers from './util/getRandomSortedNumbers.js';
 class Lotto {
-  #numbers;
   static matchedCount = { 3: 0, 4: 0, 5: 0, '5+bonus': 0, 6: 0 };
+  #numbers;
 
   constructor() {
     this.#numbers = getRandomSortedNumbers(
@@ -10,6 +10,16 @@ class Lotto {
       LOTTO.END_NUMBER,
       LOTTO.COUNT,
     );
+  }
+
+  static purchaseLotto(count) {
+    return Array.from({ length: count }, () => new Lotto());
+  }
+
+  static getTotalProfit() {
+    return Object.entries(Lotto.matchedCount).reduce((total, [key, count]) => {
+      return total + LOTTO.WINNING_AMOUNT[key] * count;
+    }, 0);
   }
 
   matchNumbers(winningNumbers, bonusNumber) {
@@ -27,16 +37,6 @@ class Lotto {
     }
 
     Lotto.matchedCount[winningCount] += 1;
-  }
-
-  static purchaseLotto(count) {
-    return Array.from({ length: count }, () => new Lotto());
-  }
-
-  static getTotalProfit() {
-    return Object.entries(Lotto.matchedCount).reduce((total, [key, count]) => {
-      return total + LOTTO.WINNING_AMOUNT[key] * count;
-    }, 0);
   }
 
   get numbers() {

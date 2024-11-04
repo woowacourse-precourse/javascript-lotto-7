@@ -26,14 +26,6 @@ class User {
     }
   }
 
-  get purchaseAmount() {
-    return this.#purchaseAmount;
-  }
-
-  get purchaseCount() {
-    return this.#purchaseAmount / LOTTO.PRICE;
-  }
-
   async readWinningNumbers() {
     while (true) {
       try {
@@ -60,6 +52,14 @@ class User {
         Console.print(error.message);
       }
     }
+  }
+
+  get purchaseAmount() {
+    return this.#purchaseAmount;
+  }
+
+  get purchaseCount() {
+    return this.#purchaseAmount / LOTTO.PRICE;
   }
 
   get winningBonusNumbers() {
