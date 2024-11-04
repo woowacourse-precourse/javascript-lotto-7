@@ -18,8 +18,9 @@ import {
   printLottoPrifitPercent,
 } from './functions/LottoProfit.js';
 import {
-  checkLottoPrizeNumbers,
-  checkLottoPrizeNumbersDup,
+  checkInputSymbolOtherThanComma,
+  checkLootoBounsNumber,
+  checkLottoBuyMoneyInput,
 } from './functions/Exceptions.js';
 class App {
   async run() {
@@ -62,44 +63,78 @@ class App {
         },
       ];
 
-      // * 로또 구입
-      const lottoBuyMoneyInput = await Console.readLineAsync(
-        '구입금액을 입력해 주세요.\n',
-      );
+      let lottoBuyMoneyInput;
+      let lottoArray;
+      let lottoPrizeNumbers;
+
+      while (true) {
+        try {
+          lottoBuyMoneyInput = await Console.readLineAsync(
+            '구입금액을 입력해 주세요.\n',
+          );
+          checkLottoBuyMoneyInput(lottoBuyMoneyInput);
+          break;
+        } catch (error) {
+          Console.print(error.message);
+        }
+      }
+
       const lottoBuyCount = getLottoBuyCount(lottoBuyMoneyInput);
       printLottoBuyCount(lottoBuyCount);
 
-      const lottoArray = makeLottoArray(lottoBuyCount);
-      lottoArray.forEach((lotto) => console.log(lotto.numbers));
+      lottoArray = makeLottoArray(lottoBuyCount);
+      lottoArray.forEach((lotto) =>
+        Console.print(`[${lotto.numbers.join(', ')}]`),
+      );
+
+      while (true) {
+        try {
+          //* 당첨 관련 //
+          const lottoPrizeNumbersInput = await Console.readLineAsync(
+            '\n당첨 번호를 입력해 주세요.\n',
+          );
+          checkInputSymbolOtherThanComma(lottoPrizeNumbersInput);
+          lottoPrizeNumbers = splitByComma(lottoPrizeNumbersInput);
+
+          break;
+        } catch (error) {
+          Console.print(error.message);
+        }
+      }
 
       // * ==== //
+      while (true) {
+        try {
+          const lottoBounsNumber = await Console.readLineAsync(
+            '\n보너스 번호를 입력해 주세요.\n',
+          );
 
-      //* 당첨 관련 //
-      const lottoPrizeNumbersInput = await Console.readLineAsync(
-        '\n당첨 번호를 입력해 주세요.\n',
-      );
+          checkLootoBounsNumber(lottoBounsNumber);
 
-      const lottoPrizeNumbers = splitByComma(lottoPrizeNumbersInput);
+          lottoArray.forEach((lotto) => {
+            const lottoPrizeCount = getLottoPrizeCount(
+              lotto,
+              lottoPrizeNumbers,
+            );
+            const isBonusNumber = getIsBonusNumber(
+              lotto,
+              lottoBounsNumber,
+              lottoPrizeCount,
+            );
+            LottoPrizeList = setLottoPrizeRank(
+              lottoPrizeCount,
+              LottoPrizeList,
+              isBonusNumber,
+            );
+          });
 
-      const lottoBounsNumber = await Console.readLineAsync(
-        '\n보너스 번호를 입력해 주세요.\n',
-      );
+          printLottoPrizeResult(LottoPrizeList);
 
-      lottoArray.forEach((lotto) => {
-        const lottoPrizeCount = getLottoPrizeCount(lotto, lottoPrizeNumbers);
-        const isBonusNumber = getIsBonusNumber(
-          lotto,
-          lottoBounsNumber,
-          lottoPrizeCount,
-        );
-        LottoPrizeList = setLottoPrizeRank(
-          lottoPrizeCount,
-          LottoPrizeList,
-          isBonusNumber,
-        );
-      });
-
-      printLottoPrizeResult(LottoPrizeList);
+          break;
+        } catch (error) {
+          Console.print(error.message);
+        }
+      }
 
       //* 수익률 구하기
 
@@ -112,7 +147,8 @@ class App {
 
       // * ==== //
     } catch (error) {
-      return Promise.reject(error);
+      Console.print(error.message);
+      // return Promise.reject(error);
     }
   }
 }

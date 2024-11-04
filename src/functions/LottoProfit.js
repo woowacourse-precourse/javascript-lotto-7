@@ -6,7 +6,7 @@ export const getLottoPrifitPercent = (
 ) => {
   const result = (sumLottoPrizeMoney / lottoBuyMoneyInput) * 100;
 
-  return result;
+  return result.toFixed(1);
 };
 
 export const printLottoPrifitPercent = (lottoProfitPercent) => {

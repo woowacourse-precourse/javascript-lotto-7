@@ -7,6 +7,7 @@ import {
   splitByComma,
 } from '../src/functions/LottoPrize.js';
 import Lotto from '../src/Lotto.js';
+import { checkInputSymbolOtherThanComma } from '../src/functions/Exceptions.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -110,7 +111,7 @@ describe('로또 구매 테스트', () => {
 });
 
 describe('로또 당첨 테스트', () => {
-  test('splitByComma() : 문자열이 콤마(,)를 기준으로 숫자 배열로배열 나눠지는가?', () => {
+  test('splitByComma() : 문자열이 콤마(,)를 기준으로 숫자 배열로 나눠지는가?', () => {
     const stringInput = '1,2,3,4,5';
     expect(splitByComma(stringInput)).toEqual([1, 2, 3, 4, 5]);
   });
