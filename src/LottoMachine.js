@@ -4,11 +4,13 @@ import { LOTTO_NUMBERS_CONDITION, LOTTO_SINGLE_TICKET_PRICE } from './constants.
 import { validatePurchaseAmount } from './validate.js';
 
 class LottoMachine {
+  #purchaseAmount;
   #lottoCount;
   #lottos;
 
   constructor(purchaseAmount) {
     validatePurchaseAmount(purchaseAmount);
+    this.#purchaseAmount = purchaseAmount;
     this.#lottos = [];
     this.generateLottos(purchaseAmount);
   }
@@ -46,6 +48,10 @@ class LottoMachine {
 
   get lottos() {
     return this.#lottos;
+  }
+
+  get purchaseAmount() {
+    return JSON.parse(JSON.stringify(this.#purchaseAmount));
   }
 }
 
