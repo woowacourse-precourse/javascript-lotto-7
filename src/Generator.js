@@ -16,6 +16,16 @@ class Generator {
     this.#lottoTickets = this.#calculateLottoTicket();
   }
 
+  generateLotto() {
+    const lottos = [];
+
+    for (let i = 0; i < this.#lottoTickets; i++) {
+      lottos.push(this.#generateLottoNumber());
+    }
+
+    return lottos;
+  }
+
   #generateLottoNumber() {
     return MissionUtils.Random.pickUniqueNumbersInRange(
       LOTTO.NUMBER_MINIMUM_RANGE,
