@@ -47,7 +47,7 @@ export default class InputView{
                 InputValid.isBonusNumInRange(bonusNum)
                 break;
             }catch(error){
-                Console.print("[ERROR] 중복된 당첨 번호가 존재합니다.");
+                Console.print("[ERROR] 올바른 당첨번호를 입력해주세요.");
             }
         }
         return {purchaseAmount,tickets,winningNums,bonusNum};
