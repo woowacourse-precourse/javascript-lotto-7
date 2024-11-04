@@ -19,6 +19,7 @@ class App {
     try {
       const moneyAmount = await this.getMoneyAmount();
       const lottoCount = this.calculateLottoCount(moneyAmount);
+      this.makeLottos(lottoCount);
       this.printLottos();
       await this.getAnswerNumbers();
       await this.getBonusNumber();
@@ -44,9 +45,18 @@ class App {
   }
 
   calculateLottoCount(moneyAmount) {
+    return Math.floor(amount / 1000);
+  }
+
+  makeLottos(lottoCount) {
+    this.lottos = Array.from({ length: count}, () => {
+      const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+        return new Lotto(numbers);
+    });
   }
 
   printLottos(){
+
   }
 
   async getAnswerNumbers() {
