@@ -25,6 +25,14 @@ class InputParser {
         return Number(trimedElement);
       });
   }
+
+  static parseBonusNumber(input) {
+    const trimmedInput = input.trim();
+    if (trimmedInput === '') {
+      return null;
+    }
+    return Number(trimmedInput);
+  }
 }
 
 export default InputParser;

@@ -5,6 +5,7 @@ import PurchasedLottos from './purchased-lottos.js';
 import WinningLotto from './winning-lotto.js';
 import InputParser from './input/input-parser.js';
 import validatePurchaseAmount from './validation/validate-purchase-amount.js';
+import validateBonusNumber from './validation/validate-bonus-number.js';
 
 class App {
   async run() {
@@ -25,8 +26,9 @@ class App {
       const winningNumber = InputParser.parseWinningNumber(winningNumberInput);
 
       const bonusNumberInput = await InputPrompt.getBonusNumber();
-      Console.print(`\n`);
-      const bonusNumber = parseInt(bonusNumberInput, 10);
+      const bonusNumber = InputParser.parseBonusNumber(bonusNumberInput);
+
+      validateBonusNumber(bonusNumber, winningNumber);
 
       const winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
