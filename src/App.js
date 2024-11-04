@@ -9,7 +9,8 @@ class App {
     consoleView.printLottoCount(purchaseAmount);
     const lottos = lottoController.generateLottos(purchaseAmount);
     consoleView.printLottoNumbers(lottos);
-    const winningNumbers = consoleView.getWinningNumbers();
+    const winningNumbers = await consoleView.getWinningNumbers();
+    const bonusNumber = await consoleView.getBonusNumber(winningNumbers);
   }
 }
 
