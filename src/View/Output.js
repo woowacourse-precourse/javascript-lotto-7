@@ -3,15 +3,6 @@ import { CONSOLE_MESSAGE } from '../constant/message.js';
 import { WINNING_HISTORY } from '../constant/prizes.js';
 
 class Output {
-  static printLottos(lottos) {
-    Output.printPurchaseCount(lottos.length);
-
-    lottos.forEach((lotto) => {
-      Console.print(`[${lotto.join(', ')}]`);
-    });
-    Console.print('');
-  }
-
   static printPurchaseCount(purchaseCount) {
     Console.print(`\n${purchaseCount}개를 구매했습니다.`);
   }

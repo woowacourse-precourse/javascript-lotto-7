@@ -32,8 +32,6 @@ class Lotto {
   countMatchingNumbers(lotto) {
     return this.#numbers.filter((number) => lotto.hasInNumbers(number)).length;
   }
-
-  // TODO: 추가 기능 구현
 }
 
 export default Lotto;
