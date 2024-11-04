@@ -32,4 +32,6 @@ export const CONSTANTS = {
     '[ERROR] 입력된 숫자값이 모자릅니다. 6개의 숫자가 입력되어야 합니다.',
   ERROR_DUPLICATE_BONUS_NUMBER:
     '[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.',
+  ERROR_INSUFFICIENT_LENGTH: '[ERROR] 로또 번호는 6개의 숫자여야 합니다.',
+  ERROR_DUPLICATE_NUMBERS: '[ERROR] 로또 번호에 중복된 숫자가 있습니다.',
 };
