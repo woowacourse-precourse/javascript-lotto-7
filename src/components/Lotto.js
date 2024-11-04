@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { DELIMETER, InputPrompts } from '../resources/Constants.js';
+import { DELIMETER, InputMessages } from '../resources/Constants.js';
 import winningNumberValidator from '../validation/winningNumberValidator.js';
 
 class Lotto {
@@ -27,7 +27,7 @@ class Lotto {
 
   static async createLotto() {
     try {
-      const input = await Console.readLineAsync(InputPrompts.winningNumbers);
+      const input = await Console.readLineAsync(InputMessages.WINNING_NUMBERS);
 
       winningNumberValidator(input);
 
