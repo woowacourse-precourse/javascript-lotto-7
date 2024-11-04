@@ -1,4 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
@@ -43,8 +44,8 @@ class App {
   }
 
   validatePurchaseAmount(amount) {
-    if (isNaN(amount) || amount % 1000 !== 0) {
-      throw new Error("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
+    if (isNaN(amount) || amount % 1000 !== 0 || amount <= 0) {
+      throw new Error("[ERROR] 구입 금액은 1,000원 단위의 양수여야 합니다.");
     }
   }
 
@@ -52,16 +53,15 @@ class App {
     const lottoCount = amount / 1000;
     const lottos = [];
     for (let i = 0; i < lottoCount; i++) {
-      const lottoNumbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
-      lottos.push(lottoNumbers);
+      lottos.push(new Lotto());
     }
     return lottos;
   }
 
   printLottos(lottos) {
     Console.print(`${lottos.length}개를 구매했습니다.`);
-    lottos.forEach((lotto) => {
-      Console.print(`[${lotto.join(", ")}]`);
+    lottos.forEach(lotto => {
+      Console.print(`[${lotto.numbers.join(", ")}]`);
     });
   }
 
@@ -71,8 +71,8 @@ class App {
         const mainInput = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
         const mainNumbers = mainInput.split(",").map((num) => Number(num.trim()));
 
-        this.validateMainNumbers(mainNumbers);
-        return mainNumbers;
+        const mainLotto = new Lotto(mainNumbers);
+        return mainLotto.numbers;
       } catch (error) {
         Console.print(`${error.message}\n`);
       }
@@ -85,29 +85,11 @@ class App {
         const bonusInput = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
         const bonusNumber = Number(bonusInput.trim());
 
-        this.validateBonusNumbers(bonusNumber, mainNumbers);
+        Lotto.validateBonus(bonusNumber, mainNumbers);
         return bonusNumber;
       } catch (error) {
         Console.print(`${error.message}\n`);
       }
-    }
-  }
-
-  validateMainNumbers(mainNumbers) {
-    if (mainNumbers.length !== 6 || new Set(mainNumbers).size !== 6) {
-      throw new Error("[ERROR] 당첨 번호는 중복되지 않는 6개의 숫자여야 합니다.");
-    }
-    if (!mainNumbers.every((num) => num >= 1 && num <= 45)) {
-      throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.");
-    }    
-  }
-
-  validateBonusNumbers(bonusNumber, mainNumbers) {    
-    if (bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
-    }
-    if (mainNumbers.includes(bonusNumber)) {
-      throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않아야 합니다.");
     }
   }
 
@@ -121,10 +103,10 @@ class App {
     };
 
     const results = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0, totalPrize: 0 };
-    
-    lottoTickets.forEach((ticket) => {
-      const matchCount = ticket.filter((num) => mainNumbers.includes(num)).length;
-      const hasBonus = ticket.includes(bonusNumber);
+
+    lottoTickets.forEach(ticket => {
+      const matchCount = ticket.matchCount(mainNumbers);
+      const hasBonus = ticket.hasBonus(bonusNumber);
 
       if (matchCount === prizeTiers.first.matchCount) {
         results.first += 1;
@@ -141,7 +123,7 @@ class App {
       } else if (matchCount === prizeTiers.fifth.matchCount) {
         results.fifth += 1;
         results.totalPrize += prizeTiers.fifth.prize;
-      } 
+      }
     });
     return results;
   }
