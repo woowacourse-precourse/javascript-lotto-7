@@ -3,6 +3,7 @@ import { ParseInput } from "./ParseInput.js";
 import { PickUp } from "./PickUp.js";
 import { FormatOutput } from "./FormatOutput.js";
 import { printLottoArray } from "./Utils.js";
+import { ERROR_MESSAGE_MONEY_INPUT } from "./ErrorMessage.js";
 
 const MESSAGE = {
   money: "\n구입금액을 입력해 주세요.\n",
@@ -34,6 +35,7 @@ class App {
     while (true) {
       try {
         this.#moneyInput = inputParser.parseMoney(await Console.readLineAsync(MESSAGE.money));
+        if (this.#moneyInput % this.#price !== 0) throw new Error(ERROR_MESSAGE_MONEY_INPUT.residue);
         break;
       } catch (e) {
         this.#output = `${this.#output}\n${e.message}`;

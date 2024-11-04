@@ -2,6 +2,7 @@ export const ERROR_MESSAGE_MONEY_INPUT = {
   nan: "[ERROR]: 구매 금액으로 숫자가 아닌 값이 들어왔습니다.",
   nonPositive: "[ERROR]: 구매 금액 값은 양수여야 합니다.",
   nonInteger: "[ERROR]: 구매 금액 값은 양의 정수여야 합니다.",
+  residue: "[ERROR]: 구매 금액은 최소 천원 단위를 가져야 합니다.",
 };
 
 export const ERROR_MESSAGE_JACKPOT_INPUT = {
