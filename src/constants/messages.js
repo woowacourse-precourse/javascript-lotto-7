@@ -8,7 +8,7 @@ export const PROMPT_MSG = Object.freeze({
 });
 
 export const ERROR_MSG = Object.freeze({
-  INVALID_AMOUNT: '구입 금액은 1,000원 이상의 숫자여야 합니다.',
+  INVALID_AMOUNT: '구입 금액은 1,000원 이상, 1000 단위의 숫자여야 합니다.',
   MAX_PURCHASE_AMOUNT: '구입 금액은 100,000원을 초과할 수 없습니다.',
   INVALID_NUMBER_RANGE: '로또 번호는 1부터 45 사이의 숫자여야 합니다.',
   INVALID_WINNING_NUMBERS: '로또 번호는 6개여야 합니다.',

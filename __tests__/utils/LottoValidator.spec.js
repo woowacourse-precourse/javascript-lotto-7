@@ -11,9 +11,10 @@ describe('utils/LottoValidator', () => {
       [1000, null],
       [5000, null],
       [10000, null],
-      [1000.5, null],
       ['1000', null],
 
+      [1000.5, ERROR_MSG.INVALID_AMOUNT],
+      [5500, ERROR_MSG.INVALID_AMOUNT],
       [0, ERROR_MSG.INVALID_AMOUNT],
       ['asdf', ERROR_MSG.INVALID_AMOUNT],
       ['-1000', ERROR_MSG.INVALID_AMOUNT],
@@ -39,6 +40,7 @@ describe('utils/LottoValidator', () => {
     it.each([
       // valid
       ['1,2,3,4,5,6', null],
+      ['1, 2, 3, 4, 5, 6', null],
       ['10,20,30,40,41,42', null],
       ['1,2,3,4,5,45', null], // edge case
 

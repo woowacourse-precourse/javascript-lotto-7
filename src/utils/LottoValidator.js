@@ -25,7 +25,7 @@ export const validatePurchaseAmount = (purchaseAmount) => {
   if (amount > MAX_PURCHASE_AMOUNT) {
     throw new Error(ERROR_MSG.MAX_PURCHASE_AMOUNT);
   }
-  if (amount < 1000) {
+  if (amount < 1000 || amount % 1000 !== 0) {
     throw new Error(ERROR_MSG.INVALID_AMOUNT);
   }
 };
@@ -37,6 +37,7 @@ export const validatePurchaseAmount = (purchaseAmount) => {
  */
 export const validateWinningNumbers = (winningNumbers) => {
   const numbers = winningNumbers.split(',').map(Number);
+
   if (numbers.length !== 6) {
     throw new Error(ERROR_MSG.INVALID_WINNING_NUMBERS);
   }
