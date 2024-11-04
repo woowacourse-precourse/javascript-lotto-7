@@ -92,7 +92,66 @@ describe('로또 테스트', () => {
     });
   });
 
-  test('예외 테스트', async () => {
+  test('예외 테스트1 [구매금액 문자 입력]', async () => {
     await runException('1000j');
+  });
+
+  test('예외 테스트2 [로또번호 문자 입력]', async () => {
+    await runException('1000', '1,2,3,4,5,6j');
+  });
+
+  test('예외 테스트3 [로또번호 중복]', async () => {
+    await runException('1000', '1,2,3,4,5,5');
+  });
+
+  test('예외 테스트4 [로또번호 범위 초과]', async () => {
+    await runException('1000', '1,2,3,4,5,46');
+  });
+
+  test('예외 테스트5 [로또번호 개수 초과]', async () => {
+    await runException('1000', '1,2,3,4,5,6,7');
+  });
+
+  test('예외 테스트6 [로또번호 개수 미달]', async () => {
+    await runException('1000', '1,2,3,4,5');
+  });
+
+  test('예외 테스트7 [구매금액 미달]', async () => {
+    await runException('500');
+  });
+
+  test('예외 테스트8 [구매금액 0]', async () => {
+    await runException('0');
+  });
+  test('예외 테스트9 [구매금액 음수]', async () => {
+    await runException('-1000');
+  });
+
+  test('예외 테스트10 [로또번호 0]', async () => {
+    await runException('1000', '0,1,2,3,4,5');
+  });
+
+  test('예외 테스트11 [로또번호 음수]', async () => {
+    await runException('1000', '-1,1,2,3,4,5');
+  });
+
+  test('예외 테스트 12 [보너스 번호 범위 초과]', async () => {
+    await runException('1000', '1,2,3,4,5,45', '46');
+  });
+
+  test('예외 테스트 13 [보너스 번호 중복]', async () => {
+    await runException('1000', '1,2,3,4,5,45', '45');
+  });
+
+  test('예외 테스트 14 [보너스 번호 0]', async () => {
+    await runException('1000', '1,2,3,4,5,45', '0');
+  });
+
+  test('예외 테스트 15 [보너스 번호 음수]', async () => {
+    await runException('1000', '1,2,3,4,5,45', '-1');
+  });
+
+  test('예외 테스트 16 [보너스 번호 문자]', async () => {
+    await runException('1000', '1,2,3,4,5,45', 'j');
   });
 });
