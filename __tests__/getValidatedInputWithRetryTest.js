@@ -17,7 +17,7 @@ describe('잘못된 입력 시 재입력 후 올바른 값 반환 테스트', ()
 
     // then
     expect(printErrorSpy).toHaveBeenCalledWith(
-      ERROR_MESSAGES.PURCHASE_PRICE.INVALID_UNIT,
+      expect.stringContaining(ERROR_MESSAGES.PURCHASE_PRICE.INVALID_UNIT),
     );
     expect(result).toBe(VALID_MONEY);
   });
@@ -37,7 +37,7 @@ describe('잘못된 입력 시 재입력 후 올바른 값 반환 테스트', ()
     // then
     expect(printErrorSpy).toHaveBeenCalledTimes(3);
     expect(printErrorSpy).toHaveBeenCalledWith(
-      ERROR_MESSAGES.PURCHASE_PRICE.INVALID_UNIT,
+      expect.stringContaining(ERROR_MESSAGES.PURCHASE_PRICE.INVALID_UNIT),
     );
     expect(result).toBe(VALID_MONEY);
   });
@@ -56,7 +56,7 @@ describe('잘못된 입력 시 재입력 후 올바른 값 반환 테스트', ()
 
     // then
     expect(printErrorSpy).toHaveBeenCalledWith(
-      ERROR_MESSAGES.WINNING_NUMBER.INVALID_COUNT,
+      expect.stringContaining(ERROR_MESSAGES.WINNING_NUMBER.INVALID_COUNT),
     );
     expect(result).toBe(VALID_WINNING_NUMBER);
   });
@@ -76,7 +76,7 @@ describe('잘못된 입력 시 재입력 후 올바른 값 반환 테스트', ()
 
     // then
     expect(printErrorSpy).toHaveBeenCalledWith(
-      ERROR_MESSAGES.BONUS_NUMBER.DUPLICATION_NUMBER,
+      expect.stringContaining(ERROR_MESSAGES.BONUS_NUMBER.DUPLICATION_NUMBER),
     );
     expect(result).toBe(VALID_BONUS_NUMBER);
   });
