@@ -42,6 +42,34 @@ const calculateLotto = (lotto, winningLotto, bonusNumber) => {
   }
   return equalCount;
 };
+export const printResult = (equalCounts) => {
+  MissionUtils.Console.print("당첨 통계\n");
+  MissionUtils.Console.print("---\n");
+  MissionUtils.Console.print("3개 일치 (5,000원) - " + equalCounts[3] + "개\n");
+  MissionUtils.Console.print(
+    "4개 일치 (50,000원) - " + equalCounts[4] + "개\n"
+  );
+  MissionUtils.Console.print(
+    "5개 일치 (1,500,000원) - " + equalCounts[5] + "개\n"
+  );
+  MissionUtils.Console.print(
+    "5개 일치, 보너스 볼 일치 (30,000,000원) - " + equalCounts[7] + "개\n"
+  );
+  MissionUtils.Console.print(
+    "6개 일치 (2,000,000,000원) - " + equalCounts[6] + "개\n"
+  );
+};
+
+export const printEarn = (buyCount, equalCounts) => {
+  const earn =
+    equalCounts[3] * 5000 +
+    equalCounts[4] * 50000 +
+    equalCounts[5] * 1500000 +
+    equalCounts[7] * 30000000 +
+    equalCounts[6] * 2000000000;
+  const earnRate = (earn / buyCount) * 100;
+  MissionUtils.Console.print(Math.round(earnRate * 10) / 10 + "%");
+};
 
 export const buyCountErrorCheck = (buyCount) => {
   if (isNaN(buyCount) || buyCount <= 0 || buyCount % 1000 != 0) {

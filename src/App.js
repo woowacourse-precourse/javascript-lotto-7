@@ -11,6 +11,8 @@ import {
   makeWinningLotto,
   buyCountErrorCheck,
   calculateLottos,
+  printResult,
+  printEarn,
 } from "./Function.js";
 
 class App {
@@ -35,6 +37,8 @@ class App {
     winningLotto.bonusErrorCheck(bonusNumber);
 
     const equalCounts = calculateLottos(lottos, winningLotto, bonusNumber);
+    printResult(equalCounts);
+    printEarn(buyCount, equalCounts);
   }
 }
 
