@@ -18,7 +18,7 @@ class LottoCalculator {
         while (true) {
             try {
                 const WINNING_INPUT = await Console.readLineAsync(
-                    '\n당첨 번호를 입력해 주세요 (쉼표로 구분된 6개의 숫자).\n'
+                    '\n당첨 번호를 입력해 주세요.\n'
                 );
                 const WINNING_NUMBER =
                     LottoHelper.makeWinningNumber(WINNING_INPUT);
