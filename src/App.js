@@ -1,11 +1,9 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 
-import Input from "./Input.js";
-import Print from "./Print.js";
-import Lotto from "./Lotto.js";
 import Game from "./Game.js";
-
-import { lottoInfo } from "./Static/const.js";
+import Input from "./Input.js";
+import Lotto from "./Lotto.js";
+import Print from "./Print.js";
 
 class App {
   #money;
@@ -19,41 +17,13 @@ class App {
     this.#result = new Map();
   }
 
-  async #buyLottos() {
-    this.#money = await Input.getMoney();
-    this.#lottos = Array.from({ length: this.#money / 1000 }, () =>
-      Game.buyLotto()
-    );
-  }
-
-  async #inputWinningNumbers() {
-    const numbers = await Input.getWinningNumbers();
-    this.#winningLotto = new Lotto(numbers);
-  }
-
-  async #inputBonusNumber() {
-    const bonusNumber = await Input.getBonusNumber();
-    this.#isDuplicateBonus(bonusNumber);
-  }
-
-  async #retry(action) {
-    while (true) {
-      try {
-        await action();
-        break;
-      } catch (error) {
-        Console.print(error.message);
-      }
-    }
-  }
-
   async run() {
-    await this.#retry(() => this.#buyLottos());
+    await this.#buyLottos();
 
     Print.lottos(this.#lottos);
 
-    await this.#retry(() => this.#inputWinningNumbers());
-    await this.#retry(() => this.#inputBonusNumber());
+    await this.#inputWinningNumbers();
+    await this.#inputBonusNumber();
 
     this.#result = Game.getResult(
       this.#lottos,
@@ -65,10 +35,43 @@ class App {
     Print.profitRate(this.#money, this.#result);
   }
 
-  // 입력받은 보너스 숫자가 당첨 번호와 중복되는지?
+  async #retryUserInput(action) {
+    while (true) {
+      try {
+        await action();
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
+  async #buyLottos() {
+    await this.#retryUserInput(async () => {
+      this.#money = await Input.getMoney();
+      this.#lottos = Array.from({ length: this.#money / 1000 }, () =>
+        Game.buyLotto()
+      );
+    });
+  }
+
+  async #inputWinningNumbers() {
+    await this.#retryUserInput(async () => {
+      const numbers = await Input.getWinningNumbers();
+      this.#winningLotto = new Lotto(numbers);
+    });
+  }
+
+  async #inputBonusNumber() {
+    await this.#retryUserInput(async () => {
+      const bonusNumber = await Input.getBonusNumber();
+      this.#isDuplicateBonus(bonusNumber);
+    });
+  }
+
   #isDuplicateBonus(bonusNumber) {
     if (this.#winningLotto.getNumbers().includes(bonusNumber))
-      throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.");
+      throw new Error("[ERROR] 보너스 숫자와 당첨 숫자가 중복됩니다.\n");
 
     this.#bonusNumber = bonusNumber;
   }

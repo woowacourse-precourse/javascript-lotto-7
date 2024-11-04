@@ -31,20 +31,21 @@ class Game {
   }
 
   static #evaluateRank(lotto, winningLotto, bonusNumber) {
-    const matchList = lotto
-      .getNumbers()
-      .filter((number) => winningLotto.getNumbers().includes(number));
+    const lottoNumbers = lotto.getNumbers();
+
+    const matchList = lottoNumbers.filter((number) =>
+      winningLotto.getNumbers().includes(number)
+    );
 
     const hasBonus =
-      matchList.length === 5 && lotto.getNumbers().includes(bonusNumber);
+      matchList.length === 5 && lottoNumbers.includes(bonusNumber);
 
     return Game.#getRank(matchList.length, hasBonus);
   }
 
   static #getRank(matchCount, hasBonus) {
     return Object.entries(lottoInfo).find(
-      ([_, info]) =>
-        info.match === matchCount && info.needBonusBall === hasBonus
+      ([_, info]) => info.match === matchCount && info.hasBonusBall === hasBonus
     )?.[0];
   }
 }

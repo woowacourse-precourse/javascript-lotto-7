@@ -1,6 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class Input {
+  constructor() {}
+
   static async getMoney() {
     const input = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
 
@@ -28,15 +30,13 @@ class Input {
 
   static #validateNumber(input) {
     const trimmed = input?.trim();
-
     if (!trimmed) {
-      throw new Error("[ERROR] 빈 값이나 공백은 입력할 수 없습니다.");
+      throw new Error("[ERROR] 빈 값이나 공백은 입력할 수 없습니다.\n");
     }
 
     const number = Number(trimmed);
-
     if (!Number.isInteger(number)) {
-      throw new Error("[ERROR] 정수만 입력할 수 있습니다.");
+      throw new Error("[ERROR] 정수만 입력할 수 있습니다.\n");
     }
 
     return number;
@@ -44,7 +44,9 @@ class Input {
 
   static #isMoneyDividedBy1000(input) {
     if (input % 1000)
-      throw new Error("[ERROR] 로또 구입 금액은 1,000원 단위로 입력받습니다.");
+      throw new Error(
+        "[ERROR] 로또 구입 금액은 1,000원 단위로 입력받습니다.\n"
+      );
   }
 }
 

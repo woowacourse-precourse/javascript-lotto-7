@@ -19,12 +19,14 @@ class Print {
   }
 
   static lottoResult(result) {
+    Console.print("\n당첨 통계\n---");
+
     for (const [rank, count] of result) {
-      const { match, needBonusBall, prize } = lottoInfo[rank];
+      const { match, hasBonusBall, prize } = lottoInfo[rank];
       const matchText = {
         true: `${match}개 일치, 보너스 볼 일치`,
         false: `${match}개 일치`,
-      }[needBonusBall];
+      }[hasBonusBall];
 
       Console.print(`${matchText} (${prize.toLocaleString()}원) - ${count}개`);
     }
