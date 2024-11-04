@@ -3,45 +3,64 @@ import { Console } from '@woowacourse/mission-utils';
 
 class App {
   async run() {
-    const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-    const purchaseAmount = parseInt(input, 10);
-
     try {
-      this.validatePurchaseAmount(purchaseAmount);
-
+      const purchaseAmount = await this.promptPurchaseAmount();
       const lottoCount = purchaseAmount / 1000;
-      Console.print(`\n${lottoCount}개를 구매했습니다.`);
 
+      Console.print(`\n${lottoCount}개를 구매했습니다.`);
       const lottos = this.generateLottos(lottoCount);
       lottos.forEach((lotto) => {
         Console.print(lotto.numbers);
       });
 
-      const { winningNumbers, bonusNumber } = await this.getWinningNumbers();
+      const winningNumbers = await this.promptWinningNumbers();
+      const bonusNumber = await this.promptBonusNumber(winningNumbers);
 
-      const result = this.compareLottosWithWinningNumbers(lottos, winningNumbers, bonusNumber);
+      const result = this.compareNumbers(lottos, winningNumbers, bonusNumber);
 
-      this.displayWinningStatistics(result, purchaseAmount);
-
+      this.displayResult(result, purchaseAmount);
     } catch (error) {
       Console.print(error.message);
     }
   }
 
-  async getWinningNumbers() {
-    const winningInput = await Console.readLineAsync('\n당첨 번호를 입력해 주세요. (예: 1,2,3,4,5,6)\n');
-    const winningNumbers = this.parseWinningNumbers(winningInput);
-
-    const bonusInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-    const bonusNumber = this.parseBonusNumber(bonusInput, winningNumbers);
-
-    Console.print(`\n입력된 당첨 번호: ${winningNumbers}`);
-    Console.print(`보너스 번호: ${bonusNumber}`);
-    
-    return { winningNumbers, bonusNumber };
+  async promptPurchaseAmount() {
+    try {
+      const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+      const purchaseAmount = parseInt(input, 10);
+      this.validatePurchaseAmount(purchaseAmount);
+      return purchaseAmount;
+    } catch (error) {
+      Console.print(error.message);
+      return this.promptPurchaseAmount();
+    }
   }
 
-  compareLottosWithWinningNumbers(lottos, winningNumbers, bonusNumber) {
+  async promptWinningNumbers() {
+    try {
+      const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요. (예: 1,2,3,4,5,6)\n');
+      const winningNumbers = this.parseWinningNumbers(input);
+      Console.print(`\n입력된 당첨 번호: ${winningNumbers}`);
+      return winningNumbers;
+    } catch (error) {
+      Console.print(error.message);
+      return this.promptWinningNumbers();
+    }
+  }
+
+  async promptBonusNumber(winningNumbers) {
+    try {
+      const input = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+      const bonusNumber = this.parseBonusNumber(input, winningNumbers);
+      Console.print(`보너스 번호: ${bonusNumber}`);
+      return bonusNumber;
+    } catch (error) {
+      Console.print(error.message);
+      return this.promptBonusNumber(winningNumbers); 
+    }
+  }
+
+  compareNumbers(lottos, winningNumbers, bonusNumber) {
     const result = {
       first: 0,  // 6개 일치
       second: 0, // 5개 + 보너스 일치
@@ -70,7 +89,7 @@ class App {
     return result;
   }
 
-  displayWinningStatistics(result, purchaseAmount) {
+  displayResult(result, purchaseAmount) {
     Console.print('\n당첨 통계\n---');
     Console.print(`3개 일치 (5,000원) - ${result.fifth}개`);
     Console.print(`4개 일치 (50,000원) - ${result.fourth}개`);
@@ -78,11 +97,11 @@ class App {
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.second}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${result.first}개`);
 
-    const earningsRate = this.calculateEarningsRate(result, purchaseAmount);
+    const earningsRate = this.calculateRate(result, purchaseAmount);
     Console.print(`\n총 수익률은 ${earningsRate}%입니다.`);
   }
 
-  calculateEarningsRate(result, purchaseAmount) {
+  calculateRate(result, purchaseAmount) {
     const prizeAmounts = {
       first: 2000000000,
       second: 30000000,
@@ -98,7 +117,7 @@ class App {
                        (result.fifth * prizeAmounts.fifth);
 
     const earningsRate = (totalPrize / purchaseAmount) * 100;
-    return earningsRate.toFixed(1);
+    return Math.round(earningsRate * 10) / 10;
   }
 
   parseWinningNumbers(input) {
@@ -124,8 +143,8 @@ class App {
   }
 
   validatePurchaseAmount(amount) {
-    if (isNaN(amount) || amount % 1000 !== 0) {
-      throw new Error('[ERROR] 구입 금액은 1,000원 단위로 입력해 주세요.');
+    if (isNaN(amount) || amount <= 0 || amount % 1000 !== 0) {
+      throw new Error('[ERROR] 구입 금액은 1,000원 단위의 양수로 입력해 주세요.');
     }
   }
 
