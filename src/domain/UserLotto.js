@@ -9,7 +9,7 @@ class UserLotto {
 
   constructor(payment) {
     this.#calculateLottoCount(payment);
-    this.#issueUserLotto();
+    this.#releaseUserLotto();
   }
 
   #calculateLottoCount(payment) {
@@ -27,7 +27,7 @@ class UserLotto {
     return randoms;
   }
 
-  #issueUserLotto() {
+  #releaseUserLotto() {
     for (let index = 0; index < this.#lottoCount; index += 1) {
       const randoms = UserLotto.#getRandoms();
       const lotto = utils.sortRandoms(randoms);
@@ -37,18 +37,19 @@ class UserLotto {
   }
 
   #convertArrayToString() {
-    const { open, close } = VALUES.squareBrackets;
+    const { division, separator, space, squareBrackets } = VALUES;
+    const { open, close } = squareBrackets;
     const strings = this.#userLotto.map(
-      (lotto) => `${open}${lotto.join(`${VALUES.separator} `)}${close}`,
+      (lotto) => `${open}${lotto.join(`${separator}${space}`)}${close}`,
     );
 
-    return strings.join(VALUES.division);
+    return strings.join(division);
   }
 
   getUserLottoInfo() {
     return {
       userLotto: this.#userLotto,
-      lottoString: this.#convertArrayToString(),
+      lottoDetails: this.#convertArrayToString(),
       lottoCount: utils.convertNumberFormat(this.#lottoCount),
     };
   }

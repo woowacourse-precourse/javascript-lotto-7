@@ -51,13 +51,13 @@ describe('로또 발행 기능 테스트', () => {
     mockRandoms(RANDOMS);
 
     // when
-    const { userLotto, lottoString, lottoCount } = new UserLotto(
+    const { userLotto, lottoDetails, lottoCount } = new UserLotto(
       PAYMENT,
     ).getUserLottoInfo();
 
     // then
     expect(lottoCount).toBe(SIZE);
-    expect(lottoString).toBe(STRING);
+    expect(lottoDetails).toBe(STRING);
     expect(userLotto).toStrictEqual(OUTPUT);
   });
 });
