@@ -42,7 +42,7 @@ class WinningResultCalculator {
     if (matchCount === 5) return RANKS.FIVE_MATCH.key;
     if (matchCount === 4) return RANKS.FOUR_MATCH.key;
     if (matchCount === 3) return RANKS.THREE_MATCH.key;
-    return null; // 당첨 등수 없음
+    return null;
   }
 }
 

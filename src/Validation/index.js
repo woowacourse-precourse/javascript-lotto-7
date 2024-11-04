@@ -1,5 +1,3 @@
-// Validation/index.js
-
 import { validatePrice } from "./validatePrice.js";
 import { validateWinningNumbers } from "./validateWinningNumbers.js";
 import { validateBonusNumber } from "./validateBonusNumber.js";

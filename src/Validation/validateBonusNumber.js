@@ -4,7 +4,6 @@ import { ERROR_MESSAGES } from "../Error/Error.js";
 // 숫자가 1~45 범위 내에 있는지 확인
 function checkBonusNumberRange(bonusNumber) {
   if (bonusNumber <= 0 || bonusNumber > 45) {
-    // 0 또는 음수인 경우도 포함
     printError(ERROR_MESSAGES.lotteryNumber.ONLY_NUMBER_IN_RANGE_ALLOWED);
     return false;
   }
@@ -36,7 +35,6 @@ function checkBonusNotDuplicated(bonusNumber, winningNumbers) {
 
 // 보너스 번호 유효성 검사 함수
 function validateBonusNumber(bonusNumber, winningNumbers) {
-  // 모든 검사를 통과해야만 파싱된 보너스 번호 반환
   if (!checkBonusIsNumber(bonusNumber)) return false;
 
   const parsedBonusNumber = parseInt(bonusNumber, 10);
@@ -44,7 +42,7 @@ function validateBonusNumber(bonusNumber, winningNumbers) {
   if (!checkBonusNumberRange(parsedBonusNumber)) return false;
   if (!checkBonusNotDuplicated(parsedBonusNumber, winningNumbers)) return false;
 
-  return parsedBonusNumber; // 모든 조건을 통과한 경우에만 반환
+  return parsedBonusNumber;
 }
 
 export { validateBonusNumber };

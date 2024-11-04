@@ -68,7 +68,6 @@ class Controller {
   }
 
   // 당첨 결과 계산을 수행하는 메서드
-  // Controller.js의 getWinningResult 메서드 수정
   getWinningResult(tickets, validatedWinningNumber, validatedBonusNumber) {
     return this.resultCalculator.calculate(
       tickets,

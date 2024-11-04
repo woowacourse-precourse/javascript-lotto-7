@@ -57,10 +57,10 @@ function validatePrice(price) {
   ];
 
   for (const check of checks) {
-    if (!check(price)) return false; // 조건 검사 중 하나라도 실패하면 false 반환
+    if (!check(price)) return false;
   }
 
-  return price; // 모든 조건을 통과한 경우에만 price 반환
+  return price;
 }
 
 export { validatePrice };

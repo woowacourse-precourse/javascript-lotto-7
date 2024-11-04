@@ -54,7 +54,7 @@ function validateWinningNumbers(input) {
   if (!checkNumberRange(winnigNumbers)) return false;
   if (!checkForDuplicates(winnigNumbers)) return false;
 
-  return winnigNumbers; // 모든 유효성 검사를 통과한 경우 파싱된 숫자 배열 반환
+  return winnigNumbers;
 }
 
 export { validateWinningNumbers };
