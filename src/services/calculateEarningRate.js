@@ -26,5 +26,6 @@ export const calculateEarningRate = function (purchaseAmount, winningDetails) {
   });
 
   const earningRate = (totalPrizeAmount / purchaseAmount) * 100;
-  return TOTAL_EARNING_RATE(earningRate);
+  const roundedEarningRate = Math.round(earningRate * 100) / 100;
+  return TOTAL_EARNING_RATE(roundedEarningRate);
 };
