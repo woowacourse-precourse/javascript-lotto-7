@@ -126,7 +126,52 @@ export function calculateProfitRate(results, totalSpent) {
 
 class App {
   async run() {
+    // 1. 로또 금액 입력 받기
+    let amount;
+
+    while (true) {
+      try {
+        amount = await inputAmount();
+        validateAmount(amount);
+        break; // 유효한 입력이 들어오면 루프 종료
+      } catch (error) {
+        Console.print(error);
+      }
+    }
     
+    // 2. 로또 수량, 번호 출력하기
+    const lottoCount = getLottoCount(amount);
+    const lottos = generateLottos(lottoCount);
+    printLottos(lottoCount, lottos);
+
+    // 3. 당첨 번호 입력하기
+    let prizeLotto;
+    
+    while (true) {
+      try {
+        const inputNumbers = await inputPrizeNumbers();
+        const prizeNumbers = splitPrizeNumbers(inputNumbers);
+        prizeLotto = new Lotto(prizeNumbers);
+        break; // 유효한 입력이 들어오면 루프 종료
+      } catch (error) {
+        Console.print(error);
+      }
+    }
+
+    // 4. 보너스 번호 입력하기
+    let bonusNumber;
+
+    while (true) {
+      try {
+        bonusNumber = await inputBonusNumber();
+        validateBonusNumbers(bonusNumber);
+        break; // 유효한 입력이 들어오면 루프 종료
+      } catch (error) {
+        Console.print(error);
+      }
+    }
+
+    // 5. 로또 번호 비교하기
   }
 }
 
