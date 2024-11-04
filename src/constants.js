@@ -22,6 +22,9 @@ const LOTTO_MESSAGE={
 
 const LOTTO_ERROR_MESSAGE={
     INVALID_COUNT:`${ERROR_PREFIX} 로또 번호는 ${LOTTO_COUNT}개여야 합니다.`,
+    DUPLICATE_NUMBER: `${ERROR_PREFIX} 중복된 번호가 있습니다.`,
+    OUT_OF_RANGE: `${ERROR_PREFIX} 로또 번호는 ${MIN_LOTTO_NUMBER}과 ${MAX_LOTTO_NUMBER} 사이의 숫자여야 합니다.`,
+    IS_NOT_NUMBER: `${ERROR_PREFIX} 숫자만 입력 가능합니다.`,
 }
 
 export {PURCHASE_MESSAGE, 
