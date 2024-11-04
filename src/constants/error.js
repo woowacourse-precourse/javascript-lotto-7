@@ -34,9 +34,14 @@ const BONUS_NUMBER_ERROR_MESSAGE = Object.freeze({
   현재 당첨 번호: [${winningNumbers.join(", ")}]`,
 });
 
+const RETRY_ERROR_MESSAGE = Object.freeze({
+  EXCEED_MAX_ATTEMPTS: "최대 재입력 횟수를 넘어가셨습니다",
+});
+
 export {
   PRICE_ERROR_MESSAGE,
   LOTTO_ERROR_MESSAGE,
   WINNING_NUMBERS_ERROR_MESSAGE,
   BONUS_NUMBER_ERROR_MESSAGE,
+  RETRY_ERROR_MESSAGE,
 };

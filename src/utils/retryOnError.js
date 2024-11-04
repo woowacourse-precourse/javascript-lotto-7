@@ -1,5 +1,6 @@
 import { printMessage, throwError } from './console.js';
 import { GAME_RULES } from '../constants/gameRule.js';
+import { RETRY_ERROR_MESSAGE } from '../constants/error.js';
 
 async function retryOnError(func) {
   let attempts = 0;
@@ -13,7 +14,7 @@ async function retryOnError(func) {
     }
   }
 
-  throwError('최대 재입력 횟수를 넘어가셨습니다');
+  throwError(RETRY_ERROR_MESSAGE.EXCEED_MAX_ATTEMPTS);
 }
 
 export default retryOnError;
