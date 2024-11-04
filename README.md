@@ -2,6 +2,14 @@
 
 ---
 
+## 프로젝트 목적
+
+우아한 테크코스 3주차 미션
+
+학습 목표
+
+1. 관련 함수를 묶어 클래스를 만들고, 객체들이 협력하여 하나의 큰 기능을 수행하도록 한다.
+
 
 
 ---
@@ -16,6 +24,7 @@
 │   ├── BonusNumber.js
 │   ├── LottoList.js
 │   ├── LottoResult.js
+│   ├── Margin.js
 │   └── Purchase.js
 ├── Lotto.js
 ├── feature
@@ -424,6 +433,21 @@ Parse
     당첨 총액의 비율을 계산
     계산된 값의 소수점 2자리에서 반올림
     최종 계산된 값을 반환
+```
+
+Class
+[Margin](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/Class/Margin.js)
+
+[getMarginSum, getMarginRate](https://github.com/thumbthing/javascript-lotto-7/blob/thumbthing/src/feature/calculate/getMargin.js)
+
+```javascript
+필드 : 당첨 총액, 수익률, 구매액
+생성자 : 
+    구매액의 인스턴스를 초기화
+    당첨 총액을 모듈화한 함수의 반환 값으로 초기화
+    수익률을 모듈화한 함수의 반환 값으로 초기화
+접근자 : 
+    수익률을 반환
 ```
 
 UI
