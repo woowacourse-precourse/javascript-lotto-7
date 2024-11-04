@@ -20,7 +20,6 @@ class Lotto {
     this.#validateNumberRange(numbers);
   }
   #validateNumbersType(numbers) {
-    console.log(numbers, "!!");
     if (
       numbers.some((number) => isNaN(number) || parseInt(number) !== number)
     ) {

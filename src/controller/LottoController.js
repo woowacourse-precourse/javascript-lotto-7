@@ -1,6 +1,6 @@
 import Lotto from "../model/Lotto.js";
 import inputView from "../view/InputView.js";
-import { Random } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 import { validator } from "../utils/validator.js";
 import { PROFIT_PER_MATCHING } from "../constant/profit.js";
 import {
@@ -53,7 +53,7 @@ class LottoController {
         winningLottoNumbers.trim()
       );
     } catch (error) {
-      console.log(error);
+      Console.print(error.message);
       return await this.getWinningLottoNumbers();
     }
   }
@@ -61,7 +61,6 @@ class LottoController {
   async getBonusNumber() {
     try {
       const bonusNumber = await inputView.readBonusNumbers();
-
       validator.validateBonusNumber(
         this.#winningLottoNumbers,
         Number(bonusNumber.trim())
@@ -69,7 +68,7 @@ class LottoController {
 
       this.#bonusNumber = Number(bonusNumber.trim());
     } catch (error) {
-      console.log(error);
+      Console.print(error.message);
       return await this.getBonusNumber();
     }
   }
@@ -132,10 +131,10 @@ class LottoController {
       const lottoAmountInput = await inputView.readLottoAmount();
       const lottoAmount = Number(lottoAmountInput);
 
-      validator.validateLottoAmount(lottoAmount);
+      validator.validateLottoAmount(lottoAmountInput);
       this.#lottoAmount = lottoAmount;
     } catch (error) {
-      console.log(error);
+      Console.print(error.message);
       return this.getLottoAmount();
     }
   }

@@ -59,7 +59,7 @@ const outputView = {
   },
   printLottoTickets(lottoTickets) {
     for (const ticket of lottoTickets) {
-      Console.print(ticket.getLottoNumbers());
+      Console.print(`[${ticket.getLottoNumbers().join(", ")}]`);
     }
   },
 };

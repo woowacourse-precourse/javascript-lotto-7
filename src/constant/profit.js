@@ -1,4 +1,4 @@
-import { MATCHING_COUNT } from "./number";
+import { MATCHING_COUNT } from "./number.js";
 
 export const PROFIT_PER_MATCHING = {
   [MATCHING_COUNT.three]: 5000,

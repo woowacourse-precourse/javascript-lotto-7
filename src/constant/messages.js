@@ -1,14 +1,14 @@
 import { PROFIT_PER_MATCHING_STRING } from "./profit.js";
 export const MESSAGES = {
   input: {
-    lotto_amount: `구입금액을 입력해 주세요.\n`,
-    winning_numbers: `\n당첨 번호를 입력해 주세요.\n`,
-    bonus_number: `\n보너스 번호를 입력해 주세요.\n`,
+    lotto_amount: "구입금액을 입력해 주세요.\n",
+    winning_numbers: "\n당첨 번호를 입력해 주세요.\n",
+    bonus_number: "\n보너스 번호를 입력해 주세요.\n",
   },
   output: {
-    winning_statistic: `\n당첨 통계\n---`,
+    winning_statistic: "\n당첨 통계\n---",
     lottoCount: (number) => {
-      return `\n${number}개를 구매했습니다.\n`;
+      return `\n${number}개를 구매했습니다.`;
     },
     matchingCount: (count, isBonus, total) => {
       if (isBonus) {
