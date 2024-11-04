@@ -115,8 +115,8 @@
 
 ### Models Tests
 
-- [] Lotto 클래스 단위 테스트 (번호 개수, 범위, 중복 검증)
-- [] LottoResult 클래스 단위 테스트 (등수 계산 및 결과 확인)
+- [x] Lotto 클래스 단위 테스트 (번호 개수, 범위, 중복 검증)
+- [x] LottoResult 클래스 단위 테스트 (등수 계산 및 결과 확인)
 
 ### Services Tests
 
