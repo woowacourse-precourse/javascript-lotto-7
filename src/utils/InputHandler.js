@@ -4,7 +4,7 @@ class InputHandler {
       return await callback();
     } catch (error) {
       outputView.printError(error.message);
-      return this.repeatUntilValidInput(callback);
+      return this.repeatUntilValidInput(callback, outputView);
     }
   }
 }
