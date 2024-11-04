@@ -18,6 +18,8 @@ export default class LottoController {
     await this.#decideWinningLotto();
 
     this.#generateLottoResult();
+
+    this.#printResult();
   }
 
   async #purchaseLottos() {
@@ -75,8 +77,10 @@ export default class LottoController {
 
   #generateLottoResult() {
     this.#lottoPurchaser.compareLottosWithWinningLotto(this.#winningLotto);
-    this.#lottoPurchaser.calculateEarningRate()
+    this.#lottoPurchaser.calculateEarningRate();
+  }
 
+  #printResult(){
     const lottoResult = this.#lottoPurchaser.getLottoResult();
 
     this.#outputLottoView.printLottoResult(lottoResult);
