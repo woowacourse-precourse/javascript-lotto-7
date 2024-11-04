@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE_MONEY_INPUT, ERROR_MESSAGE_JACKPOT_INPUT, ERROR_MESSAGE_BONUS_INPUT } from "./ErrorMessage.js";
+import { ERROR_MESSAGE_MONEY_INPUT, ERROR_MESSAGE_JACKPOT_INPUT, ERROR_MESSAGE_BONUS_INPUT } from './ErrorMessage.js';
 export class ParseInput {
   #money;
   #jackpot;
@@ -30,13 +30,13 @@ export class ParseInput {
   }
 
   parseJackpot(inputString) {
-    if (inputString === "") throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.empty);
-    const returnArray = inputString.split(",");
+    if (inputString === '') throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.empty);
+    const returnArray = inputString.split(',');
     if (returnArray.length !== 6) throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.invalidLength);
     else if (returnArray.some((value) => isNaN(value))) throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.nan);
     else if (returnArray.map((value) => parseInt(value)).some((value) => value > 45 || value < 1))
       throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.outOfBound);
-    const floatArray = inputString.split(",").map((value) => parseFloat(value));
+    const floatArray = inputString.split(',').map((value) => parseFloat(value));
     if (floatArray.some((value) => !Number.isInteger(value))) throw new Error(ERROR_MESSAGE_JACKPOT_INPUT.nonInteger);
     return this.#processJackpot(returnArray);
   }

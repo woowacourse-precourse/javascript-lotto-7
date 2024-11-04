@@ -1,7 +1,7 @@
 // Note: Every Constants must be named with screaming SNAKE_CASE
-import { Random } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
-import { LOTTO_RESULT_TABLE, INITIAL_LOTTO_RESULT_TABLE } from "./Constant.js";
+import { Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
+import { LOTTO_RESULT_TABLE, INITIAL_LOTTO_RESULT_TABLE } from './Constant.js';
 
 export class PickUp {
   #lottoArray;

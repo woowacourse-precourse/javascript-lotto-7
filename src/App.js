@@ -1,16 +1,16 @@
-import { Console } from "@woowacourse/mission-utils";
-import { ParseInput } from "./ParseInput.js";
-import { PickUp } from "./PickUp.js";
-import { FormatOutput } from "./FormatOutput.js";
-import { printLottoArray } from "./Utils.js";
-import { ERROR_MESSAGE_MONEY_INPUT } from "./ErrorMessage.js";
+import { Console } from '@woowacourse/mission-utils';
+import { ParseInput } from './ParseInput.js';
+import { PickUp } from './PickUp.js';
+import { FormatOutput } from './FormatOutput.js';
+import { printLottoArray } from './Utils.js';
+import { ERROR_MESSAGE_MONEY_INPUT } from './ErrorMessage.js';
 
 const MESSAGE = {
-  money: "\n구입금액을 입력해 주세요.\n",
-  jackpot: "\n당첨 번호를 입력해 주세요.\n",
-  bonus: "\n보너스 번호를 입력해주세요.\n",
-  result: "\n당첨 통계",
-  line: "---",
+  money: '\n구입금액을 입력해 주세요.\n',
+  jackpot: '\n당첨 번호를 입력해 주세요.\n',
+  bonus: '\n보너스 번호를 입력해주세요.\n',
+  result: '\n당첨 통계',
+  line: '---',
 };
 
 class App {
@@ -24,7 +24,7 @@ class App {
     this.#moneyInput = 0;
     this.#jackpotInput = [];
     this.#bonusInput = 0;
-    this.#output = "";
+    this.#output = '';
   }
 
   async run() {
