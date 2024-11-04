@@ -3,7 +3,7 @@ import Lotto from "../models/Lotto.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
 import InputValidator from "../validators/InputValidator.js";
-import { WINNING_CRITERIA } from "../constants/Messages.js";
+import { WINNING_CRITERIA } from "../constants/Constants.js";
 
 class LottoController {
     constructor() {
