@@ -74,8 +74,10 @@ class Prize {
     }
 
     isMatchingRank(condition, matchCount, hasBonus) {
-        const bonusMatch = hasBonus ? 1 : 0;
-        return condition === `${matchCount}+${bonusMatch}` || condition === matchCount;
+        if(hasBonus) {
+            return condition === `${matchCount}+${1}`
+        }
+        return condition === matchCount;
     }
 }
 
