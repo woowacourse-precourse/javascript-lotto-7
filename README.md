@@ -16,9 +16,9 @@
 - @woowacourse/mission-utils 의 [Random, Console] API 사용
 
     - MissionUtils.Random.pickNumberInRange() 을 사용해 랜덤한 정수 값 반환
-        > `pickNumberInRange(startInclusive, endInclusive, )`
+        > `pickUniqueNumbersInRange(startInclusive, endInclusive,count)`
         
-        - param : 시작범위, 끝 범위, 반환할 숫자
+        - param : 시작범위, 끝 범위, 반환할 숫자 개수
         ```
         MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
         ```
@@ -167,8 +167,9 @@
 
 ### 3. run()메서드 구현
 #### 실행흐름
-1. 구입 금액 입력 및 검증
-2. 구입 금액만큼의 로또 발행 및 출력
+1. 구입 금액 입력 및 Purchase 객체 생성
+    - 금액 검증 및 티켓 수 출력
+2. 로또 발행 및 출력
 3. 당첨 번호 입력 및 검증
 4. 보너스 번호 입력 및 검증
 5. 당첨 통계 출력

@@ -5,6 +5,7 @@ class Purchase {
   #money;
   #tickets;
   
+  //구입 금액을 받아 유효성을 계산하고,로또 티켓 개수를 계산
   constructor(money) {
     this.#validateMoney(money);
     this.#money = money;
@@ -27,7 +28,7 @@ class Purchase {
   }
   //구입한 로또 티켓 개수를 출력
   printTickets() {
-    MissionUtils.Console.print(`${this.#tickets}개를 구매했습니다.`);
+    MissionUtils.Console.print(`\n${this.#tickets}개를 구매했습니다.`);
   }
 }
 

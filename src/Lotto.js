@@ -20,7 +20,9 @@ class Lotto {
       }
     });
   }
-
+  getNumbers() {
+    return this.#numbers;
+  }
   
 }
 
