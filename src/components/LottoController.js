@@ -51,6 +51,10 @@ class LottoController {
     this.lotto = await LottoClass.createLotto();
   }
 
+  #isMatchCountValid(matchCount) {
+    return matchCount !== 0 && matchCount !== 1 && matchCount !== 2;
+  }
+
   generateLottoTickets() {
     this.#lottoTickets = this.lottoTicketGenerator.execute(
       this.#purchaseAmount,
@@ -67,10 +71,6 @@ class LottoController {
     }
 
     return matchCount;
-  }
-
-  #isMatchCountValid(matchCount) {
-    return matchCount !== 0 && matchCount !== 1 && matchCount !== 2;
   }
 
   #compareLottoTickets(winningNumbers) {
