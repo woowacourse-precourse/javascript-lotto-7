@@ -5,7 +5,7 @@ import {
   REQUEST_NUMBER_INPUT,
   ZERO,
 } from "../constants/error.js";
-import { LOTTO_VALUES } from "../constants/message.js";
+import { LOTTO_VALUES } from "../constants/lotto.js";
 import Validate from "./Validate.js";
 
 class LottoValidate extends Validate {

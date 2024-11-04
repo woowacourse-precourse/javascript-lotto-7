@@ -6,7 +6,7 @@ import {
   ZERO,
   LOTTO_ERROR,
 } from "../constants/error.js";
-import { LOTTO_VALUES } from "../constants/message.js";
+import { LOTTO_VALUES } from "../constants/lotto.js";
 
 class Validate {
   validate(input) {
