@@ -16,28 +16,20 @@ class App {
   static DELIMITER = ',';
 
   async run() {
-    const amount = await View.readInput(PROMPT_MESSAGES.INPUT_MONEY);
-    const lottos = this.getRandomLottos(amount);
+    const [lottos, count] = await this.getRandomLottos();
 
     View.printResult(`\n${count + INFO_MESSAGES.PRINT_LOTTOS}`);
     View.displayLottos(lottos);
 
-    const winningLottoInput = await View.readInput(
-      PROMPT_MESSAGES.INPUT_LOTTOS
-    );
-    const winningLotto = this.getwinningLotto(winningLottoInput);
+    const winningLotto = await this.getWinningLotto();
+    const totalCounts = await this.getTotalCounts(lottos, winningLotto);
 
-    const bonusNumber = await View.readInput(
-      PROMPT_MESSAGES.INPUT_BONUS_NUMBER
-    );
-
-    const totalCounts = getTotalCounts(lottos, bonusNumber, winningLotto);
-
-    View.displayResult(totalCounts);
+    View.displayResultMessages(totalCounts);
   }
 
-  getTotalCounts(lottos, bonusNumberInput, winningLotto) {
-    const bonusNumber = new BonusNumber(bonusNumberInput, winningLotto);
+  async getTotalCounts(lottos, winningLotto) {
+    const number = await View.readInput(PROMPT_MESSAGES.INPUT_BONUS_NUMBER);
+    const bonusNumber = new BonusNumber(number, winningLotto);
 
     const totalCounts = LottoMachine.getTotalCount(
       lottos,
@@ -48,18 +40,21 @@ class App {
     return totalCounts;
   }
 
-  getwinningLotto(numbers) {
+  async getWinningLotto() {
+    const numbers = await View.readInput(PROMPT_MESSAGES.INPUT_LOTTOS);
     const validWinningNumbers = this.#validateWinningNumbers(numbers);
     const winningLotto = new Lotto(validWinningNumbers);
 
     return winningLotto.numbers;
   }
 
-  getRandomLottos(amount) {
+  async getRandomLottos() {
+    const amount = await View.readInput(PROMPT_MESSAGES.INPUT_MONEY);
     const money = new Money(amount);
     const count = money.getCount();
+    const lottos = LottoMachine.generateLottos(count);
 
-    return LottoMachine.generateLottos(count);
+    return [lottos, count];
   }
 
   #validateWinningNumbers(numbers) {

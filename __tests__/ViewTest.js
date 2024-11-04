@@ -38,7 +38,7 @@ describe('View 클래스 테스트', () => {
 
     const logSpy = getLogSpy();
 
-    View.displayResult(results);
+    View.displayResultMessages(results);
 
     expect(logSpy).toHaveBeenCalledWith(INFO_MESSAGES.PRINT_RESULT);
     expect(logSpy).toHaveBeenCalledWith('3개 일치 (5,000원) - 2개 ');
@@ -61,7 +61,7 @@ describe('View 클래스 테스트', () => {
 
     const logSpy = getLogSpy();
 
-    View.displayResult(results);
+    View.displayResultMessages(results);
 
     expect(logSpy).toHaveBeenCalledWith(INFO_MESSAGES.PRINT_RESULT);
     expect(logSpy).toHaveBeenCalledWith('3개 일치 (5,000원) - 0개 ');

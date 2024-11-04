@@ -21,7 +21,7 @@ class View {
     });
   }
 
-  static displayResult(results) {
+  static displayResultMessages(results) {
     this.printResult(INFO_MESSAGES.PRINT_RESULT);
     const messages = this.#generateMatchMessages(results);
 
