@@ -15,7 +15,7 @@ class Input {
   }
 
   async requestPurchaseAmount() {
-      const money = await Console.readLineAsync(MESSAGE.PURCHASE_AMOUNT);
+      const money = await Console.readLineAsync(MESSAGE.INPUT_MESSAGE.PURCHASE_AMOUNT);
       this.#moneyValidator(money);
       return Number(money);
   }
@@ -46,7 +46,7 @@ class Input {
   }
 
   async requestLottoNumber() {
-    const numberString = await Console.readLineAsync(MESSAGE.WINNING_NUMBERS);
+    const numberString = await Console.readLineAsync(MESSAGE.INPUT_MESSAGE.WINNING_NUMBERS);
     this.#lottoValidator(numberString);
     return numberString;
   }
@@ -95,7 +95,7 @@ class Input {
   }
 
   async requestBonusNumber() {
-      const number = await Console.readLineAsync(MESSAGE.BONUS_NUMBER);
+      const number = await Console.readLineAsync(MESSAGE.INPUT_MESSAGE.BONUS_NUMBER);
       this.#bonusValidator(number);
       return Number(number);
   }

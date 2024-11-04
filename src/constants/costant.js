@@ -3,11 +3,18 @@ const PURCHASE_UNIT = Object.freeze({
 });
 
 const LOTTO_CANSTANT = Object.freeze({
-    MIN_LOTTO_NUMBER: 1,
-    MAX_LOTTO_NUMBER: 45,
-    LOTTO_LENGTH: 6
+  MIN_LOTTO_NUMBER: 1,
+  MAX_LOTTO_NUMBER: 45,
+  LOTTO_LENGTH: 6,
 });
 
-const CONSTANT = Object.freeze({PURCHASE_UNIT, LOTTO_CANSTANT});
+const PRIZE = Object.freeze({
+  THREE_MATCH: 5000,
+  FOUR_MATCH: 50000,
+  FIVE_MATCH: 1500000,
+  FIVE_MATCH_WITH_BONUS: 30000000,
+  SIX_MATCH: 2000000000,
+});
+const CONSTANT = Object.freeze({ PURCHASE_UNIT, LOTTO_CANSTANT, PRIZE });
 
 export default CONSTANT;
