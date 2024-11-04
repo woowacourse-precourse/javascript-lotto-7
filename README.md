@@ -120,7 +120,7 @@
 
 ### Services Tests
 
-- [] LottoService 클래스 단위 테스트 (번호 비교, 등수 및 수익률 계산)
+- [x] LottoService 클래스 단위 테스트 (번호 비교, 등수 및 수익률 계산)
 
 ### Views Tests
 
