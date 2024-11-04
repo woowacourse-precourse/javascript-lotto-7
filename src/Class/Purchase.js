@@ -1,12 +1,6 @@
 import checkPurchase from "../feature/validate/checkPurchase.js";
 
 class Purchase {
-  /** TODO: 
-   *  field: #userInput, purchase
-   *  constructor:
-   *    private 필드에 유저의 입력값을 초기화
-   *    유효성이 확인된 인스턴스를 초기화
-   */
   #userInput;
   purchase;
 
