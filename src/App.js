@@ -121,6 +121,14 @@ class App {
     }
   }
 
+  async inputBonus(winningLotto) {
+    return this.retryOnError(async () => {
+      const bonusNumber = await this.inputBonusNumber();
+      this.validateBonusNumber(winningLotto, bonusNumber);
+      return bonusNumber;
+    });
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
@@ -130,6 +138,7 @@ class App {
       this.printLottos(lottos);
 
       const winningLotto = await this.inputWinningLotto();
+      const bonusNumber = await this.inputBonus(winningLotto);
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
