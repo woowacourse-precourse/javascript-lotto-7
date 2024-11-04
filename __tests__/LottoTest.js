@@ -22,4 +22,13 @@ describe("로또 클래스 테스트", () => {
     expect(result1).toEqual(3);
     expect(result2).toEqual(-1);
   })
+
+  test("로또 당첨금 계산 확인", () => {
+    const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+    let returnRate1 = lotto.calculateMoney([1, 0, 0,0,0], 8000);
+    let returnRate2 = lotto.calculateMoney([1, 1, 0,0,0], 50000);
+    expect(returnRate1).toEqual(62.5);
+    expect(returnRate2).toEqual(110);
+
+  })
 });
