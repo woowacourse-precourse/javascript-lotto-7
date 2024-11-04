@@ -53,7 +53,37 @@ JavaScript로 구현하고 Jest를 통해 테스트 하였으며, MVC패턴을 �
 
 ## 📦 다이어그램
 ![LottoDiagram](https://github.com/user-attachments/assets/21686a9d-d0ab-41b2-a741-dcfcfdcac20f)
+<br/><br/>
 
+## **📁** 폴더구조
+
+```
+📦src
+ ┣ 📂constants
+ ┃ ┣ 📜errorConstants.js
+ ┃ ┣ 📜inputConstants.js
+ ┃ ┣ 📜lottoConstants.js
+ ┃ ┗ 📜outputConstants.js
+ ┣ 📂controllers
+ ┃ ┣ 📜InputController.js
+ ┃ ┗ 📜LottoController.js
+ ┣ 📂models
+ ┃ ┣ 📜LottoRepository.js
+ ┃ ┗ 📜LottoResult.js
+ ┣ 📂services
+ ┃ ┣ 📜CalculatingMachine.js
+ ┃ ┣ 📜LottoDrawingMachine.js
+ ┃ ┗ 📜LottoNumberGenerator.js
+ ┣ 📂utils
+ ┃ ┗ 📜validation.js
+ ┣ 📂views
+ ┃ ┣ 📜InputView.js
+ ┃ ┗ 📜OutputView.js
+ ┣ 📜App.js
+ ┣ 📜Lotto.js
+ ┗ 📜index.js
+```
+<br/><br/>
 
 
 
