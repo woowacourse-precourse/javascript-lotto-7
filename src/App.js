@@ -17,7 +17,7 @@ class App {
       const winningNumbers = await inputWinningLotto();
       Console.print('');
 
-      const bonusNumber = await inputBonusNumber();
+      const bonusNumber = await inputBonusNumber(winningNumbers);
       Console.print('');
 
       Console.print(`당첨 통계\n---`);

@@ -17,8 +17,8 @@ export async function inputWinningLotto() {
   return winningNumbers;
 }
 
-export async function inputBonusNumber() {
+export async function inputBonusNumber(winningNumbers) {
   const bonusNumber = await Console.readLineAsync(`${inputMessage.bonus}`);
-  validateBonusNumber(bonusNumber);
+  validateBonusNumber(bonusNumber, winningNumbers);
   return parseInt(bonusNumber, 10);
 }

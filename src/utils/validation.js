@@ -52,8 +52,11 @@ export function validateNumbers(input) {
   return numbersArray;
 }
 
-export function validateBonusNumber(input) {
+export function validateBonusNumber(input, winningNumbers) {
   const bonusNumber = parseInt(input.trim());
+
+  if (winningNumbers.numbers.includes(bonusNumber))
+    throw new Error(`${errorMessage.prefix} ${errorMessage.duplicatedNumber}`);
 
   if (bonusNumber != input.trim())
     throw new Error(`${errorMessage.prefix} ${errorMessage.invalidBonusNumber}`);
