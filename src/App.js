@@ -91,7 +91,7 @@ class App {
       winningCount.set(wl, winningCount.get(wl) + 1);
       winningAmount += this.prizeMoney[wl];
     }
-
+    
     Console.print(`3개 일치 (5,000원) - ${winningCount.get(3)}개`);
     Console.print(`4개 일치 (50,000원) - ${winningCount.get(4)}개`);
     Console.print(`5개 일치 (1,500,000원) - ${winningCount.get(5)}개`);
