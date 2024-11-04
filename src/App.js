@@ -3,7 +3,7 @@ import Lotto from './Lotto.js';
 import { INPUT_MESSAGES } from './Constants/input.js';
 import { OUTPUT_MESSAGES } from './Constants/output.js';
 import { PRIZE_MONEY, RANK_DESCRIPTIONS } from './Constants/prize.js';
-import { validatePurchaseAmount, validateWinningNumbers, validateBonusNumber } from './utils/validateInput.js';
+import { validatePurchaseAmount, validateWinningNumbers, validateBonusNumber } from './Utils/validateInput.js';
 
 class App {
   async run() {
