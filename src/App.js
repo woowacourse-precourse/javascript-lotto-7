@@ -47,6 +47,10 @@ class App {
     return lotto;
   }
 
+  printLottoAmount(amount) {
+    MissionUtils.Console.print(`\n${amount}개를 구매했습니다.`);
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
