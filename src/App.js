@@ -1,15 +1,14 @@
-import { Console } from "@woowacourse/mission-utils";
-// import Lotto from "./Lotto.js";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
     try {
       const purchaseAmount = await this.getPurchaseAmount();
       // Console.print(`구입금액은 ${purchaseAmount}원입니다.`);
-      
-      // 로또 티켓 생성
-      
-      
+
+      const lottoTickets = this.generateLottoTickets(purchaseAmount);
+
       // 생성된 로또 티켓 출력
       
 
@@ -38,6 +37,17 @@ class App {
       throw new Error("[ERROR] 구입 금액은 1,000원 단위로 입력해야 합니다.");
     }
     return amount;
+  }
+
+  generateLottoTickets(amount) {
+    const ticketCount = amount / 1000;
+    const tickets = [];
+    // 구매한 금액에 따라 로또 티켓을 생성
+    for (let i = 0; i < ticketCount; i++) {
+      const numbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
+      tickets.push(new Lotto(numbers));
+    }
+    return tickets;
   }
 }
 
