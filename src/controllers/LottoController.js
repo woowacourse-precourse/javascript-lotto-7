@@ -21,7 +21,7 @@ class LottoController {
         OutputView.printLottoCount(lottoCount);
         this.generateAndPrintLottos(lottoCount);
         await this.getWinningAndBonusNumbers();
-        this.calculateAndPrintResults();
+        this.calculateAndPrintResults(purchaseAmount);
       }
     } catch (error) {
       OutputView.printErrorMessage(error.message);
@@ -56,13 +56,19 @@ class LottoController {
     this.bonusNumber = bonusNumber;
   }
 
-  calculateAndPrintResults() {
+  calculateAndPrintResults(purchaseAmount) {
     const results = this.lottoService.calculateResults(
       this.lottos,
       this.winningNumbers,
       this.bonusNumber
     );
+
+    const totalPrize = this.lottoService.calculateTotalPrize(results);
+    const profitRate = (totalPrize / purchaseAmount) * 100;
+
+    OutputView.printResultHeader();
     OutputView.printResults(results);
+    OutputView.printProfitRate(profitRate);
   }
 }
 

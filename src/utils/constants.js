@@ -26,4 +26,12 @@ export const ERROR_MESSAGE = {
   DUPLICATE_BONUS_NUMBER: "보너스 번호는 당첨 번호와 중복될 수 없습니다.",
 };
 
+export const WINNING_PRIZE = {
+  3: 5000,
+  4: 50000,
+  5: 1500000,
+  bonusMatch: 30000000,
+  6: 2000000000,
+};
+
 export const LOTTO_PRICE = 1000;

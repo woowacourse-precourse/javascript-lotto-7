@@ -1,5 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
 import Lotto from "../models/Lotto.js";
+import { WINNING_PRIZE } from "../utils/constants.js";
 
 class LottoService {
   generateLotto() {
@@ -14,7 +15,7 @@ class LottoService {
       3: 0,
       4: 0,
       5: 0,
-      5.5: 0, // 보너스 번호 포함한 5개 일치
+      5.5: 0,
       6: 0,
     };
 
@@ -32,6 +33,17 @@ class LottoService {
     });
 
     return result;
+  }
+
+  calculateTotalPrize(results) {
+    const totalPrize =
+      results[3] * WINNING_PRIZE[3] +
+      results[4] * WINNING_PRIZE[4] +
+      results[5] * WINNING_PRIZE[5] +
+      results[5.5] * WINNING_PRIZE.bonusMatch +
+      results[6] * WINNING_PRIZE[6];
+
+    return totalPrize;
   }
 }
 
