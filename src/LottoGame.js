@@ -20,6 +20,10 @@ class LottoGame {
     return this.#lottoCount;
   }
 
+  get lottos() {
+    return this.#lottos;
+  }
+
   setLottos() {
     for (let i = 0; i < this.#lottoCount; i++) {
       this.#lottos.push(new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6)));
