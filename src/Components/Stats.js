@@ -40,7 +40,7 @@ class Stats {
     const sum =
     this.three * 5000 +
     this.four * 50000 +
-    this.five * 15000000 +
+    this.five * 1500000 +
     this.fiveb * 30000000 +
     this.six * 2000000000;
 
@@ -50,7 +50,7 @@ class Stats {
   printProfitRate(money){
     const profitRate = this.calculateProfitRate(money);
     Console.print(
-      `총 수익률은 ${profitRate}% 입니다.`
+      `총 수익률은 ${profitRate}%입니다.`
     );
   }
 }

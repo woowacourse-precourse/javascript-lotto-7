@@ -18,28 +18,22 @@ class App {
   }
 
   async run() {
-    try {
-      switch (this.currentStep) {
-        case 0:
-          await this.draw();
-          this.currentStep++;
-        case 1:
-          await this.getLotto();
-          this.currentStep++;
-        case 2:
-          await this.getBounsLotto();
-          this.currentStep++;
-        case 3:
-          this.processResults();
-          this.currentStep++;
-        case 4:
-          this.displayResults();
-          this.currentStep++;
-          break;
+    const steps = [
+      this.draw.bind(this),
+      this.getLotto.bind(this),
+      this.getBonusLotto.bind(this),
+      this.processResults.bind(this),
+      this.displayResults.bind(this)
+    ];
+
+    while (this.currentStep < steps.length) {
+      try {
+        await steps[this.currentStep]();
+        this.currentStep++;
+      } catch (error) {
+        Console.print(error.message);
+        await this.retryFromError();
       }
-    } catch (error) {
-      Console.print(error.message);
-      this.retryFromError();
     }
   }
 
@@ -54,7 +48,7 @@ class App {
     this.gameState.lottoNumbers = lotto.getNumbers();
   }
 
-  async getBounsLotto(){
+  async getBonusLotto(){
     this.gameState.bonusNumber = await getBonusNumbers(this.gameState.lottoNumbers);
   }
 
@@ -74,9 +68,9 @@ class App {
     stats.printProfitRate(paidMoney);
   }
 
-  retryFromError() {
+  async retryFromError() {
     Console.print('다시 시도합니다...');
-    this.run();
+    await new Promise(resolve => setTimeout(resolve, 1000)); // 1초 대기
   }
 }
 
