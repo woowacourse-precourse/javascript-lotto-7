@@ -44,9 +44,18 @@ class App {
 
     const bonusNumber = await Console.readLineAsync("보너스 번호를 입력해주세요 : ");
 
+    if(isNaN(bonusNumber)){
+      throw new Error("[ERROR] : 로또 번호는 숫자여야합니다.")
+    }
+
+    const minNum = 1;
+    const maxNum = 45;
     winNumber.map((winNum)=>{
       if(winNum === bonusNumber){
         throw new Error("[ERROR] : 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+      }
+      if(bonusNumber < minNum || bonusNumber > maxNum){
+        throw new Error(`[ERROR] : 보너스 번호는 ${minNum}부터 ${maxNum}까지의 숫자여야 합니다.`);
       }
     })
 

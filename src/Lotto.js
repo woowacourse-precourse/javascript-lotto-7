@@ -7,7 +7,8 @@ class Lotto {
   constructor(numbers) {
     this.#validate(numbers);
     this.sortNumber(numbers);
-    this.isUnique(numbers);
+    this.isUniqueNumber(numbers);
+    this.checkNumberRange(numbers);
     this.#numbers = numbers;
   }
 
@@ -17,8 +18,11 @@ class Lotto {
     }
   }
 
-  isUnique(numbers){
+  isUniqueNumber(numbers){
     numbers.map((num, index)=>{
+      if(isNaN(num)){
+        throw new Error("[ERROR] : 로또 번호는 숫자여야합니다.")
+      }
       this.checkDupNumber(num, index, numbers);
     })
   }
