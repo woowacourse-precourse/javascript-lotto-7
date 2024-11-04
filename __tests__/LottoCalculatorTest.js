@@ -1,5 +1,4 @@
 import LottoCalculator from '../src/Models/LottoCalculator.js';
-import { MissionUtils } from '@woowacourse/mission-utils';
 
 describe('로또당첨계산기 클래스 테스트', () => {
   test('계산기 테스트', () => {
@@ -33,7 +32,7 @@ describe('로또당첨계산기 클래스 테스트', () => {
         '4th': 0,
         '5th': 1,
       },
-      profitRate: 62.5,
+      profitRate: '62.5',
     });
   });
 
@@ -68,7 +67,41 @@ describe('로또당첨계산기 클래스 테스트', () => {
         '4th': 0,
         '5th': 0,
       },
-      profitRate: 375000,
+      profitRate: '375,000.0',
+    });
+  });
+
+  test('수익률 소수점 테스트', () => {
+    const lottoCalculator = new LottoCalculator();
+    const mockPurchaseAmount = 7000;
+    const mockLottos = [
+      [8, 21, 23, 41, 42, 43],
+      [3, 5, 11, 16, 32, 38],
+      [7, 11, 16, 35, 36, 44],
+      [1, 8, 11, 31, 41, 42],
+      [13, 14, 16, 38, 42, 45],
+      [2, 13, 22, 40, 42, 43],
+      [2, 13, 22, 32, 38, 45],
+    ];
+    const mockWinningNumbers = [2, 13, 22, 32, 38, 1];
+    const mockBonusNumber = 45;
+
+    const result = lottoCalculator.getResult(
+      mockPurchaseAmount,
+      mockLottos,
+      mockWinningNumbers,
+      mockBonusNumber,
+    );
+
+    expect(result).toStrictEqual({
+      winningStatistics: {
+        '1st': 0,
+        '2nd': 1,
+        '3rd': 0,
+        '4th': 0,
+        '5th': 1,
+      },
+      profitRate: '428,642.9',
     });
   });
 });
