@@ -1,13 +1,22 @@
 import { Random } from '@woowacourse/mission-utils';
-import { VALUES } from './constants/Values.js';
+import { MATCH_COUNT, PRIZE_AMOUNT, VALUES } from './constants/Values.js';
 import Lotto from './Lotto.js';
 
 class LottoStore {
   #lottos;
 
+  #statistics;
+
   constructor(amount) {
     this.#lottos = [];
     this.#purchaseLottos(Number(amount));
+    this.#statistics = {
+      fifth: 0,
+      fourth: 0,
+      third: 0,
+      second: 0,
+      first: 0,
+    };
   }
 
   #generateLottoNumbers() {
@@ -32,6 +41,24 @@ class LottoStore {
 
   getLottoNumbers() {
     return this.#lottos.map((lotto) => lotto.getNumber());
+  }
+
+  #draw(winningNumber, bonusNumber) {
+    this.#lottos.forEach((lotto) => {
+      const { matchCount, matchBonus } = lotto.draw(winningNumber, bonusNumber);
+      const prize = MATCH_COUNT[matchCount];
+      if (matchCount < VALUES.prizeLeastCount) return;
+      if (matchCount === VALUES.matchBonusCount) {
+        this.#statistics[prize[+matchBonus]] += 1;
+        return;
+      }
+      this.#statistics[prize] += 1;
+    });
+  }
+
+  getLottoResult(winningNumber, bonusNumber) {
+    this.#draw(winningNumber, bonusNumber);
+    return this.#statistics;
   }
 }
 
