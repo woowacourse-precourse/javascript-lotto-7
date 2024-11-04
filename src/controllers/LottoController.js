@@ -23,8 +23,9 @@ class LottoController {
         winLottoArr.getNumbers().includes(num)
       ).length;
       let isBonus = false;
-      if (LottoController.userLottoArr[i].includes(lottoBonusNum))
+      if (LottoController.userLottoArr[i].includes(lottoBonusNum)) {
         isBonus = true;
+      }
       LottoController.matchNumCnt(winCnt, isBonus);
     }
     this.lottoOutput.printWinStat(LottoController.matchCntArr);
