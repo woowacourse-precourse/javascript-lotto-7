@@ -48,7 +48,6 @@ class CheckHowmuch {
     const totalSpent = lottos.length * 1000;
     const totalYield = (totalPrize / totalSpent) * 100;
     PrintResult.printResult(matchCounts, totalYield);
-    return { matchCounts, totalYield };
   }
 }
 
