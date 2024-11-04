@@ -7,7 +7,7 @@ class Output {
 
   static printLottoList(userLottoList) {
     userLottoList.forEach((lotto) => {
-      Console.print(`[${lotto.join(', ')}]`); // 배열 형식으로 출력
+      Console.print(`[${lotto.join(', ')}]`);
     });
   }
 
