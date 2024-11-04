@@ -8,7 +8,7 @@ import isEmpty from '../utils/isEmpty.js';
 import Output from '../utils/io/Output.js';
 
 class LottoDisplayHandler {
-  PrintLottoWinningResult(winningResult) {
+  printLottoWinningResult(winningResult) {
     const winningResultMessage = [
       '당첨 통계',
       '---',

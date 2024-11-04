@@ -92,7 +92,7 @@ class LottoController {
   displayResults(winningNumbers) {
     const winningResult = this.#compareLottoTickets(winningNumbers);
 
-    this.displayHandler.PrintLottoWinningResult(winningResult);
+    this.displayHandler.printLottoWinningResult(winningResult);
     this.displayHandler.printRateOfReturn(winningResult, this.#purchaseAmount);
   }
 
