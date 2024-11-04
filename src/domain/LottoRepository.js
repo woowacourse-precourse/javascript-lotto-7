@@ -4,6 +4,10 @@ class LottoRepository {
   constructor() {
     this.#lottos = [];
   }
+
+  saveLotto(lotto) {
+    this.#lottos.push(lotto);
+  }
 }
 
 export default LottoRepository;
