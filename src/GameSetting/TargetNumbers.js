@@ -29,7 +29,7 @@ class TargetNumbers {
   }
 
   #stringToList(input) {
-    return string.split(",").map((number) => number.trim());
+    return input.split(",").map((number) => number.trim());
   }
 
   getTargetNumbers() {
