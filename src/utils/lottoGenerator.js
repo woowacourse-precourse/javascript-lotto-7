@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils'
 import LOTTO_CONFIG from '../constants/lottoConfig.js';
-import Lotto from './Lotto.js';
+import Lotto from '../Lotto/Lotto.js';
 
 export default function lottoGenerator(LottoPurchaseAmount){
   const lottoList = [];
