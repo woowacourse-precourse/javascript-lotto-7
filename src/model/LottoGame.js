@@ -50,7 +50,7 @@ class LottoGame {
     return this.#matchCount;
   }
 
-  getPrizeAmount(count) {
+  #getPrizeAmount(count) {
     switch (count) {
       case RANK.FIRST.matchCount:
         return RANK.FIRST.prize;
@@ -70,7 +70,7 @@ class LottoGame {
   calculateRevenue() {
     const totalPrize = Object.entries(this.#matchCount).reduce(
       (acc, [count, value]) => {
-        const prizeAmount = this.getPrizeAmount(Number(count));
+        const prizeAmount = this.#getPrizeAmount(Number(count));
         return acc + prizeAmount * value;
       },
       0
