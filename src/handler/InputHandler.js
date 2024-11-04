@@ -5,7 +5,6 @@ import { SPLIT_CHAR } from "../constant/constants.js";
 export class InputHandler {
   async readNumbers(message) {
     const input = await MissionUtils.Console.readLineAsync(message);
-    this.#validateSplitChar(input);
     const splitNumbers = input.split(SPLIT_CHAR).map((number) => Number(number.trim()));
     this.#validateNumbers(splitNumbers);
     return splitNumbers;
@@ -16,10 +15,6 @@ export class InputHandler {
     const number = Number(input);
     this.#validateNumber(number);
     return number;
-  }
-
-  #validateSplitChar(input) {
-    if (!input.includes(SPLIT_CHAR)) throw new Error(inValidMessages.separator);
   }
 
   #validateNumbers(numbers) {
