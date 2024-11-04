@@ -66,4 +66,34 @@ describe("로또 테스트", () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
+
+  test("1000원을 입금했을 때 1개의 로또 티켓 생성 테스트", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms([
+      [8, 21, 23, 41, 42, 43], // 하나의 로또 티켓만 생성될 때의 번호
+    ]);
+    mockQuestions(["1000", "8,21,23,4,5,6", "7"]);
+
+    // when
+    const lotto = new Lotto();
+    await lotto.start();
+
+    // then
+    const logs = [
+      "1개를 구매했습니다.",
+      "[8, 21, 23, 41, 42, 43]",
+      "3개 일치 (5,000원) - 1개",
+      "4개 일치 (50,000원) - 0개",
+      "5개 일치 (1,500,000원) - 0개",
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
+      "6개 일치 (2,000,000,000원) - 0개",
+      "총 수익률은 500.0%입니다."
+    ];
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+  });
 });

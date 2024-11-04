@@ -8,12 +8,7 @@ class WinningCalculator {
   constructor(winningSet, generatedTickets) {
     this.winningNumbers = winningSet.winningNumbers;
     this.bonusNumbers = winningSet.bonusNumber;
-
-    if(!Array.isArray(generatedTickets[0])) {
-      this.generatedTickets = [generatedTickets];
-    } else {
-      this.generatedTickets = generatedTickets;
-    }
+    this.generatedTickets = generatedTickets;
 
     this.#rankResult = {
       fifth: 0,
