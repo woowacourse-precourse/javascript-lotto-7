@@ -21,6 +21,9 @@ class App {
 
       // 로또 당첨 번호 입력 받기
       await lottoGame.getWinningNumbersInput();
+
+      // 보너스 당첨 번호 입력 받기
+      await lottoGame.getBonusNumberInput();
     } catch (error) {
       Console.print(error);
     }
