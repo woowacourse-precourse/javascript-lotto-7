@@ -150,4 +150,28 @@ describe('로또게임 클래스 테스트', () => {
     expect(logSpy).toHaveBeenCalledWith('5개 일치, 보너스 볼 일치 (30,000,000원) - 1개');
     expect(logSpy).toHaveBeenCalledWith('6개 일치 (2,000,000,000원) - 1개');
   });
+
+  test('수익률이 정확히 계산된다.', () => {
+    const lottoGame = new LottoGame();
+    lottoGame.purchaseLottos(3000);
+    lottoGame.setWinningNumbers([1, 2, 3, 4, 5, 6], 7);
+
+    const mockLottos = [
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 7],
+      [1, 2, 3, 4, 5, 8],
+    ];
+
+    lottoGame.lottos = mockLottos.map((numbers) => new Lotto(numbers));
+
+    lottoGame.checkResults();
+
+    // 1등 1명: 2,000,000,000원
+    // 2등 1명: 30,000,000원
+    // 3등 1명: 1,500,000원
+    const expectedTotalPrize = 2000000000 + 30000000 + 1500000;
+    const expectedProfitRate = (expectedTotalPrize / 3000) * 100;
+
+    expect(lottoGame.calculateProfitRate()).toBeCloseTo(expectedProfitRate, 1);
+  });
 });
