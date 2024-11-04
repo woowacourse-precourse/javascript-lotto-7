@@ -1,6 +1,6 @@
-import { Random } from "@woowacourse/mission-utils";
 import LottoIO from "./LottoIO.js";
 import { isNumber } from "../../utils.js";
+import { Random } from "@woowacourse/mission-utils";
 import {
   LOTTO_NUMBER_MAX,
   LOTTO_NUMBER_MIN,
@@ -16,13 +16,7 @@ class ScratchedLottos {
   }
 
   static create(lottosCount) {
-    while (true) {
-      try {
-        return new ScratchedLottos(this.#scratch(lottosCount));
-      } catch ({ message }) {
-        LottoIO.print(message || "알 수 없는 에러");
-      }
-    }
+    return new ScratchedLottos(this.#scratch(lottosCount));
   }
 
   get lottos() {
