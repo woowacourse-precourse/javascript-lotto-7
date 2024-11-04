@@ -11,6 +11,10 @@ class OutputLotto {
     });
   }
 
+  showRateOfReturn(value) {
+    Console.print(SYSTEM_MESSAGES.print_rate_of_return(value));
+  }
+
   showMatchStatistics(matchCounts) {
     Console.print(SYSTEM_MESSAGES.OUPUT_STATIC);
     Console.print(

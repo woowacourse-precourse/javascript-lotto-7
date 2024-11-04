@@ -50,6 +50,9 @@ class LottoController {
       );
 
       this.#outputLotto.showMatchStatistics(matchCounts);
+      this.#outputLotto.showRateOfReturn(
+        lottoModel.calc_rate_of_return(matchCounts, purchaseAmount)
+      );
     } catch (error) {
       console.error(error.message);
     }

@@ -1,11 +1,10 @@
 import validators from "./utils/Validators.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class Lotto {
   #numbers;
 
   constructor(numbers) {
-    validators.checkLottoLength(numbers);
-    validators.checkDuplicateNumber(numbers);
     this.#numbers = numbers;
   }
 

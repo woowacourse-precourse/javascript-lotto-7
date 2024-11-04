@@ -17,6 +17,6 @@ export const SYSTEM_MESSAGES = Object.freeze({
   },
 
   print_rate_of_return(number) {
-    return `총 수익률은 ${number}입니다.`;
+    return `총 수익률은 ${number}%입니다.`;
   },
 });

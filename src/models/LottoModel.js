@@ -1,6 +1,7 @@
 import { generateLottoNumbers } from "../utils/generateLottoNumbers.js";
 import Lotto from "../Lotto.js";
-import { RANKING_MATCH_COUNT } from "../constants/Settings.js";
+import { RANKING_MATCH_COUNT, RANKING_MONEY } from "../constants/Settings.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class LottoModel {
   #lotto;
@@ -51,6 +52,19 @@ class LottoModel {
     });
 
     return matchCounts;
+  }
+
+  calc_rate_of_return(matchCounts, purchaseAmount) {
+    let returnMoney =
+      matchCounts.Rank1 * RANKING_MONEY.first +
+      matchCounts.Rank2 * RANKING_MONEY.second +
+      matchCounts.Rank3 * RANKING_MONEY.third +
+      matchCounts.Rank4 * RANKING_MONEY.fourth +
+      matchCounts.Rank5 * RANKING_MONEY.fifth;
+
+    const result = ((returnMoney / purchaseAmount) * 100).toFixed(2);
+
+    return result;
   }
 }
 

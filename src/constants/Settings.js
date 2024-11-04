@@ -15,9 +15,9 @@ export const RANKING_MATCH_COUNT = Object.freeze({
 });
 
 export const RANKING_MONEY = Object.freeze({
-  first: "2,000,000,000",
-  second: "30,000,000",
-  third: "1,500,000",
-  fourth: "50,000",
-  fifth: "5,000",
+  first: 2000000000,
+  second: 30000000,
+  third: 1500000,
+  fourth: 50000,
+  fifth: 5000,
 });
