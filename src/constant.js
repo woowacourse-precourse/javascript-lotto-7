@@ -10,14 +10,14 @@ export const ERROR_MESSAGE = {
 };
 
 export const INPUT_MESSAGE = {
-  INPUT_LOTTO_AMOUNT: '구입금액을 입력해 주세요.',
-  INPUT_LOTTO_NUMBERS: '당첨 번호를 입력해 주세요.',
-  INPUT_BONUS_NUMBERS: '보너스 번호를 입력해 주세요.',
+  INPUT_LOTTO_AMOUNT: '구입금액을 입력해 주세요.\n',
+  INPUT_LOTTO_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
+  INPUT_BONUS_NUMBERS: '\n보너스 번호를 입력해 주세요.\n',
 };
 
 export const OUTPUT_MESSAGE = {
-  LOTTO_CNT: (cnt) => `${cnt}개를 구매했습니다.`,
-  HEADER: `당첨 통계\n---`,
+  LOTTO_CNT: (cnt) => `\n${cnt}개를 구매했습니다.`,
+  HEADER: `\n당첨 통계\n---`,
   MATCH_3: (cnt) => `3개 일치 (5,000원) - ${cnt}개`,
   MATCH_4: (cnt) => `4개 일치 (50,000원) - ${cnt}개`,
   MATCH_5: (cnt) => `5개 일치 (1,500,000원) - ${cnt}개`,
