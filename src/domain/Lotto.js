@@ -12,11 +12,28 @@ class Lotto {
   #validate(numbers) {
     this.#validateLottoNumber(numbers);
     this.#validateNumberIsInteger(numbers);
+    numbers.forEach((number) => {
+      this.#validateNumberRange(number);
+      const checkDuplicate = numbers.filter((el) => (el === number));
+      this.#validateIsDuplicate(checkDuplicate);
+    });
   }
 
   #validateLottoNumber(input) {
     if (input.length !== LOTTO_SETTINGS.numberLength) {
       throw new Error(LOTTO_MESSAGES.error.numberCountNotSix);
+    }
+  }
+
+  #validateIsDuplicate(input) {
+    if (input.length > LOTTO_SETTINGS.minNumber) {
+      throw new Error(LOTTO_MESSAGES.error.duplicatedNumber);
+    }
+  }
+
+  #validateNumberRange(number) {
+    if (number <= 0 || number >= 46) {
+      throw new Error(LOTTO_MESSAGES.error.numberRangeOver);
     }
   }
 
