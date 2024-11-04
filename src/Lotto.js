@@ -77,7 +77,7 @@ class Lotto {
 
   #hasNumber(number) {
     const num = Number(number);
-    return !Number.isNaN(num) && this.#numbers.includes(num);
+    return isNumber(num) && this.#numbers.includes(num);
   }
 }
 
