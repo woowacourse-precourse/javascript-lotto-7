@@ -35,6 +35,29 @@ class LottoService {
     return this.#lottoRepository.getLottos();
   }
 
+  compareWithWinningNumbers(winningNumbers, bonusNumber) {
+    let matching = [0,0,0,0,0];
+    const myLottos = this.getLottos();
+
+    for (let lotto of myLottos) {
+      let match = lotto.getNumbers().filter(element => winningNumbers.includes(element)).length;
+      let isHave = lotto.getNumbers().includes(bonusNumber);
+
+      switch(match.length){
+        case 3 : matching[0]++; break;
+        case 4 : matching[1]++; break;
+        case 6 : matching[4]++; break;
+      }
+      if (match == 5 && !isHave){
+        matching[2]++;
+      }
+      if (match == 5 && isHave){
+        matching[3]++;
+      }
+    }
+
+    return matching;
+  }
 }
 
 export default LottoService;
