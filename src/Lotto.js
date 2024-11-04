@@ -3,7 +3,7 @@ import throwError from './util/throw-error.js';
 
 export const ERROR_MESSAGES = {
   EMPTY_INPUT: '입력 값이 비어 있거나 입력 값에 빈 값이 포함되어 있습니다.',
-  INVALID_INPUT: `로또 번호는 공백 없이 숫자와 ${LOTTO_FORMAT.DELIMITER}로 구분되어야 합니다.`,
+  INVALID_INPUT: `로또 번호는 숫자와 ${LOTTO_FORMAT.DELIMITER}로 구분되어야 합니다.`,
   INVALID_LENGTH: `로또 번호는 ${LOTTO_RULES.NUMBER_COUNT}개여야 합니다.`,
   DUPLICATE_NUMBER: '로또 번호에 중복된 번호가 있습니다.',
   INVALID_RANGE: `로또 번호는 ${LOTTO_RULES.MIN_NUMBER}부터 ${LOTTO_RULES.MAX_NUMBER} 사이의 숫자여야 합니다.`,
