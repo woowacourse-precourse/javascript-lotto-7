@@ -12,17 +12,18 @@ class Lotto {
     }
 
     for (const number of numbers) {
-      if (isNaN(number)) {
+      const num = Number(number);
+      if (isNaN(num)) {
         throw new Error("[ERROR] 로또 번호는 숫자로 입력해주세요.");
       }
-
-      if (number < 1 || number > 45) {
+      if (num < 1 || num > 45) {
         throw new Error("[ERROR] 로또 번호는 1~45 사이의 숫자여야 합니다.");
+      }
+      if (!Number.isInteger(num)) {
+        throw new Error("[ERROR] 로또 번호는 1~45 사이의 정수여야 합니다.");
       }
     }
   }
-
-  // TODO: 추가 기능 구현
 }
 
 export default Lotto;
