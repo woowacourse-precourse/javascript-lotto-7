@@ -1,6 +1,18 @@
+import LottoStore from "../LottoStore.js";
+import { isBonusNumberInWinNumber } from "../validateInput/validateInputBonusNumber.js";
 import { isEmpty, isMinusNumber, isNotNumber, isEndWith1000 } from "../validateInput/validateInputMoney.js";
 import { isWinEmpty, isWinMinusNumber, isWinNotNumber, isWinOutOfRange } from "../validateInput/validateInputWinNumber.js";
 import { BonusNumberOutput, BuyMoneyOutput, WinInputOutput, WinNumberOutput } from "../woowahanOutput.js";
+
+function checkCondition(conditions) {
+    for (const condition of conditions) {
+        if (condition.check()) {
+            condition.action();
+            return false;
+        }
+    }
+    return true;
+}
 
 const buyMoneyValidator = (input) => {
     const output = new BuyMoneyOutput();
@@ -12,25 +24,19 @@ const buyMoneyValidator = (input) => {
         { check: () => !isEndWith1000(input), action: () => output.printEndWith1000() }
     ];
 
-    for (const condition of conditions) {
-        if (condition.check()) {
-            condition.action();
-            return false;
-        }
-    }
-
-    return true;
+    return checkCondition(conditions);
 };
 
 const winInputValidator = (input) => {
     const output = new WinInputOutput();
 
-    if (input.length !== 6) {
-        output.printCountNotSix();
-        return false
-    }
-    return true
-}
+    const conditions = [
+        { check: () => input.length !== 6, action: () => output.printCountNotSix() },
+        { check: () => new Set(input).size !== 6, action: () => output.printDuplicatedNumber() },
+    ];
+
+    return checkCondition(conditions);
+};
 
 const winNumberValidator = (input) => {
     const output = new WinNumberOutput();
@@ -42,34 +48,23 @@ const winNumberValidator = (input) => {
         { check: () => isWinOutOfRange(input), action: () => output.printOutOfRange() }
     ];
 
-    for (const condition of conditions) {
-        if (condition.check()) {
-            condition.action();
-            return false;
-        }
-    }
-
-    return true;
+    return checkCondition(conditions);
 };
 
 const bonusNumberValidator = (input) => {
     const output = new BonusNumberOutput();
+    const lottoStore = LottoStore.getInstance();
+    const winNumber = lottoStore.getWinNumber();
 
     const conditions = [
         { check: () => isWinEmpty(input), action: () => output.printEmptyValue() },
         { check: () => isWinNotNumber(input), action: () => output.printNotNumber() },
         { check: () => isWinMinusNumber(input), action: () => output.printMinusNumber() },
-        { check: () => isWinOutOfRange(input), action: () => output.printOutOfRange() }
+        { check: () => isWinOutOfRange(input), action: () => output.printOutOfRange() },
+        { check: () => isBonusNumberInWinNumber(input, winNumber), action: () => output.printNotInWinNumber() }
     ];
 
-    for (const condition of conditions) {
-        if (condition.check()) {
-            condition.action();
-            return false;
-        }
-    }
-
-    return true;
+    return checkCondition(conditions);
 };
 
 export { buyMoneyValidator, winNumberValidator, winInputValidator, bonusNumberValidator };

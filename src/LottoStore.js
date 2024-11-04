@@ -6,6 +6,8 @@ export default class LottoStore {
   static instance = null;
 
   #countLotto = 0;
+  #winNumber = [];
+  #bonusNumber = 0;
   #winRanking = Array(4).fill(0);
   #fiveEqualWithBonusCount = 0;
   #winPrize = [5000, 50000, 1500000, 2000000000];
@@ -40,14 +42,16 @@ export default class LottoStore {
   }
 
   checkLotto(lottos, winNumber, bonusNumber) {
+    this.#winNumber = winNumber;
+    this.#bonusNumber = bonusNumber
     lottos.forEach((lotto) => {
-      this.lottoCriteria(winNumber, bonusNumber, lotto.getNumbers());
+      this.lottoCriteria(lotto.getNumbers());
     });
   }
 
-  lottoCriteria(winNumber, bonusNumber, lottoNumber) {
-    const matchCount = lottoNumber.filter(num => winNumber.includes(num)).length;
-    const hasBonus = lottoNumber.includes(bonusNumber);
+  lottoCriteria(lottoNumber) {
+    const matchCount = lottoNumber.filter(num => this.#winNumber.includes(num)).length;
+    const hasBonus = lottoNumber.includes(this.#bonusNumber);
     this.keepRecord(matchCount, hasBonus);
   }
 
@@ -83,5 +87,9 @@ export default class LottoStore {
     const inputNumber = Number(input);
     this.#countLotto = Math.floor(inputNumber / 1000);
     return this.#countLotto;
+  }
+
+  getWinNumber(){
+    return this.#winNumber;
   }
 }

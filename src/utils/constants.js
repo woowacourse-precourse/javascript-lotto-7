@@ -22,6 +22,8 @@ const ERROR = Object.freeze({
     END_WITH_1000: '1000원 단위입니다.',
     OUT_OF_RANGE: '1 ~ 45 사이의 숫자만 가능합니다.',
     IS_NOT_SIX: '개수가 6개입니다.',
+    IS_DUPLICATED: '중복된 숫자가 없습니다.',
+    IS_IN_WIN_NUMBER: '당첨번호에 있으면 안됩니다.',
 })
 
 export { CONSTANT, MESSAGES, ERROR, SUBJECT };

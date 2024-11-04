@@ -23,16 +23,16 @@ class GameOutput extends WoowahanOutput {
     static printWinningStatistics() {
         super.print(CONSTANT.WINNING_STATISTICS);
     }
-    
-    static printGeneralRanking(sameCount, winPrize, ticketCount){
+
+    static printGeneralRanking(sameCount, winPrize, ticketCount) {
         super.print(`${sameCount}개 일치 (${winPrize}원) - ${ticketCount}개`);
     }
 
-    static printBonusRanking(winPrize, fiveEqualWithBonusCount){
+    static printBonusRanking(winPrize, fiveEqualWithBonusCount) {
         super.print(`5개 일치, 보너스 볼 일치 (${winPrize}원) - ${fiveEqualWithBonusCount}개`);
     }
 
-    static printTotalReturn(earn, buyMoney) { 
+    static printTotalReturn(earn, buyMoney) {
         super.print(`총 수익률은 ${(earn / Number(buyMoney) * 100).toFixed(1)}%입니다.`);
     }
 
@@ -68,14 +68,28 @@ class BuyMoneyOutput extends WoowahanOutput {
 
 class WinInputOutput extends WoowahanOutput {
 
-    async printCountNotSix() {
-        super.errorPrint(SUBJECT.WIN_NUMBER, ERROR.IS_NOT_SIX)
+    constructor() {
+        super();
+        this.subject = SUBJECT.WIN_NUMBER;
     }
+
+    async errorPrint(prompt) {
+        super.errorPrint(this.subject, prompt);
+    }
+
+    async printCountNotSix() {
+        super.errorPrint(ERROR.IS_NOT_SIX);
+    }
+
+    async printDuplicatedNumber() {
+        super.errorPrint(ERROR.IS_DUPLICATED);
+    }
+
 }
 
 class WinNumberOutput extends WoowahanOutput {
 
-    constructor(){
+    constructor() {
         super();
         this.subject = SUBJECT.WIN_NUMBER;
     }
@@ -103,7 +117,7 @@ class WinNumberOutput extends WoowahanOutput {
 
 class BonusNumberOutput extends WoowahanOutput {
 
-    constructor(){
+    constructor() {
         super();
         this.subject = SUBJECT.BONUS_NUMBER;
     }
@@ -126,6 +140,10 @@ class BonusNumberOutput extends WoowahanOutput {
 
     async printOutOfRange() {
         super.errorPrint(ERROR.OUT_OF_RANGE);
+    }
+
+    async printNotInWinNumber() {
+        super.errorPrint(ERROR.IS_IN_WIN_NUMBER);
     }
 }
 
