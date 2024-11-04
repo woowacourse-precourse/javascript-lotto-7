@@ -28,4 +28,5 @@ export const LOTTO_ERROR_MESSAGE = {
   NOT_NUMBER_ERROR_MESSAGE: '[ERROR] 로또 개수는 숫자여야 합니다.',
   UNIT_PRICE_ERROR_MESSAGE: '[ERROR] 로또 가격은 1000원 단위 숫자여야 합니다.',
   UNDER_PRICE_ERROR_MESSAGE: '[ERROR] 로또 가격은 1000원 이상이여야 합니다.',
+  NUMBER_OF_LOTTO_NUMBERS_ERROR_MESSAGE: '[ERROR] 로또 번호는 6개여야 합니다.',
 };
