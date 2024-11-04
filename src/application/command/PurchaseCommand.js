@@ -15,8 +15,9 @@ class PurchaseCommand {
 
   async execute() {
     const opportunity = await this.handleCost();
+    const myLottoList = this.handleMyLottoList(opportunity.count);
 
-    return opportunity;
+    return { opportunity, myLottoList };
   }
 
   async handleCost() {
