@@ -44,3 +44,19 @@ export const calculateLottos = (tickets, winningNums, bonusNum) => {
   );
   return result;
 };
+
+/** 결과출력 */
+export const printResult = (result, purchasedAmount) => {
+  Console.print("\n당첨 통계");
+  Console.print("---");
+  Console.print(`3개 일치 (5,000원) - ${result.matchCnts[0]}개`);
+  Console.print(`4개 일치 (50,000원) - ${result.matchCnts[1]}개`);
+  Console.print(`5개 일치 (1,500,000원) - ${result.matchCnts[2]}개`);
+  Console.print(
+    `5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.matchCnts[3]}개`
+  );
+  Console.print(`6개 일치 (2,000,000,000원) - ${result.matchCnts[4]}개`);
+
+  const profit = (result.winnings / (purchasedAmount * 1000)) * 100;
+  Console.print(`총 수익률은 ${profit.toFixed(1)}%입니다.`);
+};
