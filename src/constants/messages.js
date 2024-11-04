@@ -11,12 +11,12 @@ const PREFIX_ERROR = '[ERROR]';
 const INPUT_MESSAGES = Object.freeze({
   purchase_amount: '구입금액을 입력해 주세요.\n',
   winning_lotto: '당첨 번호를 입력해 주세요.\n',
-  bonus_number: '보너스 번호를 입력해 주세요.\n',
+  bonus_number: '\n보너스 번호를 입력해 주세요.\n',
 });
 
 const OUTPUT_MESSAGES = Object.freeze({
   purchase_amount: (tickets) => `\n${tickets}개를 구매했습니다.`,
-  statics_title: `\n당첨통계\n---`,
+  statics_title: `\n당첨 통계\n---`,
   total_statics: (key, value) => `${key} - ${value}개`,
   total_profit_ratio: (profitRatio) => `총 수익률은 ${profitRatio}%입니다.`,
 });
