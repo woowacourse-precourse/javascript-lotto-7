@@ -1,5 +1,4 @@
 import Input from "./Input.js";
-import LottoGenerator from "./LottoGenerator.js";
 import Output from "./Output.js";
 import {
   LOTTO_MAX_NUMBER,
@@ -21,6 +20,8 @@ class App {
       );
       Output.printLottoNumbers(numbers);
     }
+
+    const winningNumbers = await Input.inputWinningNumbers();
   }
 }
 
