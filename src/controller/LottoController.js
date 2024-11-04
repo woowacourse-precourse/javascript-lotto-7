@@ -1,4 +1,5 @@
 import LottoMachine from "../models/LottoMachine.js";
+import RankCalculator from "../models/RankCalculator.js";
 import { Utils } from "../utils/Utils.js";
 import BonusNumberValidator from "../validators/BonusNumberValidator.js";
 import PurchaseMoneyValidator from "../validators/PurchaseMoneyValidator.js";
@@ -27,6 +28,14 @@ class LottoController {
 
     // 사용자가 올바른 입력을 할 때까지 보너스 번호 입력
     const bonusNumber = await this.#repeatUntilCorrectBonusNumber(winningNumbers);
+
+    // 등수 계산기 생성
+    const rankCalculator = new RankCalculator(purchaseHistory, winningNumbers, bonusNumber);
+
+    // 당첨 등수 구하기
+    const rankResult = rankCalculator.calculate();
+
+    OutputView.printRankResult(rankResult.getLottoRankResult());
   }
 
   async #repeatUntilCorrectPurchaseMoney() {
