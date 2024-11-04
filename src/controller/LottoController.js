@@ -16,13 +16,13 @@ class LottoController {
   #result;
 
   async start() {
-    await this.#getPurchase();
-    await this.#getWinningLottoNumbers();
-    await this.#getBonusNumber();
-    await this.#getWinningResult();
+    await this.#purchaseController();
+    await this.#winningLottoNumbersController();
+    await this.#bonusNumberController();
+    await this.#winningResultController();
   }
 
-  async #getPurchase() {
+  async #purchaseController() {
     try {
       const input = await InputView.inputAmount();
       this.#purchaseAmount = Number(input);
@@ -33,11 +33,11 @@ class LottoController {
       await OutputView.printLottoNumbers(this.#tickets, this.#lotteryNumbers);
     } catch (error) {
       Console.print(error);
-      await this.#getPurchase();
+      await this.#purchaseController();
     }
   }
 
-  async #getWinningLottoNumbers() {
+  async #winningLottoNumbersController() {
     try {
       const input = await InputView.inputWinningNumbers();
       const splittedInput = input.split(',');
@@ -45,22 +45,22 @@ class LottoController {
       return new Lotto(this.#winningLottoNumbers);
     } catch (error) {
       Console.print(error);
-      await this.#getWinningLottoNumbers();
+      await this.#winningLottoNumbersController();
     }
   }
 
-  async #getBonusNumber() {
+  async #bonusNumberController() {
     try {
       const input = await InputView.inputBonusNumber();
       this.#bonusNumber = Number(input);
       return new BonusNumber(this.#bonusNumber, this.#winningLottoNumbers);
     } catch (error) {
       Console.print(error);
-      await this.#getBonusNumber();
+      await this.#bonusNumberController();
     }
   }
 
-  async #getWinningResult() {
+  async #winningResultController() {
     this.#result = new Result(
       this.#winningLottoNumbers,
       this.#bonusNumber,
