@@ -13,7 +13,7 @@ class App {
       const amount = parseInt(input, 10);
       const lottoCount = Math.floor(amount / 1000);
       Console.print(`\n${lottoCount}개를 구매했습니다.\n`);
-      this.#generateLottos(lottoCount);
+      this.lottos = this.#generateLottos(lottoCount);
       this.#askWinningNumbers();
     });
   }
@@ -32,6 +32,7 @@ class App {
       lottos.push(new Lotto(numbers));
       Console.print(`[${numbers.join(", ")}]`);
     }
+    return lottos;
   }
 
   #generateLottoNumbers() {
@@ -75,7 +76,7 @@ class App {
           ", "
         )}], 보너스 번호: ${bonusNumber}`
       );
-      // TODO: 당첨 내역 계산 기능 호출
+      this.#calculateResults(winningNumbers, bonusNumber);
     });
   }
 
@@ -90,6 +91,47 @@ class App {
       );
     }
     return bonusNumber;
+  }
+
+  #calculateResults(winningNumbers, bonusNumber) {
+    const results = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
+
+    this.lottos.forEach((lotto) => {
+      const matchCount = lotto
+        .getNumbers()
+        .filter((num) => winningNumbers.includes(num)).length;
+      const hasBonus = lotto.getNumbers().includes(bonusNumber);
+
+      if (matchCount === 6) {
+        results[1]++;
+      } else if (matchCount === 5 && hasBonus) {
+        results[2]++;
+      } else if (matchCount === 5) {
+        results[3]++;
+      } else if (matchCount === 4) {
+        results[4]++;
+      } else if (matchCount === 3) {
+        results[5]++;
+      }
+    });
+
+    this.#printResults(results);
+  }
+
+  #printResults(results) {
+    Console.print(`\n당첨 통계`);
+    Console.print(`---`);
+    Console.print(`3개 일치 (5,000원) - ${results[5]}개`);
+    Console.print(`4개 일치 (50,000원) - ${results[4]}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${results[3]}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${results[2]}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${results[1]}개`);
   }
 }
 
