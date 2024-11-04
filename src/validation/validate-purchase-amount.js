@@ -15,7 +15,7 @@ const checkEmptyInput = (purchaseAmountInput) => {
 };
 
 const checkValidNumber = (purchaseAmountInput) => {
-  if (Number.isNaN(purchaseAmountInput)) throwError(ERROR_MESSAGES.INVALID_NUMBER);
+  if (isNaN(purchaseAmountInput)) throwError(ERROR_MESSAGES.INVALID_NUMBER);
   return purchaseAmountInput;
 };
 
