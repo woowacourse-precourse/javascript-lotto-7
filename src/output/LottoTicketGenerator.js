@@ -10,6 +10,7 @@ class LottoTicketGenerator {
       tickets.push(ticket);
     });
 
+    this.displayLottoTickets(tickets);
     return tickets;
   }
 
@@ -17,6 +18,12 @@ class LottoTicketGenerator {
     const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
     randomNumber.sort((a, b) => a - b);
     return randomNumber;
+  }
+
+  static displayLottoTickets(tickets) {
+    Console.print(`${tickets.length}개를 구매했습니다.`);
+    tickets.forEach((ticket) => Console.print(`[${ticket.join(', ')}]`));
+    Console.print('');
   }
 }
 
