@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import {
   RANK_OUTPUT_MESSAGE,
   OUTPUT_MESSAGE,
-} from '../constant/ouputMessage.js';
+} from '../constant/outputMessage.js';
 
 export default class OutputView {
   static lottosInformation({ lottoLength, lottoNumbersArray }) {

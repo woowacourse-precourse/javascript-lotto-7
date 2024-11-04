@@ -1,6 +1,6 @@
 import LottoService from '../service/LottoService.js';
 import InputView from '../view/InputView.js';
-import OutputView from '../view/OuputView.js';
+import OutputView from '../view/OutputView.js';
 
 export default class LottoController {
   #lottoService;

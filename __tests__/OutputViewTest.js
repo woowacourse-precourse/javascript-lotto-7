@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import OutputView from '../src/view/OuputView';
-import { RANK_OUTPUT_MESSAGE } from '../src/constant/ouputMessage';
+import OutputView from '../src/view/OutputView';
+import { RANK_OUTPUT_MESSAGE } from '../src/constant/outputMessage';
 
 describe('OuputView 클래스 테스트', () => {
   const spy = jest.spyOn(Console, 'print');
