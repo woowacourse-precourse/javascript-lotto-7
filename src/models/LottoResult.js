@@ -22,7 +22,9 @@ class LottoResult {
   }
 
   getMatchCount(lotto) {
-    return lotto.filter(number => this.winningNumbers.includes(number)).length;
+    return lotto.filter(number =>
+      `${this.winningNumbers},${this.bonusNumber}`.includes(number),
+    ).length;
   }
 
   updateResults(matchCount, lotto) {
@@ -35,7 +37,7 @@ class LottoResult {
     }
 
     if (matchCount === 5) {
-      if (this.bonusNumber && lotto.includes(this.bonusNumber)) {
+      if (this.bonusNumber && lotto.includes(+this.bonusNumber)) {
         this.results[5].bonus++;
       } else {
         this.results[5].count++;
