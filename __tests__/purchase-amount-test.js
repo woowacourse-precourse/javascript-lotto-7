@@ -5,6 +5,7 @@ const {
   INVALID_EMPTY_INPUT,
   INVALID_PURCHASE_AMOUNT_NOT_NUMBER,
   INVALID_PURCHASE_AMOUNT_NOT_TICKET_UNIT,
+  INVALID_PURCHASE_AMOUNT_LIMIT,
 } = ERROR_MESSAGES;
 
 describe('로또 구입 금액 입력 테스트', () => {
@@ -29,4 +30,11 @@ describe('로또 구입 금액 입력 테스트', () => {
       expect(() => validateAmount(input)).toThrow(expectedError);
     },
   );
+
+  test('구입 금액이 최대 금액을 초과할 경우 예외가 발생한다', () => {
+    const invalidAmount = 150000; // 최대 금액을 초과하는 금액
+    expect(() => validateAmount(invalidAmount)).toThrow(
+      INVALID_PURCHASE_AMOUNT_LIMIT,
+    );
+  });
 });
