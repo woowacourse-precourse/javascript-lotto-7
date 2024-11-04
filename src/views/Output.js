@@ -15,4 +15,8 @@ export class Output {
 		Console.print(`5개 일치, 보너스 번호 일치 (30,000,000원) - ${lottoResult.second}개`);
 		Console.print(`6개 일치 (2,000,000,000원) - ${lottoResult.first}개`);
 	}
+
+	static printProfitRate(profitRate) {
+		Console.print(`총 수익률은 ${profitRate}%입니다.`);
+	}
 }
