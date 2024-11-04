@@ -32,6 +32,12 @@ class Validator {
     }
   }
 
+  #validateNoItemContained(item, arr, arrName) {
+    if (arr.includes(item)) {
+      throw new Error(ERROR_MESSAGE.ITEM_CONTAINED(arrName));
+    }
+  }
+
   purchaseAmount(amount) {
     this.#validateNaturalNumber(amount);
     this.#validateThousandUnit(amount);
@@ -46,9 +52,10 @@ class Validator {
     this.#validateNoDuplicates(numbers);
   }
 
-  bonusNumber(number) {
-    this.#validateNaturalNumber(number);
-    this.#validateRange(number, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
+  bonusNumber(bonusNumber, winningNumbers) {
+    this.#validateNaturalNumber(bonusNumber);
+    this.#validateRange(bonusNumber, LOTTO.START_NUMBER, LOTTO.END_NUMBER);
+    this.#validateNoItemContained(bonusNumber, winningNumbers, '당첨 번호');
   }
 }
 
