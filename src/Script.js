@@ -23,9 +23,9 @@ const Script = {
         5: "3개 일치 ",
     },
 
-    showTotalProfit(profitcalculator) {
-        const { lottoRankResult } = profitcalculator;
-        const totalProfit = profitcalculator.calculateProfit();
+    showTotalProfit(profitCalculator) {
+        const { lottoRankResult } = profitCalculator;
+        const totalProfit = profitCalculator.calculateProfit();
 
         const rankScript = this.makeRankScript(lottoRankResult);
 

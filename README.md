@@ -49,16 +49,17 @@
 
 2. 로또 번호들이 얼마나 일치하는지 확인하고 등수를 반환해줄 LottoMatcher class
 
--   당첨번호 배열인 winNumberList와 보너스 번호를 저장하는 bonusNumber 필드
+-   당첨번호 배열인 winNumberList와 보너스 번호를 저장하는 bonusNumber 필드, 결과를 저장하는 lottoRankResult 필드
 -   setter로 length가 45가 되는 winNumberList에서 당첨번호에 해당하는 인덱스를 1로 변경
     -   입력한 당첨번호가 6개의 숫자가 아닐 경우 예외 처리
     -   입력한 당첨번호가 1 ~ 45 사이의 숫자가 아닐 경우 예외 처리
     -   중복된 숫자가 존재할 경우 예외 처리
 -   setter로 보너스 번호를 저장함
     -   위에서 받은 당첨 번호와 중복되면 예외 처리
-    -   1 ~ 45사이의 숫자가 아닌 경우 얘외 처리
--   1에서 만든 로또 배열이 든 배열을 받아서 하나씩 당첨번호와 보너스 번호에 일치하는지 비교함
--   비교 결과를 토대로 등수를 계산해서 반환함
+    -   1 ~ 45사이의 숫자가 아닌 경우 예외 처리
+-   setter로 lottoList를 받아서 lottoRankResult를 아래의 과정을 거쳐 할당함
+    -   1에서 만든 로또 배열이 든 배열을 받아서 하나씩 당첨번호와 보너스 번호에 일치하는지 비교함
+    -   비교 결과를 토대로 등수를 계산해서 반환함
 
 3. 당첨금액을 계산해서 수익률을 계산하는 ProfitCalculator class
 
@@ -68,7 +69,8 @@
 
 4. 위의 결과값들을 화면에 출력할 문구를 만들 Script 객체
 
--   구입 금액과 1의 결과값을 토대로 형식에 맞는 출력문구를 만들어야 함
+-   구입 금액과 1의 결과값을 토대로 형식에 맞는 출력문구를 만들어야 하는 showLottoInfo()메소드
+    -   LottoGenerator class의 buyingAmount, lottoList field를 매개변수로 받음
     ```
     ex)
     8개를 구매했습니다.
@@ -81,7 +83,8 @@
     [2, 13, 22, 32, 38, 45]
     [1, 3, 5, 14, 22, 45]
     ```
--   2와 3의 결과값을 토대로 당첨 통계 출력 문구를 만들어야 함
+-   2와 3의 결과값을 토대로 당첨 통계 출력 문구를 만드는 showTotalProfit() 메소드
+    -   profitCalulator를 받아 해당 필드의 calculateProfit 메소드의 결과값인 수익률과 lottoRankResult 필드를 통해 등수 개수를 문자열로 만듦
     ```
     ex)
     당첨 통계
@@ -96,6 +99,8 @@
 
 5. App에서 객체와 클래스를 조합해야 함
 
+-   LottoGenerator class를 받는 lottoList field와 LottoMatcher class를 받는 lottoMatcher field 존재
+-   위 필드들을 통해 Script 객체로 필요한 값들을 넘겨줌
 -   입력이 잘못된 경우 에러문을 반환하고 다시 입력을 받아야 함
     -   catch문에서 error를 출력하고 다시 해당 함수를 호출하여 입력값을 받음
     -   다시 입력을 받기 위해 4개의 메소드로 분리시킴
