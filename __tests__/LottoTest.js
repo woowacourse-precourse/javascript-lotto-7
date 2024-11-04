@@ -1,4 +1,4 @@
-import Lotto from '../src/Lotto.js';
+import Lotto from '../src/model/Lotto.js';
 import { ERROR_PREFIX } from '../src/Constants.js';
 
 describe('로또 클래스 테스트', () => {

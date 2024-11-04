@@ -70,7 +70,6 @@
 └─ src
    ├─ App.js
    ├─ Constants.js
-   ├─ Lotto.js
    ├─ Utils.js
    ├─ index.js
    ├─ controller
