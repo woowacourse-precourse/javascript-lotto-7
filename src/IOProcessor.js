@@ -11,6 +11,13 @@ class IOProcessor {
     const input = await Console.readLineAsync(message);
     return input;
   }
+
+  /**
+   *
+   */
+  processOuput(message) {
+    Console.print(message);
+  }
 }
 
 export default IOProcessor;
