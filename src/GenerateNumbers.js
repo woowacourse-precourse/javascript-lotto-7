@@ -2,7 +2,6 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class GenerateNumbers {
   constructor() {
-    this.totalPrizeMoney = 0;
     this.firstPlaceCount = 0;
     this.secondPlaceCount = 0;
     this.thirdPlaceCount = 0;
@@ -17,7 +16,7 @@ class GenerateNumbers {
       const randomNum = this.generateSingleSet();
       allGeneratedNumbers.push(randomNum);
 
-      this.findMatchingNumber(randomNum, numbers, bonusNum, bills);
+      this.findMatchingNumber(randomNum, numbers, bonusNum);
     }
     console.log("");
 
@@ -34,53 +33,51 @@ class GenerateNumbers {
     return randomNum;
   }
 
-  findMatchingNumber(randomNum, numbers, bonusNum, bills) {
+  findMatchingNumber(randomNum, numbers, bonusNum) {
     console.log("");
     const matchingNumbers = randomNum.filter((num) => numbers.includes(num));
     const count = matchingNumbers.length;
 
-    let prizeMoney = 0;
-
     const isBonusMatched = this.isBonusMatched(randomNum, bonusNum);
-
-    if (count === 0 || count === 1 || count === 2) {
-    }
-
-    if (count === 3) {
-      prizeMoney = 5000;
-      this.fifthPlaceCount++;
-    }
-
-    if (count === 4) {
-      prizeMoney = 50000;
-      this.fourthPlaceCount++;
-    }
-
-    if (count === 5) {
-      if (isBonusMatched) {
-        prizeMoney = 1500000;
-        this.secondPlaceCount++;
-      } else {
-        prizeMoney = 30000000;
-        this.thirdPlaceCount++;
-      }
-    }
-
-    if (count === 6) {
-      prizeMoney = 2000000000;
-      this.firstPlaceCount++;
-    }
-
-    this.totalPrizeMoney += prizeMoney;
+    this.countCalculate(count, isBonusMatched);
   }
 
   isBonusMatched(randomNum, bonusNum) {
     return randomNum.includes(Number(bonusNum));
   }
 
+  countCalculate(count, isBonusMatched) {
+    if (count === 3) {
+      this.fifthPlaceCount++;
+    }
+
+    if (count === 4) {
+      this.fourthPlaceCount++;
+    }
+
+    if (count === 5) {
+      if (isBonusMatched) {
+        this.secondPlaceCount++;
+      } else {
+        this.thirdPlaceCount++;
+      }
+    }
+
+    if (count === 6) {
+      this.firstPlaceCount++;
+    }
+  }
+
   calculateReturn(bills) {
     const totalPrice = bills * 1000;
-    const profit = (this.totalPrizeMoney / totalPrice) * 100;
+    const total =
+      this.fifthPlaceCount * 5000 +
+      this.fourthPlaceCount * 50000 +
+      this.thirdPlaceCount * 1500000 +
+      this.secondPlaceCount * 30000000 +
+      this.firstPlaceCount * 2000000000;
+
+    const profit = (total / totalPrice) * 100;
     return profit;
   }
 
