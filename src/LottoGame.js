@@ -33,7 +33,7 @@ class LottoGame {
     Console.print(`[${nums}]`);
   }
 
-  // lotto 숫자 랜덤 생성 메소드
+  // lotto 숫자 랜덤 생성
   #CreateLottoNumbers() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
   }

@@ -1,4 +1,3 @@
-import { Console, Random } from "@woowacourse/mission-utils";
 class Lotto {
   #numbers;
 

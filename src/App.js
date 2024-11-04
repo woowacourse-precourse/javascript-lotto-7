@@ -1,17 +1,15 @@
-import Lotto from "./Lotto.js";
-import IOHandler from "./IOHandler.js";
-import { Console, Random } from "@woowacourse/mission-utils";
+import InputHandler from "./InputHandler.js";
 import LottoGame from "./LottoGame.js";
 import { LOTTO_PRICE } from "./Constant.js";
 
 class App {
   constructor() {
     this.Lotto;
-    this.IOHandler = new IOHandler();
+    this.InputHandler = new InputHandler();
   }
   async run() {
     // 구매금액 입력
-    const purchaseAmount = await this.IOHandler.getPurchaseAmount();
+    const purchaseAmount = await this.InputHandler.getPurchaseAmount();
 
     // 로또 게임 시작
     const lottoGame = new LottoGame(purchaseAmount / LOTTO_PRICE);
@@ -20,8 +18,8 @@ class App {
     lottoGame.CreateLotto();
 
     // 당첨 번호, 보너스 번호 입력
-    const winningNumbers = await this.IOHandler.getLottoNumbers();
-    const bonusNumber = await this.IOHandler.getBonusNumber();
+    const winningNumbers = await this.InputHandler.getLottoNumbers();
+    const bonusNumber = await this.InputHandler.getBonusNumber();
 
     // 당첨 여부 계산
     lottoGame.CheckLottos(winningNumbers, bonusNumber);

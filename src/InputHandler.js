@@ -1,4 +1,4 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 import Validator from "./Validator.js";
 import { INPUT_MESSAGE } from "./Constant.js";
 
