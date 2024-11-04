@@ -13,7 +13,7 @@ class App {
       const winningNumbers = await this.getWinningNumbers();
       // Console.print(`당첨 번호는 ${winningNumbers.join(", ")}입니다.`);
 
-      const bonusNumber = await this.getBonusNumber();
+      const bonusNumber = await this.getBonusNumber(winningNumbers);
       // Console.print(`보너스 번호는 ${bonusNumber}입니다.`);
 
       // 로또 결과 계산
@@ -64,13 +64,13 @@ class App {
     return numbers;
   }
 
-  async getBonusNumber() {
+  async getBonusNumber(winningNumbers) {
     const input = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
     const bonusNumber = parseInt(input, 10);
 
-    // 입력된 보너스 번호의 유효성 확인 (1~45 범위의 숫자)
-    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
-      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    // 입력된 보너스 번호의 유효성 확인 (1~45 범위의 숫자, 당첨 번호와 중복되지 않음)
+    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45 || winningNumbers.includes(bonusNumber)) {
+      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자이며, 당첨 번호와 중복되지 않아야 합니다.");
     }
     return bonusNumber;
   }
