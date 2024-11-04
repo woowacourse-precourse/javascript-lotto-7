@@ -37,8 +37,7 @@ class Lotto {
       const bonusNumber = String(
         await Console.readLineAsync(PRINT_BONUS_NUMBER)
       );
-      this.#validateNumber(bonusNumber);
-      Validator.validateDuplicateInArray(this.#numbers, Number(bonusNumber));
+      this.validateBonusNumber(bonusNumber);
       this.#numbers = {
         basicNumbers: this.#numbers,
         bonusNumber: Number(bonusNumber),
@@ -49,12 +48,17 @@ class Lotto {
     }
   }
 
+  validateBonusNumber(bonusNumber) {
+    this.#validateNumber(bonusNumber);
+    Validator.validateDuplicateInArray(this.#numbers, Number(bonusNumber));
+  }
+
   getLottoScore(betLists) {
     Console.print(PRINT_WINNING_RESULT);
     Console.print(PRINT_SPACER);
     const results = [];
     for (const betList of betLists) {
-      this.#compareLottoWithBet(betList,results);
+      this.#compareLottoWithBet(betList, results);
     }
     return results;
   }
@@ -64,7 +68,7 @@ class Lotto {
       this.#numbers.basicNumbers.includes(number)
     );
     const isBonus = betList.includes(this.#numbers.bonusNumber);
-    
+
     results.push({
       score: matchNumber.length,
       isBonus: isBonus,
