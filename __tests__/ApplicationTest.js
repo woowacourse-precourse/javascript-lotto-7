@@ -92,6 +92,16 @@ describe("로또 테스트", () => {
   });
 
   test("예외 테스트", async () => {
-    await runException("1000j");
+    // 비정상적인 금액 입력
+    await expect(runException("1000j")).rejects.toThrow("[ERROR]");
+    
+    // 1000원으로 나누어 떨어지지 않을 경우
+    await expect(runException("500")).rejects.toThrow("[ERROR]");
+
+    // 당첨 번호 개수 오류
+    await expect(runException("1,2,3")).rejects.toThrow("[ERROR]");
+
+    // 1~45 범위
+    await expect(runException("1,2,3,46,47,48")).rejects.toThrow("[ERROR]");
   });
 });
