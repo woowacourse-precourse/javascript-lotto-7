@@ -1,9 +1,20 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = numbers.sort((a, b) => a - b);
+  }
+
+  static generateRandomNumbers() {
+    const randomNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
+      1,
+      45,
+      6
+    );
+    return randomNumbers.sort((a, b) => a - b);
   }
 
   #validate(numbers) {
@@ -12,7 +23,9 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
