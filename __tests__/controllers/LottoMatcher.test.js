@@ -1,5 +1,5 @@
-import LottoMatcher from '../../src/controllers/LottoMatcher.js';
-import Lotto from '../../src/controllers/Lotto.js';
+import LottoMatcher from '../../src/services/LottoMatcher.js';
+import Lotto from '../../src/services/Lotto.js';
 import { RANK_KEYS } from '../../src/utils/constants.js';
 
 describe('LottoMatcher 클래스 테스트', () => {

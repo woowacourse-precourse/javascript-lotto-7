@@ -1,4 +1,4 @@
-import LottoValidator from '../../src/controllers/LottoValidator.js';
+import LottoValidator from '../../src/services/LottoValidator.js';
 import { ERROR_MESSAGES } from '../../src/utils/constants.js';
 
 describe('LottoValidator 클래스 테스트', () => {

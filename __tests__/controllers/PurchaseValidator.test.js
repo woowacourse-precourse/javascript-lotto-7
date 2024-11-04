@@ -1,4 +1,4 @@
-import PurchaseValidator from '../../src/controllers/PurchaseValidator.js';
+import PurchaseValidator from '../../src/services/PurchaseValidator.js';
 import { ERROR_MESSAGES, LOTTO } from '../../src/utils/constants.js';
 
 describe('PurchaseValidator 클래스 테스트', () => {

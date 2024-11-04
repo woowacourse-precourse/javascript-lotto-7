@@ -1,4 +1,4 @@
-import ProfitCalculator from '../../src/controllers/ProfitCalculator.js';
+import ProfitCalculator from '../../src/services/ProfitCalculator.js';
 import {
   GAME_SETTINGS,
   LOTTO_REWARD,

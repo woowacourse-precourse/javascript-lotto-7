@@ -1,5 +1,5 @@
-import LottoIssuer from '../../src/controllers/LottoIssuer.js';
-import Lotto from '../../src/controllers/Lotto.js';
+import LottoIssuer from '../../src/services/LottoIssuer.js';
+import Lotto from '../../src/services/Lotto.js';
 import { MESSAGES, LOTTO } from '../../src/utils/constants.js';
 import { mockRandoms, getLogSpy } from '../../__mocks__/mockUtils.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
