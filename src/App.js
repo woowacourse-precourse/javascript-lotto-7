@@ -1,6 +1,7 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import LottoResultCalculator from "./LottoResultCalculator.js";
+import ResultPrinter from "./ResultPrinter.js";
 
 class App {
   async run() {
@@ -21,8 +22,8 @@ class App {
       const results = lottoCalculator.lottoCalculateResults();
       // Console.print(results);
 
-      // 결과 출력
-      
+      const printer = new ResultPrinter(purchaseAmount, results);
+      printer.printResults();
     } catch (error) {
       // 예외가 발생하면 오류 메시지를 출력
       Console.print(error.message);
