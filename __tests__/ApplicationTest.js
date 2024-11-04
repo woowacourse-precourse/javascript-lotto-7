@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import App from '../src/Controller/App.js';
+import App from '../src/App.js';
 import InputHandler from '../src/Model/InputHandler.js';
 
 const mockQuestions = (inputs) => {

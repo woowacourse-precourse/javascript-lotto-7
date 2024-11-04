@@ -1,9 +1,9 @@
-import InputHandler from '../Model/InputHandler.js';
-import Lotto from '../Model/Lotto.js';
-import Input from '../View/Input.js';
-import User from '../Model/User.js';
-import Output from '../View/Output.js';
-import ErrorHandler from '../Model/ErrorHandler.js';
+import InputHandler from './Model/InputHandler.js';
+import Lotto from './Model/Lotto.js';
+import Input from './View/Input.js';
+import User from './Model/User.js';
+import Output from './View/Output.js';
+import ErrorHandler from './Model/ErrorHandler.js';
 
 class App {
   async run() {
