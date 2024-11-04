@@ -1,5 +1,5 @@
 import Lotto from '../src/Lotto';
-import { ERROR_MESSAGES } from '../src/constants/errorMessages.js';
+import ERROR_MESSAGES from '../src/constants/errorMessages.js';
 
 describe('로또 클래스 테스트', () => {
   test('로또 번호의 개수가 6개가 아니면 예외가 발생한다.', () => {
