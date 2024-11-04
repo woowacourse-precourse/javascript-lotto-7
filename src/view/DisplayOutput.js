@@ -15,7 +15,7 @@ class DisplayOutput {
         MissionUtils.Console.print("\n");
     }
 
-    changeNumberStyle (number){
+    #changeNumberStyle (number){
         return number.toLocaleString();
     }
 
@@ -34,17 +34,17 @@ class DisplayOutput {
         
         // 일반 등수 (5등~ 2등) 발표
         for (let i = 0; i < 3; i++) {
-            MissionUtils.Console.print(`${i + 3}개 일치 (${this.changeNumberStyle(LOTTO_INFO.PRIZE[prizeKeys[i]])}원) - ${lottoResult[0][i + 3]}개`);
+            MissionUtils.Console.print(`${i + 3}개 일치 (${this.#changeNumberStyle(LOTTO_INFO.PRIZE[prizeKeys[i]])}원) - ${lottoResult[0][i + 3]}개`);
         }
     
         // 보너스 당첨자 발표(5개일치 + 보너스번호) 및 1등 발표 6개 일치
-        MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${this.changeNumberStyle(LOTTO_INFO.BONUS_PRIZE.PRIZE_FIVE_NUMBER_BONUS_MATCHES)}원) - ${lottoResult[1][0]}개`);
-        MissionUtils.Console.print(`6개 일치 (${this.changeNumberStyle(LOTTO_INFO.PRIZE.PRIZE_SIX_NUMBER_MATCHES)}원) - ${lottoResult[0][6]}개`);
+        MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (${this.#changeNumberStyle(LOTTO_INFO.BONUS_PRIZE.PRIZE_FIVE_NUMBER_BONUS_MATCHES)}원) - ${lottoResult[1][0]}개`);
+        MissionUtils.Console.print(`6개 일치 (${this.#changeNumberStyle(LOTTO_INFO.PRIZE.PRIZE_SIX_NUMBER_MATCHES)}원) - ${lottoResult[0][6]}개`);
 
     }
 
     displayProfit (profit) {
-        MissionUtils.Console.print(`총 수익률은 ${profit}%입니다.`);
+        MissionUtils.Console.print(`총 수익률은 ${this.#changeNumberStyle(profit)}%입니다.`);
 
     }
 
