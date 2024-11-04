@@ -1,43 +1,55 @@
+import LottoRank from "./LottoRank.js";
+
 class RankResult {
-  // 결과 맵 저장
-  #rankResult;
+  #ranks;
   #profitRate;
 
   constructor() {
-    this.#rankResult = {
-      first: [0, 2000000000],
-      second: [0, 30000000],
-      third: [0, 1500000],
-      fourth: [0, 50000],
-      fifth: [0, 5000],
+    this.#ranks = {
+      first: new LottoRank(6, 2000000000),
+      second: new LottoRank(5, 30000000, true),
+      third: new LottoRank(5, 1500000),
+      fourth: new LottoRank(4, 50000),
+      fifth: new LottoRank(3, 5000),
     };
+
     this.#profitRate = 0;
   }
 
   registerRank(matchCount, hasBonus) {
-    if (matchCount === 6) this.#rankResult.first[0]++;
-    else if (matchCount === 5 && hasBonus) this.#rankResult.second[0]++;
-    else if (matchCount === 5) this.#rankResult.third[0]++;
-    else if (matchCount === 4) this.#rankResult.fourth[0]++;
-    else if (matchCount === 3) this.#rankResult.fifth[0]++;
+    if (this.#checkIsPossibleRank(() => matchCount === 6, this.#ranks.first)) return;
+    if (this.#checkIsPossibleRank(() => matchCount === 5 && hasBonus, this.#ranks.second)) return;
+    if (this.#checkIsPossibleRank(() => matchCount === 5, this.#ranks.third)) return;
+    if (this.#checkIsPossibleRank(() => matchCount === 4, this.#ranks.fourth)) return;
+    if (this.#checkIsPossibleRank(() => matchCount === 3, this.#ranks.fifth)) return;
   }
 
   calculateProfit(lottoCount) {
     let totalProfit = 0;
 
-    Object.values(this.#rankResult).forEach(([count, money]) => {
-      totalProfit += count * money;
+    Object.values(this.#ranks).forEach((rank) => {
+      totalProfit += rank.getTotalMoney();
     });
 
-    const profit = (totalProfit / (lottoCount * 1000)) * 100;
-    this.#profitRate = profit.toFixed(1);
+    const purchaseMoney = lottoCount * 1000;
+    const profitRate = (totalProfit / purchaseMoney) * 100;
+    this.#profitRate = profitRate.toFixed(1);
   }
 
   getLottoRankResult() {
     return {
-      rank: this.#rankResult,
+      rank: this.#ranks,
       profit: this.#profitRate,
     };
+  }
+
+  #checkIsPossibleRank(condition, rank) {
+    if (condition()) {
+      rank.addCount();
+      return true;
+    }
+
+    return false;
   }
 }
 
