@@ -14,6 +14,7 @@ export const OUTPUT_MESSAGE = {
     total: '당첨 통계',
     horizontal: '---',
     matched: '개 일치',
+    bonus: ', 보너스 볼 일치',
     opening: '(',
     closing: ')',
     moneyUnit: '원',
