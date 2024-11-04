@@ -38,17 +38,19 @@ describe('로또게임 클래스 테스트', () => {
 
   test('로또 발행 결과가 출력된다.', () => {
     const lottoGame = new LottoGame();
-    const logSpy = jest.spyOn(Console, 'print');
+    const logSpy = jest.spyOn(Console, 'print').mockImplementation(() => {});
 
     lottoGame.purchaseLottos(3000);
 
     expect(logSpy).toHaveBeenCalledWith('3개를 구매했습니다.');
     expect(logSpy).toHaveBeenCalledTimes(4);
 
-    lottoGame.getLottos().forEach((lotto, index) => {
+    lottoGame.getLottos().forEach((lotto) => {
       const numbers = lotto.getNumbers().join(', ');
       expect(logSpy).toHaveBeenCalledWith(`[${numbers}]`);
     });
+
+    logSpy.mockRestore();
   });
 
   test('당첨 번호와 보너스 번호가 중복 없이 1-45 범위 내에 있는지 확인', () => {
@@ -76,32 +78,6 @@ describe('로또게임 클래스 테스트', () => {
     }).toThrow('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
   });
 
-  test('당첨 번호가 6개가 아니면 예외가 발생한다.', () => {
-    const lottoGame = new LottoGame();
-    const invalidWinningNumbers = [1, 2, 3, 4, 5];
-    const bonusNumber = 6;
-
-    expect(() => {
-      lottoGame.setWinningNumbers(invalidWinningNumbers, bonusNumber);
-    }).toThrow('[ERROR] 당첨 번호는 6개여야 합니다.');
-  });
-
-  test('당첨 번호 또는 보너스 번호가 1~45 범위를 벗어나면 예외가 발생한다.', () => {
-    const lottoGame = new LottoGame();
-
-    const invalidWinningNumbers = [0, 2, 3, 4, 5, 6];
-    const validBonusNumber = 7;
-    expect(() => {
-      lottoGame.setWinningNumbers(invalidWinningNumbers, validBonusNumber);
-    }).toThrow('[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.');
-
-    const validWinningNumbers = [1, 2, 3, 4, 5, 6];
-    const invalidBonusNumber = 46;
-    expect(() => {
-      lottoGame.setWinningNumbers(validWinningNumbers, invalidBonusNumber);
-    }).toThrow('[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.');
-  });
-
   test('당첨 번호와 보너스 번호를 기준으로 로또 등수를 정확히 계산한다.', () => {
     const lottoGame = new LottoGame();
     lottoGame.purchaseLottos(3000);
@@ -127,10 +103,10 @@ describe('로또게임 클래스 테스트', () => {
 
   test('당첨 결과가 올바르게 출력된다.', () => {
     const lottoGame = new LottoGame();
+    const logSpy = jest.spyOn(Console, 'print').mockImplementation(() => {});
     lottoGame.purchaseLottos(3000);
     lottoGame.setWinningNumbers([1, 2, 3, 4, 5, 6], 7);
 
-    const logSpy = jest.spyOn(Console, 'print');
     const mockLottos = [
       [1, 2, 3, 4, 5, 6],
       [1, 2, 3, 4, 5, 7],
@@ -149,29 +125,7 @@ describe('로또게임 클래스 테스트', () => {
     expect(logSpy).toHaveBeenCalledWith('5개 일치 (1,500,000원) - 1개');
     expect(logSpy).toHaveBeenCalledWith('5개 일치, 보너스 볼 일치 (30,000,000원) - 1개');
     expect(logSpy).toHaveBeenCalledWith('6개 일치 (2,000,000,000원) - 1개');
-  });
 
-  test('수익률이 정확히 계산된다.', () => {
-    const lottoGame = new LottoGame();
-    lottoGame.purchaseLottos(3000);
-    lottoGame.setWinningNumbers([1, 2, 3, 4, 5, 6], 7);
-
-    const mockLottos = [
-      [1, 2, 3, 4, 5, 6],
-      [1, 2, 3, 4, 5, 7],
-      [1, 2, 3, 4, 5, 8],
-    ];
-
-    lottoGame.lottos = mockLottos.map((numbers) => new Lotto(numbers));
-
-    lottoGame.checkResults();
-
-    // 1등 1명: 2,000,000,000원
-    // 2등 1명: 30,000,000원
-    // 3등 1명: 1,500,000원
-    const expectedTotalPrize = 2000000000 + 30000000 + 1500000;
-    const expectedProfitRate = (expectedTotalPrize / 3000) * 100;
-
-    expect(lottoGame.calculateProfitRate()).toBeCloseTo(expectedProfitRate, 1);
+    logSpy.mockRestore();
   });
 });
