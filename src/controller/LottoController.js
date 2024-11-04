@@ -25,8 +25,10 @@ class LottoController {
 	async play() {
 		try {
 			await this.#handlePurchase();
+			await this.#handleWinningNumber();
 		} catch (error) {
 			Console.print(error.message);
+			// throw error;
 		}
 	}
 
@@ -38,6 +40,12 @@ class LottoController {
 		this.#outputView.printLottos(amount, this.#lottos);
 	}
 
+	async #handleWinningNumber() {
+		const winningNumberInput = await this.#inputView.readWinningNumbers();
+		const numbers = this.#parseWinningNumbers(winningNumberInput);
+		this.#winningLotto = new Lotto(numbers);
+	}
+
 	#generateLottos(amount) {
 		const quantity = Math.floor(amount / 1000);
 		return Array.from({ length: quantity }, () => this.#createLotto());
@@ -46,6 +54,10 @@ class LottoController {
 	#createLotto() {
 		const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
 		return new Lotto(numbers);
+	}
+
+	#parseWinningNumbers(input) {
+		return input.split(',').map((num) => parseInt(num.trim(), 10));
 	}
 }
 
