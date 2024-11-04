@@ -6,13 +6,13 @@ class Controller {
   constructor(views, models) {
     this.views = views;
     this.models = models;
+
+    this.models.lottoStore.subscribe(this.views.output.updateLotto);
   }
 
   async buyLotto() {
     try {
       const money = await this.views.input.getLottoMoney();
-
-      this.models.lottoStore.subscribe(this.views.output.updateLotto);
       this.models.lottoStore.buyLotto(money);
     } catch (error) {
       this.views.output.printError(error.message);
