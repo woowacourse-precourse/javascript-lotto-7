@@ -18,10 +18,10 @@ class App {
 
     lottoNumbers.forEach((lotto) => `${lotto.print()}\n`);
 
-    const win = await createWinningLotto();
-    const results = [];
-    lottoNumbers.forEach((lottos) => results.push(win.getMatchCount(lottos.getNumbers())));
-    printWinningStatus(results, calculatedAmount);
+    const winningLotto = await createWinningLotto();
+    const lottoResults = [];
+    lottoNumbers.forEach((lottos) => lottoResults.push(winningLotto.getMatchCount(lottos.getNumbers())));
+    printWinningStatus(lottoResults, calculatedAmount);
   }
 }
 
