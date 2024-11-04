@@ -1,9 +1,9 @@
 class Lotto {
-  #lottoNumbers;
+  #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#lottoNumbers = numbers;
+    this.#numbers = numbers;
   }
 
   #validate(numbers) {
@@ -20,16 +20,16 @@ class Lotto {
   // TODO: 추가 기능 구현
   getFormattedLottoNumbers() {
     let formattedResult = "";
-    for (let i = 0; i < this.#lottoNumbers.length; i++) {
-      formattedResult += this.#lottoNumbers[i] + ", ";
+    for (let i = 0; i < this.#numbers.length; i++) {
+      formattedResult += this.#numbers[i] + ", ";
     }
     return "[" + formattedResult.slice(0, -2) + "]";
   }
   countMatchingLotto(winningNumbers, bonusNumber) {
     let matchedCount = winningNumbers.filter((num) =>
-      this.#lottoNumbers.includes(num)
+      this.#numbers.includes(num)
     ).length;
-    return [matchedCount, this.#lottoNumbers.includes(bonusNumber)];
+    return [matchedCount, this.#numbers.includes(bonusNumber)];
   }
 }
 
