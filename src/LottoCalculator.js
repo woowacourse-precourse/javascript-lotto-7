@@ -1,12 +1,7 @@
 import Lotto from './Lotto.js';
 import { PRIZE_MONEY } from './constant.js';
 import { Console } from '@woowacourse/mission-utils';
-import {
-    validateNumber,
-    validateDuplicate,
-    validateSix,
-    validateRangeNumber,
-} from './handleError.js';
+import LottoHelper from './LottoHelper.js';
 
 class LottoCalculator {
     #winningNumber;
@@ -14,22 +9,57 @@ class LottoCalculator {
 
     constructor(winningNumber, bonusNumber) {
         this.#validateWinning(winningNumber);
+        this.#validateBonus(winningNumber, bonusNumber);
         this.#winningNumber = winningNumber;
-        this.#validateBonus(winningNumber, Number(bonusNumber));
-        this.#bonusNumber = Number(bonusNumber);
+        this.#bonusNumber = bonusNumber;
+    }
+
+    static async inputWinningAndBonus() {
+        while (true) {
+            try {
+                const WINNING_INPUT = await Console.readLineAsync(
+                    '\n당첨 번호를 입력해 주세요 (쉼표로 구분된 6개의 숫자).\n'
+                );
+                const WINNING_NUMBER =
+                    LottoHelper.makeWinningNumber(WINNING_INPUT);
+
+                const BONUS_INPUT = await Console.readLineAsync(
+                    '\n보너스 번호를 입력해 주세요.\n'
+                );
+                const BONUS_NUMBER = Number(BONUS_INPUT);
+
+                new LottoCalculator(WINNING_NUMBER, BONUS_NUMBER);
+                return {
+                    winningNumber: WINNING_NUMBER,
+                    bonusNumber: BONUS_NUMBER,
+                };
+            } catch (error) {
+                Console.print(error.message);
+            }
+        }
     }
 
     #validateWinning(winningNumber) {
         if (!/^[0-9,]+$/.test(winningNumber)) {
             throw new Error('[ERROR] 숫자와 쉼표 외에는 입력할 수 없습니다.');
         }
-        validateRangeNumber(winningNumber, '당첨 번호는');
-        validateDuplicate(winningNumber, '당첨 번호는');
-        validateSix(winningNumber, '당첨 번호는');
+        if (!winningNumber.every((x) => x >= 1 && x <= 45)) {
+            throw new Error('[ERROR] 당첨 번호는 1~45 숫자여야 합니다.');
+        }
+        if (new Set(winningNumber).size !== winningNumber.length) {
+            throw new Error('[ERROR] 당첨 번호는 중복되면 안됩니다.');
+        }
+        if (winningNumber.length !== 6) {
+            throw new Error('[ERROR] 당첨 번호는 6개여야 합니다.');
+        }
     }
 
     #validateBonus(winningNumber, bonusNumber) {
-        validateNumber(bonusNumber, '보너스 번호는');
+        if (!/^[0-9]*$/.test(bonusNumber)) {
+            throw new Error(
+                '[ERROR] 보너스 번호는 숫자로 구성되어 있어야 합니다.'
+            );
+        }
         if (!bonusNumber >= 1 && bonusNumber <= 45) {
             throw new Error('[ERROR] 보너스 번호는 1~45 숫자여야 합니다.');
         }

@@ -1,23 +1,39 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import { LOTTO_PRICE } from './constant.js';
-import { validateNumber } from './handleError.js';
 
 class LottoHelper {
     #money;
     #amount;
 
     constructor(money) {
-        this.#validate(money);
+        const ERROR_MESSAGE = this.#validate(money);
+        if (ERROR_MESSAGE) {
+            throw new Error(ERROR_MESSAGE);
+        }
         this.#money = money;
         this.#amount = this.#money / LOTTO_PRICE;
     }
 
+    static async inputMoney() {
+        while (true) {
+            try {
+                const MONEY = await Console.readLineAsync(
+                    '구입금액을 입력해 주세요.\n'
+                );
+                new LottoHelper(MONEY);
+                return MONEY;
+            } catch (error) {
+                Console.print(error.message);
+            }
+        }
+    }
+
     #validate(money) {
-        validateNumber(money, '구입 금액은');
+        if (!/^[0-9]*$/.test(money)) {
+            return '[ERROR] 구입 금액은 숫자로 구성되어 있어야 합니다.';
+        }
         if (money % 1000 !== 0) {
-            throw new Error(
-                '[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.'
-            );
+            return '[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.';
         }
     }
 
@@ -36,7 +52,7 @@ class LottoHelper {
         return ALL_LOTTO;
     }
 
-    makeWinningNumber(winningInput) {
+    static makeWinningNumber(winningInput) {
         return winningInput.split(',').map(Number);
     }
 }
