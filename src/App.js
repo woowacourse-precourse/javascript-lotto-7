@@ -125,7 +125,9 @@ export function calculateProfitRate(results, totalSpent) {
 }
 
 class App {
-  async run() {}
+  async run() {
+    
+  }
 }
 
 export default App;

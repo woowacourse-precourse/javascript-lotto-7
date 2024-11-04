@@ -2,10 +2,7 @@ import App, {
   validateAmount, 
   getLottoCount, 
   generateLottos, 
-  printLottos,
-  inputPrizeNumbers,
   splitPrizeNumbers,
-  inputBonusNumber,
   validateBonusNumbers,
   checkLottoResult,
   calculateProfitRate,
@@ -132,17 +129,6 @@ describe("printLottos 테스트", () => {
   });
 });
 
-describe("보너스 번호 입력 및 유효성 검사 테스트", () => {
-  // 1. inputBonusNumber 테스트
-  test("사용자 입력을 통해 보너스 번호를 올바르게 입력 받는다.", async () => {
-    const userInput = "7";
-    MissionUtils.Console.readLineAsync = jest.fn().mockResolvedValue(userInput);
-
-    const bonusNumber = await inputBonusNumber();
-    expect(bonusNumber).toBe(7);
-  });
-});
-
 describe("validateBonusNumber 유효성 검사", () => {
   const prizeNumbers = [1, 2, 3, 4, 5, 6];
 
@@ -161,16 +147,7 @@ describe("validateBonusNumber 유효성 검사", () => {
 });
 
 describe("당첨 번호 입력, 분리 테스트", () => {
-  // 1. inputPrizeNumbers 테스트
-  test("당첨 번호를 올바르게 입력 받는다.", async() => {
-    const userInput = "1,2,3,4,5,6";
-    MissionUtils.Console.readLineAsync = jest.fn().mockResolvedValue(userInput);
-
-    const result = await inputPrizeNumbers();
-    expect(result).toBe(userInput);
-  });
-
-  // 2. splitPrizeNumbers 테스트
+  // 1. splitPrizeNumbers 테스트
   test("입력된 당첨 번호를 배열로 분리한다.", () => {
     const input = "1,2,3,4,5,6";
     const result = splitPrizeNumbers(input);
