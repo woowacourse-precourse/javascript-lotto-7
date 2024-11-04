@@ -5,14 +5,17 @@ class App {
   async run() {
     const lottoController = new LottoController();
 
-    await lottoController.promptPurchaseAmount();
+    await lottoController.setPurchaseAmount();
     lottoController.generateLottoTickets();
-    lottoController.ioHandler.displayLottoTickets();
+    lottoController.ioHandler.displayLottoTickets(
+      lottoController.getLottoTickets(),
+      lottoController.getPurchaseAmount(),
+    );
 
     const lotto = await Lotto.createLotto();
-    await lottoController.promptBonusNumber();
+    await lottoController.setBonusNumber();
 
-    lottoController.ioHandler.displayWinningResult(lotto.getNumbers());
+    lottoController.displayResults(lotto.getNumbers());
   }
 }
 

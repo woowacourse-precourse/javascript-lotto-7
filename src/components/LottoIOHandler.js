@@ -1,7 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import {
   DELIMETER,
-  InputPrompts,
   OutputMessages,
   Prize,
   PrizeMoney,
@@ -9,30 +8,6 @@ import {
 import isEmpty from '../utils/isEmpty.js';
 
 class LottoIOHandler {
-  async promptPurchaseAmount() {
-    try {
-      const newPurchaseAmount = await Console.readLineAsync(
-        InputPrompts.purchaseAmount,
-      );
-
-      return newPurchaseAmount;
-    } catch (error) {
-      Console.print(`${error.message}\n`);
-      return this.promptPurchaseAmount();
-    }
-  }
-
-  async promptBonusNumber() {
-    try {
-      const bonusNumber = await Console.readLineAsync(InputPrompts.bonusNumber);
-
-      return bonusNumber;
-    } catch (error) {
-      Console.print(`${error.message}\n`);
-      return this.promptBonusNumber();
-    }
-  }
-
   PrintLottoWinningResult(winningResult) {
     const winningResultMessage = [
       '당첨 통계',
@@ -60,7 +35,7 @@ class LottoIOHandler {
   }
 
   displayLottoTickets(lottoTickets, purchaseAmount) {
-    if (isEmpty(lottoTickets)) {
+    if (!isEmpty(lottoTickets)) {
       const ticketCount = purchaseAmount / 1000;
 
       Console.print(OutputMessages.PURCHASE_MESSAGE(ticketCount));
@@ -69,13 +44,6 @@ class LottoIOHandler {
         Console.print(`[${lottoTicket.join(`${DELIMETER} `)}]`);
       });
     }
-  }
-
-  displayWinningResult(winningNumbers) {
-    const winningResult = this.compareLottoTickets(winningNumbers);
-
-    this.PrintLottoWinningResult(winningResult);
-    this.printRateOfReturn(winningResult);
   }
 }
 
