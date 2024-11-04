@@ -37,7 +37,6 @@ describe('PurchaseController 테스트', () => {
       mockLottoService.createLottos.mockReturnValue(mockLottos);
 
       const result = await purchaseController.processPurchase();
-      console.log(result);
 
       expect(mockUser.readUserInput).toHaveBeenCalledWith(
         GAME_MESSAGE.PURCHASE
@@ -61,7 +60,7 @@ describe('PurchaseController 테스트', () => {
   });
 
   describe('잘못된 입력 시', () => {
-    test('잘못된 입력 시 재시도 할 수 있다', async () => {
+    test('잘못된 입력 시 재입력 할 수 있다', async () => {
       mockUser.readUserInput
         .mockResolvedValueOnce('asdf') //잘못된 입력
         .mockResolvedValueOnce('1000'); //다시 올바른 입력
