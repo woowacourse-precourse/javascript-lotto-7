@@ -1,6 +1,18 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class InputView {
+  static validateIsNumber(value) {
+    if (isNaN(value)) {
+      throw new Error("[ERROR] 숫자를 입력해야 합니다.");
+    }
+  }
+
+  static validateInRange(num) {
+    if (num > 45 || num < 1) {
+      throw new Error("[ERROR] 로또 번호는 1이상 45이하를 입력해야 합니다.");
+    }
+  }
+
   static async getPayment() {
     const payment = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
     this.validatePayment(payment);
@@ -9,9 +21,7 @@ class InputView {
   }
 
   static validatePayment(payment) {
-    if (isNaN(payment)) {
-      throw new Error("[ERROR] 숫자를 입력해야 합니다.");
-    }
+    this.validateIsNumber(payment);
     if (Number(payment) <= 0)
       throw new Error("[ERROR] 0이상의 금액을 입력해야 합니다.");
   }
@@ -26,12 +36,8 @@ class InputView {
   static validateWinningNumber(numbers) {
     const splitedNums = numbers.split(",");
     splitedNums.map((num) => {
-      if (isNaN(num)) {
-        throw new Error("[ERROR] 숫자를 입력해야 합니다.");
-      }
-      if (num > 45 || num < 1) {
-        throw new Error("[ERROR] 로또 번호는 1이상 45이하를 입력해야 합니다.");
-      }
+      this.validateIsNumber(num);
+      this.validateInRange(num);
     });
   }
 
@@ -44,12 +50,8 @@ class InputView {
   }
 
   static validateBonusNumber(number) {
-    if (isNaN(number)) {
-      throw new Error("[ERROR] 숫자를 입력해야 합니다.");
-    }
-    if (number > 45 || number < 1) {
-      throw new Error("[ERROR] 로또 번호는 1이상 45이하를 입력해야 합니다.");
-    }
+    this.validateIsNumber(number);
+    this.validateInRange(number);
   }
 }
 
