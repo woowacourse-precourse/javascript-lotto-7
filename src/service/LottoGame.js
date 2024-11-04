@@ -1,4 +1,5 @@
 import Lotto from "../model/Lotto.js";
+import prizeMoney from "./data.js";
 
 class LottoGame {
   constructor(purchaseAmount) {
@@ -31,6 +32,14 @@ class LottoGame {
     });
 
     return ranks;
+  }
+
+  calculateEarningRate(ranks, purchaseAmount) {
+    const totalPrize = Object.entries(ranks).reduce(
+      (sum, [rank, count]) => sum + prizeMoney[rank] * count,
+      0
+    );
+    return ((totalPrize / purchaseAmount) * 100).toFixed(1);
   }
 }
 
