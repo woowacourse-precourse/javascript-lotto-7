@@ -1,3 +1,5 @@
+import WINNING_PRICE from '../constants/winningPrice.js';
+
 class LottoResult {
   constructor(winningNumbers, bonusNumber, lottoTickets) {
     this.winningNumbers = winningNumbers;
@@ -30,6 +32,16 @@ class LottoResult {
     });
 
     return results;
+  }
+
+  calculateRateOfReturn(purchaseAmount) {
+    const totalWinnings =
+      this.result[0].count * WINNING_PRICE.MATCH_3 +
+      this.result[1].count * WINNING_PRICE.MATCH_4 +
+      this.result[2].count * WINNING_PRICE.MATCH_5 +
+      this.result[3].count * WINNING_PRICE.MATCH_5_BONUS +
+      this.result[4].count * WINNING_PRICE.MATCH_6;
+    return ((totalWinnings / purchaseAmount) * 100).toFixed(1);
   }
 }
 
