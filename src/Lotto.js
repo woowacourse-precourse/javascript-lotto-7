@@ -9,6 +9,9 @@ class Lotto {
   getNumbersWithSquareBrackets() {
     return `[${this.#numbers.join(', ')}]`;
   }
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
