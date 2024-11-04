@@ -7,11 +7,12 @@ class App {
     const purchaseAmount = await this.getPurchaseAmount();
 
     Console.print("");
-    Console.print(`${purchaseAmount / 1000}개를 구매했습니다.`);
+    Console.print(`${purchaseAmount / 1000}개를 구매했습니다.`); // 로또 수량 출력
 
+    // 로또 발행
     const lottoInstances = createLottoInstances(purchaseAmount / 1000);
 
-    // 로또 발행, 번호 출력
+    // 발행된 로또 번호 출력
     for (let i = 0; i < lottoInstances.length; i++) {
       lottoInstances[i].showNumber();
     }
@@ -53,7 +54,7 @@ class App {
       2000000000 * lottoResult[6]; // 6개 일치
 
     // 수익률 계산 및 출력
-    const roi = ((prizeAmount / purchaseAmount) * 100).toFixed(1); // ROI(수익률)를 소수점 한 자리까지 표시
+    const roi = ((prizeAmount / purchaseAmount) * 100).toFixed(1); // ROI(수익률)를 소수점 둘째 자리에서 반올림하여 소수점 한 자리까지 표시
     Console.print(`총 수익률은 ${roi}%입니다.`);
   }
 
@@ -63,7 +64,7 @@ class App {
       try {
         Console.print("구입금액을 입력해 주세요.");
         const input = await Console.readLineAsync("");
-        // 입력값 검증
+        // 입력값 검증. 1000보다 낮은 숫자거나, 1000으로 나누어 떨어지지 않는지 검증한다.
         return LottoInputValidator.validatePurchaseAmount(input);
       } catch (error) {
         Console.print(error.message);
@@ -71,6 +72,7 @@ class App {
     }
   }
 
+  // 로또 당첨 번호 입력
   async getWinningNumbers() {
     while (true) {
       try {
@@ -84,6 +86,7 @@ class App {
     }
   }
 
+  // 보너스 번호 입력
   async getBonusNumber(winningNumbers) {
     while (true) {
       try {

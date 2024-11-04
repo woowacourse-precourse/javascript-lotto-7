@@ -20,12 +20,11 @@ class Lotto {
 
   // TODO: 추가 기능 구현
   sortNumber() {
-    this.#numbers.sort((a, b) => a - b);
+    this.#numbers.sort((a, b) => a - b); // 오름차순 정렬
   }
 
   showNumber() {
-    Console.print(`[${this.#numbers.join(", ")}]`);
-    // Console.print(`[${this.#numbers.join(",")}]`);
+    Console.print(`[${this.#numbers.join(", ")}]`); // 양 끝의 공백을 제거하여 출력
   }
 
   checkWinStatus(winningNumbers, bonusNumber) {
@@ -33,6 +32,8 @@ class Lotto {
       throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
     }
     let matches = 0;
+
+    // 당첨 번호와 보너스 번호를 원소로 가지는지 확인, 당첨 번호 개수와 보너스 번호 일치 여부를 저장
     for (let i = 0; i < winningNumbers.length; i++) {
       if (this.#numbers.includes(winningNumbers[i])) {
         matches++;
