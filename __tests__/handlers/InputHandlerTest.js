@@ -1,5 +1,5 @@
-import InputHandler from '../../src/handlers/InputHandler';
-import Lotto from '../../src/models/Lotto';
+import InputHandler from '../../src/handlers/InputHandler.js';
+import Lotto from '../../src/models/Lotto.js';
 
 describe('InputHandler 클래스 테스트', () => {
   let inputHandler;
