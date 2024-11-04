@@ -1,5 +1,6 @@
 import { MONEY_ERROR_MESSAGES } from '../contents/InputErrorMessages.js';
 import { LOTTO_PRICE } from '../contents/PrizeContents.js';
+import ValidateNumber from './ValidateNumber.js';
 
 class MoneyManager {
   #money;
@@ -13,28 +14,10 @@ class MoneyManager {
   }
 
   #validateMoney(money) {
-    this.#checkMissingAmount(money);
-    this.#checkNumericInput(money);
-    this.#checkPurchaseUnit(money);
+    ValidateNumber.checkMissing(money, MONEY_ERROR_MESSAGES.missingAmount);
+    ValidateNumber.checkNumeric(money, MONEY_ERROR_MESSAGES.nonNumericInput);
+    ValidateNumber.checkPurchaseUnit(money, MONEY_ERROR_MESSAGES.invalidUnit);
     return parseInt(money, 10);
-  }
-
-  #checkMissingAmount(money) {
-    if (money.length == 0) {
-      throw new Error(`${MONEY_ERROR_MESSAGES.missingAmount}`);
-    }
-  }
-
-  #checkNumericInput(money) {
-    if (isNaN(money)) {
-      throw new Error(`${MONEY_ERROR_MESSAGES.nonNumericInput}`);
-    }
-  }
-
-  #checkPurchaseUnit(money) {
-    if (parseInt(money, 10) % LOTTO_PRICE != 0) {
-      throw new Error(`${MONEY_ERROR_MESSAGES.invalidUnit}`);
-    }
   }
 }
 
