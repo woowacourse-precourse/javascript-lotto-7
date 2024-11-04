@@ -17,11 +17,11 @@ class LottoController {
     validateNumbers(numbers);
     return numbers.split(',').map((num) => parseInt(num, 10));
   }
-  async getLottoBonusNumber() {
+  async getLottoBonusNumber(numbers) {
     const bonus = await Console.readLineAsync(
       INPUT_MESSAGE.INPUT_BONUS_NUMBERS
     );
-    validateBonus(bonus);
+    validateBonus(bonus, numbers);
     return bonus;
   }
 }
