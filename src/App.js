@@ -8,6 +8,7 @@ class App {
     try {
       const money = await Console.readLineAsync("구입 금액을 입력해 주세요.\n");
       const lottos = this.purchaseLottos(Number(money));
+      this.issueLottos(lottos);
 
     } catch (error) {
       Console.print(error.message); 
@@ -21,6 +22,11 @@ class App {
     
     const count = money / App.PRICE_PER_TICKET;
     return Array.from({ length: count }, () => Lotto.generateLotto());
+  }
+
+  issueLottos(lottos) {
+    Console.print(`${lottos.length}개를 구매했습니다.`);
+    lottos.forEach((lotto) => Console.print(`[${lotto.getNumbers().join(", ")}]`));
   }
 }
 
