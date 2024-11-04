@@ -3,7 +3,7 @@ import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
 import StringParser from './StringParser.js';
 import LottoCalculator from './LottoCalculator.js';
-import Validator from './validation.js';
+import Validator from './Validator.js';
 import { LOTTO_PRICE, LOTTO_RESULT_MESSAGE, LOTTO_WINNIG_PRICE } from './constant.js';
 
 /**
