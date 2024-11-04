@@ -10,6 +10,14 @@ class LottoView {
     printNewLine();
     printOutput(OUTPUT_MESSAGES.LOTTO_AMOUNT(amount));
   }
+
+  #printLottoNumbers(lotto) {
+    printOutput(OUTPUT_MESSAGES.LOTTO_SET(lotto.getLottoNumbers()));
+  }
+
+  printLottoSet(lottoSet) {
+    lottoSet.forEach((lotto) => this.#printLottoNumbers(lotto));
+  }
 }
 
 export default LottoView;

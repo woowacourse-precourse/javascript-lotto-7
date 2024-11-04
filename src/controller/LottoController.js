@@ -23,6 +23,7 @@ class LottoController {
   #issueLotto() {
     this.#lottoModel.createLottoSet();
     const lottoSet = this.#lottoModel.getLottoSet();
+    this.#lottoView.printLottoSet(lottoSet);
   }
 }
 
