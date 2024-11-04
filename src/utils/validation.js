@@ -9,3 +9,9 @@ export const checkIsEmpty = (input) => {
     throwValidationError(ERROR_MESSAGES.EMPTY_INPUT);
   }
 };
+
+export const checkIsNumber = (input) => {
+  if (Number.isNaN(input) || !Number.isInteger(input)) {
+    throwValidationError(ERROR_MESSAGES.NOT_A_NUMBER);
+  }
+};
