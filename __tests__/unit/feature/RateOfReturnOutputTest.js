@@ -1,14 +1,22 @@
 import { Console } from '@woowacourse/mission-utils';
 import LottoController from '../../../src/components/LottoController.js';
+import Input from '../../../src/utils/Input.js';
 
 describe('수익률 출력 테스트', () => {
+  beforeAll(() => {
+    Input.promptRetry = jest.fn();
+  });
+
   test('로또 구매 금액 : 1000원, 5,000원 당첨 1개, 수익률 500.0% 출력', () => {
     const mockWinningResult = { 3: 1, 4: 0, 5: 0, '5B': 0, 6: 0 };
     const logSpy = jest.spyOn(Console, 'print');
     const logs = '총 수익률은 500.0%입니다.';
     const mockPurchaseAmount = 1000;
 
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+
     const lottoController = new LottoController();
+
     lottoController.setPurchaseAmount(mockPurchaseAmount);
     lottoController.ioHandler.printRateOfReturn(
       mockWinningResult,
@@ -24,8 +32,11 @@ describe('수익률 출력 테스트', () => {
     const logs = '총 수익률은 5000.0%입니다.';
     const mockPurchaseAmount = 1000;
 
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+
     const lottoController = new LottoController();
-    lottoController.setPurchaseAmount(mockPurchaseAmount);
+
+    lottoController.setPurchaseAmount();
     lottoController.ioHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
@@ -40,8 +51,11 @@ describe('수익률 출력 테스트', () => {
     const logs = '총 수익률은 150000.0%입니다.';
     const mockPurchaseAmount = 1000;
 
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+
     const lottoController = new LottoController();
-    lottoController.setPurchaseAmount(mockPurchaseAmount);
+
+    lottoController.setPurchaseAmount();
     lottoController.ioHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
@@ -56,8 +70,10 @@ describe('수익률 출력 테스트', () => {
     const logs = '총 수익률은 100.0%입니다.';
     const mockPurchaseAmount = 30000000;
 
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+
     const lottoController = new LottoController();
-    lottoController.setPurchaseAmount(mockPurchaseAmount);
+    lottoController.setPurchaseAmount();
     lottoController.ioHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,
@@ -72,8 +88,11 @@ describe('수익률 출력 테스트', () => {
     const logs = '총 수익률은 200000000.0%입니다.';
     const mockPurchaseAmount = 1000;
 
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+
     const lottoController = new LottoController();
-    lottoController.setPurchaseAmount(mockPurchaseAmount);
+
+    lottoController.setPurchaseAmount();
     lottoController.ioHandler.printRateOfReturn(
       mockWinningResult,
       mockPurchaseAmount,

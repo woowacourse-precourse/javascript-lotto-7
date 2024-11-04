@@ -8,9 +8,8 @@ describe('보너스 번호 입력 테스트', () => {
     const logSpy = jest.spyOn(Console, 'readLineAsync');
 
     const lottoController = new LottoController();
-    lottoController.setBonusNumber(mockBonusNumber);
 
-    await lottoController.promptBonusNumber();
+    await lottoController.setBonusNumber();
 
     expect(logSpy).toHaveBeenCalledWith('보너스 번호를 입력해 주세요.\n');
     expect(lottoController.getBonusNumber()).toBe(mockBonusNumber);
@@ -22,9 +21,8 @@ describe('보너스 번호 입력 테스트', () => {
     const logSpy = jest.spyOn(Console, 'readLineAsync');
 
     const lottoController = new LottoController();
-    lottoController.setBonusNumber(mockBonusNumber);
 
-    await lottoController.promptBonusNumber();
+    await lottoController.setBonusNumber();
 
     expect(logSpy).toHaveBeenCalledWith('보너스 번호를 입력해 주세요.\n');
     expect(lottoController.getBonusNumber()).toBe(mockBonusNumber);

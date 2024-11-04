@@ -1,7 +1,12 @@
 import LottoController from '../../../src/components/LottoController.js';
+import Input from '../../../src/utils/Input.js';
 
 describe('로또 발행 테스트', () => {
   let lottoController;
+
+  beforeAll(() => {
+    Input.promptRetry = jest.fn();
+  });
 
   beforeEach(() => {
     lottoController = new LottoController();
@@ -30,8 +35,10 @@ describe('로또 발행 테스트', () => {
     });
   };
 
-  test('구매금액 : 천원', () => {
-    lottoController.setPurchaseAmount(1000);
+  test('구매금액 : 천원', async () => {
+    const mockPurchaseAmount = 1000;
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+    await lottoController.setPurchaseAmount();
     lottoController.generateLottoTickets();
 
     const lottoTickets = lottoController.getLottoTickets();
@@ -40,8 +47,10 @@ describe('로또 발행 테스트', () => {
     validateAscendingOrder(lottoTickets);
   });
 
-  test('구매금액 : 만원', () => {
-    lottoController.setPurchaseAmount(10000);
+  test('구매금액 : 만원', async () => {
+    const mockPurchaseAmount = 10000;
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+    await lottoController.setPurchaseAmount();
     lottoController.generateLottoTickets();
 
     const lottoTickets = lottoController.getLottoTickets();
@@ -50,8 +59,10 @@ describe('로또 발행 테스트', () => {
     validateAscendingOrder(lottoTickets);
   });
 
-  test('구매금액 : 십만원', () => {
-    lottoController.setPurchaseAmount(100000);
+  test('구매금액 : 십만원', async () => {
+    const mockPurchaseAmount = 100000;
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+    await lottoController.setPurchaseAmount();
     lottoController.generateLottoTickets();
 
     const lottoTickets = lottoController.getLottoTickets();
@@ -60,8 +71,10 @@ describe('로또 발행 테스트', () => {
     validateAscendingOrder(lottoTickets);
   });
 
-  test('구매금액 : 백만원', () => {
-    lottoController.setPurchaseAmount(1000000);
+  test('구매금액 : 백만원', async () => {
+    const mockPurchaseAmount = 1000000;
+    Input.promptRetry.mockResolvedValueOnce(mockPurchaseAmount);
+    await lottoController.setPurchaseAmount();
     lottoController.generateLottoTickets();
 
     const lottoTickets = lottoController.getLottoTickets();

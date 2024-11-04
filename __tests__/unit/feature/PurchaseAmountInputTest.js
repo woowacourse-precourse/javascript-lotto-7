@@ -12,7 +12,7 @@ describe('구입 금액 입력 기능 테스트', () => {
     const logspy = jest.spyOn(Console, 'readLineAsync');
 
     const lottoController = new LottoController();
-    await lottoController.promptPurchaseAmount();
+    await lottoController.setPurchaseAmount();
 
     expect(logspy).toHaveBeenCalledWith('구입 금액을 입력해주세요.\n');
     expect(lottoController.getPurchaseAmount()).toBe(5000);
