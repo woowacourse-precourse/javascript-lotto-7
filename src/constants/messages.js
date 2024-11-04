@@ -8,6 +8,7 @@ export const MESSAGE = {
 };
 
 export const ERROR_MESSAGE = {
+  INPUT_EMPTY: "[ERROR] 값을 입력해주세요.",
   NOT_A_NUMBER_LOTTO: "[ERROR] 로또 번호는 숫자만 입력 가능합니다.",
   NOT_INTEGER: "[ERROR] 로또 번호는 정수만 입력 가능합니다.",
   NOT_IN_RANGE: `[ERROR] 로또 번호 범위는 ${LOTTO_RULE.MIN_NUMBER}~${LOTTO_RULE.MAX_NUMBER}입니다.`,

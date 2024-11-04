@@ -1,6 +1,8 @@
 import { ERROR_MESSAGE } from "../constants/messages.js";
 import { LOTTO_RULE } from "../constants/rule.js";
 
+export const isInputEmpty = (input) => input.trim() === "";
+
 export const isLottoLengthValid = (numbers) => numbers.length === 6;
 
 export const hasDuplicate = (array) => new Set(array).size !== array.length;
