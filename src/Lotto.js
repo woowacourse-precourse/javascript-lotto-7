@@ -2,11 +2,12 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const LOTTO_NUMBER_MIN = 1;
 const LOTTO_NUMBER_MAX = 45;
 const LOTTO_NUMBER_COUNT = 6;
-const FIRST_PRIZE = ["1등", 2000000000];
-const SECOND_PRIZE = ["2등", 30000000];
-const THIRD_PRIZE = ["3등", 1500000];
-const FOURTH_PRIZE = ["4등", 50000];
-const FIFTH_PRIZE = ["5등", 5000];
+
+const FIRST_PRIZE_MONEY = 2000000000;
+const SECOND_PRIZE_MONEY = 30000000;
+const THIRD_PRIZE_MONEY = 1500000;
+const FOURTH_PRIZE_MONEY = 50000;
+const FIFTH_PRIZE_MONEY = 5000;
 
 class Lotto {
   #numbers;
@@ -19,11 +20,6 @@ class Lotto {
   #validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
-
-    const numberSet = new Set(numbers);
-    if (numberSet.size !== 6) {
-      throw new Error("[ERROR] 로또 번호에는 중복된 숫자가 없어야 합니다.");
     }
   }
 
@@ -97,16 +93,16 @@ class Lotto {
     let totalPrizeMoney = 0;
     for (let i = 0; i < countArr.length; i++) {
       if (i === 0) {
-        totalPrizeMoney += FIFTH_PRIZE[1] * countArr[i];
+        totalPrizeMoney += FIFTH_PRIZE_MONEY * countArr[i];
       } else if (i === 1) {
-        totalPrizeMoney += FOURTH_PRIZE[1] * countArr[i];
+        totalPrizeMoney += FOURTH_PRIZE_MONEY * countArr[i];
       } else if (i === 2) {
-        totalPrizeMoney += THIRD_PRIZE[1] * countArr[i];
+        totalPrizeMoney += THIRD_PRIZE_MONEY * countArr[i];
       } else if (i === 3) {
-        totalPrizeMoney += SECOND_PRIZE[1] * countArr[i];
+        totalPrizeMoney += SECOND_PRIZE_MONEY * countArr[i];
       } else if (i === 4) {
-        totalPrizeMoney += FIRST_PRIZE[1] * countArr[i];
-      } else totalPrizeMoney = 0;
+        totalPrizeMoney += FIRST_PRIZE_MONEY * countArr[i];
+      }
     }
 
     return totalPrizeMoney;
@@ -119,6 +115,15 @@ class Lotto {
     ratio = ratio / 100;
 
     return ratio;
+  }
+
+  static isValidLottoNumberRange(number) {
+    return number >= LOTTO_NUMBER_MIN && number <= LOTTO_NUMBER_MAX;
+  }
+
+  static hasDuplicatedLottoNumber(numbers) {
+    const numberSet = new Set(numbers);
+    return numberSet.size !== numbers.length;
   }
 }
 
