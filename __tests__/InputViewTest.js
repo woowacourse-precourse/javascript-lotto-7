@@ -34,6 +34,7 @@ describe('사용자 입력 테스트하기', () => {
       expect(() => validateUserMoney(100)).toThrow(INVALID_USER_MONEY_ERROR_MESSAGE);
       expect(() => validateUserMoney(10005)).toThrow(INVALID_USER_MONEY_ERROR_MESSAGE);
       expect(() => validateUserMoney(0)).toThrow(INVALID_USER_MONEY_ERROR_MESSAGE);
+      expect(() => validateUserMoney(-1000)).toThrow(INVALID_USER_MONEY_ERROR_MESSAGE);
     });
 
     test('사용자의 구입금액이 1,000원으로 나누어 떨어진다면 예외 처리하지 않는다.', () => {
