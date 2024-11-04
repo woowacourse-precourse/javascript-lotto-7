@@ -1,4 +1,3 @@
-import Lotto from './components/Lotto.js';
 import LottoController from './components/LottoController.js';
 
 class App {
@@ -9,10 +8,10 @@ class App {
     lottoController.generateLottoTickets();
     lottoController.displayLottoTickets();
 
-    const lotto = await Lotto.createLotto();
+    await lottoController.createLotto();
     await lottoController.setBonusNumber();
 
-    lottoController.displayResults(lotto.getNumbers());
+    lottoController.displayResults(lottoController.lotto.getNumbers());
   }
 }
 

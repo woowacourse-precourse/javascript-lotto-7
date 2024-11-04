@@ -5,12 +5,14 @@ import { bonusNumberValidator } from '../utils/validation/bonusNumberValidator.j
 import isEmpty from '../utils/isEmpty.js';
 import Input from '../utils/io/Input.js';
 import LottoDisplayHandler from './LottoDisplayHandler.js';
+import LottoClass from './Lotto.js';
 
 class LottoController {
   #purchaseAmount;
   #lottoTickets;
   #bonusNumber;
   displayHandler;
+  lotto;
 
   constructor() {
     this.displayHandler = new LottoDisplayHandler();
@@ -42,6 +44,10 @@ class LottoController {
 
   getBonusNumber() {
     return this.#bonusNumber;
+  }
+
+  async createLotto() {
+    this.lotto = await LottoClass.createLotto();
   }
 
   #sortAscending(lottoTickets) {
