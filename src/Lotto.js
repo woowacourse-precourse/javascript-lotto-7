@@ -3,7 +3,8 @@ import { Random } from '@woowacourse/mission-utils';
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
+  constructor() {
+    const numbers = Lotto.generateRandomNumbers();
     this.#validate(numbers);
     this.#numbers = numbers;
   }
@@ -13,26 +14,22 @@ class Lotto {
     return numbers.sort((a, b) => a - b);
   }
 
-  static generateBonusNumber(winningNumbers) {
-    let bonusNumber;
-    do {
-      bonusNumber = Random.pickUniqueNumbersInRange(1, 45, 1)[0];
-    } while (winningNumbers.includes(bonusNumber));
-    return bonusNumber;
-  }
-
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
+      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
     if (new Set(numbers).size !== 6) {
-      throw new Error('[ERROR] 로또 번호는 중복될 수 없습니다.');
+      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
     }
     numbers.forEach((num) => {
       if (num < 1 || num > 45) {
-        throw new Error('[ERROR] 로또 번호는 1부터 45 사이여야 합니다.');
+        throw new Error("[ERROR] 로또 번호는 1부터 45 사이여야 합니다.");
       }
     });
+  }
+
+  get numbers() {
+    return this.#numbers;
   }
 }
 
