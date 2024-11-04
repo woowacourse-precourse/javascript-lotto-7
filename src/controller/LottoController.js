@@ -5,6 +5,7 @@ import { validateBonusNumber } from "../validator/BonusNum.js";
 import OutputView from "../views/OutputView.js";
 import LottoMachine from "../models/LottoMachine.js";
 import { Console } from "@woowacourse/mission-utils";
+import { LOTTO_INFO } from "../constants/LottoInfo.js";
 
 class LottoController {
   async #setMoney() {
@@ -63,7 +64,7 @@ class LottoController {
   }
 
   #calculateLottoCount(inputMoney) {
-    return Math.floor(inputMoney / 1000);
+    return Math.floor(inputMoney / LOTTO_INFO.lottoPriceUnit);
   }
 
   async #processLottoPurchase(lottoCount) {

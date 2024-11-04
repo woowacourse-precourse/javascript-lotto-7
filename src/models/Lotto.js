@@ -1,5 +1,6 @@
+import { LOTTO_INFO } from "../constants/LottoInfo.js";
 import { ERROR_MESSAGE } from "../constants/Message.js";
-// MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+
 class Lotto {
   #numbers;
 
@@ -15,7 +16,7 @@ class Lotto {
   }
 
   #validateLottoLength(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO_INFO.lottoMaxLength) {
       throw new Error(ERROR_MESSAGE.INVALID_LOTTO_LENGTH);
     }
   }
