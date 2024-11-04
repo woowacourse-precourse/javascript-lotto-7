@@ -1,22 +1,18 @@
 import { randomNumber } from "../utils/randomNumber.js";
+import Lotto from "./Lotto.js";
 
 class Ticket {
   #count;
-  #tickets = [];
 
   constructor(count) {
-    this.#count = +count;
-    this.#generateTickets();
+    this.#count = count;
   }
 
-  #generateTickets() {
-    this.#tickets = Array.from({ length: this.#count }, () =>
-      randomNumber().sort((a, b) => a - b)
-    );
-  }
-
-  get results() {
-    return this.#tickets;
+  generateTickets() {
+    return Array.from({ length: this.#count }, () => {
+      const numbers = randomNumber().sort((a, b) => a - b);
+      return new Lotto(numbers);
+    });
   }
 }
 
