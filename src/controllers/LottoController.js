@@ -6,6 +6,7 @@ import {
   validateBonusNumber,
   validateLottoNumbers,
 } from '../utils/validateLottoNumbers.js';
+import getRandomLottoNumbers from '../utils/getRandomNumbers.js';
 
 class LottoController {
   static async handlePurchaseAmount() {
@@ -53,6 +54,16 @@ class LottoController {
       }
       throw error;
     }
+  }
+
+  static issueLottoTickets(purchaseAmount) {
+    const ticketCount = purchaseAmount / 1000;
+    const lottoTickets = Array.from({ length: ticketCount }, () =>
+      getRandomLottoNumbers(),
+    );
+
+    lottoTickets.forEach((ticket) => OutputView.printLottoTicket(ticket));
+    return lottoTickets;
   }
 }
 
