@@ -2,7 +2,21 @@ export const LOTTO = {
   PRICE: 1000,
   MIN_NUMBER: 1,
   MAX_NUMBER: 45,
-  NUMBERS_PER_TICKET: 6
+  NUMBERS_PER_TICKET: 6,
+  PRIZE_MONEY: {
+    FIRST: 2000000000,
+    SECOND: 30000000,
+    THIRD: 1500000,
+    FOURTH: 50000,
+    FIFTH: 5000
+  },
+  WINNING_NUMBERS: {
+    FIRST: 6,
+    SECOND: 5,
+    THIRD: 5,
+    FOURTH: 4,
+    FIFTH: 3
+  }
 };
 
 export const ERROR_MESSAGES = {
