@@ -18,6 +18,11 @@ export const ERROR_MESSAGES = {
     OUT_OF_RANGE: '보너스 번호는 1부터 45 사이의 숫자여야 합니다.',
     NOT_A_NUMBER: '보너스 번호는 숫자로 입력해야 합니다.',
   },
+  LOTTO: {
+    NOT_A_NUMBER: '로또 번호는 숫자여야 합니다.',
+    DUPLICATION_NUMBER: '로또 번호는 중복되지 않은 숫자여야 합니다.',
+    OUT_OF_RANGE: '로또 번호는 1부터 45 사이의 숫자여야 합니다.',
+  },
   INPUT_ERROR: '입력 중 오류가 발생했습니다.',
   EMPTY_INPUT: '입력값으로 빈값을 입력할 수 없습니다.',
 };

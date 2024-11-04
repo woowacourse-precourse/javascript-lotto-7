@@ -75,7 +75,7 @@ const checkNumbersRange = (numbers) => {
   }
 };
 
-const checkNumberRange = (number, message) => {
+export const checkNumberRange = (number, message) => {
   if (
     number < LOTTO.LOTTO_NUMBER_RANGE_MIN ||
     number > LOTTO.LOTTO_NUMBER_RANGE_MAX
