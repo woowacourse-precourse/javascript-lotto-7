@@ -15,7 +15,11 @@ export const generateLottoNumbersByCount = function (lottoCount) {
       WINNING_NUMBER_COUNT
     );
 
-    lottoNumbers.push(lottoNumber);
+    const sortedLottoNumbers = lottoNumber.sort(
+      (firstNumber, secondNumber) => firstNumber - secondNumber
+    );
+
+    lottoNumbers.push(sortedLottoNumbers);
   }
 
   return lottoNumbers;
