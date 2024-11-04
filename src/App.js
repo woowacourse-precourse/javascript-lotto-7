@@ -23,6 +23,7 @@ class App {
     lottoList.forEach((lotto) =>
       lotto.matchNumbers(winningNumbers, bonusNumber),
     );
+    print.winningStatistics();
   }
 }
 
