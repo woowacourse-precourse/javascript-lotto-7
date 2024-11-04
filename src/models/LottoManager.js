@@ -1,6 +1,6 @@
-import Lotto from "./Lotto";
+import Lotto from "./Lotto.js";
 import { Random } from "@woowacourse/mission-utils";
-import ResultCalculator from "./ResultCalculator";
+import ResultCalculator from "./ResultCalculator.js";
 
 class LottoManager {
   constructor(purchaseAmount) {

@@ -1,4 +1,4 @@
-import Lotto from "../models/Lotto";
+import Lotto from "../models/Lotto.js";
 
 class InputValidator{
     static PurchaseAmount(input){
