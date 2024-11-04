@@ -35,4 +35,14 @@ describe('OutputModule Test', () => {
 
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
   });
+
+  test.each([
+    [100, 10, '1000.0%'],
+    [0, 10, '0.0%'],
+    [5000, 8000, '62.5%'],
+  ])('printEarningRate', (totalPrice, cash, result) => {
+    OutputModules.printEarningRate(totalPrice, cash);
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(result));
+  });
 });
