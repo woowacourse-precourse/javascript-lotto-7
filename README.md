@@ -97,7 +97,8 @@ const LOTTO_STANDARD = [
 ];
 ```
 
-1. **숫자 일치하는지 계산 - LottoCaluclator**
+1. **숫자 일치하는지 계산 - LottoMatcher**
+
    - 순차적으로 당첨번호와 얼마나 일치하는지 확인한다.
      - 5등: 3개 번호 일치
      - 4등: 4개 번호 일치
@@ -106,6 +107,7 @@ const LOTTO_STANDARD = [
      - 1등: 6개 번호 일치
    - 랭킹(식별자)을 담음 리스트를 반환한다.
    - 만약 아무 번호도 일치하지 않으면 0을 반환한다.
+
 2. **당첨 결과 - LottoResult**
 
    ```jsx
@@ -120,7 +122,7 @@ const LOTTO_STANDARD = [
 
    - 랭킹 리스트를 받아 count한다.
 
-3. **로또 출력 형식 - LottoFormat**
+3. **로또 출력 형식 - LottoFormatter**
 
    ```jsx
    const lottoFormat = [
@@ -134,10 +136,8 @@ const LOTTO_STANDARD = [
 
    - 로또 출력 형식을 저장한다.
 
-4. **로또 상금** - **LottoPrize**
+4. **로또 수익률** - **ProfitCalculator**
 
    - 상금을 구한다.
-
-5. **로또 수익률 - LottoProfit**
    - 당첨 금액 / 로또 구입 금액 \* 100하여 출력한다.
    - 소수점 둘째 자리에서 반올림한다.
