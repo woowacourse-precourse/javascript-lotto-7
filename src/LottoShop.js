@@ -13,7 +13,7 @@ const LottoShop = {
     });
   },
   getBuyLottosInfo(lottos) {
-    let result = `${lottos.length}개를 구매했습니다\n`;
+    let result = `${lottos.length}개를 구매했습니다.\n`;
     result += lottos
       .map((boughtLotto) => boughtLotto.getNumbersWithSquareBrackets())
       .join('\n');
