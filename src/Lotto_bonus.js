@@ -8,7 +8,7 @@ class Lotto_bonus {
   
     validate(inputBonusNumber) {
       if (inputBonusNumber.length !== 1) {
-        throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+        throw new Error("[ERROR] 로또 번호를 1개 입력해야 합니다.");
       }
       
       if (inputBonusNumber < 1 || 45 < inputBonusNumber) {
