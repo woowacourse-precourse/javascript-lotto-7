@@ -2,6 +2,7 @@ import {
   isNumbersInArray,
   isNumber,
   isNumberInRange,
+  isOverNumber,
 } from '../../src/utils/validators.js';
 import { throwError } from '../../src/utils/throwError.js';
 import { WINNING_NUMBER_DELIMITER } from '../../src/constants.js';
@@ -85,6 +86,39 @@ describe('validators', () => {
       expect(throwError).toHaveBeenCalledWith(
         '1부터 10 사이의 숫자여야 합니다.'
       );
+    });
+  });
+
+  describe('isOverNumber', () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('입력이 최소값 이상인 경우 true를 반환한다.', () => {
+      expect(isOverNumber('5', 1)).toBe(true);
+      expect(isOverNumber('10', 10)).toBe(true);
+      expect(isOverNumber('100', 50)).toBe(true);
+    });
+
+    test('입력이 최소값 미만인 경우 false를 반환한다.', () => {
+      expect(isOverNumber('0', 1)).toBe(false);
+      expect(isOverNumber('-1', 0)).toBe(false);
+      expect(isOverNumber('49', 50)).toBe(false);
+    });
+
+    test('입력이 숫자가 아닌 경우 false를 반환한다.', () => {
+      expect(isOverNumber('abc', 1)).toBe(false);
+      expect(isOverNumber('12a', 10)).toBe(false);
+    });
+
+    test('입력이 최소값 미만이고 throwOnError가 true일 때 에러를 발생시킨다.', () => {
+      isOverNumber('0', 1, true);
+      expect(throwError).toHaveBeenCalledWith('1 이상의 숫자여야 합니다.');
+    });
+
+    test('입력이 숫자가 아니고 throwOnError가 true일 때 에러를 발생시킨다.', () => {
+      isOverNumber('abc', 1, true);
+      expect(throwError).toHaveBeenCalledWith('1 이상의 숫자여야 합니다.');
     });
   });
 });

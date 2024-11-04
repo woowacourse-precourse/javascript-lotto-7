@@ -36,3 +36,14 @@ export function isNumberInRange(input, min, max, throwOnError = false) {
 
   return condition;
 }
+
+export function isOverNumber(input, min, throwOnError = false) {
+  const number = Number(input);
+  const condition = !Number.isNaN(number) && number >= min;
+
+  if (!condition && throwOnError) {
+    throwError(`${min} 이상의 숫자여야 합니다.`);
+  }
+
+  return condition;
+}
