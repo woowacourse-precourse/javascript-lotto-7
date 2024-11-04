@@ -16,15 +16,19 @@ class App {
   }
 
   async run() {
-    const purchaseAmount = await this.getPurchaseAmount();
-    const lottoCount = this.calculateLottoCount(purchaseAmount);
-    this.generateLottos(lottoCount);
-    this.printLottos();
+    try {
+      const purchaseAmount = await this.getPurchaseAmount();
+      const lottoCount = this.calculateLottoCount(purchaseAmount);
+      this.generateLottos(lottoCount);
+      this.printLottos();
 
-    await this.getWinningNumbers();
-    await this.getBonusNumber();
-    this.calculateResults();
-    this.printResults(purchaseAmount);
+      await this.getWinningNumbers();
+      await this.getBonusNumber();
+      this.calculateResults();
+      this.printResults(purchaseAmount);
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+    }
   }
 
   async getPurchaseAmount() {
@@ -58,27 +62,29 @@ class App {
   }
 
   async getWinningNumbers() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       MissionUtils.Console.readLineAsync("당첨 번호를 입력해 주세요.\n", (input) => {
         const numbers = input.split(",").map(Number);
         if (!this.validateWinningNumbers(numbers)) {
-          throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 6개의 숫자여야 합니다.");
+          reject(new Error("[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 6개의 숫자여야 합니다."));
+        } else {
+          this.winningNumbers = numbers;
+          resolve();
         }
-        this.winningNumbers = numbers;
-        resolve();
       });
     });
   }
 
   async getBonusNumber() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요.\n", (input) => {
         const number = parseInt(input, 10);
         if (isNaN(number) || number < 1 || number > 45 || this.winningNumbers.includes(number)) {
-          throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다.");
+          reject(new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다."));
+        } else {
+          this.bonusNumber = number;
+          resolve();
         }
-        this.bonusNumber = number;
-        resolve();
       });
     });
   }
