@@ -62,6 +62,7 @@ describe('보너스 번호 입력 테스트', () => {
       '[ERROR]'
     );
   });
+
   const SUCCESS_CASES = ['7', '21', '10'];
   test.each(SUCCESS_CASES)('보너스 번호 성공', async (input) => {
     mockQuestions(input);
