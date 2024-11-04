@@ -77,6 +77,10 @@ export default class LottoGame {
         if (invalidNumbers) {
             throw new Error('[ERROR] 숫자가 아닌 문자가 입력됐습니다.');
         }
+        const isNumbersInteger = winNumbers.every(v => Number.isInteger(v));
+        if (!isNumbersInteger) {
+            throw new Error('[ERROR] 정수가 아닌 수가 입력됐습니다.');
+        }
         const invalidRange = winNumbers.some(v => v < 1 || v > 45);
         if (invalidRange) {
             throw new Error('[ERROR] 제한된 범위를 벗어나는 값을 입력하였습니다.');
@@ -89,14 +93,17 @@ export default class LottoGame {
     }
     validateBonusNumber() {
         const winNumbers = this.#winNumbers.trim().split(',').map(Number);
-        const bonusNumber = parseInt(this.#bonusNumber.trim());
+        const bonusNumber = Number(this.#bonusNumber.trim());
+
 
         if (!this.#bonusNumber) {
             throw new Error('[ERROR] 공백은 허용되지 않습니다.')
         }
-      
         if (Number.isNaN(bonusNumber)) {
             throw new Error('[ERROR] 숫자가 아닌 문자가 입력됐습니다.');
+        }
+        if (!Number.isInteger(bonusNumber)) {
+            throw new Error('[ERROR] 정수가 아닌 수가 입력됐습니다.');
         }
         if (bonusNumber < 1 || bonusNumber > 45) {
             throw new Error('[ERROR] 제한된 범위를 벗어나는 값을 입력하였습니다.');
