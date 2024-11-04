@@ -1,4 +1,4 @@
-import { PROMPTS } from "./constants.js";
+import { PROMPTS, lotteryStatistics } from "./constants.js";
 import { printParam } from "./handler/printHandlers.js";
 import {
   handlePurchaseInput,
@@ -38,17 +38,33 @@ class App {
     const [BONUS_CONDITION, BONUS_RETURN] = [5, 7];
 
     const matches = lotteries.map((lotto) => {
-      if (
-        lotto.getLotteryMatches(users).length === BONUS_CONDITION &&
-        lotto.getLotteryMatches(bonus)
-      )
+      const userMatches = lotto.getLotteryMatches(users).length;
+      const isBonus = lotto.getLotteryMatches([bonus]).length;
+      if (userMatches === BONUS_CONDITION && isBonus) {
         return BONUS_RETURN;
+      }
 
-      return lotto.getLotteryMatches(users).length;
+      return userMatches;
     });
-    this.checkWins(matches);
+    const statisticsResult = this.checkWins(matches);
   }
 
+  checkWins(matches) {
+    const matchCounts = matches.filter((num) => num > 2)
+      .reduce((match, count) => {
+        match[count] = (match[count] || 0) + 1;
+        return match;
+      }, {});
+
+    lotteryStatistics.forEach((statistic) => {
+      const counts = matchCounts[statistic.matches];
+      if (counts) {
+        return (statistic.amount = counts);
+      }
+    });
+
+    return lotteryStatistics;
+  }
 }
 
 export default App;
