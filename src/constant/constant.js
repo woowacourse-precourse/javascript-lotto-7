@@ -50,6 +50,17 @@ export const PRIZE_MONEY = Object.freeze({
   [RANKS.FIFTH]: 5_000,
 });
 
+export const STATISTIC_MESSAGES = Object.freeze({
+  [RANKS.FIRST]: (count, prize) => `6개 일치 (${prize}원) - ${count}개`,
+  [RANKS.SECOND]: (count, prize) =>
+    `5개 일치, 보너스 볼 일치 (${prize}원) - ${count}개`,
+  [RANKS.THIRD]: (count, prize) => `5개 일치 (${prize}원) - ${count}개`,
+  [RANKS.FOURTH]: (count, prize) => `4개 일치 (${prize}원) - ${count}개`,
+  [RANKS.FIFTH]: (count, prize) => `3개 일치 (${prize}원) - ${count}개`,
+});
+
+export const LOCALE = 'ko-KR';
+
 export const ERROR_PREFIX = '[ERROR]';
 
 export const ERROR_MESSAGES = Object.freeze({
