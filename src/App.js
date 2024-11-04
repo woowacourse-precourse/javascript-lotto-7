@@ -2,7 +2,7 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto";
 
 export async function inputAmount() {
-  const amount = await Console.readLineAsync("구입금액을 입력해 주세요.");
+  const amount = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
   return amount;
 }
 
@@ -49,7 +49,7 @@ export function printLottos(lottoCount, lottos) {
 }
 
 export async function inputPrizeNumbers() {
-  const numbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.");
+  const numbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
   return numbers;
 }
 
