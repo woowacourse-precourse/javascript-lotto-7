@@ -108,8 +108,8 @@ describe("로또 테스트", () => {
     const invalidInputs = [1001, 2001, 300]; // 1000의 배수가 아닌 값
 
     invalidInputs.forEach(input => {
-      expect(() => App.getThousandPrice(input)).toThrow(Error);
-      expect(() => App.getThousandPrice(input)).toThrow("[ERROR]구입금액은 1000의 배수이어야 합니다.");
+      expect(() => App.validateBonusNumberThousandPrice(input)).toThrow(Error);
+      expect(() => App.validateThousandPrice(input)).toThrow("[ERROR]구입금액은 1000의 배수이어야 합니다.");
     });
   });
 
