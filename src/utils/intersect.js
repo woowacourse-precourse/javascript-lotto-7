@@ -1,4 +1,5 @@
 
-export const intersect = (setA, setB) => {
-  return Array.from(setA, (value)=> setB.has(value));
+export const intersect = (iterator, target) => {
+  const targetSet = new Set(target);
+  return [...iterator].filter((value)=> targetSet.has(value));
 }

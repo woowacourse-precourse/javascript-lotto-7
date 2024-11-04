@@ -1,8 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const {readLineAsync, print} = MissionUtils.Console;
+const {Console} = MissionUtils;
 
-export default Object.freeze({
-  in: readLineAsync,
-  out: print,
-});
+export default {
+  in: (query)=> Console.readLineAsync(query),
+  out: (message) =>Console.print(message),
+};
