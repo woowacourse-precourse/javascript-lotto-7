@@ -19,11 +19,9 @@ class App {
 
       const { winningNumbers, bonusNumber } = await this.getWinningNumbers();
 
+      const result = this.compareLottosWithWinningNumbers(lottos, winningNumbers, bonusNumber);
 
-      const result = this.compareNumbers(lottos, winningNumbers, bonusNumber);
-
-
-      this.displayResult(result);
+      this.displayWinningStatistics(result, purchaseAmount);
 
     } catch (error) {
       Console.print(error.message);
@@ -43,13 +41,13 @@ class App {
     return { winningNumbers, bonusNumber };
   }
 
-  compareNumbers(lottos, winningNumbers, bonusNumber) {
+  compareLottosWithWinningNumbers(lottos, winningNumbers, bonusNumber) {
     const result = {
-      first: 0,  // 6개
-      second: 0, // 5개 + 보너스 
-      third: 0,  // 5개
-      fourth: 0, // 4개
-      fifth: 0   // 3개
+      first: 0,  // 6개 일치
+      second: 0, // 5개 + 보너스 일치
+      third: 0,  // 5개 일치
+      fourth: 0, // 4개 일치
+      fifth: 0   // 3개 일치
     };
 
     lottos.forEach((lotto) => {
@@ -72,13 +70,35 @@ class App {
     return result;
   }
 
-  displayResult(result) {
+  displayWinningStatistics(result, purchaseAmount) {
     Console.print('\n당첨 통계\n---');
     Console.print(`3개 일치 (5,000원) - ${result.fifth}개`);
     Console.print(`4개 일치 (50,000원) - ${result.fourth}개`);
     Console.print(`5개 일치 (1,500,000원) - ${result.third}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.second}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${result.first}개`);
+
+    const earningsRate = this.calculateEarningsRate(result, purchaseAmount);
+    Console.print(`\n총 수익률은 ${earningsRate}%입니다.`);
+  }
+
+  calculateEarningsRate(result, purchaseAmount) {
+    const prizeAmounts = {
+      first: 2000000000,
+      second: 30000000,
+      third: 1500000,
+      fourth: 50000,
+      fifth: 5000
+    };
+
+    const totalPrize = (result.first * prizeAmounts.first) +
+                       (result.second * prizeAmounts.second) +
+                       (result.third * prizeAmounts.third) +
+                       (result.fourth * prizeAmounts.fourth) +
+                       (result.fifth * prizeAmounts.fifth);
+
+    const earningsRate = (totalPrize / purchaseAmount) * 100;
+    return earningsRate.toFixed(1);
   }
 
   parseWinningNumbers(input) {
