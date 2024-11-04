@@ -15,7 +15,7 @@ $ npm run start
 
 [fork된 Repository 링크](https://github.com/mun-kyeong/javascript-lotto-7)
 
-[미션 PR]()
+[미션 PR](https://github.com/woowacourse-precourse/javascript-lotto-7/pull/171)
 
 <br/>
 <br/>
@@ -109,6 +109,7 @@ $ npm run start
 
 - 함수(또는 메서드)의 길이가 15라인을 넘어가지 않도록 구현
 - 함수(또는 메서드)의 이름이 한가지의 역할만 나타내는지 확인
+- 메서드의 역할이 메서드의 이름에서 벗어나지 않도록 구현
 </details>
 
 <details>
@@ -248,24 +249,28 @@ $ npm run start
 javascript-calculator-7/
 ├── __tests__/
 │   ├── ApplicationTest.js/
+│   ├── InputValidatorTest.js/
 │   ├── LottoTest.js/
-│   ├── ValidatorTest.js/
+│   ├── UserLottoInfoTest.js/
 ├── src/
 │   ├── constants/
-│   │   └── lotto.js            # lotto에 사용되는 매직넘버 값 저장
 │   │   └── errorMessages.js    # 에러 메시지 저장
 │   │   └── helperMessages.js   # 사용자에게 행동을 요구하는 메시지 저장
+│   │   └── lotto.js            # lotto에 사용되는 매직넘버 값 저장
 │   ├── features/
+│   │   ├── lotto/
+│   │   │   └── Lotto.js            # Lotto class
+│   │   │   └── UserLottoInfo.js    # 사용자와 관련된 Lotto Class
 │   │   ├── validator/
-│   │   │   └── Validator.js        # 유효성 검사 class
 │   │   │   └── lottoVaildator.js   # lotto 게임에 사용되는 유효성 검사 함수들
-│   ├── Lotto.js                # Lotto class
-│   ├── parserPrizeNumber.js    # 당첨번호 문자열 구분
+│   │   │   └── Validator.js        # 유효성 검사 class
+│   |   └── parserWinningNumber.js  # 유효성 검사 class
 │   ├── utils/
-│   |   └── randomGenerator.js  # 랜덤 숫자 출력하기
-│   |   └── errorHandler.js     # 에러 핸들링 함수
-│   |   └── inputHandler.js     # 입력 핸들링 함수
-│   |   └── outputHandler.js     # 출력 핸들링 함수
+│   |   └── console.js              # 랜덤 숫자 출력하기
+│   |   └── errorHandler.js         # 에러 핸들링 함수
+│   |   └── generateRandomNumber.js # 랜덤 숫자 출력하기
+│   |   └── inputHandler.js         # 입력 핸들링 함수
+│   |   └── outputHandler.js        # 출력 핸들링 함수
 │   ├── App.js/
 │   └── index.js/
 └── package.json                # 프로젝트 설정 파일
