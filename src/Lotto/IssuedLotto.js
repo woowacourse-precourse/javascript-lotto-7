@@ -1,13 +1,19 @@
+import Lotto from './Lotto.js'
+
 class IssuedLotto extends Lotto {
     #lottoTable;
+    #matchNumber;
+    #winningGrade;
 
     constructor(numbers) {
         super(numbers);
         this.#lottoTable = this.applyLottoToTable(numbers);
+        this.#winningGrade = '꼴등';
+        this.#matchNumber = 0;
     }
 
-    static makeIssuedLotto() {
-      return new IssuedLotto(random.makeUniqueNumbers(1, 45, 6));
+    static create(amount) {
+        return Array.from({length: amount}, () => new IssuedLotto(randomNumber.getUniqueRandomNumbers(1, 45, 6)));
     }
     // makeLottoTable(numbers) {
     //     let lottoTables = []
@@ -16,25 +22,51 @@ class IssuedLotto extends Lotto {
     //     });
     //     return lottoTables;
     // }
+    getWinningGrade(){
+        return this.#winningGrade;
+    }
+    #setInitialStateLottoTable(){
+        this.#lottoTable = Array.from({ length: 45 }, () => 0);
+    }
     applyLottoToTable(numbers) {
-        let lottoTable = Array.from({ length: 45 }, () => 0);
+        this.#setInitialStateLottoTable();
         numbers.forEach((element) => {
-            lottoTable[element - 1] += 1;
+            this.#lottoTable[element - 1] += 1;
         });
-        return lottoTable;
     }
-    getWinningGrade(answer) {
-        const matchAmount = getNumberOfMatches(answer.getNumbers());
-
-    }
-    getNumberOfMatches(answer) {
-        let matchNumber = 0;
+    #setMatchNumber(answer) {
         answer.getNumbers().forEach((element) => {
-            matchNumber += this.#lottoTable[element];
+            this.#matchNumber += this.#lottoTable[element];
         });
-        return matchNumber;
+    }
+    setWinningGrade(answer) {
+        this.#setMatchNumber(answer);
+        if(this.#matchNumber === 6){
+            this.#winningGrade = '1등';
+            return;
+        }
+        if(this.#matchNumber === 5){
+            this.#winningGrade = '2등';
+            return;
+        }
+        if(this.#matchNumber === 5 && isMatchedBonus){
+            this.#winningGrade = '보너스';
+            return;
+        }
+        if(this.#matchNumber === 4){
+            this.#winningGrade = '3등';
+            return;
+        }
+        if(this.#matchNumber === 3){
+            this.#winningGrade = '4등';
+            return;
+        }
+        this.#winningGrade = '꼴등';
+        return;
     }
     isMatchedBonus(bonus){
         return this.#lottoTable[bonus] === 1;
     }
 }
+
+export default IssuedLotto
