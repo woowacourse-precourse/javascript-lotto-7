@@ -27,7 +27,9 @@ class LottoReturn {
 
   caculateReturn() {
     const winningAmount = this.#caculatelWinningAmount();
-    return (winningAmount / this.#purchasedAmount) * 100;
+    const num = (winningAmount / this.#purchasedAmount) * 100;
+
+    return Math.round(num * 10) / 10;
   }
 }
 export default LottoReturn;
