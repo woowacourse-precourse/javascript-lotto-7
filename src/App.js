@@ -98,18 +98,18 @@ class App {
   validateBonusNumber(bonusNumberInput, lottoNumber) {
     const bonusNumber = Number(bonusNumberInput);
     if (bonusNumberInput === '' || Number.isNaN(bonusNumber)) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_INPUT_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.NUMBER_INPUT_ERROR}`);
     }
     if (bonusNumber > 45 || bonusNumber < 1) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.BONUS_NUMBER_RANGE_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.BONUS_NUMBER_RANGE_ERROR}`);
     }
     if (lottoNumber.findIndex(number => number === bonusNumber) !== -1) {
       throw Error(
-        `[Error] ${App.ERROR_MESSAGE.BONUS_NUMBER_DUPLICATION_ERROR}`,
+        `[ERROR] ${App.ERROR_MESSAGE.BONUS_NUMBER_DUPLICATION_ERROR}`,
       );
     }
     if (!Number.isInteger(bonusNumber)) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_NOT_INTEGER_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.NUMBER_NOT_INTEGER_ERROR}`);
     }
   }
 
@@ -128,21 +128,21 @@ class App {
 
   validateLotto(lottoNumber) {
     if (lottoNumber.some(number => Number.isNaN(number))) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_INPUT_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.LOTTO_NUMBER_INPUT_ERROR}`);
     }
     if (lottoNumber.length !== 6) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_COUNT_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.LOTTO_NUMBER_COUNT_ERROR}`);
     }
     if (lottoNumber.some(number => number < 1 || number > 45)) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_RANGE_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.LOTTO_NUMBER_RANGE_ERROR}`);
     }
     if (this.hasDuplicateNumber(lottoNumber)) {
       throw Error(
-        `[Error] ${App.ERROR_MESSAGE.LOTTO_NUMBER_DUPLICATION_ERROR}`,
+        `[ERROR] ${App.ERROR_MESSAGE.LOTTO_NUMBER_DUPLICATION_ERROR}`,
       );
     }
     if (lottoNumber.some(number => !Number.isInteger(number))) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_NOT_INTEGER_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.NUMBER_NOT_INTEGER_ERROR}`);
     }
   }
 
@@ -188,14 +188,14 @@ class App {
   validateMoney(moneyInput) {
     const money = Number(moneyInput);
     if (moneyInput === '' || Number.isNaN(money)) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.NUMBER_INPUT_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.NUMBER_INPUT_ERROR}`);
     }
     if (money < 0) {
-      throw Error(`[Error] ${App.ERROR_MESSAGE.MONEY_INPUT_MINIMUM_ERROR}`);
+      throw Error(`[ERROR] ${App.ERROR_MESSAGE.MONEY_INPUT_MINIMUM_ERROR}`);
     }
     if (money % 1000 !== 0) {
       throw Error(
-        `[Error] ${App.ERROR_MESSAGE.MONEY_INPUT_DIVISIBILITY_ERROR}`,
+        `[ERROR] ${App.ERROR_MESSAGE.MONEY_INPUT_DIVISIBILITY_ERROR}`,
       );
     }
   }
