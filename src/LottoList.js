@@ -15,7 +15,7 @@ class LottoList {
   }
 
   printTickets() {
-    this.#lottoTickets.forEach(ticket => Console.print(ticket));
+    this.#lottoTickets.forEach(lottoEntry => Console.print(lottoEntry));
   }
 }
 
