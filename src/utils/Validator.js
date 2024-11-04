@@ -1,6 +1,6 @@
 class Validator {
   validatePurchaseAmount(purchaseAmount) {
-    if (!purchaseAmount) {
+    if (purchaseAmount.trim() === "") {
       throw new Error("[ERROR] 구매 금액을 입력해 주세요.");
     }
     if (isNaN(purchaseAmount)) {
@@ -15,6 +15,9 @@ class Validator {
   }
 
   validateWinningNumbersInput(winningNumbersInput) {
+    if (!winningNumbersInput) {
+      throw new Error("[ERROR] 당첨 번호를 입력해주세요.")
+    }
     const winningNumbersInputRegex = /^[\d,]+$/;
     if (!winningNumbersInputRegex.test(winningNumbersInput)) {
       throw new Error("[ERROR] 당첨 번호는 숫자와 쉼표로만 이루어져야 합니다.");
