@@ -37,6 +37,7 @@ class User {
           PROMPT_MESSAGE.WINNING_NUMBERS,
         );
         this.#winningNumbers = input.split(',');
+        this.#validator.winningNumbers(this.#winningNumbers);
         return;
       } catch (error) {
         Console.print(error.message);

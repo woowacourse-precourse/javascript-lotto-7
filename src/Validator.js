@@ -17,6 +17,12 @@ class Validator {
     this.#validateNaturalNumber(value);
     this.#validThousandUnit(value);
   }
+
+  winningNumbers(values) {
+    values.forEach((value) => {
+      this.#validateNaturalNumber(value);
+    });
+  }
 }
 
 export default Validator;
