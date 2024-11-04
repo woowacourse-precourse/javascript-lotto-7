@@ -1,4 +1,4 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../models/Lotto.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
@@ -20,20 +20,15 @@ class LottoController {
         lottos.forEach((lotto) => this.outputView.outputLotto(lotto));
 
         const inputWinningNumbers = await this.getValidatedInputWinningNumbers();
-        const inputBonusNumber = await this.getValidatedInputBonusNumber(
-            inputWinningNumbers
-        );
+        const inputBonusNumber = await this.getValidatedInputBonusNumber(inputWinningNumbers);
 
         this.outputView.outputStatistics();
 
-        let winningRecord = [0, 0, 0, 0, 0, 0];
-        lottos.forEach((lotto) => {
-            winningRecord[lotto.convertRank(inputWinningNumbers, inputBonusNumber)]++;
-        });
+        let winningRecord = await this.getWinningRecord(lottos, inputWinningNumbers, inputBonusNumber);
         await this.getResult(WINNING_CRITERIA, winningRecord);
 
         const profitRate = await this.getProfitRate(winningRecord, inputAmount);
-        Console.print(`총 수익률은 ${profitRate}%입니다.`);
+        this.outputView.outputProfitRate(profitRate);
     }
 
     async getValidatedInputAmount() {
@@ -69,7 +64,7 @@ class LottoController {
                 .split(",")
                 .map((num) => Number(num.trim()));
         } catch (error) {
-            Console.print(error.message);
+            this.outputView.outputErrorMessage(error.message);
             return this.getValidatedInputWinningNumbers();
         }
     }
@@ -84,15 +79,23 @@ class LottoController {
             );
             return inputBonusNumber;
         } catch (error) {
-            Console.print(error.message);
+            this.outputView.outputErrorMessage(error.message);
             return this.getValidatedInputBonusNumber(inputWinningNumbers);
         }
     }
 
+    async getWinningRecord(lottos, inputWinningNumbers, inputBonusNumber) {
+        let winningRecord = [0, 0, 0, 0, 0, 0];
+        lottos.forEach((lotto) => {
+            winningRecord[lotto.convertRank(inputWinningNumbers, inputBonusNumber)]++;
+        });
+        return winningRecord;
+    }
+
     async getResult(winningCriteria, winningRecord) {
         for (let i = 5; i >= 1; i--) {
-            const { message, price } = winningCriteria[i];
-            Console.print(`${message} - ${winningRecord[i]}개`);
+            const { message } = winningCriteria[i];
+            this.outputView.outputResult(message, winningRecord[i]);
         }
     }
 
