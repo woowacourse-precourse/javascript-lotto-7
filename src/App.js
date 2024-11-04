@@ -32,11 +32,8 @@ class App {
     await this.#drawWinningNumbers();
     const rankCounts = await this.#checkWinningResult(lottos);
 
-    const totalWinningPrize = this.#getTotalWinningPrize(rankCounts);
-    const profitRate = this.#calculateProfitRate(
-      totalWinningPrize,
-      purchaseAmount,
-    );
+    this.#calculateTotalWinningPrize(rankCounts);
+    const profitRate = this.#getProfitRate(purchaseAmount);
 
     Output.printWinningResult(rankCounts, profitRate);
   }
@@ -110,15 +107,15 @@ class App {
     return rankCounts;
   }
 
-  #getTotalWinningPrize(rankCounts) {
+  #calculateTotalWinningPrize(rankCounts) {
     this.#bank.calculateTotalWinningPrize(rankCounts);
-    const totalWinningPrize = this.#bank.getTotalWinningPrize();
-
-    return totalWinningPrize;
   }
 
-  #calculateProfitRate(totalWinningPrize, purchaseAmount) {
-    return (totalWinningPrize / purchaseAmount) * 100;
+  #getProfitRate(purchaseAmount) {
+    this.#bank.calculateProfitRate(purchaseAmount);
+    const profitRate = this.#bank.getProfitRate();
+
+    return profitRate;
   }
 }
 

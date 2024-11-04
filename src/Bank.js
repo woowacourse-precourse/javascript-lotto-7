@@ -2,6 +2,7 @@ import LOTTO_RULE from './constant/lotto.js';
 
 class Bank {
   #totalWinningPrize;
+  #profitRate;
 
   calculateTotalWinningPrize(rankInfos) {
     this.#totalWinningPrize = rankInfos
@@ -27,8 +28,12 @@ class Bank {
     }
   }
 
-  getTotalWinningPrize() {
-    return this.#totalWinningPrize;
+  calculateProfitRate(purchaseAmount) {
+    this.#profitRate = (this.#totalWinningPrize / purchaseAmount) * 100;
+  }
+
+  getProfitRate() {
+    return this.#profitRate;
   }
 }
 
