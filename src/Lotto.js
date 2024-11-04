@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from "./constants/errorMessage.js";
+import { CONSTANTS } from "./constants/constants.js";
 
 class Lotto {
   #numbers;
@@ -17,7 +18,7 @@ class Lotto {
   }
 
   #validateIsEmpty(numbers) {
-    const isEmpty = numbers.some((num) => num === 0);
+    const isEmpty = numbers.some((num) => num === CONSTANTS.NO_INPUT);
 
     if (isEmpty) {
       throw new Error(ERROR_MESSAGE.EMPTY_INPUT);
@@ -33,7 +34,9 @@ class Lotto {
 
   #validateNumberRange(numbers) {
     const isInRange = numbers.every((num) => {
-      return num >= 1 && num <= 45;
+      return (
+        num >= CONSTANTS.LOTTO_NUMBER_MIN && num <= CONSTANTS.LOTTO_NUMBER_MAX
+      );
     });
     if (!isInRange) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER_FORMAT);
@@ -41,7 +44,7 @@ class Lotto {
   }
 
   #validateNumberCount(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== CONSTANTS.LOTTO_NUMBER_COUNT) {
       throw new Error(ERROR_MESSAGE.WINNING_NUMBER_COUNT);
     }
   }

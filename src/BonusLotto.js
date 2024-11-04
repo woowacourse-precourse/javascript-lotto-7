@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from "./constants/errorMessage.js";
+import { CONSTANTS } from "./constants/constants.js";
 
 class BonusLotto {
   #number;
@@ -16,7 +17,7 @@ class BonusLotto {
   }
 
   #validateIsEmpty(bonusNumber) {
-    if (bonusNumber === 0) {
+    if (bonusNumber === CONSTANTS.NO_INPUT) {
       throw new Error(ERROR_MESSAGE.EMPTY_INPUT);
     }
   }
@@ -28,7 +29,10 @@ class BonusLotto {
   }
 
   #validateNumberRange(bonusNumber) {
-    if (bonusNumber < 1 || bonusNumber > 45) {
+    if (
+      bonusNumber < CONSTANTS.LOTTO_NUMBER_MIN ||
+      bonusNumber > CONSTANTS.LOTTO_NUMBER_MAX
+    ) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_FORMAT);
     }
   }

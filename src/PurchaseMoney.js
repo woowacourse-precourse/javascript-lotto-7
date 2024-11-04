@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from "./constants/errorMessage.js";
+import { CONSTANTS } from "./constants/constants.js";
 
 class purchaseMoney {
   #money;
@@ -16,7 +17,7 @@ class purchaseMoney {
   }
 
   #validateIsEmpty(money) {
-    if (money === 0) {
+    if (money === CONSTANTS.NO_INPUT) {
       throw new Error(ERROR_MESSAGE.EMPTY_INPUT);
     }
   }
@@ -28,13 +29,13 @@ class purchaseMoney {
   }
 
   #validateIsPositive(money) {
-    if (money < 0) {
+    if (money < CONSTANTS.MIN_PURCHASE_AMOUNT) {
       throw new Error(ERROR_MESSAGE.PURCHASE_POSITIVE);
     }
   }
 
   #validateMultipleOfThousand(money) {
-    if (money % 1000 !== 0) {
+    if (money % CONSTANTS.LOTTO_TICKET_PRICE !== 0) {
       throw new Error(ERROR_MESSAGE.PURCHASE_MULTIPLE_OF_THOUSAND);
     }
   }

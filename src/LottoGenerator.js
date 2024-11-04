@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { CONSTANTS } from "./constants/constants.js";
 
 class LottoGenerator {
   #lottoQuantity;
@@ -10,7 +11,7 @@ class LottoGenerator {
   }
 
   #calculateLottoQuality(purchaseMoney) {
-    this.#lottoQuantity = purchaseMoney / 1000;
+    this.#lottoQuantity = purchaseMoney / CONSTANTS.LOTTO_TICKET_PRICE;
   }
 
   #generateTickets() {
@@ -20,7 +21,11 @@ class LottoGenerator {
   }
 
   #generateSingleTicket() {
-    const ticket = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    const ticket = MissionUtils.Random.pickUniqueNumbersInRange(
+      CONSTANTS.LOTTO_NUMBER_MIN,
+      CONSTANTS.LOTTO_NUMBER_MAX,
+      CONSTANTS.LOTTO_NUMBER_COUNT
+    );
     return ticket.sort(
       (firstNumber, secondNumber) => firstNumber - secondNumber
     );

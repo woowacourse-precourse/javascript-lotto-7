@@ -1,3 +1,5 @@
+import { CONSTANTS } from "./constants/constants.js";
+
 function calculateWinningStatistics(ticketList, winningNumbers, bonusNumber) {
   const winningCounts = [0, 0, 0, 0, 0];
 
@@ -7,17 +9,21 @@ function calculateWinningStatistics(ticketList, winningNumbers, bonusNumber) {
     ).length;
 
     switch (matchedNumbersCount) {
-      case 6:
-        winningCounts[0] += 1;
+      case CONSTANTS.MATCH_COUNT_SIX:
+        winningCounts[CONSTANTS.FIRST_PLACE] += 1;
         break;
-      case 5:
-        winningCounts[ticket.includes(bonusNumber) ? 1 : 2] += 1;
+      case CONSTANTS.MATCH_COUNT_FIVE:
+        winningCounts[
+          ticket.includes(bonusNumber)
+            ? CONSTANTS.SECOND_PLACE
+            : CONSTANTS.THIRD_PLACE
+        ] += 1;
         break;
-      case 4:
-        winningCounts[3] += 1;
+      case CONSTANTS.MATCH_COUNT_FOUR:
+        winningCounts[CONSTANTS.FOURTH_PLACE] += 1;
         break;
-      case 3:
-        winningCounts[4] += 1;
+      case CONSTANTS.MATCH_COUNT_THREE:
+        winningCounts[CONSTANTS.FIFTH_PLACE] += 1;
         break;
       default:
         break;
