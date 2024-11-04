@@ -8,6 +8,7 @@ import {
 } from '../utils/validateLottoNumbers.js';
 import getRandomLottoNumbers from '../utils/getRandomNumbers.js';
 import LottoResult from '../models/LottoResult.js';
+import Lotto from '../Lotto.js';
 
 class LottoController {
   static async handlePurchaseAmount() {
@@ -55,6 +56,13 @@ class LottoController {
       }
       throw error;
     }
+  }
+
+  static async getWinningAndBonusNumbers() {
+    const winningNumbers = await this.getWinningNumbers();
+    const bonusNumber = await this.getBonusNumber(winningNumbers);
+    const winningLotto = new Lotto(winningNumbers);
+    return { winningLotto, bonusNumber };
   }
 
   static issueLottoTickets(purchaseAmount) {
