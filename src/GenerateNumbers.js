@@ -55,10 +55,10 @@ class GenerateNumbers {
     const matchingNumbers = randomNum.filter((num) => numbers.includes(num));
     const count = matchingNumbers.length;
 
-    console.log("당첨 번호:", numbers);
-    console.log("보너스 번호:", bonusNum);
+    // console.log("당첨 번호:", numbers);
+    // console.log("보너스 번호:", bonusNum);
 
-    console.log("비교할 랜덤 번호:", randomNum);
+    // console.log("비교할 랜덤 번호:", randomNum);
 
     let prizeMoney = 0;
 
