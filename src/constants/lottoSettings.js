@@ -1,4 +1,5 @@
 export const LOTTO_SETTINGS = {
+  money: 1_000,
   minimumPrice: 1_000,
   numberLength: 6,
   minNumber: 1,

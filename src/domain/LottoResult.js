@@ -3,11 +3,11 @@ import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 class LottoResult {
   #result;
 
-  constructor(lotto, winner) {
+  constructor(lottoList, lottoWinner) {
     this.#result = this.#initialResult();
-    this.lotto = lotto;
-    this.winner = winner;
-    this.checkLottoNumber(lotto, winner);
+    this.lottoList = lottoList;
+    this.lottoWinner = lottoWinner;
+    this.checkLottoNumber(lottoList, lottoWinner);
   }
 
   #initialResult() {
@@ -17,18 +17,17 @@ class LottoResult {
       3: 0,
       4: 0,
       5: 0,
-      0: 0,
     }
   }
 
   checkLottoNumber() {
-    const rank = this.winner.matchRate(this.lotto);
-
-    const matchCount = this.lotto.filter((lottoNumber) =>
-      this.lotto.includes(lottoNumber)).length;
-
-    this.#result[rank] += 1;
-    return this.#result;
+    this.lottoList.forEach((lotto) => {
+      const rank = this.lottoWinner.matchRate(lotto);
+      if (rank === 0) {
+        return;
+      }
+      this.#result[rank] += 1;
+    });
   }
 
   calculateResult() {
@@ -38,9 +37,13 @@ class LottoResult {
       prizeMoney += LOTTO_SETTINGS.prizeMoney[key] * value;
     });
 
-    const lottoCount = this.lotto.length;
+    const purchaseMoney = this.lottoList.length * LOTTO_SETTINGS.money;
 
-    return this.#getRateOfReturn(prizeMoney, lottoCount);
+    return this.#getRateOfReturn(prizeMoney, purchaseMoney);
+  }
+
+  getResult() {
+    return this.#result;
   }
 
   #getRateOfReturn(money, price) {
