@@ -21,7 +21,7 @@ class App {
       this.printWinningStatistics();
       this.printProfitRate(); // 수익률 출력
     } catch (error) {
-      console.error('무슨 에러인고:', error);
+      MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }
   }
 
