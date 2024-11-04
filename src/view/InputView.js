@@ -10,7 +10,7 @@ class InputView {
   }
 
   #validate(data) {
-    
+    Validator.inputNullData(data);
   }
 
   #separateNumber(data) {
@@ -18,20 +18,39 @@ class InputView {
   }
 
   async readPurchaseAmount() {
-    const inputPrice = await this.#read(INPUT_MESSAGE.inputPurchaseAmount);
-    return inputPrice;
+    try {
+      const inputPrice = await this.#read(INPUT_MESSAGE.inputPurchaseAmount);
+      this.#validate(inputPrice);
+      return inputPrice;
+    } catch(e) {
+      console.error(e.message);
+      return await this.readPurchaseAmount();
+    }
+
   }
 
   async readWinningLotto() {
-    const winningdata = await this.#read(INPUT_MESSAGE.inputWinningNumbers);
-    const winningNumber = this.#separateNumber(winningdata);
-    return winningNumber;
+    try {
+      const winningdata = await this.#read(INPUT_MESSAGE.inputWinningNumbers);
+      const winningNumber = this.#separateNumber(winningdata);
+      this.#validate(winningNumber);
+      return winningNumber;
+    } catch(e) {
+      console.error(e.message);
+      return await this.readWinningLotto();
+    }
   }
 
   async readBonusNumber() {
-    const bonusData = await this.#read(INPUT_MESSAGE.inputBonusNumber);
-    const bonusNumber = this.#separateNumber(bonusData);
-    return bonusNumber;
+    try {
+      const bonusData = await this.#read(INPUT_MESSAGE.inputBonusNumber);
+      const bonusNumber = this.#separateNumber(bonusData);
+      this.#validate(bonusNumber);
+      return bonusNumber;
+    } catch(e) {
+      console.error(e.message);
+      return await this.readBonusNumber();
+    }
   }
 }
 

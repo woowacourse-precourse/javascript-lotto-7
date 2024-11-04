@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/constants";
+import { ERROR_MESSAGE } from "../constants/constants.js";
 
 class Validator {
   //입력 에러
