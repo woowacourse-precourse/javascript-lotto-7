@@ -1,5 +1,5 @@
 import { printMessage } from '../utils/console.js';
-import { LOG_MESSAGE, STATISTICS } from '../constants/message.js';
+import { LOG_MESSAGE, STATISTICS, FORMAT } from '../constants/message.js';
 import { PRIZE_CRITERIA } from '../constants/gameRule.js';
 
 const OutputView = {
@@ -8,14 +8,14 @@ const OutputView = {
   },
 
   printLottoNumbers(lottoNumbers) {
-    printMessage(lottoNumbers.map(numbers => `[${numbers.join(', ')}]`).join('\n'));
+    printMessage(lottoNumbers.map(numbers => `[${numbers.join(', ')}]`).join(FORMAT.LINEBREAK));
   },
 
   printWinningStatistics(statistics) {
     printMessage(
       `${STATISTICS.HEADER}${Object.values(PRIZE_CRITERIA)
         .map(({ rank, description }) => STATISTICS.STATISTICSMESSAGE(description, statistics[rank].count))
-        .join(STATISTICS.LINEBREAK)}`
+        .join(FORMAT.LINEBREAK)}`
     );
   },
   

@@ -47,8 +47,11 @@ const TAGS = Object.freeze({
 
 const STATISTICS = Object.freeze({
   HEADER: "당첨 통계\n---\n",
-  LINEBREAK: "\n",
   STATISTICSMESSAGE: (description, count) => `${description} - ${count}개`,
+});
+
+const FORMAT = Object.freeze({
+  LINEBREAK: "\n",
 });
 
 export {
@@ -58,5 +61,6 @@ export {
   WINNING_NUMBERS_ERROR_MESSAGE,
   BONUS_NUMBER_ERROR_MESSAGE,
   STATISTICS,
+  FORMAT,
   TAGS,
 };
