@@ -77,6 +77,17 @@ class App {
   }
 
   async getBonusNumber() {
+    while (true) {
+      MissionUtils.Console.print("보너스 번호를 입력해 주세요.\n");
+      const input = await MissionUtils.Console.readLineAsync();
+      const number = parseInt(input, 10);
+
+      if (isNaN(number) == false && !this.answerNumbers.includes(number) && number >= 1 && number <= 45) {
+        this.bonusNumber = number;
+        return;
+      }
+      MissionUtils.Console.print("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다.");
+    }
   }
 
   calculateLottoResults() {
