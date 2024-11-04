@@ -11,7 +11,7 @@ class PurcahseAmount {
   }
 
   static #validate (amount) {
-    if (!isNaN(amount)) {
+    if (isNaN(amount)) {
       throw new Error(ERROR.PURCHASE.MUST_BE_NUMBER);
     }
     if (!isUnitFormmat(amount, LOTTO.PRICE)) {

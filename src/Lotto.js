@@ -15,7 +15,7 @@ class Lotto {
     }
     const set = new Set(numbers);
     if (set.size !== numbers.length) {
-      throw new Error(ERROR.NUMBER_IS_DUPLICATED);
+      throw new Error(ERROR.LOTTO.NUMBER_IS_DUPLICATED);
     }
     numbers.forEach((value) => {
       if (value < LOTTO.NUMBER_RANGE.MIN || LOTTO.NUMBER_RANGE.MAX < value) {
