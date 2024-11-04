@@ -6,13 +6,24 @@ class Lotto {
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
+  get lottoNumbers() {
+    return this.#numbers;
   }
 
-  // TODO: 추가 기능 구현
+  #validate(numbers) {
+    const numberSizeErrorMessage = '[ERROR] 로또 번호는 6개여야 합니다.';
+
+    if (numbers.length !== 6) {
+      throw new Error(numberSizeErrorMessage);
+    }
+
+    const set = new Set(numbers);
+    const numberDuplicateErrorMessage = '[ERROR] 로또 번호가 중복되었습니다. 다시 실행해주세요.';
+
+    if (numbers.length !== set.size) {
+      throw new Error(numberDuplicateErrorMessage);
+    }
+  }
 }
 
 export default Lotto;
