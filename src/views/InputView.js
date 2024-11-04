@@ -12,6 +12,19 @@ const InputView = {
                 Console.print(error);
             }
         }
+    },
+
+    async readWinningNumbers() {
+        while (true) {
+            try {
+                const inputWinningNumbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+                const winningNumbers = inputWinningNumbers.split(",").map(number => Number(number));
+                Validator.validateWinningNumbers(winningNumbers);
+                return winningNumbers;
+            } catch (error) {
+                Console.print(error);
+            }
+        }
     }
 }
 

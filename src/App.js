@@ -11,10 +11,7 @@ class App {
     const lottos = new Lottos(countGame).getLottos();
     OutputView.writeLottos(lottos)
 
-    const inputWinningNumbers = await MissionUtils.Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
-    const winningNumbers = inputWinningNumbers.split(",").map(Number).sort((a, b) => a - b);
-    //[ERROR] 당첨 번호 유효성 평가 요구됨
-
+    const winningNumbers = await InputView.readWinningNumbers();
     const inputBonusNumber = await MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
     const bonusNumber = Number(inputBonusNumber);
     //[ERROR] 보너스 번호 유효성 평가 요구됨
@@ -22,7 +19,7 @@ class App {
     let fiveMatchWithBonus = 0;
 
     // 당첨 번호와 대조하기
-    for (let i = 0; i < numberOfLotto; i++) {
+    for (let i = 0; i < countGame; i++) {
       const arr = lottos[i].getNumbers();
       let intersection = winningNumbers.filter(x => arr.includes(x));
       matches[intersection.length] += 1;
