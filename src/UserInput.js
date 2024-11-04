@@ -32,5 +32,12 @@ class UserInput {
 
     return numbers;
   }
+
+  async inputBonusNumber() {
+    const bonusNum = await MissionUtils.Console.readLineAsync(
+      "보너스 숫자를 입력해주세요. \n"
+    );
+    return bonusNum;
+  }
 }
 export default UserInput;
