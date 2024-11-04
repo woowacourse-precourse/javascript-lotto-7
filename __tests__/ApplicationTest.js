@@ -7,6 +7,7 @@ import App, {
   splitPrizeNumbers,
   inputBonusNumber,
   validateBonusNumbers,
+  checkLottoResult,
 } from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "../src/Lotto.js";
@@ -172,6 +173,41 @@ describe("당첨 번호 입력, 분리 테스트", () => {
     const input = "1,2,3,4,5,6";
     const result = splitPrizeNumbers(input);
     expect(result).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+});
+
+describe("checkLottoResult 함수 테스트", () => {
+  const prizeNumbers = [1, 2, 3, 4, 5, 6];
+  const bonusNumber = 7;
+
+  test("1등: 6개 번호가 일치할 때", () => {
+    const userNumbers = [1, 2, 3, 4, 5, 6];
+    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(1);
+  });
+
+  test("2등: 5개 번호가 일치하고 보너스 번호도 일치할 때", () => {
+    const userNumbers = [1, 2, 3, 4, 5, 7];
+    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(2);
+  });
+
+  test("3등: 5개 번호만 일치할 때", () => {
+    const userNumbers = [1, 2, 3, 4, 5, 8];
+    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(3);
+  });
+
+  test("4등: 4개 번호가 일치할 때", () => {
+    const userNumbers = [1, 2, 3, 4, 8, 9];
+    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(4);
+  });
+
+  test("5등: 3개 번호가 일치할 때", () => {
+    const userNumbers = [1, 2, 3, 9, 10, 11];
+    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(5);
+  });
+
+  test("낙첨: 2개 이하의 번호만 일치할 때", () => {
+    const userNumbers = [1, 2, 10, 11, 12, 13];
+    expect(checkLottoResult(userNumbers, prizeNumbers, bonusNumber)).toBe(6);
   });
 });
 

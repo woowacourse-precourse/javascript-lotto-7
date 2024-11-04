@@ -75,6 +75,22 @@ export function validateBonusNumbers(bonusNumber, prizeNumbers) {
   }
 }
 
+export function checkLottoResult(userNumbers, prizeNumbers, bonusNumber) {
+  // 1. 일치하는 번호 개수 확인
+  const matchingCount = userNumbers.filter((number) => prizeNumbers.includes(number)).length;
+
+  // 2. 보너스 번호 일치 여부 확인
+  const hasBonus = userNumbers.includes(bonusNumber);
+
+  // 3. 당첨 결과 반환
+  if (matchingCount === 6) return 1; // 1등
+  if (matchingCount === 5 && hasBonus) return 2; // 2등
+  if (matchingCount === 5) return 3; // 3등
+  if (matchingCount === 4) return 4; // 4등
+  if (matchingCount === 3) return 5; // 5등
+  return 6;
+}
+
 class App {
   async run() {}
 }
