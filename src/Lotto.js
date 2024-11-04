@@ -38,6 +38,10 @@ class Lotto {
       throw new Error (errorMessage.duplicateLottoNumbers);
     }
   }
+
+  toStringLotto() {
+    return `[${this.#numbers.join(', ')}]`;
+  }
 }
 
 export default Lotto;

@@ -1,19 +1,20 @@
 import { Console } from "@woowacourse/mission-utils";
 import { PRINT_MESSAGE } from "../constant/Message.js";
 import { BOARD } from "../constant/boardMessage.js";
+import Lotto from "../Lotto.js";
 
 export function printGuideBuyLotto(someLotto){
     return Console.print(someLotto + PRINT_MESSAGE.BUY_LOTTO);
 }
 
-export function printLottoDetail(lottoArr){
-    return Console.print(`${lottoArr}`);
+export function printLottoDetail(lotto){
+    return Console.print(lotto.toStringLotto());
 }
 
-export function printAllLotto(lottoArr){
-    for (let i = 0; i < lottoArr.length; i++){
-        printLottoDetail();
-    }
+export function printAllLotto(lotto){
+    lotto.forEach(lotto => {
+       printLottoDetail(lotto);
+    });
 }
 
 export function printWinningBoard(sames){
