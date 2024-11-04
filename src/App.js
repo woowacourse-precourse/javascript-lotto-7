@@ -24,7 +24,7 @@ class App {
     await this.inputWinningNumbers();
     await this.inputBonusNumber();
     this.calculateResults();
-    // 이후 기능은 아직 구현되지 않았습니다.
+    this.printResults();
   }
 
   async promptPurchaseAmount() {
@@ -104,17 +104,44 @@ class App {
 
       if (matchCount === 6) {
         this.prizeTable[6].count += 1;
-      } else if (matchCount === 5 && hasBonus) {
+        return;
+      }
+      if (matchCount === 5 && hasBonus) {
         this.prizeTable["5+bonus"].count += 1;
-      } else if (matchCount === 5) {
+        return;
+      }
+      if (matchCount === 5) {
         this.prizeTable[5].count += 1;
-      } else if (matchCount === 4) {
+        return;
+      }
+      if (matchCount === 4) {
         this.prizeTable[4].count += 1;
-      } else if (matchCount === 3) {
+        return;
+      }
+      if (matchCount === 3) {
         this.prizeTable[3].count += 1;
       }
-      // 2개 이하 맞춘 경우는 집계하지 않음
     });
+  }
+
+  printResults() {
+    Console.print("\n당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${this.prizeTable[3].count}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.prizeTable[4].count}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.prizeTable[5].count}개`);
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${
+        this.prizeTable["5+bonus"].count
+      }개`
+    );
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.prizeTable[6].count}개`);
+    const totalPrize = Object.values(this.prizeTable).reduce(
+      (acc, curr) => acc + curr.count * curr.prize,
+      0
+    );
+    const purchaseAmount = this.lottos.length * 1000;
+    const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
+    Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
 }
 
