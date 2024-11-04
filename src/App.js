@@ -42,7 +42,7 @@ class App {
   }
 
   #printWinningResult(myLotto, bonusNumber, winningNumber) {
-    const winningResult = winningNumber.checkWinning(myLotto, bonusNumber);
+    const winningResult = bonusNumber.checkWinning(myLotto);
     this.#printWinningCnt(winningResult);
     this.#printReturn(
       winningNumber.calculateReturn(this.#purchaseAmount, winningResult),
