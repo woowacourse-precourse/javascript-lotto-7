@@ -66,7 +66,7 @@ class Rank_check {
   
   print_revenue_percent(revenue_percent) {
     let revenue_percent_round = Math.round(revenue_percent * 10) / 10;
-    Console.print("총 수익률은 "+ revenue_percent_round + "%입니다.");
+    Console.print("총 수익률은 "+ revenue_percent_round.toLocaleString() + "%입니다.");
   }
 }
 
