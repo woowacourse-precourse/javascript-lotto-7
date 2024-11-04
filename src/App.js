@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 import UserInput from "./UserInput.js";
 import Lotto from "./Lotto.js";
+import GenerateNumbers from "./GenerateNumbers.js";
 
 class App {
   async run() {
@@ -13,8 +14,15 @@ class App {
       // Lotto 인스턴스 생성
       const lotto = new Lotto(numbers);
       const bonusNum = await userInput.inputBonusNumber();
-      // console.log("당첨 번호", lotto);
       lotto.validateBonusNumber(bonusNum);
+
+      const bills = price / 1000;
+      console.log("");
+      MissionUtils.Console.print(`${bills}개를 구매했습니다.`);
+
+      //사용자의 로또 번호 생성하기
+      const generateNumbers = new GenerateNumbers();
+      generateNumbers.generateNums(bills);
     } catch (error) {
       console.error(error.message);
     }
