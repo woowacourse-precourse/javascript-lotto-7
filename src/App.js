@@ -8,6 +8,7 @@ import { INITIAL_COUNT, INPUT_PROMPT, NUMBER_SEPARATOR, OUTPUT_MESSAGE } from '.
 class App {
   #lottoMachine;
   #winningNumbers;
+  #rankSystem;
   #result;
 
   async run() {
@@ -68,12 +69,25 @@ class App {
   }
 
   getLottosResult() {
-    const rankSystem = new RankSystem(
+    this.#rankSystem = new RankSystem(
       this.#lottoMachine.lottos,
       this.#winningNumbers.numbers,
       this.#winningNumbers.bonusNumber
     );
-    return rankSystem.result;
+    return this.#rankSystem.result;
+  }
+
+  #setBonusText(index) {
+    if (index !== 1) return '';
+    return OUTPUT_MESSAGE.winningInfo.bonus;
+  }
+
+  #setResultMessage(rank, bonusText) {
+    return `${rank.matchedNumberCount}${OUTPUT_MESSAGE.winningInfo.matched}${bonusText} ${
+      OUTPUT_MESSAGE.winningInfo.opening
+    }${rank.winnings.toLocaleString()}${OUTPUT_MESSAGE.winningInfo.moneyUnit}${OUTPUT_MESSAGE.winningInfo.closing} ${
+      OUTPUT_MESSAGE.winningInfo.connecting
+    } ${rank.winningCount}${OUTPUT_MESSAGE.winningInfo.countUnit}`;
   }
 
   printWinningInfo() {
@@ -82,13 +96,7 @@ class App {
 
     for (let i = this.#result.length - 1; i >= INITIAL_COUNT; i -= 1) {
       const rank = this.#result[i];
-      OutputView.printMessage(
-        `${rank.matchedNumberCount}${OUTPUT_MESSAGE.winningInfo.matched} ${
-          OUTPUT_MESSAGE.winningInfo.opening
-        }${rank.winnings.toLocaleString()}${OUTPUT_MESSAGE.winningInfo.moneyUnit}${
-          OUTPUT_MESSAGE.winningInfo.closing
-        } ${OUTPUT_MESSAGE.winningInfo.connecting} ${rank.winningCount}${OUTPUT_MESSAGE.winningInfo.countUnit}`
-      );
+      OutputView.printMessage(this.#setResultMessage(rank, this.#setBonusText(i)));
     }
   }
 }
