@@ -34,18 +34,18 @@ export class LottoResult {
   #calculateLotto(lottoNumbers, bonusNumber, matchCount) {
     if (matchCount === 5) {
       this.#processFiveMatch(lottoNumbers, bonusNumber);
-    } else {
-      this.#processNonFiveMatch(matchCount);
+      return;
     }
+    this.#processNonFiveMatch(matchCount);
   }
 
   #processFiveMatch(lottoNumbers, bonusNumber) {
     const hasBonus = lottoNumbers.includes(bonusNumber);
     if (hasBonus) {
       this.#results.fiveMatchWithBonus.addCount();
-    } else {
-      this.#results.fiveMatch.addCount();
+      return;
     }
+    this.#results.fiveMatch.addCount();
   }
 
   #processNonFiveMatch(matchCount) {
