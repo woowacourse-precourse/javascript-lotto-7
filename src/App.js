@@ -1,4 +1,5 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   constructor() {
@@ -17,6 +18,7 @@ class App {
   }
   async run() {
     await this.buyLotto();
+    await this.winLottoInput();
   }
 
   async buyLotto() {
@@ -40,12 +42,45 @@ class App {
     return money;
   }
 
+  async winLottoInput() {
+    while (true) {
+      try {
+        const winNumbers = await Console.readLineAsync(
+          "당첨 번호를 입력해 주세요."
+        );
+        let lotto = this.string2numbers(winNumbers);
+        this.winLottoNumber = new Lotto(lotto);
+      } catch (e) {
+        Console.print(e.message);
+        continue;
+      }
+      break;
+    }
+  }
+
   isNum(number) {
     const re = new RegExp("^[0-9]+$");
     if (!re.test(number)) {
       throw new Error("[ERROR] 숫자를 입력해주세요.");
     }
     return true;
+  }
+
+  isLottoNumber(number) {
+    if (Number(number) < 1 || 45 < Number(number))
+      throw new Error("[ERROR] 1-45사이의 숫자를 입력해주세요.");
+  }
+
+  string2numbers(input) {
+    if (input.trim() === "") throw new Error("[ERROR] 값을 입력해주세요.");
+    let numbers = input.split(",");
+    let result = [];
+    for (let i = 0; i < numbers.length; i++) {
+      this.isNum(numbers[i]);
+      this.isLottoNumber(Number(numbers[i]));
+      result.push(Number(numbers[i]));
+    }
+    return result;
   }
 }
 

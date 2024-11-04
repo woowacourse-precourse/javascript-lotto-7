@@ -1,8 +1,11 @@
+import { Console } from "@woowacourse/mission-utils";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
+    this.#duplicate(numbers);
     this.#numbers = numbers;
   }
 
@@ -12,7 +15,27 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  #duplicate(numbers) {
+    //중복 확인
+    let numberSet = new Set(numbers);
+    if (numberSet.size < 6) {
+      throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
+    }
+  }
+
+  printLotto() {
+    Console.print(`[${this.#numbers.join(", ")}]`);
+  }
+
+  haveNumber(number) {
+    if (this.#numbers.includes(number)) {
+      throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
+    }
+  }
+
+  getNumber() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
