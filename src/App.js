@@ -28,6 +28,7 @@ class App {
       matches: lotto.confirmMatches(winningNumber),
       matchBonus: lotto.confirmBonus(bonusNumber),
     }));
+    Console.print(matchResults);
 
     // 통계 출력
     Console.print("\n당첨 통계\n---");
@@ -41,9 +42,9 @@ class App {
     results.forEach(({ matches, hasBonus }) => {
       if (matches === 5 && hasBonus) {
         stats["5_bonus"] += 1;
-      } else {
-        stats[matches] += 1;
+        return;
       }
+      stats[matches] += 1;
     });
     return stats;
   }
