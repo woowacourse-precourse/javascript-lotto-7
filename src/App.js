@@ -13,9 +13,7 @@ class App {
 
       const winnigNumber = await Lotto.createLottoWithInput();
 
-      const bonusNumberInstance =
-        await BonusNumber.createBonusNumber(winnigNumber);
-      const bonusNumber = bonusNumberInstance.getBonusNumber();
+      const bonusNumber = await BonusNumber.createBonusNumber(winnigNumber);
 
       const winnigList = new LottoResults();
       winnigList.checkWinningNumbers(
