@@ -7,11 +7,20 @@ import LottoController from './LottoController.js';
 
 export default class AppController {
     #userInputMap;
+    #lotto;
+    #bonus;
 
     async control() {
         this.userInputInit();
         const userMoney = await this.userInput(lottoMesaage.INPUT_MONEY);
         this.handleCheckUserInput(lottoMesaage.INPUT_MONEY, userMoney);
+
+        const winningNumbers = await this.userInput(lottoMesaage.INPUT_LOTTONUMBERS);
+        this.handleCheckUserInput(lottoMesaage.INPUT_LOTTONUMBERS, winningNumbers);
+
+        
+        
+
         
     }
 
@@ -22,6 +31,7 @@ export default class AppController {
     userInputInit() {
         this.#userInputMap = new Map();
         this.#userInputMap.set(lottoMesaage.INPUT_MONEY, this.checkUserMoney.bind(this));
+        this.#userInputMap.set(lottoMesaage.INPUT_LOTTONUMBERS, this.checkWinningNumbers.bind(this));
     }
 
     handleCheckUserInput(message, value) {
@@ -37,6 +47,12 @@ export default class AppController {
         const userLottoList = LottoController.getUserLotto(lottoCount);
         ViweOutput.printLottoList(userLottoList);
     }
+
+    checkWinningNumbers(winningNumbers) {
+        this.#lotto = LottoController.createrWinningLottoNumbers(winningNumbers);
+    }
+
+
 
 
 }
