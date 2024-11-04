@@ -8,6 +8,7 @@ class LottoVendingMachine {
   #lottos = [];
   #winNumbers = [];
   #bounsNumber = 0;
+  #winCount = {};
 
   async run() {
     await this.purchaseLottoAmountInput();
@@ -21,6 +22,7 @@ class LottoVendingMachine {
     await this.bounsNumberInput();
 
     // 당첨내역 출력()
+    this.printWinInfo();
     // 총 수익률 출력()
   }
 
@@ -127,6 +129,63 @@ class LottoVendingMachine {
         MESSAGES.ERROR.PREFIX + MESSAGES.ERROR.RANGE_INT(min, max)
       );
     }
+  }
+
+  printWinInfo() {
+    const winCount = this.#calcWin();
+
+    Console.print("");
+    Console.print(MESSAGES.OUTPUT.WIN_RATE);
+    Console.print(MESSAGES.OUTPUT.WIN_DETAIL_5th(winCount["3"] ?? 0));
+    Console.print(MESSAGES.OUTPUT.WIN_DETAIL_4th(winCount["4"] ?? 0));
+    Console.print(MESSAGES.OUTPUT.WIN_DETAIL_3rd(winCount["5"] ?? 0));
+    Console.print(MESSAGES.OUTPUT.WIN_DETAIL_2nd(winCount["5.1"] ?? 0));
+    Console.print(MESSAGES.OUTPUT.WIN_DETAIL_1st(winCount["6"] ?? 0));
+    Console.print(MESSAGES.OUTPUT.PROFIT_RATE(this.#calcProfitRate()));
+  }
+
+  #calcWin() {
+    const hasSameNumArray = this.#lottos.map((lotto) => {
+      const sameNum = lotto.reduce(
+        (acc, cur) => acc + Number(this.#winNumbers.includes(cur)),
+        0
+      );
+
+      if (sameNum === 5 && lotto.includes(this.#bounsNumber)) {
+        return 5.1;
+      }
+      return sameNum;
+    });
+
+    const winCount = {};
+
+    hasSameNumArray.forEach((num) => {
+      winCount[num] = (winCount[num] ?? 0) + 1;
+    });
+
+    this.#winCount = winCount;
+    return winCount;
+  }
+
+  #calcProfitRate() {
+    const winCount = this.#winCount;
+    const totalPrize =
+      (winCount["3"] ?? 0) * 5000 +
+      (winCount["4"] ?? 0) * 50000 +
+      (winCount["5"] ?? 0) * 1500000 +
+      (winCount["5.1"] ?? 0) * 30000000 +
+      (winCount["6"] ?? 0) * 2000000000;
+    const totalMoney = this.#lottoAmount * 1000;
+
+    return this.#formatProfitRate(
+      Math.round((totalPrize / totalMoney) * 10000) / 100
+    );
+  }
+
+  #formatProfitRate(rate) {
+    const parts = rate.toFixed(1).split(".");
+    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `${integerPart}.${parts[1]}`;
   }
 }
 
