@@ -45,7 +45,7 @@ function lotto_check(NUMBERS, BONUS_NUM, now_check) {
 function check_cost(COST) {
   const PARSED_COST = Number(COST);
   if (isNaN(PARSED_COST) || PARSED_COST % 1000 !== 0 || PARSED_COST <= 0 || !Number.isInteger(PARSED_COST)) {
-    throw new Error("[ERROR] 유효한 금액이 아닙니다.")
+    throw new Error("[ERROR] 유효한 금액을 입력해야 합니다.")
   }
 }
 
@@ -88,9 +88,17 @@ function check_bonus(BONUS_NUM, NUMBERS) {
 class App {
   async run() {
     // 1. 금액 입력 기능과 유효성 검사 로직
-    const COST_STR = await MissionUtils.Console.readLineAsync('로또 구입 금액을 입력하세요.');
-    const COST = Number(COST_STR);
-    check_cost(COST); // 입력받은 금액 유효성 검증
+    let COST;
+    while (true) {
+      try {
+        const COST_STR = await MissionUtils.Console.readLineAsync('로또 구입 금액을 입력하세요.');
+        COST = Number(COST_STR);
+        check_cost(COST); // 입력받은 금액 유효성 검증
+        break;
+      } catch(error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
 
     // 2. 로또 발행 기능
     const LOTTO_PCS = parseInt(COST/1000);
