@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { Messages, Settings } from "./constants";
+import { Messages, Settings } from "./constants.js";
 
 class Lotto {
   #numbers;
