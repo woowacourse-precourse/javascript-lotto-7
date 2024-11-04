@@ -13,7 +13,7 @@ class Report{
 
     getProfit(input){
         const percent = (this.prize /input)* 100
-        return parseFloat(percent.toFixed(2))   
+        return percent.toFixed(2)   
 
     }
     

@@ -28,7 +28,7 @@ class Screen{
         Console.print(PRINT_EACH_RESULT(5,FIVE_PRIZE.toLocaleString(),false,reportObj['five']))
         Console.print(PRINT_EACH_RESULT(5,FIVE_BONUS_PRIZE.toLocaleString(),true,reportObj['bonus']))
         Console.print(PRINT_EACH_RESULT(6,SIX_PRIZE.toLocaleString(),false,reportObj['six']))
-        Console.print(PRINT_PROFIT(percentage))
+        Console.print(PRINT_PROFIT(parseFloat(percentage).toLocaleString()))
     }
 
 }
