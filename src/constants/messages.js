@@ -11,6 +11,8 @@ const CONFIRMATION_MESSAGES = Object.freeze({
 });
 
 const ERROR_MESSAGES = Object.freeze({
+  INVALID_EMPTY_INPUT:
+    '[ERROR] 아무것도 입력하지 않았습니다. 값을 입력해 주세요.',
   INVALID_PURCHASE_AMOUNT_NOT_NUMBER:
     '[ERROR] 구입 금액은 숫자만 입력해 주세요.',
   INVALID_PURCHASE_AMOUNT_NOT_TICKET_UNIT:

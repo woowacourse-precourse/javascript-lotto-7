@@ -1,3 +1,4 @@
+import { trimInputAndCheckEmpty } from './common.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
 
 const {
@@ -22,7 +23,8 @@ const isValidTicketUnit = (amount) => {
 };
 
 const validateAmount = (amount) => {
-  const numericAmount = isPromptAmountNumber(amount);
+  const trimmedAmount = trimInputAndCheckEmpty(amount);
+  const numericAmount = isPromptAmountNumber(trimmedAmount);
   return isValidTicketUnit(numericAmount);
 };
 
