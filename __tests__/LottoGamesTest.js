@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import LottoGame from '../src/controllers/LottoGames';
 
 describe('로또게임 클래스 테스트', () => {
@@ -31,6 +32,21 @@ describe('로또게임 클래스 테스트', () => {
       expect(numbers.length).toBe(6);
       expect(new Set(numbers).size).toBe(6); // 중복 없는지 확인
       expect(numbers.every((num) => num >= 1 && num <= 45)).toBe(true); // 범위 확인
+    });
+  });
+
+  test('로또 발행 결과가 출력된다.', () => {
+    const lottoGame = new LottoGame();
+    const logSpy = jest.spyOn(Console, 'print');
+
+    lottoGame.purchaseLottos(3000);
+
+    expect(logSpy).toHaveBeenCalledWith('3개를 구매했습니다.');
+    expect(logSpy).toHaveBeenCalledTimes(4);
+
+    lottoGame.getLottos().forEach((lotto, index) => {
+      const numbers = lotto.getNumbers().join(', ');
+      expect(logSpy).toHaveBeenCalledWith(`[${numbers}]`);
     });
   });
 });
