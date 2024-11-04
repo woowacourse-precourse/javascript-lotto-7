@@ -1,5 +1,5 @@
 import { LOTTO } from "../Constants.js";
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 export class LottoMarket {
   makeLottoNumbers() {

@@ -4,10 +4,6 @@ export const USER_MESSAGES = {
   BONUS_NUMBER: "보너스 번호를 입력해 주세요.",
 };
 
-export const RESULT_MESSAGES = {
-  FINALLY_RESULTS: "당첨 통계\n---",
-}
-
 export const LOTTO = {
   PRICE_PER_TICKET: 1000,
   NUMBERS_COUNT: 6,
