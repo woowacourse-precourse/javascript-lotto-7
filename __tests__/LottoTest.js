@@ -29,4 +29,10 @@ describe("로또 클래스 테스트", () => {
       new Lotto([1, 2, 3, 4, -2, -13]);
     }).toThrow("[ERROR]");
   });
+
+  test("로또 번호 개수가 6개 미만이면 예외가 발생한다.", () => {
+    expect(() => {
+      new Lotto([1, 2, 3, 4]);
+    }).toThrow("[ERROR]");
+  });
 });
