@@ -33,7 +33,7 @@ class LottoController {
       this.#lotteryNumbers = this.#purchase.generateLotteryNumbers();
       await OutputView.printLottoNumbers(this.#tickets, this.#lotteryNumbers);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
       await this.#purchaseController();
     }
   }
@@ -45,7 +45,7 @@ class LottoController {
       this.#winningLottoNumbers = splittedInput.map((num) => Number(num));
       return new Lotto(this.#winningLottoNumbers);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
       await this.#winningLottoNumbersController();
     }
   }
@@ -56,7 +56,7 @@ class LottoController {
       this.#bonusNumber = Number(input);
       return new BonusNumber(this.#bonusNumber, this.#winningLottoNumbers);
     } catch (error) {
-      Console.print(error);
+      Console.print(error.message);
       await this.#bonusNumberController();
     }
   }
