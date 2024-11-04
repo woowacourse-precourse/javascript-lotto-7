@@ -1,9 +1,9 @@
-import {purchaseOutput, winningStatsOutput} from "./ui/view.js";
 import {getBonusNumber, getPurchaseAmount, getWinningNumbers} from "./services/utils/inputHandler.js";
+import {purchaseOutput, winningStatsOutput} from "./ui/output.js";
 
 class App {
     async run() {
-        const {purchaseAmount, lottoMachine} = await getPurchaseAmount(); // 유효할 때까지 반복
+        const {purchaseAmount, lottoMachine} = await getPurchaseAmount();
         const purchasedLottos = lottoMachine.lottoRelease();
         purchaseOutput(purchasedLottos);
 
