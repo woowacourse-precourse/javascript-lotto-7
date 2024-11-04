@@ -31,12 +31,10 @@ export class LottoGame {
 
   validateBonusNumber(bonusNumber) {
     if (bonusNumber < 1 || bonusNumber > 45) {
-      Console.print(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
-      return;
+      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_RANGE);
     }
     if (this.#winningNumbers.getNumbers().includes(bonusNumber)) {
-      Console.print(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
-      return;
+      throw new Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
     }
   }
 }

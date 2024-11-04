@@ -17,8 +17,7 @@ class Lotto {
       throw new Error(ERROR_MESSAGES.WINNING_NUMBER_DUPLICATE);
     }
     if (numbers.some((n) => n < 1 || n > 45)) {
-      Console.print(ERROR_MESSAGES.WINNING_NUMBER_RANGE);
-      return;
+      throw new Error(ERROR_MESSAGES.WINNING_NUMBER_RANGE);
     }
   }
 

@@ -31,7 +31,7 @@ class App {
       lottoResult.calculateNumbers(userLottos, winningNumbers, bonusNumber);
       lottoResult.printResults(purchaseMoney);
     } catch (error) {
-      throw error;
+      Console.print(error);
     }
   }
 }
