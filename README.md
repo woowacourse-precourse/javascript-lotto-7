@@ -1,9 +1,32 @@
 # **💸 로또**
 
+## ▶️ 실행 결과
+
+<!-- 실행 영상 추가 -->
+
+<br/>
+
+## 🦯 실행 방법
+
+다음 명령어를 통해 프로그램을 실행할 수 있습니다.
+
+```bash
+ // 1. clone을 통해 자신의 pc로 복제
+ git clone https://github.com/rosielsh/javascript-lotto-7.git
+ // 2. 브랜치 변경
+ git checkout rosielsh
+ // 3. 의존성 설치
+ npm install
+ // 4. 프로그램 실행
+ npm run start
+```
+
+<br/>
+
 ## **⚙️** 기능 목록
 
 프로그램의 주요 기능 목록입니다.
-앞에 번호가 붙은 제목이 프로그램의 주요 흐름을 나타냅니다.
+각 기능은 올바른 동작과 예외 상황을 포함하며 총 7개의 흐름으로 구성되어 있습니다.
 
 1. **구입금액 입력**
 
@@ -87,12 +110,93 @@
    	총 수익률은 62.5%입니다.
    ```
 
-## 📋 리팩토링 체크 리스트
+<br/>
 
-1. 함수가 여러 개의 기능을 하지 않도록 분리하기
-2. 함수의 길이가 15라인이 넘지 않는지 확인하기
-3. 값을 하드코딩하지 않기 (상수로 분리하기)
-4. Javascript Style Guide를 준수했는지 점검하기
-5. indent의 depth를 3이상 작성하지 않았는지 점검하기
-6. 3항 연산자를 작성하지 않았는지 확인하기
-7. else를 지양하고 early return 적용하기
+## 📦 클래스 목록
+
+`MVC` 패턴에 맞게 각각의 객체를 분리했습니다.
+
+| 구분            | 클래스명                  | 역할                                               |
+| --------------- | ------------------------- | -------------------------------------------------- |
+| 📊 `Model`      | `Lotto`                   | 하나의 로또 정보를 관리하고 유효성 검사            |
+|                 | `LottoHistory`            | 구매한 로또의 수량과 목록 관리                     |
+|                 | `LottoMachine`            | 로또를 발행하고 기록                               |
+|                 | `RankCalculator`          | 당첨 결과를 계산                                   |
+|                 | `LottoRank`               | 당첨 등수 정보를 기록                              |
+|                 | `RankResult`              | 당첨 결과를 등수와 상금으로 관리                   |
+|                 | `RandomGenerator`         | 로또 생성기                                        |
+| 👀 `View`       | `InputView`               | 입력 처리                                          |
+|                 | `OutputView`              | 출력 처리                                          |
+| 🎮 `Controller` | `LottoController`         | 전체 흐름을 처리                                   |
+|                 | `LottoPurchaseController` | 로또의 구매를 처리하는 컨트롤러                    |
+|                 | `LottoResultController`   | 로또 결과를 처리하는 컨트롤러                      |
+|                 | `WinningNumberController` | 로또의 당첨 번호와 보너스 번호를 처리하는 컨트롤러 |
+
+<br/>
+
+## 📁 디렉터리 구조
+
+```
+📁
+├── README.md
+└── 📁 src
+    ├── App.js
+    ├── 📁 constants
+    │   ├── Message.js
+    │   └── Setting.js
+    ├── 📁 controllers
+    │   ├── LottoController.js
+    │   ├── LottoPurchaseController.js
+    │   ├── LottoResultController.js
+    │   └── WinningNumberController.js
+    ├── 📁 dto
+    │   ├── PurchaseDTO.js
+    │   └── RankDTO.js
+    ├── 📁 index.js
+    ├── 📁 models
+    │   ├── Lotto.js
+    │   ├── LottoHistory.js
+    │   ├── LottoMachine.js
+    │   ├── LottoRank.js
+    │   ├── RandomGenerator.js
+    │   ├── RankCalculator.js
+    │   └── RankResult.js
+    ├── 📁 utils
+    │   ├── InputHandler.js
+    │   ├── Utils.js
+    │   └── generateError.js
+    ├── 📁 validators
+    │   ├── BonusNumberValidator.js
+    │   ├── PurchaseMoneyValidator.js
+    │   ├── Validator.js
+    │   └── WinningNumbersValidator.js
+    └── 📁 views
+        ├── InputView.js
+        └── OutputView.js
+```
+
+<br/>
+
+## 단위 테스트 목록
+
+총 52개의 단위 테스트 실행 결과 `passed` 처리된 것을 확인했습니다.
+
+[레포지토리 내 테스트 코드](https://github.com/rosielsh/javascript-lotto-7/tree/rosielsh/__tests__)
+
+<img src="docs/test.png" width="300px" />
+
+<br/>
+
+## 📋 리팩토링 기준
+
+아래의 리팩토링 기준을 준수하기 위해 노력했습니다.
+
+- [x] 함수가 여러 개의 기능을 하지 않도록 한다.
+- [x] 함수의 길이가 15라인이 넘지 않는지 확인한다.
+- [x] 값을 하드코딩하지 않는다.
+- [x] `Javascript Style Guide`를 준수했는지 점검한다.
+- [x] `indent의` `depth를` 3이상 작성하지 않았는지 점검한다.
+- [x] 3항 연산자를 작성하지 않았는지 확인한다.
+- [x] `else를` 지양하고 `early return` 적용한다.
+
+<br/>
