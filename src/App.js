@@ -1,5 +1,13 @@
+import LottoMachine from './lottomachine/LottoMachine.js';
+
 class App {
-  async run() {}
+  constructor() {
+    this.machine = new LottoMachine();
+  }
+
+  async run() {
+    await this.machine.start();
+  }
 }
 
 export default App;
