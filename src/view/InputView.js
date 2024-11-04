@@ -7,7 +7,7 @@ const InputView = {
     const amount = parseInt(input);
     
     if (isNaN(amount) || amount % 1000 !== 0) {
-      throw new Error("[ERROR] 구입 금액은 1,000원 단위여야 합니다.")
+      throw new Error("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
     }
     
     return amount;
@@ -19,9 +19,9 @@ const InputView = {
     const numbers = input.split(",").map(Number);
 
     if (numbers.length !== 6 || numbers.some((num) => isNaN(num) || num < 1 || num >45)) {
-      throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자 6개여야 합니다.")
+      throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자 6개여야 합니다.");
     }
-    
+
     return numbers;
   }
 }
