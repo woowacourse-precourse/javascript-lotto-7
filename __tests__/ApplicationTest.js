@@ -154,4 +154,104 @@ describe("로또 테스트", () => {
       expect.stringContaining("[ERROR] 1000 단위에 맞춰주세요.")
     );
   });
+
+  test("당첨 번호 잘못 입력 예외 확인 - 빈문자", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,,6", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions([...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 숫자를 입력해주세요.")
+    );
+  });
+
+  test("당첨 번호 잘못 입력 예외 확인 - 1-45이외숫자", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,123,6", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions([...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 1-45사이의 숫자를 입력해주세요.")
+    );
+  });
+
+  test("당첨 번호 잘못 입력 예외 확인 - 문자입력", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,ㅁ,6", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions([...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 숫자를 입력해주세요.")
+    );
+  });
+
+  test("당첨 번호 잘못 입력 예외 확인 - 갯수 부족", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,6", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions([...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 로또 번호는 6개여야 합니다.")
+    );
+  });
+
+  test("당첨 번호 잘못 입력 예외 확인 - 중복이 존재", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
+    const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,6,6", "1,2,3,4,5,6", "7"];
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+    mockQuestions([...INPUT_NUMBERS_TO_END]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("[ERROR] 중복된 숫자가 존재합니다.")
+    );
+  });
 });
