@@ -6,8 +6,12 @@ export const validatePurchaseAmount = (purchaseAmount) => {
   if (purchaseAmount % LOTTO_SINGLE_TICKET_PRICE) throwError(ERROR_MESSAGE.purchaseAmountError);
 };
 
+const isIncludedRegex = (number, regex) => {
+  return regex.test(number);
+};
+
 const isAllNumberType = (numbers) => {
-  return numbers.every((number) => REGEX.validNumberFormat.test(number));
+  return numbers.every((number) => isIncludedRegex(number, REGEX.validNumberFormat));
 };
 
 const isUniqueCombination = (numbers) => {
@@ -15,7 +19,11 @@ const isUniqueCombination = (numbers) => {
 };
 
 const isValidRange = (numbers) => {
-  return numbers.every((number) => REGEX.lottoNumberRange.test(number));
+  return numbers.every((number) => isIncludedRegex(number, REGEX.lottoNumberRange));
+};
+
+const isUniqueNumber = (numbers, newNumber) => {
+  return !numbers.includes(+newNumber);
 };
 
 export const validateWinningNumbers = (numbers) => {
@@ -23,4 +31,10 @@ export const validateWinningNumbers = (numbers) => {
   if (numbers.length !== 6) throwError(ERROR_MESSAGE.lottoNumbersCountError);
   if (!isUniqueCombination(numbers)) throwError(ERROR_MESSAGE.duplicatedNumbersError);
   if (!isValidRange(numbers)) throwError(ERROR_MESSAGE.lottoNumberRangeError);
+};
+
+export const validateBonusNumber = (bonusNumber, winningNumbers) => {
+  if (!isIncludedRegex(bonusNumber, REGEX.validNumberFormat)) throwError(ERROR_MESSAGE.lottoNumberTypeError);
+  if (!isIncludedRegex(bonusNumber, REGEX.lottoNumberRange)) throwError(ERROR_MESSAGE.lottoNumberRangeError);
+  if (!isUniqueNumber(winningNumbers, bonusNumber)) throwError(ERROR_MESSAGE.notUniqueNumberError);
 };
