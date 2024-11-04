@@ -86,16 +86,12 @@ describe("로또 테스트", () => {
       "총 수익률은 62.5%입니다.",
     ];
 
-    logs.forEach((expectedLog) => {
-      expect.arrayContaining([expect.stringContaining(expectedLog)]);
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
 
   test("예외 테스트", async () => {
-    const logSpy = getLogSpy();
-
-    await runException("1000j").catch(() => {
-      expect.stringContaining("[ERROR] 숫자를 입력해주세요.");
-    });
+    await runException("1000j");
   });
 });
