@@ -38,7 +38,7 @@ class LottoController {
       const matchCount = lotto.filter((num) =>
         this.jackpot.includes(num)
       ).length;
-      const matchBonus = lotto.includes(this.bonus);
+      const matchBonus = lotto.includes(Number(this.bonus));
       this.getLottosCount(matchCount, matchBonus);
     });
   }
@@ -52,7 +52,7 @@ class LottoController {
       this.ranks[2]++;
       return;
     }
-    if (matchCount === 5) {
+    if (matchCount === 5 && !matchBonus) {
       this.ranks[3]++;
       return;
     }
