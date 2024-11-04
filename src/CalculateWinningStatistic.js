@@ -12,19 +12,23 @@ function calculateWinningStatistics(ticketList, winningNumbers, bonusNumber) {
       case CONSTANTS.MATCH_COUNT_SIX:
         winningCounts[CONSTANTS.FIRST_PLACE] += 1;
         break;
+
       case CONSTANTS.MATCH_COUNT_FIVE:
-        winningCounts[
-          ticket.includes(bonusNumber)
-            ? CONSTANTS.SECOND_PLACE
-            : CONSTANTS.THIRD_PLACE
-        ] += 1;
+        if (ticket.includes(bonusNumber)) {
+          winningCounts[CONSTANTS.SECOND_PLACE] += 1;
+          return;
+        }
+        winningCounts[CONSTANTS.THIRD_PLACE] += 1;
         break;
+
       case CONSTANTS.MATCH_COUNT_FOUR:
         winningCounts[CONSTANTS.FOURTH_PLACE] += 1;
         break;
+
       case CONSTANTS.MATCH_COUNT_THREE:
         winningCounts[CONSTANTS.FIFTH_PLACE] += 1;
         break;
+
       default:
         break;
     }
