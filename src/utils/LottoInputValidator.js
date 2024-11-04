@@ -32,4 +32,17 @@ export class LottoInputValidator {
 		}
 		return numList;
 	}
+
+	getLottoBonus(bonusNumber, winNumber) {
+		const bonusNum = this.changeToNumber(bonusNumber);
+		console.log('winNumber:', winNumber);
+		console.log('bonusNum:', bonusNum);
+		if (bonusNum < 1 || bonusNum > 45) {
+			throw new Error('[Error] 보너스 번호는 1 ~ 45 사이의 숫자여야 합니다.');
+		}
+		if (winNumber.includes(bonusNum)) {
+			throw new Error('[Error] 보너스 번호는 당첨번호와 중복되어선 안됩니다.');
+		}
+		return bonusNum;
+	}
 }
