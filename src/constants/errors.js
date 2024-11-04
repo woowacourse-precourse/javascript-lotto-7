@@ -14,6 +14,7 @@ export default Object.freeze({
   PURCHASE: Object.freeze({
     MUST_BE_NUMBER: `${ERORR_HEADER} 구입금액 숫자로만 입력가능합니다.`,
     MUST_BE_DIVIDED_INTO_UNITS: `${ERORR_HEADER} 당첨금액은 ${LOTTO.PRICE}단위로 나누어져야합니다.`,
+    IS_NOT_ZERO: `${ERORR_HEADER} 당첨금액은 0원일 수 없습니다.`,
   }),
 });
 

@@ -11,8 +11,12 @@ class PurcahseAmount {
   }
 
   static #validate (amount) {
+
     if (isNaN(amount)) {
       throw new Error(ERROR.PURCHASE.MUST_BE_NUMBER);
+    }
+    if (amount === 0) {
+      throw new Error(ERROR.PURCHASE.IS_NOT_ZERO);
     }
     if (!isUnitFormmat(amount, LOTTO.PRICE)) {
       throw new Error(ERROR.PURCHASE.MUST_BE_DIVIDED_INTO_UNITS);
