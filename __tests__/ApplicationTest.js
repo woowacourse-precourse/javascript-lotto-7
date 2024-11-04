@@ -29,10 +29,9 @@ const runException = async (input) => {
   const logSpy = getLogSpy();
 
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
-  const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
-  mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
+  mockQuestions([...input]);
 
   // when
   const app = new App();
@@ -46,6 +45,69 @@ describe("로또 테스트", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
+
+  test('사용자 입력 테스트(구입 금액)', async () => {
+    const app = new App();
+    const input = ['1000'];
+    mockQuestions(input);
+    await app.setUserMoney();
+    expect(app.getUserMoney()).toBe(1000);
+  });
+
+  test('사용자 입력 테스트(당첨 번호)', async () => {
+    const app = new App();
+    const input = ['1,2,3,4,5,6'];
+    const output = [1, 2, 3, 4, 5, 6];
+    mockQuestions(input);
+    await app.setWinningNumbers();
+    expect(app.getWinningNumbers()).toStrictEqual(output);
+  });
+
+  test('사용자 입력 테스트(보너스 번호)', async () => {
+    const app = new App();
+    const input = ['1,2,3,4,5,6', '7'];
+    mockQuestions(input);
+    await app.setWinningNumbers();
+    await app.setBonusNumber();
+    expect(app.getBonusNumber()).toBe(7);
+  })
+
+  test('사용자 입력 테스트', async () => {
+    const app = new App();
+    const input = ['1000', '1,2,3,4,5,6', '7'];
+    const winningNumbers = [1, 2, 3, 4, 5, 6];
+    mockQuestions(input);
+    await app.setUserMoney();
+    await app.setWinningNumbers();
+    await app.setBonusNumber();
+    expect(app.getUserMoney()).toBe(1000);
+    expect(app.getWinningNumbers()).toStrictEqual(winningNumbers);
+    expect(app.getBonusNumber()).toBe(7);
+  })
+
+  test('로또 추첨 테스트', async () => {
+    const app = new App();
+    const input = ['7000', '1,2,3,4,5,6', '7'];
+    const prizeCountResult = [1,1,1,1,1,2];
+    const totalPrizeMoney = 2031560000;
+    mockRandoms([
+      [1,2,3,4,5,6],
+      [1,2,3,4,5,7],
+      [1,2,3,4,5,8],
+      [1,2,3,4,8,9],
+      [1,2,3,8,9,10],
+      [1,2,3,8,9,10],
+      [11,12,13,14,15,16],
+    ]);
+    mockQuestions(input);
+    await app.setUserMoney();
+    await app.setWinningNumbers();
+    await app.setBonusNumber();
+    app.setUserLotteries(app.publishUserLotteries());
+    app.drawUserLotteries();
+    expect(app.getPrizeCount()).toStrictEqual(prizeCountResult);
+    expect(app.getWinningMoneySum()).toBe(totalPrizeMoney);
+  })
 
   test("기능 테스트", async () => {
     // given
@@ -90,8 +152,66 @@ describe("로또 테스트", () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
     });
   });
+});
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+describe("로또 예외 테스트", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test.each([
+    '1001',
+    '0',
+    '1000a',
+    'a1000',
+    '10a00',
+    '-1000',
+    '',
+    null,
+    '1000👍',
+    '1000 '
+  ])('사용자 입력 테스트(구입 금액)', async (input) => {
+    const data = [input, '1000','1,2,3,4,5,6', '7'];
+    await runException(data);
+  });
+
+  test.each([
+    '',
+    null,
+    '0,1,2,3,4,5',
+    '-1,1,2,3,4,5',
+    '1,2,3,4,5,46',
+    '0.1,0.2,0.3,0.4,0.5,0.6',
+    '1,2,3,4,5,6,7',
+    '1;2;3;4;5;6',
+    '1,2,3,4,5👍6',
+    '1,2,3,4,5,👍6',
+    '1,2,3,4,5,6 ',
+    '1,2,3,4,5,5',
+  ])('사용자 입력 테스트(당첨 번호)', async (input) => {
+    const data = ['1000', input, '1,2,3,4,5,6', '7'];
+    await runException(data);
+  });
+
+  test.each([
+    '',
+    null,
+    '0.1',
+    '0',
+    '1a',
+    'a1',
+    '-1',
+    '46',
+    '1😊',
+    '😊1',
+    '1 ',
+  ])('사용자 입력 테스트(보너스 번호)', async (input) => {
+    const data = ['1000', '1,2,3,4,5,6', input, '7'];
+    await runException(data);
+  });
+
+  test('중복 입력 테스트(보너스 번호)', async () => {
+    const data = ['1000', '1,2,3,4,5,6', '1', '7'];
+    await runException(data);
   });
 });
