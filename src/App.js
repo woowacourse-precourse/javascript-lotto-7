@@ -1,11 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 import PurchaseAmount from "./PurchaseAmount.js";
 import LottoMachine from "./LottoMachine.js";
-import { PURCHASE_AMOUNT_MESSAGE, LOTTO_STATISTICS_MESSAGE } from "./constants/output.js";
-import { INPUT_MESSAGE } from "./constants/input.js";
 import Lotto from "./Lotto.js";
 import LottoBonus from "./LottoBonus.js";
 import LottoResult from "./LottoResult.js";
+import { PURCHASE_AMOUNT_MESSAGE, LOTTO_STATISTICS_MESSAGE } from "./constants/output.js";
+import { INPUT_MESSAGE } from "./constants/input.js";
 
 class App {
   async run() {

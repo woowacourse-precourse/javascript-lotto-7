@@ -1,6 +1,6 @@
-import { RESULT, ZERO, PERCENTAGE, TENTHS_PLACE } from "./constants/result.js";
 import { LOTTO_PRICE } from "./constants/lotto.js";
 import {RATE_OF_RETURN} from "./constants/output.js";
+import { RESULT, ZERO, PERCENTAGE, TENTHS_PLACE } from "./constants/result.js";
 class LottoResult {
   #results;
   #purchaseAmount;
