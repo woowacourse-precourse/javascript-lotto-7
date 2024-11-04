@@ -9,13 +9,20 @@ export class Money {
   }
 
   #validate(money) {
+    this.#isPositive(money);
     this.#isEvenThousand(money);
+  }
+
+  #isPositive(money) {
+    if (money <= 0) {
+      throw Error(ERROR.message);
+    }
   }
 
   #isEvenThousand(money) {
     const isValidAmount = money % 1000 === 0;
 
-    if (!money || !isValidAmount) {
+    if (!isValidAmount) {
       throw Error(ERROR.message);
     }
   }
