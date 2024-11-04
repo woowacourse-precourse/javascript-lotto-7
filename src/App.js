@@ -54,7 +54,7 @@ class App {
     );
     try {
       this.winningNumbers = this.validateNumbers(
-        numbers.split(",").map(Number)
+        numbers.split(",").map((num) => Number(num.trim()))
       );
       await this.inputBonusNumber();
     } catch (error) {
@@ -68,7 +68,7 @@ class App {
       "\n보너스 번호를 입력해 주세요.\n"
     );
     try {
-      this.bonusNumber = this.validateNumber(Number(number));
+      this.bonusNumber = this.validateNumber(Number(number.trim()));
       this.printResults();
     } catch (error) {
       Console.print(error.message);
