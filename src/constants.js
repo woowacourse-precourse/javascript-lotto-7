@@ -1,3 +1,31 @@
+const lotteryStatistics = [
+  {
+    matches: Object.freeze(3),
+    price: Object.freeze(5),
+    amount: 0,
+  },
+  {
+    matches: Object.freeze(4),
+    price: Object.freeze(50),
+    amount: 0,
+  },
+  {
+    matches: Object.freeze(5),
+    price: Object.freeze(1500),
+    amount: 0,
+  },
+  {
+    matches: Object.freeze(7),
+    price: Object.freeze(30000),
+    amount: 0,
+  },
+  {
+    matches: Object.freeze(6),
+    price: Object.freeze(2000000),
+    amount: 0,
+  },
+];
+
 const PROMPTS = {
   PURCHASE_PROMPT: "구입금액을 입력해 주세요.( '원'과 ,는 생략해주세요) : ",
   PURCAHSE_INFO_PROMPT: "개를 구매했습니다.",
@@ -7,8 +35,8 @@ const PROMPTS = {
 
 const LOTTERY_NUM_RANGE = {
   START: 1,
-  END: 45
-}
+  END: 45,
+};
 
 const ERROR_MESSAGES = {
   LOTTERY_NUM_INPUT_COMMA: ",로 입력값들을 구분해주세요.",
@@ -19,4 +47,4 @@ const ERROR_MESSAGES = {
   PURCHASE_STRING: "로또 구입 금액은 1,000원 단위로 입력해주세요.",
 };
 
-export { PROMPTS, ERROR_MESSAGES, LOTTERY_NUM_RANGE };
+export { PROMPTS, ERROR_MESSAGES, LOTTERY_NUM_RANGE, lotteryStatistics };
