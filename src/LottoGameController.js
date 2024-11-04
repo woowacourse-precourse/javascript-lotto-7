@@ -1,4 +1,4 @@
-import {validateWinningNumberForm} from './validate.js'
+import {validateAnswerNumberForm} from './validate.js'
 import {purchaseValidatePipe} from './purchaseValidatePipe.js' 
 import {lottoNumberValidatePipe} from './lottoNumberValidatePipe.js' 
 import {bonusNumberValidatePipe} from './bonusNumberValidatePipe.js'
@@ -10,23 +10,23 @@ class LottoGameController{
         this.service = service
     }
 
-    static onGetPurchaseAmount(purchaseAmount){
+    static onGetPurchaseQuantity(purchaseAmount){
         purchaseValidatePipe(purchaseAmount);
         return parser.divideThousands(purchaseAmount);
     }
-    static onGetWinningNumber(winningNumberString){
-        validateWinningNumberForm(winningNumberString);
-        const winningNumbers = parser.separateString(winningNumberString, ',');
-        lottoNumberValidatePipe(winningNumbers);
-        return winningNumbers;
+    static onGetAnswerNumber(answerNumberString){
+        validateAnswerNumberForm(winningNumberString);
+        const answerNumbers = parser.separateString(answerNumberString, ',');
+        lottoNumberValidatePipe(answerNumbers);
+        return answerNumbers;
     }
     static onGetBonusNumber(bonusNumber){
         bonusNumberValidatePipe(bonusNumber);
     }
 
     async run(){
-        const purchaseAmount = await this.view.getPurchaseAmount();
-        const winningNumbers = await this.view.getWinningNumber();
+        const purchaseQuantity = await this.view.getPurchaseQuantity();
+        const answerNumbers = await this.view.getAnswerNumber();
         const bonusNumber = await this.view.getBonusNumber();
         this.service.ready();
     }

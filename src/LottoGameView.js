@@ -2,14 +2,14 @@ import {Console} from '@woowacourse/mission-utils'
 import LottoGameController from './LottoGameController.js'
 
 class LottoGameView{
-    async getPurchaseAmount(){
+    async getPurchaseQuantity(){
         const input = await Console.readLineAsync('구입금액을 입력해 주세요.');
-        return LottoGameController.onGetPurchaseAmount(input);
+        return LottoGameController.onGetPurchaseQuantity(input);
     }
 
-    async getWinningNumber(){
+    async getAnswerNumber(){
         const input = await Console.readLineAsync('당첨 번호를 입력해 주세요.');
-        return LottoGameController.onGetWinningNumber(input);
+        return LottoGameController.onGetAnswerNumber(input);
     }
 
     async getBonusNumber(){
