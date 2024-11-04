@@ -23,8 +23,10 @@ export class View {
     return input.trim();
   }
 
-  printStatics(statistics, profit) {
-    const [three, four, five, fiveBonus, six] = statistics;
+  printStatistics(statistics) {
+    const [three, four, five, fiveBonus, six] = statistics.getStatistics();
+    const profit = statistics.getProfit();
+
     Console.print('당첨 통계\n---');
     Console.print(`3개 일치 (5,000원) - ${three}개`);
     Console.print(`4개 일치 (50,000원) - ${four}개`);
