@@ -41,6 +41,17 @@ class Lotto {
       throw new Error("[ERROR] : 당첨 번호는 1~45 사이여야 합니다.");
     }
   }
+
+  static validateBonusNumber(bonusNumber, uniqueNumbers) {
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error("[ERROR] : 보너스 번호는 1~45 사이여야 합니다.");
+    }
+    if (uniqueNumbers.has(bonusNumber)) {
+      throw new Error(
+        "[ERROR] : 보너스 번호는 당첨 번호와 중복될 수 없습니다."
+      );
+    }
+  }
 }
 
 export default Lotto;
