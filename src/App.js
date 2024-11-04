@@ -17,40 +17,68 @@ class App {
         Console.print(lotto.numbers);
       });
 
-      // 당첨 번호 및 보너스 번호 입력 기능 호출
-      await this.promptWinningNumbers();
+      const { winningNumbers, bonusNumber } = await this.getWinningNumbers();
+
+
+      const result = this.compareNumbers(lottos, winningNumbers, bonusNumber);
+
+
+      this.displayResult(result);
 
     } catch (error) {
       Console.print(error.message);
     }
   }
 
-  async promptWinningNumbers() {
-    const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요. (예: 1,2,3,4,5,6)\n');
-    try {
-      const winningNumbers = this.parseWinningNumbers(input);
-      Console.print(`\n입력된 당첨 번호: ${winningNumbers}`);
+  async getWinningNumbers() {
+    const winningInput = await Console.readLineAsync('\n당첨 번호를 입력해 주세요. (예: 1,2,3,4,5,6)\n');
+    const winningNumbers = this.parseWinningNumbers(winningInput);
 
-      await this.promptBonusNumber(winningNumbers);
+    const bonusInput = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    const bonusNumber = this.parseBonusNumber(bonusInput, winningNumbers);
 
-    } catch (error) {
-      Console.print(error.message);
-
-      await this.promptWinningNumbers();
-    }
+    Console.print(`\n입력된 당첨 번호: ${winningNumbers}`);
+    Console.print(`보너스 번호: ${bonusNumber}`);
+    
+    return { winningNumbers, bonusNumber };
   }
 
-  async promptBonusNumber(winningNumbers) {
-    const input = await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
-    try {
-      const bonusNumber = this.parseBonusNumber(input, winningNumbers);
-      Console.print(`보너스 번호: ${bonusNumber}`);
+  compareNumbers(lottos, winningNumbers, bonusNumber) {
+    const result = {
+      first: 0,  // 6개
+      second: 0, // 5개 + 보너스 
+      third: 0,  // 5개
+      fourth: 0, // 4개
+      fifth: 0   // 3개
+    };
 
-    } catch (error) {
-      Console.print(error.message);
+    lottos.forEach((lotto) => {
+      const matchCount = lotto.numbers.filter((num) => winningNumbers.includes(num)).length;
+      const isBonusMatch = lotto.numbers.includes(bonusNumber);
 
-      await this.promptBonusNumber(winningNumbers);
-    }
+      if (matchCount === 6) {
+        result.first += 1;
+      } else if (matchCount === 5 && isBonusMatch) {
+        result.second += 1;
+      } else if (matchCount === 5) {
+        result.third += 1;
+      } else if (matchCount === 4) {
+        result.fourth += 1;
+      } else if (matchCount === 3) {
+        result.fifth += 1;
+      }
+    });
+
+    return result;
+  }
+
+  displayResult(result) {
+    Console.print('\n당첨 통계\n---');
+    Console.print(`3개 일치 (5,000원) - ${result.fifth}개`);
+    Console.print(`4개 일치 (50,000원) - ${result.fourth}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${result.third}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${result.second}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${result.first}개`);
   }
 
   parseWinningNumbers(input) {
