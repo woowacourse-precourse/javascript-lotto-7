@@ -1,15 +1,11 @@
-import Match from './domains/Match.js';
+import LottoController from './controller/LottoController.js';
 import { Console } from '@woowacourse/mission-utils';
 
 class App {
   async run() {
     try {
-      const match = new Match();
-      await match.getLottos();
-      await match.getJackpot();
-      match.resetRanks();
-      match.matchLottos();
-      match.displayResult();
+      const match = new LottoController();
+      await match.lottoGameStart();
     } catch (error) {
       Console.print(error.message);
     }
