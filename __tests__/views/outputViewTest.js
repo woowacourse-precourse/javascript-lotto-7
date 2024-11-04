@@ -1,4 +1,4 @@
-import outputView from '../src/views/outputView.js';
+import outputView from '../../src/views/outputView.js';
 import { Console } from '@woowacourse/mission-utils';
 
 describe('outputView 테스트', () => {

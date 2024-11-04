@@ -1,4 +1,4 @@
-import { LOTTO_TEMPLATE } from '../src/constants/lottoResults.js';
+import { LOTTO_TEMPLATE } from '../../src/constants/lottoResults.js';
 
 describe('LOTTO_PRIZE 상수를 참조하는 LOTTO_TEMPLATE 테스트', () => {
   test('LOTTO_TEMPLATE.fifth 메시지가 LOTTO_PRIZE 값으로 올바르게 설정되어야 한다', () => {

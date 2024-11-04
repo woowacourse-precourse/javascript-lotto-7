@@ -1,5 +1,5 @@
-import inputView from '../src/views/inputView.js';
-import { ERROR_MESSAGES } from '../src/constants/errorMessage.js';
+import inputView from '../../src/views/inputView.js';
+import { ERROR_MESSAGES } from '../../src/constants/errorMessage.js';
 import { Console } from '@woowacourse/mission-utils';
 
 jest.mock('@woowacourse/mission-utils', () => ({

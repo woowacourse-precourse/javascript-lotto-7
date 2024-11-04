@@ -1,5 +1,5 @@
-import validationLotto from '../src/validations/validationLotto.js';
-import { ERROR_MESSAGES } from '../src/constants/errorMessage.js';
+import validationLotto from '../../src/validations/validationLotto.js';
+import { ERROR_MESSAGES } from '../../src/constants/errorMessage.js';
 
 describe('validationLotto 테스트', () => {
   describe('purchasePrice 함수', () => {
