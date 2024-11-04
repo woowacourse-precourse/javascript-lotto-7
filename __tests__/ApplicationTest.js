@@ -110,7 +110,7 @@ describe("로또 테스트", () => {
 
   describe("예외 테스트", () => {
     describe("구매 금액이", () => {
-      test("숫자가 아닌 경우", async () => {
+      test("숫자가 아닌 경우 에러 반환", async () => {
         await runMoneyException("1000j");
       });
       test("1000원으로 나누어 떨어지지 않는 경우 에러 반환", async () => {
@@ -123,7 +123,7 @@ describe("로또 테스트", () => {
       });
     });
     describe("당첨 번호가", () => {
-      test("숫자가 아닌 경우", async () => {
+      test("숫자가 아닌 경우 에러 반환", async () => {
         await runWinningNumbersException(["1000", "1,2,3,4,5,6j"]);
       });
       test.each([
@@ -133,7 +133,7 @@ describe("로또 테스트", () => {
       });
     });
     describe("보너스 번호가", () => {
-      test("숫자가 아닌 경우", async () => {
+      test("숫자가 아닌 경우 에러 반환", async () => {
         await runBonusNumbersException(["1000", "1,2,3,4,5,6", "7j"]);
       });
       test.each([
