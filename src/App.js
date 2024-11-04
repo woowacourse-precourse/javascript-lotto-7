@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { numOfLotto } from '../src/InputComponent.js';
+import { numOfLotto, chkSelectedNum } from '../src/InputComponent.js';
 
 class App {
     async run() {
@@ -9,6 +9,12 @@ class App {
             const price = await Console.readLineAsync('');
             const lotto = numOfLotto(price); // 로또 개수
             if (lotto == 0) this.throwError('로또 구입 금액 입력 오류');
+
+            // 당첨 번호 입력
+            Console.print('\n당첨 번호를 입력해 주세요.');
+            const numbers = (await Console.readLineAsync('')).split(',');
+            const selectedNum = chkSelectedNum(numbers);
+            if (!selectedNum) this.throwError('당첨 번호 입력 오류');
         } catch (error) {
             Console.print(error.message);
             throw error;
