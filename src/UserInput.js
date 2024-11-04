@@ -11,6 +11,10 @@ class UserInput {
       throw new Error("[ERROR] 구매금액은 숫자로 입력해주세요");
     }
 
+    if (price % 1000 !== 0) {
+      throw new Error("[ERROR] 1000원 단위로 입력해주세요");
+    }
+
     return input;
   }
 }
