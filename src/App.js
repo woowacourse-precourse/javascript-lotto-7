@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   async run() {
@@ -7,6 +7,9 @@ class App {
       const lottoCount = this.calculateLottoCount(userPay);
 
       Console.print(`${lottoCount}개를 구매했습니다.`);
+      const lottoTickets = this.generateLottoTickets(lottoCount);
+
+      lottoTickets.forEach(ticket => Console.print(`[${ticket.join(", ")}]`));
     } catch (error) {
       Console.print(error.message);
     }
@@ -42,6 +45,28 @@ class App {
    */
   calculateLottoCount(amount) {
     return Math.floor(amount / 1000);
+  }
+
+  /**
+   * @description 로또 티켓을 생성하는 함수
+   * @param {number} count - 생성할 로또 수량
+   * @returns {number[][]} 로또 번호 배열
+   */
+  generateLottoTickets(count) {
+    const tickets = [];
+    for (let i = 0; i < count; i++) {
+      tickets.push(this.generateLottoNumbers());
+    }
+    return tickets;
+  }
+
+  /**
+   * @description 로또 번호를 생성하는 함수
+   * @returns {number[]} 1에서 45 사이의 중복되지 않는 숫자 6개로 구성된 배열
+   */
+  generateLottoNumbers() {
+    const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+    return numbers.sort((a, b) => a - b); // 오름차순 정렬
   }
 }
 
