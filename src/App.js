@@ -73,4 +73,59 @@ validateWinningNumbers(winningNumbers){
   }
 }
 
+// 4. 당첨 통계 계산
+calculateWinnings(lottos, winningNumbers, bonusNumber) {
+  const statistics = {
+    3: 0,
+    4: 0,
+    5: 0,
+    5 + 'b': 0, // 보너스 번호와 함께 5개 일치
+    6: 0,
+  };
+
+  lottos.forEach(lotto => {
+    const matches = lotto.getNumbers().filter(num => winningNumbers.includes(num)).length;
+    
+    if (matches === 6) {
+      statistics[6]++;
+    } else if (matches === 5 && lotto.getNumbers().includes(bonusNumber)) {
+      statistics[5 + 'b']++;
+    } else if (matches === 5) {
+      statistics[5]++;
+    } else if (matches === 4) {
+      statistics[4]++;
+    } else if (matches === 3) {
+      statistics[3]++;
+    }
+  });
+
+  return statistics;
+}
+
+// 당첨 통계 출력
+printStatistics(statistics, totalAmount) {
+  const prizeMoney = {
+    3: 5000,
+    4: 50000,
+    5: 1500000,
+    5 + 'b': 30000000,
+    6: 2000000000,
+  };
+
+  Object.entries(statistics).forEach(([key, count]) => {
+    if (count > 0) {
+      MissionUtils.Console.print(`${key}개 일치 (${prizeMoney[key]}원) - ${count}개`);
+    }
+  });
+
+  const totalWinnings = Object.entries(statistics).reduce((sum, [key, count]) => {
+    return sum + (prizeMoney[key] || 0) * count;
+  }, 0);
+  
+  // 수익률 계산
+  const profitRate = ((totalWinnings / totalAmount) * 100).toFixed(1);
+  MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
+}
+}
+
 export default App;
