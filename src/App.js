@@ -2,18 +2,18 @@ import Input from "./inputInfo.js";
 
 class App {
   async run() {
-    let price = new Input();
-    await price.inputPrice();
-    price.purchaseNumber();
+    let input = new Input();
+    await input.inputPrice();
+    input.purchaseNumber();
 
-    price.listLottos();
-    price.printLottos();
+    input.listLottos();
+    input.printLottos();
 
-    await price.winLottoNumbers();
-    await price.winBonusNumber();
+    await input.winLottoNumbers();
+    await input.winBonusNumber();
 
-    price.checkLottoMatch();
-    price.printResult();
+    input.checkLottoMatch();
+    input.printResult();
   }
 }
 
