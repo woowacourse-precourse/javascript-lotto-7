@@ -28,7 +28,7 @@ describe("Validation Tests", () => {
 
   test("보너스 번호가 숫자가 아닌 값이 입력될 경우 오류 발생", () => {
     expect(() => {
-      Validation.ispurchaseMoneyValidated("t");
+      Validation.invalidBonusNumberType("t");
     }).toThrow(ERROR_MESSAGES.invalidBonusNumberType);
   });
 
@@ -41,7 +41,7 @@ describe("Validation Tests", () => {
   test("보너스 번호가 번위를 벗어날 경우 오류 발생", () => {
     expect(() => {
       Validation.isBonusNumberValidated("-1");
-    }).toThrow(ERROR_MESSAGES.invalidBonusNumberType);
+    }).toThrow(ERROR_MESSAGES.invalidBonusNumberRange);
   });
 
   test("보너스 번호 올바른 입력에 대해서는 오류를 발생하지 않음", () => {
