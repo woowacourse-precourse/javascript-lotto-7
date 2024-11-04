@@ -17,6 +17,7 @@ const STATISTICS = Object.freeze({
 
 const FORMAT = Object.freeze({
   LINEBREAK: "\n",
+  COMMA_SPACE: ', ',
 });
 
 export {

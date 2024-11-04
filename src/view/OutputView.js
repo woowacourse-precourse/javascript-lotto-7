@@ -7,7 +7,7 @@ const OutputView = {
   },
 
   printLottoNumbers(lottoNumbers) {
-    printMessage(lottoNumbers.map(numbers => `[${numbers.join(', ')}]`).join(FORMAT.LINEBREAK));
+    printMessage(lottoNumbers.map(numbers => `[${numbers.join(FORMAT.COMMA_SPACE)}]`).join(FORMAT.LINEBREAK));
   },
 
   printWinningStatistics(statistics) {
