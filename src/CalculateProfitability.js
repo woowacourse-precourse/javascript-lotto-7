@@ -1,4 +1,4 @@
-function calculateProfitability(purchaseMoney, winningStatistics) {
+function CalculateProfitability(purchaseMoney, winningStatistics) {
   const PRIZE_AMOUNTS = [2000000000, 30000000, 1500000, 50000, 5000];
 
   const totalPrizeRevenue = winningStatistics.reduce(
@@ -13,4 +13,4 @@ function calculateProfitability(purchaseMoney, winningStatistics) {
   return parseFloat(profitabilityPercentage.toFixed(2));
 }
 
-export default calculateProfitability;
+export default CalculateProfitability;

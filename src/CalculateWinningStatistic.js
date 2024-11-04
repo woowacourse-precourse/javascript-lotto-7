@@ -1,6 +1,6 @@
 import { CONSTANTS } from "./constants/constants.js";
 
-function calculateWinningStatistics(ticketList, winningNumbers, bonusNumber) {
+function CalculateWinningStatistics(ticketList, winningNumbers, bonusNumber) {
   const winningCounts = [0, 0, 0, 0, 0];
 
   ticketList.forEach((ticket) => {
@@ -37,4 +37,4 @@ function calculateWinningStatistics(ticketList, winningNumbers, bonusNumber) {
   return winningCounts;
 }
 
-export default calculateWinningStatistics;
+export default CalculateWinningStatistics;

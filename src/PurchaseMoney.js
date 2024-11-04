@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from "./constants/errorMessage.js";
 import { CONSTANTS } from "./constants/constants.js";
 
-class purchaseMoney {
+class PurchaseMoney {
   #money;
 
   constructor(money) {
@@ -41,4 +41,4 @@ class purchaseMoney {
   }
 }
 
-export default purchaseMoney;
+export default PurchaseMoney;

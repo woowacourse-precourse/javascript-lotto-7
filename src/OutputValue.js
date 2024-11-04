@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { OUTPUT_MESSAGE } from "./constants/OutputMessage.js";
+import { OUTPUT_MESSAGE } from "./constants/outputMessage.js";
 
 const OutputValue = {
   printLottoSummary(lottoQuantity, ticketList) {
