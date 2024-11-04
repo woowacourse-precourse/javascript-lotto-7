@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
