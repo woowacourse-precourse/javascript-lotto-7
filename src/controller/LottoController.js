@@ -29,7 +29,10 @@ class LottoController {
 
   async #drawNumbers() {
     const winningNumbers = await this.#lottoView.getWinningNumbers();
+    this.#lottoModel.setWinningNumbers(winningNumbers);
+
     const bonusNumber = await this.#lottoView.getBonusNumber();
+    this.#lottoModel.setBonusNumber(bonusNumber);
   }
 }
 
