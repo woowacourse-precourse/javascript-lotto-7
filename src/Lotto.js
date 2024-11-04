@@ -1,3 +1,8 @@
+import { ERROR_MESSAGE } from './constant/error.js';
+import { RULE } from './constant/rule.js';
+import { throwWoowaError } from './util/error.js';
+import { validateLottoNumber } from './util/validation.js';
+
 class Lotto {
   #numbers;
 
@@ -7,12 +12,30 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== RULE.lotto.lottoSize) {
+      throwWoowaError(ERROR_MESSAGE.invalidNumberSize);
     }
+
+    if (new Set(numbers).size !== RULE.lotto.lottoSize) {
+      throwWoowaError(ERROR_MESSAGE.invalidDuplicateNumber);
+    }
+
+    numbers.forEach((number) => {
+      validateLottoNumber(number);
+    });
   }
 
-  // TODO: 추가 기능 구현
+  getLottoForPrint() {
+    return this.#numbers.join(', ');
+  }
+
+  hasInNumbers(number) {
+    return this.#numbers.includes(number);
+  }
+
+  countMatchingNumbers(lotto) {
+    return this.#numbers.filter((number) => lotto.hasInNumbers(number)).length;
+  }
 }
 
 export default Lotto;
