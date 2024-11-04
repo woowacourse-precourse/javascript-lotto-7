@@ -1,7 +1,7 @@
 import LottoGenerator from './components/Lotto/LottoGenerator.js';
 import ResultCalculator from './components/ResultCalculator.js';
 import StatisticCalculation from './components/StatisticCalculation.js';
-import { printGeneratedList, printfinalResults } from './utils/OutputView.js';
+import { printGeneratedList, printFinalResults } from './utils/OutputView.js';
 
 class App {
   async run() {
@@ -13,7 +13,7 @@ class App {
     const resultCalculator = new ResultCalculator(winningNumbers, bonusNumber);
     const prizes = resultCalculator.calculatePrizes(lottoList);
     const statistics = StatisticCalculation(prizes, inputMoney);
-    printfinalResults(statistics);
+    printFinalResults(statistics);
   }
 }
 

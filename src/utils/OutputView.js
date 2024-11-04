@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import VIEWMESSAGES from '../resources/VIEWMESSAGES.js';
 
 function printBlankLine() {
   Console.print('');
@@ -13,7 +14,9 @@ export function printGeneratedList(lottoList) {
   const lottoCount = lottoList.length;
 
   printBlankLine();
-  Console.print(`${lottoCount}개를 구매했습니다.`);
+  Console.print(
+    VIEWMESSAGES.LIST_COUNT_MESSAGE.replace('{lottoCount}', lottoCount),
+  );
   lottoList.forEach((lotto) => {
     printAfterFormatting(lotto.getNumbers());
   });
@@ -21,29 +24,38 @@ export function printGeneratedList(lottoList) {
 }
 
 function pushTitleMessages(messages) {
-  const statisticsTitle = '당첨 통계\n---';
-  messages.push(statisticsTitle);
+  messages.push(VIEWMESSAGES.STATISTICS_TITLE);
 }
 
 function pushResultMessages(statistics, messages) {
   statistics.forEach((detail, key) => {
     if (key === 'ROI') {
-      const formattedResult = `총 수익률은 ${detail}%입니다.`;
-      messages.push(formattedResult);
+      messages.push(VIEWMESSAGES.ROI_MESSAGE.replace('{detail}', detail));
       return;
     }
     if (key === '5withoutBonus') {
-      const formattedResult = `5개 일치 (${detail.prize.toLocaleString()}원) - ${detail.count}개`;
-      messages.push(formattedResult);
+      messages.push(
+        VIEWMESSAGES.MATCH_WITHOUT_BONUS_MESSAGE.replace(
+          '{detail.prize}',
+          detail.prize.toLocaleString(),
+        ).replace('{detail.count}', detail.count),
+      );
       return;
     }
     if (key === '5withBonus') {
-      const formattedResult = `5개 일치, 보너스 볼 일치 (${detail.prize.toLocaleString()}원) - ${detail.count}개`;
-      messages.push(formattedResult);
+      messages.push(
+        VIEWMESSAGES.MATCH_WITH_BONUS_MESSAGE.replace(
+          '{detail.prize}',
+          detail.prize.toLocaleString(),
+        ).replace('{detail.count}', detail.count),
+      );
       return;
     }
-    const formattedResult = `${key}개 일치 (${detail.prize.toLocaleString()}원) - ${detail.count}개`;
-    messages.push(formattedResult);
+    messages.push(
+      VIEWMESSAGES.MATCH_RESULT_MESSAGE.replace('{key}', key)
+        .replace('{detail.prize}', detail.prize.toLocaleString())
+        .replace('{detail.count}', detail.count),
+    );
   });
 }
 
