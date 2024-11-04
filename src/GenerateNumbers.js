@@ -22,19 +22,20 @@ class GenerateNumbers {
     }
     console.log("");
 
-    console.log("2개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개");
+    console.log("3개 일치 (5,000원) - " + this.fifthPlaceCount + "개");
+    console.log("4개 일치 (50,000원) - " + this.fourthPlaceCount + "개");
+    console.log("5개 일치 (1,500,000원) - " + this.thirdPlaceCount + "개");
     console.log(
-      "1개 일치, 보너스 볼 일치 (30,000,000원) - " +
+      "5개 일치, 보너스 볼 일치 (30,000,000원) - " +
         this.secondPlaceCount +
         "개"
     );
-    console.log("1개 일치 (1,500,000원) - " + this.thirdPlaceCount + "개");
+    console.log("6개 일치 (2,000,000,000원) - " + this.firstPlaceCount + "개");
 
     // console.log("1등 횟수 : " + this.firstPlaceCount);
     // console.log("2등 횟수 : " + this.secondPlaceCount);
     // console.log("3등 횟수 : " + this.thirdPlaceCount);
-    // console.log("4등 횟수 : " + this.fourthPlaceCount);
-    // console.log("5등 횟수 : " + this.fifthPlaceCount);
+
     console.log("");
     this.calculateReturn(bills);
 
@@ -55,12 +56,23 @@ class GenerateNumbers {
 
     const bonusNumAsNumber = Number(bonusNum);
 
-    if (count === 0) {
+    if (count === 0 || count === 1 || count === 2) {
       console.log("일치하는 번호 없음");
     }
 
-    // 테스트를 위한 임시 코드, 비교할 count 값은 추후 수정
-    if (count === 1) {
+    if (count === 3) {
+      prizeMoney = 5000;
+      this.fifthPlaceCount++;
+      console.log(count + "개 번호 일치");
+    }
+
+    if (count === 4) {
+      prizeMoney = 50000;
+      this.fourthPlaceCount++;
+      console.log(count + "개 번호 일치");
+    }
+
+    if (count === 5) {
       if (randomNum.includes(bonusNumAsNumber)) {
         prizeMoney = 1500000;
         this.secondPlaceCount++;
@@ -73,7 +85,7 @@ class GenerateNumbers {
       }
     }
 
-    if (count === 2) {
+    if (count === 6) {
       prizeMoney = 2000000000;
       this.firstPlaceCount++;
       console.log(count + "개 번호 일치");
@@ -86,7 +98,7 @@ class GenerateNumbers {
   calculateReturn(bills) {
     const totalPrice = bills * 1000;
     const profit = this.totalPrizeMoney / totalPrice;
-    // console.log(this.totalPrizeMoney);
+    console.log(this.totalPrizeMoney);
     // console.log(totalPrice);
     console.log("총 수익률은 " + profit.toFixed(1) + "%입니다.");
   }
