@@ -1,11 +1,14 @@
 import { Console, MissionUtils, Random } from "@woowacourse/mission-utils"
+import Lotto from './Lotto.js';
 
 class App {
   async run() {
     const USER_MONEY = await this.getMoney();
     const USER_LOTTO = this.makeUserLotto(USER_MONEY);
     this.printUserLotto(USER_MONEY, USER_LOTTO);
-
+    const WIN_NUM = await this.getWinNum();
+    const BONUS_NUM = await this.getBonusNum();
+    new Lotto(WIN_NUM, BONUS_NUM, USER_MONEY, USER_LOTTO);
   }
 
   async getMoney() {
@@ -42,6 +45,18 @@ class App {
       Console.print(lotto)
     }
   }
+
+  async getWinNum() {
+    let winNum = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+    let winArray = winNum.replace(/\s/g, "").split(',').map(Number);
+    return winArray;
+  }
+
+  async getBonusNum() {
+    let bonusNum = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+    return Number(bonusNum);
+  }
+
 
 }
 
