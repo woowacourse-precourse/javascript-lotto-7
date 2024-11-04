@@ -1,14 +1,14 @@
-import { NEED_TO_CHHECK_BONUS_RANK, RANK_TUPLE, UPGRADE_RANK_NUMBER } from "../constants/lotto.js";
+import { NEED_TO_CHHECK_BONUS_RANK, RANK_TUPLE, UPGRADE_RANK_NUMBER } from '../constants/lotto.js';
 
 class Rank {
   static #rankMap = new Map(RANK_TUPLE);
   #result;
-  
-  constructor(result){
+
+  constructor (result) {
     this.#result = result;
   }
 
-  get value() {
+  get value () {
     return this.#calcuateRank();
   }
 

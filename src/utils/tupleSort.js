@@ -1,1 +1,3 @@
-export const tupleAscSort = ([a], [b]) => b - a;
+export default function tupleAscSort ([a], [b]) {
+  return b - a;
+};

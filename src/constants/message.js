@@ -9,5 +9,5 @@ export const INPUT_MESSAGE = Object.freeze({
 export const OUTPUT_MESSAGE = Object.freeze({
   WINNING_STATISTICS: `${NEW_LINE}당첨 통계`,
   DIVIDER: '---',
-  BUY_AMOUNT: `개를 구매했습니다.`
+  BUY_AMOUNT: '개를 구매했습니다.',
 });

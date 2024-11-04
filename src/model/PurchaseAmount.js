@@ -1,20 +1,21 @@
-import { LOTTO } from "../constants/lotto.js";
-import { isUnitFormmat } from "../utils/isUnitFormmat.js";
+import ERROR from '../constants/errors.js';
+import { LOTTO } from '../constants/lotto.js';
+import isUnitFormmat from '../utils/isUnitFormmat.js';
 
-class PurcahseAmount{
+class PurcahseAmount {
   #amount;
 
-  constructor(amount){
-    this.#validate(amount);
+  constructor (amount) {
+    PurcahseAmount.#validate(amount);
     this.#amount = Number(amount);
   }
 
-  #validate(amount){
-    if (typeof amount !== 'number'){
-      throw new Error('[ERROR] 당첨금액은 숫자로만 입력가능합니다.');
+  static #validate (amount) {
+    if (!isNaN(amount)) {
+      throw new Error(ERROR.PURCHASE.MUST_BE_NUMBER);
     }
     if (!isUnitFormmat(amount, LOTTO.PRICE)) {
-      throw new Error('[ERROR] 당첨금액은 1000원 단위로 입력해야합니다.');
+      throw new Error(ERROR.PURCHASE.MUST_BE_DIVIDED_INTO_UNITS);
     }
   }
 

@@ -1,4 +1,4 @@
-export default async(getInput, parser, modelInvoker, errorLog) =>  {
+export default async (getInput, parser, modelInvoker, errorLog) =>  {
   while(true) {
     try {
       const input = await getInput();
@@ -7,4 +7,4 @@ export default async(getInput, parser, modelInvoker, errorLog) =>  {
       errorLog(error.message);
     }
   }
-}
+};

@@ -30,10 +30,8 @@ export const RANK_TUPLE = Object.freeze([
   [0, LOTTO.NO_LUCK_RANK],
 ]);
 
-export const matchedAmoutMap = new Map(
-  [[1, 6],
+export const matchedAmoutMap = new Map([[1, 6],
   [2, 5],
   [3, 5],
   [4, 4],
-  [5, 3],]
-)
+  [5, 3]]);

@@ -5,24 +5,24 @@ import LottoStore from './model/Store.js';
 import WinningNumbers from './model/WinningNumbers.js';
 
 class LottoService {
-  
-  static createPurchase(input){
+
+  static createPurchase (input) {
     return new PurcahseAmount(input);
   }
 
-  static createWinnningNumber(input){
+  static createWinnningNumber (input) {
     return new WinningNumbers(input);
   }
-  
-  static createBonusNumber(input, winningNumbers){
+
+  static createBonusNumber (input, winningNumbers) {
     return new BonusNumber(input, winningNumbers);
   }
 
-  static buyTickets(purchase){
+  static buyTickets (purchase) {
     return LottoStore.sell(purchase);
   }
 
-  static analyze(purchaseAmount,winningNumbers, lottos){
+  static analyze (purchaseAmount, winningNumbers, lottos) {
     return Analyzer.analyze(purchaseAmount, winningNumbers, lottos);
   }
 }

@@ -1,20 +1,22 @@
-class BonusNumber { 
+import ERROR from '../constants/errors.js';
+
+class BonusNumber {
   #value;
-  constructor(number, lotto){ 
-    this.#validate(number, lotto);
+  constructor (number, lotto) {
+    BonusNumber.#validate(number, lotto);
     this.#value = number;
   }
 
-  #validate(number, lotto){
-    if (number < 1 || 45 < number) { 
-      throw new Error('[ERROR] 범위를 벗어난 숫자입니다.')
+  static #validate (number, lotto) {
+    if (number < 1 || number > 45) {
+      throw new Error(ERROR.LOTTO.NUMBER_OUT_OF_RANGE);
     }
-    if (lotto.has(number)){
-      throw new Error('[ERROR] 당첨범호에 포함된 숫자는 보너스 번호로 사용할 수 없습니다.');
+    if (lotto.has(number)) {
+      throw new Error(ERROR.LOTTO.BONUS_NUMBER_IS_DUPLICATED);
     }
   }
 
-  get value (){
+  get value () {
     return this.#value;
   }
 

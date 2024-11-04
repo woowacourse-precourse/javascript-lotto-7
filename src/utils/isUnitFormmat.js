@@ -1,3 +1,3 @@
-export const isUnitFormmat = (number, unit) =>{
+export default function isUnitFormmat (number, unit) {
   return (number % unit) === 0;
 }

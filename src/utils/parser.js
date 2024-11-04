@@ -1,25 +1,15 @@
-import { LOTTO } from "../constants/lotto.js";
-import { numericStringRegex } from "../utils/regex.js";
+import ERROR from '../constants/errors.js';
+import { LOTTO } from '../constants/lotto.js';
+import { numericStringRegex } from '../utils/regex.js';
 
+const parseArray = (arrayString, separator) => arrayString.split(separator);
 
-export const parseNumber = (numberstring) =>{
-  if(!numberstring) {
-    throw new Error('[ERROR] 입력에 문제가 있습니다');
-  }
-  if(numericStringRegex.test(numberstring.trim())){
+export const parseNumber = (numberstring) => {
+  if(numericStringRegex.test(numberstring.trim())) {
     return Number(numberstring.trim());
   }
-  throw new Error('[ERROR] 숫자가 아닌 문자가 있습니다.');
-}
+  throw new Error(ERROR.HAS_UN_NUMERIC_CHARACTER);
+};
 
-export const parseWinnnngLotto = (input) => {
-  return parseArray(input, LOTTO.SEPARATOR).map(parseNumber);
-}
-
-const parseArray = (arrayString, separator) => {
-  if(!arrayString){
-    throw new Error('[ERROR] 입력에 문제가 있습니다.');
-  }
-  return arrayString.split(separator);
-}
+export const parseWinnnngLotto = (input) => parseArray(input, LOTTO.SEPARATOR).map(parseNumber);
 
