@@ -1,5 +1,5 @@
 import { LOTTO } from "../constants/lotto.js";
-import { numericStringRegex } from "../constants/regex.js";
+import { numericStringRegex } from "../utils/regex.js";
 
 
 export const parseNumber = (numberstring) =>{
