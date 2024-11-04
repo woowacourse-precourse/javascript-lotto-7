@@ -1,4 +1,8 @@
-import { validateDuplicate, validateSix } from './handleError.js';
+import {
+    validateDuplicate,
+    validateSix,
+    validateRangeNumber,
+} from './handleError.js';
 
 class Lotto {
     #numbers;
@@ -11,6 +15,7 @@ class Lotto {
     #validate(numbers) {
         validateSix(numbers, '로또 번호는');
         validateDuplicate(numbers, '로또 번호는');
+        validateRangeNumber(numbers, '로또 번호는');
     }
 
     compareWinning(winningNumber, bonusNumber) {

@@ -15,3 +15,9 @@ export function validateSix(input, subject) {
         throw new Error(`[ERROR] ${subject} 6개여야 합니다.`);
     }
 }
+
+export function validateRangeNumber(input, subject) {
+    if (!input.every((x) => x >= 1 && x <= 45)) {
+        throw new Error(`[ERROR] ${subject} 1~45 숫자여야 합니다.`);
+    }
+}

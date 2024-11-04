@@ -5,6 +5,7 @@ import {
     validateNumber,
     validateDuplicate,
     validateSix,
+    validateRangeNumber,
 } from './handleError.js';
 
 class LottoCalculator {
@@ -22,18 +23,16 @@ class LottoCalculator {
         if (!/^[0-9,]+$/.test(winningNumber)) {
             throw new Error('[ERROR] 숫자와 쉼표 외에는 입력할 수 없습니다.');
         }
-        /*if (winningNumber.some((x) => 1 <= x <= 45)) {
-            throw new Error('[ERROR] 당첨 번호는 1~45 숫자여야 합니다.');
-        }*/
+        validateRangeNumber(winningNumber, '당첨 번호는');
         validateDuplicate(winningNumber, '당첨 번호는');
         validateSix(winningNumber, '당첨 번호는');
     }
 
     #validateBonus(winningNumber, bonusNumber) {
         validateNumber(bonusNumber, '보너스 번호는');
-        /*if (1 <= bonusNumber <= 45) {
+        if (!bonusNumber >= 1 && bonusNumber <= 45) {
             throw new Error('[ERROR] 보너스 번호는 1~45 숫자여야 합니다.');
-        }*/
+        }
         if (winningNumber.includes(bonusNumber)) {
             throw new Error(
                 '[ERROR] 보너스 번호는 당첨 번호와 중복되면 안됩니다.'
