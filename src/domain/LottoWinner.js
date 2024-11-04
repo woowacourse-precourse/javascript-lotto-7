@@ -2,27 +2,33 @@ import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
 import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class LottoWinner {
+  #lotto;
   #numbers;
   #bonusNumber;
   #matchBonus = false;
 
-  constructor(numbers, bonusNumber) {
-    this.#validateParseNumbers(numbers);
-    this.#validateParseBonusNumber(bonusNumber);
-    this.#validateHasSameNumber(numbers, bonusNumber);
+  constructor(lotto, numbers, bonusNumber) {
+    this.#validateNumbers(numbers);
+    this.#lotto = lotto;
     this.#numbers = numbers;
     this.#bonusNumber = bonusNumber;
   }
 
-  matchWinner(numbers) {
-    const count = this.#matchCount(numbers);
+  matchWinner() {
+    const count = this.#matchCount(this.#lotto);
+    this.#checkMatchBonus(this.#lotto);
     return this.#calculateRank(count, this.#matchBonus);
   }
 
-  checkMatchBonus(numbers) {
-    numbers.map((number) => {
-      return number.includes(this.#bonusNumber);
-    });
+  #checkMatchBonus(numbers) {
+    numbers.forEach((number) => this.#checkBonusNumber(number));
+  }
+
+  #checkBonusNumber(number) {
+    console.log(number);
+    if (number.includes(this.#bonusNumber)) {
+      this.#matchBonus = true;
+    }
   }
 
   checkLottoNumber(lottoNumbers, winnerNumbers, result) {
@@ -60,11 +66,17 @@ class LottoWinner {
     return this.#matchBonus;
   }
 
+  #validateNumbers(numbers, bonusNumber) {
+    this.#validateParseNumbers(numbers);
+    this.#validateParseBonusNumber(bonusNumber);
+    this.#validateHasSameNumber(numbers, bonusNumber);
+  }
+
   #validateParseNumbers(input) {
     this.#validateNumberIsSix(input);
-    input.forEach((number) => this.#validateNumberRange(number));
-    input.forEach((number) => this.#validateIsNaN(number));
     input.forEach((number) => {
+      this.#validateNumberRange(number);
+      this.#validateIsNaN(number);
       const checkDuplicate = input.filter((el) => (el === number));
       this.#validateIsDuplicate(checkDuplicate);
     });

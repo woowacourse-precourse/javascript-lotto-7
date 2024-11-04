@@ -42,13 +42,12 @@ class LottoGame {
     const { bonusNumber, parseBonusNumber } = await InputView.readLineBonusNumber();
     this.#validateBonusNumber(bonusNumber);
 
-    const lottoWinner = new LottoWinner(parseLottoNumber, parseBonusNumber);
-    lottoWinner.matchWinner(parseLottoNumber);
-    lottoWinner.checkMatchBonus(lottoNumbers);
-    // const result = new LottoResult(this.#price);
+    const lottoWinner = new LottoWinner(lottoNumbers, parseLottoNumber, parseBonusNumber);
+    lottoWinner.matchWinner();
+    const result = new LottoResult(this.#price);
 
-    // lottoWinner.checkLottoNumber(lottoNumbers, parseLottoNumber, result);
-    // result.calculateResult();
+    lottoWinner.checkLottoNumber(lottoNumbers, parseLottoNumber, result);
+    result.calculateResult();
   }
 
   #generateLotto(lottoCount) {
