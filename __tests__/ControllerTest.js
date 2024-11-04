@@ -1,9 +1,9 @@
-import Controller from '../../src/controllers/Controller';
-import calculationLotto from '../../src/helpers/calculationLotto';
-import Lotto from '../../src/models/Lotto';
+import Controller from '../src/controllers/Controller';
+import calculationLotto from '../src/helpers/calculationLotto';
+import Lotto from '../src/models/Lotto';
 
-jest.mock('../../src/helpers/calculationLotto');
-jest.mock('../../src/models/Lotto');
+jest.mock('../src/helpers/calculationLotto');
+jest.mock('../src/models/Lotto');
 
 describe('Controller 테스트', () => {
   let mockOutputView, mockInputHandler, controller;

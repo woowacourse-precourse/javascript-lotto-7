@@ -1,6 +1,6 @@
-import Lotto from '../../src/models/Lotto';
-import { ERROR_MESSAGES } from '../../src/constants/errorMessage';
-import { LOTTO_CONFIG } from '../../src/constants/lottoConfig';
+import Lotto from '../src/models/Lotto';
+import { ERROR_MESSAGES } from '../src/constants/errorMessage';
+import { LOTTO_CONFIG } from '../src/constants/lottoConfig';
 import { Random } from '@woowacourse/mission-utils';
 
 jest.mock('@woowacourse/mission-utils', () => ({

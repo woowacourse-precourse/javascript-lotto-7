@@ -1,5 +1,5 @@
-import validation from '../../src/validations/validation.js';
-import { ERROR_MESSAGES } from '../../src/constants/errorMessage.js';
+import validation from '../src/validations/validation.js';
+import { ERROR_MESSAGES } from '../src/constants/errorMessage.js';
 
 describe('validation 테스트', () => {
   test('numericString이 숫자가 아닌 문자를 포함할 때 오류를 발생시키는지 테스트', () => {

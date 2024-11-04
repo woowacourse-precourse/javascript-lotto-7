@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../../src/constants/errorMessage.js';
+import { ERROR_MESSAGES } from '../src/constants/errorMessage.js';
 
 describe('LOTTO_CONFIG 상수를 참조하는 ERROR_MESSAGES 테스트', () => {
   test('OUT_OF_RANGE 메시지가 LOTTO_CONFIG 값으로 올바르게 설정되어야 한다', () => {
