@@ -98,6 +98,15 @@ class App {
     return winningArray;
   }
 
+  async inputWinningLotto() {
+    return this.retryOnError(async () => {
+      const winningNumber = await this.inputWinningNumber();
+      const winningArray = await this.splitWinningNumber(winningNumber);
+      const winningLotto = new Lotto(winningArray);
+      return winningLotto;
+    });
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
@@ -105,6 +114,8 @@ class App {
       const lottos = await this.playLotto(lotto);
 
       this.printLottos(lottos);
+
+      const winningLotto = await this.inputWinningLotto();
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
