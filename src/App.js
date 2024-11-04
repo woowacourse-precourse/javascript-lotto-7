@@ -39,6 +39,16 @@ class App {
     for (let i = 0; i < number; i++) {
       this.buyLottoNumbers.push(new Lotto(this.makeLottoNumber()));
     }
+    //오름차순정렬
+    this.buyLottoNumbers.sort((a, b) => this.sortLotto(a, b));
+  }
+
+  sortLotto(lottoA, lottoB) {
+    for (let i = 0; i < lottoA.getNumber().length; i++) {
+      if (lottoA.getNumber()[i] !== lottoB.getNumber()[i])
+        return lottoA.getNumber()[i] - lottoB.getNumber()[i]; // 숫자 비교
+    }
+    return 0;
   }
 
   makeLottoNumber() {
