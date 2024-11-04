@@ -1,5 +1,6 @@
 import { ERROR, FORMAT } from '../constants/Constants.js';
 
+// jackpot = lotto의 numbers 의미와 동일
 class ValidateLotto {
   constructor() {
     this.checkSet = new Set();
