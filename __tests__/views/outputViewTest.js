@@ -60,4 +60,13 @@ describe('outputView 테스트', () => {
       '6개 일치 (2,000,000,000원) - 1개'
     );
   });
+
+  test('displayLottoRateOfReturn가 수익률 메시지를 출력하는지 테스트', () => {
+    const lottoRateOfReturn = 62.5;
+    outputView.displayLottoRateOfReturn(lottoRateOfReturn);
+
+    expect(Console.print).toHaveBeenCalledWith(
+      `총 수익률은 ${lottoRateOfReturn}%입니다.`
+    );
+  });
 });
