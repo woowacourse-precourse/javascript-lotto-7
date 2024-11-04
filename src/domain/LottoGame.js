@@ -5,7 +5,6 @@ import Lotto from "./Lotto.js";
 import LottoWinner from "./LottoWinner.js";
 import LottoResult from "./LottoResult.js";
 import Utils from "../Utils.js";
-import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
 import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 
 class LottoGame {
@@ -38,25 +37,15 @@ class LottoGame {
     const winnerNumbers = await InputView.readLineNumber();
     const bonusNumber = await InputView.readLineBonusNumber();
 
-    const lottoWinner = new LottoWinner(winnerNumbers, bonusNumber);
-    lottoWinner.matchRate(this.#lottoList);
+    this.#lottoWinner = new LottoWinner(winnerNumbers, bonusNumber);
   }
 
   #showResult() {
-    // const lottoWinner = new LottoWinner(lottoNumbers, parseLottoNumber, parseBonusNumber);
-    // lottoWinner.matchWinner();
-    // const result = lottoWinner.checkLottoNumber();
-    //
-    // const lottoResult = new LottoResult(result, this.#price);
-    // lottoResult.calculateResult();
-  }
+    const lottoResult = new LottoResult(this.#lottoList, this.#lottoWinner);
+    const rateOfReturn = lottoResult.calculateResult();
 
-  getLottoList() {
-    return this.#lottoList;
-  }
-
-  getPrice() {
-    return this.#price;
+    OutputView.printStatisticsLine();
+    OutputView.printStatisticsResult(lottoResult, rateOfReturn);
   }
 
   #getRandomLottoNumber() {
