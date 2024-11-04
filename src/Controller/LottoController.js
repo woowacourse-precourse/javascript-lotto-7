@@ -36,7 +36,7 @@ class LottoController {
             let input = await this.#inputView.readBudget();
 
             try {
-                input = Validator.inputValidate(input);
+                input = Validator.budgetValidate(input);
 
                 return input;
 

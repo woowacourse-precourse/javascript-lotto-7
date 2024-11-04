@@ -6,6 +6,15 @@ class Validator {
     return Number(input);
   }
 
+  static budgetValidate(input) {
+    input = this.inputValidate(input);
+    this.#isZero(input);
+    this.#isNegative(input);
+    this.#properUnit(input);
+
+    return input;
+  }
+
   static #isEmpty(input) {
     if (!input) {
       const ERROR_MESSAGE = `[ERROR] 값을 입력해야 합니다.(Empty Input)`;
@@ -18,6 +27,32 @@ class Validator {
       const ERROR_MESSAGE = `[ERROR] 숫자를 입력해야 합니다.(Not Number: ${input})`;
       throw new Error(ERROR_MESSAGE);
     }
+  }
+
+  static #isZero(input) {
+    if (input == 0) {
+      const ERROR_MESSAGE = `[ERROR] 구매 금액은 0이 아니어야 합니다.(Zero Budget: ${input})`;
+      throw new Error(ERROR_MESSAGE);
+    }
+  }
+  
+  static #isNegative(input) {
+    if (input < 0) {
+      const ERROR_MESSAGE = `[ERROR] 구매 금액은 양수여야 합니다.(Negative Budget: ${input})`;
+      throw new Error(ERROR_MESSAGE);
+    }  
+  }
+  
+  static #properUnit(input) {
+    if (!this.#isMultipleOfThousand(input)) {
+      const ERROR_MESSAGE = `[ERROR] 구매 금액은 1000원 단위여야 합니다.(Not Multiple of 1000: ${input})`;
+      throw new Error(ERROR_MESSAGE);
+    }
+  }
+
+  static #isMultipleOfThousand(amount) {
+    const THOUSAND = 1000;
+    return amount % THOUSAND === 0;
   }
   
 }
