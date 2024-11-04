@@ -94,7 +94,9 @@ describe('로또 테스트', () => {
   });
 
   test('예외 테스트', async () => {
-    await runException('1000j');
+    await expect(runException('1000j')).rejects.toThrow(
+      '[ERROR] 입력받은 값이 숫자가 아닙니다.',
+    );
   });
 
   test('입력 검증 테스트', () => {
