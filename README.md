@@ -51,3 +51,50 @@
   ```
   총 수익률은 62.5%입니다.
   ```
+
+## Project Tree
+
+```
+javascript-lotto-7
+├─ .npmrc
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ App.js
+│  ├─ components
+│  │  ├─ Lotto.js
+│  │  ├─ LottoController.js
+│  │  ├─ LottoDisplayHandler.js
+│  │  └─ LottoTicketsGenerator.js
+│  ├─ index.js
+│  ├─ resources
+│  │  └─ Constants.js
+│  └─ utils
+│     ├─ ArrayUtils.js
+│     ├─ io
+│     │  ├─ Input.js
+│     │  └─ Output.js
+│     ├─ isEmpty.js
+│     └─ validation
+│        ├─ bonusNumberValidator.js
+│        ├─ purchaseAmountValidator.js
+│        └─ winningNumberValidator.js
+└─ __tests__
+   ├─ integration
+   │  └─ ApplicationTest.js
+   └─ unit
+      ├─ class
+      │  └─ LottoTest.js
+      └─ feature
+         ├─ BonusNumberInputTest.js
+         ├─ BonusNumberValidationTest.js
+         ├─ LottoTicketsOutputTest.js
+         ├─ PurchaseAmountInputTest.js
+         ├─ PurchaseAmountValidationTest.js
+         ├─ RateOfReturnOutputTest.js
+         ├─ WinningNumberInputTest.js
+         ├─ WinningNumberValidationTest.js
+         └─ WinningResultOutputTest.js
+
+```
