@@ -28,13 +28,14 @@ class Lotto {
 
   getResult(money, lottos, bonus) {
     let result = Array(5).fill(0);
+    let returnRate;
     for (let lotto of lottos) {
       let rank = this.checkWinNum(lotto, bonus);
       if (rank !== -1) {
         result[rank] += 1;
       }
     }
-    return result;
+    returnRate = this.calculateMoney(result, money);
   }
 
   checkWinNum(lotto, bonus) {
@@ -64,6 +65,17 @@ class Lotto {
     } else if (result === 0 || result === 1 || result === 2) {
       return -1;
     }
+  }
+
+  calculateMoney(result, money) {
+    let winMoney = 0;
+    let returnRate = 0;
+    let awardList = [5000, 50000, 1500000, 30000000, 2000000000]
+    for (let i = 0; i < 5; i++) {
+      winMoney += awardList[i] * result[i];
+    }
+    returnRate =  Math.round(winMoney / money * 10000)/100;
+    return returnRate;
   }
 }
 
