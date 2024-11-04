@@ -47,6 +47,19 @@ class LottoGame {
     }
   }
 
+  async #getBonusNumber() {
+    while (true) {
+      try {
+        const bonusNumber = await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+        this.#isValidBonusNumber(bonusNumber);
+        this.#bonusNumber = Number(bonusNumber);
+        break;
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  }
+
   #getLottoCount(totalCost) {
     return totalCost / 1000;
   }
@@ -69,6 +82,18 @@ class LottoGame {
     }
     if (new Set(resultNumbers.split(',')).size !== 6) {
       throw new Error('[ERROR] 잘못된 입력입니다. 중복된 숫자가 있습니다.');
+    }
+  }
+
+  #isValidBonusNumber(bonusNumber) {
+    if (isNaN(bonusNumber)) {
+      throw new Error('[ERROR] 잘못된 입력입니다.');
+    }
+    if (this.#resultNumbers.includes(Number(bonusNumber))) {
+      throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
+    }
+    if (Number(bonusNumber) < 1 || Number(bonusNumber) > 45) {
+      throw new Error('[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.');
     }
   }
 
