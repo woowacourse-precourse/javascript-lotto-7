@@ -3,15 +3,30 @@ import Lotto from "./Lotto.js";
 import { GameOutput } from "./woowahanOutput.js";
 
 export default class LottoStore {
+  static instance = null;
+
   #countLotto = 0;
   #winRanking = Array(4).fill(0);
   #fiveEqualWithBonusCount = 0;
   #winPrize = [5000, 50000, 1500000, 2000000000];
   #bonusPrize = 30000000;
 
+  constructor() {
+    if (LottoStore.instance) {
+      return LottoStore.instance;
+    }
+    LottoStore.instance = this;
+  }
+
+  static getInstance() {
+    if (!LottoStore.instance) {
+      LottoStore.instance = new LottoStore();
+    }
+    return LottoStore.instance;
+  }
+
   generateLottos() {
     const lottos = [];
-
     for (let i = 0; i < this.#countLotto; i++) {
       const generateNumber = Random
         .pickUniqueNumbersInRange(1, 45, 6)
@@ -21,7 +36,6 @@ export default class LottoStore {
       lottos.push(lotto);
       GameOutput.printLottoOneLine(generateNumber);
     }
-
     return lottos;
   }
 
@@ -40,31 +54,29 @@ export default class LottoStore {
   keepRecord(matchCount, hasBonus) {
     if (matchCount === 6) {
       this.#winRanking[3]++;
-      return
+      return;
     }
     if (matchCount === 5 && hasBonus) {
       this.#fiveEqualWithBonusCount++;
-      return
+      return;
     }
     if (matchCount >= 3) {
       this.#winRanking[matchCount - 3]++;
-      return
+      return;
     }
   }
 
   resultRankingAnnounce() {
     let earn = 0;
-
     for (let n = 0; n < 4; n++) {
-      GameOutput.printGeneralRanking(n+3,this.#winPrize[n].toLocaleString(),this.#winRanking[n]);
+      GameOutput.printGeneralRanking(n + 3, this.#winPrize[n].toLocaleString(), this.#winRanking[n]);
       earn += this.#winRanking[n] * this.#winPrize[n];
       if (n === 2) {
-        GameOutput.printBonusRanking(this.#bonusPrize.toLocaleString(),this.#fiveEqualWithBonusCount);
+        GameOutput.printBonusRanking(this.#bonusPrize.toLocaleString(), this.#fiveEqualWithBonusCount);
         earn += this.#fiveEqualWithBonusCount * this.#bonusPrize;
       }
     }
-
-    return earn
+    return earn;
   }
 
   getLottoTicketCount(input) {

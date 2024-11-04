@@ -6,7 +6,6 @@ const buyMoneyValidator = (input) => {
     const output = new BuyMoneyOutput();
 
     const conditions = [
-        { check: () => input === 'start', action: () => { } },
         { check: () => isEmpty(input), action: () => output.printEmptyValue() },
         { check: () => isNotNumber(input), action: () => output.printNotNumber() },
         { check: () => isMinusNumber(input), action: () => output.printMinusNumber() },
