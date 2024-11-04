@@ -1,5 +1,6 @@
 import Lotto from "../model/Lotto.js";
 import prizeMoney from "./data.js";
+import RandomNumberGenerator from "../util/RandomNumberGenerator.js";
 
 class LottoGame {
   constructor(purchaseAmount) {
@@ -8,7 +9,7 @@ class LottoGame {
 
   generateLottoTickets(amount) {
     const ticketCount = Math.floor(amount / 1000);
-    return Array.from({ length: ticketCount }, () => new Lotto());
+    return Array.from({ length: ticketCount }, () => new Lotto(RandomNumberGenerator.generateLottoNumbers()));
   }
 
   calculateRanks(winningNumbers, bonusNumber) {
