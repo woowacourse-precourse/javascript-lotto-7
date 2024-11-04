@@ -16,7 +16,6 @@ class Lotto {
     this.#duplicate(numbers);
   }
 
-  // TODO: 추가 기능 구현
   #properRange(numbers) {
     numbers.forEach(element => {
       if (element < 1 || element > 45) {
