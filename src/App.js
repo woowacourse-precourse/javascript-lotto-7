@@ -12,6 +12,7 @@ class App {
     const winningNumbers = await consoleView.getWinningNumbers();
     const bonusNumber = await consoleView.getBonusNumber(winningNumbers);
     const resultPrize = lottoController.calculateWinningLotto(lottos, winningNumbers, bonusNumber);
+    consoleView.printResultPrize(resultPrize);
   }
 }
 

@@ -29,11 +29,11 @@ class LottoController {
 
   calculateWinningLotto(lottos, winningNumbers, bonusNumber) {
     return lottos.reduce((results, lotto) => {
-      const matchingNumbers = this.#countMatchingNumbers(lotto.LottoNumbers, winningNumbers);
-      const rank = this.#getRank(matchingNumbers);
+      const matchCount = this.#countMatchingNumbers(lotto.LottoNumbers, winningNumbers);
+      const rank = this.#getRank(matchCount, lotto, bonusNumber);
       results[rank]++;
       return results;
-    })
+    }, { first: 0, second: 0, third: 0, fourth: 0, fifth: 0, noPrize: 0 })
   }
 
   #countMatchingNumbers(lottoNumbers, winningNumbers) {
