@@ -14,6 +14,14 @@ const validateNumberRange = (winningNumber) => {
   }
 };
 
+const validateNumberLength = (winningNumber) => {
+  const setNumbers = new Set(winningNumber);
+
+  if (setNumbers.size !== winningNumber.length) {
+    throw new Error("[ERROR] 로또 번호는 중복없이 입력되어야 합니다.");
+  }
+};
+
 export const validateWinningNumber = (winningNumber) => {
   if (!Array.isArray(winningNumber)) {
     throw new Error("[ERROR] 잘못된 형식의 당첨 번호가 입력되었습니다.");
@@ -21,4 +29,5 @@ export const validateWinningNumber = (winningNumber) => {
 
   validateNumberOnly(winningNumber);
   validateNumberRange(winningNumber);
+  validateNumberLength(winningNumber);
 };

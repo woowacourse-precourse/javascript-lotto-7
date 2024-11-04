@@ -7,10 +7,17 @@ describe("입력 로또 번호 테스트", () => {
     [-1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 66],
   ];
+  const notUniqueNumber = [1, 1, 2, 3, 4, 5];
 
   test("로또 번호에 숫자가 아닌 문자가 들어가면 예외가 발생한다.", () => {
     expect(() => {
       validateWinningNumber(notNumber);
+    }).toThrow("[ERROR]");
+  });
+
+  test("로또 번호에 중복값이 들어가면 예외가 발생한다.", () => {
+    expect(() => {
+      validateWinningNumber(notUniqueNumber);
     }).toThrow("[ERROR]");
   });
 
