@@ -8,11 +8,13 @@ class App {
     this.inputHandler = new InputHandler();
     this.inputValidator = new InputValidator();
     this.lottos = []; // Lotto 객체들을 저장할 배열.
+    this.bonusNumber = null;
   }
   async run() {
     try{
       const purchaseCost = await this.getPurchaseCost();
       const purchasedLotto = await this.purchaseLotto(purchaseCost);
+      const winningNumbers = await this.getWinningNumbers();
     } catch(error){
       console.error('무슨에러인고:',error);
     }
@@ -33,6 +35,14 @@ class App {
       this.lottos.push(lotto);
       Console.print(arr);
     }
+  }
+
+  async getWinningNumbers() {
+    const winningNumbersInput = await this.inputHandler.getInput("당첨 번호를 입력해 주세요. \n");
+    const winningNumbers = winningNumbersInput.split(",").map(num => Number(num.trim()));
+    const lotto = new Lotto(winningNumbers);
+    const bonusNumberInput = await this.inputHandler.getInput("보너스 번호를 입력해주세요. \n");
+    this.bonusNumber = Number(bonusNumberInput);
   }
 }
 
