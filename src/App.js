@@ -5,6 +5,7 @@ class App {
   constructor() {
     this.lottos = [];
     this.winningNumbers = [];
+    this.bonusNumber = 0;
   }
 
   async run() {
@@ -14,6 +15,8 @@ class App {
     this.generateLottos(count);
     this.printLottos();
     await this.inputWinningNumbers();
+    await this.inputBonusNumber();
+    // 이후 기능은 아직 구현되지 않았습니다.
   }
 
   async promptPurchaseAmount() {
@@ -59,6 +62,27 @@ class App {
     } catch (error) {
       Console.print(error.message);
       return this.inputWinningNumbers();
+    }
+  }
+
+  async inputBonusNumber() {
+    try {
+      const input = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
+      const bonus = Number(input);
+      if (
+        !Number.isInteger(bonus) ||
+        bonus < 1 ||
+        bonus > 45 ||
+        this.winningNumbers.includes(bonus)
+      ) {
+        throw new Error(
+          "[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다."
+        );
+      }
+      this.bonusNumber = bonus;
+    } catch (error) {
+      Console.print(error.message);
+      return this.inputBonusNumber();
     }
   }
 }
