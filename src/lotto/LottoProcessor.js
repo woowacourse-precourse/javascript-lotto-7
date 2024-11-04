@@ -42,6 +42,23 @@ class LottoProcessor {
   getWinningRanks() {
     return this.winningRanks;
   }
+
+  // 수익률 계산
+  calculateRateOfReturn(lottoCount) {
+    const prize = [0, 2000000000, 30000000, 1500000, 50000, 5000];
+    const totalPrize = Object.keys(this.winningRanks).reduce(
+      (acc, rank) => acc + this.winningRanks[rank] * prize[rank],
+      0
+    );
+    const rate = (totalPrize / (lottoCount * 1000)) * 100;
+
+    if (rate % 1 === 0) {
+      return rate;
+    } else if ((rate * 10) % 1 === 0) {
+      return rate.toFixed(1);
+    }
+    return rate.toFixed(2);
+  }
 }
 
 export default LottoProcessor;
