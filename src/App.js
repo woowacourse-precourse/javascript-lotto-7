@@ -143,6 +143,14 @@ class App {
     return matchCount;
   }
 
+  pushLotto(statistic, matchCount, lotto) {
+    const updatedStatistic = { ...statistic };
+    if (matchCount > 2) {
+      updatedStatistic[matchCount].push(lotto);
+    }
+    return updatedStatistic;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
