@@ -6,8 +6,10 @@ import { ROI } from '../utils/Calculation.js';
 
 class LottoController {
   constructor() {
+    this.ticket = new Ticket();
+    this.jackpot = new Jackpot();
     this.lottos = [];
-    this.jackpot = [];
+    this.winnings = [];
     this.bonus = null;
     this.cost = 0;
     this.prize = 0;
@@ -19,26 +21,40 @@ class LottoController {
   }
 
   async getLottos() {
-    const lottoTickets = new Ticket();
-    await lottoTickets.startGetTicket();
-    this.lottos = lottoTickets.getTicket();
-    lottoTickets.displayTicket();
-    this.cost = lottoTickets.getCost();
+    await this.ticket.startGetTicket();
+    this.lottos = this.ticket.getTicket();
+  }
+
+  printLottos() {
+    this.ticket.displayTicket();
+  }
+
+  getCost() {
+    this.cost = this.ticket.getCost();
+    return this.cost;
   }
 
   async getJackpot() {
-    const jackpot = new Jackpot();
-    await jackpot.startGetJackpot();
-    this.jackpot = jackpot.getJackpot();
-    this.bonus = jackpot.getBonus();
+    await this.jackpot.startGetJackpot();
+    this.winnings = this.jackpot.getJackpot();
+  }
+
+  getBonus() {
+    this.bonus = this.jackpot.getBonus();
+  }
+
+  calculateMatchCount(lotto) {
+    return lotto.filter((num) => this.winnings.includes(num)).length;
+  }
+
+  calculateBonusTrue(lotto) {
+    return lotto.includes(Number(this.bonus));
   }
 
   matchLottos() {
     this.lottos.forEach((lotto) => {
-      const matchCount = lotto.filter((num) =>
-        this.jackpot.includes(num)
-      ).length;
-      const matchBonus = lotto.includes(Number(this.bonus));
+      const matchCount = this.calculateMatchCount(lotto);
+      const matchBonus = this.calculateBonusTrue(lotto);
       this.getLottosCount(matchCount, matchBonus);
     });
   }
@@ -66,6 +82,12 @@ class LottoController {
     }
   }
 
+  displayStatisticsResult() {
+    Console.print(RESULT.HEADER);
+    for (let i = 5; i >= 1; i--) {
+      Console.print(`${RESULT[i]} ${this.ranks[i]}${RESULT.COUNT_CHAR}`);
+    }
+  }
   getTotalPrize() {
     let totalPrize = 0;
     for (let i = 1; i <= 5; i++) {
@@ -79,21 +101,20 @@ class LottoController {
     return ROI(totalPrize, this.cost);
   }
 
-  displayResult() {
-    Console.print(RESULT.HEADER);
-    for (let i = 5; i >= 1; i--) {
-      Console.print(`${RESULT[i]} ${this.ranks[i]}${RESULT.COUNT_CHAR}`);
-    }
+  displayROIResult() {
     const ROI = this.calculateROI();
     Console.print(`${RESULT.RATE_HEADER}${ROI}${RESULT.RATE_FOOTER}`);
   }
 
   async lottoGameStart() {
     await this.getLottos();
+    this.printLottos();
     await this.getJackpot();
     this.resetRanks();
     this.matchLottos();
-    this.displayResult();
+    this.displayStatisticsResult();
+    this.getCost();
+    this.displayROIResult();
   }
 }
 

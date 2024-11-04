@@ -14,8 +14,12 @@ class Jackpot {
 
   async inputJackpot() {
     const inputStr = await Console.readLineAsync(INPUT.JACKPOT);
-    this.#jackpot = inputStr.trim().split(',').map(Number);
+    this.#jackpot = this.setJackpot(inputStr);
     this.validateJackpot(this.#jackpot);
+  }
+
+  setJackpot(string) {
+    return string.trim().split(',').map(Number);
   }
 
   validateJackpot(array) {
