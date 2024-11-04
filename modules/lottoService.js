@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { lotto } from "../constants/lottoConstants.js";
-import { getMatchedCount } from "../utils/lottoUtils.js";
+import { lotto, prizeMoney } from "../constants/lottoConstants.js";
+import { calculateYield, getMatchedCount } from "../utils/lottoUtils.js";
 
 export function generateLottos(count) {
   const lottos = [];
@@ -66,4 +66,15 @@ export function calculateWinsCount(lottos, winningNumbers, bonusNumber) {
   });
 
   return resultCount;
+}
+
+export function calculateLottoYield(resultCount, purchaseAmount) {
+  const totalPrize =
+    resultCount.FIRST * prizeMoney.FIRST +
+    resultCount.SECOND * prizeMoney.SECOND +
+    resultCount.THIRD * prizeMoney.THIRD +
+    resultCount.FOURTH * prizeMoney.FOURTH +
+    resultCount.FIFTH * prizeMoney.FIFTH;
+
+  return calculateYield(totalPrize, purchaseAmount);
 }
