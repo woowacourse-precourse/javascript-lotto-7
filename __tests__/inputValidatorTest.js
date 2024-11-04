@@ -68,3 +68,35 @@ describe("당첨 번호 입력 유효성 테스트", () => {
     ]);
   });
 });
+
+describe("보너스 번호 입력 유효성 테스트", () => {
+  const winningNumbers = [1, 2, 3, 4, 5, 6];
+
+  test("빈 입력 시 예외", () => {
+    expect(() => inputValidator.checkBonusNumber("", winningNumbers)).toThrow(
+      "[ERROR] 입력이 비어있습니다."
+    );
+  });
+
+  test("숫자가 아닌 문자 포함 시 예외", () => {
+    expect(() => inputValidator.checkBonusNumber("a", winningNumbers)).toThrow(
+      "[ERROR] 입력에 숫자가 아닌 문자가 포함되어 있습니다."
+    );
+  });
+
+  test("1~45 범위를 벗어난 숫자 포함 시 예외", () => {
+    expect(() => inputValidator.checkBonusNumber("50", winningNumbers)).toThrow(
+      "[ERROR] 1에서 45 사이의 번호가 아닙니다."
+    );
+  });
+
+  test("당첨 번호와 중복된 숫자 포함 시 예외", () => {
+    expect(() => inputValidator.checkBonusNumber("6", winningNumbers)).toThrow(
+      "[ERROR] 중복된 당첨 번호가 있습니다."
+    );
+  });
+
+  test("유효한 번호 입력", () => {
+    expect(inputValidator.checkBonusNumber("11", winningNumbers)).toBe(11);
+  });
+});
