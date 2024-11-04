@@ -5,6 +5,12 @@ class ErrorHandler {
     }
   }
 
+  static validateLottoCount(lotteryNumber) {
+    if (lotteryNumber.length !== 6) {
+      throw new Error('[ERROR] 로또번호가 6개가 아니면 에러처리');
+    }
+  }
+
   static validateUniqueLottoNumbers(lotteryNumber) {
     const lottoSet = new Set(lotteryNumber);
     if (lottoSet.size !== 6) {
@@ -27,6 +33,13 @@ class ErrorHandler {
         throw new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.');
       }
     });
+  }
+
+  static validateBonusNumberNotInLottoNumber(lottoNumbers, bonusNumber) {
+    const bonusNum = Number(bonusNumber);
+    if (lottoNumbers.includes(bonusNum)) {
+      throw new Error('[ERROR] 보너스 번호가 로또 번호에 이미 있습니다.');
+    }
   }
 }
 

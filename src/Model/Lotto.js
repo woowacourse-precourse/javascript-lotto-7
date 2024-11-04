@@ -10,9 +10,8 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR]');
-    }
+    ErrorHandler.validateLottoCount(numbers);
+    ErrorHandler.validateUniqueLottoNumbers(numbers);
   }
 
   // TODO: 추가 기능 구현
