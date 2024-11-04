@@ -13,6 +13,7 @@ const throwError = (message) => {
 
 const formatStatistics = (statistics) => {
   return Object.values(PRIZE_CRITERIA)
+    .reverse() 
     .map(({ rank, description }) =>
       STATISTICS.STATISTICSMESSAGE(description, statistics[rank].count)
     )
