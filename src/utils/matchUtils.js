@@ -8,24 +8,30 @@ export const initializeMatchCounts = () => ({
   [MATCH_COUNTS_BY_RANK.FIFTH]: 0,
 });
 
+const incrementMatchCount = (matchCounts, key) => matchCounts[key]++;
+const bonusHandlers = (matchCounts, isBonusNumberMatched) =>
+  ({
+    true: () => matchCounts[MATCH_COUNTS_BY_RANK.SECOND]++,
+    false: () => matchCounts[MATCH_COUNTS_BY_RANK.THIRD]++,
+  })[isBonusNumberMatched]();
+const updateMatchActions = (matchCounts, isBonusNumberMatched) => ({
+  [MATCH_COUNTS_BY_RANK.FIRST]: () =>
+    incrementMatchCount(matchCounts, MATCH_COUNTS_BY_RANK.FIRST),
+  [MATCH_COUNTS_BY_RANK.SECOND]: () =>
+    bonusHandlers(matchCounts, isBonusNumberMatched),
+  [MATCH_COUNTS_BY_RANK.FOURTH]: () =>
+    incrementMatchCount(matchCounts, MATCH_COUNTS_BY_RANK.FOURTH),
+  [MATCH_COUNTS_BY_RANK.FIFTH]: () =>
+    incrementMatchCount(matchCounts, MATCH_COUNTS_BY_RANK.FIFTH),
+});
+
 export const updateMatchCount = (
   matchCounts,
   matchCount,
   isBonusNumberMatched,
 ) => {
-  const addMatchCnt = (key) => matchCounts[key]++;
-  const updateMatchCount = {
-    [MATCH_COUNTS_BY_RANK.FIRST]: () => addMatchCnt(MATCH_COUNTS_BY_RANK.FIRST),
-    [MATCH_COUNTS_BY_RANK.SECOND]: () => bonusHandlers[isBonusNumberMatched](),
-    [MATCH_COUNTS_BY_RANK.FOURTH]: () =>
-      addMatchCnt(MATCH_COUNTS_BY_RANK.FOURTH),
-    [MATCH_COUNTS_BY_RANK.FIFTH]: () => addMatchCnt(MATCH_COUNTS_BY_RANK.FIFTH),
-  };
-  const update = updateMatchCount[matchCount];
+  const update = updateMatchActions(matchCounts, isBonusNumberMatched)[
+    matchCount
+  ];
   if (update) update();
-};
-
-const bonusHandlers = {
-  true: () => matchCounts[MATCH_COUNTS_BY_RANK.THIRD]++,
-  false: () => matchCounts[MATCH_COUNTS_BY_RANK.SECOND]++,
 };
