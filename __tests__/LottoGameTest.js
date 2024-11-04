@@ -64,7 +64,7 @@ describe('로또 게임 클래스 테스트', () => {
     expect(profitRate).toBe('500.0'); // Adjust as necessary for expected results
   });
 
-  test('should print winning results correctly', () => {
+  test('당첨 통계 출력 확인', () => {
     const result = {
       3: 1,
       4: 0,
