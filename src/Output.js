@@ -1,15 +1,23 @@
 import { Console } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
+import { OUTPUT_MESSAGE } from "./constants/ioMessage.js";
+import LottoResult from "./LottoResult.js";
 
 class Output {
   static printTicketCount(ticketCount) {
-    Console.print(`\n${ticketCount}개를 구매했습니다.`);
+    Console.print(OUTPUT_MESSAGE.PURCHASED_LOTTO(ticketCount));
   }
 
-  static printLottoNumbers(numbers) {
-    const lotto = new Lotto(numbers);
-    const lottoNumbers = lotto.getLottoNumbers.join(", ");
-    Console.print(`[${lottoNumbers}]`);
+  static printLottoNumbers(tickets) {
+    // Console.print(`${tickets}`);
+    tickets.forEach((ticketNumbers) => {
+      Console.print(`[${ticketNumbers.join(", ")}]`);
+    });
+  }
+
+  static printWinningResult() {
+    Console.print(OUTPUT_MESSAGE.WINNING_STATISTICS);
+    Console.print(OUTPUT_MESSAGE.WINNING_STATISTICS(LottoResult.getStatisitcs));
   }
 }
 

@@ -1,28 +1,24 @@
+import { Console } from "@woowacourse/mission-utils";
 import Input from "./Input.js";
+import Lotto from "./Lotto.js";
+import LottoResult from "./LottoResult.js";
 import Output from "./Output.js";
-import {
-  LOTTO_MAX_NUMBER,
-  LOTTO_MIN_NUMBER,
-  LOTTO_NUMBERS_LENGTH,
-} from "./constants/lotto.js";
-import generateNumbers from "./utils/generateNumbers.js";
+import TicketsGenerator from "./TicketsGenerator.js";
 
 class App {
   async run() {
     const ticketCount = await Input.inputPurchaseAmount();
-
     Output.printTicketCount(ticketCount);
-    for (let i = 0; i < ticketCount; i++) {
-      const numbers = generateNumbers(
-        LOTTO_MIN_NUMBER,
-        LOTTO_MAX_NUMBER,
-        LOTTO_NUMBERS_LENGTH
-      );
-      Output.printLottoNumbers(numbers);
-    }
+
+    const ticketsGenerator = new TicketsGenerator(ticketCount);
+    ticketsGenerator.showTickets();
+    const tickets = ticketsGenerator.tickets;
+    Console.print(tickets);
 
     const winningNumbers = await Input.inputWinningNumbers();
     const bonusNumber = await Input.inputBonusNumber(winningNumbers);
+
+    const lottoResult = new LottoResult(winningNumbers, bonusNumber, tickets);
   }
 }
 
