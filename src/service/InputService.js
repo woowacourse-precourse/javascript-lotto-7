@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { IOMessage } from '../constants/IOMessage.js';
 import Lotto from '../Lotto.js';
 import LottoGenerator from '../util/LottoGenerator.js';
-import formatLottoNumbers from '../util/formatLottoNums.js';
+import formatLottoNumbers from '../util/formatters/formatLottoNums.js';
 import BonusNum from '../BonusNum.js';
 
 export class InputService {
