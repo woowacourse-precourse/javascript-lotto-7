@@ -32,7 +32,7 @@ describe("Winning 클래스 테스트", () => {
   });
 
   test("createRanks 함수가 Rank 객체 배열을 생성하는지 확인한다.", () => {
-    const TEMP_WINNING = new Winning([], 0, []);;
+    const TEMP_WINNING = new Winning([], 0, []);
     const RANKS = TEMP_WINNING.createRanks();
 
     const EXPECTED = [5000, 50000, 1500000, 30000000, 2000000000];

@@ -74,7 +74,7 @@ class Validator {
   }
 
   static #splitNumbers(numbers) {
-    const DELIMITER = ","
+    const DELIMITER = ",";
     return numbers.split(DELIMITER);
   }
 
@@ -98,7 +98,7 @@ class Validator {
   }
 
   static #duplicate(number, array) {
-    const TARGET = [...array, number]
+    const TARGET = [...array, number];
     const CHECK = new Set(TARGET);
 
     if (TARGET.length != CHECK.size) {
