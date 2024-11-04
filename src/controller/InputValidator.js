@@ -6,10 +6,14 @@ import BonusNumber from './BonusNumber.js';
 
 class InputValidator {
   static async promptWithValidation(input, validationConfig) {
+    const {
+      message,
+      winningNum,
+      ValidatorClass,
+      validatorArgs = [],
+    } = validationConfig;
     while (true) {
       try {
-        const { message, winningNum, ValidatorClass, validatorArgs } =
-          validationConfig;
         const value = await input.getInput(message, winningNum); // getInput만 사용
         new ValidatorClass(value, ...validatorArgs); // 검증 수행
         return value; // 유효한 값 반환
@@ -23,7 +27,6 @@ class InputValidator {
     const validationConfig = {
       message: INPUT_PRINT_MESSAGES.money,
       ValidatorClass: MoneyManager,
-      validatorArgs: [],
     };
     const money = await this.promptWithValidation(input, validationConfig);
     return new MoneyManager(money).getLottoTicketCount();
@@ -34,7 +37,6 @@ class InputValidator {
       message: INPUT_PRINT_MESSAGES.winning_number,
       winningNum: true,
       ValidatorClass: Lotto,
-      validatorArgs: [],
     };
     return this.promptWithValidation(input, validationConfig);
   }
