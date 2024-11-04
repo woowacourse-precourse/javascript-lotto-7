@@ -16,6 +16,12 @@ class App {
     this.winningLottoNumbers = await this.getWinningLottoNumbers();
 
     this.bonusLottoNumber = await this.getBonusLottoNumber();
+
+    const result = this.calculateLottoResults(
+      this.purchasedLottoList,
+      this.winningLottoNumbers,
+      this.bonusLottoNumber
+    );
   }
 
   async getPurchasedAmount() {
@@ -129,6 +135,14 @@ class App {
 
     if (winningNumbers.includes(Number(inputtedBonusNumber)))
       throw new Error("[Error] 보너스 번호가 당첨 번호와 중복되면 안됩니다.");
+  }
+  calculateLottoResults(lottoList, winningNumbers, bonusNumber) {
+    return lottoList.reduce((result, lotto) => {
+      const [matchedCount, hasBonusMatch] = lotto.countMatchingLotto(
+        winningNumbers,
+        bonusNumber
+      );
+    });
   }
 }
 
