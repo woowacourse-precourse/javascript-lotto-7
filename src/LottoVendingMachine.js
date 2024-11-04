@@ -12,19 +12,12 @@ class LottoVendingMachine {
   async run() {
     await this.purchaseLottoAmountInput();
 
-    // 로또 번호 발행()
-    //   로또 번호 검사()
     this.issueLottos();
 
-    // 발행한 로또 수량 및 번호 오름차순 출력()
     this.printIssueLottosInfo();
 
-    // 당첨번호 입력()
-    //   당첨 번호 검사()
     await this.winNumbersInput();
 
-    // 보너스번호 입력()
-    //    보너스 번호 검사()
     await this.bounsNumberInput();
 
     // 당첨내역 출력()
@@ -63,15 +56,15 @@ class LottoVendingMachine {
 
   issueLottos() {
     while (this.#lottos.length < this.#lottoAmount) {
-      this.#lottos.push(this.#pickRandomLotto());
+      this.#lottos.push(this.#pickRandomLotto(MAGIC_NUMBER.LOTTO_PICK_NUM));
     }
   }
 
-  #pickRandomLotto() {
+  #pickRandomLotto(pickNum) {
     return MissionUtils.Random.pickUniqueNumbersInRange(
       MAGIC_NUMBER.LOTTO_MIN_NUM,
       MAGIC_NUMBER.LOTTO_MAX_NUM,
-      MAGIC_NUMBER.LOTTO_PICK_NUM
+      pickNum
     );
   }
 
@@ -84,12 +77,13 @@ class LottoVendingMachine {
   async winNumbersInput() {
     while (true) {
       try {
+        Console.print("");
         let winNumbers = await Console.readLineAsync(
           MESSAGES.INPUT.WIN_NUMBERS
         );
         winNumbers = winNumbers.split(",").map((n) => Number(n));
         const lotto = new Lotto(winNumbers);
-        this.#winNumbers = winNumbers;
+        this.#winNumbers = lotto.getLottoNumbers();
 
         return this.#winNumbers;
       } catch (e) {
@@ -98,7 +92,42 @@ class LottoVendingMachine {
     }
   }
 
-  bounsNumberInput() {}
+  async bounsNumberInput() {
+    while (true) {
+      try {
+        Console.print("");
+        let bonusNumber = await Console.readLineAsync(
+          MESSAGES.INPUT.BOUNS_NUMBER
+        );
+
+        if (!Number.isInteger(Number(bonusNumber))) {
+          throw new Error(MESSAGES.ERROR.PREFIX + MESSAGES.ERROR.NOT_INT);
+        }
+        this.#validateIntsRange(
+          bonusNumber,
+          MAGIC_NUMBER.LOTTO_MIN_NUM,
+          MAGIC_NUMBER.LOTTO_MAX_NUM
+        );
+
+        if (this.#winNumbers.includes(Number(bonusNumber))) {
+          throw new Error(MESSAGES.ERROR.PREFIX + MESSAGES.ERROR.DUPLICATE_INT);
+        }
+        this.#bounsNumber = bonusNumber;
+
+        return this.#bounsNumber;
+      } catch (e) {
+        Console.print(e.message);
+      }
+    }
+  }
+
+  #validateIntsRange(number, min, max) {
+    if (Number(number) < min || Number(number) > max) {
+      throw new Error(
+        MESSAGES.ERROR.PREFIX + MESSAGES.ERROR.RANGE_INT(min, max)
+      );
+    }
+  }
 }
 
 export default LottoVendingMachine;

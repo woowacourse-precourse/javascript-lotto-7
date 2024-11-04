@@ -26,7 +26,7 @@ const runException = async (input) => {
 
   // when
   const LottoVM = new LottoVendingMachine();
-  await LottoVM.purchaseLottoAmount();
+  await LottoVM.purchaseLottoAmountInput();
 
   // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));

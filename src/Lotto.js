@@ -1,4 +1,3 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
 import { MAGIC_NUMBER } from "./constants/magicNumber.js";
 import { MESSAGES } from "./constants/messages.js";
 
