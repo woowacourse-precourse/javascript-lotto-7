@@ -1,13 +1,13 @@
 export const PROMPT_MESSAGE = Object.freeze({
-  PURCHASE_AMOUNT: '\n구입금액을 입력해 주세요',
-  WINNING_NUMBERS: '\n당첨 번호를 입력해 주세요.',
-  BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.',
+  PURCHASE_AMOUNT: '\n구입금액을 입력해 주세요\n',
+  WINNING_NUMBERS: '\n당첨 번호를 입력해 주세요.\n',
+  BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.\n',
 });
 
 export const OUTPUT_MESSAGE = Object.freeze({
   PURCHASE_COUNT: '개를 구매했습니다.',
-  RESULT_STATISTICS: '당첨 통계\n---',
-  TOTAL_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
+  RESULT_STATISTICS: '\n당첨 통계\n---',
+  TOTAL_PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.\n`,
 });
 
 export const LOTTO = Object.freeze({
