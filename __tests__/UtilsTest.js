@@ -1,4 +1,4 @@
-import Utils from '../src/utils/Utils';
+import Utils from '../src/utils/Utils.js';
 
 describe('Utils 함수 테스트', () => {
   test.each([

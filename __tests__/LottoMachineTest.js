@@ -1,7 +1,7 @@
 import { Random, Console } from '@woowacourse/mission-utils';
-import LottoMachine from '../src/LottoMachine';
-import Lotto from '../src/Lotto';
-import { ERROR_MESSAGE } from '../src/utils/Constants';
+import LottoMachine from '../src/LottoMachine.js';
+import Lotto from '../src/Lotto.js';
+import { ERROR_MESSAGE } from '../src/utils/Constants.js';
 
 const mockingRandomNumbers = (numbersArray) => {
   Random.pickUniqueNumbersInRange = jest.fn();

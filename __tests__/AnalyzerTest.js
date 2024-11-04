@@ -1,5 +1,5 @@
-import Lotto from '../src/Lotto';
-import Analyzer from '../src/Analyzer';
+import Lotto from '../src/Lotto.js';
+import Analyzer from '../src/Analyzer.js';
 
 describe('Analyzer 클래스 테스트', () => {
   test('당첨 번호와 일치하는 번호의 수를 계산하는지 테스트', () => {

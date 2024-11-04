@@ -1,4 +1,4 @@
-import PrizeCalculator from '../src/PrizeCalculator';
+import PrizeCalculator from '../src/PrizeCalculator.js';
 
 describe('PrizeCalculator 클래스 테스트', () => {
   test.each([
