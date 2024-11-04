@@ -24,3 +24,11 @@ export const CONFIG = Object.freeze({
 
 export const LOTTO_NUMBER_DELIMITER = ", ";
 export const WINNER_LOTTO_NUMBER_DELIMITER = ",";
+
+export const PRIZE_TABLE = [
+  { matchCount: 3, prize: 5000, description: "3개 일치" },
+  { matchCount: 4, prize: 50000, description: "4개 일치" },
+  { matchCount: 5, prize: 1500000, description: "5개 일치" },
+  { matchCount: 5, bonusMatch: true, prize: 30000000, description: "5개 일치, 보너스 볼 일치" },
+  { matchCount: 6, prize: 2000000000, description: "6개 일치" },
+];
