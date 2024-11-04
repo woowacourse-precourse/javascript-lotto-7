@@ -1,7 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { LottoInputHandler } from './LottoInputHandler.js';
 import { LottoHandler } from './LottoHandler.js';
-import { LottoInputValidator } from './utils/LottoInputValidator.js';
 
 class App {
 	async run() {
