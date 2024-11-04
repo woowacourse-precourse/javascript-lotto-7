@@ -3,6 +3,7 @@ import Lotto from './Lotto.js';
 import LottoResultPrinter from './LottoResultPrinter.js';
 import { MATCH_OPTIONS, MESSAGES, PRICE_UNIT } from '../constants.js';
 import getUniqueRandomNumbers from '../utils/getUniqueRandomNumbers.js';
+import throwError from '../utils/throwError.js';
 
 class LottoManager {
   #winningNumbers;
@@ -20,6 +21,8 @@ class LottoManager {
   #matchedCountPerMatchOption;
 
   constructor(winningNumbers, bonusNumber, price) {
+    this.#validate(winningNumbers, bonusNumber);
+
     this.#winningNumbers = winningNumbers;
     this.#bonusNumber = bonusNumber;
     this.#price = price;
@@ -29,6 +32,12 @@ class LottoManager {
 
     this.#matchedCountInLottos = this.#getMatchedCountInLottos();
     this.#matchedCountPerMatchOption = this.#getMatchedCountPerMatchOption();
+  }
+
+  #validate(winningNumbers, bonusNumber) {
+    if (winningNumbers.includes(bonusNumber)) {
+      throwError(MESSAGES.ERROR.BONUS_NUMBER.SHOULD_NOT_BE_DUPLICATED);
+    }
   }
 
   printResult() {
