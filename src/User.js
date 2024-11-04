@@ -49,5 +49,4 @@ class User {
   }
 }
 
-// 클래스 자체를 export
 export default User;

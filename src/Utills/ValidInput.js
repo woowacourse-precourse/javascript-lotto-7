@@ -18,7 +18,7 @@ class ValidInput {
     return getValidWinningNumberList(input);
   }
 
-  // TODO :: getBonusNumber인데 인자로 winningNumber를 받는건 혼란을 줄 수 있을 것 같음
+  // TODO : getBonusNumber인데 인자로 winningNumber를 받는건 혼란을 줄 수 있을 것 같음
   static async getBonusNumber(winningNumbers) {
     const input = await Input.getBonusNumber();
     return getValidBonusNumber(input, winningNumbers);

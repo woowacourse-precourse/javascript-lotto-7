@@ -27,7 +27,6 @@ export function formatInputToNumber(input) {
 }
 
 export function makeInputToPurchaseMoneyNumber(lottoPurchaseMoneyStr) {
-  console.log(lottoPurchaseMoneyStr);
   if (emptyString(lottoPurchaseMoneyStr)) {
     makeError(ERROR_MESSAGE.NEED_INPUT);
   }

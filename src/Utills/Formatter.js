@@ -8,7 +8,6 @@ class Formatter {
     return LOCALE_FROMAT_REGEX.test(string);
   }
 
-  //   TODO 아닐시 항목이 애매하다.
   static formatLocaleStringToNumber(localeString) {
     return Number(localeString.split(',').join(''));
   }
