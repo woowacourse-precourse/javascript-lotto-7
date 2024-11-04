@@ -1,5 +1,52 @@
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
+
 class App {
-  async run() {}
+  constructor() {
+    this.purchaseAmount;
+    this.buyLottoNumbers = [];
+    this.winLottoNumber;
+    this.bonusNumber;
+    this.hit = {
+      5000: 0,
+      50000: 0,
+      1500000: 0,
+      30000000: 0,
+      2000000000: 0,
+      revenue: 0.0,
+    };
+  }
+  async run() {
+    await this.buyLotto();
+  }
+
+  async buyLotto() {
+    while (true) {
+      try {
+        this.purchaseAmount = await this.purchaseAmountInput();
+      } catch (e) {
+        Console.print(e.message);
+        continue;
+      }
+      if (this.purchaseAmount !== undefined) break;
+    }
+  }
+
+  async purchaseAmountInput() {
+    let money = await Console.readLineAsync("구입금액을 입력해 주세요.");
+    this.isNum(money);
+    if (Number(money) === 0) throw new Error("[ERROR] 숫자를 입력해주세요.");
+    if (Number(money) % 1000 !== 0)
+      throw new Error("[ERROR] 1000 단위에 맞춰주세요.");
+    return money;
+  }
+
+  isNum(number) {
+    const re = new RegExp("^[0-9]+$");
+    if (!re.test(number)) {
+      throw new Error("[ERROR] 숫자를 입력해주세요.");
+    }
+    return true;
+  }
 }
 
 export default App;
