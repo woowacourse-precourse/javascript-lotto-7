@@ -5,6 +5,6 @@ export const calculateProfit = (amount, total) => {
     throw new Error(ERROR.NOT_NUMBER);
   }
 
-  const result = (total / amount).toFixed(1);
+  const result = ((total / amount) * 100).toFixed(1);
   return `${result}${PERCENT}`;
 };
