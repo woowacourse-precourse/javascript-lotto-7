@@ -13,6 +13,7 @@ class App {
       try {
         purchaseAmount = await Input.purchaseAmount();
         ErrorHandler.validateNumericInput(purchaseAmount);
+        ErrorHandler.notDevideIntoThousand(purchaseAmount);
         break; // 유효한 입력일 경우 루프 종료
       } catch (error) {
         Console.print(error.message); // 에러 메시지 출력
@@ -26,17 +27,21 @@ class App {
     Output.printLottoList(userLottoList);
 
     let lotteryNumber;
+    let lottoArray;
     while (true) {
       try {
         lotteryNumber = await Input.lotteryNumber();
         ErrorHandler.validateLottoNumber(lotteryNumber);
+        lottoArray = InputHandler.lottoArray(lotteryNumber);
+        ErrorHandler.validateUniqueLottoNumbers(lottoArray);
+
         break;
       } catch (error) {
         Console.print(error.message);
       }
     }
 
-    const lottoArray = InputHandler.lottoArray(lotteryNumber);
+    // const lottoArray = InputHandler.lottoArray(lotteryNumber);
     const lotto = new Lotto(lottoArray);
 
     let bonusNumber;

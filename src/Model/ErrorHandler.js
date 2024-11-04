@@ -1,4 +1,10 @@
 class ErrorHandler {
+  static notDevideIntoThousand(number) {
+    if (number % 1000 !== 0) {
+      throw new Error('[ERROR] 1000원으로 나누어 떨어지지 않으면 에러처리');
+    }
+  }
+
   static validateUniqueLottoNumbers(lotteryNumber) {
     const lottoSet = new Set(lotteryNumber);
     if (lottoSet.size !== 6) {
