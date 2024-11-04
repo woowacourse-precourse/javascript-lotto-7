@@ -1,7 +1,7 @@
 import LottoGame from '../src/model/LottoGame.js';
 import { RESULT_INITIAL_STATE } from '../src/constants/lottoResults.js';
 
-describe('LottoGame 함수 테스트', () => {
+describe('LottoGame 클래스 테스트', () => {
   const winningNumbers = [1, 2, 3, 4, 5, 6];
   const bonusNumber = 7;
 
@@ -98,5 +98,23 @@ describe('LottoGame 함수 테스트', () => {
 
     expect(game.result).toEqual(expectedResult);
     expect(game.totalPrize).toBe(totalPrize);
+  });
+});
+
+describe('LottoGame 클래스 수익률 계산 테스트', () => {
+  test('구입 금액이 5000원이고 5등에 당첨된 경우 수익률이 100.0%로 반환된다.', () => {
+    const lottoTickets = [[1, 2, 3, 10, 11, 12]];
+    const game = new LottoGame(lottoTickets, [1, 2, 3, 4, 5, 6], 7, 5000);
+    game.calculateResult();
+
+    expect(game.calculateProfitRate()).toBe('100.0');
+  });
+
+  test('구입 금액이 8000원이고 1등에 당첨된 경우 수익률이 25000.0%로 반환된다.', () => {
+    const lottoTickets = [[1, 2, 3, 4, 5, 6]];
+    const game = new LottoGame(lottoTickets, [1, 2, 3, 4, 5, 6], 7, 8000);
+    game.calculateResult();
+
+    expect(game.calculateProfitRate()).toBe('25000000.0');
   });
 });

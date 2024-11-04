@@ -4,10 +4,11 @@ import {
 } from '../constants/lottoResults.js';
 
 class LottoGame {
-  constructor(lottoTickets, winningNumbers, bonusNumber) {
+  constructor(lottoTickets, winningNumbers, bonusNumber, purchaseAmount) {
     this.lottoTickets = lottoTickets;
     this.winningNumbers = winningNumbers;
     this.bonusNumber = bonusNumber;
+    this.purchaseAmount = purchaseAmount;
     this.result = JSON.parse(JSON.stringify(RESULT_INITIAL_STATE));
     this.totalPrize = 0;
   }
@@ -40,6 +41,10 @@ class LottoGame {
       this.totalPrize += ranking.prize;
     }
   }
-}
 
+  calculateProfitRate() {
+    const profitRate = (this.totalPrize / this.purchaseAmount) * 100;
+    return profitRate.toFixed(1);
+  }
+}
 export default LottoGame;
