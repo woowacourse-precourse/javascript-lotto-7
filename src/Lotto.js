@@ -11,10 +11,10 @@ class Lotto {
   }
 
   #validate(numbers) {
-    const numberSizwErrorMessage = '[ERROR] 로또 번호는 6개여야 합니다.';
+    const numberSizeErrorMessage = '[ERROR] 로또 번호는 6개여야 합니다.';
 
     if (numbers.length !== 6) {
-      throw new Error(numberSizwErrorMessage);
+      throw new Error(numberSizeErrorMessage);
     }
 
     const set = new Set(numbers);
