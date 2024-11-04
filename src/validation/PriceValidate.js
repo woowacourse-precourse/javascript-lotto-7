@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, PRICE } from "../constants/error.js";
-import { PRICE_NUMBER } from "../constants/message.js";
+import { PRICE_NUMBER } from "../constants/lotto.js";
 import Validate from "./Validate.js";
 
 class PriceValidate extends Validate {
