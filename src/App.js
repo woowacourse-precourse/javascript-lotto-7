@@ -7,8 +7,7 @@ import {
 	LOTTO_MIN_NUMBER,
 	LOTTO_MONEY,
 	PRIZE_MAP,
-	PROMPT,
-} from "./constant.js";
+} from "./constant/lotto.js";
 import { randomNumbersInRange } from "./missionUtils.js";
 
 class App {

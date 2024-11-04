@@ -1,9 +1,6 @@
-import {
-	ERROR_MESSAGE,
-	LOTTO_MAX_MONEY,
-	LOTTO_MONEY,
-	PROMPT,
-} from "./constant.js";
+import { PROMPT } from "./constant/promptMessages.js";
+import { LOTTO_MAX_MONEY, LOTTO_MONEY } from "./constant/lotto.js";
+import { ERROR_MESSAGE } from "./constant/errorMessages.js";
 import { printOutput, userInput } from "./missionUtils.js";
 
 class Input {

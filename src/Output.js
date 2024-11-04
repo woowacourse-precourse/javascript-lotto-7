@@ -1,4 +1,4 @@
-import { PROMPT } from "./constant.js";
+import { PROMPT } from "./constant/promptMessages.js";
 import { printOutput } from "./missionUtils.js";
 
 class Output {
