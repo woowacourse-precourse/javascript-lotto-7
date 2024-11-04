@@ -37,19 +37,38 @@ class LottoGame {
     lottoNumbers.forEach((number) => OutputView.printLotto(number));
 
     const { trimLotto, parseLottoNumber } = await InputView.readLineNumber();
-    const { bonusNumber, parseBonusNumber } = await InputView.readLineBonusNumber();
-
     this.#validateNumber(trimLotto);
+
+    const { bonusNumber, parseBonusNumber } = await InputView.readLineBonusNumber();
     this.#validateBonusNumber(bonusNumber);
 
     const lottoWinner = new LottoWinner(parseLottoNumber, parseBonusNumber);
-    lottoWinner.checkBonusNumber(lottoNumbers, parseBonusNumber);
+    lottoWinner.matchWinner(parseLottoNumber);
+    lottoWinner.checkMatchBonus(lottoNumbers);
+    // const result = new LottoResult(this.#price);
+
+    // lottoWinner.checkLottoNumber(lottoNumbers, parseLottoNumber, result);
+    // result.calculateResult();
   }
 
   #generateLotto(lottoCount) {
     this.#lotto = Utils.range(lottoCount).map(() => {
       return new Lotto(this.#sortNumber(this.#getRandomLottoNumber()));
     });
+  }
+
+  #matchingLottoWinner() {
+  }
+
+  #showResult() {
+  }
+
+  getLotto() {
+    return this.#lotto;
+  }
+
+  getPrice() {
+    return this.#price;
   }
 
   #getRandomLottoNumber() {
@@ -63,26 +82,6 @@ class LottoGame {
   #sortNumber(numbers) {
     return numbers.sort((a, b) => a - b);
   }
-
-  #matchingLottoWinner() {
-    const lottoWinner = new LottoWinner();
-    const result = LottoResult.getResult();
-    lottoWinner.checkLottoNumber(result, this.#lotto);
-  }
-
-  #showResult() {
-    const lottoResult = new LottoResult();
-    lottoResult.calculateResult();
-  }
-
-  static getLotto() {
-    return this.#lotto;
-  }
-
-  static getPrice() {
-    return this.#price;
-  }
-
 
   validatePrice(input) {
     this.#validateIsInteger(input);

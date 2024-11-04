@@ -4,6 +4,7 @@ import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 class LottoWinner {
   #numbers;
   #bonusNumber;
+  #matchBonus = false;
 
   constructor(numbers, bonusNumber) {
     this.#validateParseNumbers(numbers);
@@ -11,6 +12,52 @@ class LottoWinner {
     this.#validateHasSameNumber(numbers, bonusNumber);
     this.#numbers = numbers;
     this.#bonusNumber = bonusNumber;
+  }
+
+  matchWinner(numbers) {
+    const count = this.#matchCount(numbers);
+    return this.#calculateRank(count, this.#matchBonus);
+  }
+
+  checkMatchBonus(numbers) {
+    numbers.map((number) => {
+      return number.includes(this.#bonusNumber);
+    });
+  }
+
+  checkLottoNumber(lottoNumbers, winnerNumbers, result) {
+    const matchCount = lottoNumbers.filter((lottoNumber) =>
+      winnerNumbers.includes(lottoNumber)).length;
+    const rank = this.#calculateRank(matchCount, this.#matchBonus);
+    result[rank] += 1;
+  }
+
+  #matchCount(numbers) {
+    return numbers.filter((number) =>
+      this.#numbers.includes(number)).length;
+  }
+
+  #calculateRank(matchCount, matchBonus) {
+    if (matchCount === LOTTO_SETTINGS.matchCount.first) {
+      return 1;
+    }
+    if (matchCount === LOTTO_SETTINGS.matchCount.second && matchBonus) {
+      return 2;
+    }
+    if (matchCount === LOTTO_SETTINGS.matchCount.third) {
+      return 3;
+    }
+    if (matchCount === LOTTO_SETTINGS.matchCount.fourth) {
+      return 4;
+    }
+    if (matchCount === LOTTO_SETTINGS.matchCount.fifth) {
+      return 5;
+    }
+    return 0;
+  }
+
+  getMatchBonus() {
+    return this.#matchBonus;
   }
 
   #validateParseNumbers(input) {
@@ -61,8 +108,6 @@ class LottoWinner {
       throw new Error(LOTTO_MESSAGES.error.BonusNumberIsInLotto);
     }
   }
-
-  // TODO 추가 구현
 }
 
 export default LottoWinner;
