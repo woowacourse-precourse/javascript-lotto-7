@@ -62,9 +62,9 @@ class LottoModel {
       matchCounts.Rank4 * RANKING_MONEY.fourth +
       matchCounts.Rank5 * RANKING_MONEY.fifth;
 
-    const result = Math.round((returnMoney / purchaseAmount) * 100 * 100) / 100;
+    const result = ((returnMoney / purchaseAmount) * 100).toFixed(1);
 
-    return result.toFixed(1);
+    return result;
   }
 }
 
