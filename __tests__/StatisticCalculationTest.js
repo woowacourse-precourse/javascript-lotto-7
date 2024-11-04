@@ -14,7 +14,7 @@ describe('calculateStatistics 함수 테스트', () => {
 
     const expectedTotalReturn =
       1 * 5000 + 2 * 50000 + 1 * 1500000 + 1 * 30000000;
-    const expectedROI = ((expectedTotalReturn / inputMoney) * 100).toFixed(2);
+    const expectedROI = ((expectedTotalReturn / inputMoney) * 100).toFixed(1);
 
     expect(statistics.get(3).count).toBe(1);
     expect(statistics.get(4).count).toBe(2);

@@ -28,7 +28,7 @@ export default function (prizes, inputMoney) {
   });
 
   const totalReturn = calculateTotalReturn(statistics);
-  statistics.set('ROI', ((totalReturn / inputMoney) * 100).toFixed(2));
+  statistics.set('ROI', ((totalReturn / inputMoney) * 100).toFixed(1));
 
   return statistics;
 }
