@@ -1,8 +1,26 @@
 import Lotto from "../models/Lotto";
+import { Input } from "../views/Input";
+import { Output } from "../views/Output";
 
 export class LottoController {
-	// 실행 함수
-	run() {}
+	constructor() {
+		this.input = new Input();
+		this.output = new Output();
+	}
+
+	run() {
+		const price = this.input.getLottoPrice();
+		const lottoList = this.issueLotto(price);
+		this.output.printLottoCount(lottoList);
+
+		const winningNumbers = this.input.getLottoNumbers();
+		const bonusNumber = this.input.getLottoBonusNumber();
+
+		const lottoResult = this.getLottoResult(lottoList, winningNumbers, bonusNumber);
+		this.output.printLottoResult(lottoResult);
+		const profitRate = this.calculateProfitRate(lottoResult, price);
+		this.output.printProfitRate(profitRate);
+	}
 
 	issueLotto(price) {
 		const lottoList = [];
