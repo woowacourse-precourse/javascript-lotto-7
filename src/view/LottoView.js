@@ -18,6 +18,16 @@ class LottoView {
   printLottoSet(lottoSet) {
     lottoSet.forEach((lotto) => this.#printLottoNumbers(lotto));
   }
+
+  async getWinningNumbers() {
+    printNewLine();
+    return await getInput(INPUT_MESSAGES.WINNING_NUMBERS);
+  }
+
+  async getBonusNumber() {
+    printNewLine();
+    return await getInput(INPUT_MESSAGES.BONUS_NUMBER);
+  }
 }
 
 export default LottoView;

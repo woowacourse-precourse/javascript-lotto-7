@@ -1,9 +1,12 @@
 export const INPUT_MESSAGES = Object.freeze({
   MONEY: '구입금액을 입력해 주세요.\n',
+  WINNING_NUMBERS: '당첨 번호를 입력해 주세요.\n',
+  BONUS_NUMBER: '보너스 번호를 입력해 주세요.\n',
 });
 
 export const OUTPUT_MESSAGES = Object.freeze({
   LOTTO_AMOUNT: (amount) => `${amount}개를 구매했습니다.`,
+  LOTTO_SET: (lottoNumbers) => `[${lottoNumbers.join(', ')}]`,
 });
 
 export const ERROR_PREFIX = '[ERROR]';
