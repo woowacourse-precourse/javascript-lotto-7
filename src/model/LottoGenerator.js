@@ -1,10 +1,13 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { LOTTO } from '../contents/PrizeContents.js';
 
 class LottoGenerator {
   static generateSingleLotto() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-      (a, b) => a - b,
-    );
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO.MIN_NUMBER,
+      LOTTO.MAX_NUMBER,
+      LOTTO.NUMBER_COUNT,
+    ).sort((a, b) => a - b);
   }
 
   static generateMultipleLottos(count) {

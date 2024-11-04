@@ -1,5 +1,5 @@
 import { MONEY_ERROR_MESSAGES } from '../contents/InputErrorMessages.js';
-import { LOTTO_PRICE } from '../contents/PrizeContents.js';
+import { LOTTO } from '../contents/PrizeContents.js';
 import ValidateNumber from './ValidateNumber.js';
 
 class MoneyManager {
@@ -10,7 +10,7 @@ class MoneyManager {
   }
 
   getLottoTicketCount() {
-    return this.#money / LOTTO_PRICE;
+    return this.#money / LOTTO.PRICE;
   }
 
   #validateMoney(money) {

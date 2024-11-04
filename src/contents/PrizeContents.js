@@ -1,4 +1,9 @@
-export const LOTTO_PRICE = 1000;
+export const LOTTO = {
+  MAX_NUMBER: 45,
+  MIN_NUMBER: 1,
+  NUMBER_COUNT: 6,
+  PRICE: 1000,
+};
 
 export const PRIZE = Object.freeze({
   first: 2000000000,

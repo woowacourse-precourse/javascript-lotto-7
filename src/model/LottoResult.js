@@ -1,6 +1,6 @@
 import LottoComparer from './LottoComparer.js';
 import { PRIZE, INITIAL_RANK, PRIZE_KEYS } from '../contents/PrizeContents.js';
-import { LOTTO_PRICE } from '../contents/PrizeContents.js';
+import { LOTTO } from '../contents/PrizeContents.js';
 
 class LottoResult {
   static PRIZE_KEYS = PRIZE_KEYS;
@@ -15,7 +15,7 @@ class LottoResult {
     this.#winningNumbers = winningNumbers;
     this.#bonusNumber = bonusNumber;
     this.#lottos = lotto;
-    this.#totalCost = ticketCount * LOTTO_PRICE;
+    this.#totalCost = ticketCount * LOTTO.PRICE;
     this.calculateResults();
   }
 

@@ -1,4 +1,4 @@
-import { LOTTO_PRICE } from '../contents/PrizeContents.js';
+import { LOTTO } from '../contents/PrizeContents.js';
 
 class ValidateNumber {
   static checkMissing(input, errorMessage) {
@@ -8,7 +8,7 @@ class ValidateNumber {
   }
 
   static validateNumber(input, errorMessage) {
-    if (isNaN(input) || input < 1 || input > 45) {
+    if (isNaN(input) || input < LOTTO.MIN_NUMBER || input > LOTTO.MAX_NUMBER) {
       throw new Error(errorMessage);
     }
   }
@@ -32,7 +32,7 @@ class ValidateNumber {
   }
 
   static checkPurchaseUnit(money, errorMessage) {
-    if (parseInt(money, 10) % LOTTO_PRICE !== 0) {
+    if (parseInt(money, 10) % LOTTO.PRICE !== 0) {
       throw new Error(errorMessage);
     }
   }

@@ -1,7 +1,6 @@
 import ValidateNumber from './controller/ValidateNumber.js';
 import { NUMBER_ERROR_MESSAGES } from './contents/InputErrorMessages.js';
-
-const LOTTO_NUMBER_COUNT = 6;
+import { LOTTO } from './contents/PrizeContents.js';
 
 class Lotto {
   #numbers;
@@ -14,7 +13,7 @@ class Lotto {
   #validate(numbers) {
     ValidateNumber.checkArrayLength(
       numbers,
-      LOTTO_NUMBER_COUNT,
+      LOTTO.NUMBER_COUNT,
       NUMBER_ERROR_MESSAGES.winningNumberGuid,
     );
     ValidateNumber.checkForDuplicates(
