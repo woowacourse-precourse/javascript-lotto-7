@@ -61,18 +61,19 @@ class App {
   }
 
   getIncomeResult() {
-    const INCOME = this.calculateIncome();
-    const INCOME_PERCENTAGE = (INCOME / this.#money) * 100;
-    OutputView.printIncomeResult(INCOME_PERCENTAGE.toFixed(1));
+    const INCOME_PERCENTAGE = this.calculateIncomePercentage();
+    OutputView.printIncomeResult(INCOME_PERCENTAGE);
   }
 
-  calculateIncome() {
+  calculateIncomePercentage() {
     let income = 0;
     Object.keys(MONEY_BY_RANK).forEach(
       (rankIdx) =>
         (income += MONEY_BY_RANK[rankIdx] * this.#rankResult[rankIdx])
     );
-    return income;
+    const INCOME_PERCENTAGE = (income / this.#money) * 100;
+
+    return INCOME_PERCENTAGE.toFixed(1);
   }
 }
 
