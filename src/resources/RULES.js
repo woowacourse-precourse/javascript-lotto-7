@@ -4,5 +4,13 @@ export default {
   PICK_RANGE_END: 45,
   TOTAL_PICK_COUNT: 6,
 
+  MATCH_COUNT_FOR_BONUS: 5,
+
+  THREE_CORRECT_PRIZE: Math.round(5 * 1e3),
+  FOUR_CORRECT_PRIZE: Math.round(5 * 1e4),
+  FIVE_CORRECT_PRIZE: Math.round(1.5 * 1e6),
+  FIVE_BONUS_CORRECT_PRIZE: Math.round(3 * 1e7),
+  SIX_CORRECT_PRIZE: Math.round(2 * 1e9),
+
   DELIMITER_WINNING_NUMBERS: ',',
 };

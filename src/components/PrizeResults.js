@@ -1,8 +1,10 @@
+import RULES from '../resources/RULES';
+
 export default class {
   #prizeResults = new Map();
 
   save(matchedCount, hasBonusNumber) {
-    if (matchedCount === 5) {
+    if (matchedCount === RULES.MATCH_COUNT_FOR_BONUS) {
       this.saveWithBonus(matchedCount, hasBonusNumber);
       return;
     }

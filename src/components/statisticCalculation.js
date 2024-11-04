@@ -1,3 +1,5 @@
+import RULES from '../resources/RULES.js';
+
 function calculateTotalReturn(statistics) {
   return Array.from(statistics.values()).reduce(
     (acc, { count, prize }) => acc + count * prize,
@@ -7,15 +9,15 @@ function calculateTotalReturn(statistics) {
 
 export default function (prizes, inputMoney) {
   const statistics = new Map([
-    [3, { count: 0, prize: 5000 }],
-    [4, { count: 0, prize: 50000 }],
-    ['5withoutBonus', { count: 0, prize: 1500000 }],
-    ['5withBonus', { count: 0, prize: 30000000 }],
-    [6, { count: 0, prize: 2000000000 }],
+    [3, { count: 0, prize: RULES.THREE_CORRECT_PRIZE }],
+    [4, { count: 0, prize: RULES.FOUR_CORRECT_PRIZE }],
+    ['5withoutBonus', { count: 0, prize: RULES.FIVE_CORRECT_PRIZE }],
+    ['5withBonus', { count: 0, prize: RULES.FIVE_BONUS_CORRECT_PRIZE }],
+    [6, { count: 0, prize: RULES.SIX_CORRECT_PRIZE }],
   ]);
   prizes.forEach((value, key) => {
     let prizeDetails;
-    if (key === 5) {
+    if (key === RULES.MATCH_COUNT_FOR_BONUS) {
       prizeDetails = statistics.get('5withoutBonus');
       prizeDetails.count = value.withoutBonus;
       prizeDetails = statistics.get('5withBonus');
