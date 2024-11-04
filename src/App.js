@@ -5,13 +5,14 @@ import InputHandler from "./InputHandler.js";
 
 const printWinningResults = (lottoGame, userLotto, winningResults) => {
   const resultMessages = getResultMessages(winningResults);
-  Console.print("\n당첨 통계");
-  Console.print("---");
+  Console.print('');
+  Console.print('당첨 통계');
+  Console.print('---');
 
   const profitRate = lottoGame.calculateProfit(userLotto);
   resultMessages.push(`총 수익률은 ${profitRate}%입니다.`)
 
-  return resultMessages.forEach(Console.print);
+  resultMessages.forEach((message) => Console.print(message));
 };
 
 
