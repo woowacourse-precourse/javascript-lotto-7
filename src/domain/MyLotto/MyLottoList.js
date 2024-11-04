@@ -1,7 +1,9 @@
 import MyLotto from "./MyLotto.js";
+import Stats from "./Stats.js";
 
 class MyLottoList {
   #myLottoList;
+  #stats;
 
   static create(count) {
     return new MyLottoList([...Array(count)].map(() => MyLotto.create()));
@@ -17,10 +19,17 @@ class MyLottoList {
     });
   }
 
+  compileStats() {
+    this.#stats = new Stats(this.#myLottoList);
+  }
+
   get myLottoList() {
     return this.#myLottoList;
   }
 
+  get stats() {
+    return this.#stats;
+  }
 }
 
 export default MyLottoList;
