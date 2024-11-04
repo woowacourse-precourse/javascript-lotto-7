@@ -27,7 +27,7 @@ export class LottoMachine {
   async promptPurchaseAmount() {
     const amount = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
     this.purchaseAmount = Number(amount);
-    if (isNaN(this.purchaseAmount) || this.purchaseAmount % 1000 !== 0 || this.purchaseAmount < 0) {
+    if (isNaN(this.purchaseAmount) || this.purchaseAmount % 1000 !== 0 || this.purchaseAmount <= 0) {
       Console.print(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
       return this.promptPurchaseAmount();
     }
