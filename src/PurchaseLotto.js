@@ -1,5 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
-
 class PurchaseLotto {
   #quantity;
 
@@ -13,10 +11,6 @@ class PurchaseLotto {
 
   getQuantity() {
     return this.#quantity;
-  }
-
-  printQuantity() {
-    Console.print(`\n${this.#quantity}개를 구매했습니다.`);
   }
 }
 

@@ -1,9 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO_RESULT_MESSAGES } from '../constants/LottoSettings.js';
+import { LOTTO_RESULT_MESSAGES, OUTPUT_MESSAGES } from '../constants/index.js';
 
 class OutputHandler {
   static printPurchaseQuantity(quantity) {
-    Console.print(`\n${quantity}개를 구매했습니다.`);
+    Console.print(OUTPUT_MESSAGES.purchase_quantity(quantity));
   }
 
   static printLottoTickets(lottoTickets) {
@@ -13,7 +13,7 @@ class OutputHandler {
   }
 
   static printLottoResult(lottoResult) {
-    Console.print('\n당첨 통계\n---');
+    Console.print(OUTPUT_MESSAGES.lotto_result_header);
     const result = Array.from(lottoResult)
       .map(([key, count]) => `${LOTTO_RESULT_MESSAGES.get(key)}${count}개`)
       .join('\n');
@@ -22,7 +22,7 @@ class OutputHandler {
   }
 
   static printProfitRate(profitRate) {
-    Console.print(`\n총 수익률은 ${profitRate}%입니다.`);
+    Console.print(OUTPUT_MESSAGES.profit_rate(profitRate));
   }
 }
 

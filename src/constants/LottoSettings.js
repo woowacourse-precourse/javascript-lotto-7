@@ -16,3 +16,9 @@ export const LOTTO_RESULT_MESSAGES = Array.from(LOTTO_PRIZES).reduce((messages, 
   messages.set(key, `${key}개 일치 (${prizeMoney}원) - `);
   return messages;
 }, new Map());
+
+export const LOTTO_SETTINGS = Object.freeze({
+  minimum_number: 1,
+  maximum_number: 45,
+  required_length: 6,
+});

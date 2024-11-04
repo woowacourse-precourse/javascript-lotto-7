@@ -55,8 +55,7 @@ class LottoResultCalculator {
   }
 
   #countMatchingNumbers(lottoEntry) {
-    return this.#winningNumbers.filter(number => lottoEntry.includes(number))
-      .length;
+    return this.#winningNumbers.filter(number => lottoEntry.includes(number)).length;
   }
 
   #increaseResult(lottoResult, key) {
