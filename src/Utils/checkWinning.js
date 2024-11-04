@@ -1,3 +1,4 @@
+// number[], number[], number => string
 const checkWinning = (numbers, basicNumbers, bonusNumber) => {
   const matchCount = getMatchCount(numbers, basicNumbers);
   const hasBounsNumber = numbers.includes(bonusNumber);
