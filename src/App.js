@@ -1,21 +1,32 @@
-const { Console } = require('@woowacourse/mission-utils');
-const { InputValidator, Game } = require('./src/Game');
+// App.js
+import { Console } from '@woowacourse/mission-utils';
+import InputValidator from './InputValidator.js';
+import Game from './Game.js';
 
 class App {
   async run() {
-    const game = new LottoGame();
-    const amount = await this.#getPurchaseAmount();
-    const count = await game.purchaseLottos(amount);
-    game.printPurchaseResult(count);
-    await game.setWinningNumbers();
-    game.calculateResults();
-    game.printResults();
+    const game = new Game();
+
+    try {
+      const amount = await this.#getPurchaseAmount();
+      const count = await game.purchaseLottos(amount);
+      game.printPurchaseResult(count);
+      await game.setWinningNumbers();
+      game.calculateResults();
+      game.printResults();
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 
   async #getPurchaseAmount() {
-    const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
-    return InputValidator.validatePurchaseAmount(input);
+    try {
+      const input = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+      return InputValidator.validatePurchaseAmount(input);
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
-module.exports = App;
+export default App;

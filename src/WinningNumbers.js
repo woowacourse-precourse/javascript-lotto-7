@@ -28,3 +28,5 @@ class WinningNumbers {
     return this.#bonusNumber;
   }
 }
+
+export default WinningNumbers;

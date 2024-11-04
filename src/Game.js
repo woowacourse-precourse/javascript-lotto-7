@@ -1,4 +1,8 @@
-const MissionUtils = require('@woowacourse/mission-utils');
+import { Random, Console } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
+import LottoResult from './ResultCalculator.js';
+import WinningNumbers from './WinningNumbers.js';
+import InputValidator from './InputValidator.js';
 
 class Game {
   #lottos = [];
@@ -8,13 +12,10 @@ class Game {
   async purchaseLottos(amount) {
     const count = amount / 1000;
     for (let i = 0; i < count; i++) {
-      const numbers = await MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6
-      );
+      const numbers = await Random.pickUniqueNumbersInRange(1, 45, 6);
       this.#lottos.push(new Lotto(numbers));
     }
+    this.#result = new LottoResult(amount);
     return count;
   }
 
@@ -23,11 +24,12 @@ class Game {
   }
 
   printPurchaseResult(count) {
-    MissionUtils.Console.print(`${count}개를 구매했습니다.`);
+    Console.print(`${count}개를 구매했습니다.`);
     this.#lottos.forEach((lotto) => {
-      MissionUtils.Console.print(lotto.toString());
+      Console.print(lotto.toString());
     });
   }
+
   async setWinningNumbers() {
     const numbers = await this.#getWinningNumbers();
     const bonusNumber = await this.#getBonusNumber(numbers);
@@ -35,31 +37,15 @@ class Game {
   }
 
   async #getWinningNumbers() {
-    const input = await MissionUtils.Console.readLineAsync(
-      '\n당첨 번호를 입력해 주세요.\n'
-    );
+    const input = await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
     return InputValidator.validateWinningNumbers(input);
   }
 
   async #getBonusNumber(winningNumbers) {
-    const input = await MissionUtils.Console.readLineAsync(
+    const input = await Console.readLineAsync(
       '\n보너스 번호를 입력해 주세요.\n'
     );
     return InputValidator.validateBonusNumber(input, winningNumbers);
-  }
-
-  async purchaseLottos(amount) {
-    const count = amount / 1000;
-    for (let i = 0; i < count; i++) {
-      const numbers = await MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        45,
-        6
-      );
-      this.#lottos.push(new Lotto(numbers));
-    }
-    this.#result = new LottoResult(amount);
-    return count;
   }
 
   calculateResults() {
@@ -78,8 +64,4 @@ class Game {
   }
 }
 
-module.exports = {
-  InputValidator,
-  Lotto,
-  Game,
-};
+export default Game;

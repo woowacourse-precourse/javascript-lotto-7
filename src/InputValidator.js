@@ -59,3 +59,4 @@ class InputValidator {
     return parsed;
   }
 }
+export default InputValidator;

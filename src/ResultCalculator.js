@@ -1,3 +1,5 @@
+import { Console } from '@woowacourse/mission-utils';
+
 class LottoResult {
   static PRIZE_RANKS = {
     FIRST: {
@@ -61,7 +63,7 @@ class LottoResult {
   }
 
   print() {
-    MissionUtils.Console.print('\n당첨 통계\n---');
+    Console.print('\n당첨 통계\n---');
 
     const sortedRanks = Object.values(LottoResult.PRIZE_RANKS).sort(
       (a, b) => a.prize - b.prize
@@ -72,9 +74,10 @@ class LottoResult {
       const message = `${
         result.description
       } (${result.prize.toLocaleString()}원) - ${result.count}개`;
-      MissionUtils.Console.print(message);
+      Console.print(message);
     });
 
-    MissionUtils.Console.print(`총 수익률은 ${this.getProfitRate()}%입니다.`);
+    Console.print(`총 수익률은 ${this.getProfitRate()}%입니다.`);
   }
 }
+export default LottoResult;
