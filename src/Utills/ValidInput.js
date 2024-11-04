@@ -1,9 +1,11 @@
 import Input from '../View/Input.js';
-import { makeInputToPurchaseMoneyNumber } from '../Check/PurchaseMoney.js';
+
 import {
-  getValidWinningNumberList,
   getValidBonusNumber,
-} from '../Check/WinningNumbers.js';
+  getValidWinningNumberList,
+} from './Check/WinningNumbers.js';
+
+import { makeInputToPurchaseMoneyNumber } from './Check/PurchaseMoney.js';
 
 class ValidInput {
   static async getPurchaseMoney() {

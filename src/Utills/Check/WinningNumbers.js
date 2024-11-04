@@ -1,6 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, makeError } from '../View/Error.js';
-
+import { makeError, ERROR_MESSAGE } from '../../View/Error';
 
 const WINNING_NUMBERS_COUNT = 6;
 
