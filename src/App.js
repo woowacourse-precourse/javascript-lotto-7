@@ -21,7 +21,7 @@ class App {
       this.printWinningStatistics();
       this.printProfitRate(); // 수익률 출력
     } catch (error) {
-      MissionUtils.Console.print(`[ERROR] ${error.message}`);
+      Console.print(`[ERROR] ${error.message}`);
     }
   }
 
@@ -38,7 +38,7 @@ class App {
       arr.sort((a, b) => a - b); // 오름차순으로 정렬
       const lotto = new Lotto(arr);
       this.lottos.push(lotto);
-      Console.print(arr);
+      Console.print(`[${arr.join(", ")}]`);  // 배열을 문자열로 변환하여 출력
     }
   }
 
