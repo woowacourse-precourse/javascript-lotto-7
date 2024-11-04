@@ -1,18 +1,45 @@
 import Lotto from "../src/Lotto";
 
 describe("로또 클래스 테스트", () => {
+  const lotto = new Lotto();
   test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
     expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
+      lotto.validateWinningNumber([1, 2, 3, 4, 5, 6, 7]);
     }).toThrow("[ERROR]");
   });
 
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
   test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
+    const lotto = new Lotto();
     expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 5]);
+      lotto.validateWinningNumber([1, 2, 3, 4, 5, 5]);
     }).toThrow("[ERROR]");
   });
 
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("로또 번호가 숫자가 아닐 경우 예외가 발생한다.", () => {
+    const lotto = new Lotto();
+    expect(() => {
+      lotto.validateWinningNumber([1, 2, 3, 4, 5, "d"]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("로또 번호가 정해진 범위 내에 없을 경우 예외가 발생한다.", () => {
+    const lotto = new Lotto();
+    expect(() => {
+      lotto.validateWinningNumber([1, 2, 3, 4, 5, 80]);
+    }).toThrow("[ERROR]");
+  });
+
+  test("추가 당첨 번호가 숫자가 아닐 경우 예외가 발생한다.", () => {
+    const lotto = new Lotto();
+    expect(() => {
+      lotto.validateAdditionalNumber("d");
+    }).toThrow("[ERROR]");
+  });
+
+  test("추가 당첨 번호가 정해진 범위 내에 없을 경우 예외가 발생한다.", () => {
+    const lotto = new Lotto();
+    expect(() => {
+      lotto.validateAdditionalNumber(80);
+    }).toThrow("[ERROR]");
+  });
 });
