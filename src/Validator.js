@@ -1,7 +1,11 @@
-import { COMMON_ERROR_MESSAGES } from './constants/ERROR_MESSAGES';
-import { hasWhitespace } from './utils/hasWhitespace';
-import { isEmptyString } from './utils/isEmptyString';
-import { isNaturalNumber } from './utils/isNaturalNumber';
+import {
+  COMMON_ERROR_MESSAGES,
+  LOTTO_NUMBER_ERROR_MESSAGES
+} from './constants/ERROR_MESSAGES.js';
+import { LOTTO } from './constants/LOTTO_CONSTANTS.js';
+import { hasWhitespace } from './utils/hasWhitespace.js';
+import { isEmptyString } from './utils/isEmptyString.js';
+import { isNaturalNumber } from './utils/isNaturalNumber.js';
 
 class Validator {
   static validateWhitespace(input) {
@@ -19,6 +23,15 @@ class Validator {
   static validateEmpty(input) {
     if (isEmptyString(input)) {
       throw new Error(COMMON_ERROR_MESSAGES.EMPTY_STRING);
+    }
+  }
+
+  static validateLottoNumberRange(number) {
+    if (
+      number < LOTTO.NUMBER_MINIMUM_RANGE ||
+      LOTTO.NUMBER_MAXIMUM_RANGE < number
+    ) {
+      throw new Error(LOTTO_NUMBER_ERROR_MESSAGES.LOTTO_NUMBER_OUT_OF_RANGE);
     }
   }
 }
