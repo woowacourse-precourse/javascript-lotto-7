@@ -1,6 +1,6 @@
 import LottoResult from '../src/model/LottoResult';
 
-describe('매칭 머신 클래스 테스트', () => {
+describe('로또결과 클래스 테스트', () => {
   test('케이스 1 - 로또 번호가 당첨 번호와 매칭되었을 때 각 등수에 해당하는 당첨 결과를 반환한다.', () => {
     const winningNumber = [1, 2, 3, 4, 5, 6];
     const bonusNumber = 7;
