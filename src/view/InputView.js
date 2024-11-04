@@ -11,6 +11,14 @@ const InputView = {
     }
     
     return amount;
+  },
+
+  async getWinningNumbers() {
+    Console.print("당첨 번호를 입력해 주세요.");
+    const input = await Console.readLineAsync();
+    const numbers = input.split(",").map(Number);
+
+    return numbers;
   }
 }
 
