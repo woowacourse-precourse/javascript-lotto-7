@@ -17,8 +17,8 @@ export default class AppController {
         const userMoney = await this.getValidInput(lottoMesaage.INPUT_MONEY);
         const winningNumbers = await this.getValidInput(lottoMesaage.INPUT_LOTTONUMBERS);
         this.#bonus = await this.getValidInput(lottoMesaage.INPUT_BONUSNUMBER);
-        const statisticsCountMap = this.createStatisticsLotto();
-        this.createEarningsRate(userMoney, statisticsCountMap);
+        const statisticsCountMap = this.showStatisticsLotto();
+        this.showEarningsRate(userMoney, statisticsCountMap);
     }
 
     async userInput(message) {
@@ -70,7 +70,7 @@ export default class AppController {
         Validator.isValidBouns(this.#winningLotto, bonus);
     }
 
-    createStatisticsLotto() {
+    showStatisticsLotto() {
         ViweOutput.printText(statisticsMesssage.PRINT_STATISTICS);
         ViweOutput.printText(statisticsMesssage.PRINT_BAR.repeat(number.THREE));
         const statisticsCountMap = LottoController.getStatisticsLotto({userLottos: this.#userLottoList, winningLotto: this.#winningLotto, bonus: this.#bonus});
@@ -79,7 +79,7 @@ export default class AppController {
         return statisticsCountMap;
     }
 
-    createEarningsRate(userMoney, statisticsCountMap) {
+    showEarningsRate(userMoney, statisticsCountMap) {
         const earnMoeny = Calculator.sum(statisticsCountMap);
         const earnRate = Calculator.earningsRate(userMoney, earnMoeny);
         ViweOutput.printText(`${statisticsMesssage.PRINT_EARNRATE} ${earnRate}${statisticsMesssage.PRINT_RATEUNIT}`);
