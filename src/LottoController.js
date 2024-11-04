@@ -1,6 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import IOProcessor from './IOProcessor.js';
 import Lotto from './Lotto.js';
+import StringParser from './StringParser.js';
 import { OUPUT_MESSGE, LOTTO_PRICE } from './constant.js';
 
 /**
@@ -8,6 +9,8 @@ import { OUPUT_MESSGE, LOTTO_PRICE } from './constant.js';
  */
 class LottoController {
   #lottos;
+  #winningNumbers;
+  #winningBonusNumber;
 
   /**
    *
@@ -33,6 +36,21 @@ class LottoController {
    */
   generateLotto() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
+
+  /**
+   *
+   */
+  setWinningNumbers(winningNumbers) {
+    const stringParser = new StringParser();
+    this.#winningNumbers = stringParser.parseString(winningNumbers).map(Number);
+  }
+
+  /**
+   *
+   */
+  setWinningBonusNumber(winningBonusNumber) {
+    this.#winningBonusNumber = Number(winningBonusNumber);
   }
 }
 

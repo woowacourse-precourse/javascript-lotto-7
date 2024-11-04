@@ -41,6 +41,11 @@ class App {
     const winningBonusNumber = await this.ioProcessor.processInput(
       INPUT_MESSAGE.INPUT_WINNING_BONUS_NUMBER
     );
+
+    this.LottoController.setWinningNumbers(winningNummber);
+    this.LottoController.setWinningBonusNumber(winningBonusNumber);
+
+    this.LottoController.f();
   }
 }
 
