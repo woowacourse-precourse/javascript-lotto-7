@@ -1,5 +1,5 @@
-const { Random } = require("@woowacourse/mission-utils");
-const Lotto = require("./Lotto");
+import { Random } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class LottoManager {
   constructor() {
@@ -15,19 +15,25 @@ class LottoManager {
   }
 
   calculateResults(winningNumbers, bonusNumber) {
-    const results = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    const results = { 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
     this.lottos.forEach((lotto) => {
       const matchCount = lotto.getNumbers().filter((num) => winningNumbers.includes(num)).length;
       const isBonusMatch = lotto.getNumbers().includes(bonusNumber);
 
-      if (matchCount === 6) results[1]++;
-      else if (matchCount === 5 && isBonusMatch) results[2]++;
-      else if (matchCount === 5) results[3]++;
-      else if (matchCount === 4) results[4]++;
-      else if (matchCount === 3) results[5]++;
+      if (matchCount === 6) {
+        results[6]++;
+      } else if (matchCount === 5 && isBonusMatch) {
+        results["5_bonus"]++;
+      } else if (matchCount === 5) {
+        results[5]++;
+      } else if (matchCount === 4) {
+        results[4]++;
+      } else if (matchCount === 3) {
+        results[3]++;
+      }
     });
     return results;
   }
 }
 
-module.exports = LottoManager;
+export default LottoManager;

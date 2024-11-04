@@ -1,4 +1,4 @@
-const errorMessages = require("./errors/errorMessages");
+import errorMessages from "./errors/errorMessages.js";
 
 class Lotto {
   #numbers;
@@ -28,4 +28,4 @@ class Lotto {
   }
 }
 
-module.exports = Lotto;
+export default Lotto;

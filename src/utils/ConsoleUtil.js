@@ -1,4 +1,4 @@
-const { Console } = require("@woowacourse/mission-utils");
+import { Console } from "@woowacourse/mission-utils";
 
 const ConsoleUtil = {
   print(message) {
@@ -7,9 +7,6 @@ const ConsoleUtil = {
   async readLine(prompt) {
     return await Console.readLineAsync(prompt);
   },
-  close() {
-    Console.close();
-  },
 };
 
-module.exports = ConsoleUtil;
+export default ConsoleUtil;

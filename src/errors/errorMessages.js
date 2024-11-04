@@ -6,4 +6,4 @@ const errorMessages = {
     AMOUNT_OVER_ERROR: "[ERROR] 로또 번호는 6개여야 합니다.",
   };
   
-  module.exports = errorMessages;
+  export default errorMessages;
