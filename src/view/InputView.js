@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR } from "../constants.js";
+import { ERROR, MESSAGE } from "../constants.js";
 
 class InputView {
   static validateIsNumber(value) {
@@ -15,7 +15,7 @@ class InputView {
   }
 
   static async getPayment() {
-    const payment = await Console.readLineAsync("구입금액을 입력해 주세요.\n");
+    const payment = await Console.readLineAsync(MESSAGE.INPUT.PAYMENT);
     this.validatePayment(payment);
 
     return payment;
@@ -28,7 +28,7 @@ class InputView {
   }
 
   static async getWinningNumbers() {
-    const numbers = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+    const numbers = await Console.readLineAsync(MESSAGE.INPUT.WINNING_NUMBER);
     this.validateWinningNumber(numbers);
 
     return numbers.split(",").map((num) => Number(num.trim()));
@@ -43,8 +43,7 @@ class InputView {
   }
 
   static async getBonusNumber() {
-    const bonusNum =
-      await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+    const bonusNum = await Console.readLineAsync(MESSAGE.INPUT.BONUS_NUMBER);
     this.validateBonusNumber(bonusNum);
 
     return Number(bonusNum);

@@ -23,3 +23,14 @@ export const ERROR = {
     CANT_BE_DUPLICATED: "[ERROR] 보너스 번호는 로또 번호와 중복될 수 없습니다.",
   },
 };
+
+export const MESSAGE = {
+  INPUT: {
+    PAYMENT: "구입금액을 입력해 주세요.\n",
+    WINNING_NUMBER: "당첨 번호를 입력해 주세요.\n",
+    BONUS_NUMBER: "보너스 번호를 입력해 주세요.\n",
+  },
+  OUTPUT: {
+    STATISTICS: "당첨 통계\n---",
+  },
+};

@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { PRIZE } from "../constants.js";
+import { MESSAGE, PRIZE } from "../constants.js";
 
 class OutputView {
   static printLottoQuantity(amount) {
@@ -18,7 +18,7 @@ class OutputView {
   }
 
   static printStatistics(winning) {
-    Console.print("당첨 통계\n---");
+    Console.print(MESSAGE.OUTPUT.STATISTICS);
 
     const entries = Object.entries(winning).sort(
       ([rankA], [rankB]) => rankA - rankB
