@@ -1,3 +1,4 @@
+import {lottoNumberValidatePipe} from '../lottoNumberValidatePipe.js'
 import { validateLottoNumberAmount } from "../validate.js"
 
 class Lotto {
@@ -10,6 +11,7 @@ class Lotto {
 
   #validate(numbers) {
     validateLottoNumberAmount(numbers);
+    lottoNumberValidatePipe(numbers);
   }
   getNumbers() {
     return this.#numbers;

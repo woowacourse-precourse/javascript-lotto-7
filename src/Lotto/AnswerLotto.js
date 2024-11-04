@@ -1,6 +1,5 @@
 import Lotto from './Lotto.js'
 
-import {lottoNumberValidatePipe} from '../lottoNumberValidatePipe.js'
 import {bonusNumberValidatePipe} from '../bonusNumberValidatePipe.js'
 
 class AnswerLotto extends Lotto {
@@ -8,15 +7,15 @@ class AnswerLotto extends Lotto {
 
     constructor(numbers, bonus){
         super(numbers);
-        this.#validateAnswerLotto(numbers, bonus);
+        
+        this.#validateAnswerLotto(bonus);
         this.#bonus = bonus;
     }
 
     static create(numbers, bonus) {
         return new AnswerLotto(numbers, bonus);
     }
-    #validateAnswerLotto(numbers, bonus){
-        lottoNumberValidatePipe(numbers);
+    #validateAnswerLotto(bonus){
         bonusNumberValidatePipe(bonus);
     }
     getBonusNumber(){

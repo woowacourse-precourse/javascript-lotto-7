@@ -32,12 +32,9 @@ class LottoGameService{
     }
 
     start(purchaseAmount, issuedLottos, answerLotto){
-        const lottos = issuedLottos.map((issuedlotto) => new IssuedLotto(issuedlotto.getNumbers()));
-        const lotto = new AnswerLotto(answerLotto.getNumbers(), answerLotto.getBonusNumber());
         this.#purchaseAmount = purchaseAmount;
-        this.#issuedLottos = lottos;
-        this.#answerLotto = lotto;
-
+        this.#issuedLottos = issuedLottos;
+        this.#answerLotto = answerLotto;
         this.#issuedLottos.forEach((lotto) => {
             lotto.checkWinningIssuedLotto(this.#answerLotto);
             this.#countWinningLotto(lotto);

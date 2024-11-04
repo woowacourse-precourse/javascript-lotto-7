@@ -20,7 +20,6 @@ class LottoGameController{
     static onGetAnswerNumber(answerNumberString){
         validateAnswerNumberForm(answerNumberString);
         const answerNumbers = parser.separateString(answerNumberString, ',');
-        lottoNumberValidatePipe(answerNumbers);
         return answerNumbers;
     }
     static onGetBonusNumber(bonusNumber){
@@ -39,8 +38,6 @@ class LottoGameController{
         this.service.start(purchaseAmount, issuedLottos, answerLotto);
         const result = this.service.getResult();
         this.view.showLottoGameResult(result);
-        // const gradeQuantity = result.gradeQuantity;
-        // const incomeRate = result.incomeRate;
     }
 
 }

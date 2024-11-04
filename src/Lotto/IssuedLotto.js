@@ -15,13 +15,6 @@ class IssuedLotto extends Lotto {
     static create(amount) {
         return Array.from({length: amount}, () => new IssuedLotto(random.makeUniqueNumbers(1, 45, 6)));
     }
-    // makeLottoTable(numbers) {
-    //     let lottoTables = []
-    //     numbers.forEach((oneLotto) => {
-    //         tables.push(this.applyLottoToTable(oneLotto));
-    //     });
-    //     return lottoTables;
-    // }
     getWinningGrade(){
         return this.#winningGrade;
     }
