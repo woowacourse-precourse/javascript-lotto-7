@@ -9,7 +9,7 @@ class App {
     consoleView.printLottoCount(purchaseAmount);
     const lottos = lottoController.generateLottos(purchaseAmount);
     consoleView.printLottoNumbers(lottos);
-    const winningNumbersInput = consoleView.getWinningNumbers();
+    const winningNumbers = consoleView.getWinningNumbers();
   }
 }
 

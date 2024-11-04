@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import Validator from "../utils/Validator.js";
+import LottoController from "../controllers/LottoController.js";
 
 class ConsoleView {
   async getPurchaseAmount() {
@@ -12,10 +13,12 @@ class ConsoleView {
 
   async getWinningNumbers() {
     const validator = new Validator();
+    const lottoController = new LottoController();
     const winningNumbersInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
     validator.validateWinningNumbersInput(winningNumbersInput);
+    const winningNumbers = lottoController(winningNumbersInput);
 
-    return winningNumbersInput;
+    return winningNumbers;
   }
 
   printLottoCount(purchaseAmount) {

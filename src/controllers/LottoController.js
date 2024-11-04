@@ -2,7 +2,6 @@ import { Random } from "@woowacourse/mission-utils";
 import Lotto from "../models/Lotto.js";
 
 class LottoController {
-
   generateLottos(purchaseAmount) {
     const lottos = [];
     const count = purchaseAmount / 1000;
@@ -14,6 +13,10 @@ class LottoController {
     }
 
     return lottos;
+  }
+
+  extractWinningNumbers(winningNumbersInput) {
+    return winningNumbersInput.split(',').map(Number);
   }
 }
 
