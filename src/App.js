@@ -3,7 +3,7 @@ import printString from './output/printString.js';
 import { checkLottoBonusNumber, checkLottoPurchasePrice } from './utils/validatorInput.js';
 import Lotto from './Lotto/Lotto.js';
 import lottoGenerator from './utils/lottoGenerator.js';
-import winningNumbersParser from './utils/winningNumbersParser.js';
+import winningNumbersParser from './input/winningNumbersParser.js';
 import {
   calculateLottoStatistics,
   lottoProfitRate,

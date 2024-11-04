@@ -1,4 +1,4 @@
-import winningNumbersParser from '../../src/utils/winningNumbersParser.js';
+import winningNumbersParser from '../../src/input/winningNumbersParser.js';
 
 describe('winningNumbersParser 함수 테스트', () => {
 
