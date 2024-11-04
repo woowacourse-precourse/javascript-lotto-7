@@ -19,10 +19,10 @@ class Money {
 
   #validate(amount) {
     checkIsEmpty(amount);
-    checkIsNumber(amount);
 
     const parsedAmount = Number(amount);
-    this.#checkDivisibility(amount);
+    checkIsNumber(parsedAmount);
+    this.#checkDivisibility(parsedAmount);
     this.#checkMinAmount(parsedAmount);
   }
 
