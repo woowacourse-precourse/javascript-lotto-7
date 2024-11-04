@@ -28,7 +28,7 @@ class App {
       INPUT_MESSAGE.INPUT_AMOUNT
     );
 
-    this.LottoController.buyLottos(amout);
+    this.LottoController.buyLottos(Number(amout));
   }
 
   /**
