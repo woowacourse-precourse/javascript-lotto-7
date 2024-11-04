@@ -6,8 +6,8 @@ class BuyLotto{
         constructor(){
             this.io = new HandleIo();
         };
-    async run(){
-        // const this.io = new HandleIo();
+    
+        async run(){
         const buyMoney = await this.io.getMoneyInput();
         const randomLotto = [];
         const Count = this.#validate(buyMoney);
@@ -27,8 +27,17 @@ class BuyLotto{
     };
 
     #validate(number){
+        return this.#checkThousand(number);
+    };
+
+    #checkThousand(number){
+        const LIMIT = 100000;
         if(isNaN(number) || number % 1000 !== 0){
             Console.print("[ERROR] : 예외 테스트");
+            return false;
+        };
+        if(number > LIMIT){
+            Console.print("[ERROR] : 구입 금액이 10만원을 넘을 수 없습니다.");
             return false;
         };
         return number / 1000;
@@ -66,21 +75,28 @@ class BuyLotto{
             6:0
         };
 
-        result.forEach(({match,isBonuse})=>{
-            if(match ===3 ){matchCount[3]++};
-            if(match ===4 ){matchCount[4]++};
-            if(match ===5 ){matchCount[5]++};
-            if(match ===5 && isBonuse ){matchCount[bonuns]++};
-            if(match ===6){matchCount[6]++};
+        result.forEach(({ match, isBonus }) => {
+            if (match === 3) {
+                matchCount[3]+=1;
+            } else if (match === 4) {
+                matchCount[4]+=1;
+            } else if (match === 5) {
+                matchCount[5]+=1;
+                if (isBonus) {
+                    matchCount.bonus +=1 ; 
+                }
+            } else if (match === 6) {matchCount[6]+=1;}
         });
 
-        const profit = this.#Profit(matchCount,randomLotto)
+        const profit = this.#Profit(matchCount,randomLotto);
 
         this.io.printResult(matchCount,profit);
     };
 
     #Profit(matchCount,randomLotto){
+
         const purchase = randomLotto.length * 1000;
+        
         const winningMoney = {
             3: 5000,
             4: 50000,
@@ -93,7 +109,7 @@ class BuyLotto{
         matchCount[3] * winningMoney[3] +
         matchCount[4] * winningMoney[4] +
         matchCount[5] * winningMoney[5] +
-        matchCount['bonus'] * winningMoney['bonus'] +
+        matchCount.bonus * winningMoney.bonus +
         matchCount[6] * winningMoney[6];
 
         return (getMoney / purchase) * 100;

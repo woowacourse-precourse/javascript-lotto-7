@@ -10,7 +10,7 @@ class App {
     } catch (error) {
         Console.print(error);
         throw(error);
-    }
+    };
   };
 };
 
