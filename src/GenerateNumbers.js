@@ -12,7 +12,6 @@ class GenerateNumbers {
       this.findMatchingNumber(randomNum, numbers, bonusNum);
     }
     console.log("");
-
     return allGeneratedNumbers;
   }
 
@@ -26,23 +25,33 @@ class GenerateNumbers {
 
     console.log("비교할 랜덤 번호:", randomNum);
 
+    let prizeMoney = 0;
+
     const bonusNumAsNumber = Number(bonusNum);
 
+    if (count === 0) {
+      console.log("미당첨");
+      console.log("일치하는 번호 없음");
+    }
+
+    // 테스트를 위한 임시 코드, 비교할 count 값은 추후 수정
     if (count === 1) {
       if (randomNum.includes(bonusNumAsNumber)) {
+        prizeMoney = 1;
+        console.log("2등");
         console.log(count + "개 번호와 보너스 번호 일치");
       } else {
+        prizeMoney = 10;
+        console.log("3등");
         console.log(count + "개 번호 일치");
       }
-      return;
     }
 
     if (count === 2) {
+      prizeMoney = 100;
+      console.log("1등");
       console.log(count + "개 번호 일치");
-      return;
     }
-
-    console.log("일치하는 번호 없음");
   }
 }
 
