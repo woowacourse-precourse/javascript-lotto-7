@@ -1,3 +1,10 @@
+export const LOTTO_LENGTH = 6;
+
+export const LOTTO_NUMBER_START = 1;
+
+export const LOTTO_NUMBER_END = 45;
+
+export const WINNING_NUMBER_DELIMITER = ',';
 export const ERROR_MESSAGE = {
   LOTTO_CHECK_LENGTH: `로또 번호는 ${LOTTO_LENGTH}개여야 합니다.`,
   LOTTO_CHECK_DUPLICATES: '로또 번호는 중복이 없어야 합니다.',
