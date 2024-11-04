@@ -2,14 +2,20 @@ import { Console } from '@woowacourse/mission-utils';
 
 export class Input {
   async getPurchasePrice() {
-    return await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    const purchasePriceGuidanceMassage = '구입금액을 입력해 주세요.\n';
+
+    return await Console.readLineAsync(purchasePriceGuidanceMassage);
   }
 
   async getWinningNumbers() {
-    return await Console.readLineAsync('\n당첨 번호를 입력해 주세요.\n');
+    const winningNumbersGuidanceMassage = '\n당첨 번호를 입력해 주세요.\n';
+
+    return await Console.readLineAsync(winningNumbersGuidanceMassage);
   }
 
   async getBonusNumber() {
-    return await Console.readLineAsync('\n보너스 번호를 입력해 주세요.\n');
+    const bonusNumberGuidanceMassage = '\n보너스 번호를 입력해 주세요.\n';
+
+    return await Console.readLineAsync(bonusNumberGuidanceMassage);
   }
 }
