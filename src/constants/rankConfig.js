@@ -1,0 +1,9 @@
+const RANK_CONFIG = Object.freeze({
+  FIRST : {COUNT : 6, RANK : 0, PRIZE : 2000000000},
+  SECOND : {COUNT : 5, RANK : 1, PRIZE : 30000000},
+  THIRD : {COUNT : 5, RANK : 2, PRIZE : 1500000},
+  FOURTH : {COUNT : 4, RANK : 3, PRIZE : 50000},
+  FIFTH : {COUNT : 3, RANK : 4, PRIZE : 5000},
+});
+
+export default RANK_CONFIG;
