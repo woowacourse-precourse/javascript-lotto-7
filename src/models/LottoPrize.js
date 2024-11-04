@@ -7,6 +7,8 @@ class LottoPrize extends ObservableModel {
 
   #prize;
 
+  #returnRate;
+
   constructor(lottoChecker) {
     super();
     this.#lottoChecker = lottoChecker;
@@ -17,6 +19,7 @@ class LottoPrize extends ObservableModel {
       forth: { condition: 4, money: 50000, count: 0 },
       fifth: { condition: 3, money: 5000, count: 0 },
     };
+    this.#returnRate = 0;
   }
 
   /**
@@ -44,6 +47,23 @@ class LottoPrize extends ObservableModel {
     return this.#updateRanks(rank);
   }
 
+  #formatPrize() {
+    const formattedPrize = LottoPrize.PRIZE_KEYS.map((rank) => {
+      const { condition, money, count } = this.#prize[rank];
+      return {
+        rank,
+        condition,
+        money: money.toLocaleString(),
+        count,
+      };
+    });
+    return formattedPrize;
+  }
+
+  #formatReturnRate() {
+    return this.#returnRate.toFixed(1);
+  }
+
   /**
    *
    * @param {number[][]} lottos
@@ -60,14 +80,18 @@ class LottoPrize extends ObservableModel {
     const totalPrize = Object.values(this.#prize)
       .reduce((acc, cur) => acc + cur.count * cur.money, 0);
 
-    return (totalPrize / money) * 100;
+    this.#returnRate = (totalPrize / money) * 100;
+    return this.#returnRate;
   }
 
   getResult(lottos, money) {
+    this.getPrize(lottos);
+    this.getReturnRate(money);
+
     this.notify({
       prizeKeys: LottoPrize.PRIZE_KEYS,
-      prize: this.getPrize(lottos),
-      returnRate: this.getReturnRate(money).toFixed(1),
+      prize: this.#formatPrize(),
+      returnRate: this.#formatReturnRate(),
     });
   }
 }

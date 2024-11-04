@@ -6,15 +6,13 @@ const OutputView = {
     OutputView.printLottos(lottoList);
   },
 
-  updatePrize({ prizeKeys, prize, returnRate }) {
+  updatePrize({ prize, returnRate }) {
     OutputView.printResultHeader();
-    prizeKeys.forEach((rank) => {
-      const { condition, money, count } = prize[rank];
-      if (rank === "second") {
-        OutputView.printBonusResult(condition, money.toLocaleString(), count);
-      } else {
-        OutputView.printResult(condition, money.toLocaleString(), count);
-      }
+    prize.forEach(({
+      rank, condition, money, count,
+    }) => {
+      if (rank === "second") OutputView.printBonusResult(condition, money, count);
+      else OutputView.printResult(condition, money, count);
     });
     OutputView.printReturnRate(returnRate);
   },
