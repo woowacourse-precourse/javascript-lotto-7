@@ -24,6 +24,19 @@ class Lotto {
     return this.#numbers;
   }
 
+  getMatchCount(winningTicket) {
+    const winningNumbers = winningTicket.getNumbers();
+    let matchCount = 0;
+
+    this.#numbers.forEach((number) => {
+      if (winningNumbers.includes(number)) {
+        matchCount += 1;
+      }
+    });
+
+    return matchCount;
+  }
+
   // TODO: 추가 기능 구현
 }
 

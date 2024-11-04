@@ -6,7 +6,9 @@ export const isValidPrice = (lottoPrice) => {
 };
 
 export const isZeroPrice = (lottoPrice) => {
-  if (!lottoPrice || +lottoPrice === 0) {
+  const price = parseInt(lottoPrice, 10); // 정수 변환으로 숫자 형태만 허용
+
+  if (isNaN(price) || price <= 0) {
     throw new Error(`[ERROR] : 금액을 입력해주세요`);
   }
 };

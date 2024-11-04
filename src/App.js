@@ -12,13 +12,17 @@ import {
   getWinningNumbers,
 } from "./services/LottoGenerator.js";
 import Lotto from "./Lotto.js";
+import {
+  printStatistics,
+  updatePrizeCount,
+} from "./services/LottoPrizeAnalyzer.js";
 
 class App {
   async run() {
     const lottoPriceInput = await Console.readLineAsync(
       "구입금액을 입력해 주세요."
     );
-    const lottoPrice = Number(lottoPriceInput.trim());
+    const lottoPrice = lottoPriceInput.trim();
     isZeroPrice(lottoPrice);
     isValidPrice(lottoPrice);
 
@@ -48,6 +52,15 @@ class App {
     isDuplicateNum(bonusNum, winningTicket.getNumbers());
     validateNumRange(bonusNum);
     validateBonusNumber(bonusNum);
+
+    lottoTickets.forEach((ticket) => {
+      const matchCount = ticket.getMatchCount(winningTicket);
+      const bonusMatched = ticket.getNumbers().includes(bonusNum);
+      updatePrizeCount(matchCount, bonusMatched);
+    });
+
+    // 수익률 출력
+    printStatistics(lottoPrice);
   }
 }
 
