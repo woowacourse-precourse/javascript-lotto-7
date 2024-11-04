@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import VIEWMESSAGES from '../resources/VIEWMESSAGES.js';
 import validateInputMoney from './validator/validateInputMoney.js';
+import validateWinningNumbers from './validator/validateWinningNumbers.js';
 
 export async function inputPurchaseAmount() {
   while (true) {
@@ -10,6 +11,20 @@ export async function inputPurchaseAmount() {
       );
       validateInputMoney(inputMoney);
       return Number(inputMoney);
+    } catch (error) {
+      Console.print(error);
+    }
+  }
+}
+
+export async function inputWinningNumbers() {
+  while (true) {
+    try {
+      const winningNumbers = await Console.readLineAsync(
+        VIEWMESSAGES.INPUT_WINNING_NUMBER_PROMPT,
+      );
+      validateWinningNumbers(winningNumbers);
+      return winningNumbers.split(',').map(Number);
     } catch (error) {
       Console.print(error);
     }
