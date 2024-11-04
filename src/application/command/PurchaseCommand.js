@@ -1,4 +1,5 @@
 import Opportunity from "../../domain/Opportunity/Opportunity.js";
+import MyLottoList from "../../domain/MyLotto/MyLottoList.js";
 import retry from "../utils/retry.js";
 
 class PurchaseCommand {
@@ -30,6 +31,14 @@ class PurchaseCommand {
     };
 
     return retry(processCostFlow);
+  }
+
+  handleMyLottoList(count) {
+    const myLottoList = MyLottoList.create(count);
+    this.#outputPort.displayMyLottoList(myLottoList.myLottoList);
+    this.#outputPort.displayNewLine();
+
+    return myLottoList;
   }
 }
 
