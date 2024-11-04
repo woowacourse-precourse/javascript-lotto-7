@@ -20,9 +20,9 @@ class Validate {
   };
 
   static validateNumber(number) {
-    if (isNaN(number)) {
-      throw new Error(ERROR.INVALID_INPUT)
-    };
+    if (isNaN(number) || !/^\d+$/.test(number)) {
+      throw new Error(ERROR.INVALID_INPUT);
+    }
   }
 
   static splitNumbers(numbers) {
@@ -52,6 +52,7 @@ class Validate {
   static validateNumbersArray(numbers) {
     this.validateLottoNumbersCount(numbers);
     numbers.forEach((number) => {
+      this.validateNumber(number);
       this.validateLottoRange(number);
     });
 
