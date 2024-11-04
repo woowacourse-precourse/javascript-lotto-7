@@ -12,14 +12,7 @@ class LottoValidate extends Validate {
     this.#checkArrayForNotNumber(lotto);
     this.#checkArrayForRange(lotto);
     this.#checkArrayForDuplicates(lotto);
-    this.#checkArrayForExcess(lotto);
     this.#checkArrayLength(lotto);
-  }
-
-  #checkArrayLength(lotto) {
-    if (lotto.length > LOTTO_VALUES.COUNT) {
-      throw new Error(ERROR_MESSAGE + LOTTO_ERROR.LENGTH);
-    }
   }
 
   #checkArrayForNotNumber(lotto) {
@@ -40,8 +33,7 @@ class LottoValidate extends Validate {
       throw new Error(ERROR_MESSAGE + LOTTO_ERROR.DUPLICATE);
     }
   }
-
-  #checkArrayForExcess(lotto) {
+  #checkArrayLength(lotto) {
     if (lotto.length > LOTTO_VALUES.COUNT) {
       throw new Error(ERROR_MESSAGE + LOTTO_ERROR.LENGTH);
     }
