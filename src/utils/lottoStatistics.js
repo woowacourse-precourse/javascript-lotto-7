@@ -22,7 +22,6 @@ export function printLottoStatistics(lottoResults) {
     `${RANK_CONFIG.FIRST.COUNT}개 일치 (${RANK_CONFIG.FIRST.PRIZE.toLocaleString()}원) - ${lottoResults[RANK_CONFIG.FIRST.RANK]}개`,
   ];
 
-  // 각 통계 메시지를 개별적으로 출력
   statisticsMessages.forEach(message => {
     printString(message);
   });
