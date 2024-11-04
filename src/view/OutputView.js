@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils"
+import prizeMoney from "../service/data.js";
 
 const OutputView = {
   printLottoTickets(tickets) {
@@ -9,7 +10,7 @@ const OutputView = {
   printResults(ranks, earningRate) {
     Console.print("\n당첨 통계\n---")
     Object.entries(ranks).forEach(([rank, count]) => {
-      Console.print(`${rank} - ${count}개`)
+      Console.print(`${rank} ${prizeMoney[rank]} - ${count}개`)
     });
     Console.print(`총 수익률은 ${earningRate}% 입니다.`);
   },
