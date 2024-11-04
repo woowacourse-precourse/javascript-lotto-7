@@ -62,7 +62,7 @@ class View {
   }
 
   static #rateOfReturnForm (rate) {
-    return `총 수익률은 ${rate}%입니다.`;
+    return `총 수익률은 ${rate.toLocaleString()}%입니다.`;
   }
 
   static #prizeForm (rank, prize, count = 0) {
