@@ -192,7 +192,6 @@ describe('로또 생성 테스트', () => {
   })
 })
 
-
 describe('로또 테스트', () => {
   beforeEach(() => {
     jest.restoreAllMocks();

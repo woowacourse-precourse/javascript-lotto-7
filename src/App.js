@@ -144,14 +144,14 @@ class App {
       1: 2000000000
     };
   
-    const totalPrize =
+    const TOTAL_PRIZE =
       resultCounter[5] * PRIZE[5] +
       resultCounter[4] * PRIZE[4] +
       resultCounter[3] * PRIZE[3] +
       resultCounter[2] * PRIZE[2] +
       resultCounter[1] * PRIZE[1];
   
-    const RESULT_RATE = (totalPrize / money) * 100;
+    const RESULT_RATE = (TOTAL_PRIZE / money) * 100;
     
     MissionUtils.Console.print(`총 수익률은 ${RESULT_RATE.toFixed(1)}%입니다.`);
   }
@@ -167,7 +167,7 @@ class App {
       });
 
       const RESULT_COUNT = await this.lottoResultCounter(LOTTOS);
-      
+
       this.printResult(RESULT_COUNT);
       this.resultRateCalculator(RESULT_COUNT, MONEY);
     }

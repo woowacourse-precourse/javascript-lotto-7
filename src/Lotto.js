@@ -30,15 +30,15 @@ class Lotto {
   }
 
   lottoResult(correctNumbers, bonusNumber) {
-    const matchedCount = this.#countMatchingNumbers(correctNumbers);
+    const MATCHED_COUNT = this.#countMatchingNumbers(correctNumbers);
 
-    const hasBonus = this.#numbers.includes(parseInt(bonusNumber));
+    const HAS_BONUS = this.#numbers.includes(parseInt(bonusNumber));
 
-    if (matchedCount === 6) return 1;
-    if (matchedCount === 5 && hasBonus) return 2;
-    if (matchedCount === 5) return 3;
-    if (matchedCount === 4) return 4;
-    if (matchedCount === 3) return 5;
+    if (MATCHED_COUNT === 6) return 1;
+    if (MATCHED_COUNT === 5 && HAS_BONUS) return 2;
+    if (MATCHED_COUNT === 5) return 3;
+    if (MATCHED_COUNT === 4) return 4;
+    if (MATCHED_COUNT === 3) return 5;
     return 0;
   }
 }
