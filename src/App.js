@@ -16,6 +16,14 @@ class App {
 
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
+
+    const lottoResult = [0, 0, 0, 0, 0, 0, 0, 0];
+
+    for (let i = 0; i < lottoInstances.length; i++) {
+      lottoResult[
+        lottoInstances[i].checkWinStatus(winningNumbers, bonusNumber)
+      ]++;
+    }
   }
 
   async getPurchaseAmount() {
