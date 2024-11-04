@@ -9,24 +9,34 @@ class LottoResult {
     this.#lottoList = lottoList; // Lotto[]
     this.#winningLotto = winningLotto; // number[]
     this.#bonusNumber = bonusNumber; // number
-    this.#calculate();
+    this.#calculateResults();
   }
 
-  #calculate() {
-    // LottoList 순회 -> 각 로또 순회 -> 각 번호가 WinningLotto 안에 포함이 되었는가 계산, 또는 보너스 번호와 일치하는가
+  #calculateResults() {
     for (const lotto of this.#lottoList) {
-      let matchNum = 0; // 당첨 번호 일치 개수
-      let isBonusMatch = false; // 보너스 번호 일치 여부
-      for (const num of lotto.getLotto()) {
-        if (this.#winningLotto.includes(num)) {
-          matchNum += 1;
-        }
-        if (this.#bonusNumber === num) {
-          isBonusMatch = true;
-        }
-      }
-      this.#saveResult(matchNum, isBonusMatch);
+      const matchNum = this.#countMatches(lotto); // 로또 번호 일치 개수
+      const isBonusMatch = this.#isBonusMatched(lotto); // 보너스 번호 일치 여부
+      this.#saveResult(matchNum, isBonusMatch); // 각 로또 별로 결과 저장
     }
+  }
+
+  #countMatches(lotto) {
+    let matchCount = 0;
+    for (const num of lotto.getLotto()) {
+      if (this.#winningLotto.includes(num)) {
+        matchCount += 1;
+      }
+    }
+    return matchCount;
+  }
+
+  #isBonusMatched(lotto) {
+    for (const num of lotto.getLotto()) {
+      if (num === this.#bonusNumber) {
+        return true;
+      }
+    }
+    return false;
   }
 
   #saveResult(matchNum, isBonusMatch) {
