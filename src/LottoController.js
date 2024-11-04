@@ -1,6 +1,7 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 import LottoView from "./LottoView.js";
+import { ERROR_MESSAGE } from "./constants.js";
 
 class LottoController {
   #view;
@@ -11,12 +12,43 @@ class LottoController {
   }
 
   async run() {
-    const purchaseAmount = await this.#view.getPurchaseAmount();
+    let purchaseAmount;
+    while (true) {
+      try {
+        purchaseAmount = await this.#view.getPurchaseAmount();
+        this.#validatePurchaseAmount(purchaseAmount);
+        break;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+    const count = this.#countOfLotto(purchaseAmount);
     this.#generateLottos(purchaseAmount);
+
+    this.#view.showLottoCount(count);
     this.#view.showLottoList(this.#lottos);
 
-    const winningNumbers = await this.#view.getWinningNumbers();
-    const bonusNumber = await this.#view.getBonusNumber();
+    let winningNumbers;
+    while (true) {
+      try {
+        winningNumbers = await this.#view.getWinningNumbers();
+        this.#validateWinningNumbers(winningNumbers);
+        break;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
+
+    let bonusNumber;
+    while (true) {
+      try {
+        bonusNumber = await this.#view.getBonusNumber();
+        this.#validateBonusNumber(winningNumbers, bonusNumber);
+        break;
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+      }
+    }
 
     const results = this.#calculateResults(winningNumbers, bonusNumber);
     this.#view.showResults(results);
@@ -30,8 +62,12 @@ class LottoController {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
+  #countOfLotto(amount) {
+    return Math.floor(amount / 1000);
+  }
+
   #generateLottos(amount) {
-    const lottoCount = Math.floor(amount / 1000);
+    const lottoCount = this.#countOfLotto(amount);
     for (let i = 0; i < lottoCount; i++) {
       const lottoNumbers = this.#generateRandomNumbers();
       this.#lottos.push(new Lotto(lottoNumbers));
@@ -75,6 +111,34 @@ class LottoController {
 
   #calculateProfitRate(totalProfit, purchaseAmount) {
     return ((totalProfit / purchaseAmount) * 100).toFixed(1);
+  }
+
+  #validatePurchaseAmount(amount) {
+    const purchaseAmount = Number(amount);
+    if (isNaN(amount)) throw new Error(ERROR_MESSAGE.NOT_NUMBER_PRICE);
+    if (purchaseAmount < 1000) throw new Error(ERROR_MESSAGE.UNDER_PRICE);
+    if (purchaseAmount % 1000 !== 0) throw new Error(ERROR_MESSAGE.NOT_PRICE);
+  }
+
+  #validateWinningNumbers(winningNumbers) {
+    if (winningNumbers.length !== 6)
+      throw new Error(ERROR_MESSAGE.OVER_LENGTH_WINNING_NUMBER);
+    if (winningNumbers.some((num) => isNaN(num) || num < 1 || num > 45))
+      throw new Error(ERROR_MESSAGE.NOT_WINNING_NUMBER_RANGE);
+    if (new Set(winningNumbers).size !== 6)
+      throw new Error(ERROR_MESSAGE.DUPLICATE_WINNING_NUMBER);
+  }
+
+  #validateBonusNumber(winningNumbers, bonusNumber) {
+    if (isNaN(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.NOT_NUMBER);
+    }
+    if (bonusNumber < 1 || bonusNumber > 45) {
+      throw new Error(ERROR_MESSAGE.NOT_BONUS_NUMBER_RANGE);
+    }
+    if (winningNumbers.includes(bonusNumber)) {
+      throw new Error(ERROR_MESSAGE.DUPLICATE_BONUS_NUMBER);
+    }
   }
 }
 
