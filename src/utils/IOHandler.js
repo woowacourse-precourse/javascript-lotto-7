@@ -3,13 +3,11 @@ import {INSTRUCTION} from "../constants/constants.js";
 import {lottoUtils} from "./lotto.utils.js";
 
 export const IOHandler = {
-    async getInput(instruction, validator, process) {
+    async getInput(instruction, process) {
         let input = await Console.readLineAsync(instruction)
 
         if (process)
             input = process(input);
-        if (validator)
-            input = validator(input);
 
         return input
     },
@@ -30,10 +28,17 @@ export const IOHandler = {
         }
         Console.print(INSTRUCTION.PRINT_WINNING_STATISTICS(matchNumber, lottoUtils.makeMoneyFormat(prize), matchAmount))
     },
-    printWinningStatisticsAll(lottoResult) {
+    printWinningStatisticsAll(lottoGame) {
         Console.print(INSTRUCTION.PRINT_TOTAL_WINNING_STATISTICS);
-        lottoResult.forEach((amount, index) => {
+        lottoGame.getLottoMatchResultArray().forEach((amount, index) => {
             this.printWinningStatistics(index, lottoUtils.getPrize(index), amount)
         })
+    },
+    printProfitRate(profitRate) {
+        const formattedRate = `${profitRate.toFixed(1)}%`;
+        Console.print(INSTRUCTION.PRINT_PROFIT_RATE(formattedRate))
+    },
+    printLottoAmount(lottoAmount) {
+        Console.print(INSTRUCTION.PRINT_LOTTO_AMOUNT(lottoAmount));
     }
 }

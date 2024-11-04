@@ -1,6 +1,5 @@
-import {Console} from '@woowacourse/mission-utils'
-import {ERROR_CODE, LOTTO, WINNING_NUMBER} from "./constants/constants.js";
-import {validator} from "./validation/validator.js";
+import {ERROR_CODE, LOTTO} from "../constants/constants.js";
+import {validator} from "../validation/validator.js";
 
 class Lotto {
     #numbers;
