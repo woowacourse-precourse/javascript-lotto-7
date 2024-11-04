@@ -10,7 +10,6 @@ class App {
     const [lottos, parchasedAmount] = await buyLotto.buyLotto();
     const lottoResult = new LottoResult(lottos);
     const result = await lottoResult.lottoResult();
-
     const lottoReturn = new LottoReturn(parchasedAmount, result);
 
     Console.print(OUTPUT_MESSAGES.matchStatistics);

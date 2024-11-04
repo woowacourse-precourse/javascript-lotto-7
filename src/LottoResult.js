@@ -1,5 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 import { INPUT_MESSAGES, MATCH_COUNT } from './constants.js';
+import {
+  validateDuplicatelottoNumber,
+  validateNumberRange,
+  validateNumbersLength,
+} from './validate.js';
 
 class LottoResult {
   #lottoWinningNumbers;
@@ -17,11 +22,27 @@ class LottoResult {
   }
 
   async #getLottoWinningNumbers() {
-    return await Console.readLineAsync(INPUT_MESSAGES.matchNumberInput);
+    const input = await Console.readLineAsync(INPUT_MESSAGES.matchNumberInput);
+    try {
+      const numbers = input.split(',');
+      validateNumbersLength(numbers);
+      validateDuplicatelottoNumber(numbers);
+      return input;
+    } catch (error) {
+      Console.print(error.message);
+      return this.#getLottoWinningNumbers();
+    }
   }
 
   async #getBonusNumbers() {
-    return await Console.readLineAsync(INPUT_MESSAGES.bonusNumberInput);
+    const input = await Console.readLineAsync(INPUT_MESSAGES.bonusNumberInput);
+    try {
+      validateNumberRange(input);
+      return input;
+    } catch (error) {
+      Console.print(error.message);
+      return this.#getBonusNumbers();
+    }
   }
 
   #countWinningNumber(purchasedLotto, winningNumber, count) {

@@ -1,3 +1,9 @@
+import {
+  validateNumbersLength,
+  validateNumberRange,
+  validateDuplicatelottoNumber,
+} from './validate.js';
+
 class Lotto {
   #numbers;
 
@@ -8,9 +14,12 @@ class Lotto {
 
   // TODO: validate 함수 추가
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
-    }
+    validateNumbersLength(numbers);
+    validateDuplicatelottoNumber(numbers);
+
+    numbers.forEach((number) => {
+      validateNumberRange(number);
+    });
   }
 
   #sortLottoNumbers() {
