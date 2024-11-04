@@ -46,7 +46,8 @@ class Lotto_purchase {
   }
 
   printMyLottoArray(lottoQuantity, myLottoArray) {
-    Console.print("\n" + lottoQuantity + "개를 구매했습니다.");
+    Console.print("");
+    Console.print(lottoQuantity + "개를 구매했습니다.");
     myLottoArray.forEach((myLotto) => {
       let myLottoStr = myLotto.join(", ");
       Console.print("[" + myLottoStr + "]");
