@@ -69,6 +69,7 @@ class LottoController {
 
 		const proceeds = calcProceeds(details);
 		const ROI = calcReturnOfInvestment(proceeds, this.#purchaseAmount);
+		this.#outputView.printROI(ROI);
 	}
 
 	#generateLottos(amount) {

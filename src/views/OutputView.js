@@ -23,6 +23,10 @@ class OutputView {
 			Console.print(txt);
 		});
 	}
+
+	printROI(ROI) {
+		Console.print(`총 수익률은 ${ROI}%입니다.`);
+	}
 }
 
 export default OutputView;
