@@ -7,7 +7,6 @@ class Bank {
   calculateTotalWinningPrize(rankInfos) {
     this.#totalWinningPrize = rankInfos
       .map((rankCount, index) => this.#calculateWinningPrize(rankCount, index))
-      .slice(1)
       .reduce((acc, cur) => acc + cur, 0);
   }
 
@@ -33,7 +32,7 @@ class Bank {
   }
 
   getProfitRate() {
-    return this.#profitRate;
+    return this.#profitRate.toFixed(1);
   }
 }
 
