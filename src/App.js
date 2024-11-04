@@ -1,4 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import Lotto from './Lotto.js';
 
 class App {
   async run() {
@@ -29,15 +30,16 @@ class App {
     }
 
     const lottoCount = purchaseAmount / 1000;
-    const lottoList = Array.from({ length: lottoCount }, () =>
-      Random.pickUniqueNumbersInRange(1, 45, 6),
-    );
+    const lottoList = Array.from({ length: lottoCount }, () => {
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      const lotto = new Lotto(numbers);
+      return lotto;
+    });
 
     Console.print(`\n${lottoCount}개를 구매했습니다.`);
-    for (let lotto of lottoList) {
-      lotto.sort((a, b) => a - b);
-      Console.print(`[${lotto.join(', ')}]`);
-    }
+    lottoList.forEach((lotto) => {
+      Console.print(`[${lotto.getNumbers().join(', ')}]`);
+    });
 
     let winningNumbers;
     while (true) {
@@ -54,6 +56,9 @@ class App {
         if (winningNumbers.length !== 6) {
           throw new Error('[ERROR] 당첨 번호는 6개의 숫자이어야 합니다.');
         }
+        if (new Set(winningNumbers).size !== 6) {
+          throw new Error('[ERROR] 당첨 번호는 중복되지 않아야합니다.');
+        }
         winningNumbers.forEach((x) => {
           if (!Number.isInteger(x) || x < 1 || x > 45) {
             throw new Error(
@@ -61,9 +66,6 @@ class App {
             );
           }
         });
-        if (new Set(winningNumbers).size !== 6) {
-          throw new Error('[ERROR] 당첨 번호는 중복되지 않아야합니다.');
-        }
         break;
       } catch (error) {
         Console.print(error.message);
@@ -99,9 +101,10 @@ class App {
     let matchTable = new Array(5).fill(0);
 
     for (let lotto of lottoList) {
+      const numbers = lotto.getNumbers();
       let matchCount = 0;
       for (let number of winningNumbers) {
-        if (lotto.includes(number)) {
+        if (numbers.includes(number)) {
           matchCount += 1;
         }
       }
@@ -109,7 +112,7 @@ class App {
         matchTable[0] += 1;
         money += 2000000000;
       }
-      if (matchCount === 5 && lotto.includes(bonusNumber)) {
+      if (matchCount === 5 && numbers.includes(bonusNumber)) {
         matchTable[1] += 1;
         money += 30000000;
       }
