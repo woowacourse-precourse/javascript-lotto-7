@@ -16,7 +16,7 @@ class App {
     while (!isValidPayment) {
       try {
         Console.print("구입금액을 입력해 주세요.");
-        let payment = await Console.readLineAsync("구입금액을 입력해 주세요.");
+        let payment = await Console.readLineAsync("");
         myLottoArray = new Lotto_purchase(payment);
         isValidPayment = true;
       } catch (err) {
