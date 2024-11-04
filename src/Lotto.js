@@ -17,7 +17,7 @@ class Lotto {
 
   getResult(resultNumbers, bonusNumber) {
     const matchCount = this.#numbers.filter((number) => resultNumbers.includes(number)).length;
-    const isBonusMatched = resultNumbers.includes(bonusNumber);
+    const isBonusMatched = this.#numbers.includes(bonusNumber);
 
     if (matchCount === 6) {
       return 1;
