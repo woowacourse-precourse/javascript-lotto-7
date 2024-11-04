@@ -9,7 +9,7 @@ class App {
 
     const lotto = new Lotto(WIN_LOTTO_NUM);
     const USER_LOTTOS = this.USER_LOTTOS; // 사용자 로또 묶음을 저장
-    const MATCH_CNT = lotto.CalculateResult(USER_LOTTOS, BONUS_NUM); // 채점 진행
+    const MATCH_CNT = lotto.CalculateCount(USER_LOTTOS, BONUS_NUM); // 채점 진행
     lotto.PrintResult(this.USER_COST, MATCH_CNT);
   }
 

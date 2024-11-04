@@ -14,14 +14,13 @@ class Lotto {
     }
   }
 
-  CalculateResult(userLottos, bonusNum) {
+  CalculateCount(userLottos, bonusNum) {
     const MATCH_COUNTS_LIST = [0, 0, 0, 0, 0];
     userLottos.forEach((lotto) => {
       const TOTAL_MATCH_CNT = lotto.filter((num) =>
         this.#numbers.includes(num)
       ).length;
       const BONUS_MATCH_BOOLEAN = lotto.includes(bonusNum);
-
       if (TOTAL_MATCH_CNT === 6) {
         MATCH_COUNTS_LIST[4]++; // 6개 일치
       } else if (TOTAL_MATCH_CNT === 5 && BONUS_MATCH_BOOLEAN) {
@@ -34,19 +33,21 @@ class Lotto {
         MATCH_COUNTS_LIST[0]++; // 3개 일치
       }
     });
-
-    return MATCH_COUNTS_LIST; // 계산된 결과를 반환
+    return MATCH_COUNTS_LIST;
   }
 
-  PrintResult(userCost, matchCounts) {
+  CalculatePrize(userCost, matchCounts) {
     const PRIZES = [5000, 50000, 1500000, 30000000, 2000000000];
     const TOTAL_PRIZE = matchCounts.reduce(
       (sum, count, index) => sum + count * PRIZES[index],
       0
     );
+    const PROFIT_RATE = ((TOTAL_PRIZE / userCost) * 100).toFixed(1);
+    return PROFIT_RATE;
+  }
 
-    const profitRate = ((TOTAL_PRIZE / userCost) * 100).toFixed(1);
-
+  PrintResult(userCost, matchCounts) {
+    const PROFIT_RATE = this.CalculatePrize(userCost, matchCounts);
     Console.print("당첨 통계\n---");
     Console.print(`3개 일치 (5,000원) - ${matchCounts[0]}개`);
     Console.print(`4개 일치 (50,000원) - ${matchCounts[1]}개`);
@@ -55,7 +56,7 @@ class Lotto {
       `5개 일치, 보너스 볼 일치 (30,000,000원) - ${matchCounts[3]}개`
     );
     Console.print(`6개 일치 (2,000,000,000원) - ${matchCounts[4]}개`);
-    Console.print(`총 수익률은 ${profitRate}%입니다.`);
+    Console.print(`총 수익률은 ${PROFIT_RATE}%입니다.`);
   }
 }
 
