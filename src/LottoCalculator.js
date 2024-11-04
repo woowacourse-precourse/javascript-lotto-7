@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { OUTPUT_MESSAGE } from './lib/constant.js';
 
 class LottoCalculator {
   #result = {
@@ -39,7 +40,7 @@ class LottoCalculator {
   }
 
   matchBonusNumber(lotto) {
-    if (lotto.includes(this.bonusNumber)) {
+    if (lotto.includes(parseInt(this.bonusNumber, 10))) {
       return true;
     }
     return false;
@@ -58,15 +59,15 @@ class LottoCalculator {
   }
 
   showResult() {
-    Console.print(`당첨통계\n---\n`);
-    Console.print(`3개 일치 (5,000원) - ${this.#result.three}개`);
-    Console.print(`4개 일치 (50,000원) - ${this.#result.four}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${this.#result.five}개`);
+    Console.print(`${OUTPUT_MESSAGE.WINNING_STATISTICS}`);
+    Console.print(`${OUTPUT_MESSAGE.MATCH_THREE} - ${this.#result.three}개`);
+    Console.print(`${OUTPUT_MESSAGE.MATCH_FOUR} - ${this.#result.four}개`);
+    Console.print(`${OUTPUT_MESSAGE.MATCH_FIVE} - ${this.#result.five}개`);
     Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.#result.fiveBonus}개`,
+      `${OUTPUT_MESSAGE.MATCH_FIVE_BONUS} - ${this.#result.fiveBonus}개`,
     );
-    Console.print(`6개 일치 (2,000,000,000원) - ${this.#result.six}개`);
-    Console.print(`총 수익률은 ${this.#ROI * 100}%입니다.`);
+    Console.print(`${OUTPUT_MESSAGE.MATCH_SIX} - ${this.#result.six}개`);
+    Console.print(`${OUTPUT_MESSAGE.ROI}${this.#ROI * 100}%입니다.`);
   }
 }
 

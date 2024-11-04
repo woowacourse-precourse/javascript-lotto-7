@@ -1,5 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
+import { OUTPUT_MESSAGE } from './lib/constant.js';
 
 class LottoManager {
   #lottos = [];
@@ -10,7 +11,7 @@ class LottoManager {
   }
 
   genenrateLotto(lottoCounts) {
-    Console.print(`${lottoCounts}개를 구매했습니다.`);
+    Console.print(`${lottoCounts}${OUTPUT_MESSAGE.BUY_COUNT}`);
 
     for (let i = 0; i < lottoCounts; i++) {
       const lotto = new Lotto(this.pickRandomNumbers());
