@@ -19,14 +19,12 @@ class App {
 
     await inputErrorControl(async () => {
       const userLottoInput = await getUserInputAsync(MESSAGE.INPUT_WINNING_LOTTO);
-      const lottoNumbers = userLottoInput.split(",").map(Number);
-      this.#winningLotto = new Lotto(lottoNumbers);
+      this.#winningLotto = new Lotto(userLottoInput);
     });
 
     await inputErrorControl(async () => {
       const userBonusInput = await getUserInputAsync(MESSAGE.INPUT_BONUS_NUMBER);
-      const bonusNumber = Number(userBonusInput);
-      this.#bonusNumber = new BonusNumber(this.#winningLotto, bonusNumber);
+      this.#bonusNumber = new BonusNumber(userBonusInput, this.#winningLotto);
     });
 
     const resultString = this.#lottoMachine.getWinningLottoString({

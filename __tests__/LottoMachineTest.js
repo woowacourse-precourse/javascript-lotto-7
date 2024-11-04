@@ -64,8 +64,8 @@ describe("로또 기계 클래스 테스트", () => {
       [1, 3, 5, 14, 22, 45],
     ]);
     const lottoMachine = new LottoMachine(input);
-    const winningLotto = new Lotto([1, 2, 3, 4, 5, 6]);
-    const bonusNumber = new BonusNumber(winningLotto, 7);
+    const winningLotto = new Lotto("1,2,3,4,5,6");
+    const bonusNumber = new BonusNumber(7, winningLotto);
 
     expect(lottoMachine.getWinningLottoString({ winningLotto, bonusNumber }))
       .toBe(`3개 일치 (5,000원) - 1개

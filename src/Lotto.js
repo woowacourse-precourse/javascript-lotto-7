@@ -4,7 +4,8 @@ import { isLottoLengthValid, hasDuplicate, validateLottoNumber } from "./utils/v
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
+  constructor(input) {
+    const numbers = input.split(",").map(Number);
     this.#validate(numbers);
     numbers.forEach((number) => validateLottoNumber(number));
     this.#numbers = numbers;

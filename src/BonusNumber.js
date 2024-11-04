@@ -4,13 +4,14 @@ import { validateLottoNumber } from "./utils/validation.js";
 class BonusNumber {
   #bonusNumber;
 
-  constructor(winningLotto, number) {
-    this.#validate(winningLotto, number);
+  constructor(input, winningLotto) {
+    const number = Number(input);
+    this.#validate(number, winningLotto);
     validateLottoNumber(number);
     this.#bonusNumber = number;
   }
 
-  #validate(winningLotto, number) {
+  #validate(number, winningLotto) {
     if (winningLotto.hasSameNumber(number)) {
       throw new Error(ERROR_MESSAGE.BONUS_NUMBER_DUPLICATE);
     }
