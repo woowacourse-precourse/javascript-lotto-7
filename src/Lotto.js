@@ -3,6 +3,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
+    this.#validateDuplicate(numbers);
     this.#numbers = numbers;
   }
 
@@ -12,7 +13,15 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  #validateDuplicate(numbers) {
+    if (new Set(numbers).size !== 6) {
+      throw new Error("[ERROR] 로또 번호는 중복되지 않아야 합니다.");
+    }
+  }
+
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
