@@ -16,9 +16,7 @@ class App {
       winningNumber.getWinningNumber(),
     );
 
-    outputMethod(`\n${IOMESSAGE.WINNING_RESULT}`);
-    outputMethod(`${IOMESSAGE.DIVIDER}`);
-
+    outputMethod(`${IOMESSAGE.WINNING_RESULT}`);
     this.#printWinningResult(myLotto, bonusNumber, winningNumber);
   }
 
