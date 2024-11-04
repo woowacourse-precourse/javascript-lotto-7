@@ -1,20 +1,36 @@
-const WINNINGS = {
-  3: 5000,
-  4: 50000,
-  5: 1500000,
-  "5+bonus": 30000000,
-  6: 2000000000,
-};
+// Calculator.js
+import { WINNINGS } from "./Constants.js";
 
 class Calculator {
+  static calculateMatch(
+    lottoNumbers,
+    winningNumbers,
+    bonusNumber
+  ) {
+    const matchCount = lottoNumbers.filter(
+      (num) => winningNumbers.includes(num)
+    ).length;
+    const hasBonus =
+      lottoNumbers.includes(bonusNumber);
+
+    if (matchCount === 6) return "6개 일치";
+    if (matchCount === 5 && hasBonus)
+      return "5개 일치, 보너스 볼 일치";
+    if (matchCount === 5) return "5개 일치";
+    if (matchCount === 4) return "4개 일치";
+    if (matchCount === 3) return "3개 일치";
+    return null;
+  }
+
   static calculateTotalWinnings(matchCounts) {
-    return (
-      matchCounts[3] * WINNINGS[3] +
-      matchCounts[4] * WINNINGS[4] +
-      matchCounts[5] * WINNINGS[5] +
-      matchCounts["5+bonus"] *
-        WINNINGS["5+bonus"] +
-      matchCounts[6] * WINNINGS[6]
+    return Object.keys(WINNINGS).reduce(
+      (total, key) => {
+        return (
+          total +
+          (matchCounts[key] || 0) * WINNINGS[key]
+        );
+      },
+      0
     );
   }
 
@@ -22,10 +38,9 @@ class Calculator {
     totalWinnings,
     purchaseAmount
   ) {
-    return (
-      (totalWinnings / purchaseAmount) *
-      100
-    ).toFixed(1);
+    const rate =
+      (totalWinnings / purchaseAmount) * 100;
+    return rate.toFixed(1);
   }
 }
 
