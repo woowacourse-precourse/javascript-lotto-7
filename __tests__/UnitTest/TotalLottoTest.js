@@ -1,5 +1,5 @@
 import TotalLotto from '../../src/domains/TotalLotto.js';
-import Lotto from '../../src/domains/Lotto.js';
+import Lotto from '../../src/Lotto.js';
 import CONSTANT from '../../src/constants/costant.js';
 
 describe('TotalLotto 클래스 테스트', () => {
