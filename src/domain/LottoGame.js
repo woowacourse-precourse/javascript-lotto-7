@@ -11,6 +11,7 @@ import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
 class LottoGame {
   #lottoList = [];
   #price;
+  #lottoWinner;
 
   async play() {
     await this.#purchaseLotto();
@@ -26,32 +27,25 @@ class LottoGame {
     this.#generateLotto(lottoCount);
 
     OutputView.printLotto(this.#lottoList, lottoCount);
+  }
 
-    const { trimLotto, parseLottoNumber } = await InputView.readLineNumber();
-    this.#validateNumber(trimLotto);
+  #generateLotto(lottoCount) {
+    this.#lottoList = Utils.range(lottoCount).map(() =>
+      new Lotto(this.#sortNumber(this.#getRandomLottoNumber())));
+  }
 
-    const { bonusNumber, parseBonusNumber } = await InputView.readLineBonusNumber();
-    this.#validateBonusNumber(bonusNumber);
+  async #createWinnerNumber() {
+    const winnerNumbers = await InputView.readLineNumber();
+    const bonusNumber = await InputView.readLineBonusNumber();
+  }
 
+  #showResult() {
     const lottoWinner = new LottoWinner(lottoNumbers, parseLottoNumber, parseBonusNumber);
     lottoWinner.matchWinner();
     const result = lottoWinner.checkLottoNumber();
 
     const lottoResult = new LottoResult(result, this.#price);
     lottoResult.calculateResult();
-  }
-
-  #generateLotto(lottoCount) {
-    this.#lottoList = Utils.range(lottoCount).map(() => {
-      return new Lotto(this.#sortNumber(this.#getRandomLottoNumber()));
-    });
-  }
-
-  #createWinnerNumber() {
-
-  }
-
-  #showResult() {
   }
 
   getLottoList() {
@@ -78,37 +72,7 @@ class LottoGame {
     return number / LOTTO_SETTINGS.minimumPrice;
   }
 
-  #validateIsInteger(input) {
-    if (input.includes('.')) {
-      throw new Error(LOTTO_MESSAGES.error.canNotUseDecimal);
-    }
-  }
 
-  #validateNumber(trimLotto) {
-    this.#validateLottoNumber(trimLotto);
-    this.#validateNumberIsInteger(trimLotto);
-  };
-
-  #validateBonusNumber(bonusNumber) {
-    this.#validateIsOneNumber(bonusNumber);
-    this.#validateIsInteger(bonusNumber);
-  };
-
-  #validateLottoNumber(input) {
-    if (input.length !== LOTTO_SETTINGS.numberLength) {
-      throw new Error(LOTTO_MESSAGES.error.numberCountNotSix);
-    }
-  }
-
-  #validateIsOneNumber(input) {
-    if (input.includes(',')) {
-      throw new Error(LOTTO_MESSAGES.error.BonusCountNotOne);
-    }
-  }
-
-  #validateNumberIsInteger(input) {
-    input.forEach((number) => this.#validateIsInteger(number));
-  }
 }
 
 export default LottoGame;
