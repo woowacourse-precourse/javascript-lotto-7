@@ -32,15 +32,16 @@ class App {
   }
 
   async getPurchaseAmount() {
-    return new Promise((resolve) => {
-      MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n", (input) => {
-        const amount = parseInt(input, 10);
-        if (isNaN(amount) || amount % 1000 !== 0) {
-          throw new Error("[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.");
-        }
-        resolve(amount);
-      });
-    });
+    while (true) {
+      MissionUtils.Console.print("구입금액을 입력해 주세요.\n");
+      const input = await MissionUtils.Console.readLineAsync();
+      const amount = parseInt(input, 10);
+
+      if (!isNaN(amount) && amount % 1000 === 0) {
+        return amount;
+      }
+      MissionUtils.Console.print("[ERROR] 구입 금액은 1000원 단위로 입력해야 합니다.");
+    }
   }
 
   calculateLottoCount(amount) {
@@ -62,31 +63,31 @@ class App {
   }
 
   async getWinningNumbers() {
-    return new Promise((resolve, reject) => {
-      MissionUtils.Console.readLineAsync("당첨 번호를 입력해 주세요.\n", (input) => {
-        const numbers = input.split(",").map(Number);
-        if (!this.validateWinningNumbers(numbers)) {
-          reject(new Error("[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 6개의 숫자여야 합니다."));
-        } else {
-          this.winningNumbers = numbers;
-          resolve();
-        }
-      });
-    });
+    while (true) {
+      MissionUtils.Console.print("당첨 번호를 입력해 주세요.\n");
+      const input = await MissionUtils.Console.readLineAsync();
+      const numbers = input.split(",").map(Number);
+
+      if (this.validateWinningNumbers(numbers)) {
+        this.winningNumbers = numbers;
+        return;
+      }
+      MissionUtils.Console.print("[ERROR] 당첨 번호는 1부터 45 사이의 중복되지 않는 6개의 숫자여야 합니다.");
+    }
   }
 
   async getBonusNumber() {
-    return new Promise((resolve, reject) => {
-      MissionUtils.Console.readLineAsync("보너스 번호를 입력해 주세요.\n", (input) => {
-        const number = parseInt(input, 10);
-        if (isNaN(number) || number < 1 || number > 45 || this.winningNumbers.includes(number)) {
-          reject(new Error("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다."));
-        } else {
-          this.bonusNumber = number;
-          resolve();
-        }
-      });
-    });
+    while (true) {
+      MissionUtils.Console.print("보너스 번호를 입력해 주세요.\n");
+      const input = await MissionUtils.Console.readLineAsync();
+      const number = parseInt(input, 10);
+
+      if (!isNaN(number) && number >= 1 && number <= 45 && !this.winningNumbers.includes(number)) {
+        this.bonusNumber = number;
+        return;
+      }
+      MissionUtils.Console.print("[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다.");
+    }
   }
 
   validateWinningNumbers(numbers) {
@@ -129,7 +130,6 @@ class App {
     const profitRate = ((totalPrize / purchaseAmount) * 100).toFixed(1);
     MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
   }
-  
 }
 
 export default App;
