@@ -1,18 +1,20 @@
+import { LOTTO } from "../constants/Lotto.js";
 import LottoRank from "./LottoRank.js";
 
 class RankResult {
   #ranks;
   #profitRate;
 
-  constructor() {
-    this.#ranks = {
-      first: new LottoRank(6, 2000000000),
-      second: new LottoRank(5, 30000000, true),
-      third: new LottoRank(5, 1500000),
-      fourth: new LottoRank(4, 50000),
-      fifth: new LottoRank(3, 5000),
-    };
+  static RANK = {
+    FIRST: { MATCH_COUNT: 6, PRIZE: 2000000000 },
+    SECOND: { MATCH_COUNT: 5, PRIZE: 30000000 },
+    THIRD: { MATCH_COUNT: 5, PRIZE: 1500000 },
+    FOURTH: { MATCH_COUNT: 4, PRIZE: 50000 },
+    FIFTH: { MATCH_COUNT: 3, PRIZE: 5000 },
+  };
 
+  constructor() {
+    this.#ranks = this.#initializeRanks();
     this.#profitRate = 0;
   }
 
@@ -25,13 +27,8 @@ class RankResult {
   }
 
   calculateProfit(lottoCount) {
-    let totalProfit = 0;
-
-    Object.values(this.#ranks).forEach((rank) => {
-      totalProfit += rank.getTotalMoney();
-    });
-
-    const purchaseMoney = lottoCount * 1000;
+    const totalProfit = this.#calculateTotalProfit();
+    const purchaseMoney = lottoCount * LOTTO.PRICE;
     const profitRate = (totalProfit / purchaseMoney) * 100;
     this.#profitRate = profitRate.toFixed(1);
   }
@@ -43,6 +40,21 @@ class RankResult {
     };
   }
 
+  #initializeRanks() {
+    return {
+      first: this.#createRank("FIRST"),
+      second: this.#createRank("SECOND", true),
+      third: this.#createRank("THIRD"),
+      fourth: this.#createRank("FOURTH"),
+      fifth: this.#createRank("FIFTH"),
+    };
+  }
+
+  #createRank(type, bonus = false) {
+    const { MATCH_COUNT, PRIZE } = RankResult.RANK[type];
+    return new LottoRank(MATCH_COUNT, PRIZE, bonus);
+  }
+
   #checkIsPossibleRank(condition, rank) {
     if (condition()) {
       rank.addCount();
@@ -50,6 +62,16 @@ class RankResult {
     }
 
     return false;
+  }
+
+  #calculateTotalProfit() {
+    let totalProfit = 0;
+
+    Object.values(this.#ranks).forEach((rank) => {
+      totalProfit += rank.getTotalMoney();
+    });
+
+    return totalProfit;
   }
 }
 
