@@ -7,6 +7,7 @@ import Validator from './Validator.js';
 class Generator {
   #purchaseAmount;
   #lottoTickets;
+  numbers = [];
 
   constructor(input) {
     this.#purchaseAmount = this.#validate(input);
@@ -14,13 +15,11 @@ class Generator {
   }
 
   generateLotto() {
-    const lottos = [];
-
     for (let i = 0; i < this.#lottoTickets; i++) {
-      lottos.push(this.#generateLottoNumber());
+      this.numbers.push(this.#generateLottoNumber());
     }
 
-    return lottos;
+    return this.numbers;
   }
 
   getPurchaseAmount() {
