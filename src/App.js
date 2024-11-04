@@ -1,5 +1,12 @@
+import LottoSystem from './LottoSystem.js';
+
 class App {
-  async run() {}
+  #lottoSystem;
+
+  async run() {
+    this.#lottoSystem = new LottoSystem();
+    await this.#lottoSystem.run();
+  }
 }
 
 export default App;
