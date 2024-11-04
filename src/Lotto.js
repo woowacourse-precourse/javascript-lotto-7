@@ -3,7 +3,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers.sort((a, b) => a - b); // 정렬을 여기에 위치시킵니다.
+    this.#numbers = numbers.sort((a, b) => a - b); // 정렬
   }
 
   #validate(numbers) {

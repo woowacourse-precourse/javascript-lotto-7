@@ -34,9 +34,7 @@ class App {
 
   generateLottos(count) {
     for (let i = 0; i < count; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-        (a, b) => a - b
-      );
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
       this.lottos.push(new Lotto(numbers));
     }
   }
@@ -115,12 +113,12 @@ class App {
       .filter((number) => this.winningNumbers.includes(number)).length;
     const hasBonus = lotto.getNumbers().includes(this.bonusNumber);
 
-    if (matchCount === 6) return 1;
-    if (matchCount === 5 && hasBonus) return 2;
-    if (matchCount === 5) return 3;
-    if (matchCount === 4) return 4;
-    if (matchCount === 3) return 5;
-    return 0;
+    if (matchCount === 6) return 1; // 1등
+    if (matchCount === 5 && hasBonus) return 2; // 2등
+    if (matchCount === 5) return 3; // 3등
+    if (matchCount === 4) return 4; // 4등
+    if (matchCount === 3) return 5; // 5등
+    return 0; // 꽝
   }
 
   calculateStatistics(results) {
