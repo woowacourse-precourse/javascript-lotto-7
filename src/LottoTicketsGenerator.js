@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { LOTTO_RULES_CONSTANTS } from "./constants/lottoRules";
 
 class LottoTicketsGenerator {
   #generatedLottoNumbers;
@@ -19,7 +20,11 @@ class LottoTicketsGenerator {
     return tickets;
   }
   generateSingleTicket() {
-    const uniqueNumbers = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    const uniqueNumbers = MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO_RULES_CONSTANTS.lotto_min_number, 
+      LOTTO_RULES_CONSTANTS.lotto_max_number, 
+      LOTTO_RULES_CONSTANTS.lotto_length
+    );
     return uniqueNumbers.sort((a, b) => a - b);
   }
 }

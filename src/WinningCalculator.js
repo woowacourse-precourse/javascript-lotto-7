@@ -1,5 +1,6 @@
 import { countMatches } from "./utils/countMatches";
 import PRIZE_TABLE from "./constants/lottoPrizeTable";
+import { LOTTO_RULES_CONSTANTS } from "./constants/lottoRules";
 
 class WinningCalculator {
   #rankResult
@@ -26,7 +27,7 @@ class WinningCalculator {
 
   get result() {
     const totalProfit = this.caculateTotalProfit();
-    const rateOfReturn = this.calculateRateOfReturn();
+    const rateOfReturn = this.getRateOfReturn();
     return {
       rankResult: this.#rankResult,
       profit: totalProfit,
@@ -48,7 +49,7 @@ class WinningCalculator {
     return countMatches(this.winningNumbers, generatedNumbers);
   }
   assignRankToResult(count, generatedNumbers) {
-    if(count === 5) {
+    if(count === LOTTO_RULES_CONSTANTS.bonus_check_count) {
       if(this.isBonusMatched(generatedNumbers)){
         this.#rankResult.second++;
         return;
@@ -66,14 +67,21 @@ class WinningCalculator {
     return generated.includes(this.bonusNumbers);
   }
 
-  calculateRateOfReturn() {
+  getRateOfReturn() {
     const totalProfit = this.caculateTotalProfit();
-    const rateOfReturn = totalProfit / (this.generatedTickets.length * 1000) * 100;
-    return rateOfReturn.toFixed(1);
+    const rateOfReturn = this.calculateRateOfReturn(totalProfit);
+    return rateOfReturn.toFixed(LOTTO_RULES_CONSTANTS.rate_decimal_point);
+  }
+
+  calculateRateOfReturn(totalProfit) {
+    return totalProfit / (this.generatedTickets.length * LOTTO_RULES_CONSTANTS.ticket_price) 
+    * LOTTO_RULES_CONSTANTS.percentage_multiplier;
   }
 
   caculateTotalProfit() {
-    const totalProfit = Object.keys(PRIZE_TABLE).reduce((acc, key) => acc + PRIZE_TABLE[key].prize * this.#rankResult[key], 0);
+    const totalProfit = Object.keys(PRIZE_TABLE).reduce(
+      (acc, key) => acc + PRIZE_TABLE[key].prize * this.#rankResult[key], 0
+    );
     return totalProfit;
   }
 }

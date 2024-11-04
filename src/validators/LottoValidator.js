@@ -1,4 +1,6 @@
-import Lotto from "../Lotto";
+import { ERROR_MESSAGES } from "../constants/messages";
+import { LOTTO_RULES_CONSTANTS } from "../constants/lottoRules";
+
 class LottoValidator {
   static validateLottoNumbers(numbers) {
     LottoValidator.checkDuplicateNumber(numbers);
@@ -19,28 +21,28 @@ class LottoValidator {
   }
 
   static checkSixNumbers(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] : 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== LOTTO_RULES_CONSTANTS.lotto_length) {
+      throw new Error(ERROR_MESSAGES.invalid_length);
     }
   }
   static checkDuplicateNumber(numbers) {
     if(numbers.length !== new Set(numbers).size) {
-      throw new Error("[ERROR] : 번호들은 중복될 수 없습니다.");
+      throw new Error(ERROR_MESSAGES.duplicate_number);
     }
   }
   static checkNumberRange(number) {
-    if(number < 1 || number > 45) {
-      throw new Error("[ERROR] : 로또 번호는 1부터 45 사이의 숫자이어야 합니다.");
+    if(number < LOTTO_RULES_CONSTANTS.lotto_min_number || number > LOTTO_RULES_CONSTANTS.lotto_max_number) {
+      throw new Error(ERROR_MESSAGES.invalid_range);
     }
   }
   static checkIsNumber(number) {
     if(isNaN(number)) {
-      throw new Error("[ERROR] : 로또 번호는 숫자가 입력되어야 합니다.");
+      throw new Error(ERROR_MESSAGES.not_a_number);
     }
   }
   static checkIsInteger(number) {
     if(!Number.isInteger(number)) {
-      throw new Error("[ERROR] : 로또 번호는 정수이어야 합니다.");
+      throw new Error(ERROR_MESSAGES.not_a_integer);
     }
   }
 };

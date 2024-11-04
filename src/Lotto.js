@@ -4,6 +4,8 @@ import PaymentValidator from "./validators/PaymentValidator";
 import LottoValidator from "./validators/LottoValidator";
 import LottoTicketsGenerator from "./LottoTicketsGenerator";
 import WinningCalculator from "./WinningCalculator";
+import { INPUT_MESSAGES, OUTPUT_MESSAGES } from "./constants/messages";
+import { LOTTO_RULES_CONSTANTS } from "./constants/lottoRules";
 import PRIZE_TABLE from "./constants/lottoPrizeTable";
 
 class Lotto {
@@ -33,20 +35,20 @@ class Lotto {
   }
   async getPaymentAmount() {
     return requestValidInput(
-      "구입 금액을 입력해주세요(로또 1장 당 1000원)",
+      INPUT_MESSAGES.purchase_prompt,
       PaymentValidator.checkThousandUnit
     )
   }
   calculateTicketAmount(paymentAmount) {
-    return paymentAmount / 1000;
+    return paymentAmount / LOTTO_RULES_CONSTANTS.ticket_price;
   }
 
   printTickets(ticketAmount) {
     const generatedLottoTickets = this.generateTickets(ticketAmount);
-    Console.print(`${ticketAmount}개를 구매했습니다.`);
+    Console.print(OUTPUT_MESSAGES.purchasedAmount(ticketAmount));
     generatedLottoTickets.forEach((ticket) => {
-      Console.print(`[${ticket.join(", ")}]`);
-    })
+      Console.print(`[${ticket.join(`${LOTTO_RULES_CONSTANTS.lotto_number_delimiter} `)}]`);
+    });
     return generatedLottoTickets;
   }
   generateTickets(ticketAmount) {
@@ -62,21 +64,21 @@ class Lotto {
   }
   async getLottoNumbers() {
     return requestValidInput(
-      "당첨 번호를 입력해주세요(쉼표로 구분하여 입력)",
+      INPUT_MESSAGES.winning_numbers_prompt,
       LottoValidator.validateLottoNumbers,
       this.transformLottoNumbers
     )
   }
   async getBonusNumber(winning) {
     return requestValidInput(
-      "보너스 번호를 입력해주세요",
+      INPUT_MESSAGES.bonus_number_prompt,
       (input) => LottoValidator.validateBonusNumber(winning, input),
       this.transformBonusNumber,
     )
   }
   transformLottoNumbers(rawNumbers) {
     return rawNumbers
-      .split(",")
+      .split(LOTTO_RULES_CONSTANTS.lotto_number_delimiter)
       .map(num => Number(num.trim()))
       .sort((a, b) => a - b);
   }
@@ -93,20 +95,15 @@ class Lotto {
     return calculator.result;
   }
   printResult(rankResult, profit, rateOfReturn) {
-    Console.print("당첨 통계\n---");
+    Console.print(OUTPUT_MESSAGES.output_header);
 
     Object.keys(PRIZE_TABLE).forEach((key) => {
       const { matched, prize } = PRIZE_TABLE[key];
       const count = rankResult[key];
-    
-      if (key === 'second') {
-        Console.print(`${matched}개 일치, 보너스 볼 일치 (${prize.toLocaleString()}원) - ${count}개`);
-      } else {
-        Console.print(`${matched}개 일치 (${prize.toLocaleString()}원) - ${count}개`);
-      }
+      Console.print(OUTPUT_MESSAGES.eachRankResult(key, matched, prize, count))
     });
-    Console.print(`총 수익은 ${profit}원입니다.`)
-    Console.print(`총 수익률은 ${rateOfReturn}%입니다.`);
+    Console.print(OUTPUT_MESSAGES.totalProfit(profit));
+    Console.print(OUTPUT_MESSAGES.totalRate(rateOfReturn));
   }
 }
 

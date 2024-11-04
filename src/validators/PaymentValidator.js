@@ -1,7 +1,10 @@
+import { ERROR_MESSAGES } from "../constants/messages";
+import { LOTTO_RULES_CONSTANTS } from "../constants/lottoRules";
+
 class PaymentValidator {
   static checkThousandUnit(price) {
-    if(price % 1000 !== 0) {
-      throw new Error("[ERROR] : 구입 금액은 1000원 단위로 입력해야 합니다.");
+    if(price % LOTTO_RULES_CONSTANTS.ticket_price !== 0) {
+      throw new Error(ERROR_MESSAGES.invalid_payment);
     }
   }
 }

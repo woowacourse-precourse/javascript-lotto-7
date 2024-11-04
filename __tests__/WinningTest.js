@@ -95,7 +95,7 @@ describe("WinningCalculator 테스트", () => {
     ];
 
     const calculator = new WinningCalculator(winningSet, generatedTickets);
-    const rateOfReturn = calculator.calculateRateOfReturn();
+    const rateOfReturn = calculator.getRateOfReturn();
 
     const expectedProfit = 
       PRIZE_TABLE.first.prize + 
