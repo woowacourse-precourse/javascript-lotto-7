@@ -1,4 +1,4 @@
-import { TOTAL_PRIZE_RANKS } from '../constants';
+import { TOTAL_PRIZE_RANKS } from '../constants.js';
 
 class WinningResultCalculatorService {
   calculateWinningResult(winningNumbers, bonusNumber, lottoNumbers) {
