@@ -73,6 +73,10 @@ class Lotto {
     });
     return winningReturnSum;
   }
+
+  getWinningNumber() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;

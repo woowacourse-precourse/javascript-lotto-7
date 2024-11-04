@@ -16,6 +16,7 @@ const ERRORMESSAGE = Object.freeze({
     ISNOTNUMBER: '[ERROR] 숫자만 입력해야 합니다.\n',
     ISNOTPOSITIVENUMBER: '[ERROR] 양수만 입력해야 합니다.\n',
     ISNOTINRANGE: '[ERROR] 보너스 번호는 1~45안에 있어야 합니다.\n',
+    ISNOTDUPLICATE: '[ERROR] 보너스 번호는 당첨 번호와 중복되면 안 됩니다.\n',
   },
 });
 

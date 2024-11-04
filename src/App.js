@@ -1,6 +1,7 @@
-import { createObject, outputMethod } from './utils/index.js';
+import { createObject, outputMethod, inputMethod } from './utils/index.js';
 import { NUM, IOMESSAGE } from './constants/index.js';
 import Lotto from './Lotto.js';
+import BonusNumber from './BonusNumber.js';
 
 class App {
   #purchaseAmount;
@@ -12,8 +13,10 @@ class App {
     outputMethod(`\n${this.#lottoCount}${IOMESSAGE.OUTPUT_PURCHASE_AMOUNT}`);
 
     const myLotto = createObject.createMyLotto(this.#lottoCount);
-    const winningNumber = new Lotto(await createObject.createWinningNumber());
-    const bonusNumber = await createObject.createBonusNumber();
+    const winningNumber = await createObject.createWinningNumber();
+    const bonusNumber = await createObject.createBonusNumber(
+      winningNumber.getWinningNumber(),
+    );
 
     outputMethod(`\n${IOMESSAGE.WINNING_RESULT}`);
     outputMethod(`${IOMESSAGE.DIVIDER}`);

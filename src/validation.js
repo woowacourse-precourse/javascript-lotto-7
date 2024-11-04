@@ -95,18 +95,23 @@ const validation = Object.freeze({
   },
 
   bonusNumber: {
-    isNotNumber: function (number) {
+    isNotNumber: function (number, undefined) {
       if (isNaN(number)) throw new Error(ERRORMESSAGE.BONUSNUMBER.ISNOTNUMBER);
     },
 
-    isNotPositiveNumber: function (number) {
+    isNotPositiveNumber: function (number, undefined) {
       if (Number(number) < NUM.MINIMUM_POSITIVE_NUMBER)
         throw new Error(ERRORMESSAGE.BONUSNUMBER.ISNOTPOSITIVENUMBER);
     },
 
-    isNotInRange: function (number) {
+    isNotInRange: function (number, undefined) {
       if (Number(number) < 1 || Number(number) > 45)
         throw new Error(ERRORMESSAGE.BONUSNUMBER.ISNOTINRANGE);
+    },
+
+    isNotDuplicate: function (number, winningNumber) {
+      if (winningNumber.indexOf(number) >= 0)
+        throw new Error(ERRORMESSAGE.BONUSNUMBER.ISNOTDUPLICATE);
     },
   },
 });
