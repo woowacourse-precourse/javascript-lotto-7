@@ -17,6 +17,7 @@ class Controller {
     const payment = await this.#inputView.readPurchaseAmount();       // 지불 가격 유효성 검사 필요
     const numberOfPurchase = this.#lottoService.purchaseLottos(payment);
 
+    this.#lottoService.generateLottos(numberOfPurchase);
     this.#outputView.printMyLotto(numberOfPurchase);
 
     const winningNumber = await this.#inputView.readWinningLotto();    // 당첨 번호 유효성 검사 필요

@@ -29,4 +29,9 @@ export const ERROR_MESSAGE = {
   bonusTypeError : `${ERROR_PREFIX} 보너스 번호는 자연수입니다.`,
 };
 
-export const LOTTO_PRICE = 1000;
+export const LOTTO_RELATED_CONSTANTS = {
+  lottoPrice : 1000,
+  lottoRangeStart : 1,
+  lottoRangeEnd : 45,
+  lottoLength : 6,
+};
