@@ -116,6 +116,17 @@ class App {
       return false;
     }
   }
+  validateBonusNumber(winningNumbers, inputtedBonusNumber) {
+    if (
+      isNaN(inputtedBonusNumber) ||
+      Number(inputtedBonusNumber) % 1 !== 0 ||
+      Number(inputtedBonusNumber) < 1 ||
+      Number(inputtedBonusNumber) > 45
+    )
+      throw new Error(
+        "[ERROR] 보너스 번호는 정수이며, 범위는 1-45 이어야 합니다."
+      );
+  }
 }
 
 export default App;
