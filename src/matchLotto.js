@@ -1,22 +1,18 @@
 const matchLotto = (lottoList, winningNumbers, bonusNumber) => {
   const matchCountList = {
-    3: 0,
-    4: 0,
-    5: 0,
-    "5bounsBall": 0,
-    6: 0,
+    3: { count: 0 },
+    4: { count: 0 },
+    5: { count: 0, isBonusMatchCount: 0 },
+    6: { count: 0 },
   };
   lottoList.forEach((lotto) => {
-    const numbers = lotto.getNumbers();
+    const matchedCount = lotto.getMatchedCount(winningNumbers);
+    const bonusMatch = lotto.getIsBonusMatch(bonusNumber);
 
-    const matchedCount = numbers.filter((number) =>
-      winningNumbers.includes(number)
-    ).length;
-
-    const bonusMatch = numbers.includes(bonusNumber);
     if (3 <= matchedCount && matchedCount <= 6) {
-      if (matchedCount == 5 && bonusMatch) matchCountList["5bounsBall"] += 1;
-      else matchCountList[matchedCount] += 1;
+      if (matchedCount == 5 && bonusMatch)
+        matchCountList[matchedCount].isBonusMatchCount += 1;
+      else matchCountList[matchedCount].count += 1;
     }
   });
 
