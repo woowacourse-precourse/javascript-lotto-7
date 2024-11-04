@@ -11,7 +11,7 @@ describe("통계 테스트", () => {
         statisticsCountMap.set(number.FIVE_BONUS, 0);
         statisticsCountMap.set(number.SIX, 0);
     
-        const result = Calculator.sum(statisticsCountMap);
+        const result = Calculator.sumWinningAmount(statisticsCountMap);
         expect(result).toBe(5000);
       });
 
@@ -23,7 +23,7 @@ describe("통계 테스트", () => {
         statisticsCountMap.set(number.FIVE_BONUS, 0);
         statisticsCountMap.set(number.SIX, 1);
     
-        const result = Calculator.sum(statisticsCountMap);
+        const result = Calculator.sumWinningAmount(statisticsCountMap);
         expect(result).toBe(2000000000);
       });
 
@@ -35,7 +35,7 @@ describe("통계 테스트", () => {
         statisticsCountMap.set(number.FIVE_BONUS, 1);
         statisticsCountMap.set(number.SIX, 0);
     
-        const result = Calculator.sum(statisticsCountMap);
+        const result = Calculator.sumWinningAmount(statisticsCountMap);
         expect(result).toBe(30000000);
       });
 
@@ -47,7 +47,7 @@ describe("통계 테스트", () => {
         statisticsCountMap.set(number.FIVE_BONUS, 0);
         statisticsCountMap.set(number.SIX, 0);
     
-        const totalEarnings = Calculator.sum(statisticsCountMap);
+        const totalEarnings = Calculator.sumWinningAmount(statisticsCountMap);
         const userMoney = 8000;
         const earningsRate = Calculator.earningsRate(userMoney, totalEarnings);
     

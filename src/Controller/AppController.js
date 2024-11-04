@@ -80,7 +80,7 @@ export default class AppController {
     }
 
     showEarningsRate(userMoney, statisticsCountMap) {
-        const earnMoeny = Calculator.sum(statisticsCountMap);
+        const earnMoeny = Calculator.sumWinningAmount(statisticsCountMap);
         const earnRate = Calculator.earningsRate(userMoney, earnMoeny);
         ViweOutput.printText(`${statisticsMesssage.PRINT_EARNRATE} ${earnRate}${statisticsMesssage.PRINT_RATEUNIT}`);
     }
