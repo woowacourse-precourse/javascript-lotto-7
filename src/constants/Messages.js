@@ -1,0 +1,10 @@
+export const message_input_money='구입금액을 입력해주세요.'
+export const message_input_winning_number='당첨 번호를 입력해주세요.'
+export const message_input_bonus_number='보너스 번호를 입력해주세요.'
+
+export const input_error_length_not_6='[ERROR] 로또 번호는 6글자여야 합니다.'
+export const input_error_typeof='[ERROR] 정수를 입력해야 합니다.'
+export const input_error_spacebar='[ERROR] 공백은 입력할 수 없습니다.'
+export const input_error_money_range='[ERROR] 1000원 단위의 금액이 입력되어야 합니다.'
+export const input_error_number_range='[ERROR] 1~45 사이의 숫자를 입력해야 합니다.'
+export const input_error_unique='[ERROR] 겹치는 숫자를 입력하면 안됩니다.'
