@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import { printGeneratedList } from '../src/utils/OutputView.js';
 import Lotto from '../src/components/Lotto/Lotto.js';
+import printGeneratedList from '../src/utils/OutputView.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {
