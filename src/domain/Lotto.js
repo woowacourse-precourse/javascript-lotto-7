@@ -1,5 +1,8 @@
-class Lotto { // 패키지를 변경할 수 있다.
-  #numbers; // 이외의 필드(인스턴스 변수)를 추가할 수 없다. #은 변경할 수 없다.
+import { LOTTO_SETTINGS } from "../constants/lottoSettings.js";
+import { LOTTO_MESSAGES } from "../constants/lottoMessages.js";
+
+class Lotto {
+  #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
@@ -7,12 +10,29 @@ class Lotto { // 패키지를 변경할 수 있다.
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    this.#validateLottoNumber(numbers);
+    this.#validateNumberIsInteger(numbers);
+  }
+
+  #validateLottoNumber(input) {
+    if (input.length !== LOTTO_SETTINGS.numberLength) {
+      throw new Error(LOTTO_MESSAGES.error.numberCountNotSix);
     }
   }
 
-  // TODO: 추가 기능 구현
+  #validateNumberIsInteger(input) {
+    input.forEach((number) => this.#validateIsInteger(number));
+  }
+
+  #validateIsInteger(input) {
+    if (!Number.isInteger(input)) {
+      throw new Error(LOTTO_MESSAGES.error.canNotUseDecimal);
+    }
+  }
+
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
