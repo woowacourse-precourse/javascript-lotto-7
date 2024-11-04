@@ -1,6 +1,6 @@
 const MESSAGE = Object.freeze({
   INPUT_PURCHASE: '구입금액을 입력해 주세요.\n',
-  PURCHASE_COUNT: (count) => `${count}개를 구매했습니다.\n`,
+  PURCHASE_COUNT: (count) => `\n${count}개를 구매했습니다.`,
   INPUT_WINNING_NUMBER: '\n당첨 번호를 입력해 주세요.\n',
   INPUT_BONUS_NUMBER: '\n보너스 번호를 입력해 주세요.\n',
   WINNING_STATISTICS: '\n당첨 통계\n---',
@@ -9,7 +9,7 @@ const MESSAGE = Object.freeze({
   FIVE_MATCHES: '5개 일치 (1,500,000원) -',
   FIVE_BONUS_MATCHES: '5개 일치, 보너스 볼 일치 (30,000,000원) -',
   SIX_MATCHES: '6개 일치 (2,000,000,000원) -',
-  RATE_OF_RETURN: (revenue) => `총 수익률은 ${revenue}입니다.`,
+  RATE_OF_RETURN: (revenue) => `총 수익률은 ${revenue}%입니다.`,
 });
 
 export default MESSAGE;
