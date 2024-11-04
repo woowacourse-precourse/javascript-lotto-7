@@ -2,6 +2,8 @@ export const MIN_NUMBER = 1;
 export const MAX_NUMBER = 45;
 export const LOTTO_SIZE = 6;
 export const LOTTO_UNIT = 1000;
+export const LOTTO_WINNING_FLAG = 1; // 당첨 번호 표시
+export const LOTTO_BONUS_FLAG = 2; // 보너스 번호 표시
 
 export const ERROR_MESSAGES = Object.freeze({
   LOTTO_SIZE: `로또 번호는 ${LOTTO_SIZE}개여야 합니다.`,
