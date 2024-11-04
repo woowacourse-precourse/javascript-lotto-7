@@ -28,6 +28,7 @@ const MESSAGES = {
     BONUS_NUMBER: {
       SHOULD_BE_NUMBER: '보너스 번호는 숫자여야 합니다.',
       SHOULD_BE_IN_RANGE: '보너스 번호는 1~45 사이의 숫자여야 합니다.',
+      SHOULD_NOT_BE_DUPLICATED: '보너스 번호는 당첨 번호와 중복되면 안됩니다.',
     },
   },
 };
