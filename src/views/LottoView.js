@@ -4,14 +4,17 @@ import { generateLottoNumbersByCount } from "../services/generateLottoNumbersByC
 
 class LottoView {
   displayLottoCount(count) {
-    Console.print(RUN_MESSAGE.PURCHASED_LOTTO_COUNT(count));
+    return Console.print(RUN_MESSAGE.PURCHASED_LOTTO_COUNT(count));
   }
 
   displayLottoNumbers(lottoCount) {
     const lottoNumbers = generateLottoNumbersByCount(lottoCount);
+
     lottoNumbers.forEach((numbers) => {
       Console.print(`[${numbers.join(", ")}]`);
     });
+
+    return lottoNumbers;
   }
 }
 

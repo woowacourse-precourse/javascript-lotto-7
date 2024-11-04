@@ -9,7 +9,7 @@ class LottoController {
   run(purchaseAmount) {
     const lottoCount = calculateLottoCountFromAmount(purchaseAmount);
     this.lottoView.displayLottoCount(lottoCount);
-    this.lottoView.displayLottoNumbers(lottoCount);
+    return this.lottoView.displayLottoNumbers(lottoCount);
   }
 }
 
