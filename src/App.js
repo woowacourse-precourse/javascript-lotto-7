@@ -142,6 +142,18 @@ class App {
     return lottoNumbers.filter((num) => winningNumbers.includes(num)).length;
   }
 
+  // 6. 당첨 결과 출력
+  printResults() {
+    Console.print("당첨 통계\n---");
+    Console.print(`3개 일치 (5,000원) - ${this.result.fifth}개`);
+    Console.print(`4개 일치 (50,000원) - ${this.result.fourth}개`);
+    Console.print(`5개 일치 (1,500,000원) - ${this.result.third}개`);
+    Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.result.second}개`);
+    Console.print(`6개 일치 (2,000,000,000원) - ${this.result.first}개`);
+
+    this.printYield();
+  }
+
 }
 
 export default App;
