@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { INPUT, OUTPUT, FORMAT } from '../constants/Constants.js';
 import { ticketCount } from '../utils/Calculation.js';
 import { ticketArray } from '../utils/TicketNumber.js';
-import Validators from '../utils/Validation.js';
+import ValidateCost from '../validator/ValidateCost.js';
 
 class Ticket {
   #tickets;
@@ -26,9 +26,9 @@ class Ticket {
   }
 
   validation(cost) {
-    Validators.checkNumber(cost);
-    Validators.checkInteger(cost);
-    Validators.checkCost(cost);
+    ValidateCost.checkNumber(cost);
+    ValidateCost.checkInteger(cost);
+    ValidateCost.checkCost(cost);
   }
 
   calculateTicketCount() {
