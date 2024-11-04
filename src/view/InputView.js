@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE } from "../constants/constants.js";
+import Validator from "../validation/Validator.js";
 
 class InputView {
   #read;
@@ -8,7 +9,9 @@ class InputView {
     this.#read = Console.readLineAsync;
   }
 
-  // 입력값 공백인지 유효성 검사 필요
+  #validate(data) {
+    
+  }
 
   #separateNumber(data) {
     return data.split(",").map(Number);
@@ -26,7 +29,8 @@ class InputView {
   }
 
   async readBonusNumber() {
-    const bonusNumber = await this.#read(INPUT_MESSAGE.inputBonusNumber);
+    const bonusData = await this.#read(INPUT_MESSAGE.inputBonusNumber);
+    const bonusNumber = this.#separateNumber(bonusData);
     return bonusNumber;
   }
 }
