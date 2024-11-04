@@ -10,11 +10,11 @@ class Lotto {
   }
 
   static create(){
-    const numbers = this.#makeLottoNumbers();
+    const numbers = Lotto.makeLottoNumbers();
     return new Lotto(numbers);
   }
 
-  static #makeLottoNumbers() {
+  static makeLottoNumbers() {
     return Random.pickUniqueNumbersInRange(1, 45, 6);
   }
 
