@@ -15,18 +15,19 @@ export async function displayLottosCount(count){
   Console.print("\n"+count+MESSAGE.COUNT_INFO);
 }
 
-export async function displayLottosNumber(count){
-  const lottos = generateLottos(count);
+export function displayLottosNumber(lottos) { // count 대신 lottos를 매개변수로 받습니다.
   lottos.forEach(lotto => {
     Console.print(`[${lotto.getNumbers().join(', ')}]`);
   });
 }
+
 
 export async function userPickedNumbers() {
   const pickedNumbers = await Console.readLineAsync("\n"+MESSAGE.ASK_USER_PICK_NUMBER+"\n");
   validatePickedNumbers(pickedNumbers);
   return pickedNumbers.split(',').map(number => Number(number.trim()));
 } 
+
 
 export async function userPickedBonusNumber(pickedNumbers) {
   const pickedBounsNumber = await Console.readLineAsync("\n"+MESSAGE.ASK_USER_PICK_BONUS_NUMBER+"\n");
