@@ -1,13 +1,13 @@
 import GetInput from './input/GetInput.js';
 import MakeLotto from './util/MakeLotto.js';
-
+import CheckHowmuch from './util/CheckHowmuch.js';
+import PrintResult from './output/PrintResult.js';
 
 class App {
   async run() {
-
     const lotto = await MakeLotto.make();
     const input = await GetInput.print();
-    console.log(input);
+    CheckHowmuch.run(lotto, input.lotto.numbers, input.bonus);
   }
 }
 

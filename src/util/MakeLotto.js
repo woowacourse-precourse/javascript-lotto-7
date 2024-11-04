@@ -15,8 +15,9 @@ class MakeLotto {
     for (let i = 0; i < money / 1000; i++) {
       lotto[i] = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b);
     }
-
+    
     ForPurchase.print(lotto);
+    return lotto;
   }
 }
 
