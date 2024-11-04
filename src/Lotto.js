@@ -4,6 +4,9 @@ function check_lotto(i, j, numbers) {
     if (i !== j && numbers[i] === numbers[j]) {
       throw new Error("[ERROR]: 로또 번호에 중복이 있습니다.")
      };
+    if (numbers[i] !== parseInt(numbers[i])) {
+      throw new Error("[ERROR]: 로또 번호가 자연수가 아닙니다.")
+    }
   } catch (error) {
     throw error
   }

@@ -71,9 +71,9 @@ function parse_numbers(INPUT_NUM) {
 
 // 보너스번호 입력값 유효성 검사
 function check_bonus(BONUS_NUM, NUMBERS) {
-  BONUS_NUM = parseInt(BONUS_NUM)
+  BONUS_NUM = Number(BONUS_NUM)
   try {
-    if (isNaN(BONUS_NUM) || BONUS_NUM > 45 || BONUS_NUM < 1) {
+    if (isNaN(BONUS_NUM) || BONUS_NUM > 45 || BONUS_NUM < 1 || BONUS_NUM !== parseInt(BONUS_NUM)) {
       throw new Error("[ERROR] 보너스번호를 잘못 입력하였습니다.")
     }
     for (let i=0; i < 6; i++) {
@@ -91,7 +91,8 @@ function check_bonus(BONUS_NUM, NUMBERS) {
 class App {
   async run() {
     // 1. 금액 입력 기능과 유효성 검사 로직
-    const COST = await MissionUtils.Console.readLineAsync('로또 구입 금액을 입력하세요.');
+    const COST_STR = await MissionUtils.Console.readLineAsync('로또 구입 금액을 입력하세요.');
+    const COST = Number(COST_STR);
     check_cost(COST); // 입력받은 금액 유효성 검증
 
     // 2. 로또 발행 기능
@@ -101,8 +102,10 @@ class App {
       LOTTO_MADE.push(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6));
     }
     MissionUtils.Console.print(`${LOTTO_PCS}개를 구매했습니다.`)
+    // console.log(`${LOTTO_PCS}개를 구매했습니다.`)
     for (let i=0; i<LOTTO_PCS; i++) {
       MissionUtils.Console.print(LOTTO_MADE[i])
+      // console.log(LOTTO_MADE[i])
     }
 
     // 3. 로또 당첨값 입력 및 유효성 검사 로직
@@ -117,7 +120,19 @@ class App {
     for (let i=0; i<LOTTO_PCS; i++) {
       LOTTO_RESULT[lotto_check(NUMBERS, BONUS_NUM, LOTTO_MADE[i])] += 1
     }
-    console.log(LOTTO_RESULT)
+
+    // 5. 당첨 내역과 수익률 출력기능
+    let RESULT_AMOUNT = 5000 * LOTTO_RESULT[0] + 50000 * LOTTO_RESULT[1] + 1500000 * LOTTO_RESULT[2] + 30000000 * LOTTO_RESULT[3] + 2000000000 * LOTTO_RESULT[4]
+    const GET_PER = RESULT_AMOUNT / COST * 100
+    const RETURN_PER = GET_PER.toFixed(1)
+    MissionUtils.Console.print('당첨 통계')
+    MissionUtils.Console.print('---')
+    MissionUtils.Console.print(`3개 일치 (5,000원) - ${LOTTO_RESULT[0]}개`)
+    MissionUtils.Console.print(`4개 일치 (50,000원) - ${LOTTO_RESULT[1]}개`)
+    MissionUtils.Console.print(`5개 일치 (1,500,000원) - ${LOTTO_RESULT[2]}개`)
+    MissionUtils.Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${LOTTO_RESULT[3]}개`)
+    MissionUtils.Console.print(`6개 일치 (2,000,000,000원) - ${LOTTO_RESULT[4]}개`)
+    MissionUtils.Console.print(`총 수익률은 ${RETURN_PER}%입니다.`)
   }
 }
 
