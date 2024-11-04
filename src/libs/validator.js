@@ -49,11 +49,24 @@ class LottoValidator {
     return values;
   }
 
-  static validateBonusNumber(winningNumbers, bonusNumber) {
+  static validateUniqueBonusNumber(winningNumbers, bonusNumber) {
     if (winningNumbers.includes(bonusNumber)) {
       throw new LottoError(ERROR_MESSAGE.BONUS_NUMBER_DUPLICATION);
     }
     return bonusNumber;
+  }
+
+  static validateWinningNumbers(winningNumbers) {
+    LottoValidator.validateLottoNumberLength(winningNumbers);
+    LottoValidator.validateUniqueNumbers(winningNumbers);
+    LottoValidator.validateArrayHasNoEmpty(winningNumbers);
+    LottoValidator.validateArrayHasNumberType(winningNumbers);
+  }
+
+  static validateBonusNumber(winningNumbers, bonusNumber) {
+    LottoValidator.validateNumberType(bonusNumber);
+    LottoValidator.validateEmptyInput(bonusNumber);
+    LottoValidator.validateUniqueBonusNumber(winningNumbers, bonusNumber);
   }
 }
 
