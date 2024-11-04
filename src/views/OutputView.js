@@ -4,7 +4,7 @@ import { CONSOLE_MESSAGE } from "../constants/Messages.js";
 class OutputView {
     async outputLottoCount(lottoCount) {
         return Console.print(
-            `${lottoCount}${CONSOLE_MESSAGE.OUTPUT_LOTTO_COUNT}`
+            `\n${lottoCount}${CONSOLE_MESSAGE.OUTPUT_LOTTO_COUNT}`
         );
     }
 
