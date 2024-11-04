@@ -21,7 +21,8 @@ class OutputView {
 
   static printLottoStatistics(rankCounts) {
     const ranks = ['fifth', 'fourth', 'third', 'second', 'first'];
-    MissionUtils.Console.print('\n당첨 통계\n---');
+    MissionUtils.Console.print('당첨 통계');
+    MissionUtils.Console.print('---');
     ranks.forEach((rank, i) => {
       const prize = Object.values(PRIZE)[i];
       let message = `${

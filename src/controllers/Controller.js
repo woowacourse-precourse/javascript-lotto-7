@@ -32,6 +32,7 @@ class Controller {
     this.generator.numbers.forEach((array) => {
       this.calculateRank(this.lotto.countMatchingNumbers(array), array);
     });
+    OutputView.printEmptyLine();
     OutputView.printLottoStatistics(this.rankingCount);
     OutputView.printProfitRate(this.calculateProfitRate());
   }
