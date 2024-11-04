@@ -39,6 +39,24 @@ class App {
       "보너스 번호를 입력해 주세요.\n"
     );
 
+    if (winningNumbers.includes(parseInt(bonusNumberInput))) {
+      Console.print("[ERROR] 보너스 번호는 당첨 번호와 중복되면 안됩니다.");
+      return;
+    }
+
+    if (bonusNumberInput < 1 || bonusNumberInput > 45) {
+      Console.print("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+      return;
+    }
+
+    let bonusNumber = Number(bonusNumberInput);
+
+    let comparedList = this.compareNumbers(
+      lottoCount,
+      winningNumbers,
+      bonusNumber
+    );
+
     let result = this.getResult(comparedList);
     let rate = this.getRate(result[1], price);
     Console.print("당첨 통계\n---");
