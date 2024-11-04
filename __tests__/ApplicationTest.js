@@ -128,7 +128,7 @@ describe("printLottos 테스트", () => {
 });
 
 describe("당첨 번호 입력, 분리 테스트", () => {
-  // 1. inputPrizeNumber 테스트
+  // 1. inputPrizeNumbers 테스트
   test("당첨 번호를 올바르게 입력 받는다.", async() => {
     const userInput = "1,2,3,4,5,6";
     MissionUtils.Console.readLineAsync = jest.fn().mockResolvedValue(userInput);
@@ -137,7 +137,7 @@ describe("당첨 번호 입력, 분리 테스트", () => {
     expect(result).toBe(userInput);
   });
 
-  // 2. splitPrizeNumber 테스트
+  // 2. splitPrizeNumbers 테스트
   test("입력된 당첨 번호를 배열로 분리한다.", () => {
     const input = "1,2,3,4,5,6";
     const result = splitPrizeNumbers(input);
