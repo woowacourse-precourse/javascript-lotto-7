@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 import Lotto from "../models/Lotto";
 import { Input } from "../views/Input";
 import { Output } from "../views/Output";
@@ -8,18 +10,18 @@ export class LottoController {
 		this.output = new Output();
 	}
 
-	run() {
-		const price = this.input.getLottoPrice();
+	async run() {
+		const price = await this.input.getLottoPrice();
 		const lottoList = this.issueLotto(price);
-		this.output.printLottoCount(lottoList);
+		await this.output.printLottoCount(lottoList);
 
-		const winningNumbers = this.input.getLottoNumbers();
-		const bonusNumber = this.input.getLottoBonusNumber();
+		const winningNumbers = await this.input.getLottoNumbers();
+		const bonusNumber = await this.input.getLottoBonusNumber();
 
 		const lottoResult = this.getLottoResult(lottoList, winningNumbers, bonusNumber);
-		this.output.printLottoResult(lottoResult);
+		await this.output.printLottoResult(lottoResult);
 		const profitRate = this.calculateProfitRate(lottoResult, price);
-		this.output.printProfitRate(profitRate);
+		await this.output.printProfitRate(profitRate);
 	}
 
 	issueLotto(price) {
@@ -42,7 +44,7 @@ export class LottoController {
 		const lottoResult = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0 };
 		userLottoList.forEach((lotto) => {
 			const matchCount = lotto.getNumbers().filter((number) => winningNumbers.includes(number)).length;
-			const hasBonus = lotto.getNumbers.includes(bonusNumber);
+			const hasBonus = lotto.getNumbers().includes(bonusNumber);
 			this.checkLottoResult(lottoResult, matchCount, hasBonus);
 		});
 

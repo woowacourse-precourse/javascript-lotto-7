@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 
 export class Input {
-	static async getLottoPrice() {
+	async getLottoPrice() {
 		Console.print("구입금액을 입력해 주세요.");
 		const input = await Console.readLineAsync("");
 
@@ -14,7 +14,7 @@ export class Input {
 		return Number(input);
 	}
 
-	static async getLottoNumbers() {
+	async getLottoNumbers() {
 		Console.print("당첨 번호를 입력해 주세요.");
 		const input = await Console.readLineAsync("");
 		const numbers = input.split(",").map((number) => Number(number));
@@ -28,8 +28,8 @@ export class Input {
 		return numbers;
 	}
 
-	static async getLottoBonusNumber() {
-		Console.prin("보너스 번호를 입력해 주세요.");
+	async getLottoBonusNumber() {
+		Console.print("보너스 번호를 입력해 주세요.");
 		const input = await Console.readLineAsync("");
 
 		// 가능한 에러
