@@ -14,7 +14,8 @@ class App {
    *
    */
   async run() {
-    this.makeLotto();
+    await this.makeLotto();
+    await this.makeWinningLotto();
   }
 
   /**
@@ -26,6 +27,20 @@ class App {
     );
 
     this.LottoController = new LottoController(amout);
+  }
+
+  /**
+   *
+   */
+  async makeWinningLotto() {
+    this.ioProcessor.processOuput('');
+
+    const winningNummber = await this.ioProcessor.processInput(
+      INPUT_MESSAGE.INPUT_WINNING_NUMBER
+    );
+    const winningBonusNumber = await this.ioProcessor.processInput(
+      INPUT_MESSAGE.INPUT_WINNING_BONUS_NUMBER
+    );
   }
 }
 
