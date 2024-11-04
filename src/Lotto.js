@@ -1,3 +1,12 @@
+import { END_NUMBER, START_NUMBER } from "./Constant.js";
+import {
+  LOTTO_ERROR_COUNT,
+  LOTTO_ERROR_DUPLICATE,
+  LOTTO_ERROR_NUMBER,
+  LOTTO_ERROR_RANGE,
+  BONUS_DUPLICATE,
+} from "./Constant.js";
+
 class Lotto {
   #numbers;
 
@@ -8,16 +17,24 @@ class Lotto {
 
   #validate(numbers) {
     if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(LOTTO_ERROR_COUNT);
     }
     const setNumbers = new Set(numbers);
     if (setNumbers.size !== 6) {
-      throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
+      throw new Error(LOTTO_ERROR_DUPLICATE);
     }
+    numbers.forEach((number) => {
+      if (isNaN(number)) {
+        throw new Error(LOTTO_ERROR_NUMBER);
+      }
+      if (number > END_NUMBER || number < START_NUMBER) {
+        throw new Error(LOTTO_ERROR_RANGE);
+      }
+    });
   }
   bonusErrorCheck(bonusNumber) {
     if (this.#numbers.includes(bonusNumber)) {
-      throw new Error("[ERROR] 보너스 번호는 로또 번호와 달라야 합니다.");
+      throw new Error(BONUS_DUPLICATE);
     }
   }
   equalWinning(lotto) {
