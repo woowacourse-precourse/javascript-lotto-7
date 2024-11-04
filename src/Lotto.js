@@ -12,6 +12,10 @@ class Lotto {
     validateNumbers(numbers);
   }
 
+  getNumbers() {
+    return this.#numbers;
+  }
+
   getNumbersByOrder() {
     return this.#numbers.sort((a, b) => a - b);
   }
