@@ -1,5 +1,8 @@
 class ValidateNumbers {
   constructor(numbers) {
+    if (!Array.isArray(numbers)) {
+      this.throwError("로또 번호의 형식이 유효해야 합니다.");
+    }
     this.numbers = numbers;
   }
 
