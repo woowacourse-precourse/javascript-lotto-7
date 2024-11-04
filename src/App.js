@@ -9,27 +9,15 @@ import { ERROR_MESSAGES } from "./constants/constants.js";
 class App {
   async run() {
     const purchaseAmount = await this.getPurchaseAmount();
-    const lottoCount = purchaseAmount / 1000;
-    const lottoTickets = LottoGenerator.generateTickets(lottoCount);
-
-    Output.printCountOfLotto(lottoCount);
-    Output.printLotto(lottoTickets);
-
+    const lottoTickets = this.generateLottoTickets(purchaseAmount);
     const winningNumbers = await this.getWinningNumbers();
     const bonusNumber = await this.getBonusNumber(winningNumbers);
-
     const result = LottoCalculator.calculateResults(
       lottoTickets,
       winningNumbers,
       bonusNumber
     );
-    Output.printResults(result);
-
-    const profitRate = LottoCalculator.calculateProfitRate(
-      result,
-      purchaseAmount
-    );
-    Output.printProfitRate(profitRate);
+    this.printResults(result, purchaseAmount);
   }
 
   async getPurchaseAmount() {
@@ -46,6 +34,14 @@ class App {
       }
     }
     return purchaseAmount;
+  }
+
+  generateLottoTickets(purchaseAmount) {
+    const lottoCount = purchaseAmount / 1000;
+    const lottoTickets = LottoGenerator.generateTickets(lottoCount);
+    Output.printCountOfLotto(lottoCount);
+    Output.printLotto(lottoTickets);
+    return lottoTickets;
   }
 
   async getWinningNumbers() {
@@ -78,6 +74,15 @@ class App {
       }
     }
     return Number(bonusNumber);
+  }
+
+  printResults(result, purchaseAmount) {
+    Output.printResults(result);
+    const profitRate = LottoCalculator.calculateProfitRate(
+      result,
+      purchaseAmount
+    );
+    Output.printProfitRate(profitRate);
   }
 }
 
