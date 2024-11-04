@@ -11,4 +11,8 @@ export const validateAmount = (amount) => {
   if (amount < 0) {
     throw new Error(ERROR_MESSAGE.AMOUNT_NEGATIVE);
   }
+
+  if (amount % 1000 !== 0) {
+    throw new Error(ERROR_MESSAGE.AMOUNT_NOT_THOUSAND);
+  }
 };
