@@ -1,5 +1,5 @@
-import { LOTTO } from './constant';
-import { ERROR_MESSAGE } from './constant/error';
+import { LOTTO } from './constant/index.js';
+import { ERROR_MESSAGE } from './constant/error.js';
 
 class Validator {
   #validateNaturalNumber(value) {

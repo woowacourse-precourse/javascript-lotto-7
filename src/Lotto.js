@@ -1,5 +1,5 @@
-import { LOTTO } from './constant';
-import getRandomSortedNumbers from './util/getRandomSortedNumbers';
+import { LOTTO } from './constant/index.js';
+import getRandomSortedNumbers from './util/getRandomSortedNumbers.js';
 class Lotto {
   #numbers;
   static matchedCount = { 3: 0, 4: 0, 5: 0, '5+bonus': 0, 6: 0 };

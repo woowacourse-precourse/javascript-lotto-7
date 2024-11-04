@@ -1,5 +1,5 @@
-import { LOTTO } from '../src/constant';
-import Lotto from '../src/Lotto';
+import { LOTTO } from '../src/constant/index.js';
+import Lotto from '../src/Lotto.js';
 import { mockRandoms } from './testUtil';
 
 describe('Lotto 클래스의 purchaseLotto 메서드 테스트', () => {

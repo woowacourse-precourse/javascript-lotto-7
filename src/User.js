@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import { LOTTO, PROMPT_MESSAGE } from './constant';
-import Validator from './Validator';
+import { LOTTO, PROMPT_MESSAGE } from './constant/index.js';
+import Validator from './Validator.js';
 
 class User {
   #validator;

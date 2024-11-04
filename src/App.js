@@ -1,8 +1,6 @@
-import { Console } from '@woowacourse/mission-utils';
-import User from './User';
-import { OUTPUT_MESSAGE } from './constant';
-import Lotto from './Lotto';
-import print from './util/print';
+import User from './User.js';
+import Lotto from './Lotto.js';
+import print from './util/print.js';
 
 class App {
   constructor() {

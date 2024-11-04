@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
-import Lotto from '../Lotto';
-import { LOTTO, OUTPUT_MESSAGE } from '../constant';
-import formatCurrency from './formatCurrency';
+import Lotto from '../Lotto.js';
+import { LOTTO, OUTPUT_MESSAGE } from '../constant/index.js';
+import formatCurrency from './formatCurrency.js';
 
 function lottoList(lottoList) {
   Console.print(`\n${lottoList.length}${OUTPUT_MESSAGE.PURCHASE_COUNT}`);

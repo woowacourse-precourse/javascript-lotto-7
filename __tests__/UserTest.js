@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE } from '../src/constant/error';
-import User from '../src/User';
+import { ERROR_MESSAGE } from '../src/constant/error.js';
+import User from '../src/User.js';
 import { getLogSpy, mockQuestions } from './testUtil';
 
 describe('User 클래스의 readPurchaseAmount 메서드 테스트', () => {
