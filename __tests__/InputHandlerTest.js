@@ -2,12 +2,8 @@ import { Console } from "@woowacourse/mission-utils";
 import { ERROR_MESSAGES } from "../src/constants/constant.js";
 import InputHandler from "../src/InputHandler.js";
 
-jest.mock("@woowacourse/mission-utils", () => ({
-  Console: {
-    readLineAsync: jest.fn(),
-    print: jest.fn(),
-  },
-}));
+// Console 모듈 전체를 한 번에 모킹
+jest.mock("@woowacourse/mission-utils");
 
 describe("InputHandler 클래스 테스트", () => {
   let inputHandler;
@@ -16,11 +12,23 @@ describe("InputHandler 클래스 테스트", () => {
     inputHandler = new InputHandler();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks(); // 각 테스트 후 모킹을 초기화
+  });
+
   describe("getPurchaseAmount 메서드", () => {
     it("올바른 금액이 입력되었을 때, 입력 값을 반환해야 한다.", async () => {
       Console.readLineAsync.mockResolvedValue("5000");
       const amount = await inputHandler.getPurchaseAmount();
       expect(amount).toBe("5000");
+    });
+
+    it("금액이 0일 때, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync.mockResolvedValueOnce("0").mockResolvedValueOnce("1000");
+
+      await inputHandler.getPurchaseAmount();
+
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.PURCHASE_AMOUNT_ZERO);
     });
   });
 

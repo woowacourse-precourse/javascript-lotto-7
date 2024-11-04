@@ -9,7 +9,7 @@ class InputHandler {
       console.log(purchaseAmount);
       return purchaseAmount;
     } catch (error) {
-      Console.print(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT);
+      Console.print(error.message);
       return await this.getPurchaseAmount();
     }
   }
@@ -21,7 +21,7 @@ class InputHandler {
       this.validateWinningNumbers(winningNumbers);
       return winningNumbers;
     } catch (error) {
-      Console.print(ERROR_MESSAGES.INVALID_LOTTO_NUMBER);
+      Console.print(error.message);
       return await this.getWinningNumbers();
     }
   }
@@ -33,7 +33,7 @@ class InputHandler {
       this.validateBonusNumber(bonusNumber, winningNumbers);
       return bonusNumber;
     } catch (error) {
-      Console.print(ERROR_MESSAGES.INVALID_BONUS_NUMBER);
+      Console.print(error.message);
       return await this.getBonusNumber;
     }
   }
