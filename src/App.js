@@ -16,7 +16,7 @@ function check_cost(COST) {
 
 // 사용자가 문자열로 입력하는 값을 , 를 바탕으로 쪼개어 리스트에 담아 리턴
 function parse_numbers(INPUT_NUM) {
-  INPUT_NUM.split(',').map((input) => {
+  return INPUT_NUM.split(',').map((input) => {
     try {
       const PARSED_INPUT = parseInt(input.trim(), 10);
       if (isNaN(PARSED_INPUT)) {
@@ -49,16 +49,15 @@ function check_bonus(BONUS_NUM, NUMBERS) {
 
 class App {
   async run() {
-    const COST = MissionUtils.Console.readLineAsync('');
+    const COST = await MissionUtils.Console.readLineAsync('');
     check_cost(COST); // 입력받은 금액 유효성 검증
-    const INPUT_NUM = MissionUtils.Console.readLineAsync('');
+    const INPUT_NUM = await MissionUtils.Console.readLineAsync('');
+    console.log(INPUT_NUM)
     const NUMBERS = parse_numbers(INPUT_NUM); // 입력값 유효성 1차 검증
-    const LOTTO = new Lotto();
-    await LOTTO.constructor(NUMBERS);
-    const BONUS_NUM = MissionUtils.Console.readLineAsync();
-    
-    // 보너스번호 입력값 유효성 검사
-    check_bonus(BONUS_NUM, NUMBERS);
+    console.log(NUMBERS, '입력한 숫자')
+    const LOTTO = new Lotto(NUMBERS);
+    const BONUS_NUM = await MissionUtils.Console.readLineAsync('');
+    check_bonus(BONUS_NUM, NUMBERS); // 보너스번호 입력값 유효성 검사
 
     console.log(NUMBERS)
     console.log(BONUS_NUM)
