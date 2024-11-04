@@ -10,7 +10,7 @@ class App {
         try {
           const purchaseAmount = await MissionUtils.Console.readLineAsync('구입금액을 입력해 주세요.\n');
           const amount = parseInt(purchaseAmount, 10);
-          Lotto.vaildetePurchaseAmount(amount);
+          Lotto.vaildatePurchaseAmount(amount);
           return amount;
         } catch (error) {
           MissionUtils.Console.print(error.message);
@@ -49,7 +49,7 @@ class App {
         try {
           const bonusNumber = await MissionUtils.Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
           const number = parseInt(bonusNumber, 10);
-          Lotto.vaildeBounsNumber(number);
+          Lotto.vaildateBounsNumber(number);
           return number;
         } catch (error) {
           MissionUtils.Console.print(error.message);

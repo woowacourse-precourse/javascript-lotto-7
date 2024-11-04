@@ -2,11 +2,11 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#validate(numbers);
+    this.#validateNumbers(numbers);
     this.#numbers = numbers;
   }
 
-  #validate(numbers) {
+  #validateNumbers(numbers) {
     if(!isNaN(numbers)) {
       throw new Error("[ERROR] 잘못된 값 입니다.")
     }
@@ -25,13 +25,17 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
-  static vaildeBounsNumber(number) {
+  static vaildateBounsNumber(number) {
     if( number < 1  || number > 45) {
       throw new Error('[ERROR] 보너스 번호는 1에서 45 사이의 숫자여야 합니다.');
     }
+    if (!Number.isInteger(number)) {
+      throw new Error('[ERROR] 보너스 번호는 정수여야 합니다.');
+    }
+    
   }
 
-  static vaildetePurchaseAmount(amount) {
+  static vaildatePurchaseAmount(amount) {
     if (isNaN(amount)) {
       throw new Error("[ERROR] 금액은 숫자여야 합니다.");
     }
