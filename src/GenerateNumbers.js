@@ -28,10 +28,6 @@ class GenerateNumbers {
 
     const profit = this.calculateReturn(bills);
 
-    // allGeneratedNumbers.forEach((numbers) => {
-    //   MissionUtils.Console.print(`[${numbers.join(", ")}]`);
-    // });
-
     return { profit };
   }
 
