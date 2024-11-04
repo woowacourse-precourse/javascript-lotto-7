@@ -6,7 +6,7 @@ export const INPUT_MESSAGE = Object.freeze({
 
 export const LOTTO_PRICE = 1000;
 
-export const DELERIMETER = ',';
+export const DELIMITER = ',';
 
 export const LOTTO_MATCH_TABLE = Object.freeze({
   6: 1,

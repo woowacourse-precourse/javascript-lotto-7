@@ -1,20 +1,20 @@
-import { DELERIMETER } from './constant.js';
+import { DELIMITER } from './constant.js';
 
 /**
  *
  */
 class StringParser {
-  #delemiter;
+  #delimiter;
 
   constructor() {
-    this.#delemiter = DELERIMETER;
+    this.#delimiter = DELIMITER;
   }
 
   /**
    *
    */
   parseString(string) {
-    return string.split(this.#delemiter);
+    return string.split(this.#delimiter);
   }
 }
 
