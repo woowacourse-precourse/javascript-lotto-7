@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   run() {
@@ -24,6 +24,19 @@ class App {
   printPurchasedLotto() {
     const lottoCount = this.purchaseAmount / 1000;
     Console.print(`${lottoCount}개를 구매했습니다.`);
+    this.lottoTickets = Array.from({ length: lottoCount });
+    this.generateLottoTickets();
+  }
+
+  generateLottoTickets() {
+    this.lottoTickets = this.lottoTickets.map(() =>
+      Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b),
+    );
+    this.displayLottoTickets();
+  }
+
+  displayLottoTickets() {
+    this.lottoTickets.forEach((ticket) => Console.print(`[${ticket.join(", ")}]`));
   }
 
   handleError(message) {
