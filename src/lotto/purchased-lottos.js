@@ -12,15 +12,16 @@ class PurchasedLottos {
   static async generate(lottoCount) {
     const lottoPromises = Array.from({ length: lottoCount }, async () => {
       const numbers = await Random.pickUniqueNumbersInRange(LOTTO_RULES.MIN_NUMBER, LOTTO_RULES.MAX_NUMBER, LOTTO_RULES.NUMBER_COUNT);
-      Console.print(`[${numbers.join(', ')}]`);
-      return new Lotto(numbers);
+      const lotto = new Lotto(numbers);
+      Console.print(`[${lotto.numbers.join(', ')}]`);
+      return lotto;
     });
 
     const lottos = await Promise.all(lottoPromises);
     return new PurchasedLottos(lottos);
   }
 
-  getLottos() {
+  get lottos() {
     return this.#lottos;
   }
 }
