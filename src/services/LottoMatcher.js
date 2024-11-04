@@ -1,5 +1,5 @@
 import { GAME_SETTINGS, RANK_KEYS } from '../utils/constants.js';
-import Lotto from './Lotto.js';
+import Lotto from '../domain/Lotto.js';
 
 class LottoMatcher {
   #tickets;

@@ -1,5 +1,5 @@
-import LottoValidator from './services/LottoValidator.js';
-import PurchaseValidator from './services/PurchaseValidator.js';
+import LottoValidator from './validation/LottoValidator.js';
+import PurchaseValidator from './validation/PurchaseValidator.js';
 import { Console } from '@woowacourse/mission-utils';
 import {
   MESSAGES,
