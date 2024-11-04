@@ -14,6 +14,8 @@ class App {
       this.amountOfPurchasedMoney / 1000
     );
     this.winningLottoNumbers = await this.getWinningLottoNumbers();
+
+    this.bonusLottoNumber = await this.getBonusLottoNumber();
   }
 
   async getPurchasedAmount() {
