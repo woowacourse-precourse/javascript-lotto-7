@@ -8,13 +8,20 @@ class InputView {
     this.#read = Console.readLineAsync;
   }
 
+  // 입력값 공백인지 유효성 검사 필요
+
+  #separateNumber(data) {
+    return data.split(",").map(Number);
+  }
+
   async readPurchaseAmount() {
     const inputPrice = await this.#read(INPUT_MESSAGE.inputPurchaseAmount);
     return inputPrice;
   }
 
   async readWinningLotto() {
-    const winningNumber = await this.#read(INPUT_MESSAGE.inputWinningNumbers);
+    const winningdata = await this.#read(INPUT_MESSAGE.inputWinningNumbers);
+    const winningNumber = this.#separateNumber(winningdata);
     return winningNumber;
   }
 
