@@ -70,13 +70,25 @@ class LottoResult {
   }
 
   getReturnRate() {
-    let profit = 0;
-    const lottoPrice = this.#lottoList.length * 1000;
-    this.#result.forEach((result, index) => {
-      profit += result * this.#prizeMoney[index];
-    });
+    const totalSpent = this.#calculateTotalSpent(); // 구입금액
+    const profit = this.#calculateProfit(); // 수익
+    return this.#calculateReturnRate(totalSpent, profit); // 수익률
+  }
 
-    return ((profit / lottoPrice) * 100).toFixed(1);
+  #calculateTotalSpent() {
+    return this.#lottoList.length * 1000;
+  }
+
+  #calculateProfit() {
+    let totalProfit = 0;
+    for (let i = 0; i < this.#result.length; i++) {
+      totalProfit += this.#result[i] * this.#prizeMoney[i];
+    }
+    return totalProfit;
+  }
+
+  #calculateReturnRate(totalSpent, profit) {
+    return ((profit / totalSpent) * 100).toFixed(1);
   }
 }
 
