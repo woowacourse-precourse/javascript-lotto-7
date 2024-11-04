@@ -8,7 +8,7 @@ const ERROR_MESSAGES = Object.freeze({
     ZERO_MONEY_NOT_ALLOWED: `${ERROR_PREFIX}0원은 입력할 수 없습니다.`,
   },
   lotteryNumber: {
-    NOT_ENOUGH_ELEMENT: `${ERROR_PREFIX}숫자가 충분히 입력되지 않았습니다.`,
+    NOT_ENOUGH_ELEMENT: `${ERROR_PREFIX}숫자가 충분히 입력되지 않았거나, 추가로 더 입력되었습니다.`,
     ONLY_NUMBER_ALLOWED: `${ERROR_PREFIX}입력된 값이 숫자가 아닙니다.`,
     ONLY_NUMBER_IN_RANGE_ALLOWED: `${ERROR_PREFIX}입력된 숫자가 1-45 밖에 있습니다.`,
     DUPLICATED_NUMBER: `${ERROR_PREFIX}입력된 수 중 중복이 존재합니다.`,
