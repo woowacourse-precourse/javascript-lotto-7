@@ -1,13 +1,14 @@
 
 import { Console } from '@woowacourse/mission-utils';
-import { lottoMesaage, numbers } from './constants.js';
+import { lottoMesaage, numbers, statisticsMesssage } from './constants.js';
 import ViweOutput from './ViewOutput.js';
 import Calculator from './Calculator.js';
 import LottoController from './LottoController.js';
 
 export default class AppController {
     #userInputMap;
-    #lotto;
+    #userLottoList;
+    #winningLotto;
     #bonus;
 
     async control() {
@@ -19,6 +20,8 @@ export default class AppController {
         this.handleCheckUserInput(lottoMesaage.INPUT_LOTTONUMBERS, winningNumbers);
 
         this.#bonus = await this.userInput(lottoMesaage.INPUT_BONUSNUMBER);
+
+        this.createStatisticsLotto();
     }
 
     async userInput(message) {
@@ -28,7 +31,7 @@ export default class AppController {
     userInputInit() {
         this.#userInputMap = new Map();
         this.#userInputMap.set(lottoMesaage.INPUT_MONEY, this.checkUserMoney.bind(this));
-        this.#userInputMap.set(lottoMesaage.INPUT_LOTTONUMBERS, this.checkWinningNumbers.bind(this));
+        this.#userInputMap.set(lottoMesaage.INPUT_LOTTONUMBERS, this.checkWinningLotto.bind(this));
     }
 
     handleCheckUserInput(message, value) {
@@ -41,13 +44,26 @@ export default class AppController {
         const lottoCount = Calculator.divide(inputMoney,numbers.LOTTO_UNITS);
         ViweOutput.printText(`${lottoCount}${lottoMesaage.PRINT_BUYCOUNT}`);
 
-        const userLottoList = LottoController.getUserLotto(lottoCount);
-        ViweOutput.printLottoList(userLottoList);
+        this.#userLottoList = LottoController.getUserLotto(lottoCount);
+        ViweOutput.printLottoList(this.#userLottoList);
     }
 
-    checkWinningNumbers(winningNumbers) {
-        this.#lotto = LottoController.createrWinningLottoNumbers(winningNumbers);
+    checkWinningLotto(winningNumbers) {
+        this.#winningLotto = LottoController.createWinningLotto(winningNumbers).getNumbers().sort((a,b) => a - b);
     }
+
+    createStatisticsLotto() {
+        ViweOutput.printText(statisticsMesssage.PRINT_STATISTICS);
+        ViweOutput.printText(statisticsMesssage.PRINT_BAR.repeat(numbers.THREE));
+        const statisticsCountMap = LottoController.getStatisticsLotto({userLottos: this.#userLottoList, winningLotto: this.#winningLotto, bonus: this.#bonus});
+        ViweOutput.printStatistics(statisticsCountMap);
+    }
+
+   
+
+
+
+    
 
 
 
