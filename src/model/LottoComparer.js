@@ -12,7 +12,7 @@ class LottoComparer {
       matchCount: this.countMatches(lottoNumbers, winningNumbers),
       bonusMatch: this.hasBonusMatch(lottoNumbers, bonusNumber),
     };
-  }
+  }lr
 }
 
 export default LottoComparer;
