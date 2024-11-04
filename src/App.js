@@ -9,6 +9,7 @@ class App {
   async run() {
     const moneyPaid = await InputView.readMoneyPaid();
     const countGame = this.getCount(moneyPaid);
+    OutputView.writeLottoCounts(countGame);
 
     const lottos = new Lottos(countGame).getLottos();
     OutputView.writeLottos(lottos)

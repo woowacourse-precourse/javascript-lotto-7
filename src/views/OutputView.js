@@ -2,6 +2,10 @@ import { Console } from "@woowacourse/mission-utils";
 import { LOTTO_PRIZES } from "../Constants/PrizeOfConstant.js";
 
 const OutputView = {
+    writeLottoCounts(countGame) {
+        Console.print(`\n${countGame}개를 구매했습니다.`)
+    },
+
     writeLottos(lottos) {
         for (let index = 0; index < lottos.length; index++) {
             Console.print(`[${this.writeLottoNumbers(lottos[index])}]`);
@@ -18,7 +22,7 @@ const OutputView = {
     },
 
     writeHeader() {
-        Console.print("당첨 통계\n---");
+        Console.print("\n당첨 통계\n---");
     },
 
     writePrizeResults(matchResult, matchFiveNumbersWithBonusNumber) {
