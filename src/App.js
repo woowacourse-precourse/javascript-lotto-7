@@ -1,4 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import { prompt } from './input.js';
 import {
   validateLottoBuyPrice,
   validateLottoAnswerNumbers,
@@ -13,14 +14,6 @@ import {
   LOTTO_WINNING_KEYS_IN_ORDER,
   LOTTO_WINNING_KEYS,
 } from './constants.js';
-
-const prompt = async (message, validation, rest) => {
-  const input = await Console.readLineAsync(message);
-  if (validation(input, rest)) {
-    return input;
-  }
-  return prompt(message, validation, rest);
-};
 
 class App {
   constructor() {
