@@ -39,7 +39,7 @@ describe("로또 클래스 테스트", () => {
   })
   test("로또 번호에 문자열 있는 경우",()=>{
     expect(()=>{
-      new Lotto([1,2,3,str,5,6]);
+      new Lotto([1,2,3,"abc",5,6]);
     }).toThrow("[ERROR]");
   })
 

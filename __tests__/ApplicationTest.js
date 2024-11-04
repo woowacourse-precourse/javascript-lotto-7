@@ -100,16 +100,16 @@ describe("로또 테스트", () => {
     const invalidInputs = ["-1000", "0", "abc", "123.45", ""];
 
     invalidInputs.forEach(input => {
-      expect(() => app.getPositivePrice(input)).toThrow(Error);
-      expect(() => app.getPositivePrice(input)).toThrow("[ERROR]구입금액은 양의 정수이어야 합니다.");
+      expect(() => App.getPositivePrice(input)).toThrow(Error);
+      expect(() => App.getPositivePrice(input)).toThrow("[ERROR]구입금액은 양의 정수이어야 합니다.");
     });
   });
   test("구입금액 1000의 배수 테스트", () => {
     const invalidInputs = [1001, 2001, 300]; // 1000의 배수가 아닌 값
 
     invalidInputs.forEach(input => {
-      expect(() => app.getThousandPrice(input)).toThrow(Error);
-      expect(() => app.getThousandPrice(input)).toThrow("[ERROR]구입금액은 1000의 배수이어야 합니다.");
+      expect(() => App.getThousandPrice(input)).toThrow(Error);
+      expect(() => App.getThousandPrice(input)).toThrow("[ERROR]구입금액은 1000의 배수이어야 합니다.");
     });
   });
 

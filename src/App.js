@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Lotto from "./Lotto.js";
 
 class App {
-  getPositivePrice(input) {
+  static getPositivePrice(input) {
     const regex = /^[1-9]\d*$/;
     if (!regex.test(input)) {
       throw new Error("[ERROR]구입금액은 양의 정수이어야 합니다.");
@@ -10,7 +10,7 @@ class App {
     return input;
   }
 
-  getThousandPrice(input) {
+  static getThousandPrice(input) {
     if (input % 1000 != 0) {
       throw new Error("[ERROR]구입금액은 1000의 배수이어야 합니다.");
     }
@@ -29,8 +29,8 @@ class App {
     while (!isValid) {
       try {
         purchasePrice = await MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
-        purchasePrice = Number(this.getPositivePrice(purchasePrice));
-        lottoQuantity = this.getThousandPrice(purchasePrice) / 1000;
+        purchasePrice = Number(App.getPositivePrice(purchasePrice));
+        lottoQuantity = App.getThousandPrice(purchasePrice) / 1000;
 
         isValid = true;
       } catch (error) {
@@ -43,7 +43,7 @@ class App {
     for (let i = 0; i < lottoQuantity; i++) {
       lottoArray.push(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6));
       lottoArray[i].sort((a, b) => a - b);
-      MissionUtils.Console.print(`[${lottoArray[i]}]`);
+      MissionUtils.Console.print(`[${lottoArray[i].join(", ")}]`);
     }
     while (isValid) {
       try {

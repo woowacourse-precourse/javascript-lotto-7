@@ -10,15 +10,15 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    if (!numbers.every(num => typeof num === 'number' && Number.isFinite(num))) {
+    if (!Array.isArray(numbers) || numbers.some(num => num === undefined || typeof num !== 'number' || isNaN(num))) {
       throw new Error("[ERROR] 로또 번호는 숫자여야 합니다.");
     }
-    if(!numbers.every(num => Number.isInteger(num) && num >= 1 && num <= 45)){
+    if (!numbers.every(num => Number.isInteger(num) && num >= 1 && num <= 45)) {
       throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 정수여야 합니다.");
     }
     const uniqueNumbers = new Set(numbers);
     if (uniqueNumbers.size !== numbers.length) {
-    throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
+      throw new Error("[ERROR] 로또 번호는 중복될 수 없습니다.");
     }
   }
 
@@ -36,8 +36,7 @@ class Lotto {
     if (matchCount === 4) return 4;
     if (matchCount === 3) return 5;
     return 6;
-
-  }  
+  }
 }
 
 export default Lotto;
