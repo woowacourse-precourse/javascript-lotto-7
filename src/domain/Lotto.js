@@ -7,24 +7,17 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
-    this.#numbers = this.#delimiter(numbers);
-    this.#numbers = this.#parseNumbers(numbers);
+    this.#numbers = numbers;
     this.#validate(this.#numbers);
-  }
-
-  #delimiter(numbers) {
-    if (!DELIMITER_REGEX.test(numbers)) {
-      throw new Error(ERROR_MESSAGE + LOTTO_ERROR.INVALID_DELIMITER);
-    }
-  }
-
-  #parseNumbers(numbers) {
-    return numbers.split(DELIMITER).map(Number);
   }
 
   #validate(numbers) {
     const validate = new LottoValidate();
     validate.validateLotto(numbers);
+  }
+
+  countMatchingNumbers(numbers) {
+    return this.#numbers.filter((number) => numbers.includes(number)).length;
   }
 
   get value() {
