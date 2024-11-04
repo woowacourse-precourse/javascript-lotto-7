@@ -42,9 +42,15 @@ class App {
     });
   }
 
+  calculateLotto(money) {
+    const lotto = money / 1000;
+    return lotto;
+  }
+
   async run() {
     try {
       const money = await this.inputMoney();
+      const lotto = this.calculateLotto(money);
     } catch (error) {
       MissionUtils.Console.print(error.message);
     }
