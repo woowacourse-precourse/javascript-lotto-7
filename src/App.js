@@ -4,6 +4,7 @@ import Lotto from "./Lotto.js";
 class App {
   constructor() {
     this.lottos = [];
+    this.winningNumbers = [];
   }
 
   async run() {
@@ -12,6 +13,7 @@ class App {
     Console.print(`${count}개를 구매했습니다.`);
     this.generateLottos(count);
     this.printLottos();
+    await this.inputWinningNumbers();
   }
 
   async promptPurchaseAmount() {
@@ -43,6 +45,21 @@ class App {
       const numbers = lotto.getNumbers();
       Console.print(`[${numbers.join(", ")}]`);
     });
+  }
+
+  async inputWinningNumbers() {
+    try {
+      const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
+      const numbers = input
+        .split(",")
+        .map((num) => Number(num.trim()))
+        .sort((a, b) => a - b);
+      new Lotto(numbers); // 유효성 검사를 위해 Lotto 인스턴스 생성
+      this.winningNumbers = numbers;
+    } catch (error) {
+      Console.print(error.message);
+      return this.inputWinningNumbers();
+    }
   }
 }
 
