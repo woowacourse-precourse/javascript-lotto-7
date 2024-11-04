@@ -1,9 +1,8 @@
 import { printOutput, readInput } from './utils/utils.js';
-import InputValidator from './validator/InputValidator.js';
 
 class InputView {
-  constructor() {
-    this.validator = new InputValidator();
+  constructor(inputValidator) {
+    this.inputValidator = inputValidator;
   }
 
   async readInputWithValidation(validator, promptMessage) {
@@ -20,7 +19,7 @@ class InputView {
   async readPurchaseAmount() {
     const purchaseAmountInput = await this.readInputWithValidation(input => {
       try {
-        this.validator.validatePurchaseAmount(input);
+        this.inputValidator.validatePurchaseAmount(input);
         return true;
       } catch (error) {
         printOutput(error.message);
@@ -35,7 +34,7 @@ class InputView {
     const winningNumbersInput = await this.readInputWithValidation(input => {
       const numbers = input.split(',').map(name => Number(name.trim()));
       try {
-        this.validator.validateWinningNumbers(numbers);
+        this.inputValidator.validateWinningNumbers(numbers);
         return true;
       } catch (error) {
         printOutput(error.message);
@@ -49,7 +48,7 @@ class InputView {
   async readBonusNumber(winningNumbers) {
     const bonusNumberInput = await this.readInputWithValidation(input => {
       try {
-        this.validator.validateBonusNumber(winningNumbers, input);
+        this.inputValidator.validateBonusNumber(winningNumbers, input);
         return true;
       } catch (error) {
         printOutput(error.message);

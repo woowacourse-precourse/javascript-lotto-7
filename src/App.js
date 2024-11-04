@@ -7,11 +7,13 @@ import LottoTicketService from './Service/LottoTicketService.js';
 import WinningResultCalculatorService from './Service/WinningResultCalculatorService.js';
 import ReturnRateCalculatorService from './Service/ReturnRateCalculatorService.js';
 import LottoMachineService from './Service/LottoMachineService.js';
+import InputValidator from './View/validator/InputValidator.js';
 
 class App {
   async run() {
     try {
-      const inputView = new InputView();
+      const inputValidator = new InputValidator();
+      const inputView = new InputView(inputValidator);
       const outputView = new OutputView();
       const lottoNumberGenerateService = new LottoNumberGenerateService();
       const lottoTicketService = new LottoTicketService(
