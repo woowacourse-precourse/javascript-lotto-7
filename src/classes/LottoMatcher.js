@@ -30,7 +30,7 @@ class LottoMatcher {
     matchCount.forEach((count, index) => {
       this.lottoCalculator.calculateLottoRank(count, index, bonusMatch);
     });
-
+    console.log(this.lottoCalculator.getLottoResults());
     return this.lottoCalculator.getLottoResults();
   }
 
