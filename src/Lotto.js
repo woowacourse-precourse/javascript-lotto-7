@@ -26,8 +26,8 @@ class Lotto {
     const matchedCount = this.#numbers.filter((num) =>
       winningNumbers.includes(num)
     ).length;
-    const hasBouns = this.#numbers.includes(bonusNumber);
-    return { matchedCount, hasBouns };
+    const hasBonus = this.#numbers.includes(bonusNumber);
+    return { matchedCount, hasBonus };
   }
 
   static validateWinningNumbers(winningNumbers) {

@@ -77,12 +77,12 @@ class App {
     const counts = { 3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0 };
 
     allLottos.forEach((lotto) => {
-      const { matchedCount, hasBouns } = lotto.getMatchResult(
+      const { matchedCount, hasBonus } = lotto.getMatchResult(
         winningNumbers,
         bonusNumber
       );
 
-      if (matchedCount === 5 && hasBouns) {
+      if (matchedCount === 5 && hasBonus) {
         counts["5_bonus"]++;
       } else if (matchedCount >= 3) {
         counts[matchedCount]++;
