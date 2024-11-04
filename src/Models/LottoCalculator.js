@@ -51,7 +51,11 @@ class LottoCalculator {
 
   #calculateProfitRate(purchaseAmount) {
     const winningMoney = this.#calculateWinningMoney();
-    this.#profitRate = (winningMoney / purchaseAmount) * 100;
+    const profitRate = (winningMoney / purchaseAmount) * 100;
+    const parseProfitRate = profitRate
+      .toFixed(1)
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+    this.#profitRate = parseProfitRate;
   }
 
   #updateWinningStatistics(lottos, winningNumbers, bonusNumber) {
