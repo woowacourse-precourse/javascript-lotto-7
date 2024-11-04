@@ -1,10 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 import LottoManager from './LottoManager.js'
+import WinningManager from './WinningManager.js';
 class App {
   constructor() {
     this.ITEM_PRICE = 1000;
 
     this.lottoManager = new LottoManager();
+    this.winningManager = new WinningManager();
   }
 
   async run() {
@@ -18,6 +20,8 @@ class App {
 
         this.lottoManager.generateLottos(amount);
         this.lottoManager.printLottos();
+
+        await this.winningManager.checkWinningNumbers(this.lottoManager.getLottoTickets());
 
         break;
       } catch (error) {
