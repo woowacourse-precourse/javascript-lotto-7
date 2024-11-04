@@ -244,16 +244,16 @@
 - [x] Lotteries의 길이를 확인한다.
 - [x] LotteryFactory의 unit Test를 작성한다.
 
-#### 3.3 **LotteryNumbers 클래스**
+#### 3.3 **validateLottoNumber 함수**
 
 - [x] LotteryNumber가 중복된 수가 있는지 확인한다.
 - [x] 정확한 값이 입력되었는지 확인한다.
 - [x] 트림 기능을 넣는 것을 고민해본다.
 - [x] 중복자를 검출하는 것을 고민해본다.
 - [x] LotteryNumbers의 unitTest를 작성한다.
-- [ ] LotteryNumbers의 unitTest를 보충한다.
+- [x] LotteryNumbers의 unitTest를 보충한다.
 
-#### 3.4 **ValidateBonusNumber**
+#### 3.4 **ValidateBonusNumber 함수**
 
 - [x] 보너스가 중복되는 것을 방지한다.
 - [x] 보너스 넘버 validation의 유닛 테스트를 작성한다.
@@ -268,23 +268,29 @@
 
 - [x] Validation을 진행한다. `parseInt`가 잘 적용되는지 확인한다.
 
-#### 3.8 **StatisticsService**
+#### 3.8 **StatisticsService 서비스**
 
 - [x] 유닛 테스트를 만든다.
+
+#### 3.9 **validateMoney 함수**
+
+- [x] 1000원으로 값이 떨어지지 않으면 예외를 던진다.
+- [x] 유닛테스트를 작성한다.
+- [x] 경계테스트를 추가한다.
 
 ---
 
 ### 4. **Validation 관련 작업**
 
 - [x] Validation logic을 구분하고, 어디에 붙일지 생각해본다.
-- [x] `validateMoney`의 유닛 테스트 작성
-- [x] Trim을 도입할지 결정한다.
+- [x] Trim을 도입할지 결정한다(도입 결정).
 
 ---
 
 ### 5. **Validator 리팩터링**
 
 - [x] Validator를 리팩터링하여 함수의 줄 수를 줄인다.
+- [x] compose 함수를 도입한다.
 
 ---
 
@@ -314,3 +320,4 @@
 - [] 당첨 번호와 보너스 번호를 입력받는다.
 - [] 사용자가 구매한 로또 번호와 당첨 번호를 비교하여 당첨 내역 및 수익률을 출력하고 로또 게임을 종료한다.
 - [] 사용자가 잘못된 값을 입력할 경우 "[ERROR]"로 시작하는 메시지와 함께 Error를 발생시키고 해당 메시지를 출력한 다음 해당 지점부터 다시 입력을 받는다.
+- [] 1000으로 나누어 떨어지지 않으면 예외 처리 한다.
