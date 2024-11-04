@@ -1,5 +1,9 @@
 import { PROMPTS, BONUS, lotteryStatistics } from "./constants.js";
-import { printParam, printResult } from "./handler/printHandlers.js";
+import {
+  printParam,
+  printPercent,
+  printResult,
+} from "./handler/printHandlers.js";
 import {
   handlePurchaseInput,
   handleLotteryNumInput,
@@ -79,9 +83,20 @@ class App {
         return printResult(result, BONUS.BONUS_MENT);
       }
       printResult(result);
-    })
-  };
+    });
+    this.showProfitRate(results, tickets);
+  }
 
+  showProfitRate(result, tickets) {
+    const totalProfit = result
+      .map((resultObj) => {
+        resultObj.price * Number(resultObj.amount);
+      })
+      .reduce((prev, curr) => prev + curr, 0);
+
+    const profitRate = Math.round((totalProfit / tickets) * 100 * 100) / 100;
+    printPercent(profitRate);
+  }
 }
 
 export default App;
