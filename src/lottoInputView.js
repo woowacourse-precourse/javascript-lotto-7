@@ -7,4 +7,11 @@ export const lottoInputView = {
 
     return input.trim();
   },
+  async readWinningNumberList() {
+    const input = await Console.readLineAsync(
+      LOTTO_INPUT_QUERY.WINNING_NUMBER_LIST
+    );
+
+    return input.trim();
+  },
 };

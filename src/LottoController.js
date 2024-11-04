@@ -10,6 +10,8 @@ export class LottoController {
     await this.inputPurchasePrice();
 
     this.printPurchasedLottoList();
+
+    await this.inputWinningNumberList();
   }
 
   async inputPurchasePrice() {
@@ -24,6 +26,20 @@ export class LottoController {
     } catch (error) {
       lottoOutputView.showMessage(error.message);
       this.inputPurchasePrice(error);
+    }
+  }
+
+  async inputWinningNumberList() {
+    try {
+      const input = await lottoInputView.readWinningNumberList();
+      const winningNumberList = input.split(",").map(Number);
+
+      lottoValidator.validateWinningNumberList(winningNumberList);
+
+      lottoOutputView.showEmptyLine();
+    } catch (error) {
+      lottoOutputView.showMessage(error.message);
+      this.inputWinningNumberList(error);
     }
   }
 
