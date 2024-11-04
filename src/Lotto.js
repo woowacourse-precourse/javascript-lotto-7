@@ -14,6 +14,7 @@ class Lotto {
     this.winningNumbers = [];
     this.bonusNumber = 0;
     this.winningStatistics = { 3: 0, 4: 0, 5: 0, 5.5: 0, 6: 0 };
+    this.profitRate = 0;
   }
 
   // 구입 금액을 입력받아 초기화
@@ -28,6 +29,8 @@ class Lotto {
     await this.inputAndValidateBonusNumber();
     this.calculateWinningStatistics();
     this.printWinningStatistics();
+    this.calculateProfitRate();
+    this.printProfitRate();
   }
 
   // 1. 구입 금액을 입력받고 검증
@@ -115,6 +118,31 @@ class Lotto {
     Console.print(`5개 일치 (1,500,000원) - ${this.winningStatistics[5]}개`);
     Console.print(`5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.winningStatistics[5.5]}개`);
     Console.print(`6개 일치 (2,000,000,000원) - ${this.winningStatistics[6]}개`);
+  }
+
+  // 8-1. 수익률 계산 함수
+  calculateProfitRate() {
+    const prizeMoney = {
+      3: 5000,
+      4: 50000,
+      5: 1500000,
+      5.5: 30000000,
+      6: 2000000000,
+    };
+
+    let totalPrize = 0;
+    for (const [match, count] of Object.entries(this.winningStatistics)) {
+      const matchKey = parseFloat(match);
+      totalPrize += count * prizeMoney[matchKey];
+    }
+
+    // 수익률 = 총 당첨금 / 구입 금액
+    this.profitRate = (totalPrize / this.purchaseAmount).toFixed(1);
+  }
+
+  // 8-2. 수익률 출력 함수
+  printProfitRate() {
+    Console.print(`\n총 수익률은 ${this.profitRate}%입니다.`);
   }
 }
 
