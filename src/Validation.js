@@ -14,6 +14,9 @@ export function validateWinnum(winnum) {
     if (winnum.some(num => isNaN(num))) {
         throw new Error('[ERROR] 당첨번호는 숫자여야 합니다.');
     }
+    if (winnum.length<6) {
+        throw new Error('[ERROR] 당첨번호는 6개 입력하셔야 합니다.');
+    }
     if (winnum.some(num => num < 1 || num > 45)) {
         throw new Error('[ERROR] 당첨번호는 1 ~ 45 범위 안에 있어야 합니다.');
     }
