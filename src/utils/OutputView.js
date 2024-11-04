@@ -63,6 +63,6 @@ export function printFinalResults(statistics) {
   const messages = [];
   pushTitleMessages(messages);
   pushResultMessages(statistics, messages);
-
+  printBlankLine();
   Console.print(messages.join('\n'));
 }
