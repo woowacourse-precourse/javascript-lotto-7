@@ -55,9 +55,9 @@ class LottoMachine {
   }
 
   static setMatchResults(results, map) {
-    const TARGET_Number = 5;
+    const TARGET_NUMBER = 5;
     results.forEach(({ matchCount, hasBonus }) => {
-      const isBonusNumber = hasBonus && matchCount === TARGET_Number;
+      const isBonusNumber = hasBonus && matchCount === TARGET_NUMBER;
 
       if (isBonusNumber) map.set('bonus', (map.get(matchCount) ?? 0) + 1);
       else map.set(matchCount, (map.get(matchCount) ?? 0) + 1);
