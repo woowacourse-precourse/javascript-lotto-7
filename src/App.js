@@ -23,7 +23,9 @@ class App {
       const ticketArr = new Ticket(purchase.count);
 
       const userLottos = ticketArr.generateTickets();
-      const generateLottoNumbers = userLottos.map((lotto) => lotto.value);
+      const generateLottoNumbers = userLottos.map(
+        (lotto) => `[${lotto.value.join(", ")}]`
+      );
       await getLottoNumber(generateLottoNumbers);
 
       const lottoInput = await getInput(INPUT.LOTTO_NUMBER);
@@ -42,7 +44,7 @@ class App {
       await getResult(winningStatus);
       await getOutput(`총 수익률은 ${rate}%입니다.`);
     } catch (error) {
-      throw new Error(error.message);
+      await getOutput(error.message);
     }
   }
 }
