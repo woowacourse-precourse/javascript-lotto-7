@@ -148,9 +148,8 @@ class App {
     Console.print(`6개 일치 (2,000,000,000원) - ${results.first}개`);
 
     const totalPrize = this.calculateTotalPrize(results, prizeTable);
-    const profitRate = this.calculateYield(totalPrize); // 변수명 변경
+    const profitRate = this.calculateYield(totalPrize);
     Console.print(`총 수익률은 ${profitRate}%입니다.`);
-    Console.close();
   }
 
   calculateTotalPrize(results, prizeTable) {
@@ -164,7 +163,7 @@ class App {
   }
 
   calculateYield(totalPrize) {
-    const yieldRate = (totalPrize / this.purchaseAmount) * 100; // 변수명 변경
+    const yieldRate = (totalPrize / this.purchaseAmount) * 100;
     return yieldRate.toFixed(1);
   }
 }

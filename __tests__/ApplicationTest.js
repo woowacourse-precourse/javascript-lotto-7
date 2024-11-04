@@ -1,16 +1,17 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+// 모의 입력 설정 함수
 const mockQuestions = (inputs) => {
-  MissionUtils.Console.readLineAsync = jest.fn();
+  MissionUtils.Console.readLine = jest.fn();
 
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
+  MissionUtils.Console.readLine.mockImplementation((question, callback) => {
     const input = inputs.shift();
-
-    return Promise.resolve(input);
+    callback(input);
   });
 };
 
+// 모의 랜덤 숫자 설정 함수
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickUniqueNumbersInRange = jest.fn();
   numbers.reduce((acc, number) => {
@@ -18,27 +19,25 @@ const mockRandoms = (numbers) => {
   }, MissionUtils.Random.pickUniqueNumbersInRange);
 };
 
+// 출력 감시 설정 함수
 const getLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, "print");
   logSpy.mockClear();
   return logSpy;
 };
 
+// 예외 테스트 함수
 const runException = async (input) => {
-  // given
   const logSpy = getLogSpy();
-
   const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 6];
   const INPUT_NUMBERS_TO_END = ["1000", "1,2,3,4,5,6", "7"];
 
   mockRandoms([RANDOM_NUMBERS_TO_END]);
   mockQuestions([input, ...INPUT_NUMBERS_TO_END]);
 
-  // when
   const app = new App();
   await app.run();
 
-  // then
   expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
 };
 
@@ -48,7 +47,6 @@ describe("로또 테스트", () => {
   });
 
   test("기능 테스트", async () => {
-    // given
     const logSpy = getLogSpy();
 
     mockRandoms([
@@ -63,11 +61,9 @@ describe("로또 테스트", () => {
     ]);
     mockQuestions(["8000", "1,2,3,4,5,6", "7"]);
 
-    // when
     const app = new App();
     await app.run();
 
-    // then
     const logs = [
       "8개를 구매했습니다.",
       "[8, 21, 23, 41, 42, 43]",
