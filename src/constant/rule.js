@@ -1,6 +1,8 @@
 export const RULE = Object.freeze({
-  purchaseAmountUnit: 1000,
-  maxPurchaseAmount: 2000000000,
+  purchaseAmount: {
+    unit: 1000,
+    max: 2000000000,
+  },
   lotto: {
     minNumber: 1,
     maxNumber: 45,

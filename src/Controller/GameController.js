@@ -29,17 +29,20 @@ class GameController {
       this.#validatePurchaseAmount,
     );
 
-    return amount / RULE.purchaseAmountUnit;
+    return amount / RULE.purchaseAmount.unit;
   }
 
   #validatePurchaseAmount(input) {
     const amount = Number(input);
+
     if (!isNumber(amount)) {
       throwWoowaError(ERROR_MESSAGE.invalidNumberType);
     }
-
-    if (amount % RULE.purchaseAmountUnit !== 0) {
+    if (amount % RULE.purchaseAmount.unit !== 0) {
       throwWoowaError(ERROR_MESSAGE.invalidPurchaseAmountUnit);
+    }
+    if (amount > RULE.purchaseAmount.max) {
+      throwWoowaError(ERROR_MESSAGE.exceedMaxPurchaseAmount);
     }
 
     return amount;

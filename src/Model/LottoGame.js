@@ -86,7 +86,8 @@ class LottoGame {
       0,
     );
     return (
-      (totalWinningAmount / (this.#lottoAmount * RULE.purchaseAmountUnit)) * 100
+      (totalWinningAmount / (this.#lottoAmount * RULE.purchaseAmount.unit)) *
+      100
     );
   }
 }
