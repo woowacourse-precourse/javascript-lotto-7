@@ -30,16 +30,15 @@ export const inputPrize = async () => {
   const prizeNumber = await Console.readLineAsync(
     "당첨 번호를 입력해 주세요." + "\n"
   );
-  const prizeArray = prizeNumber.split(",");
-  const prize = prizeArray.map((e) => e.trim());
+  const prizeArray = prizeNumber.split(",").map(Number);
 
-  isInputEmpty(prize);
-  isNotNumberPrize(prize);
-  isOutOfRangeInput(prize);
-  isMorePrize(prize);
-  isDuplicatePrize(prize);
+  isInputEmpty(prizeArray);
+  isNotNumberPrize(prizeArray);
+  isOutOfRangeInput(prizeArray);
+  isMorePrize(prizeArray);
+  isDuplicatePrize(prizeArray);
 
-  return prize;
+  return prizeArray;
 };
 
 export const inputBouns = async (prize) => {
