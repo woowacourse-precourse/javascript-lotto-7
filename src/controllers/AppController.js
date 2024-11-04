@@ -23,7 +23,12 @@ class AppController {
     const bonusNumber = await this.consoleView.getBonusNumber();
     new BonusNumberModel(bonusNumber, winningNumbers);
 
-    this.resultController.run(winningNumbers, lottoNumbers, purchaseAmount);
+    this.resultController.run(
+      winningNumbers,
+      lottoNumbers,
+      purchaseAmount,
+      bonusNumber
+    );
   }
 }
 

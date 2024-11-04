@@ -4,27 +4,25 @@ import {
   WINNING_COUNT_LENGTH,
 } from "../constants/resultConstants.js";
 
-export const calculateWinningDetails = function (matchingNumber) {
+export const calculateWinningDetails = function (matchedNumbers, bonusNumber) {
   const winningCounts = new Array(WINNING_COUNT_LENGTH).fill(
     INITIAL_WINNING_COUNT
   );
 
-  matchingNumber.forEach((match) => {
-    switch (match.length) {
-      case 3:
-        winningCounts[0] += MATCH_INCREMENT;
-        break;
-      case 4:
-        winningCounts[1] += MATCH_INCREMENT;
-        break;
-      case 5:
-        winningCounts[2] += MATCH_INCREMENT;
-        break;
-      case 6:
-        winningCounts[4] += MATCH_INCREMENT;
-        break;
-      default:
-        break;
+  matchedNumbers.forEach((numbers) => {
+    const includesBonus = numbers.includes(Number(bonusNumber));
+    const matchedCount = numbers.length;
+
+    if (includesBonus && matchedCount === 6) {
+      winningCounts[3] += MATCH_INCREMENT;
+    }
+
+    if (includesBonus && matchedCount !== 6) {
+      winningCounts[matchedCount - 1] += MATCH_INCREMENT;
+    }
+
+    if (!includesBonus) {
+      winningCounts[matchedCount] += MATCH_INCREMENT;
     }
   });
 
