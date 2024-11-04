@@ -34,8 +34,25 @@ const ERROR = Object.freeze({
   INVALID_LOTTO_NUMBERS_INPUT: '[ERROR] 입력한 로또 번호들이 문자열이 아닙니다.',
 });
 
-const RESULT = {
+const CONDITION = Object.freeze({
+  FIRST_PLACE: 6,
+  THIRD_PLACE: 5,
+  FOURTH_PLACE: 4,
+  FIFTH_PLACE: 3,
+});
 
+const RESULT = (position) => {
+  return `\n당첨 통계
+---
+3개 일치 (5,000원) - ${position.fifth}개
+4개 일치 (50,000원) - ${position.fourth}개
+5개 일치 (1,500,000원) - ${position.third}개
+5개 일치, 보너스 볼 일치 (30,000,000원) - ${position.second}개
+6개 일치 (2,000,000,000원) - ${position.first}개`;
+};
+
+const PRIZE_RATE = (rate) => {
+  return `총 수입률은 ${rate}%입니다.`;
 };
 
 export {
@@ -44,5 +61,7 @@ export {
   LOTTO,
   PRIZE,
   ERROR,
+  CONDITION,
   RESULT,
+  PRIZE_RATE,
 };

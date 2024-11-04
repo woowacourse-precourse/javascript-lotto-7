@@ -1,9 +1,9 @@
-import { INPUT, LOTTO, OUTPUT } from "./util/constant.js";
+import { CONDITION, INPUT, LOTTO, OUTPUT, PRIZE, PRIZE_RATE, RESULT } from "./util/constant.js";
 import Purchase from "./Purchase.js";
 import { readUserInput } from "./util/input.js";
 import Lotto from "./Lotto.js";
 import { Console } from "@woowacourse/mission-utils";
-import { generateLottoNumbers } from "./util/general.js";
+import { formatPercentage, generateLottoNumbers } from "./util/general.js";
 import Validate from "./ValidateInput.js";
 
 class Game {
@@ -11,8 +11,9 @@ class Game {
   static async startGame() {
     try {
       // validate purchase amount and generate lottos
-      const inputAmount = new Purchase(await readUserInput(INPUT.PURCHASE_AMOUNT));
-      const tickets = inputAmount.getTicketCount();
+      const inputAmount = await readUserInput(INPUT.PURCHASE_AMOUNT);
+      const amount = new Purchase(inputAmount);
+      const tickets = amount.getTicketCount();
       const generatedTickets = this.#buyLotto(tickets);
 
       // validate winning numbers
@@ -24,7 +25,8 @@ class Game {
       const bonusNumber = Validate.validateBonus(inputBonusNumber, winningNumbers);
 
       // match winning numbers and purchased lotto numbers
-      this.#matchNumbers(generatedTickets, winningNumbers, bonusNumber);
+      const result = this.#matchNumbers(generatedTickets, winningNumbers, bonusNumber);
+      this.#printResults(result, inputAmount);
 
     } catch (error) {
       console.error(error.message);
@@ -73,11 +75,42 @@ class Game {
       resultList.push([point, bonusPoint]);
     });
 
-    this.#rank(resultList);
+    const result = this.#rank(resultList);
+    return result;
   };
 
   static #rank(resultList) {
-    console.log(resultList);
+    const rankCounts = {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+    };
+    resultList.forEach(([point, bonusPoint]) => {
+      if (point === CONDITION.FIRST_PLACE) rankCounts.first++;
+      if (point === CONDITION.THIRD_PLACE && bonusPoint) rankCounts.second++;
+      if (point === CONDITION.THIRD_PLACE) rankCounts.third++;
+      if (point === CONDITION.FOURTH_PLACE) rankCounts.fourth++;
+      if (point === CONDITION.FIFTH_PLACE) rankCounts.fifth++;
+    });
+
+    return rankCounts;
+  }
+
+  static #printResults(result, inputAmount) {
+    console.log(RESULT(result));
+    const { first, second, third, fourth, fifth } = result;
+    const prizeMoney =
+      (first * PRIZE.FIRST_PLACE) +
+      (second * PRIZE.SECOND_PLACE) +
+      (third * PRIZE.THIRD_PLACE) +
+      (fourth * PRIZE.FOURTH_PLACE) +
+      (fifth * PRIZE.FIFTH_PLACE);
+
+    const prizeRate = formatPercentage(inputAmount, prizeMoney);
+    Console.print(PRIZE_RATE(prizeRate));
+
   }
 };
 

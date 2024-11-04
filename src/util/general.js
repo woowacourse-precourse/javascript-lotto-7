@@ -4,6 +4,16 @@ function generateLottoNumbers(min, max, number) {
   return MissionUtils.Random.pickUniqueNumbersInRange(min, max, number);
 };
 
+function formatPercentage(input, amount) {
+  const percentage = (amount / input) * 100;
+  if (percentage % 100 === 0) {
+    return Number(percentage);
+  } else {
+    return percentage.toFixed(1);
+  }
+}
+
 export {
   generateLottoNumbers,
+  formatPercentage,
 };

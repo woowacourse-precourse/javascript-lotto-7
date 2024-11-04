@@ -21,6 +21,10 @@ class Purchase {
     return this.#amount / LOTTO.PRICE;
   };
 
+  getInputAmount() {
+    return this.#amount;
+  }
+
   getTicketCount() {
     return this.#tickets;
   };
