@@ -15,8 +15,8 @@ class Opportunity {
     this.#outcome.calculateOutcome(stats);
   }
 
-  calculateRate() {
-    this.#rate = this.#outcome.outcome / this.#cost.cost * 100;
+  calculateRate(outcome = this.#outcome.outcome, cost = this.#cost.cost) {
+    this.#rate = outcome / cost * 100;
     return this.#rate;
   }
 
