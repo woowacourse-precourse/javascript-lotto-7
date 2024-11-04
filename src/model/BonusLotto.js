@@ -7,7 +7,7 @@ class BonusLotto {
   }
 
   validate(bonusNumber, winningNumbers) {
-    if (!bonusNumber) {
+    if (bonusNumber === undefined || bonusNumber === null) {
       throw new Error("[ERROR] 보너스 번호를 입력해야 합니다.");
     }
 
