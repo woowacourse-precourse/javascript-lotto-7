@@ -93,6 +93,14 @@ class LottoManager {
   getLottoCountTest(price) {
     return this.#getLottoCount(price);
   }
+
+  getMatchedCountInLottosTest() {
+    return this.#getMatchedCountInLottos();
+  }
+
+  setLottos(lottos) {
+    this.#lottos = lottos;
+  }
 }
 
 export default LottoManager;
