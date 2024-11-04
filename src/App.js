@@ -38,7 +38,8 @@ class App {
         "총 수익률은 " + profit.toFixed(1) + "%입니다."
       );
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
+      MissionUtils.Console.print(error.message);
     }
   }
 }
