@@ -42,6 +42,10 @@ class UserInput {
       throw new Error("[ERROR] 보너스 숫자는 숫자이어야 합니다.");
     }
 
+    if (bonusNum < 1 || bonusNum > 45) {
+      throw new Error("[ERROR] 보너스 번호는 1~45 사이의 숫자여야 합니다.");
+    }
+
     return bonusNum;
   }
 }
