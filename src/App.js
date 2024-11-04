@@ -16,15 +16,23 @@ class App {
   }
 
   async run() {
+    await this.purchaseLottos();
+    await this.inputWinningNumbers();
+    this.calculateResults();
+    this.printResults();
+  }
+
+  async purchaseLottos() {
     const amount = await this.promptPurchaseAmount();
     const count = amount / 1000;
     Console.print(`${count}개를 구매했습니다.`);
-    this.generateLottos(count);
-    this.printLottos();
-    await this.inputWinningNumbers();
-    await this.inputBonusNumber();
-    this.calculateResults();
-    this.printResults();
+    for (let i = 0; i < count; i++) {
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
+        (a, b) => a - b
+      );
+      this.lottos.push(new Lotto(numbers));
+      Console.print(`[${numbers.join(", ")}]`);
+    }
   }
 
   async promptPurchaseAmount() {
@@ -41,23 +49,6 @@ class App {
     }
   }
 
-  generateLottos(count) {
-    for (let i = 0; i < count; i++) {
-      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6).sort(
-        (a, b) => a - b
-      );
-      const lotto = new Lotto(numbers);
-      this.lottos.push(lotto);
-    }
-  }
-
-  printLottos() {
-    this.lottos.forEach((lotto) => {
-      const numbers = lotto.getNumbers();
-      Console.print(`[${numbers.join(", ")}]`);
-    });
-  }
-
   async inputWinningNumbers() {
     try {
       const input = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
@@ -67,6 +58,7 @@ class App {
         .sort((a, b) => a - b);
       new Lotto(numbers); // 유효성 검사를 위해 Lotto 인스턴스 생성
       this.winningNumbers = numbers;
+      await this.inputBonusNumber();
     } catch (error) {
       Console.print(error.message);
       return this.inputWinningNumbers();
@@ -102,39 +94,34 @@ class App {
       ).length;
       const hasBonus = numbers.includes(this.bonusNumber);
 
-      if (matchCount === 6) {
-        this.prizeTable[6].count += 1;
-        return;
-      }
       if (matchCount === 5 && hasBonus) {
         this.prizeTable["5+bonus"].count += 1;
         return;
       }
-      if (matchCount === 5) {
-        this.prizeTable[5].count += 1;
-        return;
-      }
-      if (matchCount === 4) {
-        this.prizeTable[4].count += 1;
-        return;
-      }
-      if (matchCount === 3) {
-        this.prizeTable[3].count += 1;
+      if (matchCount >= 3) {
+        this.prizeTable[matchCount].count += 1;
       }
     });
   }
 
   printResults() {
     Console.print("\n당첨 통계\n---");
-    Console.print(`3개 일치 (5,000원) - ${this.prizeTable[3].count}개`);
-    Console.print(`4개 일치 (50,000원) - ${this.prizeTable[4].count}개`);
-    Console.print(`5개 일치 (1,500,000원) - ${this.prizeTable[5].count}개`);
     Console.print(
-      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${
-        this.prizeTable["5+bonus"].count
+      `3개 일치 (5,000원) - ${this.prizeTable[3].count}개`
+    );
+    Console.print(
+      `4개 일치 (50,000원) - ${this.prizeTable[4].count}개`
+    );
+    Console.print(
+      `5개 일치 (1,500,000원) - ${this.prizeTable[5].count}개`
+    );
+    Console.print(
+      `5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.prizeTable["5+bonus"].count
       }개`
     );
-    Console.print(`6개 일치 (2,000,000,000원) - ${this.prizeTable[6].count}개`);
+    Console.print(
+      `6개 일치 (2,000,000,000원) - ${this.prizeTable[6].count}개`
+    );
     const totalPrize = Object.values(this.prizeTable).reduce(
       (acc, curr) => acc + curr.count * curr.prize,
       0
