@@ -55,6 +55,27 @@ describe("InputHandler 클래스 테스트", () => {
       const numbers = await inputHandler.getWinningNumbers();
       expect(numbers).toEqual([1, 2, 3, 4, 5, 6]);
     });
+    it("6개의 숫자가 아닌 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync.mockResolvedValueOnce("1,2,3,4,5").mockResolvedValueOnce("1,2,3,4,5,6");
+      await inputHandler.getWinningNumbers();
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_COUNT);
+    });
+
+    it("중복된 숫자가 포함된 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync
+        .mockResolvedValueOnce("1,2,3,4,5,5")
+        .mockResolvedValueOnce("1,2,3,4,5,6");
+      await inputHandler.getWinningNumbers();
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.DUPLICATE_LOTTO_NUMBER);
+    });
+
+    it("범위를 벗어난 숫자가 포함된 경우, 에러 메시지를 출력하고 재입력을 요청한다.", async () => {
+      Console.readLineAsync
+        .mockResolvedValueOnce("0,2,3,4,5,6")
+        .mockResolvedValueOnce("1,2,3,4,5,6");
+      await inputHandler.getWinningNumbers();
+      expect(Console.print).toHaveBeenCalledWith(ERROR_MESSAGES.INVALID_LOTTO_NUMBER_RANGE);
+    });
   });
 
   describe("getBonusNumber 메서드", () => {
