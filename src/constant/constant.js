@@ -15,6 +15,7 @@ export const ERROR_MESSAGES = Object.freeze({
   NOT_DIVISIBLE: '구입 금액은 1,000원 단위로 입력해야 합니다.',
   INVALID_LENGTH: '번호는 6개여야 합니다.',
   DUPLICATE_NUMBER: '번호는 중복되지 않아야 합니다.',
+  OUT_OF_RANGE: '번호는 1 ~ 45까지의 숫자입니다.',
 });
 
 export const LOTTO = Object.freeze({

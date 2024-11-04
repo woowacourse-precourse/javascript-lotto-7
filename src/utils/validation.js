@@ -29,3 +29,19 @@ export const checkDuplicate = (numbers) => {
     throwValidationError(ERROR_MESSAGES.DUPLICATE_NUMBER);
   }
 };
+
+export const checkNumberInRange = (number) => {
+  const isOutOfRange = !isWithinRange(number);
+
+  if (isOutOfRange) {
+    throwValidationError(ERROR_MESSAGES.OUT_OF_RANGE);
+  }
+};
+
+export const checkAllNumbersInRange = (numbers) => {
+  const isOutOfRange = numbers.some((num) => !isWithinRange(num));
+
+  if (isOutOfRange) {
+    throwValidationError(ERROR_MESSAGES.OUT_OF_RANGE);
+  }
+};
