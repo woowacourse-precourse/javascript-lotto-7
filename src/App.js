@@ -34,7 +34,21 @@ class App {
     }
   }
 
-  async run() {}
+  async inputMoney() {
+    return this.retryOnError(async () => {
+      const money = await this.inputPurchase();
+      this.validateMoney(money);
+      return money;
+    });
+  }
+
+  async run() {
+    try {
+      const money = await this.inputMoney();
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+    }
+  }
 }
 
 export default App;
