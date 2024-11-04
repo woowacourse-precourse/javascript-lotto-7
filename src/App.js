@@ -18,7 +18,8 @@ class App {
   };
 
   async run() {
-    const lottoCount = await this.inputMoney();
+    const money = await this.inputMoney();
+    const lottoCount = this.calculateLottoCount(money);
     const lottos = this.getLotto(lottoCount);
     this.printLottos(lottos);
     const lottoNumber = await this.inputLottoNumber();
@@ -148,8 +149,7 @@ class App {
 
   parseMoney(moneyInput) {
     this.validateMoney(moneyInput);
-    const money = Number(moneyInput);
-    return this.calculateLottoCount(money);
+    return Number(moneyInput);
   }
 
   validateMoney(moneyInput) {
