@@ -17,10 +17,10 @@ class App {
       const lottos = this.purchaseLottos(Number(money));
       this.issueLottos(lottos);    
     
-      const winInput = await Console.readLineAsync("당첨 번호를 입력해 주세요.\n");
+      const winInput = await Console.readLineAsync("\n당첨 번호를 입력해 주세요.\n");
       const winNumbers = this.parseWinInput(winInput);
 
-      const bonusInput = await Console.readLineAsync("보너스 번호를 입력해 주세요.\n");
+      const bonusInput = await Console.readLineAsync("\n보너스 번호를 입력해 주세요.\n");
       const bonusNumber = this.validateBonusNumber(Number(bonusInput), winNumbers);
 
       const results = this.countResults(lottos, winNumbers, bonusNumber);
@@ -42,7 +42,7 @@ class App {
   }
 
   issueLottos(lottos) {
-    Console.print(`${lottos.length}개를 구매했습니다.`);
+    Console.print(`\n${lottos.length}개를 구매했습니다.`);
     lottos.forEach((lotto) => Console.print(`[${lotto.getNumbers().join(", ")}]`));
   }
 
@@ -89,7 +89,7 @@ class App {
   }
 
   resultOutput(results, profitRate) {
-    Console.print("당첨 통계\n---");
+    Console.print("\n당첨 통계\n---");
 
     const order = [3, 4, 5, 15, 6];
     order.forEach((rank) => {
