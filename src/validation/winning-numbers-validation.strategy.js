@@ -119,15 +119,15 @@ class WinningNumbersValidationStrategy extends ValidationStrategy {
   #validateParsedWinningNumber(validator) {
     validator
       .validate(this.#parse(this.#winningNumbers))
+      .with(this.#isPositiveInteger, {
+        message:
+          WinningNumbersValidationStrategy.ERROR_MESSAGE.WINNING_NUMBERS_MUST_BE_POSITIVE_INTEGER,
+      })
       .with(this.#isValidRange, {
         message: WinningNumbersValidationStrategy.ERROR_MESSAGE.WINNING_NUMBERS_RANGE_IS_NOT_VALID,
       })
       .with(this.#isValidLength, {
         message: WinningNumbersValidationStrategy.ERROR_MESSAGE.WINNING_NUMBERS_LENGTH_IS_NOT_VALID,
-      })
-      .with(this.#isPositiveInteger, {
-        message:
-          WinningNumbersValidationStrategy.ERROR_MESSAGE.WINNING_NUMBERS_MUST_BE_POSITIVE_INTEGER,
       })
       .with(this.#isNotDuplicated, {
         message:
