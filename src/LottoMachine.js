@@ -1,12 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
 import { isInteger } from "./validator.js"
+import { MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT, PRICE } from "./constants/lottoRules.js"
 import Lotto from "./Lotto.js"
+import ERROR_MESSAGE from "./constants/errorMessages.js"
 
 const ASK_PAYMENT_MESSAGE = '구입금액을 입력해 주세요.\n'
 const ASK_WINNING_NUMBERS_MESSAGE = '\n당첨 번호를 입력해 주세요.\n'
 const ASK_BOUNS_NUMBER_MESSAGE = '\n보너스 번호를 입력해 주세요.\n'
-
-const PRICE = 1000;
 
 const LottoMachine = {
   score: {
@@ -32,8 +32,8 @@ const LottoMachine = {
 
   isValidPayment(input) {
     isInteger(input);
-    if (input < PRICE) throw Error(`[ERROR] ${PRICE}원 이상의 금액을 입력해주세요.`);
-    if ((input % PRICE) !== 0) throw Error(`[ERROR] 구매 금액은 ${PRICE}원 단위로 입력해주세요.`);
+    if (input < PRICE) throw Error(ERROR_MESSAGE.PAYMENT_IS_UNDER_PRICE);
+    if ((input % PRICE) !== 0) throw Error(ERROR_MESSAGE.PAYMENT_IS_NOT_PRICE_PER_UNIT);
   },
 
   // 당첨 번호 입력
@@ -58,7 +58,7 @@ const LottoMachine = {
       const input = await MissionUtils.Console.readLineAsync(ASK_BOUNS_NUMBER_MESSAGE);
       isInteger(input);
       Lotto.isValidNumber(input);
-      if (this.winningNumbers.numbers.includes(Number(input))) throw Error('[ERROR] 보너스 번호가 중복됨')
+      if (this.winningNumbers.numbers.includes(Number(input))) throw Error(ERROR_MESSAGE.NUMBERS_ARE_REPEATED)
       this.bonusNumber = Number(input);
 
     } catch (err) {
@@ -70,7 +70,7 @@ const LottoMachine = {
   // 로또 번호 발행
   getLottoNumber() {
     this.lottoList = Array.from({ length: this.quantity }, () =>
-      new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6))
+      new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT))
     );
     this.sortLotto();
     this.printLotto();
