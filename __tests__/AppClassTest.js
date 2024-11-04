@@ -39,6 +39,19 @@ describe("App 클래스 테스트", () => {
     const fiveMatches = lotteryStatistics.find(stat => stat.matches === 5);
     expect(fiveMatches).toBeDefined();
     expect(fiveMatches.amount).toBe(0);
-  })
+  });
+
+  test("showProfitRate 메서드가 정확한 총 수익률을 내는가?", () => {
+    const results = [
+      { price: 5000, amount: 1 },
+      { price: 2000, amount: 1 },
+    ];
+    const tickets = 2;
+
+    app.showProfitRate(results, tickets);
+
+    const expectedRate = Math.round(((5000 + 2000) / tickets) * 100 * 100) / 100;
+    expect(printPercent).toHaveBeenCalledWith(expectedRate);
+  });
 
 });
