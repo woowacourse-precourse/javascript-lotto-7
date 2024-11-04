@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import processPurchase from "./process/processPurchase.js";
 import processLottoList from "./process/processLottoList.js";
 import processWinNumber from "./process/processWinNumber.js";
