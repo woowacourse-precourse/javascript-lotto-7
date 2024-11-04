@@ -1,9 +1,11 @@
+import sortAscending from "../utils/sort.js";
+
 class Lotto {
   #numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = sortAscending(numbers);
   }
 
   #validate(numbers) {
@@ -12,7 +14,9 @@ class Lotto {
     }
   }
 
-  // TODO: 추가 기능 구현
+  get numbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
