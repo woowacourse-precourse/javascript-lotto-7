@@ -1,13 +1,16 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import { MESSAGES } from "./constants/messages.js";
 import { MAGIC_NUMBER } from "./constants/magicNumber.js";
+import Lotto from "./Lotto.js";
 
 class LottoVendingMachine {
-  #lottoAmount;
+  #lottoAmount = 0;
   #lottos = [];
+  #winNumbers = [];
+  #bounsNumber = 0;
 
   async run() {
-    await this.purchaseLottoAmount();
+    await this.purchaseLottoAmountInput();
 
     // 로또 번호 발행()
     //   로또 번호 검사()
@@ -18,13 +21,17 @@ class LottoVendingMachine {
 
     // 당첨번호 입력()
     //   당첨 번호 검사()
+    await this.winNumbersInput();
+
     // 보너스번호 입력()
     //    보너스 번호 검사()
+    await this.bounsNumberInput();
+
     // 당첨내역 출력()
     // 총 수익률 출력()
   }
 
-  async purchaseLottoAmount() {
+  async purchaseLottoAmountInput() {
     while (true) {
       try {
         let money = await Console.readLineAsync(
@@ -73,6 +80,25 @@ class LottoVendingMachine {
     Console.print(MESSAGES.OUTPUT.PURCHASE_LOTTO_NUMBER(this.#lottoAmount));
     this.#lottos.forEach((lotto) => Console.print(lotto));
   }
+
+  async winNumbersInput() {
+    while (true) {
+      try {
+        let winNumbers = await Console.readLineAsync(
+          MESSAGES.INPUT.WIN_NUMBERS
+        );
+        winNumbers = winNumbers.split(",").map((n) => Number(n));
+        const lotto = new Lotto(winNumbers);
+        this.#winNumbers = winNumbers;
+
+        return this.#winNumbers;
+      } catch (e) {
+        Console.print(e.message);
+      }
+    }
+  }
+
+  bounsNumberInput() {}
 }
 
 export default LottoVendingMachine;
