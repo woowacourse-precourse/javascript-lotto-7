@@ -18,6 +18,13 @@ class App {
     return MissionUtils.Console.readLineAsync("구입금액을 입력해 주세요.\n");
   }
 
+  validateMoney(money) {
+    const rest = money % 1000;
+    if (rest !== 0) {
+      throw new Error("[ERROR] 천원 단위로만 입력해 주세요!");
+    }
+  }
+
   async run() {}
 }
 
