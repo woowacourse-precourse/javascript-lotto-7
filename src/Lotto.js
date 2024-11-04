@@ -70,14 +70,30 @@ class Lotto {
     return TICKETS
   }
 
-  static setWinNum(string) {
-    const NUMS = string.trim().split(",").map(Number).sort((a, b) => a - b);
+  static setWinNum(input) {
+    const NUMS = input.trim().split(",").map(Number).sort((a, b) => a - b);
     const WINNUMS = new Lotto(NUMS);
     return WINNUMS;
   }
   // let asdf = "1,2,3,4,5,6"
   // let abc = asdf.split(",").trim();
 
+  static setBonusNum(input, WINNUMS) {
+    const BONUSNUM = Number(input);
+    if (isNaN(BONUSNUM)) {
+      throw new Error("[Error] 입력이 숫자가 아닙니다.")
+    }
+    if ((BONUSNUM < 1) || (45 < BONUSNUM)) {
+      throw new Error("[ERROR] 로또 번호는 1과 45사이여야 합니다.");
+    }
+    WINNUMS.forEach(element => {
+      // MissionUtils.Console.print(element);
+      if (BONUSNUM == element) {
+        throw new Error("[ERROR] 보너스 번호가 로또 번호와 중복되었습니다.");
+      }
+    })
+    return BONUSNUM
+  }
 
   getters() {
     return this.#numbers;
