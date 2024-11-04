@@ -1,11 +1,11 @@
 class Rank {
-    prize;
-    count;
+  prize;
+  count;
 
-    constructor(prize) {
-        this.prize = prize;
-        this.count = 0;
-    }
+  constructor(prize) {
+    this.prize = prize;
+    this.count = 0;
+  }
 
 }
 
