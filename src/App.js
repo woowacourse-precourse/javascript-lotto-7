@@ -1,5 +1,10 @@
+import LottoVendingMachine from "./LottoVendingMachine.js";
+
 class App {
-  async run() {}
+  async run() {
+    const LottoVM = new LottoVendingMachine();
+    await LottoVM.run();
+  }
 }
 
 export default App;
