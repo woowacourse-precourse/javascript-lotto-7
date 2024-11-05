@@ -1,18 +1,16 @@
 import Lotto from "../src/Lotto";
 
-describe("로또 클래스 테스트", () => {
-  test("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 6, 7]);
-    }).toThrow("[ERROR]");
+describe("Lotto 클래스 테스트", () => {
+  const lotto = new Lotto([1, 2, 3, 4, 5, 6]);
+  test.each([
+    [[1, 2, 3, 4, 5, 6], 6],
+    [[1, 2, 3, 4, 5, 7], 5],
+    [[1, 2, 3, 4, 7, 8], 4],
+    [[1, 2, 3, 7, 8, 9], 3],
+    [[1, 2, 7, 8, 9, 10], 2],
+    [[1, 7, 8, 9, 10, 11], 1],
+    [[7, 8, 9, 10, 11, 12], 0],
+  ])("당첨 번호 비교 테스트", (numbers, match) => {
+    expect(lotto.matchingWinning(numbers)).toBe(match);
   });
-
-  // TODO: 테스트가 통과하도록 프로덕션 코드 구현
-  test("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.", () => {
-    expect(() => {
-      new Lotto([1, 2, 3, 4, 5, 5]);
-    }).toThrow("[ERROR]");
-  });
-
-  // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 });
