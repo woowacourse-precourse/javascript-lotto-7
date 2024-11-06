@@ -1,4 +1,4 @@
-import { LOTTO_RULES, MESSAGES } from "./Constants.js";
+import { LOTTO_RULES, MESSAGES } from "./constants.js";
 
 class Validator {
   

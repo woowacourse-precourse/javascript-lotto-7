@@ -4,7 +4,7 @@ import WinningNumber from "./WinningNumber.js";
 import BonusNumber from "./BonusNumber.js";
 import Ranking from "./Ranking.js";
 import Profit from "./Profit.js";
-import { LOTTO_RULES, MESSAGES } from "./Constants.js";
+import { LOTTO_RULES, MESSAGES } from "./constants.js";
 import Validator from "./Validator.js";
 
 class App {
@@ -16,19 +16,19 @@ class App {
 
   async run() {
     try {
-            const purchaseAmount = await this.getPurchaseAmount();
-            const ticketCount = purchaseAmount / LOTTO_RULES.TICKET_PRICE;
+          const purchaseAmount = await this.getPurchaseAmount();
+          const ticketCount = purchaseAmount / LOTTO_RULES.TICKET_PRICE;
 
-            const lottos = this.generateLottos(ticketCount);
-            this.displayLottos(lottos);
+          const lottos = this.generateLottos(ticketCount);
+          this.displayLottos(lottos);
 
-            const winningNumbers = await this.getWinningNumbers();
-            const bonusNumber = await this.getBonusNumber(winningNumbers);
+          const winningNumbers = await this.getWinningNumbers();
+          const bonusNumber = await this.getBonusNumber(winningNumbers);
 
-            const rankCount = this.calculateRank(lottos, winningNumbers, bonusNumber);
-            const profitRate = this.calculateProfit(rankCount, purchaseAmount);
+          const rankCount = this.calculateRank(lottos, winningNumbers, bonusNumber);
+          const profitRate = this.calculateProfit(rankCount, purchaseAmount);
 
-            this.displayStatistics(rankCount, profitRate);
+          this.displayStatistics(rankCount, profitRate);
         } catch (error) {
             Console.print(error.message);
         }
