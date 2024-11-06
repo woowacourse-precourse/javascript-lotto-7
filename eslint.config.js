@@ -1,5 +1,5 @@
-const globals = require("globals");
-const pluginJs = require("@eslint/js");
+import globals from "globals";
+import pluginJs from "@eslint/js";
 
 module.exports = {
   files: ["**/*.js"],
