@@ -1,3 +1,11 @@
+import { Console } from '@woowacourse/mission-utils';
+import {
+  LOTTO_ERROR_MESSAGE,
+  NUMBER_OF_LOTTO_NUMBERS,
+  MAX_NUMBER,
+  MIN_NUMBER,
+} from './constants/constants.js';
+
 class Lotto {
   #numbers;
 
@@ -7,12 +15,34 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== NUMBER_OF_LOTTO_NUMBERS) {
+      throw new Error(
+        LOTTO_ERROR_MESSAGE.NUMBER_OF_LOTTO_NUMBERS_ERROR_MESSAGE,
+      );
+    }
+    if (new Set(numbers).size !== NUMBER_OF_LOTTO_NUMBERS) {
+      throw new Error(LOTTO_ERROR_MESSAGE.DUPLICATE_NUMBER_ERROR_MESSAGE);
+    }
+
+    if (numbers.some((number) => number < MIN_NUMBER || number > MAX_NUMBER)) {
+      throw new Error(LOTTO_ERROR_MESSAGE.OUT_OF_RANGE_NUMBER_ERROR_MESSAGE);
     }
   }
 
   // TODO: 추가 기능 구현
+  printNumbers() {
+    Console.print(`[${this.#numbers.join(', ')}]`);
+  }
+  sortLottoNumbers() {
+    this.#numbers.sort(function (a, b) {
+      return a - b;
+    });
+    return this.#numbers;
+  }
+
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;
