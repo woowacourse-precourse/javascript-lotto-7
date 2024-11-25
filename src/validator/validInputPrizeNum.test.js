@@ -1,7 +1,7 @@
 import { validInputPrizeNum } from "./validInputPrizeNum";
 import Lotto from "../Lotto";
 
-jest.mock("../src/Lotto");
+jest.mock("../Lotto");
 
 describe("validInputPrizeNum 테스트", () => {
   beforeEach(() => {
